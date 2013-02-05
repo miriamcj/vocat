@@ -1,4 +1,7 @@
 Vocat::Application.routes.draw do
+  resources :videos
+
+
   get "home/index"
 
   devise_for :users
@@ -52,7 +55,7 @@ Vocat::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'home#index'
+  root :to => 'videos#index'
 
   # See how all your routes lay out with "rake routes"
 
