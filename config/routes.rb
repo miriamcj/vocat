@@ -1,7 +1,4 @@
 Vocat::Application.routes.draw do
-  resources :videos
-
-
   get "home/index"
 
   devise_for :users
