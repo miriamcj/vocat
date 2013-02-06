@@ -20,7 +20,7 @@ gem 'unicorn'
 
 gem 'devise'
 
-gem "paperclip", "~> 3.0"
+gem "paperclip", "~> 3.4.0"
 gem "aws-sdk", "~> 1.3.4"
 
 # To use ActiveModel has_secure_password

@@ -1,8 +1,14 @@
-module PaperClip
+module Paperclip
   class Transcoder < Processor
-    def make (file, options = {}, attachment = nil)
-      debugger
-      return file
+
+    def initialize(file, options = {}, attachment = nil)
+      @file = file
+      @options = options
+      @attachment = attachment
+    end
+
+    def make
+      return @file
     end
   end
 end

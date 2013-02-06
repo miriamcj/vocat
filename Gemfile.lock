@@ -147,7 +147,7 @@ DEPENDENCIES
   devise
   jquery-rails
   mysql2
-  paperclip (~> 3.0)
+  paperclip (~> 3.4.0)
   rails (= 3.2.11)
   sass-rails (~> 3.2.3)
   therubyracer
