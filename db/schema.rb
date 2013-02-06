@@ -16,10 +16,10 @@ ActiveRecord::Schema.define(:version => 20130205183635) do
   create_table "assignment_submissions", :force => true do |t|
     t.string   "name"
     t.text     "description"
-    t.string   "video_file_name"
-    t.string   "video_content_type"
-    t.integer  "video_file_size"
-    t.datetime "video_updated_at"
+    t.string   "media_file_name"
+    t.string   "media_content_type"
+    t.integer  "media_file_size"
+    t.datetime "media_updated_at"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
   end

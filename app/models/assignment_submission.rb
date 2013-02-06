@@ -1,6 +1,6 @@
 class AssignmentSubmission < ActiveRecord::Base
-  attr_accessible :description, :name, :video
-  has_attached_file :video,
+  attr_accessible :description, :name, :media
+  has_attached_file :media,
                     :storage => :s3,
                     :s3_credentials => "#{Rails.root}/config/s3.yml",
                     :bucket => Rails.configuration.s3_bucket,
@@ -13,6 +13,6 @@ class AssignmentSubmission < ActiveRecord::Base
   Paperclip.interpolates(:month) {|attachment, style| attachment.instance.created_at.month }
   Paperclip.interpolates(:day)   {|attachment, style| attachment.instance.created_at.day }
 
-  validates :video, :attachment_presence => true
-  validates_with AttachmentPresenceValidator, :attributes => :video
+  validates :media, :attachment_presence => true
+  validates_with AttachmentPresenceValidator, :attributes => :media
 end

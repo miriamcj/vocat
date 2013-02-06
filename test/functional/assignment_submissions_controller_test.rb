@@ -18,7 +18,7 @@ class AssignmentSubmissionsControllerTest < ActionController::TestCase
 
   test "should create assignment_submission" do
     assert_difference('AssignmentSubmission.count') do
-      post :create, assignment_submission: { description: @assignment_submission.description, name: @assignment_submission.name, video: @assignment_submission.video }
+      post :create, assignment_submission: { description: @assignment_submission.description, name: @assignment_submission.name, media: @assignment_submission.media }
     end
 
     assert_redirected_to assignment_submission_path(assigns(:assignment_submission))
@@ -35,7 +35,7 @@ class AssignmentSubmissionsControllerTest < ActionController::TestCase
   end
 
   test "should update assignment_submission" do
-    put :update, id: @assignment_submission, assignment_submission: { description: @assignment_submission.description, name: @assignment_submission.name, video: @assignment_submission.video }
+    put :update, id: @assignment_submission, assignment_submission: { description: @assignment_submission.description, name: @assignment_submission.name, media: @assignment_submission.media }
     assert_redirected_to assignment_submission_path(assigns(:assignment_submission))
   end
 

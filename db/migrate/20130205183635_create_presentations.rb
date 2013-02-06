@@ -3,7 +3,7 @@ class CreateAssignmentSubmissions < ActiveRecord::Migration
     create_table :assignment_submissions do |t|
       t.string :name
       t.text :description
-      t.attachment :video
+      t.attachment :media
 
       t.timestamps
     end
