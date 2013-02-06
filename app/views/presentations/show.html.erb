@@ -12,7 +12,7 @@
 
 <p>
   <b>Video:</b>
-  <%= @presentation.video %>
+  <%= video_tag @presentation.video.url, :controls => true %>
 </p>
 
 
