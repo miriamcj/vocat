@@ -1,7 +1,7 @@
 Vocat::Application.routes.draw do
   get "home/index"
 
-  resources :presentations
+  resources :assignment_submissions
 
   devise_for :users
 
@@ -54,7 +54,7 @@ Vocat::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'presentations#index'
+  root :to => 'assignment_submissions#index'
 
   # See how all your routes lay out with "rake routes"
 

@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @assignment_submission.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @assignment_submission.description %>
+</p>
+
+<p>
+  <b>Video:</b>
+  <%= video_tag @assignment_submission.video.url, :controls => true %>
+</p>
+
+
+<%= link_to 'Edit', edit_assignment_submission_path(@assignment_submission) %> |
+<%= link_to 'Back', assignment_submissions_path %>

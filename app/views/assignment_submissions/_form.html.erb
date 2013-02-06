@@ -1,10 +1,10 @@
-<%= form_for(@presentation, :html => {:multipart => true}) do |f| %>
-  <% if @presentation.errors.any? %>
+<%= form_for(@assignment_submission, :html => {:multipart => true}) do |f| %>
+  <% if @assignment_submission.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@presentation.errors.count, "error") %> prohibited this presentation from being saved:</h2>
+      <h2><%= pluralize(@assignment_submission.errors.count, "error") %> prohibited this assignment submission from being saved:</h2>
 
       <ul>
-      <% @presentation.errors.full_messages.each do |msg| %>
+      <% @assignment_submission.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>

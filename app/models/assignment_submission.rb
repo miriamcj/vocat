@@ -1,4 +1,4 @@
-class Presentation < ActiveRecord::Base
+class AssignmentSubmission < ActiveRecord::Base
   attr_accessible :description, :name, :video
   has_attached_file :video,
                     :storage => :s3,

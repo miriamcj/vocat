@@ -13,7 +13,7 @@
 
 ActiveRecord::Schema.define(:version => 20130205183635) do
 
-  create_table "presentations", :force => true do |t|
+  create_table "assignment_submissions", :force => true do |t|
     t.string   "name"
     t.text     "description"
     t.string   "video_file_name"
