@@ -5,6 +5,7 @@ Vagrant::Config.run do |config|
 	config.vm.box = "vocat"
 	config.vm.box_url = "http://vagrant.cichq.com/vocat/current.box"
 	config.vm.forward_port 80, 8015
+	config.vm.forward_port 3000, 3000
 	config.vm.provision :chef_client do |chef|
 		chef.environment = "vagrant"
 		chef.node_name = "vagrant-vocat3-web"
