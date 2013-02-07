@@ -1,0 +1,8 @@
+development:
+  access_key_id: Y0URACC355K3Y
+  secret_access_key: y0ur5ecretAcce55Key
+  bucket: cic-vocat
+  transcoding:
+    mp4:
+      pipeline: 1360193767625-d56d0a
+      preset: 1351620000000-100070

@@ -35,7 +35,4 @@ Vocat::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
-
-  # CUSTOM CONFIGURATIONS
-  config.s3_bucket = "cic-vocat"
 end

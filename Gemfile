@@ -21,7 +21,7 @@ gem 'unicorn'
 gem 'devise'
 
 gem "paperclip", "~> 3.4.0"
-gem "aws-sdk", "~> 1.3.4"
+gem "aws-sdk", "~> 1.8.1"
 
 gem 'bootstrap-sass'
 
