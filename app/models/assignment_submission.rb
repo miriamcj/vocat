@@ -13,6 +13,8 @@ class AssignmentSubmission < ActiveRecord::Base
   validates :media, :attachment_presence => true
   validates_with AttachmentPresenceValidator, :attributes => :media
 
+  after_save :transcode_media
+
   def transcode_media
     return if media_content_type == "video/mp4"
 

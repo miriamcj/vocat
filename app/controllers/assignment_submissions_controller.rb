@@ -43,7 +43,7 @@ class AssignmentSubmissionsController < ApplicationController
     @assignment_submission = AssignmentSubmission.new(params[:assignment_submission])
 
     respond_to do |format|
-      if @assignment_submission.save && @assignment_submission.transcode_media
+      if @assignment_submission.save
         format.html { redirect_to @assignment_submission, notice: 'AssignmentSubmission was successfully created.' }
         format.json { render json: @assignment_submission, status: :created, location: @assignment_submission }
       else
