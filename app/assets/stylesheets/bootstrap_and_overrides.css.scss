@@ -1,0 +1,19 @@
+@import "bootstrap";
+
+body { padding-top: 60px; }
+
+.navbar-inner {
+  background-color: #000 !important;
+  background-image: none;
+}
+
+.navbar .brand, .navbar .nav > li > a {
+  text-shadow: none;
+  color: #FFF;
+}
+
+.navbar .brand:hover, .navbar .nav > li > a:hover {
+  color: #C9C9C9;
+}
+
+@import "bootstrap-responsive";
