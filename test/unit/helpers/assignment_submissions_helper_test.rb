@@ -1,4 +1,4 @@
 require 'test_helper'
 
-class AssignmentSubmissionsHelperTest < ActionView::TestCase
+class AttachmentsHelperTest < ActionView::TestCase
 end

@@ -1,82 +1,82 @@
-class AssignmentSubmissionsController < ApplicationController
-  # GET /assignment_submissions
-  # GET /assignment_submissions.json
+class AttachmentsController < ApplicationController
+  # GET /attachments
+  # GET /attachments.json
   def index
-    @assignment_submissions = AssignmentSubmission.all
+    @attachments = Attachment.all
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @assignment_submissions }
+      format.json { render json: @attachments }
     end
   end
 
-  # GET /assignment_submissions/1
-  # GET /assignment_submissions/1.json
+  # GET /attachments/1
+  # GET /attachments/1.json
   def show
-    @assignment_submission = AssignmentSubmission.find(params[:id])
+    @attachment = Attachment.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @assignment_submission }
+      format.json { render json: @attachment }
     end
   end
 
-  # GET /assignment_submissions/new
-  # GET /assignment_submissions/new.json
+  # GET /attachments/new
+  # GET /attachments/new.json
   def new
-    @assignment_submission = AssignmentSubmission.new
+    @attachment = Attachment.new
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @assignment_submission }
+      format.json { render json: @attachment }
     end
   end
 
-  # GET /assignment_submissions/1/edit
+  # GET /attachments/1/edit
   def edit
-    @assignment_submission = AssignmentSubmission.find(params[:id])
+    @attachment = Attachment.find(params[:id])
   end
 
-  # POST /assignment_submissions
-  # POST /assignment_submissions.json
+  # POST /attachments
+  # POST /attachments.json
   def create
-    @assignment_submission = AssignmentSubmission.new(params[:assignment_submission])
+    @attachment = Attachment.new(params[:attachment])
 
     respond_to do |format|
-      if @assignment_submission.save
-        format.html { redirect_to @assignment_submission, notice: 'AssignmentSubmission was successfully created.' }
-        format.json { render json: @assignment_submission, status: :created, location: @assignment_submission }
+      if @attachment.save
+        format.html { redirect_to @attachment, notice: 'Attachment was successfully created.' }
+        format.json { render json: @attachment, status: :created, location: @attachment }
       else
         format.html { render action: "new" }
-        format.json { render json: @assignment_submission.errors, status: :unprocessable_entity }
+        format.json { render json: @attachment.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # PUT /assignment_submissions/1
-  # PUT /assignment_submissions/1.json
+  # PUT /attachments/1
+  # PUT /attachments/1.json
   def update
-    @assignment_submission = AssignmentSubmission.find(params[:id])
+    @attachment = Attachment.find(params[:id])
 
     respond_to do |format|
-      if @assignment_submission.update_attributes(params[:assignment_submission])
-        format.html { redirect_to @assignment_submission, notice: 'AssignmentSubmission was successfully updated.' }
+      if @attachment.update_attributes(params[:attachment])
+        format.html { redirect_to @attachment, notice: 'Attachment was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
-        format.json { render json: @assignment_submission.errors, status: :unprocessable_entity }
+        format.json { render json: @attachment.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /assignment_submissions/1
-  # DELETE /assignment_submissions/1.json
+  # DELETE /attachments/1
+  # DELETE /attachments/1.json
   def destroy
-    @assignment_submission = AssignmentSubmission.find(params[:id])
-    @assignment_submission.destroy
+    @attachment = Attachment.find(params[:id])
+    @attachment.destroy
 
     respond_to do |format|
-      format.html { redirect_to assignment_submissions_url }
+      format.html { redirect_to attachments_url }
       format.json { head :no_content }
     end
   end

@@ -1,2 +1,2 @@
-module AssignmentSubmissionsHelper
+module AttachmentsHelper
 end

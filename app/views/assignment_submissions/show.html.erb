@@ -2,23 +2,23 @@
 
 <p>
   <b>Name:</b>
-  <%= @assignment_submission.name %>
+  <%= @attachment.name %>
 </p>
 
 <p>
   <b>Description:</b>
-  <%= @assignment_submission.description %>
+  <%= @attachment.description %>
 </p>
 
 <p>
   <b>Media:</b>
-  <%= video_tag @assignment_submission, :controls => true %>
+  <%= video_tag @attachment, :controls => true %>
 </p>
 <p>
   <b>Thumb:</b>
-  <%= image_tag @assignment_submission.url(:thumb) %>
+  <%= image_tag @attachment.url(:thumb) %>
 </p>
 
 
-<%= link_to 'Edit', edit_assignment_submission_path(@assignment_submission) %> |
-<%= link_to 'Back', assignment_submissions_path %>
+<%= link_to 'Edit', edit_attachment_path(@attachment) %> |
+<%= link_to 'Back', attachments_path %>

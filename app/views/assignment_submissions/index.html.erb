@@ -10,18 +10,18 @@
     <th></th>
   </tr>
 
-<% @assignment_submissions.each do |assignment_submission| %>
+<% @attachments.each do |attachment| %>
   <tr>
-    <td><%= assignment_submission.name %></td>
-    <td><%= assignment_submission.description %></td>
-    <td><%= assignment_submission %></td>
-    <td><%= link_to 'Show', assignment_submission %></td>
-    <td><%= link_to 'Edit', edit_assignment_submission_path(assignment_submission) %></td>
-    <td><%= link_to 'Destroy', assignment_submission, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= attachment.name %></td>
+    <td><%= attachment.description %></td>
+    <td><%= attachment %></td>
+    <td><%= link_to 'Show', attachment %></td>
+    <td><%= link_to 'Edit', edit_attachment_path(attachment) %></td>
+    <td><%= link_to 'Destroy', attachment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New AssignmentSubmission', new_assignment_submission_path %>
+<%= link_to 'New Attachment', new_attachment_path %>

@@ -11,9 +11,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130208220127) do
+ActiveRecord::Schema.define(:version => 20130208232358) do
 
-  create_table "assignment_submissions", :force => true do |t|
+  create_table "attachments", :force => true do |t|
     t.string   "name"
     t.text     "description"
     t.string   "media_file_name"
