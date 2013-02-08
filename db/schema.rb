@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130208001849) do
+ActiveRecord::Schema.define(:version => 20130208220127) do
 
   create_table "assignment_submissions", :force => true do |t|
     t.string   "name"
@@ -20,8 +20,10 @@ ActiveRecord::Schema.define(:version => 20130208001849) do
     t.string   "media_content_type"
     t.integer  "media_file_size"
     t.datetime "media_updated_at"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+    t.integer  "transcoding_status", :default => 0
+    t.string   "transcoding_error"
   end
 
   create_table "delayed_jobs", :force => true do |t|

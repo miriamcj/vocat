@@ -14,7 +14,7 @@
   <tr>
     <td><%= assignment_submission.name %></td>
     <td><%= assignment_submission.description %></td>
-    <td><%= assignment_submission.media %></td>
+    <td><%= assignment_submission.media.url(:original, false) %></td>
     <td><%= link_to 'Show', assignment_submission %></td>
     <td><%= link_to 'Edit', edit_assignment_submission_path(assignment_submission) %></td>
     <td><%= link_to 'Destroy', assignment_submission, method: :delete, data: { confirm: 'Are you sure?' } %></td>
