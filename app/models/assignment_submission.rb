@@ -38,6 +38,25 @@ class AssignmentSubmission < ActiveRecord::Base
   # Start transcoding right after saving attachment
   after_save :transcode_media
 
+  # Some wrappers
+  def url(style = :original, timestamp = false)
+    media.url(style, timestamp)
+  end
+  def to_s
+    self.url
+  end
+  def size
+    media.size
+  end
+  def original_filename
+    media_file_name
+  end
+  def content_type
+    media_content_type
+  end
+
+
+
   # A method for generically running the transcoding
   def transcode_media
     transcode(:mp4)

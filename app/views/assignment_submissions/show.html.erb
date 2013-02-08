@@ -12,11 +12,11 @@
 
 <p>
   <b>Media:</b>
-  <%= video_tag @assignment_submission.media.url(:original, false), :controls => true %>
+  <%= video_tag @assignment_submission, :controls => true %>
 </p>
 <p>
   <b>Thumb:</b>
-  <%= image_tag @assignment_submission.media.url(:thumb, false) %>
+  <%= image_tag @assignment_submission.url(:thumb) %>
 </p>
 
 
