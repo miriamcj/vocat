@@ -22,6 +22,7 @@ gem 'devise'
 
 gem "paperclip", "~> 3.4.0"
 gem "aws-sdk", "~> 1.8.1"
+gem "delayed_job_active_record"
 
 gem 'bootstrap-sass'
 
