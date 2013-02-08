@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @attachment.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @attachment.description %>
+</p>
+
+<p>
+  <b>Media:</b>
+  <%= video_tag @attachment, :controls => true %>
+</p>
+<p>
+  <b>Thumb:</b>
+  <%= image_tag @attachment.url(:thumb) %>
+</p>
+
+
+<%= link_to 'Edit', edit_attachment_path(@attachment) %> |
+<%= link_to 'Back', attachments_path %>

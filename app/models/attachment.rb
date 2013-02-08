@@ -1,4 +1,4 @@
-class AssignmentSubmission < ActiveRecord::Base
+class Attachment < ActiveRecord::Base
   attr_accessible :description, :name, :media
 
   # Transcoding constants
