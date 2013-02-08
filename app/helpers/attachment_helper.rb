@@ -1,2 +1,2 @@
-module AttachmentsHelper
+module AttachmentHelper
 end
