@@ -16,23 +16,35 @@ class AssignmentSubmission < ActiveRecord::Base
   after_save :transcode_media
 
   def transcode_media
-    return if media_content_type == "video/mp4"
+    transcode(:mp4)
+  end
+
+  protected
+
+  def transcode(encoding)
+    case encoding
+      when :mp4,"mp4"
+        return if media_content_type == "video/mp4"
+        extension = "mp4"
+      else
+        return
+    end
 
     # Create the ElasticTranscoder object
     options = media.s3_credentials
-    mp4Options = options[:transcoding]["mp4"]
+    trans_opts = options[:transcoding][extension]
     et = AWS::ElasticTranscoder.new(options)
 
-    inputKey = media.interpolator.interpolate media.options[:path], media, :original
-    base = File.dirname(inputKey)+"/"+File.basename(inputKey, ".*")
-    outputKey = base+".mp4"
-    thumbPattern = base+"_thumb{count}"
+    input_key = media.interpolator.interpolate media.options[:path], media, :original
+    base = "#{File.dirname(input_key)}/#{File.basename(input_key, ".*")}"
+    output_key = "#{base}.#{extension}"
+    thumb_pattern = "#{base}_thumb{count}"
 
     # Queue the job
-    result = et.client.create_job(
-        :pipeline_id => mp4Options['pipeline'],
+    job = et.client.create_job(
+        :pipeline_id => trans_opts['pipeline'],
         :input => {
-            :key => inputKey,
+            :key => input_key,
             :frame_rate => 'auto',
             :resolution => 'auto',
             :aspect_ratio => 'auto',
@@ -40,10 +52,40 @@ class AssignmentSubmission < ActiveRecord::Base
             :container => 'auto'
         },
         :output => {
-            :key => outputKey,
-            :thumbnail_pattern => thumbPattern,
+            :key => output_key,
+            :thumbnail_pattern => thumb_pattern,
             :rotate => '0',
-            :preset_id => mp4Options['preset']
+            :preset_id => trans_opts['preset']
         })
+
+    listenForJobCompletion(media, options, job.data[:job][:id])
+
+    # Poll the job queue to see if the job is done yet
+    #Thread.new(media, options, job.data[:job][:id])
+
   end
+
+  def listenForJobCompletion(media, options, job_id)
+    puts "THREAD STARTED"
+    et = AWS::ElasticTranscoder.new(options)
+
+    20.times do
+      puts "CHECKING STATUS"
+      job = et.client.read_job(:id => job_id)
+      status = job.data[:job][:output][:status]
+      case status
+        when 'Complete'
+          puts "JOB COMPLETED SUCCESSFULLY"
+          break
+        when 'Error'
+          puts "JOB FAILED"
+          break
+        else
+          sleep 1
+      end
+    end
+  end
+
+
+
 end
