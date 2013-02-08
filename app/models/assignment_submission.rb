@@ -58,18 +58,18 @@ class AssignmentSubmission < ActiveRecord::Base
             :preset_id => trans_opts['preset']
         })
 
-    listenForJobCompletion(media, options, job.data[:job][:id])
+    #listen_for_job_completion(media, options, job.data[:job][:id])
 
     # Poll the job queue to see if the job is done yet
-    #Thread.new(media, options, job.data[:job][:id])
+    Thread.new(media, options, job.data[:job][:id], &method(:listen_for_job_completion))
 
   end
 
-  def listenForJobCompletion(media, options, job_id)
+  def listen_for_job_completion(media, options, job_id)
     puts "THREAD STARTED"
     et = AWS::ElasticTranscoder.new(options)
 
-    20.times do
+    50.times do
       puts "CHECKING STATUS"
       job = et.client.read_job(:id => job_id)
       status = job.data[:job][:output][:status]
