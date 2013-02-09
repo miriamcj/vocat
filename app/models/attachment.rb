@@ -10,8 +10,10 @@ class Attachment < ActiveRecord::Base
   has_attached_file :media,
                     :storage => :s3,
                     :s3_credentials => "#{Rails.root}/config/aws.yml",
+                    :s3_permissions => :private,
                     :path => ":year/:month/:day/:hash:ending",
-                    :hash_secret => "+hequ!ckbr0wnf@Xjump5o^3rThe1azyd0g"
+                    :hash_secret => "+hequ!ckbr0wnf@Xjump5o^3rThe1azyd0g",
+                    :hash_data => "attachment/:id/:updated_at"
 
   Paperclip.interpolates(:year)  {|a, style| a.instance.created_at.year}
   Paperclip.interpolates(:month) {|a, style| a.instance.created_at.month}
@@ -39,8 +41,8 @@ class Attachment < ActiveRecord::Base
   after_save :transcode_media
 
   # Some wrappers
-  def url(style = :original, timestamp = false)
-    media.url(style, timestamp)
+  def url(style = :original)
+    media.expiring_url(Time.now + 3600, style)
   end
   def to_s
     self.url
