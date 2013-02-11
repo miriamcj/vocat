@@ -1,4 +1,7 @@
 Vocat::Application.routes.draw do
+  resources :assignment_submissions
+
+
   get "home/index"
 
   resources :attachments
@@ -54,7 +57,7 @@ Vocat::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'attachments#index'
+  root :to => 'assignment_submissions#index'
 
   # See how all your routes lay out with "rake routes"
 
