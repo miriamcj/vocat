@@ -1,10 +1,10 @@
 Vocat::Application.routes.draw do
-  resources :assignment_submissions
+  resources :assignment_submissions do
+    resources :attachments
+  end
 
 
   get "home/index"
-
-  resources :attachments
 
   devise_for :users
 
