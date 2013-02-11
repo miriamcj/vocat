@@ -11,11 +11,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130208232358) do
+ActiveRecord::Schema.define(:version => 20130211193216) do
 
   create_table "attachments", :force => true do |t|
-    t.string   "name"
-    t.text     "description"
     t.string   "media_file_name"
     t.string   "media_content_type"
     t.integer  "media_file_size"

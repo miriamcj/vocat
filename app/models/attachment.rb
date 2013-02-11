@@ -1,5 +1,5 @@
 class Attachment < ActiveRecord::Base
-  attr_accessible :description, :name, :media
+  attr_accessible :media
 
   # Transcoding constants
   TRANSCODING_STATUS_BUSY = 0

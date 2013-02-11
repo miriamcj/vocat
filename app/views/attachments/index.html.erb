@@ -2,8 +2,6 @@
 
 <table>
   <tr>
-    <th>Name</th>
-    <th>Description</th>
     <th>Media</th>
     <th></th>
     <th></th>
@@ -12,8 +10,6 @@
 
 <% @attachments.each do |attachment| %>
   <tr>
-    <td><%= attachment.name %></td>
-    <td><%= attachment.description %></td>
     <td><%= attachment %></td>
     <td><%= link_to 'Show', attachment %></td>
     <td><%= link_to 'Edit', edit_attachment_path(attachment) %></td>
