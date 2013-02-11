@@ -77,24 +77,29 @@ class Attachment < ActiveRecord::Base
 
     case encoding
       when :mp4,"mp4"
-        if media_content_type == "video/mp4"
-          self.update_attribute(:transcoding_status, TRANSCODING_STATUS_SUCCESS)
-          return true
-        end
         extension = "mp4"
       else
         return
     end
 
-    # Create the ElasticTranscoder object
+    # Create the ElasticTranscoder object and S3 object
     options = media.s3_credentials
     trans_opts = options[:transcoding][extension]
     et = AWS::ElasticTranscoder.new(options)
+    s3 = AWS::S3.new(options)
 
+    # Get the transcoding variables
     input_key = media.interpolator.interpolate media.options[:path], media, :original
     base = "#{File.dirname(input_key)}/#{File.basename(input_key, ".*")}"
     output_key = "#{base}.#{extension}"
     thumb_pattern = "#{base}_thumb{count}"
+
+    # Can't override files
+    if input_key == output_key
+      input_file = s3.buckets[options[:bucket]].objects[input_key]
+      input_key = "#{input_key}_original"
+      input_file.move_to(input_key)
+    end
 
     # Queue the job
     job = et.client.create_job(
