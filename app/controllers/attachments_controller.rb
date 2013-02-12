@@ -45,7 +45,7 @@ class AttachmentsController < ApplicationController
     respond_to do |format|
       if @attachment.save
         format.html { redirect_to @attachment, notice: 'Attachment was successfully created.' }
-        format.json { render json: @attachment, status: :created, location: @attachment }
+        format.json # create.json.erb
       else
         format.html { render action: "new" }
         format.json { render json: @attachment.errors, status: :unprocessable_entity }

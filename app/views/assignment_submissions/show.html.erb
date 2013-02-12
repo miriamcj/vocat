@@ -11,5 +11,17 @@
 </p>
 
 
+<form action="<%= assignment_submission_attachments_path(@assignment_submission) %>" method="POST" enctype="multipart/form-data">
+  <input id="fileupload"
+         type="file"
+         name="attachment[media]"
+         data-url="/assignment_submissions/<%= @assignment_submission.id %>/attachments">
+
+  <div id="progress" class="progress progress-success progress-striped active">
+    <div class="bar" style="width:0;"></div>
+  </div>
+
+</form>
+
 <%= link_to 'Edit', edit_assignment_submission_path(@assignment_submission) %> |
 <%= link_to 'Back', assignment_submissions_path %>

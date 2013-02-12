@@ -1,0 +1,10 @@
+[
+  {
+    "name": <%= @attachment.original_filename %>,
+    "size": <%= @attachment.size %>,
+    "url": <%= @attachment.url %>,
+    "thumbnail_url": <%= @attachment.url(:thumb) %>,
+    "delete_url": "http://delete.me",
+    "delete_type": "DELETE"
+  }
+]
