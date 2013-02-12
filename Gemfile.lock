@@ -83,6 +83,8 @@ GEM
       cocaine (~> 0.4.0)
       mime-types
     polyglot (0.3.3)
+    quiet_assets (1.0.1)
+      railties (~> 3.1)
     rack (1.4.4)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -152,6 +154,7 @@ DEPENDENCIES
   jquery-rails
   mysql2
   paperclip (~> 3.4.0)
+  quiet_assets
   rails (= 3.2.11)
   sass-rails (~> 3.2.3)
   therubyracer

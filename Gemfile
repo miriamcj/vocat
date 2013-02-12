@@ -25,6 +25,7 @@ gem "aws-sdk", "~> 1.8.1"
 gem "delayed_job_active_record"
 
 gem 'bootstrap-sass'
+gem "quiet_assets", :group => :development
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
