@@ -1,4 +1,4 @@
 class AssignmentSubmission < ActiveRecord::Base
   attr_accessible :name, :summary
-  has_many :attachments
+  has_and_belongs_to_many :attachments
 end

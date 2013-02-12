@@ -1,8 +1,10 @@
 Vocat::Application.routes.draw do
-  resources :assignment_submissions do
-    resources :attachments
-  end
+  resources :assignment_submissions
 
+  # Pretend nested resources, saving the attachment to the submission should happen in the submission controller
+  match '/assignment_submissions/:assignment_submission_id/attachments(.:format)',
+        :as => "assignment_submission_attachments", :via => :post,
+        :controller => :assignment_submissions, :action => :create_attachment
 
   get "home/index"
 

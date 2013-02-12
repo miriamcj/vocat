@@ -1,4 +1,19 @@
 class AssignmentSubmissionsController < ApplicationController
+
+  # POST /assignment_submissions/1/attachments
+  def create_attachment
+    @assignment_submission = AssignmentSubmission.find(params[:assignment_submission_id])
+    @attachment = @assignment_submission.attachments.build(params[:attachment])
+
+    respond_to do |format|
+      if @assignment_submission.save
+        format.json # create_attachment.json.erb
+      else
+        format.json { render json: @attachment.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # GET /assignment_submissions
   # GET /assignment_submissions.json
   def index

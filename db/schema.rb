@@ -11,15 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130211212326) do
-
-  create_table "assignment_submission_attachment", :force => true do |t|
-    t.integer "assignment_submission_id"
-    t.integer "attachment_id"
-  end
-
-  add_index "assignment_submission_attachment", ["assignment_submission_id", "attachment_id"], :name => "submission_attachment_submission_id_attachment_id_index"
-  add_index "assignment_submission_attachment", ["attachment_id", "assignment_submission_id"], :name => "submission_attachment_attachment_id_submission_id_index"
+ActiveRecord::Schema.define(:version => 20130212222820) do
 
   create_table "assignment_submissions", :force => true do |t|
     t.string   "name"
@@ -27,6 +19,14 @@ ActiveRecord::Schema.define(:version => 20130211212326) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "assignment_submissions_attachments", :force => true do |t|
+    t.integer "assignment_submission_id"
+    t.integer "attachment_id"
+  end
+
+  add_index "assignment_submissions_attachments", ["assignment_submission_id", "attachment_id"], :name => "submission_attachment_submission_id_attachment_id_index"
+  add_index "assignment_submissions_attachments", ["attachment_id", "assignment_submission_id"], :name => "submission_attachment_attachment_id_submission_id_index"
 
   create_table "attachments", :force => true do |t|
     t.string   "media_file_name"
