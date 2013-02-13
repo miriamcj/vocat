@@ -7,7 +7,7 @@
 
 <p>
   <b>Summary:</b>
-  <%= @assignment_submission.summary %>
+  <p><%= @assignment_submission.summary %></p>
 </p>
 
 
@@ -17,11 +17,32 @@
          name="attachment[media]"
          data-url="/assignment_submissions/<%= @assignment_submission.id %>/attachments">
 
-  <div id="progress" class="progress progress-success progress-striped active">
-    <div class="bar" style="width:0;"></div>
-  </div>
+  <div id="progress" class="muted"></div>
 
 </form>
+
+<% @assignment_submission.attachments.each do |attachment| %>
+  <% if attachment.transcoding_complete? %>
+    <div id="<%= attachment.id %>" class="well">
+      <div class="row">
+        <div class="span4">Media:</div>
+        <div class="span3">Thumb:</div>
+      </div>
+      <div class="row">
+        <div class="span4">
+          <%= video_tag attachment, :controls => true, :width => "300px"%>
+        </div>
+        <div class="span3">
+          <%= image_tag attachment.url(:thumb) %>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <div id="<%= attachment.id %>" class="well transcoding text-center lead">
+      Currently transcoding...
+    </div>
+  <% end %>
+<% end %>
 
 <%= link_to 'Edit', edit_assignment_submission_path(@assignment_submission) %> |
 <%= link_to 'Back', assignment_submissions_path %>

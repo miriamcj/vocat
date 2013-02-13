@@ -1,6 +1,8 @@
 $ ->
   $('#fileupload').fileupload
     dataType: 'json'
-    progress: (e, data) ->
-      progress = parseInt(data.loaded / data.total * 100, 10)
-      $("#progress .bar").css "width", progress+"%"
+    start: (e, data) ->
+      $("#progress").text("File uploading...")
+    complete: (e, data) ->
+      $("#progress").text("Upload complete.")
+      window.location.href = window.location.href
