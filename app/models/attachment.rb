@@ -61,7 +61,18 @@ class Attachment < ActiveRecord::Base
 
   # A method for generically running the transcoding
   def transcode_media
-    transcode(:mp4)
+    transcoding_happened = FALSE
+    options = media.s3_credentials
+    trans_opts = options[:transcoding]
+    if trans_opts
+      trans_opts.each do |encoding,v|
+        transcode(encoding)
+        transcoding_happened = TRUE
+      end
+    end
+    unless transcoding_happened
+      self.update_column(:transcoding_status, TRANSCODING_STATUS_SUCCESS)
+    end
   end
 
   # Determine if the transcoding is complete
@@ -73,14 +84,8 @@ class Attachment < ActiveRecord::Base
 
   # Queues an AWS transcoding job
   def transcode(encoding)
-    return true if self.transcoding_complete? # prevents recursion
 
-    case encoding
-      when :mp4,"mp4"
-        extension = "mp4"
-      else
-        return
-    end
+    extension = encoding.to_s
 
     # Create the ElasticTranscoder object and S3 object
     options = media.s3_credentials
@@ -133,11 +138,11 @@ class Attachment < ActiveRecord::Base
       status = job.data[:job][:output][:status]
       case status
         when 'Complete'
-          self.update_attribute(:transcoding_status, TRANSCODING_STATUS_SUCCESS)
+          self.update_column(:transcoding_status, TRANSCODING_STATUS_SUCCESS)
           break
         when 'Error'
-          self.update_attribute(:transcoding_status, TRANSCODING_STATUS_ERROR)
-          self.update_attribute(:transcoding_error, job.data[:job][:output][:status_detail])
+          self.update_column(:transcoding_status, TRANSCODING_STATUS_ERROR)
+          self.update_column(:transcoding_error, job.data[:job][:output][:status_detail])
           break
         else
           sleep 1
