@@ -11,22 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130212222820) do
-
-  create_table "assignment_submissions", :force => true do |t|
-    t.string   "name"
-    t.text     "summary"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "assignment_submissions_attachments", :force => true do |t|
-    t.integer "assignment_submission_id"
-    t.integer "attachment_id"
-  end
-
-  add_index "assignment_submissions_attachments", ["assignment_submission_id", "attachment_id"], :name => "submission_attachment_submission_id_attachment_id_index"
-  add_index "assignment_submissions_attachments", ["attachment_id", "assignment_submission_id"], :name => "submission_attachment_attachment_id_submission_id_index"
+ActiveRecord::Schema.define(:version => 20130213224856) do
 
   create_table "attachments", :force => true do |t|
     t.string   "media_file_name"
@@ -38,6 +23,14 @@ ActiveRecord::Schema.define(:version => 20130212222820) do
     t.integer  "transcoding_status", :default => 0
     t.string   "transcoding_error"
   end
+
+  create_table "attachments_submissions", :force => true do |t|
+    t.integer "submission_id"
+    t.integer "attachment_id"
+  end
+
+  add_index "attachments_submissions", ["attachment_id", "submission_id"], :name => "index_attachments_submissions_on_attachment_id_and_submission_id"
+  add_index "attachments_submissions", ["submission_id", "attachment_id"], :name => "index_attachments_submissions_on_submission_id_and_attachment_id"
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -54,6 +47,13 @@ ActiveRecord::Schema.define(:version => 20130212222820) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
+  create_table "submissions", :force => true do |t|
+    t.string   "name"
+    t.text     "summary"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

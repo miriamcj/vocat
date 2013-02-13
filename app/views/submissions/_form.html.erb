@@ -1,10 +1,10 @@
-<%= form_for(@assignment_submission) do |f| %>
-  <% if @assignment_submission.errors.any? %>
+<%= form_for(@submission) do |f| %>
+  <% if @submission.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@assignment_submission.errors.count, "error") %> prohibited this assignment_submission from being saved:</h2>
+      <h2><%= pluralize(@submission.errors.count, "error") %> prohibited this submission from being saved:</h2>
 
       <ul>
-      <% @assignment_submission.errors.full_messages.each do |msg| %>
+      <% @submission.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>

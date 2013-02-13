@@ -2,26 +2,26 @@
 
 <p>
   <b>Name:</b>
-  <%= @assignment_submission.name %>
+  <%= @submission.name %>
 </p>
 
 <p>
   <b>Summary:</b>
-  <p><%= @assignment_submission.summary %></p>
+  <p><%= @submission.summary %></p>
 </p>
 
 
-<form action="<%= assignment_submission_attachments_path(@assignment_submission) %>" method="POST" enctype="multipart/form-data">
+<form action="<%= submission_attachments_path(@submission) %>" method="POST" enctype="multipart/form-data">
   <input id="fileupload"
          type="file"
          name="attachment[media]"
-         data-url="/assignment_submissions/<%= @assignment_submission.id %>/attachments">
+         data-url="/submissions/<%= @submission.id %>/attachments">
 
   <div id="progress" class="muted"></div>
 
 </form>
 
-<% @assignment_submission.attachments.each do |attachment| %>
+<% @submission.attachments.each do |attachment| %>
   <% if attachment.transcoding_complete? %>
     <div id="<%= attachment.id %>" class="well">
       <div class="row">
@@ -44,5 +44,5 @@
   <% end %>
 <% end %>
 
-<%= link_to 'Edit', edit_assignment_submission_path(@assignment_submission) %> |
-<%= link_to 'Back', assignment_submissions_path %>
+<%= link_to 'Edit', edit_submission_path(@submission) %> |
+<%= link_to 'Back', submissions_path %>

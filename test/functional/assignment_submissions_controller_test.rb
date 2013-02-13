@@ -1,14 +1,14 @@
 require 'test_helper'
 
-class AssignmentSubmissionsControllerTest < ActionController::TestCase
+class SubmissionsControllerTest < ActionController::TestCase
   setup do
-    @assignment_submission = assignment_submissions(:one)
+    @submission = submissions(:one)
   end
 
   test "should get index" do
     get :index
     assert_response :success
-    assert_not_nil assigns(:assignment_submissions)
+    assert_not_nil assigns(:submissions)
   end
 
   test "should get new" do
@@ -16,34 +16,34 @@ class AssignmentSubmissionsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should create assignment_submission" do
-    assert_difference('AssignmentSubmission.count') do
-      post :create, assignment_submission: { name: @assignment_submission.name, summary: @assignment_submission.summary }
+  test "should create submission" do
+    assert_difference('Submission.count') do
+      post :create, submission: { name: @submission.name, summary: @submission.summary }
     end
 
-    assert_redirected_to assignment_submission_path(assigns(:assignment_submission))
+    assert_redirected_to submission_path(assigns(:submission))
   end
 
-  test "should show assignment_submission" do
-    get :show, id: @assignment_submission
+  test "should show submission" do
+    get :show, id: @submission
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @assignment_submission
+    get :edit, id: @submission
     assert_response :success
   end
 
-  test "should update assignment_submission" do
-    put :update, id: @assignment_submission, assignment_submission: { name: @assignment_submission.name, summary: @assignment_submission.summary }
-    assert_redirected_to assignment_submission_path(assigns(:assignment_submission))
+  test "should update submission" do
+    put :update, id: @submission, submission: { name: @submission.name, summary: @submission.summary }
+    assert_redirected_to submission_path(assigns(:submission))
   end
 
-  test "should destroy assignment_submission" do
-    assert_difference('AssignmentSubmission.count', -1) do
-      delete :destroy, id: @assignment_submission
+  test "should destroy submission" do
+    assert_difference('Submission.count', -1) do
+      delete :destroy, id: @submission
     end
 
-    assert_redirected_to assignment_submissions_path
+    assert_redirected_to submissions_path
   end
 end
