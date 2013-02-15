@@ -1,19 +1,5 @@
 class SubmissionsController < ApplicationController
 
-  # POST /submissions/1/attachments
-  def create_attachment
-    @submission = Submission.find(params[:submission_id])
-    @attachment = @submission.attachments.build(params[:attachment])
-
-    respond_to do |format|
-      if @submission.save
-        format.json # create_attachment.json.erb
-      else
-        format.json { render json: @attachment.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   # GET /submissions
   # GET /submissions.json
   def index
@@ -29,6 +15,7 @@ class SubmissionsController < ApplicationController
   # GET /submissions/1.json
   def show
     @submission = Submission.find(params[:id])
+    @attachment = Attachment.new
 
     respond_to do |format|
       format.html # show.html.erb

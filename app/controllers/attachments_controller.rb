@@ -2,6 +2,7 @@ class AttachmentsController < ApplicationController
   # GET /attachments
   # GET /attachments.json
   def index
+    @fileable = find_fileable
     @attachments = Attachment.all
 
     respond_to do |format|
@@ -13,6 +14,7 @@ class AttachmentsController < ApplicationController
   # GET /attachments/1
   # GET /attachments/1.json
   def show
+    @fileable = find_fileable
     @attachment = Attachment.find(params[:id])
 
     respond_to do |format|
@@ -24,6 +26,7 @@ class AttachmentsController < ApplicationController
   # GET /attachments/new
   # GET /attachments/new.json
   def new
+    @fileable = find_fileable
     @attachment = Attachment.new
 
     respond_to do |format|
@@ -34,13 +37,15 @@ class AttachmentsController < ApplicationController
 
   # GET /attachments/1/edit
   def edit
+    @fileable = find_fileable
     @attachment = Attachment.find(params[:id])
   end
 
   # POST /attachments
   # POST /attachments.json
   def create
-    @attachment = Attachment.new(params[:attachment])
+    @fileable = find_fileable
+    @attachment = @fileable.attachments.build(params[:attachment])
 
     respond_to do |format|
       if @attachment.save
@@ -79,5 +84,14 @@ class AttachmentsController < ApplicationController
       format.html { redirect_to attachments_url }
       format.json { head :no_content }
     end
+  end
+
+  def find_fileable
+    params.each do |name, value|
+      if name =~ /(.+)_id$/
+        return $1.classify.constantize.find(value)
+      end
+    end
+    nil
   end
 end

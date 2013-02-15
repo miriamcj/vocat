@@ -1,4 +1,4 @@
-<%= form_for(@attachment, :html => {:multipart => true}) do |f| %>
+<%= form_for [@fileable, @attachment] do |f| %>
   <% if @attachment.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@attachment.errors.count, "error") %> prohibited this assignment submission from being saved:</h2>
@@ -12,10 +12,6 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :media %><br />
-    <%= f.file_field :media %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+    <%= f.file_field :media, :id => "fileupload", :data => {:url => "/submissions/#{@fileable.id}/attachments"}%>
   </div>
 <% end %>

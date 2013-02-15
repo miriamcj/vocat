@@ -10,16 +10,11 @@
   <p><%= @submission.summary %></p>
 </p>
 
-
-<form action="<%= submission_attachments_path(@submission) %>" method="POST" enctype="multipart/form-data">
-  <input id="fileupload"
-         type="file"
-         name="attachment[media]"
-         data-url="/submissions/<%= @submission.id %>/attachments">
-
+<%= form_for [@submission, @attachment] do |f| %>
+  <%= f.file_field :media, :id => "fileupload", :data => {:url => "/submissions/#{@submission.id}/attachments"}%>
   <div id="progress" class="muted"></div>
+<% end %>
 
-</form>
 
 <% @submission.attachments.each do |attachment| %>
   <% if attachment.transcoding_complete? %>

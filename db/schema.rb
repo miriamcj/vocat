@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130213224856) do
+ActiveRecord::Schema.define(:version => 20130215195401) do
 
   create_table "attachments", :force => true do |t|
     t.string   "media_file_name"
@@ -22,15 +22,11 @@ ActiveRecord::Schema.define(:version => 20130213224856) do
     t.datetime "updated_at",                        :null => false
     t.integer  "transcoding_status", :default => 0
     t.string   "transcoding_error"
+    t.integer  "fileable_id"
+    t.string   "fileable_type"
   end
 
-  create_table "attachments_submissions", :force => true do |t|
-    t.integer "submission_id"
-    t.integer "attachment_id"
-  end
-
-  add_index "attachments_submissions", ["attachment_id", "submission_id"], :name => "index_attachments_submissions_on_attachment_id_and_submission_id"
-  add_index "attachments_submissions", ["submission_id", "attachment_id"], :name => "index_attachments_submissions_on_submission_id_and_attachment_id"
+  add_index "attachments", ["fileable_id", "fileable_type"], :name => "index_attachments_on_fileable_id_and_fileable_type"
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
