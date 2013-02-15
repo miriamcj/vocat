@@ -11,7 +11,7 @@
 </p>
 
 <%= form_for [@submission, @attachment] do |f| %>
-  <%= f.file_field :media, :id => "fileupload", :data => {:url => "/submissions/#{@submission.id}/attachments"}%>
+  <%= f.file_field :media, :id => "fileupload", :data => {:url => submission_attachments_path(@submission) }%>
   <div id="progress" class="muted"></div>
 <% end %>
 
