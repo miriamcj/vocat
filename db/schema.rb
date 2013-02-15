@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130215223102) do
+ActiveRecord::Schema.define(:version => 20130215225116) do
 
   create_table "attachments", :force => true do |t|
     t.string   "media_file_name"
@@ -28,6 +28,19 @@ ActiveRecord::Schema.define(:version => 20130215223102) do
 
   add_index "attachments", ["fileable_id", "fileable_type"], :name => "index_attachments_on_fileable_id_and_fileable_type"
 
+  create_table "courses", :force => true do |t|
+    t.string   "name"
+    t.string   "department"
+    t.string   "number"
+    t.string   "section"
+    t.text     "description"
+    t.integer  "organization_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "courses", ["organization_id"], :name => "index_courses_on_organization_id"
+
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
     t.integer  "attempts",   :default => 0
@@ -43,6 +56,12 @@ ActiveRecord::Schema.define(:version => 20130215223102) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
+  create_table "organizations", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "submissions", :force => true do |t|
     t.string   "name"

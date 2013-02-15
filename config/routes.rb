@@ -1,10 +1,14 @@
 Vocat::Application.routes.draw do
-  resources :submissions
 
-  # Pretend nested resources, saving the attachment to the submission should happen in the submission controller
-  resources :submissions do
-    resources :attachments
+  resources :organizations do
+    resources :courses do
+      resources :submissions do
+        resources :attachments
+      end
+    end
   end
+
+
 
   get "home/index"
 
@@ -59,7 +63,7 @@ Vocat::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'submissions#index'
+  root :to => 'courses#index'
 
   # See how all your routes lay out with "rake routes"
 
