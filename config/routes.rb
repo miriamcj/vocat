@@ -1,6 +1,6 @@
 Vocat::Application.routes.draw do
 
-  resources :organizations do
+  resources :organizations, :path => "org" do
     resources :courses do
       resources :submissions do
         resources :attachments
