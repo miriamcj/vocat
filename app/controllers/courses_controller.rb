@@ -35,13 +35,15 @@ class CoursesController < ApplicationController
 
   # GET /courses/1/edit
   def edit
+    @organization = Organization.find(params[:organization_id])
     @course = Course.find(params[:id])
   end
 
   # POST /courses
   # POST /courses.json
   def create
-    @course = Course.new(params[:course])
+    @organization = Organization.find(params[:organization_id])
+    @course = @organization.courses.build(params[:course])
 
     respond_to do |format|
       if @course.save
