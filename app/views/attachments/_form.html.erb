@@ -1,15 +1,5 @@
 <%= form_for [@fileable, @attachment] do |f| %>
-  <% if @attachment.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@attachment.errors.count, "error") %> prohibited this assignment submission from being saved:</h2>
-
-      <ul>
-      <% @attachment.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= form_errors(@course) %>
 
   <div class="field">
     <%= f.file_field :media, :id => "fileupload", :data => {:url => "/submissions/#{@fileable.id}/attachments"}%>
