@@ -1,3 +1,5 @@
+<%= link_to 'New Course', new_organization_course_path(@organization) %>
+
 <h1>Listing courses</h1>
 
 <table>
@@ -7,7 +9,6 @@
     <th>Number</th>
     <th>Section</th>
     <th>Description</th>
-    <th>Organization</th>
     <th></th>
     <th></th>
     <th></th>
@@ -20,14 +21,12 @@
     <td><%= course.number %></td>
     <td><%= course.section %></td>
     <td><%= course.description %></td>
-    <td><%= course.organization %></td>
-    <td><%= link_to 'Show', course %></td>
-    <td><%= link_to 'Edit', edit_course_path(course) %></td>
-    <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Show', organization_course_path(@organization, course) %></td>
+    <td><%= link_to 'Edit', edit_organization_course_path(@organization, course) %></td>
+    <td><%= link_to 'Destroy', organization_course_path(@organization, course), method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Course', new_course_path %>

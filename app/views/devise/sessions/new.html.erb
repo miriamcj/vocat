@@ -7,6 +7,10 @@
   <div><%= f.label :password %><br />
   <%= f.password_field :password %></div>
 
+  <div><label>Domain</label></div>
+  <%=  collection_select(:organization, :id, Organization.all, :id, :name)  %>
+
+
   <% if devise_mapping.rememberable? -%>
     <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
   <% end -%>

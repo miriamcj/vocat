@@ -30,3 +30,4 @@ baruch.courses.create(:name => "Introduction to World Literature", :department =
 baruch.courses.create(:name => "Native American Women Writers", :department => "ENG", :number => "367U", :section => random_section, :description => lorem)
 baruch.courses.create(:name => "Practical Grammar", :department => "ENG", :number => "425", :section => random_section, :description => lorem)
 
+Organization.create(:name => "Some Other College")

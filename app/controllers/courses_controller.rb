@@ -2,7 +2,8 @@ class CoursesController < ApplicationController
   # GET /courses
   # GET /courses.json
   def index
-    @courses = Course.all
+    @organization = Organization.find(params[:organization_id])
+    @courses = @organization.courses.all
 
     respond_to do |format|
       format.html # index.html.erb
