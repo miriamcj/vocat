@@ -1,4 +1,20 @@
 class Course < ActiveRecord::Base
   belongs_to :organization
+  has_many :course_roles
+  has_many :users, :through => :course_roles
+
   attr_accessible :department, :description, :name, :number, :section
+
+  def instructors
+    course_roles.where(:role => "instructor")
+  end
+
+  def helpers
+    course_roles.where(:role => "helper")
+  end
+
+  def students
+    course_roles.where(:role => "student")
+  end
+
 end

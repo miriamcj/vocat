@@ -28,6 +28,17 @@ class Snapshot1 < ActiveRecord::Migration
 
     add_index :courses, :organization_id
 
+    # COURSE ROLES
+    create_table :course_roles do |t|
+      t.references :user
+      t.references :course
+      t.string :role
+
+      t.timestamps
+    end
+    add_index :course_roles, :user_id
+    add_index :course_roles, :course_id
+
     # DELAYED JOBS
     create_table :delayed_jobs, :force => true do |t|
       t.integer  :priority,   :default => 0

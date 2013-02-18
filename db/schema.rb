@@ -28,6 +28,17 @@ ActiveRecord::Schema.define(:version => 20130215223102) do
 
   add_index "attachments", ["fileable_id", "fileable_type"], :name => "index_attachments_on_fileable_id_and_fileable_type"
 
+  create_table "course_roles", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "course_id"
+    t.string   "role"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "course_roles", ["course_id"], :name => "index_course_roles_on_course_id"
+  add_index "course_roles", ["user_id"], :name => "index_course_roles_on_user_id"
+
   create_table "courses", :force => true do |t|
     t.string   "name"
     t.string   "department"

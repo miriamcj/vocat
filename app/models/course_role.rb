@@ -1,0 +1,13 @@
+class CourseRole < ActiveRecord::Base
+  belongs_to :user
+  belongs_to :course
+  attr_accessible :role
+
+  def self.set_role(user, course, role)
+    unless User::ROLES.include? role.to_s
+      raise "The role #{role.to_s} doesn't exist."
+    end
+    cr = CourseRole.where(:user_id => user.id, :course_id => course.id).first
+    cr.update_attribute(:role, role.to_s)
+  end
+end
