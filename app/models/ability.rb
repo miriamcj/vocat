@@ -3,13 +3,15 @@ class Ability
 
   def initialize(user)
     user ||= User.new # guest user (not logged in)
-    can :read, :all
 
     if user.role? :student
-      can :manage, [Submission]
+      can :read, [Organization, Course]
+      can :manage, Submission
     end
     if user.role? :helper # or instructor
-      can :manage, [Course]
+      can :manage, Course do |course|
+        CourseRole.get_role(user, course) != "student"
+      end
     end
     if user.role? :admin
       can :manage, :all

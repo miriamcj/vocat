@@ -10,4 +10,12 @@ class CourseRole < ActiveRecord::Base
     cr = CourseRole.where(:user_id => user.id, :course_id => course.id).first
     cr.update_attribute(:role, role.to_s)
   end
+
+  def self.get_role(user, course)
+    cr = CourseRole.where(:user_id => user.id, :course_id => course.id).first
+    unless cr
+      return nil # User is not enrolled in the course
+    end
+    cr.role
+  end
 end

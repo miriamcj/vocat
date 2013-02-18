@@ -5,7 +5,11 @@ class CoursesController < ApplicationController
   # GET /courses
   # GET /courses.json
   def index
-    @courses = @organization.courses.order("department ASC, number ASC, section ASC")
+    if current_user.role? :admin
+      @courses = @organization.courses
+    else
+      @courses = current_user.courses
+    end
 
     respond_to do |format|
       format.html # index.html.erb

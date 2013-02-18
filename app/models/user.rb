@@ -1,4 +1,8 @@
 class User < ActiveRecord::Base
+
+  has_many :course_roles
+  has_many :courses, :through => :course_roles
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
