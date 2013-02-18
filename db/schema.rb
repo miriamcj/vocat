@@ -11,19 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130215225116) do
+ActiveRecord::Schema.define(:version => 20130215223102) do
 
   create_table "attachments", :force => true do |t|
     t.string   "media_file_name"
     t.string   "media_content_type"
     t.integer  "media_file_size"
     t.datetime "media_updated_at"
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
     t.integer  "transcoding_status", :default => 0
     t.string   "transcoding_error"
     t.integer  "fileable_id"
     t.string   "fileable_type"
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
   end
 
   add_index "attachments", ["fileable_id", "fileable_type"], :name => "index_attachments_on_fileable_id_and_fileable_type"
