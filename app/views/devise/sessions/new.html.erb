@@ -7,7 +7,7 @@
   <div><%= f.label :password %><br />
   <%= f.password_field :password %></div>
 
-  <div><label>Domain</label></div>
+  <div><label>Organization</label></div>
   <%=  collection_select(:organization, :id, Organization.all, :id, :name)  %>
 
 
