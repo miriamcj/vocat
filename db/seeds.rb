@@ -7,7 +7,11 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 for name in %w(alex gabe lucas peter scott zach)
-  User.create(:email => "#{name}@castironcoding.com", :password => "chu88yhands")
+  User.create(:email => "#{name}@castironcoding.com", :password => "chu88yhands", :role => "admin")
+end
+
+for name in %w(student helper instructor admin)
+  User.create(:email => "#{name}@castironcoding.com", :password => "chu88yhands", :role => name)
 end
 
 lorem = "Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Maecenas sed diam eget risus varius blandit sit amet non magna. Aenean lacinia bibendum nulla sed consectetur."

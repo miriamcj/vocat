@@ -73,6 +73,8 @@ class Snapshot1 < ActiveRecord::Migration
       t.string   :current_sign_in_ip
       t.string   :last_sign_in_ip
 
+      t.string   :role
+
       t.timestamps
     end
 

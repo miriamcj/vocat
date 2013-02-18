@@ -1,8 +1,10 @@
 class CoursesController < ApplicationController
+  load_and_authorize_resource :organization
+  load_and_authorize_resource :course, :through => :organization
+
   # GET /courses
   # GET /courses.json
   def index
-    @organization = Organization.find(params[:organization_id])
     @courses = @organization.courses.order("department ASC, number ASC, section ASC")
 
     respond_to do |format|
@@ -14,9 +16,6 @@ class CoursesController < ApplicationController
   # GET /courses/1
   # GET /courses/1.json
   def show
-    @organization = Organization.find(params[:organization_id])
-    @course = @organization.courses.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       #format.json { render json: @course }
@@ -26,7 +25,6 @@ class CoursesController < ApplicationController
   # GET /courses/new
   # GET /courses/new.json
   def new
-    @organization = Organization.find(params[:organization_id])
     @course = @organization.courses.build
 
     respond_to do |format|
@@ -37,14 +35,11 @@ class CoursesController < ApplicationController
 
   # GET /courses/1/edit
   def edit
-    @organization = Organization.find(params[:organization_id])
-    @course = Course.find(params[:id])
   end
 
   # POST /courses
   # POST /courses.json
   def create
-    @organization = Organization.find(params[:organization_id])
     @course = @organization.courses.build(params[:course])
 
     respond_to do |format|
@@ -61,9 +56,6 @@ class CoursesController < ApplicationController
   # PUT /courses/1
   # PUT /courses/1.json
   def update
-    @organization = Organization.find(params[:organization_id])
-    @course = @organization.courses.find(params[:id])
-
     respond_to do |format|
       if @course.update_attributes(params[:course])
         format.html { redirect_to organization_course_path(@organization, @course), notice: 'Course was successfully updated.' }
@@ -78,8 +70,6 @@ class CoursesController < ApplicationController
   # DELETE /courses/1
   # DELETE /courses/1.json
   def destroy
-    @organization = Organization.find(params[:organization_id])
-    @course = @organization.courses.find(params[:id])
     flash[:notice] = "#{@course.name} has been deleted."
     @course.destroy
 
