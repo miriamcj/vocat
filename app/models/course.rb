@@ -5,6 +5,8 @@ class Course < ActiveRecord::Base
 
   attr_accessible :department, :description, :name, :number, :section
 
+  default_scope order("department ASC, number ASC, section ASC")
+
   def instructors
     course_roles.where(:role => "instructor")
   end
