@@ -1,14 +1,9 @@
-# Set the random seed so we get a predictable outcome, yet still random results
+# Set the random seed so we get a predictable outcome
 srand 1234
 
 # Create developer user accounts
 for name in %w(alex gabe lucas peter scott zach)
   User.create(:email => "#{name}@castironcoding.com", :password => "chu88yhands", :role => "admin")
-end
-
-# Create role based accounts
-for name in %w(student helper instructor admin)
-  User.create(:email => "#{name}@test.com", :password => "chu88yhands", :role => name)
 end
 
 # Create sample strings
