@@ -4,9 +4,9 @@
     <li>
       <div class="navbar-form">
         <% if @course %>
-          <%= collection_select :course, :id, @courses, :id, :descriptive_name, {:include_blank => "All courses"}, :id => "course_select", :selected => @course.id, :data => {:url => organization_courses_path(@organization)} %>
+          <%= collection_select :course, :id, @courses, :id, :to_s, {:include_blank => "All courses"}, :id => "course_select", :selected => @course.id, :data => {:url => organization_courses_path(@organization)} %>
         <% else %>
-          <%= collection_select :course, :id, @courses, :id, :descriptive_name, {:include_blank => "All courses"}, :id => "course_select", :data => {:url => organization_courses_path(@organization)} %>
+          <%= collection_select :course, :id, @courses, :id, :to_s, {:include_blank => "All courses"}, :id => "course_select", :data => {:url => organization_courses_path(@organization)} %>
         <% end %>
       </div>
     </li>

@@ -21,7 +21,7 @@ class Course < ActiveRecord::Base
     course_roles.where(:role => "student")
   end
 
-  def descriptive_name
+  def to_s
     "#{department}#{number} #{name} - #{section}"
   end
 
