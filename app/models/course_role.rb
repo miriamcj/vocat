@@ -3,8 +3,10 @@ class CourseRole < ActiveRecord::Base
   belongs_to :course
   attr_accessible :role
 
+  ROLES = %w(student helper instructor admin)
+
   def self.set_role(user, course, role)
-    unless User::ROLES.include? role.to_s
+    unless CourseRole::ROLES.include? role.to_s
       raise "The role #{role.to_s} doesn't exist."
     end
     cr = CourseRole.where(:user_id => user.id, :course_id => course.id).first

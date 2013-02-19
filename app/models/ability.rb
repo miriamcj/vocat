@@ -5,14 +5,22 @@ class Ability
     user ||= User.new # guest user (not logged in)
 
     if user.role? :student
+
+      can :manage, Course do |course|
+        CourseRole.get_role(user, course) == "helper"
+      end
+
       can :read, [Organization, Course]
+
       can :manage, Submission
     end
-    if user.role? :helper # or instructor
+
+    if user.role? :instructor
       can :manage, Course do |course|
         CourseRole.get_role(user, course) != "student"
       end
     end
+
     if user.role? :admin
       can :manage, :all
     end

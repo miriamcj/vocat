@@ -38,7 +38,7 @@ instructors = Array.new
 helpers = Array.new
 students = Array.new
 3.times { |i| instructors << User.new(:email => "instructor#{i}@test.com", :password => "chu88yhands", :role => "instructor") }
-5.times { |i| helpers << User.new(:email => "helper#{i}@test.com", :password => "chu88yhands", :role => "helper") }
+5.times { |i| helpers << User.new(:email => "helper#{i}@test.com", :password => "chu88yhands", :role => "student") }
 25.times { |i| students << User.new(:email => "student#{i}@test.com", :password => "chu88yhands", :role => "student") }
 
 # Each course gets 1 instructor, 2 helpers, and 6 to 10 students

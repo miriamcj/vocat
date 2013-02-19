@@ -13,9 +13,12 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :role
   # attr_accessible :title, :body
 
-  ROLES = %w(student helper instructor admin)
+  ROLES = %w(student instructor admin)
 
   def role?(base_role)
+    unless User::ROLES.include? role.to_s
+      raise "The role #{role.to_s} doesn't exist."
+    end
     ROLES.index(base_role.to_s) <= ROLES.index(role)
   end
 end

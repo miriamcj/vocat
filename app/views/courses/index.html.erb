@@ -1,4 +1,4 @@
-<% if can? :create, Course %>
+<% if can? :create, Course.new %>
   <%= link_to 'New Course', new_organization_course_path(@organization) %>
 <% end %>
 
@@ -24,10 +24,10 @@
     <td><%= course.section %></td>
     <td><%= course.description %></td>
     <td><%= link_to 'Show', organization_course_path(@organization, course) %></td>
-    <% if can? :update, @course %>
+    <% if can? :update, course %>
       <td><%= link_to 'Edit', edit_organization_course_path(@organization, course) %></td>
     <% end %>
-    <% if can? :destroy, @course %>
+    <% if can? :destroy, course %>
       <td><%= link_to 'Destroy', organization_course_path(@organization, course), method: :delete, data: { confirm: 'Are you sure?' } %></td>
     <% end %>
   </tr>
