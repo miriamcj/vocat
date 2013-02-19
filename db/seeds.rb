@@ -58,14 +58,18 @@ courses << baruch.courses.create(:name => "Practical Grammar", :department => "E
 instructors = Array.new
 helpers = Array.new
 students = Array.new
-3.times { |i| instructors << User.new(:email => "instructor#{i}@test.com", :password => "chu88yhands", :role => "instructor") }
-5.times { |i| helpers << User.new(:email => "helper#{i}@test.com", :password => "chu88yhands", :role => "student") }
-25.times { |i| students << User.new(:email => "student#{i}@test.com", :password => "chu88yhands", :role => "student") }
+6.times { |i| instructors << User.new(:email => "instructor#{i}@test.com", :password => "chu88yhands", :role => "instructor") }
+15.times { |i| helpers << User.new(:email => "helper#{i}@test.com", :password => "chu88yhands", :role => "student") }
+150.times { |i| students << User.new(:email => "student#{i}@test.com", :password => "chu88yhands", :role => "student") }
 
 # Create an assignment type
 presentation = AssignmentType.new(:name => "Presentation")
 
-# Each course gets 1 instructor, 2 helpers, 6 to 10 students, and 6 to 10 assignments
+# Each course gets 1 instructor, 2 helpers, 15 to 30 students, and 2 to 10 assignments
+#
+# SQL for finding number of courses per student:
+# select user_id, email, count(*) from course_roles inner join users on users.id=course_roles.user_id group by user_id;
+#
 courses.each do |course|
 
   instructors.shuffle!
@@ -80,12 +84,12 @@ courses.each do |course|
     CourseRole.set_role(helpers[i], course, :helper)
   end
 
-  rand(6..10).times do |i|
+  rand(15..30).times do |i|
     course.users << students[i]
     CourseRole.set_role(students[i], course, :student)
   end
 
-  rand(6..10).times do
+  rand(2..10).times do
     assignment = course.assignments.create(:name => lorem(rand(6..15)), :description => lorem)
     assignment.assignment_type = presentation
     assignment.save
