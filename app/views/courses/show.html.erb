@@ -1,3 +1,10 @@
+<% if can? :update, @course %>
+  <div><%= link_to 'Edit', edit_organization_course_path(@organization, @course) %></div>
+<% end %>
+
+<% if can? :destroy, @course %>
+  <div><%= link_to 'Destroy', organization_course_path(@organization, @course), method: :delete, data: { confirm: 'Are you sure?' } %></div>
+<% end %>
 <p>
   <b>Name:</b>
   <%= @course.name %>
@@ -24,5 +31,4 @@
 </p>
 
 
-<%= link_to 'Edit', edit_organization_course_path(@organization, @course) %> |
-<%= link_to 'Back', organization_courses_path(@organization) %>
+
