@@ -1,4 +1,6 @@
 class OrganizationsController < ApplicationController
+  load_and_authorize_resource :organization
+
   # GET /organizations
   # GET /organizations.json
   def index
@@ -13,8 +15,6 @@ class OrganizationsController < ApplicationController
   # GET /organizations/1
   # GET /organizations/1.json
   def show
-    @organization = Organization.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       #format.json { render json: @organization }
@@ -34,7 +34,6 @@ class OrganizationsController < ApplicationController
 
   # GET /organizations/1/edit
   def edit
-    @organization = Organization.find(params[:id])
   end
 
   # POST /organizations
@@ -56,8 +55,6 @@ class OrganizationsController < ApplicationController
   # PUT /organizations/1
   # PUT /organizations/1.json
   def update
-    @organization = Organization.find(params[:id])
-
     respond_to do |format|
       if @organization.update_attributes(params[:organization])
         format.html { redirect_to @organization, notice: 'Organization was successfully updated.' }
@@ -72,7 +69,6 @@ class OrganizationsController < ApplicationController
   # DELETE /organizations/1
   # DELETE /organizations/1.json
   def destroy
-    @organization = Organization.find(params[:id])
     flash[:notice] = "#{@organization.name} has been deleted."
     @organization.destroy
 

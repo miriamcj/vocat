@@ -3,6 +3,8 @@
   <%= @organization.name %>
 </p>
 
+<% if can? :upate, @organization %>
+  <%= link_to 'Edit', edit_organization_path(@organization) %> |
+<% end %>
 
-<%= link_to 'Edit', edit_organization_path(@organization) %> |
 <%= link_to 'Back', organizations_path %>

@@ -12,12 +12,17 @@
   <tr>
     <td><%= organization.name %></td>
     <td><%= link_to 'Show', organization %></td>
-    <td><%= link_to 'Edit', edit_organization_path(organization) %></td>
-    <td><%= link_to 'Destroy', organization, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% if can? :update, organization %>
+      <td><%= link_to 'Edit', edit_organization_path(organization) %></td>
+    <% end %>
+    <% if can? :destroy, organization %>
+      <td><%= link_to 'Destroy', organization, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% end %>
   </tr>
 <% end %>
 </table>
 
 <br />
-
-<%= link_to 'New Organization', new_organization_path %>
+<% if can? :create, Organization.new %>
+  <%= link_to 'New Organization', new_organization_path %>
+<% end %>
