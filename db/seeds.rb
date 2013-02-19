@@ -7,7 +7,28 @@ for name in %w(alex gabe lucas peter scott zach)
 end
 
 # Create sample strings
-lorem = "Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Maecenas sed diam eget risus varius blandit sit amet non magna. Aenean lacinia bibendum nulla sed consectetur."
+def lorem(size = nil)
+  lorems = [
+      "Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. Vestibulum id ligula porta felis euismod semper.",
+      "Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Nullam quis risus eget urna mollis ornare vel eu leo. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.",
+      "Donec ullamcorper nulla non metus auctor fringilla. Donec id elit non mi porta gravida at eget metus. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Donec sed odio dui. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.",
+      "Dod elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Sed posuere consectetur est at lobortis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.",
+      "Cras justo odio, dapibus ac facilisis in, egestas eget quam. Maecenas sed diam eget risus varius blandit sit amet non magna. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Sed posuere consectetur est at lobortis.",
+      "Nullam id dolor id nibh ultricies vehicula ut id elit. Vestibulum id ligula porta felis euismod semper. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Curabitur blandit tempus porttitor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
+  ]
+
+  if size
+    words = lorems.sample.split[0..Integer(size)].join(' ')
+    unless words[-1,1] == '.'
+      "#{words}."
+    else
+      words
+    end
+  else
+    lorems.sample
+  end
+end
+
 def random_section
   rand(36**5).to_s(36).upcase
 end
@@ -41,7 +62,10 @@ students = Array.new
 5.times { |i| helpers << User.new(:email => "helper#{i}@test.com", :password => "chu88yhands", :role => "student") }
 25.times { |i| students << User.new(:email => "student#{i}@test.com", :password => "chu88yhands", :role => "student") }
 
-# Each course gets 1 instructor, 2 helpers, and 6 to 10 students
+# Create an assignment type
+presentation = AssignmentType.new(:name => "Presentation")
+
+# Each course gets 1 instructor, 2 helpers, 6 to 10 students, and 6 to 10 assignments
 courses.each do |course|
 
   instructors.shuffle!
@@ -59,6 +83,12 @@ courses.each do |course|
   rand(6..10).times do |i|
     course.users << students[i]
     CourseRole.set_role(students[i], course, :student)
+  end
+
+  rand(6..10).times do
+    assignment = course.assignments.create(:name => lorem(rand(6..15)), :description => lorem)
+    assignment.assignment_type = presentation
+    assignment.save
   end
 
 end

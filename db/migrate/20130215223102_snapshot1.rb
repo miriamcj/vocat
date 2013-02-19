@@ -1,6 +1,25 @@
 class Snapshot1 < ActiveRecord::Migration
   def up
 
+    # ASSIGNMENTS
+    create_table :assignments, :force => true do |t|
+      t.string :name
+      t.text :description
+      t.references :course
+      t.references :assignment_type
+
+      t.timestamps
+    end
+    add_index :assignments, :course_id
+    add_index :assignments, :assignment_type_id
+
+    # ASSIGNMENT TYPES
+    create_table :assignment_types, :force => true do |t|
+      t.string :name
+
+      t.timestamps
+    end
+
     # ATTACHMENTS
     create_table :attachments, :force => true do |t|
       t.attachment :media
@@ -29,7 +48,7 @@ class Snapshot1 < ActiveRecord::Migration
     add_index :courses, :organization_id
 
     # COURSE ROLES
-    create_table :course_roles do |t|
+    create_table :course_roles, :force => true do |t|
       t.references :user
       t.references :course
       t.string :role

@@ -5,6 +5,8 @@ Vocat::Application.routes.draw do
       resources :submissions do
         resources :attachments
       end
+      resources :assignments
+      resources :assignment_types
     end
   end
 
