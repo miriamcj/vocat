@@ -10,8 +10,8 @@ class Ability
         CourseRole.get_role(user, course) == "helper"
       end
 
-      can :read, [Organization, Course]
-
+      can :read, [Organization, Course, Assignment]
+      can :update, Assignment
       can :manage, Submission
     end
 

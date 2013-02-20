@@ -2,7 +2,18 @@ $ ->
   $('#course_select').change ->
     id = $(@).val()
     if id
-      url = $(@).data("url") + "/" + id
-      window.location.href = url
+      re = /(courses\/)(\d)+/
+      # get url from data
+      startUrl = $(@).data('url')
+      # add course id within url? or just append it?
+      if startUrl.match(re)
+        replacer = (match, p1, p2) ->
+          return p1+id
+        url = $(@).data("url").replace(re, replacer)
+      else
+        url = startUrl + "/" + id
     else
-      window.location.href = $(@).data("url")
+      url = $(@).data("url")
+
+    # redirect
+    window.location.href = url

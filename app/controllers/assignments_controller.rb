@@ -1,8 +1,12 @@
 class AssignmentsController < ApplicationController
+  load_and_authorize_resource :organization
+  load_and_authorize_resource :course, :through => :organization
+  load_and_authorize_resource :assignment, :through => :course
+
   # GET /assignments
   # GET /assignments.json
   def index
-    @assignments = Assignment.all
+    @assignments = @course.assignments
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,8 +17,6 @@ class AssignmentsController < ApplicationController
   # GET /assignments/1
   # GET /assignments/1.json
   def show
-    @assignment = Assignment.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @assignment }
@@ -34,13 +36,12 @@ class AssignmentsController < ApplicationController
 
   # GET /assignments/1/edit
   def edit
-    @assignment = Assignment.find(params[:id])
   end
 
   # POST /assignments
   # POST /assignments.json
   def create
-    @assignment = Assignment.new(params[:assignment])
+    @assignment = @course.assignments.build(params[:assignment])
 
     respond_to do |format|
       if @assignment.save
@@ -56,8 +57,6 @@ class AssignmentsController < ApplicationController
   # PUT /assignments/1
   # PUT /assignments/1.json
   def update
-    @assignment = Assignment.find(params[:id])
-
     respond_to do |format|
       if @assignment.update_attributes(params[:assignment])
         format.html { redirect_to @assignment, notice: 'Assignment was successfully updated.' }
@@ -72,7 +71,7 @@ class AssignmentsController < ApplicationController
   # DELETE /assignments/1
   # DELETE /assignments/1.json
   def destroy
-    @assignment = Assignment.find(params[:id])
+    flash[:notice] = "Assignment deleted."
     @assignment.destroy
 
     respond_to do |format|
