@@ -11,7 +11,6 @@ class Ability
       end
 
       can :read, [Organization, Course, Assignment]
-      can :update, Assignment
       can :manage, [Submission, Attachment]
     end
 
