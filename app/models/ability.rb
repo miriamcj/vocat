@@ -12,13 +12,14 @@ class Ability
 
       can :read, [Organization, Course, Assignment]
       can :update, Assignment
-      can :manage, Submission
+      can :manage, [Submission, Attachment]
     end
 
     if user.role? :instructor
       can :manage, Course do |course|
         CourseRole.get_role(user, course) != "student"
       end
+      can :read, [Submission, Attachment]
     end
 
     if user.role? :admin
