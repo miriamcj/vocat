@@ -14,7 +14,8 @@ class Attachment < ActiveRecord::Base
                     :s3_permissions => :private,
                     :path => ":year/:month/:day/:hash:ending",
                     :hash_secret => "+hequ!ckbr0wnf@Xjump5o^3rThe1azyd0g",
-                    :hash_data => "attachment/:id/:updated_at"
+                    :hash_data => Rails.env == "production" ? "attachment/:id/:updated_at" : "attachment/:updated_at" # need to predictably seed attachments
+
 
   Paperclip.interpolates(:year)  {|a, style| a.instance.created_at.year}
   Paperclip.interpolates(:month) {|a, style| a.instance.created_at.month}
