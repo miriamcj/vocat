@@ -95,9 +95,12 @@ ActiveRecord::Schema.define(:version => 20130215223102) do
   create_table "submissions", :force => true do |t|
     t.string   "name"
     t.text     "summary"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "assignment_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
+
+  add_index "submissions", ["assignment_id"], :name => "index_submissions_on_assignment_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

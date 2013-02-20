@@ -13,13 +13,13 @@
   <tr>
     <td><%= submission.name %></td>
     <td><%= submission.summary %></td>
-    <td><%= link_to 'Show', submission %></td>
-    <td><%= link_to 'Edit', edit_submission_path(submission) %></td>
-    <td><%= link_to 'Destroy', submission, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Show', organization_course_assignment_submission_path(submission) %></td>
+    <td><%= link_to 'Edit', edit_organization_course_assignment_path(@organization, @course, @assignment, submission) %></td>
+    <td><%= link_to 'Destroy', organization_course_assignment_submission_path(submission), method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Assignment submission', new_submission_path %>
+<%= link_to 'New Assignment submission', new_organization_course_assignment_submission_path(@organization, @course, @assignment) %>

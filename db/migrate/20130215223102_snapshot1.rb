@@ -84,11 +84,14 @@ class Snapshot1 < ActiveRecord::Migration
 
     # SUBMISSIONS
     create_table :submissions, :force => true do |t|
-      t.string   :name
-      t.text     :summary
+      t.string     :name
+      t.text       :summary
+      t.references :assignment
 
       t.timestamps
     end
+
+    add_index :submissions, :assignment_id
 
     # USERS (devise)
     create_table :users, :force => true do |t|

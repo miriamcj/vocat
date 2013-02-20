@@ -2,11 +2,11 @@ Vocat::Application.routes.draw do
 
   resources :organizations, :path => "org" do
     resources :courses do
-      resources :submissions do
-        resources :attachments
+      resources :assignments do#, :shallow => true, :shallow_path => "/org/:organization_id/courses/:course_id", :name_prefix => "organization_course_" do
+        resources :submissions do
+          resources :attachments
+        end
       end
-      resources :assignments
-      resources :assignment_types
     end
   end
 
