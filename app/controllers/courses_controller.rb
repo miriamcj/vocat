@@ -2,23 +2,9 @@ class CoursesController < ApplicationController
   load_and_authorize_resource :organization
   load_and_authorize_resource :course, :through => :organization
 
-  before_filter :get_organization_and_courses
-
-  def get_organization_and_courses
-    if current_user.role? :admin
-      @courses = @organization.courses
-    else
-      @courses = current_user.courses
-    end
-  end
-
   # GET /courses
   # GET /courses.json
   def index
-    ids = Array.new
-    #@courses.each {|course| ids << course.id}
-    #@assignments = Assignment.where(:course_id => ids).order("name ASC")
-
     respond_to do |format|
       format.html # index.html.erb
       #format.json { render json: @courses }
