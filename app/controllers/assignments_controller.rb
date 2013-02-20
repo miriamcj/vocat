@@ -10,7 +10,7 @@ class AssignmentsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @assignments }
+      #format.json { render json: @assignments }
     end
   end
 
@@ -19,7 +19,7 @@ class AssignmentsController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @assignment }
+      #format.json { render json: @assignment }
     end
   end
 
@@ -30,7 +30,7 @@ class AssignmentsController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @assignment }
+      #format.json { render json: @assignment }
     end
   end
 
@@ -46,10 +46,10 @@ class AssignmentsController < ApplicationController
     respond_to do |format|
       if @assignment.save
         format.html { redirect_to @assignment, notice: 'Assignment was successfully created.' }
-        format.json { render json: @assignment, status: :created, location: @assignment }
+        #format.json { render json: @assignment, status: :created, location: @assignment }
       else
         format.html { render action: "new" }
-        format.json { render json: @assignment.errors, status: :unprocessable_entity }
+        #format.json { render json: @assignment.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -59,11 +59,11 @@ class AssignmentsController < ApplicationController
   def update
     respond_to do |format|
       if @assignment.update_attributes(params[:assignment])
-        format.html { redirect_to @assignment, notice: 'Assignment was successfully updated.' }
-        format.json { head :no_content }
+        format.html { redirect_to organization_course_assignment_path(@organization, @course, @assignment), notice: 'Assignment was successfully updated.' }
+        #format.json { head :no_content }
       else
         format.html { render action: "edit" }
-        format.json { render json: @assignment.errors, status: :unprocessable_entity }
+        #format.json { render json: @assignment.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -76,7 +76,7 @@ class AssignmentsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to assignments_url }
-      format.json { head :no_content }
+      #format.json { head :no_content }
     end
   end
 end

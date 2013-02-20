@@ -3,7 +3,7 @@
 <% end %>
 
 <% @courses.each do |course| %>
-  <h3><%= course %></h3>
+  <h3><%= link_to course, organization_course_assignments_path(@organization, course) %></h3>
   <% course.assignments.each do |assignment| %>
     <div><%= assignment.name %></div>
   <% end %>

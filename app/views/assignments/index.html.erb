@@ -15,7 +15,7 @@
     <td><%= assignment.name %></td>
     <td><%= assignment.description %></td>
     <td><%= assignment.assignment_type %></td>
-    <td><%= link_to 'Show', organization_course_assignments_path(@organization, @course) %></td>
+    <td><%= link_to 'Show', organization_course_assignment_path(@organization, @course, assignment) %></td>
     <td><%= link_to 'Edit', edit_organization_course_assignment_path(@organization, @course, assignment) %></td>
     <td><%= link_to 'Destroy', organization_course_assignment_path(@organization, @course, assignment), method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
