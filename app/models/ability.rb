@@ -12,6 +12,7 @@ class Ability
 
       can :read, [Organization, Course, Assignment]
       can :manage, [Submission, Attachment]
+      cannot :destroy, [Submission, Attachment]
     end
 
     if user.role? :instructor
