@@ -7,7 +7,16 @@ class ApplicationController < ActionController::Base
 
   def get_organization_and_courses
     if current_user
-      if current_user.role? :admin
+      unless @organization
+        if params
+          if params[:organization_id]
+            @organization = Organization.find(params[:organization_id])
+          elsif params[:organization] && params[:organization][:id]
+            @organization = Organization.find(params[:organization][:id])
+          end
+        end
+      end
+      if (current_user.role? :admin) && @organization
         @courses = @organization.courses
       else
         @courses = current_user.courses
