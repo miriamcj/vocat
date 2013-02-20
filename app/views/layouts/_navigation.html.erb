@@ -1,4 +1,8 @@
-<%= link_to "Home", root_path, :class => 'brand' %>
+<% if @organization %>
+  <%= link_to "VOCAT", organization_courses_path(@organization), :class => 'brand' %>
+<% else %>
+  <%= link_to "VOCAT", root_path, :class => 'brand' %>
+<% end %>
 <ul class="nav">
   <% if @courses && @organization%>
     <li>
