@@ -6,10 +6,12 @@ class ApplicationController < ActionController::Base
   before_filter :get_organization_and_courses
 
   def get_organization_and_courses
-    if current_user.role? :admin
-      @courses = @organization.courses
-    else
-      @courses = current_user.courses
+    if current_user
+      if current_user.role? :admin
+        @courses = @organization.courses
+      else
+        @courses = current_user.courses
+      end
     end
   end
 
