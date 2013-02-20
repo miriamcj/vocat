@@ -3,11 +3,7 @@
   <% if @courses && @organization%>
     <li>
       <div class="navbar-form">
-        <% if @course %>
-          <%= collection_select :course, :id, @courses, :id, :to_s, {:include_blank => "All courses"}, :id => "course_select", :selected => @course.id, :data => {:url => organization_courses_path(@organization)} %>
-        <% else %>
-          <%= collection_select :course, :id, @courses, :id, :to_s, {:include_blank => "All courses"}, :id => "course_select", :data => {:url => organization_courses_path(@organization)} %>
-        <% end %>
+        <%= yield :course_selector %>
       </div>
     </li>
   <% end %>

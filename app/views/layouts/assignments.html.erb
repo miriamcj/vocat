@@ -1,0 +1,8 @@
+<% content_for :course_selector do %>
+  <% if @course %>
+    <%= collection_select :course, :id, @courses, :id, :to_s, {:include_blank => "All of my courses"}, :id => "course_select", :selected => @course.id, :data => {:url => organization_course_assignments_path(@organization, @course)} %>
+  <% else %>
+    <%= collection_select :course, :id, @courses, :id, :to_s, {:include_blank => "All of my courses"}, :id => "course_select", :data => {:url => organization_courses_path(@organization)} %>
+  <% end %>
+<% end %>
+<%= render :template => 'layouts/application' %>
