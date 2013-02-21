@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-
+  belongs_to :organization
   has_many :course_roles
   has_many :courses, :through => :course_roles
 

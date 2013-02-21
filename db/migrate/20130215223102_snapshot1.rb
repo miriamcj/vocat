@@ -108,11 +108,13 @@ class Snapshot1 < ActiveRecord::Migration
 
       t.string   :name
       t.string   :role
+      t.references :organization
 
       t.timestamps
     end
 
     add_index :users, [:email], :unique => true
     add_index :users, [:reset_password_token], :unique => true
+    add_index :users, :organization_id
   end
 end

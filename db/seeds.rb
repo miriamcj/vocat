@@ -1,11 +1,6 @@
 # Set the random seed so we get a predictable outcome
 srand 1234
 
-# Create developer user accounts
-for name in %w(alex gabe lucas peter scott zach)
-  User.create(:email => "#{name}@castironcoding.com", :password => "chu88yhands", :role => "admin", :name => name)
-end
-
 # Create sample sections
 def random_section
   rand(36**5).to_s(36).upcase
@@ -18,6 +13,13 @@ end
 # Create the organizations
 baruch  = Organization.create(:name => "Baruch College")
 other   = Organization.create(:name => Faker::Company.name)
+
+# Create developer user accounts
+for name in %w(alex gabe lucas peter scott zach)
+  u = User.create(:email => "#{name}@castironcoding.com", :password => "chu88yhands", :role => "admin", :name => name)
+  u.organization = baruch
+  u.save
+end
 
 # Create the courses
 courses = Array.new
@@ -40,9 +42,28 @@ courses << baruch.courses.create(:name => "Practical Grammar", :department => "E
 instructors = Array.new
 helpers = Array.new
 students = Array.new
-6.times { |i| instructors << User.new(:email => "instructor#{i}@test.com", :password => "chu88yhands", :role => "instructor", :name => random_name) }
-15.times { |i| helpers << User.new(:email => "helper#{i}@test.com", :password => "chu88yhands", :role => "student", :name => random_name) }
-150.times { |i| students << User.new(:email => "student#{i}@test.com", :password => "chu88yhands", :role => "student", :name => random_name) }
+
+6.times do |i|
+  u = User.new(:email => "instructor#{i}@test.com", :password => "chu88yhands", :role => "instructor", :name => random_name)
+  u.organization = baruch
+  u.save
+  instructors << u
+end
+
+15.times do |i|
+  u = User.new(:email => "helper#{i}@test.com", :password => "chu88yhands", :role => "student", :name => random_name)
+  u.organization = baruch
+  u.save
+  helpers << u
+end
+
+150.times do |i|
+  u = User.new(:email => "student#{i}@test.com", :password => "chu88yhands", :role => "student", :name => random_name)
+  u.organization = baruch
+  u.save
+  students << u
+end
+
 
 # Create an assignment type
 presentation = AssignmentType.new(:name => "Presentation")
@@ -94,6 +115,8 @@ end
 
 # Create an instructor that is both a student for a course and an instructor for a course
 instructor = User.new(:email => "assistant_instructor@test.com", :password => "chu88yhands", :role => "instructor", :name => random_name)
+instructor.organization = baruch
+instructor.save
 course = courses.sample
 course.users << instructor
 CourseRole.set_role(instructor, course, :student)
