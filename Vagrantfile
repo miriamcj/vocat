@@ -2,9 +2,15 @@
 # vi: set ft=ruby :
 
 Vagrant::Config.run do |config|
-	config.vm.box = "vocat"
+
+  config.vm.box = "vocat"
 	config.vm.box_url = "http://vagrant.cichq.com/vocat/current.box"
-	config.vm.forward_port 80, 8015
+
+  # Uncomment to rebuild from base box
+  #config.vm.box = "lucid32-rbenv-mysql"
+  #config.vm.box_url = "http://vagrant.cichq.com/lucid32-rbenv-mysql/current.box"
+
+  config.vm.forward_port 80, 8080
 	config.vm.forward_port 3000, 3000
 	config.vm.provision :chef_client do |chef|
 		chef.environment = "vagrant"
