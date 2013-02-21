@@ -110,8 +110,18 @@ courses.each do |course|
 
 end
 
-# Create an instructor that is also a student
+# Create an instructor that is both a student for a course and an instructor for a course
 instructor = User.new(:email => "assistant_instructor@test.com", :password => "chu88yhands", :role => "instructor")
 course = courses.sample
 course.users << instructor
 CourseRole.set_role(instructor, course, :student)
+
+course2 = courses.sample
+loop do
+  break unless course == course2
+  course2 = courses.sample
+end
+
+course2.users << instructor
+CourseRole.set_role(instructor, course2, :instructor)
+
