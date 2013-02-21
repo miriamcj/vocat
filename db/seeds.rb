@@ -93,6 +93,19 @@ courses.each do |course|
     assignment = course.assignments.create(:name => lorem(rand(6..15)), :description => lorem)
     assignment.assignment_type = presentation
     assignment.save
+
+    rand(3..5).times do
+      submission = assignment.submissions.create(:name =>lorem(rand(2..5)), :summary => lorem )
+
+      insert = "INSERT INTO attachments (media_file_name, media_content_type, media_file_size, media_updated_at, transcoding_status, created_at, updated_at, fileable_id, fileable_type) "
+      if rand > 0.5
+        values = "VALUES ('sample_mpeg5.mp4', 'vidoe/mp4', '245779', '2013-02-20 23:43:11', '1', '2013-02-20 23:43:11', '2013-02-20 23:43:11', '#{submission.id}', 'Submission')"
+      else
+        values = "VALUES ('MVI_5450.AVI', 'video/avi', '1425522', '2013-02-20 23:42:21', '1', '2013-02-20 23:42:21', '2013-02-20 23:42:21', '#{submission.id}', 'Submission')"
+      end
+      ActiveRecord::Base.connection.execute "#{insert}#{values}"
+    end
+
   end
 
 end
