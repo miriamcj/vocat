@@ -28,6 +28,6 @@
 
 <br />
 
-<% if can? :create, Assignment.new %>
+<% if can? :create, @course.assignments.build %>
   <%= link_to 'New Assignment', new_organization_course_assignment_path(@organization, @course) %>
 <% end %>

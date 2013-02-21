@@ -26,7 +26,7 @@ class AssignmentsController < ApplicationController
   # GET /assignments/new
   # GET /assignments/new.json
   def new
-    @assignment = Assignment.new
+    @assignment = @course.assignments.build
 
     respond_to do |format|
       format.html # new.html.erb
