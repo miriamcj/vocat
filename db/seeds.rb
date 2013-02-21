@@ -79,18 +79,9 @@ courses.each do |course|
   helpers.shuffle!
   students.shuffle!
 
-  course.users << instructors[0]
-  CourseRole.set_role(instructors[0], course, :instructor)
-
-  2.times do |i|
-    course.users << helpers[i]
-    CourseRole.set_role(helpers[i], course, :helper)
-  end
-
-  rand(15..30).times do |i|
-    course.users << students[i]
-    CourseRole.set_role(students[i], course, :student)
-  end
+  course.add_instructor(instructors[0])
+  course.add_helpers(helpers[0..2])
+  course.add_students(students[0..rand(15..30)])
 
   rand(2..10).times do
     assignment = course.assignments.create(:name => Faker::Lorem.sentence(rand(6..15)), :description => Faker::Lorem.paragraph)
@@ -118,8 +109,7 @@ instructor = User.new(:email => "assistant_instructor@test.com", :password => "c
 instructor.organization = baruch
 instructor.save
 course = courses.sample
-course.users << instructor
-CourseRole.set_role(instructor, course, :student)
+course.add_student(instructor)
 
 course2 = courses.sample
 loop do
@@ -127,6 +117,6 @@ loop do
   course2 = courses.sample
 end
 
-course2.users << instructor
-CourseRole.set_role(instructor, course2, :instructor)
+course2.add_instructor(instructor)
+
 

@@ -21,8 +21,39 @@ class Course < ActiveRecord::Base
     course_roles.where(:role => "student")
   end
 
+  def add_instructors(users)
+    users.each {|user| add_user(user, :instructor)}
+  end
+
+  def add_instructor(user)
+    add_user(user, :instructor)
+  end
+
+  def add_helpers(users)
+    users.each {|user| add_user(user, :helper)}
+  end
+
+  def add_helper(user)
+    add_user(user, :helper)
+  end
+
+  def add_students(users)
+    users.each {|user| add_user(user, :student)}
+  end
+
+  def add_student(user)
+    add_user(user, :student)
+  end
+
   def to_s
     "#{department}#{number} #{name} - #{section}"
+  end
+
+  protected
+
+  def add_user(user, role)
+    users << user
+    CourseRole.set_role(user, self, role)
   end
 
 end
