@@ -38,10 +38,22 @@ class CoursesController < ApplicationController
   # POST /courses
   # POST /courses.json
   def create
+    params[:instructors][:id] = params[:instructors][:id].keep_if {|i| i != ""}
+    if current_user.role?(:instructor) && params[:instructors][:id].empty?
+      flash[:error] = "You must specify at least one instructor for the course."
+      redirect_to :action => :new
+      return
+    end
     @course = @organization.courses.build(params[:course])
 
     respond_to do |format|
       if @course.save
+        if current_user.role? :admin
+          instructors = User.find_all_by_id(params[:instructors][:id])
+          @course.add_instructors instructors
+        elsif current_user.role? :instructor
+          @course.add_instructor User.find_by_id(params[:instructors][:id])
+        end
         format.html { redirect_to organization_course_path(@organization, @course), notice: 'Course was successfully created.' }
         #format.json { render json: @course, status: :created, location: @course }
       else
