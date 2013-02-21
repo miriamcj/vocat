@@ -49,10 +49,9 @@ class CoursesController < ApplicationController
     respond_to do |format|
       if @course.save
         if current_user.role? :admin
-          instructors = User.find_all_by_id(params[:instructors][:id])
-          @course.add_instructors instructors
+          @course.instructors << User.find_all_by_id(params[:instructors][:id])
         elsif current_user.role? :instructor
-          @course.add_instructor User.find_by_id(params[:instructors][:id])
+          @course.instructors << User.find_by_id(params[:instructors][:id])
         end
         format.html { redirect_to organization_course_path(@organization, @course), notice: 'Course was successfully created.' }
         #format.json { render json: @course, status: :created, location: @course }

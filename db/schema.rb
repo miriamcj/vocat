@@ -46,17 +46,6 @@ ActiveRecord::Schema.define(:version => 20130215223102) do
 
   add_index "attachments", ["fileable_id", "fileable_type"], :name => "index_attachments_on_fileable_id_and_fileable_type"
 
-  create_table "course_roles", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "course_id"
-    t.string   "role"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "course_roles", ["course_id"], :name => "index_course_roles_on_course_id"
-  add_index "course_roles", ["user_id"], :name => "index_course_roles_on_user_id"
-
   create_table "courses", :force => true do |t|
     t.string   "name"
     t.string   "department"
@@ -69,6 +58,30 @@ ActiveRecord::Schema.define(:version => 20130215223102) do
   end
 
   add_index "courses", ["organization_id"], :name => "index_courses_on_organization_id"
+
+  create_table "courses_helpers", :force => true do |t|
+    t.integer "user_id"
+    t.integer "course_id"
+  end
+
+  add_index "courses_helpers", ["course_id"], :name => "index_courses_helpers_on_course_id"
+  add_index "courses_helpers", ["user_id"], :name => "index_courses_helpers_on_user_id"
+
+  create_table "courses_instructors", :force => true do |t|
+    t.integer "user_id"
+    t.integer "course_id"
+  end
+
+  add_index "courses_instructors", ["course_id"], :name => "index_courses_instructors_on_course_id"
+  add_index "courses_instructors", ["user_id"], :name => "index_courses_instructors_on_user_id"
+
+  create_table "courses_students", :force => true do |t|
+    t.integer "user_id"
+    t.integer "course_id"
+  end
+
+  add_index "courses_students", ["course_id"], :name => "index_courses_students_on_course_id"
+  add_index "courses_students", ["user_id"], :name => "index_courses_students_on_user_id"
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0

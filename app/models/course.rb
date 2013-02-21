@@ -1,7 +1,8 @@
 class Course < ActiveRecord::Base
   belongs_to :organization
-  has_many :course_roles
-  has_many :users, :through => :course_roles
+  has_and_belongs_to_many :instructors, :class_name => "User", :join_table => "courses_instructors"
+  has_and_belongs_to_many :helpers, :class_name => "User", :join_table => "courses_helpers"
+  has_and_belongs_to_many :students, :class_name => "User", :join_table => "courses_students"
   has_many :assignments
   has_one :assignment_type
 
@@ -9,51 +10,8 @@ class Course < ActiveRecord::Base
 
   default_scope order("department ASC, number ASC, section ASC")
 
-  def instructors
-    course_roles.where(:role => "instructor")
-  end
-
-  def helpers
-    course_roles.where(:role => "helper")
-  end
-
-  def students
-    course_roles.where(:role => "student")
-  end
-
-  def add_instructors(users)
-    users.each {|user| add_user(user, :instructor)}
-  end
-
-  def add_instructor(user)
-    add_user(user, :instructor)
-  end
-
-  def add_helpers(users)
-    users.each {|user| add_user(user, :helper)}
-  end
-
-  def add_helper(user)
-    add_user(user, :helper)
-  end
-
-  def add_students(users)
-    users.each {|user| add_user(user, :student)}
-  end
-
-  def add_student(user)
-    add_user(user, :student)
-  end
-
   def to_s
     "#{department}#{number} #{name} - #{section}"
-  end
-
-  protected
-
-  def add_user(user, role)
-    users << user
-    CourseRole.set_role(user, self, role)
   end
 
 end

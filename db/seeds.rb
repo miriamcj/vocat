@@ -79,9 +79,9 @@ courses.each do |course|
   helpers.shuffle!
   students.shuffle!
 
-  course.add_instructor(instructors[0])
-  course.add_helpers(helpers[0..2])
-  course.add_students(students[0..rand(15..30)])
+  course.instructors << instructors[0]
+  course.helpers << helpers[0..2]
+  course.students << students[0..rand(15..30)]
 
   rand(2..10).times do
     assignment = course.assignments.create(:name => Faker::Lorem.sentence(rand(6..15)), :description => Faker::Lorem.paragraph)
@@ -109,7 +109,7 @@ instructor = User.new(:email => "assistant_instructor@test.com", :password => "c
 instructor.organization = baruch
 instructor.save
 course = courses.sample
-course.add_student(instructor)
+course.students << instructor
 
 course2 = courses.sample
 loop do
@@ -117,6 +117,6 @@ loop do
   course2 = courses.sample
 end
 
-course2.add_instructor(instructor)
+course2.instructors << instructor
 
 

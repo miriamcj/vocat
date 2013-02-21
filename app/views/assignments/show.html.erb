@@ -20,6 +20,7 @@
   <%= @assignment.assignment_type %>
 </p>
 
-
-<%= link_to 'Edit', edit_organization_course_assignment_path(@organization, @course, @assignment) %> |
+<% if can? :update, @assignment %>
+  <%= link_to 'Edit', edit_organization_course_assignment_path(@organization, @course, @assignment) %> |
+<% end %>
 <%= link_to 'Back', organization_course_assignments_path(@organization, @course)%>

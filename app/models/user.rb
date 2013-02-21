@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
   belongs_to :organization
-  has_many :course_roles
-  has_many :courses, :through => :course_roles
+  has_and_belongs_to_many :helper_courses, :class_name => "Course", :join_table => "courses_helpers"
+  has_and_belongs_to_many :instructor_courses, :class_name => "Course", :join_table => "courses_instructors"
+  has_and_belongs_to_many :student_courses, :class_name => "Course", :join_table => "courses_students"
 
   scope :instructors, where(:role => "instructor")
   scope :students, where(:role => "student")
@@ -24,5 +25,9 @@ class User < ActiveRecord::Base
       raise "The role #{role.to_s} doesn't exist."
     end
     ROLES.index(base_role.to_s) <= ROLES.index(role)
+  end
+
+  def courses
+    student_courses + helper_courses + instructor_courses
   end
 end

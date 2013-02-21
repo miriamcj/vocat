@@ -9,8 +9,7 @@ class Ability
       # Students acting as helpers can
       # update course information and assignments
       can :update, Course do |course|
-        role = CourseRole.get_role(user, course)
-        role && role == "helper"
+        course.helpers.include? user
       end
       can :manage, Assignment do |assignment|
         begin
@@ -18,8 +17,7 @@ class Ability
         rescue
           raise "Can't determine course role on unattached assignments. Try `can? @course.assignments.build` instead of `can? Assignment.new`."
         end
-        role = CourseRole.get_role(user, assignment.course)
-        role && role == "helper"
+        assignment.course.helpers.include? user
       end
 
       # Set student privileges as normal
@@ -33,8 +31,7 @@ class Ability
       # Check that the user isn't acting as a
       # student for the current course
       can :manage, Course do |course|
-        role = CourseRole.get_role(user, course)
-        role && role != "student"
+        not course.students.include? user
       end
       can :manage, Assignment do |assignment|
         begin
@@ -42,8 +39,7 @@ class Ability
         rescue
           raise "Can't determine course role on unattached assignments. Try `can? @course.assignments.build` instead of `can? Assignment.new`."
         end
-        role = CourseRole.get_role(user, assignment.course)
-        role && role != "student"
+        not assignment.course.students.include? user
       end
 
       # Revoke student-only privileges
