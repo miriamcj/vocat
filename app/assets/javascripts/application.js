@@ -16,4 +16,5 @@
 //= require jquery-ui.min
 //= require jquery.iframe-transport
 //= require jquery.fileupload
+//= require chosen-jquery
 //= require_tree .
