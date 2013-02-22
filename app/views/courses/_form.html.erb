@@ -1,33 +1,33 @@
-<%= form_for([@organization, @course]) do |f| %>
+<%= simple_form_for([@organization, @course]) do |f| %>
   <%= form_errors(@course) %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :department %><br />
-    <%= f.text_field :department %>
-  </div>
-  <div class="field">
-    <%= f.label :number %><br />
-    <%= f.text_field :number %>
-  </div>
-  <div class="field">
-    <%= f.label :section %><br />
-    <%= f.text_field :section %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
-  </div>
-  <% if current_user.role? :admin %>
-    <div class="field">
-      <label>Instructors</label>
-      <%= collection_select(:instructors, :id, User.instructors.where(:organization_id => @organization.id).order("name ASC"), :id, :name, {}, :class => "chzn-select", :multiple => "multiple") %>
-    </div>
+  <%= f.input :name %>
+  <%= f.input :department %>
+  <%= f.input :number %>
+  <%= f.input :section %>
+  <%= f.input :description %>
+
+  <% if current_user.role? :instructor %>
+    <%= f.association :students,
+                      :collection => User.where("organization_id = #{@organization.id} AND role != 'admin'"),
+                      :input_html => {:name => "students[]", :class => "chzn-select input-block-level",
+                                      :data => {:placeholder => "Choose students..."}}  %>
   <% end %>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
+  <% if current_user.role? :instructor %>
+    <%= f.association :helpers,
+                      :collection => User.where("organization_id = #{@organization.id} AND role != 'admin'"),
+                      :input_html => {:name => "helpers[]", :class => "chzn-select input-block-level",
+                                      :data => {:placeholder => "Choose helpers..."}}  %>
+  <% end %>
+
+  <% if current_user.role? :admin %>
+    <%= f.association :instructors,
+                      :collection => User.where("organization_id = #{@organization.id} AND role = 'instructor'"),
+                      :include_blank => false,
+                      :input_html => {:name => "instructors[]", :class => "chzn-select input-block-level",
+                                      :data => {:placeholder => "Choose instructors..."}}  %>
+  <% end %>
+
+  <%= f.button :submit %>
 <% end %>

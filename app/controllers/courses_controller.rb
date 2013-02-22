@@ -38,21 +38,18 @@ class CoursesController < ApplicationController
   # POST /courses
   # POST /courses.json
   def create
-    params[:instructors][:id] = params[:instructors][:id].keep_if {|i| i != ""}
-    if current_user.role?(:instructor) && params[:instructors][:id].empty?
-      flash[:error] = "You must specify at least one instructor for the course."
-      redirect_to :action => :new
-      return
-    end
     @course = @organization.courses.build(params[:course])
+
+    if current_user.role? :instructor
+      @course.students = User.find_all_by_id(params[:students])
+      @course.helpers = User.find_all_by_id(params[:helpers])
+    end
+    if current_user.role? :admin
+      @course.instructors = User.find_all_by_id(params[:instructors])
+    end
 
     respond_to do |format|
       if @course.save
-        if current_user.role? :admin
-          @course.instructors << User.find_all_by_id(params[:instructors][:id])
-        elsif current_user.role? :instructor
-          @course.instructors << User.find_by_id(params[:instructors][:id])
-        end
         format.html { redirect_to organization_course_path(@organization, @course), notice: 'Course was successfully created.' }
         #format.json { render json: @course, status: :created, location: @course }
       else
@@ -66,10 +63,29 @@ class CoursesController < ApplicationController
   # PUT /courses/1.json
   def update
     respond_to do |format|
+      # Since associations are updated directly in the database
+      # we need to save some info to rollback to if the form is invalid
+      start_students = Array.new @course.students
+      start_helpers = Array.new @course.helpers
+      start_instructors = Array.new @course.instructors
+
+      if current_user.role? :instructor
+        @course.students = User.find_all_by_id(params[:students])
+        @course.helpers = User.find_all_by_id(params[:helpers])
+      end
+      if current_user.role? :admin
+        @course.instructors = User.find_all_by_id(params[:instructors])
+      end
+
       if @course.update_attributes(params[:course])
         format.html { redirect_to organization_course_path(@organization, @course), notice: 'Course was successfully updated.' }
         #format.json { head :no_content }
       else
+        # Form was invalid, rollback association updates
+        @course.students = start_students
+        @course.helpers = start_helpers
+        @course.instructors = start_instructors
+
         format.html { render action: "edit" }
         #format.json { render json: @course.errors, status: :unprocessable_entity }
       end

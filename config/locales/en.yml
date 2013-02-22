@@ -2,4 +2,14 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  activerecord:
+    errors:
+      models:
+        course:
+          attributes:
+            students:
+              length: Please provide at least one student.
+            instructors:
+              length: Please provide at least one instructor.
+            helpers:
+              length: Please provide at least one helper.

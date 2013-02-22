@@ -6,12 +6,16 @@ class Course < ActiveRecord::Base
   has_many :assignments
   has_one :assignment_type
 
-  attr_accessible :department, :description, :name, :number, :section
+  attr_accessible :department, :description, :name, :number, :section, :instructors, :helpers, :students
+
+  validates :department, :name, :number, :section, :presence => true
+  validates :instructors, :length => {:minimum => 1, :message => "can't be empty."}
+  validates :students, :length => {:minimum => 1, :message => "can't be empty."}
 
   default_scope order("department ASC, number ASC, section ASC")
 
   def to_s
-    "#{department}#{number} #{name} - #{section}"
+    "#{department}#{number} - #{name} - #{section}"
   end
 
 end

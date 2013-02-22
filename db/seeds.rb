@@ -87,6 +87,8 @@ courses.each do |course|
   course.helpers << helpers[0..2]
   course.students << students[0..rand(15..30)]
 
+  course.save
+
   rand(2..10).times do
     assignment = course.assignments.create(:name => Faker::Lorem.sentence(rand(6..15)), :description => Faker::Lorem.paragraph)
     assignment.assignment_type = presentation

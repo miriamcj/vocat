@@ -31,6 +31,24 @@
 </p>
 
 <div>
+  <b>Students:</b>
+  <ul>
+    <% @course.students.each do |student| %>
+      <li><%= student.name %></li>
+    <% end %>
+  </ul>
+</div>
+
+<div>
+  <b>Helpers:</b>
+  <ul>
+    <% @course.helpers.each do |helper| %>
+      <li><%= helper.name %></li>
+    <% end %>
+  </ul>
+</div>
+
+<div>
   <b>Instructors:</b>
   <ul>
     <% @course.instructors.each do |instructor| %>
