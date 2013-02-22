@@ -12,6 +12,13 @@
     </li>
   <% end %>
 </ul>
+<ul class="nav">
+  <li>
+    <% if user_signed_in? %>
+      <p class="navbar-text"><%= current_user.role %></p>
+    <% end %>
+  </li>
+</ul>
 <ul class="nav pull-right">
   <li>
     <% if user_signed_in? %>
