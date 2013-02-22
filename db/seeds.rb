@@ -16,7 +16,8 @@ other   = Organization.create(:name => Faker::Company.name)
 
 # Create developer user accounts
 for name in %w(alex gabe lucas peter scott zach)
-  u = User.create(:email => "#{name}@castironcoding.com", :password => "chu88yhands", :role => "admin", :name => name)
+  u = User.create(:email => "#{name}@castironcoding.com", :password => "chu88yhands", :name => name)
+  u.role = "admin"
   u.organization = baruch
   u.save
 end
@@ -44,21 +45,24 @@ helpers = Array.new
 students = Array.new
 
 6.times do |i|
-  u = User.new(:email => "instructor#{i}@test.com", :password => "chu88yhands", :role => "instructor", :name => random_name)
+  u = User.new(:email => "instructor#{i}@test.com", :password => "chu88yhands", :name => random_name)
   u.organization = baruch
+  u.role = "instructor"
   u.save
   instructors << u
 end
 
 15.times do |i|
-  u = User.new(:email => "helper#{i}@test.com", :password => "chu88yhands", :role => "student", :name => random_name)
+  u = User.new(:email => "helper#{i}@test.com", :password => "chu88yhands", :name => random_name)
   u.organization = baruch
+  u.role = "student"
   u.save
   helpers << u
 end
 
 150.times do |i|
-  u = User.new(:email => "student#{i}@test.com", :password => "chu88yhands", :role => "student", :name => random_name)
+  u = User.new(:email => "student#{i}@test.com", :password => "chu88yhands", :name => random_name)
+  u.role = "student"
   u.organization = baruch
   u.save
   students << u
@@ -105,8 +109,9 @@ courses.each do |course|
 end
 
 # Create an instructor that is both a student for a course and an instructor for a course
-instructor = User.new(:email => "assistant_instructor@test.com", :password => "chu88yhands", :role => "instructor", :name => random_name)
+instructor = User.new(:email => "assistant_instructor@test.com", :password => "chu88yhands", :name => random_name)
 instructor.organization = baruch
+instructor.role = "instructor"
 instructor.save
 course = courses.sample
 course.students << instructor

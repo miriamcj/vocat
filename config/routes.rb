@@ -10,7 +10,7 @@ Vocat::Application.routes.draw do
     end
   end
 
-  devise_for :users
+  devise_for :users, :controllers => {:registrations => "registrations"}
 
   root :to => 'organizations#index' # The organization id is set by ApplicationController::after_sign_in_path_for()
 
