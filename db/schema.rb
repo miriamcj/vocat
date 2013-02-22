@@ -59,6 +59,30 @@ ActiveRecord::Schema.define(:version => 20130215223102) do
 
   add_index "courses", ["organization_id"], :name => "index_courses_on_organization_id"
 
+  create_table "courses_assistants", :force => true do |t|
+    t.integer "user_id"
+    t.integer "course_id"
+  end
+
+  add_index "courses_assistants", ["course_id"], :name => "index_courses_assistants_on_course_id"
+  add_index "courses_assistants", ["user_id"], :name => "index_courses_assistants_on_user_id"
+
+  create_table "courses_creators", :force => true do |t|
+    t.integer "user_id"
+    t.integer "course_id"
+  end
+
+  add_index "courses_creators", ["course_id"], :name => "index_courses_creators_on_course_id"
+  add_index "courses_creators", ["user_id"], :name => "index_courses_creators_on_user_id"
+
+  create_table "courses_evaluators", :force => true do |t|
+    t.integer "user_id"
+    t.integer "course_id"
+  end
+
+  add_index "courses_evaluators", ["course_id"], :name => "index_courses_evaluators_on_course_id"
+  add_index "courses_evaluators", ["user_id"], :name => "index_courses_evaluators_on_user_id"
+
   create_table "courses_helpers", :force => true do |t|
     t.integer "user_id"
     t.integer "course_id"

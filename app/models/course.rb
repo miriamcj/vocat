@@ -1,16 +1,16 @@
 class Course < ActiveRecord::Base
   belongs_to :organization
-  has_and_belongs_to_many :instructors, :class_name => "User", :join_table => "courses_instructors"
-  has_and_belongs_to_many :helpers, :class_name => "User", :join_table => "courses_helpers"
-  has_and_belongs_to_many :students, :class_name => "User", :join_table => "courses_students"
+  has_and_belongs_to_many :evaluators, :class_name => "User", :join_table => "courses_evaluators"
+  has_and_belongs_to_many :assistants, :class_name => "User", :join_table => "courses_assistants"
+  has_and_belongs_to_many :creators, :class_name => "User", :join_table => "courses_creators"
   has_many :projects
   has_one :project_type
 
-  attr_accessible :department, :description, :name, :number, :section, :instructors, :helpers, :students
+  attr_accessible :department, :description, :name, :number, :section, :evaluators, :assistants, :creators
 
   validates :department, :name, :number, :section, :presence => true
-  validates :instructors, :length => {:minimum => 1, :message => "can't be empty."}
-  validates :students, :length => {:minimum => 1, :message => "can't be empty."}
+  validates :evaluators, :length => {:minimum => 1, :message => "can't be empty."}
+  validates :creators, :length => {:minimum => 1, :message => "can't be empty."}
 
   default_scope order("department ASC, number ASC, section ASC")
 
@@ -19,9 +19,10 @@ class Course < ActiveRecord::Base
   end
 
   def role(user)
-    return "student" if students.include? user
-    return "helper" if helpers.include? user
-    return "instructor" if instructors.include? user
+    return "administrator" if user.role? :admin
+    return "creator" if creators.include? user
+    return "assistant" if assistants.include? user
+    return "evaluator" if evaluators.include? user
   end
 
 end

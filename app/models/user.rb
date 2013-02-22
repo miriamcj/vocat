@@ -1,11 +1,11 @@
 class User < ActiveRecord::Base
   belongs_to :organization
-  has_and_belongs_to_many :helper_courses, :class_name => "Course", :join_table => "courses_helpers"
-  has_and_belongs_to_many :instructor_courses, :class_name => "Course", :join_table => "courses_instructors"
-  has_and_belongs_to_many :student_courses, :class_name => "Course", :join_table => "courses_students"
+  has_and_belongs_to_many :assistant_courses, :class_name => "Course", :join_table => "courses_assistants"
+  has_and_belongs_to_many :evaluator_courses, :class_name => "Course", :join_table => "courses_evaluators"
+  has_and_belongs_to_many :creator_courses, :class_name => "Course", :join_table => "courses_creators"
 
-  scope :instructors, where(:role => "instructor")
-  scope :students, where(:role => "student")
+  scope :evaluators, where(:role => "evaluator")
+  scope :creators, where(:role => "creator")
   scope :admins, where(:role => "admin")
 
   # Include default devise modules. Others available are:
@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
 
   default_scope order("name ASC")
 
-  ROLES = %w(student instructor admin)
+  ROLES = %w(creator evaluator admin)
 
   def role?(base_role)
     unless User::ROLES.include? role.to_s
@@ -29,6 +29,6 @@ class User < ActiveRecord::Base
   end
 
   def courses
-    student_courses + helper_courses + instructor_courses
+    creator_courses + assistant_courses + evaluator_courses
   end
 end

@@ -7,9 +7,9 @@ en:
       models:
         course:
           attributes:
-            students:
-              length: Please provide at least one student.
-            instructors:
-              length: Please provide at least one instructor.
-            helpers:
-              length: Please provide at least one helper.
+            creators:
+              length: Please provide at least one creator.
+            evaluators:
+              length: Please provide at least one evaluator.
+            assistants:
+              length: Please provide at least one assistant.

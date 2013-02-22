@@ -40,52 +40,52 @@ courses << baruch.courses.create(:name => "Practical Grammar", :department => "E
 
 
 # Create sample users
-instructors = Array.new
-helpers = Array.new
-students = Array.new
+evaluators = Array.new
+assistants = Array.new
+creators = Array.new
 
 6.times do |i|
-  u = User.new(:email => "instructor#{i}@test.com", :password => "chu88yhands", :name => random_name)
+  u = User.new(:email => "evaluator#{i}@test.com", :password => "chu88yhands", :name => random_name)
   u.organization = baruch
-  u.role = "instructor"
+  u.role = "evaluator"
   u.save
-  instructors << u
+  evaluators << u
 end
 
 15.times do |i|
-  u = User.new(:email => "helper#{i}@test.com", :password => "chu88yhands", :name => random_name)
+  u = User.new(:email => "assistant#{i}@test.com", :password => "chu88yhands", :name => random_name)
   u.organization = baruch
-  u.role = "student"
+  u.role = "creator"
   u.save
-  helpers << u
+  assistants << u
 end
 
 150.times do |i|
-  u = User.new(:email => "student#{i}@test.com", :password => "chu88yhands", :name => random_name)
-  u.role = "student"
+  u = User.new(:email => "creator#{i}@test.com", :password => "chu88yhands", :name => random_name)
+  u.role = "creator"
   u.organization = baruch
   u.save
-  students << u
+  creators << u
 end
 
 
 # Create an project type
 presentation = ProjectType.new(:name => "Presentation")
 
-# Each course gets 1 instructor, 2 helpers, 15 to 30 students, and 2 to 10 projects
+# Each course gets 1 evaluator, 2 assistants, 15 to 30 creators, and 2 to 10 projects
 #
-# SQL for finding number of courses per student:
+# SQL for finding number of courses per creator:
 # select user_id, email, count(*) from course_roles inner join users on users.id=course_roles.user_id group by user_id;
 #
 courses.each do |course|
 
-  instructors.shuffle!
-  helpers.shuffle!
-  students.shuffle!
+  evaluators.shuffle!
+  assistants.shuffle!
+  creators.shuffle!
 
-  course.instructors << instructors[0]
-  course.helpers << helpers[0..2]
-  course.students << students[0..rand(15..30)]
+  course.evaluators << evaluators[0]
+  course.assistants << assistants[0..2]
+  course.creators << creators[0..rand(15..30)]
 
   course.save
 
@@ -110,13 +110,13 @@ courses.each do |course|
 
 end
 
-# Create an instructor that is both a student for a course and an instructor for a course
-instructor = User.new(:email => "assistant_instructor@test.com", :password => "chu88yhands", :name => random_name)
-instructor.organization = baruch
-instructor.role = "instructor"
-instructor.save
+# Create an evaluator that is both a creator for a course and an evaluator for a course
+evaluator = User.new(:email => "assistant_evaluator@test.com", :password => "chu88yhands", :name => random_name)
+evaluator.organization = baruch
+evaluator.role = "evaluator"
+evaluator.save
 course = courses.sample
-course.students << instructor
+course.creators << evaluator
 
 course2 = courses.sample
 loop do
@@ -124,6 +124,6 @@ loop do
   course2 = courses.sample
 end
 
-course2.instructors << instructor
+course2.evaluators << evaluator
 
 

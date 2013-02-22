@@ -48,28 +48,28 @@ class Snapshot1 < ActiveRecord::Migration
     add_index :courses, :organization_id
 
     # COURSES HELPERS
-    create_table :courses_helpers, :force => true do |t|
+    create_table :courses_assistants, :force => true do |t|
       t.references :user
       t.references :course
     end
-    add_index :courses_helpers, :user_id
-    add_index :courses_helpers, :course_id
+    add_index :courses_assistants, :user_id
+    add_index :courses_assistants, :course_id
 
     # COURSES INSTRUCTORS
-    create_table :courses_instructors, :force => true do |t|
+    create_table :courses_evaluators, :force => true do |t|
       t.references :user
       t.references :course
     end
-    add_index :courses_instructors, :user_id
-    add_index :courses_instructors, :course_id
+    add_index :courses_evaluators, :user_id
+    add_index :courses_evaluators, :course_id
 
     # COURSES STUDENTS
-    create_table :courses_students, :force => true do |t|
+    create_table :courses_creators, :force => true do |t|
       t.references :user
       t.references :course
     end
-    add_index :courses_students, :user_id
-    add_index :courses_students, :course_id
+    add_index :courses_creators, :user_id
+    add_index :courses_creators, :course_id
 
     # DELAYED JOBS
     create_table :delayed_jobs, :force => true do |t|

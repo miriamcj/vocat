@@ -40,12 +40,12 @@ class CoursesController < ApplicationController
   def create
     @course = @organization.courses.build(params[:course])
 
-    if current_user.role? :instructor
-      @course.students = User.find_all_by_id(params[:students])
-      @course.helpers = User.find_all_by_id(params[:helpers])
+    if current_user.role? :evaluator
+      @course.creators = User.find_all_by_id(params[:creators])
+      @course.assistants = User.find_all_by_id(params[:assistants])
     end
     if current_user.role? :admin
-      @course.instructors = User.find_all_by_id(params[:instructors])
+      @course.evaluators = User.find_all_by_id(params[:evaluators])
     end
 
     respond_to do |format|
@@ -65,16 +65,16 @@ class CoursesController < ApplicationController
     respond_to do |format|
       # Since associations are updated directly in the database
       # we need to save some info to rollback to if the form is invalid
-      start_students = Array.new @course.students
-      start_helpers = Array.new @course.helpers
-      start_instructors = Array.new @course.instructors
+      start_creators = Array.new @course.creators
+      start_assistants = Array.new @course.assistants
+      start_evaluators = Array.new @course.evaluators
 
-      if current_user.role? :instructor
-        @course.students = User.find_all_by_id(params[:students])
-        @course.helpers = User.find_all_by_id(params[:helpers])
+      if current_user.role? :evaluator
+        @course.creators = User.find_all_by_id(params[:creators])
+        @course.assistants = User.find_all_by_id(params[:assistants])
       end
       if current_user.role? :admin
-        @course.instructors = User.find_all_by_id(params[:instructors])
+        @course.evaluators = User.find_all_by_id(params[:evaluators])
       end
 
       if @course.update_attributes(params[:course])
@@ -82,9 +82,9 @@ class CoursesController < ApplicationController
         #format.json { head :no_content }
       else
         # Form was invalid, rollback association updates
-        @course.students = start_students
-        @course.helpers = start_helpers
-        @course.instructors = start_instructors
+        @course.creators = start_creators
+        @course.assistants = start_assistants
+        @course.evaluators = start_evaluators
 
         format.html { render action: "edit" }
         #format.json { render json: @course.errors, status: :unprocessable_entity }

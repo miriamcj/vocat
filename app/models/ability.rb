@@ -5,11 +5,11 @@ class Ability
 
     user ||= User.new # guest user (not logged in)
 
-    if user.role? :student
-      # Students acting as helpers can
+    if user.role? :creator
+      # Creators acting as assistants can
       # update course information and projects
       can :update, Course do |course|
-        course.helpers.include? user
+        course.assistants.include? user
       end
       can :manage, Project do |project|
         begin
@@ -17,21 +17,21 @@ class Ability
         rescue
           raise "Can't determine course role on unattached projects. Try `can? @course.projects.build` instead of `can? Project.new`."
         end
-        project.course.helpers.include? user
+        project.course.assistants.include? user
       end
 
-      # Set student privileges as normal
+      # Set creator privileges as normal
       can :read,        [Organization, Course, Project]
       can :manage,      [Submission, Attachment]
       cannot :destroy,  [Submission, Attachment]
     end
 
 
-    if user.role? :instructor
+    if user.role? :evaluator
       # Check that the user isn't acting as a
-      # student for the current course
+      # creator for the current course
       can :manage, Course do |course|
-        not course.students.include? user
+        not course.creators.include? user
       end
       can :manage, Project do |project|
         begin
@@ -39,10 +39,10 @@ class Ability
         rescue
           raise "Can't determine course role on unattached projects. Try `can? @course.projects.build` instead of `can? Project.new`."
         end
-        not project.course.students.include? user
+        not project.course.creators.include? user
       end
 
-      # Revoke student-only privileges
+      # Revoke creator-only privileges
       cannot :create,   [Submission, Attachment]
       cannot :destroy,  [Submission, Attachment]
       cannot :update,   [Submission, Attachment]

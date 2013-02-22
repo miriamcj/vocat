@@ -5,7 +5,7 @@
 <% if can? :destroy, @course %>
   <div><%= link_to 'Destroy', organization_course_path(@organization, @course), method: :delete, data: { confirm: 'Are you sure?' } %></div>
 <% end %>
-<p class="lead">In this course you are a <%= @course.role(current_user) %>.</p>
+<p class="lead">In this course you are: <%= @course.role(current_user) %>.</p>
 
 <p>
   <b>Name:</b>
@@ -33,28 +33,28 @@
 </p>
 
 <div>
-  <b>Students:</b>
+  <b>Creators:</b>
   <ul>
-    <% @course.students.each do |student| %>
-      <li><%= student.name %></li>
+    <% @course.creators.each do |creator| %>
+      <li><%= creator.name %></li>
     <% end %>
   </ul>
 </div>
 
 <div>
-  <b>Helpers:</b>
+  <b>Assistants:</b>
   <ul>
-    <% @course.helpers.each do |helper| %>
-      <li><%= helper.name %></li>
+    <% @course.assistants.each do |assistant| %>
+      <li><%= assistant.name %></li>
     <% end %>
   </ul>
 </div>
 
 <div>
-  <b>Instructors:</b>
+  <b>Evaluators:</b>
   <ul>
-    <% @course.instructors.each do |instructor| %>
-      <li><%= instructor.name %></li>
+    <% @course.evaluators.each do |evaluator| %>
+      <li><%= evaluator.name %></li>
     <% end %>
   </ul>
 </div>

@@ -7,26 +7,26 @@
   <%= f.input :section %>
   <%= f.input :description %>
 
-  <% if current_user.role? :instructor %>
-    <%= f.association :students,
+  <% if current_user.role? :evaluator %>
+    <%= f.association :creators,
                       :collection => User.where("organization_id = #{@organization.id} AND role != 'admin'"),
-                      :input_html => {:name => "students[]", :class => "chzn-select input-block-level",
-                                      :data => {:placeholder => "Choose students..."}}  %>
+                      :input_html => {:name => "creators[]", :class => "chzn-select input-block-level",
+                                      :data => {:placeholder => "Choose creators..."}}  %>
   <% end %>
 
-  <% if current_user.role? :instructor %>
-    <%= f.association :helpers,
+  <% if current_user.role? :evaluator %>
+    <%= f.association :assistants,
                       :collection => User.where("organization_id = #{@organization.id} AND role != 'admin'"),
-                      :input_html => {:name => "helpers[]", :class => "chzn-select input-block-level",
-                                      :data => {:placeholder => "Choose helpers..."}}  %>
+                      :input_html => {:name => "assistants[]", :class => "chzn-select input-block-level",
+                                      :data => {:placeholder => "Choose assistants..."}}  %>
   <% end %>
 
   <% if current_user.role? :admin %>
-    <%= f.association :instructors,
-                      :collection => User.where("organization_id = #{@organization.id} AND role = 'instructor'"),
+    <%= f.association :evaluators,
+                      :collection => User.where("organization_id = #{@organization.id} AND role = 'evaluator'"),
                       :include_blank => false,
-                      :input_html => {:name => "instructors[]", :class => "chzn-select input-block-level",
-                                      :data => {:placeholder => "Choose instructors..."}}  %>
+                      :input_html => {:name => "evaluators[]", :class => "chzn-select input-block-level",
+                                      :data => {:placeholder => "Choose evaluators..."}}  %>
   <% end %>
 
   <%= f.button :submit %>
