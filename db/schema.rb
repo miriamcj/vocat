@@ -13,24 +13,6 @@
 
 ActiveRecord::Schema.define(:version => 20130215223102) do
 
-  create_table "assignment_types", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "assignments", :force => true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.integer  "course_id"
-    t.integer  "assignment_type_id"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
-  end
-
-  add_index "assignments", ["assignment_type_id"], :name => "index_assignments_on_assignment_type_id"
-  add_index "assignments", ["course_id"], :name => "index_assignments_on_course_id"
-
   create_table "attachments", :force => true do |t|
     t.string   "media_file_name"
     t.string   "media_content_type"
@@ -82,30 +64,6 @@ ActiveRecord::Schema.define(:version => 20130215223102) do
 
   add_index "courses_evaluators", ["course_id"], :name => "index_courses_evaluators_on_course_id"
   add_index "courses_evaluators", ["user_id"], :name => "index_courses_evaluators_on_user_id"
-
-  create_table "courses_helpers", :force => true do |t|
-    t.integer "user_id"
-    t.integer "course_id"
-  end
-
-  add_index "courses_helpers", ["course_id"], :name => "index_courses_helpers_on_course_id"
-  add_index "courses_helpers", ["user_id"], :name => "index_courses_helpers_on_user_id"
-
-  create_table "courses_instructors", :force => true do |t|
-    t.integer "user_id"
-    t.integer "course_id"
-  end
-
-  add_index "courses_instructors", ["course_id"], :name => "index_courses_instructors_on_course_id"
-  add_index "courses_instructors", ["user_id"], :name => "index_courses_instructors_on_user_id"
-
-  create_table "courses_students", :force => true do |t|
-    t.integer "user_id"
-    t.integer "course_id"
-  end
-
-  add_index "courses_students", ["course_id"], :name => "index_courses_students_on_course_id"
-  add_index "courses_students", ["user_id"], :name => "index_courses_students_on_user_id"
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
