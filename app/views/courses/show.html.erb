@@ -30,5 +30,13 @@
   <%= @course.description %>
 </p>
 
+<div>
+  <b>Instructors:</b>
+  <ul>
+    <% @course.instructors.each do |instructor| %>
+      <li><%= instructor.name %></li>
+    <% end %>
+  </ul>
+</div>
 
 
