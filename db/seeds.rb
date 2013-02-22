@@ -69,10 +69,10 @@ end
 end
 
 
-# Create an assignment type
-presentation = AssignmentType.new(:name => "Presentation")
+# Create an project type
+presentation = ProjectType.new(:name => "Presentation")
 
-# Each course gets 1 instructor, 2 helpers, 15 to 30 students, and 2 to 10 assignments
+# Each course gets 1 instructor, 2 helpers, 15 to 30 students, and 2 to 10 projects
 #
 # SQL for finding number of courses per student:
 # select user_id, email, count(*) from course_roles inner join users on users.id=course_roles.user_id group by user_id;
@@ -90,12 +90,12 @@ courses.each do |course|
   course.save
 
   rand(2..10).times do
-    assignment = course.assignments.create(:name => Faker::Lorem.sentence(rand(6..15)), :description => Faker::Lorem.paragraph)
-    assignment.assignment_type = presentation
-    assignment.save
+    project = course.projects.create(:name => Faker::Lorem.sentence(rand(6..15)), :description => Faker::Lorem.paragraph)
+    project.project_type = presentation
+    project.save
 
     rand(3..5).times do
-      submission = assignment.submissions.create(:name =>Faker::Lorem.sentence(rand(2..5)), :summary => Faker::Lorem.paragraph )
+      submission = project.submissions.create(:name =>Faker::Lorem.sentence(rand(2..5)), :summary => Faker::Lorem.paragraph )
 
       insert = "INSERT INTO attachments (media_file_name, media_content_type, media_file_size, media_updated_at, transcoding_status, created_at, updated_at, fileable_id, fileable_type) "
       if rand > 0.5

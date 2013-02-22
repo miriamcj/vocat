@@ -1,4 +1,4 @@
-class AssignmentType < ActiveRecord::Base
+class ProjectType < ActiveRecord::Base
   attr_accessible :name
 
   def to_s

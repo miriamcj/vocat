@@ -13,18 +13,18 @@
   <tr>
     <td><%= submission.name %></td>
     <td><%= submission.summary %></td>
-    <td><%= link_to 'Show', organization_course_assignment_submission_path(@organization, @course, @assignment, submission) %></td>
+    <td><%= link_to 'Show', organization_course_project_submission_path(@organization, @course, @project, submission) %></td>
     <% if can? :update, submission %>
-      <td><%= link_to 'Edit', edit_organization_course_assignment_submission_path(@organization, @course, @assignment, submission) %></td>
+      <td><%= link_to 'Edit', edit_organization_course_project_submission_path(@organization, @course, @project, submission) %></td>
     <% end %>
     <% if can? :destroy, submission %>
-      <td><%= link_to 'Destroy', organization_course_assignment_submission_path(@organization, @course, @assignment, submission), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <td><%= link_to 'Destroy', organization_course_project_submission_path(@organization, @course, @project, submission), method: :delete, data: { confirm: 'Are you sure?' } %></td>
     <% end %>
   </tr>
 <% end %>
 </table>
 
 <br />
-<% if can? :create, @assignment.submissions.build %>
-  <%= link_to 'New Assignment submission', new_organization_course_assignment_submission_path(@organization, @course, @assignment) %>
+<% if can? :create, @project.submissions.build %>
+  <%= link_to 'New Project submission', new_organization_course_project_submission_path(@organization, @course, @project) %>
 <% end %>

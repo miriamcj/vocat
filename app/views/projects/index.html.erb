@@ -1,0 +1,33 @@
+<h1>Listing projects</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Project type</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @projects.each do |project| %>
+  <tr>
+    <td><%= project.name %></td>
+    <td><%= project.description %></td>
+    <td><%= project.project_type %></td>
+    <td><%= link_to 'Show', organization_course_project_path(@organization, @course, project) %></td>
+    <% if can? :update, project %>
+      <td><%= link_to 'Edit', edit_organization_course_project_path(@organization, @course, project) %></td>
+    <% end %>
+    <% if can? :destroy, project %>
+      <td><%= link_to 'Destroy', organization_course_project_path(@organization, @course, project), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<% if can? :create, @course.projects.build %>
+  <%= link_to 'New Project', new_organization_course_project_path(@organization, @course) %>
+<% end %>

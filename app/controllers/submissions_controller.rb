@@ -1,13 +1,13 @@
 class SubmissionsController < ApplicationController
   load_and_authorize_resource :organization
   load_and_authorize_resource :course, :through => :organization
-  load_and_authorize_resource :assignment, :through => :course
-  load_and_authorize_resource :submission, :through => :assignment
+  load_and_authorize_resource :project, :through => :course
+  load_and_authorize_resource :submission, :through => :project
 
   # GET /submissions
   # GET /submissions.json
   def index
-    @submissions = @assignment.submissions
+    @submissions = @project.submissions
 
     respond_to do |format|
       format.html # index.html.erb
@@ -44,11 +44,11 @@ class SubmissionsController < ApplicationController
   # POST /submissions
   # POST /submissions.json
   def create
-    @submission = @assignment.submissions.build(params[:submission])
+    @submission = @project.submissions.build(params[:submission])
 
     respond_to do |format|
       if @submission.save
-        format.html { redirect_to organization_course_assignment_submission_path(@organization, @course, @assignment, @submission), notice: 'Assignment submission was successfully created.' }
+        format.html { redirect_to organization_course_project_submission_path(@organization, @course, @project, @submission), notice: 'Project submission was successfully created.' }
         #format.json { render json: @submission, status: :created, location: @submission }
       else
         format.html { render action: "new" }
@@ -62,7 +62,7 @@ class SubmissionsController < ApplicationController
   def update
     respond_to do |format|
       if @submission.update_attributes(params[:submission])
-        format.html { redirect_to organization_course_assignment_submission_path(@organization, @course, @assignment, @submission), notice: 'Assignment submission was successfully updated.' }
+        format.html { redirect_to organization_course_project_submission_path(@organization, @course, @project, @submission), notice: 'Project submission was successfully updated.' }
         #format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -78,7 +78,7 @@ class SubmissionsController < ApplicationController
     @submission.destroy
 
     respond_to do |format|
-      format.html { redirect_to organization_course_assignment_submissions_path(@organization, @course, @assignment) }
+      format.html { redirect_to organization_course_project_submissions_path(@organization, @course, @project) }
       #format.json { head :no_content }
     end
   end

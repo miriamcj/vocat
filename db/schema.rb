@@ -105,15 +105,33 @@ ActiveRecord::Schema.define(:version => 20130215223102) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "project_types", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "projects", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "course_id"
+    t.integer  "project_type_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "projects", ["course_id"], :name => "index_projects_on_course_id"
+  add_index "projects", ["project_type_id"], :name => "index_projects_on_project_type_id"
+
   create_table "submissions", :force => true do |t|
     t.string   "name"
     t.text     "summary"
-    t.integer  "assignment_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.integer  "project_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
-  add_index "submissions", ["assignment_id"], :name => "index_submissions_on_assignment_id"
+  add_index "submissions", ["project_id"], :name => "index_submissions_on_project_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

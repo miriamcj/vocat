@@ -4,8 +4,8 @@
 
 <% @courses.each do |course| %>
   <h3><%= link_to course, organization_course_path(@organization, course) %></h3>
-  <% course.assignments.each do |assignment| %>
-    <div><%= assignment.name %></div>
+  <% course.projects.each do |project| %>
+    <div><%= project.name %></div>
   <% end %>
 <% end %>
 

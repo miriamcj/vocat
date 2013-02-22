@@ -1,14 +1,14 @@
 require 'test_helper'
 
-class AssignmentsControllerTest < ActionController::TestCase
+class ProjectsControllerTest < ActionController::TestCase
   setup do
-    @assignment = assignments(:one)
+    @project = projects(:one)
   end
 
   test "should get index" do
     get :index
     assert_response :success
-    assert_not_nil assigns(:assignments)
+    assert_not_nil assigns(:projects)
   end
 
   test "should get new" do
@@ -16,34 +16,34 @@ class AssignmentsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should create assignment" do
-    assert_difference('Assignment.count') do
-      post :create, assignment: { description: @assignment.description, name: @assignment.name }
+  test "should create project" do
+    assert_difference('Project.count') do
+      post :create, project: { description: @project.description, name: @project.name }
     end
 
-    assert_redirected_to assignment_path(assigns(:assignment))
+    assert_redirected_to project_path(assigns(:project))
   end
 
-  test "should show assignment" do
-    get :show, id: @assignment
+  test "should show project" do
+    get :show, id: @project
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @assignment
+    get :edit, id: @project
     assert_response :success
   end
 
-  test "should update assignment" do
-    put :update, id: @assignment, assignment: { description: @assignment.description, name: @assignment.name }
-    assert_redirected_to assignment_path(assigns(:assignment))
+  test "should update project" do
+    put :update, id: @project, project: { description: @project.description, name: @project.name }
+    assert_redirected_to project_path(assigns(:project))
   end
 
-  test "should destroy assignment" do
-    assert_difference('Assignment.count', -1) do
-      delete :destroy, id: @assignment
+  test "should destroy project" do
+    assert_difference('Project.count', -1) do
+      delete :destroy, id: @project
     end
 
-    assert_redirected_to assignments_path
+    assert_redirected_to projects_path
   end
 end

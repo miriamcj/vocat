@@ -8,8 +8,8 @@
   <p><%= @submission.summary %></p>
 </p>
 
-<%= form_for [@organization, @course, @assignment, @submission, @attachment] do |f| %>
-  <%= f.file_field :media, :id => "fileupload", :data => {:url => organization_course_assignment_submission_attachments_path(@organization, @course, @assignment, @submission) }%>
+<%= form_for [@organization, @course, @project, @submission, @attachment] do |f| %>
+  <%= f.file_field :media, :id => "fileupload", :data => {:url => organization_course_project_submission_attachments_path(@organization, @course, @project, @submission) }%>
   <div id="progress" class="muted"></div>
 <% end %>
 
@@ -37,5 +37,5 @@
   <% end %>
 <% end %>
 
-<%= link_to 'Edit', edit_organization_course_assignment_submission_path(@organization, @course, @assignment, @submission) %> |
-<%= link_to 'Back', organization_course_assignment_submissions_path(@organization, @course, @assignment) %>
+<%= link_to 'Edit', edit_organization_course_project_submission_path(@organization, @course, @project, @submission) %> |
+<%= link_to 'Back', organization_course_project_submissions_path(@organization, @course, @project) %>

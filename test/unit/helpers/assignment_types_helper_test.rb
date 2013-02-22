@@ -1,4 +1,4 @@
 require 'test_helper'
 
-class AssignmentTypesHelperTest < ActionView::TestCase
+class ProjectTypesHelperTest < ActionView::TestCase
 end

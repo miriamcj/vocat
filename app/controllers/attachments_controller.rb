@@ -1,7 +1,7 @@
 class AttachmentsController < ApplicationController
   load_and_authorize_resource :organization
   load_and_authorize_resource :course, :through => :organization
-  load_and_authorize_resource :assignment, :through => :course
+  load_and_authorize_resource :project, :through => :course
 
   #
   # polymorphic association:
@@ -9,7 +9,7 @@ class AttachmentsController < ApplicationController
   # load the submission resource AND load
   # whatever else that the attachment can belong_to
   #
-  load_and_authorize_resource :submission, :through => :assignment
+  load_and_authorize_resource :submission, :through => :project
 # load_and_authorize_resource :other_fileable
 
   #

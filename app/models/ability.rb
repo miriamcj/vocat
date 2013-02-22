@@ -7,21 +7,21 @@ class Ability
 
     if user.role? :student
       # Students acting as helpers can
-      # update course information and assignments
+      # update course information and projects
       can :update, Course do |course|
         course.helpers.include? user
       end
-      can :manage, Assignment do |assignment|
+      can :manage, Project do |project|
         begin
-          assignment.course.id
+          project.course.id
         rescue
-          raise "Can't determine course role on unattached assignments. Try `can? @course.assignments.build` instead of `can? Assignment.new`."
+          raise "Can't determine course role on unattached projects. Try `can? @course.projects.build` instead of `can? Project.new`."
         end
-        assignment.course.helpers.include? user
+        project.course.helpers.include? user
       end
 
       # Set student privileges as normal
-      can :read,        [Organization, Course, Assignment]
+      can :read,        [Organization, Course, Project]
       can :manage,      [Submission, Attachment]
       cannot :destroy,  [Submission, Attachment]
     end
@@ -33,13 +33,13 @@ class Ability
       can :manage, Course do |course|
         not course.students.include? user
       end
-      can :manage, Assignment do |assignment|
+      can :manage, Project do |project|
         begin
-          assignment.course.id
+          project.course.id
         rescue
-          raise "Can't determine course role on unattached assignments. Try `can? @course.assignments.build` instead of `can? Assignment.new`."
+          raise "Can't determine course role on unattached projects. Try `can? @course.projects.build` instead of `can? Project.new`."
         end
-        not assignment.course.students.include? user
+        not project.course.students.include? user
       end
 
       # Revoke student-only privileges

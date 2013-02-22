@@ -2,19 +2,19 @@ class Snapshot1 < ActiveRecord::Migration
   def up
 
     # ASSIGNMENTS
-    create_table :assignments, :force => true do |t|
+    create_table :projects, :force => true do |t|
       t.string :name
       t.text :description
       t.references :course
-      t.references :assignment_type
+      t.references :project_type
 
       t.timestamps
     end
-    add_index :assignments, :course_id
-    add_index :assignments, :assignment_type_id
+    add_index :projects, :course_id
+    add_index :projects, :project_type_id
 
     # ASSIGNMENT TYPES
-    create_table :assignment_types, :force => true do |t|
+    create_table :project_types, :force => true do |t|
       t.string :name
 
       t.timestamps
@@ -99,12 +99,12 @@ class Snapshot1 < ActiveRecord::Migration
     create_table :submissions, :force => true do |t|
       t.string     :name
       t.text       :summary
-      t.references :assignment
+      t.references :project
 
       t.timestamps
     end
 
-    add_index :submissions, :assignment_id
+    add_index :submissions, :project_id
 
     # USERS (devise)
     create_table :users, :force => true do |t|

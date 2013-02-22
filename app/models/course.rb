@@ -3,8 +3,8 @@ class Course < ActiveRecord::Base
   has_and_belongs_to_many :instructors, :class_name => "User", :join_table => "courses_instructors"
   has_and_belongs_to_many :helpers, :class_name => "User", :join_table => "courses_helpers"
   has_and_belongs_to_many :students, :class_name => "User", :join_table => "courses_students"
-  has_many :assignments
-  has_one :assignment_type
+  has_many :projects
+  has_one :project_type
 
   attr_accessible :department, :description, :name, :number, :section, :instructors, :helpers, :students
 
