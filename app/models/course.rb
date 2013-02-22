@@ -18,4 +18,10 @@ class Course < ActiveRecord::Base
     "#{department}#{number} - #{name} - #{section}"
   end
 
+  def role(user)
+    return "student" if students.include? user
+    return "helper" if helpers.include? user
+    return "instructor" if instructors.include? user
+  end
+
 end

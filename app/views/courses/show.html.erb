@@ -5,6 +5,8 @@
 <% if can? :destroy, @course %>
   <div><%= link_to 'Destroy', organization_course_path(@organization, @course), method: :delete, data: { confirm: 'Are you sure?' } %></div>
 <% end %>
+<p class="lead">In this course you are a <%= @course.role(current_user) %>.</p>
+
 <p>
   <b>Name:</b>
   <%= @course.name %>
