@@ -100,11 +100,13 @@ class Snapshot1 < ActiveRecord::Migration
       t.string     :name
       t.text       :summary
       t.references :project
+      t.references :creator
 
       t.timestamps
     end
 
     add_index :submissions, :project_id
+    add_index :submissions, :creator_id
 
     # USERS (devise)
     create_table :users, :force => true do |t|

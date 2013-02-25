@@ -94,17 +94,24 @@ courses.each do |course|
     project.project_type = presentation
     project.save
 
-    # TODO Submissions should be tied to certain creators
-    submission = project.submissions.create(:name => Faker::Lorem.sentence(rand(2..5)), :summary => Faker::Lorem.paragraph )
+    course_creators = course.creators
+    course_creators.shuffle!
 
-    insert = "INSERT INTO attachments (media_file_name, media_content_type, media_file_size, media_updated_at, transcoding_status, created_at, updated_at, fileable_id, fileable_type) "
-    if rand > 0.5
-      values = "VALUES ('sample_mpeg5.mp4', 'vidoe/mp4', '245779', '2013-02-20 23:43:11', '1', '2013-02-20 23:43:11', '2013-02-20 23:43:11', '#{submission.id}', 'Submission')"
-    else
-      values = "VALUES ('MVI_5450.AVI', 'video/avi', '1425522', '2013-02-20 23:42:21', '1', '2013-02-20 23:42:21', '2013-02-20 23:42:21', '#{submission.id}', 'Submission')"
+    rand(0..(course_creators.length - 1)).times do |i|
+      # Half the creators submit a project
+      if rand > 0.5
+        submission = project.submissions.create(:name => Faker::Lorem.sentence(rand(2..5)), :summary => Faker::Lorem.paragraph )
+        insert = "INSERT INTO attachments (media_file_name, media_content_type, media_file_size, media_updated_at, transcoding_status, created_at, updated_at, fileable_id, fileable_type) "
+        if rand > 0.5
+          values = "VALUES ('sample_mpeg5.mp4', 'vidoe/mp4', '245779', '2013-02-20 23:43:11', '1', '2013-02-20 23:43:11', '2013-02-20 23:43:11', '#{submission.id}', 'Submission')"
+        else
+          values = "VALUES ('MVI_5450.AVI', 'video/avi', '1425522', '2013-02-20 23:42:21', '1', '2013-02-20 23:42:21', '2013-02-20 23:42:21', '#{submission.id}', 'Submission')"
+        end
+        ActiveRecord::Base.connection.execute "#{insert}#{values}"
+        submission.creator = course_creators[i]
+        submission.save!
+      end
     end
-    ActiveRecord::Base.connection.execute "#{insert}#{values}"
-
   end
 
 end
