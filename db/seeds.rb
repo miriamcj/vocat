@@ -85,12 +85,12 @@ courses.each do |course|
 
   course.evaluators << evaluators[0]
   course.assistants << assistants[0..2]
-  course.creators << creators[0..rand(15..30)]
+  course.creators << creators[0..rand(10..15)]
 
   course.save
 
   rand(1..4).times do
-    project = course.projects.create(:name => Faker::Lorem.sentence(rand(6..15)), :description => Faker::Lorem.paragraph)
+    project = course.projects.create(:name => Faker::Company.bs.split(' ').map(&:capitalize).join(' '), :description => Faker::Lorem.paragraph)
     project.project_type = presentation
     project.save
 
@@ -98,9 +98,9 @@ courses.each do |course|
     course_creators.shuffle!
 
     rand(0..(course_creators.length - 1)).times do |i|
-      # Half the creators submit a project
-      if rand > 0.5
-        submission = project.submissions.create(:name => Faker::Lorem.sentence(rand(2..5)), :summary => Faker::Lorem.paragraph )
+      # Most creators submit a project
+      if rand > 0.2
+        submission = project.submissions.create(:name => Faker::Lorem.words(rand(2..5)).map(&:capitalize).join(' '), :summary => Faker::Lorem.paragraph )
         insert = "INSERT INTO attachments (media_file_name, media_content_type, media_file_size, media_updated_at, transcoding_status, created_at, updated_at, fileable_id, fileable_type) "
         if rand > 0.5
           values = "VALUES ('sample_mpeg5.mp4', 'vidoe/mp4', '245779', '2013-02-20 23:43:11', '1', '2013-02-20 23:43:11', '2013-02-20 23:43:11', '#{submission.id}', 'Submission')"
