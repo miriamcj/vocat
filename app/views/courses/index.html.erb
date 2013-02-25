@@ -2,13 +2,23 @@
   <%= link_to 'New Course', new_organization_course_path(@organization) %>
 <% end %>
 
-<% @courses.each do |course| %>
-  <h3><%= link_to course, organization_course_path(@organization, course) %></h3>
-  <% course.projects.each do |project| %>
-    <div><%= project.name %></div>
-  <% end %>
+<% @projects.each do |project| %>
+  <div class="project-recap well">
+    <div class="video">
+      <% if submission = project.submission_by_user(current_user) %>
+        <%= link_to organization_course_project_submission_path(@organization, project.course, project, submission) do %>
+          <%= image_tag submission.attachments.first.url(:thumb) %>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="title">
+      <span>
+        <%= link_to project.course.format("%d%n %c"), organization_course_path(@organization, project.course) %>
+      </span>
+      /
+      <span>
+        <%= link_to project.name, organization_course_project_path(@organization, project.course, project) %>
+      </span>
+    </div>
+  </div>
 <% end %>
-
-
-
-

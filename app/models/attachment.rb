@@ -42,6 +42,9 @@ class Attachment < ActiveRecord::Base
   # Start transcoding right after saving attachment
   after_save :transcode_media
 
+  # Typically one attachment, so get the most recent to the top
+  default_scope order("updated_at DESC")
+
   # Some wrappers
   def url(style = :original)
     media.expiring_url(Time.now + 3600, style)
