@@ -97,9 +97,9 @@ courses.each do |course|
     course_creators = course.creators
     course_creators.shuffle!
 
-    rand(0..(course_creators.length - 1)).times do |i|
+    course_creators.length.times do |i|
       # Most creators submit a project
-      if rand > 0.2
+      if rand > 0.3
         submission = project.submissions.create(:name => Faker::Lorem.words(rand(2..5)).map(&:capitalize).join(' '), :summary => Faker::Lorem.paragraph )
         insert = "INSERT INTO attachments (media_file_name, media_content_type, media_file_size, media_updated_at, transcoding_status, created_at, updated_at, fileable_id, fileable_type) "
         if rand > 0.5
