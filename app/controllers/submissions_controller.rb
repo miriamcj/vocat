@@ -1,13 +1,22 @@
 class SubmissionsController < ApplicationController
   load_and_authorize_resource :organization
-  load_and_authorize_resource :course, :through => :organization
-  load_and_authorize_resource :project, :through => :course
-  load_and_authorize_resource :submission, :through => :project
+  load_and_authorize_resource :course, :through => :organization, :except => [:index]
+  load_and_authorize_resource :project, :through => :course, :except => [:index]
+  load_and_authorize_resource :submission, :through => :project, :except => [:index]
 
   # GET /submissions
   # GET /submissions.json
   def index
-    @submissions = @project.submissions
+    if params[:course_id] && params[:project_id]
+      @course = @organization.courses.find(params[:course_id])
+      authorize! :read, @course
+      @project = @course.projects.find(params[:project_id])
+      authorize! :read, @project
+      @submissions = @project.submissions
+    else
+      projects = Project.where(:course_id => @courses)
+      @submissions = Submission.where(:project_id => projects)
+    end
 
     respond_to do |format|
       format.html # index.html.erb

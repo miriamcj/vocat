@@ -5,9 +5,6 @@ class CoursesController < ApplicationController
   # GET /courses
   # GET /courses.json
   def index
-    @projects = Project.where(:course_id => @courses)
-    @projects = @projects.sort_by {|p| p.submission_by_user(current_user) ? -1 : 1}
-
     respond_to do |format|
       format.html # index.html.erb
       #format.json { render json: @courses }

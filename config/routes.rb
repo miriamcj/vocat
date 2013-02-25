@@ -1,5 +1,7 @@
 Vocat::Application.routes.draw do
 
+  match "/org/:organization_id/submissions" => "submissions#index", :via => :get, :as => "submission_overview"
+
   resources :organizations, :path => "org" do
     resources :courses do
       resources :projects do#, :shallow => true, :shallow_path => "/org/:organization_id/courses/:course_id", :name_prefix => "organization_course_" do
