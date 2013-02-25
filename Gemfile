@@ -26,9 +26,9 @@ gem "delayed_job_active_record"
 
 gem "bootstrap-sass"
 gem "chosen-rails"
-gem "quiet_assets", :group => :development
+gem "quiet_assets"
 gem "cancan"
-gem "faker", :groups => [:development, :test]
+gem "faker"
 gem "simple_form"
 
 # To use ActiveModel has_secure_password
