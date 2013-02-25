@@ -1,6 +1,10 @@
 @import "bootstrap";
 
-body { padding-top: 60px; }
+// Global styles
+// --------------------------
+#main {
+	padding-top: 40px;
+}
 
 .navbar-inner {
   background-color: #000 !important;
@@ -14,6 +18,30 @@ body { padding-top: 60px; }
 
 .navbar .brand:hover, .navbar .nav > li > a:hover {
   color: #C9C9C9;
+}
+
+.text-center {
+	text-align: center;
+}
+
+// Forms
+// --------------------------
+form {
+	margin-bottom: 0;
+}
+
+// Sign-in
+// --------------------------
+.signin-list {
+	a {
+		color: $grayLight;
+	}
+	li + li {
+		&:before {
+			content: "|\00a0\00a0\00a0";
+			color: $grayLight;
+		}
+	}
 }
 
 @import "bootstrap-responsive";
