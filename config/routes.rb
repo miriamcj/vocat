@@ -1,16 +1,46 @@
 Vocat::Application.routes.draw do
 
-  match "/org/:organization_id/submissions" => "submissions#index", :via => :get, :as => "submission_overview"
+  deep_actions = [:new, :create, :index]
+  shallow_actions = [:edit, :update, :show, :destroy]
 
-  resources :organizations, :path => "org" do
-    resources :courses do
-      resources :projects do#, :shallow => true, :shallow_path => "/org/:organization_id/courses/:course_id", :name_prefix => "organization_course_" do
-        resources :submissions do
-          resources :attachments
+  # admin gets all routes
+  namespace :admin do
+    resources :organizations, :path => "org", :only => [] do
+      resources :courses do
+        resources :projects, :only => [:new, :create] do
+          resources :submissions, :only => [:new, :create] do
+            resources :attachments, :only => [:new, :create]
+          end
         end
       end
+      resources :projects, :only => [:edit, :update, :destroy]
+      resources :submissions, :only => [:edit, :update, :destroy]
     end
   end
+
+  namespace :evaluator do
+    resources :organizations, :path => "org", :only => [] do
+      resources :courses do
+        resources :projects, :only => [:new, :create]
+      end
+      resources :projects, :only => [:edit, :update, :destroy]
+      resources :submissions, :only => [:show]
+    end
+  end
+
+  namespace :creator do
+    resources :organizations, :path => "org", :only => [] do
+      resources :courses, :only => [:show, :index] do
+        resources :projects, :only => [] do
+          resources :submissions, :only => [:new, :create] do
+            resources :attachments, :only => [:new, :create]
+          end
+        end
+      end
+      resources :submissions, :only => [:edit, :update, :destroy]
+    end
+  end
+
 
   devise_for :users, :controllers => {:registrations => "registrations"}
 
