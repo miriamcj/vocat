@@ -14,8 +14,12 @@ class SubmissionsController < ApplicationController
       authorize! :read, @project
       @submissions = @project.submissions
     else
-      projects = Project.where(:course_id => @courses)
-      @submissions = Submission.where(:project_id => projects)
+      @projects = Project.where(:course_id => @courses)
+      unless current_user.role? :evaluator
+        @submissions = Submission.where(:project_id => @projects, :creator_id => current_user)
+      else
+        @submissions = Submission.where(:project_id => @projects)
+      end
     end
 
     respond_to do |format|
