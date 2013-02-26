@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
   private
 
   # Overriding render to set the template and layout paths
-  # so that namespaced controllers all use the same views 
+  # so that namespaced controllers all use the same views
   def render(*args)
     # Only modify render options for our namespaces: admin, evaluator, creator
     if controller_path.start_with?("admin") || controller_path.start_with?("evaluator") || controller_path.start_with?("creator")

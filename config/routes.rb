@@ -24,7 +24,6 @@ Vocat::Application.routes.draw do
         resources :projects, :only => [:new, :create]
       end
       resources :projects, :only => [:edit, :update, :destroy]
-      resources :submissions, :only => [:show]
     end
   end
 
@@ -44,6 +43,7 @@ Vocat::Application.routes.draw do
 
   devise_for :users, :controllers => {:registrations => "registrations"}
 
-  root :to => 'organizations#index' # The organization id is set by ApplicationController::after_sign_in_path_for()
+  # The root is really determined in ApplicationController::after_sign_in_path_for
+  root :to => 'organizations#index'
 
 end

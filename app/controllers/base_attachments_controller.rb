@@ -1,4 +1,4 @@
-class AttachmentsController < ApplicationController
+class BaseAttachmentsController < ApplicationController
   load_and_authorize_resource :organization
   load_and_authorize_resource :course, :through => :organization
   load_and_authorize_resource :project, :through => :course

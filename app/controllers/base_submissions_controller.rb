@@ -1,4 +1,4 @@
-class SubmissionsController < ApplicationController
+class BaseSubmissionsController < ApplicationController
   load_and_authorize_resource :organization
   load_and_authorize_resource :course, :through => :organization, :except => [:index]
   load_and_authorize_resource :project, :through => :course, :except => [:index]
