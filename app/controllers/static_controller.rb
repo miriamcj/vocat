@@ -11,8 +11,9 @@ class StaticController < ApplicationController
   def form
     @organization = Organization.find 1
     @course = @organization.courses.build
-    @course.errors.add(:department, "This is a field error")
-    flash[:error] = "This is a flash error"
+    @course.errors.add(:department, "can't be empty (field error)")
+    flash[:notice] = "This is a good flash"
+    flash[:error] = "This is a bad flash"
   end
 
 end
