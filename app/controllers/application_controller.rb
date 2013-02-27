@@ -25,6 +25,6 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(user)
-    organization_courses_path(Organization.find(params[:organization][:id]))
+    submission_overview_path(Organization.find(params[:organization][:id]))
   end
 end

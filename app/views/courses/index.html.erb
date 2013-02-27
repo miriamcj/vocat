@@ -1,14 +1,3 @@
 <% if can? :create, Course.new %>
   <%= link_to 'New Course', new_organization_course_path(@organization) %>
 <% end %>
-
-<% @courses.each do |course| %>
-  <h3><%= link_to course, organization_course_path(@organization, course) %></h3>
-  <% course.projects.each do |project| %>
-    <div><%= project.name %></div>
-  <% end %>
-<% end %>
-
-
-
-

@@ -109,10 +109,12 @@ ActiveRecord::Schema.define(:version => 20130215223102) do
     t.string   "name"
     t.text     "summary"
     t.integer  "project_id"
+    t.integer  "creator_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
+  add_index "submissions", ["creator_id"], :name => "index_submissions_on_creator_id"
   add_index "submissions", ["project_id"], :name => "index_submissions_on_project_id"
 
   create_table "users", :force => true do |t|

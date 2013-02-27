@@ -75,7 +75,7 @@ presentation = ProjectType.new(:name => "Presentation")
 # Each course gets 1 evaluator, 2 assistants, 15 to 30 creators, and 2 to 10 projects
 #
 # SQL for finding number of courses per creator:
-# select user_id, email, count(*) from course_roles inner join users on users.id=course_roles.user_id group by user_id;
+# select user_id, email, count(*) from courses_creators inner join users on users.id=courses_creators.user_id group by user_id;
 #
 courses.each do |course|
 
@@ -85,27 +85,33 @@ courses.each do |course|
 
   course.evaluators << evaluators[0]
   course.assistants << assistants[0..2]
-  course.creators << creators[0..rand(15..30)]
+  course.creators << creators[0..rand(10..15)]
 
   course.save
 
-  rand(2..10).times do
-    project = course.projects.create(:name => Faker::Lorem.sentence(rand(6..15)), :description => Faker::Lorem.paragraph)
+  rand(1..4).times do
+    project = course.projects.create(:name => Faker::Company.bs.split(' ').map(&:capitalize).join(' '), :description => Faker::Lorem.paragraph)
     project.project_type = presentation
     project.save
 
-    rand(3..5).times do
-      submission = project.submissions.create(:name =>Faker::Lorem.sentence(rand(2..5)), :summary => Faker::Lorem.paragraph )
+    course_creators = course.creators
+    course_creators.shuffle!
 
-      insert = "INSERT INTO attachments (media_file_name, media_content_type, media_file_size, media_updated_at, transcoding_status, created_at, updated_at, fileable_id, fileable_type) "
-      if rand > 0.5
-        values = "VALUES ('sample_mpeg5.mp4', 'vidoe/mp4', '245779', '2013-02-20 23:43:11', '1', '2013-02-20 23:43:11', '2013-02-20 23:43:11', '#{submission.id}', 'Submission')"
-      else
-        values = "VALUES ('MVI_5450.AVI', 'video/avi', '1425522', '2013-02-20 23:42:21', '1', '2013-02-20 23:42:21', '2013-02-20 23:42:21', '#{submission.id}', 'Submission')"
+    course_creators.length.times do |i|
+      # Most creators submit a project
+      if rand > 0.3
+        submission = project.submissions.create(:name => Faker::Lorem.words(rand(2..5)).map(&:capitalize).join(' '), :summary => Faker::Lorem.paragraph )
+        insert = "INSERT INTO attachments (media_file_name, media_content_type, media_file_size, media_updated_at, transcoding_status, created_at, updated_at, fileable_id, fileable_type) "
+        if rand > 0.5
+          values = "VALUES ('sample_mpeg5.mp4', 'vidoe/mp4', '245779', '2013-02-20 23:43:11', '1', '2013-02-20 23:43:11', '2013-02-20 23:43:11', '#{submission.id}', 'Submission')"
+        else
+          values = "VALUES ('MVI_5450.AVI', 'video/avi', '1425522', '2013-02-20 23:42:21', '1', '2013-02-20 23:42:21', '2013-02-20 23:42:21', '#{submission.id}', 'Submission')"
+        end
+        ActiveRecord::Base.connection.execute "#{insert}#{values}"
+        submission.creator = course_creators[i]
+        submission.save!
       end
-      ActiveRecord::Base.connection.execute "#{insert}#{values}"
     end
-
   end
 
 end

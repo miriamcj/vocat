@@ -18,6 +18,17 @@ class Course < ActiveRecord::Base
     "#{department}#{number} - #{name} - #{section}"
   end
 
+  # %n = number
+  # %c = name
+  # %s = section
+  # %d = department
+  def format(format)
+    out = format.gsub("%n", number.to_s)
+    out = out.gsub("%c", name)
+    out = out.gsub("%s", section)
+    out = out.gsub("%d", department)
+  end
+
   def role(user)
     return "administrator" if user.role? :admin
     return "creator" if creators.include? user
