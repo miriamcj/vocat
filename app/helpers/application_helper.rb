@@ -13,17 +13,34 @@ module ApplicationHelper
   end
 
   # LINK HELPERS
+  #
+  # Since we have namespaces tied to user roles, we can create shortcuts for the
+  # existing routes that figure out the namespace automatically
+  #
+  # For example, `evaluator_organization_project` => `organization_project` and
+  # `edit_admin_organization_project` => `edit_organization_project`
+  #
 
-  shallow_routes = %w(
-    organization_submission
-    organization_project
-  )
-  deep_routes = %w(
-    organization_course
-    organization_course_project
-    organization_course_project_submission
-    organization_course_project_submission_attachment
-  )
+  # Get a list of route names
+  names = Array.new
+  Rails.application.routes.named_routes.routes.each { |name, route| names << name.to_s }
+
+  # Remove namespace from route, and save old route
+  # with a '#' replacing the namespace
+  routes = Hash.new
+  names.each do |name|
+    val = name.gsub("admin", "#")
+    val = val.gsub("creator", "#")
+    val = val.gsub("evaluator", "#")
+    if val["_#_"]
+      key = val.gsub("_#_", "_")
+    else
+      key = val.gsub("#_", "")
+    end
+    if val["#"]
+      routes[key] = val
+    end
+  end
 
   %w(path url).each do |type|
 
@@ -32,35 +49,12 @@ module ApplicationHelper
       send "#{user.role}_organization_courses_#{type}", organization
     end
 
-    shallow_routes.each do |route|
-      # standard
+    # Define the link helper
+    routes.each do |route, namespace_route|
       define_method "#{route}_#{type}" do |*args|
-        send "#{current_user.role}_#{route}_#{type}", *args
-      end
-      # edit action
-      define_method "edit_#{route}_#{type}" do |*args|
-        send "edit_#{current_user.role}_#{route}_#{type}", *args
+        r = namespace_route.gsub("#", current_user.role)
+        send "#{r}_#{type}", *args
       end
     end
-
-    deep_routes.each do |route|
-      # standard
-      define_method "#{route}_#{type}" do |*args|
-        send "#{current_user.role}_#{route}_#{type}", *args
-      end
-      # new action
-      define_method "new_#{route}_#{type}" do |*args|
-        send "new_#{current_user.role}_#{route}_#{type}", *args
-      end
-      # edit action
-      define_method "edit_#{route}_#{type}" do |*args|
-        send "edit_#{current_user.role}_#{route}_#{type}", *args
-      end
-      # plural
-      define_method "#{route}s_#{type}" do |*args|
-        send "#{current_user.role}_#{route}s_#{type}", *args
-      end
-    end
-
   end
 end
