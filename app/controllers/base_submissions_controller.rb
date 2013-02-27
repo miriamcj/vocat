@@ -1,4 +1,4 @@
-class SubmissionsController < ApplicationController
+class BaseSubmissionsController < ApplicationController
   load_and_authorize_resource :organization
   load_and_authorize_resource :course, :through => :organization, :except => [:index]
   load_and_authorize_resource :project, :through => :course, :except => [:index]
@@ -14,8 +14,12 @@ class SubmissionsController < ApplicationController
       authorize! :read, @project
       @submissions = @project.submissions
     else
-      projects = Project.where(:course_id => @courses)
-      @submissions = Submission.where(:project_id => projects)
+      @projects = Project.where(:course_id => @courses)
+      unless current_user.role? :evaluator
+        @submissions = Submission.where(:project_id => @projects, :creator_id => current_user)
+      else
+        @submissions = Submission.where(:project_id => @projects)
+      end
     end
 
     respond_to do |format|
