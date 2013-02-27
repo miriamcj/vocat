@@ -44,6 +44,6 @@ Vocat::Application.routes.draw do
   devise_for :users, :controllers => {:registrations => "registrations"}
 
   # The root is really determined in ApplicationController::after_sign_in_path_for
-  root :to => 'organizations#index'
+  root :to => "application#index"
 
 end
