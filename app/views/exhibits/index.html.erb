@@ -1,0 +1,13 @@
+<% @exhibits.each do |exhibit| %>
+    <div class="well">
+      <strong><%= exhibit.course_name %></strong>
+      <h4><%= exhibit.project_name %></h4>
+      Creator: <%= exhibit.creator_name %><br>
+        <% if (exhibit.submission?) %>
+        Submission title: <%= exhibit.submission.name %><br>
+        Submission ID: <%= exhibit.submission.object_id %>
+        <% else %>
+        No submission has been saved for this user/project<br>
+        <% end %>
+    </div>
+<% end %>
