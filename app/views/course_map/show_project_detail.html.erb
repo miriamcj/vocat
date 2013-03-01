@@ -18,6 +18,7 @@
       <% if index == 0 %>
         <td colspan="<%= @current_course.projects.count %>" rowspan="<%= @current_course.creators.count %>">
           <div>
+            <%=  link_to 'close', creator_course_map_path %><br><br>
             <% @exhibits.each do |exhibit| %>
               <%= render 'exhibits/evaluatable_exhibit_detail', :exhibit => exhibit %>
             <% end %>

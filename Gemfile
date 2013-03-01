@@ -14,6 +14,9 @@ end
 
 gem 'jquery-rails'
 
+
+gem 'thin'
+
 # Hosting
 gem 'therubyracer'
 gem 'unicorn'

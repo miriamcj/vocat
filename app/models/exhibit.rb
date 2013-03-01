@@ -1,6 +1,7 @@
   class Exhibit
 
-    attr_accessor :project, :submission, :creator, :course_name, :index
+    attr_accessor :project, :submission, :creator, :course_name, :index, :course
+    delegate :creator, :to => :submission
 
     def self.find_by_course(course, options = {})
       exhibits = Array.new
@@ -56,7 +57,7 @@
     def self.find_by_course_creator_and_project(course, creator, project, options = {})
       options[:creators] = [ creator ]
       options[:projects] = [ project ]
-      self.find_by_course(course, options)
+      self.find_by_course(course, options).first
     end
 
     def self.find_by_course_and_project(course, project, options = {})
@@ -71,6 +72,8 @@
       @project = project
       @submission = submission
     end
+
+
 
     # We should delegate some methods on the exhibit to the underlying course, creator, project, and submission
     # instead of making explicit methods here. I just did it this way because I was short on time. --ZD

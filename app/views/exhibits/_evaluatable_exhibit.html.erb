@@ -2,8 +2,7 @@
 <h4><%= exhibit.project_name %></h4>
 Creator: <%= exhibit.creator_name %><br>
 <% if (exhibit.submission?) %>
-  Submission title: <%=  link_to exhibit.submission.name, creator_course_map_path %><br>
-  Submission ID: <%= exhibit.submission.object_id %>
+  Submission: <%=  link_to exhibit.submission.name, creator_course_map_submission_detail_path(:organization_id => current_user.organization, :course_id => exhibit.course.id, :creator_id => exhibit.submission.creator.id, :project_id => exhibit.project.id) %><br>
 <% else %>
   No submission has been saved for this user/project<br>
 <% end %>

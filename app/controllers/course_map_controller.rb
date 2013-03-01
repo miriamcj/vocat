@@ -9,7 +9,9 @@ class CourseMapController < ApplicationController
   end
 
   def show_submission_detail
-    @exhibit = Exhibit.find_by_course_creator_and_project(@current_course, params[:creator], params[:project])
+    project= Project.find(params[:project_id])
+    creator = User.find(params[:creator_id])
+    @exhibit = Exhibit.find_by_course_creator_and_project(@current_course, creator, project)
   end
 
   def show_project_detail
