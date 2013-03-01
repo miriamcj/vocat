@@ -1,23 +1,26 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :authenticate_user!
+  before_filter :get_organization_and_current_course
+
   check_authorization :unless => :devise_controller?
   skip_authorization_check
 
-  def index
-    if params[:organization_id]
-      organization = Organization.find(params[:organization_id])
-    elsif params[:organization] && params[:organization][:id]
-      organization = Organization.find(params[:organization][:id])
-    else
-      organization = Organization.first
+  def get_organization_and_current_course
+    if current_user
+      if params[:course_id]
+        @current_course = Course.find(params[:course_id])
+      end
+      @organization = current_user.organization
     end
-
-    redirect_to view_context.root_path_for current_user, organization
   end
 
-  def after_sign_in_path_for(user)
-    view_context.root_path_for user, Organization.find(params[:organization][:id])
+  def select_layout
+    if current_user.role? :evaluator
+      'evaluator'
+    else
+      'creator'
+    end
   end
 
 end

@@ -22,39 +22,39 @@ module ApplicationHelper
   #
 
   # Get a list of route names
-  names = Array.new
-  Rails.application.routes.named_routes.routes.each { |name, route| names << name.to_s }
-
-  # Remove namespace from route, and save old route
-  # with a '#' replacing the namespace
-  routes = Hash.new
-  names.each do |name|
-    val = name.gsub("admin", "#")
-    val = val.gsub("creator", "#")
-    val = val.gsub("evaluator", "#")
-    if val["_#_"]
-      key = val.gsub("_#_", "_")
-    else
-      key = val.gsub("#_", "")
-    end
-    if val["#"]
-      routes[key] = val
-    end
-  end
-
-  %w(path url).each do |type|
-
-    # root_path_for(user, organization) -> organization_courses
-    define_method "root_#{type}_for" do |user, organization|
-      send "#{user.role}_organization_courses_#{type}", organization
-    end
-
-    # Define the link helper
-    routes.each do |route, namespace_route|
-      define_method "#{route}_#{type}" do |*args|
-        r = namespace_route.gsub("#", current_user.role)
-        send "#{r}_#{type}", *args
-      end
-    end
-  end
+  #names = Array.new
+  #Rails.application.routes.named_routes.routes.each { |name, route| names << name.to_s }
+  #
+  ## Remove namespace from route, and save old route
+  ## with a '#' replacing the namespace
+  #routes = Hash.new
+  #names.each do |name|
+  #  val = name.gsub("admin", "#")
+  #  val = val.gsub("creator", "#")
+  #  val = val.gsub("evaluator", "#")
+  #  if val["_#_"]
+  #    key = val.gsub("_#_", "_")
+  #  else
+  #    key = val.gsub("#_", "")
+  #  end
+  #  if val["#"]
+  #    routes[key] = val
+  #  end
+  #end
+  #
+  #%w(path url).each do |type|
+  #
+  #  # root_path_for(user, organization) -> organization_courses
+  #  define_method "root_#{type}_for" do |user, organization|
+  #    send "#{user.role}_organization_courses_#{type}", organization
+  #  end
+  #
+  #  # Define the link helper
+  #  routes.each do |route, namespace_route|
+  #    define_method "#{route}_#{type}" do |*args|
+  #      r = namespace_route.gsub("#", current_user.role)
+  #      send "#{r}_#{type}", *args
+  #    end
+  #  end
+  #end
 end

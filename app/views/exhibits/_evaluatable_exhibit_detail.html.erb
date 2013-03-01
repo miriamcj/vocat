@@ -1,0 +1,9 @@
+<strong>This markup should change considerably to match the wireframes!</strong>
+<h4><%= exhibit.project_name %></h4>
+Creator: <%= exhibit.creator_name %><br>
+<% if (exhibit.submission?) %>
+  Submission title: <%=  link_to exhibit.submission.name, creator_course_map_path %><br>
+  Submission ID: <%= exhibit.submission.object_id %>
+<% else %>
+  No submission has been saved for this user/project<br>
+<% end %>

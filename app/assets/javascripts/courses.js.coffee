@@ -2,7 +2,7 @@ $ ->
   $('#course_select').change ->
     id = $(@).val()
     if id
-      re = /(courses\/)(\d)+/
+      re = /(course\/)(\d)+/
       # get url from data
       startUrl = $(@).data('url')
       # add course id within url? or just append it?

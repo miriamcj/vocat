@@ -1,0 +1,9 @@
+<% @exhibits.each do |exhibit| %>
+    <div class="well">
+      <% if can? :evaluate, exhibit %>
+        <%= render 'exhibits/evaluatable_exhibit', :exhibit => exhibit %>
+      <% else %>
+        <%= render 'exhibits/unevaluatable_exhibit', :exhibit => exhibit %>
+      <% end %>
+    </div>
+<% end %>

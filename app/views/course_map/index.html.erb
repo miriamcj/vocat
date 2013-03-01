@@ -1,0 +1,32 @@
+<table class="table table-hover table-bordered table-striped" >
+  <thead>
+    <tr>
+      <td></td>
+      <% @current_course.projects.each do |project| %>
+      <th>
+        <%=  link_to project.name, creator_course_map_project_detail_path(:project_id => project) %>
+      </th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @current_course.creators.each do |creator| %>
+      <tr>
+        <th>
+          <%=  link_to creator.name, creator_course_map_creator_detail_path(:creator_id => creator) %>
+        </th>
+        <% @current_course.projects.each do |project| %>
+          <% exhibit = find_exhibit(@exhibits, creator, project) %>
+          <td>
+            <% if exhibit.submission %>
+              <%=  link_to "Submission ID #{exhibit.submission.id}", creator_course_map_submission_detail_path(:creator_id => creator, :project_id => project) %>
+            <% else %>
+              0
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
