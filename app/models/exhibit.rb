@@ -45,7 +45,6 @@
     end
 
     def self.find_by_courses_and_creator(courses, creator, options = {})
-      creators = [ creator ]
       options[:creators] = [creator]
       exhibits = Array.new
       courses.each do |course|

@@ -19,8 +19,13 @@
         <td colspan="<%= @current_course.projects.count %>" rowspan="<%= @current_course.creators.count %>">
           <div>
             <%=  link_to 'close', creator_course_map_path %><br><br>
+            <% @current_course.projects.each do |project| %>
+              <div style="margin-bottom: 20px; margin-top: 20px;">
+                <%=  link_to project.name, creator_course_map_submission_detail_path(:creator_id => creator, :project_id => project) %>
+              </div>
+          <% end %>
             <% @exhibits.each do |exhibit| %>
-            <%= render 'exhibits/evaluatable_exhibit_detail', :exhibit => exhibit %>
+                <%= render 'exhibits/evaluatable_exhibit_detail', :exhibit => exhibit %>
             <% end %>
           </div>
         </td>

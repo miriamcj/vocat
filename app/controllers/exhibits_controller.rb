@@ -14,8 +14,9 @@ class ExhibitsController < ApplicationController
     if current_user.role? :evaluator
       @exhibits = Exhibit.find_by_courses(@courses, :require_submissions => true)
     else
-      @exhibits = Exhibit.find_by_courses_and_creator(@courses, :creators => [current_user])
+      @exhibits = Exhibit.find_by_courses_and_creator(@courses, current_user)
     end
+
   end
 
 
