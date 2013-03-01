@@ -1,9 +1,45 @@
-<strong><%= exhibit.course_name %></strong>
-<h4><%= exhibit.project_name %></h4>
-Creator: <%= exhibit.creator_name %><br>
-<% if (exhibit.submission?) %>
-  Submission title: <%= exhibit.submission.name %><br>
-  Submission ID: <%= exhibit.submission.object_id %>
-<% else %>
-  No submission has been saved for this user/project<br>
-<% end %>
+<div class="row">
+  <div class="exhibit-attachment span3">
+    <div class="with-white text-center" style="width: 100%; background-color: #e15a5a; padding: 75px 0; margin-bottom: 20px;">
+      <% if (exhibit.submission?) %>
+          Submission title: <%= exhibit.submission.name %><br>
+          Submission ID: <%= exhibit.submission.object_id %>
+      <% else %>
+          No submission has been saved for this user/project
+      <% end %>
+    </div>
+    <small class="with-gray">No Instructior Comments</small><br>
+    <small class="with-gray"><a href="#">3 Peer Comments</a></small>
+  </div>
+  <div class="exhibit-content span9">
+    <div class="row">
+      <div class="span7">
+        <h5><%= exhibit.course_name %></h5>
+        <h5>Creator: <%= exhibit.creator_name %></h5>
+        <h3><%= exhibit.project_name %></h3>
+      </div>
+      <div class="text-right span2">
+        <small class="with-gray">Unevaluated</small>
+      </div>
+    </div>
+    <ul class="unstyled evaluation-list">
+      <li class="row">
+        <div class="span8">
+          <div class="evaluation-box with-gray">Evaluation Category 1</div>
+        </div>
+        <div class="span1">
+          <div class="evaluation-box with-gray text-center">--</div>
+        </div>
+      </li>
+      <li class="row">
+        <div class="span8">
+          <div class="evaluation-box with-gray">Evaluation Category 1</div>
+        </div>
+        <div class="span1">
+          <div class="evaluation-box with-gray text-center">--</div>
+        </div>
+      </li>
+    </ul>
+    <a class="btn btn-mini" href="#">+ Expand details</a>
+  </div>
+</div>

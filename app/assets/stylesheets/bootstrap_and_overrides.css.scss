@@ -1,17 +1,46 @@
 @import "bootstrap";
 
+// Utilities
+// --------------------------
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.with-gray {
+  color:  $grayLight;
+}
+
+.with-gray-dark {
+  color:  $grayDark;
+}
+
+.with-white {
+  color:  $white;
+  a {
+    color: $white;
+  }
+}
+
+.with-block {
+  display: block;
+}
+
 // Global styles
 // --------------------------
 #main {
-	padding-top: 40px;
+  padding-top: 60px;
 }
 
 body {
-	padding-top: 120px;
+  //padding-top: 120px;
 }
 
 .navbar-inner {
-  background-color: #000 !important;
+  background-color: #222 !important;
   background-image: none;
 }
 
@@ -24,28 +53,62 @@ body {
   color: #C9C9C9;
 }
 
-.text-center {
-	text-align: center;
-}
-
 // Forms
 // --------------------------
 form {
-	margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 // Sign-in
 // --------------------------
 .signin-list {
-	a {
-		color: $grayLight;
-	}
-	li + li {
-		&:before {
-			content: "|\00a0\00a0\00a0";
-			color: $grayLight;
-		}
-	}
+  a {
+    color: $grayLight;
+  }
+  li + li {
+    &:before {
+      content: "|\00a0\00a0\00a0";
+      color: $grayLight;
+    }
+  }
+}
+
+// Adaptive navigation
+// --------------------------
+.nav-adaptive {
+  background-color: $grayLight;
+}
+
+// Exhibits
+// --------------------------
+.exhibit-attachment {
+
+}
+
+.exhibit-content {
+
+}
+
+.evaluation-list {
+  margin-bottom: 20px;
+  li + li {
+    margin-top: 10px;
+  }
+}
+
+.evaluation-wrapper {
+  background-color: darken($grayLighter, 10%);
+}
+
+.evaluation-box {
+  background-color: darken($grayLighter, 10%);
+  padding: 10px 20px;
+  &.evaluated {
+    background-color: darken($grayLighter, 20%);
+  }
+  &.unevaluated {
+
+  }
 }
 
 @import "bootstrap-responsive";
