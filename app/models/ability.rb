@@ -43,6 +43,7 @@ class Ability
       end
 
       # Revoke creator-only privileges
+      can :evaluate,    [Submission, Exhibit, Course]
       cannot :create,   [Submission, Attachment]
       cannot :destroy,  [Submission, Attachment]
       cannot :update,   [Submission, Attachment]

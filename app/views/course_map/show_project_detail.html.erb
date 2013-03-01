@@ -1,0 +1,30 @@
+<table class="table table-hover table-bordered table-striped" >
+  <thead>
+  <tr>
+    <td></td>
+    <% @current_course.projects.each do |project| %>
+      <th>
+        <%=  link_to project.name, creator_course_map_project_detail_path(:project_id => project) %>
+      </th>
+    <% end %>
+  </tr>
+  </thead>
+  <tbody>
+  <% @current_course.creators.each_with_index do |creator, index| %>
+    <tr>
+      <th>
+        <%=  link_to creator.name, creator_course_map_creator_detail_path(:creator_id => creator) %>
+      </th>
+      <% if index == 0 %>
+        <td colspan="<%= @current_course.projects.count %>" rowspan="<%= @current_course.creators.count %>">
+          <div>
+            <% @exhibits.each do |exhibit| %>
+              <%= render 'exhibits/evaluatable_exhibit_detail', :exhibit => exhibit %>
+            <% end %>
+          </div>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

@@ -1,23 +1,14 @@
-<% if @organization %>
-  <%= link_to "VOCAT", organization_courses_path(@organization), :class => 'brand' %>
+<% if current_user && current_user.organization %>
+  <%= link_to "VOCAT", root_path, :class => 'brand' %>
 <% else %>
   <%= link_to "VOCAT", root_path, :class => 'brand' %>
 <% end %>
 <ul class="nav">
-  <% if @courses && @organization%>
     <li>
       <div class="navbar-form">
         <%= yield :course_selector %>
       </div>
     </li>
-  <% end %>
-</ul>
-<ul class="nav">
-  <li>
-    <% if user_signed_in? %>
-      <p class="navbar-text"><%= current_user.role %></p>
-    <% end %>
-  </li>
 </ul>
 <ul class="nav pull-right">
   <li>
