@@ -17,4 +17,9 @@
 //= require jquery.iframe-transport
 //= require jquery.fileupload
 //= require chosen-jquery
+//= require underscore
+//= require backbone
+//= require backbone_rails_sync
+//= require backbone_datalink
+//= require backbone/vocat
 //= require_tree .

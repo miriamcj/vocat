@@ -61,6 +61,7 @@ GEM
       orm_adapter (~> 0.1)
       railties (~> 3.1)
       warden (~> 1.2.1)
+    ejs (1.0.0)
     erubis (2.7.0)
     eventmachine (1.0.1)
     execjs (1.4.0)
@@ -109,6 +110,10 @@ GEM
       activesupport (= 3.2.11)
       bundler (~> 1.0)
       railties (= 3.2.11)
+    rails-backbone (0.7.2)
+      coffee-script (~> 2.2.0)
+      ejs (~> 1.0.0)
+      railties (>= 3.1.0)
     railties (3.2.11)
       actionpack (= 3.2.11)
       activesupport (= 3.2.11)
@@ -175,6 +180,7 @@ DEPENDENCIES
   paperclip (~> 3.4.0)
   quiet_assets
   rails (= 3.2.11)
+  rails-backbone
   sass-rails (~> 3.2.3)
   simple_form
   therubyracer

@@ -10,6 +10,9 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
   <%= yield(:head) %>
+  <script type="text/javascript">
+  <%= yield(:backbone_bootstrap) %>
+  </script>
 </head>
 <body>
 <header class="navbar navbar-static-top">
