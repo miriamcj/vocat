@@ -25,6 +25,10 @@
   }
 }
 
+.with-blue {
+  color: #3a87ad !important;
+}
+
 .with-block {
   display: block;
 }
@@ -109,6 +113,48 @@ form {
   &.unevaluated {
 
   }
+}
+
+// Adaptive navigation
+// --------------------------
+.course-map-table {
+  th {
+    font-weight: normal;
+    vertical-align: middle;
+    background-color: $grayLighter;
+  }
+  .badge {
+    margin-top: 6px;
+  }
+}
+
+.exhibit-link,
+.exhibit-link-unsubmitted {
+  display: block;
+  width: 50px;
+  float: left;
+  margin-right: 20px;
+}
+
+.exhibit-link {
+  background-color: #e15a5a;
+  color: #fff;
+  text-align: center;
+  padding:  5px 0 6px;
+}
+
+.exhibit-link-unsubmitted {
+  height: 31px;
+  background-color: $grayLight;
+}
+
+.exhibit-score {
+  width: 40px;
+  text-align: center;
+  line-height: 31px;
+  color: $grayLight;
+  float: left;
+  margin: 0 20px 0 0;
 }
 
 @import "bootstrap-responsive";

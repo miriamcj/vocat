@@ -1,4 +1,4 @@
-<table class="table table-hover table-bordered table-striped" >
+<table class="table table-bordered course-map-table" >
   <thead>
     <tr>
       <td></td>
@@ -19,10 +19,14 @@
           <% exhibit = find_exhibit(@exhibits, creator, project) %>
           <td>
             <% if exhibit.submission %>
-              <%=  link_to "Submission ID #{exhibit.submission.id}", creator_course_map_submission_detail_path(:creator_id => creator, :project_id => project) %>
+              <%=  link_to "#{exhibit.submission.id}", creator_course_map_submission_detail_path(:creator_id => creator, :project_id => project), :class => "exhibit-link" %>
+              <h5 class="exhibit-score">60%</h5>
+              <b class="badge badge-info">&#8203;</b>
             <% else %>
-              0
-            <% end %>
+              <div class="exhibit-link-unsubmitted"></div>
+              <h5 class="exhibit-score">--</h5>
+              <b class="badge">&#8203;</b>
+          <% end %>
           </td>
         <% end %>
       </tr>
