@@ -1,3 +1,7 @@
+// Variables
+// --------------------------
+$blueLight: #c4dae6;
+
 @import "bootstrap";
 
 // Utilities
@@ -25,8 +29,52 @@
   }
 }
 
+.with-blue {
+  color: #3a87ad !important;
+}
+
 .with-block {
   display: block;
+}
+
+.with-trim {
+  border-bottom: 1px solid $grayLight;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+
+}
+
+.with-space {
+  margin-bottom: 20px;
+}
+
+// Placeholders
+// --------------------------
+%placeholder {
+  display: inline-block;
+  width: 100%;
+  padding: 31% 0;
+  margin-bottom: 20px;
+  color: $white;
+  text-align: center;
+  a {
+    color: $white;
+  }
+}
+
+.placeholder {
+  @extend %placeholder;
+  background-color: #999;
+}
+
+.placeholder-red {
+  @extend %placeholder;
+  background-color: #e15a5a;
+}
+
+.placeholder-blue {
+  @extend %placeholder;
+  background-color: #c4dae6;
 }
 
 // Global styles
@@ -110,5 +158,67 @@ form {
 
   }
 }
+
+// Course map index
+// --------------------------
+.course-map-table {
+  th {
+    font-weight: normal;
+    vertical-align: middle;
+    background-color: $grayLighter;
+    padding: 13px 8px;
+    &.active {
+      background-color: $grayLight;
+      a {
+        color: $white;
+      }
+    }
+  }
+  .badge {
+    margin-top: 6px;
+  }
+  .close {
+    position: absolute;
+    top: 0;
+    right: 15px;
+  }
+}
+
+.course-map-overlay {
+  width: 940px;
+}
+
+.exhibit-link,
+.exhibit-link-unsubmitted {
+  display: block;
+  width: 50px;
+  float: left;
+  margin-right: 20px;
+}
+
+.exhibit-link {
+  background-color: #e15a5a;
+  color: #fff;
+  text-align: center;
+  padding:  5px 0 6px;
+}
+
+.exhibit-link-unsubmitted {
+  height: 31px;
+  background-color: $grayLight;
+}
+
+.exhibit-score {
+  width: 40px;
+  text-align: center;
+  line-height: 31px;
+  color: $grayLight;
+  float: left;
+  margin: 0 20px 0 0;
+}
+
+// Course map creator
+// --------------------------
+
 
 @import "bootstrap-responsive";
