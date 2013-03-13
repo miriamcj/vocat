@@ -1,41 +1,47 @@
-<h2>Sign up</h2>
+<div class="span4 offset4">
+  <h2 class="text-center">Sign up</h2>
+</div>
+<div class="well span4 offset4">
+  <%= render 'layouts/messages' %>
+  <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+    <%= devise_error_messages! %>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+    <div>
+      <label><%= f.label :email %></label>
+      <%= f.email_field :email, :class => "span4", :autofocus => true %>
+    </div>
 
-  <div class="field">
-    <label><%= f.label :email %></label>
-    <%= f.email_field :email, :autofocus => true %>
-  </div>
+    <div>
+      <label><%= f.label :password %></label>
+      <%= f.password_field :password, :class => "span4" %>
+    </div>
 
-  <div class="field">
-    <label><%= f.label :password %></label>
-    <%= f.password_field :password %>
-  </div>
+    <div>
+      <label><%= f.label :password_confirmation %></label>
+      <%= f.password_field :password_confirmation, :class => "span4" %>
+    </div>
 
-  <div class="field">
-    <label><%= f.label :password_confirmation %></label>
-    <%= f.password_field :password_confirmation %>
-  </div>
+    <div style="margin-bottom: 20px;">
+      <label style="margin-bottom: 0px;">Role</label>
+      <% User::ROLES.each do |role| %>
+        <label class="radio inline">
+          <%= radio_button(:resource, :role, role) %> <%= role %>
+        </label>
+      <% end %>
+    </div>
 
-  <div class="field">
-    <label>Role</label>
-    <% User::ROLES.each do |role| %>
-      <label class="radio">
-        <%= radio_button(:resource, :role, role) %> <%= role %>
-      </label>
-    <% end %>
-  </div>
+    <div style="margin-bottom: 10px;">
+      <label>Organization</label>
+      <%= collection_select(:organization, :id, Organization.all, :id, :name)  %>
+    </div>
 
-  <div class="field">
-    <label>Organization</label>
-    <%= collection_select(:organization, :id, Organization.all, :id, :name)  %>
-  </div>
+    <div>
+      <%= f.submit "Sign up", :class => "btn btn-primary"%>
+    </div>
+  <% end %>
 
+</div>
 
-  <div class="form-actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+<div class="span4 offset4">
+  <%= render "devise/shared/links" %>
+</div>

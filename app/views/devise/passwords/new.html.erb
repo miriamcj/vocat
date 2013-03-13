@@ -1,5 +1,5 @@
 <div class="span4 offset4">
-  <h2 class="text-center">Forgot your password?</h2>
+  <h2 class="text-center">Reset Password</h2>
 </div>
 <div class="well span4 offset4">
   <%= render 'layouts/messages' %>
@@ -7,7 +7,7 @@
     <%= devise_error_messages! %>
 
     <div>
-      <%= f.email_field :email, :autofocus => true, :placeholder => "Your email address" %>
+      <%= f.email_field :email, :autofocus => true, :class => "span4", :placeholder => "Your email address" %>
     </div>
     <div>
       <%= f.submit "Send me reset password instructions", :class => "btn btn-primary" %>
