@@ -1,7 +1,8 @@
 <div class="span4 offset4">
-	<h2 class="text-center">Sign in</h2>  
+	<h2 class="text-center">Sign in</h2>
 </div>
 <div class="well span4 offset4">
+  <%= render 'layouts/messages' %>
 	<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
 		<div><%= f.email_field :email, :autofocus => true, :class => "span4", :placeholder => "Email" %></div>
 

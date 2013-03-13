@@ -4,6 +4,7 @@
 #= require_tree ./views
 #= require_tree ./routers
 
+
 window.Vocat = {
 	Bootstrap: {
 		Views: {}
@@ -18,3 +19,4 @@ window.Vocat = {
 	Routers: {}
 	Views: {}
 }
+
