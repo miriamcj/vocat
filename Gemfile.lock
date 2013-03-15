@@ -34,8 +34,6 @@ GEM
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
     bcrypt-ruby (3.0.1)
-    bootstrap-sass (2.3.0.1)
-      sass (~> 3.2)
     builder (3.0.4)
     cancan (1.6.9)
     chosen-rails (0.9.11.2)
@@ -172,7 +170,6 @@ PLATFORMS
 
 DEPENDENCIES
   aws-sdk (~> 1.8.1)
-  bootstrap-sass
   cancan
   chosen-rails
   coffee-rails (~> 3.2.1)

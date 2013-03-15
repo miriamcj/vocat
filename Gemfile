@@ -28,7 +28,7 @@ gem "paperclip", "~> 3.4.0"
 gem "aws-sdk", "~> 1.8.1"
 gem "delayed_job_active_record"
 
-gem "bootstrap-sass"
+#gem "bootstrap-sass"
 gem "chosen-rails"
 gem "quiet_assets"
 gem "cancan"
