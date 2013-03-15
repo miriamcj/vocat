@@ -4,8 +4,16 @@ class Vocat.Views.ExhibitList extends Backbone.View
 
 	initialize: (options) ->
 		@exhibitCollection = window.Vocat.Instantiated.Collections.Exhibit
-		console.log @exhibitCollection.first()
+		@role = @$el.data('role')
 		@render()
 
 	render: () ->
-		$(@el).html(@template())
+		@$el.html(@template({}))
+		@exhibitCollection.each( (exhibit) =>
+			if @role == 'creator'
+				childView = new Vocat.Views.UnevaluatableExhibit({model: exhibit})
+			else
+				childView = new Vocat.Views.EvaluatableExhibit({model: exhibit})
+			@$el.append(childView.render())
+
+		)

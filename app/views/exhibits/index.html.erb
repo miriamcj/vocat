@@ -1,5 +1,5 @@
 
-<div data-view="ExhibitList">
+<div data-view="ExhibitList" data-role="<%= current_user.role %>">
   <% content_for :backbone_bootstrap do %>
     window.Vocat.Bootstrap.Collections.Exhibit = <%= j @exhibits.to_json.html_safe %>
   <% end %>

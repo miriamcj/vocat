@@ -28,6 +28,14 @@ class User < ActiveRecord::Base
     ROLES.index(base_role.to_s) <= ROLES.index(role)
   end
 
+  def has_courses
+    if self.courses.count() > 0
+      true
+    else
+      false
+    end
+  end
+
   def courses
     creator_courses + assistant_courses + evaluator_courses
   end

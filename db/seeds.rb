@@ -38,7 +38,6 @@ courses << baruch.courses.create(:name => "Introduction to World Literature", :d
 courses << baruch.courses.create(:name => "Native American Women Writers", :department => "ENG", :number => "367U", :section => random_section, :description => Faker::Lorem.paragraph)
 courses << baruch.courses.create(:name => "Practical Grammar", :department => "ENG", :number => "425", :section => random_section, :description => Faker::Lorem.paragraph)
 
-
 # Create sample users
 evaluators = Array.new
 assistants = Array.new

@@ -5,6 +5,13 @@
   ) %>
 <% end %>
 
+<% content_for :backbone_bootstrap do %>
+  $(function() {
+  window.router = new Vocat.Routers.AppRouter();
+  window.router.initalize({})
+  });
+<% end %>
+
 <% content_for :adaptive_navigation do %>
 <nav class="nav-adaptive">
   <div class="container">

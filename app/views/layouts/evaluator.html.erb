@@ -1,8 +1,10 @@
 <% content_for :course_selector do %>
+  <% if current_user.has_courses %>
   <%= collection_select(
           :current_course, :id, current_user.evaluator_courses, :id, :to_s, {:include_blank => "All of my courses"},
           :id => "course_select", :data => {:url => creator_course_overview_path(@organization.id, current_user.courses.first)}
       ) %>
+  <% end %>
 <% end %>
 
 <% content_for :backbone_bootstrap do %>
