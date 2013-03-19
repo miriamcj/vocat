@@ -17,22 +17,29 @@
 <body>
 <header class="navbar navbar-static-top">
   <nav class="navbar-inner">
-	<div class="container">
-	  <%= render 'layouts/navigation' %>
-	</div>
+    <div class="container">
+      <% if current_user && current_user.organization %>
+        <%= link_to "VOCAT", root_path, :class => 'brand' %>
+      <% else %>
+        <%= link_to "VOCAT", root_path, :class => 'brand' %>
+      <% end %>
+    </div>
+  </nav>
+  <nav class="navbar-inner">
+    <div class="container">
+      <%= render 'layouts/navigation' %>
+    </div>
   </nav>
   <%= yield(:adaptive_navigation) %>
 </header>
 <div id="main" role="main">
   <div class="container">
-	<div class="content">
-	  <div class="row">
-		  <%= render 'layouts/messages' %>
-		  <%= yield %>
+  	<div class="row">
+      <div class="span12">
+        <%= render 'layouts/messages' %>
+        <%= yield %>
+      </div>
 	  </div>
-	  <footer>
-	  </footer>
-	</div>
   </div> <!--! end of .container -->
 </div> <!--! end of #main -->
 </body>
