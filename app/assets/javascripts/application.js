@@ -17,9 +17,13 @@
 //= require jquery.fileupload
 //= require chosen-jquery
 //= require underscore
+//= require handlebars.runtime
 //= require backbone
 //= require backbone_rails_sync
 //= require backbone_datalink
 //= require backbone/plugins/backbone-relational
 //= require backbone/vocat
 //= require_tree .
+
+
+

@@ -10,6 +10,7 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
+  gem 'handlebars_assets'
 end
 
 gem 'jquery-rails'
@@ -28,7 +29,7 @@ gem "paperclip", "~> 3.4.0"
 gem "aws-sdk", "~> 1.8.1"
 gem "delayed_job_active_record"
 
-#gem "bootstrap-sass"
+gem "bootstrap-sass"
 gem "chosen-rails"
 gem "quiet_assets"
 gem "cancan"

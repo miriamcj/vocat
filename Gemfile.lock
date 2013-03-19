@@ -34,6 +34,8 @@ GEM
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
     bcrypt-ruby (3.0.1)
+    bootstrap-sass (2.3.0.1)
+      sass (~> 3.2)
     builder (3.0.4)
     cancan (1.6.9)
     chosen-rails (0.9.11.2)
@@ -69,6 +71,10 @@ GEM
       multi_json (~> 1.0)
     faker (1.1.2)
       i18n (~> 0.5)
+    handlebars_assets (0.12.0)
+      execjs (>= 1.2.9)
+      sprockets (>= 2.0.3)
+      tilt
     hike (1.2.1)
     i18n (0.6.4)
     journey (1.0.4)
@@ -170,12 +176,14 @@ PLATFORMS
 
 DEPENDENCIES
   aws-sdk (~> 1.8.1)
+  bootstrap-sass
   cancan
   chosen-rails
   coffee-rails (~> 3.2.1)
   delayed_job_active_record
   devise
   faker
+  handlebars_assets
   jquery-rails
   mysql2
   paperclip (~> 3.4.0)

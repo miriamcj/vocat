@@ -1,9 +1,12 @@
 class Vocat.Views.UnevaluatableExhibit extends Backbone.View
 
-	template: JST["backbone/templates/unevaluatable_exhibit"]
+	template: HBT["backbone/templates/unevaluatable_exhibit"]
 
 	initialize: (options) ->
 		@role = 'creator'
 
 	render: () ->
-		$(@el).html(@template({exhibit: @model}))
+    context = {
+      exhibit: @model.toJSON()
+    }
+    @$el.html(@template(context))

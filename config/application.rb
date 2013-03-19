@@ -9,6 +9,10 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
+if defined?(HandlebarsAssets)
+  HandlebarsAssets::Config.template_namespace = 'HBT'
+end
+
 module Vocat
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.

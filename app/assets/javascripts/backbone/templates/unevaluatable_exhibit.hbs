@@ -1,15 +1,16 @@
+{{debug exhibit.submission level="warn" label="exhibit submission"}}
 <div class="well row">
   <div class="row" xmlns="http://www.w3.org/1999/html">
     <div class="exhibit-attachment span3">
-      <% if (exhibit.get('submission')) { %>
+      {{#if exhibit.submission}}
           <div class="placeholder-red">
             Submission: LINK TO SUBMISSION
           </div>
-      <% } else { %>
+      {{else}}
           <div class="placeholder">
             No submission has been saved for this user/project
           </div>
-      <% } %>
+      {{/if}}
       <div style="margin-bottom: 20px;">
         <small class="with-gray">No Instructior Comments</small><br>
         <small class="with-gray"><a href="#">3 Peer Comments</a></small>
@@ -19,13 +20,16 @@
     <div class="exhibit-content span9">
       <div class="row">
         <div class="span7">
-          <h5><a href="#"><%= exhibit.get('course_name') %></a></h5>
-          <h5>Creator: <a href="#"><%= exhibit.get('creator_name') %></a></h5>
-          <h3><a href="#"><%= exhibit.get('project_name') %></a></h3>
+          <h5><a href="#">{{exhibit.course.name}}</a></h5>
+          <h5>Creator: <a href="#">{{exhibit.creator.name}}</a></h5>
+          <h3><a href="#">{{exhibit.project.name}}</a></h3>
         </div>
         <div class="text-right span2">
+          {{#if exhibit.submission.evaluated}}
           <small class="with-gray with-block">Unevaluated <b class="badge">&#8203;</b></small>
-          <!--<small class="with-gray with-block">Evaluated <b class="badge badge-info">&#8203;</b></small>-->
+          {{else}}
+          <small class="with-gray with-block">Evaluated <b class="badge badge-info">&#8203;</b></small>
+          {{/if}}
         </div>
       </div>
       <ul class="unstyled evaluation-list with-gray-dark">
