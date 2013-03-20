@@ -1,5 +1,7 @@
 module ApplicationHelper
 
+  require 'active_support'
+
   def form_errors(resource)
     return unless resource.errors.messages.length > 0
     if resource.errors.messages.length == 1
@@ -11,6 +13,15 @@ module ApplicationHelper
     list = content_tag :ul, errors, nil, false
     content_tag :div, p+list, :class => "alert alert-error"
   end
+
+  def bootstrap(models)
+    out = []
+    models.each do |model|
+      out << model.as_json
+    end
+    out.to_json.html_safe
+  end
+
 
   # LINK HELPERS
   #

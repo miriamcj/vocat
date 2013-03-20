@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.11'
+gem "active_model_serializers", "~> 0.7.0"
 
 gem 'mysql2'
 

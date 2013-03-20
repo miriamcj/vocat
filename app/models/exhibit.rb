@@ -1,7 +1,10 @@
   class Exhibit
 
-    attr_accessor :project, :submission, :creator, :course_name, :index, :course
+    attr_accessor :project, :submission, :creator, :course, :id
     delegate :creator, :to => :submission
+    delegate :code, :to => :course, :prefix => true
+    delegate :name, :to => :course, :prefix => true
+
 
     def self.find_by_course(course, options = {})
       exhibits = Array.new
@@ -65,31 +68,27 @@
     end
 
     def initialize(course, creator, project, submission = nil)
-      @index = "#{project.id}#{creator.id}".to_i
+      @id = SecureRandom.uuid
       @course = course
       @creator = creator
       @project = project
       @submission = submission
     end
 
-
-
-    # We should delegate some methods on the exhibit to the underlying course, creator, project, and submission
-    # instead of making explicit methods here. I just did it this way because I was short on time. --ZD
-    def course_name
-      "#{@course.department} #{@course.number}: #{@course.name} [#{@course.id}]"
-    end
-
     def submission?
       !submission == nil?
     end
 
-    def creator_name
-      @creator.name
+    def as_json(options = nil)
+      {
+          id: @id,
+          project: ProjectSerializer.new(@project).as_json[:project],
+          submission: SubmissionSerializer.new(@submission).as_json[:submission],
+          creator: CreatorSerializer.new(@creator).as_json[:creator],
+          course: CourseSerializer.new(@course).as_json[:course],
+      }
     end
 
-    def project_name
-      @project.name
-    end
+
 
   end

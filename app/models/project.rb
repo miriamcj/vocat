@@ -7,4 +7,5 @@ class Project < ActiveRecord::Base
   def submission_by_user(user)
     submissions.where(:creator_id => user.id).first
   end
+
 end
