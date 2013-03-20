@@ -36,6 +36,8 @@ gem "quiet_assets"
 gem "cancan"
 gem "faker"
 gem "simple_form"
+gem "js-routes"
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
