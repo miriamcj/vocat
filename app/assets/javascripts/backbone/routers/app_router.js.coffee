@@ -8,6 +8,7 @@ class Vocat.Routers.AppRouter extends Backbone.Router
 		@bootstrapCollections()
 		@createViews()
 
+
 	bootstrapCollections: () ->
 		_.each(window.Vocat.Bootstrap.Collections, (collectionData, collectionName) =>
 			if window.Vocat.Instantiated.Collections[collectionName]?
@@ -20,6 +21,14 @@ class Vocat.Routers.AppRouter extends Backbone.Router
 		$('[data-view]').each((i, el) =>
 			$el = $(el)
 			viewName = $el.attr('data-view')
-			window.Vocat.Instantiated.Views[viewName] = new Vocat.Views[viewName]({el: $(el)})
+			if window.Vocat.Bootstrap.Views[viewName]?
+				options = window.Vocat.Bootstrap.Views[viewName]
+			else
+				options = {}
+
+			options.el = $(el)
+			console.log options
+			window.Vocat.Instantiated.Views[viewName] = new Vocat.Views[viewName](options)
+			console.log window.Vocat.Instantiated.Views[viewName]
 		)
 

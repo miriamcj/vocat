@@ -6,13 +6,13 @@ class ExhibitsController < ApplicationController
 
     @courses = [@current_course] if @current_course else @courses = current_user.courses
 
-    # TODO: Replace role check with CanCan ability check
     if current_user.role? :evaluator
+      @current_user_role = 'not_owner'
       @exhibits = Exhibit.find_by_courses(@courses, :require_submissions => true)[0,5]
     else
+      @current_user_role = 'owner'
       @exhibits = Exhibit.find_by_courses_and_creator(@courses, current_user)[0,5]
     end
-    true
 
   end
 

@@ -1,7 +1,9 @@
-<div data-view="ExhibitList" data-role="<%= current_user.role %>">
+<div data-view="ExhibitList">
   <% content_for :backbone_bootstrap do %>
-    window.Vocat.Bootstrap.Collections.Exhibit = <%= bootstrap @exhibits %>
-    console.log(window.Vocat.Bootstrap.Collections.Exhibit)
+    window.Vocat.Bootstrap.Collections.Exhibit = <%= bootstrap @exhibits %>;
+    window.Vocat.Bootstrap.Views.ExhibitList = {
+      currentUserRole: '<%= @current_user_role %>'
+    };
   <% end %>
 </div>
 
