@@ -94,7 +94,6 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.21)
     multi_json (1.6.1)
-    mysql2 (0.3.11)
     nokogiri (1.5.6)
     orm_adapter (0.4.0)
     paperclip (3.4.1)
@@ -103,6 +102,7 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.0)
       mime-types
+    pg (0.14.1)
     polyglot (0.3.3)
     quiet_assets (1.0.2)
       railties (>= 3.1, < 5.0)
@@ -191,8 +191,8 @@ DEPENDENCIES
   handlebars_assets
   jquery-rails
   js-routes
-  mysql2
   paperclip (~> 3.4.0)
+  pg
   quiet_assets
   rails (= 3.2.11)
   rails-backbone
