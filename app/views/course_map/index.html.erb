@@ -4,7 +4,7 @@
       <td></td>
       <% @current_course.projects.each do |project| %>
       <th>
-        <%=  link_to project.name, creator_course_map_project_detail_path(:project_id => project) %>
+        <%=  link_to project.name, course_map_project_detail_path(:organization_id => @organization.id, :course_id => @current_course.id, :project_id => project.id) %>
       </th>
       <% end %>
     </tr>
@@ -13,13 +13,13 @@
     <% @current_course.creators.each do |creator| %>
       <tr>
         <th>
-          <%=  link_to creator.name, creator_course_map_creator_detail_path(:creator_id => creator) %>
+          <%=  link_to creator.name, course_map_creator_detail_path(:organization_id => @organization.id, :course_id => @current_course.id, :creator_id => creator) %>
         </th>
         <% @current_course.projects.each do |project| %>
           <% exhibit = find_exhibit(@exhibits, creator, project) %>
           <td>
             <% if exhibit.submission %>
-              <%=  link_to "#{exhibit.submission.id}", creator_course_map_submission_detail_path(:creator_id => creator, :project_id => project), :class => "exhibit-link" %>
+              <%=  link_to "#{exhibit.submission.id}", course_map_submission_detail_path(:organization_id => @organization.id, :course_id => @current_course.id, :creator_id => creator, :project_id => project), :class => "exhibit-link" %>
               <h5 class="exhibit-score">60%</h5>
               <b class="badge badge-info">&#8203;</b>
             <% else %>

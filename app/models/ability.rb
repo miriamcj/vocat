@@ -21,6 +21,7 @@ class Ability
       end
 
       # Set creator privileges as normal
+      can :evaluate,    [Submission, Exhibit, Course]
       can :read,        [Organization, Course, Project]
       can :manage,      [Submission, Attachment]
       cannot :destroy,  [Submission, Attachment]
