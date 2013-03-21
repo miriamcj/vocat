@@ -18,7 +18,8 @@ Vocat::Application.routes.draw do
   match "/org/:organization_id/course/:course_id/course_map/creator/:creator_id" => "course_map#show_creator_detail", :via => :get, :as => "creator_course_map_creator_detail"
   match "/org/:organization_id/course/:course_id/course_map/project/:project_id" => "course_map#show_project_detail", :via => :get, :as => "creator_course_map_project_detail"
 
-  get  "static/form"         => "static#form"
+  get  "static/form"                => "static#form"
+  get  "static/submission_detail"   => "static#submission_detail"
 
   devise_for :users, :controllers => {:registrations => "registrations"}
 
