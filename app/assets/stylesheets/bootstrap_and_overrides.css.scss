@@ -4,6 +4,62 @@ $blueLight: #c4dae6;
 
 @import "bootstrap";
 
+// Custom grid
+// --------------------------
+%grid {
+  float: left;
+}
+
+.grid10 {
+  @extend %grid;
+  width: 10%;
+}
+
+.grid20 {
+  @extend %grid;
+  width: 20%;
+}
+
+.grid30 {
+  @extend %grid;
+  width: 30%;
+}
+
+.grid40 {
+  @extend %grid;
+  width: 40%;
+}
+
+.grid50 {
+  @extend %grid;
+  width: 50%;
+}
+
+.grid60 {
+  @extend %grid;
+  width: 60%;
+}
+
+.grid70 {
+  @extend %grid;
+  width: 70%;
+}
+
+.grid80 {
+  @extend %grid;
+  width: 80%;
+}
+
+.grid90 {
+  @extend %grid;
+  width: 90%;
+}
+
+.grid100 {
+  @extend %grid;
+  width: 100%;
+}
+
 // Utilities
 // --------------------------
 .text-center {
@@ -48,6 +104,15 @@ $blueLight: #c4dae6;
   margin-bottom: 20px;
 }
 
+.with-left-space {
+  margin-left: 15px;
+}
+
+.with-padding {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
 // Placeholders
 // --------------------------
 %placeholder {
@@ -75,6 +140,24 @@ $blueLight: #c4dae6;
 .placeholder-blue {
   @extend %placeholder;
   background-color: #c4dae6;
+}
+
+// Portrait placeholder
+// --------------------------
+%portrait {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+}
+
+.portrait-green {
+  @extend %portrait;
+  background-color: $green;
+}
+
+.portrait-blue {
+  @extend %portrait;
+  background-color: $blueLight;
 }
 
 // Global styles
@@ -221,8 +304,68 @@ form {
   margin: 0 20px 0 0;
 }
 
-// Course map creator
+// Creator submission detail
 // --------------------------
+.creator-submission--annotations {
+  height: 399px;
+  background-color: $white;
+}
 
+.annotations--list {
+  height: 357px;
+  padding: 0 15px;
+  overflow: scroll;
+  li {
+    background-color: darken($grayLighter, 10%);
+    padding: 10px;
+    margin-bottom: 15px;
+  }
+  .active {
+    background-color: $blueLight;
+  }
+}
+
+.comment-list {
+  li {
+    background-color: $white;
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+}
+
+// Scores
+// --------------------------
+.score-sublist {
+  li {
+    margin-bottom: 10px;
+  }
+}
+
+%score-list--item {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.score-bar {
+  background-color: darken($grayLighter, 10%);
+}
+
+.score-bar--highlight {
+  @extend %score-list--item;
+  color: $white;
+  background-color: $grayLight;
+  padding-left: 10px;
+}
+
+.score-value {
+  @extend %score-list--item;
+  text-align: center;
+  background-color: darken($grayLighter, 10%);
+}
+
+.score-total {
+  text-align: center;
+  background-color: $blueLight;
+}
 
 @import "bootstrap-responsive";
