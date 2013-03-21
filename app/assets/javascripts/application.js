@@ -25,6 +25,7 @@
 //= require backbone/plugins/backbone-relational
 //= require backbone/vocat
 //= require_tree .
+//= require_popcorn/popcorn-complete
 
 
 
