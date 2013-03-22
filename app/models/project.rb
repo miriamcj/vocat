@@ -8,4 +8,9 @@ class Project < ActiveRecord::Base
     submissions.where(:creator_id => user.id).first
   end
 
+  def allows_peer_review()
+    # TODO: Replace this with a project configuration check
+    return true
+  end
+
 end

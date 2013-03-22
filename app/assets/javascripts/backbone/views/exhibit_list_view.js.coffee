@@ -1,11 +1,7 @@
-class Vocat.Views.ExhibitList extends Backbone.View
-
-	# Roles can be owner or not_owner
-	currentUserRole: 'not_owner'
+class Vocat.Views.ExhibitList extends Vocat.Views.AbstractView
 
 	initialize: (options) ->
-		@organizationId = options.organizationId
-		if options.currentUserRole? then @currentUserRole = options.currentUserRole
+		super (options)
 		@exhibitCollection = window.Vocat.Instantiated.Collections.Exhibit
 		@render()
 

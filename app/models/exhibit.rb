@@ -9,8 +9,9 @@ class Exhibit
   # Find methods are broken out into a module to better separate concerns
   include Exhibit::Find
 
-  def initialize(course, creator, project, submission = nil)
+  def initialize(viewer, course, creator, project, submission = nil)
     @id = SecureRandom.uuid
+    @viewer = viewer
     @course = course
     @creator = creator
     @project = project
@@ -21,13 +22,24 @@ class Exhibit
     !submission == nil?
   end
 
+  # The only information we currently need about the viewer on the frontend
+  # is the viewer's abilities
+  def serialize_viewer
+    {
+      :can_update => @submission && @viewer.can?(:update, @submission),
+      :is_owner => @submission && @viewer.can?(:own, @submission),
+      :can_evaluate => @project && @viewer.can?(:evaluate, @project)
+    }
+  end
+
   def as_json(options = nil)
     {
-        id: @id,
-        project: ProjectSerializer.new(@project).as_json[:project],
-        submission: SubmissionSerializer.new(@submission).as_json[:submission],
-        creator: CreatorSerializer.new(@creator).as_json[:creator],
-        course: CourseSerializer.new(@course).as_json[:course],
+      :id => @id,
+      :viewer => self.serialize_viewer,
+      :project => ProjectSerializer.new(@project).as_json[:project],
+      :submission => SubmissionSerializer.new(@submission).as_json[:submission],
+      :creator => CreatorSerializer.new(@creator).as_json[:creator],
+      :course => CourseSerializer.new(@course).as_json[:course]
     }
   end
 

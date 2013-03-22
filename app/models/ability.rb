@@ -6,11 +6,13 @@ class Ability
     user ||= User.new # guest user (not logged in)
 
     if user.role? :creator
-      # Creators acting as assistants can
-      # update course information and projects
+
+      # Creators acting as assistants can manage course information
       can :update, Course do |course|
         course.assistants.include? user
       end
+
+      # Creators acting as assistants can manage projects
       can :manage, Project do |project|
         begin
           project.course.id
@@ -20,10 +22,22 @@ class Ability
         project.course.assistants.include? user
       end
 
+      # Creators can update submissions that they own
+      can :update, Submission do |submission|
+        submission.creator.id == user.id
+      end
+
+      # Creators can evaluate a project if the course and the project allow peer review
+      can :evaluate, Project do |project|
+        can? :evaluate, project.course and project.allows_peer_review
+      end
+
+      # Creators can evaluate an exhibit if the user is not the exhibit owner and the project allows evaluation
+      can :evaluate, Exhibit do |exhibit|
+        user.id != exhibit.creator.id and can? :evalute, project
+      end
+
       # Set creator privileges as normal
-      can :evaluate,    [Submission, Exhibit, Course]
-      can :read,        [Organization, Course, Project]
-      can :manage,      [Submission, Attachment]
       cannot :destroy,  [Submission, Attachment]
     end
 
@@ -56,4 +70,5 @@ class Ability
       can :manage,      :all
     end
   end
+
 end

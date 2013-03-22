@@ -21,16 +21,9 @@ class Vocat.Routers.AppRouter extends Backbone.Router
 		$('[data-view]').each((i, el) =>
 			$el = $(el)
 			viewName = $el.attr('data-view')
-
-			if window.Vocat.Bootstrap.Views.Global?
-				options = window.Vocat.Bootstrap.Views.Global
-			else
-				options = {}
-
-			if window.Vocat.Bootstrap.Views[viewName]?
-				options = $.extend({}, options, window.Vocat.Bootstrap.Views[viewName]);
-
-			options.el = $(el)
+			options = {
+				el: $(el)
+			}
 			window.Vocat.Instantiated.Views[viewName] = new Vocat.Views[viewName](options)
 		)
 
