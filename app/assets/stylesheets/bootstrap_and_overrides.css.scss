@@ -354,7 +354,9 @@ form {
   @extend %score-list--item;
   color: $white;
   background-color: $grayLight;
-  padding-left: 10px;
+  span {
+    padding-left: 10px;
+  }
 }
 
 .score-value {
@@ -364,8 +366,11 @@ form {
 }
 
 .score-total {
+  @extend %score-list--item;
   text-align: center;
-  background-color: $blueLight;
+  color: $white;
+  font-weight: bold;
+  background-color: $blue;
 }
 
 @import "bootstrap-responsive";
