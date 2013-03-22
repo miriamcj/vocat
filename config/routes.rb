@@ -34,7 +34,6 @@ Vocat::Application.routes.draw do
   # Static routes
   get  "/org/:organization_id/course/:course_id/feedback" => "static#feedback", :as => "org_course_feedback"
   get  "static/form"                => "static#form"
-  get  "static/submission_detail"   => "static#submission_detail"
 
   devise_for :users, :controllers => {:registrations => "registrations"}
 

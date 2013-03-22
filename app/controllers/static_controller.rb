@@ -17,12 +17,7 @@ class StaticController < ApplicationController
     flash[:error] = "This is a bad flash"
   end
 
-  def submission_detail
-
-  end
-
   def feedback
-
   end
 
 

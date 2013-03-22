@@ -47,18 +47,40 @@
         <h3>Scores</h3>
       </div>
       <div class="grid40 text-right with-padding">
-        <a href="#" class="btn btn-mini">+ Expand Scores</a>
+        <a href="#" class="btn btn-mini">+ Collapse Scores</a>
         <a href="#" class="btn btn-mini">What do these scores mean?</a>
       </div>
     </header>
-    <ul class="unstyled score-list">
+    <ul class="unstyled score-list-collapsed js-score-list-collapsed score-sublist">
+      <li class="clearfix">
+        <div class="score-bar grid90">
+          <div class="score-bar--highlight" style="width: 94%">
+            <span>Evaluator Review - Overall</span>
+          </div>
+        </div>
+        <div class="grid10">
+          <div class="score-value with-left-space">94%</div>
+        </div>
+      </li>
+      <li class="clearfix">
+        <div class="score-bar grid90">
+          <div class="score-bar--highlight" style="width: 84%">
+            <span>Peer Review - Overall</span>
+          </div>
+        </div>
+        <div class="grid10">
+          <div class="score-value with-left-space">84%</div>
+        </div>
+      </li>
+    </ul>
+    <ul class="unstyled score-list-expanded js-score-list-expanded">
       <li class="score-list--category">
         <h5>Category 1</h5>
         <ul class="unstyled score-sublist">
           <li class="clearfix">
             <div class="score-bar grid90">
               <div class="score-bar--highlight" style="width: 83.33%">
-                Criterion 1
+                <span>Criterion 1</span>
               </div>
             </div>
             <div class="grid10">
@@ -67,8 +89,28 @@
           </li>
           <li class="clearfix">
             <div class="score-bar grid90">
+              <div class="score-bar--highlight" style="width: 100%">
+                <span>Criterion 2</span>
+              </div>
+            </div>
+            <div class="grid10">
+              <div class="score-value with-left-space">6/6</div>
+            </div>
+          </li>
+          <li class="clearfix">
+            <div class="score-bar grid90">
+              <div class="score-bar--highlight" style="width: 66.66%">
+                <span>Criterion 3</span>
+              </div>
+            </div>
+            <div class="grid10">
+              <div class="score-value with-left-space">4/6</div>
+            </div>
+          </li>
+          <li class="clearfix">
+            <div class="score-bar grid90">
               <div class="score-bar--highlight" style="width: 83.33%">
-                Criterion 2
+                <span>Criterion 4</span>
               </div>
             </div>
             <div class="grid10">
@@ -76,23 +118,100 @@
             </div>
           </li>
           <li class="clearfix">
+            <div class="text-right grid90">
+              Category 1 Bonus
+            </div>
+            <div class="grid10">
+              <div class="score-value with-left-space">5</div>
+            </div>
+          </li>
+          <li class="clearfix">
+            <div class="text-right grid90">
+              Category 1 Total
+            </div>
+            <div class="grid10">
+              <div class="score-total with-left-space">25</div>
+            </div>
+          </li>
+        </ul>
+      </li>
+      <li class="score-list--category">
+        <h5>Category 2</h5>
+        <ul class="unstyled score-sublist">
+          <li class="clearfix">
             <div class="score-bar grid90">
-              <div class="score-bar--highlight" style="width: 83.33%">
-                Criterion 3
+              <div class="score-bar--highlight" style="width: 66.66%">
+                <span>Criterion 1</span>
               </div>
             </div>
             <div class="grid10">
-              <div class="score-value with-left-space">5/6</div>
+              <div class="score-value with-left-space">4/6</div>
             </div>
           </li>
           <li class="clearfix">
             <div class="score-bar grid90">
-              <div class="score-bar--highlight" style="width: 83.33%">
-                Criterion 4
+              <div class="score-bar--highlight" style="width: 50%">
+                <span>Criterion 2</span>
               </div>
             </div>
             <div class="grid10">
-              <div class="score-value with-left-space">5/6</div>
+              <div class="score-value with-left-space">3/6</div>
+            </div>
+          </li>
+          <li class="clearfix">
+            <div class="score-bar grid90">
+              <div class="score-bar--highlight" style="width: 33.33%">
+                <span>Criterion 3</span>
+              </div>
+            </div>
+            <div class="grid10">
+              <div class="score-value with-left-space">2/6</div>
+            </div>
+          </li>
+          <li class="clearfix">
+            <div class="score-bar grid90">
+              <div class="score-bar--highlight" style="width: 16.66%">
+                <span>Criterion 4</span>
+              </div>
+            </div>
+            <div class="grid10">
+              <div class="score-value with-left-space">1/6</div>
+            </div>
+          </li>
+          <li class="clearfix">
+            <div class="text-right grid90">
+              Category 2 Bonus
+            </div>
+            <div class="grid10">
+              <div class="score-value with-left-space">20</div>
+            </div>
+          </li>
+          <li class="clearfix">
+            <div class="text-right grid90">
+              Category 2 Total
+            </div>
+            <div class="grid10">
+              <div class="score-total with-left-space">30</div>
+            </div>
+          </li>
+        </ul>
+      </li>
+      <li style="margin-top: 30px;">
+        <ul class="unstyled score-sublist">
+          <li class="clearfix">
+            <div class="text-right grid90">
+              Total Score / Total Possible
+            </div>
+            <div class="grid10">
+              <div class="score-value with-left-space">45 / 48</div>
+            </div>
+          </li>
+          <li class="clearfix">
+            <div class="text-right grid90">
+              Percentage
+            </div>
+            <div class="grid10">
+              <div class="score-total with-left-space">94%</div>
             </div>
           </li>
         </ul>
@@ -144,5 +263,5 @@
       </ul>
     </div>
   </div>
-
+  
 </div>
