@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   scope :creators, where(:role => "creator")
   scope :admins, where(:role => "admin")
 
+  delegate :can?, :cannot?, :to => :ability
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -39,4 +41,11 @@ class User < ActiveRecord::Base
   def courses
     creator_courses + assistant_courses + evaluator_courses
   end
+
+  def ability
+    @ability ||= Ability.new(self)
+  end
+
+
+
 end

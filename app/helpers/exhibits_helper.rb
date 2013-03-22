@@ -1,6 +1,7 @@
 module ExhibitsHelper
   def find_exhibit(exhibits, creator, project)
-    index = "#{project.id}#{creator.id}".to_i
-    exhibit = exhibits.find{|exhibit| exhibit.index == index}
+    exhibits.find do |exhibit|
+      exhibit.creator.id == creator.id && exhibit.project.id == project.id
+    end
   end
 end

@@ -11,20 +11,20 @@
       {{#if exhibit.submission}}
       <div style="margin-bottom: 10px; margin-top: 10px">
         <small class="with-gray">No Instructor Comments</small><br>
-        <small class="with-gray"><a href="{{url_for 'organization_course_submission' exhibit.course.organization_id exhibit.course.id exhibit.submission.id}}">3 Peer Comments</a></small>
+        <small class="with-gray"><a href="{{url_for 'org_course_project_exhibit' exhibit.course.organization_id exhibit.course.id exhibit.submission.id}}">3 Peer Comments</a></small>
       </div>
-      <a class="btn btn-mini" href="{{url_for 'organization_course_submission' exhibit.course.organization_id exhibit.course.id exhibit.submission.id}}">+ See all feedback</a>
+      <a class="btn btn-mini" href="{{url_for 'org_course_project_exhibit' exhibit.course.organization_id exhibit.course.id exhibit.submission.id}}">+ See all feedback</a>
       {{/if}}
     </div>
     <div class="exhibit-content span8">
       <div class="row">
         <div class="span7">
           <h5 style="margin: 0;">
-            <a href="{{url_for 'organization_course_projects' exhibit.course.organization_id exhibit.course.id}}">
+            <a href="{{url_for 'course_root' exhibit.course.organization_id exhibit.course.id}}">
               {{exhibit.course.department}} {{exhibit.course.number}}: <span style="font-weight: normal">{{exhibit.course.name}}</span>
             </a>
           </h5>
-          <h3 style="margin-top: 0;"><a href="{{url_for 'organization_course_project' exhibit.course.organization_id exhibit.course.id exhibit.project.id}}">{{exhibit.project.name}}</a></h3>
+          <h3 style="margin-top: 0;"><a href="{{url_for 'course_map_project_detail' exhibit.course.organization_id exhibit.course.id exhibit.project.id}}">{{exhibit.project.name}}</a></h3>
         </div>
         <div class="text-right span1">
           {{#if exhibit.submission}}
@@ -69,7 +69,7 @@
         </li>
       </ul>
       {{#if exhibit.submission}}
-      <a class="btn btn-mini" href="{{url_for 'organization_course_submission' exhibit.course.organization_id exhibit.course.id exhibit.submission.id}}">+ Expand details</a>
+      <a class="btn btn-mini" href="{{url_for 'org_course_project_exhibit' exhibit.course.organization_id exhibit.course.id exhibit.submission.id}}">+ Expand details</a>
       {{/if}}
     </div>
   </div>

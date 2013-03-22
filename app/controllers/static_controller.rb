@@ -1,5 +1,6 @@
 class StaticController < ApplicationController
 
+  layout :select_layout
   before_filter :load_my_resources
 
   def load_my_resources
@@ -17,6 +18,10 @@ class StaticController < ApplicationController
   end
 
   def submission_detail
+
+  end
+
+  def feedback
 
   end
 

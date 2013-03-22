@@ -26,5 +26,4 @@ Handlebars.registerHelper 'url_for', () ->
 		out = routeMethod.apply(this, args)
 	else
 		out = ''
-	console.log args, out
 	return out

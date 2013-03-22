@@ -1,7 +1,6 @@
 <%
 
   def boxen?; ENV['BOXEN_HOME']; end
-
   url = ENV["BOXEN_POSTGRESQL_URL"]
   port = ENV["BOXEN_POSTGRESQL_PORT"]
 

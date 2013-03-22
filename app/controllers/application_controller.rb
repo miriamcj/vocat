@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   skip_authorization_check
 
   def index
-    redirect_to organization_root_path :organization_id => current_user.organization
+    redirect_to org_root_path :organization_id => current_user.organization
   end
 
   def get_organization_and_current_course

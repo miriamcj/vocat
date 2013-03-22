@@ -4,7 +4,7 @@
     <td></td>
     <% @current_course.projects.each do |project| %>
       <th <%= 'class=active' if project == @project %>>
-        <%=  link_to project.name, creator_course_map_project_detail_path(:project_id => project) %>
+        <%=  link_to project.name, course_map_project_detail_path(:project_id => project) %>
       </th>
     <% end %>
   </tr>
@@ -13,12 +13,12 @@
   <% @current_course.creators.each_with_index do |creator, index| %>
     <tr>
       <th>
-        <%=  link_to creator.name, creator_course_map_creator_detail_path(:creator_id => creator) %>
+        <%=  link_to creator.name, course_map_creator_detail_path(:creator_id => creator) %>
       </th>
       <% if index == 0 %>
         <td colspan="<%= @current_course.projects.count %>" rowspan="<%= @current_course.creators.count + 1 %>" class="course-map-overlay">
           <div style="padding: 0 20px; position: relative;">
-            <%=  link_to '×', creator_course_map_path, :class => "close" %>
+            <%=  link_to '×', course_map_path, :class => "close" %>
             <h2><%= @project.name %></h2>
             <div class="placeholder-blue">
               Project visualization

@@ -15,6 +15,7 @@
 //= require jquery-ui.min
 //= require jquery.iframe-transport
 //= require jquery.fileupload
+//= require_popcorn/popcorn-complete
 //= require chosen-jquery
 //= require js-routes
 //= require underscore
@@ -25,7 +26,8 @@
 //= require backbone/plugins/backbone-relational
 //= require backbone/vocat
 //= require_tree .
-//= require_popcorn/popcorn-complete
+
+
 
 
 
