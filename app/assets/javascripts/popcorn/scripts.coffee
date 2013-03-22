@@ -30,4 +30,5 @@ submissionDetail = {
 }
 
 $ ->
-	submissionDetail.init()
+	if $('#ourvideo').length > 0
+		submissionDetail.init()

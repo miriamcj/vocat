@@ -11,7 +11,7 @@
       {{#if exhibit.submission}}
       <div style="margin-bottom: 10px; margin-top: 10px">
         <small class="with-gray">No Instructor Comments</small><br>
-        <small class="with-gray"><a href="{{url_for 'organization_course_submission' exhibit.course.organization_id exhibit.course.id exhibit.submission.id}}">3 Peer Comments</a></small>
+        <small class="with-gray"><a href="{{url_for 'org_course_project_exhibit' exhibit.course.organization_id exhibit.course.id exhibit.submission.id}}">3 Peer Comments</a></small>
       </div>
       <a class="btn btn-mini" href="{{url_for 'org_course_project_exhibit' exhibit.course.organization_id exhibit.course.id exhibit.submission.id}}">+ See all feedback</a>
       {{/if}}
