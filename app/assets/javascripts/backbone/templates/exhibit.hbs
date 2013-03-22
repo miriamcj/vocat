@@ -13,7 +13,7 @@
         <small class="with-gray">No Instructor Comments</small><br>
         <small class="with-gray"><a href="{{url_for 'org_course_project_exhibit' exhibit.course.organization_id exhibit.course.id exhibit.submission.id}}">3 Peer Comments</a></small>
       </div>
-      <a class="btn btn-mini" href="{{url_for 'org_course_project_exhibit' exhibit.course.organization_id exhibit.course.id exhibit.submission.id}}">+ See all feedback</a>
+      <a class="btn btn-mini" href="{{url_for 'org_course_creator_project_exhibit' exhibit.course.organization_id exhibit.course.id exhibit.creator.id exhibit.project.id}}">+ See all feedback</a>
       {{/if}}
     </div>
     <div class="exhibit-content span8">
@@ -69,7 +69,7 @@
         </li>
       </ul>
       {{#if exhibit.submission}}
-      <a class="btn btn-mini" href="{{url_for 'org_course_project_exhibit' exhibit.course.organization_id exhibit.course.id exhibit.submission.id}}">+ Expand details</a>
+      <a class="btn btn-mini" href="{{url_for 'org_course_creator_project_exhibit' exhibit.course.organization_id exhibit.course.id exhibit.creator.id exhibit.project.id}}">+ Expand details</a>
       {{/if}}
     </div>
   </div>

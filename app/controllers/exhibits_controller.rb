@@ -22,7 +22,10 @@ class ExhibitsController < ApplicationController
   end
 
   def show
-
+    course = Course.find(params[:course_id])
+    creator = User.find(params[:creator_id])
+    project = Project.find(params[:project_id])
+    @exhibit = Exhibit::Find.by_course_creator_and_project(current_user, course, creator, project)
   end
 
 end

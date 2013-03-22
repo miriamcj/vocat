@@ -23,7 +23,7 @@ Vocat::Application.routes.draw do
   match "/org/:organization_id/their/exhibits" => "exhibits#theirs", :via => :get, :as => "org_their_exhibits"
 
   # Exhibit detail route
-  match "/org/:organization_id/course/:course_id/project/:project_id/exhibit" => "exhibits#show", :via => :get, :as => "org_course_project_exhibit"
+  match "/org/:organization_id/course/:course_id/creator/:creator_id/project/:project_id/exhibit" => "exhibits#show", :via => :get, :as => "org_course_creator_project_exhibit"
 
   # Course map routes
   match "/org/:organization_id/course/:course_id/course_map" => "course_map#index", :via => :get, :as => "course_map"
