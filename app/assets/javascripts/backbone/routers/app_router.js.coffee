@@ -1,3 +1,6 @@
+# The dispatcher is a global application object.
+Vocat.Dispatcher = new Vocat.Models.Dispatcher()
+
 class Vocat.Routers.AppRouter extends Backbone.Router
 
 #	routes:

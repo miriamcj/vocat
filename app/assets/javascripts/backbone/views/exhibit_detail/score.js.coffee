@@ -1,40 +1,53 @@
-class Vocat.Views.ExhibitDetail_Score extends Vocat.Views.AbstractView
+class Vocat.Views.ExhibitDetailScore extends Vocat.Views.AbstractView
 
 	template: HBT["backbone/templates/exhibit_detail/score"]
 
 	events: {
-		'click .js-toggle-visbility': "doVisibilityToggle"
-		'click .js-toggle-help': "doHelpToggle"
+		'click .js-toggle-score-detail': "toggleDetail"
+		'click .js-toggle-score-help': "toggleHelp"
 	}
 
 	initialize: (options) ->
-		@model = options.model
 		super(options)
-		@model.set('scoresVisible', true)
-		@model.bind('change:scoresVisible', @render) 
-		@model.set('helpVisible', true)
-		@model.bind('change:helpVisible', @render) 
+
+		# Set the default state for the view
+		@state = new Vocat.Models.ViewState({
+			helpVisible: false
+			detailVisible: false
+		})
+
+		# Bind render to changes in view state
+		@state.bind('change:helpVisible', @render, @)
+		@state.on('change:detailVisible', @fadeDetail, @)
+
+		# Initial rendering
 		@render()
 
-	doVisibilityToggle: (event) ->
-		event.preventDefault()
-		if @model.get('scoresVisible') == true
-			@model.set('scoresVisible', false)
-		else 
-			@model.set('scoresVisible', true)
+	fadeDetail: () ->
+		# Rendering after fade is complete to update button state. Probably
+		# a more elegant solution
+		if @state.get('detailVisible') is false
+			$('.score-list-expanded').fadeOut(400, => @render())
+		else
+			$('.score-list-expanded').fadeIn( 400, => @render())
 
-	doHelpToggle: (event) ->
+	toggleHelp: (event) ->
 		event.preventDefault()
-		if @model.get('helpVisible') == true
-			@model.set('helpVisible', false)
-		else 
-			@model.set('helpVisible', true)
+		newState = if @state.get('helpVisible') is true then false else true
+		@state.set('helpVisible', newState )
+
+	toggleDetail: (event) ->
+		event.preventDefault()
+		newState = if @state.get('detailVisible') is true then false else true
+		@state.set('detailVisible', newState )
 
 	render: () ->
+		console.log 'rendered'
 		context = {
 			exhibit: @model.toJSON()
-			scoresVisible: @scoresVisible
-			helpVisible: @helpVisible
+			state: @state.toJSON()
 		}
 		@$el.html(@template(context))
+
+
 

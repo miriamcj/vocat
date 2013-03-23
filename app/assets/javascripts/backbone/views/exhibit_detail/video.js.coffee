@@ -1,4 +1,4 @@
-class Vocat.Views.ExhibitDetail_Video extends Vocat.Views.AbstractView
+class Vocat.Views.ExhibitDetailVideo extends Vocat.Views.AbstractView
 
 	template: HBT["backbone/templates/exhibit_detail/video"]
 

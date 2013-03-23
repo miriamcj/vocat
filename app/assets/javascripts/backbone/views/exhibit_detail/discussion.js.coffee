@@ -1,4 +1,4 @@
-class Vocat.Views.ExhibitDetail_Discussion extends Vocat.Views.AbstractView
+class Vocat.Views.ExhibitDetailDiscussion extends Vocat.Views.AbstractView
 
 	template: HBT["backbone/templates/exhibit_detail/discussion"]
 

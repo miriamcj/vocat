@@ -3,16 +3,17 @@
         <h3>Scores</h3>
       </div>
       <div class="grid40 text-right with-padding">
-        {{#if scoresVisible}}
-        <a href="#" class="js-toggle-visbility btn btn-mini">+ Collapse Scores</a>
-        {{else}}
-        <a href="#" class="js-toggle-visbility btn btn-mini">+ Expand Scores</a>
-        {{/if}}
-        <a href="#" class="js-toggle-help btn btn-mini">What do these scores mean?</a>
+        <a href="#" class="js-toggle-score-detail btn btn-mini">
+          {{#if state.detailVisible}}
+          + Collapse Scores
+          {{else}}
+          + Expand Scores
+          {{/if}}
+        </a>
+        <a href="#" class="js-toggle-score-help btn btn-mini">What do these scores mean?</a>
       </div>
     </header>
-    {{#if scoresVisible}}
-    <ul class="unstyled score-list-expanded js-score-list-expanded">
+    <ul class="unstyled score-list-expanded js-score-list-expanded" style="{{#unless state.detailVisible}}display:none{{/unless}}">
       <li class="score-list--category">
         <h5>Category 1</h5>
         <ul class="unstyled score-sublist">
@@ -156,7 +157,6 @@
         </ul>
       </li>
     </ul>
-    {{else}}
       <ul class="unstyled score-list-collapsed js-score-list-collapsed score-sublist">
       <li class="clearfix">
         <div class="score-bar grid90">
@@ -179,4 +179,3 @@
         </div>
       </li>
     </ul>
-    {{/if}}

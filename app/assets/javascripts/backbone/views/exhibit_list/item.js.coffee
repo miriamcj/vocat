@@ -1,4 +1,4 @@
-class Vocat.Views.Exhibit extends Vocat.Views.AbstractView
+class Vocat.Views.ExhibitListItem extends Vocat.Views.AbstractView
 
 	template: HBT["backbone/templates/exhibit"]
 

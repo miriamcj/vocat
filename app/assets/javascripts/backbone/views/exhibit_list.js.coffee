@@ -7,7 +7,7 @@ class Vocat.Views.ExhibitList extends Vocat.Views.AbstractView
 
 	render: () ->
 		@exhibitCollection.each (exhibit) =>
-			childView = new Vocat.Views.ExhibitList_Exhibit({model: exhibit, organizationId: @organizationId, currentUserRole: @currentUserRole})
+			childView = new Vocat.Views.ExhibitListItem({model: exhibit, organizationId: @organizationId, currentUserRole: @currentUserRole})
 			@$el.append(childView.render())
 
 
