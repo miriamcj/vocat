@@ -3,8 +3,11 @@ class RedirectController < ApplicationController
   def index()
     creator_url   = params[:creator_url]
     evaluator_url = params[:evaluator_url]
+    admin_url     = params[:admin_url]
 
-    if @current_user.role? :evaluator
+    if @current_user.role? :admin
+      url = admin_url
+    elsif @current_user.role? :evaluator
       url = evaluator_url
     else
       url = creator_url

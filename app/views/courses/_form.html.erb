@@ -1,33 +1,92 @@
-<%= simple_form_for([@organization, @course]) do |f| %>
-  <%= form_errors(@course) %>
+<%= form_errors(@course) %>
 
-  <%= f.input :name %>
-  <%= f.input :department %>
-  <%= f.input :number %>
-  <%= f.input :section %>
-  <%= f.input :description %>
+<div class="controls row controls-row">
+  <div class="span3">
+    <div class="control-group">
+      <%= f.label :name %>
+      <div class="controls">
+        <%= f.input_field :name, class: "span3" %>
+      </div>
+    </div>
+  </div>
+  <div class="span3">
+    <div class="control-group">
+      <%= f.label :department %>
+      <div class="controls">
+        <%= f.input_field :department, class: "span3" %>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <% if current_user.role? :evaluator %>
-    <%= f.association :creators,
-                      :collection => User.where("organization_id = #{@organization.id} AND role != 'admin'"),
-                      :input_html => {:name => "creators[]", :class => "chzn-select input-block-level",
-                                      :data => {:placeholder => "Choose creators..."}}  %>
-  <% end %>
+<div class="controls row controls-row" >
+  <div class="span3">
+    <div class="control-group">
+      <%= f.label :number %>
+      <div class="controls">
+        <%= f.input_field :number, class: "span3" %>
+      </div>
+    </div>
+  </div>
+  <div class="span3">
+    <div class="control-group">
+      <%= f.label :section %>
+      <div class="controls">
+        <%= f.input_field :section, class: "span3" %>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <% if current_user.role? :evaluator %>
-    <%= f.association :assistants,
-                      :collection => User.where("organization_id = #{@organization.id} AND role != 'admin'"),
-                      :input_html => {:name => "assistants[]", :class => "chzn-select input-block-level",
-                                      :data => {:placeholder => "Choose assistants..."}}  %>
-  <% end %>
+<div class="controls row controls-row">
+  <div class="span6">
+    <div class="control-group">
+      <%= f.label :description %>
+      <div class="controls">
+        <%= f.input_field :description, style: "height: 100px", class: "span6" %>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <% if current_user.role? :admin %>
-    <%= f.association :evaluators,
-                      :collection => User.where("organization_id = #{@organization.id} AND role = 'evaluator'"),
-                      :include_blank => false,
-                      :input_html => {:name => "evaluators[]", :class => "chzn-select input-block-level",
-                                      :data => {:placeholder => "Choose evaluators..."}}  %>
-  <% end %>
+<div class="controls row controls-row">
+  <div class="span6">
+    <div class="control-group">
+      <%= f.association :creators,
+                        :collection => User.where("organization_id = #{@organization.id} AND role != 'admin'"),
+                        :input_html => {:name => "creators[]", :class => "chzn-select input-block-level",
+                                        :data => {:placeholder => "Choose creators..."}} %>
+    </div>
+  </div>
+</div>
 
-  <%= f.button :submit %>
-<% end %>
+<div class="controls row controls-row">
+  <div class="span6">
+    <div class="control-group">
+      <%= f.association :assistants,
+                        :collection => User.where("organization_id = #{@organization.id} AND role != 'admin'"),
+                        :input_html => {:name => "assistants[]", :class => "chzn-select input-block-level",
+                                        :data => {:placeholder => "Choose assistants..."}} %>
+    </div>
+  </div>
+</div>
+
+<div class="controls row controls-row">
+  <div class="span6">
+    <div class="control-group">
+      <%= f.association :evaluators,
+                        :collection => User.where("organization_id = #{@organization.id} AND role = 'evaluator'"),
+                        :include_blank => false,
+                        :input_html => {:name => "evaluators[]", :class => "chzn-select input-block-level",
+                                        :data => {:placeholder => "Choose evaluators..."}} %>
+    </div>
+  </div>
+</div>
+
+<div class="controls row controls-row">
+  <div class="span6">
+    <div class="control-group">
+	    <%= f.button :submit, 'Save course' %>
+    </div>
+  </div>
+</div>

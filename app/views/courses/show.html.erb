@@ -1,62 +1,79 @@
-<% if can? :update, @course %>
-  <div><%= link_to 'Edit', edit_organization_course_path(@organization, @course) %></div>
-<% end %>
+<h3>View course:</h3>
+<h4><%= @course %></h4>
 
-<% if can? :destroy, @course %>
-  <div><%= link_to 'Destroy', organization_course_path(@organization, @course), method: :delete, data: { confirm: 'Are you sure?' } %></div>
-<% end %>
-<p class="lead">In this course you are: <%= @course.role(current_user) %>.</p>
-
+<div class="alert alert-info">
+  In this course you are an <strong><%= @course.role(current_user) %></strong>.
+</div>
 <p>
-  <b>Name:</b>
+  <strong>Name:</strong>
   <%= @course.name %>
 </p>
 
 <p>
-  <b>Department:</b>
+  <strong>Department:</strong>
   <%= @course.department %>
 </p>
 
 <p>
-  <b>Number:</b>
+  <strong>Number:</strong>
   <%= @course.number %>
 </p>
 
 <p>
-  <b>Section:</b>
+  <strong>Section:</strong>
   <%= @course.section %>
 </p>
 
 <p>
-  <b>Description:</b>
+  <strong>Description:</strong>
   <%= @course.description %>
 </p>
 
-<div>
-  <b>Creators:</b>
-  <ul>
-    <% @course.creators.each do |creator| %>
-      <li><%= creator.name %></li>
-    <% end %>
-  </ul>
-</div>
+<p>
+  <strong>Creators:</strong>
+  <%= @course.creators.map { |user| user.name }.join(", ") %>
+</p>
 
-<div>
-  <b>Assistants:</b>
-  <ul>
-    <% @course.assistants.each do |assistant| %>
-      <li><%= assistant.name %></li>
-    <% end %>
-  </ul>
-</div>
+<p>
+  <strong>Assistants:</strong>
+  <%= @course.assistants.map { |user| user.name }.join(", ") %>
+</p>
 
-<div>
-  <b>Evaluators:</b>
-  <ul>
-    <% @course.evaluators.each do |evaluator| %>
-      <li><%= evaluator.name %></li>
-    <% end %>
-  </ul>
-</div>
+<p>
+  <strong>Evaluators:</strong>
+  <%= @course.evaluators.map { |user| user.name }.join(", ") %>
+</p>
 
+<p>
+	<strong>Course Projects:</strong>
+	<table class="table table-bordered table-striped">
+	  <thead>
+	  <tr>
+	    <th>Name:</th>
+	    <th>Actions</th>
+	  </tr>
+	  </thead>
+	  <tbody>
+	  <% @course.projects.each do |project| %>
+	    <tr>
+	      <td><%= project.name %></td>
+	      <td>
+	        <%= link_to 'edit', edit_admin_course_project_path(@course, project) %>
+	        or
+	        <%= link_to 'destroy', admin_course_project_path(@course, project), method: :delete, data: { confirm: 'Are you sure?' } %>
+	      </td>
+	    </tr>
+	  <% end %>
+	  </tbody>
+	</table>
+</p>
 
+<p>
+  <% if can? :update, @course %>
+    <%= link_to 'edit', edit_admin_course_path(@course), :class => 'btn' %>
+  <% end %>
+  <% if can? :destroy, @course %>
+    <%= link_to 'destroy', admin_course_path(@course), method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn' %>
+  <% end %>
+  <%= link_to 'or return to list', admin_courses_path, :class => 'btn' %>
+</p>

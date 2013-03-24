@@ -373,4 +373,13 @@ form {
   background-color: $blue;
 }
 
+/* Removes dotted border from required field *s */
+abbr[title] {
+  border-bottom: 0;
+}
+
+.controls-row {
+  margin-top: 15px;
+}
+
 @import "bootstrap-responsive";

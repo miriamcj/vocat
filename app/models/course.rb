@@ -15,7 +15,7 @@ class Course < ActiveRecord::Base
   default_scope order("department ASC, number ASC, section ASC")
 
   def to_s
-    "#{department}#{number} - #{name} - #{section}"
+    "#{department}#{number}: #{name}, Section #{section}"
   end
 
   # %n = number

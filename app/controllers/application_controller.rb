@@ -22,6 +22,8 @@ class ApplicationController < ActionController::Base
   def select_layout
     if current_user.role? :evaluator
       'evaluator'
+    elsif current_user.role? :administrator
+      'admin'
     else
       'creator'
     end

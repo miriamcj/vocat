@@ -1,0 +1,20 @@
+<% content_for :course_selector do %>
+<% end %>
+
+<% content_for :backbone_bootstrap do %>
+<% end %>
+
+<% content_for :adaptive_navigation do %>
+	<nav class="nav-adaptive">
+	  <div class="container">
+		<ul class="nav">
+		  <li><%= link_to 'Courses', admin_courses_path %></li>
+		  <li><%= link_to 'Users', admin_users_path %></li>
+		  <li><%= link_to 'Rubrics', admin_rubrics_path %></li>
+		  <li><%= link_to 'Configure', admin_configuration_index_path %></li>
+		</ul>
+	  </div>
+	</nav>
+<% end %>
+
+<%= render :template => 'layouts/application' %>

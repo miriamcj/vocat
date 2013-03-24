@@ -1,6 +1,8 @@
-<h1>Editing project</h1>
+<h3>Editing project:</h3>
+<h4><%= @project %></h4>
 
-<%= render 'form' %>
+<%= simple_form_for(@project, :url => admin_course_project_path(@course, @project)) do |f| %>
+  <%= render 'form', :f => f %>
+<% end %>
 
-<%= link_to 'Show', organization_course_project_path(@organization, @course, @project) %> |
-<%= link_to 'Back', organization_course_projects_path(@organization, @course) %>
+<%= link_to 'Back', admin_course_path(@course), :class => 'btn' %>

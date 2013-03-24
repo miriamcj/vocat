@@ -1,24 +1,13 @@
 Vocat::Application.routes.draw do
 
 
-  # Commenting these out for now, until we're sure we need them. --ZD
-  #  resources :organizations, :path => "org" do
-  #    resources :courses do
-  #      resources :projects
-  #      resources :submissions do
-  #        resources :attachments
-  #      end
-  #    end
-  #  end
-
-
   # Top level course route that the user sees after selecting a course. The first route dynamically redirects to one of the other two routes.
   match "/org/:organization_id/course/:course_id" => "redirect#index", :creator_url => "/org/:organization_id/course/:course_id/my/exhibits", :evaluator_url => "/org/:organization_id/course/:course_id/their/exhibits", :as => "course_root"
   match "/org/:organization_id/course/:course_id/my/exhibits" => "exhibits#mine", :via => :get, :as => "org_course_my_exhibits"
   match "/org/:organization_id/course/:course_id/their/exhibits" => "exhibits#theirs", :via => :get, :as => "org_course_their_exhibits"
 
   # Top level route that the user sees after logging in. The first route dynamically redirects to one of the other two routes.
-  match "/org/:organization_id" => "redirect#index", :creator_url => "/org/:organization_id/my/exhibits", :evaluator_url => "/org/:organization_id/their/exhibits", :as => "org_root"
+  match "/org/:organization_id" => "redirect#index", :admin_url => "/admin", :creator_url => "/org/:organization_id/my/exhibits", :evaluator_url => "/org/:organization_id/their/exhibits", :as => "org_root"
   match "/org/:organization_id/my/exhibits" => "exhibits#mine", :via => :get, :as => "org_my_exhibits"
   match "/org/:organization_id/their/exhibits" => "exhibits#theirs", :via => :get, :as => "org_their_exhibits"
 
@@ -35,8 +24,33 @@ Vocat::Application.routes.draw do
   get  "/org/:organization_id/course/:course_id/feedback" => "static#feedback", :as => "org_course_feedback"
   get  "static/form"                => "static#form"
 
+  get "/admin" => "admin#index", :as => "admin_root"
+
+  # Admin routes
+  scope "admin", :as => "admin" do
+    resources :configuration
+    resources :users
+    resources :organizations, :path => "org"
+    resource :rubrics
+    resources :courses do
+	    resources :projects
+    end
+  end
+
   devise_for :users, :controllers => {:registrations => "registrations"}
 
   root :to => 'application#index'
+
+
+
+  #resources :organizations, :path => "org" do
+  #  resources :courses do
+  #    resources :projects
+  #    resources :submissions do
+  #      resources :attachments
+  #    end
+  #  end
+  #end
+
 
 end

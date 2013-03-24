@@ -13,4 +13,8 @@ class Project < ActiveRecord::Base
     return true
   end
 
+	def to_s()
+		self.name
+	end
+
 end
