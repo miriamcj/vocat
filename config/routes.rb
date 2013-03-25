@@ -31,7 +31,7 @@ Vocat::Application.routes.draw do
     resources :configuration
     resources :users
     resources :organizations, :path => "org"
-    resource :rubrics
+    resources :rubrics
     resources :courses do
 	    resources :projects
     end

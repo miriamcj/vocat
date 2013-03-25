@@ -1,0 +1,29 @@
+<table class="table table-bordered table-striped">
+
+	<thead>
+		<th></th>
+		{{#each rubric.fields}}
+		<th>{{this}} <a data-field="{{this}}" class="js-delete-field" href="#">[-]</a></th>
+		{{/each}}
+		<th><a data-field="{{this}}" class="js-add-field" href="#">[+]</a></th>
+	</thead>
+	<tbody>
+		{{#each rubric.ranges}}
+		<tr>
+			<th>{{this}} <a data-range="{{this}}" class="js-delete-range" href="#">[-]</a></th>
+			{{#each ../rubric.fields}}
+			<td></td>
+			{{/each}}
+			<td></td>
+		</tr>
+		{{/each}}
+		<tr>
+			<th><a data-field="{{this}}" class="js-add-range" href="#">[+]</a></th>
+			{{#each rubric.fields}}
+			<td></td>
+			{{/each}}
+			<td></td>
+		</tr>
+	</tbody>
+
+</table>

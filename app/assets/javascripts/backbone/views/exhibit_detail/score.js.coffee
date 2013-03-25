@@ -42,7 +42,6 @@ class Vocat.Views.ExhibitDetailScore extends Vocat.Views.AbstractView
 		@state.set('detailVisible', newState )
 
 	render: () ->
-		console.log 'rendered'
 		context = {
 			exhibit: @model.toJSON()
 			state: @state.toJSON()
