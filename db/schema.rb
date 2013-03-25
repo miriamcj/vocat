@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130215223102) do
+ActiveRecord::Schema.define(:version => 20130325043921) do
 
   create_table "attachments", :force => true do |t|
     t.string   "media_file_name"
@@ -105,6 +105,16 @@ ActiveRecord::Schema.define(:version => 20130215223102) do
   add_index "projects", ["course_id"], :name => "index_projects_on_course_id"
   add_index "projects", ["project_type_id"], :name => "index_projects_on_project_type_id"
 
+  create_table "rubrics", :force => true do |t|
+    t.string   "name"
+    t.boolean  "public"
+    t.hstore   "structure"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "rubrics", ["structure"], :name => "index_rubrics_on_structure"
+
   create_table "submissions", :force => true do |t|
     t.string   "name"
     t.text     "summary"
@@ -138,5 +148,16 @@ ActiveRecord::Schema.define(:version => 20130215223102) do
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["organization_id"], :name => "index_users_on_organization_id"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "versions", :force => true do |t|
+    t.string   "item_type",  :null => false
+    t.integer  "item_id",    :null => false
+    t.string   "event",      :null => false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+  end
+
+  add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
 
 end
