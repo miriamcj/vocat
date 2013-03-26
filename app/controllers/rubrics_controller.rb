@@ -27,12 +27,13 @@ class RubricsController < ApplicationController
 	end
 
 	def create
-
 		respond_to do |format|
 			if @rubric.save
 				format.html { redirect_to @rubric, notice: 'Rubric was successfully created.' }
-			else
+        format.json { render json: @rubric, status: :created, location: @rubric}
+      else
 				format.html { render action: "new" }
+        format.json { render json: @rubric.errors, status: :unprocessable_entity }
 			end
 		end
 	end
@@ -41,18 +42,20 @@ class RubricsController < ApplicationController
 		respond_to do |format|
 			if @rubric.update_attributes(params[:rubric])
 				format.html { redirect_to admin_rubric_path(@rubric), notice: 'Rubric was successfully updated.' }
+        format.json { head :no_content }
 			else
 				format.html { render action: "edit" }
+        format.json { render json: @rubric.errors, status: :unprocessable_entity }
 			end
 		end
 	end
 
 	def destroy
 		flash[:notice] = "Rubric deleted."
-		@project.destroy
+		@rubric.destroy
 
 		respond_to do |format|
-			format.html { redirect_to admin_rubric_path(@rubric) }
+			format.html { redirect_to admin_rubrics_path() }
 			format.json { head :no_content }
 		end
 	end

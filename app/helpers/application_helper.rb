@@ -15,9 +15,13 @@ module ApplicationHelper
   end
 
   def bootstrap(models)
-    out = []
-    models.each do |model|
-      out << model.as_json
+    if models.kind_of?(Array)
+      out = []
+      models.each do |model|
+        out << model.as_json
+      end
+    else
+      out = models.as_json
     end
     out.to_json.html_safe
   end

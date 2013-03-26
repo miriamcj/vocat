@@ -27,3 +27,9 @@ Handlebars.registerHelper 'url_for', () ->
 	else
 		out = ''
 	return out
+
+
+Handlebars.registerHelper('if_blank', (item, block) ->
+	if (item and item.replace(/\s/g, "").length) then block.inverse(@) else block.fn(@)
+)
+

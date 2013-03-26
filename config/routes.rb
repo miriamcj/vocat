@@ -26,12 +26,14 @@ Vocat::Application.routes.draw do
 
   get "/admin" => "admin#index", :as => "admin_root"
 
+  resources :rubrics, :only => [:create, :update, :delete]
+
   # Admin routes
   scope "admin", :as => "admin" do
     resources :configuration
     resources :users
     resources :organizations, :path => "org"
-    resources :rubrics
+    resources :rubrics, :only => [:index, :new, :show, :destroy, :edit]
     resources :courses do
 	    resources :projects
     end

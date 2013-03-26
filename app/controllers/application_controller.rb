@@ -20,6 +20,7 @@ class ApplicationController < ActionController::Base
   end
 
   def select_layout
+
     if current_user.role? :evaluator
       'evaluator'
     elsif current_user.role? :administrator
