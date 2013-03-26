@@ -5,12 +5,13 @@ class Vocat.Views.RubricBuilder extends Vocat.Views.AbstractView
 	initialize: (options) ->
 		@model = new Vocat.Models.Rubric({})
 
-		@model.addField 'Body'
-		@model.addField 'Voice'
-		@model.addField 'Eye Contact'
-		@model.addRange 'Low'
-		@model.addRange 'Medium'
-		@model.addRange 'High'
+		@model.addField {name: 'Voice', description: 'Breathing; Centering; Projection' }
+		@model.addField {name: 'Body', description: 'Relaxation; Physical tension; Eye-contact; Non-verbal communication' }
+		@model.addField {name: 'Expression', description: 'Concentration; Focus; Point of View; Pacing' }
+		@model.addField {name: 'Overall Effect', description: 'Integration of above categories; connection with audience' }
+		@model.addRange {name: 'Low', low: 1, high: 2}
+		@model.addRange {name: 'Medium', low: 3, high: 4}
+		@model.addRange {name: 'High', low: 5, high: 6}
 
 		super (options)
 		@render()
