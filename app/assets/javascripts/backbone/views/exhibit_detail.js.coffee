@@ -3,6 +3,7 @@ class Vocat.Views.ExhibitDetail extends Vocat.Views.AbstractView
 	template: HBT["backbone/templates/exhibit_detail"]
 
 	initialize: (options) ->
+		console.log 'called'
 		super(options)
 		@collection = window.Vocat.Instantiated.Collections.Exhibit
 		@model = @collection.first()

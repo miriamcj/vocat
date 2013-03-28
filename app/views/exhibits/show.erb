@@ -1,9 +1,6 @@
 <div data-view="ExhibitDetail">
   <% content_for :backbone_bootstrap do %>
     window.Vocat.Bootstrap.Collections.Exhibit = <%= bootstrap [@exhibit] %>;
-    window.Vocat.Bootstrap.Views.Global = {
-      organizationId: <%= @organization.id %>
-    }
   <% end %>
 </div>
 

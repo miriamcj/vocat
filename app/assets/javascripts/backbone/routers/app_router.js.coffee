@@ -21,6 +21,7 @@ class Vocat.Routers.AppRouter extends Backbone.Router
 		)
 
 	createViews: (el) ->
+
 		$('[data-view]').each((i, el) =>
 			$el = $(el)
 			viewName = $el.attr('data-view')

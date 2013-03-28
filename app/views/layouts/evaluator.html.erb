@@ -8,10 +8,10 @@
 <% end %>
 
 <% content_for :backbone_bootstrap do %>
-    $(function() {
-      window.router = new Vocat.Routers.AppRouter();
-      window.router.initalize({})
-    });
+  $(function() {
+    window.router = new Vocat.Routers.AppRouter();
+    window.router.initalize({})
+  });
 <% end %>
 
 <% if @current_course %>
