@@ -1,7 +1,0 @@
-<h3>New course</h3>
-
-<%= simple_form_for(@course, :url => admin_courses_path) do |f| %>
-	<%= render 'form', :f => f %>
-<% end %>
-
-<%= link_to '...or return to course list', admin_courses_path, class: 'btn' %>

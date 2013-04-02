@@ -29,6 +29,12 @@ class Exhibit < ActiveRecord::Base
       q = q.where(:course_id => self.options_to_ids(options[:course]))
     end
 
+    if options[:require_submissions]
+	    q = q.joins('JOIN submissions ON submissions.project_id = projects.id AND submissions.creator_id = courses_creators.user_id')
+    else
+	    q = q.joins('LEFT OUTER JOIN submissions ON submissions.project_id = projects.id AND submissions.creator_id = courses_creators.user_id')
+    end
+
     if options[:creator]
       q = q.where('courses_creators.user_id' => self.options_to_ids(options[:creator]))
     end
@@ -37,7 +43,7 @@ class Exhibit < ActiveRecord::Base
       q = q.where(:id => self.options_to_ids(options[:project]))
     end
 
-    q = q.joins(:course => :creators).joins('LEFT OUTER JOIN submissions ON submissions.project_id = projects.id AND submissions.creator_id = courses_creators.user_id')
+    q = q.joins(:course => :creators)
 
     select = 'submissions.id as submission_id, projects.id as project_id, courses_creators.user_id as creator_id, courses_creators.course_id as course_id'
     if options[:viewer]

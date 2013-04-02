@@ -24,19 +24,20 @@ Vocat::Application.routes.draw do
   get  "/course/:course_id/feedback" => "static#feedback", :as => "course_feedback"
   get  "/static/form"                => "static#form"
 
-  get "/admin" => "admin#index", :as => "admin_root"
 
-  resources :rubrics, :only => [:create, :update, :delete]
+  resources :rubrics, :controller => "admin/rubrics", :only => [:create, :update, :delete]
 
   # Admin routes
-  scope "admin", :as => "admin" do
+  get "/admin" => "admin/dashboard#index", :as => "admin_root"
+  namespace :admin do
+	  resources :courses do
+		  resources :projects
+	  end
+	  resources :users
+
     resources :configuration
-    resources :users
     resources :organizations, :path => "org"
     resources :rubrics, :only => [:index, :new, :show, :destroy, :edit]
-    resources :courses do
-	    resources :projects
-    end
   end
 
   devise_for :users, :controllers => {:registrations => "registrations"}

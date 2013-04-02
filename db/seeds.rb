@@ -131,4 +131,33 @@ end
 
 course2.evaluators << evaluator
 
-
+# Create a rubric
+rubric = Rubric.new(:name => "Theater Rubric")
+rubric.ranges = [
+									{:name => 'low', :low => 1, :high => 2, :id => 1},
+									{:name => 'medium', :low => 3, :high => 4, :id => 2},
+									{:name => 'high', :low => 5, :high => 6, :id => 3},
+								]
+rubric.fields = [
+		{:name => 'voice', :description => 'Breathing; Centering; Projection', :rangeDescriptions => {
+			1 => 'Vocal projection is weak. Posture is crumpled or slouched: breath is unsupported. Volume is unamplified. One has to strain, or cannot hear speaker. Articulation is mushy and difficult to understand.',
+		  2 => 'Vocal projection fades in and out. Posture is off-balance: breathing is not always supported. Speaker\'s breathing is constricted by holding breath or too shallow. Volume loses amplification, particularly at end of sentences. Articulation is garbled or slurry, but distinct enough to be understood.',
+		  3 => 'Vocal projection is strong. Posture supports breath: feet are grounded and body centered, allowing deep breathing to power voice. Volume is sufficiently amplified and sustained at consistent level. Articulation is clear. Speaker is easily heard and understood.'
+		}},
+		{:name => 'body', :description => 'Relaxation; Physical tension; Eye-contact; Non-verbal communication', :rangeDescriptions => {
+			1 => 'Body is rigidly tense, or nervous tension in constant movement, shuffling, or fidgeting. Speaker avoids eye contact and physically "hides" from audience. Gestures and non-verbal communication are excessive or restricted and unrelated to narrative.',
+			2 => 'Speaker is initially self-conscious and tense, but grows more relaxed as he/she continues. There is occasional eye-contact. There is some nervous movement fidgeting, but it decreases as presentation continues. Gestures and non-verbal communication do not always reinforce narrative.',
+			3 => 'Speaker is physically calm and appears relaxed. Speaker makes direct eye-contact. Physical presence projects animation and energy. Gestures and non-verbal communication enhance narrative.'
+		}},
+		{:name => 'expression', :description => 'Concentration; Focus; Point of View; Pacing', :rangeDescriptions => {
+			1 => 'Concentration is weak. Speaker cannot sustain concentration and is easily distracted: speaker giggles, or breaks away from what he/she is saying. There is no clear focus to the presentation and little emotional/intellectual connection to the narrative. Speaker rambles, or pauses awkwardly',
+			2 => 'Concentration is disrupted. Speaker is distracted at times and loses focus, causing momentary hesitation. There are digressions from purpose. There is occasionally loss of emotional/intellectual connection to the narrative. Speaker rushes, or is monotone.',
+			3 => 'Concentration is sustained throughout. The speaker is focused and clear about what he/she wants to say. There is a point of view and speaker appears to have an emotional/intellectual connection to their narrative.'
+		}},
+		{:name => 'overall effect', :description => 'Integration of above categories; connection with audience', :rangeDescriptions => {
+			1 => 'Tension impedes speaker from engaging audience. There is impatience and/or little interest in watching or listening to presentation. Ideas are incoherent, or nonexistent. Vocal and physical aspects of the presentation interfere with effective communication.',
+			2 => 'Speaker engages audience with varied success. Interest in the presentation ebbs and flows. Ideas are relatively clear, but lack overall coherence. Communication is effective, but neither dynamic nor very memorable.',
+			3 => 'Speaker engages audience and is compelling to watch and listen to. Ideas are clear, concise, and communicated in a creative, memorable way.'
+		}},
+]
+rubric.save
