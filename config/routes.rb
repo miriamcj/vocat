@@ -15,14 +15,14 @@ Vocat::Application.routes.draw do
   match "creator/:creator_id/project/:project_id/exhibit" => "exhibits#show", :via => :get, :as => "creator_project_exhibit"
 
   # Course map routes
-  match "course_map" => "course_map#index", :via => :get, :as => "course_map"
-  match "course_map/creator/:creator_id/project/:project_id" => "course_map#show_submission_detail", :via => :get, :as => "course_map_submission_detail"
-  match "course_map/creator/:creator_id" => "course_map#show_creator_detail", :via => :get, :as => "course_map_creator_detail"
-  match "project/:project_id" => "course_map#show_project_detail", :via => :get, :as => "course_map_project_detail"
+  match "/course_map" => "course_map#index", :via => :get, :as => "course_map"
+  match "/course_map/creator/:creator_id/project/:project_id" => "course_map#show_submission_detail", :via => :get, :as => "course_map_submission_detail"
+  match "/course_map/creator/:creator_id" => "course_map#show_creator_detail", :via => :get, :as => "course_map_creator_detail"
+  match "/project/:project_id" => "course_map#show_project_detail", :via => :get, :as => "course_map_project_detail"
 
   # Static routes
-  get  "/org/:organization_id/course/:course_id/feedback" => "static#feedback", :as => "org_course_feedback"
-  get  "static/form"                => "static#form"
+  get  "/course/:course_id/feedback" => "static#feedback", :as => "course_feedback"
+  get  "/static/form"                => "static#form"
 
   get "/admin" => "admin#index", :as => "admin_root"
 

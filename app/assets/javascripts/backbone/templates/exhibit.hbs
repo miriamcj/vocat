@@ -23,6 +23,10 @@
             <a href="">
               {{exhibit.course.department}} {{exhibit.course.number}}: <span style="font-weight: normal">{{exhibit.course.name}}</span>
             </a>
+            <br />
+            <a href="">
+             {{exhibit.creator.name}}</span>
+            </a>
           </h5>
           <h3 style="margin-top: 0;"><a href="{{url_for 'course_map_project_detail' exhibit.project.id}}">{{exhibit.project.name}}</a></h3>
         </div>

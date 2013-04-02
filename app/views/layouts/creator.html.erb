@@ -17,9 +17,9 @@
   <nav class="nav-adaptive">
     <div class="container">
       <ul class="nav">
-        <li><%= link_to 'My Presentations', org_course_my_exhibits_path(:organization_id => @organization, :course_id => @current_course) %></li>
-        <li><%= link_to 'Evaluate Peer Presentations', course_map_path(@organization, @current_course) %></li>
-        <li><%= link_to 'Feedback', org_course_feedback_path(@organization, @current_course) %></li>
+        <li><%= link_to 'My Presentations', course_my_exhibits_path(:course_id => @current_course) %></li>
+        <li><%= link_to 'Evaluate Peer Presentations', course_map_path(@current_course) %></li>
+        <li><%= link_to 'Feedback', course_feedback_path(@current_course) %></li>
       </ul>
     </div>
   </nav>

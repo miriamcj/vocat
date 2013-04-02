@@ -11,19 +11,19 @@ class ExhibitsController < ApplicationController
   end
 
   def mine
-    @exhibits = Exhibit.find_exhibits({:viewer => current_user, :course => @courses, :creator => current_user})
+    @exhibits = Exhibit.factory({:viewer => current_user, :course => @courses, :creator => current_user}).all()
     render :layout => 'creator', :template => 'exhibits/list'
   end
 
   def theirs
-    @exhibits = Exhibit.find({:viewer => current_user, :course => @courses, :require_submissions => true})
+    @exhibits = Exhibit.factory({:viewer => current_user, :course => @courses, :require_submissions => true}).all()
     render :layout => 'evaluator', :template => 'exhibits/list'
   end
 
   def show
     creator = User.find(params[:creator_id])
     project = Project.find(params[:project_id])
-    @exhibit = Exhibit.find_by_creator_and_project({:viewer => current_user, :creator => creator, :project => project})
+    @exhibit = Exhibit.factory({:viewer => current_user, :creator => creator, :project => project}).first()
     render :layout => 'evaluator'
   end
 
