@@ -1,0 +1,46 @@
+<p id="notice"><%= notice %></p>
+
+
+<p>
+  <b>Name:</b>
+  <%= @rubric.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @rubric.description %>
+</p>
+
+<table class="rubric-table table table-bordered table-striped">
+  <thead>
+    <th></th>
+    <% @rubric.fields.each do |field| %>
+    <th><%= field[:name] %></th>
+    <% end %>
+  </thead>
+  <tbody>
+    <% @rubric.ranges.each do |range| %>
+    <tr>
+      <th>
+        <p>
+          <%= range[:name] %>
+        </p>
+        <p style="font-weight: normal">
+          Low: <%= range[:low] %>
+        </p>
+        <p style="font-weight: normal">
+          High: <%= range[:high] %>
+        </p>
+
+      </th>
+      <% @rubric.fields.each do |field| %>
+      <td><%= field[:rangeDescriptions][range[:id]] %></td>
+      <% end %>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p>
+  <%= link_to 'List Rubrics', admin_rubrics_path(), :class => 'btn' %>
+</p>

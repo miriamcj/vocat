@@ -1,0 +1,79 @@
+<h3>View course:</h3>
+<h4><%= @course %></h4>
+
+<div class="alert alert-info">
+  In this course you are an <strong><%= @course.role(current_user) %></strong>.
+</div>
+<p>
+  <strong>Name:</strong>
+  <%= @course.name %>
+</p>
+
+<p>
+  <strong>Department:</strong>
+  <%= @course.department %>
+</p>
+
+<p>
+  <strong>Number:</strong>
+  <%= @course.number %>
+</p>
+
+<p>
+  <strong>Section:</strong>
+  <%= @course.section %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @course.description %>
+</p>
+
+<p>
+  <strong>Creators:</strong>
+  <%= @course.creators.map { |user| user.name }.join(", ") %>
+</p>
+
+<p>
+  <strong>Assistants:</strong>
+  <%= @course.assistants.map { |user| user.name }.join(", ") %>
+</p>
+
+<p>
+  <strong>Evaluators:</strong>
+  <%= @course.evaluators.map { |user| user.name }.join(", ") %>
+</p>
+
+<p>
+	<strong>Course Projects:</strong>
+	<table class="table table-bordered table-striped">
+	  <thead>
+	  <tr>
+	    <th>Name:</th>
+	    <th>Actions</th>
+	  </tr>
+	  </thead>
+	  <tbody>
+	  <% @course.projects.each do |project| %>
+	    <tr>
+	      <td><%= project.name %></td>
+	      <td>
+	        <%= link_to 'edit', edit_admin_course_project_path(@course, project) %>
+	        or
+	        <%= link_to 'destroy', admin_course_project_path(@course, project), method: :delete, data: { confirm: 'Are you sure?' } %>
+	      </td>
+	    </tr>
+	  <% end %>
+	  </tbody>
+	</table>
+</p>
+
+<p>
+  <% if can? :update, @course %>
+    <%= link_to 'edit', edit_admin_course_path(@course), :class => 'btn' %>
+  <% end %>
+  <% if can? :destroy, @course %>
+    <%= link_to 'destroy', admin_course_path(@course), method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn' %>
+  <% end %>
+  <%= link_to 'or return to list', admin_courses_path, :class => 'btn' %>
+</p>
