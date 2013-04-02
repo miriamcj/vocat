@@ -1,0 +1,36 @@
+<table class="table table-bordered course-map-table" >
+  <thead>
+    <tr>
+      <td></td>
+      <% @course.projects.each do |project| %>
+      <th>
+        <%=  link_to project.name, courses_exhibits_for_project_path(:project_id => project.id) %>
+      </th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @course.creators.each do |creator| %>
+      <tr>
+        <th>
+          <%=  link_to creator.name, courses_exhibits_for_creator_path(:creator_id => creator) %>
+        </th>
+        <% @course.projects.each do |project| %>
+          <% exhibit = find_exhibit(@exhibits, creator, project) %>
+          <td>
+            <% if exhibit.submission %>
+              <%=  link_to "#{exhibit.submission.id}", courses_exhibit_for_creator_and_project_path(:creator_id => creator, :project_id => project), :class => "exhibit-link" %>
+              <h5 class="exhibit-score">60%</h5>
+              <b class="badge badge-info">&#8203;</b>
+            <% else %>
+              <div class="exhibit-link-unsubmitted"></div>
+              <h5 class="exhibit-score">--</h5>
+              <b class="badge">&#8203;</b>
+          <% end %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

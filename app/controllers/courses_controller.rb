@@ -1,7 +1,20 @@
-class Admin::CoursesController < ApplicationController
+class CoursesController < ApplicationController
 
 	load_and_authorize_resource :course
-  layout 'admin'
+
+  respond_to :html,:json
+
+  def portfolio
+    if current_user.role? :evaluator
+      @exhibits = Exhibit.factory({:viewer => current_user, :course => @course, :require_submissions => true}).limit(10)
+    else
+      @exhibits = Exhibit.factory({:viewer => current_user, :course => @course, :creator => current_user}).limit(10)
+    end
+    respond_with(@course, @exhibits) do |format|
+      format.html { render :template => 'portfolio/index' }
+    end
+
+  end
 
   def index
     @courses = Course.all()
@@ -11,9 +24,7 @@ class Admin::CoursesController < ApplicationController
   end
 
   def show
-    respond_to do |format|
-      format.html # show.html.erb
-    end
+    respond_with @course
   end
 
   def new

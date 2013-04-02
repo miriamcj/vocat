@@ -1,26 +1,13 @@
-<% content_for :course_selector do %>
-  <% if current_user.has_courses %>
-  <%= collection_select(
-          :current_course, :id, current_user.evaluator_courses, :id, :to_s, {:include_blank => "All of my courses"},
-          :id => "course_select", :data => {:url => course_root_path(current_user.organization.id, current_user.courses.first)}
-      ) %>
-  <% end %>
-<% end %>
-
 <% content_for :backbone_bootstrap do %>
-  $(function() {
-    window.router = new Vocat.Routers.AppRouter();
-    window.router.initalize({})
-  });
 <% end %>
 
-<% if @current_course %>
+<% if @course %>
   <% content_for :adaptive_navigation do %>
     <nav class="nav-adaptive">
       <div class="container">
         <ul class="nav">
-          <li><%= link_to 'Evaluations', course_map_path(@current_course) %></li>
-          <li><a href="#">Manage Course</a></li>
+          <li><%= link_to 'Evaluations', courses_exhibits_path(@course) %></li>
+          <li><%= link_to 'Manage Course', course_path(@course) %></li>
           <li><a href="#">Reports</a></li>
         </ul>
       </div>

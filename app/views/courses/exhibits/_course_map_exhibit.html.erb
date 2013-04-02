@@ -2,7 +2,7 @@
   <div class="exhibit-attachment span3">
     <% if (exhibit.submission?) %>
         <div class="placeholder-red">
-          Submission: <%=  link_to exhibit.submission.name, course_map_submission_detail_path(:organization_id => current_user.organization, :course_id => exhibit.course.id, :creator_id => exhibit.submission.creator.id, :project_id => exhibit.project.id) %>
+          Submission: <%=  link_to exhibit.submission.name, courses_exhibit_for_creator_and_project_path(:creator_id => exhibit.submission.creator.id, :project_id => exhibit.project.id) %>
         </div>
     <% else %>
         <div class="placeholder">

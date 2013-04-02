@@ -22,15 +22,20 @@ class Ability
         project.course.assistants.include? user
       end
 
+      can :own, Submission do |submission|
+        submission.creator.id == user.id
+      end
+
       # Creators can update submissions that they own
       can :update, Submission do |submission|
-        submission.creator.id == user.id
+        can? :own, submission
       end
 
       # Creators can evaluate a project if the course and the project allow peer review
       can :evaluate, Project do |project|
         can? :evaluate, project.course and project.allows_peer_review
       end
+
 
       # Creators can evaluate an exhibit if the user is not the exhibit owner and the project allows evaluation
       can :evaluate, Exhibit do |exhibit|

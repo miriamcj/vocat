@@ -11,6 +11,10 @@
   <%= csrf_meta_tags %>
   <%= yield(:head) %>
   <script type="text/javascript">
+    $(function() {
+      window.router = new Vocat.Routers.AppRouter();
+      window.router.initalize({})
+    });
   <%= yield(:backbone_bootstrap) %>
   </script>
 </head>
@@ -18,11 +22,7 @@
 <header class="navbar navbar-static-top">
   <nav class="navbar-inner">
     <div class="container">
-      <% if current_user && current_user.organization %>
-        <%= link_to "VOCAT", root_path, :class => 'brand' %>
-      <% else %>
-        <%= link_to "VOCAT", root_path, :class => 'brand' %>
-      <% end %>
+      <%= link_to "VOCAT", portfolio_path, :class => 'brand' %>
     </div>
   </nav>
   <nav class="navbar-inner">

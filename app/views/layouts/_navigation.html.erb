@@ -1,7 +1,14 @@
 <ul class="nav">
     <li>
       <div class="navbar-form">
-        <%= yield :course_selector %>
+        <% if current_user && current_user.has_courses %>
+          <select id="course_select" name="current_course[id]">
+              <option value="/">All Courses</option>
+            <% current_user.courses.each do |course| %>
+              <option <%= if @course == course then 'selected="selected"' end %> value="<%= url_for portfolio_course_path(course) %>"><%= course %></option>
+            <% end %>
+          </select>
+        <% end %>
       </div>
     </li>
 </ul>

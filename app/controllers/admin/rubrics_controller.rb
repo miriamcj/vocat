@@ -1,7 +1,6 @@
 class Admin::RubricsController < ApplicationController
 
 	load_and_authorize_resource :rubric
-	layout 'admin'
 
 	def index
 		@rubrics = Rubric.all()

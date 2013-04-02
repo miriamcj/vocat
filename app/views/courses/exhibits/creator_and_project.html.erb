@@ -1,0 +1,39 @@
+<table class="table table-bordered course-map-table" >
+  <thead>
+  <tr>
+    <td></td>
+    <% @course.projects.each do |project| %>
+      <th>
+        <%=  link_to project.name, courses_exhibits_for_project_path(:project_id => project) %>
+      </th>
+    <% end %>
+  </tr>
+  </thead>
+  <tbody>
+  <% @course.creators.each_with_index do |a_creator, index| %>
+    <tr>
+      <th <%= 'class=active' if a_creator == @creator %>>
+        <%=  link_to a_creator.name, courses_exhibits_for_creator_path(:creator_id => a_creator) %>
+      </th>
+      <% if index == 0 %>
+      <td colspan="<%= @course.projects.count %>" rowspan="<%= @course.creators.count + 1 %>" class="course-map-overlay">
+        <div style="padding: 0 20px; position: relative;">
+          <%=  link_to '×', courses_exhibits_path, :class => "close" %>
+          <h2><%= @creator.name %></h2>
+          <div style="margin: 20px 0 30px">
+            <%=  link_to "View all", courses_exhibits_for_creator_path(:creator_id => @creator), :class => "btn btn-mini" %>
+            <% @course.projects.each do |project| %>
+                <%=  link_to project.name, courses_exhibit_for_creator_and_project_path(:creator_id => @creator, :project_id => project), :class => project == @project ? "btn btn-mini btn-inverse" : "btn btn-mini" %>
+            <% end %>
+          </div>
+          <div class="well">
+            <%= render 'evaluatable_exhibit_detail', :exhibit => @exhibit %>
+          </div>
+        </div>
+      </td>
+      <% end %>
+    </tr>
+  <% end %>
+  <tr><td></td></tr>
+  </tbody>
+</table>
