@@ -7,6 +7,8 @@ class Ability
 
     if user.role? :creator
 
+			can :show_exhibits_for, User, :id => user.id
+
       # Creators acting as assistants can manage course information
       can :update, Course do |course|
         course.assistants.include? user
@@ -31,11 +33,14 @@ class Ability
         can? :own, submission
       end
 
+			can :evaluate, Course do |course|
+				false
+			end
+
       # Creators can evaluate a project if the course and the project allow peer review
       can :evaluate, Project do |project|
         can? :evaluate, project.course and project.allows_peer_review
       end
-
 
       # Creators can evaluate an exhibit if the user is not the exhibit owner and the project allows evaluation
       can :evaluate, Exhibit do |exhibit|
@@ -48,6 +53,7 @@ class Ability
 
 
     if user.role? :evaluator
+
       # Check that the user isn't acting as a
       # creator for the current course
       can :manage, Course do |course|

@@ -1,21 +1,15 @@
-<% content_for :course_selector do %>
-  <%= collection_select(
-      :current_course, :id, current_user.creator_courses, :id, :to_s, {:include_blank => "All of my courses"},
-      :id => "course_select", :data => {:url => course_root_path(current_user.organization.id, current_user.courses.first)}
-  ) %>
-<% end %>
-
 <% content_for :backbone_bootstrap do %>
 <% end %>
 
 <% content_for :adaptive_navigation do %>
-  <% if @current_course %>
+  <% if @course %>
   <nav class="nav-adaptive">
     <div class="container">
       <ul class="nav">
-        <li><%= link_to 'My Presentations', course_my_exhibits_path(:course_id => @current_course) %></li>
-        <li><%= link_to 'Evaluate Peer Presentations', course_map_path(@current_course) %></li>
-        <li><%= link_to 'Feedback', course_feedback_path(@current_course) %></li>
+        <li><%= link_to 'My Presentations', portfolio_course_path(:id => @course) %></li>
+	      <% if can? :evaluate, @course %>
+        <li><%= link_to 'Evaluate Peer Presentations', courses_exhibits_path(@course) %></li>
+		    <% end %>
       </ul>
     </div>
   </nav>

@@ -1,21 +1,21 @@
 <ul class="nav">
     <li>
       <div class="navbar-form">
-        <% if current_user && current_user.has_courses %>
           <select id="course_select" name="current_course[id]">
               <option value="/">All Courses</option>
-            <% current_user.courses.each do |course| %>
-              <option <%= if @course == course then 'selected="selected"' end %> value="<%= url_for portfolio_course_path(course) %>"><%= course %></option>
-            <% end %>
+	            <% if current_user && current_user.has_courses %>
+                <% current_user.courses.each do |course| %>
+                  <option <%= if @course == course then 'selected="selected"' end %> value="<%= url_for portfolio_course_path(course) %>"><%= course %></option>
+                <% end %>
+              <% end %>
           </select>
-        <% end %>
       </div>
     </li>
 </ul>
 <ul class="nav pull-right">
   <li>
     <% if user_signed_in? %>
-		  <%= link_to(current_user.email, edit_user_registration_path) %>
+		  <%= link_to("#{current_user.name} [#{current_user.email}]", edit_user_registration_path) %>
     <% else %>
 		  <%= link_to('Sign up', new_user_registration_path)  %>
     <% end %>

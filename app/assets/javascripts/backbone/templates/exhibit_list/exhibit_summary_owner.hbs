@@ -11,9 +11,15 @@
       {{#if exhibit.submission}}
       <div style="margin-bottom: 10px; margin-top: 10px">
         <small class="with-gray">No Instructor Comments</small><br>
-        <small class="with-gray"><a href="{{url_for 'courses_exhibit_for_creator_and_project' exhibit.course.id exhibit.creator.id exhibit.project.id}}">3 Peer Comments</a></small>
+        <small class="with-gray">
+          <a href="{{url_for 'courses_exhibit_for_creator_and_project' exhibit.course.id exhibit.creator.id exhibit.project.id}}">
+            3 Peer Comments
+          </a>
+        </small>
       </div>
-      <a class="btn btn-mini" href="{{url_for 'courses_exhibit_for_creator_and_project' exhibit.course.id exhibit.creator.id exhibit.project.id}}">+ See all feedback</a>
+      <a class="btn btn-mini" href="{{url_for 'courses_exhibit_for_creator_and_project' exhibit.course.id exhibit.creator.id exhibit.project.id}}">
+        + See all feedback
+      </a>
       {{/if}}
     </div>
     <div class="exhibit-content span8">
@@ -25,12 +31,16 @@
             </a>
             {{#unless exhibit.viewer.is_owner}}
             <br />
-            <a href="{{url_for 'courses_exhibits_for_creator' exhibit.course.id exhibit.creator.id}}">
+            <a href="{{url_for 'courses_exhibit_for_creator_and_project' exhibit.course.id exhibit.creator.id exhibit.project.id}}">
               {{exhibit.creator.name}}
             </a>
             {{/unless}}
           </h5>
-          <h3 style="margin-top: 0;"><a href="{{url_for 'courses_exhibits_for_project' exhibit.course.id exhibit.project.id}}">{{exhibit.project.name}}</a></h3>
+          <h3 style="margin-top: 0;">
+						<a href="{{url_for 'courses_exhibit_for_creator_and_project' exhibit.course.id exhibit.creator.id exhibit.project.id}}">
+              {{exhibit.project.name}}
+            </a>
+          </h3>
         </div>
         <div class="text-right span1">
           {{#if exhibit.submission}}
@@ -74,9 +84,7 @@
           </div>
         </li>
       </ul>
-      {{#if exhibit.submission}}
       <a class="btn btn-mini" href="{{url_for 'courses_exhibit_for_creator_and_project' exhibit.course.id exhibit.creator.id exhibit.project.id}}">+ Expand details</a>
-      {{/if}}
     </div>
   </div>
  </div>

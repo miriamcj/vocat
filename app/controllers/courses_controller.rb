@@ -1,6 +1,7 @@
 class CoursesController < ApplicationController
 
-	load_and_authorize_resource :course
+	load_resource
+	authorize_resource :course, :except => :portfolio
 
   respond_to :html,:json
 

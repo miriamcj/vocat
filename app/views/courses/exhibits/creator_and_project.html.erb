@@ -18,7 +18,7 @@
       <% if index == 0 %>
       <td colspan="<%= @course.projects.count %>" rowspan="<%= @course.creators.count + 1 %>" class="course-map-overlay">
         <div style="padding: 0 20px; position: relative;">
-          <%=  link_to '×', courses_exhibits_path, :class => "close" %>
+          <%=  link_to '?', courses_exhibits_path, :class => "close" %>
           <h2><%= @creator.name %></h2>
           <div style="margin: 20px 0 30px">
             <%=  link_to "View all", courses_exhibits_for_creator_path(:creator_id => @creator), :class => "btn btn-mini" %>
