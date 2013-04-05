@@ -9,7 +9,7 @@ class ProjectsController < ApplicationController
     @projects = @course.projects
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html # course_map.html.erb
       #format.json { render json: @projects }
     end
   end

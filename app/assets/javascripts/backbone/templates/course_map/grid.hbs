@@ -1,0 +1,34 @@
+<table id="js-grid" class="table table-bordered course-map-table" >
+  <thead>
+    <tr>
+      <td></td>
+      {{#each projects}}
+      <th class="js-navigate-project" data-project="{{this.id}}">
+        {{this.name}}
+      </th>
+			{{/each}}
+    </tr>
+  </thead>
+  <tbody>
+    {{#each rows}}
+      <tr>
+        <th class="js-navigate-creator" data-creator="{{this.creator.id}}">
+          {{this.creator.name}}
+        </th>
+        {{#each this.cells}}
+          <td class="js-navigate-exhibit" data-project="{{this.project_id}}" data-creator="{{../this.creator.id}}">
+              <div class="exhibit-link-unsubmitted"></div>
+              {{#if this.submission}}
+	              <h5 class="exhibit-score">60%</h5>
+	              <b class="badge badge-info">&#8203;</b>
+              {{else}}
+	              <h5 class="exhibit-score">--</h5>
+	              <b class="badge">&#8203;</b>
+              {{/if}}
+          </td>
+				{{/each}}
+      </tr>
+		{{/each}}
+  </tbody>
+</table>
+

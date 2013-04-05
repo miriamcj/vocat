@@ -1,8 +1,10 @@
 class Courses::ExhibitsController < ApplicationController
 
-  def index
+  def course_map
     authorize! :evaluate, @course
-    @exhibits = Exhibit.factory({:viewer => current_user, :course => @course})
+    @projects = Project.find_all_by_course_id @course
+    @creators = @course.creators
+		@submissions = Submission.find_all_by_project_id(@projects)
   end
 
   def creator_and_project

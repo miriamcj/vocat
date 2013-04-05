@@ -14,15 +14,7 @@ module ApplicationHelper
     content_tag :div, p+list, :class => "alert alert-error"
   end
 
-  def bootstrap(models)
-    if models.kind_of?(Array)
-      out = []
-      models.each do |model|
-        out << model.as_json
-      end
-    else
-      out = models.as_json
-    end
+  def bootstrap(out)
     out.to_json.html_safe
   end
 

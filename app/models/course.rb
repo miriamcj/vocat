@@ -14,6 +14,10 @@ class Course < ActiveRecord::Base
 
   default_scope order("department ASC, number ASC, section ASC")
 
+  def name_long
+		self.to_s
+  end
+
   def to_s
     "#{department}#{number}: #{name}, Section #{section}"
   end

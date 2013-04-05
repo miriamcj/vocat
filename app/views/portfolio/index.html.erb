@@ -1,6 +1,17 @@
-<div data-view="ExhibitList">
-  <% content_for :backbone_bootstrap do %>
-    window.Vocat.Bootstrap.Collections.Exhibit = <%= bootstrap @exhibits %>;
-  <% end %>
+<% content_for :backbone_bootstrap do %>
+  $(function() {
+	  div = $('<div></div>')
+	  div.html($('#bootstrap').text())
+	  data = JSON.parse(div.text())
+	  console.log(data)
+	  window.Vocat.Bootstrap.Collections.Submission = data.Submission;
+  })
+<% end %>
+
+
+<div data-view="Portfolio">
+  <script type="text/json" id="bootstrap">
+    { "Submission": <%= @submissions.to_json %> }
+  </script>
 </div>
 

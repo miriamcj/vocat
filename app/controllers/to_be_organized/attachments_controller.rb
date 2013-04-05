@@ -30,7 +30,7 @@ class AttachmentsController < ApplicationController
     @attachments = @fileable.attachments
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html # course_map.html.erb
       #format.json { render json: @attachments }
     end
   end

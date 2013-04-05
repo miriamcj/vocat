@@ -24,6 +24,13 @@ class Exhibit < ActiveRecord::Base
   # This
   def self.factory(options = {})
 
+		if options[:id]
+			parts = options[:id].split('-')
+			options.delete(:id)
+			options[:creator] = parts[0]
+			options[:project] = parts[1]
+		end
+
     q = Exhibit.scoped
     if options[:course]
       q = q.where(:course_id => self.options_to_ids(options[:course]))
@@ -51,13 +58,18 @@ class Exhibit < ActiveRecord::Base
     end
     q = q.select(select)
 
-    exhibits = q.includes(:viewer, :course, :submission, :creator, :project).readonly()
+		sql = q.to_sql()
+		result = ActiveRecord::Base.connection.select_all(sql)
+
+#    exhibits = q.includes(:viewer, :course, :submission, :creator, :project).readonly()
   end
 
   def self.options_to_ids(option)
     if option.kind_of?(Array)
       option.map { |model| model.id }
-    else
+    elsif option.kind_of?(String)
+			option
+		else
       [option.id]
     end
   end
@@ -76,15 +88,22 @@ class Exhibit < ActiveRecord::Base
     }
   end
 
-  def as_json(options = nil)
-    {
-      :id => @id,
-      :viewer => self.serialize_viewer,
-      :project => ProjectSerializer.new(project).as_json[:project],
-      :submission => SubmissionSerializer.new(submission).as_json[:submission],
-      :creator => CreatorSerializer.new(creator).as_json[:creator],
-      :course => CourseSerializer.new(course).as_json[:course]
-    }
+  def as_json(options)
+		out = {
+				:id => "#{creator.id}-#{project.id}",
+				:viewer => self.serialize_viewer,
+		}
+		if options[:abbreviated]
+			out[:project] = project.id
+			out[:submission] = submission.id unless !submission
+			out[:creator] = creator.id
+		else
+			out[:project] = ProjectSerializer.new(project).as_json[:project],
+			out[:submission] = SubmissionSerializer.new(submission).as_json[:submission],
+	    out[:creator] = UserSerializer.new(creator).as_json[:creator],
+      out[:course] = CourseSerializer.new(course).as_json[:course]
+		end
+		out
   end
 
 

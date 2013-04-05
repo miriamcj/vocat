@@ -1,6 +1,6 @@
-class Vocat.Views.ExhibitDetailScore extends Vocat.Views.AbstractView
+class Vocat.Views.CreatorProjectDetailScore extends Vocat.Views.AbstractView
 
-	template: HBT["backbone/templates/exhibit_detail/score"]
+	template: HBT["backbone/templates/creator_project_detail/score"]
 
 	events: {
 		'click .js-toggle-score-detail': "toggleDetail"
@@ -43,7 +43,6 @@ class Vocat.Views.ExhibitDetailScore extends Vocat.Views.AbstractView
 
 	render: () ->
 		context = {
-			exhibit: @model.toJSON()
 			state: @state.toJSON()
 		}
 		@$el.html(@template(context))

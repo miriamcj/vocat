@@ -4,7 +4,7 @@ $blueLight: #c4dae6;
 
 @import "bootstrap";
 
-// Custom grid
+// Custom course_map
 // --------------------------
 %grid {
   float: left;
@@ -555,6 +555,19 @@ h3 .editable-inline {
   .editable-inline-input {
     height: 40px; font-size: 24px; margin-top: 7px; line-height: 1;
   }
+}
+
+#courseMap {
+  .row {
+	border: 1px solid brown;
+	.cell {
+	  float: left;
+	  border: 1px solid forestgreen;
+	  background: gray;
+	  padding: 5px;
+	}
+  }
+
 }
 
 @import "bootstrap-responsive";
