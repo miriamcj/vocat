@@ -15,17 +15,17 @@ class Vocat.Views.CourseMapGrid extends Vocat.Views.AbstractView
 
 	navigateExhibitDetail: (event) ->
 		data = @preventAndExtractData(event)
-		path = 'courses/4/exhibit/creator/' + data.creator + '/project/' + data.project
+		path = 'courses/4/evaluations/creator/' + data.creator + '/project/' + data.project
 		window.Vocat.router.navigate(path, true)
 
 	navigateCreatorDetail: (event) ->
 		data = @preventAndExtractData(event)
-		path = 'courses/4/exhibits/creator/' + data.creator
+		path = 'courses/4/evaluations/creator/' + data.creator
 		window.Vocat.router.navigate(path, true)
 
 	navigateProjectDetail: (event) ->
 		data = @preventAndExtractData(event)
-		path = 'courses/4/exhibits/project/' + data.project
+		path = 'courses/4/evaluations/project/' + data.project
 		window.Vocat.router.navigate(path, true)
 
 	preventAndExtractData: (event) ->

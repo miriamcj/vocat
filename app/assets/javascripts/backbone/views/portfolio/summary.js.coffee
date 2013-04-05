@@ -12,6 +12,9 @@ class Vocat.Views.PortfolioSubmissionSummary extends Vocat.Views.AbstractView
 		}
 
 		# TODO: Switch view based on user type
-		console
-		template = @ownerTemplate
+		if @model.get('current_user_is_owner')
+			template = @ownerTemplate
+		else
+			template = @otherTemplate
+		template = template
 		@$el.html(template(context))

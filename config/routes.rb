@@ -4,12 +4,22 @@ Vocat::Application.routes.draw do
   devise_for :users, :controllers => {:registrations => 'registrations'}
 
   match '/' => 'portfolio#index', :as => 'portfolio'
-  match '/courses/:course_id/exhibits' => 'courses/exhibits#course_map', :via => :get, :as => 'courses_exhibits'
-  match '/courses/:course_id/exhibits/creator/:creator_id' => 'courses/exhibits#course_map', :via => :get, :as => 'courses_exhibits_for_creator'
-  match '/courses/:course_id/exhibit/creator/:creator_id/project/:project_id' => 'courses/exhibits#course_map', :via => :get, :as => 'courses_exhibit_for_creator_and_project'
-  match '/courses/:course_id/exhibits/project/:project_id' => 'courses/exhibits#course_map', :via => :get, :as => 'courses_exhibits_for_project'
+  match '/courses/:course_id/evaluations' => 'courses/evaluations#course_map', :via => :get, :as => 'courses_evaluations'
+  match '/courses/:course_id/evaluations/creator/:creator_id' => 'courses/evaluations#course_map', :via => :get, :as => 'courses_evaluations_for_creator'
+  match '/courses/:course_id/evaluations/creator/:creator_id/project/:project_id' => 'courses/evaluations#course_map', :via => :get, :as => 'courses_evaluations_for_creator_and_project'
+  match '/courses/:course_id/evaluations/project/:project_id' => 'courses/evaluations#course_map', :via => :get, :as => 'courses_evaluations_for_project'
 
-  resources :exhibit, :only => [:show]
+  match '/courses/:course_id/creator/:creator_id/project/:project_id' => 'courses/evaluations#creator_and_project', :via => :get, :as => 'course_creator_project'
+
+  resources :user, :only => ['read'] do
+      resources :submissions
+  end
+
+  resources :course, :only => ['read'] do
+    resources :submissions
+  end
+
+
 
   resources :courses do
     member do
@@ -18,49 +28,11 @@ Vocat::Application.routes.draw do
     resources :projects, :shallow => true
   end
 
-
-
-    #resources :projects
-    #
-    #match 'map' => 'course/map#index', :via => :get, :as => 'course_map'
-    #
-    #
-    #resources :projects
-
-  #
-  ## Static routes
-  #get  '/course/:course_id/feedback' => 'static#feedback', :as => 'course_feedback'
-  #get  '/static/form'                => 'static#form'
-  #
-  #
-  #resources :rubrics, :controller => 'admin/rubrics', :only => [:create, :update, :delete]
-  #
-  ## Admin routes
-  #get '/admin' => 'admin/dashboard#index', :as => 'admin_root'
-  #
-  #
-  #namespace :admin do
-	 # resources :users
-  #
-  #  resources :configuration
-  #  resources :organizations, :path => 'org'
-  #  resources :rubrics, :only => [:index, :new, :show, :destroy, :edit]
-  #end
-  #
-  #devise_for :users, :controllers => {:registrations => 'registrations'}
-  #
-  #root :to => 'application#index'
-
-
-
-  #resources :organizations, :path => 'org' do
-  #  resources :courses do
-  #    resources :projects
-  #    resources :submissions do
-  #      resources :attachments
-  #    end
-  #  end
-  #end
+  resources :rubrics, :controller => 'admin/rubrics', :only => [:create, :update, :delete]
+  get '/admin' => 'admin/dashboard#index', :as => 'admin_root'
+  namespace :admin do
+    resources :rubrics, :only => [:index, :new, :show, :destroy, :edit]
+  end
 
 
 end

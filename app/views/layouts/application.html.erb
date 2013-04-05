@@ -14,20 +14,17 @@
   <%= yield(:head) %>
 
   <script type="text/javascript">
+<%= yield(:backbone_bootstrap) %>
 
-	  <%= yield(:backbone_bootstrap) %>
-
-		<% if content_for?(:backbone_router) %>
-			<%= yield(:backbone_router) %>
-		<% else %>
-		    $(function() {
-		      window.Vocat.router = new Vocat.Routers.AppRouter();
-		      window.Vocat.router.initalize({})
-			    Backbone.history.start({pushState: true})
-		    });
-
-		<% end %>
-
+<% if content_for?(:backbone_router) %>
+  <%= yield(:backbone_router) %>
+<% else %>
+  $(function() {
+    window.Vocat.router = new Vocat.Routers.AppRouter();
+    window.Vocat.router.initalize({})
+    Backbone.history.start({pushState: true})
+  });
+<% end %>
   </script>
 
 </head>

@@ -5,10 +5,12 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
 	overlayOpen: false
 
 	initialize: (options)  ->
-		window.Vocat.router.on "route:showCreatorProjectDetail", (creator, project) => @showCreatorProject(creator, project)
-		window.Vocat.router.on "route:showCreatorDetail", (creator) => @showCreator(creator)
-		window.Vocat.router.on "route:showProjectDetail", (project) => @showProject(project)
+		window.Vocat.router.on "route:showCreatorProjectDetail", (course, creator, project) => @showCreatorProject(creator, project)
+		window.Vocat.router.on "route:showCreatorDetail", (course, creator) => @showCreator(creator)
+		window.Vocat.router.on "route:showProjectDetail", (course, project) => @showProject(project)
 		window.Vocat.router.on "route:showGrid", (project) => @showGrid()
+		@projects = window.Vocat.Instantiated.Collections.Project
+		@creators = window.Vocat.Instantiated.Collections.Creator
 		@render()
 
 	ensureOverlay: () ->
@@ -22,8 +24,8 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
 		@$overlay.width(@$el.width() - $firstCell.outerWidth())
 
 	hideOverlay: () ->
-		@$overlay.fadeOut()
-		@overlayOpen = false
+		#@$overlay.hide()
+		#@overlayOpen = false
 
 	showGrid: () ->
 		@hideOverlay()
@@ -32,14 +34,31 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
 		@ensureOverlay()
 		@detailView = new Vocat.Views.CourseMapCreatorProjectDetail({
 			el: @$overlay
+			projects: @projects,
+			creators: @creators,
 			model: {} # TODO: Add model
 		})
 
 	showCreator: (creator) ->
 		@ensureOverlay()
+		creator = @creators.get(creator)
+		@detailView = new Vocat.Views.CourseMapCreatorDetail({
+			el: @$overlay
+			creator: creator
+			projects: @projects,
+			creators: @creators,
+			model: {} # TODO: Add model
+		})
 
 	showProject: (project) ->
 		@ensureOverlay()
+		@detailView = new Vocat.Views.CourseMapProjectDetail({
+			el: @$overlay
+			projects: @projects,
+			creators: @creators,
+			model: {} # TODO: Add model
+		})
+
 
 	render: () ->
 		@$el.html(@template({}))

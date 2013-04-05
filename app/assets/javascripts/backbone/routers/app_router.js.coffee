@@ -4,10 +4,10 @@ Vocat.Dispatcher = new Vocat.Models.Dispatcher()
 class Vocat.Routers.AppRouter extends Backbone.Router
 
 	routes:
-		"courses/:course/exhibits": 'showGrid'
-		"courses/:course/exhibits/creator/:creator": 'showCreatorDetail'
-		"courses/:course/exhibits/project/:project": 'showProjectDetail'
-		"courses/:course/exhibit/creator/:creator/project/:project": 'showCreatorProjectDetail'
+		"courses/:course/evaluations": 'showGrid'
+		"courses/:course/evaluations/creator/:creator": 'showCreatorDetail'
+		"courses/:course/evaluations/project/:project": 'showProjectDetail'
+		"courses/:course/evaluations/creator/:creator/project/:project": 'showCreatorProjectDetail'
 
 	initalize: (options) ->
 		# We create all of our parent views based on the data-view attributes of the elements on the page

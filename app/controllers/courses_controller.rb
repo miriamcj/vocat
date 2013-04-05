@@ -7,14 +7,14 @@ class CoursesController < ApplicationController
 
   def portfolio
     if current_user.role? :evaluator
-      @exhibits = Exhibit.factory({:viewer => current_user, :course => @course, :require_submissions => true}).limit(10)
+      @submissions = Submission.for_course(@course).limit(10)
     else
-      @exhibits = Exhibit.factory({:viewer => current_user, :course => @course, :creator => current_user}).limit(10)
-    end
-    respond_with(@course, @exhibits) do |format|
-      format.html { render :template => 'portfolio/index' }
+      @submissions = Submission.for_creator_and_course(current_user, @course).limit(10)
     end
 
+    respond_with(@course, @submissions) do |format|
+      format.html { render :template => 'portfolio/index' }
+    end
   end
 
   def index

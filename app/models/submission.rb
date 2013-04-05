@@ -10,10 +10,10 @@ class Submission < ActiveRecord::Base
   delegate :name, :to => :project, :prefix => true
   delegate :name, :to => :creator, :prefix => true
   delegate :id, :to => :course, :prefix => true
-  delegate :id, :to => :course, :prefix => true
 
   scope :for_course, lambda { |course| joins(:project).where('projects.course_id' => course) }
   scope :for_creator, lambda { |creator| where('creator_id' => creator).includes(:course, :project, :attachments) }
+  scope :for_creator_and_course, lambda { |creator, course| where('creator_id' => creator, 'projects.course_id' => course).includes(:course, :project, :attachments) }
 
   def active_model_serializer
 	  SubmissionSerializer

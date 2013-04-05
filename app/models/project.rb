@@ -5,6 +5,14 @@ class Project < ActiveRecord::Base
   has_many :submitors, :through => :course
   attr_accessible :description, :name, :course
 
+  delegate :name, :to => :course, :prefix => true
+  delegate :name_long, :to => :course, :prefix => true
+  delegate :id, :to => :course, :prefix => true
+
+
+  def active_model_serializer
+    ProjectSerializer
+  end
 
   def submission_by_user(user)
     submissions.where(:creator_id => user.id).first

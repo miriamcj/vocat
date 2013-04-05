@@ -1,1 +1,13 @@
-creator_detail hbs
+<div style="padding: 0 20px; position: relative;">
+  <a href="#" class="close">x</a>
+  <h2>{{creator.name}}</h2>
+  <div style="margin: 20px 0 30px">
+    <a href="#" class="btn btn-mini">View all</a>
+    {{#each projects}}
+      <a class="btn btn-mini btn-inverse" href="#">{{this.name}}</a>
+    {{/each}}
+  </div>
+  <div class="js-submissions">
+
+  </div>
+</div>

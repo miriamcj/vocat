@@ -1,34 +1,29 @@
 <div class="well">
   <div class="row" xmlns="http://www.w3.org/1999/html">
-    <div class="exhibit-attachment span3">
+    <div class="submission-attachment span3">
       <img src="{{submission.thumb}}" style="width: 270px;" />
       <div style="margin-bottom: 10px; margin-top: 10px">
         <small class="with-gray">No Instructor Comments</small><br>
         <small class="with-gray">
-        {{debug submission}}
-          <a href="{{url_for 'courses_exhibit_for_creator_and_project' submission.course_id submission.creator_id submission.project_id}}">
+          <a href="{{url_for 'course_creator_project' submission.course_id submission.creator_id submission.project_id}}">
             3 Peer Comments
           </a>
         </small>
       </div>
-      <a class="btn btn-mini" href="{{url_for 'courses_exhibit_for_creator_and_project' submission.course_id submission.creator_id submission.project_id}}">
+      <a class="btn btn-mini" href="{{url_for 'course_creator_project' submission.course_id submission.creator_id submission.project_id}}">
         + See all feedback
       </a>
     </div>
-    <div class="exhibit-content span8">
+    <div class="submission-content span8">
       <div class="row">
         <div class="span7">
           <h5 style="margin: 0;">
-            <a href="{{url_for 'course_root' submission.course_id}}">
+            <a href="{{url_for 'courses_evaluations' submission.course_id}}">
               {{submission.course_name_long}}
-            </a>
-            <br />
-            <a href="{{url_for 'courses_exhibit_for_creator_and_project' submission.course_id submission.creator_id submission.project_id}}">
-              {{submission.creator_name}}
             </a>
           </h5>
           <h3 style="margin-top: 0;">
-						<a href="{{url_for 'courses_exhibit_for_creator_and_project' submission.course_id submission.creator_id submission.project_id}}">
+						<a href="{{url_for 'course_creator_project' submission.course_id submission.creator_id submission.project_id}}">
               {{submission.project_name}}
             </a>
           </h3>
@@ -55,7 +50,7 @@
           </div>
         </li>
       </ul>
-      <a class="btn btn-mini" href="{{url_for 'courses_exhibit_for_creator_and_project' submission.course_id submission.creator_id submission.project_id}}">+ Expand details</a>
+      <a class="btn btn-mini" href="{{url_for 'course_creator_project' submission.course_id submission.creator_id submission.project_id}}">+ Expand details</a>
     </div>
   </div>
  </div>

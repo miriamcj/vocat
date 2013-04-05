@@ -14,10 +14,10 @@ module ApplicationHelper
     content_tag :div, p+list, :class => "alert alert-error"
   end
 
-  def bootstrap(out)
-    out.to_json.html_safe
+  def serialize_for_bootstrap(collection, current_user)
+    # See https://github.com/evrone/active_model_serializers/commit/22b6a74131682f086bd8095aaaf22d0cd6e8616d
+    ActiveModel::ArraySerializer.new(collection, :scope => current_user).to_json()
   end
-
 
   # LINK HELPERS
   #
