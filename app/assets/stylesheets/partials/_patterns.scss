@@ -1,0 +1,167 @@
+// Patterns
+// --------
+
+// Really basic utility patterns
+// --------------------------------------------------------
+%pull-left {
+	float: left;
+}
+
+%pull-right {
+	float: right;
+}
+
+// Typography
+// --------------------------------------------------------
+// Hierarchy
+// --------------------------
+%alpha {
+	// font-size: 2em;
+	// font-weight: 300;
+}
+
+%beta {
+	// font-size: 1.5em;
+	// font-weight: 300;
+}
+
+%gamma {
+	// font-size: 1em;
+	// font-weight: 300;
+}
+
+%delta {
+	// font-size: 0.8em;
+	// font-weight: 300;
+}
+
+%epsilon {
+	// font-size: 0.6em;
+	// font-weight: 300;
+}
+
+%zeta {
+	// font-size: 0.4em
+	// font-weight: 300;
+}
+
+// Extra-hierarchy
+// Very large & very small type,
+// outside the above hierarchy
+// Employs SI prefixes
+// --------------------------
+%deca {
+	// font-size: 4em;
+	// font-weight: 300;	
+}
+
+%deci {
+	// font-size: 0.2em;
+	// font-weight: 300;
+}
+
+// Block-level
+// --------------------------
+%heading {
+	// margin: 0;
+}
+
+// Inline
+// --------------------------
+
+// Links
+// --------------------------
+// https://github.com/h5bp/html5-boilerplate/blob/master/css/main.css#L120
+%hidden-text {
+	background-color: transparent;
+    border: 0;
+    overflow: hidden;
+    *text-indent: -9999px;
+    &:before {
+	    content: "";
+	    display: block;
+	    width: 0;
+	    height: 100%;
+    }
+}
+
+// Lists
+// --------------------------
+%unstyled-list {
+	list-style-type: none;
+	padding: 0;
+}
+
+%floated-list {
+	@extend %clearfix;
+	@extend %unstyled-list;
+	li {
+		float: left;
+		a {
+			display: block;
+		}
+	}
+	li + li {
+		// margin-left: 1em;
+	}
+}
+
+// Inputs
+// --------------------------
+%custom-input {
+	@include opacity(0);
+	.lt-ie9 & {
+		filter: alpha(opacity=100);
+	}
+	& + b {
+		display: block;
+		position: absolute;
+		left: 0;
+		.lt-ie9 & {
+			display: none;
+		}
+
+	}
+	&:checked {
+		& + b {
+			background-position: left bottom;
+		}
+	}
+}
+
+// <label>
+%input-label {
+	position: relative;
+}
+
+// Text colors
+// --------------------------
+// %with-gray {
+// 	color: $gray;
+// }
+
+// Component patterns
+// --------------------------------------------------------
+// Stretches block-level element to fill container vertically
+// Left or right positioning optional
+%vertical-bar {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+}
+
+// Fixes block-level element to top & bottom of viewport
+// Be sure to specify left or right positioning
+%vertical-bar-fixed {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+}
+
+// Fixes block-level element to left & right of viewport
+// Be sure to specify top or bottom positioning
+%horizontal-bar-fixed {
+	position: fixed;
+	right: 0;
+	left: 0;
+}

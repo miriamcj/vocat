@@ -1,0 +1,106 @@
+// Base
+// ----
+
+// Applies a natural box layout model to all the things 
+* {
+	@include box-sizing(border-box);
+}
+
+// Sets text selection background color
+// @include selection(lighten($blue, 40%));
+
+// Global
+// --------------------------------------------------------
+html {
+	font-size: 100%;
+	-webkit-text-size-adjust: 100%;
+	-moz-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+	// Do you want to force grayscale antialiasing in Chrome?
+	// -webkit-font-smoothing: antialiased;
+	// Do you want to enable kerning and ligatures in webkit & gecko?
+	// text-rendering: optimizeLegibility;
+}
+
+body {
+	// Set base font-family here
+	font-size: 1em;
+	font-weight: 400;
+	line-height: $baseLineHeight;
+	// color: $somethingDelightful;
+}
+
+// Body classes
+// --------------------------
+// .home {
+// 	// Home specific styles, for example
+// }
+
+// Typography
+// --------------------------------------------------------
+// Block-level elements
+// --------------------------
+h1 {
+	@extend %heading;
+	@extend %alpha;
+}
+
+h2 {
+	@extend %heading;
+	@extend %beta;
+}
+
+h3 {
+	@extend %heading;
+	@extend %gamma;	
+}
+
+h4 {
+	@extend %heading;
+	@extend %delta;	
+}
+
+h5 {
+	@extend %heading;
+	@extend %epsilon;	
+}
+
+h6 {
+	@extend %heading;
+	@extend %zeta;		
+}
+
+p {
+	margin: 0;
+	& + & {
+		margin-top: $verticalSpace;
+	}
+}
+
+ul, ol {
+	// Base list styles
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid $black;
+    margin: $verticalSpace 0;
+    padding: 0;
+}
+
+// Inline elements
+// --------------------------
+a {
+	// Do you want links to transition smoothly?
+	// @include transition(0.05s color ease-out);
+	text-decoration: none;
+	// color: $somethingDelightful;
+	&:visited {
+		// color: $somethingDelightful;
+	}
+	&:hover {
+		// color: $mindBlowingHue;
+	}
+}
