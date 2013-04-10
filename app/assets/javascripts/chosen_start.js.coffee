@@ -1,2 +1,0 @@
-$ ->
-  $('.chzn-select').chosen()

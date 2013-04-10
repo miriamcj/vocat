@@ -16,7 +16,6 @@
 //= require jquery.iframe-transport
 //= require jquery.fileupload
 //= require_popcorn/popcorn-complete
-//= require chosen-jquery
 //= require js-routes
 //= require underscore
 //= require handlebars.runtime
