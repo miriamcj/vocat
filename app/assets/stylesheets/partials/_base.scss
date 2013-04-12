@@ -16,10 +16,9 @@ html {
 	-webkit-text-size-adjust: 100%;
 	-moz-text-size-adjust: 100%;
 	-ms-text-size-adjust: 100%;
-	// Do you want to force grayscale antialiasing in Chrome?
-	// -webkit-font-smoothing: antialiased;
-	// Do you want to enable kerning and ligatures in webkit & gecko?
-	// text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+	overflow-x: hidden;
 }
 
 body {
@@ -28,13 +27,14 @@ body {
 	font-weight: 400;
 	line-height: $baseLineHeight;
 	// color: $somethingDelightful;
+	overflow-x: hidden;
 }
 
 // Body classes
 // --------------------------
-// .home {
-// 	// Home specific styles, for example
-// }
+.authentication {
+	background-color: $beigeLight;
+}
 
 // Typography
 // --------------------------------------------------------

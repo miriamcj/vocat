@@ -11,6 +11,11 @@
 	float: right;
 }
 
+%center {
+	margin-right: auto;
+	margin-left: auto;
+}
+
 // Typography
 // --------------------------------------------------------
 // Hierarchy
@@ -142,26 +147,45 @@
 
 // Component patterns
 // --------------------------------------------------------
-// Stretches block-level element to fill container vertically
-// Left or right positioning optional
-%vertical-bar {
-	position: absolute;
-	top: 0;
-	bottom: 0;
+%centered-tile {
+	@extend %center;
+	width: 38em;
 }
 
-// Fixes block-level element to top & bottom of viewport
-// Be sure to specify left or right positioning
-%vertical-bar-fixed {
-	position: fixed;
-	top: 0;
-	bottom: 0;
-}
 
-// Fixes block-level element to left & right of viewport
-// Be sure to specify top or bottom positioning
-%horizontal-bar-fixed {
-	position: fixed;
-	right: 0;
-	left: 0;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

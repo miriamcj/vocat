@@ -1,3 +1,74 @@
 // Components
 // ----------
 
+// Page level components
+// --------------------------------------------------------
+.container {
+	width: $mainWidth;
+	margin: 0 auto;
+}
+
+// Page header
+// --------------------------
+.page-header {
+
+}
+
+// Extended by .page-header--banner & its psudoelements
+%page-header--banner {
+	background-color: $tealLight;
+}
+
+.page-header--banner {
+	@extend %page-header--banner;
+	@include full-bleed {
+		@extend %page-header--banner;
+	}
+	height: 2.125em;
+	padding: 9px 0;
+	position: relative;
+}
+
+.page-header--logo {
+	@extend %center;
+	display: block;
+	height: 1em;
+}
+
+// Authentication components
+// --------------------------------------------------------
+.authentication-tile {
+	@extend %centered-tile;
+	background-color: $beige;
+	padding: 3.25em;
+	margin-top: 7em;
+}
+
+.authentication-footer {
+	@extend %centered-tile;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

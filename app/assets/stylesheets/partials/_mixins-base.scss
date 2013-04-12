@@ -46,23 +46,23 @@
 // Specify background & borders when you call it
 // Vertical positioning requires ajdustment when adding borders
 // Requires generatedcontent polyfill to work in IE7
+// NB won't work in IE7 if height is set explicitly 
 // --------------------------
 @mixin full-bleed {
-	&:before,&:after,
-	.wing-left,.wing-right {
+	&:before, 
+	&:after {
 		content: "";
 		width: 9999px;
-		// Maybe someday
-		// width: 100vw;
+		width: 100vw;
 		position: absolute;
 		top: 0;
 		bottom: 0;
 		@content;
 	}
-	&:before,.wing-left {
+	&:before {
 		right: 100%;
 	}
-	&:after,.wing-right {
+	&:after {
 		left: 100%;
 	}
 }

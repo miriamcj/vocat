@@ -1,2 +1,11 @@
 // Project specific mixins
 // -----------------------
+
+// Compass sprites
+// This generates a bunch of class selectors, consisting of 
+// the sprite folder name (icon) followed by the image name.
+// Extend them wherever you like: @extend .icon-tardis;
+// --------------------------
+@import "compass/utilities/sprites";
+@import "../images/icon/*.png";
+@include all-icon-sprites;

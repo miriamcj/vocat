@@ -1,8 +1,11 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width">
   <title><%= content_for?(:title) ? yield(:title) : "VOCAT" %></title>
   <meta name="description" content="">
   <meta name="author" content="">
@@ -13,26 +16,19 @@
   <script type="text/javascript">
     <%= yield(:backbone_bootstrap) %>
   </script>
+
 </head>
-<body>
-<header class="navbar navbar-static-top">
-  <nav class="navbar-inner">
-    <div class="container">
-      <%= render 'layouts/navigation' %>
-    </div>
-  </nav>
-  <%= yield(:adaptive_navigation) %>
-</header>
-<div id="main" role="main">
+<body class="authentication">
   <div class="container">
-    <div class="content">
-      <div class="row">
-        <%= yield %>
+    <header class="page-header">
+      <div class="page-header--banner">
+        <%= image_tag("logo-vocat-light.png", :class => "page-header--logo", :alt => "VOCAT") %>
       </div>
-      <footer>
-      </footer>
+    </header>
+    <div class="page-content">
+      <%= yield %>         
     </div>
-  </div> <!--! end of .container -->
-</div> <!--! end of #main -->
+          
+  </div> <!-- container -->
 </body>
 </html>
