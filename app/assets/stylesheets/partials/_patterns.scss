@@ -21,32 +21,32 @@
 // Hierarchy
 // --------------------------
 %alpha {
-	// font-size: 2em;
+  @include font-size(20.5);
 	// font-weight: 300;
 }
 
 %beta {
-	// font-size: 1.5em;
+  @include font-size(19.2);
 	// font-weight: 300;
 }
 
 %gamma {
-	// font-size: 1em;
+  @include font-size(16);
 	// font-weight: 300;
 }
 
 %delta {
-	// font-size: 0.8em;
+  @include font-size(13);
 	// font-weight: 300;
 }
 
 %epsilon {
-	// font-size: 0.6em;
+  @include font-size(12);
 	// font-weight: 300;
 }
 
 %zeta {
-	// font-size: 0.4em
+  // @include font-size(0.4);
 	// font-weight: 300;
 }
 
@@ -56,12 +56,12 @@
 // Employs SI prefixes
 // --------------------------
 %deca {
-	// font-size: 4em;
+  @include font-size(42.9);
 	// font-weight: 300;	
 }
 
 %deci {
-	// font-size: 0.2em;
+  // @include font-size(0.2);
 	// font-weight: 300;
 }
 
@@ -90,6 +90,35 @@
     }
 }
 
+// Buttons
+// --------------------------
+%teal-arrow-button {
+  @extend %epsilon;
+  @include font-body;
+  display: inline-block;
+  // TODO change this to numerical weight once fonts are embedded for real
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  color: $beige;
+  background-color: $tealLight;
+  padding: 1.4rem 3.9rem 1.1rem 1.4rem;
+  border: none;
+  border-radius: $radius;
+  position: relative;
+  &:after {
+    @include svg(circle-arrow-right);
+    content: "";
+    display: block;
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+    top: 0.9rem;
+    right: 1.1rem;
+  }
+}
+
 // Lists
 // --------------------------
 %unstyled-list {
@@ -111,25 +140,58 @@
 	}
 }
 
+%floated-list-right {
+  @extend %clearfix;
+  @extend %unstyled-list;
+  li {
+    float: right;
+    a {
+      display: block;
+    }
+  }
+  li + li {
+    // margin-right: 1em;
+  }
+}
+
 // Inputs
 // --------------------------
-%custom-input {
+%white-text-input {
+  @extend %alpha;
+  @include placeholder($beigeDark);
+  @include font-body;
+  display: block;
+  width: 100%;
+  color: $beigeDark;
+  padding: 1rem 1.4rem 0.6rem;
+  border: none;
+  border-radius: $radius;
+  margin-bottom: 1.3rem;
+  &:focus {
+    outline: none;
+  }
+}
+
+%custom-checkbox {
 	@include opacity(0);
 	.lt-ie9 & {
 		filter: alpha(opacity=100);
 	}
 	& + b {
+    @include svg(checkbox-unchecked);
 		display: block;
+    width: 1em;
+    height: 1em;
 		position: absolute;
+    top: 0;
 		left: 0;
 		.lt-ie9 & {
 			display: none;
 		}
-
 	}
 	&:checked {
 		& + b {
-			background-position: left bottom;
+      @include svg(checkbox-unchecked);
 		}
 	}
 }
@@ -141,15 +203,31 @@
 
 // Text colors
 // --------------------------
-// %with-gray {
-// 	color: $gray;
-// }
+%with-white {
+	color: $white;
+}
+
+%with-light-gray {
+	color: $grayLight;
+}
+
+%with-dark-gray {
+	color: $grayDark;
+}
+
+%with-teal {
+	color: $teal;
+}
+
+%with-orange {
+	color: $orange;
+}
 
 // Component patterns
 // --------------------------------------------------------
 %centered-tile {
 	@extend %center;
-	width: 38em;
+	width: 60.8rem;
 }
 
 

@@ -1,6 +1,18 @@
 // Project specific mixins
 // -----------------------
 
+// Rems
+// --------------------------
+@mixin font-size($size) {
+  font-size: $size + px;
+  font-size: ($size / 10) + rem;
+}
+
+@mixin rem($property, $integer) {
+  #{$property}: $integer * 16px;
+  #{$property}: $integer * 1rem;
+}
+
 // Compass sprites
 // This generates a bunch of class selectors, consisting of 
 // the sprite folder name (icon) followed by the image name.
@@ -9,3 +21,14 @@
 @import "compass/utilities/sprites";
 @import "../images/icon/*.png";
 @include all-icon-sprites;
+
+// SVG backgrounds
+// PNG version must be in icon directory for fallback to work
+// --------------------------
+@mixin svg($image) {
+  background: transparent inline-image('#{$image}.svg') no-repeat left top;
+  background-size: contain;
+  .no-svg & {
+    @extend .icon-#{$image};
+  }
+}

@@ -12,7 +12,7 @@
 // Global
 // --------------------------------------------------------
 html {
-	font-size: 100%;
+	font-size: 62.5%;
 	-webkit-text-size-adjust: 100%;
 	-moz-text-size-adjust: 100%;
 	-ms-text-size-adjust: 100%;
@@ -22,11 +22,12 @@ html {
 }
 
 body {
-	// Set base font-family here
-	font-size: 1em;
+	@include font-body;
+	@include font-size(16);
+	// TODO adjust once fonts are embedded for real
 	font-weight: 400;
 	line-height: $baseLineHeight;
-	// color: $somethingDelightful;
+	color: $grayDark;
 	overflow-x: hidden;
 }
 
@@ -93,14 +94,13 @@ hr {
 // Inline elements
 // --------------------------
 a {
-	// Do you want links to transition smoothly?
-	// @include transition(0.05s color ease-out);
+	@include transition(0.05s color ease-out);
 	text-decoration: none;
-	// color: $somethingDelightful;
-	&:visited {
-		// color: $somethingDelightful;
-	}
-	&:hover {
-		// color: $mindBlowingHue;
-	}
+	color: inherit;
+	// &:visited {
+	// 	color: $somethingDelightful;
+	// }
+	// &:hover {
+	// 	color: $mindBlowingHue;
+	// }
 }

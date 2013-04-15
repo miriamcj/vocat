@@ -12,8 +12,9 @@ $grayDark: #676263;
 $grayDarker: #444243;
 $black: #000;
 
-$beigeLight: #f2efee;
-$beige: #e6dfde;
+$beigeLight: #f9f7f7;
+$beige: #ece7e6;
+$beigeDark: #a19594;
 
 $tealLight: #7f9ea0;
 $teal: #5f8688;
@@ -23,10 +24,12 @@ $orange: #ec632f;
 
 // Measurements
 // --------------------------------------------------------
-$mainWidth: 64em;
+$mainWidth: 102.4rem;
 
 $baseLineHeight: 1.2;
 $verticalSpace: $baseLineHeight * 1em;
+
+$radius: 0.5rem;
 
 // Responsive breakpoints
 // --------------------------------------------------------

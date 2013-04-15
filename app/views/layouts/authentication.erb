@@ -20,11 +20,9 @@
 </head>
 <body class="authentication">
   <div class="container">
-    <header class="page-header">
-      <div class="page-header--banner">
-        <%= image_tag("logo-vocat-light.png", :class => "page-header--logo", :alt => "VOCAT") %>
-      </div>
-    </header>
+    <div class="page-banner">
+      <%= image_tag("logo-vocat-light.png", :class => "page-banner--logo", :alt => "VOCAT") %>
+    </div>
     <div class="page-content">
       <%= yield %>         
     </div>

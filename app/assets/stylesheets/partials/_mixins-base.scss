@@ -237,3 +237,32 @@
 	    text-shadow: none;
 	}
 }
+
+// Placeholder text
+// --------------------------
+@mixin placeholder($color) {
+  &::-webkit-input-placeholder {
+    @include font-body;
+    color: $color;
+  }
+  &:-moz-placeholder {
+    @include font-body;
+    color: $color;
+  }
+  &::-moz-placeholder {
+    @include font-body;
+    color: $color;
+  }
+  &:-ms-input-placeholder {  
+    @include font-body;
+    color: $color;
+  }
+}
+
+
+
+
+
+
+
+

@@ -8,45 +8,112 @@
 	margin: 0 auto;
 }
 
+// Page banner
+// --------------------------
+// Extended by .page-banner & its psudoelements
+%page-banner {
+	background-color: $tealLight;
+}
+
+.page-banner {
+	@extend %page-banner;
+	@include full-bleed {
+		@extend %page-banner;
+	}
+	height: 3.4rem;
+	padding: 0.9rem 0;
+	position: relative;
+}
+
+.page-banner--logo {
+	@extend %center;
+	display: block;
+	height: 1.6rem;
+}
+
 // Page header
 // --------------------------
 .page-header {
 
 }
 
-// Extended by .page-header--banner & its psudoelements
-%page-header--banner {
-	background-color: $tealLight;
-}
-
-.page-header--banner {
-	@extend %page-header--banner;
-	@include full-bleed {
-		@extend %page-header--banner;
-	}
-	height: 2.125em;
-	padding: 9px 0;
-	position: relative;
-}
-
-.page-header--logo {
-	@extend %center;
-	display: block;
-	height: 1em;
-}
-
 // Authentication components
 // --------------------------------------------------------
 .authentication-tile {
+  @extend %clearfix;
 	@extend %centered-tile;
 	background-color: $beige;
-	padding: 3.25em;
-	margin-top: 7em;
+	padding: 4.8rem 5.2rem 4.8rem 27rem;
+	margin-top: 11.2rem;
+  position: relative;
+}
+
+.authentication-tile--image {
+  width: 16rem;
+  position: absolute;
+  top: 7.6rem;
+  left: 5.6rem;
+}
+
+.authentication-tile--input {
+  @extend %white-text-input;
+}
+
+.authentication-tile--label {
+  margin: 0.9rem 0;
+  float: left;
+  position: relative;
+}
+
+// Lives inside .authentication-tile--label
+.authentication-tile--checkbox {
+  @extend %custom-checkbox;
+}
+
+// Lives inside .authentication-tile--label
+.authentication-tile--checkbox-text {
+  @extend %delta;
+  @extend %with-light-gray;
+  margin-left: 0.4rem;
+}
+
+.authentication-tile--button {
+  @extend %teal-arrow-button;
+  float: right;
 }
 
 .authentication-footer {
+  @extend %clearfix;
 	@extend %centered-tile;
+  margin-top: 1.6rem;
 }
+
+.authentication-footer--list {
+	@extend %floated-list;
+  text-align: right;
+  margin: 0;
+  float: right;
+  li {
+    @extend %with-light-gray;
+    position: relative;
+  }
+  li + li {
+    padding-left: 3.6rem;
+    &:before {
+      content: "|";
+      position: absolute;
+      top: 0;
+      left: 1.5rem;
+    }
+  }
+  a {
+    @extend %delta;
+  }
+}
+
+
+
+
 
 
 

@@ -32,29 +32,23 @@
 </head>
 
 <body>
-  <header class="navbar navbar-static-top">
-    <nav class="navbar-inner">
-      <div class="container">
+  <div class="container">
+    <div class="page-banner">
+      <%= image_tag("logo-vocat-light.png", :class => "page-banner--logo", :alt => "VOCAT") %>
+    </div>
+    <header class="page-header">
+      <nav class="navbar-inner">
         <%= link_to "VOCAT", portfolio_path, :class => 'brand' %>
-      </div>
-    </nav>
-    <nav class="navbar-inner">
-      <div class="container">
+      </nav>
+      <nav class="navbar-inner">
         <%= render 'layouts/navigation' %>
-      </div>
-    </nav>
-    <%= yield(:adaptive_navigation) %>
-  </header>
-
-  <div id="main" role="main">
-    <div class="container">
-    	<div class="row">
-        <div class="span12">
-          <%= render 'layouts/messages' %>
-          <%= yield %>
-        </div>
-  	  </div>
-    </div> <!--! end of .container -->
-  </div> <!--! end of #main -->
+      </nav>
+      <%= yield(:adaptive_navigation) %>
+    </header>
+    <div class="page-content">
+      <%= render 'layouts/messages' %>
+      <%= yield %>         
+    </div>
+  </div> <!-- container -->
 </body>
 </html>
