@@ -49,13 +49,6 @@
   z-index: 210;
 }
 
-.primary-nav--avatar {
-  @extend %round-avatar;
-  position: absolute;
-  top: 1.7rem;
-  right: 1.5rem;
-}
-
 .course-selector {
   position: absolute;
   top: 2.3rem;
@@ -69,17 +62,57 @@
 .user-selector {
   // TODO temp
   position: absolute;
-  top: 2rem;
-  right: 7.8rem;
+  top: 1.6rem;
+  right: 1.6rem;
   a {
     text-align: right;
     display: block;
     color: $grayDarkest;
+    padding-right: 7.8rem;
   }
 }
 
+.primary-nav--avatar {
+  @extend %round-avatar;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+// TODO new pattern is needed for right-aligned version
 .user-selector--select {
   @extend %select;
+}
+
+// Adaptive nav
+// Lives inside .primary-nav
+// --------------------------
+.adaptive-nav {
+  position: absolute;
+  bottom: 1.8rem;
+  left: 6.3rem;
+}
+
+.adaptive-nav--list {
+  @extend %floated-list;
+  margin: 0;
+  left: 0;
+  li + li {
+    margin-left: 4.2rem;
+    position: relative;
+    &:before {
+      content: "|";
+      color: $grayLight;
+      position: absolute;
+      left: -2.2rem;
+    }
+  }
+  a {
+    @extend %gamma;
+    @extend %orange-hover;
+    color: $grayLight;
+    line-height: 1;
+  }
 }
 
 // Shortcut nav

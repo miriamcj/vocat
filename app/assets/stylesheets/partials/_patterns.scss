@@ -95,6 +95,12 @@
     }
 }
 
+%orange-hover {
+  &:hover {
+    color: $orange;
+  }
+}
+
 // Buttons
 // --------------------------
 %teal-arrow-button {
@@ -281,11 +287,9 @@
     margin: 0;
     li {
       @extend %gamma;
+      @extend %orange-hover;
       line-height: 1;
       color: $grayLighter;
-      &:hover {
-        color: $orange;
-      }
     }
     li + li {
       padding-top: 1.2rem;

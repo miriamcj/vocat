@@ -10,6 +10,8 @@
 </nav>
 
 <nav class="user-selector">
+  <%= image_tag("placeholders/charles-xavier.jpg", :class => "primary-nav--avatar", :alt => "Charles Xavier") %>
+
   <% if user_signed_in? %>
     <%= link_to("#{current_user.name} [#{current_user.email}]", edit_user_registration_path) %>
   <% else %>
@@ -21,7 +23,11 @@
     <%= link_to('Log in', new_user_session_path)  %>
   <% end %>
 </nav>
-
-<%= image_tag("placeholders/charles-xavier.jpg", :class => "primary-nav--avatar", :alt => "Larry Sellers") %>
-
 <a class="shortcut-nav--toggle" data-class="shortcut-nav-toggle" href="#">Toggle Shortcuts Drawer</a>
+<nav class="adaptive-nav">
+  <ul class="adaptive-nav--list">
+    <li><a href="">My Presentation</a></li>
+    <li><a href="">Evaluate Peer Presentations</a></li>
+    <li><a href="">Feedback</a></li>
+  </ul>
+</nav>
