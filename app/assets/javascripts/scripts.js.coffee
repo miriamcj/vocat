@@ -9,10 +9,16 @@ chosen = {
 		)
 }
 
-# shortcutNav = {
-# 	init: ->
-		
-# }
+# TODO temporary
+shortcutNav = {
+	init: ->
+		$('[data-class=shortcut-nav-toggle]').click((event) ->
+			$(@).toggleClass('active')
+			$('[data-class=shortcut-nav]').toggleClass('open')
+			event.preventDefault()
+		)
+}
 
 $ ->
 	chosen.init()
+	shortcutNav.init()

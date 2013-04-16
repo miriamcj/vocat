@@ -46,6 +46,7 @@
     @extend %primary-nav;
   }
   position: relative;
+  z-index: 210;
 }
 
 .primary-nav--avatar {
@@ -86,7 +87,6 @@
 // Extended by .shortcut-nav & its psudoelements
 %shortcut-nav {
   @extend %shaded-top;
-  height: 10.2rem;
   background-color: $grayDarker;
 }
 
@@ -95,7 +95,14 @@
   @include full-bleed {
     @extend %shortcut-nav;
   }
+  @include transition(0.2s height ease-out);
+  height: 0;
   position: relative;
+  z-index: 200px;
+  &.open {
+    height: 10.2rem;
+    // top: -10.2rem;
+  }
 }
 
 // Lives inside .primary-nav 
@@ -111,6 +118,12 @@
   left: 2rem;
   &:hover {
     @include svg(square-arrow-down-orange);
+  }
+  &.active {
+    @include svg(square-arrow-up-black);
+    &:hover {
+      @include svg(square-arrow-up-orange);
+    }
   }
 }
 
