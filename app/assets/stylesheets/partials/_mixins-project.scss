@@ -26,9 +26,9 @@
 // PNG version must be in icon directory for fallback to work
 // --------------------------
 @mixin svg($image) {
-  background: transparent inline-image('#{$image}.svg') no-repeat left top;
+  background: transparent inline-image('svg/#{$image}.svg') no-repeat left top;
   background-size: contain;
-  .no-svg & {
+  .no-inlinesvg & {
     @extend .icon-#{$image};
   }
 }

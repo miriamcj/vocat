@@ -30,6 +30,11 @@
 	// font-weight: 300;
 }
 
+%beta-alt {
+  @include font-size(18);
+  // font-weight: 300;
+}
+
 %gamma {
   @include font-size(16);
 	// font-weight: 300;
@@ -108,7 +113,7 @@
   border-radius: $radius;
   position: relative;
   &:after {
-    @include svg(circle-arrow-right);
+    @include svg(circle-arrow-right-beige);
     content: "";
     display: block;
     width: 2rem;
@@ -201,6 +206,95 @@
 	position: relative;
 }
 
+// Selects
+// --------------------------
+%select {
+  position: relative;
+  .chzn-single {
+    @extend %beta-alt;
+    display: inline-block;
+    line-height: 1;
+    color: $grayLighter;
+    background-color: $grayDarker;
+    padding: 0.9rem 2.6rem 0.5rem 1.1rem;
+    border-radius: $radius 0 0 $radius;
+    margin-right: 3.8rem;
+    position: relative;
+    div {
+      content: "";
+      background-color: $grayDarker;
+      display: block;
+      width: 3.6rem;
+      height: 3.2rem;
+      border-radius: 0 $radius $radius 0;
+      position: absolute;
+      top: 0;
+      right: -3.8rem;
+      b {
+        @include svg(arrow-down-gray);
+        content: "";
+        display: block;
+        width: 18px;
+        height: 9px;
+        position: absolute;
+        top: 1.3rem;
+        right: 1rem;
+      }
+    }
+    &:hover,
+    &.chzn-single-with-drop {
+      color: $orange;
+      background-color: $grayDarkest;
+      div {
+        background-color: $grayDarkest;
+        b {
+          @include svg(arrow-down-orange);
+        }
+      }
+    }
+  }
+  .chzn-drop {
+    background-color: $grayDarkest;
+    padding: 2rem;
+    border-radius: $radius * 2;
+    margin-top: 2rem;
+    position: absolute;
+    z-index: 200;
+    &:before {
+      content: "";
+      display: block;
+      width: 0;
+      height: 0;
+      border-right: 1.5rem solid transparent;
+      border-left: 1.5rem solid transparent;
+      border-bottom: 1.5rem solid $grayDarkest;
+      position: absolute;
+      top: -1.5rem;
+      left: 6rem;
+    }
+  }
+  .chzn-search {
+    display: none;
+  }
+  .chzn-results {
+    padding: 0;
+    margin: 0;
+    li {
+      @extend %gamma;
+      line-height: 1;
+      color: $grayLighter;
+      &:hover {
+        color: $orange;
+      }
+    }
+    li + li {
+      padding-top: 1.2rem;
+      border-top: 0.1rem solid $grayDark;
+      margin-top: 1rem;
+    }
+  }
+}
+
 // Text colors
 // --------------------------
 %with-white {
@@ -229,6 +323,23 @@
 	@extend %center;
 	width: 60.8rem;
 }
+
+%shaded-top {
+  @include box-shadow(
+    inset 0 3.2rem 1.6rem -1.6rem transparentize($black, 0.92)
+  );
+}
+
+// Avatars
+// --------------------------
+%round-avatar {
+  display: block;
+  width: 4.8rem;
+  height: 4.8rem;
+  border: 0.1rem solid $grayLightest;
+  border-radius: 100%;
+}
+
 
 
 

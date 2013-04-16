@@ -31,10 +31,104 @@
 	height: 1.6rem;
 }
 
-// Page header
+// Primary nav
 // --------------------------
-.page-header {
+// Extended by .primary-nav & its psudoelements
+%primary-nav {
+  @extend %shaded-top;
+  height: 11.6rem;
+  background-color: $grayDark;
+}
 
+.primary-nav {
+  @extend %primary-nav;
+  @include full-bleed {
+    @extend %primary-nav;
+  }
+  position: relative;
+}
+
+.primary-nav--avatar {
+  @extend %round-avatar;
+  position: absolute;
+  top: 1.7rem;
+  right: 1.5rem;
+}
+
+.course-selector {
+  position: absolute;
+  top: 2.3rem;
+  left: 2rem
+}
+
+.course-selector--select {
+  @extend %select;
+}
+
+.user-selector {
+  // TODO temp
+  position: absolute;
+  top: 2rem;
+  right: 7.8rem;
+  a {
+    text-align: right;
+    display: block;
+    color: $grayDarkest;
+  }
+}
+
+.user-selector--select {
+  @extend %select;
+}
+
+// Shortcut nav
+// --------------------------
+// Extended by .shortcut-nav & its psudoelements
+%shortcut-nav {
+  @extend %shaded-top;
+  height: 10.2rem;
+  background-color: $grayDarker;
+}
+
+.shortcut-nav {
+  @extend %shortcut-nav;
+  @include full-bleed {
+    @extend %shortcut-nav;
+  }
+  position: relative;
+}
+
+// Lives inside .primary-nav 
+.shortcut-nav--toggle {
+  @extend %hidden-text;
+  @include svg(square-arrow-down-gray);
+  display: block;
+  width: 2.5rem;
+  height: 2.5rem;
+  color: $grayDarkest;
+  position: absolute;
+  bottom: 1.5rem;
+  left: 2rem;
+  &:hover {
+    @include svg(square-arrow-down-orange);
+  }
+}
+
+// Page content
+// --------------------------
+// Extended by .page-content & its psudoelements
+%page-content {
+  @extend %shaded-top;
+  background-color: $beige;
+}
+
+.page-content {
+  @extend %page-content;
+  @include full-bleed {
+    @extend %page-content;
+  }
+  padding-top: 3.4rem;
+  position: relative;
 }
 
 // Authentication components
