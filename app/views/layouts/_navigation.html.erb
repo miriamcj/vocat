@@ -12,6 +12,7 @@
     </ul>
   </div>
 </nav>
+
 <nav class="user-selector" data-class="dropdown-container">
   <%= image_tag("placeholders/charles-xavier.jpg", :class => "primary-nav--avatar", :alt => "Charles Xavier") %>
   <% if user_signed_in? %>
@@ -32,7 +33,9 @@
     <%= link_to('Log in', new_user_session_path)  %>
   <% end %>
 </nav>
+
 <a class="shortcut-nav--toggle js-shortcut-nav-toggle" href="#">Toggle Shortcuts Drawer</a>
+
 <nav class="adaptive-nav">
   <ul class="adaptive-nav--list">
     <li data-class="dropdown-container">

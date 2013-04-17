@@ -50,6 +50,13 @@
 	// font-weight: 300;
 }
 
+%epsilon-caps {
+  @include font-size(12);
+  // TODO adjust once fonts are embedded for real; should be medium
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
 %zeta {
   // @include font-size(0.4);
 	// font-weight: 300;
@@ -73,7 +80,8 @@
 // Block-level
 // --------------------------
 %heading {
-	// margin: 0;
+  // font-weight: normal;
+	margin: 0;
 }
 
 // Inline
@@ -146,9 +154,9 @@
 			display: block;
 		}
 	}
-	&>li + li {
-		// margin-left: 1em;
-	}
+	// &>li + li {
+	// 	margin-left: 1em;
+	// }
 }
 
 %floated-list-right {
@@ -160,8 +168,24 @@
       display: block;
     }
   }
+  // &>li + li {
+  //   margin-right: 1em;
+  // }
+}
+
+// NB be sure to add the appropriate
+// left margin to li + li
+%piped-list {
+  @extend %floated-list;
   &>li + li {
-    // margin-right: 1em;
+    position: relative;
+    &:before {
+      content: "|";
+      color: inherit;
+      position: absolute;
+      top: 0;
+      left: -2.2rem;
+    }
   }
 }
 
@@ -264,7 +288,16 @@
   }
 }
 
+%dropdown-toggle-dark {
+  @extend %dropdown-toggle;
+  background-color: $grayDarkest;
+  &:before {
+    background-color: $grayDarkest;
+  }
+}
+
 %dropdown {
+  display: none;
   min-width: 100%;
   background-color: $grayDarkest;
   padding: 2rem;
@@ -272,8 +305,7 @@
   margin-top: 2rem;
   position: absolute;
   top: 0;
-  left: -9999px;
-  left: -100vw;
+  left: 0;
   z-index: 250;
   &:before {
     content: "";
@@ -306,6 +338,7 @@
     @extend %orange-hover;
     display: block;
     // TODO is this a good way to force width?
+    // Test with many different widths
     white-space: pre;
     line-height: 1;
     // TODO adjust
@@ -313,111 +346,19 @@
     color: $grayLighter;
   }
   .open & {
-    left: 0;
+    display: block;
   }
 }
 
 // TODO should items be right-aligned?
 %dropdown-right {
   @extend %dropdown;
-  right: -9999px;
-  right: -100vw;
+  right: 0;
   left: auto;
   &:before {
     // TODO adjust
     right: 4rem;
     left: auto;
-  }
-  .open & {
-    right: 0;
-    left: auto;
-  }
-}
-
-%select {
-  position: relative;
-  .chzn-single {
-    @extend %beta-alt;
-    display: inline-block;
-    line-height: 1;
-    color: $grayLighter;
-    background-color: $grayDarker;
-    padding: 0.9rem 2.6rem 0.5rem 1.1rem;
-    border-radius: $radius 0 0 $radius;
-    margin-right: 3.8rem;
-    position: relative;
-    div {
-      content: "";
-      background-color: $grayDarker;
-      display: block;
-      width: 3.6rem;
-      height: 3.2rem;
-      border-radius: 0 $radius $radius 0;
-      position: absolute;
-      top: 0;
-      right: -3.8rem;
-      b {
-        @include svg(arrow-down-gray);
-        content: "";
-        display: block;
-        width: 18px;
-        height: 9px;
-        position: absolute;
-        top: 1.3rem;
-        right: 1rem;
-      }
-    }
-    &:hover,
-    &.chzn-single-with-drop {
-      color: $orange;
-      background-color: $grayDarkest;
-      div {
-        background-color: $grayDarkest;
-        b {
-          @include svg(arrow-down-orange);
-        }
-      }
-    }
-  }
-  .chzn-drop {
-    background-color: $grayDarkest;
-    padding: 2rem;
-    border-radius: $radius * 2;
-    margin-top: 2rem;
-    position: absolute;
-    z-index: 250;
-    &:before {
-      content: "";
-      display: block;
-      width: 0;
-      height: 0;
-      border-right: 1.5rem solid transparent;
-      border-left: 1.5rem solid transparent;
-      border-bottom: 1.5rem solid $grayDarkest;
-      position: absolute;
-      top: -1.5rem;
-      left: 6rem;
-    }
-  }
-  .chzn-search {
-    display: none;
-  }
-  .chzn-results {
-    padding: 0;
-    margin: 0;
-    li {
-      @extend %gamma;
-      @extend %orange-hover;
-      line-height: 1;
-      color: $grayLighter;
-      cursor: pointer;
-    }
-    li + li {
-      // TODO refactor this so top & bottom padding are equal
-      padding-top: 1.2rem;
-      border-top: 0.1rem solid $grayDark;
-      margin-top: 1rem;
-    }
   }
 }
 
@@ -425,6 +366,10 @@
 // --------------------------
 %with-white {
 	color: $white;
+}
+
+%with-lighter-gray {
+  color: $grayLighter;
 }
 
 %with-light-gray {

@@ -3,24 +3,12 @@ dropdown = {
     $toggle = $('[data-class=dropdown-toggle]')
     $dropdown = $('[data-class=dropdown]')
     $dropdown.each( ->
-      toggleHeight = $(@).siblings('[data-class=dropdown-toggle]').outerHeight(true)
-      $(@).css('top',toggleHeight)
+      containerHeight = $(@).parents('[data-class=dropdown-container]').outerHeight()
+      $(@).css('top',containerHeight)
     )
     $toggle.click((event) ->
       $(@).parents('[data-class=dropdown-container]').toggleClass('open')
       event.preventDefault()
-    )
-}
-
-chosen = {
-  init: ->
-    $select = $('.js-select')
-    $select.chosen(
-      disable_search: true
-    )
-    $select.each( ->
-      selectClass = $(@).attr('class')
-      $(@).siblings('.chzn-container').removeAttr('style').attr('class', selectClass)
     )
 }
 
@@ -39,13 +27,12 @@ shortcutNav = {
   init: ->
     $('.js-shortcut-nav-toggle').click((event) ->
       $(@).toggleClass('active')
-      $('.js-shortcut-nav').toggleClass('open')
+      $('.js-shortcut-nav').toggleClass('visible')
       event.preventDefault()
     )
 }
 
 $ ->
   dropdown.init()
-  # chosen.init()
   pageHeader.init()
   shortcutNav.init()

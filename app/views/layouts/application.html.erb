@@ -36,12 +36,56 @@
     <%= image_tag("logo-vocat-dark.png", :class => "page-banner--logo", :alt => "VOCAT") %>
   </div>
   <header class="page-header js-page-header">
-    <nav class="primary-nav">
-      <%= render 'layouts/navigation' %>
-    </nav>
-    <nav class="shortcut-nav js-shortcut-nav">
-
-    </nav>
+    <div class="primary-nav">
+      <div class="primary-nav--wrapper">
+        <%= render 'layouts/navigation' %>
+      </div>
+    </div>
+    <div class="shortcut-nav js-shortcut-nav">
+      <div class="shortcut-nav--wrapper">
+        <div class="shortcut-nav--item">
+          <nav class="assignment-selector" data-class="dropdown-container">
+            <h2 class="assignment-selector--title">Go to Assignment</h2>
+            <a class="assignment-selector--toggle" data-class="dropdown-toggle" href="#">View All Assignments</a>
+            <div class="assignment-selector--dropdown" data-class="dropdown">
+              <ul>
+                <li><a href="">Assignment 1</a></li>
+                <li><a href="">Assignment 2</a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+        <div class="shortcut-nav--item">
+          <nav class="peer-selector" data-class="dropdown-container">
+            <h2 class="peer-selector--title">Provide Peer Feedback</h2>
+            <a class="peer-selector--toggle" data-class="dropdown-toggle" href="#">View All Peers</a>
+            <div class="peer-selector--dropdown" data-class="dropdown">
+              <ul>
+                <li><a href="">Peer 1</a></li>
+                <li><a href="">Peer 2</a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+        <div class="shortcut-nav--item">
+          <nav class="help-nav">
+            <h2 class="help-nav--title">Help</h2>
+            <ul class="help-nav--list">
+              <li>
+                <!-- TODO make this a real radio button -->
+                O Activate Help Overlay
+              </li>
+              <li>
+                <a href="">Go to FAQ</a>
+              </li>
+              <li>
+                <a href="">View Tutorial</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
     <%= yield(:adaptive_navigation) %>
   </header>
   <div class="container">

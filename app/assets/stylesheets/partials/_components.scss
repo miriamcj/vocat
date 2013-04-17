@@ -25,9 +25,8 @@
 // Page header
 // --------------------------
 .page-header {
-  @extend %shaded-top;
   width: 100%;
-  background-color: $grayDark;
+  height: $headerHeight;
   position: absolute;
   z-index: 200;
   &.stuck {
@@ -39,13 +38,22 @@
 // Primary nav
 // --------------------------
 .primary-nav {
-  width: $mainWidth;
-  height: 11.6rem;
+  @extend %shaded-top;
+  background-color: $grayDark;
   margin: 0 auto;
   position: relative;
-  z-index: 210;
+  z-index: 220;
 }
 
+.primary-nav--wrapper {
+  width: $mainWidth;
+  height: $headerHeight;
+  margin: 0 auto;
+  position: relative;
+}
+
+// Course selector
+// ------------
 .course-selector {
   position: absolute;
   top: 2.3rem;
@@ -68,6 +76,8 @@
   color: $grayLighter;
 }
 
+// User selector
+// ------------
 .user-selector {
   margin-right: 6.4rem;
   position: absolute;
@@ -101,27 +111,20 @@
 }
 
 .adaptive-nav--list {
-  @extend %floated-list;
+  @extend %piped-list;
   margin: 0;
   left: 0;
   &>li {
+    @extend %with-light-gray;
     @extend %dropdown-container;
   }
   &>li + li {
     margin-left: 4.2rem;
-    position: relative;
-    &:before {
-      content: "|";
-      color: $grayLight;
-      position: absolute;
-      left: -2.2rem;
-    }
   }
 }
 
 .adaptive-nav--link {
   @extend %gamma;
-  color: $grayLight;
   line-height: 1;
   &:hover,
   .open & {
@@ -135,24 +138,33 @@
 
 // Shortcut nav
 // --------------------------
-// Extended by .shortcut-nav & its psudoelements
-%shortcut-nav {
+.shortcut-nav {
   @extend %shaded-top;
+  @include transition(0.2s top ease-out);
+  height: 10.2rem;
+  // height: 0;
   background-color: $grayDarker;
+  position: relative;
+  top: -10.2rem;
+  z-index: 210;
+  &.visible {
+    // height: 10.2rem;
+    top: 0;
+  }
 }
 
-.shortcut-nav {
-  @extend %shortcut-nav;
-  @include full-bleed {
-    @extend %shortcut-nav;
-  }
-  @include transition(0.2s height ease-out);
-  height: 0;
+.shortcut-nav--wrapper {
+  width: $mainWidth;
+  height: 100%;
+  padding: 2.5rem 2rem 0;
+  margin: 0 auto;
   position: relative;
-  z-index: 200px;
-  &.open {
-    height: 10.2rem;
-    // top: -10.2rem;
+}
+
+.shortcut-nav--item {
+  float: left;
+  & + & {
+    margin-left: 3.4rem;
   }
 }
 
@@ -175,6 +187,71 @@
     &:hover {
       @include svg(square-arrow-up-orange);
     }
+  }
+}
+
+// Assignment selector
+// ------------
+.assignment-selector {
+  @extend %dropdown-container;
+}
+
+.assignment-selector--title {
+  @extend %epsilon-caps;
+  @extend %with-light-gray;
+  margin-bottom: 0.6rem;
+}
+
+.assignment-selector--toggle {
+  @extend %dropdown-toggle-dark;
+}
+
+.assignment-selector--dropdown {
+  @extend %dropdown;
+}
+
+// Peer selector
+// ------------
+.peer-selector {
+  @extend %dropdown-container;
+}
+
+.peer-selector--title {
+  @extend %epsilon-caps;
+  @extend %with-light-gray;
+  margin-bottom: 0.6rem;
+}
+
+.peer-selector--toggle {
+  @extend %dropdown-toggle-dark;
+}
+
+.peer-selector--dropdown {
+  @extend %dropdown;
+}
+
+// Help nav
+// ------------
+.help-nav {
+
+}
+
+.help-nav--title {
+  @extend %epsilon-caps;
+  @extend %with-light-gray;  
+}
+
+.help-nav--list {
+  @extend %piped-list;
+  li {
+    @extend %gamma;
+    @extend %with-light-gray;
+  }
+  li + li {
+    margin-left: 4.2rem;
+  }
+  a {
+    @extend %orange-hover;
   }
 }
 
@@ -249,22 +326,15 @@
 }
 
 .authentication-footer--list {
-	@extend %floated-list;
+	@extend %piped-list;
   text-align: right;
   margin: 0;
   float: right;
   li {
     @extend %with-light-gray;
-    position: relative;
   }
   li + li {
-    padding-left: 3.6rem;
-    &:before {
-      content: "|";
-      position: absolute;
-      top: 0;
-      left: 1.5rem;
-    }
+    margin-left: 3.6rem;
   }
   a {
     @extend %delta;
