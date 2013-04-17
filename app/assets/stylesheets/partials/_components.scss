@@ -31,6 +31,20 @@
 	height: 1.6rem;
 }
 
+// Page header
+// --------------------------
+.page-header {
+  width: $mainWidth;
+  position: absolute;
+  z-index: 200;
+  &.stuck {
+    position: fixed;
+    top: 0;
+    // right: 0;
+    // left: 0;
+  }
+}
+
 // Primary nav
 // --------------------------
 // Extended by .primary-nav & its psudoelements
@@ -164,7 +178,7 @@
 // --------------------------
 // Extended by .page-content & its psudoelements
 %page-content {
-  @extend %shaded-top;
+  // @extend %shaded-top;
   background-color: $beige;
 }
 
@@ -173,7 +187,9 @@
   @include full-bleed {
     @extend %page-content;
   }
+  // TODO in flux
   padding-top: 3.4rem;
+  margin-top: 11.6rem;
   position: relative;
 }
 

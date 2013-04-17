@@ -1,5 +1,5 @@
 <nav class="course-selector">
-  <select class="course-selector--select select" id="course_select" name="current_course[id]">
+  <select class="course-selector--select js-select" id="course_select" name="current_course[id]">
     <option value="/">All Courses</option>
     <% if current_user && current_user.has_courses %>
       <% current_user.courses.each do |course| %>
@@ -23,7 +23,7 @@
     <%= link_to('Log in', new_user_session_path)  %>
   <% end %>
 </nav>
-<a class="shortcut-nav--toggle" data-class="shortcut-nav-toggle" href="#">Toggle Shortcuts Drawer</a>
+<a class="shortcut-nav--toggle js-shortcut-nav-toggle" href="#">Toggle Shortcuts Drawer</a>
 <nav class="adaptive-nav">
   <ul class="adaptive-nav--list">
     <li><a href="">My Presentation</a></li>

@@ -36,12 +36,12 @@
     <div class="page-banner">
       <%= image_tag("logo-vocat-dark.png", :class => "page-banner--logo", :alt => "VOCAT") %>
     </div>
-    <header class="page-header">
+    <header class="page-header js-page-header">
       <nav class="primary-nav">
         <%= render 'layouts/navigation' %>
       </nav>
-      <nav class="shortcut-nav" data-class="shortcut-nav">
-        
+      <nav class="shortcut-nav js-shortcut-nav">
+
       </nav>
       <%= yield(:adaptive_navigation) %>
     </header>

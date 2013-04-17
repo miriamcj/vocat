@@ -290,8 +290,10 @@
       @extend %orange-hover;
       line-height: 1;
       color: $grayLighter;
+      cursor: pointer;
     }
     li + li {
+      // TODO refactor this so top & bottom padding are equal
       padding-top: 1.2rem;
       border-top: 0.1rem solid $grayDark;
       margin-top: 1rem;
