@@ -10,19 +10,10 @@
 
 // Page banner
 // --------------------------
-// Extended by .page-banner & its psudoelements
-%page-banner {
-	background-color: $tealLight;
-}
-
 .page-banner {
-	@extend %page-banner;
-	@include full-bleed {
-		@extend %page-banner;
-	}
 	height: 3.4rem;
+  background-color: $tealLight;
 	padding: 0.9rem 0;
-	position: relative;
 }
 
 .page-banner--logo {
@@ -34,63 +25,75 @@
 // Page header
 // --------------------------
 .page-header {
-  width: $mainWidth;
+  @extend %shaded-top;
+  width: 100%;
+  background-color: $grayDark;
   position: absolute;
   z-index: 200;
   &.stuck {
     position: fixed;
     top: 0;
-    // right: 0;
-    // left: 0;
   }
 }
 
 // Primary nav
 // --------------------------
-// Extended by .primary-nav & its psudoelements
-%primary-nav {
-  @extend %shaded-top;
-  height: 11.6rem;
-  background-color: $grayDark;
-}
-
 .primary-nav {
-  @extend %primary-nav;
-  @include full-bleed {
-    @extend %primary-nav;
-  }
+  width: $mainWidth;
+  height: 11.6rem;
+  margin: 0 auto;
   position: relative;
   z-index: 210;
 }
 
 .course-selector {
+  // @extend %dropdown-container;
   position: absolute;
   top: 2.3rem;
   left: 2rem
 }
 
-.course-selector--select {
-  @extend %select;
+.course-selector--toggle {
+  @extend %dropdown-toggle;
+}
+
+.course-selector--dropdown {
+  @extend %dropdown;
+}
+
+.course-selector--code {
+  font-weight: bold;
+}
+
+.course-selector--title {
+
+}
+
+.course-selector--section {
+  color: $grayLighter;
 }
 
 .user-selector {
-  // TODO temp
+  margin-right: 6.4rem;
   position: absolute;
-  top: 1.6rem;
-  right: 1.6rem;
-  a {
-    text-align: right;
-    display: block;
-    color: $grayDarkest;
-    padding-right: 7.8rem;
-  }
+  // TODO adjust
+  top: 2.3rem;
+  right: 2rem;
+}
+
+.user-selector--toggle {
+  @extend %dropdown-toggle;
+}
+
+.user-selector--dropdown {
+  @extend %dropdown-right;
 }
 
 .primary-nav--avatar {
   @extend %round-avatar;
   position: absolute;
-  top: 0;
-  right: 0;
+  top: -0.7rem;
+  right: -6.4rem;
 }
 
 // TODO new pattern is needed for right-aligned version

@@ -1,33 +1,48 @@
-<nav class="course-selector">
-  <select class="course-selector--select js-select" id="course_select" name="current_course[id]">
-    <option value="/">All Courses</option>
-    <% if current_user && current_user.has_courses %>
-      <% current_user.courses.each do |course| %>
-        <option <%= if @course == course then 'selected="selected"' end %> value="<%= url_for portfolio_course_path(course) %>"><%= course %></option>
+<nav class="course-selector" data-class="dropdown-container">  
+  <a class="course-selector--toggle" data-class="dropdown-toggle" href="#">[Current Course]</a>
+  <div class="course-selector--dropdown" data-class="dropdown">
+    <ul>
+      <li><a href="/">All Courses</a></li>
+      <% if current_user && current_user.has_courses %>
+        <% current_user.courses.each do |course| %>
+          <li><a <%= if @course == course then 'class="active"' end %> href="<%= url_for portfolio_course_path(course) %>"><%= course %></a></li>
+        <% end %>
       <% end %>
-    <% end %>
-  </select>
+      <!-- <li><a href=""><span class="course-selector--code">PDX 1248 :</span> <span class="course-selector--title">Introduction to Right-of-Way Debate</span> <span class="course-selector--section">[Section XX, Fall 2013]</span></a></li> -->
+    </ul>
+  </div>
 </nav>
-
-<nav class="user-selector">
+<nav class="user-selector" data-class="dropdown-container">
   <%= image_tag("placeholders/charles-xavier.jpg", :class => "primary-nav--avatar", :alt => "Charles Xavier") %>
-
   <% if user_signed_in? %>
-    <%= link_to("#{current_user.name} [#{current_user.email}]", edit_user_registration_path) %>
+    <a class="user-selector--toggle" data-class="dropdown-toggle" href="#"><%= current_user.name %></a>
+    <div class="user-selector--dropdown" data-class="dropdown">
+      <ul>
+        <li>
+          <%= link_to("#{current_user.name} [#{current_user.email}]", edit_user_registration_path) %>
+        </li>
+        <li>
+          <%= link_to('Log out', destroy_user_session_path, :method=>'delete') %>
+        </li>
+      </ul>
+    </div>
   <% else %>
+    <!-- TODO how should these look? -->
     <%= link_to('Sign up', new_user_registration_path)  %>
-  <% end %>
-  <% if user_signed_in? %>
-    <%= link_to('Log out', destroy_user_session_path, :method=>'delete') %>
-  <% else %>
     <%= link_to('Log in', new_user_session_path)  %>
   <% end %>
 </nav>
 <a class="shortcut-nav--toggle js-shortcut-nav-toggle" href="#">Toggle Shortcuts Drawer</a>
 <nav class="adaptive-nav">
   <ul class="adaptive-nav--list">
-    <li><a href="">My Presentation</a></li>
-    <li><a href="">Evaluate Peer Presentations</a></li>
-    <li><a href="">Feedback</a></li>
+    <li>
+      <a href="">My Presentation</a>
+    </li>
+    <li>
+      <a href="">Evaluate Peer Presentations</a>
+    </li>
+    <li>
+      <a href="">Feedback</a>
+    </li>
   </ul>
 </nav>

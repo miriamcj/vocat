@@ -212,8 +212,128 @@
 	position: relative;
 }
 
-// Selects
+// Dropdowns
 // --------------------------
+// Only necessary if element doesn't already have positioning
+%dropdown-container {
+  position: relative;
+}
+
+// Extending this is optional
+%dropdown-toggle {
+  @extend %beta-alt;
+  display: inline-block;
+  line-height: 1;
+  color: $grayLighter;
+  background-color: $grayDarker;
+  padding: 0.9rem 2.6rem 0.5rem 1.1rem;
+  border-radius: $radius 0 0 $radius;
+  margin-right: 3.8rem;
+  position: relative;
+  &:before {
+    content: "";
+    background-color: $grayDarker;
+    display: block;
+    width: 3.6rem;
+    height: 3.2rem;
+    border-radius: 0 $radius $radius 0;
+    position: absolute;
+    top: 0;
+    right: -3.8rem;
+  }
+  &:after {
+    @include svg(arrow-down-gray);
+    content: "";
+    display: block;
+    width: 18px;
+    height: 9px;
+    position: absolute;
+    top: 1.3rem;
+    right: -2.8rem;
+  }
+  &:hover,
+  .open & {
+    color: $orange;
+    background-color: $grayDarkest;
+    &:before {
+      background-color: $grayDarkest;
+    }
+    &:after {
+      @include svg(arrow-down-orange);
+    }
+  }
+}
+
+%dropdown {
+  min-width: 100%;
+  background-color: $grayDarkest;
+  padding: 2rem;
+  border-radius: $radius * 2;
+  margin-top: 2rem;
+  position: absolute;
+  top: 0;
+  left: -9999px;
+  left: -100vw;
+  z-index: 250;
+  &:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border-right: 1.5rem solid transparent;
+    border-left: 1.5rem solid transparent;
+    border-bottom: 1.5rem solid $grayDarkest;
+    position: absolute;
+    top: -1.5rem;
+    // TODO adjust
+    left: 6rem;
+  }
+  ul {
+    padding: 0;
+    margin: 0;
+  }
+  li {
+
+  }
+  li + li {
+    // TODO refactor this so top & bottom padding are equal
+    padding-top: 1.2rem;
+    border-top: 0.1rem solid $grayDark;
+    margin-top: 1rem;
+  }
+  a {
+    @extend %gamma;
+    @extend %orange-hover;
+    display: block;
+    // TODO is this a good way to force width?
+    white-space: pre;
+    line-height: 1;
+    // TODO adjust
+    letter-spacing: -0.1rem;
+    color: $grayLighter;
+  }
+  .open & {
+    left: 0;
+  }
+}
+
+// TODO should items be right-aligned?
+%dropdown-right {
+  @extend %dropdown;
+  right: -9999px;
+  right: -100vw;
+  left: auto;
+  &:before {
+    // TODO adjust
+    right: 6rem;
+    left: auto;
+  }
+  .open & {
+    right: 0;
+    left: auto;
+  }
+}
+
 %select {
   position: relative;
   .chzn-single {
