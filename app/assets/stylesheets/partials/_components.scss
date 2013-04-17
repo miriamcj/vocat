@@ -47,7 +47,6 @@
 }
 
 .course-selector {
-  // @extend %dropdown-container;
   position: absolute;
   top: 2.3rem;
   left: 2rem
@@ -63,10 +62,6 @@
 
 .course-selector--code {
   font-weight: bold;
-}
-
-.course-selector--title {
-
 }
 
 .course-selector--section {
@@ -96,11 +91,6 @@
   right: -6.4rem;
 }
 
-// TODO new pattern is needed for right-aligned version
-.user-selector--select {
-  @extend %select;
-}
-
 // Adaptive nav
 // Lives inside .primary-nav
 // --------------------------
@@ -114,7 +104,10 @@
   @extend %floated-list;
   margin: 0;
   left: 0;
-  li + li {
+  &>li {
+    @extend %dropdown-container;
+  }
+  &>li + li {
     margin-left: 4.2rem;
     position: relative;
     &:before {
@@ -124,12 +117,20 @@
       left: -2.2rem;
     }
   }
-  a {
-    @extend %gamma;
-    @extend %orange-hover;
-    color: $grayLight;
-    line-height: 1;
+}
+
+.adaptive-nav--link {
+  @extend %gamma;
+  color: $grayLight;
+  line-height: 1;
+  &:hover,
+  .open & {
+    color: $orange;
   }
+}
+
+.adaptive-nav--dropdown {
+  @extend %dropdown;
 }
 
 // Shortcut nav

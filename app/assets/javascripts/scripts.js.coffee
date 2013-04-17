@@ -3,7 +3,7 @@ dropdown = {
     $toggle = $('[data-class=dropdown-toggle]')
     $dropdown = $('[data-class=dropdown]')
     $dropdown.each( ->
-      toggleHeight = $(@).siblings('[data-class=dropdown-toggle]').outerHeight()
+      toggleHeight = $(@).siblings('[data-class=dropdown-toggle]').outerHeight(true)
       $(@).css('top',toggleHeight)
     )
     $toggle.click((event) ->

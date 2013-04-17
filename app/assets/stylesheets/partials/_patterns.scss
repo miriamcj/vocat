@@ -140,13 +140,13 @@
 %floated-list {
 	@extend %clearfix;
 	@extend %unstyled-list;
-	li {
+	&>li {
 		float: left;
-		a {
+		&>a {
 			display: block;
 		}
 	}
-	li + li {
+	&>li + li {
 		// margin-left: 1em;
 	}
 }
@@ -154,13 +154,13 @@
 %floated-list-right {
   @extend %clearfix;
   @extend %unstyled-list;
-  li {
+  &>li {
     float: right;
-    a {
+    &>a {
       display: block;
     }
   }
-  li + li {
+  &>li + li {
     // margin-right: 1em;
   }
 }
@@ -228,7 +228,7 @@
   background-color: $grayDarker;
   padding: 0.9rem 2.6rem 0.5rem 1.1rem;
   border-radius: $radius 0 0 $radius;
-  margin-right: 3.8rem;
+  margin-right:3.8rem;
   position: relative;
   &:before {
     content: "";
@@ -286,7 +286,7 @@
     position: absolute;
     top: -1.5rem;
     // TODO adjust
-    left: 6rem;
+    left: 4rem;
   }
   ul {
     padding: 0;
@@ -325,7 +325,7 @@
   left: auto;
   &:before {
     // TODO adjust
-    right: 6rem;
+    right: 4rem;
     left: auto;
   }
   .open & {
