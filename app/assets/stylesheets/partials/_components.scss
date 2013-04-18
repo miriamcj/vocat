@@ -288,23 +288,49 @@
   @extend %frame;
 }
 
-.portfolio-frame--left {
+// Frame attachment
+// --------------------------
+.frame-attachment {
   @extend %frame--left;
 }
 
-.portfolio-frame--right {
-  @extend %frame--right;
-}
-
-.portfolio-frame--image {
+.frame-attachment--image {
   display: block;
   width: 100%;
+  border: 0.1rem solid $grayLighter;
+}
+
+.frame-attachment--details {
+
+}
+
+.frame-attachment--link {
+  @extend %epsilon;
+  @extend %arrow-link;
+  margin-top: 1.7rem;
+}
+
+// Comments nav
+// ------------
+.comments-nav {
+  margin-top: 0.9rem;
+  ul {
+    @extend %floated-list;
+    margin: 0;
+  }
+  li + li {
+    margin-left: 0.6rem;
+  }
+  a {
+    @extend %epsilon;
+    @extend %speech-bubble;
+  }
 }
 
 // Frame summary
 // --------------------------
 .frame-summary {
-
+  @extend %frame--right;
 }
 
 .frame-summary--title {

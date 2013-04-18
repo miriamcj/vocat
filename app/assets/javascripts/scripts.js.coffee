@@ -18,9 +18,8 @@ dropdown = {
       if globalState == false
         event.stopPropagation()
       event.preventDefault()
-
-      console.log globalState
-      console.log localState
+      # console.log globalState
+      # console.log localState
     )
     $dropdown.click((event) ->
       event.stopPropagation()

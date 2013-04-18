@@ -170,7 +170,7 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: $teal;
-  padding: 0.4em 2.5em 0.2em 0;
+  padding: 0.4em 2.3em 0.2em 0;
   position: relative;
   &:after {
     content: "";
@@ -186,6 +186,36 @@
     color: $orange;
     &:after {
       @include svg(circle-arrow-right-orange);
+    }
+  }
+}
+
+// NB uses ems so font-size can be set on component
+%speech-bubble {
+  @extend %with-light-beige;
+  // TODO adjust once fonts are real; should be medium
+  font-weight: 600;
+  line-height: 1;
+  background-color: $tealMedium;
+  padding: 0.5em 0.8em 0.3em;
+  border-radius: $radius;
+  margin-bottom: 0.7em;
+  position: relative;
+  &:after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 0.75em solid $tealMedium;
+    border-right: 0.666em solid transparent;
+    position: absolute;
+    left: 0.5em;
+    bottom: -0.7em;
+  }
+  &:hover {
+    background-color: $orange;
+    &:after {
+      border-top-color: $orange;
     }
   }
 }
@@ -501,10 +531,10 @@
 }
 
 // Extended by %frame--left & %frame--right
+// NB whitespace between the two column elements will display
 %frame--column {
   display: inline-block;
   vertical-align: top;
-  // float: left;  
 }
 
 %frame--left {

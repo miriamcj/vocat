@@ -95,7 +95,7 @@ hr {
 // --------------------------
 a {
 	// TODO should links transition?
-	// @include transition(0.05s color ease-out);
+	// @include transition(0.05s all ease-out);
 	text-decoration: none;
 	color: inherit;
 	// &:visited {
