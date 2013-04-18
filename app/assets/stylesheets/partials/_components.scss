@@ -14,6 +14,8 @@
 	height: 3.4rem;
   background-color: $tealLight;
 	padding: 0.9rem 0;
+  position: relative;
+  z-index: 250;
 }
 
 .page-banner--logo {
@@ -125,6 +127,7 @@
 
 .adaptive-nav--link {
   @extend %gamma;
+  @extend %bare-focus;
   line-height: 1;
   &:hover,
   .open & {
@@ -139,7 +142,7 @@
 // Shortcut nav
 // --------------------------
 .shortcut-nav {
-  @extend %shaded-top;
+  @extend %shaded-top-bottom;
   @include transition(0.2s top ease-out);
   height: 10.2rem;
   // height: 0;
@@ -171,6 +174,7 @@
 // Lives inside .primary-nav 
 .shortcut-nav--toggle {
   @extend %hidden-text;
+  @extend %bare-focus;
   @include svg(square-arrow-down-gray);
   display: block;
   width: 2.5rem;
@@ -259,7 +263,6 @@
 // --------------------------
 // Extended by .page-content & its psudoelements
 %page-content {
-  // @extend %shaded-top;
   background-color: $beige;
 }
 
@@ -269,9 +272,82 @@
     @extend %page-content;
   }
   // TODO in flux
-  padding-top: 3.4rem;
-  margin-top: 11.6rem;
+  // padding-top: 3.4rem;
+  margin-top: $headerHeight;
   position: relative;
+  z-index: 100;
+}
+
+// Portfolio components
+// --------------------------------------------------------
+.portfolio {
+
+}
+
+.portfolio-frame {
+  @extend %frame;
+}
+
+.portfolio-frame--left {
+  @extend %frame--left;
+}
+
+.portfolio-frame--right {
+  @extend %frame--right;
+}
+
+.portfolio-frame--image {
+  display: block;
+  width: 100%;
+}
+
+// Frame summary
+// --------------------------
+.frame-summary {
+
+}
+
+.frame-summary--title {
+  @extend %giga;
+  @extend %with-teal;
+  @include font-head;
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+
+.frame-summary--course {
+  @extend %gamma-alt;
+  @extend %with-light-gray;
+  margin-bottom: 1.4rem;
+}
+
+.frame-summary--link {
+  @extend %epsilon;
+  @extend %arrow-link;
+  margin: 1.9rem 0 0 0.8rem;
+}
+
+// Score list
+// ------------
+.frame-summary--score-list {
+  @extend %score-list;
+}
+
+.frame-summary--evaluated {
+  @extend %active-criterion;
+}
+
+.frame-summary--unevaluated {
+  @extend %inactive-criterion;
+}
+
+.frame-summary--score--title {
+  @extend %score--title;
+}
+
+.frame-summary--score--value {
+  @extend %score--value;
 }
 
 // Authentication components

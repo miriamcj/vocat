@@ -2,14 +2,30 @@ dropdown = {
   init: ->
     $toggle = $('[data-class=dropdown-toggle]')
     $dropdown = $('[data-class=dropdown]')
+    $container = $('[data-class=dropdown-container]')
     $dropdown.each( ->
       containerHeight = $(@).parents('[data-class=dropdown-container]').outerHeight()
       $(@).css('top',containerHeight)
     )
-    $toggle.click((event) ->
-      $(@).parents('[data-class=dropdown-container]').toggleClass('open')
-      event.preventDefault()
+    $(document).click( ->
+      $container.removeClass('open')
     )
+    # TODO click on toggle of closed menu should close any other open menu and open clicked menu
+    $toggle.click((event) ->
+      globalState = $container.hasClass('open')
+      localState = $(@).parents('.open').length
+      $(@).parents('[data-class=dropdown-container]').toggleClass('open')
+      if globalState == false
+        event.stopPropagation()
+      event.preventDefault()
+
+      console.log globalState
+      console.log localState
+    )
+    $dropdown.click((event) ->
+      event.stopPropagation()
+    )
+
 }
 
 pageHeader = {

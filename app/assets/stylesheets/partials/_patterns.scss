@@ -35,9 +35,12 @@
   // font-weight: 300;
 }
 
+%gamma-alt {
+  @include font-size(17);
+}
+
 %gamma {
   @include font-size(16);
-	// font-weight: 300;
 }
 
 %delta {
@@ -67,9 +70,18 @@
 // outside the above hierarchy
 // Employs SI prefixes
 // --------------------------
-%deca {
+%giga {
   @include font-size(42.9);
 	// font-weight: 300;	
+}
+
+%giga-alt {
+  @include font-size(41.75);
+  // font-weight: 300;  
+}
+
+%mega {
+  @include font-size(27.4);
 }
 
 %deci {
@@ -80,8 +92,13 @@
 // Block-level
 // --------------------------
 %heading {
-  // font-weight: normal;
+  // TODO adjust once fonts are embedded for real; should be regular
+  font-weight: 400;
 	margin: 0;
+  a {
+    @extend %orange-hover;
+    display: inline-block;
+  }
 }
 
 // Inline
@@ -106,6 +123,12 @@
 %orange-hover {
   &:hover {
     color: $orange;
+  }
+}
+
+%bare-focus {
+  &:focus {
+    outline: none;
   }
 }
 
@@ -135,6 +158,35 @@
     position: absolute;
     top: 0.9rem;
     right: 1.1rem;
+  }
+}
+
+// NB uses ems so font-size can be set on component
+%arrow-link {
+  display: inline-block;
+  // TODO adjust once fonts are real; medium
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $teal;
+  padding: 0.4em 2.5em 0.2em 0;
+  position: relative;
+  &:after {
+    content: "";
+    display: block;
+    width: 1.6em;
+    height: 1.6em;
+    @include svg(circle-arrow-right-teal);
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  &:hover {
+    color: $orange;
+    &:after {
+      @include svg(circle-arrow-right-orange);
+    }
   }
 }
 
@@ -246,6 +298,7 @@
 // Extending this is optional
 %dropdown-toggle {
   @extend %beta-alt;
+  @extend %bare-focus;
   display: inline-block;
   line-height: 1;
   color: $grayLighter;
@@ -342,7 +395,7 @@
     white-space: pre;
     line-height: 1;
     // TODO adjust
-    letter-spacing: -0.1rem;
+    letter-spacing: -0.1em;
     color: $grayLighter;
   }
   .open & {
@@ -366,6 +419,10 @@
 // --------------------------
 %with-white {
 	color: $white;
+}
+
+%with-light-beige {
+  color: $beigeLight;
 }
 
 %with-lighter-gray {
@@ -401,6 +458,22 @@
   );
 }
 
+// NB this shadow will bleed out on all sides;
+// keep calm & mind your z-indexes
+%shaded-bottom {
+  @include box-shadow(
+    0 -1.6rem 1.6rem 3.2rem transparentize($black, 0.92)
+  );
+}
+
+// NB ditto
+%shaded-top-bottom {
+  @include box-shadow(
+    inset 0 3.2rem 1.6rem -1.6rem transparentize($black, 0.92),
+    0 -1.6rem 1.6rem 3.2rem transparentize($black, 0.92)
+  );
+}
+
 // Avatars
 // --------------------------
 %round-avatar {
@@ -411,9 +484,113 @@
   border-radius: 100%;
 }
 
+// Frame
+// --------------------------
+%frame {
+  // @extend %clearfix;
+  // TODO adjust bottom padding
+  padding: 3.4rem 8.6rem 2rem;
+  position: relative;
+  z-index: 110;
+  &:nth-child(even) {
+    @include full-bleed {
+      background-color: $beigeLight;
+    }
+    background-color: $beigeLight;
+  }
+}
 
+// Extended by %frame--left & %frame--right
+%frame--column {
+  display: inline-block;
+  vertical-align: top;
+  // float: left;  
+}
 
+%frame--left {
+  @extend %frame--column;
+  width: 30.7%;
+}
 
+%frame--right {
+  @extend %frame--column;
+  width: 69.3%;
+  padding-left: 5rem;
+}
+
+// Score list
+// --------------------------
+%score-list {
+  @extend %unstyled-list;
+  margin: 0;
+  li + li {
+    margin-top: 1.2rem;
+  }
+}
+
+// Extended by %active-criterion & %inactive-criterion
+%criterion {
+  height: 5rem;
+  border-radius: 5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+// NB be sure to add an .indicator element into your markup
+// TODO should these transition on hover?
+%active-criterion {
+  @extend %criterion;
+  background-color: $tealLighter;
+  .indicator {
+    display: block;
+    height: 100%;
+    background-color: $tealLight;
+  }
+  &:hover {
+    background-color: $orangeLight;
+    .indicator {
+      background-color: $orange;
+    }
+  }
+}
+
+%inactive-criterion {
+  @extend %criterion;
+  background-color: $grayLighter;
+}
+
+%score--title {
+  @extend %beta-alt;
+  @extend %with-light-beige;
+  // TODO adjust once fonts are real; should be medium
+  font-weight: 600;
+  line-height: 1;
+  padding-top: 1.7rem;
+  position: absolute;
+  top: 0;
+  left: 2.7rem;
+  small {
+  // TODO adjust once fonts are real; should be regular
+    font-weight: 400;
+  }
+}
+
+%score--value {
+  @extend %giga-alt;
+  @extend %with-light-beige;
+  @include font-head;
+  line-height: 1;
+  padding-top: 0.6rem;
+  position: absolute;
+  top: 0;
+  right: 1.7rem;
+  small {
+    @extend %mega;
+    vertical-align: top;
+    line-height: 1.1;
+    padding-left: 0.2rem;
+  }
+}
 
 
 

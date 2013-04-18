@@ -94,7 +94,8 @@ hr {
 // Inline elements
 // --------------------------
 a {
-	@include transition(0.05s color ease-out);
+	// TODO should links transition?
+	// @include transition(0.05s color ease-out);
 	text-decoration: none;
 	color: inherit;
 	// &:visited {
