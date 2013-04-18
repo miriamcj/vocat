@@ -259,6 +259,31 @@
   }
 }
 
+.help-nav--label {
+  position: relative;
+  &:hover {
+    color: $orange;
+    .help-nav--checkbox {
+      &:checked {
+        & + b {
+          @include svg(radio-checked-orange);
+        }
+      }
+    }
+    b {
+      @include svg(radio-unchecked-orange);
+    }
+  }
+}
+
+.help-nav--checkbox {
+  @extend %round-checkbox;
+}
+
+.help-nav--checkbox-text {
+  margin-left: 0.7rem;
+}
+
 // Page content
 // --------------------------
 // Extended by .page-content & its psudoelements
@@ -399,6 +424,7 @@
 }
 
 .authentication-tile--label {
+  @extend %delta;
   margin: 0.9rem 0;
   float: left;
   position: relative;
@@ -406,12 +432,11 @@
 
 // Lives inside .authentication-tile--label
 .authentication-tile--checkbox {
-  @extend %custom-checkbox;
+  @extend %square-checkbox;
 }
 
 // Lives inside .authentication-tile--label
 .authentication-tile--checkbox-text {
-  @extend %delta;
   @extend %with-light-gray;
   margin-left: 0.4rem;
 }

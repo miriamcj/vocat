@@ -7,9 +7,9 @@ dropdown = {
       containerHeight = $(@).parents('[data-class=dropdown-container]').outerHeight()
       $(@).css('top',containerHeight)
     )
-    $(document).click( ->
-      $container.removeClass('open')
-    )
+    # $(document).click( ->
+    #   $container.removeClass('open')
+    # )
     # TODO click on toggle of closed menu should close any other open menu and open clicked menu
     $toggle.click((event) ->
       globalState = $container.hasClass('open')
@@ -21,10 +21,10 @@ dropdown = {
       # console.log globalState
       # console.log localState
     )
-    $dropdown.click((event) ->
-      event.stopPropagation()
-    )
-
+    # TODO this breaks logout link
+    # $dropdown.click((event) ->
+    #   event.stopPropagation()
+    # )
 }
 
 pageHeader = {

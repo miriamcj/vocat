@@ -289,7 +289,9 @@
   }
 }
 
-%custom-checkbox {
+// NB uses ems so checkbox scales with type
+// Be sure to declare font-size on label
+%square-checkbox {
 	@include opacity(0);
 	.lt-ie9 & {
 		filter: alpha(opacity=100);
@@ -297,10 +299,10 @@
 	& + b {
     @include svg(checkbox-unchecked);
 		display: block;
-    width: 1em;
-    height: 1em;
+    width: 1.23em;
+    height: 1.23em;
 		position: absolute;
-    top: 0;
+    top: -0.15em;
 		left: 0;
 		.lt-ie9 & {
 			display: none;
@@ -311,6 +313,30 @@
       @include svg(checkbox-unchecked);
 		}
 	}
+}
+
+%round-checkbox {
+  @include opacity(0);
+  .lt-ie9 & {
+    filter: alpha(opacity=100);
+  }
+  & + b {
+    @include svg(radio-unchecked-gray);
+    display: block;
+    width: 1em;
+    height: 1em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    .lt-ie9 & {
+      display: none;
+    }
+  }
+  &:checked {
+    & + b {
+      @include svg(radio-checked-gray);
+    }
+  }
 }
 
 // <label>
