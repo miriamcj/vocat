@@ -27,4 +27,5 @@ staging:
   encoding: unicode
   pool: 5
   user: vocat
+  password: vocat
   database: vocat
