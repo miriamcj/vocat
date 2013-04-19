@@ -16,8 +16,8 @@
 </figure><!--
 --><div class="frame-summary">
     <h2 class="frame-summary--title"><a href="{{url_for 'courses_evaluations_for_project' submission.course_id submission.project_id}}">{{submission.project_name}}</a></h2>
-    <h3 class="frame-summary--course"><a href="{{url_for 'courses_evaluations_for_creator' submission.course_id submission.creator_id}}">{{submission.creator_name}}</a></h3>
-    <h3 class="frame-summary--course"><a href="{{url_for 'courses_evaluations' submission.course_id}}">{{submission.course_name_long}}</a></h3>
+    <h3 class="frame-summary--creator"><a href="{{url_for 'courses_evaluations_for_creator' submission.course_id submission.creator_id}}">{{submission.creator_name}}</a></h3>
+    <h3 class="frame-summary--course"><a href="{{url_for 'courses_evaluations' submission.course_id}}"><strong>{{submission.course_department}}{{submission.course_number}} </strong> {{submission.course_name}} [Section {{submission.course_section}}]</a></h3>
     <ul class="frame-summary--score-list">
       <li class="frame-summary--evaluated">
         <h4 class="frame-summary--score--title">Evaluator Review <small>[Overview]</small></h4>

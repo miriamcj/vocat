@@ -5,7 +5,7 @@
       <li><a href="/">All Courses</a></li>
       <% if current_user && current_user.has_courses %>
         <% current_user.courses.each do |course| %>
-          <li><a <%= if @course == course then 'class="active"' end %> href="<%= url_for portfolio_course_path(course) %>"><%= course %></a></li>
+          <li><a <%= if @course == course then 'class="active"' end %> href="<%= url_for portfolio_course_path(course) %>"><%= raw "<span>#{course.department}#{course.number}:</span> #{course.name}, Section #{course.section}" %></a></li>
         <% end %>
       <% end %>
       <!-- <li><a href=""><span class="course-selector--code">PDX 1248 :</span> <span class="course-selector--title">Introduction to Right-of-Way Debate</span> <span class="course-selector--section">[Section XX, Fall 2013]</span></a></li> -->
