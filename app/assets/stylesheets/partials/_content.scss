@@ -23,3 +23,8 @@
 .button-teal {
 	@extend %teal-arrow-button;
 }
+
+.arrow-link {
+	@extend %heading-epsilon;
+	@extend %arrow-link;
+}

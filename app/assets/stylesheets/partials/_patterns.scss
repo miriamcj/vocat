@@ -448,15 +448,21 @@
   }
   a {
     @extend %gamma;
-    @extend %orange-hover;
     display: block;
     // TODO is this a good way to force width?
     // Test with many different widths
     white-space: pre;
     line-height: 1;
     // TODO adjust once fonts are real
-    letter-spacing: -0.1em;
+    // letter-spacing: -0.1em;
     color: $grayLighter;
+    small {
+      color: $grayDark;
+    }
+    &:hover,
+    &.active {
+      color: $orange;
+    }
   }
   .open & {
     display: block;

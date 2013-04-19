@@ -70,20 +70,11 @@
   @extend %dropdown;
 }
 
-.course-selector--code {
-  font-weight: $bold;
-}
-
-.course-selector--section {
-  color: $grayLighter;
-}
-
 // User selector
 // ------------
 .user-selector {
   margin-right: 6.4rem;
   position: absolute;
-  // TODO adjust
   top: 2.3rem;
   right: 2rem;
 }
