@@ -20,3 +20,10 @@ development:
 test:
   <<: *common
   database: vocat_test
+
+staging:
+  adapter: postgresql
+  host: localhost
+  encoding: unicode
+  pool: 5
+  database: vocat
