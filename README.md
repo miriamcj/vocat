@@ -1,6 +1,10 @@
 # VOCAT 3.0
 ###### Like a beautiful phoneix, VOCAT rises from its ashes and takes flight.
 
+## Infrastructure
+- Vocat relies on postgres, which can generally be installed via yum or apt-get
+- You will need Postgres' hstore module. On RHEL, you start by installing the pg contrib package: yum install postgresql92-contrib.x86_64
+
 ## Seeds
 
 ### Users

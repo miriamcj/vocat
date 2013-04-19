@@ -26,6 +26,6 @@ staging:
   host: localhost
   encoding: unicode
   pool: 5
-  user: vocat
+  username: vocat
   password: vocat
   database: vocat
