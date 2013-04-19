@@ -1,0 +1,70 @@
+
+// Generic Table
+// --------------------------
+.model-table {
+  background:  $grayLightest;
+  border:  3px solid $beigeLight;
+  th, td {
+    border:  3px solid $beigeLight;
+  }
+  thead {
+    white-space: nowrap;
+    text-align: left;
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+    th {
+      padding: 10px;
+    }
+  }
+  tbody {
+    th, td {
+      vertical-align: top;
+      padding: 10px;
+    }
+    th {
+      text-align: left;
+      white-space: nowrap;
+    }
+    td {
+    }
+  }
+}
+.model-table--actions {
+  @extend %floated-list;
+  a {
+    margin-bottom: 5px;
+    margin-left: 5px;
+    @extend %teal-arrow-button;
+  }
+}
+
+.model-form {
+  .model-form--row {
+    margin-bottom: 20px;
+  }
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  input, textarea, select {
+    display: block;
+  }
+  input[type=submit] {
+    /* I couldnt' just extend %teal-arrow-button because the after pseudo element doesn't work with a submit button */
+    @extend %epsilon;
+    @include font-body;
+    display: inline-block;
+    font-weight: $bold;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    line-height: 1;
+    color: $beige;
+    background-color: $tealLight;
+    padding: 1.4rem 1.4rem 1.1rem 1.4rem;
+    border: none;
+    border-radius: $radius;
+    position: relative;
+  }
+}
