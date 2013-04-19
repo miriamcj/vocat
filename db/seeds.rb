@@ -16,7 +16,7 @@ other   = Organization.create(:name => Faker::Company.name)
 
 # Create developer user accounts
 for name in %w(alex gabe lucas peter scott zach)
-  u = User.create(:email => "#{name}@castironcoding.com", :password => "chu88yhands", :name => name)
+  u = User.create(:email => "#{name}@castironcoding.com", :password => "testtest123", :name => name)
   u.role = "admin"
   u.organization = baruch
   u.save
@@ -44,7 +44,7 @@ assistants = Array.new
 creators = Array.new
 
 6.times do |i|
-  u = User.new(:email => "evaluator#{i}@test.com", :password => "chu88yhands", :name => random_name)
+  u = User.new(:email => "evaluator#{i}@test.com", :password => "testtest123", :name => random_name)
   u.organization = baruch
   u.role = "evaluator"
   u.save
@@ -52,7 +52,7 @@ creators = Array.new
 end
 
 15.times do |i|
-  u = User.new(:email => "assistant#{i}@test.com", :password => "chu88yhands", :name => random_name)
+  u = User.new(:email => "assistant#{i}@test.com", :password => "testtest123", :name => random_name)
   u.organization = baruch
   u.role = "creator"
   u.save
@@ -60,7 +60,7 @@ end
 end
 
 150.times do |i|
-  u = User.new(:email => "creator#{i}@test.com", :password => "chu88yhands", :name => random_name)
+  u = User.new(:email => "creator#{i}@test.com", :password => "testtest123", :name => random_name)
   u.role = "creator"
   u.organization = baruch
   u.save
@@ -116,7 +116,7 @@ courses.each do |course|
 end
 
 # Create an evaluator that is both a creator for a course and an evaluator for a course
-evaluator = User.new(:email => "assistant_evaluator@test.com", :password => "chu88yhands", :name => random_name)
+evaluator = User.new(:email => "assistant_evaluator@test.com", :password => "testtest123", :name => random_name)
 evaluator.organization = baruch
 evaluator.role = "evaluator"
 evaluator.save

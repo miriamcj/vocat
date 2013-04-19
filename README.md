@@ -8,7 +8,7 @@
 ## Seeds
 
 ### Users
-- Passwords are the same for everyone: ol' chubby, if you know what I mean
+- Passwords are the same for everyone: 'testtest123'
 - Administrators are your email addresses: i.e. `alex@castironcoding.com`
 - There are 6 evaluators: i.e. `evaluator3@test.com`
 - There are 15 assistants: i.e. `assistant7@test.com`
