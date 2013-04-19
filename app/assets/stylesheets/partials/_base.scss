@@ -24,8 +24,7 @@ html {
 body {
 	@include font-body;
 	@include font-size(16);
-	// TODO adjust once fonts are embedded for real
-	font-weight: 400;
+	font-weight: $regular;
 	line-height: $baseLineHeight;
 	color: $grayDark;
 	overflow-x: hidden;
@@ -104,4 +103,12 @@ a {
 	// &:hover {
 	// 	color: $mindBlowingHue;
 	// }
+}
+
+b {
+	font-weight: $regular;
+}
+
+strong {
+	font-weight: $bold;
 }

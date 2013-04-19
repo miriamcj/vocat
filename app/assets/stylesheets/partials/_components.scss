@@ -71,7 +71,7 @@
 }
 
 .course-selector--code {
-  font-weight: bold;
+  font-weight: $bold;
 }
 
 .course-selector--section {
@@ -368,6 +368,12 @@
   text-transform: uppercase;
   line-height: 1;
   margin-bottom: 0.3rem;
+}
+
+.frame-summary--creator {
+  @extend %gamma-alt;
+  @extend %with-light-gray;
+  margin-bottom: 0.5rem;
 }
 
 .frame-summary--course {

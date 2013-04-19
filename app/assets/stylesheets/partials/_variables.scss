@@ -35,6 +35,35 @@ $verticalSpace: $baseLineHeight * 1em;
 
 $radius: 0.5rem;
 
+// Typography
+// --------------------------------------------------------
+// $usage can be set to either 'open' or 'closed'
+// 'open' will replace typefaces with their open source
+// counterparts (in _fonts.scss) and adjust parameters accordingly
+$usage: closed;
+// $usage: open;
+
+// Font Weights
+// --------------------------
+$regular: 400 !default;
+$medium: 600 !default;
+$bold: 700 !default;
+
+@if $usage == open {
+  $regular: 400;
+  $medium: 400;
+  $bold: 400;
+}
+
+// Offsets
+// TODO adjust these one closed fonts are real
+// --------------------------
+$offset: 0 !default;
+
+@if $usage == open {
+  $offset: 0.1rem;
+}
+
 // Responsive breakpoints
 // --------------------------------------------------------
 // $screenNarrow: 480px;

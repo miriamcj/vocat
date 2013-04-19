@@ -22,17 +22,14 @@
 // --------------------------
 %alpha {
   @include font-size(20.5);
-	// font-weight: 300;
 }
 
 %beta {
   @include font-size(19.2);
-	// font-weight: 300;
 }
 
 %beta-alt {
   @include font-size(18);
-  // font-weight: 300;
 }
 
 %gamma-alt {
@@ -45,24 +42,20 @@
 
 %delta {
   @include font-size(13);
-	// font-weight: 300;
 }
 
 %epsilon {
   @include font-size(12);
-	// font-weight: 300;
 }
 
 %epsilon-caps {
   @include font-size(12);
-  // TODO adjust once fonts are embedded for real; should be medium
-  font-weight: 600;
+  font-weight: $medium;
   text-transform: uppercase;
 }
 
 %zeta {
   // @include font-size(0.4);
-	// font-weight: 300;
 }
 
 // Extra-hierarchy
@@ -72,12 +65,10 @@
 // --------------------------
 %giga {
   @include font-size(42.9);
-	// font-weight: 300;	
 }
 
 %giga-alt {
   @include font-size(41.75);
-  // font-weight: 300;  
 }
 
 %mega {
@@ -86,14 +77,12 @@
 
 %deci {
   // @include font-size(0.2);
-	// font-weight: 300;
 }
 
 // Block-level
 // --------------------------
 %heading {
-  // TODO adjust once fonts are embedded for real; should be regular
-  font-weight: 400;
+  font-weight: $regular;
 	margin: 0;
   a {
     @extend %orange-hover;
@@ -138,8 +127,7 @@
   @extend %epsilon;
   @include font-body;
   display: inline-block;
-  // TODO change this to numerical weight once fonts are embedded for real
-  font-weight: bold;
+  font-weight: $bold;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   line-height: 1;
@@ -164,8 +152,7 @@
 // NB uses ems so font-size can be set on component
 %arrow-link {
   display: inline-block;
-  // TODO adjust once fonts are real; medium
-  font-weight: 600;
+  font-weight: $medium;
   line-height: 1;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -193,8 +180,7 @@
 // NB uses ems so font-size can be set on component
 %speech-bubble {
   @extend %with-light-beige;
-  // TODO adjust once fonts are real; should be medium
-  font-weight: 600;
+  font-weight: $medium;
   line-height: 1;
   background-color: $tealMedium;
   padding: 0.5em 0.8em 0.3em;
@@ -433,9 +419,6 @@
     padding: 0;
     margin: 0;
   }
-  li {
-
-  }
   li + li {
     // TODO refactor this so top & bottom padding are equal
     padding-top: 1.2rem;
@@ -450,7 +433,7 @@
     // Test with many different widths
     white-space: pre;
     line-height: 1;
-    // TODO adjust
+    // TODO adjust once fonts are real
     letter-spacing: -0.1em;
     color: $grayLighter;
   }
@@ -618,16 +601,14 @@
 %score--title {
   @extend %beta-alt;
   @extend %with-light-beige;
-  // TODO adjust once fonts are real; should be medium
-  font-weight: 600;
+  font-weight: $medium;
   line-height: 1;
   padding-top: 1.7rem;
   position: absolute;
   top: 0;
   left: 2.7rem;
   small {
-  // TODO adjust once fonts are real; should be regular
-    font-weight: 400;
+    font-weight: $regular;
   }
 }
 

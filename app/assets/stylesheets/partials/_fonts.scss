@@ -19,12 +19,22 @@
 // Mixins
 // --------------------------
 @mixin font-body {
-  font-family: BentonGothic, helvetica, sans-serif;
-	// font-family: "Source Sans Pro", helvetica, sans-serif;
+  @if $usage == closed {
+    font-family: BentonGothic, helvetica, sans-serif;
+  }
+  @else {
+    font-family: "Open Sans", helvetica, sans-serif;
+  }
 }
 
+// TODO modify once fonts are real
 @mixin font-subhead {
-	font-family: BentonGothic, helvetica, sans-serif;
+  @if $usage == closed {
+    font-family: BentonGothic, helvetica, sans-serif;
+  }
+  @else {
+    font-family: "Open Sans", helvetica, sans-serif;
+  }
 }
 
 @mixin font-head {

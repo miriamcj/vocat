@@ -5,7 +5,10 @@ class Submission < ActiveRecord::Base
   belongs_to :creator, :class_name => "User"
   attr_accessible :name, :summary, :attachments, :project, :course, :url, :thumb
 
+  delegate :department, :to => :course, :prefix => true
+  delegate :number, :to => :course, :prefix => true
   delegate :name, :to => :course, :prefix => true
+  delegate :section, :to => :course, :prefix => true
   delegate :name_long, :to => :course, :prefix => true
   delegate :name, :to => :project, :prefix => true
   delegate :name, :to => :creator, :prefix => true
