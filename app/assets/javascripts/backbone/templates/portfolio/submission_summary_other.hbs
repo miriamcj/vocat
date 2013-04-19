@@ -13,7 +13,7 @@
     </nav>
     <a class="frame-attachment--link" href="{{url_for 'courses_evaluations_for_creator_and_project' submission.course_id submission.creator_id submission.project_id}}">See All Comments</a>
   </figcaption>
-</figure><!--
+</figure><!-- removes whitespace between columns
 --><div class="frame-summary">
     <h2 class="frame-summary--title"><a href="{{url_for 'courses_evaluations_for_project' submission.course_id submission.project_id}}">{{submission.project_name}}</a></h2>
     <h3 class="frame-summary--creator"><a href="{{url_for 'courses_evaluations_for_creator' submission.course_id submission.creator_id}}">{{submission.creator_name}}</a></h3>

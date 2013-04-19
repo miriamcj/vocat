@@ -288,25 +288,24 @@
 }
 
 // Page content
-// --------------------------
-// Extended by .page-content & its psudoelements
-%page-content {
-  background-color: $beige;
-}
-
+// --------------------------------------------------------
 .page-content {
-  @extend %page-content;
-  @include full-bleed {
-    @extend %page-content;
-  }
-  // TODO in flux
-  // padding-top: 3.4rem;
+  background-color: $beige;
+  padding: 0 8.6rem;
   margin-top: $headerHeight;
   position: relative;
   z-index: 100;
 }
 
-// Portfolio components
+// Generic content
+// --------------------------------------------------------
+// Can live inside any container that has the same width
+// as .page-content or .container
+.content-frame {
+  @extend %frame;
+}
+
+// Portfolio
 // --------------------------------------------------------
 .portfolio {
 

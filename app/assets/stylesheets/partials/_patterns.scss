@@ -526,9 +526,8 @@
 // Frame
 // --------------------------
 %frame {
-  // @extend %clearfix;
   // TODO adjust bottom padding
-  padding: 3.4rem 8.6rem 2rem;
+  padding: 3.4rem 0 2rem;
   position: relative;
   z-index: 110;
   &:nth-child(even) {
