@@ -25,13 +25,16 @@ Vocat::Application.routes.draw do
     scope :module => "courses" do
       resources :projects
     end
+    resources :rubrics
   end
 
-  resources :rubrics, :controller => 'admin/rubrics', :only => [:create, :update, :delete]
+
   get '/admin' => 'admin/dashboard#index', :as => 'admin_root'
-  namespace :admin do
-    resources :rubrics, :only => [:index, :new, :show, :destroy, :edit]
-  end
+
+#  resources :rubrics, :controller => 'admin/rubrics', :only => [:create, :update, :delete]
+#  namespace :admin do
+#    resources :rubrics, :only => [:index, :new, :show, :destroy, :edit]
+#  end
 
 
 end

@@ -1,6 +1,6 @@
 <div class="project-show">
   <div class="content-frame">
-    <h1>Edit Project: "<%= @project.name %>"</h1>
+    <h1 class="heading-largest">Edit Project: "<%= @project.name %>"</h1>
   </div>
   <div class="content-frame">
     <%= simple_form_for(@project, :url => course_project_path(@course, @project)) do |f| %>

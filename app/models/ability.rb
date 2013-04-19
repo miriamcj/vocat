@@ -59,6 +59,15 @@ class Ability
       can :manage, Course do |course|
         not course.creators.include? user
       end
+
+      can :read, Rubric do |rubric|
+        rubric.owner_id == user.id
+      end
+
+      can :update, Rubric do |rubric|
+        rubric.owner_id == user.id
+      end
+
       can :manage, Project do |project|
         begin
           project.course.id
@@ -70,9 +79,11 @@ class Ability
 
       # Revoke creator-only privileges
       can :evaluate,    [Submission, Exhibit, Course]
+      can :create,      [Rubric]
       cannot :create,   [Submission, Attachment]
       cannot :destroy,  [Submission, Attachment]
       cannot :update,   [Submission, Attachment]
+
     end
 
 

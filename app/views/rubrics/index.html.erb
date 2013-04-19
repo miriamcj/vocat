@@ -1,0 +1,46 @@
+<div class="rubric-index">
+  <div class="content-frame">
+    <h1 class="heading-largest">Rubrics</h1>
+  </div>
+  <div class="content-frame">
+
+    <table class="model-table">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @my_rubrics.each do |rubric| %>
+        <tr>
+          <th>
+            <%= link_to rubric.name, course_rubric_path(@course, rubric) %>
+          </th>
+          <td>
+            <ul class="model-table--actions">
+              <li><%= link_to 'Show', course_rubric_path(@course, rubric) %></li>
+              <% if can? :update, rubric %>
+                <li><%= link_to 'Edit', edit_course_rubric_path(@course, rubric) %></li>
+              <% end %>
+              <% if can? :delete, rubric %>
+                <li><%= link_to 'Destroy', course_rubric_path(@course, rubric), method: :delete, data: { confirm: 'Are you sure?' } %></li>
+              <% end %>
+            </ul>
+          </td>
+        </tr>
+        </tbody>
+      <% end %>
+      </table>
+
+    <br />
+
+    <ul class="model-table--actions">
+      <li><%= link_to 'New Rubric', new_course_rubric_path(@course) %></li>
+    </ul>
+
+  </div>
+
+</div>
+
+

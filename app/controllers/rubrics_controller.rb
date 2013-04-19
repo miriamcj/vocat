@@ -1,10 +1,15 @@
-class Admin::RubricsController < ApplicationController
+class RubricsController < ApplicationController
 
 	load_and_authorize_resource :rubric
 
 	def index
-		@rubrics = Rubric.all()
-		respond_to do |format|
+    if current_user.role?(:evaluator)
+      @my_rubrics = Rubric.find_all_by_owner_id(current_user)
+    elsif current_user.role?(:admin)
+      @my_rubrics = Rubric.find_all_by_public(true)
+    end
+
+    respond_to do |format|
 			format.html
 		end
 	end
@@ -25,6 +30,7 @@ class Admin::RubricsController < ApplicationController
 	end
 
 	def create
+    @rubric.owner_id = current_user.id
 		respond_to do |format|
 			if @rubric.save
 				format.html { redirect_to @rubric, notice: 'Rubric was successfully created.' }

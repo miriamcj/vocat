@@ -1,29 +1,32 @@
 class Vocat.Views.RubricBuilder extends Vocat.Views.AbstractView
 
-	template: HBT["backbone/templates/rubric_builder"]
+  template: HBT["backbone/templates/rubric_builder"]
 
-	events:
-		'click .debug': 'debug'
-		'click .js-save': 'save'
+  events:
+    'click .debug': 'debug'
+    'click .js-save': 'save'
 
 
-	debug: (event) ->
-		event.preventDefault()
-		console.clear()
-		console.log @model, 'Full Model'
-		console.log @model.toJSON(), 'JSON Representation'
+  debug: (event) ->
+    event.preventDefault()
+    console.clear()
+    console.log @model, 'Full Model'
+    console.log @model.toJSON(), 'JSON Representation'
 
-	save: (event) ->
-		event.preventDefault
-		@model.save()
+  save: (event) ->
+    event.preventDefault
+    @model.save()
 
-	initialize: (options) ->
-		if Vocat.Bootstrap.Models.Rubric?
-			@model = new Vocat.Models.Rubric(Vocat.Bootstrap.Models.Rubric, {parse: true})
-		else
-			@model = new Vocat.Models.Rubric({})
+  initialize: (options) ->
+    courseId = @$el.data().course
 
-		# TODO: Remove this sample data once we have good rubric seed data in place.
+    if Vocat.Bootstrap.Models.Rubric?
+      @model = new Vocat.Models.Rubric(Vocat.Bootstrap.Models.Rubric, {parse: true})
+    else
+      @model = new Vocat.Models.Rubric({})
+      if courseId? then @model.courseId = courseId
+
+    # TODO: Remove this sample data once we have good rubric seed data in place.
 #		d = new Date()
 #		@model.set('name','Test Rubric ' + d.getTime())
 #		@model.addField {name: 'Voice', description: 'Breathing; Centering; Projection' }
@@ -46,21 +49,21 @@ class Vocat.Views.RubricBuilder extends Vocat.Views.AbstractView
 #		@model.setDescriptionByName('Overall Effect', 'Medium', 'Speaker engages audience with varied success. Interest in the presentation ebbs and flows. Ideas are relatively clear, but lack overall coherence. Communication is effective, but neither dynamic nor very memorable.')
 #		@model.setDescriptionByName('Overall Effect', 'High', 'Speaker engages audience and is compelling to watch and listen to. Ideas are clear, concise, and communicated in a creative, memorable way.')
 
-		super (options)
-		@render()
+    super (options)
+    @render()
 
-	render: () ->
-		context = {
-			rubric: @model.toJSON()
-		}
+  render: () ->
+    context = {
+      rubric: @model.toJSON()
+    }
 
-		@$el.html(@template(context))
+    @$el.html(@template(context))
 
-		@$el.find('.js-editable-input').each( (index, el) =>
-			new Vocat.Views.RubricBuilderEditableInput({model: @model, el: el, property: 'name', placeholder: "Enter a name"})
-		)
+    @$el.find('.js-editable-input').each( (index, el) =>
+      new Vocat.Views.RubricBuilderEditableInput({model: @model, el: el, property: 'name', placeholder: "Enter a name"})
+    )
 
-		new Vocat.Views.RubricBuilderStructure({model: @model, el: $('#js-rubric_builder_structure')})
+    new Vocat.Views.RubricBuilderStructure({model: @model, el: $('#js-rubric_builder_structure')})
 
 
 

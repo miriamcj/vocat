@@ -14,12 +14,14 @@
                 <%=  link_to 'Projects', course_projects_path(@course) %>
               </li>
               <li><a href="">Groups</a></li>
-              <li><a href="">Videos</a></li>
               <li><a href="">Settings</a></li>
             </ul>
           </div>
         </li>
         <li><a href="#">Reports</a></li>
+        <li>
+          <%=  link_to 'My Rubrics', course_rubrics_path(@course) %>
+        </li>
       </ul>
     </nav>
   <% end %>
