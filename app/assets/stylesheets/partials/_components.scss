@@ -261,6 +261,7 @@
 
 .help-nav--label {
   position: relative;
+  cursor: pointer;
   &:hover {
     color: $orange;
     .help-nav--checkbox {
@@ -276,10 +277,12 @@
   }
 }
 
+// Lives inside .help-nav--label
 .help-nav--checkbox {
   @extend %round-checkbox;
 }
 
+// Lives inside .help-nav--label
 .help-nav--checkbox-text {
   margin-left: 0.7rem;
 }
@@ -428,6 +431,7 @@
   margin: 0.9rem 0;
   float: left;
   position: relative;
+  cursor: pointer;
 }
 
 // Lives inside .authentication-tile--label
