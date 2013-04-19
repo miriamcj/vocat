@@ -361,11 +361,7 @@
 }
 
 .frame-summary--title {
-  @extend %giga;
-  @extend %with-teal;
-  @include font-head;
-  text-transform: uppercase;
-  line-height: 1;
+  @extend %heading-giga;
   margin-bottom: 0.3rem;
 }
 
@@ -382,7 +378,7 @@
 }
 
 .frame-summary--link {
-  @extend %epsilon;
+  @extend %heading-epsilon;
   @extend %arrow-link;
   margin: 1.9rem 0 0 0.8rem;
 }

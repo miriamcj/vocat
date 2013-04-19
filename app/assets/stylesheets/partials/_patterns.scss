@@ -81,13 +81,42 @@
 
 // Block-level
 // --------------------------
+// Extended by h1-6
 %heading {
-  font-weight: $regular;
 	margin: 0;
   a {
     @extend %orange-hover;
     display: inline-block;
   }
+}
+
+%heading-caps {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+// Headings
+// ------------
+%heading-giga {
+  @extend %giga;
+  @extend %with-teal;
+  @include font-head;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+%heading-beta-alt {
+  @extend %beta-alt;
+  @extend %heading-caps;
+  font-weight: $bold;
+  line-height: 1;
+}
+
+%heading-epsilon {
+  @extend %epsilon;
+  @extend %heading-caps;
+  font-weight: $medium;
+  line-height: 1;
 }
 
 // Inline
@@ -124,13 +153,9 @@
 // Buttons
 // --------------------------
 %teal-arrow-button {
-  @extend %epsilon;
+  @extend %heading-epsilon;
   @include font-body;
   display: inline-block;
-  font-weight: $bold;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  line-height: 1;
   color: $beige;
   background-color: $tealLight;
   padding: 1.4rem 3.9rem 1.1rem 1.4rem;
@@ -152,10 +177,6 @@
 // NB uses ems so font-size can be set on component
 %arrow-link {
   display: inline-block;
-  font-weight: $medium;
-  line-height: 1;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
   color: $teal;
   padding: 0.4em 2.3em 0.2em 0;
   position: relative;

@@ -1,0 +1,25 @@
+// Content
+// -------
+
+// Headings
+// --------------------------
+.heading-largest {
+	@extend %heading-giga;
+	margin-bottom: 0.5rem;
+}
+
+.heading-medium {
+	@extend %heading-beta-alt;
+	margin-bottom: 0.8rem;
+}
+
+.heading-smallest {
+	@extend %heading-epsilon;
+	margin-bottom: 0.9rem;
+}
+
+// Links
+// --------------------------
+.button-teal {
+	@extend %teal-arrow-button;
+}
