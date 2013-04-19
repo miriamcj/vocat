@@ -10,7 +10,9 @@
           <a class="adaptive-nav--link" data-class="dropdown-toggle" href="<%= url_for course_path(@course) %>">Manage Course</a>
           <div class="adaptive-nav--dropdown" data-class="dropdown">
             <ul>
-              <li><a href="">Projects</a></li>
+              <li>
+                <%=  link_to 'Projects', course_projects_path(@course) %>
+              </li>
               <li><a href="">Groups</a></li>
               <li><a href="">Videos</a></li>
               <li><a href="">Settings</a></li>

@@ -8,7 +8,6 @@ Vocat::Application.routes.draw do
   match '/courses/:course_id/evaluations/creator/:creator_id' => 'courses/evaluations#course_map', :via => :get, :as => 'courses_evaluations_for_creator'
   match '/courses/:course_id/evaluations/creator/:creator_id/project/:project_id' => 'courses/evaluations#course_map', :via => :get, :as => 'courses_evaluations_for_creator_and_project'
   match '/courses/:course_id/evaluations/project/:project_id' => 'courses/evaluations#course_map', :via => :get, :as => 'courses_evaluations_for_project'
-
   match '/courses/:course_id/creator/:creator_id/project/:project_id' => 'courses/evaluations#creator_and_project', :via => :get, :as => 'course_creator_project'
 
   resources :user, :only => ['read'] do
@@ -19,13 +18,13 @@ Vocat::Application.routes.draw do
     resources :submissions
   end
 
-
-
   resources :courses do
     member do
       get 'portfolio'
     end
-    resources :projects, :shallow => true
+    scope :module => "courses" do
+      resources :projects
+    end
   end
 
   resources :rubrics, :controller => 'admin/rubrics', :only => [:create, :update, :delete]

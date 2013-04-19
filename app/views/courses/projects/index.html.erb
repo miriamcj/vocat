@@ -1,0 +1,49 @@
+<div class="project-index">
+  <div class="content-frame">
+    <h1>Listing projects</h1>
+  </div>
+  <div class="content-frame">
+
+    <table class="model-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Project type</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @projects.each do |project| %>
+        <tr>
+          <th>
+            <%= project.name %>
+            <ul class="model-table--actions">
+              <li><%= link_to 'Show', course_project_path(@course, project) %></li>
+              <% if can? :update, project %>
+              <li><%= link_to 'Edit', edit_course_project_path(@course, project) %></li>
+              <% end %>
+              <% if can? :delete, project %>
+              <li><%= link_to 'Destroy', course_project_path(@course, project), method: :delete, data: { confirm: 'Are you sure?' } %></li>
+              <% end %>
+            </ul>
+          </th>
+          <td><%= project.description %></td>
+          <td><%= project.project_type %></td>
+        </tr>
+      </tbody>
+      <% end %>
+    </table>
+
+    <br />
+
+    <% if can? :create, @course.projects.build %>
+    <ul class="model-table--actions">
+        <li><%= link_to 'New Project', new_course_project_path(@course) %></li>
+    </ul>
+    <% end %>
+
+  </div>
+
+</div>
+
+

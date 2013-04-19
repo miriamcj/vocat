@@ -1,0 +1,42 @@
+<div class="project-show">
+  <div class="content-frame">
+    <h1>Project Details: "<%= @project.name %>"</h1>
+  </div>
+  <div class="content-frame">
+    <p>
+      <strong>Name:</strong>
+      <%= @project.name %>
+    </p>
+
+    <p>
+      <strong>Description:</strong>
+      <%= @project.description %>
+    </p>
+
+    <p>
+      <strong>Course:</strong>
+      <%= @project.course %>
+    </p>
+
+    <p>
+      <strong>Project type:</strong>
+      <%= @project.project_type %>
+    </p>
+
+    <ul class="model-table--actions">
+      <li>
+        <% if can? :update, @project %>
+          <%= link_to 'Edit', edit_course_project_path(@course, @project) %>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to 'Back', course_projects_path(@course)%>
+      </li>
+
+    </ul>
+
+
+  </div>
+</div>
+
+

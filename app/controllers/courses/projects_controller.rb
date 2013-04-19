@@ -1,7 +1,7 @@
-class ProjectsController < ApplicationController
+class Courses::ProjectsController < ApplicationController
   load_and_authorize_resource :course
   load_and_authorize_resource :project, :through => :course
-  layout 'admin'
+  layout 'evaluator'
 
   # GET /projects
   # GET /projects.json
@@ -59,7 +59,7 @@ class ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update_attributes(params[:project])
-        format.html { redirect_to admin_course_path(@course), notice: 'Project was successfully updated.' }
+        format.html { redirect_to course_projects_path(@course), notice: 'Project was successfully updated.' }
         #format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -75,7 +75,7 @@ class ProjectsController < ApplicationController
     @project.destroy
 
     respond_to do |format|
-      format.html { redirect_to admin_course_path(@course) }
+      format.html { redirect_to course_projects_path(@course) }
       #format.json { head :no_content }
     end
   end

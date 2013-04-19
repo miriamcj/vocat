@@ -1,0 +1,19 @@
+<div class="project-show">
+  <div class="content-frame">
+    <h1>Edit Project: "<%= @project.name %>"</h1>
+  </div>
+  <div class="content-frame">
+    <%= simple_form_for(@project, :url => course_project_path(@course, @project)) do |f| %>
+      <%= render 'form', :f => f %>
+      <ul class="model-table--actions">
+        <li><%= f.button :submit, 'Save project' %></li>
+        <li>
+          <%= link_to 'Back', course_projects_path(@course), :class => 'btn' %>
+        </li>
+      </ul>
+    <% end %>
+  </div>
+</div>
+
+
+
