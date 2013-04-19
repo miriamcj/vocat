@@ -19,6 +19,11 @@ module ApplicationHelper
     ActiveModel::ArraySerializer.new(collection, :scope => current_user).to_json()
   end
 
+  def avatar_url(user, size)
+    gravatar_id = Digest::MD5.hexdigest(user.email.downcase)
+    "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}&d=mm"
+  end
+
   # LINK HELPERS
   #
   # Since we have namespaces tied to user roles, we can create shortcuts for the
