@@ -1,5 +1,15 @@
-<nav class="course-selector" data-class="dropdown-container">  
-  <a class="course-selector--toggle" data-class="dropdown-toggle" href="#">[Current Course]</a>
+<nav class="course-selector" data-class="dropdown-container">
+  <a class="course-selector--toggle" data-class="dropdown-toggle" href="#">
+	  <% if @course %>
+		  <% if current_user.role?(:evaluator) %>
+	      <%= @course %>
+		  <% else %>
+				<%= "#{@course.department}#{@course.number}: #{@course.name}" %>
+			<% end %>
+		<% else %>
+			Select your course
+	  <% end %>
+  </a>
   <div class="course-selector--dropdown" data-class="dropdown">
     <ul>
       <li><a href="/">All Courses</a></li>
