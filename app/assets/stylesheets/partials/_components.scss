@@ -108,23 +108,32 @@
   margin: 0;
   left: 0;
   &>li {
-    @extend %with-light-gray;
     @extend %dropdown-container;
+    color: $grayLight;
+    &>a {
+      @extend %gamma;
+      @extend %bare-focus;
+      line-height: 1;
+      &:hover,
+      .open & {
+        color: $orange;
+      }
+    }
   }
   &>li + li {
     margin-left: 4.2rem;
   }
 }
 
-.adaptive-nav--link {
-  @extend %gamma;
-  @extend %bare-focus;
-  line-height: 1;
-  &:hover,
-  .open & {
-    color: $orange;
-  }
-}
+// .adaptive-nav--link {
+//   @extend %gamma;
+//   @extend %bare-focus;
+//   line-height: 1;
+//   &:hover,
+//   .open & {
+//     color: $orange;
+//   }
+// }
 
 .adaptive-nav--dropdown {
   @extend %dropdown;
@@ -193,7 +202,7 @@
 
 .assignment-selector--title {
   @extend %epsilon-caps;
-  @extend %with-light-gray;
+  color: $grayLight;
   margin-bottom: 0.6rem;
 }
 
@@ -213,7 +222,7 @@
 
 .peer-selector--title {
   @extend %epsilon-caps;
-  @extend %with-light-gray;
+  color: $grayLight;
   margin-bottom: 0.6rem;
 }
 
@@ -233,14 +242,14 @@
 
 .help-nav--title {
   @extend %epsilon-caps;
-  @extend %with-light-gray;  
+  color: $grayLight;
 }
 
 .help-nav--list {
   @extend %piped-list;
   li {
     @extend %gamma;
-    @extend %with-light-gray;
+    color: $grayLight;
   }
   li + li {
     margin-left: 4.2rem;
@@ -358,13 +367,13 @@
 
 .frame-summary--creator {
   @extend %gamma-alt;
-  @extend %with-light-gray;
+  color: $grayLight;
   margin-bottom: 0.5rem;
 }
 
 .frame-summary--course {
   @extend %gamma-alt;
-  @extend %with-light-gray;
+  color: $grayLight;
   margin-bottom: 1.4rem;
 }
 
@@ -394,6 +403,65 @@
 
 .frame-summary--score--value {
   @extend %score--value;
+}
+
+// Evaluation detail
+// --------------------------------------------------------
+.evaluation-detail {
+
+}
+
+.evaluation-detail-frame {
+  @extend %frame;
+}
+
+.evaluation-detail--header {
+  @extend %horizontal-header;
+}
+
+.evaluation-detail--title {
+  @extend %horizontal-header--title;
+}
+
+.evaluation-detail--subtitle {
+  @extend %horizontal-header--subtitle;
+}
+
+// Attachment
+// --------------------------------------------------------
+// <figure>
+.attachment {
+  @extend %annotated-media;
+}
+
+// Lives inside .attachment
+.attachment--media {
+  @extend %annotated-media--object;
+}
+
+// Lives inside <figcaption> inside .attachment
+.annotations {
+  @extend %annotations-box;
+}
+
+.annotations--header {
+  background-color: $tealLight;
+  position: relative;
+  padding: 1.4rem 11.8rem 1.2rem 1.4rem;
+}
+
+.annotations--title {
+  @extend %beta-alt;
+  color: $beigeLight;
+  line-height: 1;
+}
+
+.annotations--link {
+  @extend %heading-epsilon;
+  @extend %arrow-link-beige;
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
 }
 
 // Authentication components
@@ -433,7 +501,7 @@
 
 // Lives inside .authentication-tile--label
 .authentication-tile--checkbox-text {
-  @extend %with-light-gray;
+  color: $grayLight;
   margin-left: 0.4rem;
 }
 
@@ -454,7 +522,7 @@
   margin: 0;
   float: right;
   li {
-    @extend %with-light-gray;
+    color: $grayLight;
   }
   li + li {
     margin-left: 3.6rem;

@@ -63,6 +63,10 @@
 // outside the above hierarchy
 // Employs SI prefixes
 // --------------------------
+%tera {
+  @include font-size(49.2);
+}
+
 %giga {
   @include font-size(42.9);
 }
@@ -83,6 +87,7 @@
 // --------------------------
 // Extended by h1-6
 %heading {
+  font-weight: $regular;
 	margin: 0;
   a {
     @extend %orange-hover;
@@ -97,12 +102,20 @@
 
 // Headings
 // ------------
-%heading-giga {
-  @extend %giga;
-  @extend %with-teal;
+%heading-tera {
+  @extend %tera;
   @include font-head;
   text-transform: uppercase;
   line-height: 1;
+  color: $teal;
+}
+
+%heading-giga {
+  @extend %giga;
+  @include font-head;
+  text-transform: uppercase;
+  line-height: 1;
+  color: $teal;
 }
 
 %heading-beta-alt {
@@ -198,11 +211,19 @@
   }
 }
 
+%arrow-link-beige {
+  @extend %arrow-link;
+  color: $beigeLight;
+  &:after {
+    @include svg(circle-arrow-right-beige);
+  }
+}
+
 // NB uses ems so font-size can be set on component
 %speech-bubble {
-  @extend %with-light-beige;
   font-weight: $medium;
   line-height: 1;
+  color: $beigeLight;
   background-color: $tealMedium;
   padding: 0.5em 0.8em 0.3em;
   border-radius: $radius;
@@ -481,36 +502,6 @@
   }
 }
 
-// Text colors
-// --------------------------
-%with-white {
-	color: $white;
-}
-
-%with-light-beige {
-  color: $beigeLight;
-}
-
-%with-lighter-gray {
-  color: $grayLighter;
-}
-
-%with-light-gray {
-	color: $grayLight;
-}
-
-%with-dark-gray {
-	color: $grayDark;
-}
-
-%with-teal {
-	color: $teal;
-}
-
-%with-orange {
-	color: $orange;
-}
-
 // Component patterns
 // --------------------------------------------------------
 %centered-tile {
@@ -566,6 +557,7 @@
 }
 
 // Extended by %frame--left & %frame--right
+// Inline-block instead of float so it works with full-bleed 
 // NB whitespace between the two column elements will display
 %frame--column {
   display: inline-block;
@@ -626,8 +618,8 @@
 
 %score--title {
   @extend %beta-alt;
-  @extend %with-light-beige;
   font-weight: $medium;
+  color: $beigeLight;
   line-height: 1;
   padding-top: 1.7rem;
   position: absolute;
@@ -640,8 +632,8 @@
 
 %score--value {
   @extend %giga-alt;
-  @extend %with-light-beige;
   @include font-head;
+  color: $beigeLight;
   line-height: 1;
   padding-top: 0.6rem;
   position: absolute;
@@ -655,14 +647,62 @@
   }
 }
 
+// Horizontal header
+// --------------------------
+// NB be sure to wrap subtitles in an <aside>
+%horizontal-header {
+  @extend %clearfix;
+  margin-bottom: 1.5rem;
+  aside {
+    padding-left: 1.6rem;
+    border-left: 0.2rem solid $gray;
+    margin: 0.4rem 0 0 1.8rem;
+    float: left;
+  }
+}
 
+%horizontal-header--title {
+  @extend %heading-tera;
+  float: left;
+}
 
+%horizontal-header--subtitle {
+  @extend %gamma;
+  color: $gray;
+  line-height: 1;
+  &:last-child {
+    margin-top: 0.8rem;
+  }
+}
 
+// Annotated media
+// --------------------------
+// NB be sure to wrap annotations box in a <figcaption>
+%annotated-media {
+  position: relative;
+  figcaption {
+    width: 45%;
+    padding-left: 1.6rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
 
+%annotated-media--object {
+  display: block;
+  width: 100%;
+  padding-right: 45%;
+}
 
-
-
-
+// Annotations box
+// ------------
+// Height constrained by that of %annotated-media--object
+%annotations-box {
+  height: 100%;
+  background-color: $beigeLight;
+}
 
 
 
