@@ -1,9 +1,10 @@
 class Submission < ActiveRecord::Base
   has_many :attachments, :as => :fileable
+  has_many :evaluations
   belongs_to :project
 	has_one :course, :through => :project
   belongs_to :creator, :class_name => "User"
-  attr_accessible :name, :summary, :attachments, :project, :course, :url, :thumb
+  attr_accessible :name, :evaluations, :summary, :attachments, :project, :course, :url, :thumb
 
   delegate :department, :to => :course, :prefix => true
   delegate :number, :to => :course, :prefix => true

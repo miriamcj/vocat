@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130423210404) do
+ActiveRecord::Schema.define(:version => 20130423230502) do
 
   create_table "attachments", :force => true do |t|
     t.string   "media_file_name"
@@ -80,6 +80,18 @@ ActiveRecord::Schema.define(:version => 20130423210404) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
+  create_table "evaluations", :force => true do |t|
+    t.integer  "submission_id"
+    t.integer  "evaluator_id"
+    t.hstore   "scores"
+    t.boolean  "published"
+    t.integer  "rubric_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "evaluations", ["scores"], :name => "index_evaluations_on_scores"
 
   create_table "organizations", :force => true do |t|
     t.string   "name"

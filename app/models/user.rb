@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   belongs_to :organization
-  has_many :rubrics, :foreign_key => :owner_id
+  has_many :rubrics, :foreign_key => :affects_id
   has_and_belongs_to_many :assistant_courses, :class_name => "Course", :join_table => "courses_assistants"
   has_and_belongs_to_many :evaluator_courses, :class_name => "Course", :join_table => "courses_evaluators"
   has_and_belongs_to_many :creator_courses, :class_name => "Course", :join_table => "courses_creators"

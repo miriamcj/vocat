@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
 
   layout :select_layout
 
-  load_and_authorize_resource :course
+  load_resource :course
 
   before_filter { |controller| controller.get_organization_and_current_course 'course_id' }
   before_filter :authenticate_user!
@@ -24,12 +24,13 @@ class ApplicationController < ActionController::Base
     else
       if session[:course_id]
         @course = Course.find(session[:course_id])
-        authorize! :read, @course
       end
     end
     if current_user
       @organization = current_user.organization
     end
+
+
   end
 
   def select_layout
