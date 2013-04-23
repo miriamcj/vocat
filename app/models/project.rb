@@ -1,10 +1,12 @@
 class Project < ActiveRecord::Base
   belongs_to :course
   belongs_to :project_type
+  belongs_to :rubric
   has_many :submissions
   has_many :submitors, :through => :course
-  attr_accessible :description, :name, :course
+  attr_accessible :description, :name, :course, :rubric_id
 
+  delegate :name, :to => :rubric, :prefix => true, :allow_nil => true
   delegate :name, :to => :course, :prefix => true
   delegate :name_long, :to => :course, :prefix => true
   delegate :id, :to => :course, :prefix => true

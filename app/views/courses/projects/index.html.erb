@@ -9,24 +9,26 @@
         <tr>
           <th>Name</th>
           <th>Description</th>
+          <th>Rubric</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
       <% @projects.each do |project| %>
         <tr>
           <th>
-            <%= project.name %>
-            <ul class="model-table--actions">
-              <li><%= link_to 'Show', course_project_path(@course, project) %></li>
-              <% if can? :update, project %>
-              <li><%= link_to 'Edit', edit_course_project_path(@course, project) %></li>
-              <% end %>
-              <% if can? :delete, project %>
-              <li><%= link_to 'Destroy', course_project_path(@course, project), method: :delete, data: { confirm: 'Are you sure?' } %></li>
-              <% end %>
-            </ul>
+            <%= link_to project.name, course_project_path(@course, project) %>
           </th>
           <td><%= project.description %></td>
+          <td><%= project.rubric_name %></td>
+          <td style="white-space: nowrap">
+            <% if can? :update, project %>
+             <%= link_to 'Edit', edit_course_project_path(@course, project) %>
+            <% end %>
+            <% if can? :delete, project %>
+              <%= link_to 'Delete', course_project_path(@course, project), method: :delete, data: { confirm: 'Are you sure?' } %>
+            <% end %>
+          </td>
         </tr>
       </tbody>
       <% end %>

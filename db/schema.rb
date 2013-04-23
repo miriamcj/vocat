@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130328192615) do
+ActiveRecord::Schema.define(:version => 20130423210404) do
 
   create_table "attachments", :force => true do |t|
     t.string   "media_file_name"
@@ -100,6 +100,7 @@ ActiveRecord::Schema.define(:version => 20130328192615) do
     t.integer  "project_type_id"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.integer  "rubric_id"
   end
 
   add_index "projects", ["course_id"], :name => "index_projects_on_course_id"
@@ -115,6 +116,7 @@ ActiveRecord::Schema.define(:version => 20130328192615) do
     t.integer  "owner_id"
     t.text     "description"
     t.integer  "organization_id"
+    t.integer  "course_id"
   end
 
   create_table "submissions", :force => true do |t|

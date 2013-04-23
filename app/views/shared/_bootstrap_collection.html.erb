@@ -8,5 +8,5 @@
 <% end %>
 
 <script type="text/json" id="bootstrap-<%= key %>">
-  { "<%= key %>": <%= serialize_for_bootstrap collection, @current_user %> }
+  { "<%= key %>": <%= serialize_for_bootstrap data, @current_user %> }
 </script>

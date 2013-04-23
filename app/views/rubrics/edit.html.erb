@@ -1,5 +1,11 @@
-<div data-view="RubricBuilder">
-  <% content_for :backbone_bootstrap do %>
-    window.Vocat.Bootstrap.Models.Rubric = <%= bootstrap @rubric %>;
-  <% end %>
+<%= render :partial => 'shared/bootstrap_model', :locals => {:key => 'Rubric', :model => @rubric}%>
+
+<div class="rubric-index">
+  <div class="content-frame">
+    <h1 class="heading-largest">Edit Rubric</h1>
+  </div>
+  <div class="content-frame">
+    <div data-view="RubricBuilder">
+    </div>
+  </div>
 </div>

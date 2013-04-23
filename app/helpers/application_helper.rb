@@ -14,9 +14,9 @@ module ApplicationHelper
     content_tag :div, p+list, :class => "alert alert-error"
   end
 
-  def serialize_for_bootstrap(collection, current_user)
+  def serialize_for_bootstrap(data, current_user)
     # See https://github.com/evrone/active_model_serializers/commit/22b6a74131682f086bd8095aaaf22d0cd6e8616d
-    ActiveModel::ArraySerializer.new(collection, :scope => current_user).to_json()
+    ActiveModel::ArraySerializer.new(data, :scope => current_user).to_json()
   end
 
   def avatar_url(user, size)

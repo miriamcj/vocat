@@ -25,9 +25,8 @@ Vocat::Application.routes.draw do
     scope :module => "courses" do
       resources :projects
     end
-    resources :rubrics
+    resources :rubrics, shallow: true
   end
-
 
   get '/admin' => 'admin/dashboard#index', :as => 'admin_root'
 

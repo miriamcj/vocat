@@ -15,18 +15,16 @@
       <% @my_rubrics.each do |rubric| %>
         <tr>
           <th>
-            <%= link_to rubric.name, course_rubric_path(@course, rubric) %>
+            <%= link_to rubric.name, rubric_path(rubric) %>
           </th>
           <td>
-            <ul class="model-table--actions">
-              <li><%= link_to 'Show', course_rubric_path(@course, rubric) %></li>
-              <% if can? :update, rubric %>
-                <li><%= link_to 'Edit', edit_course_rubric_path(@course, rubric) %></li>
-              <% end %>
-              <% if can? :delete, rubric %>
-                <li><%= link_to 'Destroy', course_rubric_path(@course, rubric), method: :delete, data: { confirm: 'Are you sure?' } %></li>
-              <% end %>
-            </ul>
+            <%= link_to 'Show', rubric_path(rubric) %>
+            <% if can? :update, rubric %>
+              <%= link_to 'Edit', edit_rubric_path(rubric) %>
+            <% end %>
+            <% if can? :delete, rubric %>
+              <%= link_to 'Destroy', rubric_path(rubric), method: :delete, data: { confirm: 'Are you sure?' } %>
+            <% end %>
           </td>
         </tr>
         </tbody>

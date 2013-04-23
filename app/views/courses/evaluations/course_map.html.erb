@@ -1,4 +1,4 @@
-<%= render :partial => 'shared/bootstrap', :locals => {:key => 'Creator', :collection => @creators }%>
-<%= render :partial => 'shared/bootstrap', :locals => {:key => 'Submission', :collection => @submissions }%>
-<%= render :partial => 'shared/bootstrap', :locals => {:key => 'Project', :collection => @projects}%>
+<%= render :partial => 'shared/bootstrap_collection', :locals => {:type => 'Collections', :key => 'Creator', :data => @creators }%>
+<%= render :partial => 'shared/bootstrap_collection', :locals => {:type => 'Collections', :key => 'Submission', :data => @submissions }%>
+<%= render :partial => 'shared/bootstrap_collection', :locals => {:type => 'Collections', :key => 'Project', :data => @projects}%>
 <div data-view="CourseMap" id="courseMap"></div>

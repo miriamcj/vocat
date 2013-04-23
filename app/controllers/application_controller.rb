@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
 
   layout :select_layout
 
+  load_and_authorize_resource :course
+
   before_filter { |controller| controller.get_organization_and_current_course 'course_id' }
   before_filter :authenticate_user!
 
@@ -15,11 +17,17 @@ class ApplicationController < ActionController::Base
     redirect_to org_root_path :organization_id => current_user.organization
   end
 
+
   def get_organization_and_current_course(param_name)
-    if current_user
-      if params[param_name]
-        @course = Course.find(params[param_name])
+    if @course
+      session[:course_id] = @course.id
+    else
+      if session[:course_id]
+        @course = Course.find(session[:course_id])
+        authorize! :read, @course
       end
+    end
+    if current_user
       @organization = current_user.organization
     end
   end

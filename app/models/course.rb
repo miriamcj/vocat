@@ -4,6 +4,7 @@ class Course < ActiveRecord::Base
   has_and_belongs_to_many :assistants, :class_name => "User", :join_table => "courses_assistants"
   has_and_belongs_to_many :creators, :class_name => "User", :join_table => "courses_creators"
   has_many :projects
+  has_many :rubrics
   has_one :project_type
 
   attr_accessible :department, :description, :name, :number, :section, :evaluators, :assistants, :creators
