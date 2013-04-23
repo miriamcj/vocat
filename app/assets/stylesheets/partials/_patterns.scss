@@ -165,6 +165,15 @@
 
 // Buttons
 // --------------------------
+%teal-button {
+  @extend %heading-epsilon;
+  color: $beige;
+  background-color: $tealLight;
+  line-height: 1;
+  padding: 0.8rem 1.2rem 0.5rem;
+  border-radius: $radius;
+}
+
 %teal-arrow-button {
   @extend %heading-epsilon;
   @include font-body;
@@ -216,6 +225,20 @@
   color: $beigeLight;
   &:after {
     @include svg(circle-arrow-right-beige);
+  }
+}
+
+%bent-arrow-link {
+  @extend %arrow-link;
+  margin-top: 2.3rem;
+  &:after {
+    @include svg(circle-arrow-bent-teal);
+  }
+  &:hover {
+    color: $orange;
+    &:after {
+      @include svg(circle-arrow-bent-orange);
+    }
   }
 }
 
@@ -299,21 +322,66 @@
   }
 }
 
+%comments-list {
+  @extend %floated-list;
+  margin: 0;
+  &>li {
+    a {
+      @extend %epsilon;
+      @extend %speech-bubble;
+    }
+  }
+  &>li + li {
+    margin-left: 0.6rem;
+  }
+}
+
 // Inputs
 // --------------------------
-%white-text-input {
-  @extend %alpha;
-  @include placeholder($beigeDark);
+// Extended by %white-text-input & %speech-bubble-input
+%text-input {
+  @extend %bare-focus;
   @include font-body;
   display: block;
   width: 100%;
   color: $beigeDark;
-  padding: 1rem 1.4rem 0.6rem;
+  background-color: $beigeLight;
   border: none;
+  margin-bottom: 1.3rem;
+}
+
+%white-text-input {
+  @extend %text-input;
+  @extend %alpha;
+  @include placeholder($beigeDark);
+  padding: 1rem 1.4rem 0.6rem;
   border-radius: $radius;
   margin-bottom: 1.3rem;
-  &:focus {
-    outline: none;
+}
+
+// NB extend this on a wrapper around your <input> and
+// add the 'input' class to the actual text input
+// Why? <input>s can't have pseudoelements.
+%speech-bubble-input {
+  position: relative;
+  &:after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 2rem solid $beigeLight;
+    border-right: 1.8rem solid transparent;
+    position: absolute;
+    left: 2rem;
+    bottom: -2rem;
+  }
+  .input {
+    @extend %gamma;
+    @extend %text-input;
+    @include placeholder($beigeDark, italic);
+    font-style: italic;
+    padding: 1.3rem 1.3rem 1.1rem;
+    margin: 0 0 1.9rem;
   }
 }
 
@@ -533,12 +601,22 @@
 
 // Avatars
 // --------------------------
+// Extended by individual color variants
 %round-avatar {
   display: block;
   width: 4.8rem;
   height: 4.8rem;
-  border: 0.1rem solid $grayLightest;
   border-radius: 100%;
+}
+
+%gray-round-avatar {
+  @extend %round-avatar;
+  border: 0.1rem solid $grayLightest;  
+}
+
+%teal-round-avatar {
+  @extend %round-avatar;
+  border: 0.1rem solid $tealLighter;
 }
 
 // Frame
@@ -585,23 +663,37 @@
   }
 }
 
+%big-score-list {
+  @extend %unstyled-list;
+  margin: 0;
+  li + li {
+    margin-top: 1.5rem;
+  }
+}
+
 // Extended by %active-criterion & %inactive-criterion
 %criterion {
   height: 5rem;
   border-radius: 5rem;
   position: relative;
-  overflow: hidden;
 }
 
+%big-criterion {
+  height: 5.5rem;
+  border-radius: 5.5rem;
+  position: relative;
+}
+
+// Extended by %active-criterion & %big-active-criterion
 // NB be sure to add an .indicator element into your markup
 // TODO should these transition on hover?
-%active-criterion {
-  @extend %criterion;
+%active-base {
   background-color: $tealLighter;
   .indicator {
     display: block;
     height: 100%;
     background-color: $tealLight;
+    border-radius: 5.5rem 0 0 5.5rem;
   }
   &:hover {
     background-color: $orangeLight;
@@ -611,8 +703,23 @@
   }
 }
 
+%active-criterion {
+  @extend %active-base;
+  @extend %criterion;
+}
+
+%big-active-criterion {
+  @extend %active-base;
+  @extend %big-criterion;
+}
+
 %inactive-criterion {
   @extend %criterion;
+  background-color: $grayLighter;
+}
+
+%big-inactive-criterion {
+  @extend %big-criterion;
   background-color: $grayLighter;
 }
 
@@ -630,6 +737,11 @@
   }
 }
 
+%big-score--title {
+  @extend %score--title;
+  padding-top: 1.95rem;
+}
+
 %score--value {
   @extend %giga-alt;
   @include font-head;
@@ -645,6 +757,46 @@
     line-height: 1.1;
     padding-left: 0.2rem;
   }
+}
+
+%big-score--value {
+  @extend %score--value;
+  padding-top: 0.85rem;
+}
+
+// Comments
+// --------------------------
+%comment {
+  background-color: $beigeLight;
+  padding: 1.6rem 1.8rem;
+}
+
+// Avatar header
+// --------------------------
+// NB be sure to include the <img> in your markup
+%avatar-header {
+  padding: 0.6rem 0 0.5rem 5.7rem;
+  margin-bottom: 1.2rem;
+  position: relative;
+  img {
+    @extend %teal-round-avatar;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+%avatar-header--title {
+  @extend %beta;
+  font-weight: $medium;
+  color: $teal;
+  margin-bottom: 0.1rem;
+}
+
+%avatar-header--subtitle {
+  @extend %epsilon;
+  color: $beigeDark;
+  margin-left: 0.1rem;
 }
 
 // Horizontal header

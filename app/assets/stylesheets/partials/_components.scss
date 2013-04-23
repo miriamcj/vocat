@@ -88,7 +88,7 @@
 }
 
 .primary-nav--avatar {
-  @extend %round-avatar;
+  @extend %teal-round-avatar;
   position: absolute;
   top: -0.7rem;
   right: -6.4rem;
@@ -305,6 +305,35 @@
   @extend %frame;
 }
 
+// Frame header
+// Can live inside any container which extends %frame
+// --------------------------
+.frame--header {
+  margin-bottom: 2.1rem;
+  position: relative;
+}
+
+.frame--title {
+  @extend %heading-beta-alt;
+  display: inline-block;
+  color: $teal;
+}
+
+.frame--header--button {
+  @extend %teal-button;
+  position: absolute;
+  top: -0.3rem;
+  right: 0;
+}
+
+.frame--header--comments {
+  display: inline-block;
+  margin: 0 0 -1.1rem 1.4rem;
+  ul {
+    @extend %comments-list;
+  }
+}
+
 // Portfolio
 // --------------------------------------------------------
 .portfolio {
@@ -342,15 +371,7 @@
 .comments-nav {
   margin-top: 0.9rem;
   ul {
-    @extend %floated-list;
-    margin: 0;
-  }
-  li + li {
-    margin-left: 0.6rem;
-  }
-  a {
-    @extend %epsilon;
-    @extend %speech-bubble;
+    @extend %comments-list;
   }
 }
 
@@ -462,6 +483,87 @@
   position: absolute;
   top: 1.2rem;
   right: 1.2rem;
+}
+
+// Scores
+// --------------------------------------------------------
+.scores {
+
+}
+
+.scores--link {
+  @extend %heading-epsilon;
+  @extend %arrow-link;
+  margin-top: 1.8rem;
+}
+
+// Summary list
+// --------------------------
+.scores--summary-list {
+  @extend %big-score-list;
+}
+
+.scores--evaluated {
+  @extend %big-active-criterion;
+}
+
+.scores--unevaluated {
+  @extend %big-inactive-criterion;
+}
+
+.scores--score-title {
+  @extend %big-score--title;
+}
+
+.scores--score-value {
+  @extend %big-score--value;
+}
+
+// Discussion
+// --------------------------------------------------------
+.discussion {
+
+}
+
+// <div>
+// NB see pattern comments
+.discussion--input {
+  @extend %speech-bubble-input;
+  margin-bottom: 4.3rem;
+}
+
+// Discussion list
+// --------------------------
+.discussion-list {
+  @extend %unstyled-list;
+  margin: 0;
+}
+
+.discussion-list--item {
+  @extend %comment;
+  & + & {
+    margin-top: 2.7rem;
+  }
+  p {
+    margin-left: 0.3rem;
+  }
+}
+
+.discussion-list--header {
+  @extend %avatar-header;
+}
+
+.discussion-list--name {
+  @extend %avatar-header--title;
+}
+
+.discussion-list--timestamp {
+  @extend %avatar-header--subtitle;
+}
+
+.discussion-list--link {
+  @extend %heading-epsilon;
+  @extend %bent-arrow-link;
 }
 
 // Authentication components

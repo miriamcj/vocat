@@ -240,22 +240,26 @@
 
 // Placeholder text
 // --------------------------
-@mixin placeholder($color) {
+@mixin placeholder($color, $style: normal) {
   &::-webkit-input-placeholder {
     @include font-body;
     color: $color;
+    font-style: $style;
   }
   &:-moz-placeholder {
     @include font-body;
     color: $color;
+    font-style: $style;
   }
   &::-moz-placeholder {
     @include font-body;
     color: $color;
+    font-style: $style;
   }
   &:-ms-input-placeholder {  
     @include font-body;
     color: $color;
+    font-style: $style;
   }
 }
 

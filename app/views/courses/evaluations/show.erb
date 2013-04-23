@@ -28,6 +28,69 @@
     </figure>
   </div>
   <div class="evaluation-detail-frame">
-    Something
+    <header class="frame--header">
+      <h2 class="frame--title">Scores</h2>
+      <a class="frame--header--button" href="">What do these scores mean?</a>
+    </header>
+    <!-- TODO perhaps add an auxillary class to indicate expanded/collapsed -->
+    <div class="scores">
+      <ul class="scores--summary-list">
+        <li class="scores--evaluated">          
+          <h3 class="scores--score-title">Evaluator Review <small>[Overall]</small></h3>
+          <div class="indicator" style="width: 76%">
+            <span class="scores--score-value">76<small>%</small></span>
+          </div>
+        </li>
+        <li class="scores--evaluated">          
+          <h3 class="scores--score-title">Peer Review <small>[Average]</small></h3>
+          <div class="indicator" style="width: 82%">
+            <span class="scores--score-value">82<small>%</small></span>
+          </div>
+        </li>
+        <!-- <li class="scores--unevaluated">          
+          <h3 class="scores--score-title">Peer Review <small>[Average]</small></h3>
+          <div class="indicator">
+            <span class="scores--score-value">&ndash;&ndash;&nbsp;&nbsp;</span>
+          </div>
+        </li> -->
+      </ul>
+      <a class="scores--link" href="#">Expand Scores</a>
+    </div>
+  </div>
+  <div class="evaluation-detail-frame">
+    <header class="frame--header">
+      <h2 class="frame--title">Discussions</h2>
+      <nav class="frame--header--comments">
+        <ul>
+          <li><a href="">12</a></li>
+          <li><a href="">3 New</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div class="discussion">
+      <div class="discussion--input">
+        <input class="input" type="text" placeholder="Start writing new comment...">        
+      </div>
+      <ul class="discussion-list">
+        <li class="discussion-list--item">
+          <header class="discussion-list--header">
+            <h3 class="discussion-list--name">[Commenter name]</h3>
+            <aside class="discussion-list--timestamp">Posted [month] [day], [year] at [time]</aside>
+            <%= image_tag("placeholders/charles-xavier.jpg", :alt => "") %>
+          </header>
+          <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <a class="discussion-list--link" href="">Reply</a>
+        </li>
+        <li class="discussion-list--item">
+          <header class="discussion-list--header">
+            <h3 class="discussion-list--name">[Commenter name]</h3>
+            <aside class="discussion-list--timestamp">Posted [month] [day], [year] at [time]</aside>
+            <%= image_tag("placeholders/charles-xavier.jpg", :alt => "") %>
+          </header>
+          <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <a class="discussion-list--link" href="">Reply</a>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
