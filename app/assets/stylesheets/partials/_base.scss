@@ -31,7 +31,7 @@ body {
 	overflow-x: hidden;
 }
 
-// Body classes
+// <html> classes
 // --------------------------
 .authentication {
 	background-color: $beigeLight;
@@ -95,7 +95,7 @@ hr {
 // --------------------------
 a {
 	// TODO should links transition?
-	// @include transition(0.05s all ease-out);
+	// @extend %fade-color;
 	text-decoration: none;
 	color: inherit;
 	// &:visited {

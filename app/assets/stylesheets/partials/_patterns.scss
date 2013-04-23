@@ -16,6 +16,16 @@
 	margin-left: auto;
 }
 
+// Transitions
+// --------------------------------------------------------
+%fade-background-color {
+  @include transition(0.05s background-color ease-out);
+}
+
+%fade-color {
+  @include transition(0.05s color ease-out);
+}
+
 // Typography
 // --------------------------------------------------------
 // Hierarchy
@@ -38,6 +48,10 @@
 
 %gamma {
   @include font-size(16);
+}
+
+%gamma-alt {
+  @include font-size(15);
 }
 
 %delta {
@@ -167,15 +181,20 @@
 // --------------------------
 %teal-button {
   @extend %heading-epsilon;
+  // @extend %fade-background-color;
   color: $beige;
   background-color: $tealLight;
   line-height: 1;
   padding: 0.8rem 1.2rem 0.5rem;
   border-radius: $radius;
+  &:hover {
+    background-color: $orange;
+  }
 }
 
 %teal-arrow-button {
   @extend %heading-epsilon;
+  // @extend %fade-background-color;
   @include font-body;
   display: inline-block;
   color: $beige;
@@ -193,6 +212,9 @@
     position: absolute;
     top: 0.9rem;
     right: 1.1rem;
+  }
+  &:hover {
+    background-color: $orange;
   }
 }
 
@@ -244,6 +266,7 @@
 
 // NB uses ems so font-size can be set on component
 %speech-bubble {
+  @extend %fade-background-color;
   font-weight: $medium;
   line-height: 1;
   color: $beigeLight;
@@ -322,7 +345,7 @@
   }
 }
 
-%comments-list {
+%speech-bubble-list {
   @extend %floated-list;
   margin: 0;
   &>li {
@@ -623,7 +646,7 @@
 // --------------------------
 %frame {
   // TODO adjust bottom padding
-  padding: 3.4rem 0 2rem;
+  padding: 3.4rem 0 2.4rem;
   position: relative;
   z-index: 110;
   &:nth-child(even) {
@@ -631,6 +654,9 @@
       background-color: $beigeLight;
     }
     background-color: $beigeLight;
+  }
+  &:last-child {
+    padding-bottom: 8rem;
   }
 }
 
@@ -771,6 +797,31 @@
   padding: 1.6rem 1.8rem;
 }
 
+%comment-list {
+  @extend %unstyled-list;
+  margin: 0;
+  &>li {
+    background-color: $beige;
+    padding: 1.2rem 1.4rem;
+    margin-bottom: 2rem;
+    position: relative;
+    &:after {
+      content: "";
+      display: block;
+      width: 0;
+      height: 0;
+      border-top: 2rem solid $beige;
+      border-right: 1.8rem solid transparent;
+      position: absolute;
+      left: 2rem;
+      bottom: -2rem;
+    }
+  }
+  &>li + li {
+    margin-top: 2.6rem;
+  }
+}
+
 // Avatar header
 // --------------------------
 // NB be sure to include the <img> in your markup
@@ -847,15 +898,6 @@
   width: 100%;
   padding-right: 45%;
 }
-
-// Annotations box
-// ------------
-// Height constrained by that of %annotated-media--object
-%annotations-box {
-  height: 100%;
-  background-color: $beigeLight;
-}
-
 
 
 
