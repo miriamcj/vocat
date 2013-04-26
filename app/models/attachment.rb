@@ -62,8 +62,6 @@ class Attachment < ActiveRecord::Base
     media_content_type
   end
 
-
-
   # A method for generically running the transcoding
   def transcode_media
     transcoding_happened = FALSE

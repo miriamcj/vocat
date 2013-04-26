@@ -4,7 +4,6 @@ class Vocat.Views.EvaluationDetailVideo extends Vocat.Views.AbstractView
 
 	initialize: (options) ->
 		super(options)
-		console.log options
 		@project = options.project
 		@submission = options.submission
 		@creator = options.creator
@@ -18,3 +17,5 @@ class Vocat.Views.EvaluationDetailVideo extends Vocat.Views.AbstractView
 		}
 		@$el.html(@template(context))
 
+		Popcorn.player('baseplayer')
+		pop = Popcorn('#submission-video')

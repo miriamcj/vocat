@@ -1,30 +1,11 @@
 <header class="frame--header">
 	<h2 class="frame--title">Scores</h2>
-	<a class="frame--header--button" href="">What do these scores mean?</a>
+	<a class="js-toggle-score-help frame--header--button" href="">What do these scores mean?</a>
 </header>
 <!-- TODO perhaps add an auxillary class to indicate expanded/collapsed -->
 <div class="scores">
-	<ul class="scores--summary-list">
-		<li class="scores--evaluated">
-			<h3 class="scores--score-title">Evaluator Review <small>[Overall]</small></h3>
-			<div class="indicator" style="width: 76%">
-				<span class="scores--score-value">76<small>%</small></span>
-			</div>
-		</li>
-		<li class="scores--evaluated">
-			<h3 class="scores--score-title">Peer Review <small>[Average]</small></h3>
-			<div class="indicator" style="width: 82%">
-				<span class="scores--score-value">82<small>%</small></span>
-			</div>
-		</li>
-		<!-- <li class="scores--unevaluated">
-			<h3 class="scores--score-title">Peer Review <small>[Average]</small></h3>
-			<div class="indicator">
-				<span class="scores--score-value">&ndash;&ndash;&nbsp;&nbsp;</span>
-          </div>
-        </li> -->
-	</ul>
-	<a class="scores--link" href="#">
+	{{> score_summary}}
+	<a class="js-toggle-score-detail scores--link" href="#">
 		{{#if state.detailVisible}}
 		Collapse Scores
 		{{else}}

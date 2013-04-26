@@ -1,6 +1,7 @@
 class Vocat.Views.EvaluationDetailScore extends Vocat.Views.AbstractView
 
 	template: HBT["backbone/templates/evaluation_detail/score"]
+	scorePartial: HBT["backbone/templates/partials/score_summary"]
 
 	events: {
 		'click .js-toggle-score-detail': "toggleDetail"
@@ -9,6 +10,8 @@ class Vocat.Views.EvaluationDetailScore extends Vocat.Views.AbstractView
 
 	initialize: (options) ->
 		super(options)
+
+		@submission = options.submission
 
 		# Set the default state for the view
 		@state = new Vocat.Models.ViewState({
@@ -44,7 +47,9 @@ class Vocat.Views.EvaluationDetailScore extends Vocat.Views.AbstractView
 	render: () ->
 		context = {
 			state: @state.toJSON()
+			submission: @submission.toJSON()
 		}
+		Handlebars.registerPartial('score_summary', @scorePartial);
 		@$el.html(@template(context))
 
 

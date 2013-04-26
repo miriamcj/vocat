@@ -10,6 +10,7 @@ Vocat::Application.routes.draw do
   match '/courses/:course_id/evaluations/project/:project_id' => 'courses/evaluations#course_map', :via => :get, :as => 'courses_evaluations_for_project'
   match '/courses/:course_id/creator/:creator_id/project/:project_id' => 'courses/evaluations#creator_and_project', :via => :get, :as => 'course_creator_project'
 
+
   resources :user, :only => ['read'] do
       resources :submissions
   end
@@ -19,6 +20,10 @@ Vocat::Application.routes.draw do
   end
 
   resources :courses do
+
+	  # Temporary
+	  resources :attachments
+
     member do
       get 'portfolio'
     end
