@@ -19,34 +19,36 @@ class Submission < ActiveRecord::Base
   scope :for_creator, lambda { |creator| where('creator_id' => creator).includes(:course, :project, :attachments) }
   scope :for_creator_and_course, lambda { |creator, course| where('creator_id' => creator, 'projects.course_id' => course).includes(:course, :project, :attachments) }
 
-  def instructor_evaluations
-    self.evaluations.published.created_by(self.course.evaluators)
-  end
-
   def active_model_serializer
 	  SubmissionSerializer
   end
 
+  def instructor_evaluations
+    self.evaluations.published.created_by(self.course.evaluators)
+  end
+
+  def peer_evaluations
+		self.evaluations.published.created_by(self.course.creators)
+  end
+
+  def peer_score_total
+	  score_total('peer')
+  end
+
   def instructor_score_total
-    sum = 0.0
-    self.instructor_evaluations.each do |evaluation|
-      sum = sum + evaluation.total_percentage
-    end
-    sum
+	  score_total('instructor')
   end
 
   def instructor_score_count
     self.instructor_evaluations.count
   end
 
+  def peer_score_count
+	  self.peer_evaluations.count
+  end
+
   def instructor_score_percentage
-    total_score = instructor_score_total
-    total_count = instructor_score_count
-    if total_score >= 0 && total_count > 0
-      total_score.to_f / total_count
-    else
-      0
-    end
+		score_percentage('instructor')
   end
 
   def transcoded_attachment
@@ -69,6 +71,41 @@ class Submission < ActiveRecord::Base
       return transcoded_attachment.url(:thumb)
     end
     return false
+  end
+
+	private
+
+  def score_total(type)
+	  if type == 'instructor'
+		  evaluations = self.instructor_evaluations
+	  elsif type == 'peer'
+		  evaluations = self.peer_evaluations
+	  else
+		  raise ArgumentError, "score_total expects type to be 'instructor' or 'peer'"
+	  end
+
+	  sum = 0.0
+	  evaluations.each do |evaluation|
+		  sum = sum + evaluation.total_percentage
+	  end
+	  sum
+  end
+
+  def score_percentage(type)
+	  if type == 'instructor'
+		  total_score = instructor_score_total
+		  total_count = instructor_score_count
+	  elsif type == 'peer'
+		  total_score = peer_score_total
+		  total_count = peer_score_count
+	  else
+		  raise ArgumentError, "score_percentage expects type to be 'instructor' or 'peer'"
+	  end
+	  if total_score >= 0 && total_count > 0
+		  total_score.to_f / total_count
+	  else
+		  0
+	  end
   end
 
 
