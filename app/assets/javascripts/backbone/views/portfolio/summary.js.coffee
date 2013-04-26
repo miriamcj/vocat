@@ -2,6 +2,7 @@ class Vocat.Views.PortfolioSubmissionSummary extends Vocat.Views.AbstractView
 
 	ownerTemplate: HBT["backbone/templates/portfolio/submission_summary_owner"]
 	otherTemplate: HBT["backbone/templates/portfolio/submission_summary_other"]
+	scorePartial: HBT["backbone/templates/partials/portfolio_score"]
 
 	initialize: (options) ->
 		super (options)
@@ -17,4 +18,5 @@ class Vocat.Views.PortfolioSubmissionSummary extends Vocat.Views.AbstractView
 		else
 			template = @otherTemplate
 		template = template
+		Handlebars.registerPartial('portfolio_score', @scorePartial);
 		@$el.html(template(context))
