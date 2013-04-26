@@ -15,8 +15,12 @@ module ApplicationHelper
   end
 
   def serialize_for_bootstrap(data, current_user)
-    # See https://github.com/evrone/active_model_serializers/commit/22b6a74131682f086bd8095aaaf22d0cd6e8616d
-    ActiveModel::ArraySerializer.new(data, :scope => current_user).to_json()
+    if data.is_a?(Array)
+      # See https://github.com/evrone/active_model_serializers/commit/22b6a74131682f086bd8095aaaf22d0cd6e8616d
+      ActiveModel::ArraySerializer.new(data, :scope => current_user).to_json()
+    else
+      out = data.active_model_serializer.new(data, :scope => current_user, :root => false).to_json()
+    end
   end
 
   def avatar_url(user, size)

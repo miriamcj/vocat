@@ -31,6 +31,7 @@ class RubricsController < ApplicationController
 
 	def create
     @rubric.owner_id = current_user.id
+    @rubric.set_field_and_ranges_from_params(params[:fields], params[:ranges])
 		respond_to do |format|
 			if @rubric.save
 				format.html { redirect_to @rubric, notice: 'Rubric was successfully created.' }
@@ -44,8 +45,12 @@ class RubricsController < ApplicationController
 
 	def update
 		respond_to do |format|
-			if @rubric.update_attributes(params[:rubric])
-				format.html { redirect_to admin_rubric_path(@rubric), notice: 'Rubric was successfully updated.' }
+
+      @rubric.set_field_and_ranges_from_params(params[:fields], params[:ranges])
+      @rubric.assign_attributes(params[:rubric])
+
+      if @rubric.save
+				format.html { redirect_to rubric_path(@rubric), notice: 'Rubric was successfully updated.' }
         format.json { head :no_content }
 			else
 				format.html { render action: "edit" }
@@ -59,7 +64,7 @@ class RubricsController < ApplicationController
 		@rubric.destroy
 
 		respond_to do |format|
-			format.html { redirect_to admin_rubrics_path() }
+			format.html { redirect_to course_rubrics_path(@course) }
 			format.json { head :no_content }
 		end
 	end

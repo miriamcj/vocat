@@ -68,6 +68,10 @@ class Ability
         rubric.owner_id == user.id
       end
 
+      can :destroy, Rubric do |rubric|
+        rubric.owner_id == user.id
+      end
+
       can :manage, Project do |project|
         begin
           project.course.id

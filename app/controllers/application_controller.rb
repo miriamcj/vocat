@@ -23,7 +23,10 @@ class ApplicationController < ActionController::Base
       session[:course_id] = @course.id
     else
       if session[:course_id]
-        @course = Course.find(session[:course_id])
+        course = Course.find_by_id(session[:course_id])
+        if course != nil
+          @course = course
+        end
       end
     end
     if current_user

@@ -14,27 +14,27 @@
 <table class="rubric-table table table-bordered table-striped">
   <thead>
     <th></th>
-    <% @rubric.fields.each do |field| %>
-    <th><%= field[:name] %></th>
+    <% @rubric.fields.each do |field_key, field_name| %>
+    <th><%= field_name %></th>
     <% end %>
   </thead>
   <tbody>
-    <% @rubric.ranges.each do |range| %>
+    <% @rubric.ranges.each do |range_key, range_name| %>
     <tr>
       <th>
         <p>
-          <%= range[:name] %>
+          <%= range_name %>
         </p>
         <p style="font-weight: normal">
-          Low: <%= range[:low] %>
+          Low: <%= @rubric.range_low(range_key) %>
         </p>
         <p style="font-weight: normal">
-          High: <%= range[:high] %>
+          High: <%= @rubric.range_high(range_key) %>
         </p>
 
       </th>
-      <% @rubric.fields.each do |field| %>
-      <td><%= field[:rangeDescriptions][range[:id]] %></td>
+      <% @rubric.fields.each do |field_key, field_name| %>
+        <td><%= @rubric.range_description(range_key, field_key) %></td>
       <% end %>
     </tr>
     <% end %>

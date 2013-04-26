@@ -12,6 +12,13 @@
 
 <div class="model-form--row">
   <%= f.label :rubric %>
-  <%= f.input_field :rubric_id, collection: current_user.rubrics %>
+  <%= f.select :rubric_id,
+    grouped_options_for_select(
+      {
+        'My Rubrics' => options_from_collection_for_select(current_user.rubrics, :id, :name, @project.rubric.id),
+        'VOCAT Rubrics' => options_from_collection_for_select(Rubric.public, :id, :name, @project.rubric.id)
+      }
+    )
+  %>
 </div>
 

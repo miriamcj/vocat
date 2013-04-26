@@ -4,9 +4,10 @@
     div.html($('#<%= "bootstrap-#{key}" %>').text());
     data = JSON.parse(div.text());
     window.Vocat.Bootstrap.Models.<%= key %> = data.<%= key %>;
+  console.log(window.Vocat.Bootstrap.Models.<%= key %>);
   })
 <% end %>
 
 <script type="text/json" id="bootstrap-<%= key %>">
-  { "<%= key %>": <%= model.to_json() %> }
+  { "<%= key %>": <%= serialize_for_bootstrap model, @current_user %> }
 </script>

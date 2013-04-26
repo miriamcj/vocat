@@ -21,25 +21,36 @@
     <h3 class="frame-summary--creator"><a href="{{url_for 'courses_evaluations_for_creator' submission.course_id submission.creator_id}}">{{submission.creator_name}}</a></h3>
     <h3 class="frame-summary--course"><a href="{{url_for 'courses_evaluations' submission.course_id}}"><strong>{{submission.course_department}}{{submission.course_number}} </strong> {{submission.course_name}} [Section {{submission.course_section}}]</a></h3>
     <ul class="frame-summary--score-list">
+      {{#if submission.instructor_score_percentage}}
       <li class="frame-summary--evaluated">
-        <h4 class="frame-summary--score--title">Evaluator Review <small>[Overview]</small></h4>
-        <div class="indicator" style="width: 76%;">
-          <span class="frame-summary--score--value">76<small>%</small></span>
-        </div>
+          <h4 class="frame-summary--score--title">Evaluator Review <small></small></h4>
+          <div class="indicator" style="width: {{ to_i submission.instructor_score_percentage }}%;">
+            <span class="frame-summary--score--value">{{ to_i submission.instructor_score_percentage }}<small>%</small></span>
+          </div>
       </li>
-      <li class="frame-summary--evaluated">
-        <h4 class="frame-summary--score--title">Peer Review <small>[Overview]</small></h4>
-        <div class="indicator" style="width: 82%;">
-          <span class="frame-summary--score--value">82<small>%</small></span>
-        </div>
-      </li>
-      <!-- Temporary example of unevaluated state -->
+      {{else}}
       <li class="frame-summary--unevaluated">
-        <h4 class="frame-summary--score--title">Evaluator Review <small>[Overview]</small></h4>
+        <h4 class="frame-summary--score--title">Evaluator Review <small></small></h4>
         <div class="indicator">
           <span class="frame-summary--score--value">&ndash;&ndash;&nbsp;&nbsp;</span>
         </div>
       </li>
+      {{/if}}
+      {{#if submission.peer_score_percentage}}
+      <li class="frame-summary--evaluated">
+        <h4 class="frame-summary--score--title">Peer Review <small></small></h4>
+        <div class="indicator" style="width: 82%;">
+          <span class="frame-summary--score--value">82<small>%</small></span>
+        </div>
+      </li>
+      {{else}}
+      <li class="frame-summary--unevaluated">
+        <h4 class="frame-summary--score--title">Peer Review <small></small></h4>
+        <div class="indicator">
+          <span class="frame-summary--score--value">&ndash;&ndash;&nbsp;&nbsp;</span>
+        </div>
+      </li>
+      {{/if}}
     </ul>
     <a class="frame-summary--link" href="{{url_for 'courses_evaluations_for_creator_and_project' submission.course_id submission.creator_id submission.project_id}}">Expand Scores</a>
   </div>

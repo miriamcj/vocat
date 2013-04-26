@@ -12,6 +12,9 @@ Handlebars.registerHelper "debug", (value, options) ->
 
   console[level] label, value
 
+Handlebars.registerHelper "to_i", (value, options) ->
+  parseInt(value)
+
 
 # This method is a wrapper around the javascript method produced
 # by the js-routes gem.

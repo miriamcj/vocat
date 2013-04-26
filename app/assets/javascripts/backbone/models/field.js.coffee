@@ -5,7 +5,7 @@ class Vocat.Models.Field extends Vocat.Models.RubricProperty
 	defaults: {
 		name: ''
 		description: ''
-		rangeDescriptions: {}
+		range_descriptions: {}
 	}
 
 	errorStrings: {
@@ -13,7 +13,7 @@ class Vocat.Models.Field extends Vocat.Models.RubricProperty
 	}
 
 	setDescription: (range, description) ->
-		descriptions = _.clone(@get('rangeDescriptions'))
+		descriptions = _.clone(@get('range_descriptions'))
 		descriptions[range.id] = description
-		@set('rangeDescriptions', descriptions)
+		@set('range_descriptions', descriptions)
 		@trigger('change')

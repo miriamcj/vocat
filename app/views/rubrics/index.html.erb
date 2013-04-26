@@ -22,7 +22,7 @@
             <% if can? :update, rubric %>
               <%= link_to 'Edit', edit_rubric_path(rubric) %>
             <% end %>
-            <% if can? :delete, rubric %>
+            <% if can? :destroy, rubric %>
               <%= link_to 'Destroy', rubric_path(rubric), method: :delete, data: { confirm: 'Are you sure?' } %>
             <% end %>
           </td>

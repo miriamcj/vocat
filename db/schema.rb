@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130423230502) do
+ActiveRecord::Schema.define(:version => 20130425183704) do
 
   create_table "attachments", :force => true do |t|
     t.string   "media_file_name"
@@ -121,15 +121,26 @@ ActiveRecord::Schema.define(:version => 20130423230502) do
   create_table "rubrics", :force => true do |t|
     t.string   "name"
     t.boolean  "public"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
     t.text     "fields"
     t.text     "ranges"
     t.integer  "owner_id"
     t.text     "description"
     t.integer  "organization_id"
     t.integer  "course_id"
+    t.hstore   "field_sorting"
+    t.hstore   "field_descriptions"
+    t.hstore   "range_lows"
+    t.hstore   "range_highs"
+    t.hstore   "range_descriptions"
   end
+
+  add_index "rubrics", ["field_descriptions"], :name => "index_rubrics_on_field_descriptions"
+  add_index "rubrics", ["field_sorting"], :name => "index_rubrics_on_field_sorting"
+  add_index "rubrics", ["range_descriptions"], :name => "index_rubrics_on_range_descriptions"
+  add_index "rubrics", ["range_highs"], :name => "index_rubrics_on_range_highs"
+  add_index "rubrics", ["range_lows"], :name => "index_rubrics_on_range_lows"
 
   create_table "submissions", :force => true do |t|
     t.string   "name"
