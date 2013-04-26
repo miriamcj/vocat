@@ -16,8 +16,6 @@
   <%= yield(:head) %>
 
   <script type="text/javascript">
-<%= yield(:backbone_bootstrap) %>
-
 <% if content_for?(:backbone_router) %>
   <%= yield(:backbone_router) %>
 <% else %>
@@ -97,5 +95,8 @@
       <%= yield %>
     </div>
   </div> <!-- container -->
+  <script type="text/javascript">
+<%= yield(:backbone_bootstrap) %>
+  </script>
 </body>
 </html>

@@ -1,6 +1,6 @@
-class Vocat.Views.CreatorProjectDetailScore extends Vocat.Views.AbstractView
+class Vocat.Views.EvaluationDetailScore extends Vocat.Views.AbstractView
 
-	template: HBT["backbone/templates/creator_project_detail/score"]
+	template: HBT["backbone/templates/evaluation_detail/score"]
 
 	events: {
 		'click .js-toggle-score-detail': "toggleDetail"

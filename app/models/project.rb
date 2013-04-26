@@ -7,7 +7,11 @@ class Project < ActiveRecord::Base
   attr_accessible :description, :name, :course, :rubric_id
 
   delegate :name, :to => :rubric, :prefix => true, :allow_nil => true
+  delegate :department, :to => :course, :prefix => true
+  delegate :number, :to => :course, :prefix => true
   delegate :name, :to => :course, :prefix => true
+  delegate :section, :to => :course, :prefix => true
+  delegate :name_long, :to => :course, :prefix => true
   delegate :name_long, :to => :course, :prefix => true
   delegate :id, :to => :course, :prefix => true
 

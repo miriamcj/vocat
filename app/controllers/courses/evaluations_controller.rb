@@ -10,6 +10,7 @@ class Courses::EvaluationsController < ApplicationController
   def creator_and_project
     @project= Project.find(params[:project_id])
     @creator = User.find(params[:creator_id])
+    @submission = Submission.for_creator_and_project(params[:creator_id], params[:project_id]).first()
     if @creator.id == current_user.id
       render 'show'
     else
