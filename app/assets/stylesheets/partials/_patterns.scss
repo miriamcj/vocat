@@ -715,11 +715,11 @@
 // TODO should these transition on hover?
 %active-base {
   background-color: $tealLighter;
+  overflow: hidden;
   .indicator {
     display: block;
     height: 100%;
     background-color: $tealLight;
-    border-radius: 5.5rem 0 0 5.5rem;
   }
   &:hover {
     background-color: $orangeLight;
