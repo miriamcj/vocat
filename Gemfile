@@ -16,6 +16,8 @@ gem 'quiet_assets'
 gem 'cancan'
 gem 'simple_form'
 gem 'js-routes'
+gem 'jquery-fileupload-rails'
+
 
 # These gems will likely be removed after prototyping is completed
 gem 'rails-backbone'

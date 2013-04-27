@@ -15,6 +15,7 @@ class Project < ActiveRecord::Base
   delegate :name_long, :to => :course, :prefix => true
   delegate :id, :to => :course, :prefix => true
 
+  scope :incomplete_for_user_and_course, lambda { |creator, course| joins('LEFT OUTER JOIN submissions ON submissions.project_id = projects.id AND submissions.creator_id = ' + creator.id.to_s).where('submissions.creator_id IS NULL AND course_id IN (?)', course) }
 
   def active_model_serializer
     ProjectSerializer

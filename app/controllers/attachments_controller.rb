@@ -1,7 +1,7 @@
 class AttachmentsController < ApplicationController
-  load_and_authorize_resource :organization
-  load_and_authorize_resource :course, :through => :organization
-  load_and_authorize_resource :project, :through => :course
+  #load_and_authorize_resource :organization
+  #load_and_authorize_resource :course, :through => :organization
+  #load_and_authorize_resource :project, :through => :course
 
   #
   # polymorphic association:
@@ -9,13 +9,13 @@ class AttachmentsController < ApplicationController
   # load the submission resource AND load
   # whatever else that the attachment can belong_to
   #
-  load_and_authorize_resource :submission, :through => :project
+  #load_and_authorize_resource :submission, :through => :project
 # load_and_authorize_resource :other_fileable
 
   #
   # then add that other thing to the array of possible :through classes
   #
-  load_and_authorize_resource :attachment, :through => :submission
+  #load_and_authorize_resource :attachment, :through => :submission
 # load_and_authorize_resource :attachment, :through => [:submission, :other_fileable]
 
   #
@@ -62,7 +62,8 @@ class AttachmentsController < ApplicationController
   # POST /attachments
   # POST /attachments.json
   def create
-    @attachment = @fileable.attachments.build(params[:attachment])
+    submission = Submission.new
+    @attachment = submission.attachments.build(params[:attachment])
 
     respond_to do |format|
       if @attachment.save

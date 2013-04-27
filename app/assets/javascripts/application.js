@@ -13,8 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui.min
-//= require jquery.iframe-transport
-//= require jquery.fileupload
+//= require jquery-fileupload/basic
 //= require_popcorn/popcorn-complete
 //= require js-routes
 //= require underscore

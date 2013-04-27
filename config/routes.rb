@@ -15,20 +15,22 @@ Vocat::Application.routes.draw do
       resources :submissions
   end
 
+
   resources :course, :only => ['read'] do
     resources :submissions
   end
 
-  resources :courses do
+  resources :attachments
 
-	  # Temporary
-	  resources :attachments
+
+  resources :courses do
 
     member do
       get 'portfolio'
     end
     scope :module => "courses" do
-      resources :projects
+      resources :projects do
+      end
     end
     resources :rubrics, shallow: true
   end
