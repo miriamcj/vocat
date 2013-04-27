@@ -1,3 +1,8 @@
 <%= render :partial => 'shared/bootstrap_collection', :locals => {:key => 'Submission', :data => @submissions }%>
+
+<% if @incomplete_projects %>
+<%= render :partial => 'shared/bootstrap_collection', :locals => {:key => 'Project', :data => @incomplete_projects}%>
+<% end %>
+
 <div class="portfolio" data-view="Portfolio"></div>
 
