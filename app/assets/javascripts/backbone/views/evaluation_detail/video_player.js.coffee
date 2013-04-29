@@ -1,6 +1,6 @@
-class Vocat.Views.EvaluationDetailVideo extends Vocat.Views.AbstractView
+class Vocat.Views.EvaluationDetailVideoPlayer extends Vocat.Views.AbstractView
 
-	template: HBT["backbone/templates/evaluation_detail/video"]
+	template: HBT["backbone/templates/evaluation_detail/video_player"]
 
 	initialize: (options) ->
 		super(options)

@@ -12,8 +12,12 @@ class Vocat.Views.EvaluationDetailVideoUpload extends Vocat.Views.AbstractView
 		@creator = options.creator
 		@render()
 
+
+
 	doUpload: (e) ->
 		e.preventDefault()
+
+
 		console.log 'called'
 
 	render: () ->
@@ -24,3 +28,7 @@ class Vocat.Views.EvaluationDetailVideoUpload extends Vocat.Views.AbstractView
 		}
 		@$el.html(@template(context))
 
+		$('#fileupload').fileupload
+			dataType: 'json'
+			done: (e, data) ->
+				console.log data
