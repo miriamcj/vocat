@@ -96,7 +96,7 @@ hr {
 a {
 	// TODO should links transition?
 	// @extend %fade-color;
-	text-decoration: none;
+	text-decoration: underline;
 	color: inherit;
 	// &:visited {
 	// 	color: $somethingDelightful;

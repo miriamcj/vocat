@@ -30,5 +30,9 @@ class Vocat.Views.EvaluationDetailVideoUpload extends Vocat.Views.AbstractView
 
 		$('#fileupload').fileupload
 			dataType: 'json'
-			done: (e, data) ->
+			done: (e, data) =>
 				console.log data
+			progress: (e, data) =>
+				progress = parseInt(data.loaded / data.total * 100, 10)
+				console.log progress
+				@$el.find('.indicator').css 'width', progress + '%'
