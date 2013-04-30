@@ -474,11 +474,13 @@
 %dropdown-toggle {
   @extend %beta-alt;
   @extend %bare-focus;
+  @include background-clip(padding);
   display: inline-block;
   line-height: 1;
   color: $grayLighter;
   background-color: $grayDarker;
   padding: 0.9rem 2.6rem 0.5rem 1.1rem;
+  border-right: 0.2rem solid transparent;
   border-radius: $radius 0 0 $radius;
   margin-right:3.8rem;
   position: relative;
