@@ -9,6 +9,11 @@
   <title><%= content_for?(:title) ? yield(:title) : "VOCAT" %></title>
   <meta name="description" content="">
   <meta name="author" content="">
+
+  <!-- TODO move to correct place -->
+  <script type="text/javascript" src="//use.typekit.net/dwf7ffn.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  
   <%= stylesheet_link_tag "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>

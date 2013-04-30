@@ -20,7 +20,7 @@
 // --------------------------
 @mixin font-body {
   @if $usage == closed {
-    font-family: BentonGothic, helvetica, sans-serif;
+    font-family: "freight-sans-pro", helvetica, sans-serif;
   }
   @else {
     font-family: "Open Sans", helvetica, sans-serif;
@@ -30,7 +30,7 @@
 // TODO modify once fonts are real
 @mixin font-subhead {
   @if $usage == closed {
-    font-family: BentonGothic, helvetica, sans-serif;
+    font-family: "freight-sans-pro", helvetica, sans-serif;
   }
   @else {
     font-family: "Open Sans", helvetica, sans-serif;
