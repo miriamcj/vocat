@@ -15,6 +15,9 @@ Handlebars.registerHelper "debug", (value, options) ->
 Handlebars.registerHelper "to_i", (value, options) ->
   parseInt(value)
 
+Handlebars.registerHelper "invert", (value, options) ->
+  100 - parseInt(value)
+
 
 # This method is a wrapper around the javascript method produced
 # by the js-routes gem.

@@ -104,6 +104,7 @@
   font-weight: $regular;
 	margin: 0;
   a {
+    @extend %bare-link;
     @extend %orange-hover;
     display: inline-block;
   }
@@ -590,6 +591,7 @@
   }
   a {
     @extend %gamma;
+    @extend %bare-link;
     display: block;
     // TODO is this a good way to force width?
     // Test with many different widths
@@ -741,18 +743,16 @@
 }
 
 // Extended by %active-criterion & %big-active-criterion
-// NB be sure to add an .indicator element into your markup
-// TODO should these transition on hover?
 %active-base {
+  @include background-size(contain);
   background-color: $tealLighter;
-  overflow: hidden;
-  .indicator {
-    display: block;
-    height: 100%;
-    background-color: $tealLight;
-  }
+  background-image: inline-image('bg-criterion.png');
+  background-repeat: repeat-y;
+  background-position: right top;
+  background-origin: content-box;
   &:hover {
     background-color: $orangeLight;
+    background-image: inline-image('bg-criterion-hover.png');
     .indicator {
       background-color: $orange;
     }
@@ -781,6 +781,7 @@
 
 %score--title {
   @extend %beta-alt;
+  @extend %no-select;
   font-weight: $medium;
   color: $beigeLight;
   line-height: 1;
@@ -800,6 +801,7 @@
 
 %score--value {
   @extend %giga-alt;
+  @extend %no-select;
   @include font-head;
   color: $beigeLight;
   line-height: 1;
