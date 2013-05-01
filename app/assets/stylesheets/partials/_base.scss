@@ -96,13 +96,10 @@ a {
 	// TODO should links transition?
 	// @extend %fade-color;
 	text-decoration: none;
-	color: inherit;
-	// &:visited {
-	// 	color: $somethingDelightful;
-	// }
-	// &:hover {
-	// 	color: $mindBlowingHue;
-	// }
+	color: $orange;
+	&:hover {
+		text-decoration: underline;
+	}
 }
 
 b {

@@ -112,6 +112,7 @@
     color: $grayLight;
     &>a {
       @extend %gamma;
+      @extend %bare-link;
       @extend %bare-focus;
       line-height: 1;
       &:hover,
@@ -247,6 +248,7 @@
     margin-left: 4rem;
   }
   a {
+    @extend %bare-link;
     @extend %orange-hover;
   }
 }

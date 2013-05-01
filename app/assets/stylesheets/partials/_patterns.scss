@@ -171,6 +171,13 @@
   }
 }
 
+%bare-link {
+  color: inherit;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
 %bare-focus {
   &:focus {
     outline: none;
@@ -181,6 +188,7 @@
 // --------------------------
 %teal-button {
   @extend %heading-epsilon;
+  @extend %bare-link;
   // @extend %fade-background-color;
   color: $beige;
   background-color: $tealLight;
@@ -194,6 +202,7 @@
 
 %teal-arrow-button {
   @extend %heading-epsilon;
+  @extend %bare-link;
   // @extend %fade-background-color;
   @include font-body;
   display: inline-block;
@@ -220,6 +229,7 @@
 
 // NB uses ems so font-size can be set on component
 %arrow-link {
+  @extend %bare-link;
   display: inline-block;
   color: $teal;
   padding: 0.3em 2.3em 0.3em 0;
@@ -274,6 +284,7 @@
 
 // NB uses ems so font-size can be set on component
 %speech-bubble {
+  @extend %bare-link;
   // @extend %fade-background-color;
   font-weight: $medium;
   line-height: 1;
@@ -489,6 +500,7 @@
 // Extending this is optional
 %dropdown-toggle {
   @extend %beta-alt;
+  @extend %bare-link;
   @extend %bare-focus;
   @include background-clip(padding);
   display: inline-block;
