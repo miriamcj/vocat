@@ -46,13 +46,13 @@ $usage: closed;
 // Font Weights
 // --------------------------
 $regular: 400 !default;
-$medium: 600 !default;
+$medium: 500 !default;
 $bold: 700 !default;
 
 @if $usage == open {
   $regular: 400;
-  $medium: 400;
-  $bold: 400;
+  $medium: 600;
+  $bold: 700;
 }
 
 // Offsets

@@ -104,8 +104,7 @@
 @mixin kill-fout {
 	visibility: hidden;
 	.wf-active &, // Show when fonts become active
-	.no-js &, // Show if no javascript
-	.mceContentBody & { // Show if this is the RTE ;)
+	.no-js & { // Show if no javascript
 		visibility: visible;
 	}
 }

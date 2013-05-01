@@ -99,7 +99,7 @@
 // --------------------------
 .adaptive-nav {
   position: absolute;
-  bottom: 1.8rem;
+  bottom: 2rem;
   left: 6.3rem;
 }
 
@@ -171,6 +171,13 @@
   }
 }
 
+// This styles the title for each .shortcut-nav--item
+.shortcut-nav--title {
+  @extend %epsilon-caps;
+  color: $grayLight;
+  margin-bottom: 0.7rem;
+}
+
 // Lives inside .primary-nav 
 .shortcut-nav--toggle {
   @extend %hidden-text;
@@ -200,12 +207,6 @@
   @extend %dropdown-container;
 }
 
-.assignment-selector--title {
-  @extend %epsilon-caps;
-  color: $grayLight;
-  margin-bottom: 0.6rem;
-}
-
 .assignment-selector--toggle {
   @extend %dropdown-toggle-dark;
 }
@@ -218,12 +219,6 @@
 // ------------
 .peer-selector {
   @extend %dropdown-container;
-}
-
-.peer-selector--title {
-  @extend %epsilon-caps;
-  color: $grayLight;
-  margin-bottom: 0.6rem;
 }
 
 .peer-selector--toggle {
@@ -240,19 +235,16 @@
 
 }
 
-.help-nav--title {
-  @extend %epsilon-caps;
-  color: $grayLight;
-}
-
 .help-nav--list {
   @extend %piped-list;
+  padding: 0.7rem 0 0.6rem;
+  margin: 0;
   li {
     @extend %gamma;
     color: $grayLight;
   }
   li + li {
-    margin-left: 4.2rem;
+    margin-left: 4rem;
   }
   a {
     @extend %orange-hover;
@@ -260,6 +252,7 @@
 }
 
 .help-nav--label {
+  @extend %no-select;
   position: relative;
   cursor: pointer;
   &:hover {
@@ -361,9 +354,9 @@
 }
 
 .frame-attachment--link {
-  @extend %epsilon;
+  @extend %heading-epsilon;
   @extend %arrow-link;
-  margin-top: 1.7rem;
+  margin-top: 2.2rem;
 }
 
 // Comments nav
@@ -472,7 +465,7 @@
 
 .annotations--header {
   background-color: $tealLight;
-  padding: 1.4rem 11.8rem 1.2rem 1.4rem;
+  padding: 1.3rem 11.8rem 1.3rem 1.4rem;
   position: relative;
   z-index: 110;  
 }
@@ -485,7 +478,7 @@
 
 .annotations--link {
   @extend %heading-epsilon;
-  @extend %arrow-link-beige;
+  @extend %arrow-link-beige-light;
   position: absolute;
   top: 1.2rem;
   right: 1.2rem;
@@ -634,7 +627,8 @@
 
 .authentication-tile--label {
   @extend %delta;
-  margin: 0.9rem 0;
+  @extend %no-select;
+  margin: 1.1rem 0;
   float: left;
   position: relative;
   cursor: pointer;
@@ -659,7 +653,7 @@
 .authentication-footer {
   @extend %clearfix;
 	@extend %centered-tile;
-  margin-top: 1.6rem;
+  margin-top: 1.5rem;
 }
 
 .authentication-footer--list {

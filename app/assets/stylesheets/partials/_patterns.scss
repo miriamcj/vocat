@@ -185,7 +185,7 @@
   color: $beige;
   background-color: $tealLight;
   line-height: 1;
-  padding: 0.8rem 1.2rem 0.5rem;
+  padding: 0.7rem 1.2rem 0.6rem;
   border-radius: $radius;
   &:hover {
     background-color: $orange;
@@ -222,7 +222,7 @@
 %arrow-link {
   display: inline-block;
   color: $teal;
-  padding: 0.4em 2.3em 0.2em 0;
+  padding: 0.3em 2.3em 0.3em 0;
   position: relative;
   &:after {
     content: "";
@@ -250,6 +250,14 @@
   }
 }
 
+%arrow-link-beige-light {
+  @extend %arrow-link;
+  color: $beigeLight;
+  &:after {
+    @include svg(circle-arrow-right-beigeLight);
+  }
+}
+
 %bent-arrow-link {
   @extend %arrow-link;
   margin-top: 2.3rem;
@@ -266,12 +274,12 @@
 
 // NB uses ems so font-size can be set on component
 %speech-bubble {
-  @extend %fade-background-color;
+  // @extend %fade-background-color;
   font-weight: $medium;
   line-height: 1;
   color: $beigeLight;
   background-color: $tealMedium;
-  padding: 0.5em 0.8em 0.3em;
+  padding: 0.4em 0.8em 0.4em;
   border-radius: $radius;
   margin-bottom: 0.7em;
   position: relative;
@@ -377,7 +385,7 @@
   @extend %text-input;
   @extend %alpha;
   @include placeholder($beigeDark);
-  padding: 1rem 1.4rem 0.6rem;
+  padding: 0.8rem 1.4rem 0.8rem;
   border-radius: $radius;
   margin-bottom: 1.3rem;
 }
@@ -403,7 +411,7 @@
     @extend %text-input;
     @include placeholder($beigeDark, italic);
     font-style: italic;
-    padding: 1.3rem 1.3rem 1.1rem;
+    padding: 1.2rem 1.3rem 1.2rem;
     margin: 0 0 1.9rem;
   }
 }
@@ -421,7 +429,7 @@
     width: 1.23em;
     height: 1.23em;
 		position: absolute;
-    top: -0.15em;
+    top: 0;
 		left: 0;
 		.lt-ie9 & {
 			display: none;
@@ -445,7 +453,7 @@
     width: 1em;
     height: 1em;
     position: absolute;
-    top: 0;
+    top: 0.1em;
     left: 0;
     .lt-ie9 & {
       display: none;
@@ -461,6 +469,14 @@
 // <label>
 %input-label {
 	position: relative;
+}
+
+// Prevents user from accidentally selecting text
+// on click, helpful for labels
+%no-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 // Dropdowns
@@ -479,7 +495,7 @@
   line-height: 1;
   color: $grayLighter;
   background-color: $grayDarker;
-  padding: 0.9rem 2.6rem 0.5rem 1.1rem;
+  padding: 0.7rem 2.6rem 0.7rem 1.1rem;
   border-right: 0.2rem solid transparent;
   border-radius: $radius 0 0 $radius;
   margin-right:3.8rem;
@@ -756,7 +772,7 @@
   font-weight: $medium;
   color: $beigeLight;
   line-height: 1;
-  padding-top: 1.7rem;
+  padding-top: 1.6rem;
   position: absolute;
   top: 0;
   left: 2.7rem;
@@ -767,7 +783,7 @@
 
 %big-score--title {
   @extend %score--title;
-  padding-top: 1.95rem;
+  padding-top: 1.85rem;
 }
 
 %score--value {
@@ -828,7 +844,7 @@
 // --------------------------
 // NB be sure to include the <img> in your markup
 %avatar-header {
-  padding: 0.6rem 0 0.5rem 5.7rem;
+  padding: 0.3rem 0 0.30rem 5.7rem;
   margin-bottom: 1.2rem;
   position: relative;
   img {
