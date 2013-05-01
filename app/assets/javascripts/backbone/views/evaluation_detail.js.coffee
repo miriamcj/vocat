@@ -33,10 +33,15 @@ class Vocat.Views.EvaluationDetail extends Vocat.Views.AbstractView
 		new Vocat.Views.EvaluationDetailScore(_.extend(options, {el: $('#js-score-view')}))
 		new Vocat.Views.EvaluationDetailVideoAnnotator(_.extend(options, {el: $('#js-video-annotator')}))
 		new Vocat.Views.EvaluationDetailDiscussion(_.extend(options, {el: $('#js-discussion-view')}))
-		if @submission.get('url')
-			new Vocat.Views.EvaluationDetailVideoPlayer(_.extend(options, {el: $('#js-video-player')}))
-		else
-			new Vocat.Views.EvaluationDetailVideoUpload(_.extend(options, {el: $('#js-video-player')}))
+		new Vocat.Views.EvaluationDetailVideoPlayer(_.extend(options, {el: $('#js-video-player')}))
+
+
+#		if @submission.get('uploaded_attachment')
+#			if @submission.get('transcoded_attachment')
+#			else
+#				new Vocat.Views.EvaluationDetailVideoTranscoding(_.extend(options, {el: $('#js-video-player')}))
+#		else
+#			new Vocat.Views.EvaluationDetailVideoUpload(_.extend(options, {el: $('#js-video-player')}))
 
 
 

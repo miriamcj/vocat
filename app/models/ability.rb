@@ -37,6 +37,10 @@ class Ability
 				false
 			end
 
+      can :manage, Submission do |submission|
+        true
+      end
+
       # Creators can evaluate a project if the course and the project allow peer review
       can :evaluate, Project do |project|
         can? :evaluate, project.course and project.allows_peer_review

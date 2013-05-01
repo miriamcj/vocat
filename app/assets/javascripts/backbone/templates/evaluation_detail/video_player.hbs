@@ -1,4 +1,12 @@
 <!-- TODO this is temporary; will be replaced by embedded video -->
-<video class="attachment--media" id="submission-video" controls>
-	<source src="{{submission.url}}">
-</video>
+<figure style="height: 250px;">
+{{#if submission.transcoded_attachment}}
+  <video class="attachment--media" id="submission-video" controls>
+    <source src="{{submission.url}}">
+  </video>
+{{else}}
+  <div style="background-color: #b3b0b1; padding-top: 100px; text-align: center; height: 100%; width: 450px;">
+    <a href="#" data-behavior="show-upload">Upload a Video</a>
+  </div>
+{{/if}}
+</figure>

@@ -61,6 +61,10 @@ class Submission < ActiveRecord::Base
     self.transcoded_attachment != nil ? true : false
   end
 
+  def uploaded_attachment?
+    self.attachments.count() > 0 ? true: false
+  end
+
   def url
     if self.transcoded_attachment?
       return transcoded_attachment.url

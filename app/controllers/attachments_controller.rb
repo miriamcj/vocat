@@ -1,30 +1,9 @@
 class AttachmentsController < ApplicationController
-  #load_and_authorize_resource :organization
-  #load_and_authorize_resource :course, :through => :organization
-  #load_and_authorize_resource :project, :through => :course
 
-  #
-  # polymorphic association:
-  #
-  # load the submission resource AND load
-  # whatever else that the attachment can belong_to
-  #
-  #load_and_authorize_resource :submission, :through => :project
-# load_and_authorize_resource :other_fileable
-
-  #
-  # then add that other thing to the array of possible :through classes
-  #
-  #load_and_authorize_resource :attachment, :through => :submission
-	#load_and_authorize_resource :attachment, :through => [:submission, :other_fileable]
-
-  #
-  # and then modify find_fileable to use the appropriate fileable class
-  #
-
-  #before_filter :find_fileable
-
-	load_and_authorize_resource :attachment
+  load_and_authorize_resource :submission
+  load_and_authorize_resource :attachment, :through => :submission
+  load_and_authorize_resource :attachment
+  before_filter :find_fileable
 
   # GET /attachments
   # GET /attachments.json
@@ -103,6 +82,5 @@ class AttachmentsController < ApplicationController
 
   def find_fileable
     @fileable = @submission
-#   @fileable = @submission || @other_fileable
   end
 end

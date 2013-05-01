@@ -8,7 +8,7 @@ class Vocat.Views.EvaluationDetailVideoUpload extends Vocat.Views.AbstractView
 	initialize: (options) ->
 		super(options)
 		@project = options.project
-		@submission = new Vocat.Models.Submission
+		@submission = options.submission
 		@creator = options.creator
 
 		# Set the default state for the view
@@ -40,6 +40,7 @@ class Vocat.Views.EvaluationDetailVideoUpload extends Vocat.Views.AbstractView
 		@$el.html(@template(context))
 
 		$('#fileupload').fileupload
+			url: '/submissions/' + @submission.id + '/attachments'
 			dataType: 'json'
 			done: (e, data) =>
 				@attachment = new Vocat.Models.Attachment(data.result)

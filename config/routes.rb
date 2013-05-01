@@ -15,12 +15,12 @@ Vocat::Application.routes.draw do
       resources :submissions
   end
 
-  resources :submissions
+  resources :submissions do
+    resources :attachments
+  end
 
   resources :course, :only => ['read'] do
   end
-
-  resources :attachments
 
 
   resources :courses do
