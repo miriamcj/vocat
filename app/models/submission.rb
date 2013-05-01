@@ -4,7 +4,8 @@ class Submission < ActiveRecord::Base
   belongs_to :project
 	has_one :course, :through => :project
   belongs_to :creator, :class_name => "User"
-  attr_accessible :name, :evaluations, :summary, :attachments, :project, :course, :url, :thumb, :instructor_score_percentage
+  attr_accessible :name, :evaluations, :summary, :project_id, :url, :published,
+                  :thumb, :instructor_score_percentage, :creator_id, :attachment_ids
 
   delegate :department, :to => :course, :prefix => true
   delegate :number, :to => :course, :prefix => true

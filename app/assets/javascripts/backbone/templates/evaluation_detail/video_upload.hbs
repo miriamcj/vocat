@@ -5,7 +5,7 @@
 		Drag & drop here or
 		<span class="file-input-container">
 	    <input data-url="/attachments" id="fileupload" name="attachment[media]" type="file" />
-			<a href="#" class="decorated" data-behavior="file_picker">select files from your computer.</a>
+			<a href="#" class="decorated" data-behavior="file-picker">select files from your computer.</a>
 		</span>
 
 		<ul style="margin-top: 15px;" class="progress-bar">
@@ -14,5 +14,15 @@
 				</div>
 			</li>
 		</ul>
+
+		{{#if attachment}}
+		<p style="margin-top: 15px">
+			{{attachment.media_file_name}} has been uploaded.
+		</p>
+		<p style="margin-top: 15px">
+			<a data-behavior="submission-save" href="#">Click here to save your submission</a>.
+		</p>
+
+		{{/if}}
 	</form>
 </div>

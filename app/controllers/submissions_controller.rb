@@ -1,7 +1,6 @@
 class SubmissionsController < ApplicationController
-  load_resource :user
-  load_resource :submission
 
+  load_resource :submission
   respond_to :json
 
   # GET /submissions
@@ -19,6 +18,13 @@ class SubmissionsController < ApplicationController
 
   # POST /user/1/submissions.json
   def create
+	  respond_to do |format|
+		  if @submission.save
+			  format.json { render json: @submission, status: :created, location: @submission}
+		  else
+			  format.json { render json: @submission.errors, status: :unprocessable_entity }
+		  end
+	  end
   end
 
   # PUT /user/1/submissions/1.json

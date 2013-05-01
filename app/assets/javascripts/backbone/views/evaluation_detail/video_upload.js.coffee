@@ -3,22 +3,29 @@ class Vocat.Views.EvaluationDetailVideoUpload extends Vocat.Views.AbstractView
 	template: HBT["backbone/templates/evaluation_detail/video_upload"]
 
 	events:
-		'click .js-upload-submit': 'doUpload'
+		'click [data-behavior="submission-save"]': 'saveSubmission'
 
 	initialize: (options) ->
 		super(options)
 		@project = options.project
 		@submission = new Vocat.Models.Submission
 		@creator = options.creator
+
+		# Set the default state for the view
+		@state = new Vocat.Models.ViewState({
+			uploads: 0
+		})
+
+		# Bind render to changes in view state
+		@state.bind('change:uploads', @render, @)
 		@render()
 
-
-
-	doUpload: (e) ->
+	saveSubmission: (e) ->
 		e.preventDefault()
-
-
-		console.log 'called'
+		@submission.set('attachment_ids', [@attachment.id])
+		@submission.set('project_id', @project.id)
+		@submission.set('creator_id', @creator.id)
+		@submission.save()
 
 	render: () ->
 		context = {
@@ -26,12 +33,18 @@ class Vocat.Views.EvaluationDetailVideoUpload extends Vocat.Views.AbstractView
 			submission: @submission.toJSON()
 			creator: @creator.toJSON()
 		}
+		if @attachment
+			context.attachment = @attachment.toJSON()
+			console.log @attachment
+
 		@$el.html(@template(context))
 
 		$('#fileupload').fileupload
 			dataType: 'json'
 			done: (e, data) =>
-				console.log data
+				@attachment = new Vocat.Models.Attachment(data.result)
+				@state.set('uploads', @state.get('uploads') + 1)
+
 			progress: (e, data) =>
 				progress = parseInt(data.loaded / data.total * 100, 10)
 				console.log progress
