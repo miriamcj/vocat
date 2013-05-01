@@ -1,4 +1,5 @@
 <figure class="frame-attachment">
+	{{#if submission.thumb}}
   <img class="frame-attachment--image" src="{{submission.thumb}}"/>
   <figcaption class="frame-attachment--details">
     <nav class="comments-nav">
@@ -13,6 +14,7 @@
     </nav>
     <a class="frame-attachment--link" href="{{url_for 'courses_evaluations_for_creator_and_project' submission.course_id submission.creator_id submission.project_id}}">See All Comments</a>
   </figcaption>
+	{{/if}}
 </figure><!-- removes whitespace between columns
 --><div class="frame-summary">
     <h2 class="frame-summary--title"><a href="{{url_for 'courses_evaluations_for_project' submission.course_id submission.project_id}}">{{submission.project_name}}</a></h2>

@@ -11,6 +11,14 @@ class Courses::EvaluationsController < ApplicationController
     @project= Project.find(params[:project_id])
     @creator = User.find(params[:creator_id])
     @submission = Submission.for_creator_and_project(params[:creator_id], params[:project_id]).first()
+		if @submission == nil
+			@submission = Submission.new({
+					:creator_id => params[:creator_id],
+					:project_id => params[:project_id],
+			    :published => false
+			})
+			@submission.save()
+		end
     if @creator.id == current_user.id
       render 'show'
     else

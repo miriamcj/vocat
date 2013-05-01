@@ -2,7 +2,8 @@ class SubmissionSerializer < ActiveModel::Serializer
   attributes  :id, :name, :url, :thumb, :course_name, :course_name_long, :project_name,
               :course_id, :project_id, :creator_name, :creator_id, :current_user_is_owner,
               :current_user_can_evaluate, :course_department, :course_section, :course_number,
-              :instructor_evaluations, :evaluations, :instructor_score_percentage
+              :instructor_evaluations, :evaluations, :instructor_score_percentage, :published,
+              :uploaded_attachment, :transcoded_attachment
 
   def instructor_evaluations
     ActiveModel::ArraySerializer.new(object.instructor_evaluations, :scope => scope)
@@ -18,6 +19,14 @@ class SubmissionSerializer < ActiveModel::Serializer
 
   def current_user_is_owner
 		scope == object.creator
+  end
+
+  def transcoded_attachment
+    object.transcoded_attachment?()
+  end
+
+  def uploaded_attachment
+    object.uploaded_attachment?()
   end
 
   def thumb

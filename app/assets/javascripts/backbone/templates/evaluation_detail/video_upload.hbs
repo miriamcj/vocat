@@ -1,12 +1,28 @@
 <div style="background: #FFF; height: 300px; width: 468px; padding: 25px;">
-<form accept-charset="UTF-8" action="/attachments" class="new_attachment"
-  data-remote="true" enctype="multipart/form-data" id="video-upload" method="post">
+	<h2 style="margin-bottom: 15px;">No submission has been uploaded</h2>
+	<form accept-charset="UTF-8" class="new_attachment"	data-remote="true" enctype="multipart/form-data" id="video-upload" method="post">
+		<strong>Upload your Video</strong><br />
+		Drag & drop here or
+		<span class="file-input-container">
+	    <input id="fileupload" name="attachment[media]" type="file" />
+			<a href="#" class="decorated" data-behavior="file-picker">select files from your computer.</a>
+		</span>
 
-  <input data-url="/attachments" id="fileupload" name="attachment[media]" type="file" />
+		<ul style="margin-top: 15px;" class="progress-bar">
+			<li class="progress-bar--completed">
+				<div class="indicator" style="width: 0%;">
+				</div>
+			</li>
+		</ul>
 
-  <div class="fileupload-loading"></div>
-  <br/>
-  <br/>
-  <a href="#" class="js-upload-submit">Upload</a>
-</form>
+		{{#if attachment}}
+		<p style="margin-top: 15px">
+			{{attachment.media_file_name}} has been uploaded.
+		</p>
+		<p style="margin-top: 15px">
+			<a data-behavior="submission-save" href="#">Click here to save your submission</a>.
+		</p>
+
+		{{/if}}
+	</form>
 </div>

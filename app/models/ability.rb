@@ -37,6 +37,10 @@ class Ability
 				false
 			end
 
+      can :manage, Submission do |submission|
+        true
+      end
+
       # Creators can evaluate a project if the course and the project allow peer review
       can :evaluate, Project do |project|
         can? :evaluate, project.course and project.allows_peer_review
@@ -48,6 +52,7 @@ class Ability
       end
 
       # Set creator privileges as normal
+			can :create,      [Attachment]
       cannot :destroy,  [Submission, Attachment]
     end
 
@@ -84,7 +89,7 @@ class Ability
       # Revoke creator-only privileges
       can :evaluate,    [Submission, Exhibit, Course]
       can :create,      [Rubric]
-      cannot :create,   [Submission, Attachment]
+      can :create,      [Submission, Attachment]
       cannot :destroy,  [Submission, Attachment]
       cannot :update,   [Submission, Attachment]
 
