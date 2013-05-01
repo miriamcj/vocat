@@ -48,6 +48,7 @@ class Ability
       end
 
       # Set creator privileges as normal
+			can :create,      [Attachment]
       cannot :destroy,  [Submission, Attachment]
     end
 
@@ -84,7 +85,7 @@ class Ability
       # Revoke creator-only privileges
       can :evaluate,    [Submission, Exhibit, Course]
       can :create,      [Rubric]
-      cannot :create,   [Submission, Attachment]
+      can :create,      [Submission, Attachment]
       cannot :destroy,  [Submission, Attachment]
       cannot :update,   [Submission, Attachment]
 

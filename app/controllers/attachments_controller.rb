@@ -16,13 +16,15 @@ class AttachmentsController < ApplicationController
   # then add that other thing to the array of possible :through classes
   #
   #load_and_authorize_resource :attachment, :through => :submission
-# load_and_authorize_resource :attachment, :through => [:submission, :other_fileable]
+	#load_and_authorize_resource :attachment, :through => [:submission, :other_fileable]
 
   #
   # and then modify find_fileable to use the appropriate fileable class
   #
 
-  before_filter :find_fileable
+  #before_filter :find_fileable
+
+	load_and_authorize_resource :attachment
 
   # GET /attachments
   # GET /attachments.json
@@ -62,8 +64,6 @@ class AttachmentsController < ApplicationController
   # POST /attachments
   # POST /attachments.json
   def create
-    submission = Submission.new
-    @attachment = submission.attachments.build(params[:attachment])
 
     respond_to do |format|
       if @attachment.save
