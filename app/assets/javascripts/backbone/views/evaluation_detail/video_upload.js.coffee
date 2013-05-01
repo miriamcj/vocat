@@ -7,9 +7,12 @@ class Vocat.Views.EvaluationDetailVideoUpload extends Vocat.Views.AbstractView
 		@project = options.project
 		@submission = options.submission
 		@creator = options.creator
+		Vocat.Dispatcher.bind 'showUpload', @showElement, @
 
-		# Bind render to changes in view state
 		@render()
+
+	showElement: () ->
+		@$el.slideDown()
 
 	render: () ->
 		context = {
@@ -23,6 +26,8 @@ class Vocat.Views.EvaluationDetailVideoUpload extends Vocat.Views.AbstractView
 
 		@$el.html(@template(context))
 
+		@$el.hide()
+
 		$('#fileupload').fileupload
 			url: '/submissions/' + @submission.id + '/attachments'
 			dataType: 'json'
@@ -31,7 +36,6 @@ class Vocat.Views.EvaluationDetailVideoUpload extends Vocat.Views.AbstractView
 				@submission.fetch({
 					success: =>	@submission.trigger('startPolling')
 				})
-
-			progress: (e, data) =>
+							progress: (e, data) =>
 				progress = parseInt(data.loaded / data.total * 100, 10)
 				@$el.find('.indicator').css 'width', progress + '%'
