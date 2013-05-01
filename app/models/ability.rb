@@ -41,6 +41,11 @@ class Ability
         true
       end
 
+      can :read, Rubric do |rubric|
+        rubric.owner_id == user.id || rubric.public == true
+      end
+
+
       # Creators can evaluate a project if the course and the project allow peer review
       can :evaluate, Project do |project|
         can? :evaluate, project.course and project.allows_peer_review
@@ -66,7 +71,7 @@ class Ability
       end
 
       can :read, Rubric do |rubric|
-        rubric.owner_id == user.id
+        rubric.owner_id == user.id || rubric.public == true
       end
 
       can :update, Rubric do |rubric|

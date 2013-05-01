@@ -53,6 +53,14 @@ class Submission < ActiveRecord::Base
 		score_percentage('instructor')
   end
 
+  def attachment
+    self.attachments.first()
+  end
+
+  def transcoding_error?
+    self.attachment && self.attachment.transcoding_error != nil ? true : false
+  end
+
   def transcoded_attachment
     self.attachments.where(:transcoding_status => 1).first
   end

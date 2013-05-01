@@ -3,7 +3,7 @@ class SubmissionSerializer < ActiveModel::Serializer
               :course_id, :project_id, :creator_name, :creator_id, :current_user_is_owner,
               :current_user_can_evaluate, :course_department, :course_section, :course_number,
               :instructor_evaluations, :evaluations, :instructor_score_percentage, :published,
-              :uploaded_attachment, :transcoded_attachment
+              :uploaded_attachment, :transcoded_attachment, :transcoding_error
 
   def instructor_evaluations
     ActiveModel::ArraySerializer.new(object.instructor_evaluations, :scope => scope)
@@ -19,6 +19,10 @@ class SubmissionSerializer < ActiveModel::Serializer
 
   def current_user_is_owner
 		scope == object.creator
+  end
+
+  def transcoding_error
+    object.transcoding_error?()
   end
 
   def transcoded_attachment

@@ -6,7 +6,11 @@
   </video>
 {{else}}
   <div style="background-color: #b3b0b1; padding-top: 100px; text-align: center; height: 100%; width: 450px;">
+  {{#if submission.uploaded_attachment}}
+    Transcoding in progress
+  {{else}}
     <a href="#" data-behavior="show-upload">Upload a Video</a>
+  {{/if}}
   </div>
 {{/if}}
 </figure>

@@ -10,6 +10,7 @@ class Vocat.Views.EvaluationDetail extends Vocat.Views.AbstractView
 			@submission = new Vocat.Models.Submission(Vocat.Bootstrap.Models.Submission, {parse: true})
 		if Vocat.Bootstrap.Models.Creator?
 			@creator = new Vocat.Models.Creator(Vocat.Bootstrap.Models.Creator, {parse: true})
+
 		@render()
 
 	getContext: () ->
@@ -34,6 +35,7 @@ class Vocat.Views.EvaluationDetail extends Vocat.Views.AbstractView
 		new Vocat.Views.EvaluationDetailVideoAnnotator(_.extend(options, {el: $('#js-video-annotator')}))
 		new Vocat.Views.EvaluationDetailDiscussion(_.extend(options, {el: $('#js-discussion-view')}))
 		new Vocat.Views.EvaluationDetailVideoPlayer(_.extend(options, {el: $('#js-video-player')}))
+		new Vocat.Views.EvaluationDetailVideoUpload(_.extend(options, {el: $('#js-video-upload')}))
 
 
 #		if @submission.get('uploaded_attachment')

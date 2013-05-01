@@ -13,7 +13,7 @@ class SubmissionsController < ApplicationController
 
   # GET /user/1/submissions/1.json
   def show
-    respond_with @submission
+    respond_with @submission, :root => false
   end
 
   # POST /user/1/submissions.json

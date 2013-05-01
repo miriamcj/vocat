@@ -16,7 +16,8 @@ class RubricsController < ApplicationController
 
 	def show
 		respond_to do |format|
-			format.html
+      format.html
+      format.json { render json: @rubric, status: :created, location: @rubric}
 		end
 	end
 
