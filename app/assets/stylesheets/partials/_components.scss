@@ -452,8 +452,35 @@
 }
 
 // Lives inside .attachment
+// <video>, for now
 .attachment--media {
   @extend %annotated-media--object;
+}
+
+// Attachment placeholder
+// --------------------------
+// Lives inside .attachment--media & .frame-attachment
+// Only visible when no video has been uploaded
+// Thanks, Dave: http://daverupert.com/2012/04/uncle-daves-ol-padded-box/
+// Also: lower your eyes in deference to THE GOLDEN RATIO.
+.attachment-placeholder {
+  height: 0;
+  text-align: center;
+  background-color: $grayLighter;
+  padding-bottom: 61.8%;
+  position: relative;
+}
+
+// Lives inside .attachment-placeholder
+// NB top value must be equal to half the
+// height of %white-video-button, but negative
+// TODO test in browsers; it's almost certainly not going to work in IE7
+.attachment-placeholder--button {
+  @extend %white-video-button;
+  margin-top: 30.9%;
+  position: relative;
+  // TODO adjust if %white-video-button changes height
+  top: -1.7rem;
 }
 
 // Annotations

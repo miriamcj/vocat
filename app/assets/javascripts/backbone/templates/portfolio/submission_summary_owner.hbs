@@ -14,6 +14,10 @@
     </nav>
     <a class="frame-attachment--link" href="{{url_for 'course_creator_project' submission.course_id submission.creator_id submission.project_id}}">See All Comments</a>
   </figcaption>
+  {{else}}
+  <div class="attachment-placeholder">
+    <a class="attachment-placeholder--button" href="#">Upload video now</a>      
+  </div>
 	{{/if}}
 </figure><!-- removes whitespace between columns
 --><div class="frame-summary">

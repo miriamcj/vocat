@@ -228,6 +228,39 @@
   }
 }
 
+%white-button {
+  @extend %heading-epsilon;
+  @extend %bare-link;
+  display: inline-block;
+  color: $grayLighter;
+  line-height: 1;
+  background-color: $beigeLight;
+  // TODO adjust once comps have arrived
+  padding: 1rem;
+  border-radius: 3.4rem;
+  &:hover {
+    background-color: $orange;
+  }
+}
+
+%white-video-button {
+  @extend %white-button;
+  padding-left: 3.9rem;
+  position: relative;
+  &:after {
+    content: "";
+    display: block;
+    border-radius: 100%;
+    position: absolute;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    left: 0.5rem;
+    // TODO remove once real icon has arrived
+    width: 2rem;
+    border: 0.1rem solid $grayLighter;
+  }
+}
+
 // NB uses ems so font-size can be set on component
 %arrow-link {
   @extend %bare-link;

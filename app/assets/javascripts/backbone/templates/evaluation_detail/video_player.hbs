@@ -1,20 +1,15 @@
-<!-- TODO this is temporary; will be replaced by embedded video -->
-<figure style="min-height: 250px;">
 {{#if submission.transcoded_attachment}}
   <video class="attachment--media" id="submission-video" controls>
     <source src="{{submission.url}}">
   </video>
 {{else}}
-  <div style="background-color: #b3b0b1; padding-top: 100px; text-align: center; min-height: 250px; width: 450px;">
+  <div class="attachment--media">
   {{#if submission.uploaded_attachment}}
     Transcoding in progress
   {{else}}
-    {{#if submission.current_user_can_attach}}
-    <a href="#" data-behavior="show-upload">Upload a Video</a>
-    {{else}}
-    No video has been uploaded
-    {{/if}}
+    <div class="attachment-placeholder">
+      <a class="attachment-placeholder--button" href="#" data-behavior="show-upload">Upload video now</a>
+    </div>
   {{/if}}
   </div>
 {{/if}}
-</figure>
