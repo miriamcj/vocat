@@ -19,8 +19,10 @@ class Vocat.Views.EvaluationDetailVideoPlayer extends Vocat.Views.AbstractView
 		@submission.bind 'startPolling', @startPolling, @
 		@submission.bind 'change:transcoded_attachment', @render, @
 		@submission.bind 'change:uploaded_attachment', @render, @
+		Vocat.Dispatcher.bind 'stopVideo', @stopVideo, @
 
 	startPolling: () ->
+		Vocat.Dispatcher.trigger 'hideUpload'
 		options = {
 			delay: 1500
 			delayed: true
@@ -30,6 +32,8 @@ class Vocat.Views.EvaluationDetailVideoPlayer extends Vocat.Views.AbstractView
 		poller = Backbone.Poller.get(@submission, options);
 		poller.start()
 
+	stopVideo: () ->
+		@player.pause()
 
 	render: () ->
 		context = {
@@ -41,4 +45,8 @@ class Vocat.Views.EvaluationDetailVideoPlayer extends Vocat.Views.AbstractView
 
 		if @submission.get('transcoded_attachment')
 			Popcorn.player('baseplayer')
-			pop = Popcorn('#submission-video')
+			@player = Popcorn('#submission-video')
+			Vocat.Dispatcher.player = @player
+			@player.listen( 'timeupdate', () ->
+					Vocat.Dispatcher.trigger 'playerTimeUpdate', {seconds: @.currentTime()}
+			)

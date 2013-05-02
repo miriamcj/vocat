@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  attachment_id: 1
+  body: MyText
+  smpte_timecode: MyString
+  published: false
+  seconds_timecode: 1
+  author_id: 1
+
+two:
+  attachment_id: 1
+  body: MyText
+  smpte_timecode: MyString
+  published: false
+  seconds_timecode: 1
+  author_id: 1

@@ -1,0 +1,17 @@
+<div class="annotations">
+  <header class="annotations--header">
+    <h2 class="annotations--title">Video Annotations</h2>
+    <a class="annotations--link" href="">View All</a>
+  </header>
+  <div data-behavior="scroll-parent" class="annotations--content">
+    <ul class="annotations--list">
+      {{#each annotations}}
+      {{debug this}}
+      <li class="annotations--item" data-seconds="{{this.seconds_timecode}}" {{#unless this.visible}} style="display: none"{{/unless}}>
+        <h3 class="annotations--list--title"><span>[{{this.seconds_timecode}}]</span> {{this.author_name}}</h3>
+        <p>{{this.body}}</p>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</div>

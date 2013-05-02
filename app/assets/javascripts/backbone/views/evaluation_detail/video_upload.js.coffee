@@ -8,8 +8,12 @@ class Vocat.Views.EvaluationDetailVideoUpload extends Vocat.Views.AbstractView
 		@submission = options.submission
 		@creator = options.creator
 		Vocat.Dispatcher.bind 'showUpload', @showElement, @
+		Vocat.Dispatcher.bind 'hideUpload', @hideElement, @
 
 		@render()
+
+	hideElement: () ->
+		@$el.slideUp()
 
 	showElement: () ->
 		@$el.slideDown()

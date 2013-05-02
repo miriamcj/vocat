@@ -7,7 +7,9 @@ class Course < ActiveRecord::Base
   has_many :rubrics
   has_one :project_type
 
-  attr_accessible :department, :description, :name, :number, :section, :evaluators, :assistants, :creators
+  attr_accessible :department, :description, :name, :number, :section, :evaluators, :assistants, :creators, :settings
+
+  serialize :settings, ActiveRecord::Coders::Hstore
 
   validates :department, :name, :number, :section, :presence => true
   validates :evaluators, :length => {:minimum => 1, :message => "can't be empty."}

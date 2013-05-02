@@ -53,6 +53,10 @@ class Submission < ActiveRecord::Base
 		score_percentage('instructor')
   end
 
+  def video_attachment_id
+    self.attachments.first().id
+  end
+
   def attachment
     self.attachments.first()
   end

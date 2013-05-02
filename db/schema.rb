@@ -11,7 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130501130946) do
+ActiveRecord::Schema.define(:version => 20130502204610) do
+
+  create_table "annotations", :force => true do |t|
+    t.integer  "attachment_id"
+    t.text     "body"
+    t.string   "smpte_timecode"
+    t.boolean  "published"
+    t.integer  "seconds_timecode"
+    t.integer  "author_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
 
   create_table "attachments", :force => true do |t|
     t.string   "media_file_name"
@@ -37,6 +48,7 @@ ActiveRecord::Schema.define(:version => 20130501130946) do
     t.integer  "organization_id"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.hstore   "settings"
   end
 
   add_index "courses", ["organization_id"], :name => "index_courses_on_organization_id"

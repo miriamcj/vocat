@@ -15,6 +15,8 @@ Vocat::Application.routes.draw do
       resources :submissions
   end
 
+  resource :annotations
+
   resources :submissions do
     resources :attachments
   end
@@ -29,8 +31,8 @@ Vocat::Application.routes.draw do
       get 'portfolio'
     end
     scope :module => "courses" do
-      resources :projects do
-      end
+      resources :projects
+      resources :settings, :only => ['update', 'edit']
     end
     resources :rubrics, shallow: true
   end

@@ -1,1 +1,1 @@
-class Vocat.Models.Project extends Backbone.RelationalModel
+class Vocat.Models.Project extends Backbone.Model

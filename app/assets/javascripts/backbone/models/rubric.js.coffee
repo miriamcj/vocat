@@ -1,4 +1,4 @@
-class Vocat.Models.Rubric extends Backbone.RelationalModel
+class Vocat.Models.Rubric extends Backbone.Model
 
   courseId: null
 

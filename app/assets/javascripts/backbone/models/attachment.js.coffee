@@ -1,2 +1,2 @@
-class Vocat.Models.Attachment extends Backbone.RelationalModel
+class Vocat.Models.Attachment extends Backbone.Model
 

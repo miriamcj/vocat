@@ -21,7 +21,6 @@
 //= require backbone
 //= require backbone_rails_sync
 //= require backbone_datalink
-//= require backbone/plugins/backbone-relational
 //= require backbone/vocat
 //= require_tree .
 

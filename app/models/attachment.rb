@@ -1,6 +1,7 @@
 class Attachment < ActiveRecord::Base
   attr_accessible :media
   belongs_to :fileable, :polymorphic => true
+  has_many :annotations
 
   # Transcoding constants
   TRANSCODING_STATUS_BUSY = 0

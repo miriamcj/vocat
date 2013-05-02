@@ -3,7 +3,8 @@ class SubmissionSerializer < ActiveModel::Serializer
               :course_id, :project_id, :creator_name, :creator_id, :current_user_is_owner,
               :current_user_can_evaluate, :course_department, :course_section, :course_number,
               :instructor_evaluations, :evaluations, :instructor_score_percentage, :published,
-              :uploaded_attachment, :transcoded_attachment, :transcoding_error
+              :uploaded_attachment, :transcoded_attachment, :transcoding_error, :current_user_can_annotate,
+              :current_user_can_attach, :current_user_can_discuss, :video_attachment_id
 
   def instructor_evaluations
     ActiveModel::ArraySerializer.new(object.instructor_evaluations, :scope => scope)
@@ -15,6 +16,22 @@ class SubmissionSerializer < ActiveModel::Serializer
 
   def current_user_can_evaluate
     Ability.new(scope).can?(:evaluate, object)
+  end
+
+  def current_user_can_discuss
+    Ability.new(scope).can?(:discuss, object)
+  end
+
+  def current_user_can_annotate
+    Ability.new(scope).can?(:annotate, object)
+  end
+
+  def current_user_can_attach
+    Ability.new(scope).can?(:attach, object)
+  end
+
+  def video_attachment_id
+    object.video_attachment_id
   end
 
   def current_user_is_owner

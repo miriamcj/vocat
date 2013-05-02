@@ -1,0 +1,29 @@
+<div class="settings-show">
+  <div class="content-frame">
+    <h1 class="heading-largest">Edit Course Settings: "<%= @course.name %>"</h1>
+  </div>
+  <div class="content-frame">
+
+    <%= form_tag(course_setting_path(@course), :method => 'put') do %>
+      <ul class="unstyled">
+        <li>
+          <%= check_box_tag('settings[enable_annotation]', 1, @course.settings['enable_annotation'])%>
+          <%= label_tag(:allow_annotation, "Enable video annotation") %>
+        </li>
+        <li>
+          <%= check_box_tag('settings[enable_peer_review]', 1, @course.settings['enable_peer_review'])%>
+          <%= label_tag(:allow_annotation, "Enable peer review") %>
+        </li>
+        <li>
+          <%= check_box_tag('settings[enable_creator_attach]', 1, @course.settings['enable_creator_attach'])%>
+          <%= label_tag(:allow_annotation, "Allow creators to upload videos") %>
+        </li>
+        <%= submit_tag('Save Settings') %>
+      </ul>
+
+  <% end %>
+  </div>
+</div>
+
+
+

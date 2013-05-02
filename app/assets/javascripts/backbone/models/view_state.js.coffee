@@ -1,2 +1,2 @@
-class Vocat.Models.ViewState extends Backbone.RelationalModel
+class Vocat.Models.ViewState extends Backbone.Model
 
