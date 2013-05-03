@@ -54,7 +54,11 @@ class Submission < ActiveRecord::Base
   end
 
   def video_attachment_id
-    self.attachments.first().id
+    if self.attachments.count() > 0
+      self.attachments.first().id
+    else
+      nil
+    end
   end
 
   def attachment
