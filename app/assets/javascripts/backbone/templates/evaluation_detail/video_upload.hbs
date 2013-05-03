@@ -1,29 +1,27 @@
-<header class="annotations--header" style="margin-top: 25px">
-  <h2 class="annotations--title">Upload Your Video</h2>
+<header>
+  <h2 class="box--title">Upload Your Video</h2>
 </header>
-<div style="background: #FFF; padding: 5px;">
-	<form accept-charset="UTF-8" class="new_attachment"	data-remote="true" enctype="multipart/form-data" id="video-upload" method="post">
-		Drag & drop here or
-		<span class="file-input-container">
-	    <input id="fileupload" name="attachment[media]" type="file" />
-			<a href="#" class="decorated" data-behavior="file-picker">select files from your computer.</a>
-		</span>
-
-		<ul style="margin-top: 15px;" class="progress-bar">
-			<li class="progress-bar--completed">
-				<div class="indicator" style="width: 0%;">
-				</div>
-			</li>
-		</ul>
-
-		{{#if attachment}}
-		<p style="margin-top: 15px">
-			{{attachment.media_file_name}} has been uploaded.
-		</p>
-		<p style="margin-top: 15px">
-			<a data-behavior="submission-save" href="#">Click here to save your submission</a>.
-		</p>
-
-		{{/if}}
-	</form>
+<div class="box--content">
+  <form accept-charset="UTF-8" data-remote="true" enctype="multipart/form-data" id="video-upload" method="post">
+    <p>
+      Drag & drop here or
+      <span class="file-input-container">
+        <input id="fileupload" name="attachment[media]" type="file" />
+        <a href="#" class="decorated" data-behavior="file-picker">select files from your computer</a>.
+      </span> 
+    </p>
+    <ul class="progress-bar space-top">
+      <li class="progress-bar--completed">
+        <div class="indicator" style="width: 0%;"></div>
+      </li>
+    </ul>
+    {{#if attachment}}
+      <p class="space-top">
+        {{attachment.media_file_name}} has been uploaded.
+      </p>
+      <p class="space-top">
+        <a data-behavior="submission-save" href="#">Click here to save your submission</a>.
+      </p>
+    {{/if}}
+  </form>
 </div>

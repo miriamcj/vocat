@@ -23,7 +23,7 @@ html {
 
 body {
 	@include font-body;
-	@include font-size(16);
+	@include font-size(17);
 	font-weight: $regular;
 	line-height: $baseLineHeight;
 	color: $grayDark;

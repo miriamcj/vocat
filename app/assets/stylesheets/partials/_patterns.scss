@@ -31,46 +31,46 @@
 // Hierarchy
 // --------------------------
 %alpha {
-  @include font-size(20.5);
+  @include font-size(21.75);
 }
 
 %beta {
-  @include font-size(19.2);
+  @include font-size(20.25);
 }
 
 %beta-alt {
+  @include font-size(19);
+}
+
+%gamma-alt {
   @include font-size(18);
 }
 
-%gamma-alt {
+%gamma {
   @include font-size(17);
 }
 
-%gamma {
+%gamma-alt {
   @include font-size(16);
 }
 
-%gamma-alt {
-  @include font-size(15);
-}
-
 %delta {
-  @include font-size(13);
+  @include font-size(13.75);
 }
 
 %epsilon {
-  @include font-size(12);
+  @include font-size(12.75);
 }
 
 %epsilon-caps {
-  @include font-size(12);
+  @include font-size(12.75);
   font-weight: $medium;
   text-transform: uppercase;
 }
 
-%zeta {
-  // @include font-size(0.4);
-}
+// %zeta {
+//   @include font-size(12);
+// }
 
 // Extra-hierarchy
 // Very large & very small type,
@@ -112,7 +112,7 @@
 
 %heading-caps {
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.15em;
 }
 
 // Headings
@@ -185,7 +185,7 @@
   }
 }
 
-// Buttons
+// Buttons & pills
 // --------------------------
 %teal-button {
   @extend %heading-epsilon;
@@ -194,7 +194,7 @@
   color: $beige;
   background-color: $tealLight;
   line-height: 1;
-  padding: 0.7rem 1.2rem 0.6rem;
+  padding: 0.6rem 1.2rem 0.6rem;
   border-radius: $radius;
   &:hover {
     background-color: $orange;
@@ -209,7 +209,7 @@
   display: inline-block;
   color: $beige;
   background-color: $tealLight;
-  padding: 1.4rem 3.9rem 1.1rem 1.4rem;
+  padding: 1.2rem 3.9rem 1.2rem 1.4rem;
   border: none;
   border-radius: $radius;
   position: relative;
@@ -228,16 +228,21 @@
   }
 }
 
-%white-button {
+// Not for use on <a>s; use %white-button for those
+%white-pill {
   @extend %heading-epsilon;
-  @extend %bare-link;
   display: inline-block;
   color: $grayLighter;
   line-height: 1;
   background-color: $beigeLight;
   // TODO adjust once comps have arrived
   padding: 1rem;
-  border-radius: 3.4rem;
+  border-radius: 3.4rem;  
+}
+
+%white-button {
+  @extend %white-pill;
+  @extend %bare-link;
   &:hover {
     background-color: $orange;
   }
@@ -266,13 +271,13 @@
   @extend %bare-link;
   display: inline-block;
   color: $teal;
-  padding: 0.3em 2.3em 0.3em 0;
+  padding: 0.2em 2.2em 0.3em 0;
   position: relative;
   &:after {
     content: "";
     display: block;
-    width: 1.6em;
-    height: 1.6em;
+    width: 1.5em;
+    height: 1.5em;
     @include svg(circle-arrow-right-teal);
     position: absolute;
     top: 0;
@@ -324,7 +329,7 @@
   line-height: 1;
   color: $beigeLight;
   background-color: $tealMedium;
-  padding: 0.4em 0.8em 0.4em;
+  padding: 0.3em 0.7em 0.4em;
   border-radius: $radius;
   margin-bottom: 0.7em;
   position: relative;
@@ -435,8 +440,7 @@
   margin-bottom: 1.3rem;
 }
 
-// NB extend this on a wrapper around your <input> and
-// add the 'input' class to the actual text input
+// NB extend this on a wrapper around your <input>
 // Why? <input>s can't have pseudoelements.
 %speech-bubble-input {
   position: relative;
@@ -451,7 +455,7 @@
     left: 2rem;
     bottom: -2rem;
   }
-  .input {
+  input {
     @extend %gamma;
     @extend %text-input;
     @include placeholder($beigeDark, italic);
@@ -524,8 +528,75 @@
   -ms-user-select: none;
 }
 
+// Multi-purpose component patterns
+// Tack one of these puppies on and go crazy
+// --------------------------------------------------------
+%centered-tile {
+	@extend %center;
+	width: 60.8rem;
+}
+
+%shaded-top {
+  @include box-shadow(
+    inset 0 3.2rem 1.6rem -1.6rem transparentize($black, 0.92)
+  );
+}
+
+// NB this shadow will bleed out on all sides;
+// keep calm & mind your z-indexes
+%shaded-bottom {
+  @include box-shadow(
+    0 -1.6rem 1.6rem 3.2rem transparentize($black, 0.92)
+  );
+}
+
+// NB ditto
+%shaded-top-bottom {
+  @include box-shadow(
+    inset 0 3.2rem 1.6rem -1.6rem transparentize($black, 0.92),
+    0 -1.6rem 1.6rem 3.2rem transparentize($black, 0.92)
+  );
+}
+
+// Frame
+// --------------------------------------------------------
+%frame {
+  // TODO adjust bottom padding
+  padding: 3.4rem 0 2.4rem;
+  position: relative;
+  z-index: 110;
+  &:nth-child(even) {
+    @include full-bleed {
+      background-color: $beigeLight;
+    }
+    background-color: $beigeLight;
+  }
+  &:last-child {
+    padding-bottom: 8rem;
+  }
+}
+
+// Extended by %frame--left & %frame--right
+// Inline-block instead of float so it works with full-bleed 
+// NB whitespace between the two column elements will display
+%frame--column {
+  display: inline-block;
+  vertical-align: top;
+}
+
+%frame--left {
+  @extend %frame--column;
+  width: 30.7%;
+}
+
+%frame--right {
+  @extend %frame--column;
+  width: 69.3%;
+  padding-left: 5rem;
+}
+
 // Dropdowns
-// --------------------------
+// --------------------------------------------------------
 // Only necessary if element doesn't already have positioning
 %dropdown-container {
   position: relative;
@@ -541,7 +612,7 @@
   line-height: 1;
   color: $grayLighter;
   background-color: $grayDarker;
-  padding: 0.7rem 2.6rem 0.7rem 1.1rem;
+  padding: 0.6rem 2.6rem 0.7rem 1.1rem;
   border-right: 0.2rem solid transparent;
   border-radius: $radius 0 0 $radius;
   margin-right:3.8rem;
@@ -592,7 +663,7 @@
   display: none;
   min-width: 100%;
   background-color: $grayDarkest;
-  padding: 2rem;
+  padding: 1.8rem 2rem;
   border-radius: $radius * 2;
   margin-top: 2rem;
   position: absolute;
@@ -618,7 +689,7 @@
   }
   li + li {
     // TODO refactor this so top & bottom padding are equal
-    padding-top: 1.2rem;
+    padding-top: 1.1rem;
     border-top: 0.1rem solid $grayDark;
     margin-top: 1rem;
   }
@@ -630,8 +701,6 @@
     // Test with many different widths
     white-space: pre;
     line-height: 1;
-    // TODO adjust once fonts are real
-    // letter-spacing: -0.1em;
     color: $grayLighter;
     small {
       color: $grayDark;
@@ -658,37 +727,66 @@
   }
 }
 
-// Component patterns
+// Box
 // --------------------------------------------------------
-%centered-tile {
-	@extend %center;
-	width: 60.8rem;
+// NB be sure to wrap %box--title & %box--link in a <header> 
+%box {
+  background-color: $beigeLight;
+  position: relative;
+  header {
+    background-color: $tealLight;
+    padding: 1.2rem 1.4rem 1.3rem;
+    position: relative;
+    z-index: 110;
+  }
 }
 
-%shaded-top {
-  @include box-shadow(
-    inset 0 3.2rem 1.6rem -1.6rem transparentize($black, 0.92)
-  );
+// Lives inside %box>header
+%box--title {
+  @extend %beta-alt;
+  color: $beigeLight;
+  line-height: 1;
 }
 
-// NB this shadow will bleed out on all sides;
-// keep calm & mind your z-indexes
-%shaded-bottom {
-  @include box-shadow(
-    0 -1.6rem 1.6rem 3.2rem transparentize($black, 0.92)
-  );
+// Lives inside %box>header
+%box--link {
+  @extend %heading-epsilon;
+  @extend %arrow-link-beige-light;
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
 }
 
-// NB ditto
-%shaded-top-bottom {
-  @include box-shadow(
-    inset 0 3.2rem 1.6rem -1.6rem transparentize($black, 0.92),
-    0 -1.6rem 1.6rem 3.2rem transparentize($black, 0.92)
-  );
+%box--content {
+  padding: 1.6rem;
+}
+
+// NB make sure the height of %box is
+// constrained if you want this to work
+%box--scrolly-content {
+  position: absolute;
+  top: 6rem;
+  right: 1.6rem;
+  bottom: 1.6rem;
+  left: 1.6rem;
+  overflow-y: scroll;
+  z-index: 100;
+  &::-webkit-scrollbar {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: transparentize($gray, 0.4);
+    border-radius: 1.6rem;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: $beige;
+    border-radius: 1.6rem;
+  }
 }
 
 // Avatars
-// --------------------------
+// --------------------------------------------------------
 // Extended by individual color variants
 %round-avatar {
   display: block;
@@ -707,45 +805,8 @@
   border: 0.1rem solid $tealLighter;
 }
 
-// Frame
-// --------------------------
-%frame {
-  // TODO adjust bottom padding
-  padding: 3.4rem 0 2.4rem;
-  position: relative;
-  z-index: 110;
-  &:nth-child(even) {
-    @include full-bleed {
-      background-color: $beigeLight;
-    }
-    background-color: $beigeLight;
-  }
-  &:last-child {
-    padding-bottom: 8rem;
-  }
-}
-
-// Extended by %frame--left & %frame--right
-// Inline-block instead of float so it works with full-bleed 
-// NB whitespace between the two column elements will display
-%frame--column {
-  display: inline-block;
-  vertical-align: top;
-}
-
-%frame--left {
-  @extend %frame--column;
-  width: 30.7%;
-}
-
-%frame--right {
-  @extend %frame--column;
-  width: 69.3%;
-  padding-left: 5rem;
-}
-
 // Score list
-// --------------------------
+// --------------------------------------------------------
 %score-list {
   @extend %unstyled-list;
   margin: 0;
@@ -818,7 +879,7 @@
   font-weight: $medium;
   color: $beigeLight;
   line-height: 1;
-  padding-top: 1.6rem;
+  padding-top: 1.5rem;
   position: absolute;
   top: 0;
   left: 2.7rem;
@@ -829,7 +890,7 @@
 
 %big-score--title {
   @extend %score--title;
-  padding-top: 1.85rem;
+  padding-top: 1.75rem;
 }
 
 %score--value {
@@ -856,7 +917,7 @@
 }
 
 // Comments
-// --------------------------
+// --------------------------------------------------------
 %comment {
   background-color: $beigeLight;
   padding: 1.6rem 1.8rem;
@@ -887,11 +948,13 @@
   }
 }
 
+// Headers
+// --------------------------------------------------------
 // Avatar header
 // --------------------------
 // NB be sure to include the <img> in your markup
 %avatar-header {
-  padding: 0.3rem 0 0.30rem 5.7rem;
+  padding: 0.1rem 0 0.2rem 5.7rem;
   margin-bottom: 1.2rem;
   position: relative;
   img {
@@ -924,7 +987,7 @@
   aside {
     padding-left: 1.6rem;
     border-left: 0.2rem solid $gray;
-    margin: 0.4rem 0 0 1.8rem;
+    margin: 0.3rem 0 0 1.8rem;
     float: left;
   }
 }
@@ -939,12 +1002,12 @@
   color: $gray;
   line-height: 1;
   &:last-child {
-    margin-top: 0.8rem;
+    margin-top: 0.7rem;
   }
 }
 
 // Annotated media
-// --------------------------
+// --------------------------------------------------------
 // NB be sure to wrap annotations box in a <figcaption>
 %annotated-media {
   position: relative;

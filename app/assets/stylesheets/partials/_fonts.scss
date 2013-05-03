@@ -90,17 +90,7 @@
   @include kill-fout;
   @if $usage == closed {
     font-family: "franklin-gothic-urw", "OpenSans", helvetica, sans-serif;
-  }
-  @else {
-    font-family: "OpenSans", helvetica, sans-serif;
-  }
-}
-
-// TODO modify once fonts are real
-@mixin font-subhead {
-  @include kill-fout;
-  @if $usage == closed {
-    font-family: "franklin-gothic-urw", "OpenSans", helvetica, sans-serif;
+    // font-family: "Benton Sans", "OpenSans", helvetica, sans-serif;
   }
   @else {
     font-family: "OpenSans", helvetica, sans-serif;

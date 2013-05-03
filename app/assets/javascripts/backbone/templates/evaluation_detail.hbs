@@ -1,23 +1,19 @@
 <div class="evaluation-detail">
-	<div class="evaluation-detail-frame">
-		<header class="evaluation-detail--header">
-			<h1 class="evaluation-detail--title">{{project.name}}</h1>
-			<aside>
-				<h2 class="evaluation-detail--subtitle"><strong>{{project.course_department}}{{project.course_number}} :</strong> {{project.course_name}}</h2>
-				<h2 class="evaluation-detail--subtitle"><em>{{creator.name}}</em></h2>
-			</aside>
-		</header>
-		<figure class="attachment">
-  	  <div id="js-video-player"></div>
-  		<figcaption id="js-video-annotations" ></figcaption>
-		</figure>
-		<figure id="js-video-annotator"></figure>
-    <figure id="js-video-upload"></figure>
-
-	</div>
-
-
-
-	<div class="evaluation-detail-frame" id="js-score-view"></div>
-	<div class="evaluation-detail-frame" id="js-discussion-view"></div>
+  <div class="evaluation-detail-frame">
+    <header class="evaluation-detail--header">
+      <h1 class="evaluation-detail--title">{{project.name}}</h1>
+      <aside>
+        <h2 class="evaluation-detail--subtitle"><strong>{{project.course_department}}{{project.course_number}} :</strong> {{project.course_name}}</h2>
+        <h2 class="evaluation-detail--subtitle"><em>{{creator.name}}</em></h2>
+      </aside>
+    </header>
+    <figure class="attachment">
+      <div id="js-video-player"></div>
+      <figcaption id="js-video-annotations"></figcaption>
+    </figure>
+    <div id="js-video-annotator"></div>
+    <div class="box" id="js-video-upload"></div>
+  </div>
+  <div class="evaluation-detail-frame" id="js-score-view"></div>
+  <div class="evaluation-detail-frame" id="js-discussion-view"></div>
 </div>
