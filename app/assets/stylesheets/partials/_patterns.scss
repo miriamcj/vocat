@@ -440,8 +440,7 @@
   margin-bottom: 1.3rem;
 }
 
-// NB extend this on a wrapper around your <input> and
-// add the 'input' class to the actual text input
+// NB extend this on a wrapper around your <input>
 // Why? <input>s can't have pseudoelements.
 %speech-bubble-input {
   position: relative;
@@ -456,7 +455,7 @@
     left: 2rem;
     bottom: -2rem;
   }
-  .input {
+  input {
     @extend %gamma;
     @extend %text-input;
     @include placeholder($beigeDark, italic);

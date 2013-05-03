@@ -32,13 +32,49 @@
 
 // Links, buttons & pills
 // --------------------------------------------------------
-.button-teal {
+.teal-button {
+  @extend %teal-button;
+}
+
+.teal-arrow-button {
   @extend %teal-arrow-button;
+}
+
+.white-pill {
+  @extend %white-pill;
+}
+
+.white-button {
+  @extend %white-button;
 }
 
 .arrow-link {
   @extend %heading-epsilon;
   @extend %arrow-link;
+}
+
+.beige-arrow-link {
+  @extend %arrow-link-beige;
+}
+
+.bent-arrow-link {
+  @extend %bent-arrow-link;
+}
+
+.speech-bubble {
+  @extend %speech-bubble;
+}
+
+// Lists
+// --------------------------------------------------------
+.unstyled-list {
+  @extend %unstyled-list;
+}
+
+// NB add this class to a wrapper around your <input>
+// Why? <input>s can't have pseudoelements.
+.speech-bubble-input {
+  @extend %speech-bubble-input;
 }
 
 // Boxes
@@ -76,6 +112,15 @@
   @extend %box--scrolly-content;
 }
 
+// Images
+// --------------------------------------------------------
+.gray-avatar {
+  @extend %gray-round-avatar;
+}
+
+.teal-avatar {
+  @extend %teal-round-avatar;
+}
 
 
 

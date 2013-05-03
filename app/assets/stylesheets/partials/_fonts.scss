@@ -97,17 +97,6 @@
   }
 }
 
-// TODO modify once fonts are real
-@mixin font-subhead {
-  @include kill-fout;
-  @if $usage == closed {
-    font-family: "franklin-gothic-urw", "OpenSans", helvetica, sans-serif;
-  }
-  @else {
-    font-family: "OpenSans", helvetica, sans-serif;
-  }
-}
-
 @mixin font-head {
 	font-family: "LeagueGothic", helvetica, sans-serif;
   font-weight: normal;
