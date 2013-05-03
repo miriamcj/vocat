@@ -1,5 +1,5 @@
 <figure class="frame-attachment">
-	{{#if submission.thumb}}
+	{{#if submission.uploaded_attachment}}
   <img class="frame-attachment--image" src="{{submission.thumb}}"/>
   <figcaption class="frame-attachment--details">
     <nav class="comments-nav">
@@ -16,7 +16,11 @@
   </figcaption>
   {{else}}
   <div class="attachment-placeholder">
-    <a class="attachment-placeholder--button" href="#">Upload video now</a>      
+	  {{#if submission.current_user_can_attach}}
+	  <a class="attachment-placeholder--button" href="#">Upload video now</a>
+	  {{else}}
+	  <a class="attachment-placeholder--button" href="#">No video has been uploaded</a>
+	  {{/if}}
   </div>
 	{{/if}}  
 </figure><!-- removes whitespace between columns
