@@ -1,30 +1,116 @@
 // Content
 // -------
+// The classes selected here can be dropped into your markup
+// pretty much anywhere to get at common component styles.
+
+// Layout helpers
+// --------------------------------------------------------
+.space-top {
+  margin-top: 1.6rem;
+}
+
+.space-bottom {
+  margin-bottom: 1.6rem;
+}
 
 // Headings
-// --------------------------
+// --------------------------------------------------------
 .heading-largest {
-	@extend %heading-giga;
-	margin-bottom: 0.5rem;
+  @extend %heading-giga;
+  margin-bottom: 0.5rem;
 }
 
 .heading-medium {
-	@extend %heading-beta-alt;
-	margin-bottom: 0.8rem;
+  @extend %heading-beta-alt;
+  margin-bottom: 0.8rem;
 }
 
 .heading-smallest {
-	@extend %heading-epsilon;
-	margin-bottom: 0.9rem;
+  @extend %heading-epsilon;
+  margin-bottom: 0.9rem;
 }
 
-// Links
-// --------------------------
+// Links, buttons & pills
+// --------------------------------------------------------
 .button-teal {
-	@extend %teal-arrow-button;
+  @extend %teal-arrow-button;
 }
 
 .arrow-link {
-	@extend %heading-epsilon;
-	@extend %arrow-link;
+  @extend %heading-epsilon;
+  @extend %arrow-link;
 }
+
+// Boxes
+// --------------------------------------------------------
+// An example:
+// <div class="box">
+//   <header>
+//     <h2 class="box--title">Box title</h2>
+//     <a class="box--link" href="">Optional link</a>
+//   </header>
+//   <div class="box--content">
+//     Box content
+//   </div>
+// </div>
+
+.box {
+  @extend %box;
+}
+
+.box--title {
+  @extend %box--title;
+}
+
+.box--link {
+  @extend %box--link;
+}
+
+.box--content {
+  @extend %box--content;
+}
+
+// NB make sure the height of .box is
+// constrained if you want this to work
+.box--scrolly-content {
+  @extend %box--scrolly-content;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

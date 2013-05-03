@@ -448,7 +448,7 @@
 // <figure>
 .attachment {
   @extend %annotated-media;
-  margin-bottom: 10px;
+  margin-bottom: 1.6rem;
 }
 
 // Lives inside .attachment
@@ -497,57 +497,28 @@
 // --------------------------
 // Lives inside <figcaption> inside .attachment
 .annotations {
+  @extend %box;
   height: 100%;
-  background-color: $beigeLight;
-  position: relative;
-}
-
-.annotations--header {
-  background-color: $tealLight;
-  padding: 1.3rem 11.8rem 1.3rem 1.4rem;
-  position: relative;
-  z-index: 110;  
+  header {
+    padding-right: 11.8rem;
+  }
 }
 
 .annotations--title {
-  @extend %beta-alt;
-  color: $beigeLight;
-  line-height: 1;
+  @extend %box--title;
 }
 
 .annotations--link {
-  @extend %heading-epsilon;
-  @extend %arrow-link-beige-light;
-  position: absolute;
-  top: 1.2rem;
-  right: 1.2rem;
+  @extend %box--link;
 }
 
 .annotations--content {
-  position: absolute;
-  top: 6rem;
-  right: 1.6rem;
-  bottom: 1.6rem;
-  left: 0;
-  overflow-y: scroll;
-  z-index: 100;
-  &::-webkit-scrollbar {
-    width: 1.2rem;
-    height: 1.2rem;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: transparentize($gray, 0.4);
-    border-radius: 1.6rem;
-  }
-  &::-webkit-scrollbar-track {
-    background-color: $beige;
-    border-radius: 1.6rem;
-  }
+  @extend %box--scrolly-content;
 }
 
 .annotations--list {
   @extend %comment-list;
-  padding: 0 1.7rem 0 1.6rem;
+  padding-right: 1.7rem;
   p {
     @extend %gamma-alt;
     font-style: italic;
@@ -564,7 +535,7 @@
 // NB see pattern comments
 .annotations--input {
   @extend %speech-bubble-input;
-  padding-top: 0.5rem;
+  padding-top: 1.6rem;
 }
 
 // Scores

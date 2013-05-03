@@ -1,24 +1,22 @@
 .file-input-container {
   display: inline-block;
+  // margin-top: 1rem;
   position: relative;
   cursor: pointer;
-  margin-top: 10px;
   input {
-	display: inline-block;
+  	@extend %hidden-text;
+  	@include opacity(0);
+	display: block;
+	width: 100%;
+	height: 100%;
+	position: absolute;
 	left: 0;
 	top: 0;
-	font-size: 30px;
 	cursor: pointer;
-	opacity: .01;
-	height: 100%;
-	width: 100%;
-	position: absolute;
+	&:hover + a {
+		text-decoration: underline;
+	}
   }
-}
-
-.new_attachment {
-  font-size: 1.5rem;
-  padding: 10px;
 }
 
 // Progress Bar
@@ -29,5 +27,5 @@
 
 .progress-bar--completed{
   @extend %active-criterion;
-  height: 10px;
+  height: 1rem;
 }
