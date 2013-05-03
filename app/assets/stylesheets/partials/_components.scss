@@ -530,11 +530,16 @@
   @extend %delta;
   color: $grayLight;
   margin-bottom: 0.7rem;
+  span {
+    font-weight: $medium;
+  }
 }
 
+// Annotation input
+// ------------
 // <div>
 // NB see pattern comments
-.annotations--input {
+.annotation-input {
   @extend %speech-bubble-input;
 }
 
