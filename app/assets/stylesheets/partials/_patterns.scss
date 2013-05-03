@@ -185,7 +185,7 @@
   }
 }
 
-// Buttons
+// Buttons & pills
 // --------------------------
 %teal-button {
   @extend %heading-epsilon;
@@ -228,16 +228,21 @@
   }
 }
 
-%white-button {
+// Not for use on <a>s; use %white-button for those
+%white-pill {
   @extend %heading-epsilon;
-  @extend %bare-link;
   display: inline-block;
   color: $grayLighter;
   line-height: 1;
   background-color: $beigeLight;
   // TODO adjust once comps have arrived
   padding: 1rem;
-  border-radius: 3.4rem;
+  border-radius: 3.4rem;  
+}
+
+%white-button {
+  @extend %white-pill;
+  @extend %bare-link;
   &:hover {
     background-color: $orange;
   }

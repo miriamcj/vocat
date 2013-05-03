@@ -471,16 +471,26 @@
   position: relative;
 }
 
+// Extended by .attachment-placeholder--button & .attachment-placeholder--message
+%attachment-placeholder--item {
+  margin-top: 30.9%;
+  position: relative;
+  // TODO adjust if %white-video-button changes height
+  top: -1.7rem;
+}
+
 // Lives inside .attachment-placeholder
 // NB top value must be equal to half the
 // height of %white-video-button, but negative
 // TODO test in browsers; it's almost certainly not going to work in IE7
 .attachment-placeholder--button {
+  @extend %attachment-placeholder--item;
   @extend %white-video-button;
-  margin-top: 30.9%;
-  position: relative;
-  // TODO adjust if %white-video-button changes height
-  top: -1.7rem;
+}
+
+.attachment-placeholder--message {
+  @extend %attachment-placeholder--item;
+  @extend %white-pill;
 }
 
 // Annotations
