@@ -705,6 +705,8 @@
   }
   a {
     @extend %delta;
+    @extend %orange-hover;
+    @extend %bare-link;
   }
 }
 

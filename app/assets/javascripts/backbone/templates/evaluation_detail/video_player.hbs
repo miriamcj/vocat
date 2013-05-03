@@ -4,12 +4,16 @@
   </video>
 {{else}}
   <div class="attachment--media">
-  {{#if submission.uploaded_attachment}}
-    Transcoding in progress
-  {{else}}
     <div class="attachment-placeholder">
-      <a class="attachment-placeholder--button" href="#" data-behavior="show-upload">Upload video now</a>
+    {{#if submission.uploaded_attachment}}
+      Transcoding in progress
+    {{else}}
+      {{#if submission.current_user_can_attach}}
+      <a class="attachment-placeholder--button" href="#" data-behavior="show-upload">Upload a Video</a>
+      {{else}}
+      No video has been uploaded
+      {{/if}}
+    {{/if}}
     </div>
-  {{/if}}
   </div>
 {{/if}}
