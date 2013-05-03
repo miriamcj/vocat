@@ -1,6 +1,6 @@
+<%= render 'layouts/messages' %>
 <div class="authentication-tile">
   <%= image_tag("placeholders/logo-baruch.png", :class => "authentication-tile--image", :alt => "Baruch College") %>
-  <%= render 'layouts/messages' %>
     <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
       <%= f.email_field :email, :autofocus => true, :class => "authentication-tile--input", :placeholder => "Email" %>
 

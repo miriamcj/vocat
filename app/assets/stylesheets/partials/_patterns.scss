@@ -1027,8 +1027,24 @@
   padding-right: 45%;
 }
 
-
-
+// Alerts
+// --------------------------------------------------------
+// TODO adjust these styles once comps arrive
+// TODO add margin to top somehow
+%alert {
+  padding: 2rem;
+  border-radius: $radius;
+  margin-bottom: 1rem;
+  position: relative;
+  p {
+    padding-left: 2rem;
+    border-left: 0.1rem solid $grayDark;
+    margin: 0 5rem 0 20rem;
+  }
+  .authentication & {
+    @extend %centered-tile;
+  }
+}
 
 
 

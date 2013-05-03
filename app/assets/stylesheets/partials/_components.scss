@@ -6,6 +6,9 @@
 .container {
 	width: $mainWidth;
 	margin: 0 auto;
+  .authentication & {
+    margin-top: 11.2rem;
+  }
 }
 
 // Page banner
@@ -633,7 +636,6 @@
 	@extend %centered-tile;
 	background-color: $beige;
 	padding: 4.8rem 5.2rem 4.8rem 27rem;
-	margin-top: 11.2rem;
   position: relative;
 }
 
@@ -697,8 +699,36 @@
   }
 }
 
+// Alerts
+// --------------------------------------------------------
+// TODO adjust colors once comps arrive
+.alert-success {
+  @extend %alert;
+  background-color: transparentize(palegreen, 0.5);
+}
 
+.alert-notice {
+  @extend %alert;
+  background-color: transparentize(powderblue, 0.5);
+}
 
+.alert-warning {
+  @extend %alert;
+  background-color: transparentize(lemonchiffon, 0.5);
+}
+
+.alert-error {
+  @extend %alert;
+  background-color: transparentize(lightpink, 0.5);
+}
+
+.alert--close {
+  display: block;
+  color: $grayDark;
+  position: absolute;
+  top: 0;
+  right: 0.7rem;
+}
 
 
 
