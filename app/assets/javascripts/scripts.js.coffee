@@ -47,7 +47,16 @@ shortcutNav = {
     )
 }
 
+# TODO needs to be aware of checkbox state before toggling active class
+helpOverlay = {
+  init: ->
+    $('[data-behavior=help-overlay-toggle]').click( ->
+      $(@).parents('label').toggleClass('active')
+    )
+}
+
 $ ->
   dropdown.init()
   pageHeader.init()
   shortcutNav.init()
+  helpOverlay.init()
