@@ -11,6 +11,7 @@ class Vocat.Views.EvaluationDetailVideoAnnotator extends Vocat.Views.AbstractVie
 		@submission = options.submission
 		@creator = options.creator
 		@annotations = options.annotations
+		@annotations.bind('reset', @render, @)
 		@render()
 
 	saveAnnotation: (e) ->
@@ -23,11 +24,15 @@ class Vocat.Views.EvaluationDetailVideoAnnotator extends Vocat.Views.AbstractVie
 				published: false
 				seconds_timecode: seconds_timecode
 			})
-			@annotations.add(annotation)
-			annotation.save()
+			annotation.save({},{
+				success: (annotation) =>
+					console.log 'success callback'
+					@annotations.add(annotation)
+			})
 			@render()
+			Vocat.Dispatcher.trigger 'player:start'
 		else
-			Vocat.Dispatcher.trigger 'stopVideo'
+			Vocat.Dispatcher.trigger 'player:stop'
 
 	render: () ->
 		context = {

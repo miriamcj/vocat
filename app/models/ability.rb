@@ -128,6 +128,13 @@ class Ability
       false
     end
 
+    ######################################################
+    # Attachments
+    ######################################################
+    can :create, Attachment do |attachment|
+      #TODO: Flesh this out
+      true
+    end
 
     ######################################################
     # Admins can do anything they want.

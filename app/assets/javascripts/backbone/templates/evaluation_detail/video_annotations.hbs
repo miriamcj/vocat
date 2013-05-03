@@ -1,23 +1,18 @@
 <div class="annotations">
   <header class="annotations--header">
     <h2 class="annotations--title">Video Annotations</h2>
-    <a class="annotations--link" href="">View All</a>
+    <a {{#if disableScroll}}style="display: none;"{{/if}} class="annotations--link" data-behavior="annotations-view-all" href="">View All</a>
+    <a {{#unless disableScroll}}style="display: none;"{{/unless}} class="annotations--link" data-behavior="annotations-auto-scroll" href="">Autoscroll</a>
   </header>
   <div data-behavior="scroll-parent" class="annotations--content">
-    <ul class="annotations--list">
-	    {{#unless submissions.transcoded_attachment}}
+    <ul data-behavior="annotations-container" class="annotations--list">
+	    {{#unless count}}
 	    <li class="annotations--item" data-seconds="{{this.seconds_timecode}}">
-		    <h3 class="annotations--list--title"><span>00:00</span>&nbsp;&nbsp;&nbsp;Vocat</h3>
+		    <h3 class="annotations--list--title"><span>00:00:000</span>&nbsp;&nbsp;&nbsp;Vocat</h3>
 		    <p>To enable annotations, a video must be attached to this submission.</p>
 	    </li>
 	    {{/unless}}
-      {{#each annotations}}
-      {{debug this}}
-      <li class="annotations--item" data-seconds="{{this.seconds_timecode}}" {{#unless this.visible}} style="display: none"{{/unless}}>
-        <h3 class="annotations--list--title"><span>{{this.seconds_timecode}}</span> {{this.author_name}}</h3>
-        <p>{{this.body}}</p>
-      </li>
-      {{/each}}
     </ul>
+    <span class="annotation--scroll-anchor"></span>
   </div>
 </div>

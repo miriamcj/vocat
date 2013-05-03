@@ -15,7 +15,7 @@ Vocat::Application.routes.draw do
       resources :submissions
   end
 
-  resource :annotations
+  resources :annotations
 
   resources :submissions do
     resources :attachments

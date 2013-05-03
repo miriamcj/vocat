@@ -40,6 +40,7 @@ class Vocat.Views.EvaluationDetailVideoUpload extends Vocat.Views.AbstractView
 				@submission.fetch({
 					success: =>	@submission.trigger('startPolling')
 				})
-							progress: (e, data) =>
-				progress = parseInt(data.loaded / data.total * 100, 10)
-				@$el.find('.indicator').css 'width', progress + '%'
+				Vocat.Dispatcher.trigger 'uploadComplete'
+				progress: (e, data) =>
+					progress = parseInt(data.loaded / data.total * 100, 10)
+					@$el.find('.indicator').css 'width', progress + '%'
