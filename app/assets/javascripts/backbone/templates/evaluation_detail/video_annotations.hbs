@@ -5,10 +5,16 @@
   </header>
   <div data-behavior="scroll-parent" class="annotations--content">
     <ul class="annotations--list">
+	    {{#unless submissions.transcoded_attachment}}
+	    <li class="annotations--item" data-seconds="{{this.seconds_timecode}}">
+		    <h3 class="annotations--list--title"><span>00:00</span>&nbsp;&nbsp;&nbsp;Vocat</h3>
+		    <p>To enable annotations, a video must be attached to this submission.</p>
+	    </li>
+	    {{/unless}}
       {{#each annotations}}
       {{debug this}}
       <li class="annotations--item" data-seconds="{{this.seconds_timecode}}" {{#unless this.visible}} style="display: none"{{/unless}}>
-        <h3 class="annotations--list--title"><span>[{{this.seconds_timecode}}]</span> {{this.author_name}}</h3>
+        <h3 class="annotations--list--title"><span>{{this.seconds_timecode}}</span> {{this.author_name}}</h3>
         <p>{{this.body}}</p>
       </li>
       {{/each}}

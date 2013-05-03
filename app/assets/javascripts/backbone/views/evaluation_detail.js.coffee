@@ -42,7 +42,7 @@ class Vocat.Views.EvaluationDetail extends Vocat.Views.AbstractView
 		if @submission.get('current_user_can_discuss') == true
 			new Vocat.Views.EvaluationDetailDiscussion(_.extend(options, {el: $('#js-discussion-view')}))
 
-		if @submission.get('current_user_can_annotate') == true
+		if @submission.get('current_user_can_annotate') == true && @submission.get('transcoded_attachment')
 			new Vocat.Views.EvaluationDetailVideoAnnotator(_.extend(options, {annotations: @annotations, el: $('#js-video-annotator')}))
 
 		if @submission.get('current_user_can_attach') == true

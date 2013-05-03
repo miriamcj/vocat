@@ -36,8 +36,6 @@ class Vocat.Views.EvaluationDetailVideoAnnotations extends Vocat.Views.AbstractV
 
 
 	render: () ->
-		console.log 'renduh!'
-
 		context = {
 			project: @project.toJSON()
 			submission: @submission.toJSON()
