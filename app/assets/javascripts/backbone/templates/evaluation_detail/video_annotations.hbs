@@ -1,17 +1,17 @@
 <div class="annotations">
   <header>
-    <h2 class="annotations--title">Video Annotations</h2>
+    <h2 class="annotations--title">Video Annotations (<span data-behavior="count">{{count}}</span>)</h2>
     <a {{#if disableScroll}}style="display: none;"{{/if}} class="annotations--link" data-behavior="annotations-view-all" href="">View All</a>
     <a {{#unless disableScroll}}style="display: none;"{{/unless}} class="annotations--link" data-behavior="annotations-auto-scroll" href="">Autoscroll</a>
   </header>
   <div data-behavior="scroll-parent" class="annotations--content">
     <ul data-behavior="annotations-container" class="annotations--list">
-	    {{#unless count}}
-	    <li class="annotations--item" data-seconds="{{this.seconds_timecode}}">
-		    <h3 class="annotations--list--title"><span>00:00:000</span>&nbsp;&nbsp;&nbsp;Vocat</h3>
-		    <p>To enable annotations, a video must be attached to this submission.</p>
-	    </li>
-	    {{/unless}}
+      {{#if submission.transcoded_attachment}}
+        <li class="annotations--item" data-seconds="{{this.seconds_timecode}}">
+          <h3 class="annotations--list--title"><span>00:00:000</span>&nbsp;&nbsp;&nbsp;Vocat</h3>
+          <p>To enable annotations, a video must be attached to this submission.</p>
+        </li>
+      {{/if}}
     </ul>
     <span class="annotation--scroll-anchor"></span>
   </div>
