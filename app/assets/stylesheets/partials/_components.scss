@@ -312,6 +312,7 @@
   @extend %heading-beta-alt;
   display: inline-block;
   color: $teal;
+  line-height: 1.2;
 }
 
 .frame--header--button {
@@ -323,7 +324,7 @@
 
 .frame--header--comments {
   display: inline-block;
-  margin: 0 0 -1.1rem 1.4rem;
+  margin: 0 0 -1.3rem 1.4rem;
   ul {
     @extend %speech-bubble-list;
   }
@@ -535,7 +536,6 @@
 // NB see pattern comments
 .annotations--input {
   @extend %speech-bubble-input;
-  padding-top: 1.6rem;
 }
 
 // Scores
@@ -645,7 +645,7 @@
 .authentication-tile--label {
   @extend %delta;
   @extend %no-select;
-  margin: 1.1rem 0;
+  margin: 1.1rem 0 1rem;
   float: left;
   position: relative;
   cursor: pointer;
