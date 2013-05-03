@@ -257,6 +257,7 @@
   @extend %no-select;
   position: relative;
   cursor: pointer;
+  &.active,
   &:hover {
     color: $orange;
     .help-nav--checkbox {
