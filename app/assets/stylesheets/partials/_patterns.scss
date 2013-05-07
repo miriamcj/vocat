@@ -475,8 +475,8 @@
 	& + b {
     @include svg(checkbox-unchecked);
 		display: block;
-    width: 1.23em;
-    height: 1.23em;
+    width: 1.2em;
+    height: 1.2em;
 		position: absolute;
     top: 0;
 		left: 0;
@@ -1077,7 +1077,20 @@
   right: 1.3rem;
 }
 
-
+// Progress bars
+// --------------------------------------------------------
+// NB be sure to include an .indicator element in your markup
+%progress-bar {
+  height: 1.6rem;
+  background-color: $tealLighter;
+  border-radius: 1.6rem;
+  overflow: hidden;
+  .indicator {
+    display: block;
+    height: 100%;
+    background-color: $tealLight;
+  }
+}
 
 
 

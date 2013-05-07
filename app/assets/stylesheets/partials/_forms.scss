@@ -18,14 +18,3 @@
 	}
   }
 }
-
-// Progress Bar
-// ------------
-.progress-bar {
-  @extend %score-list;
-}
-
-.progress-bar--completed{
-  @extend %active-criterion;
-  height: 1rem;
-}

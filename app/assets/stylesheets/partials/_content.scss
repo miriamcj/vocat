@@ -122,6 +122,18 @@
   @extend %teal-round-avatar;
 }
 
+// Progress bar
+// --------------------------------------------------------
+// NB be sure to include an .indicator element in your markup
+// An example:
+// <div class="progress-bar">
+//   <b class="indicator"><b>
+// </div>
+
+.progress-bar {
+  @extend %progress-bar;
+}
+
 
 
 
