@@ -1,3 +1,16 @@
+# Typekit font events
+try
+  Typekit.load(
+    active: ->
+      # Vertically centers alert labels
+      $('[data-behavior=alert]').each( ->
+        alertHeight = $(@).outerHeight()
+        alertTop = (alertHeight / 2) - 14;
+        $(@).children('[data-behavior=alert-label]').css('top',alertTop)
+      )
+  )
+catch e
+
 dropdown = {
   init: ->
     $toggle = $('[data-class=dropdown-toggle]')

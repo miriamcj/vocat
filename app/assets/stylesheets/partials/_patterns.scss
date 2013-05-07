@@ -1029,21 +1029,52 @@
 
 // Alerts
 // --------------------------------------------------------
-// TODO adjust these styles once comps arrive
-// TODO add margin to top somehow
 %alert {
   padding: 2rem;
   border-radius: $radius;
-  margin-bottom: 1rem;
+  margin-top: 1rem;
   position: relative;
+  &:first-child {
+    margin-top: 0;
+  }
   p {
+    @extend %gamma-alt;
+    line-height: 1.1;
+    color: $darker;
     padding-left: 2rem;
-    border-left: 0.1rem solid $grayDark;
-    margin: 0 5rem 0 20rem;
+    border-left: 0.1rem solid $darker;
+    margin: 0 5.5rem 0 15rem;
   }
   .authentication & {
     @extend %centered-tile;
   }
+}
+
+// Lives inside %alert
+%alert--label {
+  @extend %gamma-alt;
+  @include svg(warning-gray);
+  height: 2.8rem;
+  font-weight: $bold;
+  letter-spacing: 0.15em;
+  color: $darker;
+  line-height: 1.75;
+  text-transform: uppercase;
+  padding-left: 4.2rem;
+  position: absolute;
+  top: 1.4rem;
+  left: 2.5rem;
+}
+
+// Lives inside %alert
+%alert--close {
+  @include svg(circle-x-gray);
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  position: absolute;
+  top: 1.2rem;
+  right: 1.3rem;
 }
 
 

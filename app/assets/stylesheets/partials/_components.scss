@@ -701,35 +701,41 @@
 
 // Alerts
 // --------------------------------------------------------
-// TODO adjust colors once comps arrive
+// Wrapper containing all alerts
+.alerts {
+  padding: 3.4rem 0 1rem;
+  .authentication & {
+    padding-top: 0;
+  }
+}
+
 .alert-success {
   @extend %alert;
-  background-color: transparentize(palegreen, 0.5);
+  background-color: $greenLight;
 }
 
 .alert-notice {
   @extend %alert;
-  background-color: transparentize(powderblue, 0.5);
+  background-color: $blueLight;
 }
 
 .alert-warning {
   @extend %alert;
-  background-color: transparentize(lemonchiffon, 0.5);
+  background-color: $yellow;
 }
 
 .alert-error {
   @extend %alert;
-  background-color: transparentize(lightpink, 0.5);
+  background-color: $redLight;
+}
+
+.alert--label {
+  @extend %alert--label;
 }
 
 .alert--close {
-  display: block;
-  color: $grayDark;
-  position: absolute;
-  top: 0;
-  right: 0.7rem;
+  @extend %alert--close;
 }
-
 
 
 
