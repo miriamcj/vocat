@@ -30,5 +30,9 @@ class Courses::EvaluationsController < ApplicationController
     end
   end
 
+  def course_map_dev
+
+  end
+
 
 end
