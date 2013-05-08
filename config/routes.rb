@@ -4,7 +4,6 @@ Vocat::Application.routes.draw do
   devise_for :users, :controllers => {:registrations => 'registrations'}
 
   match '/' => 'portfolio#index', :as => 'portfolio'
-  match '/course_map_dev' => 'courses/evaluations#course_map_dev', :via => :get
   match '/courses/:course_id/evaluations' => 'courses/evaluations#course_map', :via => :get, :as => 'courses_evaluations'
   match '/courses/:course_id/evaluations/creator/:creator_id' => 'courses/evaluations#course_map', :via => :get, :as => 'courses_evaluations_for_creator'
   match '/courses/:course_id/evaluations/creator/:creator_id/project/:project_id' => 'courses/evaluations#course_map', :via => :get, :as => 'courses_evaluations_for_creator_and_project'
