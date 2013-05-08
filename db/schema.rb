@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130502204610) do
+ActiveRecord::Schema.define(:version => 20130508223252) do
 
   create_table "annotations", :force => true do |t|
     t.integer  "attachment_id"
@@ -93,6 +93,18 @@ ActiveRecord::Schema.define(:version => 20130502204610) do
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
+  create_table "discussion_posts", :force => true do |t|
+    t.boolean  "published"
+    t.integer  "author_id"
+    t.integer  "parent_id"
+    t.text     "body"
+    t.integer  "project_id"
+    t.integer  "creator_id"
+    t.integer  "group_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "evaluations", :force => true do |t|
     t.integer  "submission_id"
     t.integer  "evaluator_id"
@@ -104,6 +116,18 @@ ActiveRecord::Schema.define(:version => 20130502204610) do
   end
 
   add_index "evaluations", ["scores"], :name => "index_evaluations_on_scores"
+
+  create_table "groups", :force => true do |t|
+    t.string   "name"
+    t.integer  "course_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "groups_users", :force => true do |t|
+    t.integer "group_id"
+    t.integer "user_id"
+  end
 
   create_table "organizations", :force => true do |t|
     t.string   "name"
