@@ -719,7 +719,7 @@
   background-color: $blueLight;
 }
 
-.alert-warning {
+.alert-warning, .alert-alert {
   @extend %alert;
   background-color: $yellow;
 }

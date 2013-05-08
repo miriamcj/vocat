@@ -27,7 +27,8 @@
     <%= image_tag("logo-vocat-light.png", :class => "page-banner--logo", :alt => "VOCAT") %>
   </div>
   <div class="container">
-    <%= yield %>         
+    <%= render 'layouts/messages' %>
+    <%= yield %>
   </div> <!-- container -->
 </body>
 </html>
