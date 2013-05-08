@@ -294,6 +294,9 @@
   margin-top: $headerHeight;
   position: relative;
   z-index: 100;
+  .course-map & {
+    padding: 0;
+  }
 }
 
 // Generic content

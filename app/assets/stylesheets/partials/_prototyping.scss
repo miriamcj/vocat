@@ -238,12 +238,185 @@ h3 .editable-inline {
 }
 
 // Course map
-// These are temporary styles
+// These are mostly temporary styles
 // --------------------------------------------------------
+// Patterns
+// --------------------------
+// A unit that is one cell-width (any height)
+%matrix--wide {
+  width: $matrixCellWidth;
+}
 
+// A unit that is one cell-height (any width)
+%matrix--tall {
+  height: 6.8rem;
+}
 
+%matrix--slider {
+  border-left: 0.1rem solid $darker;
+  margin-right: 0.1rem;
+  overflow-x: hidden;
+  ul {
+    @include transition(0.2s left ease-in-out);
+    position: relative;
+  }
+}
 
+// Components
+// --------------------------
+.matrix {
+  margin-bottom: $headerHeight;
+}
 
+// Column header
+// ------------
+// TODO sort out a way to add %shaded bottom; might need to abandon full-bleed
+.matrix--column-header {
+  @extend %matrix--header;
+  @include full-bleed {
+    background-color: $gray;  
+  }
+  width: $mainWidth;
+  height: $headerHeight * 2;
+  background-color: $gray;
+  padding: $headerHeight 0 0 ($matrixCellWidth - 0.1);
+  position: absolute;
+  top: -$headerHeight;
+  z-index: 150;
+  &.stuck {
+    margin: 0 auto;
+    position: fixed;
+    top: 0;
+  }
+}
+
+// Wraps .matrix--column-header--list
+.matrix--list-wrapper {
+  @extend %matrix--slider;  
+}
+
+.matrix--column-header--list {
+  @extend %clearfix;
+  @extend %floated-list;
+  height: $headerHeight;
+  margin: 0;
+  overflow-y: hidden;
+  li {
+    @extend %matrix--wide;
+    height: 100%;
+    border-right: 0.1rem solid $darker;    
+  }
+}
+
+.matrix--column-header--link {
+  @extend %mega;
+  @extend %box-link;
+  text-transform: uppercase;
+  @include font-head;
+  color: $beigeLight;
+  padding: 1rem 1.6rem;
+}
+
+.matrix--controls {
+  @extend %clearfix;
+  position: absolute;
+  left: 1.6rem;
+  bottom: 3.8rem;
+}
+
+%matrix--controls--item {
+  @extend %hidden-text;
+  // @include transition(0.1s opacity ease-out);
+  display: block;
+  width: 4rem;
+  height: 4rem;
+  float: left;
+  &.inactive {
+    @include opacity(25);
+    cursor: default;
+  }
+}
+
+.matrix--previous {
+  @extend %matrix--controls--item;
+  @include svg(circle-arrow-left-beigeLight);
+}
+
+.matrix--next {
+  @extend %matrix--controls--item;
+  @include svg(circle-arrow-right-beigeLight);
+  margin-left: 1.6rem;
+}
+
+// Body
+// ------------
+.matrix--body {
+  @extend %clearfix;
+  padding: $headerHeight 0 0 ($matrixCellWidth - 0.1);
+  position: relative;
+}
+
+// Row header
+// ------------
+// TODO add .stuck styles
+// TODO sort out full-bleed approach
+.matrix--row-header {
+  width: $matrixCellWidth - 0.1;
+  position: absolute;
+  top: $headerHeight;
+  left: 0;
+  z-index: 100;
+  ul {
+    @extend %clearfix;
+    @extend %unstyled-list;
+    margin: 0;
+  }
+  li {
+    @extend %matrix--tall;
+    &:nth-child(even) {
+      // @include full-bleed {
+      //   background-color: $beigeLight;
+      // }
+      background-color: $beigeLight;
+      // position: relative;
+    }
+  }
+  a {
+    @extend %box-link;
+    @extend %bare-link;
+    font-weight: $medium;
+    padding: 2.4rem 1.6rem;
+    &:hover {
+      color: $white;
+      background-color: $grayLighter;
+    }
+  }
+}
+
+// Content
+// ------------
+.matrix--content {
+  @extend %matrix--slider;
+  position: relative;
+  z-index: 110;
+}
+
+// <ul>
+.matrix--row {
+  @extend %matrix--tall;
+  @extend %floated-list;
+  margin: 0;
+  overflow-y: hidden;
+  &:nth-child(even) {
+    background-color: $beigeLight;
+  }
+  li {
+    @extend %matrix--wide;
+    @extend %matrix--tall;
+    padding: 1rem 1.6rem;
+    border-right: 0.1rem solid $darker;
+  }
+}
 
 
 

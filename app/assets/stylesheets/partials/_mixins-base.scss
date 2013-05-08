@@ -48,6 +48,7 @@
 // Requires generatedcontent polyfill to work in IE7
 // NB won't work in IE7 if height is set explicitly 
 // --------------------------
+// TODO add right, left, both arguments, with both as default
 @mixin full-bleed {
 	&:before, 
 	&:after {

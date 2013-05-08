@@ -40,9 +40,9 @@ dropdown = {
     # )
 }
 
-pageHeader = {
+stickyHeaders = {
   init: ->
-    $('.js-page-header').waypoint((direction) ->
+    $('[data-behavior=sticky-header]').waypoint((direction) ->
       if direction == "down"
         $(@).addClass('stuck')
       if direction == "up"
@@ -68,8 +68,42 @@ helpOverlay = {
     )
 }
 
+matrixSlider = {
+  init: ->
+    $firstSlider = $('[data-behavior=matrix-slider]').first()
+    $leftButton = $('[data-behavior=matrix-slider-left]')
+    $rightButton = $('[data-behavior=matrix-slider-right]')
+    sliderWidth = $firstSlider.outerWidth(true)
+    itemCount = $firstSlider.find('li').length
+    itemWidth = $firstSlider.find('li').first().outerWidth()
+    listWidth = itemCount * itemWidth;
+    $('[data-behavior=matrix-slider] ul').each( ->
+      $(@).width(listWidth)
+    )
+    left = 0
+    $leftButton.click((event) ->
+      if left != 0
+        left += 205
+        $('[data-behavior=matrix-slider] ul').css('left', left)
+        $rightButton.removeClass('inactive')
+        if left == 0
+          $(@).addClass('inactive')
+      event.preventDefault()
+    )
+    $rightButton.click((event) ->
+      if listWidth + left > sliderWidth
+        left -= 205
+        $('[data-behavior=matrix-slider] ul').css('left', left)
+        $leftButton.removeClass('inactive')
+        if listWidth + left <= sliderWidth
+          $(@).addClass('inactive')
+      event.preventDefault()
+    )
+}
+
 $ ->
   dropdown.init()
-  pageHeader.init()
+  stickyHeaders.init()
   shortcutNav.init()
   helpOverlay.init()
+  matrixSlider.init()
