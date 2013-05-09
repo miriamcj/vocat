@@ -166,6 +166,12 @@
     }
 }
 
+%box-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 %orange-hover {
   &:hover {
     color: $orange;
@@ -237,7 +243,8 @@
   background-color: $beigeLight;
   // TODO adjust once comps have arrived
   padding: 1rem;
-  border-radius: 3.4rem;  
+  border-radius: 3.4rem;
+  cursor: default;
 }
 
 %white-button {
@@ -561,18 +568,23 @@
 // Frame
 // --------------------------------------------------------
 %frame {
-  // TODO adjust bottom padding
   padding: 3.4rem 0 2.4rem;
   position: relative;
   z-index: 110;
   &:nth-child(even) {
-    @include full-bleed {
-      background-color: $beigeLight;
-    }
     background-color: $beigeLight;
   }
   &:last-child {
     padding-bottom: 8rem;
+  }
+}
+
+%full-frame {
+  @extend %frame;
+  &:nth-child(even) {
+    @include full-bleed {
+      background-color: $beigeLight;
+    }
   }
 }
 
@@ -828,6 +840,7 @@
   height: 5rem;
   border-radius: 5rem;
   position: relative;
+  cursor: default;
 }
 
 %big-criterion {
