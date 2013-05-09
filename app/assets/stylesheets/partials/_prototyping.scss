@@ -237,13 +237,6 @@ h3 .editable-inline {
   }
 }
 
-<<<<<<< HEAD
-// Groups
-// These are temporary styles
-=======
-// Course map
-// These are mostly temporary styles
->>>>>>> cb782e8e9c75d58b0a5d56699e17e1b078d53a6d
 // --------------------------------------------------------
 // Patterns
 // --------------------------
@@ -279,7 +272,7 @@ h3 .editable-inline {
 .matrix--column-header {
   @extend %matrix--header;
   @include full-bleed {
-    background-color: $gray;  
+    background-color: $gray;
   }
   width: $mainWidth;
   height: $headerHeight * 2;
@@ -297,7 +290,7 @@ h3 .editable-inline {
 
 // Wraps .matrix--column-header--list
 .matrix--list-wrapper {
-  @extend %matrix--slider;  
+  @extend %matrix--slider;
 }
 
 .matrix--column-header--list {
@@ -309,7 +302,7 @@ h3 .editable-inline {
   li {
     @extend %matrix--wide;
     height: 100%;
-    border-right: 0.1rem solid $darker;    
+    border-right: 0.1rem solid $darker;
   }
 }
 
