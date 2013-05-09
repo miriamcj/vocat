@@ -568,18 +568,23 @@
 // Frame
 // --------------------------------------------------------
 %frame {
-  // TODO adjust bottom padding
   padding: 3.4rem 0 2.4rem;
   position: relative;
   z-index: 110;
   &:nth-child(even) {
-    @include full-bleed {
-      background-color: $beigeLight;
-    }
     background-color: $beigeLight;
   }
   &:last-child {
     padding-bottom: 8rem;
+  }
+}
+
+%full-frame {
+  @extend %frame;
+  &:nth-child(even) {
+    @include full-bleed {
+      background-color: $beigeLight;
+    }
   }
 }
 

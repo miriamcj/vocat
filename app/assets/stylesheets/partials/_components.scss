@@ -304,6 +304,12 @@
 // Can live inside any container that has the same width
 // as .page-content or .container
 .content-frame {
+  @extend %full-frame;
+}
+
+// Can live inside any container; doesn't include
+// full-bleed mixin
+.child-frame {
   @extend %frame;
 }
 
@@ -344,7 +350,7 @@
 }
 
 .portfolio-frame {
-  @extend %frame;
+  @extend %full-frame;
 }
 
 // Frame attachment
@@ -436,7 +442,7 @@
 }
 
 .evaluation-detail-frame {
-  @extend %frame;
+  @extend %full-frame;
 }
 
 .evaluation-detail--header {

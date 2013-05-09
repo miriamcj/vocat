@@ -418,6 +418,35 @@ h3 .editable-inline {
   }
 }
 
+// Overlay
+// ------------
+.matrix--overlay {
+  display: none;
+  width: 100%;
+  background-color: $beigeLight;
+  padding: 2rem;
+  position: relative;
+  z-index: 120;
+  h1 {
+    padding-left: 3.6rem;
+    position: relative;
+  }
+  .close {
+    @include svg(circle-x-gray);
+    display: block;
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .child-frame {
+    height: 40rem;
+    &:nth-child(odd) {
+      background-color: $beige;
+    }
+  }
+}
 
 
 

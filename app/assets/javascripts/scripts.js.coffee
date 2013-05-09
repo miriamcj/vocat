@@ -101,9 +101,25 @@ matrixSlider = {
     )
 }
 
+# TODO janky & temporary
+matrixOverlay = {
+  init: ->
+    $('[data-behavior=matrix-row-header] a').click((event) ->
+      $('.matrix--content').hide()
+      $('.matrix--overlay').show()
+      event.preventDefault()
+    )
+    $('.close').click((event) ->
+      $('.matrix--content').show()
+      $('.matrix--overlay').hide()
+      event.preventDefault()
+    )
+}
+
 $ ->
   dropdown.init()
   stickyHeaders.init()
   shortcutNav.init()
   helpOverlay.init()
   matrixSlider.init()
+  matrixOverlay.init()
