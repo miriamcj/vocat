@@ -104,14 +104,30 @@ matrixSlider = {
 # TODO janky & temporary
 matrixOverlay = {
   init: ->
-    $('[data-behavior=matrix-row-header] a').click((event) ->
+    $('[data-behavior=matrix-creators]').waypoint((direction) ->
+      if direction == "down" & $(@).hasClass('active')
+        $(@).addClass('stuck')
+      if direction == "up"
+        $(@).removeClass('stuck')
+    ,
+      offset: 116
+    )
+    $('[data-behavior=matrix-creators]').find('a').click((event) ->
+      listPositionAbsolute = $('[data-behavior=matrix-creators-list]').offset().top - $(window).scrollTop() - 266
+      listPositionIncremental = Math.ceil(listPositionAbsolute / 68) * 68
       $('.matrix--content').hide()
       $('.matrix--overlay').show()
+      $('[data-behavior=matrix-creators]').addClass('active')
+      if listPositionIncremental <= 0
+        $('[data-behavior=matrix-creators-list]').css('top',listPositionIncremental)
+      window.scrollTo(top)
       event.preventDefault()
     )
     $('.close').click((event) ->
       $('.matrix--content').show()
       $('.matrix--overlay').hide()
+      $('[data-behavior=matrix-creators]').removeClass('active')
+      $('[data-behavior=matrix-creators-list]').css('top','0')
       event.preventDefault()
     )
 }

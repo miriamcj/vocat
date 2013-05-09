@@ -255,7 +255,7 @@ h3 .editable-inline {
   margin-right: 0.1rem;
   overflow-x: hidden;
   ul {
-    @include transition(0.2s left ease-in-out);
+    @include transition(0.3s left ease-in-out);
     position: relative;
   }
 }
@@ -323,6 +323,7 @@ h3 .editable-inline {
 }
 
 %matrix--controls--item {
+  @extend %bare-focus;
   @extend %hidden-text;
   // @include transition(0.1s opacity ease-out);
   display: block;
@@ -346,24 +347,32 @@ h3 .editable-inline {
   margin-left: 1.6rem;
 }
 
-// Body
-// ------------
-.matrix--body {
-  @extend %clearfix;
-  padding: $headerHeight 0 0 ($matrixCellWidth - 0.1);
-  position: relative;
-}
-
 // Row header
 // ------------
-// TODO add .stuck styles
+// Wraps .matrix--row-header
+.matrix--name-nav {
+  width: $mainWidth;
+  padding-top: $headerHeight;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 110;
+  &.active {
+    @include opacity(50);
+  }
+  &.stuck {
+    position: fixed;
+    margin: 0 auto;
+    top: 11.6rem;
+    left: auto;
+  }
+}
+
 // TODO sort out full-bleed approach
 .matrix--row-header {
   width: $matrixCellWidth - 0.1;
-  position: absolute;
-  top: $headerHeight;
-  left: 0;
-  z-index: 100;
+  position: relative;
+  top: 0;
   ul {
     @extend %clearfix;
     @extend %unstyled-list;
@@ -380,6 +389,7 @@ h3 .editable-inline {
     }
   }
   a {
+    @extend %bare-focus;
     @extend %box-link;
     @extend %bare-link;
     font-weight: $medium;
@@ -393,10 +403,17 @@ h3 .editable-inline {
 
 // Content
 // ------------
+// Wraps .matrix--content
+.matrix--body {
+  @extend %clearfix;
+  padding: $headerHeight 0 0 ($matrixCellWidth - 0.1);
+  position: relative;
+}
+
 .matrix--content {
   @extend %matrix--slider;
   position: relative;
-  z-index: 110;
+  z-index: 120;
 }
 
 // <ul>
