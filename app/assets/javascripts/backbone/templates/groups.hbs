@@ -1,0 +1,15 @@
+<div data-behavior="droppable-user" class="groups--owners-wrapper" >
+  {{#each creators}}
+    <div data-behavior="draggable-user" data-user-id="{{this.id}}" class="groups--owner" >
+      <img src="{{this.gravatar}}50" />
+      <span class="groups--owner-name ">
+      {{this.name}}
+      </span>
+    </div>
+  {{/each}}
+</div>
+
+<div>
+  <div data-behavior="droppable-group" data-group-id="" class="groups--group">New Group</div>
+  <div style="clear: both"></div>
+</div>

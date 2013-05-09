@@ -32,7 +32,9 @@ Vocat::Application.routes.draw do
     end
     scope :module => "courses" do
       resources :projects
-      resources :settings, :only => ['update', 'edit']
+      resources :groups
+      match 'settings' => 'settings#edit', :via => :get
+      match 'settings' => 'settings#update', :via => :put
     end
     resources :rubrics, shallow: true
   end

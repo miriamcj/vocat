@@ -10,7 +10,7 @@ class Courses::SettingsController < ApplicationController
   def update
     respond_to do |format|
       if @course.update_attributes({:settings => params[:settings]})
-        format.html { redirect_to edit_course_setting_path(@course), notice: 'Course settings were successfully updated.' }
+        format.html { redirect_to course_settings_path(@course), notice: 'Course settings were successfully updated.' }
       else
         format.html { render action: "edit" }
       end

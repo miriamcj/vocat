@@ -13,9 +13,11 @@
               <li>
                 <%=  link_to 'Projects', course_projects_path(@course) %>
               </li>
-              <li><a href="">Groups</a></li>
               <li>
-                <%=  link_to 'Settings', edit_course_setting_path(:id => @course.id) %>
+                <%=  link_to 'Groups', course_groups_path(@course) %>
+              </li>
+              <li>
+                <%=  link_to 'Settings', course_settings_path(@course.id) %>
               </li>
             </ul>
           </div>

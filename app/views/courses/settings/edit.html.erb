@@ -4,7 +4,7 @@
   </div>
   <div class="content-frame">
 
-    <%= form_tag(course_setting_path(@course), :method => 'put') do %>
+    <%= form_tag(course_settings_path(@course.id), :method => 'put') do %>
       <ul class="unstyled">
         <li>
           <%= check_box_tag('settings[enable_annotation]', 1, @course.settings['enable_annotation'])%>
