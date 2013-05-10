@@ -451,7 +451,6 @@ h3 .editable-inline {
 // ------------
 .groups--owners-wrapper {
   @extend %clearfix;
-  background: red;
 }
 
 .groups--owner {
@@ -459,11 +458,19 @@ h3 .editable-inline {
   background-color: #ECE7E6;
   border: 1px solid black;
   margin: 10px;
+  font-size: 1.5rem;
+  position: relative;
+  &.selected {
+    color: #FFF;
+    background-color: #666666;
+  }
+}
+
+.groups--owner-container {
   padding: 5px;
   width: 150px;
   float: left;
-  font-size: 1.5rem;
-  position: relative;
+
 }
 
 .groups--owner-name {
