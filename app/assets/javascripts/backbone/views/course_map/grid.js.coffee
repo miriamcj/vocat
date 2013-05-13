@@ -35,29 +35,44 @@ class Vocat.Views.CourseMapGrid extends Vocat.Views.AbstractView
 	# This method creates the multidimensional hash we'll need to create
 	# the grid. Normally, we would probably just do this in the view, but
 	# since we're using logicless handlebar views, that's not an option.
-	prepareViewContext: () ->
-		rows = []
-		@creators.each (creator, creatorIndex) =>
-			row = {}
-			row.creator = creator.toJSON()
-			row.cells = []
-			@projects.each (project, projectIndex) =>
-				submission = _.first(@submissions.where({creator_id: creator.id, project_id: project.id}))
-				if submission?
-					submission = submission.toJSON()
-				cellData = {
-					project_id: project.id
-					submission: submission
-				}
-				row.cells.push cellData
-			rows.push row
-		context = {
-			projects: @projects.toJSON()
-			rows: rows
-		}
+#	prepareViewContext: () ->
+#		rows = []
+#		@creators.each (creator, creatorIndex) =>
+#			row = {}
+#			row.creator = creator.toJSON()
+#			row.cells = []
+#			@projects.each (project, projectIndex) =>
+#				submission = _.first(@submissions.where({creator_id: creator.id, project_id: project.id}))
+#				if submission?
+#					submission = submission.toJSON()
+#				cellData = {
+#					project_id: project.id
+#					submission: submission
+#				}
+#				row.cells.push cellData
+#			rows.push row
+#		context = {
+#			projects: @projects.toJSON()
+#			rows: rows
+#		}
 
 	render: () ->
-		context = @prepareViewContext()
+		#context = @prepareViewContext()
+
+		context = {
+			creators: @creators.toJSON()
+			projects: @projects.toJSON()
+		}
+
 		@$el.html(@template(context))
+
+		# Make the header STICKY
+		$('[data-behavior=sticky-header]').waypoint((direction) ->
+				if direction == "down"
+					$(@).addClass('stuck')
+				if direction == "up"
+					$(@).removeClass('stuck')
+		)
+
 
 
