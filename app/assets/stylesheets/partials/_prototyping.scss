@@ -475,8 +475,9 @@ h3 .editable-inline {
   background-color: #ECE7E6;
   border: 1px solid black;
   margin: 10px;
+  width: 125px;
   font-size: 1.5rem;
-  position: relative;
+  height: 100px;
   &.selected {
     color: #FFF;
     background-color: #666666;
@@ -491,9 +492,7 @@ h3 .editable-inline {
 }
 
 .groups--owner-name {
-  position: absolute;
   top: 5px;
-  width: 82px;
   left: 60px;
   display: block;
 }

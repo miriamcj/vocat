@@ -43,17 +43,57 @@ class Vocat.Views.Groups extends Vocat.Views.AbstractView
 	animateMove: (el, ui) ->
 		el = $(el)
 		targetOffset = ui.helper.offset()
-
+#		el.offset(targetOffset)
 		console.log targetOffset
+		console.log targetOffset
+#		el.animate(
+#			{
+#				postion: 'fixed'
+#				top: ui.helper.offset().top
+#				left: ui.helper.offset().left
+#			},
+#			'slow',
+#			() ->
+		ui.helper.find('.groups--owner').css({
+			zIndex: 20
+			position: 'absolute'
+			border: '2px solid green'
+		})
+		el.appendTo(ui.helper)
+		el.css({
+			position: 'absolute'
+			top: 0
+			left: 0
+			zIndex: 10
+		})
+		targetDegrees = @getRandomInt(0,30)
+		increment = Math.ceil(targetDegrees / 100)
+		console.log increment, targetDegrees
 		el.animate(
+			{  borderSpacing: -90 },
 			{
-				top: ui.helper.offset().top
-				left: ui.helper.offset().left
+				step: (now,fx) ->
+					move = now * increment
+					console.log move, increment
+					$target = $(@)
+					$target.css('-webkit-transform','rotate('+move+'deg)')
+					$target.css('-moz-transform','rotate('+move+'deg)')
+					$target.css('-ms-transform','rotate('+move+'deg)')
+					$target.css('-o-transform','rotate('+move+'deg)')
+					$target.css('transform','rotate('+move+'deg)')
+				duration:'100'
 			},
-			'slow',
-			() ->
-#				el.appendTo(newParent)
+			'linear'
 		)
+#		el.animate(
+#			{
+#				transform: 'rotate('+ @getRandomInt(-30,30) + 'deg)'
+#			}
+#		)
+#		)
+
+	getRandomInt: (min, max) ->
+		Math.floor(Math.random() * (max - min + 1)) + min
 
 	cloneAndGroupSelectedIn: (ui) ->
 
@@ -68,7 +108,8 @@ class Vocat.Views.Groups extends Vocat.Views.AbstractView
 			el = $(el)
 			data = el.data()
 			if !_.contains(ignoreIds, data.userId)
-				clone = $(el).clone().removeAttr('id').attr('data-clone', 1).css('position', 'absolute').css('background-color': 'red').css('z-index','50')
+				clone = $(el).clone().removeAttr('id').attr('data-clone', 1)
+				console.log clone
 				el.append(clone)
 				offset = $(el).offset()
 				$(clone).offset(offset)
@@ -88,12 +129,13 @@ class Vocat.Views.Groups extends Vocat.Views.AbstractView
 
 	initDraggables: () ->
 		@$el.find('[data-behavior="draggable-user"]').draggable({
-			revert: 'invalid'
+#			revert: 'invalid'
 			containment: 'document'
 			helper: 'clone'
 			cursor: 'move'
 			start: (event, ui) =>
 				ui.helper.find('.groups--owner').each (iteration, clone) =>
+					ui.helper.css({border: '1px solid blue'})
 					clone = $(clone)
 					clone.attr('data-clone', 1)
 					original = @getOriginalFromClone(clone)
