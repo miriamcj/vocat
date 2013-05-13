@@ -11,6 +11,7 @@ try
   )
 catch e
 
+# TODO remove redundancy
 dropdown = {
   init: ->
     $toggle = $('[data-class=dropdown-toggle]')
@@ -20,19 +21,21 @@ dropdown = {
       containerHeight = $(@).parents('[data-class=dropdown-container]').outerHeight()
       $(@).css('top',containerHeight)
     )
-    # $(document).click( ->
-    #   $container.removeClass('open')
-    # )
-    # TODO click on toggle of closed menu should close any other open menu and open clicked menu
+    $(document).click( ->
+      $container.removeClass('open')
+    )
     $toggle.click((event) ->
       globalState = $container.hasClass('open')
-      localState = $(@).parents('.open').length
-      $(@).parents('[data-class=dropdown-container]').toggleClass('open')
-      if globalState == false
+      localState = $(@).parents().hasClass('open')
+      if globalState == true
+        $container.removeClass('open')
         event.stopPropagation()
+      if localState == false
+        event.stopPropagation()
+      else
+        $(@).parents('[data-class=dropdown-container]').toggleClass('open')
+      $(@).parents('[data-class=dropdown-container]').toggleClass('open')
       event.preventDefault()
-      # console.log globalState
-      # console.log localState
     )
     # TODO this breaks logout link
     # $dropdown.click((event) ->
@@ -60,10 +63,14 @@ shortcutNav = {
     )
 }
 
-# TODO needs to be aware of checkbox state before toggling active class
+# TODO :checked state should be persistent across pageloads
 helpOverlay = {
   init: ->
-    $('[data-behavior=help-overlay-toggle]').click( ->
+    $toggle = $('[data-behavior=help-overlay-toggle]')
+    state = $toggle.is(':checked')
+    if state == true
+      $toggle.parents('label').addClass('active')
+    $toggle.click( ->
       $(@).parents('label').toggleClass('active')
     )
 }
