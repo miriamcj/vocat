@@ -1,13 +1,22 @@
 class SubmissionsController < ApplicationController
 
   load_resource :submission
+  load_resource :user
+  load_resource :course
   respond_to :json
 
-  # GET /submissions
+  # GET /user/1/submissions.json
   # GET /submissions.json
   def index
     courses = current_user.evaluator_courses
-    @submissions = Submission.for_creator_and_course(@user, courses).all()
+    if @user
+      @submissions = Submission.for_creator_and_course(@user, courses).all()
+    elsif @course
+      @submissions = Submission.for_course(@course).all()
+    else
+      @submissions = Submission.for_course(courses)
+    end
+
     respond_with @submissions
   end
 

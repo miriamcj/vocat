@@ -436,11 +436,11 @@ h3 .editable-inline {
 // Overlay
 // ------------
 .matrix--overlay {
-  display: none;
-  width: 100%;
+  left: -99999px;
+  position: absolute;
+  width: 820px;
   background-color: $beigeLight;
   padding: 2rem;
-  position: relative;
   z-index: 120;
   h1 {
     padding-left: 3.6rem;

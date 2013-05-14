@@ -6,5 +6,8 @@ class Vocat.Views.CourseMapProjectDetail extends Vocat.Views.AbstractView
 		@render()
 
 	render: () ->
+		context = {
 
+		}
+		@$el.html(@template(context))
 

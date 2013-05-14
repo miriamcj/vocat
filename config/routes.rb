@@ -23,6 +23,7 @@ Vocat::Application.routes.draw do
   end
 
   resources :course, :only => ['read'] do
+    resources :submissions
   end
 
 
