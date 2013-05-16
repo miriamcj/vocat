@@ -42,5 +42,5 @@ class Vocat.Views.CourseMapCreatorDetail extends Vocat.Views.AbstractView
 			})
 			childContainer.append(childView.render())
 
-		Vocat.Utility.dropdown.init()
+#		Vocat.Utility.dropdown.init()
 

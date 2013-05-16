@@ -11,71 +11,93 @@ try
   )
 catch e
 
-# TODO remove redundancy
-window.Vocat.Utility = {
-	dropdown: {
-		init: ->
-			$toggle = $('[data-class=dropdown-toggle]')
-			$dropdown = $('[data-class=dropdown]')
-			$container = $('[data-class=dropdown-container]')
-			$dropdown.each( ->
-				containerHeight = $(@).parents('[data-class=dropdown-container]').outerHeight()
-				$(@).css('top',containerHeight)
-			)
+# Reference jQuery
+$ = jQuery
+
+##########################################
+# Dropdown Navigation Plugin
+##########################################
+$.fn.extend
+	dropdownNavigation: (options) ->
+		settings = {}
+		settings = $.extend settings, options
+
+		return @each ()->
+			$container= $(@)
+			$toggle = $container.find('[data-behavior="toggle"]')
+			$dropdown = $container.find('[data-behavior="dropdown-options"]').first()
+			toggleHeight = $toggle.outerHeight()
+			$dropdown.css('top',toggleHeight)
 			$(document).click( ->
 				$container.removeClass('open')
 			)
-			$toggle.click((event) ->
-				globalState = $container.hasClass('open')
-				localState = $(@).parents().hasClass('open')
-				if globalState == true
+			$toggle.click( (event) ->
+				event.preventDefault()
+				if $container.hasClass('open')
 					$container.removeClass('open')
 					event.stopPropagation()
-				if localState == false
-					event.stopPropagation()
 				else
-					$(@).parents('[data-class=dropdown-container]').toggleClass('open')
-				$(@).parents('[data-class=dropdown-container]').toggleClass('open')
-				event.preventDefault()
+					$container.addClass('open')
+					event.stopPropagation()
 			)
-	}
 
-	stickyHeaders: {
-		init: ->
-			$('[data-behavior=sticky-header]').waypoint((direction) ->
+##########################################
+# Sticky Header Plugin
+##########################################\
+$.fn.extend
+	stickyHeader: (options) ->
+
+		settings = {}
+		settings = $.extend settings, options
+
+		return @each ()->
+			$el = $(@)
+			$el.waypoint((direction) ->
 				if direction == "down"
-					$(@).addClass('stuck')
+					$el.addClass('stuck')
 				if direction == "up"
-					$(@).removeClass('stuck')
+					$el.removeClass('stuck')
 			)
-	}
 
-	# TODO temporary
-	shortcutNav: {
-		init: ->
-			$('.js-shortcut-nav-toggle').click((event) ->
-				$(@).toggleClass('active')
-				$('.js-shortcut-nav').toggleClass('visible')
-				event.preventDefault()
+##########################################
+# Shortcut Navigation Plugin
+##########################################
+$.fn.extend
+	shortcutNavigation: (options) ->
+
+		settings = {}
+		settings = $.extend settings, options
+
+		return @each ()->
+			$el = $(@)
+			$el.click((event) ->
+					$el.toggleClass('active')
+					$('.js-shortcut-nav').toggleClass('visible')
+					event.preventDefault()
 			)
-	}
 
-	# TODO :checked state should be persistent across pageloads
-	helpOverlay: {
-		init: ->
-			$toggle = $('[data-behavior=help-overlay-toggle]')
+##########################################
+# Help Overlay Plugin (may be refactored
+# into Backbone view)
+##########################################
+$.fn.extend
+	helpOverlay: (options) ->
+
+		settings = {}
+		settings = $.extend settings, options
+
+		return @each ()->
+			$toggle = $(@)
 			state = $toggle.is(':checked')
 			if state == true
 				$toggle.parents('label').addClass('active')
 			$toggle.click( ->
 				$(@).parents('label').toggleClass('active')
 			)
-	}
-
-}
 
 $ ->
-	Vocat.Utility.dropdown.init()
-	Vocat.Utility.stickyHeaders.init()
-	Vocat.Utility.shortcutNav.init()
-	Vocat.Utility.helpOverlay.init()
+	$('[data-behavior="dropdown"]').dropdownNavigation()
+	$('[data-behavior="sticky-header"]').stickyHeader()
+	$('[data-behavior="shortcut-nav-toggle"]').shortcutNavigation()
+	$('[data-behavior="help-overlay-toggle"]').helpOverlay()
+	
