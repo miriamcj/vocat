@@ -237,6 +237,7 @@ h3 .editable-inline {
   }
 }
 
+// Matrix
 // --------------------------------------------------------
 // Patterns
 // --------------------------
@@ -251,7 +252,7 @@ h3 .editable-inline {
 }
 
 %matrix--slider {
-  border-left: 0.1rem solid $darker;
+  width: $matrixOverlayWidth - 0.1rem;
   margin-right: 0.1rem;
   overflow-x: hidden;
   ul {
@@ -268,21 +269,17 @@ h3 .editable-inline {
 
 // Column header
 // ------------
-// TODO sort out a way to add %shaded bottom; might need to abandon full-bleed
+// NB %alt-full-bleed changes box-sizing to content-box
 .matrix--column-header {
-  @extend %matrix--header;
-  @include full-bleed {
-    background-color: $gray;
-  }
+  @extend %alt-full-bleed;
+  @extend %shaded-bottom;
   width: $mainWidth;
-  height: $headerHeight * 2;
-  background-color: $gray;
-  padding: $headerHeight 0 0 ($matrixCellWidth - 0.1);
+  height: $headerHeight;
+  background-color: $tealLightest;
   position: absolute;
   top: -$headerHeight;
   z-index: 150;
   &.stuck {
-    margin: 0 auto;
     position: fixed;
     top: 0;
   }
@@ -291,6 +288,8 @@ h3 .editable-inline {
 // Wraps .matrix--column-header--list
 .matrix--list-wrapper {
   @extend %matrix--slider;
+  display: inline-block;
+  border-left: 0.1rem solid $tealMedium;
 }
 
 .matrix--column-header--list {
@@ -302,33 +301,34 @@ h3 .editable-inline {
   li {
     @extend %matrix--wide;
     height: 100%;
-    border-right: 0.1rem solid $darker;
+    border-right: 0.1rem solid $tealMedium;
   }
 }
 
 .matrix--column-header--link {
   @extend %mega;
+  @extend %bare-link;
   @extend %box-link;
   text-transform: uppercase;
   @include font-head;
-  color: $beigeLight;
-  padding: 1rem 1.6rem;
+  color: $tealMedium;
+  padding: 1.7rem 1.6rem 1rem;
 }
 
 .matrix--controls {
   @extend %clearfix;
-  position: absolute;
-  left: 1.6rem;
-  bottom: 3.8rem;
+  display: inline-block;
+  width: $matrixCellWidth - 0.1;
+  height: $headerHeight;
+  padding: 4rem 0 4rem 1.6rem;
 }
 
 %matrix--controls--item {
   @extend %bare-focus;
   @extend %hidden-text;
-  // @include transition(0.1s opacity ease-out);
   display: block;
-  width: 4rem;
-  height: 4rem;
+  width: 3.6rem;
+  height: 3.6rem;
   float: left;
   &.inactive {
     @include opacity(25);
@@ -338,13 +338,19 @@ h3 .editable-inline {
 
 .matrix--previous {
   @extend %matrix--controls--item;
-  @include svg(circle-arrow-left-beigeLight);
+  @include svg(arrow-solid-left-teal);
+  &.inactive {
+    @include svg(arrow-left-teal);
+  }
 }
 
 .matrix--next {
   @extend %matrix--controls--item;
-  @include svg(circle-arrow-right-beigeLight);
+  @include svg(arrow-solid-right-teal);
   margin-left: 1.6rem;
+  &.inactive {
+    @include svg(arrow-right-teal);
+  }
 }
 
 // Row header
@@ -380,6 +386,8 @@ h3 .editable-inline {
   }
   li {
     @extend %matrix--tall;
+    display: table;
+    width: 100%;
     &:nth-child(even) {
       // @include full-bleed {
       //   background-color: $beigeLight;
@@ -389,14 +397,17 @@ h3 .editable-inline {
     }
   }
   a {
+    @extend %gamma-sup;
     @extend %bare-focus;
-    @extend %box-link;
     @extend %bare-link;
-    font-weight: $medium;
-    padding: 2.4rem 1.6rem;
+    display: table-cell;
+    vertical-align: middle;
+    font-weight: $bold;
+    color: $tealMedium;
+    padding: 0 1.6rem;
     &:hover {
       color: $white;
-      background-color: $grayLighter;
+      background-color: $tealLightest;
     }
   }
 }
@@ -412,6 +423,7 @@ h3 .editable-inline {
 
 .matrix--content {
   @extend %matrix--slider;
+  border-left: 0.1rem solid $grayLighter;
   position: relative;
   z-index: 120;
 }
@@ -429,18 +441,17 @@ h3 .editable-inline {
     @extend %matrix--wide;
     @extend %matrix--tall;
     padding: 1rem 1.6rem;
-    border-right: 0.1rem solid $darker;
+    border-right: 0.1rem solid $grayLighter;
   }
 }
 
 // Overlay
 // ------------
 .matrix--overlay {
-  left: -99999px;
-  position: absolute;
-  width: 820px;
+  width: $matrixOverlayWidth;
   background-color: $beigeLight;
   padding: 2rem;
+  position: absolute;
   z-index: 120;
   h1 {
     padding-left: 3.6rem;
@@ -454,12 +465,6 @@ h3 .editable-inline {
     position: absolute;
     top: 0;
     left: 0;
-  }
-  .child-frame {
-    height: 40rem;
-    &:nth-child(odd) {
-      background-color: $beige;
-    }
   }
 }
 

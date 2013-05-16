@@ -76,7 +76,7 @@
 // Project selector
 // ------------
 .project-selector {
-  z-index: 100
+  @extend %dropdown-container;
 }
 
 .project-selector--toggle {
@@ -414,13 +414,13 @@
 }
 
 .frame-summary--creator {
-  @extend %gamma-alt;
+  @extend %gamma-sup;
   color: $grayLight;
   margin-bottom: 0.5rem;
 }
 
 .frame-summary--course {
-  @extend %gamma-alt;
+  @extend %gamma-sup;
   color: $grayLight;
   margin-bottom: 1.4rem;
 }
@@ -552,7 +552,7 @@
   @extend %comment-list;
   padding-right: 1.6rem;
   p {
-    @extend %gamma-alt;
+    @extend %gamma-sub;
     font-style: italic;
   }
 }

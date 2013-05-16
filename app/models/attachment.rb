@@ -48,7 +48,12 @@ class Attachment < ActiveRecord::Base
 
   # Some wrappers
   def url(style = :original)
-    media.expiring_url(Time.now + 3600, style)
+    case style
+    when :original
+      media.expiring_url(Time.now + 3600, style)
+    when :thumb
+      media.url :thumb
+    end
   end
   def to_s
     self.url
@@ -61,6 +66,20 @@ class Attachment < ActiveRecord::Base
   end
   def content_type
     media_content_type
+  end
+
+  def make_thumbnail_public
+    options = media.s3_credentials
+    input_key = media.interpolator.interpolate media.options[:path], media, :original
+    base = "#{File.dirname(input_key)}/#{File.basename(input_key, ".*")}"
+    target_key = "#{base}_thumb00001.png"
+
+    s3 = AWS::S3.new(options)
+    s3.client.put_object_acl(
+      bucket_name: options[:bucket],
+      key: target_key,
+      acl: "public_read"
+    )
   end
 
   # A method for generically running the transcoding
@@ -143,6 +162,7 @@ class Attachment < ActiveRecord::Base
       case status
         when 'Complete'
           self.update_column(:transcoding_status, TRANSCODING_STATUS_SUCCESS)
+          self.make_thumbnail_public
           break
         when 'Error'
           self.update_column(:transcoding_status, TRANSCODING_STATUS_ERROR)
