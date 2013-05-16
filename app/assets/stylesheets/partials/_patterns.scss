@@ -42,7 +42,7 @@
   @include font-size(19);
 }
 
-%gamma-alt {
+%gamma-sup {
   @include font-size(18);
 }
 
@@ -50,7 +50,7 @@
   @include font-size(17);
 }
 
-%gamma-alt {
+%gamma-sub {
   @include font-size(16);
 }
 
@@ -565,6 +565,19 @@
   );
 }
 
+// An alternative to the full-bleed mixin that doesn't use pseudoelements
+// http://css-tricks.com/full-browser-width-bars/#comment-94090
+// Works with box-shadows & such
+%alt-full-bleed {
+  @include box-sizing(content-box);
+  // Fallback for browsers that don't support viewport-relative units
+  padding: $headerHeight 200rem 0;
+  margin: 0 -200rem;
+  // For the browser who appreciates the finer things in life
+  padding: $headerHeight 50vw 0;
+  margin: 0 -50vw;
+}
+
 // Frame
 // --------------------------------------------------------
 %frame {
@@ -1058,7 +1071,7 @@
     margin-top: 0;
   }
   p {
-    @extend %gamma-alt;
+    @extend %gamma-sub;
     line-height: 1.1;
     color: $darker;
     padding-left: 2rem;
@@ -1072,7 +1085,7 @@
 
 // Lives inside %alert
 %alert--label {
-  @extend %gamma-alt;
+  @extend %gamma-sub;
   @include svg(warning-gray);
   height: 2.8rem;
   font-weight: $bold;
