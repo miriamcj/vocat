@@ -1,7 +1,14 @@
 class Vocat.Models.Annotation extends Backbone.Model
 
-	urlRoot: '/annotations'
+	urlRoot: '/api/v1/annotations'
 	paramRoot: 'annotation'
+
+	urlRoot: () ->
+		console.log @
+		url = '/api/v1/'
+		if @get('attachment_id')
+			url = url + "attachment/#{@get('attachment_id')}/"
+			url + 'annotations'
 
 	initialize: () ->
 		@visible = false

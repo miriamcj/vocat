@@ -11,8 +11,8 @@ class Vocat.Views.EvaluationDetail extends Vocat.Views.AbstractView
 		if Vocat.Bootstrap.Models.Creator?
 			@creator = new Vocat.Models.Creator(Vocat.Bootstrap.Models.Creator, {parse: true})
 
-		@annotations = new Vocat.Collections.Annotation
-		@annotations.fetch({ data: $.param({ attachment: @submission.get('video_attachment_id')}) });
+		@annotations = new Vocat.Collections.Annotation({attachmentId: @submission.get('video_attachment_id')})
+		@annotations.fetch();
 
 		Vocat.Dispatcher.bind('transcodingComplete', @render, @)
 

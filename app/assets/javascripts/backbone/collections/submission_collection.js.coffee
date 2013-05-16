@@ -3,7 +3,6 @@ class Vocat.Collections.Submission extends Backbone.Collection
 	model: Vocat.Models.Submission
 
 	initialize: (options) ->
-		console.log options, 'optoins'
 		if options.creatorId? then @creatorId = options.creatorId
 		if options.courseId? then @courseId = options.courseId
 

@@ -6,9 +6,13 @@ Vocat::Application.routes.draw do
   namespace :api do
     namespace :v1 do
 
-      resources :attachments
-      resources :annotations
-      resources :submission
+      resources :attachment, :only => [] do
+        resources :annotations, :only => [:index, :show, :create]
+      end
+
+      resources :submissions do
+        resources :attachments, :only => [:create]
+      end
 
       resources :course, :only => [:index, :show] do
         resources :submissions, :only =>[:index]

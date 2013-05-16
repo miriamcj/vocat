@@ -96,6 +96,8 @@ class Ability
     end
 
     can :attach, Submission do |submission|
+      next true
+
       if can?(:own, submission) || can?(:evaluate, submission)
         if cannot?(:evaluate, submission)
           if submission.course.settings['enable_creator_attach']

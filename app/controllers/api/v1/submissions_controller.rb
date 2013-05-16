@@ -1,6 +1,6 @@
 class Api::V1::SubmissionsController < ApiController
 
-  load_resource :submission
+  load_and_authorize_resource :submission
   load_resource :creator, :class => 'User', :shallow => true
   load_resource :course, :shallow => true
   load_resource :project, :shallow => true

@@ -33,7 +33,7 @@ class Vocat.Views.EvaluationDetailVideoUpload extends Vocat.Views.AbstractView
 		@$el.hide()
 
 		$('#fileupload').fileupload
-			url: '/submissions/' + @submission.id + '/attachments'
+			url: '/api/v1/submissions/' + @submission.id + '/attachments'
 			dataType: 'json'
 			done: (e, data) =>
 				@attachment = new Vocat.Models.Attachment(data.result)
