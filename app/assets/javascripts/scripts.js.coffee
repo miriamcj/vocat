@@ -1,14 +1,14 @@
 # Typekit font events
 try
-  Typekit.load(
-    active: ->
-      # Vertically centers alert labels
-      $('[data-behavior=alert]').each( ->
-        alertHeight = $(@).outerHeight()
-        alertTop = (alertHeight / 2) - 14;
-        $(@).children('[data-behavior=alert-label]').css('top',alertTop)
-      )
-  )
+	Typekit.load(
+		active: ->
+			# Vertically centers alert labels
+			$('[data-behavior=alert]').each( ->
+				alertHeight = $(@).outerHeight()
+				alertTop = (alertHeight / 2) - 14;
+				$(@).children('[data-behavior=alert-label]').css('top',alertTop)
+			)
+	)
 catch e
 
 # Reference jQuery
@@ -96,8 +96,16 @@ $.fn.extend
 			)
 
 $ ->
+
+	$(window).scroll( (event) ->
+		console.log $(@).scrollTop(), 'window scroll'
+	)
+
+	$('body').scroll( (event) ->
+		console.log $(@).scrollTop(), 'body scroll'
+	)
+
 	$('[data-behavior="dropdown"]').dropdownNavigation()
 	$('[data-behavior="sticky-header"]').stickyHeader()
 	$('[data-behavior="shortcut-nav-toggle"]').shortcutNavigation()
 	$('[data-behavior="help-overlay-toggle"]').helpOverlay()
-	
