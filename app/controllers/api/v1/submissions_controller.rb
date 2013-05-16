@@ -1,23 +1,37 @@
-class SubmissionsController < ApplicationController
+class Api::V1::SubmissionsController < ApiController
 
   load_resource :submission
-  load_resource :user
-  load_resource :course
+  load_resource :creator, :class => 'User', :shallow => true
+  load_resource :course, :shallow => true
+  load_resource :project, :shallow => true
   respond_to :json
 
   # GET /user/1/submissions.json
   # GET /submissions.json
   def index
-    courses = current_user.evaluator_courses
-    if @user
-      @submissions = Submission.for_creator_and_course(@user, courses).all()
-    elsif @course
-      @submissions = Submission.for_course(@course).all()
-    else
-      @submissions = Submission.for_course(courses)
+    brief = params[:brief].to_i()
+
+    if @course
+      authorize! :evaluate, @course
     end
 
-    respond_with @submissions
+    if @creator && !@course
+      authorize! :read, @creator
+    end
+
+    if @course && @creator
+      @submissions = Submission.for_creator_and_course(@creator, @course).all()
+    elsif @creator
+      @submissions = Submission.for_creator(@user, @course).all()
+    elsif @course
+      @submissions = Submission.for_course(@course).all()
+    end
+
+    if brief == 1
+      respond_with @submissions, :each_serializer => BriefSubmissionSerializer
+    else
+      respond_with @submissions
+    end
   end
 
   # GET /user/1/submissions/1.json

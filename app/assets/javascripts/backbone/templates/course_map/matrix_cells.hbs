@@ -1,0 +1,21 @@
+{{#each creators}}
+<ul class="matrix--row">
+  {{#each ../projects}}
+  <li>
+    {{#get_submission ../../submissions ../this this}}
+      {{#if this}}
+        {{#if uploaded_attachment}}
+          <img src="{{thumb}}" style="width: 75px; float: left; margin-right: 15px;" />
+        {{else}}
+          <div class="attachment-placeholder" style="width: 75px; height: 42px; padding-bottom: 0px; float: left; margin-right: 15px;"></div>
+      	{{/if}}
+        <h2 class="heading-largest">{{instructor_score_percentage}}%</h2>
+      {{else}}
+        <div class="attachment-placeholder" style="width: 75px; height: 42px; padding-bottom: 0px; float: left; margin-right: 15px;"></div>
+        <h2 class="heading-largest">--</h2>
+      {{/if}}
+    {{/get_submission}}
+  </li>
+  {{/each}}
+</ul>
+{{/each}}

@@ -588,6 +588,13 @@
   }
 }
 
+%constrained-frame {
+  @extend %frame;
+  &:nth-child(even) {
+    background-color: $beigeLight;
+  }
+}
+
 // Extended by %frame--left & %frame--right
 // Inline-block instead of float so it works with full-bleed 
 // NB whitespace between the two column elements will display

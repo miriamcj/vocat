@@ -16,7 +16,7 @@ class Submission < ActiveRecord::Base
   delegate :name, :to => :project, :prefix => true
   delegate :name, :to => :creator, :prefix => true
 
-  scope :for_course, lambda { |course| joins(:project).where('projects.course_id' => course).includes(:course, :attachments) }
+  scope :for_course, lambda { |course| joins(:project).where('projects.course_id' => course).includes(:attachments) }
   scope :for_creator, lambda { |creator| where('creator_id' => creator).includes(:course, :project, :attachments) }
   scope :for_creator_and_course, lambda { |creator, course| where('creator_id' => creator, 'projects.course_id' => course).includes(:course, :project, :attachments) }
   scope :for_creator_and_project, lambda { |creator, project| where('creator_id' => creator, 'project_id' => project).includes(:course, :project, :attachments) }
@@ -124,7 +124,7 @@ class Submission < ActiveRecord::Base
 		  raise ArgumentError, "score_percentage expects type to be 'instructor' or 'peer'"
 	  end
 	  if total_score >= 0 && total_count > 0
-		  total_score.to_f / total_count
+		  (total_score.to_f / total_count).to_i()
 	  else
 		  0
 	  end

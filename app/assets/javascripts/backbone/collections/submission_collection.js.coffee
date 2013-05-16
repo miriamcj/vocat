@@ -3,14 +3,17 @@ class Vocat.Collections.Submission extends Backbone.Collection
 	model: Vocat.Models.Submission
 
 	initialize: (options) ->
-		if options.userId? then @userId = options.userId
-		if options.courseId? then @courseId= options.courseId
+		console.log options, 'optoins'
+		if options.creatorId? then @creatorId = options.creatorId
+		if options.courseId? then @courseId = options.courseId
 
 	url: () ->
-		if @userId
-			url = "/user/#{@userId}/submissions"
-		else if @courseId
-			url = "/course/#{@courseId}/submissions"
-		else
-			url = "/submissions"
-		url
+		url = '/api/v1/'
+
+		if @courseId
+			url = url + "course/#{@courseId}/"
+
+		if @creatorId
+			url = url + "creator/#{@creatorId}/"
+
+		url + 'submissions'

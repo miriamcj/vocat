@@ -73,6 +73,20 @@
   @extend %dropdown;
 }
 
+// Project selector
+// ------------
+.project-selector {
+  z-index: 100
+}
+
+.project-selector--toggle {
+  @extend %dropdown-toggle;
+}
+
+.project-selector--dropdown {
+  @extend %dropdown;
+}
+
 // User selector
 // ------------
 .user-selector {
@@ -351,6 +365,10 @@
 
 .portfolio-frame {
   @extend %full-frame;
+}
+
+.constrained-portfolio-frame {
+  @extend %constrained-frame;
 }
 
 // Frame attachment

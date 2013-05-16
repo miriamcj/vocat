@@ -56,6 +56,16 @@ class Ability
       project.course.creators.include?(user)
     end
 
+    ######################################################
+    ### Users
+    ######################################################
+    can [:viewSubmissions], User do |theUser|
+      if user.id == theUser.id
+        true
+      else
+        false
+      end
+    end
 
     ######################################################
     ### Submissions

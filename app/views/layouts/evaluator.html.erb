@@ -5,7 +5,7 @@
   <% content_for :adaptive_navigation do %>
     <nav class="adaptive-nav">
       <ul class="adaptive-nav--list">
-        <li><%= link_to 'Evaluations', courses_evaluations_path(@course) %></li>
+        <li><%= link_to 'Evaluations', course_evaluations_path(@course) %></li>
         <li data-class="dropdown-container">
           <a class="adaptive-nav--link" data-class="dropdown-toggle" href="<%= url_for course_path(@course) %>">Manage Course</a>
           <div class="adaptive-nav--dropdown" data-class="dropdown">

@@ -3,31 +3,38 @@ Vocat::Application.routes.draw do
 
   devise_for :users, :controllers => {:registrations => 'registrations'}
 
-  match '/' => 'portfolio#index', :as => 'portfolio'
-  match '/course_map_dev' => 'courses/evaluations#course_map_dev', :via => :get
-  match '/courses/:course_id/evaluations' => 'courses/evaluations#course_map', :via => :get, :as => 'courses_evaluations'
-  match '/courses/:course_id/evaluations/creator/:creator_id' => 'courses/evaluations#course_map', :via => :get, :as => 'courses_evaluations_for_creator'
-  match '/courses/:course_id/evaluations/creator/:creator_id/project/:project_id' => 'courses/evaluations#course_map', :via => :get, :as => 'courses_evaluations_for_creator_and_project'
-  match '/courses/:course_id/evaluations/project/:project_id' => 'courses/evaluations#course_map', :via => :get, :as => 'courses_evaluations_for_project'
-  match '/courses/:course_id/creator/:creator_id/project/:project_id' => 'courses/evaluations#creator_and_project', :via => :get, :as => 'course_creator_project'
+  namespace :api do
+    namespace :v1 do
 
+      resources :attachments
+      resources :annotations
+      resources :submission
 
-  resources :user, :only => ['read'] do
-      resources :submissions
+      resources :course, :only => [:index, :show] do
+        resources :submissions, :only =>[:index]
+        resources :creator, :only => [] do
+          resources :submissions, :only =>[:index]
+        end
+        resources :projects, :only =>[:index] do
+          resources :submissions, :only =>[:index]
+        end
+      end
+
+      resources :creator, :only => [] do
+        resources :submissions, :only =>[:index]
+        resources :projects, :only =>[:index]
+      end
+
+    end
   end
-
-  resources :annotations
-
-  resources :submissions do
-    resources :attachments
-  end
-
-  resources :course, :only => ['read'] do
-    resources :submissions
-  end
-
 
   resources :courses do
+
+    match 'evaluations' => 'courses/evaluations#course_map', :via => :get, :as => 'evaluations'
+    match 'evaluations/creator/:creator_id' => 'courses/evaluations#course_map', :via => :get, :as => 'evaluations_for_creator'
+    match 'evaluations/creator/:creator_id/project/:project_id' => 'courses/evaluations#course_map', :via => :get, :as => 'evaluations_for_creator_and_project'
+    match 'evaluations/project/:project_id' => 'courses/evaluations#course_map', :via => :get, :as => 'evaluations_for_project'
+    match 'creator/:creator_id/project/:project_id' => 'courses/evaluations#creator_and_project', :via => :get, :as => 'creator_project'
 
     member do
       get 'portfolio'
@@ -41,7 +48,13 @@ Vocat::Application.routes.draw do
     resources :rubrics, shallow: true
   end
 
+
   get '/admin' => 'admin/dashboard#index', :as => 'admin_root'
+  match '/' => 'portfolio#index', :as => 'portfolio'
+  match '/course_map_dev' => 'courses/evaluations#course_map_dev', :via => :get
+
+
+
 
 #  resources :rubrics, :controller => 'admin/rubrics', :only => [:create, :update, :delete]
 #  namespace :admin do

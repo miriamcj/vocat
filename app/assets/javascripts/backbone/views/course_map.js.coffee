@@ -18,6 +18,7 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
 		window.Vocat.router.on "route:showCreatorDetail", (course, creator) => @showCreatorDetail(creator)
 		window.Vocat.router.on "route:showProjectDetail", (course, project) => @showProjectDetail(project)
 		window.Vocat.router.on "route:showGrid", (project) => @hideOverlay()
+		window.Vocat.Dispatcher.on "courseMap:redraw", () => @redraw()
 
 		@sliderData = {}
 
@@ -28,10 +29,6 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
 		@courseId = @projects.first().get('course_id')
 
 		@render()
-
-		@submissions = new Vocat.Collections.Submission({courseId: @courseId})
-		$.when(@submissions.fetch()).then () =>
-			@render()
 
 	navigateGrid: (event) ->
 		data = @preventAndExtractData(event)
@@ -81,6 +78,7 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
 
 	showCreatorProjectDetail: (creator, project) ->
 		@detailView = new Vocat.Views.CourseMapCreatorProjectDetail({
+			courseId: @courseId,
 			projects: @projects,
 			creators: @creators,
 		})
@@ -88,6 +86,7 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
 
 	showCreatorDetail: (creator) ->
 		@detailView = new Vocat.Views.CourseMapCreatorDetail({
+			courseId: @courseId,
 			creator: creator
 			projects: @projects,
 			creators: @creators,
@@ -96,6 +95,7 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
 
 	showProjectDetail: (project) ->
 		@detailView = new Vocat.Views.CourseMapProjectDetail({
+			courseId: @courseId,
 			projects: @projects,
 			creators: @creators,
 		})
@@ -103,34 +103,13 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
 
 	initializeOverlay: () ->
 		@overlay = @$el.find('.js-matrix--overlay').first()
+		@overlay.show()
 		@overlay.position({
 			my: 'left top'
 			at: 'left top'
 			of: $('.js-matrix--content').first()
 		})
-		@overlay.hide();
-
-
-	initializeSlider: () ->
-		firstSlider = @$el.find('[data-behavior="matrix-slider"]').first()
-		itemCount = firstSlider .find('li').length
-		itemWidth = firstSlider .find('li').first().outerWidth()
-		listWidth = itemCount * itemWidth;
-		minLeft = (listWidth * -1) + (itemWidth * 4)
-		slideElements = @$el.find('[data-behavior="matrix-slider"] ul')
-		slideElements.each ->
-				$(@).width(listWidth)
-
-		@sliderData = {
-			position: 0
-			listWidth: listWidth
-			minLeft: minLeft
-			maxLeft: 0
-			distance: 205
-			slideElements: slideElements
-		}
-
-		@updateSliderControls()
+		@overlay.hide()
 
 	updateSliderControls: () ->
 		left = @$el.find('[data-behavior="matrix-slider-left"]')
@@ -154,6 +133,29 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
 			@sliderData.position = newLeft
 		@updateSliderControls()
 
+	setContentContainerHeight: () ->
+		height = @$el.find('[data-behavior="matrix-creators-list"]').first().height()
+		@$el.find('.matrix--content').first().css('min-height', height)
+		@$el.find('.js-matrix--overlay').first().css('min-height', height)
+
+	calculateAndSetSliderWidth: () ->
+		slider = @$el.find('[data-behavior="matrix-slider"]').first()
+		colCount = slider.find('li').length
+		colWidth = slider.find('li').first().outerWidth()
+		sliderWidth = colCount * colWidth
+		minLeft = (sliderWidth * -1) + (colWidth * 4)
+		slideElements = @$el.find('[data-behavior="matrix-slider"] ul')
+		slideElements.each ->
+			$(@).width(sliderWidth)
+		@sliderData = {
+			position: 0
+			sliderWidth: sliderWidth
+			minLeft: minLeft
+			maxLeft: 0
+			distance: 205
+			slideElements: slideElements
+		}
+
 	initializeStickyHeader: () ->
 		$('[data-behavior=sticky-header]').waypoint((direction) ->
 			if direction == "down"
@@ -162,23 +164,31 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
 				$(@).removeClass('stuck')
 		)
 
-	createRows: () ->
-		# DO THIS....
+	redraw: () ->
+		@setContentContainerHeight()
+		@calculateAndSetSliderWidth()
+		@updateSliderControls()
+		@initializeStickyHeader()
 
 	render: () ->
-		#context = @prepareViewContext()
-
 		context = {
 			creators: @creators.toJSON()
 			projects: @projects.toJSON()
-			rows: @createRows()
 		}
 
 		@$el.html(@template(context))
 
-		@initializeSlider()
 		@initializeOverlay()
-		@initializeStickyHeader()
+		@redraw()
+
+		matrixCells = new Vocat.Views.CourseMapMatrixCells({
+			el: @$el.find('.js-matrix--content').first()
+			creators: @creators
+			projects: @projects
+			courseId: @courseId
+		})
+
+
 
 
 
