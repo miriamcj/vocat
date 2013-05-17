@@ -3,7 +3,6 @@ class Vocat.Views.CourseMapCreatorDetail extends Vocat.Views.AbstractView
 	template: HBT["backbone/templates/course_map/creator_detail"]
 
 	initialize: (options) ->
-		console.log options
 		@courseId = options.courseId
 		@projects = options.projects
 		@creators = options.creators
@@ -42,5 +41,5 @@ class Vocat.Views.CourseMapCreatorDetail extends Vocat.Views.AbstractView
 			})
 			childContainer.append(childView.render())
 
-		Vocat.Utility.dropdown.init()
+		@$el.find('[data-behavior="dropdown"]').dropdownNavigation()
 

@@ -1,9 +1,10 @@
+<<<<<<< HEAD
 <header class="matrix--overlay--header">
   <h2 class="matrix--overlay--title">{{creator.name}}</h2>
   <a href="#" class="matrix--overlay--close" data-behavior="matrix-overlay-close">Close</a>
-  <nav class="project-selector" data-class="dropdown-container">
-    <a class="project-selector--toggle" data-class="dropdown-toggle" href="#">Select a project</a>
-    <div class="project-selector--dropdown" data-class="dropdown">
+  <nav class="project-selector" data-behavior="dropdown">
+    <a class="project-selector--toggle" data-behavior="dropdown-toggle" href="#">Select a project</a>
+    <div class="project-selector--dropdown" data-behavior="dropdown-options">
       <ul>
         {{#each projects}}
           <li><a class="active" href="/courses/12/portfolio"><strong>{{this.name}}:</strong></a></li>
