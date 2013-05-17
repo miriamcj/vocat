@@ -8,7 +8,7 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
     'click .js-navigate-exhibit':                   'navigateCreatorProjectDetail'
     'click .js-navigate-creator':                   'navigateCreatorDetail'
     'click .js-navigate-project':                   'navigateProjectDetail'
-    'click .close':                                 'navigateGrid'
+    'click [data-behavior="matrix-overlay-close"]': 'navigateGrid'
     'click [data-behavior="matrix-slider-left"]':   'slideLeft'
     'click [data-behavior="matrix-slider-right"]':  'slideRight'
 

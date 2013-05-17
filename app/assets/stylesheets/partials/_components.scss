@@ -73,20 +73,6 @@
   @extend %dropdown;
 }
 
-// Project selector
-// ------------
-.project-selector {
-  @extend %dropdown-container;
-}
-
-.project-selector--toggle {
-  @extend %dropdown-toggle;
-}
-
-.project-selector--dropdown {
-  @extend %dropdown;
-}
-
 // User selector
 // ------------
 .user-selector {
@@ -429,6 +415,13 @@
   @extend %heading-epsilon;
   @extend %arrow-link;
   margin: 1.9rem 0 0 0.8rem;
+}
+
+.frame-summary--status {
+  @extend %heading-epsilon;
+  @extend %check-indicator;
+  margin-top: 1.6rem;
+  float: right;
 }
 
 // Score list

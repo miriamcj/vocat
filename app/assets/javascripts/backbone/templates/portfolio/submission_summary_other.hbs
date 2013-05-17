@@ -30,4 +30,6 @@
     <h3 class="frame-summary--course"><a href="{{url_for 'courses_evaluations' submission.course_id}}"><strong>{{submission.course_department}}{{submission.course_number}} </strong> {{submission.course_name}} [Section {{submission.course_section}}]</a></h3>
 		{{> score_summary}}
     <a class="frame-summary--link" href="{{url_for 'courses_evaluations_for_creator_and_project' submission.course_id submission.creator_id submission.project_id}}">Expand Scores</a>
+    <!-- TODO has 'active' class only when published -->
+    <aside class="frame-summary--status active">[Published/Unpublished]</aside>
   </div>

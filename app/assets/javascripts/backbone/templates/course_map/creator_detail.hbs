@@ -1,9 +1,9 @@
-<div style="padding: 0 20px; position: relative;">
-  <h1 class="heading-largest">{{creator.name}}<a href="#" class="close"></a></h1>
-
+<header class="matrix--overlay--header">
+  <h2 class="matrix--overlay--title">{{creator.name}}</h2>
+  <a href="#" class="matrix--overlay--close" data-behavior="matrix-overlay-close">Close</a>
   <nav class="project-selector" data-class="dropdown-container">
     <a class="project-selector--toggle" data-class="dropdown-toggle" href="#">Select a project</a>
-    <div class="project-selector--dropdown" data-class="dropdown" style="top: 32px;">
+    <div class="project-selector--dropdown" data-class="dropdown">
       <ul>
         {{#each projects}}
           <li><a class="active" href="/courses/12/portfolio"><strong>{{this.name}}:</strong></a></li>
@@ -11,7 +11,5 @@
       </ul>
     </div>
   </nav>
-  <div class="js-submissions"></div>
-</div>
-
-
+</header>
+<div class="js-submissions"></div>

@@ -89,6 +89,10 @@
   @include font-size(41.75);
 }
 
+%mega-alt {
+  @include font-size(34);
+}
+
 %mega {
   @include font-size(27.4);
 }
@@ -274,6 +278,7 @@
 }
 
 // NB uses ems so font-size can be set on component
+// TODO abstract out pattern for this & %check-indicator
 %arrow-link {
   @extend %bare-link;
   display: inline-block;
@@ -281,11 +286,11 @@
   padding: 0.2em 2.2em 0.3em 0;
   position: relative;
   &:after {
+    @include svg(circle-arrow-right-teal);
     content: "";
     display: block;
     width: 1.5em;
     height: 1.5em;
-    @include svg(circle-arrow-right-teal);
     position: absolute;
     top: 0;
     right: 0;
@@ -324,6 +329,42 @@
     color: $orange;
     &:after {
       @include svg(circle-arrow-bent-orange);
+    }
+  }
+}
+
+// Not just for links!
+// NB uses ems so font-size can be set on component
+%check-indicator {
+  @extend %bare-link;
+  display: inline-block;
+  color: $teal;
+  padding: 0.5em 2.6em 0.6em 0;
+  position: relative;
+  &:before {
+    content: "";
+    display: block;
+    width: 1.9em;
+    height: 1.9em;
+    background-color: $tealLighter;
+    border-radius: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  &.active {
+    &:before {
+      background-color: $tealLight;
+    }
+    &:after {
+      @include svg(check-beigeLight);
+      content: "";
+      display: block;
+      width: 1.4rem;
+      height: 1.1rem;
+      position: absolute;
+      top: 0.55em;
+      right: 0.4em;
     }
   }
 }
@@ -545,7 +586,7 @@
 
 %shaded-top {
   @include box-shadow(
-    inset 0 3.2rem 1.6rem -1.6rem transparentize($black, 0.92)
+    inset 0 2.4rem 1.6rem -1.6rem transparentize($black, 0.92)
   );
 }
 
@@ -553,15 +594,15 @@
 // keep calm & mind your z-indexes
 %shaded-bottom {
   @include box-shadow(
-    0 -1.6rem 1.6rem 3.2rem transparentize($black, 0.92)
+    0 -1.6rem 1.6rem 2.4rem transparentize($black, 0.92)
   );
 }
 
 // NB ditto
 %shaded-top-bottom {
   @include box-shadow(
-    inset 0 3.2rem 1.6rem -1.6rem transparentize($black, 0.92),
-    0 -1.6rem 1.6rem 3.2rem transparentize($black, 0.92)
+    inset 0 2.4rem 1.6rem -1.6rem transparentize($black, 0.92),
+    0 -1.6rem 1.6rem 2.4rem transparentize($black, 0.92)
   );
 }
 
@@ -603,9 +644,8 @@
 
 %constrained-frame {
   @extend %frame;
-  &:nth-child(even) {
-    background-color: $beigeLight;
-  }
+  padding-right: 3.2rem;
+  padding-left: 3.2rem;
 }
 
 // Extended by %frame--left & %frame--right
@@ -651,7 +691,7 @@
   position: relative;
   &:before {
     content: "";
-    background-color: $grayDarker;
+    background-color: inherit;
     display: block;
     width: 3.6rem;
     height: 3.2rem;
@@ -675,7 +715,7 @@
     color: $orange;
     background-color: $grayDarkest;
     &:before {
-      background-color: $grayDarkest;
+      background-color: inherit;
     }
     &:after {
       @include svg(arrow-down-orange);
@@ -686,8 +726,23 @@
 %dropdown-toggle-dark {
   @extend %dropdown-toggle;
   background-color: $grayDarkest;
-  &:before {
-    background-color: $grayDarkest;
+}
+
+// NB make sure your dropdown matches your toggle, as they say
+%dropdown-toggle-teal {
+  @extend %dropdown-toggle;
+  color: $beigeLight;
+  background-color: $tealMedium;
+  &:after {
+    @include svg(arrow-down-beigeLight);
+  }
+  &:hover,
+  .open & {
+    color: $beigeLight;
+    background-color: $tealMedium;
+    &:after {
+      @include svg(arrow-down-beigeLight);
+    }
   }
 }
 
@@ -744,6 +799,24 @@
   }
   .open & {
     display: block;
+  }
+}
+
+%dropdown-teal {
+  @extend %dropdown;
+  background-color: $tealMedium;
+  &:before {
+    border-bottom-color: $tealMedium;
+  }
+  li + li {
+    border-top-color: transparentize($beigeLight, 0.5);
+  }
+  a {
+    color: $beigeLight;
+    &:hover,
+    &.active {
+      color: $beigeLight;
+    }
   }
 }
 

@@ -449,23 +449,55 @@ h3 .editable-inline {
 // ------------
 .matrix--overlay {
   width: $matrixOverlayWidth;
-  background-color: $beigeLight;
-  padding: 2rem;
+  background-color: $beige;
+  // padding: 2rem; 
   position: absolute;
+  overflow: hidden;
   z-index: 120;
-  h1 {
-    padding-left: 3.6rem;
-    position: relative;
-  }
-  .close {
-    @include svg(circle-x-gray);
-    display: block;
-    width: 2rem;
-    height: 2rem;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
+}
+
+.matrix--overlay--header {
+  @extend %shaded-bottom;
+  height: 8rem;
+  background-color: $beigeLight;
+  padding: 0 26rem 0 6.3rem;
+  position: relative;
+}
+
+.matrix--overlay--title {
+  @extend %mega-alt;
+  font-weight: $medium;
+  color: $tealMedium;
+  padding: 2rem 0;
+}
+
+.matrix--overlay--close {
+  @extend %hidden-text;
+  @include svg(circle-x-teal);
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  position: absolute;
+  top: 3rem;
+  left: 3.2rem;
+}
+
+// Project selector
+// ------------
+.project-selector {
+  @extend %dropdown-container;
+  position: absolute;
+  top: 2.4rem;
+  right: 3.8rem;
+}
+
+.project-selector--toggle {
+  @extend %dropdown-toggle-teal;
+}
+
+.project-selector--dropdown {
+  @extend %dropdown-teal;
+  @extend %dropdown-right;
 }
 
 
