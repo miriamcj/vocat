@@ -1,18 +1,28 @@
 {{#each creators}}
 <ul class="matrix--row">
   {{#each ../projects}}
-  <li>
+  <li class="matrix--cell">
     {{#get_submission ../../submissions ../this this}}
       {{#if this}}
         {{#if uploaded_attachment}}
-          <img src="{{thumb}}" style="width: 75px; float: left; margin-right: 15px;" />
+          <div class="matrix--cell--thumbnail">
+            <img src="{{thumb}}" />
+          </div>
         {{else}}
-          <div class="attachment-placeholder" style="width: 75px; height: 42px; padding-bottom: 0px; float: left; margin-right: 15px;"></div>
+          <div class="matrix--cell--thumbnail">
+            <div class="attachment-placeholder"></div>
+          </div>
       	{{/if}}
-        <h2 class="heading-largest">{{instructor_score_percentage}}%</h2>
+        <h2 class="matrix--cell--value">{{instructor_score_percentage}}<small>%</small></h2>
+        <!-- TODO active class is only applied when score is 'published' -->
+        <div class="matrix--cell--indicator active"></div>
       {{else}}
-        <div class="attachment-placeholder" style="width: 75px; height: 42px; padding-bottom: 0px; float: left; margin-right: 15px;"></div>
-        <h2 class="heading-largest">--</h2>
+        <div class="matrix--cell--thumbnail">
+          <div class="attachment-placeholder"></div>
+        </div>
+        <h2 class="matrix--cell--value">&ndash;&ndash;<small>%</small></h2>
+        <!-- TODO active class is only applied when score is 'published' -->
+        <div class="matrix--cell--indicator active"></div>
       {{/if}}
     {{/get_submission}}
   </li>

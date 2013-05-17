@@ -242,7 +242,7 @@
 %white-pill {
   @extend %heading-epsilon;
   display: inline-block;
-  color: $grayLighter;
+  color: $tealLighter;
   line-height: 1;
   background-color: $beigeLight;
   // TODO adjust once comps have arrived
@@ -266,14 +266,14 @@
   &:after {
     content: "";
     display: block;
-    border-radius: 100%;
     position: absolute;
     top: 0.5rem;
     bottom: 0.5rem;
     left: 0.5rem;
     // TODO remove once real icon has arrived
     width: 2rem;
-    border: 0.1rem solid $grayLighter;
+    border: 0.1rem solid $tealLighter;
+    border-radius: 100%;
   }
 }
 
