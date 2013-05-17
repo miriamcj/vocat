@@ -392,6 +392,7 @@
 // --------------------------
 .frame-summary {
   @extend %frame--right;
+  position: relative;
 }
 
 .frame-summary--title {
@@ -717,6 +718,270 @@
     @extend %orange-hover;
     @extend %bare-link;
   }
+}
+
+// Matrix
+// --------------------------------------------------------
+// Patterns
+// --------------------------
+// A unit that is one cell-width (any height)
+%matrix--wide {
+  width: $matrixCellWidth;
+}
+
+// A unit that is one cell-height (any width)
+%matrix--tall {
+  height: 6.8rem;
+}
+
+%matrix--slider {
+  width: $matrixOverlayWidth - 0.1rem;
+  margin-right: 0.1rem;
+  overflow-x: hidden;
+  ul {
+    @include transition(0.3s left ease-in-out);
+    position: relative;
+  }
+}
+
+// Components
+// --------------------------
+.matrix {
+  // margin-bottom: $headerHeight;
+}
+
+// Column header
+// ------------
+// TODO sort out how to apply full width shadow to bottom
+.matrix--column-header {
+  @extend %full-bleed;
+  // @extend %shaded-bottom;
+  width: $mainWidth;
+  height: $headerHeight;
+  background-color: $tealLightest;
+  position: absolute;
+  z-index: 150;
+  &.stuck {
+    position: fixed;
+    top: 0;
+  }
+}
+
+// Wraps .matrix--column-header--list
+.matrix--list-wrapper {
+  @extend %matrix--slider;
+  display: inline-block;
+  border-left: 0.1rem solid $tealMedium;
+  position: relative;
+}
+
+.matrix--column-header--list {
+  @extend %clearfix;
+  @extend %floated-list;
+  height: $headerHeight;
+  margin: 0;
+  overflow: hidden;
+  li {
+    @extend %matrix--wide;
+    height: 100%;
+    border-right: 0.1rem solid $tealMedium;
+  }
+}
+
+.matrix--column-header--link {
+  @extend %mega;
+  @extend %bare-link;
+  @extend %box-link;
+  text-transform: uppercase;
+  @include font-head;
+  color: $tealMedium;
+  padding: 1.7rem 1.6rem 1rem;
+}
+
+.matrix--controls {
+  @extend %clearfix;
+  display: inline-block;
+  width: $matrixCellWidth - 0.1;
+  height: $headerHeight;
+  padding: 4rem 0 4rem 1.6rem;
+  position: relative;
+}
+
+%matrix--controls--item {
+  @extend %bare-focus;
+  @extend %hidden-text;
+  display: block;
+  width: 3.6rem;
+  height: 3.6rem;
+  float: left;
+  &.inactive {
+    @include opacity(25);
+    cursor: default;
+  }
+}
+
+.matrix--previous {
+  @extend %matrix--controls--item;
+  @include svg(arrow-solid-left-teal);
+  &.inactive {
+    @include svg(arrow-left-teal);
+  }
+}
+
+.matrix--next {
+  @extend %matrix--controls--item;
+  @include svg(arrow-solid-right-teal);
+  margin-left: 1.6rem;
+  &.inactive {
+    @include svg(arrow-right-teal);
+  }
+}
+
+// Row header
+// ------------
+// Wraps .matrix--row-header
+.matrix--name-nav {
+  width: $mainWidth;
+  padding-top: $headerHeight;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 110;
+  &.active {
+    @include opacity(50);
+  }
+  &.stuck {
+    position: fixed;
+    margin: 0 auto;
+    top: 11.6rem;
+    left: auto;
+  }
+}
+
+// TODO sort out full-bleed approach
+.matrix--row-header {
+  width: $matrixCellWidth - 0.1;
+  position: relative;
+  top: 0;
+  ul {
+    @extend %clearfix;
+    @extend %unstyled-list;
+    margin: 0;
+  }
+  li {
+    @extend %matrix--tall;
+    display: table;
+    width: 100%;
+    &:nth-child(even) {
+      // @include full-bleed {
+      //   background-color: $beigeLight;
+      // }
+      background-color: $beigeLight;
+      // position: relative;
+    }
+  }
+  a {
+    @extend %gamma-sup;
+    @extend %bare-focus;
+    @extend %bare-link;
+    display: table-cell;
+    vertical-align: middle;
+    font-weight: $bold;
+    color: $tealMedium;
+    padding: 0 1.6rem;
+    &:hover {
+      color: $white;
+      background-color: $tealLightest;
+    }
+  }
+}
+
+// Content
+// ------------
+// Wraps .matrix--content
+.matrix--body {
+  @extend %clearfix;
+  padding: $headerHeight 0 0 ($matrixCellWidth - 0.1);
+  position: relative;
+}
+
+.matrix--content {
+  @extend %matrix--slider;
+  border-left: 0.1rem solid $grayLighter;
+  position: relative;
+  z-index: 120;
+}
+
+// <ul>
+.matrix--row {
+  @extend %matrix--tall;
+  @extend %floated-list;
+  margin: 0;
+  overflow-y: hidden;
+  &:nth-child(even) {
+    background-color: $beigeLight;
+  }
+  li {
+    @extend %matrix--wide;
+    @extend %matrix--tall;
+    padding: 1rem 1.6rem;
+    border-right: 0.1rem solid $grayLighter;
+  }
+}
+
+// Overlay
+// ------------
+.matrix--overlay {
+  width: $matrixOverlayWidth;
+  background-color: $beige;
+  // padding: 2rem; 
+  position: relative;
+  overflow: hidden;
+  z-index: 120;
+}
+
+.matrix--overlay--header {
+  @extend %shaded-bottom;
+  height: 8rem;
+  background-color: $beigeLight;
+  padding: 0 26rem 0 6.3rem;
+  position: relative;
+}
+
+.matrix--overlay--title {
+  @extend %mega-alt;
+  font-weight: $medium;
+  color: $tealMedium;
+  padding: 2rem 0;
+}
+
+.matrix--overlay--close {
+  @extend %hidden-text;
+  @include svg(circle-x-teal);
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  position: absolute;
+  top: 3rem;
+  left: 3.2rem;
+}
+
+// Project selector
+// ------------
+.project-selector {
+  @extend %dropdown-container;
+  position: absolute;
+  top: 2.4rem;
+  right: 3.8rem;
+}
+
+.project-selector--toggle {
+  @extend %dropdown-toggle-teal;
+}
+
+.project-selector--dropdown {
+  @extend %dropdown-teal;
+  @extend %dropdown-right;
 }
 
 // Alerts

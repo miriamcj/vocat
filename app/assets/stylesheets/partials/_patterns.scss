@@ -606,10 +606,10 @@
   );
 }
 
-// An alternative to the full-bleed mixin that doesn't extend outside the viewport
-// Requires a repaint on window resize
-// TODO rename
-%alt-full-bleed {
+// NB make sure any child elements have positioning so they aren't obscured by the pseudoelements
+// NB requires a repaint on window resize for '50vw' to update
+// TODO break out into %full-bleed-left & %full-bleed-right, with %full-bleed extending both
+%full-bleed {
   &:before,
   &:after {
     content: "";
@@ -619,6 +619,7 @@
     top: 0;
     bottom: 0;
     width: 50vw;
+    z-index: -1;
   }
   &:before {
     left: 50%;
@@ -645,9 +646,10 @@
 %full-frame {
   @extend %frame;
   &:nth-child(even) {
-    @include full-bleed {
-      background-color: $beigeLight;
-    }
+    @extend %full-bleed;
+    // @include full-bleed {
+    //   background-color: $beigeLight;
+    // }
   }
 }
 

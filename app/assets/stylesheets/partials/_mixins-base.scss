@@ -41,32 +41,6 @@
 
 // Utilities
 // --------------------------------------------------------
-// Full bleed
-// http://css-tricks.com/full-browser-width-bars/
-// Specify background & borders when you call it
-// Vertical positioning requires ajdustment when adding borders
-// Requires generatedcontent polyfill to work in IE7
-// NB won't work in IE7 if height is set explicitly 
-// --------------------------
-// TODO add right, left, both arguments, with both as default
-@mixin full-bleed {
-	&:before, 
-	&:after {
-		content: "";
-		width: 9999px;
-		width: 100vw;
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		@content;
-	}
-	&:before {
-		right: 100%;
-	}
-	&:after {
-		left: 100%;
-	}
-}
 
 // Sprite positions
 // http://spritegen.website-performance.org/
