@@ -454,7 +454,7 @@ h3 .editable-inline {
   width: $matrixOverlayWidth;
   background-color: $beige;
   // padding: 2rem; 
-  position: absolute;
+  position: relative;
   overflow: hidden;
   z-index: 120;
 }

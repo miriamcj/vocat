@@ -162,6 +162,7 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
 		}
 
 	redraw: () ->
+		@overlay.css('margin-top', @$el.find('.matrix--content').height() * -1 )
 		@setContentContainerHeight()
 		@calculateAndSetSliderWidth()
 		@updateSliderControls()
