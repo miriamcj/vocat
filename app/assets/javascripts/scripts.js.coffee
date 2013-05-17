@@ -47,17 +47,22 @@ $.fn.extend
 $.fn.extend
 	stickyHeader: (options) ->
 
-		settings = {}
-		settings = $.extend settings, options
+		$el = $(@)
 
-		return @each ()->
-			$el = $(@)
-			$el.waypoint((direction) ->
-				if direction == "down"
-					$el.addClass('stuck')
-				if direction == "up"
-					$el.removeClass('stuck')
-			)
+		if options == 'destroy'
+			$el.waypoint('destroy')
+			return $el
+		else
+			settings = {}
+			settings = $.extend settings, options
+
+			return @each ()->
+				$el.waypoint((direction) ->
+					if direction == "down"
+						$el.addClass('stuck')
+					if direction == "up"
+						$el.removeClass('stuck')
+				)
 
 ##########################################
 # Shortcut Navigation Plugin

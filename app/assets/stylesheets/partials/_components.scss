@@ -761,10 +761,6 @@
   background-color: $tealLightest;
   position: absolute;
   z-index: 150;
-  &.stuck {
-    position: fixed;
-    top: 0;
-  }
 }
 
 // Wraps .matrix--column-header--list
@@ -936,16 +932,18 @@
   background-color: $beige;
   // padding: 2rem; 
   position: relative;
+  border-left: 0.1rem solid $grayLighter;
+  border-right: 0.1rem solid $grayLighter;
   overflow: hidden;
   z-index: 120;
 }
 
 .matrix--overlay--header {
   @extend %shaded-bottom;
-  height: 8rem;
   background-color: $beigeLight;
-  padding: 0 26rem 0 6.3rem;
+  padding: 3.5rem 26rem 0 6.3rem;
   position: relative;
+
 }
 
 .matrix--overlay--title {
@@ -962,7 +960,7 @@
   width: 2rem;
   height: 2rem;
   position: absolute;
-  top: 3rem;
+  top: 6.5rem;
   left: 3.2rem;
 }
 
@@ -971,7 +969,7 @@
 .project-selector {
   @extend %dropdown-container;
   position: absolute;
-  top: 2.4rem;
+  top: 5.9rem;
   right: 3.8rem;
 }
 

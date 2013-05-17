@@ -101,13 +101,6 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
 
 	initializeOverlay: () ->
 		@overlay = @$el.find('.js-matrix--overlay').first()
-		@overlay.show()
-		@overlay.position({
-			my: 'left top'
-			at: 'left top'
-			of: $('.js-matrix--content').first()
-		})
-		@overlay.hide()
 
 	updateSliderControls: () ->
 		left = @$el.find('[data-behavior="matrix-slider-left"]')
@@ -160,12 +153,10 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
 		}
 
 	redraw: () ->
-		@overlay.css('margin-top', @$el.find('.matrix--content').height() * -1 )
+		@overlay.css('margin-top', (@$el.find('.matrix--content').height() * -1) - 116 ).css('z-index',400)
 		@setContentContainerHeight()
 		@calculateAndSetSliderWidth()
 		@updateSliderControls()
-
-		@overlay.stickyHeader()
 
 
 	render: () ->
