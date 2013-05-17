@@ -114,8 +114,13 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
 	updateSliderControls: () ->
 		left = @$el.find('[data-behavior="matrix-slider-left"]')
 		right = @$el.find('[data-behavior="matrix-slider-right"]')
-		if @sliderData.position == @sliderData.maxLeft then left.addClass('inactive') else left.removeClass('inactive')
-		if @sliderData.position == @sliderData.minLeft then right.addClass('inactive') else right.removeClass('inactive')
+		# The width of the slider has to be greater than 4 columns for the slider to be able to slide.
+		if (@sliderData.distance * 4) < @sliderData.sliderWidth
+			if @sliderData.position == @sliderData.maxLeft then left.addClass('inactive') else left.removeClass('inactive')
+			if @sliderData.position == @sliderData.minLeft then right.addClass('inactive') else right.removeClass('inactive')
+		else
+			left.addClass('inactive')
+			right.addClass('inactive')
 
 	slideLeft: (e) ->
 		e.preventDefault()
