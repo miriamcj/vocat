@@ -747,7 +747,7 @@
 // Components
 // --------------------------
 .matrix {
-  // margin-bottom: $headerHeight;
+
 }
 
 // Column header
@@ -856,7 +856,6 @@
 
 // TODO sort out full-bleed approach
 .matrix--row-header {
-  width: $matrixCellWidth - 0.1;
   position: relative;
   top: 0;
   ul {
@@ -866,25 +865,23 @@
   }
   li {
     @extend %matrix--tall;
-    display: table;
     width: 100%;
+    position: relative;
     &:nth-child(even) {
-      // @include full-bleed {
-      //   background-color: $beigeLight;
-      // }
+      @extend %full-bleed;
       background-color: $beigeLight;
-      // position: relative;
     }
   }
+  // TODO maintain vertically centered text when line breaks (display: table-cell doesn't work with %full-bleed)
   a {
     @extend %gamma-sup;
     @extend %bare-focus;
     @extend %bare-link;
-    display: table-cell;
-    vertical-align: middle;
+    display: block;
+    width: $matrixCellWidth - 0.1;
     font-weight: $bold;
     color: $tealMedium;
-    padding: 0 1.6rem;
+    padding: 2.3rem 1.6rem 2.4rem 0;
     &:hover {
       color: $white;
       background-color: $tealLightest;
@@ -912,6 +909,7 @@
 .matrix--row {
   @extend %matrix--tall;
   @extend %floated-list;
+  background-color: $beige;
   margin: 0;
   overflow-y: hidden;
   &:nth-child(even) {

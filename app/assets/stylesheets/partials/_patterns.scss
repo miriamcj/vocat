@@ -606,6 +606,7 @@
   );
 }
 
+// NB the element you extend this onto must have positioning!
 // NB make sure any child elements have positioning so they aren't obscured by the pseudoelements
 // NB requires a repaint on window resize for '50vw' to update
 // TODO break out into %full-bleed-left & %full-bleed-right, with %full-bleed extending both
@@ -647,9 +648,6 @@
   @extend %frame;
   &:nth-child(even) {
     @extend %full-bleed;
-    // @include full-bleed {
-    //   background-color: $beigeLight;
-    // }
   }
 }
 
@@ -657,6 +655,10 @@
   @extend %frame;
   padding-right: 3.2rem;
   padding-left: 3.2rem;
+  &:last-child {
+    padding-bottom: 2.4rem;
+    margin-bottom: 5.6rem;
+  }
 }
 
 // Extended by %frame--left & %frame--right
