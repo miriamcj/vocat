@@ -264,7 +264,7 @@ h3 .editable-inline {
 // Components
 // --------------------------
 .matrix {
-  margin-bottom: $headerHeight;
+  // margin-bottom: $headerHeight;
 }
 
 // Column header
@@ -272,7 +272,7 @@ h3 .editable-inline {
 // NB %alt-full-bleed changes box-sizing to content-box
 .matrix--column-header {
   @extend %alt-full-bleed;
-  @extend %shaded-bottom;
+  // @extend %shaded-bottom;
   width: $mainWidth;
   height: $headerHeight;
   background-color: $tealLightest;
@@ -289,6 +289,8 @@ h3 .editable-inline {
   @extend %matrix--slider;
   display: inline-block;
   border-left: 0.1rem solid $tealMedium;
+  position: relative;
+  z-index: 160;
 }
 
 .matrix--column-header--list {
@@ -320,6 +322,8 @@ h3 .editable-inline {
   width: $matrixCellWidth - 0.1;
   height: $headerHeight;
   padding: 4rem 0 4rem 1.6rem;
+  position: relative;
+  z-index: 160;
 }
 
 %matrix--controls--item {

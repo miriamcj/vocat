@@ -606,19 +606,26 @@
   );
 }
 
-// An alternative to the full-bleed mixin that doesn't use pseudoelements
-// http://css-tricks.com/full-browser-width-bars/#comment-94090
-// Works with box-shadows & such
+// An alternative to the full-bleed mixin that doesn't extend outside the viewport
+// Requires a repaint on window resize
+// TODO rename
 %alt-full-bleed {
-  @include box-sizing(content-box);
-  // Fallback for browsers that don't support viewport-relative units
-  padding-right: 200rem;
-  padding-left: 200rem;
-  margin: 0 -200rem;
-  // For the browser who appreciates the finer things in life
-  padding-right: 100vw;
-  padding-left: 100vw;
-  margin: 0 -100vw;
+  &:before,
+  &:after {
+    content: "";
+    background-color: inherit;
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50vw;
+  }
+  &:before {
+    left: 50%;
+  }
+  &:after {
+    right: 50%;
+  }
 }
 
 // Frame

@@ -18,7 +18,6 @@ html {
 	-ms-text-size-adjust: 100%;
 	-webkit-font-smoothing: antialiased;
   background-color: $beige;
-	overflow-x: hidden;
 }
 
 body {
@@ -27,7 +26,6 @@ body {
 	font-weight: $regular;
 	line-height: $baseLineHeight;
 	color: $grayDark;
-	overflow-x: hidden;
 }
 
 // <html> classes
