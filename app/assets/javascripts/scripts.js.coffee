@@ -114,3 +114,9 @@ $ ->
 	$('[data-behavior="sticky-header"]').stickyHeader()
 	$('[data-behavior="shortcut-nav-toggle"]').shortcutNavigation()
 	$('[data-behavior="help-overlay-toggle"]').helpOverlay()
+
+	# Because we're using vw measurements for the full width pseudo elements (eg, zebra stripes), we need to
+	# force a browser repaint when we change the
+	$(window).bind('resize', () ->
+			$('<style></style>').appendTo($(document.body)).remove();
+	)

@@ -928,7 +928,7 @@
 // Overlay
 // ------------
 .matrix--overlay {
-  width: $matrixOverlayWidth;
+  width: $matrixOverlayWidth - 0.1rem;
   background-color: $beige;
   // padding: 2rem; 
   position: relative;
