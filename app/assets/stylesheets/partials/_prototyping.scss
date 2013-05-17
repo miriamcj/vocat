@@ -297,7 +297,7 @@ h3 .editable-inline {
   @extend %floated-list;
   height: $headerHeight;
   margin: 0;
-  overflow-y: hidden;
+  overflow: hidden;
   li {
     @extend %matrix--wide;
     height: 100%;
