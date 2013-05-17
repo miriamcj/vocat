@@ -20,6 +20,8 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
 		window.Vocat.router.on "route:showGrid", (project) => @hideOverlay()
 		window.Vocat.Dispatcher.on "courseMap:redraw", () => @redraw()
 
+		$('[data-behavior="sticky-header"]').stickyHeader('destroy')
+
 		@sliderData = {}
 
 		@projects = window.Vocat.Instantiated.Collections.Project
@@ -54,14 +56,9 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
 		event.preventDefault()
 		$(event.currentTarget).data()
 
-	showOverlay: () ->
-		$('.js-matrix--content').hide()
-		@overlay.fadeIn()
-		$('[data-behavior="matrix-creators"]').addClass('active')
-
 	hideOverlay: () ->
 		@overlay.fadeOut()
-		$('[data-behavior="matrix-creators"]').removeClass('active')
+		@$el.addClass('matrix--overlay-open')
 
 	updateOverlay: (view) ->
 		container = view.el
@@ -74,6 +71,7 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
 			@overlay.html(container)
 			@overlay.fadeIn()
 
+		@$el.addClass('matrix--overlay-open')
 		$('[data-behavior="matrix-creators"]').addClass('active')
 
 	showCreatorProjectDetail: (creator, project) ->
@@ -166,7 +164,8 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
 		@setContentContainerHeight()
 		@calculateAndSetSliderWidth()
 		@updateSliderControls()
-		@$el.find('[data-behavior="sticky-header"]').stickyHeader()
+
+		@overlay.stickyHeader()
 
 
 	render: () ->
