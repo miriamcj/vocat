@@ -277,7 +277,6 @@ h3 .editable-inline {
   height: $headerHeight;
   background-color: $tealLightest;
   position: absolute;
-  top: -$headerHeight;
   z-index: 150;
   &.stuck {
     position: fixed;

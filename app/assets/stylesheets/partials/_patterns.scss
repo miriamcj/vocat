@@ -612,11 +612,13 @@
 %alt-full-bleed {
   @include box-sizing(content-box);
   // Fallback for browsers that don't support viewport-relative units
-  padding: $headerHeight 200rem 0;
+  padding-right: 200rem;
+  padding-left: 200rem;
   margin: 0 -200rem;
   // For the browser who appreciates the finer things in life
-  padding: $headerHeight 50vw 0;
-  margin: 0 -50vw;
+  padding-right: 100vw;
+  padding-left: 100vw;
+  margin: 0 -100vw;
 }
 
 // Frame
