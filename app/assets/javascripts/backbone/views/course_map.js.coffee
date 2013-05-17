@@ -58,7 +58,7 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
 
 	hideOverlay: () ->
 		@overlay.fadeOut()
-		@$el.addClass('matrix--overlay-open')
+		@$el.find('.matrix').removeClass('matrix--overlay-open')
 
 	updateOverlay: (view) ->
 		container = view.el
@@ -71,7 +71,7 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
 			@overlay.html(container)
 			@overlay.fadeIn()
 
-		@$el.addClass('matrix--overlay-open')
+		@$el.find('.matrix').addClass('matrix--overlay-open')
 		$('[data-behavior="matrix-creators"]').addClass('active')
 
 	showCreatorProjectDetail: (creator, project) ->
