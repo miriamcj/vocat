@@ -244,6 +244,7 @@
   display: inline-block;
   color: $tealLighter;
   line-height: 1;
+  letter-spacing: 0;
   background-color: $beigeLight;
   // TODO adjust once comps have arrived
   padding: 1rem;
@@ -621,6 +622,8 @@
     bottom: 0;
     width: 50vw;
     z-index: -1;
+    // TODO is this a legitimate way to prevent click events on pseudoelements?
+    pointer-events: none;
   }
   &:before {
     left: 50%;
@@ -657,7 +660,7 @@
   padding-left: 3.2rem;
   &:last-child {
     padding-bottom: 2.4rem;
-    margin-bottom: 5.6rem;
+    // margin-bottom: 5.6rem;
   }
 }
 

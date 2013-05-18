@@ -747,7 +747,10 @@
 // Components
 // --------------------------
 .matrix {
-
+  &.matrix--overlay-open {
+    @extend %full-bleed;
+    background-color: mix($beige, $tealLightest, 50%);
+  }
 }
 
 // Column header
@@ -801,6 +804,9 @@
   height: $headerHeight;
   padding: 4rem 0 4rem 1.6rem;
   position: relative;
+  .matrix--overlay-open & {
+    visibility: hidden;
+  }
 }
 
 %matrix--controls--item {
@@ -843,9 +849,6 @@
   top: 0;
   left: 0;
   z-index: 110;
-  &.active {
-    @include opacity(50);
-  }
   &.stuck {
     position: fixed;
     margin: 0 auto;
@@ -885,6 +888,15 @@
     &:hover {
       color: $white;
       background-color: $tealLightest;
+    }
+  }
+  .matrix--overlay-open & {
+    li {
+      @extend %full-bleed;
+      background-color: mix($beige, $tealLightest, 50%);
+      &:nth-child(even) {
+        background-color: mix($beigeLight, $tealLightest, 50%);
+      }
     }
   }
 }
@@ -971,7 +983,6 @@
 .matrix--overlay {
   width: $matrixOverlayWidth - 0.1rem;
   background-color: $beige;
-  // padding: 2rem; 
   position: relative;
   border-left: 0.1rem solid $grayLighter;
   border-right: 0.1rem solid $grayLighter;
@@ -982,7 +993,7 @@
 .matrix--overlay--header {
   @extend %shaded-bottom;
   background-color: $beigeLight;
-  padding: 3.5rem 26rem 0 6.3rem;
+  padding: 3.6rem 26rem 0 6.3rem;
   position: relative;
 
 }
