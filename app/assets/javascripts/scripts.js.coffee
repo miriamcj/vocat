@@ -102,13 +102,14 @@ $.fn.extend
 
 $ ->
 
-	$(window).scroll( (event) ->
-		console.log $(@).scrollTop(), 'window scroll'
-	)
-
-	$('body').scroll( (event) ->
-		console.log $(@).scrollTop(), 'body scroll'
-	)
+# For debugging scroll CSS issues.
+#	$(window).scroll( (event) ->
+#		console.log $(@).scrollTop(), 'window scroll'
+#	)
+#
+#	$('body').scroll( (event) ->
+#		console.log $(@).scrollTop(), 'body scroll'
+#	)
 
 	$('[data-behavior="dropdown"]').dropdownNavigation()
 	$('[data-behavior="sticky-header"]').stickyHeader()

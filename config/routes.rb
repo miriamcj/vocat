@@ -18,6 +18,9 @@ Vocat::Application.routes.draw do
         resources :submissions, :only =>[:index]
         resources :creator, :only => [] do
           resources :submissions, :only =>[:index]
+          resources :project, :only =>[:index] do
+	          resources :submissions, :only =>[:index]
+	        end
         end
         resources :projects, :only =>[:index] do
           resources :submissions, :only =>[:index]

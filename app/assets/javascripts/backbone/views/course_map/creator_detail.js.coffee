@@ -2,10 +2,12 @@ class Vocat.Views.CourseMapCreatorDetail extends Vocat.Views.AbstractView
 
 	template: HBT["backbone/templates/course_map/creator_detail"]
 
+
 	initialize: (options) ->
 		@courseId = options.courseId
 		@projects = options.projects
 		@creators = options.creators
+		@showCourse = options.showCourse
 		@creator = @creators.get(options.creator)
 
 		@submissions = new Vocat.Collections.Submission({creatorId: @creator.id, courseId: @courseId})
@@ -21,7 +23,7 @@ class Vocat.Views.CourseMapCreatorDetail extends Vocat.Views.AbstractView
 		}
 		@$el.html(@template(context))
 
-		childContainer = @$el.find('.js-submissions')
+		childContainer = @$el.find('[data-behavior="submission-summaries"]')
 		@projects.each (project) =>
 			submission = @submissions.where({project_id: project.id})[0]
 			# TODO: Abstract this factory code for creating a submission from a project to somewhere else.
@@ -36,6 +38,8 @@ class Vocat.Views.CourseMapCreatorDetail extends Vocat.Views.AbstractView
 					course_name_long: project.get('course_name_long')
 				})
 			childView = new Vocat.Views.PortfolioSubmissionSummary({
+				showCourse: false
+				showCreator: false
 				el: $('<div class="constrained-portfolio-frame"></div>')
 				model: submission
 			})

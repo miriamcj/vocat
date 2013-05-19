@@ -6,10 +6,11 @@
     <div class="project-selector--dropdown" data-behavior="dropdown-options">
       <ul>
         {{#each projects}}
+		      <!-- TODO: FIX THIS LINK -->
           <li><a class="active" href="/courses/12/portfolio"><strong>{{this.name}}:</strong></a></li>
         {{/each}}
       </ul>
     </div>
   </nav>
 </header>
-<div class="js-submissions"></div>
+<div data-behavior="submission-summaries"></div>

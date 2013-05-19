@@ -11,6 +11,13 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
 		'click [data-behavior="matrix-overlay-close"]': 'navigateGrid'
 		'click [data-behavior="matrix-slider-left"]':   'slideLeft'
 		'click [data-behavior="matrix-slider-right"]':  'slideRight'
+		'click [data-behavior="routable"]':             'handleRoutable'
+
+	handleRoutable: (e) ->
+		event.preventDefault()
+		href = $(e.currentTarget).attr('href')
+		if href
+			window.Vocat.router.navigate(href, true)
 
 	initialize: (options)  ->
 
@@ -75,27 +82,29 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
 		$('[data-behavior="matrix-creators"]').addClass('active')
 
 	showCreatorProjectDetail: (creator, project) ->
+		console.log 'called'
 		@detailView = new Vocat.Views.CourseMapCreatorProjectDetail({
-			courseId: @courseId,
-			projects: @projects,
-			creators: @creators,
+			courseId: @courseId
+			project: @projects.get(project)
+			creator: @creators.get(creator)
 		})
 		@updateOverlay(@detailView)
 
 	showCreatorDetail: (creator) ->
 		@detailView = new Vocat.Views.CourseMapCreatorDetail({
-			courseId: @courseId,
+			courseId: @courseId
 			creator: creator
-			projects: @projects,
-			creators: @creators,
+			projects: @projects
+			creators: @creators
 		})
 		@updateOverlay(@detailView)
 
 	showProjectDetail: (project) ->
 		@detailView = new Vocat.Views.CourseMapProjectDetail({
-			courseId: @courseId,
-			projects: @projects,
-			creators: @creators,
+			courseId: @courseId
+			project: @projects.get(project)
+			projects: @projects
+			creators: @creators
 		})
 		@updateOverlay(@detailView)
 
@@ -130,9 +139,8 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
 		@updateSliderControls()
 
 	setContentContainerHeight: () ->
-		height = @$el.find('[data-behavior="matrix-creators-list"]').first().height()
-		@$el.find('.matrix--content').first().css('min-height', height)
-		@$el.find('.js-matrix--overlay').first().css('min-height', height)
+		height = @$el.find('.matrix--content').outerHeight() +  @$el.find('.matrix--overlay header').outerHeight()
+		@$el.find('.js-matrix--overlay').first().css('min-height', height + 150)
 
 	calculateAndSetSliderWidth: () ->
 		slider = @$el.find('[data-behavior="matrix-slider"]').first()

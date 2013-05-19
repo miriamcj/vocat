@@ -5,19 +5,19 @@
     <nav class="comments-nav">
       <ul>
         <li>
-          <a href="{{url_for 'courses_evaluations_for_creator_and_project' submission.course_id submission.creator_id submission.project_id}}">12</a>
+          <a data-behavior="routable" href="{{url_for 'course_evaluations_for_creator_and_project' submission.course_id submission.creator_id submission.project_id}}">12</a>
         </li>
         <li>
-         <a href="{{url_for 'courses_evaluations_for_creator_and_project' submission.course_id submission.creator_id submission.project_id}}">3 New</a>
+         <a data-behavior="routable" href="{{url_for 'course_evaluations_for_creator_and_project' submission.course_id submission.creator_id submission.project_id}}">3 New</a>
         </li>
       </ul>
     </nav>
-    <a class="frame-attachment--link" href="{{url_for 'courses_evaluations_for_creator_and_project' submission.course_id submission.creator_id submission.project_id}}">See All Comments</a>
+    <a data-behavior="routable" class="frame-attachment--link" href="{{url_for 'course_evaluations_for_creator_and_project' submission.course_id submission.creator_id submission.project_id}}">See All Comments</a>
   </figcaption>
   {{else}}
   <div class="attachment-placeholder">
 	  {{#if submission.current_user_can_attach}}
-	  <a class="attachment-placeholder--button" href="#">Upload video now</a>
+	  <a data-behavior="routable" class="attachment-placeholder--button" href="#">Upload video now</a>
 	  {{else}}
 	  <span class="attachment-placeholder--message">No video has been uploaded</span>
 	  {{/if}}
@@ -25,11 +25,15 @@
 	{{/if}}  
 </figure><!-- removes whitespace between columns
 --><div class="frame-summary">
-    <h2 class="frame-summary--title"><a href="{{url_for 'courses_evaluations_for_project' submission.course_id submission.project_id}}">{{submission.project_name}}</a></h2>
-    <h3 class="frame-summary--creator"><a href="{{url_for 'courses_evaluations_for_creator' submission.course_id submission.creator_id}}">{{submission.creator_name}}</a></h3>
-    <h3 class="frame-summary--course"><a href="{{url_for 'courses_evaluations' submission.course_id}}"><strong>{{submission.course_department}}{{submission.course_number}} </strong> {{submission.course_name}} [Section {{submission.course_section}}]</a></h3>
+    <h2 class="frame-summary--title"><a data-behavior="routable" href="{{url_for 'course_evaluations_for_creator_and_project' submission.course_id submission.creator_id submission.project_id}}">{{submission.project_name}}</a></h2>
+		{{#if showCreator}}
+    <h3 class="frame-summary--creator"><a data-behavior="routable" href="{{url_for 'course_evaluations_for_creator' submission.course_id submission.creator_id}}">{{submission.creator_name}}</a></h3>
+		{{/if}}
+		{{#if showCourse}}
+    <h3 class="frame-summary--course"><a data-behavior="routable" href="{{url_for 'course_evaluations' submission.course_id}}"><strong>{{submission.course_department}}{{submission.course_number}} </strong> {{submission.course_name}} [Section {{submission.course_section}}]</a></h3>
+		{{/if}}
 		{{> score_summary}}
-    <a class="frame-summary--link" href="{{url_for 'courses_evaluations_for_creator_and_project' submission.course_id submission.creator_id submission.project_id}}">Expand Scores</a>
+    <a class="frame-summary--link" data-behavior="routable" href="{{url_for 'course_evaluations_for_creator_and_project' submission.course_id submission.creator_id submission.project_id}}">Expand Scores</a>
     <!-- TODO has 'active' class only when published -->
     <aside class="frame-summary--status active">[Published/Unpublished]</aside>
   </div>

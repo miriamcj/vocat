@@ -20,7 +20,12 @@ class Api::V1::SubmissionsController < ApiController
     end
 
     if @course && @creator
-      @submissions = Submission.for_creator_and_course(@creator, @course).all()
+			if @project
+				@submissions = Submission.for_creator_and_project(@creator, @project).all()
+			else
+				@submissions = Submission.for_creator_and_course(@creator, @course).all()
+			end
+
     elsif @creator
       @submissions = Submission.for_creator(@user, @course).all()
     elsif @course

@@ -58,10 +58,14 @@ class Vocat.Views.EvaluationDetailVideoPlayer extends Vocat.Views.AbstractView
 			creator: @creator.toJSON()
 		}
 		@$el.html(@template(context))
-
+		console.log @$el.length, '@$el'
+#		console.log @template(context)
+#		console.log 'rendering video player'
 		if @submission.get('transcoded_attachment')
 			Popcorn.player('baseplayer')
-			@player = Popcorn('#submission-video')
+			playerElement = @$el.find('[data-behavior="video-player"]').get(0)
+			console.log playerElement
+			@player = Popcorn(playerElement)
 			Vocat.Dispatcher.player = @player
 			@player.on( 'timeupdate', () ->
 					Vocat.Dispatcher.trigger 'playerTimeUpdate', {seconds: @.currentTime()}

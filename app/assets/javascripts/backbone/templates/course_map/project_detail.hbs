@@ -1,1 +1,16 @@
-project_detail hbs
+<header data-behavior="sticky-header" class="matrix--overlay--header">
+	<h2 class="matrix--overlay--title">{{project.name}}</h2>
+	<a href="#" class="matrix--overlay--close" data-behavior="matrix-overlay-close">Close</a>
+	<nav class="project-selector" data-behavior="dropdown">
+		<a class="project-selector--toggle" data-behavior="toggle" href="#">View submission</a>
+		<div class="project-selector--dropdown" data-behavior="dropdown-options">
+			<ul>
+				{{#each creators}}
+				<!-- TODO: FIX THIS LINK -->
+				<li><a class="active" href="/courses/12/portfolio"><strong>{{this.name}}</strong></a></li>
+				{{/each}}
+			</ul>
+		</div>
+	</nav>
+</header>
+<div data-behavior="submission-summaries"></div>
