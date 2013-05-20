@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>course_map.js.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="abstract.js.html">
+                abstract.js.coffee
+              </a>
+            
+              
+              <a class="source" href="abstract_modal.js.html">
+                abstract_modal.js.coffee
+              </a>
+            
+              
+              <a class="source" href="course_map.js.html">
+                course_map.js.coffee
+              </a>
+            
+              
+              <a class="source" href="creator_project_detail.js.html">
+                creator_project_detail.js.coffee
+              </a>
+            
+              
+              <a class="source" href="evaluation_detail.js.html">
+                evaluation_detail.js.coffee
+              </a>
+            
+              
+              <a class="source" href="flash_messages.js.html">
+                flash_messages.js.coffee
+              </a>
+            
+              
+              <a class="source" href="groups.js.html">
+                groups.js.coffee
+              </a>
+            
+              
+              <a class="source" href="portfolio.js.html">
+                portfolio.js.coffee
+              </a>
+            
+              
+              <a class="source" href="rubric_builder.js.html">
+                rubric_builder.js.coffee
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>course_map.js.coffee</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="class"><span class="keyword">class</span> <span class="title">Vocat</span>.<span class="title">Views</span>.<span class="title">CourseMap</span> <span class="keyword">extends</span> <span class="title">Vocat</span>.<span class="title">Views</span>.<span class="title">AbstractView</span></span>
+
+	template: HBT[<span class="string">"backbone/templates/course_map"</span>]
+
+	overlayOpen: <span class="literal">false</span>
+
+	events:
+		<span class="string">'click .js-navigate-exhibit'</span>:                   <span class="string">'navigateCreatorProjectDetail'</span>
+		<span class="string">'click .js-navigate-creator'</span>:                   <span class="string">'navigateCreatorDetail'</span>
+		<span class="string">'click .js-navigate-project'</span>:                   <span class="string">'navigateProjectDetail'</span>
+		<span class="string">'click [data-behavior="matrix-overlay-close"]'</span>: <span class="string">'navigateGrid'</span>
+		<span class="string">'click [data-behavior="matrix-slider-left"]'</span>:   <span class="string">'slideLeft'</span>
+		<span class="string">'click [data-behavior="matrix-slider-right"]'</span>:  <span class="string">'slideRight'</span>
+		<span class="string">'click [data-behavior="routable"]'</span>:             <span class="string">'handleRoutable'</span>
+
+	handleRoutable: (e) -&gt;
+		event.preventDefault()
+		href = $(e.currentTarget).attr(<span class="string">'href'</span>)
+		<span class="keyword">if</span> href
+			window.Vocat.router.navigate(href, <span class="literal">true</span>)
+
+	initialize: (options)  -&gt;
+
+		window.Vocat.router.<span class="literal">on</span> <span class="string">"route:showCreatorProjectDetail"</span>, (course, creator, project) =&gt; <span class="property">@showCreatorProjectDetail</span>(creator, project)
+		window.Vocat.router.<span class="literal">on</span> <span class="string">"route:showCreatorDetail"</span>, (course, creator) =&gt; <span class="property">@showCreatorDetail</span>(creator)
+		window.Vocat.router.<span class="literal">on</span> <span class="string">"route:showProjectDetail"</span>, (course, project) =&gt; <span class="property">@showProjectDetail</span>(project)
+		window.Vocat.router.<span class="literal">on</span> <span class="string">"route:showGrid"</span>, (project) =&gt; <span class="property">@hideOverlay</span>()
+		window.Vocat.Dispatcher.<span class="literal">on</span> <span class="string">"courseMap:redraw"</span>, () =&gt; <span class="property">@redraw</span>()
+
+		$(<span class="string">'[data-behavior="sticky-header"]'</span>).stickyHeader(<span class="string">'destroy'</span>)
+
+		<span class="property">@sliderData</span> = {}
+
+		<span class="property">@projects</span> = window.Vocat.Instantiated.Collections.Project
+		<span class="property">@creators</span> = window.Vocat.Instantiated.Collections.Creator</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>A hack</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="property">@courseId</span> = <span class="property">@projects</span>.first().get(<span class="string">'course_id'</span>)
+
+		<span class="property">@render</span>()
+
+	navigateGrid: (event) -&gt;
+		data = <span class="property">@preventAndExtractData</span>(event)
+		path = <span class="string">'courses/'</span> + <span class="property">@courseId</span> + <span class="string">'/evaluations'</span>
+		window.Vocat.router.navigate(path, <span class="literal">true</span>)
+
+	navigateCreatorProjectDetail: (event) -&gt;
+		data = <span class="property">@preventAndExtractData</span>(event)
+		path = <span class="string">'courses/'</span> + <span class="property">@courseId</span> + <span class="string">'/evaluations/creator/'</span> + data.creator + <span class="string">'/project/'</span> + data.project
+		window.Vocat.router.navigate(path, <span class="literal">true</span>)
+
+	navigateCreatorDetail: (event) -&gt;
+		data = <span class="property">@preventAndExtractData</span>(event)
+		path = <span class="string">'courses/'</span> + <span class="property">@courseId</span> + <span class="string">'/evaluations/creator/'</span> + data.creator
+		window.Vocat.router.navigate(path, <span class="literal">true</span>)
+
+	navigateProjectDetail: (event) -&gt;
+		data = <span class="property">@preventAndExtractData</span>(event)
+		path = <span class="string">'courses/'</span> + <span class="property">@courseId</span> + <span class="string">'/evaluations/project/'</span> + data.project
+		window.Vocat.router.navigate(path, <span class="literal">true</span>)
+
+	preventAndExtractData: (event) -&gt;
+		event.preventDefault()
+		$(event.currentTarget).data()
+
+	hideOverlay: () -&gt;
+		<span class="property">@overlay</span>.fadeOut()
+		<span class="property">@$el</span>.find(<span class="string">'.matrix'</span>).removeClass(<span class="string">'matrix--overlay-open'</span>)
+
+	updateOverlay: (view) -&gt;
+		container = view.el
+		<span class="keyword">if</span> <span class="property">@overlay</span>.<span class="keyword">is</span>(<span class="string">":visible"</span>)
+			<span class="property">@overlay</span>.fadeOut(<span class="number">250</span>, () =&gt;
+				<span class="property">@overlay</span>.html(container)
+				<span class="property">@overlay</span>.fadeIn(<span class="number">250</span>)
+			)
+		<span class="keyword">else</span>
+			<span class="property">@overlay</span>.html(container)
+			<span class="property">@overlay</span>.fadeIn()
+
+		<span class="property">@$el</span>.find(<span class="string">'.matrix'</span>).addClass(<span class="string">'matrix--overlay-open'</span>)
+		$(<span class="string">'[data-behavior="matrix-creators"]'</span>).addClass(<span class="string">'active'</span>)
+
+	showCreatorProjectDetail: (creator, project) -&gt;
+		<span class="property">@detailView</span> = <span class="keyword">new</span> Vocat.Views.CourseMapCreatorProjectDetail({
+			courseId: <span class="property">@courseId</span>
+			project: <span class="property">@projects</span>.get(project)
+			creator: <span class="property">@creators</span>.get(creator)
+		})
+		<span class="property">@updateOverlay</span>(<span class="property">@detailView</span>)
+
+	showCreatorDetail: (creator) -&gt;
+		<span class="property">@detailView</span> = <span class="keyword">new</span> Vocat.Views.CourseMapCreatorDetail({
+			courseId: <span class="property">@courseId</span>
+			creator: creator
+			projects: <span class="property">@projects</span>
+			creators: <span class="property">@creators</span>
+		})
+		<span class="property">@updateOverlay</span>(<span class="property">@detailView</span>)
+
+	showProjectDetail: (project) -&gt;
+		<span class="property">@detailView</span> = <span class="keyword">new</span> Vocat.Views.CourseMapProjectDetail({
+			courseId: <span class="property">@courseId</span>
+			project: <span class="property">@projects</span>.get(project)
+			projects: <span class="property">@projects</span>
+			creators: <span class="property">@creators</span>
+		})
+		<span class="property">@updateOverlay</span>(<span class="property">@detailView</span>)
+
+	initializeOverlay: () -&gt;
+		<span class="property">@overlay</span> = <span class="property">@$el</span>.find(<span class="string">'.js-matrix--overlay'</span>).first()
+
+	updateSliderControls: () -&gt;
+		left = <span class="property">@$el</span>.find(<span class="string">'[data-behavior="matrix-slider-left"]'</span>)
+		right = <span class="property">@$el</span>.find(<span class="string">'[data-behavior="matrix-slider-right"]'</span>)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>The width of the slider has to be greater than 4 columns for the slider to be able to slide.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="keyword">if</span> (<span class="property">@sliderData</span>.distance * <span class="number">4</span>) &lt; <span class="property">@sliderData</span>.sliderWidth
+			<span class="keyword">if</span> <span class="property">@sliderData</span>.position == <span class="property">@sliderData</span>.maxLeft <span class="keyword">then</span> left.addClass(<span class="string">'inactive'</span>) <span class="keyword">else</span> left.removeClass(<span class="string">'inactive'</span>)
+			<span class="keyword">if</span> <span class="property">@sliderData</span>.position == <span class="property">@sliderData</span>.minLeft <span class="keyword">then</span> right.addClass(<span class="string">'inactive'</span>) <span class="keyword">else</span> right.removeClass(<span class="string">'inactive'</span>)
+		<span class="keyword">else</span>
+			left.addClass(<span class="string">'inactive'</span>)
+			right.addClass(<span class="string">'inactive'</span>)
+
+	slideLeft: (e) -&gt;
+		e.preventDefault()
+		<span class="property">@slide</span>(<span class="string">'backward'</span>)
+
+	slideRight: (e) -&gt;
+		e.preventDefault()
+		<span class="property">@slide</span>(<span class="string">'forward'</span>)
+
+	slide: (direction) -&gt;
+		<span class="keyword">if</span> direction == <span class="string">'forward'</span> <span class="keyword">then</span> travel = <span class="property">@sliderData</span>.distance * -<span class="number">1</span> <span class="keyword">else</span> travel = <span class="property">@sliderData</span>.distance * <span class="number">1</span>
+		newLeft = <span class="property">@sliderData</span>.position + travel
+		<span class="keyword">if</span> newLeft &lt;= <span class="property">@sliderData</span>.maxLeft &amp;&amp; newLeft &gt;= <span class="property">@sliderData</span>.minLeft
+			<span class="property">@sliderData</span>.slideElements.css(<span class="string">'left'</span>, newLeft)
+			<span class="property">@sliderData</span>.position = newLeft
+		<span class="property">@updateSliderControls</span>()
+
+	setContentContainerHeight: () -&gt;
+		height = <span class="property">@$el</span>.find(<span class="string">'.matrix--content'</span>).outerHeight() +  <span class="property">@$el</span>.find(<span class="string">'.matrix--overlay header'</span>).outerHeight()
+		<span class="property">@$el</span>.find(<span class="string">'.js-matrix--overlay'</span>).first().css(<span class="string">'min-height'</span>, height + <span class="number">150</span>)
+
+	calculateAndSetSliderWidth: () -&gt;
+		slider = <span class="property">@$el</span>.find(<span class="string">'[data-behavior="matrix-slider"]'</span>).first()
+		colCount = slider.find(<span class="string">'li'</span>).length
+		colWidth = slider.find(<span class="string">'li'</span>).first().outerWidth()
+		sliderWidth = colCount * colWidth
+		minLeft = (sliderWidth * -<span class="number">1</span>) + (colWidth * <span class="number">4</span>)
+		slideElements = <span class="property">@$el</span>.find(<span class="string">'[data-behavior="matrix-slider"] ul'</span>)
+		slideElements.each -&gt;
+			$(@).width(sliderWidth)
+		<span class="property">@sliderData</span> = {
+			position: <span class="number">0</span>
+			sliderWidth: sliderWidth
+			minLeft: minLeft
+			maxLeft: <span class="number">0</span>
+			distance: <span class="number">205</span>
+			slideElements: slideElements
+		}
+
+	redraw: () -&gt;
+		<span class="property">@overlay</span>.css(<span class="string">'margin-top'</span>, (<span class="property">@$el</span>.find(<span class="string">'.matrix--content'</span>).height() * -<span class="number">1</span>) - <span class="number">116</span> ).css(<span class="string">'z-index'</span>,<span class="number">400</span>)
+		<span class="property">@setContentContainerHeight</span>()
+		<span class="property">@calculateAndSetSliderWidth</span>()
+		<span class="property">@updateSliderControls</span>()
+
+
+	render: () -&gt;
+		context = {
+			creators: <span class="property">@creators</span>.toJSON()
+			projects: <span class="property">@projects</span>.toJSON()
+		}
+
+		<span class="property">@$el</span>.html(<span class="property">@template</span>(context))
+
+		<span class="property">@initializeOverlay</span>()
+		<span class="property">@redraw</span>()
+
+		matrixCells = <span class="keyword">new</span> Vocat.Views.CourseMapMatrixCells({
+			el: <span class="property">@$el</span>.find(<span class="string">'.js-matrix--content'</span>).first()
+			creators: <span class="property">@creators</span>
+			projects: <span class="property">@projects</span>
+			courseId: <span class="property">@courseId</span>
+		})</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

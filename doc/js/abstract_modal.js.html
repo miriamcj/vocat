@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>abstract_modal.js.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="abstract.js.html">
+                abstract.js.coffee
+              </a>
+            
+              
+              <a class="source" href="abstract_modal.js.html">
+                abstract_modal.js.coffee
+              </a>
+            
+              
+              <a class="source" href="course_map.js.html">
+                course_map.js.coffee
+              </a>
+            
+              
+              <a class="source" href="creator_project_detail.js.html">
+                creator_project_detail.js.coffee
+              </a>
+            
+              
+              <a class="source" href="evaluation_detail.js.html">
+                evaluation_detail.js.coffee
+              </a>
+            
+              
+              <a class="source" href="flash_messages.js.html">
+                flash_messages.js.coffee
+              </a>
+            
+              
+              <a class="source" href="groups.js.html">
+                groups.js.coffee
+              </a>
+            
+              
+              <a class="source" href="portfolio.js.html">
+                portfolio.js.coffee
+              </a>
+            
+              
+              <a class="source" href="rubric_builder.js.html">
+                rubric_builder.js.coffee
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>abstract_modal.js.coffee</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p>= require ./abstract</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="class"><span class="keyword">class</span> <span class="title">Vocat</span>.<span class="title">Views</span>.<span class="title">AbstractModalView</span> <span class="keyword">extends</span> <span class="title">Vocat</span>.<span class="title">Views</span>.<span class="title">AbstractView</span></span>
+
+	initialize: (options) -&gt;
+		<span class="keyword">super</span>(options)
+
+	centerModal: () -&gt;
+		yOffset = $(document).scrollTop()
+		xOffset = $(document).scrollLeft()
+		yCenter = $(window).height() / <span class="number">2</span>
+		xCenter = $(window).width() / <span class="number">2</span>
+		yPosition = yCenter - (<span class="property">@$el</span>.find(<span class="string">'.js-modal'</span>).outerHeight() / <span class="number">2</span>)
+		xPosition = xCenter - (<span class="property">@$el</span>.find(<span class="string">'.js-modal'</span>).outerWidth() / <span class="number">2</span>)
+		<span class="property">@$el</span>.prependTo(<span class="string">'body'</span>)
+		<span class="property">@$el</span>.css({
+			position: <span class="string">'absolute'</span>
+			zIndex: <span class="number">300</span>
+			left: (xPosition + xOffset) + <span class="string">'px'</span>
+			top: (yPosition + yOffset) + <span class="string">'px'</span>
+		})
+
+	resizeBackdrop: () -&gt;
+		<span class="property">@ensureBackdrop</span>().css({
+			height: $(document).height()
+		})
+
+	ensureBackdrop: () -&gt;
+		backdrop = $(<span class="string">'#js-modal-backdrop'</span>)
+		<span class="keyword">if</span> backdrop.length == <span class="number">0</span>
+			backdrop = $(<span class="string">'&lt;div id="js-modal-backdrop"&gt;'</span>).css({
+				 position: <span class="string">"absolute"</span>
+				 top: <span class="number">0</span>
+				 left: <span class="number">0</span>
+				 height: $(document).height()
+				 width: <span class="string">"100%"</span>
+				 opacity: <span class="number">0.5</span>
+				 backgroundColor: <span class="string">"#000"</span>
+				 <span class="string">"z-index"</span>: <span class="number">200</span>
+			}).appendTo($(<span class="string">'body'</span>)).hide()
+			$(window).bind(<span class="string">'resize'</span>, _.bind(<span class="property">@resizeBackdrop</span>, @))
+		backdrop
+
+	showBackdrop: () -&gt;
+		<span class="property">@resizeBackdrop</span>()
+		<span class="property">@ensureBackdrop</span>().fadeIn(<span class="number">250</span>)
+
+	showModal: () -&gt;
+		<span class="property">@showBackdrop</span>()
+		<span class="property">@centerModal</span>()
+
+	hideModal: () -&gt;
+		<span class="property">@ensureBackdrop</span>().fadeOut(<span class="number">250</span>)</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

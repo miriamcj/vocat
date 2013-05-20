@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>rubric_builder.js.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="abstract.js.html">
+                abstract.js.coffee
+              </a>
+            
+              
+              <a class="source" href="abstract_modal.js.html">
+                abstract_modal.js.coffee
+              </a>
+            
+              
+              <a class="source" href="course_map.js.html">
+                course_map.js.coffee
+              </a>
+            
+              
+              <a class="source" href="creator_project_detail.js.html">
+                creator_project_detail.js.coffee
+              </a>
+            
+              
+              <a class="source" href="evaluation_detail.js.html">
+                evaluation_detail.js.coffee
+              </a>
+            
+              
+              <a class="source" href="flash_messages.js.html">
+                flash_messages.js.coffee
+              </a>
+            
+              
+              <a class="source" href="groups.js.html">
+                groups.js.coffee
+              </a>
+            
+              
+              <a class="source" href="portfolio.js.html">
+                portfolio.js.coffee
+              </a>
+            
+              
+              <a class="source" href="rubric_builder.js.html">
+                rubric_builder.js.coffee
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>rubric_builder.js.coffee</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="class"><span class="keyword">class</span> <span class="title">Vocat</span>.<span class="title">Views</span>.<span class="title">RubricBuilder</span> <span class="keyword">extends</span> <span class="title">Vocat</span>.<span class="title">Views</span>.<span class="title">AbstractView</span></span>
+
+  template: HBT[<span class="string">"backbone/templates/rubric_builder"</span>]
+
+  events:
+    <span class="string">'click .debug'</span>: <span class="string">'debug'</span>
+    <span class="string">'click .js-save'</span>: <span class="string">'save'</span>
+
+
+  debug: (event) -&gt;
+    event.preventDefault()
+    console.clear()
+    console.log <span class="property">@model</span>, <span class="string">'Full Model'</span>
+    console.log <span class="property">@model</span>.toJSON(), <span class="string">'JSON Representation'</span>
+
+  save: (event) -&gt;
+    event.preventDefault
+    <span class="property">@model</span>.save()
+
+  initialize: (options) -&gt;
+    courseId = <span class="property">@$el</span>.data().course
+
+    <span class="keyword">if</span> Vocat.Bootstrap.Models.Rubric?
+      <span class="property">@model</span> = <span class="keyword">new</span> Vocat.Models.Rubric(Vocat.Bootstrap.Models.Rubric, {parse: <span class="literal">true</span>})
+    <span class="keyword">else</span>
+      <span class="property">@model</span> = <span class="keyword">new</span> Vocat.Models.Rubric({})
+      <span class="keyword">if</span> courseId? <span class="keyword">then</span> <span class="property">@model</span>.courseId = courseId</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>TODO: Remove this sample data once we have good rubric seed data in place.
+    d = new Date()
+    @model.set(&#39;name&#39;,&#39;Test Rubric &#39; + d.getTime())
+    @model.addField {name: &#39;Voice&#39;, description: &#39;Breathing; Centering; Projection&#39; }
+    @model.addField {name: &#39;Body&#39;, description: &#39;Relaxation; Physical tension; Eye-contact; Non-verbal communication&#39; }
+    @model.addField {name: &#39;Expression&#39;, description: &#39;Concentration; Focus; Point of View; Pacing&#39; }
+    @model.addField {name: &#39;Overall Effect&#39;, description: &#39;Integration of above categories; connection with audience&#39; }
+    @model.addRange {name: &#39;Low&#39;, low: 1, high: 2}
+    @model.addRange {name: &#39;High&#39;, low: 5, high: 6}
+    @model.addRange {name: &#39;Medium&#39;, low: 3, high: 4}
+    @model.setDescriptionByName(&#39;Voice&#39;, &#39;Low&#39;, &#39;Vocal projection is weak. Posture is crumpled or slouched: breath is unsupported. Volume is unamplified. One has to strain, or cannot hear speaker. Articulation is mushy and difficult to understand.&#39;)
+    @model.setDescriptionByName(&#39;Voice&#39;, &#39;Medium&#39;, &#39;Vocal projection fades in and out. Posture is off-balance: breathing is not always supported. Speaker\&#39;s breathing is constricted by holding breath or too shallow. Volume loses amplification, particularly at end of sentences. Articulation is garbled or slurry, but distinct enough to be understood.&#39;)
+    @model.setDescriptionByName(&#39;Voice&#39;, &#39;High&#39;, &#39;Vocal projection is strong. Posture supports breath: feet are grounded and body centered, allowing deep breathing to power voice. Volume is sufficiently amplified and sustained at consistent level. Articulation is clear. Speaker is easily heard and understood.&#39;)
+    @model.setDescriptionByName(&#39;Body&#39;, &#39;Low&#39;, &#39;Body is rigidly tense, or nervous tension in constant movement, shuffling, or fidgeting. Speaker avoids eye contact and physically &quot;hides&quot; from audience. Gestures and non-verbal communication are excessive or restricted and unrelated to narrative.&#39;)
+    @model.setDescriptionByName(&#39;Body&#39;, &#39;Medium&#39;, &#39;Speaker is initially self-conscious and tense, but grows more relaxed as he/she continues. There is occasional eye-contact. There is some nervous movement fidgeting, but it decreases as presentation continues. Gestures and non-verbal communication do not always reinforce narrative.&#39;)
+    @model.setDescriptionByName(&#39;Body&#39;, &#39;High&#39;, &#39;Speaker is physically calm and appears relaxed. Speaker makes direct eye-contact. Physical presence projects animation and energy. Gestures and non-verbal communication enhance narrative.&#39;)
+    @model.setDescriptionByName(&#39;Expression&#39;, &#39;Low&#39;, &#39;Concentration is weak. Speaker cannot sustain concentration and is easily distracted: speaker giggles, or breaks away from what he/she is saying. There is no clear focus to the presentation and little emotional/intellectual connection to the narrative. Speaker rambles, or pauses awkwardly&#39;)
+    @model.setDescriptionByName(&#39;Expression&#39;, &#39;Medium&#39;, &#39;Concentration is disrupted. Speaker is distracted at times and loses focus, causing momentary hesitation. There are digressions from purpose. There is occasionally loss of emotional/intellectual connection to the narrative. Speaker rushes, or is monotone.&#39;)
+    @model.setDescriptionByName(&#39;Expression&#39;, &#39;High&#39;, &#39;Concentration is sustained throughout. The speaker is focused and clear about what he/she wants to say. There is a point of view and speaker appears to have an emotional/intellectual connection to their narrative.&#39;)
+    @model.setDescriptionByName(&#39;Overall Effect&#39;, &#39;Low&#39;, &#39;Tension impedes speaker from engaging audience. There is impatience and/or little interest in watching or listening to presentation. Ideas are incoherent, or nonexistent. Vocal and physical aspects of the presentation interfere with effective communication.&#39;)
+    @model.setDescriptionByName(&#39;Overall Effect&#39;, &#39;Medium&#39;, &#39;Speaker engages audience with varied success. Interest in the presentation ebbs and flows. Ideas are relatively clear, but lack overall coherence. Communication is effective, but neither dynamic nor very memorable.&#39;)
+    @model.setDescriptionByName(&#39;Overall Effect&#39;, &#39;High&#39;, &#39;Speaker engages audience and is compelling to watch and listen to. Ideas are clear, concise, and communicated in a creative, memorable way.&#39;)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">super</span> (options)
+    <span class="property">@render</span>()
+
+  render: () -&gt;
+    context = {
+      rubric: <span class="property">@model</span>.toJSON()
+    }
+
+    <span class="property">@$el</span>.html(<span class="property">@template</span>(context))
+
+    <span class="property">@$el</span>.find(<span class="string">'.js-editable-input'</span>).each( (index, el) =&gt;
+      <span class="keyword">new</span> Vocat.Views.RubricBuilderEditableInput({model: <span class="property">@model</span>, el: el, property: <span class="string">'name'</span>, placeholder: <span class="string">"Enter a name"</span>})
+    )
+
+    <span class="keyword">new</span> Vocat.Views.RubricBuilderStructure({model: <span class="property">@model</span>, el: $(<span class="string">'#js-rubric_builder_structure'</span>)})</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

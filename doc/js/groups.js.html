@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>groups.js.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="abstract.js.html">
+                abstract.js.coffee
+              </a>
+            
+              
+              <a class="source" href="abstract_modal.js.html">
+                abstract_modal.js.coffee
+              </a>
+            
+              
+              <a class="source" href="course_map.js.html">
+                course_map.js.coffee
+              </a>
+            
+              
+              <a class="source" href="creator_project_detail.js.html">
+                creator_project_detail.js.coffee
+              </a>
+            
+              
+              <a class="source" href="evaluation_detail.js.html">
+                evaluation_detail.js.coffee
+              </a>
+            
+              
+              <a class="source" href="flash_messages.js.html">
+                flash_messages.js.coffee
+              </a>
+            
+              
+              <a class="source" href="groups.js.html">
+                groups.js.coffee
+              </a>
+            
+              
+              <a class="source" href="portfolio.js.html">
+                portfolio.js.coffee
+              </a>
+            
+              
+              <a class="source" href="rubric_builder.js.html">
+                rubric_builder.js.coffee
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>groups.js.coffee</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="class"><span class="keyword">class</span> <span class="title">Vocat</span>.<span class="title">Views</span>.<span class="title">Groups</span> <span class="keyword">extends</span> <span class="title">Vocat</span>.<span class="title">Views</span>.<span class="title">AbstractView</span></span>
+
+	template: HBT[<span class="string">"backbone/templates/groups"</span>]
+
+	events:
+		<span class="string">'click [data-behavior="create-group"]'</span>: <span class="string">'createGroup'</span>
+		<span class="string">'click [data-behavior="draggable-user"]'</span>: <span class="string">'toggleSelect'</span>
+
+
+	initialize: (options)  -&gt;
+		<span class="keyword">if</span> Vocat.Bootstrap.Collections.Group?
+			<span class="property">@groups</span> = <span class="keyword">new</span> Vocat.Collections.Group(Vocat.Bootstrap.Collections.Group)
+		<span class="keyword">if</span> Vocat.Bootstrap.Collections.Creator?
+			<span class="property">@creators</span> = <span class="keyword">new</span> Vocat.Collections.Creator(Vocat.Bootstrap.Collections.Creator)
+		<span class="property">@render</span>()
+
+	createGroup: () -&gt;
+		name = <span class="property">@$el</span>.find(<span class="string">'[data-behavior="group-name"]'</span>).val()
+		group = <span class="keyword">new</span> Vocat.Models.Group({name: name})
+		group.save()
+		<span class="keyword">if</span> group.validationError
+			Vocat.Dispatcher.trigger(<span class="string">'flash_message'</span>,{messages: group.validationError})
+
+	select: (element) -&gt;
+		$target = $(element)
+		$target.addClass(<span class="string">'selected'</span>)
+		$target.attr(<span class="string">'data-selected'</span>, <span class="number">1</span>)
+
+	unselect: (element) -&gt;
+		$target = $(element)
+		$target.removeClass(<span class="string">'selected'</span>)
+		$target.attr(<span class="string">'data-selected'</span>, <span class="number">0</span>)
+
+	toggleSelect: (e) -&gt;
+		target = $(e.currentTarget).find(<span class="string">'.groups--owner'</span>)
+		$target = $(target)
+		$target.toggleClass(<span class="string">'selected'</span>)
+		<span class="keyword">if</span> $target.hasClass(<span class="string">'selected'</span>)
+			$target.attr(<span class="string">'data-selected'</span>, <span class="number">1</span>)
+		<span class="keyword">else</span>
+			$target.attr(<span class="string">'data-selected'</span>, <span class="number">0</span>)
+
+	animateMove: (el, ui) -&gt;
+		el = $(el)
+		targetOffset = ui.helper.offset()</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <pre><code>el.offset(targetOffset)</code></pre>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		console.log targetOffset
+		console.log targetOffset</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <pre><code>el.animate(
+    {
+        postion: &#39;fixed&#39;
+        top: ui.helper.offset().top
+        left: ui.helper.offset().left
+    },
+    &#39;slow&#39;,
+    () -&gt;</code></pre>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		ui.helper.find(<span class="string">'.groups--owner'</span>).css({
+			zIndex: <span class="number">20</span>
+			position: <span class="string">'absolute'</span>
+			border: <span class="string">'2px solid green'</span>
+		})
+		el.appendTo(ui.helper)
+		el.css({
+			position: <span class="string">'absolute'</span>
+			top: <span class="number">0</span>
+			left: <span class="number">0</span>
+			zIndex: <span class="number">10</span>
+		})
+		targetDegrees = <span class="property">@getRandomInt</span>(<span class="number">0</span>,<span class="number">30</span>)
+		increment = Math.ceil(targetDegrees / <span class="number">100</span>)
+		console.log increment, targetDegrees
+		el.animate(
+			{  borderSpacing: -<span class="number">90</span> },
+			{
+				step: (now,fx) -&gt;
+					move = now * increment
+					console.log move, increment
+					$target = $(@)
+					$target.css(<span class="string">'-webkit-transform'</span>,<span class="string">'rotate('</span>+move+<span class="string">'deg)'</span>)
+					$target.css(<span class="string">'-moz-transform'</span>,<span class="string">'rotate('</span>+move+<span class="string">'deg)'</span>)
+					$target.css(<span class="string">'-ms-transform'</span>,<span class="string">'rotate('</span>+move+<span class="string">'deg)'</span>)
+					$target.css(<span class="string">'-o-transform'</span>,<span class="string">'rotate('</span>+move+<span class="string">'deg)'</span>)
+					$target.css(<span class="string">'transform'</span>,<span class="string">'rotate('</span>+move+<span class="string">'deg)'</span>)
+				duration:<span class="string">'100'</span>
+			},
+			<span class="string">'linear'</span>
+		)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <pre><code>el.animate(
+    {
+        transform: &#39;rotate(&#39;+ @getRandomInt(-30,30) + &#39;deg)&#39;
+    }
+)
+)</code></pre>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	getRandomInt: (min, max) -&gt;
+		Math.floor(Math.random() * (max - min + <span class="number">1</span>)) + min
+
+	cloneAndGroupSelectedIn: (ui) -&gt;
+
+		selected = <span class="property">@$el</span>.find(<span class="string">'[data-selected="1"]'</span>)
+
+		alreadyCloned = ui.helper.find(<span class="string">'.groups--owner'</span>)
+		ignoreIds = []
+		alreadyCloned.each (iteration, ownerElement) -&gt;
+			ignoreIds.push($(ownerElement).data().userId)
+
+		selected.each (iteration, el) =&gt;
+			el = $(el)
+			data = el.data()
+			<span class="keyword">if</span> !_.contains(ignoreIds, data.userId)
+				clone = $(el).clone().removeAttr(<span class="string">'id'</span>).attr(<span class="string">'data-clone'</span>, <span class="number">1</span>)
+				console.log clone
+				el.append(clone)
+				offset = $(el).offset()
+				$(clone).offset(offset)
+				<span class="property">@animateMove</span>(clone, ui)
+
+	maskElement: (el) -&gt;
+		$el = $(el)
+		$el.fadeTo(<span class="string">'medium'</span>, <span class="number">0.33</span>)
+
+	unmaskElement: (el) -&gt;
+		$el = $(el)
+		$el.fadeTo(<span class="number">0</span>, <span class="number">1</span>)
+
+	getOriginalFromClone: (clone) -&gt;
+		data = clone.data()
+		original = $(<span class="string">'#creator-'</span> + data.userId)
+
+	initDraggables: () -&gt;
+		<span class="property">@$el</span>.find(<span class="string">'[data-behavior="draggable-user"]'</span>).draggable({</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <pre><code>    revert: &#39;invalid&#39;</code></pre>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			containment: <span class="string">'document'</span>
+			helper: <span class="string">'clone'</span>
+			cursor: <span class="string">'move'</span>
+			start: (event, ui) =&gt;
+				ui.helper.find(<span class="string">'.groups--owner'</span>).each (iteration, clone) =&gt;
+					ui.helper.css({border: <span class="string">'1px solid blue'</span>})
+					clone = $(clone)
+					clone.attr(<span class="string">'data-clone'</span>, <span class="number">1</span>)
+					original = <span class="property">@getOriginalFromClone</span>(clone)
+					<span class="property">@maskElement</span>(original)
+					<span class="property">@select</span>(clone)
+					<span class="property">@select</span>(original)
+				<span class="property">@cloneAndGroupSelectedIn</span>(ui)
+
+			stop: (event, ui) =&gt;
+				ui.helper.find(<span class="string">'.groups--owner'</span>).each (iteration, clone) =&gt;
+					clone = $(clone)
+					original = <span class="property">@getOriginalFromClone</span>(clone)
+					<span class="property">@unselect</span>(original)
+					<span class="property">@unmaskElement</span>(original)
+		})
+
+	initDroppables: () -&gt;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <pre><code>@$el.find(&#39;[data-behavior=&quot;droppable-group&quot;]&#39;).droppable({
+    drop: (e, ui) -&gt;
+        droppedOn = $(@);
+        console.log @droppedOn.data()
+        $(ui.draggable).detach().css({top: 0,left: 0}).appendTo(droppedOn);
+})</code></pre>
+<p>@$el.find(&#39;[data-behavior=&quot;droppable-user&quot;]&#39;).droppable({
+    drop: (e, ui) -&gt;
+        droppedOn = $(@);
+        console.log droppedOn
+        $(ui.draggable).detach().css({top: 0,left: 0}).appendTo(droppedOn);
+})</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	render: () -&gt;
+		context = {
+			groups: <span class="property">@groups</span>.toJSON()
+			creators: <span class="property">@creators</span>.toJSON()
+		}
+		<span class="property">@$el</span>.html(<span class="property">@template</span>(context))
+
+		<span class="property">@initDraggables</span>()
+		<span class="property">@initDroppables</span>()</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
