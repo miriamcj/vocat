@@ -17,7 +17,7 @@ class Vocat.Views.EvaluationDetail extends Vocat.Views.AbstractView
 
   initialize: (options)  ->
 
-    # Overlay options on top of defaults.
+    # Overlay options on top of this view's defaults.
     options = _.extend(@defaults, options);
 
     # Assign the current course ID to the view so that it can be incorporated into child routes. We expect the course ID
@@ -33,22 +33,21 @@ class Vocat.Views.EvaluationDetail extends Vocat.Views.AbstractView
     else if Vocat.Bootstrap.Models.Project?
       @project = new Vocat.Models.Project(Vocat.Bootstrap.Models.Project, {parse: true})
 
-    # As with the project, the detail's creator can be set from options or bootstrapped data
+    # Like the project, the creator model for this view can be passed in via options or bootstrapped into the page.
     if options.creator?
       @creator = options.creator
     else if Vocat.Bootstrap.Models.Creator?
       @creator = new Vocat.Models.Creator(Vocat.Bootstrap.Models.Creator, {parse: true})
 
-    # As with the project, the detail's submission can be set from options or bootstrapped data. The submission is the
-    # principal model for this view, so the rendering is defered until the submission has been loaded.
+    # Similarly, the detail's submission can be set from options or bootstrapped data. Unlike projects and creators,
+    # the submission will be fetched asynchronously if it's not present during view initialization. The submission is
+    # the principal model for this view, so the rendering is defered until the submission has been loaded.
     if options.submission?
       @submission = options.submission
       @submissionLoaded()
     else if Vocat.Bootstrap.Models.Submission?
       @submission = new Vocat.Models.Submission(Vocat.Bootstrap.Models.Submission, {parse: true})
       @submissionLoaded()
-    # If the submission does not come from options or bootstrapped data, this view will create a submission collection
-    # and attempt to fetch it itself.
     else
       # A single submission is typically fetched by project and creator ID, not by submission ID, because a submission
       # is created just-in-time on the backend if it does not already exist.
@@ -76,7 +75,6 @@ class Vocat.Views.EvaluationDetail extends Vocat.Views.AbstractView
 #      @annotations.fetch();
     @render()
 
-  # Responsible for rendering the HTML for the view
   render: () ->
 
     # The evaluation detail view is by and large a wrapper around a handful of child views. Therefore, it doesn't need
@@ -101,7 +99,7 @@ class Vocat.Views.EvaluationDetail extends Vocat.Views.AbstractView
       submission: @submission
     }
 
-    # The score view, annotations view, and the player view should always be visible
+    # The score view, annotations view, and the player view should always be visible.
     scoreView       = new Vocat.Views.EvaluationDetailScore(childViewOptions)
     annotationsView = new Vocat.Views.EvaluationDetailAnnotations(_.extend(childViewOptions, {annotations: @annotations}))
     playerView      = new Vocat.Views.EvaluationDetailPlayer(childViewOptions)
@@ -112,7 +110,7 @@ class Vocat.Views.EvaluationDetail extends Vocat.Views.AbstractView
     @$el.find('[data-behavior="annotations-view"]').first().html(annotationsView.render().el)
     @$el.find('[data-behavior="player-view"]').first().html(playerView.render().el)
 
-    # The rest of the views are conditional, depending on user's abilities
+    # The rest of the views are conditional, depending on user's abilities.
     if @submission.get('current_user_can_discuss') == true
       discussionView = new Vocat.Views.EvaluationDetailDiscussion(childViewOptions)
       @$el.find('[data-behavior="discussion-view"]').first().html(discussionView.render().el)
