@@ -1,0 +1,23 @@
+<!DOCTYPE html><html lang="en"><head><title>views/portfolio/incomplete_summary.js</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../"><meta name="groc-document-path" content="views/portfolio/incomplete_summary.js"><meta name="groc-project-path" content="app/assets/javascripts/backbone/views/portfolio/incomplete_summary.js.coffee"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path">app/assets/javascripts/backbone/views/portfolio/incomplete_summary.js.coffee</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="k">class</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">PortfolioIncompleteSummary</span> <span class="k">extends</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">AbstractView</span>
+
+  <span class="nv">template: </span><span class="nx">HBT</span><span class="p">[</span><span class="s">&quot;backbone/templates/portfolio/incomplete_summary_owner&quot;</span><span class="p">]</span>
+  <span class="nv">scorePartial: </span><span class="nx">HBT</span><span class="p">[</span><span class="s">&quot;backbone/templates/partials/score_summary&quot;</span><span class="p">]</span>
+
+  <span class="nv">defaults: </span><span class="p">{</span>
+    <span class="nv">showCourse: </span><span class="kc">true</span>
+    <span class="nv">showCreator: </span><span class="kc">true</span>
+  <span class="p">}</span>
+
+  <span class="nv">initialize: </span><span class="nf">(options) -&gt;</span>
+    <span class="nv">options = </span><span class="nx">_</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">@defaults</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span>
+    <span class="k">super</span> <span class="p">(</span><span class="nx">options</span><span class="p">)</span>
+
+  <span class="nv">render: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nv">context = </span><span class="p">{</span>
+      <span class="nv">project: </span><span class="nx">@model</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">()</span>
+      <span class="nv">showCourse: </span><span class="nx">@options</span><span class="p">.</span><span class="nx">showCourse</span>
+      <span class="nv">showCreator: </span><span class="nx">@options</span><span class="p">.</span><span class="nx">showCreator</span>
+    <span class="p">}</span>
+
+    <span class="nx">Handlebars</span><span class="p">.</span><span class="nx">registerPartial</span><span class="p">(</span><span class="s">&#39;score_summary&#39;</span><span class="p">,</span> <span class="nx">@scorePartial</span><span class="p">);</span>
+    <span class="nx">@$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="nx">@template</span><span class="p">(</span><span class="nx">context</span><span class="p">))</span></div></div></div></div></body></html>

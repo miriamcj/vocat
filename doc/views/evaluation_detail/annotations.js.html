@@ -1,0 +1,109 @@
+<!DOCTYPE html><html lang="en"><head><title>views/evaluation_detail/annotations.js</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../"><meta name="groc-document-path" content="views/evaluation_detail/annotations.js"><meta name="groc-project-path" content="app/assets/javascripts/backbone/views/evaluation_detail/annotations.js.coffee"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path">app/assets/javascripts/backbone/views/evaluation_detail/annotations.js.coffee</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="k">class</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">EvaluationDetailAnnotations</span> <span class="k">extends</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">AbstractView</span>
+
+  <span class="nv">template: </span><span class="nx">HBT</span><span class="p">[</span><span class="s">&quot;backbone/templates/evaluation_detail/annotations&quot;</span><span class="p">]</span>
+
+  <span class="nv">events:</span>
+    <span class="s">&#39;click [data-behavior=&quot;annotations-view-all&quot;]&#39;</span><span class="o">:</span> <span class="s">&#39;viewAllAnnotations&#39;</span>
+    <span class="s">&#39;click [data-behavior=&quot;annotations-auto-scroll&quot;]&#39;</span><span class="o">:</span> <span class="s">&#39;enableAutoScroll&#39;</span>
+
+  <span class="nv">initialize: </span><span class="nf">(options) -&gt;</span>
+    <span class="vi">@project = </span><span class="nx">options</span><span class="p">.</span><span class="nx">project</span>
+    <span class="vi">@submission = </span><span class="nx">options</span><span class="p">.</span><span class="nx">submission</span>
+    <span class="vi">@creator = </span><span class="nx">options</span><span class="p">.</span><span class="nx">creator</span>
+    <span class="vi">@annotations = </span><span class="nx">options</span><span class="p">.</span><span class="nx">annotations</span>
+    <span class="vi">@disableScroll = </span><span class="kc">false</span>
+    <span class="nx">@annotations</span><span class="p">.</span><span class="nx">bind</span> <span class="s">&#39;reset&#39;</span><span class="p">,</span> <span class="nx">@render</span><span class="p">,</span> <span class="nx">@</span>
+    <span class="nx">@annotations</span><span class="p">.</span><span class="nx">bind</span> <span class="s">&#39;add&#39;</span><span class="p">,</span> <span class="nx">@insertView</span><span class="p">,</span> <span class="nx">@</span>
+    <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Dispatcher</span><span class="p">.</span><span class="nx">bind</span> <span class="s">&#39;playerTimeUpdate&#39;</span><span class="p">,</span> <span class="nx">@showAnnotations</span><span class="p">,</span> <span class="nx">@</span>
+
+  <span class="nv">doScroll: </span><span class="nf">(speed, target, offset) -&gt;</span>
+    <span class="k">if</span> <span class="nx">@disableScroll</span> <span class="o">==</span> <span class="kc">false</span>
+      <span class="k">if</span> <span class="o">!</span><span class="nx">speed</span><span class="o">?</span> <span class="k">then</span> <span class="nv">speed = </span><span class="mi">300</span>
+      <span class="k">if</span> <span class="o">!</span><span class="nx">target</span><span class="o">?</span> <span class="k">then</span> <span class="nv">taret = </span><span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.annotation--scroll-anchor&#39;</span><span class="p">)</span>
+      <span class="nx">$</span><span class="p">.</span><span class="nx">smoothScroll</span><span class="p">({</span>
+        <span class="nv">direction: </span><span class="s">&#39;top&#39;</span>
+        <span class="nv">speed: </span><span class="nx">speed</span>
+        <span class="nv">scrollElement: </span><span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;[data-behavior=&quot;scroll-parent&quot;]&#39;</span><span class="p">)</span>
+        <span class="nv">scrollTarget: </span><span class="nx">target</span>
+        <span class="nv">offset: </span><span class="nx">offset</span>
+      <span class="p">})</span>
+
+  <span class="nv">enableAutoScroll: </span><span class="nf">(e) -&gt;</span>
+    <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">()</span>
+    <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;[data-behavior=&quot;annotations-view-all&quot;]&#39;</span><span class="p">).</span><span class="nx">show</span><span class="p">()</span>
+    <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;[data-behavior=&quot;annotations-auto-scroll&quot;]&#39;</span><span class="p">).</span><span class="nx">hide</span><span class="p">()</span>
+    <span class="vi">@disableScroll = </span><span class="kc">false</span>
+    <span class="nx">@annotations</span><span class="p">.</span><span class="nx">each</span> <span class="nf">(annotation) -&gt;</span>
+      <span class="nx">annotation</span><span class="p">.</span><span class="nx">unlock</span><span class="p">()</span>
+    <span class="nx">@showAnnotations</span><span class="p">({</span><span class="nv">seconds: </span><span class="nx">@currentTime</span><span class="p">})</span>
+
+  <span class="nv">viewAllAnnotations: </span><span class="nf">(e) -&gt;</span>
+    <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">()</span>
+    <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;[data-behavior=&quot;annotations-view-all&quot;]&#39;</span><span class="p">).</span><span class="nx">hide</span><span class="p">()</span>
+    <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;[data-behavior=&quot;annotations-auto-scroll&quot;]&#39;</span><span class="p">).</span><span class="nx">show</span><span class="p">()</span>
+    <span class="vi">@disableScroll = </span><span class="kc">true</span>
+    <span class="nx">@annotations</span><span class="p">.</span><span class="nx">each</span> <span class="nf">(annotation) -&gt;</span>
+      <span class="nx">annotation</span><span class="p">.</span><span class="nx">lockVisible</span><span class="p">()</span>
+
+  <span class="nv">showAnnotations: </span><span class="nf">(args) -&gt;</span>
+    <span class="nv">seconds = </span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">args</span><span class="p">.</span><span class="nx">seconds</span><span class="p">)</span>
+    <span class="vi">@currentTime = </span><span class="nx">seconds</span>
+
+    <span class="nx">@annotations</span><span class="p">.</span><span class="nx">each</span> <span class="nf">(annotation) -&gt;</span>
+      <span class="k">if</span> <span class="nx">annotation</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;seconds_timecode&#39;</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="nx">seconds</span>
+        <span class="nx">annotation</span><span class="p">.</span><span class="nx">show</span><span class="p">()</span>
+      <span class="k">else</span>
+        <span class="nx">annotation</span><span class="p">.</span><span class="nx">hide</span><span class="p">()</span>
+
+    <span class="nv">visibleAnnotations = </span><span class="nx">@annotations</span><span class="p">.</span><span class="nx">filter</span> <span class="nf">(annotation) -&gt;</span>
+      <span class="nx">annotation</span><span class="p">.</span><span class="nx">visible</span> <span class="o">==</span> <span class="kc">true</span>
+
+    <span class="nv">visibleValues = </span><span class="nx">_</span><span class="p">.</span><span class="nx">map</span> <span class="nx">visibleAnnotations</span><span class="p">,</span> <span class="nf">(annotation) -&gt;</span>
+      <span class="nx">annotation</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;seconds_timecode&#39;</span><span class="p">)</span>
+
+    <span class="nv">pastVisibleValues = </span><span class="nx">_</span><span class="p">.</span><span class="nx">reject</span> <span class="nx">visibleValues</span><span class="p">,</span> <span class="nf">(value) -&gt;</span>
+      <span class="nx">value</span> <span class="o">&gt;</span> <span class="nx">seconds</span>
+
+    <span class="k">if</span> <span class="nx">pastVisibleValues</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span>
+      <span class="nv">maxVisible = </span><span class="nx">_</span><span class="p">.</span><span class="nx">max</span> <span class="nx">pastVisibleValues</span>
+    <span class="k">else</span>
+      <span class="nv">maxVisible = </span><span class="mi">0</span>
+
+    <span class="nv">scrollEl = </span><span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;[data-behavior=&quot;scroll-parent&quot;]&#39;</span><span class="p">)</span>
+    <span class="nv">target = </span><span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;[data-seconds=&quot;&#39;</span> <span class="o">+</span> <span class="nx">maxVisible</span> <span class="o">+</span> <span class="s">&#39;&quot;]&#39;</span><span class="p">)</span>
+    <span class="nx">@doScroll</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="nx">target</span><span class="p">)</span>
+
+  <span class="nv">insertView: </span><span class="nf">(annotation) -&gt;</span>
+    <span class="nv">insertAt = </span><span class="nx">annotation</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;seconds_timecode&#39;</span><span class="p">)</span>
+    <span class="nv">before = </span><span class="nx">@annotations</span><span class="p">.</span><span class="nx">find</span> <span class="nf">(annotation) -&gt;</span>
+      <span class="nx">annotation</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;seconds_timecode&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nx">insertAt</span>
+
+    <span class="nv">targetEl = </span><span class="nx">$</span><span class="p">(</span><span class="s">&#39;&lt;li class=&quot;annotations--item&quot;&gt;&lt;/li&gt;&#39;</span><span class="p">)</span>
+    <span class="nv">childView = </span><span class="k">new</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">EvaluationDetailAnnotation</span><span class="p">({</span><span class="nv">model: </span><span class="nx">annotation</span><span class="p">,</span> <span class="nv">el: </span><span class="nx">targetEl</span><span class="p">})</span>
+    <span class="nx">@childViews</span><span class="p">[</span><span class="nx">annotation</span><span class="p">.</span><span class="nx">id</span><span class="p">]</span> <span class="o">=</span> <span class="nx">childView</span>
+
+    <span class="k">if</span> <span class="nx">before</span><span class="o">?</span>
+      <span class="nv">beforeEl = </span><span class="nx">@childViews</span><span class="p">[</span><span class="nx">before</span><span class="p">.</span><span class="nx">id</span><span class="p">].</span><span class="nx">el</span>
+      <span class="nx">$</span><span class="p">(</span><span class="nx">beforeEl</span><span class="p">).</span><span class="nx">before</span><span class="p">(</span><span class="nx">targetEl</span><span class="p">)</span>
+    <span class="k">else</span>
+      <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;[data-behavior=&quot;annotations-container&quot;]&#39;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">targetEl</span><span class="p">)</span>
+
+    <span class="nx">@updateCount</span><span class="p">()</span>
+
+  <span class="nv">updateCount: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;[data-behavior=&quot;count&quot;]&#39;</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="nx">@annotations</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span>
+
+  <span class="nv">render: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nv">context = </span><span class="p">{</span>
+      <span class="nv">currentTime: </span><span class="nx">@currentTime</span>
+      <span class="nv">count: </span><span class="nx">@annotations</span><span class="p">.</span><span class="nx">length</span>
+      <span class="nv">disableScroll: </span><span class="nx">@disableScroll</span>
+    <span class="p">}</span>
+    <span class="nx">@$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="nx">@template</span><span class="p">(</span><span class="nx">context</span><span class="p">))</span>
+    <span class="nv">annotationsContainer = </span><span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;[data-behavior=&quot;annotations-container&quot;]&#39;</span><span class="p">)</span>
+    <span class="vi">@childViews = </span><span class="k">new</span> <span class="nb">Array</span>
+    <span class="nx">@annotations</span><span class="p">.</span><span class="nx">each</span> <span class="nf">(annotation) =&gt;</span>
+      <span class="nv">targetEl = </span><span class="nx">$</span><span class="p">(</span><span class="s">&#39;&lt;li class=&quot;annotations--item&quot;&gt;&lt;/li&gt;&#39;</span><span class="p">)</span>
+      <span class="nv">childView = </span><span class="k">new</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">EvaluationDetailAnnotation</span><span class="p">({</span><span class="nv">model: </span><span class="nx">annotation</span><span class="p">,</span> <span class="nv">el: </span><span class="nx">targetEl</span><span class="p">})</span>
+      <span class="nx">@childViews</span><span class="p">[</span><span class="nx">annotation</span><span class="p">.</span><span class="nx">id</span><span class="p">]</span> <span class="o">=</span> <span class="nx">childView</span>
+      <span class="nx">annotationsContainer</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">targetEl</span><span class="p">)</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Return thyself for maximum chaining!</p></div></div><div class="code"><div class="wrapper">    <span class="nx">@</span></div></div></div></div></body></html>

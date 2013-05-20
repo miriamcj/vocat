@@ -1,0 +1,31 @@
+<!DOCTYPE html><html lang="en"><head><title>views/evaluation_detail/annotation.js</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../"><meta name="groc-document-path" content="views/evaluation_detail/annotation.js"><meta name="groc-project-path" content="app/assets/javascripts/backbone/views/evaluation_detail/annotation.js.coffee"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path">app/assets/javascripts/backbone/views/evaluation_detail/annotation.js.coffee</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="k">class</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">EvaluationDetailAnnotation</span> <span class="k">extends</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">AbstractView</span>
+
+  <span class="nv">template: </span><span class="nx">HBT</span><span class="p">[</span><span class="s">&quot;backbone/templates/evaluation_detail/annotation&quot;</span><span class="p">]</span>
+
+  <span class="nv">events:</span>
+    <span class="s">&#39;click [data-behavior=&quot;player-seek&quot;]&#39;</span><span class="o">:</span> <span class="s">&#39;doPlayerSeek&#39;</span>
+
+  <span class="nv">initialize: </span><span class="nf">(options) -&gt;</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span>
+    <span class="nx">@model</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s">&#39;change:visibility&#39;</span><span class="p">,</span><span class="nx">@updateVisibility</span><span class="p">,</span> <span class="nx">@</span><span class="p">)</span>
+
+  <span class="nv">doPlayerSeek: </span><span class="nf">(e) -&gt;</span>
+    <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">()</span>
+    <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Dispatcher</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s">&#39;player:seek&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nv">seconds: </span><span class="nx">@model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;seconds_timecode&#39;</span><span class="p">)})</span>
+
+  <span class="nv">updateVisibility: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="k">if</span> <span class="nx">@model</span><span class="p">.</span><span class="nx">visible</span> <span class="o">==</span> <span class="kc">true</span>
+      <span class="nx">@$el</span><span class="p">.</span><span class="nx">fadeIn</span><span class="p">()</span>
+    <span class="k">else</span>
+      <span class="nx">@$el</span><span class="p">.</span><span class="nx">hide</span><span class="p">()</span>
+
+  <span class="nv">render: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nv">context = </span><span class="p">{</span>
+      <span class="nv">author_name: </span><span class="nx">@model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;author_name&#39;</span><span class="p">)</span>
+      <span class="nv">smpte_timecode: </span><span class="nx">@model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;smpte_timecode&#39;</span><span class="p">)</span>
+      <span class="nv">body: </span><span class="nx">@model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;body&#39;</span><span class="p">)</span>
+      <span class="nv">visibility: </span><span class="nx">@model</span><span class="p">.</span><span class="nx">visible</span>
+    <span class="p">}</span>
+    <span class="nx">@$el</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s">&#39;data-seconds&#39;</span><span class="p">,</span> <span class="nx">@model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;seconds_timecode&#39;</span><span class="p">))</span>
+    <span class="nx">@$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="nx">@template</span><span class="p">(</span><span class="nx">context</span><span class="p">))</span>
+    <span class="k">if</span> <span class="nx">@model</span><span class="p">.</span><span class="nx">visible</span> <span class="o">==</span> <span class="kc">false</span> <span class="k">then</span> <span class="nx">@$el</span><span class="p">.</span><span class="nx">hide</span><span class="p">()</span></div></div></div></div></body></html>

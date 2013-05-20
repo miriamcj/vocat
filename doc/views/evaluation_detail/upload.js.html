@@ -1,0 +1,43 @@
+<!DOCTYPE html><html lang="en"><head><title>views/evaluation_detail/upload.js</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../"><meta name="groc-document-path" content="views/evaluation_detail/upload.js"><meta name="groc-project-path" content="app/assets/javascripts/backbone/views/evaluation_detail/upload.js.coffee"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path">app/assets/javascripts/backbone/views/evaluation_detail/upload.js.coffee</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="k">class</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">EvaluationDetailUpload</span> <span class="k">extends</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">AbstractView</span>
+
+  <span class="nv">template: </span><span class="nx">HBT</span><span class="p">[</span><span class="s">&quot;backbone/templates/evaluation_detail/upload&quot;</span><span class="p">]</span>
+
+  <span class="nv">initialize: </span><span class="nf">(options) -&gt;</span>
+    <span class="vi">@project    = </span><span class="nx">options</span><span class="p">.</span><span class="nx">project</span>
+    <span class="vi">@submission = </span><span class="nx">options</span><span class="p">.</span><span class="nx">submission</span>
+    <span class="vi">@creator    = </span><span class="nx">options</span><span class="p">.</span><span class="nx">creator</span>
+    <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Dispatcher</span><span class="p">.</span><span class="nx">bind</span> <span class="s">&#39;showUpload&#39;</span><span class="p">,</span> <span class="nx">@showElement</span><span class="p">,</span> <span class="nx">@</span>
+    <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Dispatcher</span><span class="p">.</span><span class="nx">bind</span> <span class="s">&#39;hideUpload&#39;</span><span class="p">,</span> <span class="nx">@hideElement</span><span class="p">,</span> <span class="nx">@</span>
+
+  <span class="nv">hideElement: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nx">@$el</span><span class="p">.</span><span class="nx">slideUp</span><span class="p">()</span>
+
+  <span class="nv">showElement: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nx">@$el</span><span class="p">.</span><span class="nx">slideDown</span><span class="p">()</span>
+
+  <span class="nv">render: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nv">context = </span><span class="p">{</span>
+      <span class="nv">creator: </span><span class="nx">@creator</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">()</span>
+      <span class="nv">project: </span><span class="nx">@project</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">()</span>
+      <span class="nv">submission: </span><span class="nx">@submission</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">()</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="nx">@attachment</span>
+      <span class="nv">context.attachment = </span><span class="nx">@attachment</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">()</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">@attachment</span>
+
+    <span class="nx">@$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="nx">@template</span><span class="p">(</span><span class="nx">context</span><span class="p">))</span>
+
+    <span class="nx">@$el</span><span class="p">.</span><span class="nx">hide</span><span class="p">()</span>
+
+    <span class="nx">$</span><span class="p">(</span><span class="s">&#39;#fileupload&#39;</span><span class="p">).</span><span class="nx">fileupload</span>
+      <span class="nv">url: </span><span class="s">&#39;/api/v1/submissions/&#39;</span> <span class="o">+</span> <span class="nx">@submission</span><span class="p">.</span><span class="nx">id</span> <span class="o">+</span> <span class="s">&#39;/attachments&#39;</span>
+      <span class="nv">dataType: </span><span class="s">&#39;json&#39;</span>
+      <span class="nv">done: </span><span class="nf">(e, data) =&gt;</span>
+        <span class="vi">@attachment = </span><span class="k">new</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Models</span><span class="p">.</span><span class="nx">Attachment</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">result</span><span class="p">)</span>
+        <span class="nx">@submission</span><span class="p">.</span><span class="nx">fetch</span><span class="p">({</span>
+          <span class="nv">success: </span><span class="o">=&gt;</span> <span class="nx">@submission</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s">&#39;startPolling&#39;</span><span class="p">)</span>
+        <span class="p">})</span>
+        <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Dispatcher</span><span class="p">.</span><span class="nx">trigger</span> <span class="s">&#39;uploadComplete&#39;</span>
+        <span class="nv">progress: </span><span class="nf">(e, data) =&gt;</span>
+          <span class="nv">progress = </span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">loaded</span> <span class="o">/</span> <span class="nx">data</span><span class="p">.</span><span class="nx">total</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+          <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.indicator&#39;</span><span class="p">).</span><span class="nx">css</span> <span class="s">&#39;width&#39;</span><span class="p">,</span> <span class="nx">progress</span> <span class="o">+</span> <span class="s">&#39;%&#39;</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Return thyself for maximum chaining!</p></div></div><div class="code"><div class="wrapper">    <span class="nx">@</span></div></div></div></div></body></html>

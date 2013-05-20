@@ -1,0 +1,82 @@
+<!DOCTYPE html><html lang="en"><head><title>index</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="index"><meta name="groc-project-path" content="README.md"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">README.md</div></div><div id="document"><div class="segment"><div class="comments"><div class="wrapper"><h1 id="vocat-30">VOCAT 3.0</h1>
+
+<h6 id="like-a-beautiful-phoneix-vocat-rises-from-its-ashes-and-takes-flight">Like a beautiful phoneix, VOCAT rises from its ashes and takes flight.</h6>
+
+<h2 id="infrastructure">Infrastructure</h2>
+
+<ul>
+<li>Vocat relies on postgres, which can generally be installed via yum or apt-get</li>
+<li>You will need Postgres' hstore module. On RHEL, you start by installing the pg contrib package: yum install postgresql92-contrib.x86_64</li>
+</ul>
+
+<h2 id="seeds">Seeds</h2>
+
+<h3 id="users">Users</h3>
+
+<ul>
+<li>Passwords are the same for everyone: 'testtest123'</li>
+<li>Administrators are your email addresses: i.e. <code>alex@castironcoding.com</code></li>
+<li>There are 6 evaluators: i.e. <code>evaluator3@test.com</code></li>
+<li>There are 15 assistants: i.e. <code>assistant7@test.com</code></li>
+<li>There are 150 students: i.e. <code>student37@test.com</code></li>
+<li>The idea was to create an even distribution of users to courses. </li>
+</ul>
+
+<blockquote>
+  <p>Note that since the data is random, <strong>some users may have no courses related to them</strong>. In that case, log out and use a different user. Also, the randomness is consistent for every re-seeding. So, unless <code>seeds.rb</code> changes significantly, there is a good chance that <code>student19@test.com</code> will always have the same data associated with it.</p>
+</blockquote>
+
+<h3 id="special-users">Special users</h3>
+
+<ul>
+<li>There is one user who has a global role of <code>evaluator</code> but is an <code>assistant</code> for one course: <code>assistant_evaluator@test.com</code></li>
+</ul>
+
+<h3 id="organizations">Organizations</h3>
+
+<ul>
+<li>There are two. Baruch and something else. </li>
+<li>Only Baruch has any associated data. Always use Baruch.</li>
+</ul>
+
+<h3 id="courses">Courses</h3>
+
+<ul>
+<li>There are a handful of courses with somewhat realistic names.</li>
+</ul>
+
+<h3 id="projects">Projects</h3>
+
+<ul>
+<li>Each course has 2 to 10 projects.</li>
+<li>Each project has 3 to 5 submissions.</li>
+</ul>
+
+<h3 id="project-types">Project Types</h3>
+
+<ul>
+<li>There is only one type: <code>presentation</code></li>
+</ul>
+
+<h3 id="submissions">Submissions</h3>
+
+<ul>
+<li>Each submission has one attachment, one of two videos. </li>
+<li>All of the videos are pointing to only two videos on AWS S3. So never delete the S3 folder <code>2013/2/20</code>.</li>
+</ul>
+
+<h2 id="migration-procedures">Migration Procedures</h2>
+
+<p>Since we're still early in the development process, it doesn't make sense to manage a ton of various migrations. Here are the steps that have been working for me to maintain one migration.</p>
+
+<p>After making regular changes to the migration.rb file, like adding columns or indices:</p>
+
+<pre><code>rake db:rollback # This undoes the current migration.
+rake db:migrate  # This redoes the migration with your new changes.
+rake db:seed     # This fills the database with the seed data.
+</code></pre>
+
+<p>After renaming or dropping tables, you need to actually remove the old tables from the schema.rb file and then:</p>
+
+<pre><code>rake db:reset
+</code></pre></div></div></div></div></body></html>

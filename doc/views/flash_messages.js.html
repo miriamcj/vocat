@@ -1,0 +1,12 @@
+<!DOCTYPE html><html lang="en"><head><title>views/flash_messages.js</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="views/flash_messages.js"><meta name="groc-project-path" content="app/assets/javascripts/backbone/views/flash_messages.js.coffee"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">app/assets/javascripts/backbone/views/flash_messages.js.coffee</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="k">class</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">FlashMessages</span> <span class="k">extends</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">AbstractView</span>
+
+  <span class="nv">template: </span><span class="nx">HBT</span><span class="p">[</span><span class="s">&quot;backbone/templates/flash_messages&quot;</span><span class="p">]</span>
+
+  <span class="nv">initialize: </span><span class="nf">(options)  -&gt;</span>
+    <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Dispatcher</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s">&#39;flash_message&#39;</span><span class="p">,</span> <span class="nx">@render</span><span class="p">,</span> <span class="nx">@</span><span class="p">)</span>
+
+  <span class="nv">render: </span><span class="nf">(args) -&gt;</span>
+    <span class="nv">context = </span><span class="p">{</span>
+      <span class="nv">messages: </span><span class="nx">args</span><span class="p">.</span><span class="nx">messages</span>
+    <span class="p">}</span>
+    <span class="nx">@$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="nx">@template</span><span class="p">(</span><span class="nx">context</span><span class="p">))</span></div></div></div></div></body></html>

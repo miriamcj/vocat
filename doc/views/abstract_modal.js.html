@@ -1,0 +1,52 @@
+<!DOCTYPE html><html lang="en"><head><title>views/abstract_modal.js</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="views/abstract_modal.js"><meta name="groc-project-path" content="app/assets/javascripts/backbone/views/abstract_modal.js.coffee"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">app/assets/javascripts/backbone/views/abstract_modal.js.coffee</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="c1">#= require ./abstract</span>
+
+<span class="k">class</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">AbstractModalView</span> <span class="k">extends</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">AbstractView</span>
+
+  <span class="nv">initialize: </span><span class="nf">(options) -&gt;</span>
+
+  <span class="nv">centerModal: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nv">yOffset = </span><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">scrollTop</span><span class="p">()</span>
+    <span class="nv">xOffset = </span><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">scrollLeft</span><span class="p">()</span>
+    <span class="nv">yCenter = </span><span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">height</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="nv">xCenter = </span><span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="nv">yPosition = </span><span class="nx">yCenter</span> <span class="o">-</span> <span class="p">(</span><span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.js-modal&#39;</span><span class="p">).</span><span class="nx">outerHeight</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="nv">xPosition = </span><span class="nx">xCenter</span> <span class="o">-</span> <span class="p">(</span><span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.js-modal&#39;</span><span class="p">).</span><span class="nx">outerWidth</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="nx">@$el</span><span class="p">.</span><span class="nx">prependTo</span><span class="p">(</span><span class="s">&#39;body&#39;</span><span class="p">)</span>
+    <span class="nx">@$el</span><span class="p">.</span><span class="nx">css</span><span class="p">({</span>
+      <span class="nv">position: </span><span class="s">&#39;absolute&#39;</span>
+      <span class="nv">zIndex: </span><span class="mi">300</span>
+      <span class="nv">left: </span><span class="p">(</span><span class="nx">xPosition</span> <span class="o">+</span> <span class="nx">xOffset</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;px&#39;</span>
+      <span class="nv">top: </span><span class="p">(</span><span class="nx">yPosition</span> <span class="o">+</span> <span class="nx">yOffset</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;px&#39;</span>
+    <span class="p">})</span>
+
+  <span class="nv">resizeBackdrop: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nx">@ensureBackdrop</span><span class="p">().</span><span class="nx">css</span><span class="p">({</span>
+      <span class="nv">height: </span><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">height</span><span class="p">()</span>
+    <span class="p">})</span>
+
+  <span class="nv">ensureBackdrop: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nv">backdrop = </span><span class="nx">$</span><span class="p">(</span><span class="s">&#39;#js-modal-backdrop&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">backdrop</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">0</span>
+      <span class="nv">backdrop = </span><span class="nx">$</span><span class="p">(</span><span class="s">&#39;&lt;div id=&quot;js-modal-backdrop&quot;&gt;&#39;</span><span class="p">).</span><span class="nx">css</span><span class="p">({</span>
+         <span class="nv">position: </span><span class="s">&quot;absolute&quot;</span>
+         <span class="nv">top: </span><span class="mi">0</span>
+         <span class="nv">left: </span><span class="mi">0</span>
+         <span class="nv">height: </span><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">height</span><span class="p">()</span>
+         <span class="nv">width: </span><span class="s">&quot;100%&quot;</span>
+         <span class="nv">opacity: </span><span class="mf">0.5</span>
+         <span class="nv">backgroundColor: </span><span class="s">&quot;</span><span class="err">#</span><span class="s">000&quot;</span>
+         <span class="s">&quot;z-index&quot;</span><span class="o">:</span> <span class="mi">200</span>
+      <span class="p">}).</span><span class="nx">appendTo</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s">&#39;body&#39;</span><span class="p">)).</span><span class="nx">hide</span><span class="p">()</span>
+      <span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">bind</span><span class="p">(</span><span class="s">&#39;resize&#39;</span><span class="p">,</span> <span class="nx">_</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">@resizeBackdrop</span><span class="p">,</span> <span class="nx">@</span><span class="p">))</span>
+    <span class="nx">backdrop</span>
+
+  <span class="nv">showBackdrop: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nx">@resizeBackdrop</span><span class="p">()</span>
+    <span class="nx">@ensureBackdrop</span><span class="p">().</span><span class="nx">fadeIn</span><span class="p">(</span><span class="mi">250</span><span class="p">)</span>
+
+  <span class="nv">showModal: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nx">@showBackdrop</span><span class="p">()</span>
+    <span class="nx">@centerModal</span><span class="p">()</span>
+
+  <span class="nv">hideModal: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nx">@ensureBackdrop</span><span class="p">().</span><span class="nx">fadeOut</span><span class="p">(</span><span class="mi">250</span><span class="p">)</span></div></div></div></div></body></html>

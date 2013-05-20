@@ -1,0 +1,17 @@
+<!DOCTYPE html><html lang="en"><head><title>models/range.js</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="models/range.js"><meta name="groc-project-path" content="app/assets/javascripts/backbone/models/range.js.coffee"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">app/assets/javascripts/backbone/models/range.js.coffee</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="c1">#= require ./rubric_property</span>
+
+<span class="k">class</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Models</span><span class="p">.</span><span class="nx">Range</span> <span class="k">extends</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Models</span><span class="p">.</span><span class="nx">RubricProperty</span>
+
+  <span class="nv">errorStrings: </span><span class="p">{</span>
+    <span class="nv">high_gap: </span>  <span class="s">&#39;There is a gap or an overlap between the high end of this range and the low end of the next range.&#39;</span>
+    <span class="nv">low_gap: </span>   <span class="s">&#39;There is a gap or an overlap between the low end of this range and the high end of the previous range.&#39;</span>
+    <span class="nv">range_inverted: </span><span class="s">&#39;The high end of this range is lower than the low end.&#39;</span>
+    <span class="nv">no_name: </span>   <span class="s">&#39;All ranges must have a name.&#39;</span>
+    <span class="nv">dupe: </span>    <span class="s">&#39;All ranges must have a unique name.&#39;</span>
+  <span class="p">}</span>
+
+  <span class="nv">defaults: </span><span class="p">{</span>
+    <span class="nv">name: </span><span class="s">&#39;&#39;</span>
+    <span class="nv">low: </span><span class="mi">0</span>
+    <span class="nv">high: </span><span class="mi">1</span>
+  <span class="p">}</span></div></div></div></div></body></html>

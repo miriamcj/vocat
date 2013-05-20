@@ -1,0 +1,19 @@
+<!DOCTYPE html><html lang="en"><head><title>models/field.js</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="models/field.js"><meta name="groc-project-path" content="app/assets/javascripts/backbone/models/field.js.coffee"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">app/assets/javascripts/backbone/models/field.js.coffee</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="c1">#= require ./rubric_property</span>
+
+<span class="k">class</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Models</span><span class="p">.</span><span class="nx">Field</span> <span class="k">extends</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Models</span><span class="p">.</span><span class="nx">RubricProperty</span>
+
+  <span class="nv">defaults: </span><span class="p">{</span>
+    <span class="nv">name: </span><span class="s">&#39;&#39;</span>
+    <span class="nv">description: </span><span class="s">&#39;&#39;</span>
+    <span class="nv">range_descriptions: </span><span class="p">{}</span>
+  <span class="p">}</span>
+
+  <span class="nv">errorStrings: </span><span class="p">{</span>
+    <span class="nv">dupe: </span>  <span class="s">&#39;Duplicate field names are not allowed&#39;</span>
+  <span class="p">}</span>
+
+  <span class="nv">setDescription: </span><span class="nf">(range, description) -&gt;</span>
+    <span class="nv">descriptions = </span><span class="nx">_</span><span class="p">.</span><span class="nx">clone</span><span class="p">(</span><span class="nx">@get</span><span class="p">(</span><span class="s">&#39;range_descriptions&#39;</span><span class="p">))</span>
+    <span class="nx">descriptions</span><span class="p">[</span><span class="nx">range</span><span class="p">.</span><span class="nx">id</span><span class="p">]</span> <span class="o">=</span> <span class="nx">description</span>
+    <span class="nx">@set</span><span class="p">(</span><span class="s">&#39;range_descriptions&#39;</span><span class="p">,</span> <span class="nx">descriptions</span><span class="p">)</span>
+    <span class="nx">@trigger</span><span class="p">(</span><span class="s">&#39;change&#39;</span><span class="p">)</span></div></div></div></div></body></html>

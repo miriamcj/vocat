@@ -1,0 +1,42 @@
+<!DOCTYPE html><html lang="en"><head><title>views/evaluation_detail/score.js</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../"><meta name="groc-document-path" content="views/evaluation_detail/score.js"><meta name="groc-project-path" content="app/assets/javascripts/backbone/views/evaluation_detail/score.js.coffee"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path">app/assets/javascripts/backbone/views/evaluation_detail/score.js.coffee</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="k">class</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">EvaluationDetailScore</span> <span class="k">extends</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">AbstractView</span>
+
+  <span class="nv">template: </span><span class="nx">HBT</span><span class="p">[</span><span class="s">&quot;backbone/templates/evaluation_detail/score&quot;</span><span class="p">]</span>
+  <span class="nv">scorePartial: </span><span class="nx">HBT</span><span class="p">[</span><span class="s">&quot;backbone/templates/partials/score_summary&quot;</span><span class="p">]</span>
+
+  <span class="nv">events: </span><span class="p">{</span>
+    <span class="s">&#39;click .js-toggle-score-detail&#39;</span><span class="o">:</span> <span class="s">&quot;toggleDetail&quot;</span>
+    <span class="s">&#39;click .js-toggle-score-help&#39;</span><span class="o">:</span> <span class="s">&quot;toggleHelp&quot;</span>
+  <span class="p">}</span>
+
+  <span class="nv">initialize: </span><span class="nf">(options) -&gt;</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span>
+
+    <span class="vi">@submission = </span><span class="nx">options</span><span class="p">.</span><span class="nx">submission</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Set the default state for the view</p></div></div><div class="code"><div class="wrapper">    <span class="vi">@state = </span><span class="k">new</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Models</span><span class="p">.</span><span class="nx">ViewState</span><span class="p">({</span>
+      <span class="nv">helpVisible: </span><span class="kc">false</span>
+      <span class="nv">detailVisible: </span><span class="kc">false</span>
+    <span class="p">})</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Bind render to changes in view state</p></div></div><div class="code"><div class="wrapper">    <span class="nx">@state</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s">&#39;change:helpVisible&#39;</span><span class="p">,</span> <span class="nx">@render</span><span class="p">,</span> <span class="nx">@</span><span class="p">)</span>
+    <span class="nx">@state</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s">&#39;change:detailVisible&#39;</span><span class="p">,</span> <span class="nx">@fadeDetail</span><span class="p">,</span> <span class="nx">@</span><span class="p">)</span>
+
+  <span class="nv">fadeDetail: </span><span class="p">()</span> <span class="nf">-&gt;</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Rendering after fade is complete to update button state. Probably
+a more elegant solution</p></div></div><div class="code"><div class="wrapper">    <span class="k">if</span> <span class="nx">@state</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;detailVisible&#39;</span><span class="p">)</span> <span class="o">is</span> <span class="kc">false</span>
+      <span class="nx">$</span><span class="p">(</span><span class="s">&#39;.score-list-expanded&#39;</span><span class="p">).</span><span class="nx">fadeOut</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="o">=&gt;</span> <span class="nx">@render</span><span class="p">())</span>
+    <span class="k">else</span>
+      <span class="nx">$</span><span class="p">(</span><span class="s">&#39;.score-list-expanded&#39;</span><span class="p">).</span><span class="nx">fadeIn</span><span class="p">(</span> <span class="mi">400</span><span class="p">,</span> <span class="o">=&gt;</span> <span class="nx">@render</span><span class="p">())</span>
+
+  <span class="nv">toggleHelp: </span><span class="nf">(event) -&gt;</span>
+    <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">()</span>
+    <span class="nv">newState = </span><span class="k">if</span> <span class="nx">@state</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;helpVisible&#39;</span><span class="p">)</span> <span class="o">is</span> <span class="kc">true</span> <span class="k">then</span> <span class="kc">false</span> <span class="k">else</span> <span class="kc">true</span>
+    <span class="nx">@state</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s">&#39;helpVisible&#39;</span><span class="p">,</span> <span class="nx">newState</span> <span class="p">)</span>
+
+  <span class="nv">toggleDetail: </span><span class="nf">(event) -&gt;</span>
+    <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">()</span>
+    <span class="nv">newState = </span><span class="k">if</span> <span class="nx">@state</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;detailVisible&#39;</span><span class="p">)</span> <span class="o">is</span> <span class="kc">true</span> <span class="k">then</span> <span class="kc">false</span> <span class="k">else</span> <span class="kc">true</span>
+    <span class="nx">@state</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s">&#39;detailVisible&#39;</span><span class="p">,</span> <span class="nx">newState</span> <span class="p">)</span>
+
+  <span class="nv">render: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nv">context = </span><span class="p">{</span>
+      <span class="nv">state: </span><span class="nx">@state</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">()</span>
+      <span class="nv">submission: </span><span class="nx">@submission</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">()</span>
+    <span class="p">}</span>
+    <span class="nx">Handlebars</span><span class="p">.</span><span class="nx">registerPartial</span><span class="p">(</span><span class="s">&#39;score_summary&#39;</span><span class="p">,</span> <span class="nx">@scorePartial</span><span class="p">);</span>
+    <span class="nx">@$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="nx">@template</span><span class="p">(</span><span class="nx">context</span><span class="p">))</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Return thyself for maximum chaining!</p></div></div><div class="code"><div class="wrapper">    <span class="nx">@</span></div></div></div></div></body></html>

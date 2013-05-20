@@ -1,0 +1,61 @@
+<!DOCTYPE html><html lang="en"><head><title>views/rubric_builder/abstract_editable.js</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../"><meta name="groc-document-path" content="views/rubric_builder/abstract_editable.js"><meta name="groc-project-path" content="app/assets/javascripts/backbone/views/rubric_builder/abstract_editable.js.coffee"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path">app/assets/javascripts/backbone/views/rubric_builder/abstract_editable.js.coffee</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="k">class</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">RubricBuilderAbstractEditable</span> <span class="k">extends</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">AbstractView</span>
+
+  <span class="nv">defaults:</span>
+    <span class="nv">editing: </span><span class="kc">false</span>
+    <span class="nv">property: </span><span class="s">&#39;&#39;</span>
+    <span class="nv">name: </span><span class="s">&#39;Type here&#39;</span>
+
+  <span class="nv">events:</span>
+    <span class="s">&#39;click .js-do-close&#39;</span>    <span class="o">:</span> <span class="s">&#39;doClose&#39;</span>
+    <span class="s">&#39;click .js-do-open&#39;</span>     <span class="o">:</span> <span class="s">&#39;doOpen&#39;</span>
+    <span class="s">&#39;submit form&#39;</span>       <span class="o">:</span> <span class="s">&#39;doSave&#39;</span>
+    <span class="s">&#39;click .js-save&#39;</span>      <span class="o">:</span> <span class="s">&#39;doSave&#39;</span>
+    <span class="s">&#39;focus input&#39;</span>       <span class="o">:</span> <span class="s">&#39;doSelect&#39;</span>
+
+
+  <span class="nv">initialize: </span><span class="nf">(options) -&gt;</span>
+    <span class="vi">@model = </span><span class="nx">options</span><span class="p">.</span><span class="nx">model</span>
+    <span class="vi">@options = </span><span class="nx">_</span><span class="p">.</span><span class="nx">clone</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">@defaults</span><span class="p">,</span> <span class="nx">@options</span><span class="p">))</span>
+    <span class="nx">@initializeState</span><span class="p">()</span>
+    <span class="nx">@state</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s">&#39;change:editing&#39;</span><span class="p">,</span> <span class="nx">@render</span><span class="p">,</span> <span class="nx">@</span><span class="p">)</span>
+    <span class="nx">@render</span><span class="p">()</span>
+
+  <span class="nv">doSelect: </span><span class="nf">(event) -&gt;</span>
+    <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.editable-inline-input&#39;</span><span class="p">).</span><span class="nx">select</span><span class="p">()</span>
+
+  <span class="nv">doOpen: </span><span class="nf">(event) -&gt;</span>
+    <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">()</span>
+    <span class="nx">event</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">()</span>
+    <span class="nx">@editingOn</span><span class="p">()</span>
+    <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.editable-inline-input&#39;</span><span class="p">).</span><span class="nx">focus</span><span class="p">()</span>
+
+  <span class="nv">doClose: </span><span class="nf">(event) -&gt;</span>
+    <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">()</span>
+    <span class="nx">event</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">()</span>
+    <span class="nx">@editingOff</span><span class="p">()</span>
+
+  <span class="nv">doSave: </span><span class="nf">(event) -&gt;</span>
+    <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">()</span>
+    <span class="nx">event</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">()</span>
+    <span class="nx">@model</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">@options</span><span class="p">.</span><span class="nx">property</span><span class="p">,</span> <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.editable-inline-input&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">())</span>
+    <span class="nx">@editingOff</span><span class="p">()</span>
+
+  <span class="nv">editingOn: </span><span class="nf">-&gt;</span>
+    <span class="k">if</span> <span class="nx">@state</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;editing&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="kc">false</span> <span class="k">then</span> <span class="nx">@state</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s">&#39;editing&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+
+  <span class="nv">editingOff: </span><span class="nf">-&gt;</span>
+    <span class="k">if</span> <span class="nx">@state</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;editing&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="kc">true</span> <span class="k">then</span> <span class="nx">@state</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s">&#39;editing&#39;</span><span class="p">,</span> <span class="kc">false</span><span class="p">)</span>
+
+  <span class="nv">initializeState: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="vi">@state = </span><span class="k">new</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Models</span><span class="p">.</span><span class="nx">ViewState</span><span class="p">({</span>
+      <span class="nv">editing: </span><span class="nx">@options</span><span class="p">.</span><span class="nx">editing</span>
+    <span class="p">})</span>
+
+  <span class="nv">render: </span><span class="nf">(event = null) -&gt;</span>
+    <span class="nv">context = </span><span class="p">{</span>
+      <span class="nv">property: </span><span class="nx">@options</span><span class="p">.</span><span class="nx">property</span>
+      <span class="nv">placeholder: </span><span class="nx">@options</span><span class="p">.</span><span class="nx">placeholder</span>
+      <span class="nv">editing: </span><span class="nx">@state</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;editing&#39;</span><span class="p">)</span>
+      <span class="nv">value: </span><span class="nx">@model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">@options</span><span class="p">.</span><span class="nx">property</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="nx">@$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="nx">@template</span><span class="p">(</span><span class="nx">context</span><span class="p">))</span></div></div></div></div></body></html>

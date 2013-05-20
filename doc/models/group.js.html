@@ -1,0 +1,15 @@
+<!DOCTYPE html><html lang="en"><head><title>models/group.js</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="models/group.js"><meta name="groc-project-path" content="app/assets/javascripts/backbone/models/group.js.coffee"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">app/assets/javascripts/backbone/models/group.js.coffee</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="k">class</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Models</span><span class="p">.</span><span class="nx">Group</span> <span class="k">extends</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Model</span>
+
+  <span class="nv">validate: </span><span class="nf">(attributes, options) -&gt;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;called validation&#39;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">attributes</span>
+    <span class="nv">errors = </span><span class="p">[]</span>
+    <span class="k">if</span> <span class="o">!</span><span class="nx">attributes</span><span class="p">.</span><span class="nx">name</span><span class="o">?</span> <span class="o">||</span> <span class="nx">attributes</span><span class="p">.</span><span class="nx">name</span> <span class="o">==</span> <span class="s">&#39;&#39;</span>
+      <span class="nx">errors</span><span class="p">.</span><span class="nx">push</span>
+        <span class="nv">level: </span><span class="s">&#39;error&#39;</span>
+        <span class="nv">message: </span><span class="s">&#39;Please enter a name before creating the group&#39;</span>
+    <span class="k">if</span> <span class="nx">errors</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span>
+      <span class="nv">out = </span><span class="nx">errors</span>
+    <span class="k">else</span>
+      <span class="nv">out = </span><span class="kc">false</span>
+    <span class="nx">out</span></div></div></div></div></body></html>

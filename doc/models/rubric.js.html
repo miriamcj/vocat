@@ -1,0 +1,199 @@
+<!DOCTYPE html><html lang="en"><head><title>models/rubric.js</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="models/rubric.js"><meta name="groc-project-path" content="app/assets/javascripts/backbone/models/rubric.js.coffee"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">app/assets/javascripts/backbone/models/rubric.js.coffee</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="k">class</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Models</span><span class="p">.</span><span class="nx">Rubric</span> <span class="k">extends</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Model</span>
+
+  <span class="nv">courseId: </span><span class="kc">null</span>
+
+  <span class="nv">urlRoot: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="k">if</span> <span class="nx">@courseId</span><span class="o">?</span>
+      <span class="s">&quot;/courses/</span><span class="si">#{</span><span class="nx">@courseId</span><span class="si">}</span><span class="s">/rubrics&quot;</span>
+    <span class="k">else</span>
+      <span class="s">&#39;/rubrics&#39;</span>
+
+  <span class="nv">initialize: </span><span class="nf">(options) -&gt;</span>
+    <span class="nx">@set</span> <span class="s">&#39;fields&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Collections</span><span class="p">.</span><span class="nx">Field</span> <span class="k">unless</span> <span class="nx">@get</span><span class="p">(</span><span class="s">&#39;fields&#39;</span><span class="p">)</span>
+    <span class="nx">@set</span> <span class="s">&#39;ranges&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Collections</span><span class="p">.</span><span class="nx">Range</span> <span class="k">unless</span> <span class="nx">@get</span><span class="p">(</span><span class="s">&#39;ranges&#39;</span><span class="p">)</span>
+    <span class="nx">@get</span><span class="p">(</span><span class="s">&#39;fields&#39;</span><span class="p">).</span><span class="nx">bind</span> <span class="s">&#39;add remove change&#39;</span><span class="p">,</span> <span class="o">=&gt;</span>
+      <span class="nx">@prevalidate</span><span class="p">()</span>
+      <span class="nx">@trigger</span><span class="p">(</span><span class="s">&#39;change&#39;</span><span class="p">)</span>
+    <span class="nx">@get</span><span class="p">(</span><span class="s">&#39;ranges&#39;</span><span class="p">).</span><span class="nx">bind</span> <span class="s">&#39;add remove change&#39;</span><span class="p">,</span> <span class="o">=&gt;</span>
+      <span class="nx">@ranges</span><span class="p">().</span><span class="nx">sort</span><span class="p">()</span>
+      <span class="nx">@prevalidate</span><span class="p">()</span>
+      <span class="nx">@trigger</span><span class="p">(</span><span class="s">&#39;change&#39;</span><span class="p">)</span>
+
+  <span class="nv">ranges: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nx">@get</span><span class="p">(</span><span class="s">&#39;ranges&#39;</span><span class="p">)</span>
+
+  <span class="nv">fields: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nx">@get</span><span class="p">(</span><span class="s">&#39;fields&#39;</span><span class="p">)</span>
+
+  <span class="nv">setDescriptionByName: </span><span class="nf">(fieldName, rangeName, description) -&gt;</span>
+    <span class="nv">field = </span><span class="nx">@get</span><span class="p">(</span><span class="s">&#39;fields&#39;</span><span class="p">).</span><span class="nx">where</span><span class="p">({</span><span class="nv">name: </span><span class="nx">fieldName</span><span class="p">})[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="nv">range = </span><span class="nx">@get</span><span class="p">(</span><span class="s">&#39;ranges&#39;</span><span class="p">).</span><span class="nx">where</span><span class="p">({</span><span class="nv">name: </span><span class="nx">rangeName</span><span class="p">})[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="nx">@setDescription</span><span class="p">(</span><span class="nx">field</span><span class="p">,</span> <span class="nx">range</span><span class="p">,</span> <span class="nx">description</span><span class="p">)</span>
+
+  <span class="nv">setDescription: </span><span class="nf">(field, range, description) -&gt;</span>
+    <span class="nx">field</span><span class="p">.</span><span class="nx">setDescription</span><span class="p">(</span><span class="nx">range</span><span class="p">,</span> <span class="nx">description</span><span class="p">)</span>
+
+  <span class="nv">addField: </span><span class="nf">(value) -&gt;</span>
+    <span class="k">if</span> <span class="nx">_</span><span class="p">.</span><span class="nx">isObject</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="k">then</span> <span class="nv">field = </span><span class="nx">value</span> <span class="k">else</span> <span class="nv">field = </span><span class="p">{</span> <span class="s">&#39;name&#39;</span><span class="o">:</span> <span class="nx">value</span><span class="p">,</span> <span class="nv">description: </span><span class="s">&#39;Enter a description...&#39;</span><span class="p">}</span>
+    <span class="nx">@fields</span><span class="p">().</span><span class="nx">add</span><span class="p">(</span><span class="nx">field</span><span class="p">)</span>
+
+  <span class="nv">removeField: </span><span class="nf">(id) -&gt;</span>
+    <span class="nx">@fields</span><span class="p">().</span><span class="nx">remove</span> <span class="nx">@fields</span><span class="p">().</span><span class="nx">get</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span>
+
+  <span class="nv">addRange: </span><span class="nf">(value) -&gt;</span>
+    <span class="k">if</span> <span class="nx">_</span><span class="p">.</span><span class="nx">isObject</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="k">then</span> <span class="nv">range = </span><span class="nx">value</span> <span class="k">else</span> <span class="nv">range = </span><span class="p">{</span> <span class="s">&#39;name&#39;</span><span class="o">:</span> <span class="nx">value</span><span class="p">,</span> <span class="nv">low: </span><span class="nx">@nextRangeLowValue</span><span class="p">(),</span> <span class="nv">high: </span><span class="nx">@nextRangeHighValue</span><span class="p">()}</span>
+    <span class="nx">@ranges</span><span class="p">().</span><span class="nx">add</span><span class="p">(</span><span class="nx">range</span><span class="p">)</span>
+
+  <span class="nv">removeRange: </span><span class="nf">(id) -&gt;</span>
+    <span class="nx">@ranges</span><span class="p">().</span><span class="nx">remove</span> <span class="nx">@ranges</span><span class="p">().</span><span class="nx">get</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span>
+
+  <span class="nv">highestHigh: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="k">if</span> <span class="nx">@ranges</span><span class="p">().</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span>
+      <span class="nx">@ranges</span><span class="p">().</span><span class="nx">max</span><span class="p">(</span> <span class="nf">(range) -&gt;</span> <span class="nx">range</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;high&#39;</span><span class="p">)).</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;high&#39;</span><span class="p">)</span>
+    <span class="k">else</span>
+      <span class="mi">0</span>
+  <span class="nv">lowestLow: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nx">@ranges</span><span class="p">().</span><span class="nx">min</span><span class="p">(</span> <span class="nf">(range) -&gt;</span> <span class="nx">range</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;low&#39;</span><span class="p">)).</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;low&#39;</span><span class="p">)</span>
+
+  <span class="nv">averageRangeIncrement: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="k">if</span> <span class="nx">@ranges</span><span class="p">().</span><span class="nx">length</span> <span class="o">&gt;=</span> <span class="mi">1</span>
+      <span class="nv">out = </span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">@highestHigh</span><span class="p">())</span> <span class="o">/</span> <span class="nx">@ranges</span><span class="p">().</span><span class="nx">length</span>
+    <span class="k">else</span>
+      <span class="nv">out = </span><span class="mi">1</span>
+    <span class="nx">out</span>
+
+  <span class="nv">nextRangeLowValue: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nx">@highestHigh</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
+
+  <span class="nv">nextRangeHighValue: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nx">@highestHigh</span><span class="p">()</span> <span class="o">+</span> <span class="nx">@averageRangeIncrement</span><span class="p">()</span>
+
+  <span class="nv">updateRangeBound: </span><span class="nf">(id, type, value) -&gt;</span>
+    <span class="nv">value = </span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span>
+    <span class="nx">@ranges</span><span class="p">().</span><span class="nx">get</span><span class="p">(</span><span class="nx">id</span><span class="p">).</span><span class="nx">set</span><span class="p">(</span><span class="nx">type</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span>
+
+  <span class="nv">validateRanges: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nv">out = </span><span class="s">&#39;&#39;</span>
+    <span class="k">if</span> <span class="nx">@checkIfCollectionHasMissingNames</span><span class="p">(</span><span class="nx">@ranges</span><span class="p">())</span> <span class="k">then</span> <span class="nv">out = </span><span class="nx">out</span> <span class="o">+</span> <span class="s">&#39;You cannot add an unnamed range.&#39;</span>
+    <span class="k">if</span> <span class="nx">@checkIfCollectionHasDuplicates</span><span class="p">(</span><span class="nx">@ranges</span><span class="p">())</span> <span class="k">then</span> <span class="nv">out = </span><span class="nx">out</span> <span class="o">+</span> <span class="s">&#39;No duplicate ranges are permitted.&#39;</span>
+    <span class="k">if</span> <span class="nx">@checkIfRangesHaveGaps</span><span class="p">(</span><span class="nx">@ranges</span><span class="p">)</span> <span class="k">then</span> <span class="nv">out = </span><span class="nx">out</span> <span class="o">+</span> <span class="s">&#39;Range gap or overlap error.&#39;</span>
+    <span class="k">if</span> <span class="nx">@checkIfRangesAreInverted</span><span class="p">(</span><span class="nx">@ranges</span><span class="p">)</span> <span class="k">then</span> <span class="nv">out = </span><span class="nx">out</span> <span class="o">+</span> <span class="s">&#39;Range inversion error.&#39;</span>
+    <span class="k">if</span> <span class="nx">out</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">then</span> <span class="k">return</span> <span class="kc">false</span> <span class="k">else</span> <span class="k">return</span> <span class="nx">out</span>
+
+  <span class="nv">validateFields: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nv">out = </span><span class="s">&#39;&#39;</span>
+    <span class="k">if</span> <span class="nx">@checkIfCollectionHasMissingNames</span><span class="p">(</span><span class="nx">@fields</span><span class="p">())</span> <span class="k">then</span> <span class="nv">out = </span><span class="nx">out</span> <span class="o">+</span> <span class="s">&#39;You cannot add an unnamed field.&#39;</span>
+    <span class="k">if</span> <span class="nx">@checkIfCollectionHasDuplicates</span><span class="p">(</span><span class="nx">@fields</span><span class="p">())</span> <span class="k">then</span> <span class="nv">out = </span><span class="nx">out</span> <span class="o">+</span> <span class="s">&#39;No duplicate fields are permitted.&#39;</span>
+    <span class="k">if</span> <span class="nx">out</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">then</span> <span class="k">return</span> <span class="kc">false</span> <span class="k">else</span> <span class="k">return</span> <span class="nx">out</span>
+
+  <span class="nv">prevalidate: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="vi">@prevalidationError = </span><span class="nx">@validate</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nx">@prevalidationError</span>
+      <span class="nx">@trigger</span><span class="p">(</span><span class="s">&#39;invalid&#39;</span><span class="p">)</span>
+    <span class="k">else</span>
+      <span class="nx">@trigger</span><span class="p">(</span><span class="s">&#39;valid&#39;</span><span class="p">)</span>
+
+  <span class="nv">validate: </span><span class="nf">(attributes, options) -&gt;</span>
+    <span class="nv">validateMethods = </span><span class="p">[</span><span class="s">&#39;validateRanges&#39;</span><span class="p">,</span> <span class="s">&#39;validateFields&#39;</span><span class="p">]</span>
+    <span class="nv">errorMessage = </span><span class="s">&#39;&#39;</span>
+    <span class="nx">_</span><span class="p">.</span><span class="nx">each</span> <span class="nx">validateMethods</span><span class="p">,</span> <span class="nf">(method) =&gt;</span>
+      <span class="nv">res = </span><span class="nx">@</span><span class="p">[</span><span class="nx">method</span><span class="p">](</span><span class="nx">attributes</span><span class="p">)</span>
+      <span class="k">if</span> <span class="nx">res</span> <span class="o">!=</span> <span class="kc">false</span> <span class="k">then</span> <span class="nv">errorMessage = </span><span class="nx">errorMessage</span> <span class="o">+</span> <span class="s">&#39; &#39;</span> <span class="o">+</span> <span class="nx">res</span>
+    <span class="k">if</span> <span class="nx">errorMessage</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span>
+      <span class="nx">errorMessage</span>
+
+  <span class="nv">checkIfCollectionHasMissingNames: </span><span class="nf">(collection) -&gt;</span>
+    <span class="nx">collection</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span> <span class="nf">(model) -&gt;</span>
+       <span class="nx">model</span><span class="p">.</span><span class="nx">removeError</span><span class="p">(</span><span class="s">&#39;no_name&#39;</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="nv">models = </span><span class="nx">collection</span><span class="p">.</span><span class="nx">where</span><span class="p">({</span><span class="nv">name: </span><span class="s">&#39;&#39;</span><span class="p">})</span>
+    <span class="k">if</span> <span class="nx">models</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span>
+      <span class="nx">_</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">models</span><span class="p">,</span> <span class="nf">(model) -&gt;</span>
+        <span class="nx">model</span><span class="p">.</span><span class="nx">addError</span><span class="p">(</span><span class="s">&#39;no_name&#39;</span><span class="p">)</span>
+      <span class="p">)</span>
+      <span class="k">return</span> <span class="kc">true</span>
+    <span class="k">else</span>
+      <span class="k">return</span> <span class="kc">false</span>
+
+  <span class="nv">checkIfCollectionHasDuplicates: </span><span class="nf">(collection) -&gt;</span>
+    <span class="nx">collection</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span> <span class="nf">(model) -&gt;</span>
+      <span class="nx">model</span><span class="p">.</span><span class="nx">removeError</span><span class="p">(</span><span class="s">&#39;dupe&#39;</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="nv">hasError = </span><span class="kc">false</span>
+    <span class="nv">groups = </span><span class="nx">collection</span><span class="p">.</span><span class="nx">groupBy</span><span class="p">(</span> <span class="nf">(model) -&gt;</span>
+      <span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">).</span><span class="nx">toLowerCase</span><span class="p">()</span>
+    <span class="p">)</span>
+    <span class="nx">_</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span> <span class="nx">groups</span><span class="p">,</span> <span class="nf">(value) -&gt;</span>
+      <span class="k">if</span> <span class="nx">value</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">1</span>
+        <span class="nx">_</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span> <span class="nx">value</span><span class="p">,</span> <span class="nf">(model) -&gt;</span>
+          <span class="nx">model</span><span class="p">.</span><span class="nx">addError</span><span class="p">(</span><span class="s">&#39;dupe&#39;</span><span class="p">)</span>
+          <span class="nv">hasError = </span><span class="kc">true</span>
+        <span class="p">)</span>
+      <span class="k">else</span>
+    <span class="p">)</span>
+    <span class="nx">hasError</span>
+
+  <span class="nv">checkIfRangesAreInverted: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nv">hasError = </span><span class="kc">false</span>
+    <span class="nx">@ranges</span><span class="p">().</span><span class="nx">each</span><span class="p">(</span> <span class="nf">(range) =&gt;</span>
+      <span class="nx">range</span><span class="p">.</span><span class="nx">removeError</span><span class="p">(</span><span class="s">&#39;range_inverted&#39;</span><span class="p">)</span>
+      <span class="k">if</span> <span class="nx">range</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;high&#39;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nx">range</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;low&#39;</span><span class="p">)</span>
+        <span class="nv">hasError = </span><span class="kc">true</span>
+        <span class="nx">range</span><span class="p">.</span><span class="nx">addError</span><span class="p">(</span><span class="s">&#39;range_inverted&#39;</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="nx">hasError</span>
+
+  <span class="nv">checkIfRangesHaveGaps: </span><span class="nf">(ranges) -&gt;</span>
+    <span class="k">if</span> <span class="nx">@ranges</span><span class="p">().</span><span class="nx">length</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="k">then</span> <span class="k">return</span> <span class="kc">false</span> <span class="c1"># 0 or 1 range(s) by definition, cannot contain gaps.</span>
+    <span class="nv">hasError = </span><span class="kc">false</span>
+    <span class="nv">ranges = </span><span class="nx">@ranges</span><span class="p">()</span>
+    <span class="nx">ranges</span><span class="p">.</span><span class="nx">sort</span><span class="p">()</span>
+    <span class="nx">ranges</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span> <span class="nf">(range) =&gt;</span>
+      <span class="nv">index = </span><span class="nx">ranges</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">range</span><span class="p">)</span>
+      <span class="nv">prev = </span><span class="nx">ranges</span><span class="p">.</span><span class="nx">at</span><span class="p">(</span><span class="nx">index</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+      <span class="nv">next = </span><span class="nx">ranges</span><span class="p">.</span><span class="nx">at</span><span class="p">(</span><span class="nx">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+      <span class="nx">range</span><span class="p">.</span><span class="nx">removeError</span><span class="p">(</span><span class="s">&#39;low_gap&#39;</span><span class="p">)</span>
+      <span class="k">if</span> <span class="nx">prev</span><span class="o">?</span>
+        <span class="nv">diff = </span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">range</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;low&#39;</span><span class="p">))</span> <span class="o">-</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">prev</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;high&#39;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nx">diff</span> <span class="o">!=</span> <span class="mi">1</span>
+          <span class="nx">range</span><span class="p">.</span><span class="nx">addError</span><span class="p">(</span><span class="s">&#39;low_gap&#39;</span><span class="p">)</span>
+          <span class="nv">hasError = </span><span class="kc">true</span>
+
+      <span class="nx">range</span><span class="p">.</span><span class="nx">removeError</span><span class="p">(</span><span class="s">&#39;high_gap&#39;</span><span class="p">)</span>
+      <span class="k">if</span> <span class="nx">next</span><span class="o">?</span>
+        <span class="nv">diff = </span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">next</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;low&#39;</span><span class="p">))</span> <span class="o">-</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">range</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;high&#39;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nx">diff</span> <span class="o">!=</span> <span class="mi">1</span>
+          <span class="nx">range</span><span class="p">.</span><span class="nx">addError</span><span class="p">(</span><span class="s">&#39;high_gap&#39;</span><span class="p">)</span>
+          <span class="nv">hasError = </span><span class="kc">true</span>
+
+    <span class="p">)</span>
+    <span class="nx">hasError</span>
+
+  <span class="nv">parse: </span><span class="nf">(response, options) -&gt;</span>
+    <span class="k">if</span> <span class="nx">response</span><span class="o">?</span>
+      <span class="nx">@set</span> <span class="s">&#39;fields&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Collections</span><span class="p">.</span><span class="nx">Field</span> <span class="k">unless</span> <span class="nx">@get</span><span class="p">(</span><span class="s">&#39;fields&#39;</span><span class="p">)</span>
+      <span class="nx">@set</span> <span class="s">&#39;ranges&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Collections</span><span class="p">.</span><span class="nx">Range</span> <span class="k">unless</span> <span class="nx">@get</span><span class="p">(</span><span class="s">&#39;ranges&#39;</span><span class="p">)</span>
+
+      <span class="nx">_</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">ranges</span><span class="p">,</span> <span class="nf">(range) =&gt;</span>
+        <span class="k">if</span> <span class="nx">@ranges</span><span class="p">().</span><span class="nx">get</span><span class="p">(</span><span class="nx">range</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span><span class="o">?</span>
+          <span class="nx">@ranges</span><span class="p">().</span><span class="nx">get</span><span class="p">(</span><span class="nx">range</span><span class="p">.</span><span class="nx">id</span><span class="p">).</span><span class="nx">set</span><span class="p">(</span><span class="nx">range</span><span class="p">)</span>
+        <span class="k">else</span>
+          <span class="nx">@addRange</span><span class="p">(</span><span class="nx">range</span><span class="p">)</span>
+      <span class="p">)</span>
+
+      <span class="nx">_</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">fields</span><span class="p">,</span> <span class="nf">(field) =&gt;</span>
+        <span class="k">if</span> <span class="nx">@fields</span><span class="p">().</span><span class="nx">get</span><span class="p">(</span><span class="nx">field</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span><span class="o">?</span>
+           <span class="nx">@fields</span><span class="p">().</span><span class="nx">get</span><span class="p">(</span><span class="nx">field</span><span class="p">.</span><span class="nx">id</span><span class="p">).</span><span class="nx">set</span><span class="p">(</span><span class="nx">field</span><span class="p">)</span>
+        <span class="k">else</span>
+          <span class="nx">@addField</span><span class="p">(</span><span class="nx">field</span><span class="p">)</span>
+      <span class="p">)</span>
+      <span class="k">delete</span> <span class="nx">response</span><span class="p">[</span><span class="s">&#39;ranges&#39;</span><span class="p">]</span>
+      <span class="k">delete</span> <span class="nx">response</span><span class="p">[</span><span class="s">&#39;fields&#39;</span><span class="p">]</span>
+    <span class="nx">response</span>
+
+  <span class="nv">toJSON: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nv">attributes = </span><span class="nx">_</span><span class="p">.</span><span class="nx">clone</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">attributes</span><span class="p">);</span>
+    <span class="nx">$</span><span class="p">.</span><span class="nx">each</span> <span class="nx">attributes</span><span class="p">,</span> <span class="nf">(key, value) -&gt;</span>
+      <span class="k">if</span> <span class="nx">value</span><span class="o">?</span> <span class="o">&amp;&amp;</span> <span class="nx">_</span><span class="p">(</span><span class="nx">value</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">).</span><span class="nx">isFunction</span><span class="p">()</span>
+        <span class="nx">attributes</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">value</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">()</span></div></div></div></div></body></html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html><html lang="en"><head><title>models/rubric_property.js</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="models/rubric_property.js"><meta name="groc-project-path" content="app/assets/javascripts/backbone/models/rubric_property.js.coffee"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">app/assets/javascripts/backbone/models/rubric_property.js.coffee</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="k">class</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Models</span><span class="p">.</span><span class="nx">RubricProperty</span> <span class="k">extends</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Model</span>
+
+  <span class="nv">errorStrings: </span><span class="p">{}</span>
+  <span class="nv">idAttribute: </span><span class="s">&quot;id&quot;</span>
+
+  <span class="nv">hasErrors: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="k">if</span> <span class="nx">@errors</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">then</span> <span class="kc">true</span> <span class="k">else</span> <span class="kc">false</span>
+
+  <span class="nv">errorMessages: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nv">messages = </span><span class="k">new</span> <span class="nb">Array</span>
+    <span class="nx">_</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">@errors</span><span class="p">,</span> <span class="nf">(error, index, list) =&gt;</span>
+      <span class="k">if</span> <span class="nx">@errorStrings</span><span class="p">[</span><span class="nx">error</span><span class="p">]</span><span class="o">?</span>
+        <span class="nv">message = </span><span class="nx">@errorStrings</span><span class="p">[</span><span class="nx">error</span><span class="p">]</span>
+      <span class="k">else</span>
+        <span class="nv">message = </span><span class="nx">error</span>
+      <span class="nx">messages</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="nx">messages</span>
+
+  <span class="nv">initialize: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="k">if</span> <span class="o">!</span><span class="nx">@get</span><span class="p">(</span><span class="s">&#39;id&#39;</span><span class="p">)</span><span class="o">?</span> <span class="k">then</span> <span class="nx">@set</span><span class="p">(</span><span class="s">&#39;id&#39;</span><span class="p">,</span><span class="nx">@cid</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s">&#39;c&#39;</span><span class="p">,</span><span class="s">&#39;&#39;</span><span class="p">))</span>
+    <span class="vi">@errors = </span><span class="k">new</span> <span class="nb">Array</span>
+
+  <span class="nv">addError: </span><span class="nf">(key) -&gt;</span>
+    <span class="nx">_</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">@errors</span><span class="p">,</span> <span class="nf">(error, index, list) -&gt;</span>
+      <span class="k">if</span> <span class="nx">error</span> <span class="o">==</span> <span class="nx">key</span> <span class="k">then</span> <span class="nx">list</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">index</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="nx">@errors</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
+
+  <span class="nv">removeError: </span><span class="nf">(error_key) -&gt;</span>
+    <span class="nv">errors = </span><span class="nx">_</span><span class="p">.</span><span class="nx">uniq</span><span class="p">(</span><span class="nx">@errors</span><span class="p">,</span> <span class="kc">false</span><span class="p">)</span>
+    <span class="vi">@errors = </span><span class="nx">_</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="nx">errors</span><span class="p">,</span> <span class="nf">(error) =&gt;</span>
+      <span class="nx">error</span> <span class="o">==</span> <span class="nx">error_key</span>
+    <span class="p">)</span></div></div></div></div></body></html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html><html lang="en"><head><title>views/course_map/creator_detail.js</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../"><meta name="groc-document-path" content="views/course_map/creator_detail.js"><meta name="groc-project-path" content="app/assets/javascripts/backbone/views/course_map/creator_detail.js.coffee"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path">app/assets/javascripts/backbone/views/course_map/creator_detail.js.coffee</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="k">class</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">CourseMapCreatorDetail</span> <span class="k">extends</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">AbstractView</span>
+
+  <span class="nv">template: </span><span class="nx">HBT</span><span class="p">[</span><span class="s">&quot;backbone/templates/course_map/creator_detail&quot;</span><span class="p">]</span>
+
+
+  <span class="nv">initialize: </span><span class="nf">(options) -&gt;</span>
+    <span class="vi">@courseId = </span><span class="nx">options</span><span class="p">.</span><span class="nx">courseId</span>
+    <span class="vi">@projects = </span><span class="nx">options</span><span class="p">.</span><span class="nx">projects</span>
+    <span class="vi">@creators = </span><span class="nx">options</span><span class="p">.</span><span class="nx">creators</span>
+    <span class="vi">@showCourse = </span><span class="nx">options</span><span class="p">.</span><span class="nx">showCourse</span>
+    <span class="vi">@creator = </span><span class="nx">@creators</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">creator</span><span class="p">)</span>
+
+    <span class="vi">@submissions = </span><span class="k">new</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Collections</span><span class="p">.</span><span class="nx">Submission</span><span class="p">([],</span> <span class="p">{</span><span class="nv">creatorId: </span><span class="nx">@creator</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span> <span class="nv">courseId: </span><span class="nx">@courseId</span><span class="p">})</span>
+
+    <span class="nx">$</span><span class="p">.</span><span class="nx">when</span><span class="p">(</span><span class="nx">@submissions</span><span class="p">.</span><span class="nx">fetch</span><span class="p">()).</span><span class="nx">then</span> <span class="p">()</span> <span class="o">=&gt;</span>
+      <span class="nx">@render</span><span class="p">()</span>
+
+  <span class="nv">render: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nv">context = </span><span class="p">{</span>
+      <span class="nv">creator: </span><span class="nx">@creator</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">()</span>
+      <span class="nv">projects: </span><span class="nx">@projects</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">()</span>
+      <span class="nv">submissions: </span><span class="nx">@submissions</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">()</span>
+    <span class="p">}</span>
+    <span class="nx">@$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="nx">@template</span><span class="p">(</span><span class="nx">context</span><span class="p">))</span>
+
+    <span class="nv">childContainer = </span><span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;[data-behavior=&quot;submission-summaries&quot;]&#39;</span><span class="p">)</span>
+    <span class="nx">@projects</span><span class="p">.</span><span class="nx">each</span> <span class="nf">(project) =&gt;</span>
+      <span class="nv">submission = </span><span class="nx">@submissions</span><span class="p">.</span><span class="nx">where</span><span class="p">({</span><span class="nv">project_id: </span><span class="nx">project</span><span class="p">.</span><span class="nx">id</span><span class="p">})[</span><span class="mi">0</span><span class="p">]</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>TODO: Abstract this factory code for creating a submission from a project to somewhere else.</p></div></div><div class="code"><div class="wrapper">      <span class="k">if</span> <span class="o">!</span><span class="nx">submission</span><span class="o">?</span>
+        <span class="nv">submission = </span><span class="k">new</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Models</span><span class="p">.</span><span class="nx">Submission</span><span class="p">({</span>
+          <span class="nv">project_name: </span><span class="nx">project</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">)</span>
+          <span class="nv">project_id: </span><span class="nx">project</span><span class="p">.</span><span class="nx">id</span>
+          <span class="nv">creator_id: </span><span class="nx">@creator</span><span class="p">.</span><span class="nx">id</span>
+          <span class="nv">creator_name: </span><span class="nx">@creator</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">)</span>
+          <span class="nv">course_id: </span><span class="nx">project</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;course_id&#39;</span><span class="p">)</span>
+          <span class="nv">course_name: </span><span class="nx">project</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;course_name&#39;</span><span class="p">)</span>
+          <span class="nv">course_name_long: </span><span class="nx">project</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;course_name_long&#39;</span><span class="p">)</span>
+        <span class="p">})</span>
+      <span class="nv">childView = </span><span class="k">new</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">PortfolioSubmissionSummary</span><span class="p">({</span>
+        <span class="nv">showCourse: </span><span class="kc">false</span>
+        <span class="nv">showCreator: </span><span class="kc">false</span>
+        <span class="nv">el: </span><span class="nx">$</span><span class="p">(</span><span class="s">&#39;&lt;div class=&quot;constrained-portfolio-frame&quot;&gt;&lt;/div&gt;&#39;</span><span class="p">)</span>
+        <span class="nv">model: </span><span class="nx">submission</span>
+      <span class="p">})</span>
+      <span class="nx">childContainer</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">childView</span><span class="p">.</span><span class="nx">render</span><span class="p">())</span>
+
+    <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;[data-behavior=&quot;dropdown&quot;]&#39;</span><span class="p">).</span><span class="nx">dropdownNavigation</span><span class="p">()</span></div></div></div></div></body></html>

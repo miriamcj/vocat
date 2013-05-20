@@ -1,0 +1,37 @@
+<!DOCTYPE html><html lang="en"><head><title>views/rubric_builder/cell_detail.js</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../"><meta name="groc-document-path" content="views/rubric_builder/cell_detail.js"><meta name="groc-project-path" content="app/assets/javascripts/backbone/views/rubric_builder/cell_detail.js.coffee"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path">app/assets/javascripts/backbone/views/rubric_builder/cell_detail.js.coffee</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="c1">#= require ../abstract_modal</span>
+
+<span class="k">class</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">RubricBuilderCellDetail</span> <span class="k">extends</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">AbstractModalView</span>
+
+  <span class="nv">template: </span><span class="nx">HBT</span><span class="p">[</span><span class="s">&quot;backbone/templates/rubric_builder/cell_detail&quot;</span><span class="p">]</span>
+
+  <span class="nv">events:</span>
+    <span class="s">&#39;click .js-do-close&#39;</span><span class="o">:</span> <span class="s">&#39;doClose&#39;</span>
+    <span class="s">&#39;click .js-do-close&#39;</span><span class="o">:</span> <span class="s">&#39;doClose&#39;</span>
+    <span class="s">&#39;submit form&#39;</span><span class="o">:</span> <span class="s">&#39;doSave&#39;</span>
+
+  <span class="nv">initialize: </span><span class="nf">(options) -&gt;</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span>
+    <span class="vi">@options.centerOn = </span><span class="s">&#39;.rubric-table&#39;</span>
+    <span class="vi">@field = </span><span class="nx">@model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;fields&#39;</span><span class="p">).</span><span class="nx">get</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">fieldId</span><span class="p">)</span>
+    <span class="vi">@range = </span><span class="nx">@model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;ranges&#39;</span><span class="p">).</span><span class="nx">get</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">rangeId</span><span class="p">)</span>
+
+  <span class="nv">doSave: </span><span class="nf">(event) -&gt;</span>
+    <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">()</span>
+    <span class="nv">description = </span><span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;[name=description]&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">()</span>
+    <span class="nx">@model</span><span class="p">.</span><span class="nx">setDescription</span><span class="p">(</span><span class="nx">@field</span><span class="p">,</span> <span class="nx">@range</span><span class="p">,</span> <span class="nx">description</span><span class="p">)</span>
+    <span class="nx">@doClose</span><span class="p">()</span>
+
+  <span class="nv">doClose: </span><span class="nf">(event = null) -&gt;</span>
+    <span class="k">if</span> <span class="nx">event</span><span class="o">?</span> <span class="k">then</span> <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">()</span>
+    <span class="nx">@hideModal</span><span class="p">()</span>
+    <span class="nx">@remove</span><span class="p">()</span>
+
+  <span class="nv">render: </span><span class="nf">(event = null) -&gt;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">@range</span><span class="p">,</span> <span class="s">&#39;before json&#39;</span>
+    <span class="nv">context = </span><span class="p">{</span>
+      <span class="nv">range: </span><span class="nx">@range</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">()</span>
+      <span class="nv">field: </span><span class="nx">@field</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">()</span>
+    <span class="p">}</span>
+    <span class="nx">@$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="nx">@template</span><span class="p">(</span><span class="nx">context</span><span class="p">))</span>
+    <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;textarea&#39;</span><span class="p">).</span><span class="nx">focus</span><span class="p">()</span>
+    <span class="nx">@showModal</span><span class="p">()</span></div></div></div></div></body></html>

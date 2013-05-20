@@ -1,0 +1,66 @@
+<!DOCTYPE html><html lang="en"><head><title>views/evaluation_detail/player.js</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../"><meta name="groc-document-path" content="views/evaluation_detail/player.js"><meta name="groc-project-path" content="app/assets/javascripts/backbone/views/evaluation_detail/player.js.coffee"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path">app/assets/javascripts/backbone/views/evaluation_detail/player.js.coffee</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="k">class</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">EvaluationDetailPlayer</span> <span class="k">extends</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">AbstractView</span>
+
+  <span class="nv">template: </span><span class="nx">HBT</span><span class="p">[</span><span class="s">&quot;backbone/templates/evaluation_detail/player&quot;</span><span class="p">]</span>
+
+  <span class="nv">events:</span>
+    <span class="s">&#39;click [data-behavior=&quot;show-upload&quot;]&#39;</span><span class="o">:</span> <span class="s">&#39;showUpload&#39;</span>
+
+  <span class="nv">showUpload: </span><span class="nf">(e) -&gt;</span>
+    <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">()</span>
+    <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Dispatcher</span><span class="p">.</span><span class="nx">trigger</span> <span class="s">&#39;showUpload&#39;</span>
+
+  <span class="nv">initialize: </span><span class="nf">(options) -&gt;</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span>
+    <span class="vi">@project = </span><span class="nx">options</span><span class="p">.</span><span class="nx">project</span>
+    <span class="vi">@submission = </span><span class="nx">options</span><span class="p">.</span><span class="nx">submission</span>
+    <span class="vi">@creator = </span><span class="nx">options</span><span class="p">.</span><span class="nx">creator</span>
+
+    <span class="k">if</span> <span class="nx">@submission</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;transcoded_attachment&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="kc">false</span> <span class="o">&amp;&amp;</span> <span class="nx">@submission</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;uploaded_attachment&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="kc">true</span> <span class="o">&amp;&amp;</span> <span class="nx">@submission</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;transcoding_error&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="kc">false</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;polling&#39;</span>
+      <span class="nx">@startPolling</span><span class="p">()</span>
+
+    <span class="nx">@submission</span><span class="p">.</span><span class="nx">bind</span> <span class="s">&#39;startPolling&#39;</span><span class="p">,</span> <span class="nx">@startPolling</span><span class="p">,</span> <span class="nx">@</span>
+    <span class="nx">@submission</span><span class="p">.</span><span class="nx">bind</span> <span class="s">&#39;change:transcoded_attachment&#39;</span><span class="p">,</span> <span class="nx">@render</span><span class="p">,</span> <span class="nx">@</span>
+    <span class="nx">@submission</span><span class="p">.</span><span class="nx">bind</span> <span class="s">&#39;change:uploaded_attachment&#39;</span><span class="p">,</span> <span class="nx">@render</span><span class="p">,</span> <span class="nx">@</span>
+    <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Dispatcher</span><span class="p">.</span><span class="nx">bind</span> <span class="s">&#39;player:stop&#39;</span><span class="p">,</span> <span class="nx">@handlePlayerStop</span><span class="p">,</span> <span class="nx">@</span>
+    <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Dispatcher</span><span class="p">.</span><span class="nx">bind</span> <span class="s">&#39;player:start&#39;</span><span class="p">,</span> <span class="nx">@handlePlayerStart</span><span class="p">,</span> <span class="nx">@</span>
+    <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Dispatcher</span><span class="p">.</span><span class="nx">bind</span> <span class="s">&#39;player:seek&#39;</span><span class="p">,</span> <span class="nx">@handlePlayerSeek</span><span class="p">,</span> <span class="nx">@</span>
+
+  <span class="nv">startPolling: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Dispatcher</span><span class="p">.</span><span class="nx">trigger</span> <span class="s">&#39;hideUpload&#39;</span>
+    <span class="nv">options = </span><span class="p">{</span>
+      <span class="nv">delay: </span><span class="mi">5000</span>
+      <span class="nv">delayed: </span><span class="kc">true</span>
+      <span class="nv">condition: </span><span class="nf">(model) =&gt;</span>
+        <span class="nv">results = </span><span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;transcoded_attachment&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="kc">false</span> <span class="o">&amp;&amp;</span> <span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;uploaded_attachment&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="kc">true</span> <span class="o">||</span> <span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;transcoding_error&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nx">results</span> <span class="o">==</span> <span class="kc">false</span>
+          <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Dispatcher</span><span class="p">.</span><span class="nx">trigger</span> <span class="s">&#39;transcodingComplete&#39;</span>
+        <span class="nx">results</span>
+    <span class="p">}</span>
+    <span class="nv">poller = </span><span class="nx">Backbone</span><span class="p">.</span><span class="nx">Poller</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">@submission</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
+    <span class="nx">poller</span><span class="p">.</span><span class="nx">start</span><span class="p">()</span>
+
+  <span class="nv">handlePlayerStop: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nx">@player</span><span class="p">.</span><span class="nx">pause</span><span class="p">()</span>
+
+  <span class="nv">handlePlayerStart: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nx">@player</span><span class="p">.</span><span class="nx">play</span><span class="p">()</span>
+
+  <span class="nv">handlePlayerSeek: </span><span class="nf">(options) -&gt;</span>
+    <span class="nx">@player</span><span class="p">.</span><span class="nx">currentTime</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">seconds</span><span class="p">)</span>
+
+  <span class="nv">render: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nv">context = </span><span class="p">{</span>
+      <span class="nv">project: </span><span class="nx">@project</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">()</span>
+      <span class="nv">submission: </span><span class="nx">@submission</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">()</span>
+      <span class="nv">creator: </span><span class="nx">@creator</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">()</span>
+    <span class="p">}</span>
+    <span class="nx">@$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="nx">@template</span><span class="p">(</span><span class="nx">context</span><span class="p">))</span>
+    <span class="k">if</span> <span class="nx">@submission</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;transcoded_attachment&#39;</span><span class="p">)</span>
+      <span class="nx">Popcorn</span><span class="p">.</span><span class="nx">player</span><span class="p">(</span><span class="s">&#39;baseplayer&#39;</span><span class="p">)</span>
+      <span class="nv">playerElement = </span><span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;[data-behavior=&quot;video-player&quot;]&#39;</span><span class="p">).</span><span class="nx">get</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+      <span class="vi">@player = </span><span class="nx">Popcorn</span><span class="p">(</span><span class="nx">playerElement</span><span class="p">)</span>
+      <span class="nv">Vocat.Dispatcher.player = </span><span class="nx">@player</span>
+      <span class="nx">@player</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span> <span class="s">&#39;timeupdate&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="nf">-&gt;</span>
+          <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Dispatcher</span><span class="p">.</span><span class="nx">trigger</span> <span class="s">&#39;playerTimeUpdate&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nv">seconds: </span><span class="nx">@</span><span class="p">.</span><span class="nx">currentTime</span><span class="p">()}</span>
+      <span class="p">)</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Return thyself for maximum chaining!</p></div></div><div class="code"><div class="wrapper">    <span class="nx">@</span></div></div></div></div></body></html>

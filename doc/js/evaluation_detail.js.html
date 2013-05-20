@@ -147,7 +147,7 @@ Created by Zach Davis, Cast Iron Coding
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
-              <p>Overlay options on top of defaults.</p>
+              <p>Overlay options on top of this view&#39;s defaults.</p>
 
             </div>
             
@@ -199,7 +199,7 @@ page, in which case the course ID is generally not needed.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
-              <p>As with the project, the detail&#39;s creator can be set from options or bootstrapped data</p>
+              <p>Like the project, the creator model for this view can be passed in via options or bootstrapped into the page.</p>
 
             </div>
             
@@ -217,8 +217,9 @@ page, in which case the course ID is generally not needed.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
-              <p>As with the project, the detail&#39;s submission can be set from options or bootstrapped data. The submission is the
-principal model for this view, so the rendering is defered until the submission has been loaded.</p>
+              <p>Similarly, the detail&#39;s submission can be set from options or bootstrapped data. Unlike projects and creators,
+the submission will be fetched asynchronously if it&#39;s not present during view initialization. The submission is
+the principal model for this view, so the rendering is defered until the submission has been loaded.</p>
 
             </div>
             
@@ -227,7 +228,8 @@ principal model for this view, so the rendering is defered until the submission 
       <span class="property">@submissionLoaded</span>()
     <span class="keyword">else</span> <span class="keyword">if</span> Vocat.Bootstrap.Models.Submission?
       <span class="property">@submission</span> = <span class="keyword">new</span> Vocat.Models.Submission(Vocat.Bootstrap.Models.Submission, {parse: <span class="literal">true</span>})
-      <span class="property">@submissionLoaded</span>()</pre></div></div>
+      <span class="property">@submissionLoaded</span>()
+    <span class="keyword">else</span></pre></div></div>
             
         </li>
         
@@ -237,22 +239,6 @@ principal model for this view, so the rendering is defered until the submission 
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-10">&#182;</a>
-              </div>
-              <p>If the submission does not come from options or bootstrapped data, this view will create a submission collection
-and attempt to fetch it itself.</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>    <span class="keyword">else</span></pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-11">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-11">&#182;</a>
               </div>
               <p>A single submission is typically fetched by project and creator ID, not by submission ID, because a submission
 is created just-in-time on the backend if it does not already exist.</p>
@@ -273,11 +259,11 @@ is created just-in-time on the backend if it does not already exist.</p>
         </li>
         
         
-        <li id="section-12">
+        <li id="section-11">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-12">&#182;</a>
+                <a class="pilcrow" href="#section-11">&#182;</a>
               </div>
               <p>The evalutation detail view needs to redraw itself to load the video once it sees that transcoding has been
 completed.</p>
@@ -289,11 +275,11 @@ completed.</p>
         </li>
         
         
-        <li id="section-13">
+        <li id="section-12">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-13">&#182;</a>
+                <a class="pilcrow" href="#section-12">&#182;</a>
               </div>
               <p>Once the submission has been loaded, we can check if the submission has an attachment and, if it does, we can fetch
 annotations for that attachment. We can also render the view at this point.</p>
@@ -307,42 +293,29 @@ annotations for that attachment. We can also render the view at this point.</p>
         </li>
         
         
-        <li id="section-14">
+        <li id="section-13">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-14">&#182;</a>
+                <a class="pilcrow" href="#section-13">&#182;</a>
               </div>
               <p>   if @submission.get(&#39;video_attachment_id&#39;)
      @annotations.fetch();</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="property">@render</span>()</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-15">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-15">&#182;</a>
-              </div>
-              <p>Responsible for rendering the HTML for the view</p>
+            <div class="content"><div class='highlight'><pre>    <span class="property">@render</span>()
 
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>  render: () -&gt;</pre></div></div>
+  render: () -&gt;</pre></div></div>
             
         </li>
         
         
-        <li id="section-16">
+        <li id="section-14">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-16">&#182;</a>
+                <a class="pilcrow" href="#section-14">&#182;</a>
               </div>
               <p>The evaluation detail view is by and large a wrapper around a handful of child views. Therefore, it doesn&#39;t need
 very much information.</p>
@@ -353,6 +326,38 @@ very much information.</p>
       project: <span class="property">@project</span>.toJSON()
       creator: <span class="property">@creator</span>.toJSON()
     }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>Render this view onto the page.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="property">@$el</span>.html(<span class="property">@template</span>(context))</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>Then <code>renderChildViews</code> into the rendered evaulation detail HTML.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="property">@renderChildViews</span>()
+
+  renderChildViews: () -&gt;</pre></div></div>
             
         </li>
         
@@ -382,39 +387,7 @@ very much information.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-18">&#182;</a>
               </div>
-              <p>Render this view onto the page.</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>    <span class="property">@$el</span>.html(<span class="property">@template</span>(context))</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-19">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-19">&#182;</a>
-              </div>
-              <p>Then <code>renderChildViews</code> into the rendered evaulation detail HTML.</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>    <span class="property">@renderChildViews</span>()
-
-  renderChildViews: () -&gt;</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-20">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-20">&#182;</a>
-              </div>
-              <p>The score view, annotations view, and the player view should always be visible</p>
+              <p>The score view, annotations view, and the player view should always be visible.</p>
 
             </div>
             
@@ -425,11 +398,11 @@ very much information.</p>
         </li>
         
         
-        <li id="section-21">
+        <li id="section-19">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-21">&#182;</a>
+                <a class="pilcrow" href="#section-19">&#182;</a>
               </div>
               <p>Our method for rendering views is to render the view&#39;s element into the parent container.
 See <a href="http://stackoverflow.com/questions/11274806/backbone-render-return-this">http://stackoverflow.com/questions/11274806/backbone-render-return-this</a></p>
@@ -443,13 +416,13 @@ See <a href="http://stackoverflow.com/questions/11274806/backbone-render-return-
         </li>
         
         
-        <li id="section-22">
+        <li id="section-20">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-22">&#182;</a>
+                <a class="pilcrow" href="#section-20">&#182;</a>
               </div>
-              <p>The rest of the views are conditional, depending on user&#39;s abilities</p>
+              <p>The rest of the views are conditional, depending on user&#39;s abilities.</p>
 
             </div>
             

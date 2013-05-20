@@ -1,0 +1,103 @@
+<!DOCTYPE html><html lang="en"><head><title>views/rubric_builder/structure.js</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../"><meta name="groc-document-path" content="views/rubric_builder/structure.js"><meta name="groc-project-path" content="app/assets/javascripts/backbone/views/rubric_builder/structure.js.coffee"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path">app/assets/javascripts/backbone/views/rubric_builder/structure.js.coffee</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="k">class</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">RubricBuilderStructure</span> <span class="k">extends</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">AbstractView</span>
+
+  <span class="nv">template: </span><span class="nx">HBT</span><span class="p">[</span><span class="s">&quot;backbone/templates/rubric_builder/structure&quot;</span><span class="p">]</span>
+
+  <span class="nv">events: </span><span class="p">{</span>
+    <span class="s">&#39;submit .js-do-add-range&#39;</span><span class="o">:</span> <span class="s">&quot;addRange&quot;</span>
+    <span class="s">&#39;submit .js-do-add-field&#39;</span><span class="o">:</span> <span class="s">&quot;addField&quot;</span>
+    <span class="s">&#39;click .js-do-remove-field&#39;</span><span class="o">:</span> <span class="s">&quot;removeField&quot;</span>
+    <span class="s">&#39;click .js-do-remove-range&#39;</span><span class="o">:</span> <span class="s">&quot;removeRange&quot;</span>
+    <span class="s">&#39;change .js-do-update-range&#39;</span><span class="o">:</span> <span class="s">&quot;updateRange&quot;</span>
+    <span class="s">&#39;click  .js-do-edit-detail&#39;</span><span class="o">:</span> <span class="s">&quot;doEditDetail&quot;</span>
+  <span class="p">}</span>
+
+  <span class="nv">initialize: </span><span class="nf">(options) -&gt;</span>
+    <span class="vi">@model = </span><span class="nx">options</span><span class="p">.</span><span class="nx">model</span>
+    <span class="k">super</span> <span class="p">(</span><span class="nx">options</span><span class="p">)</span>
+    <span class="nx">@model</span><span class="p">.</span><span class="nx">bind</span> <span class="s">&#39;change&#39;</span><span class="p">,</span> <span class="nx">@render</span><span class="p">,</span> <span class="nx">@</span>
+    <span class="nx">@model</span><span class="p">.</span><span class="nx">bind</span> <span class="s">&#39;invalid&#39;</span><span class="p">,</span> <span class="nx">@render</span><span class="p">,</span> <span class="nx">@</span>
+    <span class="nx">@model</span><span class="p">.</span><span class="nx">bind</span> <span class="s">&#39;valid&#39;</span><span class="p">,</span> <span class="nx">@render</span><span class="p">,</span> <span class="nx">@</span>
+    <span class="nx">@render</span><span class="p">()</span>
+    <span class="c1">#@openEditDetail(@model.get(&#39;fields&#39;).at(1).id, @model.get(&#39;ranges&#39;).at(0).id)</span>
+
+  <span class="nv">openEditDetail: </span><span class="nf">(fieldId, rangeId) -&gt;</span>
+    <span class="nv">el = </span><span class="nx">$</span><span class="p">(</span><span class="s">&#39;#js-cell-detail-container-&#39;</span> <span class="o">+</span> <span class="nx">fieldId</span> <span class="o">+</span> <span class="s">&#39;-&#39;</span> <span class="o">+</span> <span class="nx">rangeId</span><span class="p">)</span>
+    <span class="nv">view = </span><span class="k">new</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">RubricBuilderCellDetail</span><span class="p">({</span>
+      <span class="nv">model: </span><span class="nx">@model</span>
+      <span class="nv">fieldId: </span><span class="nx">fieldId</span>
+      <span class="nv">rangeId: </span><span class="nx">rangeId</span>
+    <span class="p">})</span>
+    <span class="nx">$</span><span class="p">(</span><span class="nx">el</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">view</span><span class="p">.</span><span class="nx">el</span><span class="p">)</span>
+    <span class="nx">view</span><span class="p">.</span><span class="nx">render</span><span class="p">()</span>
+
+  <span class="nv">doEditDetail: </span><span class="nf">(event) -&gt;</span>
+    <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">()</span>
+    <span class="nv">$cell = </span><span class="nx">$</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">)</span>
+    <span class="nv">data = </span><span class="nx">$cell</span><span class="p">.</span><span class="nx">data</span><span class="p">()</span>
+    <span class="nv">fieldid = </span><span class="nx">data</span><span class="p">.</span><span class="nx">field</span>
+    <span class="nv">rangeid = </span><span class="nx">data</span><span class="p">.</span><span class="nx">range</span>
+    <span class="nx">@openEditDetail</span><span class="p">(</span><span class="nx">fieldid</span><span class="p">,</span> <span class="nx">rangeid</span><span class="p">)</span>
+
+  <span class="nv">updateRange: </span><span class="nf">(event) -&gt;</span>
+    <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">()</span>
+    <span class="nv">$target = </span><span class="nx">$</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">)</span>
+    <span class="nv">data = </span><span class="nx">$target</span><span class="p">.</span><span class="nx">data</span><span class="p">()</span>
+    <span class="nx">@model</span><span class="p">.</span><span class="nx">updateRangeBound</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">model</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">type</span><span class="p">,</span> <span class="nx">$target</span><span class="p">.</span><span class="nx">val</span><span class="p">())</span>
+    <span class="nv">id = </span><span class="s">&#39;#js-range-&#39;</span> <span class="o">+</span> <span class="nx">data</span><span class="p">.</span><span class="nx">model</span><span class="o">+</span> <span class="s">&#39;-&#39;</span> <span class="o">+</span> <span class="nx">data</span><span class="p">.</span><span class="nx">type</span>
+    <span class="nx">$</span><span class="p">(</span><span class="nx">id</span><span class="p">).</span><span class="nx">focus</span><span class="p">()</span>
+
+  <span class="nv">addRange: </span><span class="nf">(event) -&gt;</span>
+    <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">()</span>
+    <span class="nx">@model</span><span class="p">.</span><span class="nx">addRange</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s">&#39;#js-do-add-range-value&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">())</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s">&#39;#js-do-add-range-value&#39;</span><span class="p">).</span><span class="nx">focus</span><span class="p">()</span>
+
+  <span class="nv">addField: </span><span class="nf">(event) -&gt;</span>
+    <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">()</span>
+    <span class="nx">@model</span><span class="p">.</span><span class="nx">addField</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s">&#39;#js-do-add-field-value&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">())</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s">&#39;#js-do-add-field-value&#39;</span><span class="p">).</span><span class="nx">focus</span><span class="p">()</span>
+
+  <span class="nv">removeRange: </span><span class="nf">(event) -&gt;</span>
+    <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">()</span>
+    <span class="nv">target = </span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span>
+    <span class="nx">@model</span><span class="p">.</span><span class="nx">removeRange</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="nx">target</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s">&#39;data-model&#39;</span><span class="p">))</span>
+
+  <span class="nv">removeField: </span><span class="nf">(event) -&gt;</span>
+    <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">()</span>
+    <span class="nv">id = </span><span class="nx">$</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s">&#39;data-model&#39;</span><span class="p">)</span>
+    <span class="nx">@model</span><span class="p">.</span><span class="nx">removeField</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span>
+
+  <span class="nv">getRenderingContext: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nv">context = </span><span class="p">{</span>
+      <span class="nv">validationError: </span><span class="nx">@model</span><span class="p">.</span><span class="nx">validationError</span>
+      <span class="nv">prevalidationError: </span><span class="nx">@model</span><span class="p">.</span><span class="nx">prevalidationError</span>
+      <span class="nv">rubric: </span><span class="nx">@model</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">()</span>
+    <span class="p">}</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>We inject error-related properties into the fields and ranges so that they
+don't have to store these as attributes, which would get sent to the server.</p></div></div><div class="code"><div class="wrapper">    <span class="nx">@model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;ranges&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="nf">(range, index) -&gt;</span>
+      <span class="nx">context</span><span class="p">.</span><span class="nx">rubric</span><span class="p">.</span><span class="nx">ranges</span><span class="p">[</span><span class="nx">index</span><span class="p">].</span><span class="nv">has_errors = </span><span class="nx">range</span><span class="p">.</span><span class="nx">hasErrors</span><span class="p">()</span>
+      <span class="nx">context</span><span class="p">.</span><span class="nx">rubric</span><span class="p">.</span><span class="nx">ranges</span><span class="p">[</span><span class="nx">index</span><span class="p">].</span><span class="nv">errors = </span><span class="nx">range</span><span class="p">.</span><span class="nx">errorMessages</span><span class="p">()</span>
+    <span class="p">)</span>
+    <span class="nx">@model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;fields&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="nf">(field, index) -&gt;</span>
+      <span class="nx">context</span><span class="p">.</span><span class="nx">rubric</span><span class="p">.</span><span class="nx">fields</span><span class="p">[</span><span class="nx">index</span><span class="p">].</span><span class="nv">has_errors = </span><span class="nx">field</span><span class="p">.</span><span class="nx">hasErrors</span><span class="p">()</span>
+      <span class="nx">context</span><span class="p">.</span><span class="nx">rubric</span><span class="p">.</span><span class="nx">fields</span><span class="p">[</span><span class="nx">index</span><span class="p">].</span><span class="nv">errors = </span><span class="nx">field</span><span class="p">.</span><span class="nx">errorMessages</span><span class="p">()</span>
+    <span class="p">)</span>
+    <span class="nx">context</span>
+
+  <span class="nv">initializeEditableInterfaces: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.js-editable-input&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span> <span class="nf">(index, el) =&gt;</span>
+      <span class="nv">data = </span><span class="nx">$</span><span class="p">(</span><span class="nx">el</span><span class="p">).</span><span class="nx">data</span><span class="p">()</span>
+      <span class="nv">collection = </span><span class="nx">@model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">collection</span><span class="p">)</span>
+      <span class="nv">model = </span><span class="nx">collection</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span>
+      <span class="k">new</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">RubricBuilderEditableInput</span><span class="p">({</span><span class="nv">model: </span><span class="nx">model</span><span class="p">,</span> <span class="nv">el: </span><span class="nx">el</span><span class="p">,</span> <span class="nv">property: </span><span class="nx">data</span><span class="p">.</span><span class="nx">property</span><span class="p">,</span> <span class="nv">placeholder: </span><span class="nx">data</span><span class="p">.</span><span class="nx">placeholder</span><span class="p">})</span>
+    <span class="p">)</span>
+
+    <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.js-editable-textarea&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span> <span class="nf">(index, el) =&gt;</span>
+      <span class="nv">data = </span><span class="nx">$</span><span class="p">(</span><span class="nx">el</span><span class="p">).</span><span class="nx">data</span><span class="p">()</span>
+      <span class="nv">collection = </span><span class="nx">@model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">collection</span><span class="p">)</span>
+      <span class="nv">model = </span><span class="nx">collection</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span>
+      <span class="k">new</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">RubricBuilderEditableTextarea</span><span class="p">({</span><span class="nv">model: </span><span class="nx">model</span><span class="p">,</span> <span class="nv">el: </span><span class="nx">el</span><span class="p">,</span> <span class="nv">property: </span><span class="nx">data</span><span class="p">.</span><span class="nx">property</span><span class="p">,</span> <span class="nv">placeholder: </span><span class="nx">data</span><span class="p">.</span><span class="nx">placeholder</span><span class="p">})</span>
+    <span class="p">)</span>
+
+  <span class="nv">render: </span><span class="nf">(event = null) -&gt;</span>
+    <span class="nv">context = </span><span class="nx">@getRenderingContext</span><span class="p">()</span>
+    <span class="nx">@$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="nx">@template</span><span class="p">(</span><span class="nx">context</span><span class="p">))</span>
+    <span class="nx">@initializeEditableInterfaces</span><span class="p">()</span></div></div></div></div></body></html>

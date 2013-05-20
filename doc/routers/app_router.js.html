@@ -1,0 +1,31 @@
+<!DOCTYPE html><html lang="en"><head><title>routers/app_router.js</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="routers/app_router.js"><meta name="groc-project-path" content="app/assets/javascripts/backbone/routers/app_router.js.coffee"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">app/assets/javascripts/backbone/routers/app_router.js.coffee</div></div><div id="document"><div class="segment"><div class="comments"><div class="wrapper"><p>The dispatcher is a global application object.</p></div></div><div class="code"><div class="wrapper"><span class="nv">Vocat.Dispatcher = </span><span class="k">new</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Models</span><span class="p">.</span><span class="nx">Dispatcher</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Routers</span><span class="p">.</span><span class="nx">AppRouter</span> <span class="k">extends</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Router</span>
+
+  <span class="nv">routes:</span>
+    <span class="s">&quot;courses/:course/evaluations&quot;</span><span class="o">:</span> <span class="s">&#39;showGrid&#39;</span>
+    <span class="s">&quot;courses/:course/evaluations/creator/:creator&quot;</span><span class="o">:</span> <span class="s">&#39;showCreatorDetail&#39;</span>
+    <span class="s">&quot;courses/:course/evaluations/project/:project&quot;</span><span class="o">:</span> <span class="s">&#39;showProjectDetail&#39;</span>
+    <span class="s">&quot;courses/:course/evaluations/creator/:creator/project/:project&quot;</span><span class="o">:</span> <span class="s">&#39;showCreatorProjectDetail&#39;</span>
+
+  <span class="nv">initalize: </span><span class="nf">(options) -&gt;</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>We create all of our parent views based on the data-view attributes of the elements on the page</p></div></div><div class="code"><div class="wrapper">    <span class="nx">@bootstrapCollections</span><span class="p">()</span>
+    <span class="nx">@createViews</span><span class="p">()</span>
+
+  <span class="nv">bootstrapCollections: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nx">_</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">Vocat</span><span class="p">.</span><span class="nx">Bootstrap</span><span class="p">.</span><span class="nx">Collections</span><span class="p">,</span> <span class="nf">(collectionData, collectionName) =&gt;</span>
+      <span class="k">if</span> <span class="nb">window</span><span class="p">.</span><span class="nx">Vocat</span><span class="p">.</span><span class="nx">Instantiated</span><span class="p">.</span><span class="nx">Collections</span><span class="p">[</span><span class="nx">collectionName</span><span class="p">]</span><span class="o">?</span>
+        <span class="nb">window</span><span class="p">.</span><span class="nx">Vocat</span><span class="p">.</span><span class="nx">Instantiated</span><span class="p">.</span><span class="nx">Collections</span><span class="p">[</span><span class="nx">collectionName</span><span class="p">].</span><span class="nx">reset</span><span class="p">(</span><span class="nx">collectionData</span><span class="p">)</span>
+      <span class="k">else</span>
+        <span class="nb">window</span><span class="p">.</span><span class="nx">Vocat</span><span class="p">.</span><span class="nx">Instantiated</span><span class="p">.</span><span class="nx">Collections</span><span class="p">[</span><span class="nx">collectionName</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Collections</span><span class="p">[</span><span class="nx">collectionName</span><span class="p">](</span><span class="nx">collectionData</span><span class="p">)</span>
+    <span class="p">)</span>
+
+  <span class="nv">createViews: </span><span class="nf">(el) -&gt;</span>
+
+    <span class="nx">$</span><span class="p">(</span><span class="s">&#39;[data-view]&#39;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="nf">(i, el) =&gt;</span>
+      <span class="nv">$el = </span><span class="nx">$</span><span class="p">(</span><span class="nx">el</span><span class="p">)</span>
+      <span class="nv">viewName = </span><span class="nx">$el</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s">&#39;data-view&#39;</span><span class="p">)</span>
+      <span class="nv">options = </span><span class="p">{</span>
+        <span class="nv">el: </span><span class="nx">$</span><span class="p">(</span><span class="nx">el</span><span class="p">)</span>
+      <span class="p">}</span>
+      <span class="nb">window</span><span class="p">.</span><span class="nx">Vocat</span><span class="p">.</span><span class="nx">Instantiated</span><span class="p">.</span><span class="nx">Views</span><span class="p">[</span><span class="nx">viewName</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">[</span><span class="nx">viewName</span><span class="p">](</span><span class="nx">options</span><span class="p">)</span>
+    <span class="p">)</span></div></div></div></div></body></html>

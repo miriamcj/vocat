@@ -1,0 +1,172 @@
+<!DOCTYPE html><html lang="en"><head><title>views/groups.js</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="views/groups.js"><meta name="groc-project-path" content="app/assets/javascripts/backbone/views/groups.js.coffee"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">app/assets/javascripts/backbone/views/groups.js.coffee</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="k">class</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">Groups</span> <span class="k">extends</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">AbstractView</span>
+
+  <span class="nv">template: </span><span class="nx">HBT</span><span class="p">[</span><span class="s">&quot;backbone/templates/groups&quot;</span><span class="p">]</span>
+
+  <span class="nv">events:</span>
+    <span class="s">&#39;click [data-behavior=&quot;create-group&quot;]&#39;</span><span class="o">:</span> <span class="s">&#39;createGroup&#39;</span>
+    <span class="s">&#39;click [data-behavior=&quot;draggable-user&quot;]&#39;</span><span class="o">:</span> <span class="s">&#39;toggleSelect&#39;</span>
+
+
+  <span class="nv">initialize: </span><span class="nf">(options)  -&gt;</span>
+    <span class="k">if</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Bootstrap</span><span class="p">.</span><span class="nx">Collections</span><span class="p">.</span><span class="nx">Group</span><span class="o">?</span>
+      <span class="vi">@groups = </span><span class="k">new</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Collections</span><span class="p">.</span><span class="nx">Group</span><span class="p">(</span><span class="nx">Vocat</span><span class="p">.</span><span class="nx">Bootstrap</span><span class="p">.</span><span class="nx">Collections</span><span class="p">.</span><span class="nx">Group</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Bootstrap</span><span class="p">.</span><span class="nx">Collections</span><span class="p">.</span><span class="nx">Creator</span><span class="o">?</span>
+      <span class="vi">@creators = </span><span class="k">new</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Collections</span><span class="p">.</span><span class="nx">Creator</span><span class="p">(</span><span class="nx">Vocat</span><span class="p">.</span><span class="nx">Bootstrap</span><span class="p">.</span><span class="nx">Collections</span><span class="p">.</span><span class="nx">Creator</span><span class="p">)</span>
+    <span class="nx">@render</span><span class="p">()</span>
+
+  <span class="nv">createGroup: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nv">name = </span><span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;[data-behavior=&quot;group-name&quot;]&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">()</span>
+    <span class="nv">group = </span><span class="k">new</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Models</span><span class="p">.</span><span class="nx">Group</span><span class="p">({</span><span class="nv">name: </span><span class="nx">name</span><span class="p">})</span>
+    <span class="nx">group</span><span class="p">.</span><span class="nx">save</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nx">group</span><span class="p">.</span><span class="nx">validationError</span>
+      <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Dispatcher</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s">&#39;flash_message&#39;</span><span class="p">,{</span><span class="nv">messages: </span><span class="nx">group</span><span class="p">.</span><span class="nx">validationError</span><span class="p">})</span>
+
+  <span class="nv">select: </span><span class="nf">(element) -&gt;</span>
+    <span class="nv">$target = </span><span class="nx">$</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span>
+    <span class="nx">$target</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="s">&#39;selected&#39;</span><span class="p">)</span>
+    <span class="nx">$target</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s">&#39;data-selected&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+  <span class="nv">unselect: </span><span class="nf">(element) -&gt;</span>
+    <span class="nv">$target = </span><span class="nx">$</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span>
+    <span class="nx">$target</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">(</span><span class="s">&#39;selected&#39;</span><span class="p">)</span>
+    <span class="nx">$target</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s">&#39;data-selected&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+  <span class="nv">toggleSelect: </span><span class="nf">(e) -&gt;</span>
+    <span class="nv">target = </span><span class="nx">$</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">currentTarget</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.groups--owner&#39;</span><span class="p">)</span>
+    <span class="nv">$target = </span><span class="nx">$</span><span class="p">(</span><span class="nx">target</span><span class="p">)</span>
+    <span class="nx">$target</span><span class="p">.</span><span class="nx">toggleClass</span><span class="p">(</span><span class="s">&#39;selected&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">$target</span><span class="p">.</span><span class="nx">hasClass</span><span class="p">(</span><span class="s">&#39;selected&#39;</span><span class="p">)</span>
+      <span class="nx">$target</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s">&#39;data-selected&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">else</span>
+      <span class="nx">$target</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s">&#39;data-selected&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+  <span class="nv">animateMove: </span><span class="nf">(el, ui) -&gt;</span>
+    <span class="nv">el = </span><span class="nx">$</span><span class="p">(</span><span class="nx">el</span><span class="p">)</span>
+    <span class="nv">targetOffset = </span><span class="nx">ui</span><span class="p">.</span><span class="nx">helper</span><span class="p">.</span><span class="nx">offset</span><span class="p">()</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><pre><code>el.offset(targetOffset)
+</code></pre></div></div><div class="code"><div class="wrapper">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">targetOffset</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">targetOffset</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><pre><code>el.animate(
+    {
+        postion: 'fixed'
+        top: ui.helper.offset().top
+        left: ui.helper.offset().left
+    },
+    'slow',
+    () -&gt;
+</code></pre></div></div><div class="code"><div class="wrapper">    <span class="nx">ui</span><span class="p">.</span><span class="nx">helper</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.groups--owner&#39;</span><span class="p">).</span><span class="nx">css</span><span class="p">({</span>
+      <span class="nv">zIndex: </span><span class="mi">20</span>
+      <span class="nv">position: </span><span class="s">&#39;absolute&#39;</span>
+      <span class="nv">border: </span><span class="s">&#39;2px solid green&#39;</span>
+    <span class="p">})</span>
+    <span class="nx">el</span><span class="p">.</span><span class="nx">appendTo</span><span class="p">(</span><span class="nx">ui</span><span class="p">.</span><span class="nx">helper</span><span class="p">)</span>
+    <span class="nx">el</span><span class="p">.</span><span class="nx">css</span><span class="p">({</span>
+      <span class="nv">position: </span><span class="s">&#39;absolute&#39;</span>
+      <span class="nv">top: </span><span class="mi">0</span>
+      <span class="nv">left: </span><span class="mi">0</span>
+      <span class="nv">zIndex: </span><span class="mi">10</span>
+    <span class="p">})</span>
+    <span class="nv">targetDegrees = </span><span class="nx">@getRandomInt</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">30</span><span class="p">)</span>
+    <span class="nv">increment = </span><span class="nb">Math</span><span class="p">.</span><span class="nx">ceil</span><span class="p">(</span><span class="nx">targetDegrees</span> <span class="o">/</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">increment</span><span class="p">,</span> <span class="nx">targetDegrees</span>
+    <span class="nx">el</span><span class="p">.</span><span class="nx">animate</span><span class="p">(</span>
+      <span class="p">{</span>  <span class="nv">borderSpacing: </span><span class="o">-</span><span class="mi">90</span> <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nv">step: </span><span class="nf">(now,fx) -&gt;</span>
+          <span class="nv">move = </span><span class="nx">now</span> <span class="o">*</span> <span class="nx">increment</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">move</span><span class="p">,</span> <span class="nx">increment</span>
+          <span class="nv">$target = </span><span class="nx">$</span><span class="p">(</span><span class="nx">@</span><span class="p">)</span>
+          <span class="nx">$target</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s">&#39;-webkit-transform&#39;</span><span class="p">,</span><span class="s">&#39;rotate(&#39;</span><span class="o">+</span><span class="nx">move</span><span class="o">+</span><span class="s">&#39;deg)&#39;</span><span class="p">)</span>
+          <span class="nx">$target</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s">&#39;-moz-transform&#39;</span><span class="p">,</span><span class="s">&#39;rotate(&#39;</span><span class="o">+</span><span class="nx">move</span><span class="o">+</span><span class="s">&#39;deg)&#39;</span><span class="p">)</span>
+          <span class="nx">$target</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s">&#39;-ms-transform&#39;</span><span class="p">,</span><span class="s">&#39;rotate(&#39;</span><span class="o">+</span><span class="nx">move</span><span class="o">+</span><span class="s">&#39;deg)&#39;</span><span class="p">)</span>
+          <span class="nx">$target</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s">&#39;-o-transform&#39;</span><span class="p">,</span><span class="s">&#39;rotate(&#39;</span><span class="o">+</span><span class="nx">move</span><span class="o">+</span><span class="s">&#39;deg)&#39;</span><span class="p">)</span>
+          <span class="nx">$target</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s">&#39;transform&#39;</span><span class="p">,</span><span class="s">&#39;rotate(&#39;</span><span class="o">+</span><span class="nx">move</span><span class="o">+</span><span class="s">&#39;deg)&#39;</span><span class="p">)</span>
+        <span class="nx">duration</span><span class="o">:</span><span class="s">&#39;100&#39;</span>
+      <span class="p">},</span>
+      <span class="s">&#39;linear&#39;</span>
+    <span class="p">)</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><pre><code>el.animate(
+    {
+        transform: 'rotate('+ @getRandomInt(-30,30) + 'deg)'
+    }
+)
+)
+</code></pre></div></div><div class="code"><div class="wrapper">  <span class="nv">getRandomInt: </span><span class="nf">(min, max) -&gt;</span>
+    <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="p">(</span><span class="nx">max</span> <span class="o">-</span> <span class="nx">min</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="nx">min</span>
+
+  <span class="nv">cloneAndGroupSelectedIn: </span><span class="nf">(ui) -&gt;</span>
+
+    <span class="nv">selected = </span><span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;[data-selected=&quot;1&quot;]&#39;</span><span class="p">)</span>
+
+    <span class="nv">alreadyCloned = </span><span class="nx">ui</span><span class="p">.</span><span class="nx">helper</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.groups--owner&#39;</span><span class="p">)</span>
+    <span class="nv">ignoreIds = </span><span class="p">[]</span>
+    <span class="nx">alreadyCloned</span><span class="p">.</span><span class="nx">each</span> <span class="nf">(iteration, ownerElement) -&gt;</span>
+      <span class="nx">ignoreIds</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="nx">ownerElement</span><span class="p">).</span><span class="nx">data</span><span class="p">().</span><span class="nx">userId</span><span class="p">)</span>
+
+    <span class="nx">selected</span><span class="p">.</span><span class="nx">each</span> <span class="nf">(iteration, el) =&gt;</span>
+      <span class="nv">el = </span><span class="nx">$</span><span class="p">(</span><span class="nx">el</span><span class="p">)</span>
+      <span class="nv">data = </span><span class="nx">el</span><span class="p">.</span><span class="nx">data</span><span class="p">()</span>
+      <span class="k">if</span> <span class="o">!</span><span class="nx">_</span><span class="p">.</span><span class="nx">contains</span><span class="p">(</span><span class="nx">ignoreIds</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">userId</span><span class="p">)</span>
+        <span class="nv">clone = </span><span class="nx">$</span><span class="p">(</span><span class="nx">el</span><span class="p">).</span><span class="nx">clone</span><span class="p">().</span><span class="nx">removeAttr</span><span class="p">(</span><span class="s">&#39;id&#39;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s">&#39;data-clone&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">clone</span>
+        <span class="nx">el</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">clone</span><span class="p">)</span>
+        <span class="nv">offset = </span><span class="nx">$</span><span class="p">(</span><span class="nx">el</span><span class="p">).</span><span class="nx">offset</span><span class="p">()</span>
+        <span class="nx">$</span><span class="p">(</span><span class="nx">clone</span><span class="p">).</span><span class="nx">offset</span><span class="p">(</span><span class="nx">offset</span><span class="p">)</span>
+        <span class="nx">@animateMove</span><span class="p">(</span><span class="nx">clone</span><span class="p">,</span> <span class="nx">ui</span><span class="p">)</span>
+
+  <span class="nv">maskElement: </span><span class="nf">(el) -&gt;</span>
+    <span class="nv">$el = </span><span class="nx">$</span><span class="p">(</span><span class="nx">el</span><span class="p">)</span>
+    <span class="nx">$el</span><span class="p">.</span><span class="nx">fadeTo</span><span class="p">(</span><span class="s">&#39;medium&#39;</span><span class="p">,</span> <span class="mf">0.33</span><span class="p">)</span>
+
+  <span class="nv">unmaskElement: </span><span class="nf">(el) -&gt;</span>
+    <span class="nv">$el = </span><span class="nx">$</span><span class="p">(</span><span class="nx">el</span><span class="p">)</span>
+    <span class="nx">$el</span><span class="p">.</span><span class="nx">fadeTo</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+  <span class="nv">getOriginalFromClone: </span><span class="nf">(clone) -&gt;</span>
+    <span class="nv">data = </span><span class="nx">clone</span><span class="p">.</span><span class="nx">data</span><span class="p">()</span>
+    <span class="nv">original = </span><span class="nx">$</span><span class="p">(</span><span class="s">&#39;#creator-&#39;</span> <span class="o">+</span> <span class="nx">data</span><span class="p">.</span><span class="nx">userId</span><span class="p">)</span>
+
+  <span class="nv">initDraggables: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;[data-behavior=&quot;draggable-user&quot;]&#39;</span><span class="p">).</span><span class="nx">draggable</span><span class="p">({</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><pre><code>    revert: 'invalid'
+</code></pre></div></div><div class="code"><div class="wrapper">      <span class="nv">containment: </span><span class="s">&#39;document&#39;</span>
+      <span class="nv">helper: </span><span class="s">&#39;clone&#39;</span>
+      <span class="nv">cursor: </span><span class="s">&#39;move&#39;</span>
+      <span class="nv">start: </span><span class="nf">(event, ui) =&gt;</span>
+        <span class="nx">ui</span><span class="p">.</span><span class="nx">helper</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.groups--owner&#39;</span><span class="p">).</span><span class="nx">each</span> <span class="nf">(iteration, clone) =&gt;</span>
+          <span class="nx">ui</span><span class="p">.</span><span class="nx">helper</span><span class="p">.</span><span class="nx">css</span><span class="p">({</span><span class="nv">border: </span><span class="s">&#39;1px solid blue&#39;</span><span class="p">})</span>
+          <span class="nv">clone = </span><span class="nx">$</span><span class="p">(</span><span class="nx">clone</span><span class="p">)</span>
+          <span class="nx">clone</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s">&#39;data-clone&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+          <span class="nv">original = </span><span class="nx">@getOriginalFromClone</span><span class="p">(</span><span class="nx">clone</span><span class="p">)</span>
+          <span class="nx">@maskElement</span><span class="p">(</span><span class="nx">original</span><span class="p">)</span>
+          <span class="nx">@select</span><span class="p">(</span><span class="nx">clone</span><span class="p">)</span>
+          <span class="nx">@select</span><span class="p">(</span><span class="nx">original</span><span class="p">)</span>
+        <span class="nx">@cloneAndGroupSelectedIn</span><span class="p">(</span><span class="nx">ui</span><span class="p">)</span>
+
+      <span class="nv">stop: </span><span class="nf">(event, ui) =&gt;</span>
+        <span class="nx">ui</span><span class="p">.</span><span class="nx">helper</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.groups--owner&#39;</span><span class="p">).</span><span class="nx">each</span> <span class="nf">(iteration, clone) =&gt;</span>
+          <span class="nv">clone = </span><span class="nx">$</span><span class="p">(</span><span class="nx">clone</span><span class="p">)</span>
+          <span class="nv">original = </span><span class="nx">@getOriginalFromClone</span><span class="p">(</span><span class="nx">clone</span><span class="p">)</span>
+          <span class="nx">@unselect</span><span class="p">(</span><span class="nx">original</span><span class="p">)</span>
+          <span class="nx">@unmaskElement</span><span class="p">(</span><span class="nx">original</span><span class="p">)</span>
+    <span class="p">})</span>
+
+  <span class="nv">initDroppables: </span><span class="p">()</span> <span class="nf">-&gt;</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><pre><code>@$el.find('[data-behavior="droppable-group"]').droppable({
+    drop: (e, ui) -&gt;
+        droppedOn = $(@);
+        console.log @droppedOn.data()
+        $(ui.draggable).detach().css({top: 0,left: 0}).appendTo(droppedOn);
+})
+</code></pre></div></div><div class="code"><div class="wrapper"><span class="c1">#</span>
+<span class="c1">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@$el.find('[data-behavior="droppable-user"]').droppable({
+    drop: (e, ui) ->
+        droppedOn = $(@);
+        console.log droppedOn
+        $(ui.draggable).detach().css({top: 0,left: 0}).appendTo(droppedOn);</p></div></div><div class="code"><div class="wrapper"><span class="c1"># })</span>
+
+
+  <span class="nv">render: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nv">context = </span><span class="p">{</span>
+      <span class="nv">groups: </span><span class="nx">@groups</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">()</span>
+      <span class="nv">creators: </span><span class="nx">@creators</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">()</span>
+    <span class="p">}</span>
+    <span class="nx">@$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="nx">@template</span><span class="p">(</span><span class="nx">context</span><span class="p">))</span>
+
+    <span class="nx">@initDraggables</span><span class="p">()</span>
+    <span class="nx">@initDroppables</span><span class="p">()</span></div></div></div></div></body></html>

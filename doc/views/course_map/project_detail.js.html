@@ -1,0 +1,19 @@
+<!DOCTYPE html><html lang="en"><head><title>views/course_map/project_detail.js</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../"><meta name="groc-document-path" content="views/course_map/project_detail.js"><meta name="groc-project-path" content="app/assets/javascripts/backbone/views/course_map/project_detail.js.coffee"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path">app/assets/javascripts/backbone/views/course_map/project_detail.js.coffee</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="k">class</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">CourseMapProjectDetail</span> <span class="k">extends</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">AbstractView</span>
+
+  <span class="nv">template: </span><span class="nx">HBT</span><span class="p">[</span><span class="s">&quot;backbone/templates/course_map/project_detail&quot;</span><span class="p">]</span>
+
+  <span class="nv">initialize: </span><span class="nf">(options) -&gt;</span>
+    <span class="vi">@courseId = </span><span class="nx">options</span><span class="p">.</span><span class="nx">courseId</span>
+    <span class="vi">@project = </span><span class="nx">options</span><span class="p">.</span><span class="nx">project</span>
+    <span class="vi">@creators = </span><span class="nx">options</span><span class="p">.</span><span class="nx">creators</span>
+    <span class="vi">@showCourse = </span><span class="nx">options</span><span class="p">.</span><span class="nx">showCourse</span>
+    <span class="nx">@render</span><span class="p">()</span>
+
+  <span class="nv">render: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nv">context = </span><span class="p">{</span>
+      <span class="nv">creators: </span><span class="nx">@creators</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">()</span>
+      <span class="nv">project: </span><span class="nx">@project</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">()</span>
+    <span class="p">}</span>
+    <span class="nx">@$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="nx">@template</span><span class="p">(</span><span class="nx">context</span><span class="p">))</span>
+
+    <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;[data-behavior=&quot;dropdown&quot;]&#39;</span><span class="p">).</span><span class="nx">dropdownNavigation</span><span class="p">()</span></div></div></div></div></body></html>

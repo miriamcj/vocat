@@ -1,0 +1,180 @@
+<!DOCTYPE html><html lang="en"><head><title>views/course_map.js</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="views/course_map.js"><meta name="groc-project-path" content="app/assets/javascripts/backbone/views/course_map.js.coffee"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">app/assets/javascripts/backbone/views/course_map.js.coffee</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="k">class</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">CourseMap</span> <span class="k">extends</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">AbstractView</span>
+
+  <span class="nv">template: </span><span class="nx">HBT</span><span class="p">[</span><span class="s">&quot;backbone/templates/course_map&quot;</span><span class="p">]</span>
+
+  <span class="nv">overlayOpen: </span><span class="kc">false</span>
+
+  <span class="nv">events:</span>
+    <span class="s">&#39;click .js-navigate-exhibit&#39;</span><span class="o">:</span>                   <span class="s">&#39;navigateCreatorProjectDetail&#39;</span>
+    <span class="s">&#39;click .js-navigate-creator&#39;</span><span class="o">:</span>                   <span class="s">&#39;navigateCreatorDetail&#39;</span>
+    <span class="s">&#39;click .js-navigate-project&#39;</span><span class="o">:</span>                   <span class="s">&#39;navigateProjectDetail&#39;</span>
+    <span class="s">&#39;click [data-behavior=&quot;matrix-overlay-close&quot;]&#39;</span><span class="o">:</span> <span class="s">&#39;navigateGrid&#39;</span>
+    <span class="s">&#39;click [data-behavior=&quot;matrix-slider-left&quot;]&#39;</span><span class="o">:</span>   <span class="s">&#39;slideLeft&#39;</span>
+    <span class="s">&#39;click [data-behavior=&quot;matrix-slider-right&quot;]&#39;</span><span class="o">:</span>  <span class="s">&#39;slideRight&#39;</span>
+    <span class="s">&#39;click [data-behavior=&quot;routable&quot;]&#39;</span><span class="o">:</span>             <span class="s">&#39;handleRoutable&#39;</span>
+
+  <span class="nv">handleRoutable: </span><span class="nf">(e) -&gt;</span>
+    <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">()</span>
+    <span class="nv">href = </span><span class="nx">$</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">currentTarget</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s">&#39;href&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">href</span>
+      <span class="nb">window</span><span class="p">.</span><span class="nx">Vocat</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="nx">href</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+
+  <span class="nv">initialize: </span><span class="nf">(options)  -&gt;</span>
+
+    <span class="nb">window</span><span class="p">.</span><span class="nx">Vocat</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">on</span> <span class="s">&quot;route:showCreatorProjectDetail&quot;</span><span class="p">,</span> <span class="nf">(course, creator, project) =&gt;</span> <span class="nx">@showCreatorProjectDetail</span><span class="p">(</span><span class="nx">creator</span><span class="p">,</span> <span class="nx">project</span><span class="p">)</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">Vocat</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">on</span> <span class="s">&quot;route:showCreatorDetail&quot;</span><span class="p">,</span> <span class="nf">(course, creator) =&gt;</span> <span class="nx">@showCreatorDetail</span><span class="p">(</span><span class="nx">creator</span><span class="p">)</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">Vocat</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">on</span> <span class="s">&quot;route:showProjectDetail&quot;</span><span class="p">,</span> <span class="nf">(course, project) =&gt;</span> <span class="nx">@showProjectDetail</span><span class="p">(</span><span class="nx">project</span><span class="p">)</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">Vocat</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">on</span> <span class="s">&quot;route:showGrid&quot;</span><span class="p">,</span> <span class="nf">(project) =&gt;</span> <span class="nx">@hideOverlay</span><span class="p">()</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">Vocat</span><span class="p">.</span><span class="nx">Dispatcher</span><span class="p">.</span><span class="nx">on</span> <span class="s">&quot;courseMap:redraw&quot;</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">@redraw</span><span class="p">()</span>
+
+    <span class="nx">$</span><span class="p">(</span><span class="s">&#39;[data-behavior=&quot;sticky-header&quot;]&#39;</span><span class="p">).</span><span class="nx">stickyHeader</span><span class="p">(</span><span class="s">&#39;destroy&#39;</span><span class="p">)</span>
+
+    <span class="vi">@sliderData = </span><span class="p">{}</span>
+
+    <span class="vi">@projects = </span><span class="nb">window</span><span class="p">.</span><span class="nx">Vocat</span><span class="p">.</span><span class="nx">Instantiated</span><span class="p">.</span><span class="nx">Collections</span><span class="p">.</span><span class="nx">Project</span>
+    <span class="vi">@creators = </span><span class="nb">window</span><span class="p">.</span><span class="nx">Vocat</span><span class="p">.</span><span class="nx">Instantiated</span><span class="p">.</span><span class="nx">Collections</span><span class="p">.</span><span class="nx">Creator</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>A hack</p></div></div><div class="code"><div class="wrapper">    <span class="vi">@courseId = </span><span class="nx">@projects</span><span class="p">.</span><span class="nx">first</span><span class="p">().</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;course_id&#39;</span><span class="p">)</span>
+
+    <span class="nx">@render</span><span class="p">()</span>
+
+  <span class="nv">navigateGrid: </span><span class="nf">(event) -&gt;</span>
+    <span class="nv">data = </span><span class="nx">@preventAndExtractData</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span>
+    <span class="nv">path = </span><span class="s">&#39;courses/&#39;</span> <span class="o">+</span> <span class="nx">@courseId</span> <span class="o">+</span> <span class="s">&#39;/evaluations&#39;</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">Vocat</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="nx">path</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+
+  <span class="nv">navigateCreatorProjectDetail: </span><span class="nf">(event) -&gt;</span>
+    <span class="nv">data = </span><span class="nx">@preventAndExtractData</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span>
+    <span class="nv">path = </span><span class="s">&#39;courses/&#39;</span> <span class="o">+</span> <span class="nx">@courseId</span> <span class="o">+</span> <span class="s">&#39;/evaluations/creator/&#39;</span> <span class="o">+</span> <span class="nx">data</span><span class="p">.</span><span class="nx">creator</span> <span class="o">+</span> <span class="s">&#39;/project/&#39;</span> <span class="o">+</span> <span class="nx">data</span><span class="p">.</span><span class="nx">project</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">Vocat</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="nx">path</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+
+  <span class="nv">navigateCreatorDetail: </span><span class="nf">(event) -&gt;</span>
+    <span class="nv">data = </span><span class="nx">@preventAndExtractData</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span>
+    <span class="nv">path = </span><span class="s">&#39;courses/&#39;</span> <span class="o">+</span> <span class="nx">@courseId</span> <span class="o">+</span> <span class="s">&#39;/evaluations/creator/&#39;</span> <span class="o">+</span> <span class="nx">data</span><span class="p">.</span><span class="nx">creator</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">Vocat</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="nx">path</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+
+  <span class="nv">navigateProjectDetail: </span><span class="nf">(event) -&gt;</span>
+    <span class="nv">data = </span><span class="nx">@preventAndExtractData</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span>
+    <span class="nv">path = </span><span class="s">&#39;courses/&#39;</span> <span class="o">+</span> <span class="nx">@courseId</span> <span class="o">+</span> <span class="s">&#39;/evaluations/project/&#39;</span> <span class="o">+</span> <span class="nx">data</span><span class="p">.</span><span class="nx">project</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">Vocat</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="nx">path</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+
+  <span class="nv">preventAndExtractData: </span><span class="nf">(event) -&gt;</span>
+    <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">()</span>
+    <span class="nx">$</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">currentTarget</span><span class="p">).</span><span class="nx">data</span><span class="p">()</span>
+
+  <span class="nv">hideOverlay: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nx">@overlay</span><span class="p">.</span><span class="nx">fadeOut</span><span class="p">()</span>
+    <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.matrix&#39;</span><span class="p">).</span><span class="nx">removeClass</span><span class="p">(</span><span class="s">&#39;matrix--overlay-open&#39;</span><span class="p">)</span>
+
+  <span class="nv">updateOverlay: </span><span class="nf">(view) -&gt;</span>
+    <span class="nv">container = </span><span class="nx">view</span><span class="p">.</span><span class="nx">el</span>
+    <span class="k">if</span> <span class="nx">@overlay</span><span class="p">.</span><span class="o">is</span><span class="p">(</span><span class="s">&quot;:visible&quot;</span><span class="p">)</span>
+      <span class="nx">@overlay</span><span class="p">.</span><span class="nx">fadeOut</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span>
+        <span class="nx">@overlay</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="nx">container</span><span class="p">)</span>
+        <span class="nx">@overlay</span><span class="p">.</span><span class="nx">fadeIn</span><span class="p">(</span><span class="mi">250</span><span class="p">)</span>
+      <span class="p">)</span>
+    <span class="k">else</span>
+      <span class="nx">@overlay</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="nx">container</span><span class="p">)</span>
+      <span class="nx">@overlay</span><span class="p">.</span><span class="nx">fadeIn</span><span class="p">()</span>
+
+    <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.matrix&#39;</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s">&#39;matrix--overlay-open&#39;</span><span class="p">)</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s">&#39;[data-behavior=&quot;matrix-creators&quot;]&#39;</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s">&#39;active&#39;</span><span class="p">)</span>
+
+  <span class="nv">showCreatorProjectDetail: </span><span class="nf">(creator, project) -&gt;</span>
+    <span class="vi">@detailView = </span><span class="k">new</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">CourseMapCreatorProjectDetail</span><span class="p">({</span>
+      <span class="nv">courseId: </span><span class="nx">@courseId</span>
+      <span class="nv">project: </span><span class="nx">@projects</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">project</span><span class="p">)</span>
+      <span class="nv">creator: </span><span class="nx">@creators</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">creator</span><span class="p">)</span>
+    <span class="p">})</span>
+    <span class="nx">@updateOverlay</span><span class="p">(</span><span class="nx">@detailView</span><span class="p">)</span>
+
+  <span class="nv">showCreatorDetail: </span><span class="nf">(creator) -&gt;</span>
+    <span class="vi">@detailView = </span><span class="k">new</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">CourseMapCreatorDetail</span><span class="p">({</span>
+      <span class="nv">courseId: </span><span class="nx">@courseId</span>
+      <span class="nv">creator: </span><span class="nx">creator</span>
+      <span class="nv">projects: </span><span class="nx">@projects</span>
+      <span class="nv">creators: </span><span class="nx">@creators</span>
+    <span class="p">})</span>
+    <span class="nx">@updateOverlay</span><span class="p">(</span><span class="nx">@detailView</span><span class="p">)</span>
+
+  <span class="nv">showProjectDetail: </span><span class="nf">(project) -&gt;</span>
+    <span class="vi">@detailView = </span><span class="k">new</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">CourseMapProjectDetail</span><span class="p">({</span>
+      <span class="nv">courseId: </span><span class="nx">@courseId</span>
+      <span class="nv">project: </span><span class="nx">@projects</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">project</span><span class="p">)</span>
+      <span class="nv">projects: </span><span class="nx">@projects</span>
+      <span class="nv">creators: </span><span class="nx">@creators</span>
+    <span class="p">})</span>
+    <span class="nx">@updateOverlay</span><span class="p">(</span><span class="nx">@detailView</span><span class="p">)</span>
+
+  <span class="nv">initializeOverlay: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="vi">@overlay = </span><span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.js-matrix--overlay&#39;</span><span class="p">).</span><span class="nx">first</span><span class="p">()</span>
+
+  <span class="nv">updateSliderControls: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nv">left = </span><span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;[data-behavior=&quot;matrix-slider-left&quot;]&#39;</span><span class="p">)</span>
+    <span class="nv">right = </span><span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;[data-behavior=&quot;matrix-slider-right&quot;]&#39;</span><span class="p">)</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>The width of the slider has to be greater than 4 columns for the slider to be able to slide.</p></div></div><div class="code"><div class="wrapper">    <span class="k">if</span> <span class="p">(</span><span class="nx">@sliderData</span><span class="p">.</span><span class="nx">distance</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nx">@sliderData</span><span class="p">.</span><span class="nx">sliderWidth</span>
+      <span class="k">if</span> <span class="nx">@sliderData</span><span class="p">.</span><span class="nx">position</span> <span class="o">==</span> <span class="nx">@sliderData</span><span class="p">.</span><span class="nx">maxLeft</span> <span class="k">then</span> <span class="nx">left</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="s">&#39;inactive&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="nx">left</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">(</span><span class="s">&#39;inactive&#39;</span><span class="p">)</span>
+      <span class="k">if</span> <span class="nx">@sliderData</span><span class="p">.</span><span class="nx">position</span> <span class="o">==</span> <span class="nx">@sliderData</span><span class="p">.</span><span class="nx">minLeft</span> <span class="k">then</span> <span class="nx">right</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="s">&#39;inactive&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="nx">right</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">(</span><span class="s">&#39;inactive&#39;</span><span class="p">)</span>
+    <span class="k">else</span>
+      <span class="nx">left</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="s">&#39;inactive&#39;</span><span class="p">)</span>
+      <span class="nx">right</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="s">&#39;inactive&#39;</span><span class="p">)</span>
+
+  <span class="nv">slideLeft: </span><span class="nf">(e) -&gt;</span>
+    <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">()</span>
+    <span class="nx">@slide</span><span class="p">(</span><span class="s">&#39;backward&#39;</span><span class="p">)</span>
+
+  <span class="nv">slideRight: </span><span class="nf">(e) -&gt;</span>
+    <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">()</span>
+    <span class="nx">@slide</span><span class="p">(</span><span class="s">&#39;forward&#39;</span><span class="p">)</span>
+
+  <span class="nv">slide: </span><span class="nf">(direction) -&gt;</span>
+    <span class="k">if</span> <span class="nx">direction</span> <span class="o">==</span> <span class="s">&#39;forward&#39;</span> <span class="k">then</span> <span class="nv">travel = </span><span class="nx">@sliderData</span><span class="p">.</span><span class="nx">distance</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span> <span class="k">else</span> <span class="nv">travel = </span><span class="nx">@sliderData</span><span class="p">.</span><span class="nx">distance</span> <span class="o">*</span> <span class="mi">1</span>
+    <span class="nv">newLeft = </span><span class="nx">@sliderData</span><span class="p">.</span><span class="nx">position</span> <span class="o">+</span> <span class="nx">travel</span>
+    <span class="k">if</span> <span class="nx">newLeft</span> <span class="o">&lt;=</span> <span class="nx">@sliderData</span><span class="p">.</span><span class="nx">maxLeft</span> <span class="o">&amp;&amp;</span> <span class="nx">newLeft</span> <span class="o">&gt;=</span> <span class="nx">@sliderData</span><span class="p">.</span><span class="nx">minLeft</span>
+      <span class="nx">@sliderData</span><span class="p">.</span><span class="nx">slideElements</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s">&#39;left&#39;</span><span class="p">,</span> <span class="nx">newLeft</span><span class="p">)</span>
+      <span class="vi">@sliderData.position = </span><span class="nx">newLeft</span>
+    <span class="nx">@updateSliderControls</span><span class="p">()</span>
+
+  <span class="nv">setContentContainerHeight: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nv">height = </span><span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.matrix--content&#39;</span><span class="p">).</span><span class="nx">outerHeight</span><span class="p">()</span> <span class="o">+</span>  <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.matrix--overlay header&#39;</span><span class="p">).</span><span class="nx">outerHeight</span><span class="p">()</span>
+    <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.js-matrix--overlay&#39;</span><span class="p">).</span><span class="nx">first</span><span class="p">().</span><span class="nx">css</span><span class="p">(</span><span class="s">&#39;min-height&#39;</span><span class="p">,</span> <span class="nx">height</span> <span class="o">+</span> <span class="mi">150</span><span class="p">)</span>
+
+  <span class="nv">calculateAndSetSliderWidth: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nv">slider = </span><span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;[data-behavior=&quot;matrix-slider&quot;]&#39;</span><span class="p">).</span><span class="nx">first</span><span class="p">()</span>
+    <span class="nv">colCount = </span><span class="nx">slider</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;li&#39;</span><span class="p">).</span><span class="nx">length</span>
+    <span class="nv">colWidth = </span><span class="nx">slider</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;li&#39;</span><span class="p">).</span><span class="nx">first</span><span class="p">().</span><span class="nx">outerWidth</span><span class="p">()</span>
+    <span class="nv">sliderWidth = </span><span class="nx">colCount</span> <span class="o">*</span> <span class="nx">colWidth</span>
+    <span class="nv">minLeft = </span><span class="p">(</span><span class="nx">sliderWidth</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="nx">colWidth</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="nv">slideElements = </span><span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;[data-behavior=&quot;matrix-slider&quot;] ul&#39;</span><span class="p">)</span>
+    <span class="nx">slideElements</span><span class="p">.</span><span class="nx">each</span> <span class="nf">-&gt;</span>
+      <span class="nx">$</span><span class="p">(</span><span class="nx">@</span><span class="p">).</span><span class="nx">width</span><span class="p">(</span><span class="nx">sliderWidth</span><span class="p">)</span>
+    <span class="vi">@sliderData = </span><span class="p">{</span>
+      <span class="nv">position: </span><span class="mi">0</span>
+      <span class="nv">sliderWidth: </span><span class="nx">sliderWidth</span>
+      <span class="nv">minLeft: </span><span class="nx">minLeft</span>
+      <span class="nv">maxLeft: </span><span class="mi">0</span>
+      <span class="nv">distance: </span><span class="mi">205</span>
+      <span class="nv">slideElements: </span><span class="nx">slideElements</span>
+    <span class="p">}</span>
+
+  <span class="nv">redraw: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nx">@overlay</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s">&#39;margin-top&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.matrix--content&#39;</span><span class="p">).</span><span class="nx">height</span><span class="p">()</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">116</span> <span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s">&#39;z-index&#39;</span><span class="p">,</span><span class="mi">400</span><span class="p">)</span>
+    <span class="nx">@setContentContainerHeight</span><span class="p">()</span>
+    <span class="nx">@calculateAndSetSliderWidth</span><span class="p">()</span>
+    <span class="nx">@updateSliderControls</span><span class="p">()</span>
+
+
+  <span class="nv">render: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nv">context = </span><span class="p">{</span>
+      <span class="nv">creators: </span><span class="nx">@creators</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">()</span>
+      <span class="nv">projects: </span><span class="nx">@projects</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">()</span>
+    <span class="p">}</span>
+
+    <span class="nx">@$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="nx">@template</span><span class="p">(</span><span class="nx">context</span><span class="p">))</span>
+
+    <span class="nx">@initializeOverlay</span><span class="p">()</span>
+    <span class="nx">@redraw</span><span class="p">()</span>
+
+    <span class="nv">matrixCells = </span><span class="k">new</span> <span class="nx">Vocat</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">CourseMapMatrixCells</span><span class="p">({</span>
+      <span class="nv">el: </span><span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.js-matrix--content&#39;</span><span class="p">).</span><span class="nx">first</span><span class="p">()</span>
+      <span class="nv">creators: </span><span class="nx">@creators</span>
+      <span class="nv">projects: </span><span class="nx">@projects</span>
+      <span class="nv">courseId: </span><span class="nx">@courseId</span>
+    <span class="p">})</span></div></div></div></div></body></html>
