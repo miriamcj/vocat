@@ -86,13 +86,6 @@ class Vocat.Views.EvaluationDetail extends Vocat.Views.AbstractView
       creator: @creator.toJSON()
     }
 
-    # This hash forms the basis of the options passed to the child views.
-    childViewOptions = {
-      creator: @creator
-      project: @project
-      submission: @submission
-    }
-
     # Render this view onto the page.
     @$el.html(@template(context))
 
@@ -100,6 +93,14 @@ class Vocat.Views.EvaluationDetail extends Vocat.Views.AbstractView
     @renderChildViews()
 
   renderChildViews: () ->
+
+    # This hash forms the basis of the options passed to the child views.
+    childViewOptions = {
+      creator: @creator
+      project: @project
+      submission: @submission
+    }
+
     # The score view, annotations view, and the player view should always be visible
     scoreView       = new Vocat.Views.EvaluationDetailScore(childViewOptions)
     annotationsView = new Vocat.Views.EvaluationDetailAnnotations(_.extend(childViewOptions, {annotations: @annotations}))

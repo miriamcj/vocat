@@ -3,7 +3,6 @@
 class Vocat.Views.AbstractModalView extends Vocat.Views.AbstractView
 
 	initialize: (options) ->
-		super(options)
 
 	centerModal: () ->
 		yOffset = $(document).scrollTop()
