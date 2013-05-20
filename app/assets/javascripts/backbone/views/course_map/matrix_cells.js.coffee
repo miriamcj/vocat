@@ -6,7 +6,7 @@ class Vocat.Views.CourseMapMatrixCells extends Vocat.Views.AbstractView
 		@courseId = options.courseId
 		@creators = options.creators
 		@projects = options.projects
-		@submissions = new Vocat.Collections.Submission({courseId: @courseId})
+		@submissions = new Vocat.Collections.Submission([], {courseId: @courseId})
 		$.when(@submissions.fetch()).then () =>
 			@render()
 

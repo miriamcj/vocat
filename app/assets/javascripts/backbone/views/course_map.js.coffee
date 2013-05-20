@@ -82,7 +82,6 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
 		$('[data-behavior="matrix-creators"]').addClass('active')
 
 	showCreatorProjectDetail: (creator, project) ->
-		console.log 'called'
 		@detailView = new Vocat.Views.CourseMapCreatorProjectDetail({
 			courseId: @courseId
 			project: @projects.get(project)

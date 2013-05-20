@@ -1,6 +1,6 @@
-class Vocat.Views.EvaluationDetailVideoAnnotations extends Vocat.Views.AbstractView
+class Vocat.Views.EvaluationDetailAnnotations extends Vocat.Views.AbstractView
 
-  template: HBT["backbone/templates/evaluation_detail/video_annotations"]
+  template: HBT["backbone/templates/evaluation_detail/annotations"]
 
   events:
     'click [data-behavior="annotations-view-all"]': 'viewAllAnnotations'
@@ -15,7 +15,6 @@ class Vocat.Views.EvaluationDetailVideoAnnotations extends Vocat.Views.AbstractV
     @annotations.bind 'reset', @render, @
     @annotations.bind 'add', @insertView, @
     Vocat.Dispatcher.bind 'playerTimeUpdate', @showAnnotations, @
-    @render()
 
   doScroll: (speed, target, offset) ->
     if @disableScroll == false
@@ -103,12 +102,11 @@ class Vocat.Views.EvaluationDetailVideoAnnotations extends Vocat.Views.AbstractV
     @$el.html(@template(context))
     annotationsContainer = @$el.find('[data-behavior="annotations-container"]')
     @childViews = new Array
-    console.log @annotations
     @annotations.each (annotation) =>
       targetEl = $('<li class="annotations--item"></li>')
       childView = new Vocat.Views.EvaluationDetailAnnotation({model: annotation, el: targetEl})
       @childViews[annotation.id] = childView
       annotationsContainer.append(targetEl)
 
-    # Return thyself for maximum chaning!
+    # Return thyself for maximum chaining!
     @

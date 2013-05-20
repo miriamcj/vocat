@@ -1,6 +1,6 @@
-class Vocat.Views.EvaluationDetailVideoPlayer extends Vocat.Views.AbstractView
+class Vocat.Views.EvaluationDetailPlayer extends Vocat.Views.AbstractView
 
-  template: HBT["backbone/templates/evaluation_detail/video_player"]
+  template: HBT["backbone/templates/evaluation_detail/player"]
 
   events:
     'click [data-behavior="show-upload"]': 'showUpload'
@@ -14,8 +14,6 @@ class Vocat.Views.EvaluationDetailVideoPlayer extends Vocat.Views.AbstractView
     @project = options.project
     @submission = options.submission
     @creator = options.creator
-
-    @render()
 
     if @submission.get('transcoded_attachment') == false && @submission.get('uploaded_attachment') == true && @submission.get('transcoding_error') == false
       console.log 'polling'
@@ -61,13 +59,12 @@ class Vocat.Views.EvaluationDetailVideoPlayer extends Vocat.Views.AbstractView
     if @submission.get('transcoded_attachment')
       Popcorn.player('baseplayer')
       playerElement = @$el.find('[data-behavior="video-player"]').get(0)
-      console.log playerElement
       @player = Popcorn(playerElement)
       Vocat.Dispatcher.player = @player
       @player.on( 'timeupdate', () ->
           Vocat.Dispatcher.trigger 'playerTimeUpdate', {seconds: @.currentTime()}
       )
 
-    # Return thyself for maximum chaning!
+    # Return thyself for maximum chaining!
     @
 

@@ -10,7 +10,7 @@ class Vocat.Views.CourseMapCreatorDetail extends Vocat.Views.AbstractView
 		@showCourse = options.showCourse
 		@creator = @creators.get(options.creator)
 
-		@submissions = new Vocat.Collections.Submission({creatorId: @creator.id, courseId: @courseId})
+		@submissions = new Vocat.Collections.Submission([], {creatorId: @creator.id, courseId: @courseId})
 
 		$.when(@submissions.fetch()).then () =>
 			@render()

@@ -11,7 +11,7 @@ class Vocat.Views.PortfolioSubmissionSummary extends Vocat.Views.AbstractView
 
 	initialize: (options) ->
 		options = _.extend(@defaults, options);
-		super (options)
+		@options = options
 
 	render: () ->
 		context = {

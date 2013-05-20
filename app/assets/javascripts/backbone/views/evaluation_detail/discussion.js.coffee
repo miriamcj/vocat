@@ -1,13 +1,13 @@
 class Vocat.Views.EvaluationDetailDiscussion extends Vocat.Views.AbstractView
 
-	template: HBT["backbone/templates/evaluation_detail/discussion"]
+  template: HBT["backbone/templates/evaluation_detail/discussion"]
 
-	initialize: (options) ->
-		super(options)
-		@render()
+  initialize: (options) ->
 
-	render: () ->
-		context = {
-		}
-		@$el.html(@template(context))
+  render: () ->
+    context = {
+    }
+    @$el.html(@template(context))
 
+    # Return thyself for maximum chaining!
+    @

@@ -22,6 +22,15 @@ class Api::V1::SubmissionsController < ApiController
     if @course && @creator
 			if @project
 				@submissions = Submission.for_creator_and_project(@creator, @project).all()
+				if @submissions.count() == 0
+					@submission = Submission.new({
+	           :creator_id => @creator.id,
+	           :project_id => @project.id,
+	           :published => false
+		       })
+					@submission.save()
+					@submissions = [@submission]
+				end
 			else
 				@submissions = Submission.for_creator_and_course(@creator, @course).all()
 			end
