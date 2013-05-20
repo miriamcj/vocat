@@ -25,9 +25,6 @@ $.fn.extend
 		return @each ()->
 			$container= $(@)
 			$toggle = $container.find('[data-behavior="toggle"]')
-			$dropdown = $container.find('[data-behavior="dropdown-options"]').first()
-			toggleHeight = $toggle.outerHeight()
-			$dropdown.css('top',toggleHeight)
 			$(document).click( ->
 				$container.removeClass('open')
 			)

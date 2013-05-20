@@ -1,12 +1,14 @@
 class Vocat.Views.EvaluationDetailAnnotation extends Vocat.Views.AbstractView
 
   template: HBT["backbone/templates/evaluation_detail/annotation"]
+  tagName: 'li'
+  className: 'annotations--item'
 
   events:
     'click [data-behavior="player-seek"]': 'doPlayerSeek'
 
   initialize: (options) ->
-    super(options)
+    console.log @model
     @model.bind('change:visibility',@updateVisibility, @)
 
   doPlayerSeek: (e) ->
@@ -30,3 +32,5 @@ class Vocat.Views.EvaluationDetailAnnotation extends Vocat.Views.AbstractView
     @$el.html(@template(context))
     if @model.visible == false then @$el.hide()
 
+    # Return thyself!
+    @

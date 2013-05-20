@@ -4,7 +4,7 @@ class SubmissionSerializer < ActiveModel::Serializer
               :current_user_can_evaluate, :course_department, :course_section, :course_number,
               :instructor_evaluations, :evaluations, :instructor_score_percentage, :published,
               :uploaded_attachment, :transcoded_attachment, :transcoding_error, :current_user_can_annotate,
-              :current_user_can_attach, :current_user_can_discuss, :video_attachment_id
+              :current_user_can_attach, :current_user_can_discuss, :video_attachment_id, :scored_by_instructor?
 
   def instructor_evaluations
     ActiveModel::ArraySerializer.new(object.instructor_evaluations, :scope => scope)

@@ -113,6 +113,10 @@ class Submission < ActiveRecord::Base
 	  sum
   end
 
+  def scored_by_instructor?()
+    instructor_score_count > 0
+  end
+
   def score_percentage(type)
 	  if type == 'instructor'
 		  total_score = instructor_score_total

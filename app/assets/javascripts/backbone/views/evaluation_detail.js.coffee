@@ -20,8 +20,8 @@ class Vocat.Views.EvaluationDetail extends Vocat.Views.AbstractView
     # Overlay options on top of this view's defaults.
     options = _.extend(@defaults, options);
 
-    # Assign the current course ID to the view so that it can be incorporated into child routes. We expect the course ID
-    # to be passed to this object throught the options. In some cases, the data for this view is bootstrapped onto the
+    # Assign the current course ID to the view so that it can be incorp@submission.ide course ID
+    # to be { data: $.param({ attachment: }) }passed to this object throught the options. In some cases, the data for this view is bootstrapped onto the
     # page, in which case the course ID is generally not needed.
     if options.courseId?
       @courseId = options.courseId
@@ -38,6 +38,10 @@ class Vocat.Views.EvaluationDetail extends Vocat.Views.AbstractView
       @creator = options.creator
     else if Vocat.Bootstrap.Models.Creator?
       @creator = new Vocat.Models.Creator(Vocat.Bootstrap.Models.Creator, {parse: true})
+
+    # We initialize an annotations repository, whether or not there is a submission. If there's not, no fetch will be
+    # attempted.
+    @annotations = new Vocat.Collections.Annotation([], options)
 
     # Similarly, the detail's submission can be set from options or bootstrapped data. Unlike projects and creators,
     # the submission will be fetched asynchronously if it's not present during view initialization. The submission is
@@ -62,6 +66,8 @@ class Vocat.Views.EvaluationDetail extends Vocat.Views.AbstractView
           @submissionLoaded()
       })
 
+
+
     # The evalutation detail view needs to redraw itself to load the video once it sees that transcoding has been
     # completed.
     Vocat.Dispatcher.bind('transcodingComplete', @render, @)
@@ -70,13 +76,12 @@ class Vocat.Views.EvaluationDetail extends Vocat.Views.AbstractView
   # annotations for that attachment. We can also render the view at this point.
   submissionLoaded: () ->
     options = {attachmentId: @submission.get('video_attachment_id')}
-    @annotations = new Vocat.Collections.Annotation([], options)
-#    if @submission.get('video_attachment_id')
-#      @annotations.fetch();
+    if @submission.get('video_attachment_id')
+      @annotations.fetch();
     @render()
+    window.Vocat.Dispatcher.trigger('courseMap:childViewLoaded', @)
 
   render: () ->
-
     # The evaluation detail view is by and large a wrapper around a handful of child views. Therefore, it doesn't need
     # very much information.
     context = {
@@ -90,6 +95,7 @@ class Vocat.Views.EvaluationDetail extends Vocat.Views.AbstractView
     # Then `renderChildViews` into the rendered evaulation detail HTML.
     @renderChildViews()
 
+
   renderChildViews: () ->
 
     # This hash forms the basis of the options passed to the child views.
@@ -98,6 +104,7 @@ class Vocat.Views.EvaluationDetail extends Vocat.Views.AbstractView
       project: @project
       submission: @submission
     }
+
 
     # The score view, annotations view, and the player view should always be visible.
     scoreView       = new Vocat.Views.EvaluationDetailScore(childViewOptions)

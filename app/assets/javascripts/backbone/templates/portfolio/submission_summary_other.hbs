@@ -25,10 +25,13 @@
 	{{/if}}  
 </figure><!-- removes whitespace between columns
 --><div class="frame-summary">
-    <h2 class="frame-summary--title"><a data-behavior="routable" href="{{url_for 'course_evaluations_for_creator_and_project' submission.course_id submission.creator_id submission.project_id}}">{{submission.project_name}}</a></h2>
-		{{debug showCreator}}
+    <h2 class="frame-summary--title">
+      <a data-behavior="routable" href="{{url_for 'course_evaluations_for_creator_and_project' submission.course_id submission.creator_id submission.project_id}}">{{submission.project_name}}</a>
+    </h2>
 		{{#if showCreator}}
-    <h3 class="frame-summary--creator"><a data-behavior="routable" href="{{url_for 'course_evaluations_for_creator' submission.course_id submission.creator_id}}">{{submission.creator_name}}</a></h3>
+    <h3 class="frame-summary--creator">
+      <a data-behavior="routable" href="{{url_for 'course_evaluations_for_creator' submission.course_id submission.creator_id}}">{{submission.creator_name}}</a>
+    </h3>
 		{{/if}}
 		{{#if showCourse}}
     <h3 class="frame-summary--course"><a data-behavior="routable" href="{{url_for 'course_evaluations' submission.course_id}}"><strong>{{submission.course_department}}{{submission.course_number}} </strong> {{submission.course_name}} [Section {{submission.course_section}}]</a></h3>

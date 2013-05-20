@@ -1,185 +1,189 @@
 class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
 
-	template: HBT["backbone/templates/course_map"]
+  template: HBT["backbone/templates/course_map"]
 
-	overlayOpen: false
+  overlayOpen: false
 
-	events:
-		'click .js-navigate-exhibit':                   'navigateCreatorProjectDetail'
-		'click .js-navigate-creator':                   'navigateCreatorDetail'
-		'click .js-navigate-project':                   'navigateProjectDetail'
-		'click [data-behavior="matrix-overlay-close"]': 'navigateGrid'
-		'click [data-behavior="matrix-slider-left"]':   'slideLeft'
-		'click [data-behavior="matrix-slider-right"]':  'slideRight'
-		'click [data-behavior="routable"]':             'handleRoutable'
+  events:
+    'click .js-navigate-exhibit':                   'navigateCreatorProjectDetail'
+    'click .js-navigate-creator':                   'navigateCreatorDetail'
+    'click .js-navigate-project':                   'navigateProjectDetail'
+    'click [data-behavior="matrix-overlay-close"]': 'navigateGrid'
+    'click [data-behavior="matrix-slider-left"]':   'slideLeft'
+    'click [data-behavior="matrix-slider-right"]':  'slideRight'
+    'click [data-behavior="routable"]':             'handleRoutable'
 
-	handleRoutable: (e) ->
-		event.preventDefault()
-		href = $(e.currentTarget).attr('href')
-		if href
-			window.Vocat.router.navigate(href, true)
+  handleRoutable: (e) ->
+    event.preventDefault()
+    href = $(e.currentTarget).attr('href')
+    if href
+      window.Vocat.router.navigate(href, true)
 
-	initialize: (options)  ->
+  initialize: (options)  ->
 
-		window.Vocat.router.on "route:showCreatorProjectDetail", (course, creator, project) => @showCreatorProjectDetail(creator, project)
-		window.Vocat.router.on "route:showCreatorDetail", (course, creator) => @showCreatorDetail(creator)
-		window.Vocat.router.on "route:showProjectDetail", (course, project) => @showProjectDetail(project)
-		window.Vocat.router.on "route:showGrid", (project) => @hideOverlay()
-		window.Vocat.Dispatcher.on "courseMap:redraw", () => @redraw()
+    window.Vocat.router.on "route:showCreatorProjectDetail", (course, creator, project) => @showCreatorProjectDetail(creator, project)
+    window.Vocat.router.on "route:showCreatorDetail", (course, creator) => @showCreatorDetail(creator)
+    window.Vocat.router.on "route:showProjectDetail", (course, project) => @showProjectDetail(project)
+    window.Vocat.router.on "route:showGrid", (project) => @hideOverlay()
+    window.Vocat.Dispatcher.on "courseMap:redraw", () => @redraw()
+    window.Vocat.Dispatcher.on "courseMap:childViewLoaded", (view) => @updateOverlay(view)
 
-		$('[data-behavior="sticky-header"]').stickyHeader('destroy')
+    $('[data-behavior="sticky-header"]').stickyHeader('destroy')
 
-		@sliderData = {}
+    @sliderData = {}
 
-		@projects = window.Vocat.Instantiated.Collections.Project
-		@creators = window.Vocat.Instantiated.Collections.Creator
+    @projects = window.Vocat.Instantiated.Collections.Project
+    @creators = window.Vocat.Instantiated.Collections.Creator
 
-		# A hack
-		@courseId = @projects.first().get('course_id')
+    # A hack
+    @courseId = @projects.first().get('course_id')
 
-		@render()
+    @render()
 
-	navigateGrid: (event) ->
-		data = @preventAndExtractData(event)
-		path = 'courses/' + @courseId + '/evaluations'
-		window.Vocat.router.navigate(path, true)
+  navigateGrid: (event) ->
+    data = @preventAndExtractData(event)
+    path = 'courses/' + @courseId + '/evaluations'
+    window.Vocat.router.navigate(path, true)
 
-	navigateCreatorProjectDetail: (event) ->
-		data = @preventAndExtractData(event)
-		path = 'courses/' + @courseId + '/evaluations/creator/' + data.creator + '/project/' + data.project
-		window.Vocat.router.navigate(path, true)
+  navigateCreatorProjectDetail: (event) ->
+    data = @preventAndExtractData(event)
+    path = 'courses/' + @courseId + '/evaluations/creator/' + data.creator + '/project/' + data.project
+    window.Vocat.router.navigate(path, true)
 
-	navigateCreatorDetail: (event) ->
-		data = @preventAndExtractData(event)
-		path = 'courses/' + @courseId + '/evaluations/creator/' + data.creator
-		window.Vocat.router.navigate(path, true)
+  navigateCreatorDetail: (event) ->
+    data = @preventAndExtractData(event)
+    path = 'courses/' + @courseId + '/evaluations/creator/' + data.creator
+    window.Vocat.router.navigate(path, true)
 
-	navigateProjectDetail: (event) ->
-		data = @preventAndExtractData(event)
-		path = 'courses/' + @courseId + '/evaluations/project/' + data.project
-		window.Vocat.router.navigate(path, true)
+  navigateProjectDetail: (event) ->
+    data = @preventAndExtractData(event)
+    path = 'courses/' + @courseId + '/evaluations/project/' + data.project
+    window.Vocat.router.navigate(path, true)
 
-	preventAndExtractData: (event) ->
-		event.preventDefault()
-		$(event.currentTarget).data()
+  preventAndExtractData: (event) ->
+    event.preventDefault()
+    $(event.currentTarget).data()
 
-	hideOverlay: () ->
-		@overlay.fadeOut()
-		@$el.find('.matrix').removeClass('matrix--overlay-open')
+  hideOverlay: () ->
+    @overlay.fadeOut()
+    @$el.find('.matrix').removeClass('matrix--overlay-open')
 
-	updateOverlay: (view) ->
-		container = view.el
-		if @overlay.is(":visible")
-			@overlay.fadeOut(250, () =>
-				@overlay.html(container)
-				@overlay.fadeIn(250)
-			)
-		else
-			@overlay.html(container)
-			@overlay.fadeIn()
+  updateOverlay: (view) ->
 
-		@$el.find('.matrix').addClass('matrix--overlay-open')
-		$('[data-behavior="matrix-creators"]').addClass('active')
+    newView = view
+    contentContainer = @overlay.find('[data-behavior="overlay-content"]').first()
+    $(contentContainer).html(newView.el)
 
-	showCreatorProjectDetail: (creator, project) ->
-		@detailView = new Vocat.Views.CourseMapCreatorProjectDetail({
-			courseId: @courseId
-			project: @projects.get(project)
-			creator: @creators.get(creator)
-		})
-		@updateOverlay(@detailView)
+    if @currentView? then @currentView.remove()
 
-	showCreatorDetail: (creator) ->
-		@detailView = new Vocat.Views.CourseMapCreatorDetail({
-			courseId: @courseId
-			creator: creator
-			projects: @projects
-			creators: @creators
-		})
-		@updateOverlay(@detailView)
+    if !@overlay.is(':visible')
+      @overlay.fadeIn(500)
 
-	showProjectDetail: (project) ->
-		@detailView = new Vocat.Views.CourseMapProjectDetail({
-			courseId: @courseId
-			project: @projects.get(project)
-			projects: @projects
-			creators: @creators
-		})
-		@updateOverlay(@detailView)
+    @currentView = newView
 
-	initializeOverlay: () ->
-		@overlay = @$el.find('.js-matrix--overlay').first()
+    @$el.find('.matrix').addClass('matrix--overlay-open')
+    $('[data-behavior="matrix-creators"]').addClass('active')
 
-	updateSliderControls: () ->
-		left = @$el.find('[data-behavior="matrix-slider-left"]')
-		right = @$el.find('[data-behavior="matrix-slider-right"]')
-		# The width of the slider has to be greater than 4 columns for the slider to be able to slide.
-		if (@sliderData.distance * 4) < @sliderData.sliderWidth
-			if @sliderData.position == @sliderData.maxLeft then left.addClass('inactive') else left.removeClass('inactive')
-			if @sliderData.position == @sliderData.minLeft then right.addClass('inactive') else right.removeClass('inactive')
-		else
-			left.addClass('inactive')
-			right.addClass('inactive')
+  showCreatorProjectDetail: (creator, project) ->
+    @detailView = new Vocat.Views.CourseMapCreatorProjectDetail({
+      courseId: @courseId
+      project: @projects.get(project)
+      creator: @creators.get(creator)
+    })
 
-	slideLeft: (e) ->
-		e.preventDefault()
-		@slide('backward')
+  showCreatorDetail: (creator) ->
+    @detailView = new Vocat.Views.CourseMapCreatorDetail({
+      courseId: @courseId
+      creator: creator
+      projects: @projects
+      creators: @creators
+    })
+    @detailView.render()
 
-	slideRight: (e) ->
-		e.preventDefault()
-		@slide('forward')
-
-	slide: (direction) ->
-		if direction == 'forward' then travel = @sliderData.distance * -1 else travel = @sliderData.distance * 1
-		newLeft = @sliderData.position + travel
-		if newLeft <= @sliderData.maxLeft && newLeft >= @sliderData.minLeft
-			@sliderData.slideElements.css('left', newLeft)
-			@sliderData.position = newLeft
-		@updateSliderControls()
-
-	setContentContainerHeight: () ->
-		height = @$el.find('.matrix--content').outerHeight() +  @$el.find('.matrix--overlay header').outerHeight()
-		@$el.find('.js-matrix--overlay').first().css('min-height', height + 150)
-
-	calculateAndSetSliderWidth: () ->
-		slider = @$el.find('[data-behavior="matrix-slider"]').first()
-		colCount = slider.find('li').length
-		colWidth = slider.find('li').first().outerWidth()
-		sliderWidth = colCount * colWidth
-		minLeft = (sliderWidth * -1) + (colWidth * 4)
-		slideElements = @$el.find('[data-behavior="matrix-slider"] ul')
-		slideElements.each ->
-			$(@).width(sliderWidth)
-		@sliderData = {
-			position: 0
-			sliderWidth: sliderWidth
-			minLeft: minLeft
-			maxLeft: 0
-			distance: 205
-			slideElements: slideElements
-		}
-
-	redraw: () ->
-		@overlay.css('margin-top', (@$el.find('.matrix--content').height() * -1) - 116 ).css('z-index',400)
-		@setContentContainerHeight()
-		@calculateAndSetSliderWidth()
-		@updateSliderControls()
+  showProjectDetail: (project) ->
+    @detailView = new Vocat.Views.CourseMapProjectDetail({
+      courseId: @courseId
+      project: @projects.get(project)
+      projects: @projects
+      creators: @creators
+    })
+    @detailView.render()
 
 
-	render: () ->
-		context = {
-			creators: @creators.toJSON()
-			projects: @projects.toJSON()
-		}
+  initializeOverlay: () ->
+    @overlay = @$el.find('.js-matrix--overlay').first()
 
-		@$el.html(@template(context))
+  updateSliderControls: () ->
+    left = @$el.find('[data-behavior="matrix-slider-left"]')
+    right = @$el.find('[data-behavior="matrix-slider-right"]')
+    # The width of the slider has to be greater than 4 columns for the slider to be able to slide.
+    if (@sliderData.distance * 4) < @sliderData.sliderWidth
+      if @sliderData.position == @sliderData.maxLeft then left.addClass('inactive') else left.removeClass('inactive')
+      if @sliderData.position == @sliderData.minLeft then right.addClass('inactive') else right.removeClass('inactive')
+    else
+      left.addClass('inactive')
+      right.addClass('inactive')
 
-		@initializeOverlay()
-		@redraw()
+  slideLeft: (e) ->
+    e.preventDefault()
+    @slide('backward')
 
-		matrixCells = new Vocat.Views.CourseMapMatrixCells({
-			el: @$el.find('.js-matrix--content').first()
-			creators: @creators
-			projects: @projects
-			courseId: @courseId
-		})
+  slideRight: (e) ->
+    e.preventDefault()
+    @slide('forward')
+
+  slide: (direction) ->
+    if direction == 'forward' then travel = @sliderData.distance * -1 else travel = @sliderData.distance * 1
+    newLeft = @sliderData.position + travel
+    if newLeft <= @sliderData.maxLeft && newLeft >= @sliderData.minLeft
+      @sliderData.slideElements.css('left', newLeft)
+      @sliderData.position = newLeft
+    @updateSliderControls()
+
+  setContentContainerHeight: () ->
+    height = @$el.find('.matrix--content').outerHeight() +  @$el.find('.matrix--overlay header').outerHeight()
+    @$el.find('.js-matrix--overlay').first().css('min-height', height + 150)
+
+  calculateAndSetSliderWidth: () ->
+    slider = @$el.find('[data-behavior="matrix-slider"]').first()
+    colCount = slider.find('li').length
+    colWidth = slider.find('li').first().outerWidth()
+    sliderWidth = colCount * colWidth
+    minLeft = (sliderWidth * -1) + (colWidth * 4)
+    slideElements = @$el.find('[data-behavior="matrix-slider"] ul')
+    slideElements.each ->
+      $(@).width(sliderWidth)
+    @sliderData = {
+      position: 0
+      sliderWidth: sliderWidth
+      minLeft: minLeft
+      maxLeft: 0
+      distance: 205
+      slideElements: slideElements
+    }
+
+  redraw: () ->
+    @overlay.css('margin-top', (@$el.find('.matrix--content').height() * -1) - 116 ).css('z-index',400)
+    @setContentContainerHeight()
+    @calculateAndSetSliderWidth()
+    @updateSliderControls()
+
+
+  render: () ->
+    context = {
+      courseId: @courseId
+      creators: @creators.toJSON()
+      projects: @projects.toJSON()
+    }
+
+    @$el.html(@template(context))
+
+    @initializeOverlay()
+    @redraw()
+
+    matrixCells = new Vocat.Views.CourseMapMatrixCells({
+      el: @$el.find('.js-matrix--content').first()
+      creators: @creators
+      projects: @projects
+      courseId: @courseId
+    })

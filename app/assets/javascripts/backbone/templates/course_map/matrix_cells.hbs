@@ -1,9 +1,11 @@
+
 {{#each creators}}
 <ul class="matrix--row">
   {{#each ../projects}}
   <li class="matrix--cell">
     {{#get_submission ../../submissions ../this this}}
       {{#if this}}
+        <a href="{{url_for 'course_evaluations_for_creator_and_project' ../../../../courseId ../../../this.id ../../this.id}}" data-behavior="routable">
         {{#if uploaded_attachment}}
           <div class="matrix--cell--thumbnail">
             <img src="{{thumb}}" />
@@ -13,16 +15,24 @@
             <div class="attachment-placeholder"></div>
           </div>
       	{{/if}}
-        <h2 class="matrix--cell--value">{{instructor_score_percentage}}<small>%</small></h2>
-        <!-- TODO active class is only applied when score is 'published' -->
-        <div class="matrix--cell--indicator active"></div>
+        <h2 class="matrix--cell--value">
+          {{#if scored_by_instructor }}
+            {{instructor_score_percentage}}<small>%</small>
+          {{else}}
+            <h2 class="matrix--cell--value">&ndash;&ndash;<small>%</small></h2>
+          {{/if}}
+        </h2>
+        </a>
+        <!-- TODO: active class is only applied when score is 'published' -->
+        <div class="matrix--cell--indicator {{#if submission.published}}active{{/if}}"></div>
       {{else}}
+        <a href="{{url_for 'course_evaluations_for_creator_and_project' ../../../../courseId ../../../this.id ../../this.id}}" data-behavior="routable">
         <div class="matrix--cell--thumbnail">
           <div class="attachment-placeholder"></div>
         </div>
         <h2 class="matrix--cell--value">&ndash;&ndash;<small>%</small></h2>
-        <!-- TODO active class is only applied when score is 'published' -->
-        <div class="matrix--cell--indicator active"></div>
+        </a>
+        <div class="matrix--cell--indicator"></div>
       {{/if}}
     {{/get_submission}}
   </li>

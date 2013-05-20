@@ -6,8 +6,7 @@
     <div class="project-selector--dropdown" data-behavior="dropdown-options">
       <ul>
         {{#each projects}}
-		      <!-- TODO: FIX THIS LINK -->
-          <li><a class="active" href="/courses/12/portfolio"><strong>{{this.name}}:</strong></a></li>
+          <li><a data-behavior="routable" href="{{url_for 'course_evaluations_for_creator_and_project' ../courseId ../creator.id this.id}}"><strong>{{this.name}}</strong></a></li>
         {{/each}}
       </ul>
     </div>

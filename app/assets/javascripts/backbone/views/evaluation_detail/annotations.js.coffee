@@ -2,6 +2,8 @@ class Vocat.Views.EvaluationDetailAnnotations extends Vocat.Views.AbstractView
 
   template: HBT["backbone/templates/evaluation_detail/annotations"]
 
+  className: 'annotations'
+
   events:
     'click [data-behavior="annotations-view-all"]': 'viewAllAnnotations'
     'click [data-behavior="annotations-auto-scroll"]': 'enableAutoScroll'
@@ -48,7 +50,6 @@ class Vocat.Views.EvaluationDetailAnnotations extends Vocat.Views.AbstractView
   showAnnotations: (args) ->
     seconds = Math.floor(args.seconds)
     @currentTime = seconds
-
     @annotations.each (annotation) ->
       if annotation.get('seconds_timecode') <= seconds
         annotation.show()
@@ -69,7 +70,6 @@ class Vocat.Views.EvaluationDetailAnnotations extends Vocat.Views.AbstractView
     else
       maxVisible = 0
 
-    scrollEl = @$el.find('[data-behavior="scroll-parent"]')
     target = @$el.find('[data-seconds="' + maxVisible + '"]')
     @doScroll(300, target)
 
@@ -98,15 +98,15 @@ class Vocat.Views.EvaluationDetailAnnotations extends Vocat.Views.AbstractView
       currentTime: @currentTime
       count: @annotations.length
       disableScroll: @disableScroll
+      submission: @submission.toJSON()
     }
     @$el.html(@template(context))
     annotationsContainer = @$el.find('[data-behavior="annotations-container"]')
     @childViews = new Array
     @annotations.each (annotation) =>
-      targetEl = $('<li class="annotations--item"></li>')
-      childView = new Vocat.Views.EvaluationDetailAnnotation({model: annotation, el: targetEl})
+      childView = new Vocat.Views.EvaluationDetailAnnotation({model: annotation})
       @childViews[annotation.id] = childView
-      annotationsContainer.append(targetEl)
+      annotationsContainer.append(childView.render().el)
 
     # Return thyself for maximum chaining!
     @

@@ -44,7 +44,7 @@ class Vocat.Views.EvaluationDetailScore extends Vocat.Views.AbstractView
   render: () ->
     context = {
       state: @state.toJSON()
-      submission: @submission.toJSON()
+      submission: if @submission? then @submission.toJSON()
     }
     Handlebars.registerPartial('score_summary', @scorePartial);
     @$el.html(@template(context))

@@ -15,13 +15,15 @@ class Vocat.Views.EvaluationDetailPlayer extends Vocat.Views.AbstractView
     @submission = options.submission
     @creator = options.creator
 
-    if @submission.get('transcoded_attachment') == false && @submission.get('uploaded_attachment') == true && @submission.get('transcoding_error') == false
-      console.log 'polling'
-      @startPolling()
 
-    @submission.bind 'startPolling', @startPolling, @
-    @submission.bind 'change:transcoded_attachment', @render, @
-    @submission.bind 'change:uploaded_attachment', @render, @
+    if @submission
+      @submission.bind 'startPolling', @startPolling, @
+      @submission.bind 'change:transcoded_attachment', @render, @
+      @submission.bind 'change:uploaded_attachment', @render, @
+
+      if @submission.get('transcoded_attachment') == false && @submission.get('uploaded_attachment') == true && @submission.get('transcoding_error') == false
+        @startPolling()
+
     Vocat.Dispatcher.bind 'player:stop', @handlePlayerStop, @
     Vocat.Dispatcher.bind 'player:start', @handlePlayerStart, @
     Vocat.Dispatcher.bind 'player:seek', @handlePlayerSeek, @

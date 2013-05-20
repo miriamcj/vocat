@@ -705,6 +705,7 @@
   border-radius: $radius 0 0 $radius;
   margin-right:3.8rem;
   position: relative;
+  height: 32px;
   &:before {
     content: "";
     background-color: inherit;
@@ -770,7 +771,7 @@
   border-radius: $radius * 2;
   margin-top: 2rem;
   position: absolute;
-  top: 0;
+  top: 32px;
   left: 0;
   z-index: 250;
   &:before {
