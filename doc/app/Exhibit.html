@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<title>class Exhibit - Rails Application Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>app/models/exhibit.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">ActiveRecord::Base
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-c-factory">::factory</a>
+    
+    <li><a href="#method-c-options_to_ids">::options_to_ids</a>
+    
+    <li><a href="#method-i-as_json">#as_json</a>
+    
+    <li><a href="#method-i-before_destroy">#before_destroy</a>
+    
+    <li><a href="#method-i-readonly-3F">#readonly?</a>
+    
+    <li><a href="#method-i-serialize_viewer">#serialize_viewer</a>
+    
+    <li><a href="#method-i-submission-3F">#submission?</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./doc/README_FOR_APP.html">README_FOR_APP</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./Admin.html">Admin</a>
+  
+    <li><a href="./Admin/ConfigurationController.html">Admin::ConfigurationController</a>
+  
+    <li><a href="./Admin/DashboardController.html">Admin::DashboardController</a>
+  
+    <li><a href="./Admin/OrganizationController.html">Admin::OrganizationController</a>
+  
+    <li><a href="./Admin/UsersController.html">Admin::UsersController</a>
+  
+    <li><a href="./Api.html">Api</a>
+  
+    <li><a href="./Api/V1.html">Api::V1</a>
+  
+    <li><a href="./Api/V1/AnnotationsController.html">Api::V1::AnnotationsController</a>
+  
+    <li><a href="./Api/V1/AttachmentsController.html">Api::V1::AttachmentsController</a>
+  
+    <li><a href="./Api/V1/SubmissionsController.html">Api::V1::SubmissionsController</a>
+  
+    <li><a href="./Courses.html">Courses</a>
+  
+    <li><a href="./Courses/EvaluationsController.html">Courses::EvaluationsController</a>
+  
+    <li><a href="./Courses/GroupsController.html">Courses::GroupsController</a>
+  
+    <li><a href="./Courses/ProjectsController.html">Courses::ProjectsController</a>
+  
+    <li><a href="./Courses/SettingsController.html">Courses::SettingsController</a>
+  
+    <li><a href="./Ability.html">Ability</a>
+  
+    <li><a href="./Annotation.html">Annotation</a>
+  
+    <li><a href="./AnnotationSerializer.html">AnnotationSerializer</a>
+  
+    <li><a href="./AnnotationsHelper.html">AnnotationsHelper</a>
+  
+    <li><a href="./ApiController.html">ApiController</a>
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./Attachment.html">Attachment</a>
+  
+    <li><a href="./AttachmentHelper.html">AttachmentHelper</a>
+  
+    <li><a href="./BriefSubmissionSerializer.html">BriefSubmissionSerializer</a>
+  
+    <li><a href="./Course.html">Course</a>
+  
+    <li><a href="./CourseSerializer.html">CourseSerializer</a>
+  
+    <li><a href="./CoursesController.html">CoursesController</a>
+  
+    <li><a href="./CoursesHelper.html">CoursesHelper</a>
+  
+    <li><a href="./DiscussionPost.html">DiscussionPost</a>
+  
+    <li><a href="./Evaluation.html">Evaluation</a>
+  
+    <li><a href="./EvaluationSerializer.html">EvaluationSerializer</a>
+  
+    <li><a href="./EvaluationsController.html">EvaluationsController</a>
+  
+    <li><a href="./Exhibit.html">Exhibit</a>
+  
+    <li><a href="./ExhibitsHelper.html">ExhibitsHelper</a>
+  
+    <li><a href="./Group.html">Group</a>
+  
+    <li><a href="./GroupsHelper.html">GroupsHelper</a>
+  
+    <li><a href="./IdentitySerializer.html">IdentitySerializer</a>
+  
+    <li><a href="./Organization.html">Organization</a>
+  
+    <li><a href="./OrganizationsHelper.html">OrganizationsHelper</a>
+  
+    <li><a href="./PortfolioController.html">PortfolioController</a>
+  
+    <li><a href="./Project.html">Project</a>
+  
+    <li><a href="./ProjectSerializer.html">ProjectSerializer</a>
+  
+    <li><a href="./ProjectType.html">ProjectType</a>
+  
+    <li><a href="./ProjectTypesHelper.html">ProjectTypesHelper</a>
+  
+    <li><a href="./ProjectsHelper.html">ProjectsHelper</a>
+  
+    <li><a href="./RegistrationsController.html">RegistrationsController</a>
+  
+    <li><a href="./Rubric.html">Rubric</a>
+  
+    <li><a href="./RubricSerializer.html">RubricSerializer</a>
+  
+    <li><a href="./RubricsController.html">RubricsController</a>
+  
+    <li><a href="./StaticController.html">StaticController</a>
+  
+    <li><a href="./Submission.html">Submission</a>
+  
+    <li><a href="./SubmissionSerializer.html">SubmissionSerializer</a>
+  
+    <li><a href="./SubmissionsHelper.html">SubmissionsHelper</a>
+  
+    <li><a href="./User.html">User</a>
+  
+    <li><a href="./UserSerializer.html">UserSerializer</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class Exhibit</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-factory" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">factory</span><span
+            class="method-args">(options = {})</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>This</p>
+          
+
+          
+          <div class="method-source-code" id="factory-source">
+            <pre><span class="ruby-comment"># File app/models/exhibit.rb, line 25</span>
+  <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">factory</span>(<span class="ruby-identifier">options</span> = {})
+
+                <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:id</span>]
+                        <span class="ruby-identifier">parts</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:id</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">'-'</span>)
+                        <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:id</span>)
+                        <span class="ruby-identifier">options</span>[<span class="ruby-value">:creator</span>] = <span class="ruby-identifier">parts</span>[<span class="ruby-value">0</span>]
+                        <span class="ruby-identifier">options</span>[<span class="ruby-value">:project</span>] = <span class="ruby-identifier">parts</span>[<span class="ruby-value">1</span>]
+                <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">q</span> = <span class="ruby-constant">Exhibit</span>.<span class="ruby-identifier">scoped</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:course</span>]
+      <span class="ruby-identifier">q</span> = <span class="ruby-identifier">q</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:course_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">options_to_ids</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:course</span>]))
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:require_submissions</span>]
+            <span class="ruby-identifier">q</span> = <span class="ruby-identifier">q</span>.<span class="ruby-identifier">joins</span>(<span class="ruby-string">'JOIN submissions ON submissions.project_id = projects.id AND submissions.creator_id = courses_creators.user_id'</span>)
+    <span class="ruby-keyword">else</span>
+            <span class="ruby-identifier">q</span> = <span class="ruby-identifier">q</span>.<span class="ruby-identifier">joins</span>(<span class="ruby-string">'LEFT OUTER JOIN submissions ON submissions.project_id = projects.id AND submissions.creator_id = courses_creators.user_id'</span>)
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:creator</span>]
+      <span class="ruby-identifier">q</span> = <span class="ruby-identifier">q</span>.<span class="ruby-identifier">where</span>(<span class="ruby-string">'courses_creators.user_id'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">options_to_ids</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:creator</span>]))
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:project</span>]
+      <span class="ruby-identifier">q</span> = <span class="ruby-identifier">q</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">options_to_ids</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:project</span>]))
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">q</span> = <span class="ruby-identifier">q</span>.<span class="ruby-identifier">joins</span>(<span class="ruby-value">:course</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:creators</span>)
+
+    <span class="ruby-identifier">select</span> = <span class="ruby-string">'submissions.id as submission_id, projects.id as project_id, courses_creators.user_id as creator_id, courses_creators.course_id as course_id'</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:viewer</span>]
+      <span class="ruby-identifier">select</span> = <span class="ruby-node">&quot;#{options[:viewer].id.to_s} as \&quot;viewer_id\&quot;, &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">select</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">q</span> = <span class="ruby-identifier">q</span>.<span class="ruby-identifier">select</span>(<span class="ruby-identifier">select</span>)
+
+                <span class="ruby-identifier">sql</span> = <span class="ruby-identifier">q</span>.<span class="ruby-identifier">to_sql</span>()
+                <span class="ruby-identifier">result</span> = <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">connection</span>.<span class="ruby-identifier">select_all</span>(<span class="ruby-identifier">sql</span>)
+
+<span class="ruby-comment">#    exhibits = q.includes(:viewer, :course, :submission, :creator, :project).readonly()</span>
+  <span class="ruby-keyword">end</span></pre>
+          </div><!-- factory-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- factory-method -->
+
+    
+      <div id="method-c-options_to_ids" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">options_to_ids</span><span
+            class="method-args">(option)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="options_to_ids-source">
+            <pre><span class="ruby-comment"># File app/models/exhibit.rb, line 67</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">options_to_ids</span>(<span class="ruby-identifier">option</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">option</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">Array</span>)
+    <span class="ruby-identifier">option</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">model</span><span class="ruby-operator">|</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">id</span> }
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">option</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">String</span>)
+                      <span class="ruby-identifier">option</span>
+              <span class="ruby-keyword">else</span>
+    [<span class="ruby-identifier">option</span>.<span class="ruby-identifier">id</span>]
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- options_to_ids-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- options_to_ids-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-as_json" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">as_json</span><span
+            class="method-args">(options)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="as_json-source">
+            <pre><span class="ruby-comment"># File app/models/exhibit.rb, line 91</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">as_json</span>(<span class="ruby-identifier">options</span>)
+              <span class="ruby-identifier">out</span> = {
+                              <span class="ruby-value">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;#{creator.id}-#{project.id}&quot;</span>,
+                              <span class="ruby-value">:viewer</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">serialize_viewer</span>,
+              }
+              <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:abbreviated</span>]
+                      <span class="ruby-identifier">out</span>[<span class="ruby-value">:project</span>] = <span class="ruby-identifier">project</span>.<span class="ruby-identifier">id</span>
+                      <span class="ruby-identifier">out</span>[<span class="ruby-value">:submission</span>] = <span class="ruby-identifier">submission</span>.<span class="ruby-identifier">id</span> <span class="ruby-keyword">unless</span> <span class="ruby-operator">!</span><span class="ruby-identifier">submission</span>
+                      <span class="ruby-identifier">out</span>[<span class="ruby-value">:creator</span>] = <span class="ruby-identifier">creator</span>.<span class="ruby-identifier">id</span>
+              <span class="ruby-keyword">else</span>
+                      <span class="ruby-identifier">out</span>[<span class="ruby-value">:project</span>] = <span class="ruby-constant">ProjectSerializer</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">project</span>).<span class="ruby-identifier">as_json</span>[<span class="ruby-value">:project</span>],
+                      <span class="ruby-identifier">out</span>[<span class="ruby-value">:submission</span>] = <span class="ruby-constant">SubmissionSerializer</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">submission</span>).<span class="ruby-identifier">as_json</span>[<span class="ruby-value">:submission</span>],
+          <span class="ruby-identifier">out</span>[<span class="ruby-value">:creator</span>] = <span class="ruby-constant">UserSerializer</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">creator</span>).<span class="ruby-identifier">as_json</span>[<span class="ruby-value">:creator</span>],
+    <span class="ruby-identifier">out</span>[<span class="ruby-value">:course</span>] = <span class="ruby-constant">CourseSerializer</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">course</span>).<span class="ruby-identifier">as_json</span>[<span class="ruby-value">:course</span>]
+              <span class="ruby-keyword">end</span>
+              <span class="ruby-identifier">out</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- as_json-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- as_json-method -->
+
+    
+      <div id="method-i-before_destroy" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">before_destroy</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Prevent exhibits from being destroyed</p>
+          
+
+          
+          <div class="method-source-code" id="before_destroy-source">
+            <pre><span class="ruby-comment"># File app/models/exhibit.rb, line 20</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">before_destroy</span>
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">ReadOnlyRecord</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- before_destroy-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- before_destroy-method -->
+
+    
+      <div id="method-i-readonly-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">readonly?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Prevent exhibits from being modified, created, or saved</p>
+          
+
+          
+          <div class="method-source-code" id="readonly-3F-source">
+            <pre><span class="ruby-comment"># File app/models/exhibit.rb, line 15</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">readonly?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- readonly-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- readonly-3F-method -->
+
+    
+      <div id="method-i-serialize_viewer" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">serialize_viewer</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The only information we currently need about the viewer on the frontend is
+the viewer’s abilities</p>
+          
+
+          
+          <div class="method-source-code" id="serialize_viewer-source">
+            <pre><span class="ruby-comment"># File app/models/exhibit.rb, line 83</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">serialize_viewer</span>
+  {
+    <span class="ruby-value">:can_update</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">submission</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">viewer</span>.<span class="ruby-identifier">can?</span>(<span class="ruby-value">:update</span>, <span class="ruby-identifier">submission</span>),
+    <span class="ruby-value">:is_owner</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">submission</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">viewer</span>.<span class="ruby-identifier">can?</span>(<span class="ruby-value">:own</span>, <span class="ruby-identifier">submission</span>),
+    <span class="ruby-value">:can_evaluate</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">project</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">viewer</span>.<span class="ruby-identifier">can?</span>(<span class="ruby-value">:evaluate</span>, <span class="ruby-identifier">project</span>)
+  }
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- serialize_viewer-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- serialize_viewer-method -->
+
+    
+      <div id="method-i-submission-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">submission?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="submission-3F-source">
+            <pre><span class="ruby-comment"># File app/models/exhibit.rb, line 77</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">submission?</span>
+  <span class="ruby-operator">!</span><span class="ruby-identifier">submission</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">nil?</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- submission-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- submission-3F-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

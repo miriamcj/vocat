@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<title>class Course - Rails Application Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>app/models/course.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">ActiveRecord::Base
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-format">#format</a>
+    
+    <li><a href="#method-i-name_long">#name_long</a>
+    
+    <li><a href="#method-i-role">#role</a>
+    
+    <li><a href="#method-i-to_s">#to_s</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./doc/README_FOR_APP.html">README_FOR_APP</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./Admin.html">Admin</a>
+  
+    <li><a href="./Admin/ConfigurationController.html">Admin::ConfigurationController</a>
+  
+    <li><a href="./Admin/DashboardController.html">Admin::DashboardController</a>
+  
+    <li><a href="./Admin/OrganizationController.html">Admin::OrganizationController</a>
+  
+    <li><a href="./Admin/UsersController.html">Admin::UsersController</a>
+  
+    <li><a href="./Api.html">Api</a>
+  
+    <li><a href="./Api/V1.html">Api::V1</a>
+  
+    <li><a href="./Api/V1/AnnotationsController.html">Api::V1::AnnotationsController</a>
+  
+    <li><a href="./Api/V1/AttachmentsController.html">Api::V1::AttachmentsController</a>
+  
+    <li><a href="./Api/V1/SubmissionsController.html">Api::V1::SubmissionsController</a>
+  
+    <li><a href="./Courses.html">Courses</a>
+  
+    <li><a href="./Courses/EvaluationsController.html">Courses::EvaluationsController</a>
+  
+    <li><a href="./Courses/GroupsController.html">Courses::GroupsController</a>
+  
+    <li><a href="./Courses/ProjectsController.html">Courses::ProjectsController</a>
+  
+    <li><a href="./Courses/SettingsController.html">Courses::SettingsController</a>
+  
+    <li><a href="./Ability.html">Ability</a>
+  
+    <li><a href="./Annotation.html">Annotation</a>
+  
+    <li><a href="./AnnotationSerializer.html">AnnotationSerializer</a>
+  
+    <li><a href="./AnnotationsHelper.html">AnnotationsHelper</a>
+  
+    <li><a href="./ApiController.html">ApiController</a>
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./Attachment.html">Attachment</a>
+  
+    <li><a href="./AttachmentHelper.html">AttachmentHelper</a>
+  
+    <li><a href="./BriefSubmissionSerializer.html">BriefSubmissionSerializer</a>
+  
+    <li><a href="./Course.html">Course</a>
+  
+    <li><a href="./CourseSerializer.html">CourseSerializer</a>
+  
+    <li><a href="./CoursesController.html">CoursesController</a>
+  
+    <li><a href="./CoursesHelper.html">CoursesHelper</a>
+  
+    <li><a href="./DiscussionPost.html">DiscussionPost</a>
+  
+    <li><a href="./Evaluation.html">Evaluation</a>
+  
+    <li><a href="./EvaluationSerializer.html">EvaluationSerializer</a>
+  
+    <li><a href="./EvaluationsController.html">EvaluationsController</a>
+  
+    <li><a href="./Exhibit.html">Exhibit</a>
+  
+    <li><a href="./ExhibitsHelper.html">ExhibitsHelper</a>
+  
+    <li><a href="./Group.html">Group</a>
+  
+    <li><a href="./GroupsHelper.html">GroupsHelper</a>
+  
+    <li><a href="./IdentitySerializer.html">IdentitySerializer</a>
+  
+    <li><a href="./Organization.html">Organization</a>
+  
+    <li><a href="./OrganizationsHelper.html">OrganizationsHelper</a>
+  
+    <li><a href="./PortfolioController.html">PortfolioController</a>
+  
+    <li><a href="./Project.html">Project</a>
+  
+    <li><a href="./ProjectSerializer.html">ProjectSerializer</a>
+  
+    <li><a href="./ProjectType.html">ProjectType</a>
+  
+    <li><a href="./ProjectTypesHelper.html">ProjectTypesHelper</a>
+  
+    <li><a href="./ProjectsHelper.html">ProjectsHelper</a>
+  
+    <li><a href="./RegistrationsController.html">RegistrationsController</a>
+  
+    <li><a href="./Rubric.html">Rubric</a>
+  
+    <li><a href="./RubricSerializer.html">RubricSerializer</a>
+  
+    <li><a href="./RubricsController.html">RubricsController</a>
+  
+    <li><a href="./StaticController.html">StaticController</a>
+  
+    <li><a href="./Submission.html">Submission</a>
+  
+    <li><a href="./SubmissionSerializer.html">SubmissionSerializer</a>
+  
+    <li><a href="./SubmissionsHelper.html">SubmissionsHelper</a>
+  
+    <li><a href="./User.html">User</a>
+  
+    <li><a href="./UserSerializer.html">UserSerializer</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class Course</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-format" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">format</span><span
+            class="method-args">(format)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>%n = number %c = name %s = section %d = department</p>
+          
+
+          
+          <div class="method-source-code" id="format-source">
+            <pre><span class="ruby-comment"># File app/models/course.rb, line 33</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">format</span>(<span class="ruby-identifier">format</span>)
+  <span class="ruby-identifier">out</span> = <span class="ruby-identifier">format</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&quot;%n&quot;</span>, <span class="ruby-identifier">number</span>.<span class="ruby-identifier">to_s</span>)
+  <span class="ruby-identifier">out</span> = <span class="ruby-identifier">out</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&quot;%c&quot;</span>, <span class="ruby-identifier">name</span>)
+  <span class="ruby-identifier">out</span> = <span class="ruby-identifier">out</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&quot;%s&quot;</span>, <span class="ruby-identifier">section</span>)
+  <span class="ruby-identifier">out</span> = <span class="ruby-identifier">out</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&quot;%d&quot;</span>, <span class="ruby-identifier">department</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- format-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- format-method -->
+
+    
+      <div id="method-i-name_long" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">name_long</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="name_long-source">
+            <pre><span class="ruby-comment"># File app/models/course.rb, line 21</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">name_long</span>
+              <span class="ruby-keyword">self</span>.<span class="ruby-identifier">to_s</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- name_long-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- name_long-method -->
+
+    
+      <div id="method-i-role" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">role</span><span
+            class="method-args">(user)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="role-source">
+            <pre><span class="ruby-comment"># File app/models/course.rb, line 40</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">role</span>(<span class="ruby-identifier">user</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-string">&quot;administrator&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">role?</span> <span class="ruby-value">:admin</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-string">&quot;creator&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">creators</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">user</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-string">&quot;assistant&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">assistants</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">user</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-string">&quot;evaluator&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">evaluators</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">user</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- role-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- role-method -->
+
+    
+      <div id="method-i-to_s" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">to_s</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="to_s-source">
+            <pre><span class="ruby-comment"># File app/models/course.rb, line 25</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
+  <span class="ruby-node">&quot;#{department}#{number}: #{name}, Section #{section}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- to_s-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- to_s-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+
