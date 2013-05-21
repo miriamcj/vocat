@@ -8,7 +8,7 @@
       --><div class="matrix--list-wrapper" data-behavior="matrix-slider">
         <ul class="matrix--column-header--list">
           {{#each projects}}
-          <li class="js-navigate-project" data-project="{{this.id}}">
+          <li data-behavior="navigate-project" data-project="{{this.id}}">
             <a class="matrix--column-header--link" data-behavior="routable" href="{{url_for 'course_evaluations_for_project' ../courseId this.id}}">{{this.name}}</a>
           </li>
           {{/each}}
@@ -19,7 +19,7 @@
       <header class="matrix--row-header" data-behavior="matrix-creators-list">
         <ul>
           {{#each creators}}
-          <li class="js-navigate-creator" data-creator="{{this.id}}">
+          <li data-behavior="navigate-creator" data-creator="{{this.id}}">
             <a data-behavior="routable" href="{{url_for 'course_evaluations_for_creator' ../courseId this.id}}">{{this.name}}</a>
           </li>
           {{/each}}

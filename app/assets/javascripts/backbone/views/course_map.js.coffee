@@ -5,14 +5,15 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
   overlayOpen: false
 
   events:
-    'click .js-navigate-exhibit':                   'navigateCreatorProjectDetail'
-    'click .js-navigate-creator':                   'navigateCreatorDetail'
-    'click .js-navigate-project':                   'navigateProjectDetail'
+    'click [data-behavior="navigate-creator"]':     'navigateCreatorDetail'
+    'click [data-behavior="navigate-project"]':     'navigateProjectDetail'
     'click [data-behavior="matrix-overlay-close"]': 'navigateGrid'
     'click [data-behavior="matrix-slider-left"]':   'slideLeft'
     'click [data-behavior="matrix-slider-right"]':  'slideRight'
     'click [data-behavior="routable"]':             'handleRoutable'
 
+  # Click events on a tags in this vieew that have data-behavior="routable" will be handled by this function, which will
+  # pass the href attribtue to the backbone router
   handleRoutable: (e) ->
     event.preventDefault()
     href = $(e.currentTarget).attr('href')
@@ -20,25 +21,39 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
       window.Vocat.router.navigate(href, true)
 
   initialize: (options)  ->
-
     window.Vocat.router.on "route:showCreatorProjectDetail", (course, creator, project) => @showCreatorProjectDetail(creator, project)
     window.Vocat.router.on "route:showCreatorDetail", (course, creator) => @showCreatorDetail(creator)
     window.Vocat.router.on "route:showProjectDetail", (course, project) => @showProjectDetail(project)
     window.Vocat.router.on "route:showGrid", (project) => @hideOverlay()
     window.Vocat.Dispatcher.on "courseMap:redraw", () => @redraw()
     window.Vocat.Dispatcher.on "courseMap:childViewLoaded", (view) => @updateOverlay(view)
+    window.Vocat.Dispatcher.bind 'courseMap:creatorSelected', (creatorId) => @setActiveCreator(creatorId)
+    window.Vocat.Dispatcher.bind 'courseMap:creatorDeselected', () => @unsetActiveCreator()
 
-    $('[data-behavior="sticky-header"]').stickyHeader('destroy')
-
+    # We need to store various states of the slider, including column widths.
     @sliderData = {}
 
+    # This view pulls projects and creators from bootstrapped data on the page
     @projects = window.Vocat.Instantiated.Collections.Project
     @creators = window.Vocat.Instantiated.Collections.Creator
 
-    # A hack
+    # A hack to get the course ID
     @courseId = @projects.first().get('course_id')
 
+    # Like other parent views, this one renders itself.
     @render()
+
+    # No sticky header on this page.
+    $('[data-behavior="sticky-header"]').stickyHeader('destroy')
+    @$el.find('[data-behavior="sticky-header"]').stickyHeader()
+
+  setActiveCreator: (creatorId) ->
+    @unsetActiveCreator()
+    @$el.find('[data-creator="' + creatorId + '"]').addClass('active')
+
+  unsetActiveCreator: () ->
+    @$el.find('[data-behavior="matrix-creators-list"] li.active').removeClass('active')
+
 
   navigateGrid: (event) ->
     data = @preventAndExtractData(event)
@@ -65,6 +80,7 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
     $(event.currentTarget).data()
 
   hideOverlay: () ->
+    window.Vocat.Dispatcher.trigger('courseMap:creatorDeselected')
     @overlay.fadeOut()
     @$el.find('.matrix').removeClass('matrix--overlay-open')
 
@@ -85,6 +101,7 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
     $('[data-behavior="matrix-creators"]').addClass('active')
 
   showCreatorProjectDetail: (creator, project) ->
+    window.Vocat.Dispatcher.trigger('courseMap:creatorSelected', creator)
     @detailView = new Vocat.Views.CourseMapCreatorProjectDetail({
       courseId: @courseId
       project: @projects.get(project)
@@ -92,6 +109,7 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
     })
 
   showCreatorDetail: (creator) ->
+    window.Vocat.Dispatcher.trigger('courseMap:creatorSelected', creator)
     @detailView = new Vocat.Views.CourseMapCreatorDetail({
       courseId: @courseId
       creator: creator
