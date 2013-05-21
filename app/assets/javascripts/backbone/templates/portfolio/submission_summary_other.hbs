@@ -39,5 +39,11 @@
 		{{> score_summary}}
     <a class="frame-summary--link" data-behavior="routable" href="{{url_for 'course_evaluations_for_creator_and_project' submission.course_id submission.creator_id submission.project_id}}">Expand Scores</a>
     <!-- TODO has 'active' class only when published -->
-    <aside class="frame-summary--status active">[Published/Unpublished]</aside>
+    <aside class="frame-summary--status {{#if submission.published}}active{{/if}}">
+	    {{#if submission.published}}
+	    published
+	    {{else}}
+	    unpublished
+	    {{/if}}
+    </aside>
   </div>
