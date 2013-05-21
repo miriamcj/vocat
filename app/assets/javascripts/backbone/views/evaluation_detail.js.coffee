@@ -39,10 +39,6 @@ class Vocat.Views.EvaluationDetail extends Vocat.Views.AbstractView
     else if Vocat.Bootstrap.Models.Creator?
       @creator = new Vocat.Models.Creator(Vocat.Bootstrap.Models.Creator, {parse: true})
 
-    # We initialize an annotations repository, whether or not there is a submission. If there's not, no fetch will be
-    # attempted.
-    @annotations = new Vocat.Collections.Annotation([], options)
-
     # Similarly, the detail's submission can be set from options or bootstrapped data. Unlike projects and creators,
     # the submission will be fetched asynchronously if it's not present during view initialization. The submission is
     # the principal model for this view, so the rendering is defered until the submission has been loaded.
@@ -66,8 +62,6 @@ class Vocat.Views.EvaluationDetail extends Vocat.Views.AbstractView
           @submissionLoaded()
       })
 
-
-
     # The evalutation detail view needs to redraw itself to load the video once it sees that transcoding has been
     # completed.
     Vocat.Dispatcher.bind('transcodingComplete', @render, @)
@@ -76,6 +70,7 @@ class Vocat.Views.EvaluationDetail extends Vocat.Views.AbstractView
   # annotations for that attachment. We can also render the view at this point.
   submissionLoaded: () ->
     options = {attachmentId: @submission.get('video_attachment_id')}
+    @annotations = new Vocat.Collections.Annotation([], options)
     if @submission.get('video_attachment_id')
       @annotations.fetch();
     @render()
