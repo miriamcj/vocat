@@ -10,7 +10,6 @@ class Vocat.Views.CourseMapMatrixCells extends Vocat.Views.AbstractView
     $.when(@submissions.fetch()).then () =>
       @render()
 
-
   render: () ->
     context = {
       courseId: @courseId
