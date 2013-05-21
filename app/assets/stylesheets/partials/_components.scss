@@ -398,6 +398,9 @@
 .frame-summary--title {
   @extend %heading-giga;
   margin-bottom: 0.3rem;
+  .matrix--overlay & {
+	margin-bottom: 1rem;
+  }
 }
 
 .frame-summary--creator {
@@ -433,18 +436,31 @@
 
 .frame-summary--evaluated {
   @extend %active-criterion;
+  .matrix--overlay & {
+	height: 3rem;
+  }
 }
 
 .frame-summary--unevaluated {
   @extend %inactive-criterion;
+  .matrix--overlay & {
+	height: 3rem;
+  }
 }
 
 .frame-summary--score--title {
   @extend %score--title;
+  .matrix--overlay & {
+	@extend %gamma-sub;
+	padding-top: .7rem;
+  }
 }
 
 .frame-summary--score--value {
   @extend %score--value;
+  .matrix--overlay & {
+	@extend %small-score--value;
+  }
 }
 
 // Evaluation detail
@@ -750,8 +766,6 @@
 // --------------------------
 .matrix {
   &.matrix--overlay-open {
-    @extend %full-bleed;
-    background-color: mix($beige, $tealLightest, 50%);
   }
 }
 
@@ -762,7 +776,7 @@
   @extend %full-bleed;
   // @extend %shaded-bottom;
   width: $mainWidth;
-  height: $headerHeight;
+  height: $subHeaderHeight;
   background-color: $tealLightest;
   position: absolute;
   z-index: 150;
@@ -779,7 +793,7 @@
 .matrix--column-header--list {
   @extend %clearfix;
   @extend %floated-list;
-  height: $headerHeight;
+  height: $subHeaderHeight;
   margin: 0;
   overflow: hidden;
   li {
@@ -796,15 +810,16 @@
   text-transform: uppercase;
   @include font-head;
   color: $tealMedium;
-  padding: 1.7rem 1.6rem 1rem;
+  padding: 1.4rem 1.6rem 1rem;
+  line-height: 1;
 }
 
 .matrix--controls {
   @extend %clearfix;
   display: inline-block;
   width: $matrixCellWidth - 0.1;
-  height: $headerHeight;
-  padding: 4rem 0 4rem 1.6rem;
+  height: $subHeaderHeight;
+  padding: 1.6rem;
   position: relative;
   .matrix--overlay-open & {
     visibility: hidden;
@@ -846,7 +861,7 @@
 // Wraps .matrix--row-header
 .matrix--name-nav {
   width: $mainWidth;
-  padding-top: $headerHeight;
+  padding-top: $subHeaderHeight;
   position: absolute;
   top: 0;
   left: 0;
@@ -887,10 +902,10 @@
     font-weight: $bold;
     color: $tealMedium;
     padding: 2.3rem 1.6rem 2.4rem;
-    &:hover {
-      color: $white;
-      background-color: $tealLightest;
-    }
+    //&:hover {
+    //  color: $white;
+    //  background-color: $tealLightest;
+    //}
   }
   .matrix--overlay-open & {
     li {
@@ -908,7 +923,7 @@
 // Wraps .matrix--content
 .matrix--body {
   @extend %clearfix;
-  padding: $headerHeight 0 0 ($matrixCellWidth - 0.1);
+  padding: $subHeaderHeight 0 0 ($matrixCellWidth - 0.1);
   position: relative;
 }
 

@@ -665,7 +665,7 @@
 }
 
 // Extended by %frame--left & %frame--right
-// Inline-block instead of float so it works with full-bleed 
+// Inline-block instead of float so it works with full-bleed
 // NB whitespace between the two column elements will display
 %frame--column {
   display: inline-block;
@@ -851,7 +851,7 @@
 
 // Box
 // --------------------------------------------------------
-// NB be sure to wrap %box--title & %box--link in a <header> 
+// NB be sure to wrap %box--title & %box--link in a <header>
 %box {
   background-color: $beigeLight;
   position: relative;
@@ -919,7 +919,7 @@
 
 %gray-round-avatar {
   @extend %round-avatar;
-  border: 0.1rem solid $grayLightest;  
+  border: 0.1rem solid $grayLightest;
 }
 
 %teal-round-avatar {
@@ -1011,7 +1011,7 @@
   }
 }
 
-%big-score--title {
+%big-beta {
   @extend %score--title;
   padding-top: 1.75rem;
 }
@@ -1031,6 +1031,16 @@
     vertical-align: top;
     line-height: 1.1;
     padding-left: 0.2rem;
+  }
+}
+
+// TODO: Scott may want to remove these font-size includes and instead extend the font-size classes above.
+	%small-score--value {
+  @include font-size(18);
+  @extend %score--value;
+  padding-top: 0.7rem;
+  small {
+	@include font-size(18);
   }
 }
 
