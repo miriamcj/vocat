@@ -8,7 +8,6 @@ class Vocat.Views.EvaluationDetailAnnotation extends Vocat.Views.AbstractView
     'click [data-behavior="player-seek"]': 'doPlayerSeek'
 
   initialize: (options) ->
-    console.log @model
     @model.bind('change:visibility',@updateVisibility, @)
 
   doPlayerSeek: (e) ->

@@ -78,15 +78,14 @@ class Vocat.Views.EvaluationDetailAnnotations extends Vocat.Views.AbstractView
     before = @annotations.find (annotation) ->
       annotation.get('seconds_timecode') > insertAt
 
-    targetEl = $('<li class="annotations--item"></li>')
-    childView = new Vocat.Views.EvaluationDetailAnnotation({model: annotation, el: targetEl})
+    childView = new Vocat.Views.EvaluationDetailAnnotation({model: annotation})
     @childViews[annotation.id] = childView
 
     if before?
       beforeEl = @childViews[before.id].el
-      $(beforeEl).before(targetEl)
+      $(beforeEl).before(childView.render().el)
     else
-      @$el.find('[data-behavior="annotations-container"]').append(targetEl)
+      @$el.find('[data-behavior="annotations-container"]').append(childView.render().el)
 
     @updateCount()
 
