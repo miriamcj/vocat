@@ -1,6 +1,7 @@
 class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
 
-  template: HBT["backbone/templates/course_map"]
+  template:       HBT["backbone/templates/course_map"]
+  headerPartial:  HBT["backbone/templates/course_map/partials/overlay_header"]
 
   overlayOpen: false
 
@@ -82,10 +83,10 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
   hideOverlay: () ->
     window.Vocat.Dispatcher.trigger('courseMap:creatorDeselected')
     @overlay.fadeOut()
+    @$el.find('[data-behavior="overlay-header"]').fadeOut()
     @$el.find('.matrix').removeClass('matrix--overlay-open')
 
   updateOverlay: (view) ->
-
     newView = view
     contentContainer = @overlay.find('[data-behavior="overlay-content"]').first()
     $(contentContainer).html(newView.el)
@@ -107,15 +108,17 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
       project: @projects.get(project)
       creator: @creators.get(creator)
     })
+    @updateHeader({creator: @creators.get(creator), project: @projects.get(project)})
 
   showCreatorDetail: (creator) ->
     window.Vocat.Dispatcher.trigger('courseMap:creatorSelected', creator)
     @detailView = new Vocat.Views.CourseMapCreatorDetail({
       courseId: @courseId
-      creator: creator
+      creator: @creators.get(creator)
       projects: @projects
       creators: @creators
     })
+    @updateHeader({creator: @creators.get(creator)})
     @detailView.render()
 
   showProjectDetail: (project) ->
@@ -127,6 +130,17 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
     })
     @detailView.render()
 
+  updateHeader: (options) ->
+    context = {
+      projects: @projects.toJSON()
+      courseId: @courseId
+    }
+    if options.creator? then context.creator = options.creator.toJSON()
+    if options.project? then context.project = options.project.toJSON()
+    partial = @headerPartial(context)
+    target = @$el.find('[data-behavior="overlay-header"]')
+    target.html(partial).show()
+    target.find('[data-behavior="dropdown"]').dropdownNavigation()
 
   initializeOverlay: () ->
     @overlay = @$el.find('.js-matrix--overlay').first()
@@ -181,7 +195,7 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
     }
 
   redraw: () ->
-    @overlay.css('margin-top', (@$el.find('.matrix--content').height() * -1) - 116 ).css('z-index',400)
+    @overlay.css('margin-top', (@$el.find('.matrix--content').height() * -1)).css('z-index',200)
     @setContentContainerHeight()
     @calculateAndSetSliderWidth()
     @updateSliderControls()

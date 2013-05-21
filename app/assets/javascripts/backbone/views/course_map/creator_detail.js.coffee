@@ -47,6 +47,5 @@ class Vocat.Views.CourseMapCreatorDetail extends Vocat.Views.AbstractView
       })
       childContainer.append(childView.render())
 
-    @$el.find('[data-behavior="dropdown"]').dropdownNavigation()
 
 

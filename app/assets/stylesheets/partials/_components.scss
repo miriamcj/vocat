@@ -779,7 +779,57 @@
   height: $subHeaderHeight;
   background-color: $tealLightest;
   position: absolute;
-  z-index: 150;
+  z-index: 300;
+  &.stuck {
+    position: fixed;
+    top: 0;
+  }
+}
+
+.matrix--overlay-header {
+  position: absolute;
+  left: $matrixCellWidth - 0.1;
+  width: $mainWidth - $matrixCellWidth;
+  top: 0;
+  bottom: 0;
+  z-index: 300;
+  background-color: $tealLightest;
+  border-left: 0.1rem solid $tealMedium;
+  border-right: 0.1rem solid $tealMedium;
+  padding: 1.4rem 1.6rem 1rem;
+  .matrix--overlay-header-close {
+    @extend %hidden-text;
+    @include svg(circle-x-teal);
+    display: block;
+    width: 2rem;
+    height: 2rem;
+    float: left;
+    position: absolute;
+    top: 1.6rem;
+  }
+  .matrix--overlay-header-student {
+    @extend %mega;
+    text-transform: uppercase;
+    @include font-head;
+    color: $tealMedium;
+    line-height: 1;
+    width: 400px;
+    margin-left: 3rem;
+  }
+  .matrix--overlay-header-project {
+    @extend %horizontal-header--subtitle;
+    color: $tealMedium;
+    font-weight: bold;
+    line-height: 1;
+    width: 400px;
+    margin-left: 3rem;
+  }
+  .matrix--overlay-header-selector {
+    position: absolute;
+    top: 1.6rem;
+    right: 1.6rem;
+  }
+
 }
 
 // Wraps .matrix--column-header--list
@@ -812,6 +862,8 @@
   color: $tealMedium;
   padding: 1.4rem 1.6rem 1rem;
   line-height: 1;
+  height: 70px;
+  overflow: hidden;
 }
 
 .matrix--controls {
@@ -913,6 +965,7 @@
   }
   .matrix--overlay-open & {
     li {
+      @include opacity(50);
       @extend %full-bleed;
       background-color: mix($beige, $tealLightest, 50%);
       &:nth-child(even) {
@@ -1026,16 +1079,7 @@
   padding: 2rem 0;
 }
 
-.matrix--overlay--close {
-  @extend %hidden-text;
-  @include svg(circle-x-teal);
-  display: block;
-  width: 2rem;
-  height: 2rem;
-  position: absolute;
-  top: 6.5rem;
-  left: 3.2rem;
-}
+
 
 // Project selector
 // ------------
