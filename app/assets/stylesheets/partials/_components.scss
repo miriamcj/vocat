@@ -5,8 +5,10 @@
 // --------------------------------------------------------
 .container {
 	width: $mainWidth;
+  background-color: $beige;
 	margin: 0 auto;
   .authentication & {
+    background-color: transparent;
     margin-top: 11.2rem;
   }
 }
@@ -289,27 +291,17 @@
 // Page content
 // --------------------------------------------------------
 .page-content {
+  @extend %shaded-sides;
   background-color: $beige;
-  padding: 0 8.6rem;
   margin-top: $headerHeight;
   position: relative;
   z-index: 100;
-  .course-map & {
-    padding: 0;
-  }
 }
 
 // Generic content
 // --------------------------------------------------------
-// Can live inside any container that has the same width
-// as .page-content or .container
+// Can live inside any container
 .content-frame {
-  @extend %full-frame;
-}
-
-// Can live inside any container; doesn't include
-// full-bleed mixin
-.child-frame {
   @extend %frame;
 }
 
@@ -350,7 +342,7 @@
 }
 
 .portfolio-frame {
-  @extend %full-frame;
+  @extend %frame;
 }
 
 .constrained-portfolio-frame {
@@ -390,6 +382,10 @@
 
 // Frame summary
 // --------------------------
+
+// TODO assess .matrix--overlay specific styles;
+// streamline where possible
+
 .frame-summary {
   @extend %frame--right;
   position: relative;
@@ -399,7 +395,7 @@
   @extend %heading-giga;
   margin-bottom: 0.3rem;
   .matrix--overlay & {
-	margin-bottom: 1rem;
+    margin-bottom: 1rem;
   }
 }
 
@@ -437,42 +433,36 @@
 .frame-summary--evaluated {
   @extend %active-criterion;
   .matrix--overlay & {
-	height: 3rem;
+    height: 3rem;
   }
 }
 
 .frame-summary--unevaluated {
   @extend %inactive-criterion;
   .matrix--overlay & {
-	height: 3rem;
+    height: 3rem;
   }
 }
 
 .frame-summary--score--title {
   @extend %score--title;
   .matrix--overlay & {
-	@extend %gamma-sub;
-	padding-top: .7rem;
+    @extend %gamma-sub;
+    padding-top: .7rem;
   }
 }
 
 .frame-summary--score--value {
   @extend %score--value;
   .matrix--overlay & {
-	@extend %small-score--value;
+    @extend %small-score--value;
   }
 }
 
 // Evaluation detail
 // --------------------------------------------------------
-.matrix--overlay {
-  .evaluation-detail {
-	padding: 0rem 3.2rem 3.2rem 3.2rem;
-  }
-}
-
 .evaluation-detail-frame {
-  @extend %full-frame;
+  @extend %frame;
 }
 
 .evaluation-detail--header {
@@ -765,16 +755,19 @@
 // Components
 // --------------------------
 .matrix {
+  // These two rules are only necessary to hide .matrix--column-header shadow
+  position: relative;
+  overflow: hidden;
   &.matrix--overlay-open {
+
   }
 }
 
 // Column header
 // ------------
-// TODO sort out how to apply full width shadow to bottom
+// TODO sort out a way to contain %shaded-bottom overflow when 'stuck'
 .matrix--column-header {
-  @extend %full-bleed;
-  // @extend %shaded-bottom;
+  @extend %shaded-bottom;
   width: $mainWidth;
   height: $subHeaderHeight;
   background-color: $tealLightest;
@@ -786,57 +779,11 @@
   }
 }
 
-.matrix--overlay-header {
-  position: absolute;
-  left: $matrixCellWidth - 0.1;
-  width: $mainWidth - $matrixCellWidth;
-  top: 0;
-  bottom: 0;
-  z-index: 300;
-  background-color: $tealLightest;
-  border-left: 0.1rem solid $tealMedium;
-  border-right: 0.1rem solid $tealMedium;
-  padding: 1.4rem 1.6rem 1rem;
-  .matrix--overlay-header-close {
-    @extend %hidden-text;
-    @include svg(circle-x-teal);
-    display: block;
-    width: 2rem;
-    height: 2rem;
-    float: left;
-    position: absolute;
-    top: 1.6rem;
-  }
-  .matrix--overlay-header-student {
-    @extend %mega;
-    text-transform: uppercase;
-    @include font-head;
-    color: $tealMedium;
-    line-height: 1;
-    width: 400px;
-    margin-left: 3rem;
-  }
-  .matrix--overlay-header-project {
-    @extend %horizontal-header--subtitle;
-    color: $tealMedium;
-    font-weight: bold;
-    line-height: 1;
-    width: 400px;
-    margin-left: 3rem;
-  }
-  .matrix--overlay-header-selector {
-    position: absolute;
-    top: 1.6rem;
-    right: 1.6rem;
-  }
-
-}
-
 // Wraps .matrix--column-header--list
 .matrix--list-wrapper {
   @extend %matrix--slider;
-  display: inline-block;
-  border-left: 0.1rem solid $tealMedium;
+  // border-left: 0.1rem solid $tealMedium;
+  float: left;
   position: relative;
 }
 
@@ -860,24 +807,28 @@
   text-transform: uppercase;
   @include font-head;
   color: $tealMedium;
-  padding: 1.4rem 1.6rem 1rem;
+  padding: 1.4rem 1.6rem;
   line-height: 1;
-  height: 70px;
   overflow: hidden;
+  // TODO sort out how to truncate long titles. This doesn't work:
+  // text-overflow: ellipsis;
+  // white-space: nowrap;
+  // &:first-line {
+  //   white-space: normal;
+  // }
 }
 
 .matrix--controls {
   @extend %clearfix;
-  display: inline-block;
-  width: $matrixCellWidth - 0.1;
+  @extend %shaded-inside-right;
+  width: $matrixCellWidth;
   height: $subHeaderHeight;
   padding: 1.6rem;
+  float: left;
   position: relative;
-  .matrix--overlay-open & {
-    visibility: hidden;
-  }
 }
 
+// TODO re-style these once comps arrive
 %matrix--controls--item {
   @extend %bare-focus;
   @extend %hidden-text;
@@ -888,6 +839,9 @@
   &.inactive {
     @include opacity(25);
     cursor: default;
+  }
+  .matrix--overlay-open & {
+    visibility: hidden;
   }
 }
 
@@ -908,6 +862,59 @@
   }
 }
 
+// Overlay header
+// ------------
+// Lives inside .matrix--column-header
+.matrix--overlay-header {
+  width: $mainWidth - $matrixCellWidth;
+  background-color: $tealLightest;
+  padding: 1.6rem 3.2rem 1.6rem 2.4rem;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: $matrixCellWidth;
+  z-index: 300;
+}
+
+.matrix--overlay-header-close {
+  @extend %hidden-text;
+  // TODO replace with gray version when comps arrive
+  @include svg(circle-x-teal);
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  margin: 1.4rem 0;
+  float: left;
+}
+
+.matrix--overlay-header-title {
+  @extend %mega;
+  // TODO adjust once comps arrive
+  color: $grayDark;
+  font-weight: $bold;
+  margin: 0.8rem 0 0.8rem 1.2rem;
+  float: left;
+}
+
+// TODO sort out how to truncate long text
+.matrix--overlay-header-subtitle {
+  @extend %alpha;
+  @include font-head;
+  text-transform: uppercase;
+  color: $tealMedium;
+  line-height: 1;
+  padding: 0.7rem 0 0.3rem 1.2rem;
+  border-left: 0.1rem solid $tealMedium;
+  margin: 0.8rem 0 0.8rem 1.2rem;
+  float: left;
+}
+
+.matrix--overlay-header-selector {
+  position: absolute;
+  top: 2.4rem;
+  right: 3.2rem;
+}
+
 // Row header
 // ------------
 // Wraps .matrix--row-header
@@ -926,60 +933,54 @@
   }
 }
 
-// TODO sort out full-bleed approach
 .matrix--row-header {
   position: relative;
   top: 0;
   ul {
     @extend %clearfix;
     @extend %unstyled-list;
+    width: $matrixCellWidth;
     margin: 0;
   }
   li {
     @extend %matrix--tall;
+    @extend %shaded-inside-right;
+    display: table;
     width: 100%;
-    position: relative;
     &:nth-child(even) {
-      @extend %full-bleed;
       background-color: $beigeLight;
     }
-	&.active a {
-	  color: $white;
-	  background-color: $tealLightest;
-	}
-  }
-  // TODO maintain vertically centered text when line breaks (display: table-cell doesn't work with %full-bleed)
-  a {
-    @extend %gamma-sup;
-    @extend %bare-focus;
-    @extend %bare-link;
-    display: block;
-    width: $matrixCellWidth - 0.1;
-    font-weight: $bold;
-    color: $tealMedium;
-    padding: 2.3rem 1.6rem 2.4rem;
-    &:hover, &.active {
-      color: $white;
+    &:hover {
       background-color: $tealLightest;
-    }
-  }
-  .matrix--overlay-open & {
-    li.active {
-      @include opacity(99);
-      background-color: $tealLightest;
-      &:nth-child(even) {
-        background-color: $tealLightest;
+      a {
+        color: $white;
       }
     }
-
-    li {
+    .matrix--overlay-open & {
       @include opacity(50);
-      @extend %full-bleed;
       background-color: mix($beige, $tealLightest, 50%);
       &:nth-child(even) {
         background-color: mix($beigeLight, $tealLightest, 50%);
       }
+      &.active {
+        @include opacity(100);
+        background-color: $tealLightest;
+        a {
+          color: $white;
+        }
+      }
     }
+  }
+  a {
+    @extend %beta;
+    @extend %bare-focus;
+    @extend %bare-link;
+    display: table-cell;
+    vertical-align: middle;
+    width: $matrixCellWidth;
+    font-weight: $bold;
+    color: $tealMedium;
+    padding: 0 1.6rem;
   }
 }
 
@@ -988,13 +989,13 @@
 // Wraps .matrix--content
 .matrix--body {
   @extend %clearfix;
-  padding: $subHeaderHeight 0 0 ($matrixCellWidth - 0.1);
+  padding: $subHeaderHeight 0 0 ($matrixCellWidth);
   position: relative;
 }
 
 .matrix--content {
   @extend %matrix--slider;
-  border-left: 0.1rem solid $grayLighter;
+  // border-left: 0.1rem solid $grayLighter;
   position: relative;
   z-index: 120;
 }
@@ -1017,28 +1018,37 @@
   @extend %matrix--tall;
   padding: 1rem 1.6rem;
   border-right: 0.1rem solid $grayLighter;
+  a {
+    display: block;
+    float: left;
+  }
 }
 
-// TODO test once real thumbnails are generated
-.matrix--cell--thumbnail {
-  width: 8.5rem;
-  height: 100%;
-  margin-right: 1.2rem;
+.matrix--cell--play {
+  @extend %hidden-text;
+  display: block;
   float: left;
-  overflow: hidden;
-  img {
-    display: block;
-    height: 100%;
+  // TODO temporary; remove once comp arrives
+  width: 3.4rem;
+  height: 3.4rem;
+  background-color: $tealMedium;
+  border: 0.1rem solid $tealMedium;
+  border-radius: 100%;
+  margin: 0.7rem 0;
+  &.inactive {
+  // TODO temporary; remove once comp arrives
+    background-color: transparent;
   }
 }
 
 .matrix--cell--value {
   @extend %mega-alt;
   @include font-head;
-  width: 3.8rem;
+  width: 4.5rem;
   text-align: center;
   color: $tealMedium;
   padding: 0.4rem 0;
+  margin: 0 1.6rem;
   float: left;
   small {
     font-size: 0.65em;
@@ -1054,7 +1064,7 @@
   width: 2.4rem;
   height: 2.4rem;
   margin: 1.2rem 0;
-  float: right;
+  float: left;
   &.active {
     @include svg(circle-checked-teal);
   }
@@ -1063,11 +1073,11 @@
 // Overlay
 // ------------
 .matrix--overlay {
-  width: $matrixOverlayWidth - 0.1rem;
+  width: $matrixOverlayWidth;
   background-color: $beige;
   position: relative;
-  border-left: 0.1rem solid $grayLighter;
-  border-right: 0.1rem solid $grayLighter;
+  // border-left: 0.1rem solid $grayLighter;
+  // border-right: 0.1rem solid $grayLighter;
   overflow: hidden;
   z-index: 120;
 }
@@ -1086,8 +1096,6 @@
   color: $tealMedium;
   padding: 2rem 0;
 }
-
-
 
 // Project selector
 // ------------

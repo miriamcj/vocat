@@ -38,11 +38,11 @@ $darker: transparentize($black, 0.54);
 
 // Measurements
 // --------------------------------------------------------
-$mainWidth: 102.4rem;
+$mainWidth: 100rem;
 $headerHeight: 11.6rem;
 $subHeaderHeight: 8rem;
-$matrixCellWidth: 20.5rem;
-$matrixOverlayWidth: 82rem;
+$matrixCellWidth: 20rem;
+$matrixOverlayWidth: $matrixCellWidth * 4;
 
 $baseLineHeight: 1.2;
 $verticalSpace: $baseLineHeight * 1em;

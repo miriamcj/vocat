@@ -1,15 +1,12 @@
 <div class="matrix">
   <div>
-
-
     <header class="matrix--column-header" data-behavior="sticky-header">
       <div class="matrix--overlay-header" style="display: none" data-behavior="overlay-header"></div>
-
       <nav class="matrix--controls">
         <a class="matrix--previous inactive" data-behavior="matrix-slider-left" href="#">Previous</a>
         <a class="matrix--next" data-behavior="matrix-slider-right" href="#">Next</a>
-      </nav><!-- removes whitespace
-      --><div class="matrix--list-wrapper" data-behavior="matrix-slider">
+      </nav>
+      <div class="matrix--list-wrapper" data-behavior="matrix-slider">
         <ul class="matrix--column-header--list">
           {{#each projects}}
           <li data-behavior="navigate-project" data-project="{{this.id}}">

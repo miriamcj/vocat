@@ -7,19 +7,15 @@
       {{#if this}}
         <a href="{{url_for 'course_evaluations_for_creator_and_project' ../../../../courseId ../../../this.id ../../this.id}}" data-behavior="routable">
         {{#if uploaded_attachment}}
-          <div class="matrix--cell--thumbnail">
-            <img src="{{thumb}}" />
-          </div>
+          <b class="matrix--cell--play">Play video</b>
         {{else}}
-          <div class="matrix--cell--thumbnail">
-            <div class="attachment-placeholder"></div>
-          </div>
+          <b class="matrix--cell--play inactive">No video has been uploaded</b>
       	{{/if}}
         <h2 class="matrix--cell--value">
           {{#if scored_by_instructor }}
             {{instructor_score_percentage}}<small>%</small>
           {{else}}
-            <h2 class="matrix--cell--value">&ndash;&ndash;<small>%</small></h2>
+            &ndash;&ndash;<small>%</small>
           {{/if}}
         </h2>
         </a>
@@ -27,10 +23,8 @@
         <div class="matrix--cell--indicator {{#if submission.published}}active{{/if}}"></div>
       {{else}}
         <a href="{{url_for 'course_evaluations_for_creator_and_project' ../../../../courseId ../../../this.id ../../this.id}}" data-behavior="routable">
-        <div class="matrix--cell--thumbnail">
-          <div class="attachment-placeholder"></div>
-        </div>
-        <h2 class="matrix--cell--value">&ndash;&ndash;<small>%</small></h2>
+          <b class="matrix--cell--play inactive">No video has been uploaded</b>
+          <h2 class="matrix--cell--value">&ndash;&ndash;<small>%</small></h2>
         </a>
         <div class="matrix--cell--indicator"></div>
       {{/if}}
