@@ -12,7 +12,9 @@
         </li>
       </ul>
     </nav>
+		{{#if showCourse}}
     <a data-behavior="routable" class="frame-attachment--link" href="{{url_for 'course_evaluations_for_creator_and_project' submission.course_id submission.creator_id submission.project_id}}">See All Comments</a>
+    {{/if}}
   </figcaption>
   {{else}}
   <div class="attachment-placeholder">

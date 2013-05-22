@@ -128,11 +128,13 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
       projects: @projects
       creators: @creators
     })
+    @updateHeader({project: @projects.get(project)})
     @detailView.render()
 
   updateHeader: (options) ->
     context = {
       projects: @projects.toJSON()
+      creators: @creators.toJSON()
       courseId: @courseId
     }
     if options.creator? then context.creator = options.creator.toJSON()

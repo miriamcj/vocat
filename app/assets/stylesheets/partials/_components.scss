@@ -964,6 +964,14 @@
     }
   }
   .matrix--overlay-open & {
+    li.active {
+      @include opacity(99);
+      background-color: $tealLightest;
+      &:nth-child(even) {
+        background-color: $tealLightest;
+      }
+    }
+
     li {
       @include opacity(50);
       @extend %full-bleed;

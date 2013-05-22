@@ -2,12 +2,28 @@
 <h2 class="matrix--overlay-header-student">{{creator.name}}</h2>
 <h2 class="matrix--overlay-header-project">{{project.name}}</h2>
 <nav class="matrix--overlay-header-selector" data-behavior="dropdown">
-    <a class="project-selector--toggle" data-behavior="toggle" href="#">Select a project</a>
+    <a class="project-selector--toggle" data-behavior="toggle" href="#">
+        {{#if creator.id}}
+          View submission
+        {{else}}
+          {{#if project.id}}
+            View submission
+          {{/if}}
+        {{/if}}
+    </a>
     <div class="project-selector--dropdown" data-behavior="dropdown-options">
       <ul>
-        {{#each projects}}
-          <li><a data-behavior="routable" href="{{url_for 'course_evaluations_for_creator_and_project' ../courseId ../creator.id this.id}}"><strong>{{this.name}}</strong></a></li>
-        {{/each}}
+        {{#if creator.id}}
+          {{#each ../projects}}
+            <li><a data-behavior="routable" href="{{url_for 'course_evaluations_for_creator_and_project' ../../courseId ../../creator.id this.id}}"><strong>{{this.name}}</strong></a></li>
+          {{/each}}
+        {{else}}
+          {{#if ../project.id}}
+            {{#each ../../creators}}
+              <li><a data-behavior="routable" href="{{url_for 'course_evaluations_for_creator_and_project' ../../../courseId this.id ../../../project.id}}"><strong>{{this.name}}</strong></a></li>
+            {{/each}}
+          {{/if}}
+        {{/if}}
       </ul>
     </div>
   </nav>

@@ -12,6 +12,7 @@ Vocat::Application.routes.draw do
 
       resources :submissions do
         resources :attachments, :only => [:create]
+        resources :discussion_posts
       end
 
       resources :course, :only => [:index, :show] do
