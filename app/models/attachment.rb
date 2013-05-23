@@ -92,7 +92,7 @@ class Attachment < ActiveRecord::Base
       when "video/mpeg","video/mp4","video/ogg","video/quicktime","video/webm","video/x-matroska","video/x-ms-wmv","video/x-flv"
         # continue
       else
-        self.transcoding_status = TRANSCODING_STATUS_UNNECESSARY
+        self.update_column(:transcoding_status, TRANSCODING_STATUS_UNNECESSARY)
         return
     end
 

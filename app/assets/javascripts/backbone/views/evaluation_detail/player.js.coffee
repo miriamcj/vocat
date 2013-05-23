@@ -21,7 +21,7 @@ class Vocat.Views.EvaluationDetailPlayer extends Vocat.Views.AbstractView
       @submission.bind 'change:has_transcoded_attachment', @render, @
       @submission.bind 'change:has_uploaded_attachment', @render, @
 
-      if @submission.get('has_transcoded_attachment') == false && @submission.get('has_uploaded_attachment') == true && @submission.get('transcoding_error') == false
+      if @submission.get('has_uploaded_attachment') && !@submission.get('is_transcoding_complete')
         @startPolling()
 
     Vocat.Dispatcher.bind 'player:stop', @handlePlayerStop, @
@@ -34,10 +34,10 @@ class Vocat.Views.EvaluationDetailPlayer extends Vocat.Views.AbstractView
       delay: 5000
       delayed: true
       condition: (model) =>
-        results = model.get('has_transcoded_attachment') == false && model.get('has_uploaded_attachment') == true || model.get('transcoding_error')
-        if results == false
+        results = model.get('has_uploaded_attachment') && model.get('is_transcoding_complete')
+        if results == true
           Vocat.Dispatcher.trigger 'transcodingComplete'
-        results
+        !results
     }
     poller = Backbone.Poller.get(@submission, options);
     poller.start()
