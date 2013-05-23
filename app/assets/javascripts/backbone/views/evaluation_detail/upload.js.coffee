@@ -23,19 +23,15 @@ class Vocat.Views.EvaluationDetailUpload extends Vocat.Views.AbstractView
     }
     if @attachment
       context.attachment = @attachment.toJSON()
-      console.log @attachment
 
     @$el.html(@template(context))
 
     @$el.hide()
 
     $uploadEl = @$el.find('[data-behavior="async-upload"]')
-    console.log $uploadEl
     $uploadEl.fileupload
       url: '/api/v1/submissions/' + @submission.id + '/attachments'
       dataType: 'json'
-      start: (e, data) =>
-        console.log 'test B: started'
       done: (e, data) =>
         console.log 'test C: done'
         @attachment = new Vocat.Models.Attachment(data.result)
@@ -46,7 +42,6 @@ class Vocat.Views.EvaluationDetailUpload extends Vocat.Views.AbstractView
         progress: (e, data) =>
           progress = parseInt(data.loaded / data.total * 100, 10)
           @$el.find('.indicator').css 'width', progress + '%'
-    console.log 'test D: execution resumed'
 
     # Return thyself for maximum chaining!
     @
