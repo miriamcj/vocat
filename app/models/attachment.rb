@@ -7,6 +7,7 @@ class Attachment < ActiveRecord::Base
   TRANSCODING_STATUS_BUSY = 0
   TRANSCODING_STATUS_SUCCESS = 1
   TRANSCODING_STATUS_ERROR = 2
+  TRANSCODING_STATUS_UNNECESSARY = 3
 
   # Paperclip configurations
   has_attached_file :media,
@@ -85,6 +86,17 @@ class Attachment < ActiveRecord::Base
   # A method for generically running the transcoding
   def transcode_media
     transcoding_happened = FALSE
+
+    # Skip transcoding for non-movie files
+    case media_content_type
+      when "video/mpeg","video/mp4","video/ogg","video/quicktime","video/webm","video/x-matroska","video/x-ms-wmv","video/x-flv"
+        # continue
+      else
+        self.transcoding_status = TRANSCODING_STATUS_UNNECESSARY
+        return
+    end
+
+
     options = media.s3_credentials
     trans_opts = options[:transcoding]
     if trans_opts

@@ -69,8 +69,12 @@ class Submission < ActiveRecord::Base
     self.attachment && self.attachment.transcoding_error != nil ? true : false
   end
 
+  def transcoding_complete?
+    attachment && attachment.transcoding_complete?
+  end
+
   def transcoded_attachment
-    self.attachments.where(:transcoding_status => 1).first
+    self.attachments.where(:transcoding_status => Attachment::TRANSCODING_STATUS_SUCCESS).first
   end
 
   def transcoded_attachment?
