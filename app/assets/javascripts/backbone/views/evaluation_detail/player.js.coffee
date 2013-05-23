@@ -18,10 +18,10 @@ class Vocat.Views.EvaluationDetailPlayer extends Vocat.Views.AbstractView
 
     if @submission
       @submission.bind 'startPolling', @startPolling, @
-      @submission.bind 'change:transcoded_attachment', @render, @
-      @submission.bind 'change:uploaded_attachment', @render, @
+      @submission.bind 'change:has_transcoded_attachment', @render, @
+      @submission.bind 'change:has_uploaded_attachment', @render, @
 
-      if @submission.get('has_transcoded_attachment') == false && @submission.get('uploaded_attachment') == true && @submission.get('transcoding_error') == false
+      if @submission.get('has_transcoded_attachment') == false && @submission.get('has_uploaded_attachment') == true && @submission.get('transcoding_error') == false
         @startPolling()
 
     Vocat.Dispatcher.bind 'player:stop', @handlePlayerStop, @
@@ -34,7 +34,7 @@ class Vocat.Views.EvaluationDetailPlayer extends Vocat.Views.AbstractView
       delay: 5000
       delayed: true
       condition: (model) =>
-        results = model.get('has_transcoded_attachment') == false && model.get('uploaded_attachment') == true || model.get('transcoding_error')
+        results = model.get('has_transcoded_attachment') == false && model.get('has_uploaded_attachment') == true || model.get('transcoding_error')
         if results == false
           Vocat.Dispatcher.trigger 'transcodingComplete'
         results
