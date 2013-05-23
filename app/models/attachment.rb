@@ -168,21 +168,28 @@ class Attachment < ActiveRecord::Base
   def listen_for_transcoding_completion(options, job_id)
     et = AWS::ElasticTranscoder.new(options)
 
-    50.times do
+    finished_transcoding = FALSE
+    300.times do
       job = et.client.read_job(:id => job_id)
       status = job.data[:job][:output][:status]
       case status
         when 'Complete'
           self.update_column(:transcoding_status, TRANSCODING_STATUS_SUCCESS)
           self.make_thumbnail_public
+          finished_transcoding = TRUE
           break
         when 'Error'
           self.update_column(:transcoding_status, TRANSCODING_STATUS_ERROR)
           self.update_column(:transcoding_error, job.data[:job][:output][:status_detail])
+          finished_transcoding = TRUE
           break
         else
           sleep 1
       end
+    end
+    unless finished_transcoding
+      self.update_column(:transcoding_status, TRANSCODING_STATUS_ERROR)
+      self.update_column(:transcoding_error, "Transcoding took too long. Please upload a smaller video file.")
     end
   end
 
