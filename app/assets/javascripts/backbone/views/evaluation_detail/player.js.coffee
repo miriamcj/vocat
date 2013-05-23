@@ -21,7 +21,7 @@ class Vocat.Views.EvaluationDetailPlayer extends Vocat.Views.AbstractView
       @submission.bind 'change:transcoded_attachment', @render, @
       @submission.bind 'change:uploaded_attachment', @render, @
 
-      if @submission.get('transcoded_attachment') == false && @submission.get('uploaded_attachment') == true && @submission.get('transcoding_error') == false
+      if @submission.get('has_transcoded_attachment') == false && @submission.get('uploaded_attachment') == true && @submission.get('transcoding_error') == false
         @startPolling()
 
     Vocat.Dispatcher.bind 'player:stop', @handlePlayerStop, @
@@ -34,7 +34,7 @@ class Vocat.Views.EvaluationDetailPlayer extends Vocat.Views.AbstractView
       delay: 5000
       delayed: true
       condition: (model) =>
-        results = model.get('transcoded_attachment') == false && model.get('uploaded_attachment') == true || model.get('transcoding_error')
+        results = model.get('has_transcoded_attachment') == false && model.get('uploaded_attachment') == true || model.get('transcoding_error')
         if results == false
           Vocat.Dispatcher.trigger 'transcodingComplete'
         results
@@ -58,7 +58,7 @@ class Vocat.Views.EvaluationDetailPlayer extends Vocat.Views.AbstractView
       creator: @creator.toJSON()
     }
     @$el.html(@template(context))
-    if @submission.get('transcoded_attachment')
+    if @submission.get('has_transcoded_attachment')
       Popcorn.player('baseplayer')
       playerElement = @$el.find('[data-behavior="video-player"]').get(0)
       @player = Popcorn(playerElement)
