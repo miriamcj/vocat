@@ -1178,7 +1178,8 @@
 // Alerts
 // --------------------------------------------------------
 %alert {
-  padding: 2rem;
+  @extend %clearfix;
+  padding: 2rem 6.4rem 2rem 2rem;
   border-radius: $radius;
   margin: 1rem 3.2rem 0;
   position: relative;
@@ -1191,7 +1192,8 @@
     color: $darker;
     padding-left: 2rem;
     border-left: 0.1rem solid $darker;
-    margin: 0 5.5rem 0 15rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.4rem;
   }
   .authentication & {
     @extend %centered-tile;
@@ -1199,16 +1201,10 @@
 }
 
 // Lives inside %alert
+// NB be sure to set a width and background-image
+// when you extend this
 %alert--label {
-  @extend %gamma-sub;
-  @include svg(warning-gray);
   height: 2.8rem;
-  font-weight: $bold;
-  letter-spacing: 0.15em;
-  color: $darker;
-  line-height: 1.75;
-  text-transform: uppercase;
-  padding-left: 4.2rem;
   position: absolute;
   top: 1.4rem;
   left: 2.5rem;
@@ -1221,8 +1217,8 @@
   width: 2rem;
   height: 2rem;
   position: absolute;
-  top: 1.2rem;
-  right: 1.3rem;
+  top: 2.3rem;
+  right: 2.4rem;
 }
 
 // Progress bars

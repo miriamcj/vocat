@@ -1126,23 +1126,68 @@
 }
 
 .alert-success {
+  $width: 8.4rem;
   @extend %alert;
   background-color: $greenLight;
+  p {
+    margin-left: $width + 2.5rem;
+  }
+  .alert--label {
+    @include svg(alert-success);
+    width: $width;
+  }
 }
 
 .alert-notice {
+  $width: 6.5rem;
   @extend %alert;
   background-color: $blueLight;
+  p {
+    margin-left: $width + 2.5rem;
+  }
+  .alert--label {
+    @include svg(alert-notice);
+    width: $width;
+  }
 }
 
-.alert-warning, .alert-alert {
+.alert-alert {
+  $width: 5.7rem;
   @extend %alert;
   background-color: $yellow;
+  p {
+    margin-left: $width + 2.5rem;
+  }
+  .alert--label {
+    @include svg(alert-alert);
+    width: $width;
+  }
+}
+
+.alert-warning {
+  $width: 8.4rem;
+  @extend %alert;
+  background-color: $yellow;
+  p {
+    margin-left: $width + 2.5rem;
+  }
+  .alert--label {
+    @include svg(alert-warning);
+    width: $width;
+  }
 }
 
 .alert-error {
+  $width: 10.3rem;
   @extend %alert;
   background-color: $redLight;
+  p {
+    margin-left: $width + 2.5rem;
+  }
+  .alert--label {
+    @include svg(alert-error);
+    width: $width;
+  }
 }
 
 .alert--label {
