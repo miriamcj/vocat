@@ -46,6 +46,7 @@ class Vocat.Views.EvaluationDetailUpload extends Vocat.Views.AbstractView
       send: (e, data) =>
         @submission.set('is_upload_started', true)
         @submission.trigger('file:upload_started')
+        Vocat.Dispatcher.trigger('flash:flush')
 
     # Return thyself for maximum chaining!
     @
