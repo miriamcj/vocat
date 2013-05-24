@@ -5,6 +5,11 @@ class Vocat.Views.FlashMessages extends Vocat.Views.AbstractView
 	initialize: (options)  ->
 		@msgs = []
 		Vocat.Dispatcher.bind('flash', @addMessage, @)
+		Vocat.Dispatcher.bind('flash:flush', @flushMessages, @)
+
+	flushMessages: ->
+		@msgs = []
+		@render()
 
 	addMessage: (args) ->
 		@msgs.push args
