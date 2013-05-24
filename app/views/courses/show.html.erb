@@ -58,9 +58,9 @@
 	    <tr>
 	      <td><%= project.name %></td>
 	      <td>
-	        <%= link_to 'edit', edit_project_path(@course, project) %>
+	        <%= link_to 'edit', edit_course_project_path(@course, project) %>
 	        or
-	        <%= link_to 'destroy', project_path(@course, project), method: :delete, data: { confirm: 'Are you sure?' } %>
+	        <%= link_to 'destroy', course_project_path(@course, project), method: :delete, data: { confirm: 'Are you sure?' } %>
 	      </td>
 	    </tr>
 	  <% end %>
