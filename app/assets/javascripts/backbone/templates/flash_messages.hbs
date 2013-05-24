@@ -1,11 +1,5 @@
-{{#if messages}}
+{{#if hasMessages}}
 <div class="alerts">
-  {{#each messages}}
-    <div class="alert-{{this.level}}" data-behavior="alert">
-      <aside class="alert--label" data-behavior="alert-label"></aside>
-      <p>{{this.message}}</p>
-      <a class="alert--close" href="#"></a>
-    </div>
-  {{/each}}
+  {{messages}}
 </div>
 {{/if}}

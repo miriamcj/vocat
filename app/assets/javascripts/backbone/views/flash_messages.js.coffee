@@ -4,12 +4,13 @@ class Vocat.Views.FlashMessages extends Vocat.Views.AbstractView
 
 	initialize: (options)  ->
 		@scope = @$el.data('flash-scope')
-		@msgs = []
 		Vocat.Dispatcher.bind('flash', @addMessage, @)
 		Vocat.Dispatcher.bind('flash:flush', @flushMessages, @)
+		@msgs = new Vocat.Collections.FlashMessage()
+		@timer = null
 
 	flushMessages: ->
-		@msgs = []
+		@msgs.reset()
 		@render()
 
 	addMessage: (args) ->
@@ -17,11 +18,24 @@ class Vocat.Views.FlashMessages extends Vocat.Views.AbstractView
 		# OR
 		# Add message if this container is not scoped and the message isn't either
 		if (@scope and args.scope and args.scope == @scope) or (not @scope and not args.scope)
-			@msgs.push args
-		@render()
+			@msgs.push new Vocat.Models.FlashMessage args
+			@renderLater()
+
+	# Instead of calling render for each new added message,
+	# let's wait a bit until we have all the messages accumulated.
+	# This avoids any flash-effect from re-rendering over and over
+	renderLater: () ->
+		unless @timer
+			@timer = setTimeout =>
+				@render()
+				@timer = null
+			, 200
 
 	render: (args) ->
-		context = {
-			messages: @msgs
-		}
-		@$el.html(@template(context))
+		$innerElement = $(@template({hasMessages: @msgs.length > 0}))
+		@$el.html($innerElement)
+		delay = 0
+		@msgs.each (msg) =>
+			view = new Vocat.Views.FlashMessageSingle(model: msg, collection: @msgs)
+			view.render().hide().appendTo($innerElement).delay(delay).fadeIn(1500)
+			delay += 500
