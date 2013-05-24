@@ -779,6 +779,9 @@
     position: fixed;
     top: 0;
   }
+  .matrix--overlay-open & {
+    background-color: $tealLighter;
+  }
 }
 
 // Wraps .matrix--column-header--list
@@ -861,7 +864,7 @@
 // Lives inside .matrix--column-header
 .matrix--overlay-header {
   width: $mainWidth - $matrixCellWidth;
-  background-color: $tealLightest;
+  background-color: $tealLightestAlt;
   padding: 1.6rem 3.2rem 1.6rem 2.4rem;
   position: absolute;
   top: 0;
@@ -872,8 +875,7 @@
 
 .matrix--overlay-header-close {
   @extend %hidden-text;
-  // TODO replace with gray version when comps arrive
-  @include svg(circle-x-teal);
+  @include svg(circle-x);
   display: block;
   width: 2rem;
   height: 2rem;
@@ -882,11 +884,10 @@
 }
 
 .matrix--overlay-header-title {
-  @extend %mega;
-  // TODO adjust once comps arrive
+  @extend %alpha;
   color: $grayDark;
   font-weight: $bold;
-  margin: 0.8rem 0 0.8rem 1.2rem;
+  margin: 1.1rem 0 1.1rem 1.2rem;
   float: left;
 }
 
@@ -951,11 +952,12 @@
         color: $orange;
       }
     }
+    // These background colors are one-offs, unworthy of variables
     .matrix--overlay-open & {
       @include opacity(50);
-      background-color: mix($beige, $tealLightest, 50%);
+      background-color: #c4c0c0;
       &:nth-child(even) {
-        background-color: mix($beigeLight, $tealLightest, 50%);
+        background-color: #ccc8c8;
       }
       &:hover {
         a {
