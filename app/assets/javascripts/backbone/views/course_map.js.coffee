@@ -198,12 +198,24 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
       slideElements: slideElements
     }
 
+  setupRowHover: () ->
+    @$el.find('[data-creator]').hover(
+      (event) =>
+        creator = $(event.currentTarget).attr('data-creator')
+        @$el.find('[data-creator="'+creator+'"]').addClass('active')
+      ,
+      (event) =>
+        creator = $(event.currentTarget).attr('data-creator')
+        @$el.find('[data-creator="'+creator+'"]').removeClass('active')
+    )
+
+
   redraw: () ->
     @overlay.css('margin-top', (@$el.find('.matrix--content').height() * -1)).css('z-index',200)
     @setContentContainerHeight()
     @calculateAndSetSliderWidth()
     @updateSliderControls()
-
+    @setupRowHover()
 
   render: () ->
     context = {

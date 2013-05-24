@@ -1,6 +1,6 @@
 
 {{#each creators}}
-<ul class="matrix--row">
+<ul class="matrix--row" data-creator="{{this.id}}">
   {{#each ../projects}}
   <li class="matrix--cell">
     {{#get_submission ../../submissions ../this this}}

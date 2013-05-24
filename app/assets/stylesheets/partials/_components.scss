@@ -952,7 +952,7 @@
     &:nth-child(even) {
       background-color: $beigeLightAlt;
     }
-    &:hover {
+    &:hover, &.active {
       background-color: $grayDarker;
       a {
         color: $orange;
