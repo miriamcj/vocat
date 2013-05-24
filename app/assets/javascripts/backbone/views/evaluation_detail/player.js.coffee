@@ -19,6 +19,7 @@ class Vocat.Views.EvaluationDetailPlayer extends Vocat.Views.AbstractView
     if @submission
       @submission.bind 'file:upload_done', @startPolling, @
       @submission.bind 'file:upload_started', @render, @
+      @submission.bind 'file:upload_failed', @render, @
       @submission.bind 'change:has_transcoded_attachment', @render, @
       @submission.bind 'change:has_uploaded_attachment', @render, @
 
