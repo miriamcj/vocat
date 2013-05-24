@@ -19,7 +19,7 @@ class Vocat.Views.Groups extends Vocat.Views.AbstractView
 		group = new Vocat.Models.Group({name: name})
 		group.save()
 		if group.validationError
-			Vocat.Dispatcher.trigger('flash', {level: 'error', message: group.validationError})
+			Vocat.Dispatcher.trigger('flash', {scope: 'groups', level: 'error', message: group.validationError})
 
 	select: (element) ->
 		$target = $(element)

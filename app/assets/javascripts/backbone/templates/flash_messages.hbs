@@ -1,3 +1,4 @@
+{{#if messages}}
 <div class="alerts">
   {{#each messages}}
     <div class="alert-{{this.level}}" data-behavior="alert">
@@ -7,3 +8,4 @@
     </div>
   {{/each}}
 </div>
+{{/if}}

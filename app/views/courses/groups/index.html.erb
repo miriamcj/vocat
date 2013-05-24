@@ -6,7 +6,7 @@
     <%= render :partial => 'shared/bootstrap_collection', :locals => {:key => 'Creator', :data => @creators }%>
     <%= render :partial => 'shared/bootstrap_collection', :locals => {:key => 'Group', :data => @groups}%>
 
-    <div data-view="FlashMessages"></div>
+    <div data-view="FlashMessages" data-flash-scope="groups"></div>
     <div class="groups" data-view="Groups"></div>
 
   </div>
