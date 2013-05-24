@@ -17,7 +17,8 @@ class Vocat.Views.EvaluationDetailPlayer extends Vocat.Views.AbstractView
 
 
     if @submission
-      @submission.bind 'file:uploaded', @startPolling, @
+      @submission.bind 'file:upload_done', @startPolling, @
+      @submission.bind 'file:upload_started', @render, @
       @submission.bind 'change:has_transcoded_attachment', @render, @
       @submission.bind 'change:has_uploaded_attachment', @render, @
 
@@ -29,7 +30,6 @@ class Vocat.Views.EvaluationDetailPlayer extends Vocat.Views.AbstractView
     Vocat.Dispatcher.bind 'player:seek', @handlePlayerSeek, @
 
   startPolling: () ->
-    Vocat.Dispatcher.trigger 'hideUpload'
     options = {
       delay: 5000
       delayed: true

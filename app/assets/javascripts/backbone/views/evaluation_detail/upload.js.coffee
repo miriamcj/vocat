@@ -8,6 +8,7 @@ class Vocat.Views.EvaluationDetailUpload extends Vocat.Views.AbstractView
     @creator    = options.creator
     Vocat.Dispatcher.bind 'showUpload', @showElement, @
     Vocat.Dispatcher.bind 'hideUpload', @hideElement, @
+    @submission.bind 'file:upload_started', @hideElement, @
 
   hideElement: () ->
     @$el.slideUp()
@@ -33,15 +34,13 @@ class Vocat.Views.EvaluationDetailUpload extends Vocat.Views.AbstractView
       url: '/api/v1/submissions/' + @submission.id + '/attachments'
       dataType: 'json'
       done: (e, data) =>
-        console.log 'test C: done'
         @attachment = new Vocat.Models.Attachment(data.result)
         @submission.fetch({
-          success: =>	@submission.trigger('file:uploaded')
+          success: => @submission.trigger('file:upload_done')
         })
-        Vocat.Dispatcher.trigger 'uploadComplete'
-        progress: (e, data) =>
-          progress = parseInt(data.loaded / data.total * 100, 10)
-          @$el.find('.indicator').css 'width', progress + '%'
+      send: (e, data) =>
+        @submission.set('is_upload_started', true)
+        @submission.trigger('file:upload_started')
 
     # Return thyself for maximum chaining!
     @
