@@ -10,7 +10,7 @@
         <ul class="matrix--column-header--list">
           {{#each projects}}
           <li data-behavior="navigate-project" data-project="{{this.id}}">
-            <a class="matrix--column-header--link" data-behavior="routable" href="{{url_for 'course_evaluations_for_project' ../courseId this.id}}">{{this.name}}</a>
+            <a class="matrix--column-header--link" data-behavior="routable" href="{{url_for 'course_evaluations_for_project' ../courseId this.id}}"><span>{{this.name}}</span></a>
           </li>
           {{/each}}
         </ul>

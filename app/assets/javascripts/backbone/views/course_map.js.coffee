@@ -44,9 +44,11 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
     # Like other parent views, this one renders itself.
     @render()
 
-    # No sticky header on this page.
+    # De-activate the main sticky header on this page, so our coursemap header can be sticky.
     $('[data-behavior="sticky-header"]').stickyHeader('destroy')
     @$el.find('[data-behavior="sticky-header"]').stickyHeader()
+
+
 
   setActiveCreator: (creatorId) ->
     @unsetActiveCreator()

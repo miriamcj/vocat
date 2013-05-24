@@ -814,6 +814,12 @@
   padding: 1.4rem 1.6rem;
   line-height: 1;
   overflow: hidden;
+  // The span hides any column header text that exceeds it's height. Scott, perhaps there is a better way to set this height?
+  span {
+    display: block;
+    height: 5.5rem;
+    overflow: hidden;
+  }
   // TODO sort out how to truncate long titles. This doesn't work:
   // text-overflow: ellipsis;
   // white-space: nowrap;
