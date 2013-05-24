@@ -20,7 +20,14 @@
         </h2>
         </a>
         <!-- TODO: active class is only applied when score is 'published' -->
-        <div class="matrix--cell--indicator {{#if submission.published}}active{{/if}}"></div>
+        <div class="matrix--cell--indicator {{#if submission.published}}active{{/if}}">
+          <b></b>
+          {{#if submission.published}}
+            Published
+          {{else}}
+            Unpublished
+          {{/if}}
+        </div>
       {{else}}
         <a href="{{url_for 'course_evaluations_for_creator_and_project' ../../../../courseId ../../../this.id ../../this.id}}" data-behavior="routable">
           <b class="matrix--cell--play inactive">No video has been uploaded</b>

@@ -93,7 +93,7 @@
 }
 
 .primary-nav--avatar {
-  @extend %gray-round-avatar;
+  @extend %round-avatar;
   position: absolute;
   top: -0.7rem;
   right: -6.4rem;
@@ -742,9 +742,11 @@
   height: 6.8rem;
 }
 
+// TODO hide right border
 %matrix--slider {
-  width: $matrixOverlayWidth - 0.1rem;
-  margin-right: 0.1rem;
+  // width: $matrixOverlayWidth - 0.1rem;
+  width: $matrixOverlayWidth;
+  // margin-right: 0.1rem;
   overflow-x: hidden;
   ul {
     @include transition(0.3s left ease-in-out);
@@ -770,7 +772,7 @@
   @extend %shaded-bottom;
   width: $mainWidth;
   height: $subHeaderHeight;
-  background-color: $tealLightest;
+  background-color: $tealLightestAlt;
   position: absolute;
   z-index: 300;
   &.stuck {
@@ -782,7 +784,6 @@
 // Wraps .matrix--column-header--list
 .matrix--list-wrapper {
   @extend %matrix--slider;
-  // border-left: 0.1rem solid $tealMedium;
   float: left;
   position: relative;
 }
@@ -796,7 +797,7 @@
   li {
     @extend %matrix--wide;
     height: 100%;
-    border-right: 0.1rem solid $tealMedium;
+    border-right: 0.1rem solid $beigeDark;
   }
 }
 
@@ -823,22 +824,21 @@
   @extend %shaded-inside-right;
   width: $matrixCellWidth;
   height: $subHeaderHeight;
-  padding: 1.6rem;
+  padding: 2.1rem 3.2rem 1.7rem 1.6rem;
   float: left;
   position: relative;
 }
 
-// TODO re-style these once comps arrive
 %matrix--controls--item {
   @extend %bare-focus;
   @extend %hidden-text;
   display: block;
-  width: 3.6rem;
-  height: 3.6rem;
-  float: left;
+  width: 4.2rem;
+  height: 4.2rem;
+  float: right;
   &.inactive {
+    @extend %inactive-link;
     @include opacity(25);
-    cursor: default;
   }
   .matrix--overlay-open & {
     visibility: hidden;
@@ -847,19 +847,13 @@
 
 .matrix--previous {
   @extend %matrix--controls--item;
-  @include svg(arrow-solid-left-teal);
-  &.inactive {
-    @include svg(arrow-left-teal);
-  }
+  @include svg(arrow-left-teal);
 }
 
 .matrix--next {
   @extend %matrix--controls--item;
-  @include svg(arrow-solid-right-teal);
-  margin-left: 1.6rem;
-  &.inactive {
-    @include svg(arrow-right-teal);
-  }
+  @include svg(arrow-right-teal);
+  margin-left: 1.1rem;
 }
 
 // Overlay header
@@ -947,13 +941,14 @@
     @extend %shaded-inside-right;
     display: table;
     width: 100%;
+    background-color: $beigeAlt;
     &:nth-child(even) {
-      background-color: $beigeLight;
+      background-color: $beigeLightAlt;
     }
     &:hover {
-      background-color: $tealLightest;
+      background-color: $grayDarker;
       a {
-        color: $white;
+        color: $orange;
       }
     }
     .matrix--overlay-open & {
@@ -961,6 +956,11 @@
       background-color: mix($beige, $tealLightest, 50%);
       &:nth-child(even) {
         background-color: mix($beigeLight, $tealLightest, 50%);
+      }
+      &:hover {
+        a {
+          color: $white;
+        }
       }
       &.active {
         @include opacity(100);
@@ -995,7 +995,6 @@
 
 .matrix--content {
   @extend %matrix--slider;
-  // border-left: 0.1rem solid $grayLighter;
   position: relative;
   z-index: 120;
 }
@@ -1004,11 +1003,15 @@
 .matrix--row {
   @extend %matrix--tall;
   @extend %floated-list;
-  background-color: $beige;
+  background-color: $beigeAlt;
   margin: 0;
   overflow-y: hidden;
   &:nth-child(even) {
-    background-color: $beigeLight;
+    background-color: $beigeLightAlt;
+  }
+  &:hover,
+  &.active {
+    background-color: $grayDarker;
   }
 }
 
@@ -1016,28 +1019,55 @@
 .matrix--cell {
   @extend %matrix--wide;
   @extend %matrix--tall;
-  padding: 1rem 1.6rem;
-  border-right: 0.1rem solid $grayLighter;
+  padding: 1rem 0 1rem 1.6rem;
+  border-right: 0.1rem solid transparentize($beigeDark, 0.1);
   a {
     display: block;
     float: left;
+  }
+  // Changes component colors on hover
+  &:hover {
+    .matrix--cell--play {
+      @include svg(play-orange);
+      &.inactive {
+        @include svg(play-slash-orange);
+      }
+    }
+    .matrix--cell--value {
+      color: $orange;
+    }
+    .matrix--cell--indicator {
+      color: $orange;
+      b {
+        @include svg(checkbox-unchecked-orange);
+      }
+      &.active {
+        b {
+          @include svg(checkbox-orange);
+        }
+      }
+    }
   }
 }
 
 .matrix--cell--play {
   @extend %hidden-text;
+  @include svg(play);
   display: block;
+  width: 2.8rem;
+  height: 2.8rem;
+  margin: 1rem 0;
   float: left;
-  // TODO temporary; remove once comp arrives
-  width: 3.4rem;
-  height: 3.4rem;
-  background-color: $tealMedium;
-  border: 0.1rem solid $tealMedium;
-  border-radius: 100%;
-  margin: 0.7rem 0;
+  // Changes play icon when no video exists
   &.inactive {
-  // TODO temporary; remove once comp arrives
-    background-color: transparent;
+    @include svg(play-slash);
+    .active & {
+      @include svg(play-slash-beigeDark);
+    }
+  }
+  // Changes icon color when .matrix--row is active (on hover)
+  .active & {
+    @include svg(play-beigeDark);
   }
 }
 
@@ -1057,16 +1087,48 @@
     position: relative;
     top: 0.2rem;
   }
+  // Changes icon color when .matrix--row is active (on hover)
+  .active & {
+    color: $beigeDark;
+  }
 }
 
+// <label>
 .matrix--cell--indicator {
-  @include svg(circle-unchecked-teal);
-  width: 2.4rem;
-  height: 2.4rem;
-  margin: 1.2rem 0;
+  @extend %epsilon;
+  height: 3.6rem;
+  color: $tealMedium;  
+  font-weight: $medium;
+  padding-top: 2.1rem;
+  margin: 0.6rem 0;
   float: left;
+  position: relative;
+  cursor: pointer;
+  b {
+    @include svg(checkbox-unchecked);
+    display: block;
+    width: 1.7rem;
+    height: 1.7rem;
+    position: absolute;
+    top: 0.2rem;
+    left: 0;
+  }
   &.active {
-    @include svg(circle-checked-teal);
+    b {
+      @include svg(checkbox);
+    }
+  }
+  // Changes icon color when .matrix--row is active (on hover)
+  .active & {
+    color: $beigeDark;
+    b {
+      @include svg(checkbox-unchecked-beigeDark);
+    }
+    &.active {
+      b {
+        @include svg(checkbox-beigeDark);
+      }
+    }
   }
 }
 
