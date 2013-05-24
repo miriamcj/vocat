@@ -36,7 +36,7 @@ class Vocat.Views.EvaluationDetailUpload extends Vocat.Views.AbstractView
         console.log 'test C: done'
         @attachment = new Vocat.Models.Attachment(data.result)
         @submission.fetch({
-          success: =>	@submission.trigger('startPolling')
+          success: =>	@submission.trigger('file:uploaded')
         })
         Vocat.Dispatcher.trigger 'uploadComplete'
         progress: (e, data) =>

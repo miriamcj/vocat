@@ -17,7 +17,7 @@ class Vocat.Views.EvaluationDetailPlayer extends Vocat.Views.AbstractView
 
 
     if @submission
-      @submission.bind 'startPolling', @startPolling, @
+      @submission.bind 'file:uploaded', @startPolling, @
       @submission.bind 'change:has_transcoded_attachment', @render, @
       @submission.bind 'change:has_uploaded_attachment', @render, @
 
@@ -36,7 +36,7 @@ class Vocat.Views.EvaluationDetailPlayer extends Vocat.Views.AbstractView
       condition: (model) =>
         results = model.get('has_uploaded_attachment') && model.get('is_transcoding_complete')
         if results == true
-          Vocat.Dispatcher.trigger 'transcodingComplete'
+          Vocat.Dispatcher.trigger 'file:transcoded'
         !results
     }
     poller = Backbone.Poller.get(@submission, options);

@@ -64,7 +64,7 @@ class Vocat.Views.EvaluationDetail extends Vocat.Views.AbstractView
 
     # The evalutation detail view needs to redraw itself to load the video once it sees that transcoding has been
     # completed.
-    Vocat.Dispatcher.bind('transcodingComplete', @render, @)
+    Vocat.Dispatcher.bind('file:transcoded', @render, @)
 
   # Once the submission has been loaded, we can check if the submission has an attachment and, if it does, we can fetch
   # annotations for that attachment. We can also render the view at this point.
