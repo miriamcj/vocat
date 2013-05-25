@@ -9,9 +9,10 @@ class Vocat.Views.FlashMessages extends Vocat.Views.AbstractView
 		@msgs = new Vocat.Collections.FlashMessage()
 		@timer = null
 
-	flushMessages: ->
-		@msgs.reset()
-		@render()
+	flushMessages: (args) ->
+		if not args or ((@scope and args.scope and args.scope == @scope) or (not @scope and not args.scope))
+			@msgs.reset()
+			@renderLater()
 
 	addMessage: (args) ->
 		# Add message if this container is scoped and the message is of the same scope
