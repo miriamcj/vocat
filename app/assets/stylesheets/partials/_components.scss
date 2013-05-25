@@ -934,6 +934,7 @@
   }
 }
 
+
 .matrix--row-header {
   position: relative;
   top: 0;
@@ -989,6 +990,42 @@
     font-weight: $bold;
     color: $tealMedium;
     padding: 0 1.6rem;
+  }
+}
+
+// SCOTT: I couldn't figure out how to make this work without using !important. I'm trying to remove the hover state
+// on the spacer rows/cells. --ZD
+.matrix--row-spacer {
+  &:nth-child(odd), &:nth-child(odd) li {
+    &:hover, &.active {
+      background-color: $beigeAlt !important;
+    }
+  }
+  &:nth-child(even), &:nth-child(even) li {
+    &:hover, &.active {
+      background-color: $beigeLightAlt !important;
+    }
+  }
+  .matrix--cell {
+    height: 100%;
+  }
+}
+
+.matrix--overlay-open {
+  .matrix--row-spacer {
+    &:nth-child(odd), &:nth-child(odd) li {
+      &:hover, &.active {
+        background-color: #c4c0c0 !important;
+      }
+    }
+    &:nth-child(even), &:nth-child(even) li {
+      &:hover, &.active {
+        background-color: #ccc8c8 !important;
+      }
+    }
+    .matrix--cell {
+      height: 100%;
+    }
   }
 }
 

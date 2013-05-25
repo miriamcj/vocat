@@ -99,22 +99,11 @@ $.fn.extend
 
 $ ->
 
-# For debugging scroll CSS issues.
-#	$(window).scroll( (event) ->
-#		console.log $(@).scrollTop(), 'window scroll'
-#	)
-#
-#	$('body').scroll( (event) ->
-#		console.log $(@).scrollTop(), 'body scroll'
-#	)
-
   $('[data-behavior="dropdown"]').dropdownNavigation()
   $('[data-behavior="sticky-header"]').stickyHeader()
   $('[data-behavior="shortcut-nav-toggle"]').shortcutNavigation()
   $('[data-behavior="help-overlay-toggle"]').helpOverlay()
 
-  # Because we're using vw measurements for the full width pseudo elements (eg, zebra stripes), we need to
-  # force a browser repaint when we change the
-  $(window).bind('resize', () ->
-      $('<style></style>').appendTo($(document.body)).remove();
-  )
+  # Set a minimum height for every page except course map.
+#  if !$('body').hasClass('course-map')
+  $('.container').css('min-height', $(window).innerHeight() - $('.page-header').height() - 35)

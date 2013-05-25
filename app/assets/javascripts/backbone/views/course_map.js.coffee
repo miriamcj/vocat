@@ -177,8 +177,24 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
     @updateSliderControls()
 
   setContentContainerHeight: () ->
+
+    # Content container should be as tall as the window
+    $spacers = @$el.find('.matrix--row-spacer')
+    spacerOffset = @$el.find('.matrix--row-spacer').offset()
+    bodyHeight = $('body').outerHeight()
+    diff = bodyHeight - spacerOffset.top
+    $spacers.css('min-height', diff + 'px');
     height = @$el.find('.matrix--content').outerHeight() +  @$el.find('.matrix--overlay header').outerHeight()
-    @$el.find('.js-matrix--overlay').first().css('min-height', height + 150)
+
+    # Position overlay
+    @overlay.css('margin-top', (@$el.find('.matrix--content').height() * -1)).css('z-index',200)
+
+    # Set min height on overlay
+    @overlay.css('min-height', @$el.find('[data-behavior="matrix-creators-list"]').outerHeight())
+
+
+#    @$el.find('[data-behavior="overlay"]').css('min-height', )
+#    @$el.find('[data-behavior="overlay"]').first().css('min-height', height + 150).css('border', '1px solid red')
 
   calculateAndSetSliderWidth: () ->
     slider = @$el.find('[data-behavior="matrix-slider"]').first()
@@ -209,9 +225,7 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
         @$el.find('[data-creator="'+creator+'"]').removeClass('active')
     )
 
-
   redraw: () ->
-    @overlay.css('margin-top', (@$el.find('.matrix--content').height() * -1)).css('z-index',200)
     @setContentContainerHeight()
     @calculateAndSetSliderWidth()
     @updateSliderControls()
