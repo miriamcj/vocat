@@ -61,6 +61,8 @@ Vocat::Application.routes.draw do
   match '/' => 'portfolio#index', :as => 'portfolio'
   match '/course_map_dev' => 'courses/evaluations#course_map_dev', :via => :get
 
+  match '/form_dev' => 'courses/evaluations#form_dev', :via => :get
+
 
 
 

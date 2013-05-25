@@ -144,6 +144,13 @@
   line-height: 1;
 }
 
+%heading-gamma-sup {
+  @extend %gamma-sup;
+  @extend %heading-caps;
+  font-weight: $bold;
+  line-height: 1;
+}
+
 %heading-epsilon {
   @extend %epsilon;
   @extend %heading-caps;
@@ -205,6 +212,7 @@
 %teal-button {
   @extend %heading-epsilon;
   @extend %bare-link;
+  @extend %shaded-inside-bottom;
   // @extend %fade-background-color;
   color: $beigeLight;
   background-color: $tealLight;
@@ -219,12 +227,13 @@
 %teal-arrow-button {
   @extend %heading-epsilon;
   @extend %bare-link;
+  @extend %shaded-inside-bottom;
   // @extend %fade-background-color;
   @include font-body;
   display: inline-block;
   color: $beige;
   background-color: $tealLight;
-  padding: 1.2rem 3.9rem 1.2rem 1.4rem;
+  padding: 0.9rem 3.9rem 1rem 1.4rem;
   border: none;
   border-radius: $radius;
   position: relative;
@@ -235,11 +244,18 @@
     width: 2rem;
     height: 2rem;
     position: absolute;
-    top: 0.9rem;
+    top: 0.6rem;
     right: 1.1rem;
   }
   &:hover {
     background-color: $orange;
+  }
+}
+
+%teal-plus-button {
+  @extend %teal-arrow-button;
+  &:after {
+    @include svg(circle-plus);
   }
 }
 

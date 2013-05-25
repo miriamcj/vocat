@@ -296,6 +296,7 @@
   margin-top: $headerHeight;
   position: relative;
   z-index: 100;
+  overflow-x: hidden;
 }
 
 // Generic content
@@ -303,6 +304,61 @@
 // Can live inside any container
 .content-frame {
   @extend %frame;
+}
+
+// Bar header
+// NB the only link that should be included as a direct child of this
+// is a button, like .teal-plus-button or .teal-arrow-button
+// --------------------------
+.bar-header {
+  @extend %clearfix;
+  @extend %shaded-bottom;
+  height: 8rem;
+  background-color: $tealLightestAlt;
+  padding: 2.4rem 3.9rem;
+  position: relative;
+  z-index: 110;
+  &>a {
+    float: right;
+  }
+}
+
+.bar-header--title {
+  @extend %heading-gamma-sup;
+  color: $tealMedium;
+  padding: 0.7rem 0;
+  float: left;
+}
+
+// Table
+// --------------------------
+// <table>
+.table {
+  width: 100%;
+  border-top: 0.1rem solid transparentize($tealLight, 0.5);
+  thead {
+    background-color: $tealLightest;
+    border-bottom: 0.1rem solid transparentize($tealLight, 0.5);
+    th {
+      height: 3.6rem;      
+      border-left: 0.1rem solid transparentize($tealLight, 0.5);
+    }
+  }
+  th,
+  td {
+    // height: 5.1rem;
+    padding: 0 1.2rem;
+  }
+  th {
+    text-align: left;
+  }
+  td {
+    @extend %delta;
+    max-width: 33rem;
+    vertical-align: top;
+    border-left: 0.1rem solid transparentize($tealLight, 0.5);
+    // overflow: hidden;
+  }
 }
 
 // Frame header
