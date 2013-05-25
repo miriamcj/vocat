@@ -42,7 +42,7 @@ class Vocat.Views.EvaluationDetailUpload extends Vocat.Views.AbstractView
       fail: (e, data) =>
         @submission.set('is_upload_started', false)
         @submission.trigger('file:upload_failed')
-        Vocat.Dispatcher.trigger('flash', {level: 'error', message: 'Your upload file failed. Only video files are allowed and please make sure it is less than 200MB.'})
+        Vocat.Dispatcher.trigger('flash', {level: 'error', message: 'Your upload file failed. Only video files are allowed and please make sure it is less than 25MB.'})
       send: (e, data) =>
         @submission.set('is_upload_started', true)
         @submission.trigger('file:upload_started')
