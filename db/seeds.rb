@@ -184,6 +184,22 @@ courses.each do |course|
 
       end
     end
+
+    # Create some groups
+    rand(2..5).times do
+      name = Faker::Lorem.words(rand(1..2)).map(&:capitalize).join(' ')
+      before = %w(Team Group Committee Troop).sample
+      after = rand > 0.5 ? %w(Club Brigade).sample : ''
+      if rand > 0.5
+        group = course.groups.create(:name => "#{before} #{name}")
+      else
+        group = course.groups.create(:name => "#{name} #{after}".rstrip)
+      end
+
+      group.creators << course_creators[3..4]
+      group.save
+    end
+
   end
 
 end
