@@ -14,3 +14,7 @@ class Vocat.Collections.DiscussionPost extends Backbone.Collection
 
   getParentPosts: () ->
     @where({'parent_id': null})
+
+  getChildPosts: () ->
+    @filter (post) ->
+      post.get('parent_id') != null

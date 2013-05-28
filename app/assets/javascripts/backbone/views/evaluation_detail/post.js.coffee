@@ -5,8 +5,10 @@ class Vocat.Views.EvaluationDetailPost extends Vocat.Views.AbstractView
 
   events:
     'keypress :input': 'handleSavePost'
+    'click [data-behavior="toggle-reply"]': 'handleToggleReply'
     'click [data-behavior="toggle-delete-confirm"]': 'toggleDeleteConfirm'
     'click [data-behavior="delete"]': 'deletePost'
+
 
   tagName: 'li'
 #  className: 'discussion-list--item'
@@ -14,28 +16,37 @@ class Vocat.Views.EvaluationDetailPost extends Vocat.Views.AbstractView
   initialize: (options) ->
     @discussions = options.discussions
     @model.bind('destroy', () => @handleDestroyedPost())
-    @model.bind('showReply', () => @handleShowReply())
+    @model.bind('toggleReply', () => @toggleReply())
 
   toggleDeleteConfirm: (e) ->
+    e.stopPropagation()
     e.preventDefault()
-    @$el.find('[data-behavior="delete-confirm"]').slideToggle(150)
+    console.log @el
+    @$el.find('[data-behavior="delete-confirm"]:first').slideToggle(150)
 
   deletePost: (e) ->
+    e.stopPropagation()
     e.preventDefault()
     postId = $(e.currentTarget).data().post
     results = @discussions.get(postId).destroy({wait: true})
 
+  toggleReply: (e) ->
+    @$el.find('[data-behavior="input-container"]').slideToggle()
+
   handleSavePost: (e) ->
     if e.keyCode == 13
       e.preventDefault()
+      e.stopPropagation()
       postInput = $(e.currentTarget)
       # The actual saving of the post is handled in the discussions view.
       Vocat.Dispatcher.trigger('savePost', postInput)
 
-  handleShowReply: () ->
-    @$el.find('[data-behavior="input-container"]').fadeIn(250, () ->
-      $(@).find('textarea').autosize()
-    )
+  handleToggleReply: (e) ->
+    e.stopPropagation()
+    e.preventDefault()
+    postId = $(e.currentTarget).data().post
+    post = @discussions.get(postId)
+    post.trigger('toggleReply')
 
   handleDestroyedPost: () ->
     @$el.fadeOut(250, () =>

@@ -5,7 +5,6 @@ class Vocat.Views.EvaluationDetailDiscussion extends Vocat.Views.AbstractView
 
   events:
     'keypress [data-behavior="parent-input"] textarea': 'handleSavePost'
-    'click [data-behavior="reply"]': 'replyToPost'
 
   initialize: (options) ->
     @submission = options.submission
@@ -15,11 +14,19 @@ class Vocat.Views.EvaluationDetailDiscussion extends Vocat.Views.AbstractView
         @render()
     )
     @discussions.bind('add', (post) =>
+      @updateCount()
+      @addPost(post)
+    )
+    @discussions.bind('remove', (post) =>
+      @updateCount()
       @addPost(post)
     )
     Vocat.Dispatcher.bind('savePost', (postInput) =>
       @savePost(postInput)
     )
+
+  updateCount: () ->
+    @$el.find('[data-behavior="post-count"]').html(@discussions.length)
 
   addPost: (post) ->
     target = @getPostTarget(post)
@@ -31,12 +38,6 @@ class Vocat.Views.EvaluationDetailDiscussion extends Vocat.Views.AbstractView
       target = @$el.find('[data-post="' + post.get('parent_id') + '"] [data-behavior="post-container"]')
     else
       target = @$el.find('[data-behavior="post-container"]:first')
-
-  replyToPost: (e) ->
-    e.preventDefault()
-    postId = $(e.currentTarget).data().post
-    post = @discussions.get(postId)
-    post.trigger('showReply')
 
   # Handling the post is broken out from the actual saving because child posts also contain
   # a new post interface, and we want to route all new post submissions through a single save
@@ -81,10 +82,16 @@ class Vocat.Views.EvaluationDetailDiscussion extends Vocat.Views.AbstractView
     @$el.html(@template(context))
     @$el.find('textarea').autosize()
 
-    @discussions.each( (post) =>
+    # Render parents, then children, since the parents have to exist before the children.
+    _.each( @discussions.getParentPosts(), (post) =>
       postTarget = @getPostTarget(post)
       @addPost(post)
     )
+    _.each( @discussions.getChildPosts(), (post) =>
+      postTarget = @getPostTarget(post)
+      @addPost(post)
+    )
+
 
 
     # Return thyself for maximum chaining!
