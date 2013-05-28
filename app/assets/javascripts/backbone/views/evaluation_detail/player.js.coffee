@@ -37,7 +37,15 @@ class Vocat.Views.EvaluationDetailPlayer extends Vocat.Views.AbstractView
       condition: (model) =>
         results = model.get('has_uploaded_attachment') && model.get('is_transcoding_complete')
         if results == true
-          Vocat.Dispatcher.trigger 'file:transcoded'
+          unless model.get('is_video')
+            Vocat.Dispatcher.trigger('flash', {level: 'error', message: 'Only video files are supported. Please upload a different file.'})
+            # temp settings
+            model.set('is_upload_started', false)
+            model.set('has_uploaded_attachment', false)
+            Vocat.Dispatcher.trigger('file:upload_failed')
+          else
+            Vocat.Dispatcher.trigger 'file:transcoded'
+
         !results
     }
     poller = Backbone.Poller.get(@submission, options);
@@ -59,7 +67,7 @@ class Vocat.Views.EvaluationDetailPlayer extends Vocat.Views.AbstractView
       creator: @creator.toJSON()
     }
     @$el.html(@template(context))
-    if @submission.get('has_transcoded_attachment')
+    if @submission.get('is_transcoding_complete') and @submission.get('has_transcoded_attachment')
       Popcorn.player('baseplayer')
       playerElement = @$el.find('[data-behavior="video-player"]').get(0)
       @player = Popcorn(playerElement)

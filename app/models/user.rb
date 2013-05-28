@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :assistant_courses, :class_name => "Course", :join_table => "courses_assistants"
   has_and_belongs_to_many :evaluator_courses, :class_name => "Course", :join_table => "courses_evaluators"
   has_and_belongs_to_many :creator_courses, :class_name => "Course", :join_table => "courses_creators"
+  has_and_belongs_to_many :groups, :join_table => "groups_creators"
 
   scope :evaluators, where(:role => "evaluator")
   scope :creators, where(:role => "creator")
