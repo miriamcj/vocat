@@ -13,5 +13,4 @@ class Vocat.Collections.DiscussionPost extends Backbone.Collection
     url + 'discussion_posts'
 
   getParentPosts: () ->
-    console.log @
     @where({'parent_id': null})

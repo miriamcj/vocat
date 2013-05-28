@@ -122,6 +122,18 @@ class Ability
       end
     end
 
+    ######################################################
+    # Posts
+    ######################################################
+    can :reply, DiscussionPost do |discussionPost|
+      true
+    end
+
+    can :destroy, DiscussionPost do |discussionPost|
+      true
+    end
+
+
 
     ######################################################
     # Annotations
@@ -154,6 +166,7 @@ class Ability
     if user.role? :admin
       can :manage, :all
     end
+
 
   end
 

@@ -1,5 +1,6 @@
 class DiscussionPostSerializer < ActiveModel::Serializer
-  attributes :id, :author_id, :author_name, :body, :published, :parent_id, :gravatar, :created_at, :month, :day, :year, :time
+  attributes :id, :author_id, :author_name, :body, :published, :parent_id, :gravatar, :created_at, :month, :day, :year, :time,
+             :current_user_can_reply, :current_user_can_destroy
 
   def month
     object.created_at.strftime("%b")
@@ -15,6 +16,14 @@ class DiscussionPostSerializer < ActiveModel::Serializer
 
   def time
     object.created_at.strftime("%I:%M %p")
+  end
+
+  def current_user_can_reply
+    Ability.new(scope).can?(:reply, object)
+  end
+
+  def current_user_can_destroy
+    Ability.new(scope).can?(:destroy, object)
   end
 
 

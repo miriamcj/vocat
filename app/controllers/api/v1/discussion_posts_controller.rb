@@ -11,6 +11,11 @@ class Api::V1::DiscussionPostsController < ApiController
     respond_with @discussion_posts
   end
 
+  def destroy
+    @discussion_post.destroy
+    respond_with(@discussion_post)
+  end
+
   def create
     @discussion_post.author_id = current_user.id
     if @discussion_post.save
