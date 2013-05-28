@@ -210,7 +210,7 @@ class Vocat.Views.CourseMap extends Vocat.Views.AbstractView
       sliderWidth: sliderWidth
       minLeft: minLeft
       maxLeft: 0
-      distance: 200
+      distance: colWidth
       slideElements: slideElements
     }
 
