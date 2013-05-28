@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require jquery-ui.min
 //= require jquery-fileupload/basic
+//= require jquery-autosize
 //= require_popcorn/popcorn-complete
 //= require js-routes
 //= require underscore

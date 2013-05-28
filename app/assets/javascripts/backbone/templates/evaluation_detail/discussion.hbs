@@ -2,15 +2,15 @@
 	<h2 class="frame--title">Discussions</h2>
 	<nav class="frame--header--comments">
 		<ul>
-			<li><a href="">12</a></li>
-			<li><a href="">3 New</a></li>
+			<li><a href="">{{postCount}}</a></li>
+			<!-- <li><a href="">3 New</a></li> -->
 		</ul>
 	</nav>
 </header>
 <div class="discussion">
-	<div class="discussion--input">
-		<input type="text" data-behavior="post-input" placeholder="Start writing new comment...">
-	</div>
+  <div data-behavior="parent-input">
+  {{{post_input}}}
+  </div>
 	<ul class="discussion-list" data-behavior="post-container">
 	</ul>
 </div>

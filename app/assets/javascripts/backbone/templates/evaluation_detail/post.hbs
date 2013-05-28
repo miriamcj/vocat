@@ -1,7 +1,29 @@
+<div class="discussion-list--item">
 <header class="discussion-list--header">
   <h3 class="discussion-list--name">{{post.author_name}}</h3>
   <time class="discussion-list--timestamp" datetime="">Posted {{post.month}} {{post.day}}, {{post.year}} at {{post.time}}</time>
   <img src="{{post.gravatar}}" alt="" />
 </header>
 <p>{{post.body}}</p>
-<a class="discussion-list--link" href="">Reply</a>
+
+{{#if post.current_user_can_reply}}
+
+{{#unless post.parent_id}}
+<a class="discussion-list--link" data-behavior="reply" data-post="{{post.id}}" href="#">Reply</a>
+{{/unless}}
+
+{{#if post.current_user_can_destroy}}
+<a class="discussion-list--link" data-behavior="delete" data-post="{{post.id}}" href="#">Delete</a>
+{{/if}}
+
+{{/if}}
+
+</div>
+
+{{#unless post.parent_id}}
+<ul class="discussion-list" data-behavior="post-container">
+  <li data-behavior="input-container" style="display: none">
+  {{{post_input}}}
+  </li>
+</ul>
+{{/unless}}
