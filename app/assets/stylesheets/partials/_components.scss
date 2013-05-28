@@ -899,6 +899,11 @@
 // Discussion list
 // --------------------------
 .discussion-list {
+  .alert-warning {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 2rem;
+  }
   @extend %unstyled-list;
   margin: 0;
   //li {
@@ -912,7 +917,12 @@
   & & {
     margin-left: 5rem;
   }
+  .discussion-list--input-container {
+    margin-left: 5rem;
+  }
 }
+
+
 
 .discussion-list--item {
   @extend %comment;

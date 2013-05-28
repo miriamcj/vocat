@@ -5,6 +5,8 @@ class Vocat.Views.EvaluationDetailPost extends Vocat.Views.AbstractView
 
   events:
     'keypress :input': 'handleSavePost'
+    'click [data-behavior="toggle-delete-confirm"]': 'toggleDeleteConfirm'
+    'click [data-behavior="delete"]': 'deletePost'
 
   tagName: 'li'
 #  className: 'discussion-list--item'
@@ -14,14 +16,26 @@ class Vocat.Views.EvaluationDetailPost extends Vocat.Views.AbstractView
     @model.bind('destroy', () => @handleDestroyedPost())
     @model.bind('showReply', () => @handleShowReply())
 
+  toggleDeleteConfirm: (e) ->
+    e.preventDefault()
+    @$el.find('[data-behavior="delete-confirm"]').slideToggle(150)
+
+  deletePost: (e) ->
+    e.preventDefault()
+    postId = $(e.currentTarget).data().post
+    results = @discussions.get(postId).destroy({wait: true})
+
   handleSavePost: (e) ->
     if e.keyCode == 13
+      e.preventDefault()
       postInput = $(e.currentTarget)
       # The actual saving of the post is handled in the discussions view.
       Vocat.Dispatcher.trigger('savePost', postInput)
 
   handleShowReply: () ->
-    @$el.find('[data-behavior="input-container"]').fadeIn()
+    @$el.find('[data-behavior="input-container"]').fadeIn(250, () ->
+      $(@).find('textarea').autosize()
+    )
 
   handleDestroyedPost: () ->
     @$el.fadeOut(250, () =>

@@ -8,12 +8,19 @@
 
 {{#if post.current_user_can_reply}}
 
-{{#unless post.parent_id}}
-<a class="discussion-list--link" data-behavior="reply" data-post="{{post.id}}" href="#">Reply</a>
-{{/unless}}
+{{#if post.parent_id}}
+<a class="discussion-list--link" data-behavior="reply" data-post="{{post.parent_id}}" href="#">Reply</a>
+{{else}}
+<a class="discussion-list--link" data-behavior="reply" data-post="{{post.if}}" href="#">Reply</a>
+{{/if}}
 
 {{#if post.current_user_can_destroy}}
-<a class="ex-link" data-behavior="delete" data-post="{{post.id}}" href="#">Delete</a>
+<a class="ex-link" data-behavior="toggle-delete-confirm" href="#">Delete</a>
+<div class="alert-warning" data-behavior="delete-confirm" style="display: none;" >
+  <aside class="alert--label" data-behavior="alert-label"></aside>
+  <p>Are you sure? <a data-behavior="delete" data-post="{{post.id}}" href="#">Yes. Delete this post.</a></p>
+  <a class="alert--close" data-behavior="toggle-delete-confirm" href="#"></a>
+</div>
 {{/if}}
 
 {{/if}}
@@ -22,8 +29,8 @@
 
 {{#unless post.parent_id}}
 <ul class="discussion-list" data-behavior="post-container">
-  <li data-behavior="input-container" style="display: none">
-  {{{post_input}}}
-  </li>
 </ul>
+<div class="discussion-list--input-container" data-behavior="input-container" style="display: none">
+  {{{post_input}}}
+</div>
 {{/unless}}
