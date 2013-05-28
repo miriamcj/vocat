@@ -15,15 +15,12 @@
 {{/if}}
 
 {{#if post.current_user_can_destroy}}
-<a class="discussion-list--link" data-behavior="toggle-delete-confirm" href="#">Delete</a>
-
-
+<a class="ex-link" data-behavior="toggle-delete-confirm" href="#">Delete</a>
 <div class="alert-warning" data-behavior="delete-confirm" style="display: none;" >
   <aside class="alert--label" data-behavior="alert-label"></aside>
   <p>Are you sure? <a data-behavior="delete" data-post="{{post.id}}" href="#">Yes. Delete this post.</a></p>
   <a class="alert--close" data-behavior="toggle-delete-confirm" href="#"></a>
 </div>
-
 {{/if}}
 
 {{/if}}

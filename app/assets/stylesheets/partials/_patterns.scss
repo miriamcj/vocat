@@ -341,6 +341,7 @@
   display: inline-block;
   color: $teal;
   padding: 0.2em 2.2em 0.3em 0;
+  margin-right: 1.6rem;
   position: relative;
   &:after {
     @include svg(circle-arrow-right-teal);
@@ -386,6 +387,18 @@
     color: $orange;
     &:after {
       @include svg(circle-arrow-bent-orange);
+    }
+  }
+}
+
+%ex-link {
+  @extend %arrow-link;
+  &:after {
+    @include svg(circle-x-teal);
+  }
+  &:hover {
+    &:after {
+      @include svg(circle-x-orange);
     }
   }
 }
