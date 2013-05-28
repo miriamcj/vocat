@@ -140,16 +140,19 @@ presentation = ProjectType.new(:name => "Presentation")
 #
 courses.each do |course|
 
+  # Scramble the users
   evaluators.shuffle!
   assistants.shuffle!
   creators.shuffle!
 
+  # Add users to the course
   course.evaluators << evaluators[0]
   course.assistants << assistants[0..2]
   course.creators << creators[0..rand(10..15)]
 
   course.save
 
+  # Create projects in various states of completeness
   rand(1..4).times do
     project = course.projects.create(:name => Faker::Company.bs.split(' ').map(&:capitalize).join(' '), :description => Faker::Lorem.paragraph)
     project.project_type = presentation
@@ -169,6 +172,7 @@ courses.each do |course|
         submission.creator = course_creators[i]
         submission.save!
 
+        # Some submitted projects have been evaluated
         if rand > 0.5
           evaluation  = submission.evaluations.create()
           evaluation.rubric = rubric
