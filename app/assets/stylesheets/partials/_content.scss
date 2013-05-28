@@ -78,6 +78,11 @@
   @extend %bent-arrow-link;
 }
 
+.ex-link {
+  @extend %heading-epsilon;
+  @extend %ex-link;
+}
+
 .speech-bubble {
   @extend %speech-bubble;
 }
