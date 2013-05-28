@@ -738,7 +738,7 @@
 .authentication-tile--label {
   @extend %delta;
   @extend %no-select;
-  margin: 1.1rem 0 1rem;
+  margin: 0.8rem 0;
   float: left;
   position: relative;
   cursor: pointer;
@@ -746,7 +746,7 @@
 
 // Lives inside .authentication-tile--label
 .authentication-tile--checkbox {
-  @extend %square-checkbox;
+  @extend %gray-square-checkbox;
 }
 
 // Lives inside .authentication-tile--label
@@ -756,7 +756,9 @@
 }
 
 .authentication-tile--button {
-  @extend %teal-arrow-button;
+  @extend %large-teal-button;
+  @extend %reset-input;
+  font-weight: $regular;
   float: right;
 }
 
