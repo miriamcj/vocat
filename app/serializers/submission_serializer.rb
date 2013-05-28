@@ -57,7 +57,7 @@ class SubmissionSerializer < ActiveModel::Serializer
   end
 
   def is_video
-    object.attachment.is_video?
+    object.attachment && object.attachment.is_video?
   end
 
   def thumb
