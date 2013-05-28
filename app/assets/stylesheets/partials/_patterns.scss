@@ -97,6 +97,10 @@
   @include font-size(27.4);
 }
 
+%kilo {
+  @include font-size(24.4);
+}
+
 %deci {
   // @include font-size(0.2);
 }
@@ -229,6 +233,15 @@
   padding: 0.9rem 1.4rem 1rem 1.4rem;
 }
 
+%large-gray-button {
+  @extend %teal-button;
+  background-color: $beigeDark;
+  padding: 0.9rem 1.4rem 1rem 1.4rem;
+  &:hover {
+    background-color: darken($beigeDark, 12%);
+  }
+}
+
 %teal-arrow-button {
   @extend %heading-epsilon;
   @extend %bare-link;
@@ -261,6 +274,17 @@
   @extend %teal-arrow-button;
   &:after {
     @include svg(circle-plus);
+  }
+}
+
+%gray-ex-button {
+  @extend %teal-arrow-button;
+  background-color: $beigeDark;
+  &:after {
+    @include svg(circle-x-beigeLight);
+  }
+  &:hover {
+    background-color: darken($beigeDark, 12%);
   }
 }
 
@@ -484,6 +508,24 @@
   }
 }
 
+%piped-link-list {
+  @extend %piped-list;
+  li {
+    @extend %heading-epsilon;
+    color: transparentize($grayDark, 0.16);
+  }
+  li + li {
+    margin-left: 3.6rem;
+  }
+  a {
+    @extend %bare-link;
+    @extend %orange-hover;
+    &.active {
+      color: $orange;
+    }
+  }
+}
+
 %speech-bubble-list {
   @extend %floated-list;
   margin: 0;
@@ -501,20 +543,30 @@
 // Inputs
 // --------------------------
 %reset-input {
+  -webkit-font-smoothing: antialiased;
   @include font-body;
   border: none;
 }
 
 // Extended by %white-text-input & %speech-bubble-input
 %text-input {
+  @extend %reset-input;
   @extend %bare-focus;
-  @include font-body;
   display: block;
   width: 100%;
   color: $beigeDark;
   background-color: $beigeLight;
-  border: none;
   margin-bottom: 1.3rem;
+}
+
+%medium-text-input {
+  @extend %text-input;
+  @extend %gamma;
+  @include placeholder($grayLight);
+  color: $grayDark;
+  padding: 0.7rem 1.1rem 0.7rem;
+  border-radius: $radius;
+  margin-bottom: 0.7rem;
 }
 
 %white-text-input {
@@ -523,7 +575,18 @@
   @include placeholder($beigeDark);
   padding: 0.8rem 1.4rem 0.8rem;
   border-radius: $radius;
+}
+
+%text-area-input {
+  @extend %reset-input;
+  @extend %bare-focus;
+  width: 100%;
+  color: $grayDark;
+  background-color: $beigeLight;
+  padding: 0.7rem 1.1rem 0.7rem;
+  border-radius: $radius;
   margin-bottom: 1.3rem;
+  resize: none;
 }
 
 // NB extend this on a wrapper around your <input>
@@ -589,6 +652,18 @@
   }
 }
 
+%multicolored-square-checkbox {
+  @extend %square-checkbox;
+  & + b {
+    @include svg(checkbox-unchecked-multi);
+  }
+  &:checked {
+    & + b {
+      @include svg(checkbox-multi);
+    }
+  }
+}
+
 %round-checkbox {
   @include opacity(0);
   .lt-ie9 & {
@@ -609,6 +684,18 @@
   &:checked {
     & + b {
       @include svg(radio-checked-gray);
+    }
+  }
+}
+
+%multicolored-round-checkbox {
+  @extend %round-checkbox;
+  & + b {
+    @include svg(radio-unchecked);
+  }
+  &:checked {
+    & + b {
+      @include svg(radio);
     }
   }
 }
@@ -761,6 +848,7 @@
   @extend %shaded-inside-bottom;
   @include background-clip(padding);
   display: inline-block;
+  height: 3.2rem;
   line-height: 1;
   color: $grayLighter;
   background-color: $grayDarker;
@@ -769,7 +857,7 @@
   border-radius: $radius 0 0 $radius;
   margin-right: 3.6rem;
   position: relative;
-  height: 3.2rem;
+  cursor: pointer;  
   &:before {
     @extend %shaded-inside-bottom;
     content: "";
