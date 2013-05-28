@@ -44,11 +44,8 @@ class Vocat.Views.EvaluationDetailPlayer extends Vocat.Views.AbstractView
             model.set('has_uploaded_attachment', false)
             Vocat.Dispatcher.trigger('file:upload_failed')
           else
-            # For whatever reason we need to pause a moment after
-            # the transcoding finishes. Otherwise the url isn't ready.
-            setTimeout ->
-              Vocat.Dispatcher.trigger 'file:transcoded'
-            , 100
+            Vocat.Dispatcher.trigger 'file:transcoded'
+
         !results
     }
     poller = Backbone.Poller.get(@submission, options);
@@ -70,7 +67,7 @@ class Vocat.Views.EvaluationDetailPlayer extends Vocat.Views.AbstractView
       creator: @creator.toJSON()
     }
     @$el.html(@template(context))
-    if @submission.get('has_transcoded_attachment')
+    if @submission.get('is_transcoding_complete') and @submission.get('has_transcoded_attachment')
       Popcorn.player('baseplayer')
       playerElement = @$el.find('[data-behavior="video-player"]').get(0)
       @player = Popcorn(playerElement)
