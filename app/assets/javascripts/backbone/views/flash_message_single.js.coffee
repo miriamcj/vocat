@@ -6,10 +6,15 @@ class Vocat.Views.FlashMessageSingle extends Vocat.Views.AbstractView
     'click .alert--close': 'close'
 
   render: () ->
-    @$el = $(@template(@model.toJSON()))
-    @delegateEvents()
-    return @$el
+    if @model and @collection
+      @$el = $(@template(@model.toJSON()))
+      @delegateEvents()
+      return @$el
 
   close: () ->
-    @collection.remove @model
-    @$el.fadeOut(500)
+    @collection.remove @model if @model and @collection
+    @$el.fadeOut
+      duration: 500
+      done: =>
+        # remove alerts container
+        @$el.parent().remove() if @$el.siblings().length == 0
