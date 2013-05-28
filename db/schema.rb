@@ -11,14 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130508223252) do
+ActiveRecord::Schema.define(:version => 20130528172431) do
 
   create_table "annotations", :force => true do |t|
     t.integer  "attachment_id"
     t.text     "body"
     t.string   "smpte_timecode"
     t.boolean  "published"
-    t.integer  "seconds_timecode"
+    t.float    "seconds_timecode"
     t.integer  "author_id"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
