@@ -2,7 +2,7 @@
 <div class="alerts">
   <% flash.each do |name, msg| %>
     <% if msg.is_a?(String) %>
-      <div class="alert-<%= name %>" data-behavior="alert">
+      <div class="alert-<%= name %>" data-behavior="alert" data-view="FlashMessageSingle">
         <aside class="alert--label" data-behavior="alert-label"></aside>
         <%= content_tag :p, msg, :id => "flash_#{name}" %>
         <a class="alert--close" href="#"></a>
