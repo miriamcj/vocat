@@ -37,7 +37,18 @@ class Vocat.Views.EvaluationDetailPlayer extends Vocat.Views.AbstractView
       condition: (model) =>
         results = model.get('has_uploaded_attachment') && model.get('is_transcoding_complete')
         if results == true
-          Vocat.Dispatcher.trigger 'file:transcoded'
+          unless model.get('is_video')
+            Vocat.Dispatcher.trigger('flash', {level: 'error', message: 'Only video files are supported. Please upload a different file.'})
+            # temp settings
+            model.set('is_upload_started', false)
+            model.set('has_uploaded_attachment', false)
+            Vocat.Dispatcher.trigger('file:upload_failed')
+          else
+            # For whatever reason we need to pause a moment after
+            # the transcoding finishes. Otherwise the url isn't ready.
+            setTimeout ->
+              Vocat.Dispatcher.trigger 'file:transcoded'
+            , 100
         !results
     }
     poller = Backbone.Poller.get(@submission, options);

@@ -83,15 +83,21 @@ class Attachment < ActiveRecord::Base
     )
   end
 
+  def is_video?
+    case media_content_type
+      when "video/mpeg","video/mp4","video/ogg","video/quicktime","video/webm","video/x-matroska","video/x-ms-wmv","video/x-flv"
+        return true
+      else
+        return false
+    end
+  end
+
   # A method for generically running the transcoding
   def transcode_media
     transcoding_happened = FALSE
 
     # Skip transcoding for non-movie files
-    case media_content_type
-      when "video/mpeg","video/mp4","video/ogg","video/quicktime","video/webm","video/x-matroska","video/x-ms-wmv","video/x-flv"
-        # continue
-      else
+    unless is_video?
         self.update_column(:transcoding_status, TRANSCODING_STATUS_UNNECESSARY)
         return
     end
