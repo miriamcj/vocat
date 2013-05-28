@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130528172431) do
+ActiveRecord::Schema.define(:version => 20130528174737) do
 
   create_table "annotations", :force => true do |t|
     t.integer  "attachment_id"
@@ -124,7 +124,7 @@ ActiveRecord::Schema.define(:version => 20130528172431) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "groups_users", :force => true do |t|
+  create_table "groups_creators", :id => false, :force => true do |t|
     t.integer "group_id"
     t.integer "user_id"
   end
