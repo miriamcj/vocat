@@ -428,8 +428,6 @@
 
 // NB uses ems so font-size can be set on component
 %speech-bubble {
-  @extend %bare-link;
-  // @extend %fade-background-color;
   font-weight: $medium;
   line-height: 1;
   color: $beigeLight;
@@ -449,6 +447,11 @@
     left: 0.5em;
     bottom: -0.7em;
   }
+}
+
+%speech-bubble-link {
+  @extend %speech-bubble;
+  @extend %bare-link;
   &:hover {
     background-color: $orange;
     &:after {
@@ -533,7 +536,7 @@
   &>li {
     a {
       @extend %epsilon;
-      @extend %speech-bubble;
+      @extend %speech-bubble-link;
     }
   }
   &>li + li {
@@ -657,6 +660,7 @@
   @extend %square-checkbox;
   & + b {
     @include svg(checkbox-unchecked-multi);
+    top: 0.1rem;
   }
   &:checked {
     & + b {
