@@ -5,7 +5,6 @@ class Vocat.Views.EvaluationDetailDiscussion extends Vocat.Views.AbstractView
 
   events:
     'keypress [data-behavior="parent-input"] textarea': 'handleSavePost'
-    'click [data-behavior="delete"]': 'deletePost'
     'click [data-behavior="reply"]': 'replyToPost'
 
   initialize: (options) ->
@@ -39,16 +38,12 @@ class Vocat.Views.EvaluationDetailDiscussion extends Vocat.Views.AbstractView
     post = @discussions.get(postId)
     post.trigger('showReply')
 
-  deletePost: (e) ->
-    e.preventDefault()
-    postId = $(e.currentTarget).data().post
-    results = @discussions.get(postId).destroy({wait: true})
-
   # Handling the post is broken out from the actual saving because child posts also contain
   # a new post interface, and we want to route all new post submissions through a single save
   # post method.
   handleSavePost: (e) ->
     if e.keyCode == 13
+      e.preventDefault()
       postInput = $(e.currentTarget)
       Vocat.Dispatcher.trigger('savePost', postInput)
 
