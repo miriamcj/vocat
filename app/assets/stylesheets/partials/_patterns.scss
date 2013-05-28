@@ -224,6 +224,11 @@
   }
 }
 
+%large-teal-button {
+  @extend %teal-button;
+  padding: 0.9rem 1.4rem 1rem 1.4rem;
+}
+
 %teal-arrow-button {
   @extend %heading-epsilon;
   @extend %bare-link;
@@ -495,6 +500,11 @@
 
 // Inputs
 // --------------------------
+%reset-input {
+  @include font-body;
+  border: none;
+}
+
 // Extended by %white-text-input & %speech-bubble-input
 %text-input {
   @extend %bare-focus;
@@ -565,6 +575,18 @@
       @include svg(checkbox);
 		}
 	}
+}
+
+%gray-square-checkbox {
+  @extend %square-checkbox;
+  & + b {
+    @include svg(checkbox-unchecked-grayDark);
+  }
+  &:checked {
+    & + b {
+      @include svg(checkbox-grayDark);
+    }
+  }
 }
 
 %round-checkbox {
