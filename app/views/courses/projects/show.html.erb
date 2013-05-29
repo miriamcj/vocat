@@ -1,42 +1,44 @@
-<div class="project-show">
-  <div class="content-frame">
-    <h1 class="heading-largest">Project: "<%= @project.name %>"</h1>
-  </div>
-  <div class="content-frame">
-    <p>
-      <strong>Name:</strong>
-      <%= @project.name %>
-    </p>
-
-    <p>
-      <strong>Description:</strong>
-      <%= @project.description %>
-    </p>
-
-    <p>
-      <strong>Course:</strong>
-      <%= @project.course %>
-    </p>
-
-    <p>
-      <strong>Project type:</strong>
-      <%= @project.project_type %>
-    </p>
-
-    <ul class="model-table--actions">
-      <li>
-        <% if can? :update, @project %>
-          <%= link_to 'Edit', edit_course_project_path(@course, @project) %>
-        <% end %>
-      </li>
-      <li>
-        <%= link_to 'Back', course_projects_path(@course)%>
-      </li>
-
-    </ul>
-
-
-  </div>
+<div class="shaded-bottom">
+  <header class="bar-header">
+    <h2 class="bar-header--title">Project Details</h2>
+    <%= link_to 'Back', course_projects_path(@course), :class => 'teal-plus-button' %>
+  </header>
 </div>
 
+<div class="page-content--frame">
+  <header class="button-header">
+    <h2 class="button-header--title"><%= @project.name %></h2>
+  </header>
+  <p>
+    <strong>Name:</strong>
+    <%= @project.name %>
+  </p>
+
+  <p>
+    <strong>Description:</strong>
+    <%= @project.description %>
+  </p>
+
+  <p>
+    <strong>Course:</strong>
+    <%= @project.course %>
+  </p>
+
+  <p>
+    <strong>Project type:</strong>
+    <%= @project.project_type %>
+  </p>
+
+  <ul class="model-table--actions">
+    <li>
+      <% if can? :update, @project %>
+        <%= link_to 'Edit', edit_course_project_path(@course, @project) %>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to 'Back', course_projects_path(@course)%>
+    </li>
+
+  </ul>
+</div>
 
