@@ -1,0 +1,13 @@
+<header class="bar-header double-space-bottom">
+  <h2 class="bar-header--title">New Course Group</h2>
+  <%= link_to 'Back', course_group_path(@course), :class => 'gray-ex-button' %>
+  <%= render 'layouts/messages' %>
+</header>
+<div class="page-content--frame">
+  <%= render :partial => 'shared/bootstrap_collection', :locals => {:key => 'Creator', :data => @creators }%>
+  <%= render :partial => 'shared/bootstrap_collection', :locals => {:key => 'Group', :data => @groups}%>
+  <div class="groups" data-view="Groups"></div>
+</div>
+
+
+
