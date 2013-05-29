@@ -115,7 +115,8 @@ class Vocat.Views.EvaluationDetail extends Vocat.Views.AbstractView
     # The rest of the views are conditional, depending on user's abilities.
     if @submission.get('current_user_can_discuss') == true
       discussionView = new Vocat.Views.EvaluationDetailDiscussion(childViewOptions)
-      @$el.find('[data-behavior="discussion-view"]').first().html(discussionView.render().el)
+      # We don't render the discussion view, because it renders itself after fetching posts.
+      @$el.find('[data-behavior="discussion-view"]').first().html(discussionView.el)
 
     if @submission.canBeAnnotated() == true
       annotatorView = new Vocat.Views.EvaluationDetailAnnotator(_.extend(childViewOptions, {annotations: @annotations}))

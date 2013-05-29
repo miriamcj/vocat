@@ -1,20 +1,30 @@
 class Vocat.Views.EvaluationDetailPlayer extends Vocat.Views.AbstractView
 
-  template: HBT["backbone/templates/evaluation_detail/player"]
+  templates: {
+    hasTranscodedVideo: HBT["backbone/templates/evaluation_detail/partials/player_has_transcoded_video"]
+    noVideo: HBT["backbone/templates/evaluation_detail/partials/player_no_video"]
+    transcodingInProgress: HBT["backbone/templates/evaluation_detail/partials/player_transcoding_in_progress"]
+    uploadAllowed: HBT["backbone/templates/evaluation_detail/partials/player_upload_allowed"]
+    uploadInProgress: HBT["backbone/templates/evaluation_detail/partials/player_upload_in_progress"]
+    attachmentNotTranscoded: HBT["backbone/templates/evaluation_detail/partials/player_attachment_not_transcoded"]
+  }
 
   events:
-    'click [data-behavior="show-upload"]': 'showUpload'
+    'click [data-behavior="show-upload"]': 'handleShowUpload'
+    'click [data-behavior="request-transcoding"]': 'handleRequestTranscoding'
 
-  showUpload: (e) ->
+  handleShowUpload: (e) ->
     e.preventDefault()
     Vocat.Dispatcher.trigger 'showUpload'
+
+  handleRequestTranscoding: (e) ->
+    @submission.requestTranscoding()
 
   initialize: (options) ->
     super(options)
     @project = options.project
     @submission = options.submission
     @creator = options.creator
-
 
     if @submission
       @submission.bind 'file:upload_done', @startPolling, @
@@ -60,14 +70,36 @@ class Vocat.Views.EvaluationDetailPlayer extends Vocat.Views.AbstractView
   handlePlayerSeek: (options) ->
     @player.currentTime(options.seconds)
 
+  selectTemplate: () ->
+    # If we have a video, we show it.
+    if @submission.get('has_transcoded_attachment')
+      return 'hasTranscodedVideo'
+    else if @submission.get('is_upload_started')
+      return 'uploadInProgress'
+    else if @submission.get('transcoding_in_progress')
+      return 'transcodingInProgress'
+    else if @submission.get('has_uploaded_attachment')
+      # TODO: Allow the user to request a new transcoding!
+      return 'attachmentNotTranscoded'
+    else if @submission.get('current_user_can_attach')
+      return 'uploadAllowed'
+    else
+      return 'noVideo'
+
+
   render: () ->
+
+    template = @selectTemplate()
+
     context = {
       project: @project.toJSON()
       submission: @submission.toJSON()
       creator: @creator.toJSON()
     }
-    @$el.html(@template(context))
-    if @submission.get('is_transcoding_complete') and @submission.get('has_transcoded_attachment')
+
+    @$el.html(@templates[template](context))
+
+    if template == 'hasTranscodedVideo'
       Popcorn.player('baseplayer')
       playerElement = @$el.find('[data-behavior="video-player"]').get(0)
       @player = Popcorn(playerElement)

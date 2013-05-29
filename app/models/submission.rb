@@ -69,6 +69,10 @@ class Submission < ActiveRecord::Base
     self.attachment && self.attachment.transcoding_error != nil ? true : false
   end
 
+  def transcoding_in_progress?
+    attachment && attachment.transcoding_in_progress?
+  end
+
   def transcoding_complete?
     attachment && attachment.transcoding_complete?
   end

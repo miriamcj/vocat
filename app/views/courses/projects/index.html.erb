@@ -1,49 +1,51 @@
-<div class="project-index">
-  <div class="content-frame">
-    <h1 class="heading-largest">Manage projects</h1>
-  </div>
-  <div class="content-frame">
 
-    <table class="model-table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Description</th>
-          <th>Rubric</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-      <% @projects.each do |project| %>
-        <tr>
-          <th>
-            <%= link_to project.name, course_project_path(@course, project) %>
-          </th>
-          <td><%= project.description %></td>
-          <td><%= project.rubric_name %></td>
-          <td style="white-space: nowrap">
-            <% if can? :update, project %>
-             <%= link_to 'Edit', edit_course_project_path(@course, project) %>
-            <% end %>
-            <% if can? :delete, project %>
-              <%= link_to 'Delete', course_project_path(@course, project), method: :delete, data: { confirm: 'Are you sure?' } %>
-            <% end %>
-          </td>
-        </tr>
-      </tbody>
-      <% end %>
-    </table>
-
-    <br />
-
-    <% if can? :create, @course.projects.build %>
-    <ul class="model-table--actions">
-        <li><%= link_to 'New Project', new_course_project_path(@course) %></li>
-    </ul>
+<div class="shaded-bottom">
+  <header class="bar-header">
+    <h2 class="bar-header--title">Manage Course Projects</h2>
+    <%= link_to 'New Project', new_course_project_path(@course), :class => 'teal-plus-button' %>
+  </header>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Rubric</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @projects.each do |project| %>
+      <tr>
+        <th>
+          <%= link_to project.name, course_project_path(@course, project) %>
+        </th>
+        <td><%= project.description %></td>
+        <td><%= project.rubric_name %></td>
+        <td style="white-space: nowrap">
+          <% if can? :update, project %>
+            <strong><%= link_to 'Edit', edit_course_project_path(@course, project) %></strong> /
+          <% end %>
+          <% if can? :delete, project %>
+            <strong><%= link_to 'Delete', course_project_path(@course, project), method: :delete, data: { confirm: 'Are you sure?' } %></strong>
+          <% end %>
+        </td>
+      </tr>
     <% end %>
-
-  </div>
-
+    </tbody>
+  </table>
+  <nav class="pagination-nav">
+    <ul>
+      <li><a href="#">First</a></li>
+      <li><a href="#">Previous</a></li>
+      <li><a class="active" href="#">3</a></li>
+      <li><a href="#">4</a></li>
+      <li><a href="#">5</a></li>
+      <li><a href="#">Next</a></li>
+      <li><a href="#">Last</a></li>
+    </ul>
+  </nav>
 </div>
+
+
 
 

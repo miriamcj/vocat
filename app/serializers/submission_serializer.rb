@@ -6,7 +6,7 @@ class SubmissionSerializer < ActiveModel::Serializer
               :transcoded_attachment, :current_user_can_annotate,
               :current_user_can_attach, :current_user_can_discuss, :video_attachment_id, :scored_by_instructor?,
               :has_transcoded_attachment, :has_uploaded_attachment, :has_transcoding_error,
-              :is_transcoding_complete, :is_video
+              :is_transcoding_complete, :transcoding_in_progress, :is_video
 
   def instructor_evaluations
     ActiveModel::ArraySerializer.new(object.instructor_evaluations, :scope => scope)
@@ -44,9 +44,14 @@ class SubmissionSerializer < ActiveModel::Serializer
     object.transcoding_error?()
   end
 
+  def transcoding_in_progress
+    object.transcoding_in_progress?
+  end
+
   def is_transcoding_complete
     object.transcoding_complete?
   end
+
 
   def has_transcoded_attachment
     object.transcoded_attachment?()

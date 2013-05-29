@@ -1,6 +1,12 @@
 <figure class="frame-attachment">
 	{{#if submission.has_uploaded_attachment}}
+	{{debug submission}}
+  {{#if submission.thumb}}
   <img class="frame-attachment--image" src="{{submission.thumb}}"/>
+  {{else}}
+  <div class="attachment-placeholder">
+  </div>
+  {{/if}}
   <figcaption class="frame-attachment--details">
     <nav class="comments-nav">
       <ul>

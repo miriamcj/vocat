@@ -19,7 +19,6 @@ class Vocat.Views.EvaluationDetailDiscussion extends Vocat.Views.AbstractView
     )
     @discussions.bind('remove', (post) =>
       @updateCount()
-      @addPost(post)
     )
     Vocat.Dispatcher.bind('savePost', (postInput) =>
       @savePost(postInput)
@@ -50,7 +49,6 @@ class Vocat.Views.EvaluationDetailDiscussion extends Vocat.Views.AbstractView
 
   savePost: (postInput) ->
       data = postInput.data()
-      console.log data, 'data'
 
       if data.parent?
         parentId = data.parent
@@ -68,12 +66,15 @@ class Vocat.Views.EvaluationDetailDiscussion extends Vocat.Views.AbstractView
 
       postInput.val('').trigger('autosize');
 
+      # TODO: Users should not be able to save empty posts.
+
       post.save({},{
         success: (post) =>
           @discussions.add(post)
       })
 
   render: () ->
+
     context = {
       postCount: @discussions.length
       post_input: @inputPartial({})

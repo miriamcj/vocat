@@ -4,10 +4,11 @@ class Attachment < ActiveRecord::Base
   has_many :annotations
 
   # Transcoding constants
-  TRANSCODING_STATUS_BUSY = 0
+  TRANSCODING_STATUS_NOT_STARTED = 0
   TRANSCODING_STATUS_SUCCESS = 1
   TRANSCODING_STATUS_ERROR = 2
   TRANSCODING_STATUS_UNNECESSARY = 3
+  TRANSCODING_STATUS_BUSY = 4
 
   # Paperclip configurations
   has_attached_file :media,
@@ -85,7 +86,7 @@ class Attachment < ActiveRecord::Base
 
   def is_video?
     case media_content_type
-      when "video/mpeg","video/mp4","video/ogg","video/quicktime","video/webm","video/x-matroska","video/x-ms-wmv","video/x-flv"
+      when "video/mpeg","video/mp4","video/ogg","video/quicktime","video/webm","video/x-matroska","video/x-ms-wmv","video/x-flv","video/avi"
         return true
       else
         return false
@@ -95,6 +96,7 @@ class Attachment < ActiveRecord::Base
   # A method for generically running the transcoding
   def transcode_media
     transcoding_happened = FALSE
+    self.update_column(:transcoding_status , TRANSCODING_STATUS_BUSY)
 
     # Skip transcoding for non-movie files
     unless is_video?
@@ -118,7 +120,13 @@ class Attachment < ActiveRecord::Base
 
   # Determine if the transcoding is complete
   def transcoding_complete?
-    self.transcoding_status != TRANSCODING_STATUS_BUSY
+    self.transcoding_status == TRANSCODING_STATUS_SUCCESS ||
+        self.transcoding_status == TRANSCODING_STATUS_UNNECESSARY ||
+        self.transcoding_status == TRANSCODING_STATUS_ERROR
+  end
+
+  def transcoding_in_progress?
+    self.transcoding_status == TRANSCODING_STATUS_BUSY
   end
 
   protected
