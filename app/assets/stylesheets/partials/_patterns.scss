@@ -530,16 +530,19 @@
   li {
     @extend %heading-epsilon;
     color: transparentize($grayDark, 0.16);
+    &.active {
+      color: $orange;
+    }
   }
   li + li {
     margin-left: 3.6rem;
+    &:before {
+      color: transparentize($grayDark, 0.16);
+    }
   }
   a {
     @extend %bare-link;
     @extend %orange-hover;
-    &.active {
-      color: $orange;
-    }
   }
 }
 
@@ -1081,13 +1084,17 @@
 
 // Avatars
 // --------------------------------------------------------
-// Extended by individual color variants
+// NB be sure to include <img> in your markup
 %round-avatar {
-  display: block;
   width: 4.8rem;
   height: 4.8rem;
   border: 0.2rem solid $tealLight;
   border-radius: 100%;
+  overflow: hidden;
+  img {
+    display: block;
+    width: 100%;
+  }
 }
 
 // Score list
@@ -1248,12 +1255,12 @@
 // --------------------------------------------------------
 // Avatar header
 // --------------------------
-// NB be sure to include the <img> in your markup
+// NB be sure to include .avatar & <img> in your markup
 %avatar-header {
   padding: 0.1rem 0 0.2rem 5.7rem;
   margin-bottom: 1.2rem;
   position: relative;
-  img {
+  .avatar {
     @extend %round-avatar;
     position: absolute;
     top: 0;
@@ -1354,7 +1361,7 @@
 %alert--label {
   height: 2.8rem;
   position: absolute;
-  top: 1.4rem;
+  top: 1.8rem;
   left: 2.5rem;
 }
 
