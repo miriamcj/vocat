@@ -3,6 +3,7 @@
   <header class="bar-header">
     <h2 class="bar-header--title">Manage Course Projects</h2>
     <%= link_to 'New Project', new_course_project_path(@course), :class => 'teal-plus-button' %>
+    <%= render 'layouts/messages' %>
   </header>
   <table class="table">
     <thead>
@@ -34,6 +35,7 @@
     </tbody>
   </table>
   <%= paginate @projects %>
+
 </div>
 
 
