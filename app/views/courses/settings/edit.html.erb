@@ -1,29 +1,29 @@
-<div class="settings-show">
-  <div class="content-frame">
-    <h1 class="heading-largest">Edit Course Settings: "<%= @course.name %>"</h1>
-  </div>
-  <div class="content-frame">
-
-    <%= form_tag(course_settings_path(@course.id), :method => 'put') do %>
-      <ul class="unstyled">
-        <li>
-          <%= check_box_tag('settings[enable_annotation]', 1, @course.settings['enable_annotation'])%>
-          <%= label_tag(:allow_annotation, "Enable video annotation") %>
-        </li>
-        <li>
-          <%= check_box_tag('settings[enable_peer_review]', 1, @course.settings['enable_peer_review'])%>
-          <%= label_tag(:allow_annotation, "Enable peer review") %>
-        </li>
-        <li>
-          <%= check_box_tag('settings[enable_creator_attach]', 1, @course.settings['enable_creator_attach'])%>
-          <%= label_tag(:allow_annotation, "Allow creators to upload videos") %>
-        </li>
-        <%= submit_tag('Save Settings') %>
-      </ul>
-
+<header class="bar-header double-space-bottom">
+  <h2 class="bar-header--title">Edit Course Settings: "<%= @course.name %>"</h2>
+</header>
+<div class="page-content--frame">
+  <%= form_tag(course_settings_path(@course.id), :method => 'put') do %>
+    <fieldset>
+      <div class="input-group">
+        <label class="checkbox-label">
+          <%= check_box_tag('settings[enable_annotation]', 1, @course.settings['enable_annotation'], :class => 'checkbox')%>
+          <b></b>
+          Enable video annotation
+        </label>
+        <label class="checkbox-label">
+          <%= check_box_tag('settings[enable_peer_review]', 1, @course.settings['enable_peer_review'], :class => 'checkbox')%>
+          <b></b>
+          Enable peer review
+        </label>
+        <label class="checkbox-label">
+          <%= check_box_tag('settings[enable_creator_attach]', 1, @course.settings['enable_creator_attach'], :class => 'checkbox')%>
+          <b></b>
+          Allow creators to upload videos
+        </label>
+      </div>
+      <div class="input-group">
+        <%= submit_tag('Save Settings', :class => 'teal-arrow-button') %>
+      </div>
+    </fieldset>
   <% end %>
-  </div>
 </div>
-
-
-

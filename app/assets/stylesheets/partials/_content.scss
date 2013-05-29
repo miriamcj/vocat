@@ -61,6 +61,13 @@
   margin-right: 0.6rem;
 }
 
+input.teal-plus-button,
+input.gray-ex-button,
+input.teal-arrow-button {
+  @extend %reset-input;
+  padding-right: 1.4rem;
+}
+
 .white-pill {
   @extend %white-pill;
 }
