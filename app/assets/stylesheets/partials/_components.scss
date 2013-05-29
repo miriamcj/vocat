@@ -393,15 +393,6 @@
     &:first-child {
       padding-left: 3.9rem;
     }
-    div {
-      @extend %kilo;
-      @include font-head;
-      width: 21rem;
-      text-transform: uppercase;
-      white-space: nowrap;
-      text-overflow: ellipsis;      
-      overflow: hidden;
-    }
   }
   td {
     @extend %delta;
@@ -414,6 +405,27 @@
       @extend %orange-hover;
     }
   }
+}
+
+// <div> or <a>
+// Lives inside tbody>tr>th
+.table--heading {
+  @extend %kilo;
+  @include font-head;
+  display: block;
+  width: 21rem;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-overflow: ellipsis;      
+  overflow: hidden;
+}
+
+// Dear SASS, it would be great if something like 'a&'  
+// would work nested inside the above block
+a.table--heading {
+  @extend %orange-hover;
+  @extend %bare-link;
+  text-decoration: none;
 }
 
 // Pagination nav
@@ -510,6 +522,7 @@
 // Checkboxes
 // --------------------------
 .checkbox-label {
+  @extend %no-select;
   display: block;
   width: 50%;
   margin-bottom: 1rem;
@@ -527,6 +540,7 @@
 // Radio buttons
 // --------------------------
 .radio-label {
+  @extend %no-select;
   display: block;
   margin: 0 3rem 1rem 0;
   float: left;

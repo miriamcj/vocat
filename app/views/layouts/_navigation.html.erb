@@ -23,7 +23,9 @@
 </nav>
 
 <nav class="user-selector" data-behavior="dropdown">
-  <%= image_tag avatar_url(current_user, 48), :class => "primary-nav--avatar", :alt => "Charles Xavier" %>
+  <div class="primary-nav--avatar">
+    <%= image_tag avatar_url(current_user, 48), :alt => "Charles Xavier" %>    
+  </div>
   <% if user_signed_in? %>
     <a class="user-selector--toggle" data-behavior="toggle" href="#"><%= current_user.name %></a>
     <div class="user-selector--dropdown" data-behavior="dropdown-options">
