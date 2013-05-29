@@ -55,20 +55,21 @@
     display: block;
   }
   input[type=submit] {
-    /* I couldnt' just extend %teal-arrow-button because the after pseudo element doesn't work with a submit button */
-    @extend %epsilon;
-    @include font-body;
     display: inline-block;
-    font-weight: $bold;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    line-height: 1;
-    color: $beige;
-    background-color: $tealLight;
-    padding: 1.4rem 1.4rem 1.1rem 1.4rem;
-    border: none;
-    border-radius: $radius;
-    position: relative;
+    // /* I couldnt' just extend %teal-arrow-button because the after pseudo element doesn't work with a submit button */
+    // @extend %epsilon;
+    // @include font-body;
+    // display: inline-block;
+    // font-weight: $bold;
+    // text-transform: uppercase;
+    // letter-spacing: 0.1em;
+    // line-height: 1;
+    // color: $beige;
+    // background-color: $tealLight;
+    // padding: 1.4rem 1.4rem 1.1rem 1.4rem;
+    // border: none;
+    // border-radius: $radius;
+    // position: relative;
   }
 }
 

@@ -242,11 +242,12 @@
   }
 }
 
+// Refactor to work without pseudoelements
 %teal-arrow-button {
+  @extend %reset-input;
   @extend %heading-epsilon;
   @extend %bare-link;
   @extend %shaded-inside-bottom;
-  // @extend %fade-background-color;
   @include font-body;
   display: inline-block;
   color: $beige;
