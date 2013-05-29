@@ -18,7 +18,7 @@
     <% @projects.each do |project| %>
       <tr>
         <th>
-          <%= link_to project.name, course_project_path(@course, project) %>
+          <%= link_to project.name, course_project_path(@course, project), :class => "table--heading" %>
         </th>
         <td><%= project.description %></td>
         <td><%= project.rubric_name %></td>

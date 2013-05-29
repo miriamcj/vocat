@@ -63,37 +63,45 @@
   <nav class="tab-nav">
     <ul>
       <li><a href="#">Item 1</a></li>
-      <li><a class="active" href="#">Item 2</a></li>
+      <li class="active">Item 2</li>
       <li><a href="#">Item 3</a></li>
     </ul>
   </nav>
   <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
   <form>
     <fieldset>
+      <div class="form-alert">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores qui.</p>
+        <a class="close" href="#"></a>
+      </div>
       <div class="input-group">
         <label class="text-label">Text input field</label>
         <input class="text-input" type="text">
+      </div>
+      <div class="input-group">
+        <div class="input-group--half">
+          <div class="input-group">
+            <label class="text-label">Text input field</label>
+            <input class="text-input" type="text">
+          </div>
+        </div>
+        <div class="input-group--half">
+          <div class="input-group error">
+            <label class="text-label">Text input field</label>
+            <input class="text-input" type="text">
+            <small class="input-message">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</small>
+          </div>
+        </div>
+      </div>
+      <div class="input-group error">
+        <label class="text-label">Text area input field</label>
+        <textarea class="text-area-input" rows="3"></textarea>
         <small class="input-message">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</small>
       </div>
       <div class="input-group">
         <div class="input-group--half">
-          <label class="text-label">Text input field</label>
-          <input class="text-input" type="text">
-        </div>
-        <div class="input-group--half">
-          <label class="text-label">Text input field</label>
-          <input class="text-input" type="text">
-          <small class="input-message">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</small>
-        </div>
-      </div>
-      <div class="input-group">
-        <label class="text-label">Text area input field</label>
-        <textarea class="text-area-input" rows="3"></textarea>
-      </div>
-      <div class="input-group">
-        <div class="input-group--half">
-          <label class="text-label">Some boolean checkboxes</label>
-          <div class="clearfix">
+          <div class="input-group">
+            <label class="text-label">Some boolean checkboxes</label>
             <label class="checkbox-label">
               <input class="checkbox" type="checkbox">
               <b></b>
@@ -112,8 +120,8 @@
           </div>
         </div>
         <div class="input-group--half">
-          <label class="text-label">Radio buttons</label>
-          <div class="clearfix">
+          <div class="input-group">
+            <label class="text-label">Radio buttons</label>
             <label class="radio-label">
               <input type="radio" class="radio" name="name">
               <b></b>
@@ -139,16 +147,18 @@
       </div>
       <div class="input-group">
         <div class="input-group--half">
-          <label class="text-label">A select input</label>
-          <div class="select-input" data-behavior="dropdown">
-            <span class="select-input--value" data-behavior="toggle">Entry Item No. 1</span>
-            <!-- <div class="select-input--dropdown" data-behavior="dropdown-options">
-              <a href="#">Entry Item No. 2</a>
-              <a href="#">Entry Item No. 3</a>
-              <a href="#">Entry Item No. 4</a>
-              <a href="#">Entry Item No. 5</a>
-              <a href="#">Entry Item No. 6</a>
-            </div> -->
+          <div class="input-group">
+            <label class="text-label">A select input</label>
+            <div class="select-input" data-behavior="dropdown">
+              <span class="select-input--value" data-behavior="toggle">Entry Item No. 1</span>
+              <!-- <div class="select-input--dropdown" data-behavior="dropdown-options">
+                <a href="#">Entry Item No. 2</a>
+                <a href="#">Entry Item No. 3</a>
+                <a href="#">Entry Item No. 4</a>
+                <a href="#">Entry Item No. 5</a>
+                <a href="#">Entry Item No. 6</a>
+              </div> -->
+            </div>
           </div>
         </div>
       </div>

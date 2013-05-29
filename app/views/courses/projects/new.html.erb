@@ -1,16 +1,14 @@
 <div class="project-show">
-  <div class="content-frame">
-    <h1 class="heading-largest">New Project</h1>
-  </div>
-  <div class="content-frame">
+  <header class="bar-header double-space-bottom">
+    <h2 class="bar-header--title">New Project</h2>
+  </header>
+  <div class="page-content--frame">
     <%= simple_form_for(@project, :url => course_projects_path(@course)) do |f| %>
       <%= render 'form', :f => f %>
-      <ul class="model-table--actions">
-        <li><%= f.button :submit, 'Save project' %></li>
-        <li>
-          <%= link_to 'Back', course_projects_path(@course), :class => 'btn' %>
-        </li>
-      </ul>
+        <div class="input-group">
+          <%= link_to 'Back', course_projects_path(@course), :class => 'gray-ex-button' %>
+          <%= f.button :submit, 'Save project', :class => 'teal-arrow-button' %>
+        </div>
     <% end %>
   </div>
 </div>
