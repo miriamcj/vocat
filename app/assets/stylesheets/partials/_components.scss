@@ -320,14 +320,16 @@
 .bar-header {
   @extend %clearfix;
   @extend %shaded-bottom;
-  height: 8rem;
   background-color: $tealLightestAlt;
   padding: 2.4rem 3.9rem;
   position: relative;
   z-index: 110;
   &>a {
+    margin-right: 0;
     float: right;
   }
+  // NB there are context-specific styles for alerts
+  // nested inside the %alert (in patterns) & .alerts (below)
 }
 
 .bar-header--title {
@@ -1581,6 +1583,10 @@ a.table--heading {
   padding: 3.4rem 0 1rem;
   .authentication & {
     padding-top: 0;
+  }
+  .bar-header & {
+    padding: 2.4rem 0 0;
+    clear: both;
   }
 }
 
