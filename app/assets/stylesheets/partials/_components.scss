@@ -490,6 +490,14 @@ a.table--heading {
 .input-group {
   @extend %clearfix;
   margin-bottom: 2.4rem;
+  &.error {
+    background-color: $redLight;
+    margin-top: -1rem;
+    margin-right: -1rem;
+    margin-left: -1rem;
+    padding: 1rem;
+    border-radius: $radius;
+  }
 }
 
 .input-group--half {
@@ -498,6 +506,9 @@ a.table--heading {
   padding-right: 2.1rem;
   &:nth-child(2) {
     padding: 0 0 0 2.1rem;
+  }
+  .input-group {
+    margin-bottom: 0;
   }
 }
 
@@ -605,6 +616,43 @@ a.table--heading {
   @extend %epsilon;
   display: block;
   font-style: italic;
+}
+
+.form-alert {
+  background-color: $redLight;
+  padding: 1rem 5rem 1rem 5.7rem;
+  border-radius: $radius;
+  margin-bottom: 2.4rem;
+  position: relative;
+  &:before {
+    @include opacity(82);
+    @include svg(error);
+    content: "";
+    display: block;
+    width: 2.6rem;
+    height: 2.4rem;
+    position: absolute;
+    top: 1rem;
+    left: 1.6rem;
+  }
+  p {
+    @extend %gamma-sub;
+    line-height: 1;
+    font-style: italic;
+    color: $darker;
+    padding: 0.4rem 0;
+    margin-bottom: 0;
+  }
+  .close {
+    @include opacity(82);
+    @include svg(circle-x-gray);
+    display: block;
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+    top: 1.2rem;
+    right: 1.4rem;
+  }
 }
 
 // Portfolio
