@@ -608,28 +608,37 @@
   resize: none;
 }
 
+// NB only extend this onto pseudoelements
+%speech-bubble-tail {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 1.8rem solid $beigeLight;
+  border-right: 1.6rem solid transparent;
+  position: absolute;
+  left: 1.8rem;
+  bottom: -1.8rem;
+}
+
 // NB extend this on a wrapper around your <input>
 // Why? <input>s can't have pseudoelements.
-%speech-bubble-input {
+%speech-bubble-input { 
   position: relative;
   &:after {
-    content: "";
-    display: block;
-    width: 0;
-    height: 0;
-    border-top: 2rem solid $beigeLight;
-    border-right: 1.8rem solid transparent;
-    position: absolute;
-    left: 2rem;
-    bottom: -2rem;
+    @extend %speech-bubble-tail;
   }
   input {
     @extend %gamma;
     @extend %text-input;
-    @include placeholder($beigeDark, italic);
     font-style: italic;
     padding: 1.2rem 1.3rem 1.2rem;
     margin: 0 0 1.9rem;
+  }
+  textarea,
+  input {
+    @include placeholder($beigeDark, italic);
+    border-radius: $radius;
   }
 }
 
@@ -1223,6 +1232,7 @@
 %comment {
   background-color: $beigeLight;
   padding: 1.6rem 1.8rem;
+  border-radius: $radius;
 }
 
 %comment-list {
@@ -1231,18 +1241,12 @@
   &>li {
     background-color: $beige;
     padding: 1.2rem 1.4rem;
+    border-radius: $radius;
     margin-bottom: 2rem;
     position: relative;
     &:after {
-      content: "";
-      display: block;
-      width: 0;
-      height: 0;
-      border-top: 2rem solid $beige;
-      border-right: 1.8rem solid transparent;
-      position: absolute;
-      left: 2rem;
-      bottom: -2rem;
+      @extend %speech-bubble-tail;
+      border-top-color: $beige;
     }
   }
   &>li + li {
