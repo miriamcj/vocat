@@ -24,11 +24,20 @@
   margin-bottom: 3.2rem;
 }
 
+.no-bottom-border {
+  border-bottom: none;
+}
+
 // Headings
 // --------------------------------------------------------
 .heading-largest {
   @extend %heading-giga;
   margin-bottom: 0.5rem;
+}
+
+.heading-large {
+  @extend %heading-alpha;
+  margin-bottom: 0.8rem;
 }
 
 .heading-medium {
@@ -53,6 +62,11 @@
 
 .teal-plus-button {
   @extend %teal-plus-button;
+  margin-right: 0.6rem;
+}
+
+.teal-minus-button {
+  @extend %teal-minus-button;
   margin-right: 0.6rem;
 }
 

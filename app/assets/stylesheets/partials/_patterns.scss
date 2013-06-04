@@ -141,6 +141,13 @@
   color: $teal;
 }
 
+%heading-alpha {
+  @extend %alpha;
+  font-weight: $medium;
+  line-height: 1;
+  color: $teal;
+}
+
 %heading-beta-alt {
   @extend %beta-alt;
   @extend %heading-caps;
@@ -217,7 +224,6 @@
   @extend %heading-epsilon;
   @extend %bare-link;
   @extend %shaded-inside-bottom;
-  // @extend %fade-background-color;
   color: $beigeLight;
   background-color: $tealLight;
   line-height: 1;
@@ -226,6 +232,11 @@
   &:hover {
     background-color: $orange;
   }
+}
+
+%gray-button {
+  @extend %teal-button;
+  background-color: $beigeDark;
 }
 
 %large-teal-button {
@@ -273,6 +284,13 @@
   @extend %teal-arrow-button;
   &:after {
     @include svg(circle-plus);
+  }
+}
+
+%teal-minus-button {
+  @extend %teal-arrow-button;
+  &:after {
+    @include svg(circle-minus);
   }
 }
 
