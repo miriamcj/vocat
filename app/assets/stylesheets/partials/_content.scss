@@ -24,10 +24,6 @@
   margin-bottom: 3.2rem;
 }
 
-.no-bottom-border {
-  border-bottom: none;
-}
-
 // Headings
 // --------------------------------------------------------
 .heading-largest {
@@ -56,6 +52,10 @@
   @extend %teal-button;
 }
 
+.gray-button {
+  @extend %gray-button;
+}
+
 .teal-arrow-button {
   @extend %teal-arrow-button;
 }
@@ -63,6 +63,14 @@
 .teal-plus-button {
   @extend %teal-plus-button;
   margin-right: 0.6rem;
+}
+
+.small-teal-plus-button {
+  @extend %small-teal-plus-button;
+}
+
+.small-teal-minus-button {
+  @extend %small-teal-minus-button;
 }
 
 .teal-minus-button {

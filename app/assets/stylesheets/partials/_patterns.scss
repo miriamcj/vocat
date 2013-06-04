@@ -294,6 +294,29 @@
   }
 }
 
+%small-teal-plus-button {
+  @extend %teal-button;
+  padding: 0.6rem 3.4rem 0.6rem 1.2rem;
+  position: relative;
+  &:after {
+    @include svg(circle-plus);
+    content: "";
+    display: block;
+    width: 1.8rem;
+    height: 1.8rem;
+    position: absolute;
+    top: 0.4rem;
+    right: 0.9rem;
+  }
+}
+
+%small-teal-minus-button {
+  @extend %small-teal-plus-button;
+  &:after {
+    @include svg(circle-minus);
+  }
+}
+
 %gray-ex-button {
   @extend %teal-arrow-button;
   background-color: $beigeDark;

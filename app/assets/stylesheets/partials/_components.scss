@@ -454,6 +454,7 @@ a.table--heading {
 // Can live inside any container which extends %frame
 // --------------------------
 .frame--header {
+  @extend %clearfix;
   margin-bottom: 2.1rem;
   position: relative;
 }
@@ -462,14 +463,17 @@ a.table--heading {
   @extend %heading-beta-alt;
   display: inline-block;
   color: $teal;
-  line-height: 1.2;
+  line-height: 1.35;
 }
 
-.frame--header--button {
-  @extend %gray-button;
-  position: absolute;
-  top: -0.3rem;
-  right: 0;
+// Contains and positions buttons off to the right
+.frame--header--buttons {
+  float: right;
+  &>a {
+    // display: inline-block;
+    // vertical-align: top;
+    margin-left: 0.6rem;
+  }
 }
 
 .frame--header--comments {
@@ -482,6 +486,18 @@ a.table--heading {
   }
   li + li {
     margin-left: 0.6rem;
+  }
+}
+
+// Frame list
+// Generic unstyled list with top borders on the <li>s
+// --------------------------
+.frame--list {
+  @extend %unstyled-list;
+  margin: 0;
+  &>li {
+    padding-top: 1rem;
+    border-top: 0.2rem solid $tealLightest;
   }
 }
 
@@ -1022,8 +1038,11 @@ a.table--heading {
 // <ul>
 .scoring-list {
   @extend %unstyled-list;
-  border-bottom: 0.2rem solid $tealLightest;
-  margin: 1.6rem 0 1rem;
+  margin: 1.6rem 0 0;
+  // Knocks down top margin when not preceded by a heading
+  &:first-child {
+    margin-top: 0.6rem;
+  }
   li {
     @extend %clearfix;
     margin-bottom: 1.6rem;
@@ -1049,7 +1068,7 @@ a.table--heading {
   width: 87%;
   color: $tealMedium;
   text-align: right;
-  padding: 1.6rem 0 1.9rem;
+  padding: 1.7rem 0 1.8rem;
   float: left;
 }
 
@@ -1109,12 +1128,12 @@ a.table--heading {
   color: $beigeLight;
   text-align: center;
   background-color: $tealLight;
-  padding: 0.4rem 0 0.3rem;
+  padding: 0.5rem 0 0.2rem;
   border-radius: $radius;
   small {
-    @extend %mega;
+    font-size: 66%;
     vertical-align: top;
-    line-height: 1.2;
+    line-height: 1.1;
     padding-left: 0.2rem;
   }
 }
