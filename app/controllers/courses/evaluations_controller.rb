@@ -4,7 +4,7 @@ class Courses::EvaluationsController < ApplicationController
     authorize! :evaluate, @course
     @projects = Project.find_all_by_course_id(@course)
     @creators = @course.creators
-		@submissions = Submission.find_all_by_project_id(@projects)
+    @submissions = Submission.find_all_by_project_id(@projects)
   end
 
   def creator_and_project
@@ -12,14 +12,14 @@ class Courses::EvaluationsController < ApplicationController
     @creator = User.find(params[:creator_id])
     @submission = Submission.for_creator_and_project(params[:creator_id], params[:project_id]).first()
 
-		if @submission == nil
+    if @submission == nil
       authorize! :submit, @project
       @submission = Submission.new({
-					:creator_id => params[:creator_id],
-					:project_id => params[:project_id],
-			    :published => false
-			})
-			@submission.save()
+                                     :creator_id => params[:creator_id],
+                                     :project_id => params[:project_id],
+                                     :published => false
+                                   })
+      @submission.save()
     else
       authorize! :read, @submission
     end

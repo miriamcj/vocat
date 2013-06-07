@@ -1,9 +1,9 @@
 class CoursesController < ApplicationController
 
-	load_resource
-	authorize_resource :course, :except => :portfolio
+  load_resource
+  authorize_resource :course, :except => :portfolio
 
-  respond_to :html,:json
+  respond_to :html, :json
 
   def portfolio
     if current_user.role? :evaluator
@@ -38,11 +38,11 @@ class CoursesController < ApplicationController
   end
 
   def edit
-		@course = Course.find(params[:id])
+    @course = Course.find(params[:id])
   end
 
   def create
-	  @organization = current_user.organization
+    @organization = current_user.organization
     @course = @organization.courses.build(params[:course])
     @course.creators = User.find_all_by_id(params[:creators])
     @course.assistants = User.find_all_by_id(params[:assistants])

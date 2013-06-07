@@ -20,20 +20,20 @@ class Api::V1::SubmissionsController < ApiController
     end
 
     if @course && @creator
-			if @project
-				@submissions = Submission.for_creator_and_project(@creator, @project).all()
-				if @submissions.count() == 0
-					@submission = Submission.new({
-	           :creator_id => @creator.id,
-	           :project_id => @project.id,
-	           :published => false
-		       })
-					@submission.save()
-					@submissions = [@submission]
-				end
-			else
-				@submissions = Submission.for_creator_and_course(@creator, @course).all()
-			end
+      if @project
+        @submissions = Submission.for_creator_and_project(@creator, @project).all()
+        if @submissions.count() == 0
+          @submission = Submission.new({
+                                         :creator_id => @creator.id,
+                                         :project_id => @project.id,
+                                         :published => false
+                                       })
+          @submission.save()
+          @submissions = [@submission]
+        end
+      else
+        @submissions = Submission.for_creator_and_course(@creator, @course).all()
+      end
 
     elsif @creator
       @submissions = Submission.for_creator(@user, @course).all()
@@ -55,13 +55,13 @@ class Api::V1::SubmissionsController < ApiController
 
   # POST /user/1/submissions.json
   def create
-	  respond_to do |format|
-		  if @submission.save
-			  format.json { render json: @submission, status: :created, location: @submission}
-		  else
-			  format.json { render json: @submission.errors, status: :unprocessable_entity }
-		  end
-	  end
+    respond_to do |format|
+      if @submission.save
+        format.json { render json: @submission, status: :created, location: @submission }
+      else
+        format.json { render json: @submission.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # PUT /user/1/submissions/1.json

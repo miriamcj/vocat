@@ -10,7 +10,7 @@ class Api::V1::AttachmentsController < ApplicationController
   def create
     respond_to do |format|
       if @attachment.save
-        format.json { render json: @attachment, status: :created}
+        format.json { render json: @attachment, status: :created }
       else
         format.json { render json: @attachment.errors, status: :unprocessable_entity }
       end

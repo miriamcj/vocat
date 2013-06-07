@@ -39,10 +39,10 @@ class ApplicationController < ActionController::Base
   def select_layout
     if current_user.role?(:evaluator)
       layout = 'evaluator'
-		elsif current_user.role?(:admin)
-			layout = 'admin'
+    elsif current_user.role?(:admin)
+      layout = 'admin'
     else
-			layout = 'creator'
+      layout = 'creator'
     end
   end
 

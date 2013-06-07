@@ -10,7 +10,7 @@ class Courses::ProjectsController < ApplicationController
 
     respond_to do |format|
       format.html # course_map.html.erb
-      #format.json { render json: @projects }
+                  #format.json { render json: @projects }
     end
   end
 
@@ -19,7 +19,7 @@ class Courses::ProjectsController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      #format.json { render json: @project }
+                  #format.json { render json: @project }
     end
   end
 
@@ -30,7 +30,7 @@ class Courses::ProjectsController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      #format.json { render json: @project }
+                  #format.json { render json: @project }
     end
   end
 

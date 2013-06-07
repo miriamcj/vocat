@@ -19,5 +19,4 @@ class Courses::SettingsController < ApplicationController
   end
 
 
-
 end
