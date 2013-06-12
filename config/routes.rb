@@ -38,11 +38,7 @@ Vocat::Application.routes.draw do
 
   resources :courses do
 
-    match 'evaluations' => 'courses/evaluations#course_map', :via => :get, :as => 'evaluations'
-    match 'evaluations/creator/:creator_id' => 'courses/evaluations#course_map', :via => :get, :as => 'evaluations_for_creator'
-    match 'evaluations/creator/:creator_id/project/:project_id' => 'courses/evaluations#course_map', :via => :get, :as => 'evaluations_for_creator_and_project'
-    match 'evaluations/project/:project_id' => 'courses/evaluations#course_map', :via => :get, :as => 'evaluations_for_project'
-    match 'creator/:creator_id/project/:project_id' => 'courses/evaluations#creator_and_project', :via => :get, :as => 'creator_project'
+    match 'evaluations(/creator/:creator_id)(/project/:project_id)' => 'courses/evaluations#course_map', :via => :get, :as => 'evaluations'
 
     member do
       get 'portfolio'

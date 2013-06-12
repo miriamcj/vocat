@@ -8,16 +8,17 @@
           <a class="" href="">12</a>
         </li>
         <li>
-          <a class="" href="{{url_for 'course_creator_project' submission.course_id submission.creator_id submission.project_id}}">3 New</a>
+
+          <a class="" href="/courses/{{submission.course_id}}/evaluations/creator/{{submission.creator_id}}/project/{{submission.project_id}}">3 New</a>
         </li>
       </ul>
     </nav>
-    <a class="frame-attachment--link" href="{{url_for 'course_creator_project' submission.course_id submission.creator_id submission.project_id}}">See All Comments</a>
+    <a class="frame-attachment--link" href="/courses/{{submission.course_id}}/evaluations/creator/{{submission.creator_id}}/project/{{submission.project_id}}">See All Comments</a>
   </figcaption>
   {{else}}
   <div class="attachment-placeholder">
 	  {{#if submission.current_user_can_attach}}
-		  <a class="attachment-placeholder--button" href="#">Upload video now</a>
+		  <a class="attachment-placeholder--button" href="/courses/{{submission.course_id}}/evaluations/creator/{{submission.creator_id}}/project/{{submission.project_id}}">Upload video now</a>
 	  {{else}}
       <span class="attachment-placeholder--message">No video has been uploaded</span>
 	  {{/if}}
@@ -25,8 +26,8 @@
 	{{/if}}
 </figure><!-- removes whitespace between columns
 --><div class="frame-summary">
-    <h2 class="frame-summary--title"><a href="{{url_for 'course_creator_project' submission.course_id submission.creator_id submission.project_id}}">{{submission.project_name}}</a></h2>
-    <h3 class="frame-summary--course"><a href="{{url_for 'course_creator_project' submission.course_id submission.creator_id submission.project_id}}"><strong>{{submission.course_department}}{{submission.course_number}} </strong> {{submission.course_name}} [Section {{submission.course_section}}]</a></h3>
+    <h2 class="frame-summary--title"><a href="/courses/{{submission.course_id}}/evaluations/creator/{{submission.creator_id}}/project/{{submission.project_id}}">{{submission.project_name}}</a></h2>
+    <h3 class="frame-summary--course"><a href="/courses/{{submission.course_id}}/evaluations/creator/{{submission.creator_id}}/project/{{submission.project_id}}"><strong>{{submission.course_department}}{{submission.course_number}} </strong> {{submission.course_name}} [Section {{submission.course_section}}]</a></h3>
 		{{> score_summary}}
-    <a class="frame-summary--link" href="{{url_for 'course_creator_project' submission.course_id submission.creator_id submission.project_id}}">Expand Scores</a>
+    <a class="frame-summary--link" href="/courses/{{submission.course_id}}/evaluations/creator/{{submission.creator_id}}/project/{{submission.project_id}}">Expand Scores</a>
   </div>

@@ -16,8 +16,8 @@
   -->
 </figure><!-- removes whitespace between columns
 --><div class="frame-summary">
-    <h2 class="frame-summary--title"><a href="{{url_for 'course_creator_project' project.course_id project.current_user_id project.id}}">{{project.name}}</a></h2>
-    <h3 class="frame-summary--course"><a href="{{url_for 'course_creator_project' project.course_id project.current_user_id project.id}}"><strong>{{project.course_department}}{{project.course_number}} </strong> {{project.course_name}} [Section {{project.course_section}}]</a></h3>
+    <h2 class="frame-summary--title"><a href="/courses/{{project.course_id}}/evaluations/creator/{{project.current_user_id}}/project/{{project.id}}">{{project.name}}</a></h2>
+    <h3 class="frame-summary--course"><a href="/courses/{{project.course_id}}/evaluations/creator/{{project.current_user_id}}/project/{{project.id}}"><strong>{{project.course_department}}{{project.course_number}} </strong> {{project.course_name}} [Section {{project.course_section}}]</a></h3>
 		{{> score_summary}}
-    <a class="frame-summary--link" href="{{url_for 'course_creator_project' project.course_id project.current_user_id project.id}}">Submit a Video</a>
+    <a class="frame-summary--link" href="/courses/{{project.course_id}}/evaluations/creator/{{project.current_user_id}}/project/{{project.id}}">Submit a Video</a>
   </div>

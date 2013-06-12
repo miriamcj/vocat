@@ -5,7 +5,7 @@
   <li class="matrix--cell">
     {{#get_submission ../../submissions ../this this}}
       {{#if this}}
-        <a href="{{url_for 'course_evaluations_for_creator_and_project' ../../../../courseId ../../../this.id ../../this.id}}" data-behavior="routable">
+        <a href="/courses/{{../../../../courseId}}/evaluations/creator/{{../../../this.id}}/project/{{../../this.id}}" data-behavior="routable">
         {{#if has_uploaded_attachment}}
           <b class="matrix--cell--play">Play video</b>
         {{else}}
@@ -28,7 +28,7 @@
           {{/if}}
         </div>
       {{else}}
-        <a href="{{url_for 'course_evaluations_for_creator_and_project' ../../../../courseId ../../../this.id ../../this.id}}" data-behavior="routable">
+        <a href="/courses/{{../../../../courseId}}/evaluations/creator/{{../../../this.id}}/project/{{../../this.id}}" data-behavior="routable">
           <b class="matrix--cell--play inactive">No video has been uploaded</b>
           <h2 class="matrix--cell--value">&ndash;&ndash;<small>%</small></h2>
         </a>

@@ -17,12 +17,12 @@
     <ul>
       {{#if creator.id}}
         {{#each ../projects}}
-          <li><a data-behavior="routable" href="{{url_for 'course_evaluations_for_creator_and_project' ../../courseId ../../creator.id this.id}}"><strong>{{this.name}}</strong></a></li>
+          <li><a data-behavior="routable" href="/courses/{{../../courseId}}/evaluations/creator/{{../../creator.id}}/project/{{this.id}}"><strong>{{this.name}}</strong></a></li>
         {{/each}}
       {{else}}
         {{#if ../project.id}}
           {{#each ../../creators}}
-            <li><a data-behavior="routable" href="{{url_for 'course_evaluations_for_creator_and_project' ../../../courseId this.id ../../../project.id}}"><strong>{{this.name}}</strong></a></li>
+            <li><a data-behavior="routable" href="/courses/{{../../../courseId}}/evaluations/creator/{{this.id}}/project/{{../../../project.id}}"><strong>{{this.name}}</strong></a></li>
           {{/each}}
         {{/if}}
       {{/if}}
