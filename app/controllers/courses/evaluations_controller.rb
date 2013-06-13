@@ -23,11 +23,9 @@ class Courses::EvaluationsController < ApplicationController
     else
       authorize! :read, @submission
     end
-    if @creator.id == current_user.id
-      render 'show'
-    else
-      render
-    end
+
+    render
+
   end
 
   def course_map_dev

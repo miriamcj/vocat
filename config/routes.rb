@@ -3,6 +3,8 @@ Vocat::Application.routes.draw do
 
   devise_for :users, :controllers => {:registrations => 'registrations'}
 
+  match 'pages/*page' => 'pages#show', :via => :get
+
   namespace :api do
     namespace :v1 do
 
@@ -39,10 +41,14 @@ Vocat::Application.routes.draw do
   resources :courses do
 
     match 'evaluations(/creator/:creator_id)(/project/:project_id)' => 'courses/evaluations#course_map', :via => :get, :as => 'evaluations'
+    match '/creator/:creator_id' => 'courses/evaluations#creator', :via => :get, :as => 'creator'
+    match '/project/:project_id' => 'courses/evaluations#project', :via => :get, :as => 'project'
+    match '/creator/:creator_id/project/:project_id' => 'courses/evaluations#creator_and_project', :via => :get, :as => 'creator_and_project'
 
     member do
       get 'portfolio'
     end
+
     scope :module => "courses" do
       resources :projects
       resources :groups
