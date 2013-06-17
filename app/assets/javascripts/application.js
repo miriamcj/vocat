@@ -11,21 +11,14 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
-//= require jquery_ujs
-//= require jquery-ui.min
-//= require jquery-fileupload/basic
-//= require jquery-autosize
-//= require_popcorn/popcorn-complete
+//= require vendor
 //= require js-routes
-//= require underscore
-//= require handlebars.runtime
-//= require backbone
-//= require backbone_rails_sync
-//= require backbone_datalink
-//= require backbone/vocat
-//= require_tree .
-
-
-
-
-
+//= require app/vocat
+//= require_tree ./app/templates
+//= require_tree ./app/plugins
+//= require_tree ./app/helpers
+//= require_tree ./app/models
+//= require_tree ./app/collections
+//= require_tree ./app/views
+//= require_tree ./app/routers
+//= require scripts
