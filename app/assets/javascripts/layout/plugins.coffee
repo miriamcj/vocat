@@ -1,4 +1,4 @@
-define ['jquery', 'plugins/waypoints'], ($) ->
+define ['plugins/waypoints', 'jquery'], (waypoints, $) ->
 
   ##########################################
   # Dropdown Navigation Plugin

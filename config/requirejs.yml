@@ -5,8 +5,6 @@ shim:
   # tell requirejs that jquery_ujs (Rails' built-in JS) depends on jQuery
   'jquery_ujs':
     - 'jquery'
-  'plugins/waypoint':
-    - 'jquery'
   'plugins/smooth_scroll':
     - 'jquery'
   'plugins/simple_slider':
@@ -16,6 +14,8 @@ shim:
   'plugins/file_upload':
     - 'jquery'
   'plugins/autosize':
+    - 'jquery'
+  'plugins/waypoints':
     - 'jquery'
 
 # Setup a mapping so that any JS module in the system that asks for jQuery will
