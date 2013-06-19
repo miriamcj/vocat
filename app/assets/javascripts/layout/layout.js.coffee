@@ -1,7 +1,7 @@
 define ['jquery', './plugins'], ($) ->
 
   {
-    init: () ->
+    bootstrap: () ->
       # Typekit font events
       try
         Typekit.load(

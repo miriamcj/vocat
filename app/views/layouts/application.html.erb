@@ -13,7 +13,10 @@
   <!-- TODO move to correct place -->
   <script type="text/javascript" src="//use.typekit.net/dwf7ffn.js"></script>
   <%= stylesheet_link_tag "application", :media => "all" %>
-  <%= requirejs_include_tag "bootstrap" %>
+
+
+  <script data-main="/assets/bootstrap" src="/assets/require.js"></script>
+
   <%= csrf_meta_tags %>
 
   <%= yield(:head) %>

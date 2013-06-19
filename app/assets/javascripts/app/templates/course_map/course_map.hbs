@@ -7,25 +7,11 @@
         <a class="matrix--previous inactive" data-behavior="matrix-slider-left" href="#">Previous</a>
       </nav>
       <div class="matrix--list-wrapper" data-behavior="matrix-slider">
-        <ul class="matrix--column-header--list">
-          {{#each projects}}
-          <li data-behavior="navigate-project" data-project="{{this.id}}">
-            <a class="matrix--column-header--link" data-behavior="routable" href="/courses/{{../courseId}}/evaluations/project/{{this.id}}"><span>{{this.name}}</span></a>
-          </li>
-          {{/each}}
-        </ul>
+        <ul class="matrix--column-header--list" data-region="projects"></ul>
       </div>
     </header>
     <nav class="matrix--name-nav" data-behavior="matrix-creators">
-      <header class="matrix--row-header" data-behavior="matrix-creators-list">
-        <ul>
-          {{#each creators}}
-          <li data-behavior="navigate-creator" data-creator="{{this.id}}">
-            <a data-behavior="routable" href="/courses/{{../courseId}}/evaluations/creator/{{this.id}}">{{this.name}}</a>
-          </li>
-          {{/each}}
-          <li class="matrix--row-spacer">&nbsp;</li>
-        </ul>
+      <header class="matrix--row-header" data-behavior="matrix-creators-list" data-region="creators">
       </header>
     </nav>
     <div class="matrix--body" data-behavior="matrix-body" >

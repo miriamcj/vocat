@@ -1,2 +1,3 @@
-class Vocat.Models.Creator extends Backbone.Model
+define ['backbone'], (Backbone) ->
+  class CreatorModel extends Backbone.Model
 

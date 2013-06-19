@@ -1,1 +1,3 @@
-class Vocat.Models.Project extends Backbone.Model
+define ['backbone'], (Backbone) ->
+
+  class ProjectModel extends Backbone.Model

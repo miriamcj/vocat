@@ -1,23 +1,25 @@
-class Vocat.Collections.Submission extends Backbone.Collection
+define ['backbone', 'models/submission'], (Backbone, SubmissionModel) ->
 
-	model: Vocat.Models.Submission
+  class SubmissionCollection extends Backbone.Collection
 
-	initialize: (models, options) ->
-		if options?
-			if options.projectId? then @projectId = options.projectId
-			if options.creatorId? then @creatorId = options.creatorId
-			if options.courseId? then @courseId = options.courseId
+    model: SubmissionModel
 
-	url: () ->
-		url = '/api/v1/'
+    initialize: (models, options) ->
+      if options?
+        if options.projectId? then @projectId = options.projectId
+        if options.creatorId? then @creatorId = options.creatorId
+        if options.courseId? then @courseId = options.courseId
 
-		if @courseId
-			url = url + "course/#{@courseId}/"
+    url: () ->
+      url = '/api/v1/'
 
-		if @creatorId
-			url = url + "creator/#{@creatorId}/"
+      if @courseId
+        url = url + "course/#{@courseId}/"
 
-		if @projectId
-			url = url + "project/#{@projectId}/"
+      if @creatorId
+        url = url + "creator/#{@creatorId}/"
 
-		url + 'submissions'
+      if @projectId
+        url = url + "project/#{@projectId}/"
+
+      url + 'submissions'

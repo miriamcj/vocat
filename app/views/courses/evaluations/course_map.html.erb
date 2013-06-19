@@ -1,5 +1,6 @@
 <% content_for :body_class do %>course-map<% end %>
 
-<%= render :partial => 'shared/bootstrap_collection', :locals => {:type => 'Collections', :key => 'Creator', :data => @creators }%>
-<%= render :partial => 'shared/bootstrap_collection', :locals => {:type => 'Collections', :key => 'Project', :data => @projects}%>
-<div data-view="CourseMap"></div>
+<%= render :partial => 'shared/bootstrap_collection', :locals => {:type => 'Collections', :key => 'creator', :data => @creators }%>
+<%= render :partial => 'shared/bootstrap_collection', :locals => {:type => 'Collections', :key => 'project', :data => @projects}%>
+
+<div id="region-main"></div>

@@ -18,6 +18,24 @@ shim:
   'plugins/waypoints':
     - 'jquery'
 
+hbs:
+  'disableI18n' : true
+
+paths:
+  'i18nprecompile' : 'hbs/i18nprecompile'
+  'routers' : 'app/routers'
+  'layouts' : 'app/layouts'
+  'controllers' : 'app/controllers'
+  'helpers' : 'app/helpers'
+  'models' : 'app/models'
+  'templates' : 'app/templates'
+  'marionette' : 'marionette'
+  'backbone' : 'backbone'
+  'underscore' : 'underscore'
+  'backbone.wreqr' : 'backbone.wreqr'
+  'backbone.eventbinder' : 'backbone.eventbinder'
+  'backbone.babysitter' : 'backbone.babysitter'
+
 # Setup a mapping so that any JS module in the system that asks for jQuery will
 # automatically get jQuery with Rails' unobtrusive JS customisations applied.
 
@@ -27,6 +45,8 @@ shim:
 map:
   '*':
     'jquery': 'jquery-with-rails-ujs'
+    'Handlebars': 'handlebars'
+    'hbs/underscore': 'underscore'
   'jquery_ujs':
     'jquery': 'jquery'
   'jquery-with-rails-ujs':

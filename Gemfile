@@ -8,9 +8,10 @@ gem 'activerecord-postgres-hstore'
 gem 'pg'
 
 gem 'jquery-rails'
-#gem 'js-routes'
 gem 'jquery-fileupload-rails'
-gem 'requirejs-rails'
+
+#gem 'js-routes'
+#gem 'requirejs-rails'
 
 gem 'therubyracer'
 gem 'unicorn'
@@ -35,5 +36,5 @@ group :assets do
 	gem 'sass-rails',   '~> 3.2.3'
 	gem 'coffee-rails', '~> 3.2.1'
 	gem 'uglifier', '>= 1.0.3'
-	gem 'handlebars_assets'
+#	gem 'handlebars_assets'
 end
