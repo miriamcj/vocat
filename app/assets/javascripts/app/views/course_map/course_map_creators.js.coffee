@@ -1,14 +1,16 @@
 define ['marionette', 'hbs!templates/course_map/course_map_creators', 'views/course_map/course_map_creators_item'], (Marionette, template, Item) ->
 
-  class CourseMapCreatorsView extends Marionette.CompositeView
+  class CourseMapCreatorsView extends Marionette.CollectionView
 
     itemView: Item
 
+    tagName: 'ul'
+
     template: template
 
-    itemViewContainer: '[data-role="container"]'
+    addSpacer: () ->
+      @$el.append('<li class="matrix--row-spacer"></li>')
 
-    initialize: (options) ->
-      @courseId = options.courseId
-      @collection = options.collection
+    initialize: () ->
+      @listenTo(@, 'render', @addSpacer)
 

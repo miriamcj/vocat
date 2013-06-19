@@ -13,6 +13,8 @@ gem 'jquery-fileupload-rails'
 #gem 'js-routes'
 #gem 'requirejs-rails'
 
+
+gem 'simple_form'
 gem 'therubyracer'
 gem 'unicorn'
 gem 'devise'

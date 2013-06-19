@@ -22,4 +22,5 @@ define ['backbone', 'models/submission'], (Backbone, SubmissionModel) ->
       if @projectId
         url = url + "project/#{@projectId}/"
 
-      url + 'submissions'
+      out = url + 'submissions'
+      out

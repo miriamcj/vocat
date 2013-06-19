@@ -13,9 +13,6 @@ define [
 
     portfolio: (course = null) ->
 
-      # We require this during exection so that we don't end up with a circular dependency
-      Vocat = require('app/vocat')
-
       # The layout that contains the two lists of portfolio items
       portfolio = new PortfolioView().render()
 
@@ -24,7 +21,7 @@ define [
       portfolioProjects = new PortfolioProjectsView({collection: @collections.project})
 
       # Assign the collection views to the layout; assign the layout to the main region
-      Vocat.main.show(portfolio)
+      window.Vocat.main.show(portfolio)
       portfolio.submissions.show(portfolioSubmissions)
       portfolio.projects.show(portfolioProjects)
 

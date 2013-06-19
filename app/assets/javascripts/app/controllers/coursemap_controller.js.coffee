@@ -1,7 +1,7 @@
 define [
-  'marionette', 'controllers/vocat_controller', 'collections/creator_collection', 'collections/project_collection', 'views/course_map/course_map', 'views/course_map/course_map_projects', 'views/course_map/course_map_creators'
+  'marionette', 'controllers/vocat_controller', 'collections/creator_collection', 'collections/project_collection', 'views/course_map/course_map'
 ], (
-  Marionette, VocatController, CreatorCollection, ProjectCollection, CourseMap, CourseMapCreators, CourseMapProjects
+  Marionette, VocatController, CreatorCollection, ProjectCollection, CourseMap
 ) ->
 
   class CourseMapController extends VocatController
@@ -11,34 +11,22 @@ define [
       project: new ProjectCollection({})
     }
 
-    initialize: () ->
-      super()
+    layoutInitialized: false
 
-      @courseMap = new CourseMap().render()
+    initializeLayout: (courseId) ->
+      if @layoutInitialized == false
+        @courseMap = new CourseMap({collections: @collections})
+        window.Vocat.main.show(@courseMap)
+        @layoutInitialized = true
 
-      @creators = new CourseMapCreators({collection: @collections.creator, courseId: 12})
-      @projects = new CourseMapProjects({collection: @collections.project, courseId: 12})
+    grid: (courseId) ->
+      @initializeLayout(courseId)
 
-      @courseMap.creators.show(@creators)
-      @courseMap.projects.show(@projects)
+    creatorDetail: (courseId, creatorId) ->
+      @initializeLayout(courseId)
 
+    projectDetail: (courseId, projectId) ->
+      @initializeLayout(courseId)
 
-      Vocat = require(['app/vocat'], (Vocat) =>
-          Vocat.main.show(@courseMap)
-      )
-
-    grid: (course) ->
-
-
-
-
-
-
-    creatorDetail: (course, creator) ->
-      console.log "called creatorDetail action with course #{course} and creator #{creator}"
-
-    projectDetail: (course, project) ->
+    creatorProjectDetail: (courseId, creatorId, projectId) ->
       console.log "called projectDetail action with course #{course} and project #{project}"
-
-    creatorProjectDetail: (course, creator, project) ->
-      console.log "called creatorProjectDetail action with course #{course} and creator #{creator} and project #{project}"

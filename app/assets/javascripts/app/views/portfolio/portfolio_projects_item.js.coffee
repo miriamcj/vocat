@@ -1,4 +1,5 @@
 define ['marionette', 'hbs!templates/portfolio/portfolio_item_project'], (Marionette, ProjectTemplate) ->
+
   class PortfolioItemSubmission extends Marionette.ItemView
 
     template: ProjectTemplate

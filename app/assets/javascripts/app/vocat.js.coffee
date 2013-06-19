@@ -1,11 +1,10 @@
 define ['marionette', 'backbone', 'routers/portfolio_router', 'routers/coursemap_router'], (Marionette, Backbone, PortfolioRouter, CourseMapRouter) ->
 
-  Vocat = new Marionette.Application()
+  window.Vocat = Vocat = new Marionette.Application()
 
   Vocat.addRegions {
     main : '#region-main',
   }
-
 
   Vocat.addInitializer () ->
     portfolioRouter = new PortfolioRouter()

@@ -1,15 +1,123 @@
-define ['marionette', 'hbs!templates/course_map/course_map'], (Marionette, Template) ->
+define [
+  'marionette',
+  'hbs!templates/course_map/course_map',
+  'views/course_map/course_map_projects',
+  'views/course_map/course_map_creators',
+  'views/course_map/course_map_matrix',
+], (Marionette, template, CourseMapProjects, CourseMapCreators, CourseMapMatrix) ->
 
   class CourseMapView extends Marionette.Layout
 
+    children: {}
 
-    template: Template
+    template: template
+
+    # We need to store various states of the slider, including column widths.
+    sliderData = {}
 
     regions: {
       creators: '[data-region="creators"]'
       projects: '[data-region="projects"]'
-      header: '[data-behavior="overlay-header"]'
+      matrix: '[data-region="matrix"]'
+      header: '[data-region="overlay-header"]'
+      overlay: '[data-region="overlay"]'
     }
+
+    onRender: () ->
+      @creators.show(@children.creators)
+      @projects.show(@children.projects)
+      @matrix.show(@children.matrix)
+
+    initialize: (options) ->
+      @collections = options.collections
+      @courseId = options.courseId
+
+      @children.creators = new CourseMapCreators({collection: @collections.creator, courseId: @courseId})
+      @children.projects = new CourseMapProjects({collection: @collections.project, courseId: @courseId})
+      @children.matrix = new CourseMapMatrix({collections: @collections})
+
+      @setupListeners()
+
+
+    positionOverlay: () ->
+      # Position overlay
+      #@overlay.css('margin-top', (@$el.find('.matrix--content').height() * -1)).css('z-index',200)
+
+      # Set min height on overlay
+      #@overlay.css('min-height', @$el.find('[data-behavior="matrix-creators-list"]').outerHeight())
+
+    setupRowHover: () ->
+      @$el.find('[data-creator]').hover(
+        (event) =>
+          creator = $(event.currentTarget).attr('data-creator')
+          @$el.find('[data-creator="'+creator+'"]').addClass('active')
+        ,
+        (event) =>
+          creator = $(event.currentTarget).attr('data-creator')
+          @$el.find('[data-creator="'+creator+'"]').removeClass('active')
+      )
+
+    setContentContainerHeight: () ->
+      # Content container should be as tall as the window
+      $spacers = @$el.find('.matrix--row-spacer')
+      spacerOffset = @$el.find('.matrix--row-spacer').offset()
+      bodyHeight = $('body').outerHeight()
+      diff = bodyHeight - spacerOffset.top
+      $spacers.css('min-height', diff + 'px');
+      height = @$el.find('.matrix--content').outerHeight() +  @$el.find('.matrix--overlay header').outerHeight()
+
+
+    calculateAndSetSliderWidth: () ->
+      slider = @$el.find('[data-behavior="matrix-slider"]').first()
+      colCount = slider.find('li').length
+      colWidth = slider.find('li').first().outerWidth()
+      sliderWidth = colCount * colWidth
+      minLeft = (sliderWidth * -1) + (colWidth * 4)
+      slideElements = @$el.find('[data-behavior="matrix-slider"] ul')
+      slideElements.each ->
+        $(@).width(sliderWidth)
+      @sliderData = {
+        position: 0
+        sliderWidth: sliderWidth
+        minLeft: minLeft
+        maxLeft: 0
+        distance: colWidth
+        slideElements: slideElements
+      }
+
+    triggers: {
+      'click [data-behavior="matrix-slider-left"]':   'slider:left'
+      'click [data-behavior="matrix-slider-right"]':  'slider:right'
+    }
+
+    setupListeners: () ->
+      @listenTo(@, 'slider:right', () -> @slide('forward'))
+      @listenTo(@, 'slider:left', () -> @slide('backward'))
+
+      @listenTo(@, 'show', () -> @setContentContainerHeight() )
+      @listenTo(@, 'show', () -> @calculateAndSetSliderWidth() )
+      @listenTo(@, 'show', () -> @setupRowHover() )
+
+    updateSliderControls: () ->
+      left = @$el.find('[data-behavior="matrix-slider-left"]')
+      right = @$el.find('[data-behavior="matrix-slider-right"]')
+      # The width of the slider has to be greater than 4 columns for the slider to be able to slide.
+      if (@sliderData.distance * 4) < @sliderData.sliderWidth
+        if @sliderData.position == @sliderData.maxLeft then left.addClass('inactive') else left.removeClass('inactive')
+        if @sliderData.position == @sliderData.minLeft then right.addClass('inactive') else right.removeClass('inactive')
+      else
+        left.addClass('inactive')
+        right.addClass('inactive')
+
+    slide: (direction) ->
+      if direction == 'forward' then travel = @sliderData.distance * -1 else travel = @sliderData.distance * 1
+      newLeft = @sliderData.position + travel
+      if newLeft <= @sliderData.maxLeft && newLeft >= @sliderData.minLeft
+        @sliderData.slideElements.css('left', newLeft)
+        @sliderData.position = newLeft
+      @updateSliderControls()
+
+
 
 #    headerPartial:  HBT["app/templates/course_map/partials/overlay_header"]
 #
@@ -19,8 +127,6 @@ define ['marionette', 'hbs!templates/course_map/course_map'], (Marionette, Templ
 #      'click [data-behavior="navigate-creator"]':     'navigateCreatorDetail'
 #      'click [data-behavior="navigate-project"]':     'navigateProjectDetail'
 #      'click [data-behavior="matrix-overlay-close"]': 'navigateGrid'
-#      'click [data-behavior="matrix-slider-left"]':   'slideLeft'
-#      'click [data-behavior="matrix-slider-right"]':  'slideRight'
 #      'click [data-behavior="routable"]':             'handleRoutable'
 #
 #    # Click events on a tags in this vieew that have data-behavior="routable" will be handled by this function, which will
@@ -41,8 +147,6 @@ define ['marionette', 'hbs!templates/course_map/course_map'], (Marionette, Templ
 #      window.Vocat.Dispatcher.bind 'courseMap:creatorSelected', (creatorId) => @setActiveCreator(creatorId)
 #      window.Vocat.Dispatcher.bind 'courseMap:creatorDeselected', () => @unsetActiveCreator()
 #
-#      # We need to store various states of the slider, including column widths.
-#      @sliderData = {}
 #
 #      # This view pulls projects and creators from bootstrapped data on the page
 #      @projects = window.Vocat.Instantiated.Collections.Project
@@ -159,82 +263,8 @@ define ['marionette', 'hbs!templates/course_map/course_map'], (Marionette, Templ
 #    initializeOverlay: () ->
 #      @overlay = @$el.find('.js-matrix--overlay').first()
 #
-#    updateSliderControls: () ->
-#      left = @$el.find('[data-behavior="matrix-slider-left"]')
-#      right = @$el.find('[data-behavior="matrix-slider-right"]')
-#      # The width of the slider has to be greater than 4 columns for the slider to be able to slide.
-#      if (@sliderData.distance * 4) < @sliderData.sliderWidth
-#        if @sliderData.position == @sliderData.maxLeft then left.addClass('inactive') else left.removeClass('inactive')
-#        if @sliderData.position == @sliderData.minLeft then right.addClass('inactive') else right.removeClass('inactive')
-#      else
-#        left.addClass('inactive')
-#        right.addClass('inactive')
-#
-#    slideLeft: (e) ->
-#      e.preventDefault()
-#      @slide('backward')
-#
-#    slideRight: (e) ->
-#      e.preventDefault()
-#      @slide('forward')
-#
-#    slide: (direction) ->
-#      if direction == 'forward' then travel = @sliderData.distance * -1 else travel = @sliderData.distance * 1
-#      newLeft = @sliderData.position + travel
-#      if newLeft <= @sliderData.maxLeft && newLeft >= @sliderData.minLeft
-#        @sliderData.slideElements.css('left', newLeft)
-#        @sliderData.position = newLeft
-#      @updateSliderControls()
-#
-#    setContentContainerHeight: () ->
-#
-#      # Content container should be as tall as the window
-#      $spacers = @$el.find('.matrix--row-spacer')
-#      spacerOffset = @$el.find('.matrix--row-spacer').offset()
-#      bodyHeight = $('body').outerHeight()
-#      diff = bodyHeight - spacerOffset.top
-#      $spacers.css('min-height', diff + 'px');
-#      height = @$el.find('.matrix--content').outerHeight() +  @$el.find('.matrix--overlay header').outerHeight()
-#
-#      # Position overlay
-#      @overlay.css('margin-top', (@$el.find('.matrix--content').height() * -1)).css('z-index',200)
-#
-#      # Set min height on overlay
-#      @overlay.css('min-height', @$el.find('[data-behavior="matrix-creators-list"]').outerHeight())
-#
-#
-#  #    @$el.find('[data-behavior="overlay"]').css('min-height', )
-#  #    @$el.find('[data-behavior="overlay"]').first().css('min-height', height + 150).css('border', '1px solid red')
-#
-#    calculateAndSetSliderWidth: () ->
-#      slider = @$el.find('[data-behavior="matrix-slider"]').first()
-#      colCount = slider.find('li').length
-#      colWidth = slider.find('li').first().outerWidth()
-#      sliderWidth = colCount * colWidth
-#      minLeft = (sliderWidth * -1) + (colWidth * 4)
-#      slideElements = @$el.find('[data-behavior="matrix-slider"] ul')
-#      slideElements.each ->
-#        $(@).width(sliderWidth)
-#      @sliderData = {
-#        position: 0
-#        sliderWidth: sliderWidth
-#        minLeft: minLeft
-#        maxLeft: 0
-#        distance: colWidth
-#        slideElements: slideElements
-#      }
-#
-#    setupRowHover: () ->
-#      @$el.find('[data-creator]').hover(
-#        (event) =>
-#          creator = $(event.currentTarget).attr('data-creator')
-#          @$el.find('[data-creator="'+creator+'"]').addClass('active')
-#        ,
-#        (event) =>
-#          creator = $(event.currentTarget).attr('data-creator')
-#          @$el.find('[data-creator="'+creator+'"]').removeClass('active')
-#      )
-#
+
+
 #    redraw: () ->
 #      @setContentContainerHeight()
 #      @calculateAndSetSliderWidth()

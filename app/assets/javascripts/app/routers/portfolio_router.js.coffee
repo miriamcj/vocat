@@ -5,6 +5,6 @@ define ['marionette', 'controllers/portfolio_controller'], (Marionette, Portfoli
     controller: new PortfolioController
 
     appRoutes : {
-#      '': 'portfolio'
+      '': 'portfolio'
       'courses/:course/portfolio': 'portfolio'
     }
