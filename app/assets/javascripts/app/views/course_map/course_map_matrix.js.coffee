@@ -16,7 +16,7 @@ define [
       @collections = options.collections
       @submissions = new SubmissionCollection([], {courseId: @courseId})
 
-      $.when(@submissions.fetch()).then () =>
+      $.when(@submissions.fetch({data: {brief: 1}})).then () =>
         @render()
 
     serializeData: () ->

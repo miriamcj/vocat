@@ -7,5 +7,10 @@ define ['marionette', 'hbs!templates/course_map/course_map_projects_item'], (Mar
       'data-behavior': 'navigate-project'
     }
 
+    serializeData: () ->
+      data = super()
+      data.courseId = @options.courseId
+      data
+
     initialize: (options) ->
       @$el.attr('data-project', @model.id)

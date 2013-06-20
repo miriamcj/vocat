@@ -15,6 +15,21 @@ define [
     # We need to store various states of the slider, including column widths.
     sliderData = {}
 
+    sliderColWidth: 200
+    sliderWidth: 3000
+    sliderMinLeft: 0
+    sliderPosition: 0
+
+    ui: {
+      sliderLeft: '[data-behavior="matrix-slider-left"]'
+      sliderRight: '[data-behavior="matrix-slider-right"]'
+    }
+
+    triggers: {
+      'click [data-behavior="matrix-slider-left"]':   'slider:left'
+      'click [data-behavior="matrix-slider-right"]':  'slider:right'
+    }
+
     regions: {
       creators: '[data-region="creators"]'
       projects: '[data-region="projects"]'
@@ -27,6 +42,7 @@ define [
       @creators.show(@children.creators)
       @projects.show(@children.projects)
       @matrix.show(@children.matrix)
+      @bindUIElements()
 
     initialize: (options) ->
       @collections = options.collections
@@ -34,10 +50,27 @@ define [
 
       @children.creators = new CourseMapCreators({collection: @collections.creator, courseId: @courseId})
       @children.projects = new CourseMapProjects({collection: @collections.project, courseId: @courseId})
-      @children.matrix = new CourseMapMatrix({collections: @collections})
+      @children.matrix = new CourseMapMatrix({collections: @collections, courseId: @courseId})
 
       @setupListeners()
 
+    showCreatorDetail: () ->
+      console.log 'called show creator detail'
+
+    setupListeners: () ->
+      @listenTo(@, 'slider:right', () -> @slide('forward'))
+      @listenTo(@, 'slider:left', () -> @slide('backward'))
+
+      _.each @children, (child) =>
+        @listenTo(child, 'show:detail:creator', () -> console.log 'triggered')
+
+
+      @listenTo(@, 'show', () -> @setContentContainerHeight() )
+      @listenTo(@, 'show', () -> @calculateAndSetSliderWidth() )
+      @listenTo(@, 'show', () -> @setupRowHover() )
+      @listenTo(@children.matrix, 'render', () ->
+        @calculateAndSetSliderWidth()
+      )
 
     positionOverlay: () ->
       # Position overlay
@@ -66,57 +99,40 @@ define [
       $spacers.css('min-height', diff + 'px');
       height = @$el.find('.matrix--content').outerHeight() +  @$el.find('.matrix--overlay header').outerHeight()
 
-
     calculateAndSetSliderWidth: () ->
       slider = @$el.find('[data-behavior="matrix-slider"]').first()
       colCount = slider.find('li').length
-      colWidth = slider.find('li').first().outerWidth()
-      sliderWidth = colCount * colWidth
-      minLeft = (sliderWidth * -1) + (colWidth * 4)
-      slideElements = @$el.find('[data-behavior="matrix-slider"] ul')
-      slideElements.each ->
-        $(@).width(sliderWidth)
-      @sliderData = {
-        position: 0
-        sliderWidth: sliderWidth
-        minLeft: minLeft
-        maxLeft: 0
-        distance: colWidth
-        slideElements: slideElements
-      }
-
-    triggers: {
-      'click [data-behavior="matrix-slider-left"]':   'slider:left'
-      'click [data-behavior="matrix-slider-right"]':  'slider:right'
-    }
-
-    setupListeners: () ->
-      @listenTo(@, 'slider:right', () -> @slide('forward'))
-      @listenTo(@, 'slider:left', () -> @slide('backward'))
-
-      @listenTo(@, 'show', () -> @setContentContainerHeight() )
-      @listenTo(@, 'show', () -> @calculateAndSetSliderWidth() )
-      @listenTo(@, 'show', () -> @setupRowHover() )
+      @sliderWidth = colCount * @sliderColWidth
+      @sliderMinLeft = (@sliderWidth * -1) + (@sliderColWidth * 4)
+      @$el.find('[data-behavior="matrix-slider"] ul').width(@sliderWidth)
 
     updateSliderControls: () ->
-      left = @$el.find('[data-behavior="matrix-slider-left"]')
-      right = @$el.find('[data-behavior="matrix-slider-right"]')
       # The width of the slider has to be greater than 4 columns for the slider to be able to slide.
-      if (@sliderData.distance * 4) < @sliderData.sliderWidth
-        if @sliderData.position == @sliderData.maxLeft then left.addClass('inactive') else left.removeClass('inactive')
-        if @sliderData.position == @sliderData.minLeft then right.addClass('inactive') else right.removeClass('inactive')
+      if (@sliderColWidth * 4) < @sliderWidth
+        if @sliderPosition == 0 then @ui.sliderLeft.addClass('inactive') else @ui.sliderLeft.removeClass('inactive')
+        if @sliderPosition == @sliderMinLeft then @ui.sliderRight.addClass('inactive') else @ui.sliderRight.removeClass('inactive')
       else
-        left.addClass('inactive')
-        right.addClass('inactive')
+        @ui.sliderLeft.addClass('inactive')
+        @ui.sliderRight.addClass('inactive')
 
     slide: (direction) ->
-      if direction == 'forward' then travel = @sliderData.distance * -1 else travel = @sliderData.distance * 1
-      newLeft = @sliderData.position + travel
-      if newLeft <= @sliderData.maxLeft && newLeft >= @sliderData.minLeft
-        @sliderData.slideElements.css('left', newLeft)
-        @sliderData.position = newLeft
+      if direction == 'forward' then travel = @sliderColWidth * -1 else travel = @sliderColWidth * 1
+      newLeft = @sliderPosition + travel
+      if newLeft <= 0 && newLeft >= @sliderMinLeft
+        @$el.find('[data-behavior="matrix-slider"] ul').css('left', newLeft)
+        @sliderPosition = newLeft
       @updateSliderControls()
 
+
+#
+#
+#    # Click events on a tags in this vieew that have data-behavior="routable" will be handled by this function, which will
+#    # pass the href attribtue to the backbone router
+#    handleRoutable: (e) ->
+#      event.preventDefault()
+#      href = $(e.currentTarget).attr('href')
+#      if href
+#        window.Vocat.courseMapRouter.navigate(href, true)
 
 
 #    headerPartial:  HBT["app/templates/course_map/partials/overlay_header"]
@@ -128,14 +144,6 @@ define [
 #      'click [data-behavior="navigate-project"]':     'navigateProjectDetail'
 #      'click [data-behavior="matrix-overlay-close"]': 'navigateGrid'
 #      'click [data-behavior="routable"]':             'handleRoutable'
-#
-#    # Click events on a tags in this vieew that have data-behavior="routable" will be handled by this function, which will
-#    # pass the href attribtue to the backbone router
-#    handleRoutable: (e) ->
-#      event.preventDefault()
-#      href = $(e.currentTarget).attr('href')
-#      if href
-#        window.Vocat.router.navigate(href, true)
 #
 #    initialize: (options)  ->
 #      window.Vocat.router.on "route:showCreatorProjectDetail", (course, creator, project) => @showCreatorProjectDetail(creator, project)

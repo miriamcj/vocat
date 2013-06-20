@@ -15,7 +15,7 @@ define [
 
     initializeLayout: (courseId) ->
       if @layoutInitialized == false
-        @courseMap = new CourseMap({collections: @collections})
+        @courseMap = new CourseMap({courseId: courseId, collections: @collections})
         window.Vocat.main.show(@courseMap)
         @layoutInitialized = true
 

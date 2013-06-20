@@ -8,5 +8,10 @@ define [
 
     itemView: Item
 
+    itemViewOptions: () ->
+      {
+      courseId: @options.courseId
+      }
+
     className: 'matrix--column-header--list'
     tagName: 'ul'

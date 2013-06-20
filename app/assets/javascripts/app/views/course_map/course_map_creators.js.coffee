@@ -8,6 +8,12 @@ define ['marionette', 'hbs!templates/course_map/course_map_creators', 'views/cou
 
     template: template
 
+    itemViewOptions: () ->
+      {
+        courseId: @options.courseId
+      }
+
+
     addSpacer: () ->
       @$el.append('<li class="matrix--row-spacer"></li>')
 

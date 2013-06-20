@@ -7,8 +7,8 @@ define ['marionette', 'backbone', 'routers/portfolio_router', 'routers/coursemap
   }
 
   Vocat.addInitializer () ->
-    portfolioRouter = new PortfolioRouter()
-    courseMapRouter = new CourseMapRouter()
+    Vocat.portfolioRouter = new PortfolioRouter()
+    Vocat.courseMapRouter = new CourseMapRouter()
     Backbone.history.start({pushState: true})
 
   return Vocat
