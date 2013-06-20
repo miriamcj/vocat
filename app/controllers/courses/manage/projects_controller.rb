@@ -1,4 +1,4 @@
-class Courses::ProjectsController < ApplicationController
+class Courses::Manage::ProjectsController < ApplicationController
   load_and_authorize_resource :course
   load_and_authorize_resource :project, :through => :course
   layout 'evaluator'
@@ -45,7 +45,7 @@ class Courses::ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        format.html { redirect_to course_project_path(@course, @project), notice: 'Project was successfully created.' }
+        format.html { redirect_to course_manage_project_path(@course, @project), notice: 'Project was successfully created.' }
         #format.json { render json: @project, status: :created, location: @project }
       else
         format.html { render action: "new" }
@@ -59,7 +59,7 @@ class Courses::ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update_attributes(params[:project])
-        format.html { redirect_to course_projects_path(@course), notice: 'Project was successfully updated.' }
+        format.html { redirect_to course_manage_projects_path(@course), notice: 'Project was successfully updated.' }
         #format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -75,7 +75,7 @@ class Courses::ProjectsController < ApplicationController
     @project.destroy
 
     respond_to do |format|
-      format.html { redirect_to course_projects_path(@course) }
+      format.html { redirect_to course_manage_projects_path(@course) }
       #format.json { head :no_content }
     end
   end

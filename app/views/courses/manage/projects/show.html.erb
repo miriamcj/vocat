@@ -1,6 +1,6 @@
 <header class="bar-header double-space-bottom">
   <h2 class="bar-header--title">Project Details</h2>
-  <%= link_to 'Back', course_projects_path(@course), :class => 'gray-ex-button' %>
+  <%= link_to 'Back', course_manage_projects_path(@course), :class => 'gray-ex-button' %>
   <%= render 'layouts/messages' %>
 </header>
 
@@ -30,9 +30,9 @@
 
   <p>
     <% if can? :update, @project %>
-      <%= link_to 'Edit', edit_course_project_path(@course, @project), :class => 'teal-arrow-button'  %>
+      <%= link_to 'Edit', edit_course_manage_project_path(@course, @project), :class => 'teal-arrow-button'  %>
     <% end %>
-    <%= link_to 'Back', course_projects_path(@course), :class => 'gray-ex-button' %>
+    <%= link_to 'Back', course_manage_projects_path(@course), :class => 'gray-ex-button' %>
   </p>
 
   </ul>

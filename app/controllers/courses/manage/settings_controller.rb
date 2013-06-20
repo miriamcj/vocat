@@ -1,4 +1,4 @@
-class Courses::SettingsController < ApplicationController
+class Courses::Manage::SettingsController < ApplicationController
 
   load_and_authorize_resource :course
   layout 'evaluator'

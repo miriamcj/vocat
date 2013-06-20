@@ -26,7 +26,7 @@ define ['plugins/waypoints', 'jquery'], (waypoints, $) ->
 
   ##########################################
   # Sticky Header Plugin
-  ##########################################\
+  ##########################################
   $.fn.extend
     stickyHeader: (options) ->
 
@@ -55,12 +55,16 @@ define ['plugins/waypoints', 'jquery'], (waypoints, $) ->
 
       settings = {}
       settings = $.extend settings, options
+      $nav = $('.js-shortcut-nav')
+      setTimeout( () ->
+          $nav.removeClass('invisible')
+      , 500)
 
       return @each ()->
         $el = $(@)
         $el.click((event) ->
             $el.toggleClass('active')
-            $('.js-shortcut-nav').toggleClass('visible')
+            $nav.toggleClass('visible')
             event.preventDefault()
         )
 

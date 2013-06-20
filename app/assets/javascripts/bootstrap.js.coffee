@@ -55,9 +55,10 @@ requirejs.config {
   }
 }
 
-require ['jquery', 'layout/layout', 'app/vocat'], ($, Layout, Vocat) ->
-
+require ['jquery', 'layout/layout'], ($, Layout) ->
   Layout.bootstrap()
+
+require ['jquery', 'app/vocat'], ($, Vocat) ->
   Vocat.start()
 
 

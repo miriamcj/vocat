@@ -1,4 +1,4 @@
-class Courses::GroupsController < ApplicationController
+class Courses::Manage::GroupsController < ApplicationController
 
   load_and_authorize_resource :course
   load_and_authorize_resource :project, :through => :course
