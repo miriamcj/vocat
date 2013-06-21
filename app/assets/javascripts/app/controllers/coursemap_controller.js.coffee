@@ -1,7 +1,7 @@
 define [
-  'marionette', 'controllers/vocat_controller', 'collections/creator_collection', 'collections/project_collection', 'views/course_map/course_map'
+  'marionette', 'controllers/vocat_controller', 'collections/creator_collection', 'collections/project_collection', 'collections/submission_collection', 'views/course_map/course_map_layout'
 ], (
-  Marionette, VocatController, CreatorCollection, ProjectCollection, CourseMap
+  Marionette, VocatController, CreatorCollection, ProjectCollection, SubmissionCollection, CourseMap
 ) ->
 
   class CourseMapController extends VocatController
@@ -9,6 +9,7 @@ define [
     collections: {
       creator: new CreatorCollection({})
       project: new ProjectCollection({})
+      submission: new SubmissionCollection({})
     }
 
     layoutInitialized: false
@@ -24,9 +25,12 @@ define [
 
     creatorDetail: (courseId, creatorId) ->
       @initializeLayout(courseId)
+      @courseMap.triggerMethod('open:detail:creator', {creator: creatorId})
 
     projectDetail: (courseId, projectId) ->
       @initializeLayout(courseId)
+      @courseMap.triggerMethod('open:detail:project', {project: projectId})
 
     creatorProjectDetail: (courseId, creatorId, projectId) ->
-      console.log "called projectDetail action with course #{course} and project #{project}"
+      @initializeLayout(courseId)
+      @courseMap.triggerMethod('open:detail:creator:project', {creator: creatorId, project: projectId})

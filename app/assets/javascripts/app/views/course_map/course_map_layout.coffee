@@ -1,10 +1,14 @@
 define [
   'marionette',
-  'hbs!templates/course_map/course_map',
-  'views/course_map/course_map_projects',
-  'views/course_map/course_map_creators',
-  'views/course_map/course_map_matrix',
-], (Marionette, template, CourseMapProjects, CourseMapCreators, CourseMapMatrix) ->
+  'hbs!templates/course_map/course_map_layout',
+  'views/course_map/projects',
+  'views/course_map/creators',
+  'views/course_map/matrix',
+  'views/course_map/detail_creator',
+  'views/course_map/detail_project',
+  'views/submission/submission_layout',
+  'views/course_map/header'
+], (Marionette, template, CourseMapProjects, CourseMapCreators, CourseMapMatrix, CourseMapDetailCreator, CourseMapDetailProject, CourseMapDetailCreatorProject, CourseMapHeader) ->
 
   class CourseMapView extends Marionette.Layout
 
@@ -13,14 +17,14 @@ define [
     template: template
 
     # We need to store various states of the slider, including column widths.
-    sliderData = {}
-
     sliderColWidth: 200
     sliderWidth: 3000
     sliderMinLeft: 0
     sliderPosition: 0
 
     ui: {
+      header: '[data-region="overlay-header"]'
+      overlay: '[data-region="overlay"]'
       sliderLeft: '[data-behavior="matrix-slider-left"]'
       sliderRight: '[data-behavior="matrix-slider-right"]'
     }
@@ -42,53 +46,123 @@ define [
       @creators.show(@children.creators)
       @projects.show(@children.projects)
       @matrix.show(@children.matrix)
+
+      # TODO: Consider whether this is the right spot for this.
+      @header.show(@children.header)
+
       @bindUIElements()
 
     initialize: (options) ->
       @collections = options.collections
       @courseId = options.courseId
 
-      @children.creators = new CourseMapCreators({collection: @collections.creator, courseId: @courseId})
-      @children.projects = new CourseMapProjects({collection: @collections.project, courseId: @courseId})
-      @children.matrix = new CourseMapMatrix({collections: @collections, courseId: @courseId})
+#      @listenTo(@, 'all', (event) ->
+#        console.log event, 'event heard'
+#      )
 
-      @setupListeners()
-
-    showCreatorDetail: () ->
-      console.log 'called show creator detail'
-
-    setupListeners: () ->
-      @listenTo(@, 'slider:right', () -> @slide('forward'))
-      @listenTo(@, 'slider:left', () -> @slide('backward'))
-
-      _.each @children, (child) =>
-        @listenTo(child, 'show:detail:creator', () -> console.log 'triggered')
-
-
-      @listenTo(@, 'show', () -> @setContentContainerHeight() )
-      @listenTo(@, 'show', () -> @calculateAndSetSliderWidth() )
-      @listenTo(@, 'show', () -> @setupRowHover() )
-      @listenTo(@children.matrix, 'render', () ->
-        @calculateAndSetSliderWidth()
+      # Whenever we show the overlay region, we need to make it appear
+      @listenTo(@overlay, 'show', () ->
+        @onOpenOverlay()
       )
 
-    positionOverlay: () ->
-      # Position overlay
-      #@overlay.css('margin-top', (@$el.find('.matrix--content').height() * -1)).css('z-index',200)
+      @listenTo(@header, 'show', () ->
+          @onOpenHeader()
+      )
+
+      @children.creators = new CourseMapCreators({collection: @collections.creator, courseId: @courseId, vent: @})
+      @children.projects = new CourseMapProjects({collection: @collections.project, courseId: @courseId, vent: @})
+      @children.matrix = new CourseMapMatrix({collections: @collections, courseId: @courseId, vent: @})
+      @children.header = new CourseMapHeader({collections: @collections, courseId: @courseId, vent: @})
+
+    onOpenDetailCreator: (args) ->
+      @collections.creator.setActive(args.creator)
+      @collections.project.setActive(null)
+      Vocat.courseMapRouter.navigate("courses/#{@courseId}/evaluations/creator/#{args.creator}")
+      view = new CourseMapDetailCreator({collections: @collections, courseId: @courseId, vent: @, creatorId: args.creator})
+      @overlay.show(view)
+
+    onOpenDetailProject: (args) ->
+      @collections.project.setActive(args.project)
+      @collections.creator.setActive(null)
+      Vocat.courseMapRouter.navigate("courses/#{@courseId}/evaluations/project/#{args.project}")
+      view = new CourseMapDetailProject({collections: @collections, courseId: @courseId, vent: @, projectId: args.project})
+      @overlay.show(view)
+
+    onOpenDetailCreatorProject: (args) ->
+      @collections.creator.setActive(args.creator)
+      @collections.project.setActive(args.project)
+      Vocat.courseMapRouter.navigate("courses/#{@courseId}/evaluations/creator/#{args.creator}/project/#{args.project}")
+      view = new CourseMapDetailCreatorProject({collections: @collections, courseId: @courseId, vent: @, creator: @collections.creator.getActive(), project: @collections.project.getActive()})
+      @overlay.show(view)
+
+    onRowInactive: (args) ->
+      @$el.find('[data-creator="'+args.creator+'"]').removeClass('active')
+
+    onRowActive: (args) ->
+      @$el.find('[data-creator="'+args.creator+'"]').addClass('active')
+
+    onColActive: (args) ->
+      # For now, do nothing.
+      #@$el.find('[data-project="'+args.project+'"]').addClass('active')
+
+    onColInactive: (args) ->
+      # For now, do nothing.
+      #@$el.find('[data-project="'+args.project+'"]').removeClass('active')
+
+    onRepaint: () ->
+      @setContentContainerHeight()
+      @calculateAndSetSliderWidth()
+
+    onShow: () ->
+      @onRepaint()
+
+    onSliderLeft: () ->
+      console.log 'onSliderLeft executed'
+      @slide('backwards')
+
+    onSliderRight: () ->
+      console.log 'onSliderRight executed'
+      @slide('forward')
+
+    onOpenOverlay: () ->
+
+      @ui.overlay.css('margin-top', (@$el.find('.matrix--content').height() * -1)).css('z-index',200)
 
       # Set min height on overlay
-      #@overlay.css('min-height', @$el.find('[data-behavior="matrix-creators-list"]').outerHeight())
+      @ui.overlay.css('min-height', @$el.find('[data-behavior="matrix-creators-list"]').outerHeight())
 
-    setupRowHover: () ->
-      @$el.find('[data-creator]').hover(
-        (event) =>
-          creator = $(event.currentTarget).attr('data-creator')
-          @$el.find('[data-creator="'+creator+'"]').addClass('active')
-        ,
-        (event) =>
-          creator = $(event.currentTarget).attr('data-creator')
-          @$el.find('[data-creator="'+creator+'"]').removeClass('active')
-      )
+      # Fade it in if not visible
+      if !@ui.overlay.is(':visible')
+        @ui.overlay.fadeIn(500)
+
+      if !@ui.header.is(':visible')
+        @ui.header.fadeIn(500)
+
+
+    onOpenHeader: () ->
+      # Fade it in if not visible
+
+    onCloseOverlay: (args) ->
+
+      Vocat.courseMapRouter.navigate("courses/#{@courseId}/evaluations")
+
+      if @ui.overlay.is(':visible')
+        @ui.overlay.fadeOut 500, () =>
+
+      if @ui.header.is(':visible')
+        @ui.header.fadeOut 500, () =>
+
+
+#    setupRowHover: () ->
+#      @$el.find('[data-creator]').hover(
+#        (event) =>
+#          creator = $(event.currentTarget).attr('data-creator')
+#          @$el.find('[data-creator="'+creator+'"]').addClass('active')
+#        ,
+#        (event) =>
+#          creator = $(event.currentTarget).attr('data-creator')
+#          @$el.find('[data-creator="'+creator+'"]').removeClass('active')
+#      )
 
     setContentContainerHeight: () ->
       # Content container should be as tall as the window

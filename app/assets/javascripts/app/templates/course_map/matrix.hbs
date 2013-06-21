@@ -1,7 +1,7 @@
 {{#each creators}}
 <ul class="matrix--row" data-creator="{{this.id}}">
   {{#each ../projects}}
-  <li class="matrix--cell">
+  <li data-project="{{this.id}}" class="matrix--cell">
     {{#get_submission ../../submissions ../this this}}
       {{#if this}}
         <a href="/courses/{{../../../../courseId}}/evaluations/creator/{{../../../this.id}}/project/{{../../this.id}}" data-behavior="routable">
