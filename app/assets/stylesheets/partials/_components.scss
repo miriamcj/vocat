@@ -995,12 +995,6 @@ a.table--heading {
   }
   li {
     position: relative;
-    &:after {
-      @extend %speech-bubble-tail;
-    }
-  }
-  .discussion-list--input-container {
-    margin-left: 5rem;
   }
   .alert-warning {
     margin-left: 0;
@@ -1009,11 +1003,17 @@ a.table--heading {
   }
 }
 
-
+.discussion-list--input-container {
+  margin-left: 5rem;
+}
 
 .discussion-list--item {
   @extend %comment;
   margin-bottom: 2.7rem;
+  position: relative;
+  &:after {
+    @extend %speech-bubble-tail;
+  }
 }
 
 .discussion-list--header {
