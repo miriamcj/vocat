@@ -872,7 +872,7 @@ a.table--heading {
 
 .attachment-placeholder--message {
   @extend %attachment-placeholder--item;
-  @extend %white-pill;
+  @extend %white-video-button;
 }
 
 // Annotations
@@ -1850,6 +1850,9 @@ a.table--heading {
 .alert--close {
   @extend %alert--close;
 }
+
+// Help overlays
+// --------------------------------------------------------
 
 
 

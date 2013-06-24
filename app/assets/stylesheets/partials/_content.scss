@@ -120,6 +120,40 @@ input.teal-arrow-button {
   @extend %speech-bubble;
 }
 
+// Loading indicators
+// --------------------------------------------------------
+// Can be applied to anything with an :after pseudoelement that ought to be spinning
+.loading {
+  &:after {
+    -webkit-animation: spin 1.4s infinite linear;
+    -moz-animation: spin 1.4s infinite linear;
+  }
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  50% {
+    -webkit-transform: rotate(180deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@-moz-keyframes spin {
+  0% {
+    -moz-transform: rotate(0deg);
+  }
+  50% {
+    -moz-transform: rotate(180deg);
+  }
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+
 // Lists
 // --------------------------------------------------------
 .unstyled-list {

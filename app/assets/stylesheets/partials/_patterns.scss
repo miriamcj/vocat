@@ -355,21 +355,31 @@
   @extend %white-button;
   padding-left: 3.9rem;
   position: relative;
+  cursor: pointer;
   &:after {
+    @include svg(play-slash);
     content: "";
     display: block;
+    width: 2.3rem;
+    height: 2.3rem;
     position: absolute;
     top: 0.5rem;
     bottom: 0.5rem;
     left: 0.5rem;
-    // TODO remove once real icon has arrived
-    width: 2rem;
-    border: 0.1rem solid $tealLighter;
-    border-radius: 100%;
   }
   &:hover {
     &:after {
-      border-color: $beigeLight;
+      @include svg(play-slash-beigeLight);
+    }
+  }
+  &.loading {
+    &:hover {
+      color: $tealLighter;
+      background-color: $beigeLight;
+    }
+    &:after {
+      background: transparent url('spinner-tealLight.png') no-repeat left top;
+      background-size: 100%;
     }
   }
 }
