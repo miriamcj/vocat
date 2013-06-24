@@ -1,7 +1,12 @@
 define [
-  'marionette', 'hbs!templates/submission/submission_layout', 'collections/submission_collection', 'views/submission/player'
+  'marionette',
+  'hbs!templates/submission/submission_layout',
+  'collections/submission_collection',
+  'collections/annotation_collection',
+  'views/submission/player',
+  'views/submission/annotations'
 ], (
-  Marionette, template, SubmissionCollection, PlayerView
+  Marionette, template, SubmissionCollection, AnnotationCollection, PlayerView, AnnotationsView
 ) ->
 
   class SubmissionLayout extends Marionette.Layout
@@ -18,25 +23,42 @@ define [
       player: '[data-region="player"]'
     }
 
+    createChildViews: () ->
+      @children.player = new PlayerView({model: @submission, vent: @})
+      @children.annotations = new AnnotationsView({model: @submission, collection: @annotations, vent: @})
+#      @children.score = new ScoreView({model: @submission})
+
+    onRender: () ->
+      if @children.player then @player.show(@children.player)
+      if @children.annotations then @annotations.show(@children.annotations)
+
     initialize: (options) ->
       @options = options || {}
-      @vent = Marionette.getOption(@, 'vent')
+
       @courseId = Marionette.getOption(@, 'courseId')
       @project = Marionette.getOption(@, 'project')
       @creator = Marionette.getOption(@, 'creator')
 
+      @annotations = new AnnotationCollection([],{})
+
+      # Load the submission for this view
       @submissions = new SubmissionCollection([], {
         courseId: @courseId
         creatorId: @creator.id
         projectId: @project.id
       })
 
-      @submissions.fetch({
-        success: =>
-          @submission = @submissions.at(0)
-      })
+      @listenTo(@submissions, 'sync', (event) =>
+        @submission = @submissions.at(0)
+        @triggerMethod('submission:loaded')
+      )
 
-      @listenTo(@submissions, 'sync', () -> @render())
+      @submissions.fetch()
 
-      @children.player = new PlayerView({model: @submission})
-#      @children.score = new ScoreView({model: @submission})
+    onSubmissionLoaded: () ->
+      @annotations.attachmentId = @submission.get('video_attachment_id')
+      @createChildViews()
+
+
+#    @listenTo(@submissions, 'sync', () -> @render())
+

@@ -7,6 +7,7 @@ requirejs.config {
     'plugins/file_upload': ['jquery']
     'plugins/autosize': ['jquery']
     'plugins/waypoints': ['jquery']
+    'popcorn/popcorn' : []
   }
 
   hbs: {

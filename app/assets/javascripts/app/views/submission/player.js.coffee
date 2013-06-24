@@ -1,37 +1,62 @@
+
 define [
   'marionette',
-  'hbs!templates/submission/player'
-], (Marionette, template) ->
+  'hbs!templates/submission/partials/player_has_transcoded_video',
+  'hbs!templates/submission/partials/player_upload_in_progress',
+  'hbs!templates/submission/partials/player_transcoding_in_progress',
+  'hbs!templates/submission/partials/player_attachment_not_transcoded',
+  'hbs!templates/submission/partials/player_upload_allowed',
+  'hbs!templates/submission/partials/player_no_video'
+], (
+  Marionette,
+  templateHasTranscodedVideo,
+  templateUploadInProgress,
+  templateTranscodingInProgress,
+  templateAttachmentNotTranscoded,
+  templateUploadAllowed,
+  templateNoVideo
+) ->
 
   class PlayerView extends Marionette.ItemView
 
-  #  templates: {
-  #    hasTranscodedVideo: HBT["app/templates/evaluation_detail/partials/player_has_transcoded_video"]
-  #    noVideo: HBT["app/templates/evaluation_detail/partials/player_no_video"]
-  #    transcodingInProgress: HBT["app/templates/evaluation_detail/partials/player_transcoding_in_progress"]
-  #    uploadAllowed: HBT["app/templates/evaluation_detail/partials/player_upload_allowed"]
-  #    uploadInProgress: HBT["app/templates/evaluation_detail/partials/player_upload_in_progress"]
-  #    attachmentNotTranscoded: HBT["app/templates/evaluation_detail/partials/player_attachment_not_transcoded"]
-  #  }
+    getTemplate: () ->
+#      # If we have a video, we show it.
+      template = templateNoVideo
+      if @model?
+        if @model.get('has_transcoded_attachment')
+          template = templateHasTranscodedVideo
+        else if @model.get('is_upload_started')
+          template = templateUploadInProgress
+        else if @model.get('transcoding_in_progress')
+          template = templateTranscodingInProgress
+        else if @model.get('has_uploaded_attachment')
+          # TODO: Allow the user to request a new transcoding!
+          template = templateAttachmentNotTranscoded
+        else if @model.get('current_user_can_attach')
+          template = templateUploadAllowed
+      template
 
-    template: template
+    template: templateNoVideo
 
-    events:
-      'click [data-behavior="show-upload"]': 'handleShowUpload'
-      'click [data-behavior="request-transcoding"]': 'handleRequestTranscoding'
+    triggers: {
+      'click [data-behavior="show-upload"]': 'open:upload'
+      'click [data-behavior="request-transcoding"]': 'start:transcoding'
+    }
 
-    handleShowUpload: (e) ->
-      e.preventDefault()
-      Vocat.Dispatcher.trigger 'showUpload'
+    ui: {
+      player: '[data-behavior="video-player"]'
+    }
 
-    handleRequestTranscoding: (e) ->
+    onOpenUpload: (e) ->
+      @vent.triggerMethod('open:upload', {})
+
+    onStartTranscoding: (e) ->
       @model.requestTranscoding()
 
     initialize: (options) ->
       @options = options || {}
       @vent = Marionette.getOption(@, 'vent')
       @courseId = Marionette.getOption(@, 'courseId')
-
 
       if @model
         @model.bind 'file:upload_done', @startPolling, @
@@ -43,9 +68,9 @@ define [
         if @model.get('has_uploaded_attachment') && !@model.get('is_transcoding_complete')
           @startPolling()
 
-#      Vocat.Dispatcher.bind 'player:stop', @handlePlayerStop, @
-#      Vocat.Dispatcher.bind 'player:start', @handlePlayerStart, @
-#      Vocat.Dispatcher.bind 'player:seek', @handlePlayerSeek, @
+      @listenTo(@vent, 'player:stop', () => @onPlayerStop())
+      @listenTo(@vent, 'player:start', () => @onPlayerStart())
+      @listenTo(@vent, 'player:seek', () => @onPlayerSeek())
 
     startPolling: () ->
       options = {
@@ -55,43 +80,35 @@ define [
           results = model.get('has_uploaded_attachment') && model.get('is_transcoding_complete')
           if results == true
             unless model.get('is_video')
-              Vocat.Dispatcher.trigger('flash', {level: 'error', message: 'Only video files are supported. Please upload a different file.'})
+              @vent.trigger('flash', {level: 'error', message: 'Only video files are supported. Please upload a different file.'})
               # temp settings
               model.set('is_upload_started', false)
               model.set('has_uploaded_attachment', false)
-              Vocat.Dispatcher.trigger('file:upload_failed')
+              @vent.trigger('file:upload_failed')
             else
-              Vocat.Dispatcher.trigger 'file:transcoded'
+              @vent.trigger('file:transcoded')
 
           !results
       }
       poller = Backbone.Poller.get(@model, options);
       poller.start()
 
-    handlePlayerStop: () ->
+    onPlayerStop: () ->
       @player.pause()
 
-    handlePlayerStart: () ->
+    onPlayerStart: () ->
       @player.play()
 
-    handlePlayerSeek: (options) ->
+    onPlayerSeek: (options) ->
       @player.currentTime(options.seconds)
+
+    onRender: () ->
+#      Popcorn.player('baseplayer')
+#      @player = Popcorn(@ui.player)
+#      @player.on( 'timeupdate', () ->
+#          @vent.trigger('player:time', {seconds: @.currentTime()})
+#      )
 #
-#    selectTemplate: () ->
-#      # If we have a video, we show it.
-#      if @model.get('has_transcoded_attachment')
-#        return 'hasTranscodedVideo'
-#      else if @model.get('is_upload_started')
-#        return 'uploadInProgress'
-#      else if @model.get('transcoding_in_progress')
-#        return 'transcodingInProgress'
-#      else if @model.get('has_uploaded_attachment')
-#        # TODO: Allow the user to request a new transcoding!
-#        return 'attachmentNotTranscoded'
-#      else if @model.get('current_user_can_attach')
-#        return 'uploadAllowed'
-#      else
-#        return 'noVideo'
 
 #
 #    render: () ->
