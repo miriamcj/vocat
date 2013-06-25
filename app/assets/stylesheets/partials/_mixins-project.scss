@@ -30,7 +30,7 @@
 // Extend them wherever you like: @extend .icon-tardis;
 // --------------------------
 @import "compass/utilities/sprites";
-@import "../images/icon/*.png";
+@import "icon/*.png";
 @include all-icon-sprites;
 
 // SVG backgrounds

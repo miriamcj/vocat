@@ -1832,34 +1832,37 @@ a.table--heading {
     margin-left: $width + 2.5rem;
   }
   .alert--label {
-    @include svg(alert-success);
     width: $width;
+    background: transparent url('alert-labels/alert-success.png') no-repeat left top;
+    background-size: contain;
   }
 }
 
 .alert-notice {
-  $width: 6.5rem;
+  $width: 6.4rem;
   @extend %alert;
   background-color: $blueLight;
   p {
     margin-left: $width + 2.5rem;
   }
   .alert--label {
-    @include svg(alert-notice);
     width: $width;
+    background: transparent url('alert-labels/alert-notice.png') no-repeat left top;
+    background-size: contain;
   }
 }
 
 .alert-alert {
-  $width: 5.7rem;
+  $width: 5.6rem;
   @extend %alert;
   background-color: $yellow;
   p {
     margin-left: $width + 2.5rem;
   }
   .alert--label {
-    @include svg(alert-alert);
     width: $width;
+    background: transparent url('alert-labels/alert-alert.png') no-repeat left top;
+    background-size: contain;
   }
 }
 
@@ -1871,21 +1874,29 @@ a.table--heading {
     margin-left: $width + 2.5rem;
   }
   .alert--label {
-    @include svg(alert-warning);
     width: $width;
+    background: transparent url('alert-labels/alert-warning.png') no-repeat left top;
+    background-size: contain;
+    .no-backgroundsize & {
+      @extend .icon-alert-warning;
+    }
   }
 }
 
 .alert-error {
-  $width: 10.3rem;
+  $width: 10rem;
   @extend %alert;
   background-color: $redLight;
   p {
     margin-left: $width + 2.5rem;
   }
   .alert--label {
-    @include svg(alert-error);
     width: $width;
+    background: transparent url('alert-labels/alert-error.png') no-repeat left top;
+    background-size: contain;
+    .no-backgroundsize & {
+      @extend .icon-alert-error;
+    }
   }
 }
 
