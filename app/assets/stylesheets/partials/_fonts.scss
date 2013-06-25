@@ -88,9 +88,10 @@
 // --------------------------
 @mixin font-body {
   @include kill-fout;
+  // This is only supported by Firefox, currently
+  font-size-adjust: 0.49;
   @if $usage == closed {
     font-family: "franklin-gothic-urw", "OpenSans", helvetica, sans-serif;
-    // font-family: "Benton Sans", "OpenSans", helvetica, sans-serif;
   }
   @else {
     font-family: "OpenSans", helvetica, sans-serif;
@@ -100,4 +101,5 @@
 @mixin font-head {
 	font-family: "LeagueGothic", helvetica, sans-serif;
   font-weight: normal;
+  font-size-adjust: none;
 }
