@@ -41,7 +41,10 @@ define [
       @disableScroll = false
       @vent = Marionette.getOption(@, 'vent')
       @courseId = Marionette.getOption(@, 'courseId')
-      @collection.fetch()
+
+      # TODO: Consider improving this check; annotations view shouldn't have to know quite so much about the collection.
+      if @collection.attachmentId
+        @collection.fetch()
 
       @listenTo(@collection, 'add,remove', (data) =>
         @updateCount()

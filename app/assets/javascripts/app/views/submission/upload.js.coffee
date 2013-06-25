@@ -1,52 +1,55 @@
-class Vocat.Views.EvaluationDetailUpload extends Vocat.Views.AbstractView
+define [
+  'marionette',
+  'hbs!templates/submission/upload',
+  'models/attachment',
+  'ui/jquery_ui'
+  'plugins/file_upload'
+], (
+  Marionette, template, Attachment
+) ->
+  class UploadView extends Marionette.ItemView
 
-  template: HBT["app/templates/evaluation_detail/upload"]
+    template: template
 
-  initialize: (options) ->
-    @project    = options.project
-    @submission = options.submission
-    @creator    = options.creator
-    Vocat.Dispatcher.bind 'showUpload', @showElement, @
-    Vocat.Dispatcher.bind 'hideUpload', @hideElement, @
-    @submission.bind 'file:upload_started', @hideElement, @
-    @submission.bind 'file:upload_failed', @showElement, @
 
-  hideElement: () ->
-    @$el.slideUp()
-
-  showElement: () ->
-    @$el.slideDown()
-
-  render: () ->
-    context = {
-      creator: @creator.toJSON()
-      project: @project.toJSON()
-      submission: @submission.toJSON()
+    ui: {
+      upload: '[data-behavior="async-upload"]'
     }
-    if @attachment
-      context.attachment = @attachment.toJSON()
 
-    @$el.html(@template(context))
+    initialize: (options) ->
+      @vent = Marionette.getOption(@, 'vent')
+      @courseId = Marionette.getOption(@, 'courseId')
 
-    @$el.hide()
+      @listenTo(@vent, 'upload:open', (data) -> @triggerMethod('open', data))
+      @listenTo(@vent, 'upload:close', (data) -> @triggerMethod('close', data))
+      @listenTo(@model, 'file:upload_started', (data) -> @triggerMethod('close', data))
+      @listenTo(@model, 'file:upload_failed', (data) -> @triggerMethod('open', data))
 
-    $uploadEl = @$el.find('[data-behavior="async-upload"]')
-    $uploadEl.fileupload
-      url: '/api/v1/submissions/' + @submission.id + '/attachments'
-      dataType: 'json'
-      done: (e, data) =>
-        @attachment = new Vocat.Models.Attachment(data.result)
-        @submission.fetch({
-          success: => @submission.trigger('file:upload_done')
-        })
-      fail: (e, data) =>
-        @submission.set('is_upload_started', false)
-        @submission.trigger('file:upload_failed')
-        Vocat.Dispatcher.trigger('flash', {level: 'error', message: 'Your upload file failed. Only video files are allowed and please make sure it is less than 25MB.'})
-      send: (e, data) =>
-        @submission.set('is_upload_started', true)
-        @submission.trigger('file:upload_started')
-        Vocat.Dispatcher.trigger('flash:flush')
 
-    # Return thyself for maximum chaining!
-    @
+    onBeforeRender: () ->
+      @$el.hide()
+
+    onClose: () ->
+      @$el.slideUp()
+
+    onOpen: () ->
+      console.log 'open heard'
+      @$el.slideDown()
+
+    onRender: () ->
+      @ui.upload.fileupload
+        url: '/api/v1/submissions/' + @model.id + '/attachments'
+        dataType: 'json'
+        done: (e, data) =>
+          @attachment = new Attachment(data.result)
+          @model.fetch({
+            success: => @model.trigger('file:upload_done')
+          })
+        fail: (e, data) =>
+          @model.set('is_upload_started', false)
+          @model.trigger('file:upload_failed')
+          @vent.trigger('flash', {level: 'error', message: 'Your upload file failed. Only video files are allowed and please make sure it is less than 25MB.'})
+        send: (e, data) =>
+          @model.set('is_upload_started', true)
+          @model.trigger('file:upload_started')
+          @vent.trigger('flash:flush')

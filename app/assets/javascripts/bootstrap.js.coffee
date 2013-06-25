@@ -1,6 +1,7 @@
 requirejs.config {
   shim: {
     'jquery_ujs': ['jquery']
+    'ui/jquery_ui': ['jquery']
     'plugins/smooth_scroll': ['jquery']
     'plugins/simple_slider': ['jquery']
     'plugins/iframe_transport': ['jquery']
@@ -37,6 +38,9 @@ requirejs.config {
     # Any module that requests jquery gets jquery-with-rails-ujs instead. Likewise, any module that requests
     # Marionette gets the patched Marionette instead (for HBS template rendering)
     '*': {
+
+      # The fileupload plugin asks for jquery.ui.widget, which is already included in jquery_ui.
+      'jquery.ui.widget' : 'ui/jquery_ui'
       'jquery': 'jquery-with-rails-ujs'
       'marionette' : 'marionette_patched'
       'Handlebars': 'handlebars'

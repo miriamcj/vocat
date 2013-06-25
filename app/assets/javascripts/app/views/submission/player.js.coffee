@@ -49,7 +49,7 @@ define [
     }
 
     onOpenUpload: (e) ->
-      @vent.triggerMethod('open:upload', {})
+      @vent.triggerMethod('upload:open', {})
 
     onStartTranscoding: (e) ->
       @model.requestTranscoding()
@@ -105,13 +105,13 @@ define [
       @player.currentTime(options.seconds)
 
     onRender: () ->
-      Popcorn.player('baseplayer')
-      @player = Popcorn(@ui.player[0])
-
-      @player.on( 'timeupdate', _.throttle ()=>
-        @vent.trigger('player:time', {seconds: @player.currentTime().toFixed(2)})
-      , 500
-      )
+      if @model.get('has_transcoded_attachment')
+        Popcorn.player('baseplayer')
+        @player = Popcorn(@ui.player[0])
+        @player.on( 'timeupdate', _.throttle ()=>
+          @vent.trigger('player:time', {seconds: @player.currentTime().toFixed(2)})
+        , 500
+        )
 
 
 
