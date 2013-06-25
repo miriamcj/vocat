@@ -1495,10 +1495,30 @@ a.table--heading {
     &:nth-child(even) {
       background-color: $beigeLightAlt;
     }
-    &:hover, &.active {
+    &:hover, 
+    &.active {
       background-color: $grayDarker;
       a {
         color: $orange;
+      }
+    }
+    &.matrix--group-title {
+      background-color: $tealLightestAlt;
+      &:nth-child(even) {
+        background-color: #d7dcdd;
+      }
+      &.first {
+        @extend %shaded-inside-top-right;
+      }
+      &:hover, 
+      &.active {
+        background-color: $grayDarker;
+      }
+      .matrix--overlay-open & {
+        background-color: mix($tealLightestAlt, black, 82%);
+        &:nth-child(even) {
+          background-color: mix(#d7dcdd, black, 82%);
+        }
       }
     }
     // These background colors are one-offs, unworthy of variables
@@ -1538,13 +1558,17 @@ a.table--heading {
 // SCOTT: I couldn't figure out how to make this work without using !important. I'm trying to remove the hover state
 // on the spacer rows/cells. --ZD
 .matrix--row-spacer {
-  &:nth-child(odd), &:nth-child(odd) li {
-    &:hover, &.active {
+  &:nth-child(odd), 
+  &:nth-child(odd) li {
+    &:hover, 
+    &.active {
       background-color: $beigeAlt !important;
     }
   }
-  &:nth-child(even), &:nth-child(even) li {
-    &:hover, &.active {
+  &:nth-child(even), 
+  &:nth-child(even) li {
+    &:hover, 
+    &.active {
       background-color: $beigeLightAlt !important;
     }
   }
@@ -1555,13 +1579,17 @@ a.table--heading {
 
 .matrix--overlay-open {
   .matrix--row-spacer {
-    &:nth-child(odd), &:nth-child(odd) li {
-      &:hover, &.active {
+    &:nth-child(odd), 
+    &:nth-child(odd) li {
+      &:hover, 
+      &.active {
         background-color: #c4c0c0 !important;
       }
     }
-    &:nth-child(even), &:nth-child(even) li {
-      &:hover, &.active {
+    &:nth-child(even), 
+    &:nth-child(even) li {
+      &:hover, 
+      &.active {
         background-color: #ccc8c8 !important;
       }
     }
@@ -1599,6 +1627,19 @@ a.table--heading {
   &:hover,
   &.active {
     background-color: $grayDarker;
+  }
+  &.matrix--group-row {
+    background-color: $tealLightestAlt;
+    &:nth-child(even) {
+      background-color: #d7dcdd;
+    }
+    &.first {
+      @extend %shaded-top;
+    }
+    &:hover,
+    &.active {
+      background-color: $grayDarker;
+    }
   }
 }
 

@@ -353,7 +353,7 @@
 
 %white-video-button {
   @extend %white-button;
-  padding-left: 3.9rem;
+  padding: 1rem 0.7rem 1rem 3.3rem;
   position: relative;
   cursor: pointer;
   &:after {
@@ -833,6 +833,13 @@
 %shaded-inside-right {
   @include box-shadow(
     inset -2.4rem 0 1.6rem -1.6rem transparentize($black, 0.82)
+  );
+}
+
+%shaded-inside-top-right {
+  @include box-shadow(
+    inset -2.4rem 0 1.6rem -1.6rem transparentize($black, 0.82),
+    inset 0 2.4rem 1.6rem -1.6rem transparentize($black, 0.82)
   );
 }
 
