@@ -3389,7 +3389,7 @@
       return Popcorn( node, options );
     }
 
-    // if our src is not an array, create an array of one.	
+    // if our src is not an array, create an array of one.
     if ( typeof( src ) === "string" ) {
 
       src = [ src ];
@@ -3605,7 +3605,7 @@
             if ( mediaType === "HTML5" ) {
               options.popcorn.controls( true );
             }
-            
+
             // Set them to 0 now so it is hidden
             options._container.style.width = "0px";
             options._container.style.height = "0px";
@@ -5015,7 +5015,7 @@ var googleCallback;
         options.anchor.style.display = "none";
 
         // add the widget's div to the target div.
-        // if target is <video> or <audio>, create a container and routinely 
+        // if target is <video> or <audio>, create a container and routinely
         // update its size/position to be that of the media
         if ( target ) {
           if ( [ "VIDEO", "AUDIO" ].indexOf( target.nodeName ) > -1 ) {
@@ -5024,7 +5024,7 @@ var googleCallback;
           }
           else {
             target && target.appendChild( options.anchor );
-          }          
+          }
         }
 
         img.addEventListener( "load", function() {
@@ -5785,8 +5785,8 @@ var wikiCallback;
           optional: true
         },
         src: {
-          elem: "input", 
-          type: "url", 
+          elem: "input",
+          type: "url",
           label: "Wikipedia URL",
           "default": "http://en.wikipedia.org/wiki/Cat"
         },
@@ -7109,28 +7109,28 @@ api - https://github.com/documentcloud/document-viewer/blob/master/public/javasc
           remote: "",
           data: []
         },
-        manifestData = {}, 
+        manifestData = {},
         dataObj = data;
-    
-    
+
+
     /*
       TODO: add support for filling in source children of the video element
-      
-      
+
+
       remote: [
-        { 
-          src: "whatever.mp4", 
+        {
+          src: "whatever.mp4",
           type: 'video/mp4; codecs="avc1, mp4a"'
-        }, 
-        { 
-          src: "whatever.ogv", 
+        },
+        {
+          src: "whatever.ogv",
           type: 'video/ogg; codecs="theora, vorbis"'
         }
       ]
 
     */
-    
-        
+
+
     Popcorn.forEach( dataObj.data, function ( obj, key ) {
       retObj.data.push( obj );
     });
@@ -7144,21 +7144,21 @@ api - https://github.com/documentcloud/document-viewer/blob/master/public/javasc
 (function (Popcorn) {
 
   /**
-   * SBV popcorn parser plug-in 
+   * SBV popcorn parser plug-in
    * Parses subtitle files in the SBV format.
    * Times are expected in H:MM:SS.MIL format, with hours optional
    * Subtitles which don't match expected format are ignored
    * Data parameter is given by Popcorn, will need a text.
    * Text is the file contents to be parsed
-   * 
+   *
    * @param {Object} data
-   * 
+   *
    * Example:
     0:00:02.400,0:00:07.200
     Senator, we're making our final approach into Coruscant.
    */
   Popcorn.parser( "parseSBV", function( data ) {
-  
+
     // declare needed variables
     var retObj = {
           title: "",
@@ -7170,53 +7170,53 @@ api - https://github.com/documentcloud/document-viewer/blob/master/public/javasc
         i = 0,
         len = 0,
         idx = 0;
-    
+
     // [H:]MM:SS.MIL string to SS.MIL
     // Will thrown exception on bad time format
     var toSeconds = function( t_in ) {
       var t = t_in.split( ":" ),
           l = t.length-1,
           time;
-      
+
       try {
         time = parseInt( t[l-1], 10 )*60 + parseFloat( t[l], 10 );
-        
+
         // Hours optionally given
-        if ( l === 2 ) { 
+        if ( l === 2 ) {
           time += parseInt( t[0], 10 )*3600;
         }
       } catch ( e ) {
         throw "Bad cue";
       }
-      
+
       return time;
     };
-    
+
     var createTrack = function( name, attributes ) {
       var track = {};
       track[name] = attributes;
       return track;
     };
-  
+
     // Here is where the magic happens
     // Split on line breaks
     lines = data.text.split( /(?:\r\n|\r|\n)/gm );
     len = lines.length;
-    
+
     while ( i < len ) {
       var sub = {},
           text = [],
           time = lines[i++].split( "," );
-      
+
       try {
         sub.start = toSeconds( time[0] );
         sub.end = toSeconds( time[1] );
-        
+
         // Gather all lines of text
         while ( i < len && lines[i] ) {
           text.push( lines[i++] );
         }
-        
+
         // Join line breaks in text
         sub.text = text.join( "<br />" );
         subs.push( createTrack( "subtitle", sub ) );
@@ -7226,13 +7226,13 @@ api - https://github.com/documentcloud/document-viewer/blob/master/public/javasc
           i++;
         }
       }
-      
+
       // Consume empty whitespace
       while ( i < len && !lines[i] ) {
         i++;
       }
     }
-    
+
     retObj.data = subs;
 
     return retObj;
@@ -7242,7 +7242,7 @@ api - https://github.com/documentcloud/document-viewer/blob/master/public/javasc
 // PARSER: 0.3 SRT
 (function (Popcorn) {
   /**
-   * SRT popcorn parser plug-in 
+   * SRT popcorn parser plug-in
    * Parses subtitle files in the SRT format.
    * Times are expected in HH:MM:SS,MIL format, though HH:MM:SS.MIL also supported
    * Ignore styling, which may occur after the end time or in-text
@@ -7250,12 +7250,12 @@ api - https://github.com/documentcloud/document-viewer/blob/master/public/javasc
    * SSA-style tags are stripped, HTML style tags are left for the browser to handle:
    *    HTML: <font>, <b>, <i>, <u>, <s>
    *    SSA:  \N or \n, {\cmdArg1}, {\cmd(arg1, arg2, ...)}
-   
+
    * Data parameter is given by Popcorn, will need a text.
    * Text is the file contents to be parsed
-   * 
+   *
    * @param {Object} data
-   * 
+   *
    * Example:
     1
     00:00:25,712 --> 00:00:30.399
@@ -7315,7 +7315,7 @@ api - https://github.com/documentcloud/document-viewer/blob/master/public/javasc
       // Join into 1 line, SSA-style linebreaks
       // Strip out other SSA-style tags
       sub.text = text.join( "\\N" ).replace( /\{(\\[\w]+\(?([\w\d]+,?)+\)?)+\}/gi, "" );
-      
+
       // Escape HTML entities
       sub.text = sub.text.replace( /</g, "&lt;" ).replace( />/g, "&gt;" );
 
@@ -7681,14 +7681,14 @@ api - https://github.com/documentcloud/document-viewer/blob/master/public/javasc
 (function (Popcorn) {
 
   /**
-   * TTXT popcorn parser plug-in 
+   * TTXT popcorn parser plug-in
    * Parses subtitle files in the TTXT format.
    * Style information is ignored.
    * Data parameter is given by Popcorn, will need an xml.
    * Xml is the file contents to be parsed as a DOM tree
-   * 
+   *
    * @param {Object} data
-   * 
+   *
    * Example:
      <TextSample sampleTime="00:00:00.000" text=""></TextSample>
    */
@@ -7706,11 +7706,11 @@ api - https://github.com/documentcloud/document-viewer/blob/master/public/javasc
     var toSeconds = function(t_in) {
       var t = t_in.split(":");
       var time = 0;
-      
-      try {        
+
+      try {
         return parseFloat(t[0], 10)*60*60 + parseFloat(t[1], 10)*60 + parseFloat(t[2], 10);
       } catch (e) { time = 0; }
-      
+
       return time;
     };
 
@@ -7725,14 +7725,14 @@ api - https://github.com/documentcloud/document-viewer/blob/master/public/javasc
     var node = data.xml.lastChild.lastChild; // Last Child of TextStreamHeader
     var lastStart = Number.MAX_VALUE;
     var cmds = [];
-    
+
     // Work backwards through DOM, processing TextSample nodes
     while (node) {
       if ( node.nodeType === 1 && node.nodeName === "TextSample") {
         var sub = {};
         sub.start = toSeconds(node.getAttribute('sampleTime'));
         sub.text = node.getAttribute('text');
-      
+
         if (sub.text) { // Only process if text to display
           // Infer end time from prior element, ms accuracy
           sub.end = lastStart - 0.001;
@@ -7742,7 +7742,7 @@ api - https://github.com/documentcloud/document-viewer/blob/master/public/javasc
       }
       node = node.previousSibling;
     }
-    
+
     returnData.data = cmds.reverse();
 
     return returnData;
@@ -8925,10 +8925,10 @@ api - https://github.com/documentcloud/document-viewer/blob/master/public/javasc
             // set duration and dispatch ready events
             media.duration = ytDuration;
             media.dispatchEvent( "durationchange" );
-            
+
             media.dispatchEvent( "loadedmetadata" );
             media.dispatchEvent( "loadeddata" );
-            
+
             media.readyState = 4;
 
             timeUpdate();
@@ -8970,7 +8970,7 @@ api - https://github.com/documentcloud/document-viewer/blob/master/public/javasc
           queryStringItem = params[ i ].split( "=" );
           playerVars[ queryStringItem[ 0 ] ] = queryStringItem[ 1 ];
         }
-        
+
         options.youtubeObject = new YT.Player( container.id, {
           height: "100%",
           width: "100%",
@@ -9024,7 +9024,7 @@ api - https://github.com/documentcloud/document-viewer/blob/master/public/javasc
                 if ( paused ) {
                   options.youtubeObject.pauseVideo();
                 }
-                
+
                 fetchDuration( 0.025 );
               }
             },
@@ -9095,7 +9095,7 @@ api - https://github.com/documentcloud/document-viewer/blob/master/public/javasc
    * so .overlay is actually jQuery( "#target .overlay")
    *
    * @param {Object} options
-   * 
+   *
    * Example:
      var p = Popcorn('#video')
         .footnote({
@@ -9133,7 +9133,7 @@ api - https://github.com/documentcloud/document-viewer/blob/master/public/javasc
   };
 
   Popcorn.compose( "applyclass", {
-    
+
     manifest: {
       about: {
         name: "Popcorn applyclass Effect",

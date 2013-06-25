@@ -1,45 +1,44 @@
-class Vocat.Views.EvaluationDetailAnnotator extends Vocat.Views.AbstractView
+define [
+  'marionette', 'hbs!templates/submission/annotator', 'models/annotation'
+], (
+  Marionette, template, AnnotationModel
+) ->
+  class AnnotatorView extends Marionette.ItemView
 
-  template: HBT["app/templates/evaluation_detail/annotator"]
+    template: template
 
-  events:
-    'keypress :input': 'saveAnnotation'
+    ui:
+      input: '[data-behavior="annotation-input"]'
 
-  initialize: (options) ->
-    super(options)
-    @project = options.project
-    @submission = options.submission
-    @creator = options.creator
-    @annotations = options.annotations
-    @annotations.bind('reset', @render, @)
+    events:
+      'keypress :input': 'onEventKeypress'
 
-  saveAnnotation: (e) ->
-    if e.keyCode == 13
-      player = Vocat.Dispatcher.player
-      seconds_timecode = player.currentTime()
-      annotation = new Vocat.Models.Annotation({
-        attachment_id: @submission.get('video_attachment_id')
-        body: @$el.find('[data-behavior="annotation-input"]').val()
-        published: false
-        seconds_timecode: seconds_timecode
-      })
-      annotation.save({},{
-        success: (annotation) =>
-          console.log 'success callback'
-          @annotations.add(annotation)
-      })
-      @render()
-      Vocat.Dispatcher.trigger 'player:start'
-    else
-      Vocat.Dispatcher.trigger 'player:stop'
+    triggers:
+      'submit': 'submit'
 
-  render: () ->
-    context = {
-      project: @project.toJSON()
-      submission: @submission.toJSON()
-      creator: @creator.toJSON()
-    }
-    @$el.html(@template(context))
+    initialize: (options) ->
+      @vent = Marionette.getOption(@, 'vent')
+      @courseId = Marionette.getOption(@, 'courseId')
 
-    # Return thyself for maximum chaining!
-    @
+    onEventKeypress: (e) ->
+      @vent.triggerMethod('player:stop', {})
+
+    onSubmit: () ->
+      @listenToOnce(@vent, 'player:broadcast:response', (response) =>
+        seconds_timecode = response.currentTime.toFixed(2);
+        annotation = new AnnotationModel({
+          attachment_id: @model.get('video_attachment_id')
+          body: @ui.input.val()
+          published: false
+          seconds_timecode: seconds_timecode
+        })
+        annotation.save({},{
+          success: (annotation) =>
+            @collection.add(annotation)
+            @render()
+            @vent.triggerMethod('player:start', {})
+        })
+
+      )
+
+      @vent.triggerMethod('player:broadcast:request', {})

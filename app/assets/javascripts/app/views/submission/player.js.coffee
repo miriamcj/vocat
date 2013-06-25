@@ -6,7 +6,8 @@ define [
   'hbs!templates/submission/partials/player_transcoding_in_progress',
   'hbs!templates/submission/partials/player_attachment_not_transcoded',
   'hbs!templates/submission/partials/player_upload_allowed',
-  'hbs!templates/submission/partials/player_no_video'
+  'hbs!templates/submission/partials/player_no_video',
+  'popcorn/popcorn'
 ], (
   Marionette,
   templateHasTranscodedVideo,
@@ -68,9 +69,10 @@ define [
         if @model.get('has_uploaded_attachment') && !@model.get('is_transcoding_complete')
           @startPolling()
 
-      @listenTo(@vent, 'player:stop', () => @onPlayerStop())
-      @listenTo(@vent, 'player:start', () => @onPlayerStart())
-      @listenTo(@vent, 'player:seek', () => @onPlayerSeek())
+      @listenTo(@vent, 'player:stop', (options) => @onPlayerStop(options))
+      @listenTo(@vent, 'player:start', (options) => @onPlayerStart(options))
+      @listenTo(@vent, 'player:seek', (options) => @onPlayerSeek(options))
+      @listenTo(@vent, 'player:broadcast:request', (options) => @onPlayerBroadcastRequest(options))
 
     startPolling: () ->
       options = {
@@ -103,26 +105,23 @@ define [
       @player.currentTime(options.seconds)
 
     onRender: () ->
-#      Popcorn.player('baseplayer')
-#      @player = Popcorn(@ui.player)
-#      @player.on( 'timeupdate', () ->
-#          @vent.trigger('player:time', {seconds: @.currentTime()})
-#      )
-#
+      Popcorn.player('baseplayer')
+      @player = Popcorn(@ui.player[0])
 
-#
-#    render: () ->
-#
-#
-#      if template == 'hasTranscodedVideo'
-#        Popcorn.player('baseplayer')
-#        playerElement = @$el.find('[data-behavior="video-player"]').get(0)
-#        @player = Popcorn(playerElement)
-#        Vocat.Dispatcher.player = @player
-#        @player.on( 'timeupdate', () ->
-#            Vocat.Dispatcher.trigger 'playerTimeUpdate', {seconds: @.currentTime()}
-#        )
-#
-#      # Return thyself for maximum chaining!
-#      @
+      @player.on( 'timeupdate', _.throttle ()=>
+        @vent.trigger('player:time', {seconds: @player.currentTime().toFixed(2)})
+      , 500
+      )
 
+
+
+    onPlayerBroadcastRequest: () ->
+      @vent.trigger('player:broadcast:response', {
+        currentTime: @player.currentTime()
+      })
+
+
+    serializeData: () ->
+      {
+        submission: @model.toJSON()
+      }

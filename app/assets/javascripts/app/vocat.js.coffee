@@ -1,4 +1,4 @@
-define ['marionette', 'backbone', 'routers/portfolio_router', 'routers/coursemap_router'], (Marionette, Backbone, PortfolioRouter, CourseMapRouter) ->
+define ['marionette', 'backbone', 'routers/portfolio_router', 'routers/coursemap_router', 'routers/submission_router'], (Marionette, Backbone, PortfolioRouter, CourseMapRouter, SubmissionRouter) ->
 
   window.Vocat = Vocat = new Marionette.Application()
 
@@ -9,6 +9,7 @@ define ['marionette', 'backbone', 'routers/portfolio_router', 'routers/coursemap
   Vocat.addInitializer () ->
     Vocat.portfolioRouter = new PortfolioRouter()
     Vocat.courseMapRouter = new CourseMapRouter()
+    Vocat.submissionRouter = new SubmissionRouter()
     Backbone.history.start({pushState: true})
 
   return Vocat

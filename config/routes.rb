@@ -9,7 +9,7 @@ Vocat::Application.routes.draw do
     namespace :v1 do
 
       resources :attachment, :only => [] do
-        resources :annotations, :only => [:index, :show, :create]
+        resources :annotations, :only => [:index, :show, :create, :destroy]
       end
 
       resources :submissions do

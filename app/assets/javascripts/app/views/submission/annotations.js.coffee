@@ -1,8 +1,11 @@
 define [
   'marionette',
-  'hbs!templates/submission/annotations'
+  'hbs!templates/submission/annotations',
+  'views/submission/annotations_item',
+  'views/submission/annotations_item_empty',
+  'plugins/smooth_scroll'
 ],(
-  Marionette, template
+  Marionette, template, ItemView, EmptyView
 ) ->
 
   class AnnotationsView extends Marionette.CompositeView
@@ -16,101 +19,68 @@ define [
       'click [data-behavior="annotations-auto-scroll"]': 'show:active'
     }
 
-    initialize: (options) ->
-      @project = options.project
-      @submission = options.submission
-      @creator = options.creator
-      @disableScroll = false
-      @collection.bind 'reset', @render, @
-      @collection.bind 'add', @insertView, @
-#      Vocat.Dispatcher.bind 'playerTimeUpdate', @showAnnotations, @
+    emptyView: EmptyView
 
-    doScroll: (speed, target, offset) ->
+    itemView: ItemView
+
+    itemViewContainer: '[data-behavior="annotations-container"]'
+
+    ui: {
+      count: '[data-behavior="count"]'
+      anchor: '[data-behavior="anchor"]'
+      scrollParent: '[data-behavior="scroll-parent"]'
+    }
+
+    itemViewOptions: (model, index) ->
+      {
+        model: model
+        vent: @
+      }
+
+    initialize: (options) ->
+      @disableScroll = false
+      @vent = Marionette.getOption(@, 'vent')
+      @courseId = Marionette.getOption(@, 'courseId')
+      @collection.fetch()
+
+      @listenTo(@collection, 'add,remove', (data) =>
+        @updateCount()
+      )
+
+      # Echo some events from parent down to the item view, whose vent is scoped to this annotations list view.
+      @listenTo(@vent, 'player:time', (data) =>
+        @trigger('player:time', data)
+      )
+
+    # Triggered by child itemView; echoed up the event chain to the global event
+    onPlayerSeek: (data) ->
+      @vent.trigger('player:seek', data)
+
+    onItemShown: (options) ->
       if @disableScroll == false
         if !speed? then speed = 300
-        if !target? then taret = @$el.find('.annotation--scroll-anchor')
         $.smoothScroll({
           direction: 'top'
           speed: speed
-          scrollElement: @$el.find('[data-behavior="scroll-parent"]')
-          scrollTarget: target
-          offset: offset
+          scrollElement: @ui.scrollParent
+          scrollTarget: @ui.anchor
         })
 
-    onShowActive: () ->
-      @$el.find('[data-behavior="annotations-view-all"]').show()
-      @$el.find('[data-behavior="annotations-auto-scroll"]').hide()
-      @disableScroll = false
-      @annotations.each (annotation) ->
-        annotation.unlock()
-      @showAnnotations({seconds: @currentTime})
+    onAfterItemAdded: () ->
+      @ui.count.html(@collection.length)
 
-    onShowAll: () ->
-      @$el.find('[data-behavior="annotations-view-all"]').hide()
-      @$el.find('[data-behavior="annotations-auto-scroll"]').show()
-      @disableScroll = true
-      @annotations.each (annotation) ->
-        annotation.lockVisible()
+    onItemRemoved: () ->
+      @ui.count.html(@collection.length)
 
-    showAnnotations: (args) ->
-      seconds = Math.floor(args.seconds)
-      @currentTime = seconds
-      @annotations.each (annotation) ->
-        if annotation.get('seconds_timecode') <= seconds
-          annotation.show()
-        else
-          annotation.hide()
-
-      visibleAnnotations = @annotations.filter (annotation) ->
-        annotation.visible == true
-
-      visibleValues = _.map visibleAnnotations, (annotation) ->
-        annotation.get('seconds_timecode')
-
-      pastVisibleValues = _.reject visibleValues, (value) ->
-        value > seconds
-
-      if pastVisibleValues.length > 0
-        maxVisible = _.max pastVisibleValues
+    # See https://github.com/marionettejs/backbone.marionette/wiki/Adding-support-for-sorted-collections
+    appendHtml: (collectionView, itemView, index) ->
+      if collectionView.itemViewContainer
+        childrenContainer = collectionView.$(collectionView.itemViewContainer)
       else
-        maxVisible = 0
-
-      target = @$el.find('[data-seconds="' + maxVisible + '"]')
-      @doScroll(300, target)
-
-    insertView: (annotation) ->
-      insertAt = annotation.get('seconds_timecode')
-      before = @annotations.find (annotation) ->
-        annotation.get('seconds_timecode') > insertAt
-
-      childView = new Vocat.Views.EvaluationDetailAnnotation({model: annotation})
-      @childViews[annotation.id] = childView
-
-      if before?
-        beforeEl = @childViews[before.id].el
-        $(beforeEl).before(childView.render().el)
+        childrenContainer = collectionView.$el
+      children = childrenContainer.children()
+      if children.size() <= index
+        childrenContainer.append itemView.el
       else
-        @$el.find('[data-behavior="annotations-container"]').append(childView.render().el)
+        childrenContainer.children().eq(index).before(itemView.el)
 
-      @updateCount()
-
-    updateCount: () ->
-      @$el.find('[data-behavior="count"]').html(@annotations.length)
-
-    render: () ->
-      context = {
-        currentTime: @currentTime
-        count: @annotations.length
-        disableScroll: @disableScroll
-        submission: @submission.toJSON()
-      }
-      @$el.html(@template(context))
-      annotationsContainer = @$el.find('[data-behavior="annotations-container"]')
-      @childViews = new Array
-      @annotations.each (annotation) =>
-        childView = new Vocat.Views.EvaluationDetailAnnotation({model: annotation})
-        @childViews[annotation.id] = childView
-        annotationsContainer.append(childView.render().el)
-
-      # Return thyself for maximum chaining!
-      @

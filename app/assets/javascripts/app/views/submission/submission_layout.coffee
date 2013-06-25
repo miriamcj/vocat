@@ -4,9 +4,10 @@ define [
   'collections/submission_collection',
   'collections/annotation_collection',
   'views/submission/player',
-  'views/submission/annotations'
+  'views/submission/annotations',
+  'views/submission/annotator'
 ], (
-  Marionette, template, SubmissionCollection, AnnotationCollection, PlayerView, AnnotationsView
+  Marionette, template, SubmissionCollection, AnnotationCollection, PlayerView, AnnotationsView, AnnotatorView
 ) ->
 
   class SubmissionLayout extends Marionette.Layout
@@ -23,40 +24,45 @@ define [
       player: '[data-region="player"]'
     }
 
+    onPlayerStop: () ->
+      console.log 'heard a player stop request'
+
     createChildViews: () ->
       @children.player = new PlayerView({model: @submission, vent: @})
-      @children.annotations = new AnnotationsView({model: @submission, collection: @annotations, vent: @})
+      @children.annotations = new AnnotationsView({model: @submission, collection: @collections.annotation, vent: @})
+      @children.annotator = new AnnotatorView({model: @submission, collection: @collections.annotation, vent: @})
 #      @children.score = new ScoreView({model: @submission})
 
-    onRender: () ->
       if @children.player then @player.show(@children.player)
       if @children.annotations then @annotations.show(@children.annotations)
+      if @children.annotator then @annotator.show(@children.annotator)
 
     initialize: (options) ->
       @options = options || {}
+
+      @collections = options.collections
 
       @courseId = Marionette.getOption(@, 'courseId')
       @project = Marionette.getOption(@, 'project')
       @creator = Marionette.getOption(@, 'creator')
 
-      @annotations = new AnnotationCollection([],{})
+      @collections.annotation = new AnnotationCollection([],{})
 
       # Load the submission for this view
-      @submissions = new SubmissionCollection([], {
+      @collections.submission = new SubmissionCollection([], {
         courseId: @courseId
         creatorId: @creator.id
         projectId: @project.id
       })
 
-      @listenTo(@submissions, 'sync', (event) =>
-        @submission = @submissions.at(0)
+      @listenTo(@collections.submission, 'sync', (event) =>
+        @submission = @collections.submission.at(0)
         @triggerMethod('submission:loaded')
       )
-
-      @submissions.fetch()
+      @collections.submission.fetch()
 
     onSubmissionLoaded: () ->
-      @annotations.attachmentId = @submission.get('video_attachment_id')
+      @collections.annotation.attachmentId = @submission.get('video_attachment_id')
       @createChildViews()
 
 

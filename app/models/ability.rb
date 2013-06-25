@@ -152,10 +152,23 @@ class Ability
       false
     end
 
+    can :destroy, Annotation do |annotation|
+      if user == annotation.author
+        next true
+      end
+      false
+    end
+
     ######################################################
     # Attachments
     ######################################################
     can :create, Attachment do |attachment|
+      #TODO: Flesh this out
+      true
+    end
+
+
+    can :update, Attachment do |attachment|
       #TODO: Flesh this out
       true
     end

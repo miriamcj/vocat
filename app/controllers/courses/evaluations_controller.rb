@@ -8,22 +8,22 @@ class Courses::EvaluationsController < ApplicationController
   end
 
   def creator_and_project
-    @project= Project.find(params[:project_id])
-    @creator = User.find(params[:creator_id])
-    @submission = Submission.for_creator_and_project(params[:creator_id], params[:project_id]).first()
+    @projects = [Project.find(params[:project_id])]
+    @creators = [User.find(params[:creator_id])]
+    submission = Submission.for_creator_and_project(params[:creator_id], params[:project_id]).first()
 
-    if @submission == nil
+    if submission == nil
       authorize! :submit, @project
-      @submission = Submission.new({
+      submission = Submission.new({
                                      :creator_id => params[:creator_id],
                                      :project_id => params[:project_id],
                                      :published => false
                                    })
-      @submission.save()
+      submission.save()
     else
-      authorize! :read, @submission
+      authorize! :read, submission
     end
-
+    @submissions = [submission]
     render
 
   end

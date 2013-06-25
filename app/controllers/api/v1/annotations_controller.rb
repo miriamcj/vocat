@@ -9,6 +9,11 @@ class Api::V1::AnnotationsController < ApplicationController
     respond_with @annotations, :root => false
   end
 
+  def destroy
+    @annotation.destroy
+    respond_with(@annotation)
+  end
+
   def show
     respond_with @annotation, :root => false
   end
