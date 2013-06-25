@@ -1270,13 +1270,21 @@
   }
 }
 
-// TODO: Scott may want to remove these font-size includes and instead extend the font-size classes above.
-	%small-score--value {
-  @include font-size(18);
-  @extend %score--value;
+%small-score--value {
+  @extend %gamma-sup;
+  @extend %no-select;
+  @include font-head;
+  color: $beigeLight;
+  line-height: 1;
   padding-top: 0.7rem;
+  position: absolute;
+  top: 0;
+  right: 1.7rem;
   small {
-	@include font-size(18);
+    @extend %gamma-sup;
+    vertical-align: top;
+    line-height: 1.1;
+    padding-left: 0.2rem;
   }
 }
 

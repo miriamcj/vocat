@@ -1299,9 +1299,6 @@ a.table--heading {
 // Components
 // --------------------------
 .matrix {
-  // These two rules are only necessary to hide .matrix--column-header shadow
-  position: relative;
-  overflow: hidden;
   &.matrix--overlay-open {
 
   }
@@ -1311,12 +1308,21 @@ a.table--heading {
 // ------------
 // TODO sort out a way to contain %shaded-bottom overflow when 'stuck'
 .matrix--column-header {
-  @extend %shaded-bottom;
+  // @extend %shaded-bottom;
   width: $mainWidth;
-  height: $subHeaderHeight;
-  background-color: $tealLightestAlt;
+  height: $subHeaderHeight + 2.4rem;
+  padding-bottom: 2.4rem;
   position: absolute;
   z-index: 300;
+  overflow: hidden;
+  &:after {
+    @extend %shaded-bottom;
+    content: "";
+    display: block;
+    width: 100%;
+    position: absolute;
+    top: $subHeaderHeight;
+  }
   &.stuck {
     position: fixed;
     top: 0;
@@ -1329,8 +1335,10 @@ a.table--heading {
 // Wraps .matrix--column-header--list
 .matrix--list-wrapper {
   @extend %matrix--slider;
+  background-color: $tealLightestAlt;
   float: left;
   position: relative;
+  z-index: 310;
 }
 
 .matrix--column-header--list {
@@ -1362,12 +1370,6 @@ a.table--heading {
     height: 5.5rem;
     overflow: hidden;
   }
-  // TODO sort out how to truncate long titles. This doesn't work:
-  // text-overflow: ellipsis;
-  // white-space: nowrap;
-  // &:first-line {
-  //   white-space: normal;
-  // }
 }
 
 .matrix--controls {
@@ -1375,9 +1377,11 @@ a.table--heading {
   @extend %shaded-inside-right;
   width: $matrixCellWidth;
   height: $subHeaderHeight;
+  background-color: $tealLightestAlt;
   padding: 2.1rem 3.2rem 1.7rem 1.6rem;
   float: left;
   position: relative;
+  z-index: 310;
 }
 
 %matrix--controls--item {
@@ -1521,6 +1525,16 @@ a.table--heading {
         }
       }
     }
+    &.matrix--row-spacer {
+      &:hover {
+        background-color: $beigeAlt;
+      }
+      &:nth-child(even) {
+        &:hover { 
+          background-color: $beigeLightAlt;
+        }
+      }
+    }
     // These background colors are one-offs, unworthy of variables
     .matrix--overlay-open & {
       @include opacity(50);
@@ -1552,28 +1566,6 @@ a.table--heading {
     font-weight: $bold;
     color: $tealMedium;
     padding: 0 1.6rem;
-  }
-}
-
-// SCOTT: I couldn't figure out how to make this work without using !important. I'm trying to remove the hover state
-// on the spacer rows/cells. --ZD
-.matrix--row-spacer {
-  &:nth-child(odd), 
-  &:nth-child(odd) li {
-    &:hover, 
-    &.active {
-      background-color: $beigeAlt !important;
-    }
-  }
-  &:nth-child(even), 
-  &:nth-child(even) li {
-    &:hover, 
-    &.active {
-      background-color: $beigeLightAlt !important;
-    }
-  }
-  .matrix--cell {
-    height: 100%;
   }
 }
 
@@ -1639,6 +1631,19 @@ a.table--heading {
     &:hover,
     &.active {
       background-color: $grayDarker;
+    }
+  }
+  &.matrix--row-spacer {
+    &:hover {
+      background-color: $beigeAlt;
+    }
+    &:nth-child(even) {
+      &:hover { 
+        background-color: $beigeLightAlt;
+      }
+    }
+    .matrix--cell {
+      height: 100%;
     }
   }
 }
