@@ -87,11 +87,9 @@ define [
         delay: 1000
         delayed: true
         condition: (attachment) =>
-          console.log attachment, 'model'
           results = attachment.get('transcoding_success') == true
-          console.log results
           if results
-            @trigger('attachment:transcoding:completed')
+            @triggerMethod('attachment:transcoding:completed')
             out = false
           else
             out = true
@@ -106,16 +104,16 @@ define [
       else
         console.log @submission
         attachment = @submission.attachment
-        if attachment.get('transcoding_busy') then @triggerMethod('attachment:upload:done')
-        if attachment.get('transcoding_error') then @triggerMethod('attachment:transcoding:failed')
-        if attachment.get('transcoding_success') then @triggerMethod('attachment:transcoding:completed')
+        if attachment
+          if attachment.get('transcoding_busy') then @triggerMethod('attachment:upload:done')
+          if attachment.get('transcoding_error') then @triggerMethod('attachment:transcoding:failed')
+          if attachment.get('transcoding_success') then @triggerMethod('attachment:transcoding:completed')
 
     onAttachmentTranscodingCompleted: () ->
       console.log 'onAttachmentTranscoded'
       @player.show(new PlayerView({model: @submission.attachment, submission: @submission, vent: @}))
 
     onAttachmentUploadDone: () ->
-      console.log 'onAttachmentUploadDone'
       @player.show(new UploadTranscodingView({}))
       console.log @submission,'before polling starts'
       @startPolling()

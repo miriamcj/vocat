@@ -40,7 +40,7 @@ define [
         url: '/api/v1/submissions/' + @model.id + '/attachments'
         dataType: 'json'
         done: (e, data) =>
-          @attachment = new Attachment(data.result.attachment)
+          @attachment = new Attachment(data.result)
           @model.attachment = @attachment
           @vent.triggerMethod('attachment:upload:done')
         fail: (e, data) =>
