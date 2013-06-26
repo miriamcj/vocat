@@ -9,7 +9,6 @@ define [
     paramRoot: 'annotation'
 
     urlRoot: () ->
-      console.log @
       url = '/api/v1/'
       if @get('attachment_id')
         url = url + "attachment/#{@get('attachment_id')}/"

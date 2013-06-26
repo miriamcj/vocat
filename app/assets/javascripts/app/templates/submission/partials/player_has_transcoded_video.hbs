@@ -1,3 +1,12 @@
-<video class="attachment--media" id="submission-video" data-behavior="video-player" controls>
-  <source src="{{submission.url}}">
-</video>
+<div class="box" style="width: 510px; height: 320px;">
+  <header>
+    <h2 class="box--title">Video Submission
+    </h2>
+    {{#if current_user_can_destroy}}
+    <a href="#" data-behavior="destroy" class="box--link">Delete Video</a>
+    {{/if}}
+  </header>
+  <video style="width: 510px; class="attachment--media" id="submission-video" data-behavior="video-player" controls>
+    <source src="{{url}}">
+  </video>
+</div>

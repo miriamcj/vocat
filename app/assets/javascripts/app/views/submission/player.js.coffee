@@ -2,45 +2,25 @@
 define [
   'marionette',
   'hbs!templates/submission/partials/player_has_transcoded_video',
-  'hbs!templates/submission/partials/player_upload_in_progress',
-  'hbs!templates/submission/partials/player_transcoding_in_progress',
-  'hbs!templates/submission/partials/player_attachment_not_transcoded',
-  'hbs!templates/submission/partials/player_upload_allowed',
   'hbs!templates/submission/partials/player_no_video',
+  'models/attachment',
   'popcorn/popcorn'
 ], (
   Marionette,
-  templateHasTranscodedVideo,
-  templateUploadInProgress,
-  templateTranscodingInProgress,
-  templateAttachmentNotTranscoded,
-  templateUploadAllowed,
-  templateNoVideo
+  templateVideo,
+  templateNoVideo,
+  Attachment
 ) ->
 
   class PlayerView extends Marionette.ItemView
 
     getTemplate: () ->
 #      # If we have a video, we show it.
-      template = templateNoVideo
-      if @model?
-        if @model.get('has_transcoded_attachment')
-          template = templateHasTranscodedVideo
-        else if @model.get('is_upload_started')
-          template = templateUploadInProgress
-        else if @model.get('transcoding_in_progress')
-          template = templateTranscodingInProgress
-        else if @model.get('has_uploaded_attachment')
-          # TODO: Allow the user to request a new transcoding!
-          template = templateAttachmentNotTranscoded
-        else if @model.get('current_user_can_attach')
-          template = templateUploadAllowed
+      template = templateVideo
       template
 
-    template: templateNoVideo
-
     triggers: {
-      'click [data-behavior="show-upload"]': 'open:upload'
+      'click [data-behavior="destroy"]': 'destroy'
       'click [data-behavior="request-transcoding"]': 'start:transcoding'
     }
 
@@ -48,52 +28,44 @@ define [
       player: '[data-behavior="video-player"]'
     }
 
-    onOpenUpload: (e) ->
-      @vent.triggerMethod('upload:open', {})
-
     onStartTranscoding: (e) ->
       @model.requestTranscoding()
 
+    onDestroy: ->
+      @model.destroy({
+        success: () =>
+          @model.clear()
+          @vent.triggerMethod('attachment:destroyed')
+      })
+
     initialize: (options) ->
       @options = options || {}
+      @submission = Marionette.getOption(@, 'submission')
       @vent = Marionette.getOption(@, 'vent')
       @courseId = Marionette.getOption(@, 'courseId')
 
-      if @model
-        @model.bind 'file:upload_done', @startPolling, @
-        @model.bind 'file:upload_started', @render, @
-        @model.bind 'file:upload_failed', @render, @
-        @model.bind 'change:has_transcoded_attachment', @render, @
-        @model.bind 'change:has_uploaded_attachment', @render, @
+      @listenTo @model, 'all', (event) -> console.log "player view heard event '#{event}' on its model"
 
-        if @model.get('has_uploaded_attachment') && !@model.get('is_transcoding_complete')
-          @startPolling()
 
+
+#      if @model
+#        @model.bind 'file:upload_done', @startPolling, @
+#        @model.bind 'file:upload_done', @render, @
+#        @model.bind 'file:upload_started', @render, @
+#        @model.bind 'file:upload_failed', @render, @
+#        @model.bind 'change:has_transcoded_attachment', @render, @
+#        @model.bind 'change:has_uploaded_attachment', @render, @
+#
+#        if @model.get('has_uploaded_attachment') && !@model.get('is_transcoding_complete')
+#          @startPolling()
+#
+      @listenTo(@model, 'change', (options) => @render())
       @listenTo(@vent, 'player:stop', (options) => @onPlayerStop(options))
       @listenTo(@vent, 'player:start', (options) => @onPlayerStart(options))
       @listenTo(@vent, 'player:seek', (options) => @onPlayerSeek(options))
       @listenTo(@vent, 'player:broadcast:request', (options) => @onPlayerBroadcastRequest(options))
 
-    startPolling: () ->
-      options = {
-        delay: 5000
-        delayed: true
-        condition: (model) =>
-          results = model.get('has_uploaded_attachment') && model.get('is_transcoding_complete')
-          if results == true
-            unless model.get('is_video')
-              @vent.trigger('flash', {level: 'error', message: 'Only video files are supported. Please upload a different file.'})
-              # temp settings
-              model.set('is_upload_started', false)
-              model.set('has_uploaded_attachment', false)
-              @vent.trigger('file:upload_failed')
-            else
-              @vent.trigger('file:transcoded')
 
-          !results
-      }
-      poller = Backbone.Poller.get(@model, options);
-      poller.start()
 
     onPlayerStop: () ->
       @player.pause()
@@ -105,7 +77,8 @@ define [
       @player.currentTime(options.seconds)
 
     onRender: () ->
-      if @model.get('has_transcoded_attachment')
+      console.log 'on render called'
+      if @model && @model.get('has_transcoded_attachment')
         Popcorn.player('baseplayer')
         @player = Popcorn(@ui.player[0])
         @player.on( 'timeupdate', _.throttle ()=>
@@ -120,8 +93,3 @@ define [
         currentTime: @player.currentTime()
       })
 
-
-    serializeData: () ->
-      {
-        submission: @model.toJSON()
-      }

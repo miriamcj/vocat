@@ -22,9 +22,8 @@ define [
 
       @listenTo(@vent, 'upload:open', (data) -> @triggerMethod('open', data))
       @listenTo(@vent, 'upload:close', (data) -> @triggerMethod('close', data))
-      @listenTo(@model, 'file:upload_started', (data) -> @triggerMethod('close', data))
-      @listenTo(@model, 'file:upload_failed', (data) -> @triggerMethod('open', data))
-
+      @listenTo(@model, 'attachment:upload:started', (data) -> @triggerMethod('close', data))
+      @listenTo(@model, 'attachment:upload:failed', (data) -> @triggerMethod('open', data))
 
     onBeforeRender: () ->
       @$el.hide()
@@ -41,15 +40,14 @@ define [
         url: '/api/v1/submissions/' + @model.id + '/attachments'
         dataType: 'json'
         done: (e, data) =>
-          @attachment = new Attachment(data.result)
-          @model.fetch({
-            success: => @model.trigger('file:upload_done')
-          })
+          @attachment = new Attachment(data.result.attachment)
+          @model.attachment = @attachment
+          @vent.triggerMethod('attachment:upload:done')
         fail: (e, data) =>
           @model.set('is_upload_started', false)
-          @model.trigger('file:upload_failed')
-          @vent.trigger('flash', {level: 'error', message: 'Your upload file failed. Only video files are allowed and please make sure it is less than 25MB.'})
+          @vent.triggerMethod('attachment:upload:failed')
+          @vent.triggerMethod('flash', {level: 'error', message: 'Your upload file failed. Only video files are allowed and please make sure it is less than 25MB.'})
         send: (e, data) =>
           @model.set('is_upload_started', true)
-          @model.trigger('file:upload_started')
-          @vent.trigger('flash:flush')
+          @vent.triggerMethod('attachment:upload:started')
+          @vent.triggerMethod('flash:flush')

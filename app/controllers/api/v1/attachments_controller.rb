@@ -17,6 +17,19 @@ class Api::V1::AttachmentsController < ApplicationController
     end
   end
 
+  def show
+    respond_to do |format|
+      format.json { render json: @attachment}
+    end
+  end
+
+  def destroy
+    @attachment.destroy
+    respond_to do |format|
+      format.json { render json: @attachment}
+    end
+  end
+
   def find_fileable
     @fileable = @submission
   end

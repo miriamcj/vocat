@@ -167,11 +167,20 @@ class Ability
       true
     end
 
+    can :read, Attachment do |attachment|
+      true
+    end
 
     can :update, Attachment do |attachment|
       #TODO: Flesh this out
       true
     end
+
+    can :destroy, Attachment do |attachment|
+      #TODO: Flesh this out
+      true
+    end
+
 
     ######################################################
     # Admins can do anything they want.

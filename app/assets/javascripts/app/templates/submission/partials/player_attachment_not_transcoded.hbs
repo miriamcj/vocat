@@ -1,5 +1,14 @@
-<div class="attachment--media">
-  <div class="attachment-placeholder">
-    <a data-behavior="request-transcoding" class="attachment-placeholder--button" href="#">This file has not been transcoded.</a>
+<div class="box" style="width: 510px; height: 320px;">
+  <header>
+    <h2 class="box--title">Video Submission
+    </h2>
+    {{#if submission.current_user_can_attach}}
+    <a href="#" data-behavior="destroy" class="box--link">Delete Attachment</a>
+    {{/if}}
+  </header>
+  <div class="attachment--media">
+    <div style="width: 510px; height: 286px;" class="attachment-placeholder">
+      <a data-behavior="request-transcoding" class="attachment-placeholder--button" href="#">We were unable to transcode this file.</a>
+    </div>
   </div>
 </div>
