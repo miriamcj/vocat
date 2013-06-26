@@ -875,7 +875,7 @@ a.table--heading {
 
 .attachment-placeholder--message {
   @extend %attachment-placeholder--item;
-  @extend %white-pill;
+  @extend %white-video-button;
 }
 
 // Annotations
@@ -998,12 +998,6 @@ a.table--heading {
   }
   li {
     position: relative;
-    &:after {
-      @extend %speech-bubble-tail;
-    }
-  }
-  .discussion-list--input-container {
-    margin-left: 5rem;
   }
   .alert-warning {
     margin-left: 0;
@@ -1012,11 +1006,17 @@ a.table--heading {
   }
 }
 
-
+.discussion-list--input-container {
+  margin-left: 5rem;
+}
 
 .discussion-list--item {
   @extend %comment;
   margin-bottom: 2.7rem;
+  position: relative;
+  &:after {
+    @extend %speech-bubble-tail;
+  }
 }
 
 .discussion-list--header {
@@ -1302,9 +1302,6 @@ a.table--heading {
 // Components
 // --------------------------
 .matrix {
-  // These two rules are only necessary to hide .matrix--column-header shadow
-  position: relative;
-  overflow: hidden;
   &.matrix--overlay-open {
 
   }
@@ -1312,28 +1309,37 @@ a.table--heading {
 
 // Column header
 // ------------
-// TODO sort out a way to contain %shaded-bottom overflow when 'stuck'
 .matrix--column-header {
-  @extend %shaded-bottom;
   width: $mainWidth;
-  height: $subHeaderHeight;
-  background-color: $tealLightestAlt;
+  height: $subHeaderHeight + 2.4rem;
+  padding-bottom: 2.4rem;
   position: absolute;
   z-index: 300;
+  &:after {
+    @extend %shaded-top;
+    content: "";
+    display: block;
+    width: 100%;
+    height: 2.4rem;
+    position: absolute;
+    top: $subHeaderHeight;
+  }
   &.stuck {
     position: fixed;
     top: 0;
-  }
-  .matrix--overlay-open & {
-    background-color: $tealLighter;
   }
 }
 
 // Wraps .matrix--column-header--list
 .matrix--list-wrapper {
   @extend %matrix--slider;
+  background-color: $tealLightestAlt;
   float: left;
   position: relative;
+  z-index: 310;
+  .matrix--overlay-open & {
+    background-color: $tealLighter;
+  }
 }
 
 .matrix--column-header--list {
@@ -1365,12 +1371,6 @@ a.table--heading {
     height: 5.5rem;
     overflow: hidden;
   }
-  // TODO sort out how to truncate long titles. This doesn't work:
-  // text-overflow: ellipsis;
-  // white-space: nowrap;
-  // &:first-line {
-  //   white-space: normal;
-  // }
 }
 
 .matrix--controls {
@@ -1378,9 +1378,14 @@ a.table--heading {
   @extend %shaded-inside-right;
   width: $matrixCellWidth;
   height: $subHeaderHeight;
+  background-color: $tealLightestAlt;
   padding: 2.1rem 3.2rem 1.7rem 1.6rem;
   float: left;
   position: relative;
+  z-index: 310;
+  .matrix--overlay-open & {
+    background-color: $tealLighter;
+  }
 }
 
 %matrix--controls--item {
@@ -1419,9 +1424,9 @@ a.table--heading {
   padding: 1.6rem 3.2rem 1.6rem 2.4rem;
   position: absolute;
   top: 0;
-  bottom: 0;
+  bottom: 2.4rem;
   left: $matrixCellWidth;
-  z-index: 300;
+  z-index: 320;
 }
 
 .matrix--overlay-header-close {
@@ -1434,25 +1439,34 @@ a.table--heading {
   float: left;
 }
 
+// Wraps .matrix--overlay-header-title & .matrix--overlay-header-subtitle
+.matrix--overlay-header-wrapper {
+  width: 50.5rem;
+  overflow: hidden;
+}
+
 .matrix--overlay-header-title {
   @extend %alpha;
+  vertical-align: top;
   color: $grayDark;
   font-weight: $bold;
-  margin: 1.1rem 0 1.1rem 1.2rem;
+  margin: 1.1rem 1.2rem;
   float: left;
 }
 
-// TODO sort out how to truncate long text
 .matrix--overlay-header-subtitle {
   @extend %alpha;
   @include font-head;
+  vertical-align: top;
   text-transform: uppercase;
   color: $tealMedium;
   line-height: 1;
   padding: 0.7rem 0 0.3rem 1.2rem;
   border-left: 0.1rem solid $tealMedium;
-  margin: 0.8rem 0 0.8rem 1.2rem;
-  float: left;
+  margin: 0.8rem 0;
+  white-space: nowrap;  
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .matrix--overlay-header-selector {
@@ -1498,10 +1512,40 @@ a.table--heading {
     &:nth-child(even) {
       background-color: $beigeLightAlt;
     }
-    &:hover, &.active {
+    &:hover, 
+    &.active {
       background-color: $grayDarker;
       a {
         color: $orange;
+      }
+    }
+    &.matrix--group-title {
+      background-color: $tealLightestAlt;
+      &:nth-child(even) {
+        background-color: #d7dcdd;
+      }
+      &.first {
+        @extend %shaded-inside-top-right;
+      }
+      &:hover, 
+      &.active {
+        background-color: $grayDarker;
+      }
+      .matrix--overlay-open & {
+        background-color: mix($tealLightestAlt, black, 82%);
+        &:nth-child(even) {
+          background-color: mix(#d7dcdd, black, 82%);
+        }
+      }
+    }
+    &.matrix--row-spacer {
+      &:hover {
+        background-color: $beigeAlt;
+      }
+      &:nth-child(even) {
+        &:hover { 
+          background-color: $beigeLightAlt;
+        }
       }
     }
     // These background colors are one-offs, unworthy of variables
@@ -1538,33 +1582,19 @@ a.table--heading {
   }
 }
 
-// SCOTT: I couldn't figure out how to make this work without using !important. I'm trying to remove the hover state
-// on the spacer rows/cells. --ZD
-.matrix--row-spacer {
-  &:nth-child(odd), &:nth-child(odd) li {
-    &:hover, &.active {
-      background-color: $beigeAlt !important;
-    }
-  }
-  &:nth-child(even), &:nth-child(even) li {
-    &:hover, &.active {
-      background-color: $beigeLightAlt !important;
-    }
-  }
-  .matrix--cell {
-    height: 100%;
-  }
-}
-
 .matrix--overlay-open {
   .matrix--row-spacer {
-    &:nth-child(odd), &:nth-child(odd) li {
-      &:hover, &.active {
+    &:nth-child(odd), 
+    &:nth-child(odd) li {
+      &:hover, 
+      &.active {
         background-color: #c4c0c0 !important;
       }
     }
-    &:nth-child(even), &:nth-child(even) li {
-      &:hover, &.active {
+    &:nth-child(even), 
+    &:nth-child(even) li {
+      &:hover, 
+      &.active {
         background-color: #ccc8c8 !important;
       }
     }
@@ -1602,6 +1632,32 @@ a.table--heading {
   &:hover,
   &.active {
     background-color: $grayDarker;
+  }
+  &.matrix--group-row {
+    background-color: $tealLightestAlt;
+    &:nth-child(even) {
+      background-color: #d7dcdd;
+    }
+    &.first {
+      @extend %shaded-top;
+    }
+    &:hover,
+    &.active {
+      background-color: $grayDarker;
+    }
+  }
+  &.matrix--row-spacer {
+    &:hover {
+      background-color: $beigeAlt;
+    }
+    &:nth-child(even) {
+      &:hover { 
+        background-color: $beigeLightAlt;
+      }
+    }
+    .matrix--cell {
+      height: 100%;
+    }
   }
 }
 
@@ -1789,34 +1845,46 @@ a.table--heading {
     margin-left: $width + 2.5rem;
   }
   .alert--label {
-    @include svg(alert-success);
     width: $width;
+    background: transparent url('alert-labels/alert-success.png') no-repeat left top;
+    background-size: contain;
+    .no-backgroundsize & {
+      @extend .icon-alert-success;
+    }
   }
 }
 
 .alert-notice {
-  $width: 6.5rem;
+  $width: 6.4rem;
   @extend %alert;
   background-color: $blueLight;
   p {
     margin-left: $width + 2.5rem;
   }
   .alert--label {
-    @include svg(alert-notice);
     width: $width;
+    background: transparent url('alert-labels/alert-notice.png') no-repeat left top;
+    background-size: contain;
+    .no-backgroundsize & {
+      @extend .icon-alert-notice;
+    }
   }
 }
 
 .alert-alert {
-  $width: 5.7rem;
+  $width: 5.6rem;
   @extend %alert;
   background-color: $yellow;
   p {
     margin-left: $width + 2.5rem;
   }
   .alert--label {
-    @include svg(alert-alert);
     width: $width;
+    background: transparent url('alert-labels/alert-alert.png') no-repeat left top;
+    background-size: contain;
+    .no-backgroundsize & {
+      @extend .icon-alert-alert;
+    }
   }
 }
 
@@ -1828,21 +1896,29 @@ a.table--heading {
     margin-left: $width + 2.5rem;
   }
   .alert--label {
-    @include svg(alert-warning);
     width: $width;
+    background: transparent url('alert-labels/alert-warning.png') no-repeat left top;
+    background-size: contain;
+    .no-backgroundsize & {
+      @extend .icon-alert-warning;
+    }
   }
 }
 
 .alert-error {
-  $width: 10.3rem;
+  $width: 10rem;
   @extend %alert;
   background-color: $redLight;
   p {
     margin-left: $width + 2.5rem;
   }
   .alert--label {
-    @include svg(alert-error);
     width: $width;
+    background: transparent url('alert-labels/alert-error.png') no-repeat left top;
+    background-size: contain;
+    .no-backgroundsize & {
+      @extend .icon-alert-error;
+    }
   }
 }
 
@@ -1853,6 +1929,9 @@ a.table--heading {
 .alert--close {
   @extend %alert--close;
 }
+
+// Help overlays
+// --------------------------------------------------------
 
 
 

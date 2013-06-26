@@ -4,8 +4,19 @@
 // Rems
 // --------------------------
 @mixin font-size($size) {
-  font-size: $size + px;
-  font-size: ($size / 10) + rem;
+  @if $usage == closed {
+    font-size: $size + px;
+    font-size: ($size / 10) + rem;
+    // Bumps all font-sizes down a notch if there's no javascript
+    .no-js & {
+      font-size: ($size - 1) + px;
+      font-size: (($size - 1) / 10) + rem;
+    }
+  }
+  @else {
+    font-size: ($size - 1) + px;
+    font-size: (($size - 1) / 10) + rem;
+  }
 }
 
 @mixin rem($property, $integer) {
@@ -19,7 +30,7 @@
 // Extend them wherever you like: @extend .icon-tardis;
 // --------------------------
 @import "compass/utilities/sprites";
-@import "../images/icon/*.png";
+@import "icon/*.png";
 @include all-icon-sprites;
 
 // SVG backgrounds
