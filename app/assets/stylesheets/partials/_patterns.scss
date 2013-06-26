@@ -441,6 +441,13 @@
   }
 }
 
+%minus-link {
+  @extend %arrow-link-beige-light;
+  &:after {
+    @include svg(circle-minus);
+  }
+}
+
 %ex-link {
   @extend %arrow-link;
   &:after {
@@ -1115,6 +1122,15 @@
 %box--link {
   @extend %heading-epsilon;
   @extend %arrow-link-beige-light;
+  position: absolute;
+  top: 0.7rem;
+  right: 1.2rem;
+}
+
+// Lives inside %box>header
+%box--minus-link {
+  @extend %heading-epsilon;
+  @extend %minus-link;
   position: absolute;
   top: 0.7rem;
   right: 1.2rem;

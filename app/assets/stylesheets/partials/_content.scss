@@ -191,6 +191,10 @@ input.teal-arrow-button {
   @extend %box--link;
 }
 
+.box--minus-link {
+  @extend %box--minus-link;
+}
+
 .box--content {
   @extend %box--content;
 }
