@@ -1436,25 +1436,34 @@ a.table--heading {
   float: left;
 }
 
+// Wraps .matrix--overlay-header-title & .matrix--overlay-header-subtitle
+.matrix--overlay-header-wrapper {
+  width: 50.5rem;
+  overflow: hidden;
+}
+
 .matrix--overlay-header-title {
   @extend %alpha;
+  vertical-align: top;
   color: $grayDark;
   font-weight: $bold;
-  margin: 1.1rem 0 1.1rem 1.2rem;
+  margin: 1.1rem 1.2rem;
   float: left;
 }
 
-// TODO sort out how to truncate long text
 .matrix--overlay-header-subtitle {
   @extend %alpha;
   @include font-head;
+  vertical-align: top;
   text-transform: uppercase;
   color: $tealMedium;
   line-height: 1;
   padding: 0.7rem 0 0.3rem 1.2rem;
   border-left: 0.1rem solid $tealMedium;
-  margin: 0.8rem 0 0.8rem 1.2rem;
-  float: left;
+  margin: 0.8rem 0;
+  white-space: nowrap;  
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .matrix--overlay-header-selector {
