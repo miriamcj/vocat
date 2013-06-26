@@ -1927,9 +1927,149 @@ a.table--heading {
   @extend %alert--close;
 }
 
-// Help overlays
+// Placards (Help overlays)
+//
+// Orientation:
+// The caret can appear in one of eight positions, corresponding
+// to the eight half-winds on a compass:
+//
+//    --nnw---nne--
+//   |             |
+//  wnw           ene
+//   |             |
+//  wsw           ese
+//   |             |
+//    --ssw---sse--
+//
 // --------------------------------------------------------
+// Orientation is 'nnw' by default (adding the 'nnw' class is fine, but has no effect)
+.placard {
+  $shim: 2.2rem;
+  width: 30rem;
+  min-height: 8rem;
+  padding: 2.2rem;
+  background-color: $grayDarkest;
+  border-radius: 0.8rem;
+  margin: $shim 0 0;
+  position: absolute;
+  z-index: 400;
+  &:after {
+    content: "";
+    border-right: 1.5rem solid transparent;
+    border-bottom: 1.6rem solid $grayDarkest;
+    border-left: 1.5rem solid transparent;
+    position: absolute;
+    top: -1.6rem;
+    left: 5rem;
+  }
+  &.wide {
+    width: 50rem;
+  }
+  // Orientation auxillary classes
+  &.nne {
+    &:after {
+      right: 5rem;
+      left: auto;
+    }
+  }
+  &.ene {
+    margin: 0 $shim 0 0;
+    &:after {
+      border-top: 1.5rem solid transparent;
+      border-right: none;
+      border-bottom: 1.5rem solid transparent;
+      border-left: 1.6rem solid $grayDarkest;
+      top: 2.5rem;
+      right: -1.6rem;
+      left: auto;
+    }
+  }
+  &.ese {
+    margin: 0 $shim 0 0;
+    &:after {
+      border-top: 1.5rem solid transparent;
+      border-right: none;
+      border-bottom: 1.5rem solid transparent;
+      border-left: 1.6rem solid $grayDarkest;
+      top: auto;
+      right: -1.6rem;
+      bottom: 2.5rem;
+      left: auto;
+    }
+  }
+  &.sse {
+    margin: 0 0 $shim;
+    &:after {
+      border-top: 1.6rem solid $grayDarkest;
+      border-right: 1.5rem solid transparent;
+      border-bottom: none;
+      border-left: 1.5rem solid transparent;
+      top: auto;
+      bottom: -1.6rem;
+      right: 5rem;
+      left: auto;
+    }
+  }
+  &.ssw {
+    margin: 0 0 $shim;
+    &:after {
+      border-top: 1.6rem solid $grayDarkest;
+      border-right: 1.5rem solid transparent;
+      border-bottom: none;
+      border-left: 1.5rem solid transparent;
+      top: auto;
+      bottom: -1.6rem;
+    }
+  }
+  &.wsw {
+    margin: 0 0 0 $shim;
+    &:after {
+      border-top: 1.5rem solid transparent;
+      border-right: 1.6rem solid $grayDarkest;
+      border-bottom: 1.5rem solid transparent;
+      border-left: none;
+      top: auto;
+      bottom: 2.5rem;
+      left: -1.6rem;
+    }
+  }
+  &.wnw {
+    margin: 0 0 0 $shim;
+    &:after {
+      border-top: 1.5rem solid transparent;
+      border-right: 1.6rem solid $grayDarkest;
+      border-bottom: 1.5rem solid transparent;
+      border-left: none;
+      top: 2.5rem;
+      left: -1.6rem;
+    }
+  }
+  p {
+    color: $grayLighter;
+  }
+  hr {
+    height: 0;
+    border-top: 1px solid $gray;
+    margin: 1.6rem 0;
+  }
+}
 
+.placard--title {
+  @extend %alpha;
+  font-weight: $medium;
+  color: $teal;
+}
+
+.placard--subtitle {
+  @extend %alpha;
+  color: $grayLighter;
+  strong {
+    @extend %kilo;
+    font-weight: $regular;
+    color: $orange;
+    padding-right: 0.5rem;
+  }
+}
 
 
 
