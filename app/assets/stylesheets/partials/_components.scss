@@ -1306,9 +1306,7 @@ a.table--heading {
 
 // Column header
 // ------------
-// TODO sort out a way to contain %shaded-bottom overflow when 'stuck'
 .matrix--column-header {
-  // @extend %shaded-bottom;
   width: $mainWidth;
   height: $subHeaderHeight + 2.4rem;
   padding-bottom: 2.4rem;
@@ -1327,9 +1325,6 @@ a.table--heading {
     position: fixed;
     top: 0;
   }
-  .matrix--overlay-open & {
-    background-color: $tealLighter;
-  }
 }
 
 // Wraps .matrix--column-header--list
@@ -1339,6 +1334,9 @@ a.table--heading {
   float: left;
   position: relative;
   z-index: 310;
+  .matrix--overlay-open & {
+    background-color: $tealLighter;
+  }
 }
 
 .matrix--column-header--list {
@@ -1382,6 +1380,9 @@ a.table--heading {
   float: left;
   position: relative;
   z-index: 310;
+  .matrix--overlay-open & {
+    background-color: $tealLighter;
+  }
 }
 
 %matrix--controls--item {
@@ -1420,9 +1421,9 @@ a.table--heading {
   padding: 1.6rem 3.2rem 1.6rem 2.4rem;
   position: absolute;
   top: 0;
-  bottom: 0;
+  bottom: 2.4rem;
   left: $matrixCellWidth;
-  z-index: 300;
+  z-index: 320;
 }
 
 .matrix--overlay-header-close {
@@ -1835,6 +1836,9 @@ a.table--heading {
     width: $width;
     background: transparent url('alert-labels/alert-success.png') no-repeat left top;
     background-size: contain;
+    .no-backgroundsize & {
+      @extend .icon-alert-success;
+    }
   }
 }
 
@@ -1849,6 +1853,9 @@ a.table--heading {
     width: $width;
     background: transparent url('alert-labels/alert-notice.png') no-repeat left top;
     background-size: contain;
+    .no-backgroundsize & {
+      @extend .icon-alert-notice;
+    }
   }
 }
 
@@ -1863,6 +1870,9 @@ a.table--heading {
     width: $width;
     background: transparent url('alert-labels/alert-alert.png') no-repeat left top;
     background-size: contain;
+    .no-backgroundsize & {
+      @extend .icon-alert-alert;
+    }
   }
 }
 
