@@ -4,6 +4,7 @@
 // Page level components
 // --------------------------------------------------------
 .container {
+  @extend %shaded-sides;
 	width: $mainWidth;
   background-color: $beige;
 	margin: 0 auto;
@@ -291,12 +292,10 @@
 // Page content
 // --------------------------------------------------------
 .page-content {
-  @extend %shaded-sides;
   background-color: $beige;
   margin-top: $headerHeight;
   position: relative;
   z-index: 100;
-  overflow-x: hidden;
 }
 
 .page-content--frame {
