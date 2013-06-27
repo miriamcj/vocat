@@ -2070,26 +2070,27 @@ a.table--heading {
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// <label>
+.placard--checkbox {
+  @extend %alpha;
+  @extend %no-select;
+  display: block;
+  color: $tealLightestAlt;
+  line-height: 1;
+  padding-left: 3rem;
+  margin-bottom: 1.6rem;
+  position: relative;
+  cursor: pointer;
+  .checkbox {
+    @extend %light-square-checkbox;
+    width: 2.2rem;
+    height: 2.2rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    & + b {
+      width: 1em;
+      height: 1em;
+    }
+  }
+}

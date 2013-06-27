@@ -256,10 +256,16 @@
     <div class="page-content">
 
       <!-- Help overlays -->
-      <!-- See _components.scc for a full explanation of 'placard orientation' -->
+      <!-- These are positioned relative to .page-content -->
+      <!-- See _components.scc for a full explanation of 'placard orientation' (nnw, wsw, etc.) -->
       
       <!-- This one corresponds to the 'What do these scores mean?' button -->
-      <aside class="placard ssw" style="top: 22.3rem; left: 73rem;">
+      <aside class="placard ssw" style="top: 18.5rem; left: 73rem;">
+        <label class="placard--checkbox">
+          <input class="checkbox" type="checkbox">
+          <b></b>
+          Glossary Mode
+        </label>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid quis.</p>
         <hr>
         <a class="teal-arrow-button space-bottom" href="#">View complete rubric</a>
@@ -285,7 +291,12 @@
       <!-- <aside class="placard wnw" style="top: 71.8rem; left: 21.3rem;">
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aut fugiat mollitia.</p>
       </aside> -->
-      
+
+      <!-- This one corresponds to the annotation input -->
+      <aside class="placard ene" style="top: 35.3rem; left: -29rem;">
+        <p>Lorem ipsum dolor sit amet, consectetur.</p>
+      </aside>
+                  
       <!-- Help overlays end -->
       
       

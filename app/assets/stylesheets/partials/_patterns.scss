@@ -738,6 +738,18 @@
   }
 }
 
+%light-square-checkbox {
+  @extend %square-checkbox;
+  & + b {
+    @include svg(checkbox-unchecked-tealLight);
+  }
+  &:checked {
+    & + b {
+      @include svg(checkbox-tealLight);
+    }
+  }
+}
+
 %multicolored-square-checkbox {
   @extend %square-checkbox;
   & + b {
