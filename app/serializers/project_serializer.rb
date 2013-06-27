@@ -3,6 +3,7 @@ class ProjectSerializer < ActiveModel::Serializer
               :course_id, :course_department, :course_section, :course_number,
               :current_user_id
 
+  has_one :rubric
 
   def current_user_is_owner
     #TODO: Complete this method

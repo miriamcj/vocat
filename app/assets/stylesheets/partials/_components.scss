@@ -1052,6 +1052,7 @@ a.table--heading {
   }
   .range-input {
     width: 87%;
+    height: 3.4rem;
     float: left;
   }
 }
@@ -1464,7 +1465,7 @@ a.table--heading {
   padding: 0.7rem 0 0.3rem 1.2rem;
   border-left: 0.1rem solid $tealMedium;
   margin: 0.8rem 0;
-  white-space: nowrap;  
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -1512,7 +1513,7 @@ a.table--heading {
     &:nth-child(even) {
       background-color: $beigeLightAlt;
     }
-    &:hover, 
+    &:hover,
     &.active {
       background-color: $grayDarker;
       a {
@@ -1527,7 +1528,7 @@ a.table--heading {
       &.first {
         @extend %shaded-inside-top-right;
       }
-      &:hover, 
+      &:hover,
       &.active {
         background-color: $grayDarker;
       }
@@ -1543,7 +1544,7 @@ a.table--heading {
         background-color: $beigeAlt;
       }
       &:nth-child(even) {
-        &:hover { 
+        &:hover {
           background-color: $beigeLightAlt;
         }
       }
@@ -1584,16 +1585,16 @@ a.table--heading {
 
 .matrix--overlay-open {
   .matrix--row-spacer {
-    &:nth-child(odd), 
+    &:nth-child(odd),
     &:nth-child(odd) li {
-      &:hover, 
+      &:hover,
       &.active {
         background-color: #c4c0c0 !important;
       }
     }
-    &:nth-child(even), 
+    &:nth-child(even),
     &:nth-child(even) li {
-      &:hover, 
+      &:hover,
       &.active {
         background-color: #ccc8c8 !important;
       }
@@ -1651,7 +1652,7 @@ a.table--heading {
       background-color: $beigeAlt;
     }
     &:nth-child(even) {
-      &:hover { 
+      &:hover {
         background-color: $beigeLightAlt;
       }
     }

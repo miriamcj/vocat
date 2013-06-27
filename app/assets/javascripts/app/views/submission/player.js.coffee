@@ -65,8 +65,6 @@ define [
       @listenTo(@vent, 'player:seek', (options) => @onPlayerSeek(options))
       @listenTo(@vent, 'player:broadcast:request', (options) => @onPlayerBroadcastRequest(options))
 
-
-
     onPlayerStop: () ->
       @player.pause()
 
@@ -77,9 +75,9 @@ define [
       @player.currentTime(options.seconds)
 
     onRender: () ->
-      console.log 'on render called'
-      if @model && @model.get('has_transcoded_attachment')
+      if @model && @model.get('is_video')
         Popcorn.player('baseplayer')
+        console.log 'on render'
         @player = Popcorn(@ui.player[0])
         @player.on( 'timeupdate', _.throttle ()=>
           @vent.trigger('player:time', {seconds: @player.currentTime().toFixed(2)})

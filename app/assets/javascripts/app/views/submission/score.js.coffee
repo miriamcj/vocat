@@ -1,15 +1,100 @@
 define [
-  'marionette', 'hbs!templates/submission/score'
+  'marionette', 'hbs!templates/submission/score', 'models/rubric', 'plugins/simple_slider'
 ], (
-  Marionette, template
+  Marionette, template, Rubric
 ) ->
   class EvaluationDetailScore extends Marionette.ItemView
 
     template: template
 
+    detailVisible: false
+
+    ui: {
+      toggleDetailOn: '.js-toggle-detail-on'
+      toggleDetailOff: '.js-toggle-detail-off'
+      scoreSliders: '[data-slider="true"]'
+      scoreInputs: '[data-slider-visible]'
+      scoreTotal: '[data-score-total]'
+    }
+
+    events: {
+      'slider:changed [data-slider="true"]': 'onInputInvisibleChange'
+
+    }
+
+    triggers: {
+      'click [data-behavior="toggle-detail"]': 'detail:toggle'
+      'change [data-slider-visible-input]': 'input:visible:change'
+    }
+
+    serializeData: () ->
+      {
+        rubric: @rubric.toJSON()
+      }
+
+    setDefaultViewState: () ->
+      if @detailVisible = true
+        @ui.toggleDetailOn.show()
+        @ui.toggleDetailOff.hide()
+      else
+        @ui.toggleDetailOn.hide()
+        @ui.toggleDetailOff.show()
+
+    initializeSliders: () ->
+      @ui.scoreSliders.each( (index, el) ->
+        $el = $(el)
+        slider = $el.simpleSlider({
+          range: [0,6]
+          step: 1
+          snapMid: true
+          highlight: true
+        })
+      )
+
+    retotal: () ->
+      total = 0
+      @ui.scoreInputs.each (index, element) ->
+        total = total + parseInt($(element).val())
+      @ui.scoreTotal.html(total)
+
+    onInputInvisibleChange: (event, data) ->
+      value = data.value
+      target = $(event.target)
+      key = target.data().key
+      @$el.find('[data-key="' + key + '"][data-slider-visible]').val(value)
+      @retotal()
+
+      console.log data, 'invisible input changed'
+
+    onRender: () ->
+      @setDefaultViewState()
+      @initializeSliders()
+      @retotal()
+
     initialize: (options) ->
+      console.log @model.get('rubric')
+      @rubric = new Rubric(@model.get('rubric'))
+      console.log @rubric.ranges(),'ranges'
+
       @vent = Marionette.getOption(@, 'vent')
       @courseId = Marionette.getOption(@, 'courseId')
+
+      @listenTo(@,'all',(event) -> console.log event)
+
+
+    onDetailToggle: () ->
+      if @detailVisible == true
+        # Hiding
+        @ui.toggleDetailOn.hide()
+        @ui.toggleDetailOff.show()
+        @detailVisible = false
+      else
+        # Showing
+        @ui.toggleDetailOn.show()
+        @ui.toggleDetailOff.hide()
+        @detailVisible = true
+
+
 
 #    scorePartial: HBT["app/templates/partials/score_summary"]
 #

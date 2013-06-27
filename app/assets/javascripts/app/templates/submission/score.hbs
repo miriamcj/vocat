@@ -1,16 +1,73 @@
 <header class="frame--header">
-	<h2 class="frame--title">Scores</h2>
+  <h2 class="frame--title">Scores</h2>
 	<div class="frame--header--buttons">
+  	<a  data-behavior="toggle-detail" class="js-toggle-detail-on small-teal-minus-button" href="#">Collapse Scores</a>
+  	<a data-behavior="toggle-detail" class="js-toggle-detail-off small-teal-plus-button" href="#">Expand Scores</a>
 		<a class="js-toggle-score-help gray-button" href="">What do these scores mean?</a>
 	</div>
 </header>
 <!-- TODO perhaps add an auxillary class to indicate expanded/collapsed -->
 <div class="scores">
-	{{> templates_partials_scoreSummary}}
-	<a class="js-toggle-score-detail scores--link" href="#">
-		{{#if state.detailVisible}}
-		Collapse Scores
-		{{else}}
-		Expand Scores
-		{{/if}}	</a>
+
+
+  <ul class="js-toggle-detail-off frame-summary--score-list">
+    {{#if submission.instructor_score_percentage}}
+    <li class="frame-summary--evaluated" style="padding-right: {{ invert submission.instructor_score_percentage }}%">
+      <h4 class="frame-summary--score--title">Evaluator Review</h4>
+      <span class="frame-summary--score--value">{{ to_i submission.instructor_score_percentage }}<small>%</small></span>
+    </li>
+    {{else}}
+    <li class="frame-summary--unevaluated">
+      <h4 class="frame-summary--score--title">Evaluator Review</h4>
+      <span class="frame-summary--score--value">&ndash;&ndash;&nbsp;&nbsp;</span>
+    </li>
+    {{/if}}
+    {{#if submission.peer_score_percentage}}
+    <li class="frame-summary--evaluated">
+      <h4 class="frame-summary--score--title">Peer Review</h4>
+      <span class="frame-summary--score--value">82<small>%</small></span>
+    </li>
+    {{else}}
+    <li class="frame-summary--unevaluated">
+      <h4 class="frame-summary--score--title">Peer Review</h4>
+      <span class="frame-summary--score--value">&ndash;&ndash;&nbsp;&nbsp;</span>
+    </li>
+    {{/if}}
+  </ul>
+  {{debug rubric}}
+  <ul class="js-toggle-detail-on frame--list">
+    <li>
+      <!--
+      <h3 class="heading-large">Virtues</h3>
+      -->
+      <ul class="scoring-list">
+        {{#each rubric.fields}}
+        <li>
+          <div class="range-input">
+            <input data-key="{{this.id}}" type="text" value="5" data-slider="true" >
+            <div class="range-input--title">{{this.name}}</div>
+          </div>
+          <div class="scoring-list--output">
+            <input data-key="{{this.id}}" data-slider-visible="true" class="scoring-list--value" type="text" value="0"><div class="scoring-list--ideal">6</div>
+          </div>
+        </li>
+        {{/each}}
+<!--
+        <li>
+          <div class="scoring-list--label">Virtues Bonus</div>
+          <div class="scoring-list--output">
+            <input class="scoring-list--value" type="text" value="0"><div class="scoring-list--ideal">6</div>
+          </div>
+        </li>
+-->
+        <li>
+          <div class="scoring-list--label">Virtues Total</div>
+          <div class="scoring-list--output">
+            <div data-score-total="true" class="scoring-list--total"></div>
+          </div>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
 </div>

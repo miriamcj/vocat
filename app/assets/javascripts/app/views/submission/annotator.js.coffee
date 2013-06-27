@@ -27,7 +27,7 @@ define [
       @listenToOnce(@vent, 'player:broadcast:response', (response) =>
         seconds_timecode = response.currentTime.toFixed(2);
         annotation = new AnnotationModel({
-          attachment_id: @model.get('video_attachment_id')
+          attachment_id: @model.attachment.id
           body: @ui.input.val()
           published: false
           seconds_timecode: seconds_timecode

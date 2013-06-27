@@ -10,9 +10,9 @@ define [
 
     urlRoot: () ->
       url = '/api/v1/'
-      if @get('attachment_id')
-        url = url + "attachment/#{@get('attachment_id')}/"
-        url + 'annotations'
+      url = url + "attachment/#{@get('attachment_id')}/"
+      url = url + 'annotations'
+      url
 
     initialize: () ->
       @visible = false

@@ -44,16 +44,14 @@ define [
       @options = options || {}
 
       @collections = options.collections
+      @collections.annotation = new AnnotationCollection([],{})
 
       @courseId = Marionette.getOption(@, 'courseId')
       @project = Marionette.getOption(@, 'project')
       @creator = Marionette.getOption(@, 'creator')
 
-      @collections.annotation = new AnnotationCollection([],{})
 
-
-
-      @listenTo(@, 'all', (event) -> console.log(event))
+      #@listenTo(@, 'all', (event) -> console.log(event))
 
       # Load the submission for this view
       @collections.submission = new SubmissionCollection([], {
@@ -65,19 +63,17 @@ define [
       @collections.submission.fetch({success: () =>
 
         @submission = @collections.submission.at(0)
-        @collections.annotation.attachmentId = @submission.get('video_attachment_id')
 
-#        @listenTo(@submission, 'change:video_attachment_id', (data) -> @onChangeVideoAttachmentId(data))
+        if @submission.get('current_user_can_annotate')
+          if @submission.attachment? && @submission.attachment.id? then @collections.annotation.attachmentId = @submission.attachment.id
+          @annotations.show new AnnotationsView({model: @submission, collection: @collections.annotation, vent: @})
 
-        @annotations.show new AnnotationsView({model: @submission, collection: @collections.annotation, vent: @})
-        @score.show new ScoreView({model: @submission, collection: @collections.submission, vent: @})
-        @upload.show new UploadView({model: @submission, collection: @collections.submission, vent: @})
+        if @submission.get('current_user_can_evaluate')
+          @score.show new ScoreView({model: @project, collection: @collections.submission, vent: @})
 
+        if @submission.get('current_user_can_attach')
+          @upload.show new UploadView({model: @submission, collection: @collections.submission, vent: @})
         @getPlayerView()
-
-        if @submission.attachment?
-          @annotator.show new AnnotatorView({model: @submission, collection: @collections.annotation, vent: @})
-        else
 
         @triggerMethod('submission:loaded')
       })
@@ -89,7 +85,7 @@ define [
         condition: (attachment) =>
           results = attachment.get('transcoding_success') == true
           if results
-            @triggerMethod('attachment:transcoding:completed')
+            @triggerMethod('attachment:transcoding:completed', {attachment: attachment})
             out = false
           else
             out = true
@@ -102,37 +98,35 @@ define [
       if !@submission.attachment?
         @triggerMethod('attachment:destroyed')
       else
-        console.log @submission
         attachment = @submission.attachment
         if attachment
           if attachment.get('transcoding_busy') then @triggerMethod('attachment:upload:done')
           if attachment.get('transcoding_error') then @triggerMethod('attachment:transcoding:failed')
           if attachment.get('transcoding_success') then @triggerMethod('attachment:transcoding:completed')
 
-    onAttachmentTranscodingCompleted: () ->
-      console.log 'onAttachmentTranscoded'
+    onAttachmentTranscodingCompleted: (data) ->
+      if data? && data.attachment?
+        @collections.annotation.attachmentId = data.attachment.id
+      @collections.annotation.fetch()
       @player.show(new PlayerView({model: @submission.attachment, submission: @submission, vent: @}))
+      @annotator.show new AnnotatorView({model: @submission, collection: @collections.annotation, vent: @})
 
     onAttachmentUploadDone: () ->
       @player.show(new UploadTranscodingView({}))
-      console.log @submission,'before polling starts'
+      @trigger('upload:close')
       @startPolling()
 
     onAttachmentDestroyed: () ->
-      console.log 'onAttachmentUploadDeleted'
+      @collections.annotation.attachmentId = null
+      @collections.annotation.reset()
       @player.show(new UploadStartView({vent: @}))
       @annotator.close()
 
     onAttachmentUploadFailed: () ->
-      console.log 'onAttachmentUploadFailed'
       @player.show(new UploadFailedView({}))
 
     onAttachmentUploadStarted: () ->
-      console.log 'onAttachmentUploadStarted'
       @player.show(new UploadStartedView({}))
 
 
-
-
-#    @listenTo(@submissions, 'sync', () -> @render())
 

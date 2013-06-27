@@ -60,7 +60,7 @@ requirejs.config {
   }
 }
 
-require ['jquery', 'layout/layout'], ($, Layout) ->
+require ['jquery', 'layout/layout', 'plugins/simple_slider'], ($, Layout) ->
   Layout.bootstrap()
 
 require ['jquery', 'app/vocat'], ($, Vocat) ->
