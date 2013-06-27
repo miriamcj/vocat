@@ -837,9 +837,16 @@ a.table--heading {
 }
 
 // Lives inside .attachment
-// <video>, for now
-.attachment--media {
+// .box, for now
+.attachment--left {
   @extend %annotated-media--object;
+  overflow: hidden;
+}
+
+// <video>
+.attachment--media {
+  display: block;
+  width: 100%;
 }
 
 // Attachment placeholder
