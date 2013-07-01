@@ -1,10 +1,3 @@
-<% content_for :backbone_bootstrap do %>
-    div = $('<div></div>')
-    div.html($('#<%= "bootstrap-#{key}" %>').text());
-    data = JSON.parse(div.text());
-    window.Vocat.Bootstrap.Models.<%= key %> = data.<%= key %>;
-<% end %>
-
-<script type="text/json" id="bootstrap-<%= key %>">
+<script type="text/json" class="bootstrap" data-bootstrap-key="<%= key %>" id="bootstrap-<%= key %>">
   { "<%= key %>": <%= serialize_for_bootstrap model, @current_user %> }
 </script>

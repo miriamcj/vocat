@@ -9,11 +9,11 @@ Vocat::Application.routes.draw do
     namespace :v1 do
 
       resources :attachment, :only => [] do
-        resources :annotations, :only => [:index, :show, :create]
+        resources :annotations, :only => [:index, :show, :create, :destroy]
       end
 
       resources :submissions do
-        resources :attachments, :only => [:create]
+        resources :attachments, :only => [:create, :destroy, :show]
         resources :discussion_posts, :shallow => true
       end
 
@@ -40,22 +40,26 @@ Vocat::Application.routes.draw do
 
   resources :courses do
 
-    match 'evaluations(/creator/:creator_id)(/project/:project_id)' => 'courses/evaluations#course_map', :via => :get, :as => 'evaluations'
-    match '/creator/:creator_id' => 'courses/evaluations#creator', :via => :get, :as => 'creator'
-    match '/project/:project_id' => 'courses/evaluations#project', :via => :get, :as => 'project'
-    match '/creator/:creator_id/project/:project_id' => 'courses/evaluations#creator_and_project', :via => :get, :as => 'creator_and_project'
-
     member do
       get 'portfolio'
     end
 
     scope :module => "courses" do
-      resources :projects
-      resources :groups
-      match 'settings' => 'settings#edit', :via => :get
-      match 'settings' => 'settings#update', :via => :put
+      namespace "manage" do
+        resources :projects
+        resources :groups
+        resources :rubrics, shallow: true
+        match 'settings' => 'settings#edit', :via => :get
+        match 'settings' => 'settings#update', :via => :put
+      end
     end
     resources :rubrics, shallow: true
+
+    match 'evaluations(/creator/:creator_id)(/project/:project_id)' => 'courses/evaluations#course_map', :via => :get, :as => 'evaluations'
+    match 'view/creator/:creator_id' => 'courses/evaluations#creator', :via => :get, :as => 'creator'
+    match 'view/project/:project_id' => 'courses/evaluations#project', :via => :get, :as => 'project'
+    match 'view/creator/:creator_id/project/:project_id' => 'courses/evaluations#creator_and_project', :via => :get, :as => 'creator_and_project'
+
   end
 
 

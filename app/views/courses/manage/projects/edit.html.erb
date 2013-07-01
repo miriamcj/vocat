@@ -1,0 +1,18 @@
+<header class="bar-header double-space-bottom">
+  <h2 class="bar-header--title">Edit Project</h2>
+  <%= link_to 'Back', course_manage_projects_path(@course), :class => 'gray-ex-button' %>
+  <%= render 'layouts/messages' %>
+</header>
+
+<div class="page-content--frame">
+  <header class="button-header">
+    <h2 class="button-header--title"><%= @project.name %></h2>
+  </header>
+  <%= simple_form_for(@project, :url => course_manage_project_path(@course, @project)) do |f| %>
+    <%= render 'form', :f => f %>
+    <div class="input-group">
+      <%= link_to 'Back', course_manage_projects_path(@course), :class => 'gray-ex-button' %>
+      <%= f.button :submit, 'Save project', :class => 'teal-plus-button' %>
+    </div>
+  <% end %>
+</div>

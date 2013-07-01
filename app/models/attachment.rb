@@ -48,6 +48,10 @@ class Attachment < ActiveRecord::Base
   # Typically one attachment, so get the most recent to the top
   default_scope order("updated_at DESC")
 
+  def active_model_serializer
+    AttachmentSerializer
+  end
+
   # Some wrappers
   def url(style = :original)
     case style
@@ -57,15 +61,19 @@ class Attachment < ActiveRecord::Base
       media.url :thumb
     end
   end
+
   def to_s
     self.url
   end
+
   def size
     media.size
   end
+
   def original_filename
     media_file_name
   end
+
   def content_type
     media_content_type
   end
@@ -178,6 +186,26 @@ class Attachment < ActiveRecord::Base
 
   end
 
+  def transcoding_not_started
+    self.transcoding_status == TRANSCODING_STATUS_NOT_STARTED
+  end
+
+  def transcoding_error
+    self.transcoding_status == TRANSCODING_STATUS_ERROR
+  end
+
+  def transcoding_unnecessary
+    self.transcoding_status == TRANSCODING_STATUS_UNNECESSARY
+  end
+
+  def transcoding_busy
+    self.transcoding_status == TRANSCODING_STATUS_BUSY
+  end
+
+  def transcoding_success
+    self.transcoding_status == TRANSCODING_STATUS_SUCCESS
+  end
+
   # Polls the AWS job queue to see if the given
   def listen_for_transcoding_completion(options, job_id)
     et = AWS::ElasticTranscoder.new(options)
@@ -206,7 +234,6 @@ class Attachment < ActiveRecord::Base
       self.update_column(:transcoding_error, "Transcoding took too long. Please upload a smaller video file.")
     end
   end
-
 
 
 end
