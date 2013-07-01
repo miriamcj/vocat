@@ -1,4 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController
+
+
+
   def create
     super
     @user.organization = Organization.find(params[:organization][:id])

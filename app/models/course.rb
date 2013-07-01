@@ -38,10 +38,10 @@ class Course < ActiveRecord::Base
   end
 
   def role(user)
-    return "administrator" if user.role? :admin
-    return "creator" if creators.include? user
-    return "assistant" if assistants.include? user
-    return "evaluator" if evaluators.include? user
+    return :administrator if user.role? :admin
+    return :creator if creators.include? user
+    return :assistant if assistants.include? user
+    return :evaluator if evaluators.include? user
   end
 
 end

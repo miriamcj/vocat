@@ -1,0 +1,25 @@
+<nav class="adaptive-nav">
+  <ul class="adaptive-nav--list">
+    <li><%= link_to 'Evaluations', course_evaluations_path(@course) %></li>
+    <li data-behavior="dropdown">
+      <a class="adaptive-nav--link" data-behavior="toggle" href="<%= url_for course_path(@course) %>">Manage Course</a>
+      <div class="adaptive-nav--dropdown" data-behavior="dropdown-options">
+        <ul>
+          <li>
+            <%=  link_to 'Projects', course_manage_projects_path(@course) %>
+          </li>
+          <li>
+            <%=  link_to 'Groups', course_manage_groups_path(@course) %>
+          </li>
+          <li>
+            <%=  link_to 'Settings', course_manage_settings_path(@course.id) %>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li><a href="#">Reports</a></li>
+    <li>
+      <%=  link_to 'My Rubrics', course_manage_rubrics_path(@course) %>
+    </li>
+  </ul>
+</nav>

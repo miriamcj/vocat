@@ -11,15 +11,15 @@
     <nav class="comments-nav">
       <ul>
         <li>
-          <a data-behavior="routable" href="/courses/{{submission.course_id}}/evaluations/creator/{{submission.creator_id}}/project/{{submission.project_id}}">12</a>
+          <a data-behavior="routable" href="{{submission.path}}">12</a>
         </li>
         <li>
-         <a data-behavior="routable" href="/courses/{{submission.course_id}}/evaluations/creator/{{submission.creator_id}}/project/{{submission.project_id}}">3 New</a>
+         <a data-behavior="routable" href="{{submission.path}}">3 New</a>
         </li>
       </ul>
     </nav>
 		{{#if showCourse}}
-    <a data-behavior="routable" class="frame-attachment--link" href="/courses/{{submission.course_id}}/evaluations/creator/{{submission.creator_id}}/project/{{submission.project_id}}">See All Comments</a>
+    <a data-behavior="routable" class="frame-attachment--link" href="{{submission.path}}">See All Comments</a>
     {{/if}}
   </figcaption>
   {{else}}
@@ -34,18 +34,18 @@
 </figure><!-- removes whitespace between columns
 --><div class="frame-summary">
     <h2 class="frame-summary--title">
-      <a data-behavior="routable" href="/courses/{{submission.course_id}}/evaluations/creator/{{submission.creator_id}}/project/{{submission.project_id}}">{{submission.project_name}}</a>
+      <a data-behavior="routable" href="{{submission.path}}">{{submission.project_name}}</a>
     </h2>
 		{{#if showCreator}}
     <h3 class="frame-summary--creator">
-      <a data-behavior="routable" href="/courses/{{submission.course_id}}/evaluations/creator/{{submission.creator_id}}">{{submission.creator_name}}</a>
+      <a data-behavior="routable" href="{{submission.path}}">{{submission.creator_name}}</a>
     </h3>
 		{{/if}}
 		{{#if showCourse}}
-    <h3 class="frame-summary--course"><a data-behavior="routable" href="/courses/{{submission.course_id}}/evaluations"><strong>{{submission.course_department}}{{submission.course_number}} </strong> {{submission.course_name}} [Section {{submission.course_section}}]</a></h3>
+    <h3 class="frame-summary--course"><a data-behavior="routable" href="{{submission.path}}"><strong>{{submission.course_department}}{{submission.course_number}} </strong> {{submission.course_name}} [Section {{submission.course_section}}]</a></h3>
 		{{/if}}
 		{{> templates_partials_scoreSummary}}
-		<a class="frame-summary--link" data-behavior="routable" href="/courses/{{submission.course_id}}/evaluations/creator/{{submission.creator_id}}/project/{{submission.project_id}}">Expand Scores</a>
+		<a class="frame-summary--link" data-behavior="routable" href="{{submission.path}}">Expand Scores</a>
     <!-- TODO has 'active' class only when published -->
     <aside class="frame-summary--status {{#if submission.published}}active{{/if}}">
 	    {{#if submission.published}}

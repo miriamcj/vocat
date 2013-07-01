@@ -12,7 +12,7 @@ class Api::V1::SubmissionsController < ApiController
     brief = params[:brief].to_i()
 
     if @course
-      authorize! :evaluate, @course
+#      authorize! :evaluate, @course
     end
 
     if @creator && !@course

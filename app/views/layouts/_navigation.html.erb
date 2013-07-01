@@ -1,3 +1,4 @@
+<% if !current_user.role? :admin %>
 <nav class="course-selector" data-behavior="dropdown">
   <a class="course-selector--toggle" data-behavior="toggle" href="#">
 	  <% if @course %>
@@ -15,16 +16,21 @@
       <li><a href="/">All Courses</a></li>
       <% if current_user && current_user.has_courses %>
         <% current_user.courses.each do |course| %>
-          <li><a <%= if @course == course then 'class=active' end %> href="<%= url_for portfolio_course_path(course) %>"><%= raw "<strong>#{course.department}#{course.number} :</strong> #{course.name} <small>[Section #{course.section}]</small>" %></a></li>
+          <% if course.role(current_user) == :evaluator %>
+            <li><a <%= if @course == course then 'class=active' end %> href="<%= url_for course_evaluations_path(course) %>"><%= raw "<strong>#{course.department}#{course.number} :</strong> #{course.name} <small>[Section #{course.section}]</small>" %></a></li>
+          <% else %>
+            <li><a <%= if @course == course then 'class=active' end %> href="<%= url_for portfolio_course_path(course) %>"><%= raw "<strong>#{course.department}#{course.number} :</strong> #{course.name} <small>[Section #{course.section}]</small>" %></a></li>
+          <% end %>
         <% end %>
       <% end %>
     </ul>
   </div>
 </nav>
+<% end %>
 
 <nav class="user-selector" data-behavior="dropdown">
   <div class="primary-nav--avatar">
-    <%= image_tag avatar_url(current_user, 48), :alt => "Charles Xavier" %>    
+    <%= image_tag avatar_url(current_user, 48), :alt => "Charles Xavier" %>
   </div>
   <% if user_signed_in? %>
     <a class="user-selector--toggle" data-behavior="toggle" href="#"><%= current_user.name %></a>
@@ -45,6 +51,19 @@
   <% end %>
 </nav>
 
+<% if @course %>
 <a class="shortcut-nav--toggle" data-behavior="shortcut-nav-toggle" href="#">Toggle Shortcuts Drawer</a>
+<% end %>
 
-<%= yield(:adaptive_navigation) %>
+<%= @course_role %>
+<% if @course %>
+  <% if @course_role == :evaluator %>
+     <%= render 'layouts/navigation_course_evaluator' %>
+  <% elsif @course_role == :creator %>
+    <%= render 'layouts/navigation_course_creator' %>
+  <% end %>
+<% else %>
+  <% if current_user.role? :admin %>
+    <%= render 'layouts/navigation_admin' %>
+  <% end %>
+<% end %>

@@ -2,8 +2,6 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
-  layout :select_layout
-
   load_resource :course
 
   before_filter { |controller| controller.get_organization_and_current_course 'course_id' }
@@ -20,34 +18,31 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(user)
     if user.role? 'admin'
       sign_in_url = url_for(:action => 'index', :controller => 'admin/dashboard')
+    else
+      sign_in_url = '/'
     end
   end
 
   def get_organization_and_current_course(param_name)
     if @course
       session[:course_id] = @course.id
-    else
-      if session[:course_id]
-        course = Course.find_by_id(session[:course_id])
-        if course != nil
-          @course = course
-        end
-      end
+    #else
+    #  if session[:course_id]
+    #    course = Course.find_by_id(session[:course_id])
+    #    if course != nil
+    #      @course = course
+    #    end
+    #  end
     end
+
     if current_user
       @organization = current_user.organization
     end
 
-
-  end
-
-  def select_layout
-    if current_user.role?(:evaluator)
-      layout = 'evaluator'
-    elsif current_user.role?(:admin)
-      layout = 'admin'
+    if @course && current_user
+      @course_role = @course.role(current_user)
     else
-      layout = 'creator'
+      @course_rol = nil
     end
   end
 
