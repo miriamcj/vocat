@@ -17,6 +17,11 @@ class ApplicationController < ActionController::Base
     redirect_to org_root_path :organization_id => current_user.organization
   end
 
+  def after_sign_in_path_for(user)
+    if user.role? 'admin'
+      sign_in_url = url_for(:action => 'index', :controller => 'admin/dashboard')
+    end
+  end
 
   def get_organization_and_current_course(param_name)
     if @course

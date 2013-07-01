@@ -1,1 +1,8 @@
-Admin dashboard will eventually go here.
+
+<table>
+  <% @courses.each do |course| %>
+  <tr>
+    <td><%= course.name %></td>
+  </tr>
+  <% end %>
+</table>
