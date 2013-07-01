@@ -9,6 +9,7 @@
   background-color: $beige;
 	margin: 0 auto;
   .authentication & {
+    @include box-shadow(none);
     background-color: transparent;
     margin-top: 11.2rem;
   }
