@@ -20,6 +20,8 @@ define [
       portfolioSubmissions = new PortfolioSubmissionsView({collection: @collections.submission})
       portfolioProjects = new PortfolioProjectsView({collection: @collections.project})
 
+      
+
       # Assign the collection views to the layout; assign the layout to the main region
       window.Vocat.main.show(portfolio)
       portfolio.submissions.show(portfolioSubmissions)

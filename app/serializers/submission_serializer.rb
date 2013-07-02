@@ -1,4 +1,5 @@
 class SubmissionSerializer < ActiveModel::Serializer
+
   attributes  :id, :name, :url, :thumb, :course_name, :course_name_long, :project_name,
               :course_id, :project_id, :creator_name, :creator_id, :current_user_is_owner,
               :current_user_can_evaluate, :course_department, :course_section, :course_number,
@@ -6,7 +7,9 @@ class SubmissionSerializer < ActiveModel::Serializer
               :attachment, :current_user_can_annotate, :current_user_can_attach, :current_user_can_discuss,
               :scored_by_instructor?, :path
 
-  has_one :attachment
+  def attachment
+    object.attachment()
+  end
 
   def path
     if Ability.new(scope).can?(:evaluate, object)
@@ -40,37 +43,8 @@ class SubmissionSerializer < ActiveModel::Serializer
     Ability.new(scope).can?(:attach, object)
   end
 
-  def video_attachment_id
-    object.video_attachment_id
-  end
-
   def current_user_is_owner
 		scope == object.creator
-  end
-
-  def has_transcoding_error
-    object.transcoding_error?()
-  end
-
-  def transcoding_in_progress
-    object.transcoding_in_progress?
-  end
-
-  def is_transcoding_complete
-    object.transcoding_complete?
-  end
-
-
-  def has_transcoded_attachment
-    object.transcoded_attachment?()
-  end
-
-  def has_uploaded_attachment
-    object.uploaded_attachment?()
-  end
-
-  def is_video
-    object.attachment && object.attachment.is_video?
   end
 
   def thumb
