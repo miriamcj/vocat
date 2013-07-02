@@ -50,10 +50,12 @@
 // --------------------------------------------------------
 .teal-button {
   @extend %teal-button;
+  border: none;
 }
 
 .gray-button {
   @extend %gray-button;
+  border: none;
 }
 
 .teal-arrow-button {
@@ -101,6 +103,11 @@ input.teal-arrow-button {
 .arrow-link {
   @extend %heading-epsilon;
   @extend %arrow-link;
+}
+
+.left-arrow-link {
+  @extend %heading-epsilon;
+  @extend %left-arrow-link;
 }
 
 .beige-arrow-link {

@@ -8,6 +8,8 @@
 	width: $mainWidth;
   background-color: $beige;
 	margin: 0 auto;
+  // TODO this cuts off help overlays that extend beyond .container; reposition help overlays
+  overflow-x: hidden;
   .authentication & {
     @include box-shadow(none);
     background-color: transparent;
