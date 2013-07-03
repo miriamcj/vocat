@@ -6,14 +6,7 @@ class CoursesController < ApplicationController
   respond_to :html, :json
 
   def portfolio
-    if current_user.role? :evaluator
-      @submissions = Submission.for_course(@course).limit(10)
-    else
-      @submissions = Submission.for_creator_and_course(current_user, @course).limit(10)
-      @incomplete_projects = Project.incomplete_for_user_and_course(current_user, @course).all()
-    end
-
-    respond_with(@course, @submissions) do |format|
+    respond_with do |format|
       format.html { render :template => 'portfolio/index' }
     end
   end

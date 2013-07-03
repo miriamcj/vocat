@@ -54,13 +54,9 @@ define [
       #@listenTo(@, 'all', (event) -> console.log(event))
 
       # Load the submission for this view
-      @collections.submission = new SubmissionCollection([], {
-        courseId: @courseId
-        creatorId: @creator.id
-        projectId: @project.id
-      })
+      @collections.submission = new SubmissionCollection([], {courseId: @courseId})
 
-      @collections.submission.fetch({success: () =>
+      @collections.submission.fetch({data: {project: @project.id, creator: @creator.id}, success: () =>
 
         @submission = @collections.submission.at(0)
 
@@ -99,7 +95,6 @@ define [
         @triggerMethod('attachment:destroyed')
       else
         attachment = @submission.attachment
-        console.log attachment, 'attachment'
         if attachment
           if attachment.get('transcoding_busy') then @triggerMethod('attachment:upload:done')
           if attachment.get('transcoding_error') then @triggerMethod('attachment:transcoding:failed')

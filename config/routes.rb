@@ -8,7 +8,13 @@ Vocat::Application.routes.draw do
   namespace :api do
     namespace :v1 do
 
-      resources :portfolio, :only => [:index]
+      # Singular because a user only has one portfolio
+      resources :portfolio, :only => [:index] do
+        collection do
+          get 'unsubmitted'
+        end
+      end
+
       resources :attachments
       resources :annotations
       resources :discussion_posts

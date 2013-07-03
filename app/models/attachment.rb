@@ -56,6 +56,7 @@ class Attachment < ActiveRecord::Base
   def url(style = :original)
     case style
     when :original
+      media.url
       media.expiring_url(Time.now + 3600, style)
     when :thumb
       media.url :thumb

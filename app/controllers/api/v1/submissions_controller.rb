@@ -24,7 +24,7 @@ class Api::V1::SubmissionsController < ApiController
     end
 
     if creator && project
-      @submissions = Submission.find_or_create_by_creator_and_project(creator, project).all()
+      @submissions = Submission.find_or_create_by_course_creator_and_project(course, creator, project).all()
     elsif creator
       @submissions = Submission.for_creator_and_course(creator, course).all()
     elsif project

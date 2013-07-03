@@ -9,7 +9,12 @@ class Ability
     ######################################################
     ### Courses
     ######################################################
-    can [:update, :read], Course do |course|
+
+    can [:read], Course do |course|
+      true if course.role(user)
+    end
+
+    can [:update], Course do |course|
       if course.creators.include?(user) then
         next false
       else

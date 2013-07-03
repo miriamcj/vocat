@@ -75,6 +75,7 @@ define [
       @player.currentTime(options.seconds)
 
     onRender: () ->
+      console.log @model.attributes
       if @model && @model.get('is_video')
         Popcorn.player('baseplayer')
         console.log 'on render'
@@ -83,8 +84,6 @@ define [
           @vent.trigger('player:time', {seconds: @player.currentTime().toFixed(2)})
         , 500
         )
-
-
 
     onPlayerBroadcastRequest: () ->
       @vent.trigger('player:broadcast:response', {

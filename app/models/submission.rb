@@ -21,13 +21,13 @@ class Submission < ActiveRecord::Base
   scope :for_creator_and_course, lambda { |creator, course| where('creator_id' => creator, 'projects.course_id' => course).includes(:course, :project, :attachments) }
   scope :for_project_and_course, lambda { |project, course| where('project_id' => project, 'projects.course_id' => course).includes(:course, :project, :attachments) }
   scope :for_creator_and_project, lambda { |creator, project| where('creator_id' => creator, 'project_id' => project).includes(:course, :project, :attachments) }
+  scope :for_course_creator_and_project, lambda { |course, creator, project| where('creator_id' => creator, 'project_id' => project, 'projects.course_id' => course).includes(:course, :project, :attachments) }
 
-  def self.find_or_create_by_creator_and_project(creator, project)
-    submissions = self.for_creator_and_project(creator, project)
-    course = project.course
-    if submissions.count() == 0 && course.role(creator) == :creator
+  def self.find_or_create_by_course_creator_and_project(course, creator, project)
+    submissions = self.for_course_creator_and_project(course, creator, project)
+    if submissions.count() == 0 && course.role(creator) == :creator && project.course_id == course.id
       submission = Submission.create({:creator_id => creator.id, :project_id => project.id, :published => false})
-      submissions = self.for_creator_and_project(creator, project)
+      submissions = self.for_course_creator_and_project(course, creator, project)
     else
       submissions
     end
