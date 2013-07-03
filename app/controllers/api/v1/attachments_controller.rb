@@ -1,16 +1,16 @@
 class Api::V1::AttachmentsController < ApplicationController
 
-  load_and_authorize_resource :submission
-  load_and_authorize_resource :attachment, :through => :submission
   load_and_authorize_resource :attachment
-  before_filter :find_fileable
 
   respond_to :json
   # POST /attachments
   # POST /attachments.json
   def create
+    submission = Submission.find(params[:submission])
+    @attachment.fileable = submission
+
     if @attachment.save
-      respond_with @attachment, status: :created, :root => false, :location => api_v1_submission_attachment_url(@submission, @attachment)
+      respond_with @attachment, status: :created, :root => false, :location => api_v1_attachment_url(@attachment)
     else
       respond_with @attachment, status: :unprocessable_entity, :root => false
     end
@@ -25,7 +25,4 @@ class Api::V1::AttachmentsController < ApplicationController
     respond_with @attachment
   end
 
-  def find_fileable
-    @fileable = @submission
-  end
 end

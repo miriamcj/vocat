@@ -8,11 +8,7 @@ define [
     urlRoot: '/api/v1/annotations'
     paramRoot: 'annotation'
 
-    urlRoot: () ->
-      url = '/api/v1/'
-      url = url + "attachment/#{@get('attachment_id')}/"
-      url = url + 'annotations'
-      url
+    urlRoot: '/api/v1/annotations'
 
     initialize: () ->
       @visible = false

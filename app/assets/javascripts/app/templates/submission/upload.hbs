@@ -8,18 +8,10 @@
       <span class="file-input-container">
         <input data-behavior="async-upload" name="attachment[media]" type="file" />
         <a href="#" class="decorated" data-behavior="file-picker">select files from your computer</a>.
-      </span> 
+      </span>
     </p>
     <div style="display: none" class="progress-bar space-top">
       <div class="indicator" style="width: 90%;"></div>
     </div>
-    {{#if attachment}}
-      <p class="space-top">
-        {{attachment.media_file_name}} has been uploaded.
-      </p>
-      <p class="space-top">
-        <a data-behavior="submission-save" href="#">Click here to save your submission</a>.
-      </p>
-    {{/if}}
   </form>
 </div>

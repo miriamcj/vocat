@@ -64,7 +64,6 @@ define [
       @$el.find('[data-key="' + key + '"][data-slider-visible]').val(value)
       @retotal()
 
-      console.log data, 'invisible input changed'
 
     onRender: () ->
       @setDefaultViewState()
@@ -72,14 +71,11 @@ define [
       @retotal()
 
     initialize: (options) ->
-      console.log @model.get('rubric')
       @rubric = new Rubric(@model.get('rubric'))
-      console.log @rubric.ranges(),'ranges'
-
       @vent = Marionette.getOption(@, 'vent')
       @courseId = Marionette.getOption(@, 'courseId')
 
-      @listenTo(@,'all',(event) -> console.log event)
+      #@listenTo(@,'all',(event) -> console.log event)
 
 
     onDetailToggle: () ->

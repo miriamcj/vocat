@@ -44,7 +44,7 @@ define [
       @vent = Marionette.getOption(@, 'vent')
       @courseId = Marionette.getOption(@, 'courseId')
 
-      @listenTo @model, 'all', (event) -> console.log "player view heard event '#{event}' on its model"
+      #@listenTo @model, 'all', (event) -> console.log "player view heard event '#{event}' on its model"
 
 
 
@@ -75,10 +75,8 @@ define [
       @player.currentTime(options.seconds)
 
     onRender: () ->
-      console.log @model.attributes
       if @model && @model.get('is_video')
         Popcorn.player('baseplayer')
-        console.log 'on render'
         @player = Popcorn(@ui.player[0])
         @player.on( 'timeupdate', _.throttle ()=>
           @vent.trigger('player:time', {seconds: @player.currentTime().toFixed(2)})

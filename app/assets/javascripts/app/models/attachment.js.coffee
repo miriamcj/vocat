@@ -3,5 +3,4 @@ define ['backbone'], (Backbone) ->
 
     paramRoot: 'attachment'
 
-    urlRoot: () ->
-      "/api/v1/submissions/#{@get('submission_id')}/attachments"
+    urlRoot: "/api/v1/attachments"

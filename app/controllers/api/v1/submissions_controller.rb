@@ -8,9 +8,9 @@ class Api::V1::SubmissionsController < ApiController
   # GET /submissions.json
   def index
     course = @course
-    creator = params[:creator] ? User.find(params[:creator]) : nil
-    project = params[:project] ? Project.find(params[:project]) : nil
-#    group = params[:group] ? Group.find(params[:group]) : nil
+
+    creator = User.find(params[:creator]) unless params[:creator].blank?
+    project = Project.find(params[:project]) unless params[:project].blank?
 
     brief = params[:brief].to_i()
 

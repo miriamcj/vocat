@@ -37,7 +37,7 @@ define [
 
     onRender: () ->
       @ui.upload.fileupload
-        url: '/api/v1/submissions/' + @model.id + '/attachments'
+        url: "/api/v1/attachments?submission=#{@model.id}"
         dataType: 'json'
         done: (e, data) =>
           @attachment = new Attachment(data.result)

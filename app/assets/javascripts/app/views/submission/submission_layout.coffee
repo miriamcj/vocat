@@ -61,7 +61,8 @@ define [
         @submission = @collections.submission.at(0)
 
         if @submission.get('current_user_can_annotate')
-          @annotations.show new AnnotationsView({model: @submission, attachmentId: @submission.attachment.id, collection: @collections.annotation, vent: @})
+          if @submission.attachment? then attachmentId = @submission.attachment.id else attachmentId = null
+          @annotations.show new AnnotationsView({model: @submission, attachmentId: attachmentId, collection: @collections.annotation, vent: @})
 
         if @submission.get('current_user_can_evaluate')
           @score.show new ScoreView({model: @project, collection: @collections.submission, vent: @})
@@ -102,8 +103,7 @@ define [
 
     onAttachmentTranscodingCompleted: (data) ->
       if data? && data.attachment?
-        @collections.annotation.attachmentId = data.attachment.id
-      @collections.annotation.fetch()
+        @collections.annotation.fetch({data: {attachment: data.attachment.id}})
       @player.show(new PlayerView({model: @submission.attachment, submission: @submission, vent: @}))
       @annotator.show new AnnotatorView({model: @submission, collection: @collections.annotation, vent: @})
 

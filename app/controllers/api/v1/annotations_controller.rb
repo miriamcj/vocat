@@ -4,8 +4,8 @@ class Api::V1::AnnotationsController < ApplicationController
   respond_to :json
 
   def index
+    attachment = Attachment.find(params[:attachment]) unless params[:attachment].blank?
 
-    attachment = params[:attachment] ? Attachment.find(params[:attachment]) : nil
     if attachment
       @annotations = Annotation.find_all_by_attachment_id(attachment)
     else
@@ -26,7 +26,7 @@ class Api::V1::AnnotationsController < ApplicationController
   def create
     @annotation.author = current_user
     if @annotation.save
-      respond_with @annotation, :root => false, status: :created, location: api_v1_attachment_annotation_url(@attachment.id, @annotation.id)
+      respond_with @annotation, :root => false, status: :created, location: api_v1_annotation_url(@annotation.id)
     else
       respond_with @annotation.errors, :root => false, status: :unprocessable_entity
     end

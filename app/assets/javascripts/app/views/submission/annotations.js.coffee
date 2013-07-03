@@ -44,7 +44,8 @@ define [
       @courseId = Marionette.getOption(@, 'courseId')
 
       # TODO: Consider improving this check; annotations view shouldn't have to know quite so much about the collection.
-      @collection.fetch({reset: true, data: {attachment: @attachmentId }})
+      if @attachmentId
+        @collection.fetch({reset: true, data: {attachment: @attachmentId }})
 
       @listenTo(@collection, 'add,remove', (data) =>
         @updateCount()
