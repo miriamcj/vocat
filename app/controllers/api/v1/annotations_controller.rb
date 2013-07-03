@@ -1,11 +1,16 @@
 class Api::V1::AnnotationsController < ApplicationController
 
   load_and_authorize_resource :annotation
-  load_resource :attachment
   respond_to :json
 
   def index
-    @annotations = Annotation.find_all_by_attachment_id(@attachment)
+
+    attachment = params[:attachment] ? Attachment.find(params[:attachment]) : nil
+    if attachment
+      @annotations = Annotation.find_all_by_attachment_id(attachment)
+    else
+      @annotations = nil
+    end
     respond_with @annotations, :root => false
   end
 

@@ -15,6 +15,7 @@ define [
     layoutInitialized: false
 
     initializeLayout: (courseId) ->
+      @collections.submission.courseId = courseId
       if @layoutInitialized == false
         @courseMap = new CourseMap({courseId: courseId, collections: @collections})
         window.Vocat.main.show(@courseMap)

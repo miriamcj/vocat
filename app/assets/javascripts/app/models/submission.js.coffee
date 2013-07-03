@@ -11,6 +11,14 @@ define ['backbone', 'models/attachment'], (Backbone, Attachment) ->
     canBeAnnotated: () ->
       @get('current_user_can_annotate') == true && @get('has_transcoded_attachment') == true
 
+    toJSON: () ->
+      json = super()
+      if @attachment?
+        json.attachment = @attachment.toJSON()
+      else
+        json.attachment = null
+      json
+
     initialize: () ->
       rawAttachment = @.get('attachment')
       if rawAttachment?

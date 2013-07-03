@@ -11,13 +11,7 @@ define [
     initialize: (models, options) ->
       if options.attachmentId? then @attachmentId = options.attachmentId
 
-    url: () ->
-      url = '/api/v1/'
-
-      if @attachmentId
-        url = url + "attachment/#{@attachmentId}/"
-
-      url + 'annotations'
+    url: '/api/v1/annotations'
 
     comparator: (annotation) ->
       annotation.get('seconds_timecode')

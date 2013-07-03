@@ -1,44 +1,38 @@
 class Api::V1::SubmissionsController < ApiController
 
+  # GET /submissions.json
   load_and_authorize_resource :submission
-  load_resource :creator, :class => 'User', :shallow => true
-  load_resource :course, :shallow => true
-  load_resource :project, :shallow => true
+  load_and_authorize_resource :course
   respond_to :json
 
-  # GET /user/1/submissions.json
   # GET /submissions.json
   def index
+    course = @course
+    creator = params[:creator] ? User.find(params[:creator]) : nil
+    project = params[:project] ? Project.find(params[:project]) : nil
+#    group = params[:group] ? Group.find(params[:group]) : nil
+
     brief = params[:brief].to_i()
 
-    if @course
-#      authorize! :evaluate, @course
+    role = course.role(current_user)
+
+    # Evaluators can see other creators. Creators can only see themselves
+    if role == :evaluator || role == :admin
+      authorize! :evaluate, @course
+    else
+      creator = current_user
     end
 
-    if @creator && !@course
-      authorize! :read, @creator
-    end
-
-    if @course && @creator
-      if @project
-        @submissions = Submission.for_creator_and_project(@creator, @project).all()
-        if @submissions.count() == 0
-          @submission = Submission.new({
-                                         :creator_id => @creator.id,
-                                         :project_id => @project.id,
-                                         :published => false
-                                       })
-          @submission.save()
-          @submissions = [@submission]
-        end
-      else
-        @submissions = Submission.for_creator_and_course(@creator, @course).all()
-      end
-
-    elsif @creator
-      @submissions = Submission.for_creator(@user, @course).all()
-    elsif @course
-      @submissions = Submission.for_course(@course).all()
+    if creator && project
+      @submissions = Submission.find_or_create_by_creator_and_project(creator, project).all()
+    elsif creator
+      @submissions = Submission.for_creator_and_course(creator, course).all()
+    elsif project
+      @submissions = Submission.for_project_and_course(project, course).all()
+    elsif role == :evaluator || role == :admin
+      @submissions = Submission.for_course(course).includes(:project, :course, :attachments)
+    else
+      @submissions = nil
     end
 
     if brief == 1
@@ -46,6 +40,7 @@ class Api::V1::SubmissionsController < ApiController
     else
       respond_with @submissions
     end
+
   end
 
   # GET /user/1/submissions/1.json

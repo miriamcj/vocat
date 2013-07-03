@@ -19,7 +19,21 @@ class Submission < ActiveRecord::Base
   scope :for_course, lambda { |course| joins(:project).where('projects.course_id' => course).includes(:attachments) }
   scope :for_creator, lambda { |creator| where('creator_id' => creator).includes(:course, :project, :attachments) }
   scope :for_creator_and_course, lambda { |creator, course| where('creator_id' => creator, 'projects.course_id' => course).includes(:course, :project, :attachments) }
+  scope :for_project_and_course, lambda { |project, course| where('project_id' => project, 'projects.course_id' => course).includes(:course, :project, :attachments) }
   scope :for_creator_and_project, lambda { |creator, project| where('creator_id' => creator, 'project_id' => project).includes(:course, :project, :attachments) }
+
+  def self.find_or_create_by_creator_and_project(creator, project)
+    submissions = self.for_creator_and_project(creator, project)
+    course = project.course
+    if submissions.count() == 0 && course.role(creator) == :creator
+      submission = Submission.create({:creator_id => creator.id, :project_id => project.id, :published => false})
+      submissions = self.for_creator_and_project(creator, project)
+    else
+      submissions
+    end
+  end
+
+  default_scope :include => :attachments
 
   def active_model_serializer
 	  SubmissionSerializer
@@ -65,6 +79,18 @@ class Submission < ActiveRecord::Base
     self.attachments.first()
   end
 
+  def video
+    self.attachments.where(:media_content_type => ['video/quicktime']).first()
+  end
+
+  def video?
+    self.has_video?
+  end
+
+  def has_video?
+    if self.video then true else false end
+  end
+
   def transcoding_error?
     self.attachment && self.attachment.transcoding_error != nil ? true : false
   end
@@ -90,17 +116,15 @@ class Submission < ActiveRecord::Base
   end
 
   def url
-    if self.transcoded_attachment?
-      return transcoded_attachment.url
+    if video?
+      return video.url
     end
-    return false
   end
 
   def thumb
-    if self.transcoded_attachment?
-      return transcoded_attachment.url(:thumb)
+    if video?
+      return video.url(:thumb)
     end
-    return false
   end
 
 	private

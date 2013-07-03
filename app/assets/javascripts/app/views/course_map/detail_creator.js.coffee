@@ -1,7 +1,7 @@
 define [
   'marionette', 'hbs!templates/course_map/detail_creator', 'views/portfolio/portfolio_submissions_item', 'collections/submission_collection'
 ], (
-  Marionette, template, PortfolioSubmissionItem, SubmisssionCollection
+  Marionette, template, PortfolioSubmissionItem, SubmissionCollection
 ) ->
 
   class CourseMapDetailCreator extends Marionette.CompositeView
@@ -21,9 +21,10 @@ define [
       @projects = collections.project
       @creators = collections.creator
       @creator = @creators.get(@creatorId)
+      console.log @courseId, '@courseId'
+      @collection = new SubmissionCollection([],{courseId: @courseId})
+      @collection.fetch({reset: true, data: {creator: @creatorId}})
 
-      @collection = collections.submission
-      @collection.creatorId = @creatorId
-      @collection.courseId = @courseId
-      @collection.projectId = null
-      @collection.fetch()
+      @listenTo(@collection, 'reset', () =>
+        console.log @collection
+      )

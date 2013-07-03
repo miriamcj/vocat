@@ -8,32 +8,44 @@ Vocat::Application.routes.draw do
   namespace :api do
     namespace :v1 do
 
-      resources :attachment, :only => [] do
-        resources :annotations, :only => [:index, :show, :create, :destroy]
+      resources :portfolio, :only => [:index]
+      resources :attachments
+      resources :annotations
+      resources :discussion_posts
+      resources :courses do
+        resources :submissions, :only => [:index]
       end
+      resources :creator
+      resources :project
 
-      resources :submissions do
-        resources :attachments, :only => [:create, :destroy, :show]
-        resources :discussion_posts, :shallow => true
-      end
 
-      resources :course, :only => [:index, :show] do
-        resources :submissions, :only =>[:index]
-        resources :creator, :only => [] do
-          resources :submissions, :only =>[:index]
-          resources :project, :only =>[:index] do
-	          resources :submissions, :only =>[:index]
-	        end
-        end
-        resources :projects, :only =>[:index] do
-          resources :submissions, :only =>[:index]
-        end
-      end
 
-      resources :creator, :only => [] do
-        resources :submissions, :only =>[:index]
-        resources :projects, :only =>[:index]
-      end
+      #resources :attachment, :only => [] do
+      #  resources :annotations, :only => [:index, :show, :create, :destroy]
+      #end
+      #
+      #resources :submissions do
+      #  resources :attachments, :only => [:create, :destroy, :show]
+      #  resources :discussion_posts, :shallow => true
+      #end
+      #
+      #resources :course, :only => [:index, :show] do
+      #  resources :submissions, :only =>[:index]
+      #  resources :creator, :only => [] do
+      #    resources :submissions, :only =>[:index]
+      #    resources :project, :only =>[:index] do
+	     #     resources :submissions, :only =>[:index]
+	     #   end
+      #  end
+      #  resources :projects, :only =>[:index] do
+      #    resources :submissions, :only =>[:index]
+      #  end
+      #end
+      #
+      #resources :creator, :only => [] do
+      #  resources :submissions, :only =>[:index]
+      #  resources :projects, :only =>[:index]
+      #end
 
     end
   end

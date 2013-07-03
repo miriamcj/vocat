@@ -4,12 +4,11 @@ class SubmissionSerializer < ActiveModel::Serializer
               :course_id, :project_id, :creator_name, :creator_id, :current_user_is_owner,
               :current_user_can_evaluate, :course_department, :course_section, :course_number,
               :instructor_evaluations, :evaluations, :instructor_score_percentage, :published,
-              :attachment, :current_user_can_annotate, :current_user_can_attach, :current_user_can_discuss,
+              :attachment, :video, :has_video?, :current_user_can_annotate, :current_user_can_attach, :current_user_can_discuss,
               :scored_by_instructor?, :path
 
-  def attachment
-    object.attachment()
-  end
+  # This makes sure that the correct serializer is used for the child association.
+  has_one :attachment
 
   def path
     if Ability.new(scope).can?(:evaluate, object)

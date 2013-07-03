@@ -5,7 +5,7 @@
     {{#get_submission ../../submissions ../this this}}
       {{#if this}}
         <a href="/courses/{{../../../../courseId}}/evaluations/creator/{{../../../this.id}}/project/{{../../this.id}}" data-behavior="routable">
-        {{#if has_uploaded_attachment}}
+        {{#if has_video}}
           <b class="matrix--cell--play">Play video</b>
         {{else}}
           <b class="matrix--cell--play inactive">No video has been uploaded</b>

@@ -65,14 +65,14 @@ define [
         @submission = @collections.submission.at(0)
 
         if @submission.get('current_user_can_annotate')
-          if @submission.attachment? && @submission.attachment.id? then @collections.annotation.attachmentId = @submission.attachment.id
-          @annotations.show new AnnotationsView({model: @submission, collection: @collections.annotation, vent: @})
+          @annotations.show new AnnotationsView({model: @submission, attachmentId: @submission.attachment.id, collection: @collections.annotation, vent: @})
 
         if @submission.get('current_user_can_evaluate')
           @score.show new ScoreView({model: @project, collection: @collections.submission, vent: @})
 
         if @submission.get('current_user_can_attach')
           @upload.show new UploadView({model: @submission, collection: @collections.submission, vent: @})
+
         @getPlayerView()
 
         @triggerMethod('submission:loaded')
@@ -99,6 +99,7 @@ define [
         @triggerMethod('attachment:destroyed')
       else
         attachment = @submission.attachment
+        console.log attachment, 'attachment'
         if attachment
           if attachment.get('transcoding_busy') then @triggerMethod('attachment:upload:done')
           if attachment.get('transcoding_error') then @triggerMethod('attachment:transcoding:failed')

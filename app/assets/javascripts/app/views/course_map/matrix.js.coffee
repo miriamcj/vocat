@@ -53,7 +53,6 @@ define [
       @courseId = Marionette.getOption(@, 'courseId')
       @collections = Marionette.getOption(@, 'collections')
 
-      @collections.submission.courseId = @courseId
       @collections.submission.fetch({data: {brief: 1}})
 
       @listenTo @collections.submission, 'sync', (name) =>

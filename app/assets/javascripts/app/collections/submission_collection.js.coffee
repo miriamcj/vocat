@@ -11,16 +11,4 @@ define ['backbone', 'models/submission'], (Backbone, SubmissionModel) ->
         if options.courseId? then @courseId = options.courseId
 
     url: () ->
-      url = '/api/v1/'
-
-      if @courseId
-        url = url + "course/#{@courseId}/"
-
-      if @creatorId
-        url = url + "creator/#{@creatorId}/"
-
-      if @projectId
-        url = url + "project/#{@projectId}/"
-
-      out = url + 'submissions'
-      out
+      "/api/v1/courses/#{@courseId}/submissions"
