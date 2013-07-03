@@ -256,6 +256,7 @@
 %teal-arrow-button {
   @extend %heading-epsilon;
   @extend %bare-link;
+  @extend %bare-focus;
   @extend %shaded-inside-bottom;
   @include font-body;
   display: inline-block;
@@ -385,7 +386,6 @@
 }
 
 // NB uses ems so font-size can be set on component
-// TODO abstract out pattern for this & %check-indicator
 %arrow-link {
   @extend %bare-link;
   display: inline-block;
@@ -407,6 +407,20 @@
     color: $orange;
     &:after {
       @include svg(circle-arrow-right-orange);
+    }
+  }
+}
+
+%left-arrow-link {
+  @extend %arrow-link;
+  padding: 0.2em 0 0.3em 2em;
+  &:after {
+    @include svg(circle-arrow-left-teal);
+    left: 0;
+  }
+  &:hover {
+    &:after {
+      @include svg(circle-arrow-left-orange);
     }
   }
 }
