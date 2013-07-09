@@ -647,10 +647,9 @@ a.table--heading {
 }
 
 .form-alert {
-  background-color: $redLight;
+  @extend %mini-alert;
   padding: 1rem 5rem 1rem 5.7rem;
-  border-radius: $radius;
-  margin-bottom: 2.4rem;
+  margin: 0 0 2.4rem;
   position: relative;
   &:before {
     @include opacity(82);
@@ -662,14 +661,6 @@ a.table--heading {
     position: absolute;
     top: 1rem;
     left: 1.6rem;
-  }
-  p {
-    @extend %gamma-sub;
-    line-height: 1;
-    font-style: italic;
-    color: $darker;
-    padding: 0.4rem 0;
-    margin-bottom: 0;
   }
   .close {
     @include opacity(82);

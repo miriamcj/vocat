@@ -231,3 +231,9 @@
 .progress-bar {
   @extend %progress-bar;
 }
+
+// Form errors
+// --------------------------------------------------------
+#error_explanation {
+  @extend %mini-alert;
+}

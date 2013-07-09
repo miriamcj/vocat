@@ -1520,6 +1520,29 @@ input%proto-button {
   right: 2.4rem;
 }
 
+%mini-alert {
+  background-color: $redLight;
+  padding: 1rem 2rem;
+  border-radius: $radius;
+  margin: 0 -2rem 2.4rem;
+  h2,
+  ul,
+  p {
+    @extend %gamma-sub;
+    line-height: 1;
+    color: $darker;
+    padding: 0.4rem 0;
+    margin: 0;
+  }
+  ul,
+  p {
+    font-style: italic;    
+  }
+  ul {
+    padding-left: 1.4em;
+  }
+}
+
 // Progress bars
 // --------------------------------------------------------
 // NB be sure to include an .indicator element in your markup
