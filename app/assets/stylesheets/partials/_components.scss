@@ -61,6 +61,9 @@
   height: $headerHeight;
   margin: 0 auto;
   position: relative;
+  .role-admin.no-course & {
+    height: 7.8rem;
+  }
 }
 
 // Course selector
@@ -110,6 +113,10 @@
   position: absolute;
   bottom: 2rem;
   left: 6.3rem;
+  .role-admin &,
+  .no-course & {
+    left: 2rem;
+  }
 }
 
 .adaptive-nav--list {
