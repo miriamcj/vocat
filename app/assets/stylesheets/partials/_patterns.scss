@@ -634,6 +634,12 @@ input%proto-button {
     &.active {
       color: $orange;
     }
+    &.inactive {
+      @include opacity(35);
+      a {
+        @extend %inactive-link;
+      }
+    }
   }
   li + li {
     margin-left: 3.6rem;
@@ -685,7 +691,7 @@ input%proto-button {
   @extend %gamma;
   @include placeholder($grayLight);
   color: $grayDark;
-  padding: 0.7rem 1.1rem 0.7rem;
+  padding: 0.6rem 1.1rem;
   border-radius: $radius;
   margin-bottom: 0.7rem;
 }

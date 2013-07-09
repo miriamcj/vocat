@@ -44,6 +44,9 @@
     position: fixed;
     top: 0;
   }
+  .role-admin.no-course & {
+    height: 7.8rem;
+  }
 }
 
 // Primary nav
@@ -113,8 +116,7 @@
   position: absolute;
   bottom: 2rem;
   left: 6.3rem;
-  .role-admin &,
-  .no-course & {
+  .role-admin.no-course & {
     left: 2rem;
   }
 }
@@ -309,6 +311,9 @@
   margin-top: $headerHeight;
   position: relative;
   z-index: 100;
+  .role-admin.no-course & {
+    margin-top: 7.8rem;
+  }
 }
 
 .page-content--frame {
@@ -549,6 +554,12 @@ a.table--heading {
 .text-input {
   @extend %medium-text-input;
   width: 100%;
+  &.inline {
+    display: inline-block;
+    vertical-align: top;
+    width: 32rem;
+    margin: 0 1rem 0 0;
+  }
 }
 
 .text-area-input {
