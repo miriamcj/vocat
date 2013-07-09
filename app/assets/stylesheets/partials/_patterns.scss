@@ -93,6 +93,10 @@
   @include font-size(34);
 }
 
+%mega-sup {
+  @include font-size(29);
+}
+
 %mega {
   @include font-size(27.4);
 }
@@ -139,6 +143,14 @@
   text-transform: uppercase;
   line-height: 1;
   color: $teal;
+}
+
+%heading-mega-sup {
+  @extend %mega-sup;
+  @include font-head;
+  text-transform: uppercase;
+  line-height: 1;
+  color: $tealMedium;
 }
 
 %heading-alpha {
@@ -220,64 +232,80 @@
 
 // Buttons & pills
 // --------------------------
-%teal-button {
+// To be read in your best Werner Herzog voice:
+// "The ur-button from which all other buttons 
+// derive; almost a form of proto-button"
+%proto-button {
   @extend %heading-epsilon;
+  @extend %bare-focus;
   @extend %bare-link;
   @extend %shaded-inside-bottom;
-  color: $beigeLight;
-  background-color: $tealLight;
+  display: inline-block;
   line-height: 1;
-  padding: 0.6rem 1.2rem 0.6rem;
+  color: $beigeLight;
+  padding-right: 1.2rem;
+  padding-left: 1.2rem;
   border-radius: $radius;
+}
+
+// Psuedoelements don't stick to <input>s, so we
+// need to remove the right padding in those cases
+input%proto-button {
+  @extend %reset-input;
+  padding-right: 1.2rem;
+}
+
+%teal-button {
+  @extend %proto-button;
+  @extend %bare-link;
+  @extend %shaded-inside-bottom;
+  background-color: $tealLight;
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
   &:hover {
-    background-color: $orange;
+    background-color: $tealMedium;
   }
 }
 
 %gray-button {
   @extend %teal-button;
   background-color: $beigeDark;
+  &:hover {
+    background-color: darken($beigeDark, 10%);
+  }
 }
 
 %large-teal-button {
   @extend %teal-button;
-  padding: 0.9rem 1.4rem 1rem 1.4rem;
+  padding-top: 0.9rem;
+  padding-bottom: 1rem;
 }
 
 %large-gray-button {
-  @extend %teal-button;
-  background-color: $beigeDark;
-  padding: 0.9rem 1.4rem 1rem 1.4rem;
-  &:hover {
-    background-color: darken($beigeDark, 12%);
-  }
+  @extend %gray-button;
+  padding-top: 0.9rem;
+  padding-bottom: 1rem;
 }
 
 %teal-arrow-button {
-  @extend %heading-epsilon;
-  @extend %bare-link;
-  @extend %bare-focus;
-  @extend %shaded-inside-bottom;
-  @include font-body;
-  display: inline-block;
-  color: $beige;
+  @extend %proto-button;
   background-color: $tealLight;
-  padding: 0.9rem 3.9rem 1rem 1.4rem;
-  border: none;
-  border-radius: $radius;
+  padding-top: 0.9rem;
+  padding-right: 3.7rem;
+  padding-bottom: 1rem;
   position: relative;
   &:after {
-    @include svg(circle-arrow-right-beige);
+    @include svg(circle-arrow-right-beigeLight);
     content: "";
     display: block;
     width: 2rem;
     height: 2rem;
     position: absolute;
     top: 0.6rem;
-    right: 1.1rem;
+    right: 0.9rem;
   }
   &:hover {
-    background-color: $orange;
+    background-color: $tealMedium;
   }
 }
 
@@ -297,7 +325,9 @@
 
 %small-teal-plus-button {
   @extend %teal-button;
-  padding: 0.6rem 3.4rem 0.6rem 1.2rem;
+  padding-top: 0.6rem;
+  padding-right: 3.4rem;
+  padding-bottom: 0.6rem;
   position: relative;
   &:after {
     @include svg(circle-plus);
@@ -306,7 +336,7 @@
     width: 1.8rem;
     height: 1.8rem;
     position: absolute;
-    top: 0.4rem;
+    top: 0.3rem;
     right: 0.9rem;
   }
 }

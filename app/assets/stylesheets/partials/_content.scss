@@ -31,6 +31,11 @@
   margin-bottom: 0.5rem;
 }
 
+.heading-caps-large {
+  @extend %heading-mega-sup;
+  margin-bottom: 0.8rem;
+}
+
 .heading-large {
   @extend %heading-alpha;
   margin-bottom: 0.8rem;
@@ -83,13 +88,6 @@
 .gray-ex-button {
   @extend %gray-ex-button;
   margin-right: 0.6rem;
-}
-
-input.teal-plus-button,
-input.gray-ex-button,
-input.teal-arrow-button {
-  @extend %reset-input;
-  padding-right: 1.4rem;
 }
 
 .white-pill {

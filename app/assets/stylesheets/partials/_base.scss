@@ -76,17 +76,15 @@ p {
 	}
 }
 
-ul, ol {
+ul, 
+ol {
 	// Base list styles
 }
 
 hr {
-    display: block;
-    height: 1px;
     border: 0;
-    border-top: 1px solid $black;
-    margin: $verticalSpace 0;
-    padding: 0;
+    border-top: 2px solid $tealLightest;
+    margin: 0 0 $verticalSpace;
 }
 
 // Inline elements

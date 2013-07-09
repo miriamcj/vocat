@@ -359,13 +359,8 @@
 }
 
 .button-header--title {
-  @extend %mega;
-  @include font-head;
-  @include font-size(29);
+  @extend %heading-mega-sup;
   display: inline-block;
-  text-transform: uppercase;
-  color: $tealMedium;
-  line-height: 1;
   padding: 0.2rem 0 0.1rem;
 }
 
@@ -1219,6 +1214,11 @@ a.table--heading {
 	background-color: $beige;
 	padding: 4.8rem 5.2rem 4.8rem 27rem;
   position: relative;
+  // Hide image and center content
+  &.alt {
+    padding-right: 14rem;
+    padding-left: 14rem;
+  }
 }
 
 .authentication-tile--image {
@@ -1226,6 +1226,9 @@ a.table--heading {
   position: absolute;
   top: 7.6rem;
   left: 5.6rem;
+  .alt & {
+    display: none;
+  }
 }
 
 .authentication-tile--input {
@@ -1256,6 +1259,7 @@ a.table--heading {
 .authentication-tile--button {
   @extend %large-teal-button;
   @extend %reset-input;
+  @extend %bare-focus;
   float: right;
 }
 
