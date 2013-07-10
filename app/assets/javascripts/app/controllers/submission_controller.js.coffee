@@ -12,6 +12,7 @@ define [
       project: new ProjectCollection({})
     }
 
+    # TODO: Remove this controller method when this static view is no longer needed
     helpDev: () ->
       @creatorProjectDetail(8, 67, 14)
 
