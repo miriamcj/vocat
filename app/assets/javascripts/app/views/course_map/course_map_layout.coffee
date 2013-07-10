@@ -76,21 +76,21 @@ define [
       @collections.creator.setActive(args.creator)
       @collections.project.setActive(null)
       Vocat.courseMapRouter.navigate("courses/#{@courseId}/evaluations/creator/#{args.creator}")
-      view = new CourseMapDetailCreator({collections: @collections, courseId: @courseId, vent: @, creatorId: args.creator})
+      view = new CourseMapDetailCreator({collections: _.clone(@collections), courseId: @courseId, vent: @, creatorId: args.creator})
       @overlay.show(view)
 
     onOpenDetailProject: (args) ->
       @collections.project.setActive(args.project)
       @collections.creator.setActive(null)
       Vocat.courseMapRouter.navigate("courses/#{@courseId}/evaluations/project/#{args.project}")
-      view = new CourseMapDetailProject({collections: @collections, courseId: @courseId, vent: @, projectId: args.project})
+      view = new CourseMapDetailProject({collections: _.clone(@collections), courseId: @courseId, vent: @, projectId: args.project})
       @overlay.show(view)
 
     onOpenDetailCreatorProject: (args) ->
       @collections.creator.setActive(args.creator)
       @collections.project.setActive(args.project)
       Vocat.courseMapRouter.navigate("courses/#{@courseId}/evaluations/creator/#{args.creator}/project/#{args.project}")
-      view = new CourseMapDetailCreatorProject({collections: @collections, courseId: @courseId, vent: @, creator: @collections.creator.getActive(), project: @collections.project.getActive()})
+      view = new CourseMapDetailCreatorProject({collections: _.clone(@collections), courseId: @courseId, vent: @, creator: @collections.creator.getActive(), project: @collections.project.getActive()})
       @overlay.show(view)
 
     onRowInactive: (args) ->
