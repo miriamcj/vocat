@@ -47,6 +47,8 @@ define [
       @projects.show(@children.projects)
       @matrix.show(@children.matrix)
 
+      @updateSliderControls()
+
       # TODO: Consider whether this is the right spot for this.
       @header.show(@children.header)
 
@@ -55,10 +57,6 @@ define [
     initialize: (options) ->
       @collections = options.collections
       @courseId = options.courseId
-
-#      @listenTo(@, 'all', (event) ->
-#        console.log event, 'event heard'
-#      )
 
       # Whenever we show the overlay region, we need to make it appear
       @listenTo(@overlay, 'show', () ->
@@ -117,11 +115,9 @@ define [
       @onRepaint()
 
     onSliderLeft: () ->
-      console.log 'onSliderLeft executed'
       @slide('backwards')
 
     onSliderRight: () ->
-      console.log 'onSliderRight executed'
       @slide('forward')
 
     onOpenOverlay: () ->
