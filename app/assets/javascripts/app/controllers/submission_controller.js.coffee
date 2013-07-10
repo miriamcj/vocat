@@ -12,6 +12,10 @@ define [
       project: new ProjectCollection({})
     }
 
+    helpDev: () ->
+      @creatorProjectDetail(8, 67, 14)
+
+
     creatorProjectDetail: (course = null, creator = null, project = null) ->
 
       # The layout that contains the two lists of portfolio items

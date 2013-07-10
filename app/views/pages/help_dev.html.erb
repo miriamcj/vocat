@@ -1,341 +1,213 @@
-
-
-
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js"> <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>VOCAT</title>
   <meta name="description" content="">
   <meta name="author" content="">
-  
+
   <!-- TODO move to correct place -->
   <script type="text/javascript" src="//use.typekit.net/dwf7ffn.js"></script>
-  
-  <link href="/assets/screen.css?body=1" media="all" rel="stylesheet" type="text/css" />
-<link href="/assets/application.css?body=1" media="all" rel="stylesheet" type="text/css" />
-  <script src="/assets/jquery.js?body=1" type="text/javascript"></script>
-<script src="/assets/jquery_ujs.js?body=1" type="text/javascript"></script>
-<script src="/assets/jquery-ui.min.js?body=1" type="text/javascript"></script>
-<script src="/assets/jquery-fileupload/vendor/jquery.ui.widget.js?body=1" type="text/javascript"></script>
-<script src="/assets/jquery-fileupload/jquery.iframe-transport.js?body=1" type="text/javascript"></script>
-<script src="/assets/jquery-fileupload/jquery.fileupload.js?body=1" type="text/javascript"></script>
-<script src="/assets/jquery-fileupload/basic.js?body=1" type="text/javascript"></script>
-<script src="/assets/jquery-autosize.js?body=1" type="text/javascript"></script>
-<script src="/assets/js-routes.js?body=1" type="text/javascript"></script>
-<script src="/assets/underscore.js?body=1" type="text/javascript"></script>
-<script src="/assets/handlebars.runtime.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone_rails_sync.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone_datalink.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/vocat.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/helpers/course_map_helpers.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/helpers/rubric_builder_helpers.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/helpers/utility_helpers.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/templates/course_map.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/templates/course_map/creator_detail.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/templates/course_map/creator_project_detail.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/templates/course_map/matrix_cells.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/templates/course_map/partials/overlay_header.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/templates/course_map/project_detail.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/templates/evaluation_detail.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/templates/evaluation_detail/annotation.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/templates/evaluation_detail/annotations.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/templates/evaluation_detail/annotator.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/templates/evaluation_detail/discussion.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/templates/evaluation_detail/partials/player_attachment_not_transcoded.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/templates/evaluation_detail/partials/player_has_transcoded_video.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/templates/evaluation_detail/partials/player_no_video.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/templates/evaluation_detail/partials/player_transcoding_in_progress.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/templates/evaluation_detail/partials/player_upload_allowed.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/templates/evaluation_detail/partials/player_upload_in_progress.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/templates/evaluation_detail/partials/post_input.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/templates/evaluation_detail/player.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/templates/evaluation_detail/post.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/templates/evaluation_detail/score.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/templates/evaluation_detail/upload.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/templates/exhibit_detail.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/templates/flash_message_single.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/templates/flash_messages.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/templates/groups.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/templates/partials/detail_score_summary.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/templates/partials/score_summary.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/templates/portfolio/incomplete_summary_owner.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/templates/portfolio/submission_summary_other.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/templates/portfolio/submission_summary_owner.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/templates/rubric_builder.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/templates/rubric_builder/cell_detail.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/templates/rubric_builder/editable_input.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/templates/rubric_builder/editable_textarea.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/templates/rubric_builder/structure.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/models/annotation.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/models/attachment.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/models/course.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/models/creator.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/models/discussion_post.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/models/dispatcher.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/models/rubric_property.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/models/field.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/models/flash_message.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/models/group.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/models/project.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/models/range.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/models/rubric.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/models/submission.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/models/view_state.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/collections/annotation_collection.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/collections/course_collection.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/collections/creator_collection.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/collections/discussion_post_collection.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/collections/field_collection.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/collections/flash_message_collection.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/collections/group_collection.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/collections/project_collection.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/collections/range_collection.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/collections/rubric_collection.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/collections/submission_collection.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/views/abstract.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/views/abstract_modal.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/views/course_map.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/views/course_map/creator_detail.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/views/evaluation_detail.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/views/course_map/creator_project_detail.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/views/course_map/matrix_cells.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/views/course_map/project_detail.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/views/creator_project_detail.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/views/evaluation_detail/annotation.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/views/evaluation_detail/annotations.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/views/evaluation_detail/annotator.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/views/evaluation_detail/discussion.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/views/evaluation_detail/player.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/views/evaluation_detail/post.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/views/evaluation_detail/score.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/views/evaluation_detail/upload.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/views/flash_message_single.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/views/flash_messages.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/views/groups.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/views/portfolio.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/views/portfolio/incomplete_summary.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/views/portfolio/submission_summary.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/views/rubric_builder.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/views/rubric_builder/abstract_editable.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/views/rubric_builder/cell_detail.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/views/rubric_builder/editable_input.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/views/rubric_builder/editable_textarea.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/views/rubric_builder/structure.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/routers/app_router.js?body=1" type="text/javascript"></script>
-<script src="/assets/backbone/plugins/backbone-poller.js?body=1" type="text/javascript"></script>
-<script src="/assets/courses.js?body=1" type="text/javascript"></script>
-<script src="/assets/groups.js?body=1" type="text/javascript"></script>
-<script src="/assets/modernizr/modernizr-2.6.2.js?body=1" type="text/javascript"></script>
-<script src="/assets/popcorn/popcorn-complete.js?body=1" type="text/javascript"></script>
-<script src="/assets/popcorn/scripts.js?body=1" type="text/javascript"></script>
-<script src="/assets/rem-unit-polyfill/rem.min.js?body=1" type="text/javascript"></script>
-<script src="/assets/scripts.js?body=1" type="text/javascript"></script>
-<script src="/assets/simple-slider/simple-slider.js?body=1" type="text/javascript"></script>
-<script src="/assets/smooth-scroll/smooth-scroll.js?body=1" type="text/javascript"></script>
-<script src="/assets/submissions.js?body=1" type="text/javascript"></script>
-<script src="/assets/waypoints/waypoints.min.js?body=1" type="text/javascript"></script>
-<script src="/assets/application.js?body=1" type="text/javascript"></script>
-  <meta content="authenticity_token" name="csrf-param" />
-<meta content="DemddD9PdKoPN8rmkW/KnorHg/m1pmEIQjRpIu2zW18=" name="csrf-token" />
 
-  
+  <link href="/assets/screen.css?body=1" media="all" rel="stylesheet" type="text/css"/>
+  <link href="/assets/application.css?body=1" media="all" rel="stylesheet" type="text/css"/>
+  <script src="/assets/popcorn/popcorn.js"></script>
+  <script data-main="/assets/bootstrap" src="/assets/require.js"></script>
+  <meta content="authenticity_token" name="csrf-param"/>
+  <meta content="DemddD9PdKoPN8rmkW/KnorHg/m1pmEIQjRpIu2zW18=" name="csrf-token"/>
 
-  <script type="text/javascript">
-  $(function() {
-    window.Vocat.router = new Vocat.Routers.AppRouter();
-    window.Vocat.router.initalize({})
-    Backbone.history.start({pushState: true})
-  });
-  </script>
 
 </head>
 
 <body class="">
-  <div class="page-banner">
-    <!-- TODO wrap this in a link -->
-    <img alt="VOCAT" class="page-banner--logo" src="/assets/logo-vocat-dark.png" />
-  </div>
-  <header class="page-header" data-behavior="sticky-header">
-    <div class="primary-nav">
-      <div class="primary-nav--wrapper">
-        <nav class="course-selector" data-behavior="dropdown">
-  <a class="course-selector--toggle" data-behavior="toggle" href="#">
-        CS163: Data Structures
-  </a>
-  <div class="course-selector--dropdown" data-behavior="dropdown-options">
-    <ul>
-      <li><a href="/">All Courses</a></li>
-          <li><a class=active href="/courses/1/portfolio"><strong>CS163 :</strong> Data Structures <small>[Section AI7X4]</small></a></li>
-          <li><a  href="/courses/12/portfolio"><strong>ENG367U :</strong> Native American Women Writers <small>[Section 4VSXN]</small></a></li>
-    </ul>
-  </div>
-</nav>
-
-<nav class="user-selector" data-behavior="dropdown">
-  <div class="primary-nav--avatar">
-    <img alt="Charles Xavier" src="http://gravatar.com/avatar/c935a60b3bc7160a5b8edaa9a8b7a3c3.png?s=48&amp;d=mm" />    
-  </div>
-    <a class="user-selector--toggle" data-behavior="toggle" href="#">Hank Funk</a>
-    <div class="user-selector--dropdown" data-behavior="dropdown-options">
-      <ul>
-        <li>
-          <a href="/users/edit">Hank Funk [creator2@test.com]</a>
-        </li>
-        <li>
-          <a href="/users/sign_out" data-method="delete" rel="nofollow">Log out</a>
-        </li>
-      </ul>
-    </div>
-</nav>
-
-<a class="shortcut-nav--toggle" data-behavior="shortcut-nav-toggle" href="#">Toggle Shortcuts Drawer</a>
-
-  <nav class="adaptive-nav">
-    <ul class="adaptive-nav--list">
-      <li><a href="/courses/1/portfolio">My Presentations</a></li>
-    </ul>
-  </nav>
-
-
-      </div>
-    </div>
-    <div class="shortcut-nav js-shortcut-nav">
-      <div class="shortcut-nav--wrapper">
-        <div class="shortcut-nav--item">
-          <nav class="assignment-selector" data-class="dropdown-container">
-            <h2 class="shortcut-nav--title">Go to Assignment</h2>
-            <a class="assignment-selector--toggle" data-class="dropdown-toggle" href="#">View All Assignments</a>
-            <div class="assignment-selector--dropdown" data-class="dropdown">
-              <ul>
-                <li><a href="">Assignment 1</a></li>
-                <li><a href="">Assignment 2</a></li>
-              </ul>
-            </div>
-          </nav>
-        </div>
-        <div class="shortcut-nav--item">
-          <nav class="peer-selector" data-class="dropdown-container">
-            <h2 class="shortcut-nav--title">Provide Peer Feedback</h2>
-            <a class="peer-selector--toggle" data-class="dropdown-toggle" href="#">View All Peers</a>
-            <div class="peer-selector--dropdown" data-class="dropdown">
-              <ul>
-                <li><a href="">Peer 1</a></li>
-                <li><a href="">Peer 2</a></li>
-              </ul>
-            </div>
-          </nav>
-        </div>
-        <div class="shortcut-nav--item">
-          <nav class="help-nav">
-            <h2 class="shortcut-nav--title">Help</h2>
-            <ul class="help-nav--list">
-              <li>
-                <label class="help-nav--label">
-                  <input class="help-nav--checkbox" type="checkbox" data-behavior="help-overlay-toggle"><b></b><span class="help-nav--checkbox-text">Activate Help Overlay</span>
-                </label>
-              </li>
-              <li>
-                <a href="">Go to FAQ</a>
-              </li>
-              <li>
-                <a href="">View Tutorial</a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </div>
-    </div>
-  </header>
-  <div class="container">    
-    <div class="page-content">
-
-      <!-- Help overlays -->
-      <!-- These are positioned relative to .page-content -->
-      <!-- See _components.scc for a full explanation of 'placard orientation' (nnw, wsw, etc.) -->
-      
-      <!-- This one corresponds to the 'What do these scores mean?' button -->
-      <aside class="placard ssw" style="top: 18.5rem; left: 73rem;">
-        <label class="placard--checkbox">
-          <input class="checkbox" type="checkbox">
-          <b></b>
-          Glossary Mode
-        </label>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid quis.</p>
-        <hr>
-        <a class="teal-arrow-button space-bottom" href="#">View complete rubric</a>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui ipsa libero incidunt.</p>
-      </aside>
-      
-      <!-- This one corresponds to the 'Evaluator Review' score -->
-      <aside class="placard wide nnw" style="top: 58.8rem; left: 2.6rem;">
-        <h2 class="placard--title">Introduction</h2>
-        <h3 class="placard--subtitle">Relation to Audience</h3>
-        <hr>
-        <h3 class="placard--subtitle"><strong>1 - 2</strong> Poor / Failure</h3>
-        <p>Lacking numeration, no clear taglines, audience has little or no idea what the main supporting points of the thesis, even with great effort listeners are confused about what the speaker is going to say and the order she/he is going to deal with issues.</p>
-        <hr>
-        <h3 class="placard--subtitle"><strong>3 - 4</strong> Good / Average</h3>
-        <p>Main points are numerated, wording might be inconsistent/vague, taglines for points might be compound sentences, lacking elevation with no repetition or alliteration, points are identifiable but not repeatable and require some thought to extract.</p>
-        <hr>
-        <h3 class="placard--subtitle"><strong>5</strong> Excellent</h3>
-        <p>Main points are numerated, are strong concise statements, not stated as questions, speaker probably used alliteration or repetition, the points previewed are identifiable and repeatable and provide a clear sequence of events to unfold in the speech.</p>
-      </aside>
-      
-      <!-- This one corresponds to the discussion post count -->
-      <!-- <aside class="placard wnw" style="top: 71.8rem; left: 21.3rem;">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aut fugiat mollitia.</p>
-      </aside> -->
-
-      <!-- This one corresponds to the annotation input -->
-      <aside class="placard ene" style="top: 35.3rem; left: -29rem;">
-        <p>Lorem ipsum dolor sit amet, consectetur.</p>
-      </aside>
-                  
-      <!-- Help overlays end -->
-      
-      
-<script type="text/json" id="bootstrap-Project">
-  { "Project": {&quot;id&quot;:1,&quot;name&quot;:&quot;Mesh Rich Networks&quot;,&quot;current_user_is_owner&quot;:false,&quot;course_name&quot;:&quot;Data Structures&quot;,&quot;course_name_long&quot;:&quot;CS163: Data Structures, Section AI7X4&quot;,&quot;course_id&quot;:1,&quot;course_department&quot;:&quot;CS&quot;,&quot;course_section&quot;:&quot;AI7X4&quot;,&quot;course_number&quot;:&quot;163&quot;,&quot;current_user_id&quot;:30} }
-</script>
-
-
-<script type="text/json" id="bootstrap-Creator">
-  { "Creator": {&quot;id&quot;:30,&quot;email&quot;:&quot;creator2@test.com&quot;,&quot;name&quot;:&quot;Hank Funk&quot;,&quot;gravatar&quot;:&quot;http://gravatar.com/avatar/c935a60b3bc7160a5b8edaa9a8b7a3c3.png?d=mm&amp;s=&quot;} }
-</script>
-
-  
-<script type="text/json" id="bootstrap-Submission">
-  { "Submission": {&quot;id&quot;:7,&quot;name&quot;:&quot;Voluptatum Ratione Repellendus Sed&quot;,&quot;url&quot;:&quot;https://cic-vocat.s3.amazonaws.com/2013/5/25/2faee2a78438b3450c513aa07952de4f89e4b49d.mp4?AWSAccessKeyId=AKIAI2UNJAH7ADALF4NQ&amp;Expires=1372282359&amp;Signature=XxEX7tfudRqhWW%2FsvUfD6uaDkag%3D&quot;,&quot;thumb&quot;:&quot;https://s3.amazonaws.com/cic-vocat/2013/5/25/2faee2a78438b3450c513aa07952de4f89e4b49d_thumb00001.png?1369441129&quot;,&quot;course_name&quot;:&quot;Data Structures&quot;,&quot;course_name_long&quot;:&quot;CS163: Data Structures, Section AI7X4&quot;,&quot;project_name&quot;:&quot;Mesh Rich Networks&quot;,&quot;course_id&quot;:1,&quot;project_id&quot;:1,&quot;creator_name&quot;:&quot;Hank Funk&quot;,&quot;creator_id&quot;:30,&quot;current_user_is_owner&quot;:true,&quot;current_user_can_evaluate&quot;:false,&quot;course_department&quot;:&quot;CS&quot;,&quot;course_section&quot;:&quot;AI7X4&quot;,&quot;course_number&quot;:&quot;163&quot;,&quot;instructor_evaluations&quot;:[],&quot;evaluations&quot;:[],&quot;instructor_score_percentage&quot;:0,&quot;published&quot;:null,&quot;transcoded_attachment&quot;:{&quot;created_at&quot;:&quot;2013-05-25T00:18:49Z&quot;,&quot;fileable_id&quot;:7,&quot;fileable_type&quot;:&quot;Submission&quot;,&quot;id&quot;:7,&quot;media_content_type&quot;:&quot;video/quicktime&quot;,&quot;media_file_name&quot;:&quot;hannaharendt_h480p.mov&quot;,&quot;media_file_size&quot;:17505480,&quot;media_updated_at&quot;:&quot;2013-05-25T00:18:49Z&quot;,&quot;transcoding_error&quot;:null,&quot;transcoding_status&quot;:1,&quot;updated_at&quot;:&quot;2013-05-25T00:18:49Z&quot;},&quot;current_user_can_annotate&quot;:true,&quot;current_user_can_attach&quot;:true,&quot;current_user_can_discuss&quot;:true,&quot;video_attachment_id&quot;:7,&quot;scored_by_instructor&quot;:false,&quot;has_transcoded_attachment&quot;:true,&quot;has_uploaded_attachment&quot;:true,&quot;has_transcoding_error&quot;:false,&quot;is_transcoding_complete&quot;:true,&quot;transcoding_in_progress&quot;:false,&quot;is_video&quot;:true} }
-</script>
-
-
-
-<div data-view="FlashMessages"><!-- javascript flash messages show up here --></div>
-
-<div data-view="EvaluationDetail">
+<div class="page-banner">
+  <!-- TODO wrap this in a link -->
+  <img alt="VOCAT" class="page-banner--logo" src="/assets/logo-vocat-dark.png"/>
 </div>
-    </div>
-  </div> <!-- container -->
-  <script type="text/javascript">
-    div = $('<div></div>')
-    div.html($('#bootstrap-Project').text());
-    data = JSON.parse(div.text());
-    window.Vocat.Bootstrap.Models.Project = data.Project;
-    div = $('<div></div>')
-    div.html($('#bootstrap-Creator').text());
-    data = JSON.parse(div.text());
-    window.Vocat.Bootstrap.Models.Creator = data.Creator;
-    div = $('<div></div>')
-    div.html($('#bootstrap-Submission').text());
-    data = JSON.parse(div.text());
-    window.Vocat.Bootstrap.Models.Submission = data.Submission;
+<header class="page-header" data-behavior="sticky-header">
+  <div class="primary-nav">
+    <div class="primary-nav--wrapper">
+      <nav class="course-selector" data-behavior="dropdown">
+        <a class="course-selector--toggle" data-behavior="toggle" href="#">
+          CS163: Data Structures
+        </a>
 
-  </script>
+        <div class="course-selector--dropdown" data-behavior="dropdown-options">
+          <ul>
+            <li><a href="/">All Courses</a></li>
+            <li><a class=active href="/courses/1/portfolio"><strong>CS163 :</strong> Data Structures
+              <small>[Section AI7X4]</small>
+            </a></li>
+            <li><a href="/courses/12/portfolio"><strong>ENG367U :</strong> Native American Women Writers
+              <small>[Section 4VSXN]</small>
+            </a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <nav class="user-selector" data-behavior="dropdown">
+        <div class="primary-nav--avatar">
+          <img alt="Charles Xavier" src="http://gravatar.com/avatar/c935a60b3bc7160a5b8edaa9a8b7a3c3.png?s=48&amp;d=mm"/>
+        </div>
+        <a class="user-selector--toggle" data-behavior="toggle" href="#">Hank Funk</a>
+
+        <div class="user-selector--dropdown" data-behavior="dropdown-options">
+          <ul>
+            <li>
+              <a href="/users/edit">Hank Funk [creator2@test.com]</a>
+            </li>
+            <li>
+              <a href="/users/sign_out" data-method="delete" rel="nofollow">Log out</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <a class="shortcut-nav--toggle" data-behavior="shortcut-nav-toggle" href="#">Toggle Shortcuts Drawer</a>
+
+      <nav class="adaptive-nav">
+        <ul class="adaptive-nav--list">
+          <li><a href="/courses/1/portfolio">My Presentations</a></li>
+        </ul>
+      </nav>
+
+
+    </div>
+  </div>
+  <div class="shortcut-nav js-shortcut-nav">
+    <div class="shortcut-nav--wrapper">
+      <div class="shortcut-nav--item">
+        <nav class="assignment-selector" data-class="dropdown-container">
+          <h2 class="shortcut-nav--title">Go to Assignment</h2>
+          <a class="assignment-selector--toggle" data-class="dropdown-toggle" href="#">View All Assignments</a>
+
+          <div class="assignment-selector--dropdown" data-class="dropdown">
+            <ul>
+              <li><a href="">Assignment 1</a></li>
+              <li><a href="">Assignment 2</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div class="shortcut-nav--item">
+        <nav class="peer-selector" data-class="dropdown-container">
+          <h2 class="shortcut-nav--title">Provide Peer Feedback</h2>
+          <a class="peer-selector--toggle" data-class="dropdown-toggle" href="#">View All Peers</a>
+
+          <div class="peer-selector--dropdown" data-class="dropdown">
+            <ul>
+              <li><a href="">Peer 1</a></li>
+              <li><a href="">Peer 2</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div class="shortcut-nav--item">
+        <nav class="help-nav">
+          <h2 class="shortcut-nav--title">Help</h2>
+          <ul class="help-nav--list">
+            <li>
+              <label class="help-nav--label">
+                <input class="help-nav--checkbox" type="checkbox" data-behavior="help-overlay-toggle"><b></b><span class="help-nav--checkbox-text">Activate Help Overlay</span>
+              </label>
+            </li>
+            <li>
+              <a href="">Go to FAQ</a>
+            </li>
+            <li>
+              <a href="">View Tutorial</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="container">
+  <div class="page-content">
+
+    <!-- Help overlays -->
+    <!-- These are positioned relative to .page-content -->
+    <!-- See _components.scc for a full explanation of 'placard orientation' (nnw, wsw, etc.) -->
+
+    <!-- This one corresponds to the 'What do these scores mean?' button -->
+    <aside class="placard ssw" style="top: 18.5rem; left: 73rem;">
+      <label class="placard--checkbox">
+        <input class="checkbox" type="checkbox">
+        <b></b>
+        Glossary Mode
+      </label>
+
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid quis.</p>
+      <hr>
+      <a class="teal-arrow-button space-bottom" href="#">View complete rubric</a>
+
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui ipsa libero incidunt.</p>
+    </aside>
+
+    <!-- This one corresponds to the 'Evaluator Review' score -->
+    <aside class="placard wide nnw" style="top: 58.8rem; left: 2.6rem;">
+      <h2 class="placard--title">Introduction</h2>
+
+      <h3 class="placard--subtitle">Relation to Audience</h3>
+      <hr>
+      <h3 class="placard--subtitle"><strong>1 - 2</strong> Poor / Failure</h3>
+
+      <p>Lacking numeration, no clear taglines, audience has little or no idea what the main supporting points of the
+        thesis, even with great effort listeners are confused about what the speaker is going to say and the order
+        she/he is going to deal with issues.</p>
+      <hr>
+      <h3 class="placard--subtitle"><strong>3 - 4</strong> Good / Average</h3>
+
+      <p>Main points are numerated, wording might be inconsistent/vague, taglines for points might be compound
+        sentences, lacking elevation with no repetition or alliteration, points are identifiable but not repeatable and
+        require some thought to extract.</p>
+      <hr>
+      <h3 class="placard--subtitle"><strong>5</strong> Excellent</h3>
+
+      <p>Main points are numerated, are strong concise statements, not stated as questions, speaker probably used
+        alliteration or repetition, the points previewed are identifiable and repeatable and provide a clear sequence of
+        events to unfold in the speech.</p>
+    </aside>
+
+    <!-- This one corresponds to the discussion post count -->
+    <!-- <aside class="placard wnw" style="top: 71.8rem; left: 21.3rem;">
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aut fugiat mollitia.</p>
+    </aside> -->
+
+    <!-- This one corresponds to the annotation input -->
+    <aside class="placard ene" style="top: 35.3rem; left: -29rem;">
+      <p>Lorem ipsum dolor sit amet, consectetur.</p>
+    </aside>
+
+    <!-- Help overlays end -->
+
+
+    <div data-view="FlashMessages"><!-- javascript flash messages show up here --></div>
+
+    <div id="region-main"></div>
+
+    <script type="text/json" class="bootstrap" data-bootstrap-key="creator" id="bootstrap-creator">
+      { "creator": [{&quot;id&quot;:67,&quot;email&quot;:&quot;creator39@test.com&quot;,&quot;name&quot;:&quot;Alverta Gislason&quot;,&quot;gravatar&quot;:&quot;http://gravatar.com/avatar/40ed7d989fcbe55ebc5e9b981f34d71f.png?d=mm&amp;s=&quot;},{&quot;id&quot;:112,&quot;email&quot;:&quot;creator84@test.com&quot;,&quot;name&quot;:&quot;Cayla O&#x27;Kon&quot;,&quot;gravatar&quot;:&quot;http://gravatar.com/avatar/2852fa27e9c2f2f7f01a1dc8c972ea70.png?d=mm&amp;s=&quot;},{&quot;id&quot;:84,&quot;email&quot;:&quot;creator56@test.com&quot;,&quot;name&quot;:&quot;Clinton Koelpin&quot;,&quot;gravatar&quot;:&quot;http://gravatar.com/avatar/46d21a6eab4e1d0f8268f39f63c6abba.png?d=mm&amp;s=&quot;},{&quot;id&quot;:83,&quot;email&quot;:&quot;creator55@test.com&quot;,&quot;name&quot;:&quot;Glenna Lindgren&quot;,&quot;gravatar&quot;:&quot;http://gravatar.com/avatar/c022bf1544ac8f6c993f9dbf0e1884d3.png?d=mm&amp;s=&quot;},{&quot;id&quot;:34,&quot;email&quot;:&quot;creator6@test.com&quot;,&quot;name&quot;:&quot;Joesph Kovacek&quot;,&quot;gravatar&quot;:&quot;http://gravatar.com/avatar/8bd5fe68e0f1dd9a68c70a1d7598b340.png?d=mm&amp;s=&quot;},{&quot;id&quot;:32,&quot;email&quot;:&quot;creator4@test.com&quot;,&quot;name&quot;:&quot;Karolann Aufderhar&quot;,&quot;gravatar&quot;:&quot;http://gravatar.com/avatar/70e863c9485c6f57f4d49c8a8bb4cbd6.png?d=mm&amp;s=&quot;},{&quot;id&quot;:121,&quot;email&quot;:&quot;creator93@test.com&quot;,&quot;name&quot;:&quot;Kraig Dietrich&quot;,&quot;gravatar&quot;:&quot;http://gravatar.com/avatar/175a772a599e73c4b3113205122e73d8.png?d=mm&amp;s=&quot;},{&quot;id&quot;:145,&quot;email&quot;:&quot;creator117@test.com&quot;,&quot;name&quot;:&quot;Nat Roob&quot;,&quot;gravatar&quot;:&quot;http://gravatar.com/avatar/3db3795c391039420fbdcccfc6599d6b.png?d=mm&amp;s=&quot;},{&quot;id&quot;:99,&quot;email&quot;:&quot;creator71@test.com&quot;,&quot;name&quot;:&quot;Ova Gerlach&quot;,&quot;gravatar&quot;:&quot;http://gravatar.com/avatar/9d1340816493df2e4cdfc14ecb0fe077.png?d=mm&amp;s=&quot;},{&quot;id&quot;:132,&quot;email&quot;:&quot;creator104@test.com&quot;,&quot;name&quot;:&quot;Ova Halvorson&quot;,&quot;gravatar&quot;:&quot;http://gravatar.com/avatar/f1dbf61c25a0a64673473297c9dca628.png?d=mm&amp;s=&quot;},{&quot;id&quot;:69,&quot;email&quot;:&quot;creator41@test.com&quot;,&quot;name&quot;:&quot;Rosalinda O&#x27;Connell&quot;,&quot;gravatar&quot;:&quot;http://gravatar.com/avatar/de4f8ffdff4c818209462a43deda1898.png?d=mm&amp;s=&quot;},{&quot;id&quot;:53,&quot;email&quot;:&quot;creator25@test.com&quot;,&quot;name&quot;:&quot;Winifred Terry&quot;,&quot;gravatar&quot;:&quot;http://gravatar.com/avatar/e1d999e557fb52af88a5e66438dd63df.png?d=mm&amp;s=&quot;}] }
+    </script>
+
+    <script type="text/json" class="bootstrap" data-bootstrap-key="project" id="bootstrap-project">
+      { "project": [{&quot;id&quot;:14,&quot;name&quot;:&quot;Maximize Intuitive Action-items&quot;,&quot;current_user_is_owner&quot;:false,&quot;course_name&quot;:&quot;Survey of English Literature I&quot;,&quot;course_name_long&quot;:&quot;ENG204: Survey of English Literature I, Section TLOP6&quot;,&quot;course_id&quot;:8,&quot;course_department&quot;:&quot;ENG&quot;,&quot;course_section&quot;:&quot;TLOP6&quot;,&quot;course_number&quot;:&quot;204&quot;,&quot;current_user_id&quot;:10,&quot;rubric&quot;:{&quot;id&quot;:1,&quot;name&quot;:&quot;Theater Rubric&quot;,&quot;fields&quot;:{&quot;voice&quot;:{&quot;name&quot;:&quot;Voice&quot;,&quot;id&quot;:&quot;voice&quot;,&quot;range_descriptions&quot;:{&quot;low&quot;:&quot;Vocal projection is weak. Posture is crumpled or slouched: breath is unsupported. Volume is unamplified. One has to strain, or cannot hear speaker. Articulation is mushy and difficult to understand.&quot;,&quot;medium&quot;:&quot;Vocal projection fades in and out. Posture is off-balance: breathing is not always supported. Speaker&#x27;s breathing is constricted by holding breath or too shallow. Volume loses amplification, particularly at end of sentences. Articulation is garbled or slurry, but distinct enough to be understood.&quot;,&quot;high&quot;:&quot;Vocal projection is strong. Posture supports breath: feet are grounded and body centered, allowing deep breathing to power voice. Volume is sufficiently amplified and sustained at consistent level. Articulation is clear. Speaker is easily heard and understood.&quot;}},&quot;body&quot;:{&quot;name&quot;:&quot;Body&quot;,&quot;id&quot;:&quot;body&quot;,&quot;range_descriptions&quot;:{&quot;low&quot;:&quot;Body is rigidly tense, or nervous tension in constant movement, shuffling, or fidgeting. Speaker avoids eye contact and physically \&quot;hides\&quot; from audience. Gestures and non-verbal communication are excessive or restricted and unrelated to narrative.&quot;,&quot;medium&quot;:&quot;Speaker is initially self-conscious and tense, but grows more relaxed as he/she continues. There is occasional eye-contact. There is some nervous movement fidgeting, but it decreases as presentation continues. Gestures and non-verbal communication do not always reinforce narrative.&quot;,&quot;high&quot;:&quot;Speaker is physically calm and appears relaxed. Speaker makes direct eye-contact. Physical presence projects animation and energy. Gestures and non-verbal communication enhance narrative.&quot;}},&quot;expression&quot;:{&quot;name&quot;:&quot;Expression&quot;,&quot;id&quot;:&quot;expression&quot;,&quot;range_descriptions&quot;:{&quot;low&quot;:&quot;Concentration is weak. Speaker cannot sustain concentration and is easily distracted: speaker giggles, or breaks away from what he/she is saying. There is no clear focus to the presentation and little emotional/intellectual connection to the narrative. Speaker rambles, or pauses awkwardly&quot;,&quot;medium&quot;:&quot;Concentration is disrupted. Speaker is distracted at times and loses focus, causing momentary hesitation. There are digressions from purpose. There is occasionally loss of emotional/intellectual connection to the narrative. Speaker rushes, or is monotone.&quot;,&quot;high&quot;:&quot;Concentration is sustained throughout. The speaker is focused and clear about what he/she wants to say. There is a point of view and speaker appears to have an emotional/intellectual connection to their narrative.&quot;}},&quot;overall-effect&quot;:{&quot;name&quot;:&quot;Overall Effect&quot;,&quot;id&quot;:&quot;overall-effect&quot;,&quot;range_descriptions&quot;:{&quot;low&quot;:&quot;Tension impedes speaker from engaging audience. There is impatience and/or little interest in watching or listening to presentation. Ideas are incoherent, or nonexistent. Vocal and physical aspects of the presentation interfere with effective communication.&quot;,&quot;medium&quot;:&quot;Speaker engages audience with varied success. Interest in the presentation ebbs and flows. Ideas are relatively clear, but lack overall coherence. Communication is effective, but neither dynamic nor very memorable.&quot;,&quot;high&quot;:&quot;Speaker engages audience and is compelling to watch and listen to. Ideas are clear, concise, and communicated in a creative, memorable way.&quot;}}},&quot;ranges&quot;:{&quot;low&quot;:{&quot;name&quot;:&quot;low&quot;,&quot;id&quot;:&quot;low&quot;,&quot;low&quot;:&quot;1&quot;,&quot;high&quot;:&quot;2&quot;},&quot;medium&quot;:{&quot;name&quot;:&quot;medium&quot;,&quot;id&quot;:&quot;medium&quot;,&quot;low&quot;:&quot;3&quot;,&quot;high&quot;:&quot;4&quot;},&quot;high&quot;:{&quot;name&quot;:&quot;high&quot;,&quot;id&quot;:&quot;high&quot;,&quot;low&quot;:&quot;5&quot;,&quot;high&quot;:&quot;6&quot;}}}},{&quot;id&quot;:15,&quot;name&quot;:&quot;Incentivize B2c Networks&quot;,&quot;current_user_is_owner&quot;:false,&quot;course_name&quot;:&quot;Survey of English Literature I&quot;,&quot;course_name_long&quot;:&quot;ENG204: Survey of English Literature I, Section TLOP6&quot;,&quot;course_id&quot;:8,&quot;course_department&quot;:&quot;ENG&quot;,&quot;course_section&quot;:&quot;TLOP6&quot;,&quot;course_number&quot;:&quot;204&quot;,&quot;current_user_id&quot;:10,&quot;rubric&quot;:{&quot;id&quot;:1,&quot;name&quot;:&quot;Theater Rubric&quot;,&quot;fields&quot;:{&quot;voice&quot;:{&quot;name&quot;:&quot;Voice&quot;,&quot;id&quot;:&quot;voice&quot;,&quot;range_descriptions&quot;:{&quot;low&quot;:&quot;Vocal projection is weak. Posture is crumpled or slouched: breath is unsupported. Volume is unamplified. One has to strain, or cannot hear speaker. Articulation is mushy and difficult to understand.&quot;,&quot;medium&quot;:&quot;Vocal projection fades in and out. Posture is off-balance: breathing is not always supported. Speaker&#x27;s breathing is constricted by holding breath or too shallow. Volume loses amplification, particularly at end of sentences. Articulation is garbled or slurry, but distinct enough to be understood.&quot;,&quot;high&quot;:&quot;Vocal projection is strong. Posture supports breath: feet are grounded and body centered, allowing deep breathing to power voice. Volume is sufficiently amplified and sustained at consistent level. Articulation is clear. Speaker is easily heard and understood.&quot;}},&quot;body&quot;:{&quot;name&quot;:&quot;Body&quot;,&quot;id&quot;:&quot;body&quot;,&quot;range_descriptions&quot;:{&quot;low&quot;:&quot;Body is rigidly tense, or nervous tension in constant movement, shuffling, or fidgeting. Speaker avoids eye contact and physically \&quot;hides\&quot; from audience. Gestures and non-verbal communication are excessive or restricted and unrelated to narrative.&quot;,&quot;medium&quot;:&quot;Speaker is initially self-conscious and tense, but grows more relaxed as he/she continues. There is occasional eye-contact. There is some nervous movement fidgeting, but it decreases as presentation continues. Gestures and non-verbal communication do not always reinforce narrative.&quot;,&quot;high&quot;:&quot;Speaker is physically calm and appears relaxed. Speaker makes direct eye-contact. Physical presence projects animation and energy. Gestures and non-verbal communication enhance narrative.&quot;}},&quot;expression&quot;:{&quot;name&quot;:&quot;Expression&quot;,&quot;id&quot;:&quot;expression&quot;,&quot;range_descriptions&quot;:{&quot;low&quot;:&quot;Concentration is weak. Speaker cannot sustain concentration and is easily distracted: speaker giggles, or breaks away from what he/she is saying. There is no clear focus to the presentation and little emotional/intellectual connection to the narrative. Speaker rambles, or pauses awkwardly&quot;,&quot;medium&quot;:&quot;Concentration is disrupted. Speaker is distracted at times and loses focus, causing momentary hesitation. There are digressions from purpose. There is occasionally loss of emotional/intellectual connection to the narrative. Speaker rushes, or is monotone.&quot;,&quot;high&quot;:&quot;Concentration is sustained throughout. The speaker is focused and clear about what he/she wants to say. There is a point of view and speaker appears to have an emotional/intellectual connection to their narrative.&quot;}},&quot;overall-effect&quot;:{&quot;name&quot;:&quot;Overall Effect&quot;,&quot;id&quot;:&quot;overall-effect&quot;,&quot;range_descriptions&quot;:{&quot;low&quot;:&quot;Tension impedes speaker from engaging audience. There is impatience and/or little interest in watching or listening to presentation. Ideas are incoherent, or nonexistent. Vocal and physical aspects of the presentation interfere with effective communication.&quot;,&quot;medium&quot;:&quot;Speaker engages audience with varied success. Interest in the presentation ebbs and flows. Ideas are relatively clear, but lack overall coherence. Communication is effective, but neither dynamic nor very memorable.&quot;,&quot;high&quot;:&quot;Speaker engages audience and is compelling to watch and listen to. Ideas are clear, concise, and communicated in a creative, memorable way.&quot;}}},&quot;ranges&quot;:{&quot;low&quot;:{&quot;name&quot;:&quot;low&quot;,&quot;id&quot;:&quot;low&quot;,&quot;low&quot;:&quot;1&quot;,&quot;high&quot;:&quot;2&quot;},&quot;medium&quot;:{&quot;name&quot;:&quot;medium&quot;,&quot;id&quot;:&quot;medium&quot;,&quot;low&quot;:&quot;3&quot;,&quot;high&quot;:&quot;4&quot;},&quot;high&quot;:{&quot;name&quot;:&quot;high&quot;,&quot;id&quot;:&quot;high&quot;,&quot;low&quot;:&quot;5&quot;,&quot;high&quot;:&quot;6&quot;}}}},{&quot;id&quot;:16,&quot;name&quot;:&quot;Redefine Back-end Users&quot;,&quot;current_user_is_owner&quot;:false,&quot;course_name&quot;:&quot;Survey of English Literature I&quot;,&quot;course_name_long&quot;:&quot;ENG204: Survey of English Literature I, Section TLOP6&quot;,&quot;course_id&quot;:8,&quot;course_department&quot;:&quot;ENG&quot;,&quot;course_section&quot;:&quot;TLOP6&quot;,&quot;course_number&quot;:&quot;204&quot;,&quot;current_user_id&quot;:10,&quot;rubric&quot;:{&quot;id&quot;:1,&quot;name&quot;:&quot;Theater Rubric&quot;,&quot;fields&quot;:{&quot;voice&quot;:{&quot;name&quot;:&quot;Voice&quot;,&quot;id&quot;:&quot;voice&quot;,&quot;range_descriptions&quot;:{&quot;low&quot;:&quot;Vocal projection is weak. Posture is crumpled or slouched: breath is unsupported. Volume is unamplified. One has to strain, or cannot hear speaker. Articulation is mushy and difficult to understand.&quot;,&quot;medium&quot;:&quot;Vocal projection fades in and out. Posture is off-balance: breathing is not always supported. Speaker&#x27;s breathing is constricted by holding breath or too shallow. Volume loses amplification, particularly at end of sentences. Articulation is garbled or slurry, but distinct enough to be understood.&quot;,&quot;high&quot;:&quot;Vocal projection is strong. Posture supports breath: feet are grounded and body centered, allowing deep breathing to power voice. Volume is sufficiently amplified and sustained at consistent level. Articulation is clear. Speaker is easily heard and understood.&quot;}},&quot;body&quot;:{&quot;name&quot;:&quot;Body&quot;,&quot;id&quot;:&quot;body&quot;,&quot;range_descriptions&quot;:{&quot;low&quot;:&quot;Body is rigidly tense, or nervous tension in constant movement, shuffling, or fidgeting. Speaker avoids eye contact and physically \&quot;hides\&quot; from audience. Gestures and non-verbal communication are excessive or restricted and unrelated to narrative.&quot;,&quot;medium&quot;:&quot;Speaker is initially self-conscious and tense, but grows more relaxed as he/she continues. There is occasional eye-contact. There is some nervous movement fidgeting, but it decreases as presentation continues. Gestures and non-verbal communication do not always reinforce narrative.&quot;,&quot;high&quot;:&quot;Speaker is physically calm and appears relaxed. Speaker makes direct eye-contact. Physical presence projects animation and energy. Gestures and non-verbal communication enhance narrative.&quot;}},&quot;expression&quot;:{&quot;name&quot;:&quot;Expression&quot;,&quot;id&quot;:&quot;expression&quot;,&quot;range_descriptions&quot;:{&quot;low&quot;:&quot;Concentration is weak. Speaker cannot sustain concentration and is easily distracted: speaker giggles, or breaks away from what he/she is saying. There is no clear focus to the presentation and little emotional/intellectual connection to the narrative. Speaker rambles, or pauses awkwardly&quot;,&quot;medium&quot;:&quot;Concentration is disrupted. Speaker is distracted at times and loses focus, causing momentary hesitation. There are digressions from purpose. There is occasionally loss of emotional/intellectual connection to the narrative. Speaker rushes, or is monotone.&quot;,&quot;high&quot;:&quot;Concentration is sustained throughout. The speaker is focused and clear about what he/she wants to say. There is a point of view and speaker appears to have an emotional/intellectual connection to their narrative.&quot;}},&quot;overall-effect&quot;:{&quot;name&quot;:&quot;Overall Effect&quot;,&quot;id&quot;:&quot;overall-effect&quot;,&quot;range_descriptions&quot;:{&quot;low&quot;:&quot;Tension impedes speaker from engaging audience. There is impatience and/or little interest in watching or listening to presentation. Ideas are incoherent, or nonexistent. Vocal and physical aspects of the presentation interfere with effective communication.&quot;,&quot;medium&quot;:&quot;Speaker engages audience with varied success. Interest in the presentation ebbs and flows. Ideas are relatively clear, but lack overall coherence. Communication is effective, but neither dynamic nor very memorable.&quot;,&quot;high&quot;:&quot;Speaker engages audience and is compelling to watch and listen to. Ideas are clear, concise, and communicated in a creative, memorable way.&quot;}}},&quot;ranges&quot;:{&quot;low&quot;:{&quot;name&quot;:&quot;low&quot;,&quot;id&quot;:&quot;low&quot;,&quot;low&quot;:&quot;1&quot;,&quot;high&quot;:&quot;2&quot;},&quot;medium&quot;:{&quot;name&quot;:&quot;medium&quot;,&quot;id&quot;:&quot;medium&quot;,&quot;low&quot;:&quot;3&quot;,&quot;high&quot;:&quot;4&quot;},&quot;high&quot;:{&quot;name&quot;:&quot;high&quot;,&quot;id&quot;:&quot;high&quot;,&quot;low&quot;:&quot;5&quot;,&quot;high&quot;:&quot;6&quot;}}}},{&quot;id&quot;:17,&quot;name&quot;:&quot;Innovate Killer E-tailers&quot;,&quot;current_user_is_owner&quot;:false,&quot;course_name&quot;:&quot;Survey of English Literature I&quot;,&quot;course_name_long&quot;:&quot;ENG204: Survey of English Literature I, Section TLOP6&quot;,&quot;course_id&quot;:8,&quot;course_department&quot;:&quot;ENG&quot;,&quot;course_section&quot;:&quot;TLOP6&quot;,&quot;course_number&quot;:&quot;204&quot;,&quot;current_user_id&quot;:10,&quot;rubric&quot;:{&quot;id&quot;:1,&quot;name&quot;:&quot;Theater Rubric&quot;,&quot;fields&quot;:{&quot;voice&quot;:{&quot;name&quot;:&quot;Voice&quot;,&quot;id&quot;:&quot;voice&quot;,&quot;range_descriptions&quot;:{&quot;low&quot;:&quot;Vocal projection is weak. Posture is crumpled or slouched: breath is unsupported. Volume is unamplified. One has to strain, or cannot hear speaker. Articulation is mushy and difficult to understand.&quot;,&quot;medium&quot;:&quot;Vocal projection fades in and out. Posture is off-balance: breathing is not always supported. Speaker&#x27;s breathing is constricted by holding breath or too shallow. Volume loses amplification, particularly at end of sentences. Articulation is garbled or slurry, but distinct enough to be understood.&quot;,&quot;high&quot;:&quot;Vocal projection is strong. Posture supports breath: feet are grounded and body centered, allowing deep breathing to power voice. Volume is sufficiently amplified and sustained at consistent level. Articulation is clear. Speaker is easily heard and understood.&quot;}},&quot;body&quot;:{&quot;name&quot;:&quot;Body&quot;,&quot;id&quot;:&quot;body&quot;,&quot;range_descriptions&quot;:{&quot;low&quot;:&quot;Body is rigidly tense, or nervous tension in constant movement, shuffling, or fidgeting. Speaker avoids eye contact and physically \&quot;hides\&quot; from audience. Gestures and non-verbal communication are excessive or restricted and unrelated to narrative.&quot;,&quot;medium&quot;:&quot;Speaker is initially self-conscious and tense, but grows more relaxed as he/she continues. There is occasional eye-contact. There is some nervous movement fidgeting, but it decreases as presentation continues. Gestures and non-verbal communication do not always reinforce narrative.&quot;,&quot;high&quot;:&quot;Speaker is physically calm and appears relaxed. Speaker makes direct eye-contact. Physical presence projects animation and energy. Gestures and non-verbal communication enhance narrative.&quot;}},&quot;expression&quot;:{&quot;name&quot;:&quot;Expression&quot;,&quot;id&quot;:&quot;expression&quot;,&quot;range_descriptions&quot;:{&quot;low&quot;:&quot;Concentration is weak. Speaker cannot sustain concentration and is easily distracted: speaker giggles, or breaks away from what he/she is saying. There is no clear focus to the presentation and little emotional/intellectual connection to the narrative. Speaker rambles, or pauses awkwardly&quot;,&quot;medium&quot;:&quot;Concentration is disrupted. Speaker is distracted at times and loses focus, causing momentary hesitation. There are digressions from purpose. There is occasionally loss of emotional/intellectual connection to the narrative. Speaker rushes, or is monotone.&quot;,&quot;high&quot;:&quot;Concentration is sustained throughout. The speaker is focused and clear about what he/she wants to say. There is a point of view and speaker appears to have an emotional/intellectual connection to their narrative.&quot;}},&quot;overall-effect&quot;:{&quot;name&quot;:&quot;Overall Effect&quot;,&quot;id&quot;:&quot;overall-effect&quot;,&quot;range_descriptions&quot;:{&quot;low&quot;:&quot;Tension impedes speaker from engaging audience. There is impatience and/or little interest in watching or listening to presentation. Ideas are incoherent, or nonexistent. Vocal and physical aspects of the presentation interfere with effective communication.&quot;,&quot;medium&quot;:&quot;Speaker engages audience with varied success. Interest in the presentation ebbs and flows. Ideas are relatively clear, but lack overall coherence. Communication is effective, but neither dynamic nor very memorable.&quot;,&quot;high&quot;:&quot;Speaker engages audience and is compelling to watch and listen to. Ideas are clear, concise, and communicated in a creative, memorable way.&quot;}}},&quot;ranges&quot;:{&quot;low&quot;:{&quot;name&quot;:&quot;low&quot;,&quot;id&quot;:&quot;low&quot;,&quot;low&quot;:&quot;1&quot;,&quot;high&quot;:&quot;2&quot;},&quot;medium&quot;:{&quot;name&quot;:&quot;medium&quot;,&quot;id&quot;:&quot;medium&quot;,&quot;low&quot;:&quot;3&quot;,&quot;high&quot;:&quot;4&quot;},&quot;high&quot;:{&quot;name&quot;:&quot;high&quot;,&quot;id&quot;:&quot;high&quot;,&quot;low&quot;:&quot;5&quot;,&quot;high&quot;:&quot;6&quot;}}}}] }
+    </script>
+
+  </div>
+
+
+</div>
+</div> <!-- container -->
+
 </body>
 </html>

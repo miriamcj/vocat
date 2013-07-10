@@ -42,7 +42,6 @@ define [
 
     initialize: (options) ->
       @options = options || {}
-
       @collections = options.collections
       @collections.annotation = new AnnotationCollection([],{})
 
