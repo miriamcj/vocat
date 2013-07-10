@@ -12,10 +12,12 @@ define [
   'views/submission/upload/started',
   'views/submission/upload/transcoding',
   'views/submission/upload/start',
+  'views/flash/flash_messages',
   'models/attachment',
   'app/plugins/backbone_poller',
+  'collections/flash_message_collection'
 ], (
-  Marionette, template, SubmissionCollection, AnnotationCollection, PlayerView, AnnotationsView, AnnotatorView, ScoreView, UploadView, UploadFailedView, UploadStartedView, UploadTranscodingView, UploadStartView, Attachment, Poller
+  Marionette, template, SubmissionCollection, AnnotationCollection, PlayerView, AnnotationsView, AnnotatorView, ScoreView, UploadView, UploadFailedView, UploadStartedView, UploadTranscodingView, UploadStartView, FlashMessagesView, Attachment, Poller, FlashMessageCollection
 ) ->
 
   class SubmissionLayout extends Marionette.Layout
@@ -24,6 +26,7 @@ define [
     children: {}
 
     regions: {
+      flash: '[data-region="flash"]'
       score: '[data-region="score"]'
       discussion: '[data-region="discussion"]'
       upload: '[data-region="upload"]'
@@ -33,7 +36,7 @@ define [
     }
 
     onPlayerStop: () ->
-      console.log 'heard a player stop request'
+      # do something
 
     onChangeVideoAttachmentId: (data) ->
       if @submission.get('video_attachment_id')
@@ -69,10 +72,13 @@ define [
         if @submission.get('current_user_can_attach')
           @upload.show new UploadView({model: @submission, collection: @collections.submission, vent: @})
 
+        @flash.show new FlashMessagesView({vent: @})
+
         @getPlayerView()
 
         @triggerMethod('submission:loaded')
       })
+
 
     startPolling: () ->
       options = {

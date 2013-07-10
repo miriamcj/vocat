@@ -1854,10 +1854,21 @@ a.table--heading {
   .authentication & {
     padding-top: 0;
   }
+  .evaluation-detail & {
+    padding: 0;
+  }
   .bar-header & {
     padding: 2.4rem 0 0;
     clear: both;
   }
+}
+
+.alert {
+  .evaluation-detail & {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  margin-bottom: 1.7rem;
 }
 
 .alert-success {
