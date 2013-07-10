@@ -80,15 +80,15 @@ class Submission < ActiveRecord::Base
   end
 
   def video
-    self.attachments.where(:media_content_type => ['video/quicktime']).first()
+    self.attachment
   end
 
   def video?
-    self.has_video?
+    self.attachment.is_video?
   end
 
   def has_video?
-    if self.video then true else false end
+    video?
   end
 
   def transcoding_error?
@@ -122,9 +122,7 @@ class Submission < ActiveRecord::Base
   end
 
   def thumb
-    if video?
-      return video.url(:thumb)
-    end
+    return attachment.url(:thumb)
   end
 
 	private
