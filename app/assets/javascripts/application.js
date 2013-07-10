@@ -10,15 +10,4 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require jquery
-//= require vendor
-//= require js-routes
-//= require app/vocat
-//= require_tree ./app/templates
-//= require_tree ./app/plugins
-//= require_tree ./app/helpers
-//= require_tree ./app/models
-//= require_tree ./app/collections
-//= require_tree ./app/views
-//= require_tree ./app/routers
-//= require scripts
+//= require modernizr/modernizr-2.6.2
