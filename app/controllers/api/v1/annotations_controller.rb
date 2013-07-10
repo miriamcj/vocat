@@ -28,7 +28,7 @@ class Api::V1::AnnotationsController < ApplicationController
     if @annotation.save
       respond_with @annotation, :root => false, status: :created, location: api_v1_annotation_url(@annotation.id)
     else
-      respond_with @annotation.errors, :root => false, status: :unprocessable_entity
+      respond_with @annotation, :root => false, status: :unprocessable_entity
     end
   end
 

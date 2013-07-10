@@ -7,6 +7,10 @@ class Annotation < ActiveRecord::Base
 
   delegate :name, :to => :author, :prefix => true
 
+  validates_presence_of :body, :seconds_timecode, :author_id, :attachment_id
+  validates_numericality_of :seconds_timecode
+  validates_length_of :body, :minimum => 3
+
   def active_model_serializer
     AnnotationSerializer
   end

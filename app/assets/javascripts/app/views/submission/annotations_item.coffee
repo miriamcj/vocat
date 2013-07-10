@@ -13,6 +13,7 @@ define ['marionette', 'hbs!templates/submission/annotations_item'], (Marionette,
 
     initialize: (options) ->
       @vent = options.vent
+      @errorVent = options.errorVent
 
       @listenTo(@vent, 'player:time', (data) =>
         if @model.get('seconds_timecode') <= data.seconds
@@ -31,14 +32,18 @@ define ['marionette', 'hbs!templates/submission/annotations_item'], (Marionette,
       @$el.hide()
       @visible = false
 
-#    onRender: () ->
-#      @$el.fadeIn()
-
     onSeek: () ->
       @vent.triggerMethod('player:seek', {seconds: @model.get('seconds_timecode')})
 
     onDestroy: () ->
-      @model.destroy()
+      @model.destroy({
+        success: () =>
+          @errorVent.trigger('error:clear')
+          @errorVent.trigger('error:add', {level: 'notice', lifetime: '5000',  msg: 'annotation successfully deleted'})
+      , error: () =>
+          @errorVent.trigger('error:clear')
+          @errorVent.trigger('error:add', {level: 'notice', msg: xhr.responseJSON.errors})
+      })
 
   #  events:
   #    'click [data-behavior="player-seek"]': 'doPlayerSeek'

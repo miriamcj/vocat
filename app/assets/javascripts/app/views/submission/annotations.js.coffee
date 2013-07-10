@@ -35,6 +35,7 @@ define [
       {
         model: model
         vent: @
+        errorVent: @vent
       }
 
     initialize: (options) ->
@@ -55,6 +56,7 @@ define [
       @listenTo(@vent, 'player:time', (data) =>
         @trigger('player:time', data)
       )
+
 
     # Triggered by child itemView; echoed up the event chain to the global event
     onPlayerSeek: (data) ->

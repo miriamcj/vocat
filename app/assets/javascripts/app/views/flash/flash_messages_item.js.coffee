@@ -7,26 +7,30 @@ define [
 
   class FlashMessagesItem extends Marionette.ItemView
 
-
     template: template
+    lifetime: 10000
 
     triggers:
       'click [data-behavior="close"]': 'close'
 
-    onClose: ->
-      console.log 'closed'
-      @model.destroy()
+    initialize: (options) ->
+      lifetime = @model.get('lifetime')
+      if lifetime? && lifetime != false && lifetime > 1000 then @lifetime = @model.get('lifetime')
 
-#    render: () ->
-#      if @model and @collection
-#        @$el = $(@template(@model.toJSON()))
-#        @delegateEvents()
-#        return @$el
-#
-#    close: () ->
-#      @collection.remove @model if @model and @collection
-#      @$el.fadeOut
-#        duration: 500
-#        done: =>
-#          # remove alerts container
-#          @$el.parent().remove() if @$el.siblings().length == 0
+    onClose: ->
+      @$el.slideUp({
+        done: () =>
+          @model.destroy()
+      })
+
+    onBeforeRender: () ->
+      @$el.hide()
+
+    onRender: () ->
+      console.log @lifetime, 'lifetime'
+      @$el.fadeIn()
+      if @model.get('level') != 'error'
+        setTimeout( () =>
+          @onClose()
+        , @lifetime
+        )
