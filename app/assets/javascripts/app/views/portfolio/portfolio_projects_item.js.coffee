@@ -4,6 +4,8 @@ define ['marionette', 'hbs!templates/portfolio/portfolio_item_project'], (Marion
 
     template: ProjectTemplate
 
+    className: 'portfolio-frame'
+
     defaults: {
       showCourse: true
       showCreator: true

@@ -2,6 +2,7 @@ define ['marionette', 'hbs!templates/portfolio/portfolio_item_submission'], (Mar
   class PortfolioItemSubmission extends Marionette.ItemView
 
     template: SubmissionTemplate
+    className: 'portfolio-frame'
 
     defaults: {
       showCourse: true

@@ -1,58 +1,56 @@
-<div class="portfolio-frame">
 <figure class="frame-attachment">
-	{{#if submission.has_video}}
-  {{#if submission.thumb}}
-  <img class="frame-attachment--image" src="{{submission.thumb}}"/>
-  {{else}}
-  <div class="attachment-placeholder">
-  </div>
+{{#if submission.has_video}}
+{{#if submission.thumb}}
+<img class="frame-attachment--image" src="{{submission.thumb}}"/>
+{{else}}
+<div class="attachment-placeholder">
+</div>
+{{/if}}
+<figcaption class="frame-attachment--details">
+  <nav class="comments-nav">
+    <ul>
+      <li>
+        <a data-behavior="routable" href="{{submission.path}}">12</a>
+      </li>
+      <li>
+       <a data-behavior="routable" href="{{submission.path}}">3 New</a>
+      </li>
+    </ul>
+  </nav>
+  {{#if showCourse}}
+  <a data-behavior="routable" class="frame-attachment--link" href="{{submission.path}}">See All Comments</a>
   {{/if}}
-  <figcaption class="frame-attachment--details">
-    <nav class="comments-nav">
-      <ul>
-        <li>
-          <a data-behavior="routable" href="{{submission.path}}">12</a>
-        </li>
-        <li>
-         <a data-behavior="routable" href="{{submission.path}}">3 New</a>
-        </li>
-      </ul>
-    </nav>
-		{{#if showCourse}}
-    <a data-behavior="routable" class="frame-attachment--link" href="{{submission.path}}">See All Comments</a>
-    {{/if}}
-  </figcaption>
+</figcaption>
+{{else}}
+<div class="attachment-placeholder">
+  {{#if submission.current_user_can_attach}}
+  <a data-behavior="routable" class="attachment-placeholder--button" href="#">Upload video now</a>
   {{else}}
-  <div class="attachment-placeholder">
-	  {{#if submission.current_user_can_attach}}
-	  <a data-behavior="routable" class="attachment-placeholder--button" href="#">Upload video now</a>
-	  {{else}}
-	  <span class="attachment-placeholder--message">No video has been uploaded</span>
-	  {{/if}}
-  </div>
-	{{/if}}
+  <span class="attachment-placeholder--message">No video has been uploaded</span>
+  {{/if}}
+</div>
+{{/if}}
 </figure><!-- removes whitespace between columns
 --><div class="frame-summary">
-    <h2 class="frame-summary--title">
-      <a data-behavior="routable" href="{{submission.path}}">{{submission.project_name}}</a>
-    </h2>
-		{{#if showCreator}}
-    <h3 class="frame-summary--creator">
-      <a data-behavior="routable" href="{{submission.path}}">{{submission.creator_name}}</a>
-    </h3>
-		{{/if}}
-		{{#if showCourse}}
-    <h3 class="frame-summary--course"><a data-behavior="routable" href="{{submission.path}}"><strong>{{submission.course_department}}{{submission.course_number}} </strong> {{submission.course_name}} [Section {{submission.course_section}}]</a></h3>
-		{{/if}}
-		{{> templates_partials_scoreSummary}}
-		<a class="frame-summary--link" data-behavior="routable" href="{{submission.path}}">Expand Scores</a>
-    <!-- TODO has 'active' class only when published -->
-    <aside class="frame-summary--status {{#if submission.published}}active{{/if}}">
-	    {{#if submission.published}}
-	    published
-	    {{else}}
-	    unpublished
-	    {{/if}}
-    </aside>
-  </div>
+  <h2 class="frame-summary--title">
+    <a data-behavior="routable" href="{{submission.path}}">{{submission.project_name}}</a>
+  </h2>
+  {{#if showCreator}}
+  <h3 class="frame-summary--creator">
+    <a data-behavior="routable" href="{{submission.path}}">{{submission.creator_name}}</a>
+  </h3>
+  {{/if}}
+  {{#if showCourse}}
+  <h3 class="frame-summary--course"><a data-behavior="routable" href="{{submission.path}}"><strong>{{submission.course_department}}{{submission.course_number}} </strong> {{submission.course_name}} [Section {{submission.course_section}}]</a></h3>
+  {{/if}}
+  {{> templates_partials_scoreSummary}}
+  <a class="frame-summary--link" data-behavior="routable" href="{{submission.path}}">Expand Scores</a>
+  <!-- TODO has 'active' class only when published -->
+  <aside class="frame-summary--status {{#if submission.published}}active{{/if}}">
+    {{#if submission.published}}
+    published
+    {{else}}
+    unpublished
+    {{/if}}
+  </aside>
 </div>
