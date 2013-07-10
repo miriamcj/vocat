@@ -84,7 +84,11 @@ class Submission < ActiveRecord::Base
   end
 
   def video?
-    self.attachment.is_video?
+    if attachment
+      self.attachment.is_video?
+    else
+      false
+    end
   end
 
   def has_video?
@@ -122,7 +126,9 @@ class Submission < ActiveRecord::Base
   end
 
   def thumb
-    return attachment.url(:thumb)
+    if attachment
+      attachment.url(:thumb)
+    end
   end
 
 	private
