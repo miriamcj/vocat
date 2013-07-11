@@ -79,6 +79,7 @@
 @mixin kill-fout {
 	visibility: hidden;
 	.wf-active &, // Show when fonts become active
+	.wf-inactive &, // Show when fonts fail to load
 	.no-js & { // Show if no javascript
 		visibility: visible;
 	}
