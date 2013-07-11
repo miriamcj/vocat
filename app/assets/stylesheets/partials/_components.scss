@@ -1850,15 +1850,8 @@ a.table--heading {
 // --------------------------------------------------------
 // Wrapper containing all alerts
 .alerts {
-  padding: 3.4rem 0 1rem;
-  .authentication & {
-    padding-top: 0;
-  }
-  .evaluation-detail & {
-    padding: 0;
-  }
+  @extend %clearfix;
   .bar-header & {
-    padding: 2.4rem 0 0;
     clear: both;
   }
 }
@@ -1867,8 +1860,11 @@ a.table--heading {
   .evaluation-detail & {
     margin-left: 0;
     margin-right: 0;
+    margin-bottom: 2rem;
+    &:first-child {
+      margin-top: 0rem;
+    }
   }
-  margin-bottom: 1.7rem;
 }
 
 .alert-success {

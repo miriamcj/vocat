@@ -233,7 +233,7 @@
 // Buttons & pills
 // --------------------------
 // To be read in your best Werner Herzog voice:
-// "The ur-button from which all other buttons 
+// "The ur-button from which all other buttons
 // derive; almost a form of proto-button"
 %proto-button {
   @extend %heading-epsilon;
@@ -736,7 +736,7 @@ input%proto-button {
 
 // NB extend this on a wrapper around your <input>
 // Why? <input>s can't have pseudoelements.
-%speech-bubble-input { 
+%speech-bubble-input {
   position: relative;
   &:after {
     @extend %speech-bubble-tail;
@@ -1018,7 +1018,7 @@ input%proto-button {
   border-radius: $radius 0 0 $radius;
   margin-right: 3.6rem;
   position: relative;
-  cursor: pointer;  
+  cursor: pointer;
   &:before {
     @extend %shaded-inside-bottom;
     content: "";
@@ -1490,7 +1490,7 @@ input%proto-button {
   margin: 1rem 3.2rem 0;
   position: relative;
   &:first-child {
-    margin-top: 0;
+    margin-top: 2.7rem;
   }
   p {
     @extend %gamma-sub;
@@ -1547,7 +1547,7 @@ input%proto-button {
   }
   ul,
   p {
-    font-style: italic;    
+    font-style: italic;
   }
   ul {
     padding-left: 1.4em;

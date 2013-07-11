@@ -10,6 +10,9 @@ define [
     template: template
     lifetime: 10000
 
+    className: () ->
+      "alert alert-#{@model.get('level')}"
+
     triggers:
       'click [data-behavior="close"]': 'close'
 
@@ -18,7 +21,7 @@ define [
       if lifetime? && lifetime != false && lifetime > 1000 then @lifetime = @model.get('lifetime')
 
     onClose: ->
-      @$el.slideUp({
+      @$el.fadeOut({
         done: () =>
           @model.destroy()
       })

@@ -7,16 +7,21 @@ define [
   Marionette, ItemView, FlashMessageCollection, template
 ) ->
 
-  class FlashMessages extends Marionette.CompositeView
+  class FlashMessages extends Marionette.CollectionView
 
     itemView: ItemView
     template: template
+    className: 'alerts'
     itemViewContainer: '[data-behavior="flash-container"]'
+    collection: new FlashMessageCollection [], {}
 
     initialize: () ->
-      @collection = new FlashMessageCollection [], {}
+      @collection = Marionette.getOption(@, 'collection')
 
-      @listenTo(@collection, 'remove', () -> 'a model was removed from the collection')
+      @listenTo(@collection, 'remove', () =>
+        console.log 'collection view saw a removal'
+      )
+
       @vent = Marionette.getOption(@, 'vent')
 
       @listenTo(@vent, 'error:add', (flashMessage) =>
@@ -26,6 +31,7 @@ define [
       @listenTo(@vent, 'error:clear', (flashMessage) =>
         @collection.reset()
       )
+
 
     # This method is meant to allow direct display of server-side RAILS model validation errors.
     # The flashMessage can look like any of the following:
@@ -60,42 +66,3 @@ define [
       }
       @collection.add(m)
 
-
-#    initialize: (options)  ->
-#      @scope = @$el.data('flash-scope')
-#      Vocat.Dispatcher.bind('flash', @addMessage, @)
-#      Vocat.Dispatcher.bind('flash:flush', @flushMessages, @)
-#      @msgs = new Vocat.Collections.FlashMessage()
-#      @timer = null
-#
-#    flushMessages: (args) ->
-#      if not args or ((@scope and args.scope and args.scope == @scope) or (not @scope and not args.scope))
-#        @msgs.reset()
-#        @renderLater()
-#
-#    addMessage: (args) ->
-#      # Add message if this container is scoped and the message is of the same scope
-#      # OR
-#      # Add message if this container is not scoped and the message isn't either
-#      if (@scope and args.scope and args.scope == @scope) or (not @scope and not args.scope)
-#        @msgs.push new Vocat.Models.FlashMessage args
-#        @renderLater()
-#
-#    # Instead of calling render for each new added message,
-#    # let's wait a bit until we have all the messages accumulated.
-#    # This avoids any flash-effect from re-rendering over and over
-#    renderLater: () ->
-#      unless @timer
-#        @timer = setTimeout =>
-#          @render()
-#          @timer = null
-#        , 200
-#
-#    render: (args) ->
-#      $innerElement = $(@template({hasMessages: @msgs.length > 0}))
-#      @$el.html($innerElement)
-#      delay = 0
-#      @msgs.each (msg) =>
-#        view = new Vocat.Views.FlashMessageSingle(model: msg, collection: @msgs)
-#        view.render().hide().appendTo($innerElement).delay(delay).fadeIn(1500)
-#        delay += 500

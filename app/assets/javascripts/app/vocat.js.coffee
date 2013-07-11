@@ -1,9 +1,14 @@
-define ['marionette', 'backbone', 'routers/portfolio_router', 'routers/coursemap_router', 'routers/submission_router'], (Marionette, Backbone, PortfolioRouter, CourseMapRouter, SubmissionRouter) ->
+define [
+  'marionette', 'backbone', 'controllers/global_flash_controller', 'routers/portfolio_router', 'routers/coursemap_router', 'routers/submission_router'
+], (
+  Marionette, Backbone, GlobalFlashController, PortfolioRouter, CourseMapRouter, SubmissionRouter
+) ->
 
   window.Vocat = Vocat = new Marionette.Application()
 
   Vocat.addRegions {
     main : '#region-main',
+    globalFlash : '#global-flash'
   }
 
   Vocat.addInitializer () ->
@@ -11,6 +16,10 @@ define ['marionette', 'backbone', 'routers/portfolio_router', 'routers/coursemap
     Vocat.courseMapRouter = new CourseMapRouter()
     Vocat.submissionRouter = new SubmissionRouter()
     Backbone.history.start({pushState: true})
+
+  # Some controllers are omnipresent, not tied to a router
+  globalFlashController = new GlobalFlashController
+  globalFlashController.show()
 
   return Vocat
 
