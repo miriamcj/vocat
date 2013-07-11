@@ -490,6 +490,11 @@ input%proto-button {
   &:after {
     @include svg(circle-minus);
   }
+  &:hover {
+    &:after {
+      @include svg(circle-minus-orange);
+    }
+  }
 }
 
 %ex-link {
