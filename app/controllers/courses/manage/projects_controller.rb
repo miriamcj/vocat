@@ -2,6 +2,8 @@ class Courses::Manage::ProjectsController < ApplicationController
   load_and_authorize_resource :course
   load_and_authorize_resource :project, :through => :course
 
+  before_filter :disable_layout_messages
+
   # GET /projects
   # GET /projects.json
   def index

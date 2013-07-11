@@ -15,6 +15,10 @@ class ApplicationController < ActionController::Base
     redirect_to org_root_path :organization_id => current_user.organization
   end
 
+  def disable_layout_messages
+    @disable_layout_messages = true
+  end
+
   def after_sign_in_path_for(user)
     if user.role? 'admin'
       sign_in_url = url_for(:action => 'index', :controller => 'admin/dashboard')
@@ -26,13 +30,6 @@ class ApplicationController < ActionController::Base
   def get_organization_and_current_course(param_name)
     if @course
       session[:course_id] = @course.id
-    #else
-    #  if session[:course_id]
-    #    course = Course.find_by_id(session[:course_id])
-    #    if course != nil
-    #      @course = course
-    #    end
-    #  end
     end
 
     if current_user
