@@ -7,9 +7,9 @@ define [
   class CourseMapController extends VocatController
 
     collections: {
-      creator: new CreatorCollection({})
-      project: new ProjectCollection({})
-      submission: new SubmissionCollection({})
+      creator: new CreatorCollection([], {})
+      project: new ProjectCollection([], {})
+      submission: new SubmissionCollection([], {})
     }
 
     layoutInitialized: false
