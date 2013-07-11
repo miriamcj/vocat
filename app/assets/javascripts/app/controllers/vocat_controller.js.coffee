@@ -8,11 +8,17 @@ define ['marionette', 'jquery'], (Marionette, $) ->
     initialize: () ->
       @bootstrapCollections()
 
+    isBlank: (str) ->
+      if str == null then str = ''
+      (/^\s*$/).test(str)
+
     bootstrapCollections: () ->
-      _.each @collections, (collection, collectionKey) ->
+      _.each @collections, (collection, collectionKey) =>
         dataContainer = $("#bootstrap-#{collectionKey}")
         if dataContainer.length > 0
           div = $('<div></div>')
           div.html dataContainer.text()
-          data = JSON.parse(div.text())
-          if data[collectionKey]? then collection.reset(data[collectionKey])
+          text = div.text()
+          if !@isBlank(text)
+            data = JSON.parse(text)
+            if data[collectionKey]? then collection.reset(data[collectionKey])
