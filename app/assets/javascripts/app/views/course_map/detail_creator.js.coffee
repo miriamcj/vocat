@@ -12,6 +12,15 @@ define [
 
     itemViewContainer: '[data-container="submission-summaries"]'
 
+    events:
+      'click [data-behavior="routable"]':  'onExecuteRoute'
+
+    onExecuteRoute: (e) ->
+      e.preventDefault()
+      href = $(e.currentTarget).attr('href')
+      if href
+        window.Vocat.courseMapRouter.navigate(href, true)
+
     initialize: (options) ->
       @options = options || {}
       @vent = Marionette.getOption(@, 'vent')
@@ -21,10 +30,6 @@ define [
       @projects = collections.project
       @creators = collections.creator
       @creator = @creators.get(@creatorId)
-      console.log @courseId, '@courseId'
       @collection = new SubmissionCollection([],{courseId: @courseId})
       @collection.fetch({reset: true, data: {creator: @creatorId}})
 
-      @listenTo(@collection, 'reset', () =>
-        console.log @collection
-      )

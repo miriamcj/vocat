@@ -20,6 +20,7 @@ Vocat::Application.routes.draw do
       resources :discussion_posts
       resources :courses do
         resources :submissions, :only => [:index]
+        resources :evaluations, :only => [:index]
       end
       resources :creator
       resources :project

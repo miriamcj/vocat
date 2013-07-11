@@ -14,10 +14,9 @@ define [
   'views/submission/upload/start',
   'views/flash/flash_messages',
   'models/attachment',
-  'app/plugins/backbone_poller',
-  'collections/flash_message_collection'
+  'app/plugins/backbone_poller'
 ], (
-  Marionette, template, SubmissionCollection, AnnotationCollection, PlayerView, AnnotationsView, AnnotatorView, ScoreView, UploadView, UploadFailedView, UploadStartedView, UploadTranscodingView, UploadStartView, FlashMessagesView, Attachment, Poller, FlashMessageCollection
+  Marionette, template, SubmissionCollection, AnnotationCollection, PlayerView, AnnotationsView, AnnotatorView, ScoreView, UploadView, UploadFailedView, UploadStartedView, UploadTranscodingView, UploadStartView, FlashMessagesView, Attachment, Poller
 ) ->
 
   class SubmissionLayout extends Marionette.Layout
@@ -59,21 +58,24 @@ define [
       @collections.submission = new SubmissionCollection([], {courseId: @courseId})
 
       @collections.submission.fetch({data: {project: @project.id, creator: @creator.id}, success: () =>
-
         @submission = @collections.submission.at(0)
 
+        # Create the annotations view
         if @submission.get('current_user_can_annotate')
           if @submission.attachment? then attachmentId = @submission.attachment.id else attachmentId = null
           @annotations.show new AnnotationsView({model: @submission, attachmentId: attachmentId, collection: @collections.annotation, vent: @})
 
-        if @submission.get('current_user_can_evaluate')
-          @score.show new ScoreView({model: @project, collection: @collections.submission, vent: @})
+        # Create the score view
+        @score.show new ScoreView({model: @submission, project: @project,  vent: @, courseId: @courseId})
 
+        # Create the upload view
         if @submission.get('current_user_can_attach')
           @upload.show new UploadView({model: @submission, collection: @collections.submission, vent: @})
 
+        # Create the flash messages view
         @flash.show new FlashMessagesView({vent: @})
 
+        # Create the player view
         @getPlayerView()
 
         @triggerMethod('submission:loaded')

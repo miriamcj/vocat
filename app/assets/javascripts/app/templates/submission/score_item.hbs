@@ -1,0 +1,29 @@
+<ul style="margin-bottom: 4rem;" class="js-toggle-detail-off frame-summary--score-list">
+  <li class="frame-summary--evaluated">
+    <h4 class="frame-summary--score--title">{{evaluator_name}} - {{evaluator_role}}</h4>
+    <span class="frame-summary--score--value">{{total_percentage_rounded}}<small>%</small></span>
+  </li>
+  <li>
+    <ul class="scoring-list">
+      {{#each_property scores}}
+      <li>
+        <div class="range-input">
+          <input data-key="{{property}}" type="text" value="{{value}}" data-slider="true" >
+          <div class="range-input--title">{{property}}</div>
+        </div>
+        <div class="scoring-list--output">
+          <input data-key="{{property}}" disabled data-slider-visible="true" class="scoring-list--value" type="text" value="{{value}}"><div class="scoring-list--ideal">6</div>
+        </div>
+      </li>
+      {{/each_property}}
+      <li>
+        <div class="scoring-list--label">Total</div>
+        <div class="scoring-list--output">
+          <div data-score-total="true" class="scoring-list--total"></div>
+        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+

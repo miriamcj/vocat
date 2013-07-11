@@ -180,8 +180,26 @@ courses.each do |course|
           evaluation.published = true
           rubric.field_keys.each { |key| evaluation.scores[key] = rand(rubric.low_score...rubric.high_score)}
           evaluation.save()
-        end
 
+          evaluation  = submission.evaluations.create()
+          evaluation.rubric = rubric
+          this_key = rand(0..10)
+          evaluation.evaluator = course_creators[this_key]
+          evaluation.published = true
+          rubric.field_keys.each { |key| evaluation.scores[key] = rand(rubric.low_score...rubric.high_score)}
+          evaluation.save()
+
+          new_key = rand(0..10)
+          if new_key != this_key
+            evaluation  = submission.evaluations.create()
+            evaluation.rubric = rubric
+            evaluation.evaluator = course_creators[new_key]
+            evaluation.published = true
+            rubric.field_keys.each { |key| evaluation.scores[key] = rand(rubric.low_score...rubric.high_score)}
+            evaluation.save()
+          end
+
+        end
       end
     end
 

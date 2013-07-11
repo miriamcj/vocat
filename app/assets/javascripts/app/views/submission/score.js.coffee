@@ -1,137 +1,67 @@
 define [
-  'marionette', 'hbs!templates/submission/score', 'models/rubric', 'plugins/simple_slider'
+  'marionette', 'hbs!templates/submission/score', 'collections/evaluation_collection', 'models/rubric', 'views/submission/score_item', 'views/submission/score_item_edit', 'views/submission/score_empty'
 ], (
-  Marionette, template, Rubric
+  Marionette, template, EvaluationCollection, Rubric, ScoreItem, ScoreItemEdit, ScoreEmpty
 ) ->
-  class EvaluationDetailScore extends Marionette.ItemView
+  class EvaluationDetailScore extends Marionette.CompositeView
 
     template: template
 
     detailVisible: false
 
+    itemView: ScoreItem
+
+    getItemView: (item) ->
+      if item.get('current_user_is_owner') == true
+        ScoreItemEdit
+      else
+        ScoreItem
+
+    itemViewOptions: () ->
+      {
+      rubric: @rubric
+      }
+
+    emptyView: ScoreEmpty
+    itemViewContainer: '[data-behavior="scores-container"]'
+
     ui: {
       toggleDetailOn: '.js-toggle-detail-on'
       toggleDetailOff: '.js-toggle-detail-off'
-      scoreSliders: '[data-slider="true"]'
-      scoreInputs: '[data-slider-visible]'
-      scoreTotal: '[data-score-total]'
-    }
-
-    events: {
-      'slider:changed [data-slider="true"]': 'onInputInvisibleChange'
-
     }
 
     triggers: {
       'click [data-behavior="toggle-detail"]': 'detail:toggle'
-      'change [data-slider-visible-input]': 'input:visible:change'
     }
 
-    serializeData: () ->
-      {
-        rubric: @rubric.toJSON()
-      }
-
-    setDefaultViewState: () ->
-      if @detailVisible = true
-        @ui.toggleDetailOn.show()
-        @ui.toggleDetailOff.hide()
-      else
-        @ui.toggleDetailOn.hide()
-        @ui.toggleDetailOff.show()
-
-    initializeSliders: () ->
-      @ui.scoreSliders.each( (index, el) ->
-        $el = $(el)
-        slider = $el.simpleSlider({
-          range: [0,6]
-          step: 1
-          snapMid: true
-          highlight: true
-        })
-      )
-
-    retotal: () ->
-      total = 0
-      @ui.scoreInputs.each (index, element) ->
-        total = total + parseInt($(element).val())
-      @ui.scoreTotal.html(total)
-
-    onInputInvisibleChange: (event, data) ->
-      value = data.value
-      target = $(event.target)
-      key = target.data().key
-      @$el.find('[data-key="' + key + '"][data-slider-visible]').val(value)
-      @retotal()
-
-
-    onRender: () ->
-      @setDefaultViewState()
-      @initializeSliders()
-      @retotal()
-
     initialize: (options) ->
-      @rubric = new Rubric(@model.get('rubric'))
+      @rubric = new Rubric(options.project.get('rubric'))
       @vent = Marionette.getOption(@, 'vent')
       @courseId = Marionette.getOption(@, 'courseId')
 
-      #@listenTo(@,'all',(event) -> console.log event)
+      @collection = new EvaluationCollection([], {courseId: @courseId})
+      @collection.fetch({
+        data: {submission: @model.id}
+      })
 
-
-    onDetailToggle: () ->
-      if @detailVisible == true
-        # Hiding
-        @ui.toggleDetailOn.hide()
-        @ui.toggleDetailOff.show()
-        @detailVisible = false
-      else
-        # Showing
-        @ui.toggleDetailOn.show()
-        @ui.toggleDetailOff.hide()
-        @detailVisible = true
-
-
-
-#    scorePartial: HBT["app/templates/partials/score_summary"]
-#
-#    events: {
-#      'click .js-toggle-score-detail': "toggleDetail"
-#      'click .js-toggle-score-help': "toggleHelp"
-#    }
-#
-#    initialize: (options) ->
-#      super(options)
-#
-#      @submission = options.submission
-#
-#
-#    fadeDetail: () ->
-#      # Rendering after fade is complete to update button state. Probably
-#      # a more elegant solution
-#      if @state.get('detailVisible') is false
-#        $('.score-list-expanded').fadeOut(400, => @render())
+#    setDefaultViewState: () ->
+#      if @detailVisible = true
+#        @ui.toggleDetailOn.show()
+#        @ui.toggleDetailOff.hide()
 #      else
-#        $('.score-list-expanded').fadeIn( 400, => @render())
+#        @ui.toggleDetailOn.hide()
+#        @ui.toggleDetailOff.show()
 #
-#    toggleHelp: (event) ->
-#      event.preventDefault()
-#      newState = if @state.get('helpVisible') is true then false else true
-#      @state.set('helpVisible', newState )
+#    onDetailToggle: () ->
+#      if @detailVisible == true
+#        # Hiding
+#        @ui.toggleDetailOn.hide()
+#        @ui.toggleDetailOff.show()
+#        @detailVisible = false
+#      else
+#        # Showing
+#        @ui.toggleDetailOn.show()
+#        @ui.toggleDetailOff.hide()
+#        @detailVisible = true
 #
-#    toggleDetail: (event) ->
-#      event.preventDefault()
-#      newState = if @state.get('detailVisible') is true then false else true
-#      @state.set('detailVisible', newState )
 #
-#    render: () ->
-#      context = {
-#        state: @state.toJSON()
-#        submission: if @submission? then @submission.toJSON()
-#      }
-#      Handlebars.registerPartial('score_summary', @scorePartial);
-#      @$el.html(@template(context))
-#
-#      # Return thyself for maximum chaining!
-#      @
-
-

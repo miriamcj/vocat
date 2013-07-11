@@ -9,6 +9,8 @@ class Evaluation < ActiveRecord::Base
 
   delegate :high_score, :to => :rubric, :prefix => true
   delegate :low_score, :to => :rubric, :prefix => true
+  delegate :name, :to => :evaluator, :prefix => true
+  delegate :role, :to => :evaluator, :prefix => true
 
   serialize :scores, ActiveRecord::Coders::Hstore
 
@@ -16,12 +18,17 @@ class Evaluation < ActiveRecord::Base
     EvaluationSerializer
   end
 
+
   def total_score
     self.scores.values.collect{|s| s.to_i}.reduce(:+)
   end
 
   def field_count
     self.scores.count
+  end
+
+  def total_percentage_rounded
+    total_percentage.round(1)
   end
 
   def total_percentage
