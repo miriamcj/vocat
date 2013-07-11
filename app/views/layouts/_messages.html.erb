@@ -1,15 +1,4 @@
-<% if flash.any? %>
-<div class="alerts">
-  <% flash.each do |name, msg| %>
-    <% if msg.is_a?(String) %>
-      <div class="alert-<%= name %>" data-behavior="alert" data-view="FlashMessageSingle">
-        <aside class="alert--label" data-behavior="alert-label"></aside>
-        <%= content_tag :p, msg, :id => "flash_#{name}" %>
-        <a class="alert--close" href="#"></a>
-      </div>
-    <% end %>
-  <% end %>
-</div>
-<% end %>
-
-<div data-view="FlashMessages"><!-- javascript flash messages show up here --></div>
+<div id="global-flash"></div>
+<script type="text/json" class="bootstrap" data-bootstrap-key="globalFlash" id="bootstrap-globalFlash">
+ <%= serialize_flash %>
+</script>

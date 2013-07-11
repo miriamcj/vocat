@@ -4,26 +4,7 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9 authentication"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js authentication"> <!--<![endif]-->
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title><%= content_for?(:title) ? yield(:title) : "VOCAT" %></title>
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <!-- TODO move to correct place -->
-  <script type="text/javascript" src="//use.typekit.net/dwf7ffn.js"></script>
-
-  <%= javascript_include_tag 'application' %>
-  <script data-main="/assets/bootstrap" src="/assets/require.js"></script>
-
-  <%= stylesheet_link_tag "application", :media => "all" %>
-
-  <%= csrf_meta_tags %>
-  <%= yield(:head) %>
-  <script type="text/javascript">
-    <%= yield(:backbone_bootstrap) %>
-  </script>
-
+  <%= render 'layouts/head' %>
 </head>
 <body>
   <div class="page-banner">

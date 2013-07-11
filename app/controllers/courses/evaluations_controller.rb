@@ -1,5 +1,16 @@
 class Courses::EvaluationsController < ApplicationController
 
+  layout :resolve_layout
+
+  def resolve_layout
+    case action_name
+      when 'course_map'
+        'course_map'
+      else
+        'application'
+    end
+  end
+
   def course_map
     authorize! :evaluate, @course
     @projects = Project.find_all_by_course_id(@course)

@@ -4,33 +4,7 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title><%= content_for?(:title) ? yield(:title) : "VOCAT" %></title>
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <!-- TODO move to correct place -->
-  <script type="text/javascript" src="//use.typekit.net/dwf7ffn.js"></script>
-  <%= stylesheet_link_tag "application", :media => "all" %>
-
-  <script src="/assets/popcorn/popcorn.js"></script>
-  <%= javascript_include_tag 'application' %>
-  <script data-main="/assets/bootstrap" src="/assets/require.js"></script>
-
-  <%= csrf_meta_tags %>
-
-  <%= yield(:head) %>
-
-  <!--
-  <script type="text/javascript">
-<% if content_for?(:backbone_router) %>
-  <%= yield(:backbone_router) %>
-<% else %>
-
-<% end %>
-  </script>
-  -->
+  <%= render 'layouts/head' %>
 </head>
 
 <body class="<%= yield(:body_class) %> <%= if current_user.role == 'admin' then 'role-admin' end %> <%= if !@course then 'no-course' end %>">
@@ -44,55 +18,11 @@
         <%= render 'layouts/navigation' %>
       </div>
     </div>
-    <div class="shortcut-nav js-shortcut-nav invisible" >
-      <div class="shortcut-nav--wrapper">
-        <div class="shortcut-nav--item">
-          <nav class="assignment-selector" data-class="dropdown-container">
-            <h2 class="shortcut-nav--title">Go to Assignment</h2>
-            <a class="assignment-selector--toggle" data-class="dropdown-toggle" href="#">View All Assignments</a>
-            <div class="assignment-selector--dropdown" data-class="dropdown">
-              <ul>
-                <li><a href="">Assignment 1</a></li>
-                <li><a href="">Assignment 2</a></li>
-              </ul>
-            </div>
-          </nav>
-        </div>
-        <div class="shortcut-nav--item">
-          <nav class="peer-selector" data-class="dropdown-container">
-            <h2 class="shortcut-nav--title">Provide Peer Feedback</h2>
-            <a class="peer-selector--toggle" data-class="dropdown-toggle" href="#">View All Peers</a>
-            <div class="peer-selector--dropdown" data-class="dropdown">
-              <ul>
-                <li><a href="">Peer 1</a></li>
-                <li><a href="">Peer 2</a></li>
-              </ul>
-            </div>
-          </nav>
-        </div>
-        <div class="shortcut-nav--item">
-          <nav class="help-nav">
-            <h2 class="shortcut-nav--title">Help</h2>
-            <ul class="help-nav--list">
-              <li>
-                <label class="help-nav--label">
-                  <input class="help-nav--checkbox" type="checkbox" data-behavior="help-overlay-toggle"><b></b><span class="help-nav--checkbox-text">Activate Help Overlay</span>
-                </label>
-              </li>
-              <li>
-                <a href="">Go to FAQ</a>
-              </li>
-              <li>
-                <a href="">View Tutorial</a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </div>
-    </div>
+    <%= render 'layouts/shortcut_navigation' %>
   </header>
   <div class="container">
     <div class="page-content">
+      <%= render 'layouts/messages' %>
       <%= yield %>
     </div>
   </div> <!-- container -->
