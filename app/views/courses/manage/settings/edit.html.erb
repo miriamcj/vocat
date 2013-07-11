@@ -2,7 +2,7 @@
   <h2 class="bar-header--title">Edit Course Settings: "<%= @course.name %>"</h2>
 </header>
 <div class="page-content--frame">
-  <%= form_tag(course_settings_path(@course.id), :method => 'put') do %>
+  <%= form_tag(course_manage_settings_path(@course.id), :method => 'put') do %>
     <fieldset>
       <div class="input-group">
         <label class="checkbox-label">
