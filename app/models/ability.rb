@@ -201,6 +201,13 @@ class Ability
       can :manage, :all
     end
 
+    ######################################################
+    # Evaluations
+    ######################################################
+    can :manage, Evaluation do |evaluation|
+      true
+    end
+
 
   end
 

@@ -12,12 +12,27 @@ class Evaluation < ActiveRecord::Base
   delegate :name, :to => :evaluator, :prefix => true
   delegate :role, :to => :evaluator, :prefix => true
 
+  validates :rubric, presence: true
+  validates :submission, presence: true
+  validates :evaluator, presence: true
+  validates :submission_id, uniqueness: { scope: :submission_id, message: "can only exist once per submission/evaluator" }
+
+
+  before_save :scaffold_score
+
   serialize :scores, ActiveRecord::Coders::Hstore
 
   def active_model_serializer
     EvaluationSerializer
   end
 
+  def scaffold_score
+    rubric.field_keys.each do |key|
+      unless scores.has_key? key
+        scores[key] = 0
+      end
+    end
+  end
 
   def total_score
     self.scores.values.collect{|s| s.to_i}.reduce(:+)
@@ -33,7 +48,11 @@ class Evaluation < ActiveRecord::Base
 
   def total_percentage
     score = self.total_score
-    score / ( self.rubric_high_score.to_f * self.field_count ) * 100
+    if score
+      score / ( self.rubric_high_score.to_f * self.field_count ) * 100
+    else
+      0
+    end
   end
 
 

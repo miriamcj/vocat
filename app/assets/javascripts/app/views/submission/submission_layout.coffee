@@ -3,10 +3,12 @@ define [
   'hbs!templates/submission/submission_layout',
   'collections/submission_collection',
   'collections/annotation_collection',
+  'collections/evaluation_collection',
   'views/submission/player',
   'views/submission/annotations',
   'views/submission/annotator',
-  'views/submission/score',
+  'views/submission/evaluation',
+  'views/submission/my_evaluation',
   'views/submission/upload',
   'views/submission/upload/failed',
   'views/submission/upload/started',
@@ -16,7 +18,7 @@ define [
   'models/attachment',
   'app/plugins/backbone_poller'
 ], (
-  Marionette, template, SubmissionCollection, AnnotationCollection, PlayerView, AnnotationsView, AnnotatorView, ScoreView, UploadView, UploadFailedView, UploadStartedView, UploadTranscodingView, UploadStartView, FlashMessagesView, Attachment, Poller
+  Marionette, template, SubmissionCollection, AnnotationCollection, EvaluationCollection, PlayerView, AnnotationsView, AnnotatorView, EvaluationView, MyEvaluationView, UploadView, UploadFailedView, UploadStartedView, UploadTranscodingView, UploadStartView, FlashMessagesView, Attachment, Poller
 ) ->
 
   class SubmissionLayout extends Marionette.Layout
@@ -26,7 +28,8 @@ define [
 
     regions: {
       flash: '[data-region="flash"]'
-      score: '[data-region="score"]'
+      evaluations: '[data-region="evaluations"]'
+      myEvaluation: '[data-region="my-evaluation"]'
       discussion: '[data-region="discussion"]'
       upload: '[data-region="upload"]'
       annotator: '[data-region="annotator"]'
@@ -51,36 +54,61 @@ define [
       @project = Marionette.getOption(@, 'project')
       @creator = Marionette.getOption(@, 'creator')
 
-
-      #@listenTo(@, 'all', (event) -> console.log(event))
-
-      # Load the submission for this view
+      # Load the submission for this view and then instantiate all child views
       @collections.submission = new SubmissionCollection([], {courseId: @courseId})
 
       @collections.submission.fetch({data: {project: @project.id, creator: @creator.id}, success: () =>
         @submission = @collections.submission.at(0)
 
-        # Create the annotations view
-        if @submission.get('current_user_can_annotate')
-          if @submission.attachment? then attachmentId = @submission.attachment.id else attachmentId = null
-          @annotations.show new AnnotationsView({model: @submission, attachmentId: attachmentId, collection: @collections.annotation, vent: @})
-
-        # Create the score view
-        @score.show new ScoreView({model: @submission, project: @project,  vent: @, courseId: @courseId})
-
-        # Create the upload view
-        if @submission.get('current_user_can_attach')
-          @upload.show new UploadView({model: @submission, collection: @collections.submission, vent: @})
-
-        # Create the flash messages view
-        @flash.show new FlashMessagesView({vent: @})
-
-        # Create the player view
-        @getPlayerView()
+        @createEvaluationViews()
+        @createAnnotationView()
+        @createUploadView()
+        @createFlashView()
+        @createPlayerView()
 
         @triggerMethod('submission:loaded')
       })
 
+    createEvaluationViews: () ->
+      evaluations = new EvaluationCollection([], {courseId: @courseId})
+      myEvaluations = new EvaluationCollection([], {courseId: @courseId})
+      evaluations.fetch({
+        data: {submission: @submission.id},
+        success: () =>
+          myEvaluation = evaluations.findWhere({evaluator_id: @project.get('current_user_id')})
+          if myEvaluation?
+            evaluations.pop(myEvaluation)
+            myEvaluations.add(myEvaluation)
+
+          console.log evaluations, 'evaluations'
+          console.log myEvaluations, 'myEvaluations'
+
+          # Create the score view
+          if @submission.get('current_user_can_evaluate') == true
+            @myEvaluation.show new MyEvaluationView({collection: myEvaluations, model: @submission, project: @project, vent: @, courseId: @courseId})
+
+          @evaluations.show new EvaluationView({collection: evaluations, model: @submission, project: @project, vent: @, courseId: @courseId})
+
+      })
+
+    createAnnotationView: () ->
+      # Create the annotations view
+      if @submission.get('current_user_can_annotate')
+        if @submission.attachment? then attachmentId = @submission.attachment.id else attachmentId = null
+        @annotations.show new AnnotationsView({model: @submission, attachmentId: attachmentId, collection: @collections.annotation, vent: @})
+
+    createUploadView: () ->
+      # Create the upload view
+      if @submission.get('current_user_can_attach')
+        @upload.show new UploadView({model: @submission, collection: @collections.submission, vent: @})
+
+    createFlashView: () ->
+      # Create the flash messages view
+      @flash.show new FlashMessagesView({vent: @, clearOnAdd: true})
+
+    createPlayerView: () ->
+      # Create the player view
+      @getPlayerView()
 
     startPolling: () ->
       options = {

@@ -3,4 +3,4 @@ define ['backbone'], (Backbone) ->
 
     paramRoot: 'evaluation'
 
-    urlRoot: "/api/v1/evaluation"
+    urlRoot: "/api/v1/evaluations"

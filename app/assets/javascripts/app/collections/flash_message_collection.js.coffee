@@ -4,4 +4,3 @@ define ['backbone', 'models/flash_message'], (Backbone, FlashMessageModel) ->
     model: FlashMessageModel
 
     initialize: () ->
-      @listenTo @, 'remove', () -> console.log 'collection heard remove'

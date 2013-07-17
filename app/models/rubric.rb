@@ -88,7 +88,7 @@ class Rubric < ActiveRecord::Base
   def is_public_rubric?
     self.public
   end
-  
+
   def field_names
     self.fields.values
   end
@@ -112,6 +112,10 @@ class Rubric < ActiveRecord::Base
 
   def low_score
     self.range_lows.values.min.to_i
+  end
+
+  def points_possible
+    fields.count * high_score
   end
 
   def high_score
