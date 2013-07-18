@@ -3,9 +3,9 @@ class SubmissionSerializer < ActiveModel::Serializer
   attributes  :id, :name, :url, :thumb, :course_name, :course_name_long, :project_name,
               :course_id, :project_id, :creator_name, :creator_id, :current_user_is_owner,
               :current_user_can_evaluate, :course_department, :course_section, :course_number,
-              :instructor_evaluations, :evaluations, :instructor_score_percentage, :published,
-              :attachment, :video, :has_video?, :current_user_can_annotate, :current_user_can_attach, :current_user_can_discuss,
-              :scored_by_instructor?, :path
+              :evaluations, :current_user_percentage, :current_user_evaluation_published?, :current_user_has_evaluated?,
+              :current_user_can_annotate, :current_user_can_attach, :current_user_can_discuss, :attachment, :video,
+              :has_video?, :path, :peer_score_percentage
 
   # This makes sure that the correct serializer is used for the child association.
   has_one :attachment
@@ -18,8 +18,16 @@ class SubmissionSerializer < ActiveModel::Serializer
     end
   end
 
-  def instructor_evaluations
-    ActiveModel::ArraySerializer.new(object.instructor_evaluations, :scope => scope)
+  def current_user_percentage
+    object.user_score_percentage(scope)
+  end
+
+  def current_user_has_evaluated?
+    object.evaluated_by_user?(scope)
+  end
+
+  def current_user_evaluation_published?
+    object.user_evaluation_published?(scope)
   end
 
   def evaluations

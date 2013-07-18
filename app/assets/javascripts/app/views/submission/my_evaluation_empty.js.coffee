@@ -8,7 +8,6 @@ define ['marionette', 'hbs!templates/submission/my_evaluation_empty'], (Marionet
       'click [data-behavior="create-evaluation"]': 'evaluation:new'
 
     onEvaluationNew: () ->
-      console.log 'heard a'
       @vent.triggerMethod('evaluation:new')
 
     initialize: (options) ->

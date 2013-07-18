@@ -14,7 +14,6 @@ define [
     }
 
     onClose: () ->
-      console.log 'test'
       @vent.triggerMethod('close:overlay')
 
     initialize: (options) ->

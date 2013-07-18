@@ -45,9 +45,8 @@
   {{/if}}
   {{> templates_partials_scoreSummary}}
   <a class="frame-summary--link" data-behavior="routable" href="{{submission.path}}">Expand Scores</a>
-  <!-- TODO has 'active' class only when published -->
-  <aside class="frame-summary--status {{#if submission.published}}active{{/if}}">
-    {{#if submission.published}}
+  <aside class="frame-summary--status {{#if submission.current_user_evaluation_published}}active{{/if}}">
+    {{#if submission.current_user_evaluation_published}}
     published
     {{else}}
     unpublished

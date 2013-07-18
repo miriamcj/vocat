@@ -45,6 +45,19 @@ define [
         @children.annotator = new AnnotatorView({model: @submission, collection: @collections.annotation, vent: @})
         @annotator.show(@children.annotator)
 
+    onSubmissionFound: () ->
+      @submission.fetch({
+        success: () =>
+          @triggerMethod('submission:loaded')
+      })
+
+    onSubmissionLoaded: () ->
+      @createEvaluationViews()
+      @createAnnotationView()
+      @createUploadView()
+      @createFlashView()
+      @createPlayerView()
+
     initialize: (options) ->
       @options = options || {}
       @collections = options.collections
@@ -55,41 +68,29 @@ define [
       @creator = Marionette.getOption(@, 'creator')
 
       # Load the submission for this view and then instantiate all child views
-      @collections.submission = new SubmissionCollection([], {courseId: @courseId})
-
-      @collections.submission.fetch({data: {project: @project.id, creator: @creator.id}, success: () =>
-        @submission = @collections.submission.at(0)
-
-        @createEvaluationViews()
-        @createAnnotationView()
-        @createUploadView()
-        @createFlashView()
-        @createPlayerView()
-
-        @triggerMethod('submission:loaded')
-      })
+      @submission = @collections.submission.findWhere({project_id: @project.id, creator_id: @creator.id})
+      if !@submission
+        temporaryCollection = new SubmissionCollection([], {courseId: @courseId})
+        temporaryCollection.fetch({data: {project: @project.id, creator: @creator.id}, success: () =>
+          @submission = temporaryCollection.pop()
+          @collections.submission.add(@submission)
+          @triggerMethod('submission:found')
+        })
+      else
+        @triggerMethod('submission:found')
 
     createEvaluationViews: () ->
-      evaluations = new EvaluationCollection([], {courseId: @courseId})
-      myEvaluations = new EvaluationCollection([], {courseId: @courseId})
-      evaluations.fetch({
-        data: {submission: @submission.id},
-        success: () =>
-          myEvaluation = evaluations.findWhere({evaluator_id: @project.get('current_user_id')})
-          if myEvaluation?
-            evaluations.pop(myEvaluation)
-            myEvaluations.add(myEvaluation)
-
-          console.log evaluations, 'evaluations'
-          console.log myEvaluations, 'myEvaluations'
-
-          # Create the score view
-          if @submission.get('current_user_can_evaluate') == true
-            @myEvaluation.show new MyEvaluationView({collection: myEvaluations, model: @submission, project: @project, vent: @, courseId: @courseId})
-
-          @evaluations.show new EvaluationView({collection: evaluations, model: @submission, project: @project, vent: @, courseId: @courseId})
-
-      })
+      evaluations = new EvaluationCollection(@submission.get('evaluations'), {courseId: @courseId})
+      if @submission.get('current_user_can_evaluate') == true
+        myEvaluation = evaluations.findWhere({current_user_is_owner: true})
+        if myEvaluation
+          models = [myEvaluation]
+        else
+          models = []
+        evaluations.remove(myEvaluation)
+        myEvaluations = new EvaluationCollection(models, {courseId: @courseId})
+        @myEvaluation.show new MyEvaluationView({collection: myEvaluations, model: @submission, project: @project, vent: @, courseId: @courseId})
+      @evaluations.show new EvaluationView({collection: evaluations, model: @submission, project: @project, vent: @, courseId: @courseId})
 
     createAnnotationView: () ->
       # Create the annotations view

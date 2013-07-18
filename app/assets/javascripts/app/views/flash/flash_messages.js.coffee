@@ -19,15 +19,14 @@ define [
     initialize: () ->
       @collection = Marionette.getOption(@, 'collection')
 
-      @listenTo(@collection, 'remove', () =>
-        console.log 'collection view saw a removal'
-      )
+#      @listenTo(@collection, 'remove', () =>
+#        console.log 'collection view saw a removal'
+#      )
 
       @vent = Marionette.getOption(@, 'vent')
       @clearOnAdd = Marionette.getOption(@, 'clearOnAdd')
 
       @listenTo(@vent, 'error:add', (flashMessage) =>
-        console.log 'heard error add'
         @processMessage(flashMessage)
       )
 

@@ -12,6 +12,7 @@ define ['marionette', 'hbs!templates/submission/evaluation_item_edit', 'plugins/
       publishButton: '[data-behavior="model-publish"]'
       unpublishButton: '[data-behavior="model-unpublish"]'
       publishState: '[data-behavior="publish-state"]'
+      percentageBar: '[data-behavior="percentage-bar"]'
     }
 
     events: {
@@ -38,6 +39,7 @@ define ['marionette', 'hbs!templates/submission/evaluation_item_edit', 'plugins/
     onModelPublish: () ->
       @model.save({published: true}, {
         success: () =>
+          @vent.triggerMethod('myEvaluation:published')
           @errorVent.trigger('error:add', {level: 'notice', msg: 'Evaluation has been published'})
           @setUiPublishedState(true)
         error: () =>
@@ -47,6 +49,7 @@ define ['marionette', 'hbs!templates/submission/evaluation_item_edit', 'plugins/
     onModelUnpublish: () ->
       @model.save({published: false}, {
         success: () =>
+          @vent.triggerMethod('myEvaluation:unpublished')
           @errorVent.trigger('error:add', {level: 'notice', msg: 'Evaluation has been hidden'})
           @setUiPublishedState(false)
         error: () =>
@@ -90,7 +93,7 @@ define ['marionette', 'hbs!templates/submission/evaluation_item_edit', 'plugins/
       per = parseFloat(total / pointsPossible) * 100
       @ui.scoreTotalPercentage.html(per.toFixed(1))
       @ui.scoreTotal.html(total)
-
+      @ui.percentageBar.css('padding-right', (100 - parseInt(per)) + '%')
     onShow: () ->
       @initializeSliders()
       @retotal()
