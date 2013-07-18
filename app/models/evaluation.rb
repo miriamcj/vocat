@@ -11,6 +11,7 @@ class Evaluation < ActiveRecord::Base
   delegate :low_score, :to => :rubric, :prefix => true
   delegate :name, :to => :evaluator, :prefix => true
   delegate :role, :to => :evaluator, :prefix => true
+  delegate :points_possible, :to => :rubric
 
   validates :rubric, presence: true
   validates :submission, presence: true

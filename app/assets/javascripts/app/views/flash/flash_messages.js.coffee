@@ -44,7 +44,6 @@ define [
     #
     # Only the third example, which is what rails returns, is currently in use AFAIK
     processMessage: (flashMessage) ->
-      console.log flashMessage
       if _.isObject(flashMessage.msg) || _.isArray(flashMessage.msg)
         if flashMessage.level? then level = flashMessage.level else level = 'notice'
         if flashMessage.lifetime? then lifetime = flashMessage.lifetime else lifetime = null

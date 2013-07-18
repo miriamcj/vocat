@@ -28,6 +28,10 @@ define [
       rubric: @rubric
       }
 
+    onMyEvaluationUpdated: (data) ->
+      if data.percentage?
+        @model.set('current_user_percentage', data.percentage)
+
     onMyEvaluationPublished: () ->
       @model.set('current_user_evaluation_published',true)
 
