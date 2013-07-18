@@ -106,3 +106,20 @@ b {
 strong {
 	font-weight: $bold;
 }
+
+// Editable elements
+// --------------------------
+[contenteditable] {
+	&:hover,
+	&:focus {
+		outline: none;
+	}
+	&:empty {
+		// background-color: $redLight;
+		// This prevents the element from collapsing when empty in firefox
+		&:after {
+			content: '.';
+			color: transparent;
+		}
+	}
+}
