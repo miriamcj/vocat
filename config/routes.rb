@@ -19,6 +19,7 @@ Vocat::Application.routes.draw do
       resources :annotations
       resources :discussion_posts
       resources :evaluations
+      resources :submissions
       resources :courses do
         resources :submissions, :only => [:index]
         resources :evaluations, :only => [:index]
