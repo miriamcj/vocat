@@ -13,7 +13,7 @@
   .authentication & {
     @include box-shadow(none);
     background-color: transparent;
-    margin-top: 11.2rem;
+    margin-top: 8.5rem;
   }
 }
 
@@ -1222,6 +1222,7 @@ a.table--heading {
 	@extend %centered-tile;
 	background-color: $beige;
 	padding: 4.8rem 5.2rem 4.8rem 27rem;
+  margin-top: 2.7rem;
   position: relative;
   // Hide image and center content
   &.alt {
