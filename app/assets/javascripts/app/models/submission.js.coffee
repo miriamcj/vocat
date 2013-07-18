@@ -19,8 +19,14 @@ define ['backbone', 'models/attachment'], (Backbone, Attachment) ->
         json.attachment = null
       json
 
-    initialize: () ->
+    updateAttachment: () ->
       rawAttachment = @.get('attachment')
       if rawAttachment?
         @attachment = new Attachment(rawAttachment)
         @unset('attachment',{silent: true})
+
+    initialize: () ->
+      @listenTo(@, 'change:attachment', () =>
+        @updateAttachment()
+      )
+      @updateAttachment()
