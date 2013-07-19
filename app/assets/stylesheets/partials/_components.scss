@@ -1303,6 +1303,9 @@ a.table--heading {
 // A unit that is one cell-height (any width)
 %matrix--tall {
   height: 6.8rem;
+  .editable & {
+    height: 13.6rem;
+  }
 }
 
 // TODO hide right border
@@ -1370,24 +1373,45 @@ a.table--heading {
     @extend %matrix--wide;
     height: 100%;
     border-right: 0.1rem solid $beigeDark;
+    .editable & {
+      display: table;
+    }
   }
 }
 
-.matrix--column-header--link {
+%matrix--column-header--item {
   @extend %mega;
-  @extend %bare-link;
-  @extend %box-link;
   text-transform: uppercase;
   @include font-head;
   color: $tealMedium;
-  padding: 1.4rem 1.6rem;
   line-height: 1;
   overflow: hidden;
+}
+
+.matrix--column-header--link {
+  @extend %matrix--column-header--item;
+  @extend %bare-link;
+  @extend %box-link;
+  padding: 1.4rem 1.6rem;
   // The span hides any column header text that exceeds it's height. Scott, perhaps there is a better way to set this height?
   span {
     display: block;
     height: 5.5rem;
     overflow: hidden;
+  }
+}
+
+// NB only use this on 'editable' matrices
+// TODO sort out what happens if three or more lines are entered
+.matrix--column-header--input {
+  @extend %matrix--column-header--item;
+  display: table-cell;
+  vertical-align: middle;
+  width: 100%;
+  padding: 0 1.6rem;
+  [contenteditable] {
+    @extend %editable-content;
+    display: block;
   }
 }
 
@@ -1530,14 +1554,6 @@ a.table--heading {
     &:nth-child(even) {
       background-color: $beigeLightAlt;
     }
-    &:hover,
-    &.selected,
-    &.active {
-      background-color: $grayDarker;
-      a {
-        color: $orange;
-      }
-    }
     &.matrix--group-title {
       background-color: $tealLightestAlt;
       &:nth-child(even) {
@@ -1587,17 +1603,79 @@ a.table--heading {
         }
       }
     }
+    .highlightable & {
+      &:hover,
+      &.selected,
+      &.active {
+        background-color: $grayDarker;
+        a {
+          color: $orange;
+        }
+      }
+    }
+  }
+}
+
+.matrix--row-header--item {
+  display: table;
+  height: 100%;
+  a,
+  .title-input {
+    @extend %beta;
+    font-weight: $bold;
+    color: $tealMedium;
   }
   a {
-    @extend %beta;
     @extend %bare-focus;
     @extend %bare-link;
     display: table-cell;
     vertical-align: middle;
     width: $matrixCellWidth;
-    font-weight: $bold;
-    color: $tealMedium;
     padding: 0 1.6rem;
+  }
+  .title-input {
+    display: block;
+    margin-bottom: 1.2rem;
+    [contenteditable] {
+      @extend %editable-content;
+      display: block;
+    }
+  }
+  .value-input {
+    @extend %alpha;
+    display: block;
+    color: $tealLight;
+    margin-bottom: 1.2rem;
+  }
+  // TODO fix centered text in [contenteditable]:empty
+  .value-input--value {
+    display: inline-block;
+    vertical-align: middle;
+    width: 5.4rem;
+    height: 3.4rem;
+    color: $beigeLight;
+    line-height: 1;
+    background-color: $tealLight;
+    padding: 0.6rem 0.2rem;
+    border-radius: $radius;
+    overflow: hidden;
+    [contenteditable] {
+      @extend %editable-content;
+      display: block;
+      text-align: center;
+      &:hover,
+      &:focus {
+        padding-top: 0.8rem;
+        padding-bottom: 0.8rem;
+        margin-top: -0.8rem;
+        margin-bottom: -0.8rem;
+      }
+    }
+  }
+  .editable & {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 0 2rem;
   }
 }
 
@@ -1648,10 +1726,6 @@ a.table--heading {
   &:nth-child(even) {
     background-color: $beigeLightAlt;
   }
-  &:hover,
-  &.active {
-    background-color: $grayDarker;
-  }
   &.matrix--group-row {
     background-color: $tealLightestAlt;
     &:nth-child(even) {
@@ -1676,6 +1750,12 @@ a.table--heading {
     }
     .matrix--cell {
       height: 100%;
+    }
+  }
+  .highlightable & {
+    &:hover,
+    &.active {
+      background-color: $grayDarker;
     }
   }
 }
@@ -1712,6 +1792,13 @@ a.table--heading {
         }
       }
     }
+  }
+  [contenteditable] {
+    @extend %editable-content;
+    display: block;
+  }
+  .editable & {
+    padding: 1.6rem;
   }
 }
 

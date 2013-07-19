@@ -1,44 +1,36 @@
 <div class="rubric-index">
-  <div class="content-frame">
-    <h1 class="heading-largest">Rubrics</h1>
-  </div>
-  <div class="content-frame">
-
-    <table class="model-table">
-      <thead>
+  <header class="bar-header">
+    <h2 class="bar-header--title">Rubrics</h2>    
+    <%= link_to 'New Rubric', new_course_rubric_path(@course), :class => 'teal-plus-button' %>
+  </header>  
+  <table class="table">
+    <thead>
       <tr>
         <th>Name</th>
         <th>Actions</th>
       </tr>
-      </thead>
-      <tbody>
-      <% @my_rubrics.each do |rubric| %>
-        <tr>
-          <th>
-            <%= link_to rubric.name, rubric_path(rubric) %>
-          </th>
-          <td>
+    </thead>
+    <tbody>
+    <% @my_rubrics.each do |rubric| %>
+      <tr>
+        <th>
+          <%= link_to rubric.name, rubric_path(rubric), :class => 'table--heading' %>
+        </th>
+        <td>
+          <strong>
             <%= link_to 'Show', rubric_path(rubric) %>
             <% if can? :update, rubric %>
-              <%= link_to 'Edit', edit_rubric_path(rubric) %>
+              &nbsp;/&nbsp;<%= link_to 'Edit', edit_rubric_path(rubric) %>
             <% end %>
             <% if can? :destroy, rubric %>
-              <%= link_to 'Destroy', rubric_path(rubric), method: :delete, data: { confirm: 'Are you sure?' } %>
+              &nbsp;/&nbsp;<%= link_to 'Destroy', rubric_path(rubric), method: :delete, data: { confirm: 'Are you sure?' } %>
             <% end %>
-          </td>
-        </tr>
-        </tbody>
-      <% end %>
-      </table>
-
-    <br />
-
-    <ul class="model-table--actions">
-      <li><%= link_to 'New Rubric', new_course_rubric_path(@course) %></li>
-    </ul>
-
-  </div>
-
+          </strong>
+        </td>
+      </tr>
+    </tbody>
+    <% end %>
+  </table>
 </div>
 
 

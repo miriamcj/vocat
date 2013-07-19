@@ -867,6 +867,20 @@ input%proto-button {
   -ms-user-select: none;
 }
 
+// Editable content
+// --------------------------
+// Extend onto elements with [contenteditable]
+%editable-content {
+  border-radius: 0.2rem;
+  &:hover,
+  &:focus {
+    @include box-shadow(0 0 1.6rem 0 transparentize($black, 0.98));
+    background-color: transparentize($white, 0.7);
+    padding: 0.4rem;
+    margin: -0.4rem;
+  }
+}
+
 // Multi-purpose component patterns
 // Tack one of these puppies on and go crazy
 // --------------------------------------------------------
