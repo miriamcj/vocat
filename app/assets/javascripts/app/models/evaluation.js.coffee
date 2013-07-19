@@ -3,7 +3,20 @@ define ['backbone'], (Backbone) ->
 
     paramRoot: 'evaluation'
 
+    omitAttributes: ['total_points', 'total_percentage', 'total_percentage_rounded']
     urlRoot: "/api/v1/evaluations"
+
+    # We put a wrapper method around Backbone.sync to prevent calculated attribtues from being
+    # sent to the server on post.
+    sync: (method, model, options) ->
+      unless options.attrs?
+        attributes = model.toJSON(options)
+        _.each(attributes, (value, key) =>
+          if _.indexOf(@omitAttributes, key) != -1
+            delete attributes[key]
+        )
+        options.attrs = attributes
+      Backbone.sync(method, model, options)
 
 
     initialize: () ->
@@ -11,7 +24,6 @@ define ['backbone'], (Backbone) ->
         @updateCalculatedScoreFields()
       )
       @updateCalculatedScoreFields()
-
 
     updateCalculatedScoreFields: () ->
       total = 0

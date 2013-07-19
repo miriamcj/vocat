@@ -1,13 +1,15 @@
 class Api::V1::DiscussionPostsController < ApiController
 
   # TODO: Authorize the resources correctly
-  load_and_authorize_resource :submission
-  load_resource :discussion_post
+  #load_and_authorize_resource :submission
+  load_and_authorize_resource :discussion_post
   respond_to :json
 
   # GET /api/v1/submissions/1/discussion_posts.json
   def index
-    @discussion_posts = DiscussionPost.for_submission(@submission)
+    @submission = Submission.find(params[:submission_id])
+    # TODO: Authorize Submission
+    @discussion_posts = DiscussionPost.find_all_by_submission_id(@submission.id)
     respond_with @discussion_posts
   end
 

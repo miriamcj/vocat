@@ -1,64 +1,50 @@
-class Vocat.Views.EvaluationDetailPost extends Vocat.Views.AbstractView
+define [
+  'marionette', 'hbs!templates/submission/post', 'collections/discussion_post_collection', 'models/discussion_post', 'views/submission/discussion_base_view'
+], (
+  Marionette, template, DiscussionPostCollection, DiscussionPostModel, DiscussionBaseView
+) ->
 
-  template: HBT["app/templates/evaluation_detail/post"]
-  inputPartial:  HBT["app/templates/evaluation_detail/partials/post_input"]
+  class PostView extends DiscussionBaseView
 
-  events:
-    'keypress :input': 'handleSavePost'
-    'click [data-behavior="toggle-reply"]': 'handleToggleReply'
-    'click [data-behavior="toggle-delete-confirm"]': 'toggleDeleteConfirm'
-    'click [data-behavior="delete"]': 'deletePost'
+    template: template
 
+    itemViewContainer: '[data-behavior="post-container"]'
 
-  tagName: 'li'
-#  className: 'discussion-list--item'
+    triggers:
+      'click [data-behavior="post-save"]': 'post:save'
+      'click [data-behavior="toggle-reply"]': 'reply:toggle'
+      'click [data-behavior="toggle-delete-confirm"]': 'confirm:delete:toggle'
+      'click [data-behavior="delete"]': 'post:delete'
 
-  initialize: (options) ->
-    @discussions = options.discussions
-    @model.bind('destroy', () => @handleDestroyedPost())
-    @model.bind('toggleReply', () => @toggleReply())
+    tagName: 'li'
 
-  toggleDeleteConfirm: (e) ->
-    e.stopPropagation()
-    e.preventDefault()
-    console.log @el
-    @$el.find('[data-behavior="delete-confirm"]:first').slideToggle(150)
+    initialize: (options) ->
+      @allPosts = options.allPosts
+      @submission = options.submission
+      @vent = options.vent
+      @collection = new DiscussionPostCollection([],{})
+      @collection.reset(@allPosts.where({parent_id: @model.id}))
 
-  deletePost: (e) ->
-    e.stopPropagation()
-    e.preventDefault()
-    postId = $(e.currentTarget).data().post
-    results = @discussions.get(postId).destroy({wait: true})
+    onConfirmDeleteToggle: () ->
+      @$el.find('[data-behavior="delete-confirm"]:first').slideToggle(150)
 
-  toggleReply: (e) ->
-    @$el.find('[data-behavior="input-container"]').slideToggle()
+    onPostDelete: () ->
+      @allPosts.remove(@model)
+      @model.destroy({wait: true})
 
-  handleSavePost: (e) ->
-    if e.keyCode == 13
-      e.preventDefault()
-      e.stopPropagation()
-      postInput = $(e.currentTarget)
-      # The actual saving of the post is handled in the discussions view.
-      Vocat.Dispatcher.trigger('savePost', postInput)
+    onReplyToggle: () ->
+      @ui.inputToggle.slideToggle({duration: 200})
 
-  handleToggleReply: (e) ->
-    e.stopPropagation()
-    e.preventDefault()
-    postId = $(e.currentTarget).data().post
-    post = @discussions.get(postId)
-    post.trigger('toggleReply')
+    handleSavePost: (e) ->
+      if e.keyCode == 13
+        e.preventDefault()
+        e.stopPropagation()
+        postInput = $(e.currentTarget)
+        # The actual saving of the post is handled in the discussions view.
+        @vent.trigger('post:save', postInput)
 
-  handleDestroyedPost: () ->
-    @$el.fadeOut(250, () =>
-      @remove()
-    )
+    handleDestroyedPost: () ->
+      @$el.fadeOut(250, () =>
+        @remove()
+      )
 
-  render: () ->
-    context = {
-      post_input: @inputPartial({parent: @model.get('id')})
-      post: @model.toJSON()
-    }
-    @$el.html(@template(context))
-    @$el.attr('data-post', @model.id)
-    # Return thyself for maximum chaining!
-    @

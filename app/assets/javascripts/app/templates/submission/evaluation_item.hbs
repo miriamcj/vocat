@@ -5,8 +5,8 @@
     </h4>
     <span class="frame-summary--score--value">{{total_percentage_rounded}}<small>%</small></span>
   </li>
-  <li data-behavior="toggle-target" style="width: 936px; display: none">
-    <ul class="scoring-list">
+  <li>
+    <ul data-behavior="toggle-target" class="scoring-list">
       {{#each_property scores high=rubric.high_score}}
       <li>
         <div class="range-input">
@@ -22,12 +22,7 @@
         </div>
       </li>
       {{/each_property}}
-      <li>
-        <div class="scoring-list--label">Total</div>
-        <div class="scoring-list--output">
-          <div data-score-total="true" class="scoring-list--total">{{total_points}}</div>
-        </div>
-      </li>
+
     </ul>
   </li>
 </ul>

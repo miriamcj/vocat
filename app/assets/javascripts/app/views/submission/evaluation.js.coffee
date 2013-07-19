@@ -19,7 +19,8 @@ define [
 
     itemViewOptions: () ->
       {
-      rubric: @rubric
+        vent: @
+        rubric: @rubric
       }
 
     emptyView: EvaluationEmpty
@@ -43,5 +44,4 @@ define [
       @rubric = new Rubric(options.project.get('rubric'))
       @vent = Marionette.getOption(@, 'vent')
       @courseId = Marionette.getOption(@, 'courseId')
-
 

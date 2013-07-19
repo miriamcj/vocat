@@ -15,6 +15,11 @@ define ['marionette', 'hbs!templates/submission/evaluation_item', 'plugins/simpl
       'click [data-behavior="toggle-trigger"]': 'detail:toggle'
     }
 
+    onShow: () ->
+      # Need to set the height explicitly as soon as the element is rendered so that
+      # the slide will have the correct height to animate.
+      @ui.toggleTarget.height(@ui.toggleTarget.height()).hide()
+
     onDetailToggle: () ->
       if @ui.toggleTarget.is(':visible')
         @ui.toggleTarget.slideUp()
@@ -31,6 +36,10 @@ define ['marionette', 'hbs!templates/submission/evaluation_item', 'plugins/simpl
     initialize: (options) ->
       @vent = options.vent
       @rubric = options.rubric
+
+      @listenTo(@vent,'rendered', () ->
+        alert('parent rendered')
+      )
 
     serializeData: () ->
       console.log @model.attributes

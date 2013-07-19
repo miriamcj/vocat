@@ -134,7 +134,7 @@ class Ability
       true
     end
 
-    can :destroy, DiscussionPost do |discussionPost|
+    can :manage, DiscussionPost do |discussionPost|
       true
     end
 

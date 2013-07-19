@@ -14,11 +14,12 @@ define [
   'views/submission/upload/started',
   'views/submission/upload/transcoding',
   'views/submission/upload/start',
+  'views/submission/discussion',
   'views/flash/flash_messages',
   'models/attachment',
   'app/plugins/backbone_poller'
 ], (
-  Marionette, template, SubmissionCollection, AnnotationCollection, EvaluationCollection, PlayerView, AnnotationsView, AnnotatorView, EvaluationView, MyEvaluationView, UploadView, UploadFailedView, UploadStartedView, UploadTranscodingView, UploadStartView, FlashMessagesView, Attachment, Poller
+  Marionette, template, SubmissionCollection, AnnotationCollection, EvaluationCollection, PlayerView, AnnotationsView, AnnotatorView, EvaluationView, MyEvaluationView, UploadView, UploadFailedView, UploadStartedView, UploadTranscodingView, UploadStartView, DiscussionView, FlashMessagesView, Attachment, Poller
 ) ->
 
   class SubmissionLayout extends Marionette.Layout
@@ -57,6 +58,7 @@ define [
       @createUploadView()
       @createFlashView()
       @createPlayerView()
+      @createDiscussionView()
 
     initialize: (options) ->
       @options = options || {}
@@ -106,6 +108,9 @@ define [
     createFlashView: () ->
       # Create the flash messages view
       @flash.show new FlashMessagesView({vent: @, clearOnAdd: true})
+
+    createDiscussionView: () ->
+      @discussion.show new DiscussionView({vent: @, submission: @submission})
 
     createPlayerView: () ->
       # Create the player view

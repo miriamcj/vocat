@@ -986,6 +986,10 @@ a.table--heading {
     width: 100%;
     color: $grayDark;
     background-color: $beigeLight;
+    .frame-light & {
+      background-color: $beige;
+    }
+
     padding: 1rem;
     resize: none;
   }
