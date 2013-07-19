@@ -348,6 +348,13 @@ input%proto-button {
   }
 }
 
+%small-teal-arrow-button {
+  @extend %small-teal-plus-button;
+  &:after {
+    @include svg(circle-arrow-right-beigeLight);
+  }
+}
+
 %gray-ex-button {
   @extend %teal-arrow-button;
   background-color: $beigeDark;

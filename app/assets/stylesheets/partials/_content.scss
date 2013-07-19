@@ -76,6 +76,10 @@
   margin-right: 0.6rem;
 }
 
+.small-teal-arrow-button {
+  @extend %small-teal-arrow-button;
+}
+
 .small-teal-plus-button {
   @extend %small-teal-plus-button;
 }
