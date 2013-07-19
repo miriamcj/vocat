@@ -5,20 +5,21 @@ define ['marionette', 'hbs!templates/submission/evaluation_item', 'plugins/simpl
     template: template
 
     ui: {
-      toggleDetailOn: '.js-toggle-detail-on'
-      toggleDetailOff: '.js-toggle-detail-off'
-      scoreSliders: '[data-slider="true"]'
+      toggleTrigger: '[data-behavior="toggle-trigger"]'
+      toggleTarget: '[data-behavior="toggle-target"]'
       scoreInputs: '[data-slider-visible]'
       scoreTotal: '[data-score-total]'
     }
 
-    events: {
-      'slider:changed [data-slider="true"]': 'onInputInvisibleChange'
+    triggers: {
+      'click [data-behavior="toggle-trigger"]': 'detail:toggle'
     }
 
-    triggers: {
-      'change [data-slider-visible-input]': 'input:visible:change'
-    }
+    onDetailToggle: () ->
+      if @ui.toggleTarget.is(':visible')
+        @ui.toggleTarget.slideUp()
+      else
+        @ui.toggleTarget.slideDown()
 
     onInputInvisibleChange: (event, data) ->
       value = data.value
@@ -32,28 +33,7 @@ define ['marionette', 'hbs!templates/submission/evaluation_item', 'plugins/simpl
       @rubric = options.rubric
 
     serializeData: () ->
+      console.log @model.attributes
       out = @model.toJSON()
       out.rubric = @rubric.toJSON()
       out
-
-    initializeSliders: () ->
-      @ui.scoreSliders.each( (index, el) ->
-        $el = $(el)
-        slider = $el.simpleSlider({
-          range: [0,6]
-          step: 1
-          snap: true
-          highlight: true
-          locked: true
-        })
-      )
-
-    retotal: () ->
-      total = 0
-      @ui.scoreInputs.each (index, element) ->
-        total = total + parseInt($(element).val())
-      @ui.scoreTotal.html(total)
-
-    onShow: () ->
-      @initializeSliders()
-      @retotal()

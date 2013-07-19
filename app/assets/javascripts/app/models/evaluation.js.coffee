@@ -10,6 +10,8 @@ define ['backbone'], (Backbone) ->
       @on('change:scores', () =>
         @updateCalculatedScoreFields()
       )
+      @updateCalculatedScoreFields()
+
 
     updateCalculatedScoreFields: () ->
       total = 0
@@ -18,5 +20,6 @@ define ['backbone'], (Backbone) ->
       )
 
       per = parseFloat(total / parseInt(@get('points_possible'))) * 100
+      @set('total_points', total)
       @set('total_percentage', per)
       @set('total_percentage_rounded', per.toFixed(1))
