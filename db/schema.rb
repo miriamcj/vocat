@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130528174737) do
+ActiveRecord::Schema.define(:version => 20130719220848) do
 
   create_table "annotations", :force => true do |t|
     t.integer  "attachment_id"
@@ -98,11 +98,9 @@ ActiveRecord::Schema.define(:version => 20130528174737) do
     t.integer  "author_id"
     t.integer  "parent_id"
     t.text     "body"
-    t.integer  "project_id"
-    t.integer  "creator_id"
-    t.integer  "group_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.integer  "submision_id"
   end
 
   create_table "evaluations", :force => true do |t|
