@@ -347,10 +347,14 @@
   background-color: $tealLightestAlt;
   padding: 2.4rem 3.9rem;
   position: relative;
-  z-index: 110;
-  &>a {
-    margin-right: 0;
+  z-index: 310;
+  > a {
+    margin-left: 0.6rem;
     float: right;
+  }
+  [contenteditable] {
+    @extend %editable-content;
+    display: inline-block;
   }
   // NB there are context-specific styles for alerts
   // nested inside the %alert (in patterns) & .alerts (below)
@@ -358,9 +362,16 @@
 
 .bar-header--title {
   @extend %heading-gamma-sup;
+  max-width: 50%;
   color: $tealMedium;
   padding: 0.7rem 0;
   float: left;
+}
+
+.bar-header--description {
+  width: 50%;
+  float: left;
+  clear: left;
 }
 
 // Button header
@@ -1524,7 +1535,7 @@ a.table--heading {
   width: $mainWidth;
   padding-top: $subHeaderHeight;
   position: absolute;
-  top: 0;
+  // top: 0;
   left: 0;
   z-index: 110;
   &.stuck {
