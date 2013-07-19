@@ -11,7 +11,9 @@ define ['marionette', 'hbs!templates/submission/evaluation_item_edit', 'plugins/
       scoreTotalPercentage: '[data-score-total-percentage]'
       publishButton: '[data-behavior="model-publish"]'
       unpublishButton: '[data-behavior="model-unpublish"]'
+      saveButton: '[data-behavior="model-save"]'
       publishState: '[data-behavior="publish-state"]'
+      percentageBar: '[data-behavior="percentage-bar"]'
     }
 
     events: {
@@ -22,6 +24,7 @@ define ['marionette', 'hbs!templates/submission/evaluation_item_edit', 'plugins/
       'change [data-slider-visible-input]': 'input:visible:change'
       'click [data-behavior="model-publish"]': 'model:publish'
       'click [data-behavior="model-unpublish"]': 'model:unpublish'
+      'click [data-behavior="model-save"]': 'model:save'
     }
 
     setUiPublishedState: (published) ->
@@ -38,6 +41,7 @@ define ['marionette', 'hbs!templates/submission/evaluation_item_edit', 'plugins/
     onModelPublish: () ->
       @model.save({published: true}, {
         success: () =>
+          @vent.triggerMethod('myEvaluation:published')
           @errorVent.trigger('error:add', {level: 'notice', msg: 'Evaluation has been published'})
           @setUiPublishedState(true)
         error: () =>
@@ -47,10 +51,24 @@ define ['marionette', 'hbs!templates/submission/evaluation_item_edit', 'plugins/
     onModelUnpublish: () ->
       @model.save({published: false}, {
         success: () =>
+          @vent.triggerMethod('myEvaluation:unpublished')
           @errorVent.trigger('error:add', {level: 'notice', msg: 'Evaluation has been hidden'})
           @setUiPublishedState(false)
         error: () =>
           @errorVent.trigger('error:add', {level: 'notice', msg: 'Unable to update evaluation'})
+      })
+
+    onModelSave: () ->
+      scores = @model.get('scores')
+      @ui.scoreInputs.each (index, element) ->
+        $el = $(element)
+        scores[$el.attr('data-key')] = parseInt($el.val())
+      @model.save({scores: scores}, {
+        success: (model) =>
+          @model.trigger('change:scores')
+          console.log @model.attributes,'attributes after save and calc'
+          @vent.triggerMethod('myEvaluation:updated', {percentage: @model.get('total_percentage_rounded')})
+          @errorVent.trigger('error:add', {level: 'notice', msg: 'Evaluation has been successfully saved'})
       })
 
     onInputInvisibleChange: (event, data) ->
@@ -90,7 +108,7 @@ define ['marionette', 'hbs!templates/submission/evaluation_item_edit', 'plugins/
       per = parseFloat(total / pointsPossible) * 100
       @ui.scoreTotalPercentage.html(per.toFixed(1))
       @ui.scoreTotal.html(total)
-
+      @ui.percentageBar.css('padding-right', (100 - parseInt(per)) + '%')
     onShow: () ->
       @initializeSliders()
       @retotal()

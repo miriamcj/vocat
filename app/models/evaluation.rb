@@ -11,11 +11,12 @@ class Evaluation < ActiveRecord::Base
   delegate :low_score, :to => :rubric, :prefix => true
   delegate :name, :to => :evaluator, :prefix => true
   delegate :role, :to => :evaluator, :prefix => true
+  delegate :points_possible, :to => :rubric
 
   validates :rubric, presence: true
   validates :submission, presence: true
   validates :evaluator, presence: true
-  validates :submission_id, uniqueness: { scope: :submission_id, message: "can only exist once per submission/evaluator" }
+  validates :submission_id, uniqueness: { scope: :evaluator_id, message: "can only exist once per submission/evaluator" }, :on => :create
 
 
   before_save :scaffold_score
@@ -49,7 +50,7 @@ class Evaluation < ActiveRecord::Base
   def total_percentage
     score = self.total_score
     if score
-      score / ( self.rubric_high_score.to_f * self.field_count ) * 100
+      (score / ( self.rubric_high_score.to_f * self.field_count ) * 100).round(1)
     else
       0
     end

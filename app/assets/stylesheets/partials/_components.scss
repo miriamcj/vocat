@@ -10,6 +10,9 @@
 	margin: 0 auto;
   // TODO this cuts off help overlays that extend beyond .container; reposition help overlays
   overflow: hidden;
+  body.course-map & {
+    overflow: visible;
+  }
   .authentication & {
     @include box-shadow(none);
     background-color: transparent;
@@ -43,6 +46,10 @@
   &.stuck {
     position: fixed;
     top: 0;
+    .course-map & {
+      position: absolute;
+      top: auto;
+    }
   }
   .role-admin.no-course & {
     height: 7.8rem;
@@ -789,31 +796,18 @@ a.table--heading {
 
 .frame-summary--evaluated {
   @extend %active-criterion;
-  .matrix--overlay & {
-    height: 3rem;
-  }
 }
 
 .frame-summary--unevaluated {
   @extend %inactive-criterion;
-  .matrix--overlay & {
-    height: 3rem;
-  }
 }
 
 .frame-summary--score--title {
   @extend %score--title;
-  .matrix--overlay & {
-    @extend %gamma-sub;
-    padding-top: .7rem;
-  }
 }
 
 .frame-summary--score--value {
   @extend %score--value;
-  .matrix--overlay & {
-    @extend %small-score--value;
-  }
 }
 
 // Evaluation detail
@@ -1611,6 +1605,7 @@ a.table--heading {
     }
     .highlightable & {
       &:hover,
+      &.selected,
       &.active {
         background-color: $grayDarker;
         a {

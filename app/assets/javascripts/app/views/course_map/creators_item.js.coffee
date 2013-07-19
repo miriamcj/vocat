@@ -23,4 +23,11 @@ define ['marionette', 'hbs!templates/course_map/creators_item'], (Marionette, te
 
     initialize: (options) ->
       @options = options || {}
+      @listenTo(@model.collection, 'change:active', (activeCreator) ->
+        if activeCreator == @model
+          @$el.addClass('selected')
+          @$el.removeClass('active')
+        else
+          @$el.removeClass('selected')
+      )
       @$el.attr('data-creator', @model.id)

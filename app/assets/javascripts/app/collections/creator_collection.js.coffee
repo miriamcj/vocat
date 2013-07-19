@@ -19,4 +19,4 @@ define ['backbone', 'models/creator'], (Backbone, CreatorModel) ->
       else
         @activeModel = null
       if @activeModel != current
-        @trigger('change:active')
+        @trigger('change:active', @activeModel)

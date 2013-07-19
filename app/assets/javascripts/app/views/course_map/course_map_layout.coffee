@@ -7,7 +7,8 @@ define [
   'views/course_map/detail_creator',
   'views/course_map/detail_project',
   'views/submission/submission_layout',
-  'views/course_map/header'
+  'views/course_map/header',
+  '../../../layout/plugins'
 ], (Marionette, template, CourseMapProjects, CourseMapCreators, CourseMapMatrix, CourseMapDetailCreator, CourseMapDetailProject, CourseMapDetailCreatorProject, CourseMapHeader) ->
 
   class CourseMapView extends Marionette.Layout
@@ -23,6 +24,7 @@ define [
     sliderPosition: 0
 
     ui: {
+      courseMapHeader: '.matrix--column-header'
       header: '[data-region="overlay-header"]'
       overlay: '[data-region="overlay"]'
       sliderLeft: '[data-behavior="matrix-slider-left"]'
@@ -53,6 +55,10 @@ define [
       @header.show(@children.header)
 
       @bindUIElements()
+
+      setTimeout () =>
+        @ui.courseMapHeader.stickyHeader()
+      , 500
 
     initialize: (options) ->
       @collections = options.collections
@@ -121,10 +127,15 @@ define [
       @slide('forward')
 
     onOpenOverlay: () ->
-      @ui.overlay.css('margin-top', (@$el.find('.matrix--content').height() * -1)).css('z-index',200)
-      # Set min height on overlay
-      @ui.overlay.css('min-height', @$el.find('[data-behavior="matrix-creators-list"]').outerHeight())
-      # Fade it in if not visible
+      @ui.overlay.css({top: '8rem', zIndex: 250, position: 'absolute', minHeight: @matrix.$el.outerHeight()})
+
+
+#      @ui.overlay.parent().height(@ui.overlay.outerHeight())
+#      console.log 'setting margin top to: ' + (@$el.find('.matrix--content').height() * -1)
+#      @ui.overlay.css('margin-top', (@$el.find('.matrix--content').height() * -1)).css('z-index',200)
+#      # Set min height on overlay
+#      @ui.overlay.css('min-height', @$el.find('[data-behavior="matrix-creators-list"]').outerHeight())
+#      # Fade it in if not visible
       if !@ui.overlay.is(':visible')
         @ui.overlay.fadeIn(500)
       if !@ui.header.is(':visible')
@@ -134,6 +145,10 @@ define [
       # Fade it in if not visible
 
     onCloseOverlay: (args) ->
+      @matrix.$el.css({visibility: 'visible'})
+      @collections.project.setActive(null)
+      @collections.creator.setActive(null)
+
       Vocat.courseMapRouter.navigate("courses/#{@courseId}/evaluations")
       if @ui.overlay.is(':visible')
         @ui.overlay.fadeOut 500, () =>
@@ -142,12 +157,12 @@ define [
 
     setContentContainerHeight: () ->
       # Content container should be as tall as the window
-      $spacers = @$el.find('.matrix--row-spacer')
-      spacerOffset = @$el.find('.matrix--row-spacer').offset()
-      bodyHeight = $('body').outerHeight()
-      diff = bodyHeight - spacerOffset.top
-      $spacers.css('min-height', diff + 'px');
-      height = @$el.find('.matrix--content').outerHeight() +  @$el.find('.matrix--overlay header').outerHeight()
+#      $spacers = @$el.find('.matrix--row-spacer')
+#      spacerOffset = @$el.find('.matrix--row-spacer').offset()
+#      bodyHeight = $('body').outerHeight()
+#      diff = bodyHeight - spacerOffset.top
+#      $spacers.css('min-height', diff + 'px');
+#      height = @$el.find('.matrix--content').outerHeight() +  @$el.find('.matrix--overlay header').outerHeight()
 
     calculateAndSetSliderWidth: () ->
       slider = @$el.find('[data-behavior="matrix-slider"]').first()

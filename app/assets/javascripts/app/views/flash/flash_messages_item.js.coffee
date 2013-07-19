@@ -30,7 +30,6 @@ define [
       @$el.hide()
 
     onRender: () ->
-      console.log @lifetime, 'lifetime'
       @$el.fadeIn()
       if @model.get('level') != 'error'
         setTimeout( () =>

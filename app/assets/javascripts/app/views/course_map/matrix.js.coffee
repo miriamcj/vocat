@@ -54,9 +54,14 @@ define [
       @collections = Marionette.getOption(@, 'collections')
 
       @collections.submission.fetch({data: {brief: 1}})
+      @collections.submission.isMatrixCollection = true
 
       @listenTo @collections.submission, 'sync', (name) =>
         @render()
+
+      @listenTo @collections.submission, 'change', (name) =>
+        @render()
+
 
     serializeData: () ->
       out = {

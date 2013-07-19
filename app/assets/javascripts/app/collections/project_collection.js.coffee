@@ -20,4 +20,4 @@ define ['backbone', 'models/project'], (Backbone, ProjectModel) ->
       else
         @activeModel = null
       if @activeModel != current
-        @trigger('change:active')
+        @trigger('change:active', @activeModel)

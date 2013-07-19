@@ -39,8 +39,8 @@ class Submission < ActiveRecord::Base
 	  SubmissionSerializer
   end
 
-  def instructor_evaluations
-    self.evaluations.published.created_by(self.course.evaluators)
+  def evaluated_by_instructor?()
+    instructor_evaluation_count > 0
   end
 
   def peer_evaluations
@@ -48,23 +48,67 @@ class Submission < ActiveRecord::Base
   end
 
   def peer_score_total
-	  score_total('peer')
+    evaluations = self.peer_evaluations
+    score_total(evaluations)
+  end
+
+  def peer_score_percentage
+    total_score = peer_score_total
+    total_count = peer_evaluation_count
+    score_percentage(total_score, total_count)
+  end
+
+  def peer_evaluation_count
+    self.peer_evaluations.count
+  end
+
+  def instructor_evaluations
+    self.evaluations.published.created_by(self.course.evaluators)
   end
 
   def instructor_score_total
-	  score_total('instructor')
+    evaluations = self.instructor_evaluations
+	  score_total(evaluations)
   end
 
-  def instructor_score_count
+  def instructor_evaluation_count
     self.instructor_evaluations.count
   end
 
-  def peer_score_count
-	  self.peer_evaluations.count
+  def instructor_score_percentage
+    total_score = instructor_score_total
+    total_count = instructor_evaluation_count
+    score_percentage(total_score, total_count)
   end
 
-  def instructor_score_percentage
-		score_percentage('instructor')
+  def user_evaluation(user)
+    self.evaluations.created_by(user).first()
+  end
+
+  def user_score_total(user)
+    if evaluated_by_user?(user)
+      user_evaluation(user).total_score
+    end
+  end
+
+  def evaluated_by_user?(user)
+    user_evaluation_count(user) > 0
+  end
+
+  def user_evaluation_published?(user)
+    if evaluated_by_user?(user)
+      user_evaluation(user).published
+    end
+  end
+
+  def user_evaluation_count(user)
+    self.evaluations.created_by(user).count
+  end
+
+  def user_score_percentage(user)
+    if evaluated_by_user?(user)
+      user_evaluation(user).total_percentage
+    end
   end
 
   def video_attachment_id
@@ -133,36 +177,15 @@ class Submission < ActiveRecord::Base
 
 	private
 
-  def score_total(type)
-	  if type == 'instructor'
-		  evaluations = self.instructor_evaluations
-	  elsif type == 'peer'
-		  evaluations = self.peer_evaluations
-	  else
-		  raise ArgumentError, "score_total expects type to be 'instructor' or 'peer'"
-	  end
-
-	  sum = 0.0
-	  evaluations.each do |evaluation|
-		  sum = sum + evaluation.total_percentage
-	  end
-	  sum
+  def score_total(evaluations)
+    sum = 0.0
+    evaluations.each do |evaluation|
+      sum = sum + evaluation.total_percentage
+    end
+    sum
   end
 
-  def scored_by_instructor?()
-    instructor_score_count > 0
-  end
-
-  def score_percentage(type)
-	  if type == 'instructor'
-		  total_score = instructor_score_total
-		  total_count = instructor_score_count
-	  elsif type == 'peer'
-		  total_score = peer_score_total
-		  total_count = peer_score_count
-	  else
-		  raise ArgumentError, "score_percentage expects type to be 'instructor' or 'peer'"
-	  end
+  def score_percentage(total_score, total_count)
 	  if total_score >= 0 && total_count > 0
 		  (total_score.to_f / total_count).to_i()
 	  else
