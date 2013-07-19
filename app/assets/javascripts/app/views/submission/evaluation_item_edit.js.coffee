@@ -42,20 +42,20 @@ define ['marionette', 'hbs!templates/submission/evaluation_item_edit', 'plugins/
       @model.save({published: true}, {
         success: () =>
           @vent.triggerMethod('myEvaluation:published')
-          @errorVent.trigger('error:add', {level: 'notice', msg: 'Evaluation has been published'})
+          @vent.trigger('error:add', {level: 'notice', msg: 'Evaluation has been published'})
           @setUiPublishedState(true)
         error: () =>
-          @errorVent.trigger('error:add', {level: 'notice', msg: 'Unable to update evaluation'})
+          @vent.trigger('error:add', {level: 'notice', msg: 'Unable to update evaluation'})
       })
 
     onModelUnpublish: () ->
       @model.save({published: false}, {
         success: () =>
           @vent.triggerMethod('myEvaluation:unpublished')
-          @errorVent.trigger('error:add', {level: 'notice', msg: 'Evaluation has been hidden'})
+          @vent.trigger('error:add', {level: 'notice', msg: 'Evaluation has been hidden'})
           @setUiPublishedState(false)
         error: () =>
-          @errorVent.trigger('error:add', {level: 'notice', msg: 'Unable to update evaluation'})
+          @vent.trigger('error:add', {level: 'notice', msg: 'Unable to update evaluation'})
       })
 
     onModelSave: () ->
@@ -66,9 +66,8 @@ define ['marionette', 'hbs!templates/submission/evaluation_item_edit', 'plugins/
       @model.save({scores: scores}, {
         success: (model) =>
           @model.trigger('change:scores')
-          console.log @model.attributes,'attributes after save and calc'
           @vent.triggerMethod('myEvaluation:updated', {percentage: @model.get('total_percentage_rounded')})
-          @errorVent.trigger('error:add', {level: 'notice', msg: 'Evaluation has been successfully saved'})
+          @vent.trigger('error:add', {level: 'notice', msg: 'Evaluation has been successfully saved'})
       })
 
     onInputInvisibleChange: (event, data) ->
@@ -79,7 +78,6 @@ define ['marionette', 'hbs!templates/submission/evaluation_item_edit', 'plugins/
       @retotal()
 
     initialize: (options) ->
-      @errorVent = options.errorVent
       @vent = options.vent
       @rubric = options.rubric
 

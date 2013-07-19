@@ -1,7 +1,7 @@
 define [
-  'marionette', 'hbs!templates/submission/my_evaluation', 'collections/evaluation_collection', 'models/evaluation', 'models/rubric', 'views/submission/evaluation_item', 'views/submission/evaluation_item_edit', 'views/submission/my_evaluation_empty'
+  'marionette', 'hbs!templates/submission/my_evaluation', 'collections/evaluation_collection', 'models/evaluation', 'models/rubric', 'views/flash/flash_messages', 'views/submission/evaluation_item', 'views/submission/evaluation_item_edit', 'views/submission/my_evaluation_empty'
 ], (
-  Marionette, template, EvaluationCollection, Evaluation, Rubric, EvaluationItem, EvaluationItemEdit, MyEvaluationEmpty
+  Marionette, template, EvaluationCollection, Evaluation, Rubric, FlashMessagesView, EvaluationItem, EvaluationItemEdit, MyEvaluationEmpty
 ) ->
   class MyEvaluationDetail extends Marionette.CompositeView
 
@@ -14,6 +14,7 @@ define [
     ui: {
       toggleDetailOn: '.js-toggle-detail-on'
       toggleDetailOff: '.js-toggle-detail-off'
+      flashContainer: '[data-container="flash"]'
     }
 
     triggers: {
@@ -21,9 +22,16 @@ define [
       'click [data-behavior="evaluation-destroy"]': 'evaluation:destroy'
     }
 
+    onRender: () ->
+      @ui.flashContainer.append(@flash.$el)
+      @flash.render()
+
+    onBeforeClose: () ->
+      @flash.close()
+      # Do child view garbage collection here
+
     itemViewOptions: () ->
       {
-      errorVent: @vent
       vent: @
       rubric: @rubric
       }
@@ -47,9 +55,9 @@ define [
           @model.set('current_user_has_evaluated',true)
           @model.set('current_user_percentage',0)
           @model.set('current_user_evaluation_published',false)
-          @vent.trigger('error:add', {level: 'notice', msg: 'Evaluation successfully created'})
+          @trigger('error:add', {level: 'notice', msg: 'Evaluation successfully created'})
         , error: () =>
-          @vent.trigger('error:add', {level: 'error', msg: 'Unable to create evaluation. Perhaps you do not have permission to evaluate this submission.'})
+          @trigger('error:add', {level: 'error', msg: 'Unable to create evaluation. Perhaps you do not have permission to evaluate this submission.'})
       })
 
     onEvaluationDestroy: () ->
@@ -62,7 +70,7 @@ define [
             @model.set('current_user_percentage',null)
             @model.set('current_user_evaluation_published',null)
             console.log @model
-            @vent.trigger('error:add', {level: 'notice', msg: 'Evaluation successfully deleted'})
+            @trigger('error:add', {level: 'notice', msg: 'Evaluation successfully deleted'})
         })
 
     serializeData: () ->
@@ -74,4 +82,5 @@ define [
       @rubric = new Rubric(options.project.get('rubric'))
       @vent = Marionette.getOption(@, 'vent')
       @courseId = Marionette.getOption(@, 'courseId')
+      @flash = new FlashMessagesView({vent: @, clearOnAdd: true})
 

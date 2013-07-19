@@ -14,14 +14,11 @@ define [
     template: template
     className: 'alerts'
     itemViewContainer: '[data-behavior="flash-container"]'
-    collection: new FlashMessageCollection [], {}
 
     initialize: () ->
       @collection = Marionette.getOption(@, 'collection')
-
-#      @listenTo(@collection, 'remove', () =>
-#        console.log 'collection view saw a removal'
-#      )
+      if !@collection
+        @collection = new FlashMessageCollection [], {}
 
       @vent = Marionette.getOption(@, 'vent')
       @clearOnAdd = Marionette.getOption(@, 'clearOnAdd')

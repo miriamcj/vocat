@@ -16,7 +16,7 @@ define ['backbone'], (Backbone) ->
       _.each(@.get('scores'), (score) =>
         total = total + parseInt(score)
       )
-      console.log total, 'total'
+
       per = parseFloat(total / parseInt(@get('points_possible'))) * 100
       @set('total_percentage', per)
       @set('total_percentage_rounded', per.toFixed(1))
