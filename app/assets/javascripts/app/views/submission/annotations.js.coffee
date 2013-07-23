@@ -3,7 +3,7 @@ define [
   'hbs!templates/submission/annotations',
   'views/submission/annotations_item',
   'views/submission/annotations_item_empty',
-  'plugins/smooth_scroll'
+  'vendor/plugins/smooth_scroll'
 ],(
   Marionette, template, ItemView, EmptyView
 ) ->

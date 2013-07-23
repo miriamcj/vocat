@@ -1,4 +1,4 @@
-define 'app/helpers/invert', ['Handlebars'], (Handlebars) ->
+define 'app/helpers/invert', ['handlebars'], (Handlebars) ->
 
   Handlebars.registerHelper "invert", (value, options) ->
     100 - parseInt(value)

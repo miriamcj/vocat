@@ -1,4 +1,4 @@
-define 'app/helpers/debug', ['Handlebars'], (Handlebars) ->
+define 'app/helpers/debug', ['handlebars'], (Handlebars) ->
 
   Handlebars.registerHelper "debug", (value, options) ->
 

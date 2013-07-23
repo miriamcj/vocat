@@ -1,4 +1,4 @@
-define ['marionette', 'jquery'], (Marionette, $) ->
+define ['marionette', 'jquery_rails'], (Marionette, $) ->
 
   class VocatController extends Marionette.Controller
 

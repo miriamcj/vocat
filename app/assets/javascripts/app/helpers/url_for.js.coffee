@@ -1,4 +1,4 @@
-define 'app/helpers/url_for', ['Handlebars'], (Handlebars) ->
+define 'app/helpers/url_for', ['handlebars'], (Handlebars) ->
 
   # This method is a wrapper around the javascript method produced
   # by the js-routes gem.

@@ -1,4 +1,4 @@
-define 'app/helpers/get_submission', ['Handlebars'], (Handlebars) ->
+define 'app/helpers/get_submission', ['handlebars'], (Handlebars) ->
 
   Handlebars.registerHelper('get_submission', (submissions, creator, project, options) ->
     submission = _.find(submissions, (submission) ->

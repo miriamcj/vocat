@@ -1,4 +1,4 @@
-define 'app/helpers/get_range_description_from_field', ['Handlebars'], (Handlebars) ->
+define 'app/helpers/get_range_description_from_field', ['handlebars'], (Handlebars) ->
 
   Handlebars.registerHelper('get_range_description_from_field', (field, range, crop, options) ->
     if field.range_descriptions[range.id]?

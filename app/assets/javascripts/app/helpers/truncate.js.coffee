@@ -1,4 +1,4 @@
-define 'app/helpers/truncate', ['Handlebars'], (Handlebars) ->
+define 'app/helpers/truncate', ['handlebars'], (Handlebars) ->
 
   Handlebars.registerHelper('truncate', (str, len) ->
     if str.length > len

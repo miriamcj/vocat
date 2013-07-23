@@ -1,14 +1,14 @@
 requirejs.config {
   shim: {
-    'jquery_ujs': ['jquery']
-    'ui/jquery_ui': ['jquery']
-    'plugins/smooth_scroll': ['jquery']
-    'plugins/simple_slider': ['jquery']
-    'plugins/iframe_transport': ['jquery']
-    'plugins/file_upload': ['jquery']
-    'plugins/autosize': ['jquery']
-    'plugins/waypoints': ['jquery']
-    'popcorn/popcorn' : []
+#    'vendor/jquery/jquery-with-rails-ujs': ['vendor/jquery/jquery']
+#    'jquery_ujs': ['jquery_rails']
+    'vendor/ui/jquery_ui': ['jquery_rails']
+    'vendor/plugins/smooth_scroll': ['jquery_rails']
+    'vendor/plugins/simple_slider': ['jquery_rails']
+    'vendor/plugins/iframe_transport': ['jquery_rails']
+    'vendor/plugins/file_upload': ['jquery_rails']
+    'vendor/plugins/autosize': ['jquery_rails']
+    'vendor/plugins/waypoints': ['jquery_rails']
   }
 
   hbs: {
@@ -18,52 +18,44 @@ requirejs.config {
   }
 
   paths: {
-    'i18nprecompile' : 'hbs/i18nprecompile'
+    'templates' : 'app/templates'
     'routers' : 'app/routers'
     'views' : 'app/views'
     'controllers' : 'app/controllers'
     'collections' : 'app/collections'
     'helpers' : 'app/helpers'
     'models' : 'app/models'
-    'templates' : 'app/templates'
-    'backbone' : 'backbone'
-    'underscore' : 'underscore'
-    'backbone.wreqr' : 'plugins/backbone.wreqr'
-    'backbone.eventbinder' : 'plugins/backbone.eventbinder'
-    'backbone.babysitter' : 'plugins/backbone.babysitter'
+    'hbs' : 'vendor/require/hbs'
+    'cs' : 'vendor/require/coffee-script'
+    'jquery_rails' : 'vendor/jquery/jquery-with-rails-ujs'
+    'i18nprecompile' : 'vendor/hbs/i18nprecompile'
+    'json2' : 'vendor/hbs/json2'
+    'handlebars' : 'vendor/handlebars/handlebars'
+    'backbone' : 'vendor/backbone/backbone'
+    'underscore' : 'vendor/underscore/underscore'
+    'backbone.wreqr' : 'vendor/plugins/backbone.wreqr'
+    'backbone.eventbinder' : 'vendor/plugins/backbone.eventbinder'
+    'backbone.babysitter' : 'vendor/plugins/backbone.babysitter'
   }
 
   map: {
-
-    # Any module that requests jquery gets jquery-with-rails-ujs instead. Likewise, any module that requests
-    # Marionette gets the patched Marionette instead (for HBS template rendering)
     '*': {
-
       # The fileupload plugin asks for jquery.ui.widget, which is already included in jquery_ui.
-      'jquery.ui.widget' : 'ui/jquery_ui'
-      'jquery': 'jquery-with-rails-ujs'
-      'marionette' : 'marionette_patched'
-      'Handlebars': 'handlebars'
-      'hbs/underscore': 'underscore'
+      'jquery.ui.widget' : 'vendor/ui/jquery_ui'
+      'marionette' : 'vendor/marionette/marionette_patched'
     }
 
     # But, jquery_ujs, jquery-with-rails-ujs, and marionette_patched all get the original library so they can patch it.
-    'marionette_patched': {
-      'marionette': 'marionette'
-    }
-    'jquery_ujs': {
-      'jquery': 'jquery'
-    }
-    'jquery-with-rails-ujs': {
-      'jquery': 'jquery'
+    'vendor/marionette/marionette_patched': {
+      'marionette': 'vendor/marionette/marionette'
     }
   }
 }
 
-require ['jquery', 'layout/layout', 'plugins/simple_slider'], ($, Layout) ->
+require ['layout/layout'], (Layout) ->
   Layout.bootstrap()
 
-require ['jquery', 'app/vocat'], ($, Vocat) ->
+require ['app/vocat'], (Vocat) ->
   Vocat.start()
 
 

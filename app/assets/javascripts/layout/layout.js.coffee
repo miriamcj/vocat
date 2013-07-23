@@ -1,4 +1,4 @@
-define ['jquery', './plugins'], ($) ->
+define ['jquery_rails', './plugins'], ($) ->
 
   {
     bootstrap: () ->

@@ -1,4 +1,4 @@
-define ['vendor/marionette'], (Marionette) ->
+define ['vendor/marionette/marionette'], (Marionette) ->
 
   # Do any patching here...
 

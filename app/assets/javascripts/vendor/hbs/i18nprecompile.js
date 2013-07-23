@@ -1,5 +1,5 @@
 //>>excludeStart('excludeAfterBuild', pragmas.excludeAfterBuild)
-define(['vendor/handlebars', "hbs/underscore"], function ( Handlebars, _ ) {
+define(['handlebars', "underscore"], function ( Handlebars, _ ) {
 
   function replaceLocaleStrings ( ast, mapping, options ) {
     options = options || {};

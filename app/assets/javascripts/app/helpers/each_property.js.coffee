@@ -1,4 +1,4 @@
-define 'app/helpers/each_property', ['Handlebars'], (Handlebars) ->
+define 'app/helpers/each_property', ['handlebars'], (Handlebars) ->
 
   Handlebars.registerHelper "each_property", (context, options) ->
 

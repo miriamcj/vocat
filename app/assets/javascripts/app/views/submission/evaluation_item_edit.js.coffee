@@ -1,4 +1,4 @@
-define ['marionette', 'hbs!templates/submission/evaluation_item_edit', 'plugins/simple_slider'], (Marionette, template) ->
+define ['marionette', 'hbs!templates/submission/evaluation_item_edit', 'vendor/plugins/simple_slider'], (Marionette, template) ->
 
   class ScoreItemEdit extends Marionette.ItemView
 

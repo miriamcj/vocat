@@ -2,8 +2,9 @@ define [
   'marionette',
   'hbs!templates/submission/upload',
   'models/attachment',
-  'ui/jquery_ui'
-  'plugins/file_upload'
+# TODO: Figure out why this breaks the JS build process!
+#  'vendor/ui/jquery_ui'
+  'vendor/plugins/file_upload'
 ], (
   Marionette, template, Attachment
 ) ->

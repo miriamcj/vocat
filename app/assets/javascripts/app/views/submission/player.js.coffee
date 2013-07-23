@@ -3,8 +3,7 @@ define [
   'marionette',
   'hbs!templates/submission/partials/player_has_transcoded_video',
   'hbs!templates/submission/partials/player_no_video',
-  'models/attachment',
-  'popcorn/popcorn'
+  'models/attachment'
 ], (
   Marionette,
   templateVideo,
