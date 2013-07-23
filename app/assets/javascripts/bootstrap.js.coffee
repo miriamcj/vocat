@@ -36,18 +36,14 @@ requirejs.config {
     'backbone.wreqr' : 'vendor/plugins/backbone.wreqr'
     'backbone.eventbinder' : 'vendor/plugins/backbone.eventbinder'
     'backbone.babysitter' : 'vendor/plugins/backbone.babysitter'
+    'marionette' : 'vendor/marionette/marionette'
+    'jquery_ui': 'vendor/ui/jquery_ui'
   }
 
   map: {
     '*': {
       # The fileupload plugin asks for jquery.ui.widget, which is already included in jquery_ui.
       'jquery.ui.widget' : 'vendor/ui/jquery_ui'
-      'marionette' : 'vendor/marionette/marionette_patched'
-    }
-
-    # But, jquery_ujs, jquery-with-rails-ujs, and marionette_patched all get the original library so they can patch it.
-    'vendor/marionette/marionette_patched': {
-      'marionette': 'vendor/marionette/marionette'
     }
   }
 }

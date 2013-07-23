@@ -1,0 +1,32 @@
+<ul style="margin-bottom: 4rem;" class="js-toggle-detail-off frame-summary--score-list">
+  <li data-behavior="toggle-trigger" class="frame-summary--evaluated" style="padding-right: {{ invert total_percentage_rounded }}%">
+    <h4 class="frame-summary--score--title">
+      {{evaluator_name}} - {{evaluator_role}}
+    </h4>
+    <span class="frame-summary--score--value">{{total_percentage_rounded}}<small>%</small></span>
+  </li>
+  <li>
+    <ul data-behavior="toggle-target" class="scoring-list">
+      {{#each_property scores high=rubric.high_score}}
+      <li>
+        <div class="range-input">
+          <div class="slider" style="position: relative; box-sizing: border-box;">
+            <div class="track" style="position: absolute; width: {{per}}%;"></div>
+            <div class="highlight-track" style="position: absolute; width: {{per}}%;"></div>
+          </div>
+          <input data-key="body" type="text" value="{{value}}" data-slider="true" style="display: none;">
+          <div class="range-input--title">{{property}}</div>
+        </div>
+        <div class="scoring-list--output">
+          <input data-key="body" data-slider-visible="true" class="scoring-list--value" type="text" disabled="disabled" value="{{value}}"><div class="scoring-list--ideal">6</div>
+        </div>
+      </li>
+      {{/each_property}}
+
+    </ul>
+  </li>
+</ul>
+
+
+
+

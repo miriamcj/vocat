@@ -1,0 +1,37 @@
+<div class="discussion-list--item">
+<header class="discussion-list--header">
+  <h3 class="discussion-list--name">{{author_name}}</h3>
+  <time class="discussion-list--timestamp" datetime="">Posted {{month}} {{day}}, {{year}} at {{time}}</time>
+  <div class="avatar">
+  	<img src="{{gravatar}}" alt="" />
+  </div>
+</header>
+<p>{{body}}</p>
+
+{{#if current_user_can_reply}}
+
+{{#if parent_id}}
+<a class="discussion-list--link" data-behavior="toggle-reply" data-post="{{parent_id}}" href="#">Reply</a>
+{{else}}
+<a class="discussion-list--link" data-behavior="toggle-reply" data-post="{{id}}" href="#">Reply</a>
+{{/if}}
+
+{{#if current_user_can_destroy}}
+<a class="ex-link" data-behavior="toggle-delete-confirm" href="#">Delete</a>
+<div class="alert-warning" data-behavior="delete-confirm" style="display: none;" >
+  <aside class="alert--label" data-behavior="alert-label"></aside>
+  <p>Are you sure? <a data-behavior="delete" data-post="{{id}}" href="#">Yes. Delete this </a></p>
+  <a class="alert--close" data-behavior="toggle-delete-confirm" href="#"></a>
+</div>
+{{/if}}
+
+{{/if}}
+
+</div>
+
+<div class="discussion-list--input-container" data-behavior="input-container" style="display: none">
+  {{> templates_partials_discussionPostInput}}
+</div>
+
+<ul class="discussion-list" data-behavior="post-container">
+</ul>

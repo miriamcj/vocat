@@ -8,9 +8,16 @@
 <script type="text/javascript" src="//use.typekit.net/dwf7ffn.js"></script>
 <%= stylesheet_link_tag "application", :media => "all" %>
 
-<script src="/assets/popcorn/popcorn.js"></script>
-<%= javascript_include_tag 'application' %>
-<%= javascript_include_tag 'require.js', 'data-main' => '/assets/bootstrap' %>
+
+<%= javascript_include_tag 'vendor/modernizr/modernizr-2.6.2' %>
+<%= javascript_include_tag 'vendor/popcorn/popcorn.js' %>
+
+<% if Rails.env.development? %>
+  <%= javascript_include_tag 'vendor/require/require.js', 'data-main' => '/assets/bootstrap' %>
+<% else %>
+  <%= javascript_include_tag 'vendor/require/require.js', 'data-main' => '/build/javascripts/vocat.js' %>
+<% end %>
+
 <%= csrf_meta_tags %>
 
 <%= yield(:head) %>

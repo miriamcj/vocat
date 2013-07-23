@@ -1,0 +1,15 @@
+<figure class="frame-attachment">
+  <div class="attachment-placeholder">
+	  {{#if project.current_user_can_attach}}
+	  <a data-behavior="routable" class="attachment-placeholder--button" href="#">Upload video now</a>
+	  {{else}}
+	  <span class="attachment-placeholder--message">No video has been uploaded</span>
+	  {{/if}}
+  </div>
+</figure><!-- removes whitespace between columns
+--><div class="frame-summary">
+    <h2 class="frame-summary--title"><a href="/courses/{{project.course_id}}/creator/{{project.current_user_id}}/project/{{project.id}}">{{project.name}}</a></h2>
+    <h3 class="frame-summary--course"><a href="/courses/{{project.course_id}}/creator/{{project.current_user_id}}/project/{{project.id}}"><strong>{{project.course_department}}{{project.course_number}} </strong> {{project.course_name}} [Section {{project.course_section}}]</a></h3>
+		{{> templates_partials_scoreSummary}}
+    <a class="frame-summary--link" href="/courses/{{project.course_id}}/creator/{{project.current_user_id}}/project/{{project.id}}">Submit a Video</a>
+  </div>
