@@ -31,6 +31,12 @@ gem 'kaminari'
 gem 'rails-backbone'
 gem 'faker'
 
+group :development do
+  gem 'guard'
+  gem 'guard-coffeescript'
+  gem 'guard-copy'
+end
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

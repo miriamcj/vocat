@@ -11,13 +11,14 @@
 define: false, process: false, window: false */
 define([
 //>>excludeStart('excludeHbs', pragmas.excludeHbs)
-'Handlebars', 'hbs/underscore', 'i18nprecompile', 'hbs/json2'
+'handlebars', 'underscore', 'i18nprecompile', 'json2'
 //>>excludeEnd('excludeHbs')
 ], function (
 //>>excludeStart('excludeHbs', pragmas.excludeHbs)
  Handlebars, _, precompile, JSON
 //>>excludeEnd('excludeHbs')
 ) {
+
 //>>excludeStart('excludeHbs', pragmas.excludeHbs)
   var fs, getXhr,
         progIds = ['Msxml2.XMLHTTP', 'Microsoft.XMLHTTP', 'Msxml2.XMLHTTP.4.0'],
@@ -396,7 +397,7 @@ define([
                       prec = precompile( text, mapping, options);
 
                   text = "/* START_TEMPLATE */\n" +
-                         "define(['hbs','Handlebars'"+depStr+helpDepStr+"], function( hbs, Handlebars ){ \n" +
+                         "define(['hbs','handlebars'"+depStr+helpDepStr+"], function( hbs, Handlebars ){ \n" +
                            "var t = Handlebars.template(" + prec + ");\n" +
                            "Handlebars.registerPartial('" + name.replace( /\//g , '_') + "', t);\n" +
                            debugProperties +
@@ -459,7 +460,6 @@ define([
             } else {
               path = parentRequire.toUrl(name +'.'+ (config.hbs && config.hbs.templateExtension ? config.hbs.templateExtension : templateExtension));
             }
-
             if (disableI18n){
                 fetchAndRegister(false);
             } else {
