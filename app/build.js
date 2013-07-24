@@ -42,6 +42,6 @@
     'marionette': 'vendor/marionette/marionette',
     'jquery_ui': 'vendor/ui/jquery_ui'
   },
-  out: '../public/build/javascripts/vocat.js',
+  out: '../public/assets/build/javascripts/vocat.js',
   name: 'bootstrap',
 })
