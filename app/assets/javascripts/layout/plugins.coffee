@@ -10,19 +10,21 @@ define ['vendor/plugins/waypoints', 'jquery_rails'], (waypoints, $) ->
 
       return @each ()->
         $container= $(@)
-        $toggle = $container.find('[data-behavior="toggle"]')
-        $(document).click( ->
-          $container.removeClass('open')
-        )
-        $toggle.click( (event) ->
-          event.preventDefault()
-          if $container.hasClass('open')
+        if !$container.hasClass('dropdown-initialized')
+          $container.addClass('dropdown-initialized')
+          $toggle = $container.find('[data-behavior="toggle"]')
+          $(document).click( ->
             $container.removeClass('open')
-            event.stopPropagation()
-          else
-            $container.addClass('open')
-            event.stopPropagation()
-        )
+          )
+          $toggle.click( (event) ->
+            event.preventDefault()
+            if $container.hasClass('open')
+              $container.removeClass('open')
+              event.stopPropagation()
+            else
+              $container.addClass('open')
+              event.stopPropagation()
+          )
 
   ##########################################
   # Sticky Header Plugin
