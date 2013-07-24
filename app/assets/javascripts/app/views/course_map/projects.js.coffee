@@ -27,3 +27,8 @@ define [
     initialize: (options) ->
       @options = options || {}
       @vent = Marionette.getOption(@, 'vent')
+
+    onRender: () ->
+      spacers = 4 - @collection.length + 1
+      while spacers -= 1
+        @$el.append('<li></li>')

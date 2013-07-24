@@ -116,6 +116,7 @@ define [
     onRepaint: () ->
       @setContentContainerHeight()
       @calculateAndSetSliderWidth()
+      @setSpacerCellHeights()
 
     onShow: () ->
       @onRepaint()
@@ -154,6 +155,13 @@ define [
         @ui.overlay.fadeOut 500, () =>
       if @ui.header.is(':visible')
         @ui.header.fadeOut 500, () =>
+
+    setSpacerCellHeights: () ->
+      $spacers = @$el.find('.matrix--row-spacer')
+      documentHeight = $(document).outerHeight()
+      regionHeight = $('#region-main').outerHeight()
+      diff = documentHeight - regionHeight - 83 # This constant seems suspect. Not sure that it's really a constant. --ZD
+      $spacers.height(diff)
 
     setContentContainerHeight: () ->
       # Content container should be as tall as the window

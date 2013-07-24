@@ -13,15 +13,18 @@ define [
 
     template: template
 
+    ui: {
+      spacerCells: '.matrix--row-spacer li'
+    }
+
     events: {
-      'click .matrix--cell': 'onDetail'
+      'click [data-behavior="matrix-cell"]': 'onDetail'
       'click [data-behavior="publish-toggle"]': 'onPublishToggle'
       'mouseover .matrix--row': 'onRowActive'
       'mouseout .matrix--row': 'onRowInactive'
-      'mouseover .matrix--cell': 'onColActive'
-      'mouseout .matrix--cell': 'onColInactive'
+      'mouseover [data-behavior="matrix-cell"]': 'onColActive'
+      'mouseout [data-behavior="matrix-cell"]': 'onColInactive'
     }
-
 
     onPublishToggle: (e) ->
       e.preventDefault()
@@ -67,9 +70,6 @@ define [
       project= $(e.currentTarget).data().project
       @vent.triggerMethod('col:inactive', {project: project})
 
-    onRender: () ->
-      @vent.triggerMethod('repaint')
-
     initialize: (options) ->
       @options = options || {}
       @vent = Marionette.getOption(@, 'vent')
@@ -85,9 +85,22 @@ define [
       @listenTo @collections.submission, 'change', (name) =>
         @render()
 
+    onShow: () ->
+      @vent.triggerMethod('repaint')
+
+    onRender: () ->
+      @vent.triggerMethod('repaint')
+
 
     serializeData: () ->
+
+      spacers = []
+      iter = 4 - @collections.project.length + 1
+      while iter -= 1
+        spacers.push({})
+
       out = {
+        spacers: spacers
         courseId: @courseId
         creators: @collections.creator.toJSON()
         projects: @collections.project.toJSON()
