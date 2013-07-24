@@ -226,7 +226,6 @@ DEPENDENCIES
   guard-coffeescript
   guard-copy
   jquery-fileupload-rails
-  jquery-rails
   kaminari
   paper_trail (~> 2)
   paperclip (~> 3.4.0)

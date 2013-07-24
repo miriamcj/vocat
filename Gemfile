@@ -7,12 +7,8 @@ gem 'active_model_serializers', '~> 0.7.0'
 gem 'activerecord-postgres-hstore'
 gem 'pg'
 
-gem 'jquery-rails'
+#gem 'jquery-rails' # We vendor this directly so it can be included in our require.js pipeline
 gem 'jquery-fileupload-rails'
-
-#gem 'js-routes'
-#gem 'requirejs-rails'
-
 
 gem 'simple_form'
 gem 'therubyracer'
@@ -23,7 +19,6 @@ gem 'aws-sdk', '~> 1.8.1'
 gem 'delayed_job_active_record'
 gem 'quiet_assets'
 gem 'cancan'
-
 gem 'kaminari'
 
 
@@ -44,5 +39,4 @@ group :assets do
 	gem 'sass-rails',   '~> 3.2.3'
 	gem 'coffee-rails', '~> 3.2.1'
 	gem 'uglifier', '>= 1.0.3'
-#	gem 'handlebars_assets'
 end
