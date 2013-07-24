@@ -10,3 +10,6 @@ define ['marionette', 'backbone', 'models/submission'], (Marionette, Backbone, S
 
     url: () ->
       "/api/v1/courses/#{@courseId}/submissions"
+
+    comparator: (submission) ->
+      submission.get('project_name')
