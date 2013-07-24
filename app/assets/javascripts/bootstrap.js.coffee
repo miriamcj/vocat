@@ -27,6 +27,8 @@ requirejs.config {
     'models' : 'app/models'
     'hbs' : 'vendor/require/hbs'
     'cs' : 'vendor/require/coffee-script'
+    'jquery' : 'vendor/jquery/jquery'
+    'jquery_ujs' : 'vendor/jquery/jquery_ujs'
     'jquery_rails' : 'vendor/jquery/jquery-with-rails-ujs'
     'i18nprecompile' : 'vendor/hbs/i18nprecompile'
     'json2' : 'vendor/hbs/json2'
