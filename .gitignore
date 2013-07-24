@@ -16,3 +16,5 @@ config/s3.yml
 /tmp
 .vagrant
 .idea
+
+/public/assets
