@@ -9,9 +9,25 @@ define [
 
     template: template
 
+    ui: {
+      dropdowns: '[data-behavior="dropdown"]'
+    }
+
+    events:
+      'click [data-behavior="routable"]':  'onExecuteRoute'
+
+    onExecuteRoute: (e) ->
+      e.preventDefault()
+      href = $(e.currentTarget).attr('href')
+      if href
+        window.Vocat.courseMapRouter.navigate(href, true)
+
     triggers: {
       'click [data-behavior="overlay-close"]' : 'close'
     }
+
+    onRender: () ->
+      @ui.dropdowns.dropdownNavigation()
 
     onClose: () ->
       @vent.triggerMethod('close:overlay')
@@ -26,6 +42,7 @@ define [
 
     serializeData: () ->
       context = {}
+      context.projects = @collections.project.toJSON()
       if @collections.creator.getActive()? then context.creator = @collections.creator.getActive().toJSON()
       if @collections.project.getActive()? then context.project = @collections.project.getActive().toJSON()
       context

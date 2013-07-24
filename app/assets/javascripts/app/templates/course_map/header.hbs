@@ -5,10 +5,10 @@
 <nav class="matrix--overlay-header-selector" data-behavior="dropdown">
   <a class="project-selector--toggle" data-behavior="toggle" href="#">
       {{#if creator.id}}
-        View submission
+          {{creator.first_name}}'s submissions
       {{else}}
         {{#if project.id}}
-          View submission
+          View submissions
         {{/if}}
       {{/if}}
   </a>
@@ -16,7 +16,7 @@
     <ul>
       {{#if creator.id}}
         {{#each ../projects}}
-          <li><a data-behavior="routable" href="/courses/{{../../courseId}}/evaluations/creator/{{../../creator.id}}/project/{{this.id}}"><strong>{{this.name}}</strong></a></li>
+          <li><a data-behavior="routable" href="/courses/{{course_id}}/evaluations/creator/{{../../creator.id}}/project/{{id}}"><strong>{{name}}</strong></a></li>
         {{/each}}
       {{else}}
         {{#if ../project.id}}
