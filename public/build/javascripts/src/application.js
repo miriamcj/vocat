@@ -11,3 +11,4 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require vendor/modernizr/modernizr-2.6.2
+//= require vendor/popcorn/popcorn
