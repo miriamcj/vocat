@@ -14,7 +14,7 @@
 <% if Rails.env.development? %>
   <%= javascript_include_tag 'vendor/require/require.js', 'data-main' => '/assets/bootstrap' %>
 <% else %>
-  <%= javascript_include_tag 'vendor/require/require.js', 'data-main' => '/build/javascripts/vocat.js' %>
+  <script type="text/javscript" src="/build/javscripts/src/vendor/require/require.js" data-main="/build/javascripts/vocat.js"></script>
 <% end %>
 
 <%= csrf_meta_tags %>
