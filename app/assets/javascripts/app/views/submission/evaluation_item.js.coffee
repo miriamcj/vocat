@@ -42,7 +42,6 @@ define ['marionette', 'hbs!templates/submission/evaluation_item', 'vendor/plugin
       )
 
     serializeData: () ->
-      console.log @model.attributes
       out = @model.toJSON()
       out.rubric = @rubric.toJSON()
       out

@@ -13,6 +13,10 @@ define ['marionette', 'hbs!templates/portfolio/portfolio_item_submission'], (Mar
       options = _.extend(@defaults, options);
       @showCourse = options.showCourse
       @showCreator = options.showCreator
+      @listenTo(@model, 'change', () =>
+        @render()
+      )
+
 
     serializeData: () ->
       data = super()
