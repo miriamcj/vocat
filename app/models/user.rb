@@ -19,9 +19,9 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :name
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name
 
-  default_scope order("name ASC")
+  default_scope order("last_name ASC")
 
   ROLES = %w(creator evaluator admin)
 
@@ -30,6 +30,10 @@ class User < ActiveRecord::Base
       raise "The role #{role.to_s} doesn't exist."
     end
     ROLES.index(base_role.to_s) <= ROLES.index(role)
+  end
+
+  def name
+    "#{first_name} #{last_name}"
   end
 
   def has_courses
