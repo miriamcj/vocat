@@ -18,3 +18,5 @@ config/s3.yml
 .idea
 
 /public/assets
+/public/build
+/build/javascripts

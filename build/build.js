@@ -1,5 +1,5 @@
 ({
-  baseUrl: "../public/build/javascripts/src",
+  baseUrl: "javascripts/src",
   fileExclusionRegExp: /^(off)$/,
   shim: {
     'vendor/jquery/jquery-with-rails-ujs': ['jquery'],
@@ -42,6 +42,6 @@
     'marionette': 'vendor/marionette/marionette',
     'jquery_ui': 'vendor/ui/jquery_ui'
   },
-  out: '../public/assets/build/javascripts/vocat.js',
-  name: 'bootstrap',
+  out: '../public/build/bootstrap.js',
+  name: 'bootstrap'
 })

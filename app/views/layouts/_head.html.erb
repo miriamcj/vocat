@@ -4,18 +4,16 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<!-- TODO move to correct place -->
-<script type="text/javascript" src="//use.typekit.net/dwf7ffn.js"></script>
-<%= stylesheet_link_tag "application", :media => "all" %>
-
-
-<%= javascript_include_tag 'application' %>
-
+<%= javascript_include_tag '//use.typekit.net/dwf7ffn.js' %>
+<%= javascript_include_tag 'vendor/modernizr/modernizr-2.6.2' %>
+<%= javascript_include_tag 'vendor/popcorn/popcorn' %>
 <% if Rails.env.development? %>
-  <%= javascript_include_tag 'vendor/require/require.js', 'data-main' => '/assets/bootstrap' %>
+<%= javascript_include_tag 'vendor/require/require', 'data-main' => '/assets/bootstrap' %>
 <% else %>
-  <%= javascript_include_tag 'vendor/require/require.js', 'data-main' => '/assets/build/javascripts/vocat.js' %>
+<%= javascript_include_tag 'vendor/require/require', 'data-main' => '/build/bootstrap' %>
 <% end %>
+
+<%= stylesheet_link_tag "application", :media => "all" %>
 
 <%= csrf_meta_tags %>
 
