@@ -1,11 +1,13 @@
 define [
   'marionette',
   'hbs!templates/course_map/matrix',
-  'collections/submission_collection'
+  'collections/submission_collection',
+  'models/evaluation'
 ], (
   Marionette,
   template,
-  SubmissionCollection
+  SubmissionCollection,
+  EvaluationModel
 ) ->
   class CourseMapMatrix extends Marionette.ItemView
 
@@ -13,11 +15,32 @@ define [
 
     events: {
       'click .matrix--cell': 'onDetail'
+      'click [data-behavior="publish-toggle"]': 'onPublishToggle'
       'mouseover .matrix--row': 'onRowActive'
       'mouseout .matrix--row': 'onRowInactive'
       'mouseover .matrix--cell': 'onColActive'
       'mouseout .matrix--cell': 'onColInactive'
     }
+
+
+    onPublishToggle: (e) ->
+      e.preventDefault()
+      e.stopPropagation()
+      $el = $(e.currentTarget)
+      data = $el.data()
+      console.log data
+      submission = @collections.submission.get(data.submission)
+      evaluationData = submission.get('current_user_evaluation')
+      if evaluationData?
+        evaluation = new EvaluationModel(evaluationData)
+        if submission.get('current_user_evaluation_published') == true
+          evaluation.save({published: false})
+          submission.set('current_user_evaluation_published', false)
+          @render()
+        else
+          evaluation.save({published: true})
+          submission.set('current_user_evaluation_published', true)
+          @render()
 
     onDetail: (e) ->
       e.preventDefault()

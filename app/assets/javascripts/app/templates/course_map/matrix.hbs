@@ -18,7 +18,7 @@
           {{/if}}
         </h2>
         </a>
-        <div class="matrix--cell--indicator {{#if current_user_evaluation_published}}active{{/if}}">
+        <div data-submission="{{id}}" data-behavior="publish-toggle" class="matrix--cell--indicator {{#if current_user_evaluation_published}}active{{/if}}">
           {{#if current_user_has_evaluated}}
             <b></b>
             {{#if current_user_evaluation_published}}
