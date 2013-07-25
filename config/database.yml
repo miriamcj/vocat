@@ -21,6 +21,12 @@ test:
   <<: *common
   database: vocat_test
 
+# For testing
+
+#staging:
+#  <<: *common
+#  database: vocat_development
+
 staging:
   adapter: postgresql
   host: localhost
