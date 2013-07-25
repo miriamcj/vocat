@@ -1,12 +1,12 @@
-<ul style="margin-bottom: 4rem;" class="js-toggle-detail-off frame-summary--score-list">
-  <li data-behavior="toggle-trigger" class="frame-summary--evaluated" style="padding-right: {{ invert total_percentage_rounded }}%">
+<ul style="margin-bottom: 1.6rem;" class="js-toggle-detail-off frame-summary--score-list">
+  <li data-behavior="toggle-trigger" class="frame-summary--evaluated" style="margin-bottom: 1.6rem; padding-right: {{ invert total_percentage_rounded }}%">
     <h4 class="frame-summary--score--title">
       {{evaluator_name}} - {{evaluator_role}}
     </h4>
     <span class="frame-summary--score--value">{{total_percentage_rounded}}<small>%</small></span>
   </li>
   <li>
-    <ul data-behavior="toggle-target" class="scoring-list">
+    <ul style="margin-bottom: 4rem;" data-behavior="toggle-target" class="scoring-list">
       {{#each_property scores high=rubric.high_score}}
       <li>
         <div class="range-input">
@@ -22,7 +22,6 @@
         </div>
       </li>
       {{/each_property}}
-
     </ul>
   </li>
 </ul>
