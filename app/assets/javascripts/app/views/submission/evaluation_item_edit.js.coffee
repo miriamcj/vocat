@@ -18,6 +18,8 @@ define ['marionette', 'hbs!templates/submission/evaluation_item_edit', 'vendor/p
 
     events: {
       'slider:changed [data-slider="true"]': 'onInputInvisibleChange'
+      'mouseenter [data-help]': 'onHelpShow'
+      'mouseleave [data-help]': 'onHelpHide'
     }
 
     triggers: {
@@ -37,6 +39,14 @@ define ['marionette', 'hbs!templates/submission/evaluation_item_edit', 'vendor/p
         @ui.unpublishButton.hide()
         @ui.publishState.html('hidden')
 
+
+    onHelpShow: (event) ->
+      target = $(event.currentTarget)
+      Vocat.vent.trigger('help:show',{on: target, orientation: 'nne', key: target.attr('data-help')})
+
+    onHelpHide: (event) ->
+      target = $(event.currentTarget)
+      Vocat.vent.trigger('help:hide',{on: target, key: target.attr('data-help')})
 
     onModelPublish: () ->
       @model.save({published: true}, {

@@ -76,6 +76,14 @@ class Rubric < ActiveRecord::Base
     "#{range_key}/#{field_key}"
   end
 
+  def get_low_for_range(range)
+    self.range_lows[range]
+  end
+
+  def get_high_for_range(range)
+    self.range_highs[range]
+  end
+
   def add_range_description_for_field(range, field, desc)
     key = self.range_description_key(range, field)
     self.range_descriptions[key] = desc

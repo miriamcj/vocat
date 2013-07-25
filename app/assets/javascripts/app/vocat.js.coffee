@@ -1,7 +1,7 @@
 define [
-  'marionette', 'backbone', 'controllers/global_flash_controller', 'routers/portfolio_router', 'routers/coursemap_router', 'routers/submission_router'
+  'marionette', 'backbone', 'controllers/global_flash_controller', 'routers/portfolio_router', 'routers/coursemap_router', 'routers/submission_router', 'routers/page_router', 'views/help/placard'
 ], (
-  Marionette, Backbone, GlobalFlashController, PortfolioRouter, CourseMapRouter, SubmissionRouter
+  Marionette, Backbone, GlobalFlashController, PortfolioRouter, CourseMapRouter, SubmissionRouter, PageRouter, HelpPlacardView
 ) ->
 
   window.Vocat = Vocat = new Marionette.Application()
@@ -15,7 +15,16 @@ define [
     Vocat.portfolioRouter = new PortfolioRouter()
     Vocat.courseMapRouter = new CourseMapRouter()
     Vocat.submissionRouter = new SubmissionRouter()
+    Vocat.submissionRouter = new PageRouter()
     Backbone.history.start({pushState: true})
+
+
+  Vocat.on('initialize:before', () ->
+    helpPlacardViews = []
+    $('[data-view="help-placard"]').each( (index, el) ->
+      helpPlacardViews.push new HelpPlacardView({el: el})
+    )
+  )
 
   # Some controllers are omnipresent, not tied to a router
   globalFlashController = new GlobalFlashController

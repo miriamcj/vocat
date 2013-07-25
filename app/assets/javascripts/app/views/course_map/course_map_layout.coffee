@@ -114,7 +114,6 @@ define [
       #@$el.find('[data-project="'+args.project+'"]').removeClass('active')
 
     onRepaint: () ->
-      @setContentContainerHeight()
       @calculateAndSetSliderWidth()
       @setSpacerCellHeights()
 
@@ -129,14 +128,6 @@ define [
 
     onOpenOverlay: () ->
       @ui.overlay.css({top: '8rem', zIndex: 250, position: 'absolute', minHeight: @matrix.$el.outerHeight()})
-
-
-#      @ui.overlay.parent().height(@ui.overlay.outerHeight())
-#      console.log 'setting margin top to: ' + (@$el.find('.matrix--content').height() * -1)
-#      @ui.overlay.css('margin-top', (@$el.find('.matrix--content').height() * -1)).css('z-index',200)
-#      # Set min height on overlay
-#      @ui.overlay.css('min-height', @$el.find('[data-behavior="matrix-creators-list"]').outerHeight())
-#      # Fade it in if not visible
       if !@ui.overlay.is(':visible')
         @ui.overlay.fadeIn(500)
       if !@ui.header.is(':visible')
@@ -162,15 +153,6 @@ define [
       regionHeight = $('#region-main').outerHeight()
       diff = documentHeight - regionHeight - 83 # This constant seems suspect. Not sure that it's really a constant. --ZD
       $spacers.height(diff)
-
-    setContentContainerHeight: () ->
-      # Content container should be as tall as the window
-#      $spacers = @$el.find('.matrix--row-spacer')
-#      spacerOffset = @$el.find('.matrix--row-spacer').offset()
-#      bodyHeight = $('body').outerHeight()
-#      diff = bodyHeight - spacerOffset.top
-#      $spacers.css('min-height', diff + 'px');
-#      height = @$el.find('.matrix--content').outerHeight() +  @$el.find('.matrix--overlay header').outerHeight()
 
     calculateAndSetSliderWidth: () ->
       slider = @$el.find('[data-behavior="matrix-slider"]').first()

@@ -24,6 +24,7 @@ class Courses::EvaluationsController < ApplicationController
     else
       authorize! :read, submission
     end
+    @submission = submission
     @submissions = [submission]
     render
 
