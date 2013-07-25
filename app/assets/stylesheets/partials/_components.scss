@@ -9,7 +9,7 @@
   background-color: $beige;
 	margin: 0 auto;
   // TODO this cuts off help overlays that extend beyond .container; reposition help overlays
-  overflow: hidden;
+  // overflow: hidden;
   body.course-map & {
     overflow: visible;
   }
@@ -1029,6 +1029,7 @@ a.table--heading {
 }
 
 .discussion-list--input-container {
+  margin-left: 5rem;
   margin-left: 5rem;
 }
 
