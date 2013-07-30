@@ -17,8 +17,7 @@
   margin-bottom: 3.2rem;
 }
 
-// NB this shadow will bleed out on all sides;
-// keep calm & mind your z-indexes
+// NB whatever you apply this to needs to have positioning
 .shaded-bottom {
   @extend %shaded-bottom;
   margin-bottom: 3.2rem;
