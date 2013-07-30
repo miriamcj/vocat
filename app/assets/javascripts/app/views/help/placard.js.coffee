@@ -66,10 +66,6 @@ define [
       myOffsetTop = onOffset.top - containerOffset.top + @topPositionAdjust
       myOffsetLeft = @leftPositionAdjust
 
-      console.log containerOffset,'co'
-      console.log targetOffset,'to'
-
-
       # Adjust offset based on orientation
       orientation = @setOrientation(orientation)
       if orientation?
@@ -111,9 +107,7 @@ define [
         top: myOffsetTop
         left: myOffsetLeft
       }
-#      newPosition.left = 0
 
-      console.log newPosition, 'new position'
       @$el.css(newPosition)
       @shownOn = targetEl
 
