@@ -126,7 +126,7 @@ define ['marionette', 'hbs!templates/submission/evaluation_item_edit', 'vendor/p
       per = parseFloat(total / pointsPossible) * 100
       @ui.scoreTotalPercentage.html(per.toFixed(1))
       @ui.scoreTotal.html(total)
-      @ui.percentageBar.animate({'padding-right': (100 - parseInt(per)) + '%'})
+      @ui.percentageBar.animate({'padding-right': (100 - parseInt(per)) + '%'}, 150)
 
     onShow: () ->
       @initializeSliders()
