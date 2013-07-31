@@ -8,7 +8,7 @@
   <li>
     <ul class="scoring-list">
       {{#each_property scores}}
-      <li data-help="rubric:field:{{property}}" >
+      <li data-key="{{property}}" data-help="rubric:field:{{property}}" >
         <div class="range-input">
           <input data-key="{{property}}" type="text" value="{{value}}" data-slider="true" >
           <div class="range-input--title">{{property}}</div>

@@ -58,6 +58,7 @@ define [
           @trigger('error:add', {level: 'notice', msg: 'Evaluation successfully created'})
         , error: () =>
           @trigger('error:add', {level: 'error', msg: 'Unable to create evaluation. Perhaps you do not have permission to evaluate this submission.'})
+          @render()
       })
 
     onEvaluationDestroy: () ->
@@ -72,6 +73,7 @@ define [
             console.log @model
             @trigger('error:add', {level: 'notice', msg: 'Evaluation successfully deleted'})
         })
+        @render()
 
     serializeData: () ->
       {

@@ -30,6 +30,12 @@ define [
   globalFlashController = new GlobalFlashController
   globalFlashController.show()
 
+  # Some global app constants that we hang on the Vocat object rather than passing them around via events.
+  # Another reason for setting these thing at a very high level is that they can potentially be stored in
+  # session data and need to persist across page reloads. We want these variables stored in high-level
+  # location rather than in individual views.
+  Vocat.glossaryEnabled = false
+
   return Vocat
 
 

@@ -7,29 +7,47 @@ define [
   class RubricFieldPlacard extends Placard
 
     template: template
-    className: 'placard wide'
+    className: 'placard'
     tagName: 'aside'
     attributes: {
       style: 'display: none'
     }
 
-    initialize: (options) ->
-      @orientation = 'nnw'
-      @field = options.field
-      @key = "rubric:field:#{@field.id}"
-      @rubric = options.rubric
-      @data = {}
-      @data.key = @key
-      @initializeEvents()
+    onInitialize: () ->
+      @options.showTest = () =>
+        if Vocat.glossaryEnabled == true then true else false
+
+      @listenTo(@, 'before:show', (data) => @onBeforeShow(data))
+      @listenTo(Vocat.vent, "#{@options.key}:change", (data) =>
+        @showScoreDescription(data.score)
+      )
+
+    showScoreDescription: (score) ->
+      showEl = null
+      elements = @$el.find('[data-low]')
+      elements.each( (index, el) =>
+        $el = $(el)
+        data = $el.data()
+        if parseInt(data.low) <= score && parseInt(data.high) >= score
+          showEl = $el
+      )
+      unless showEl? then showEl = elements.first()
+      elements.hide()
+      showEl.show()
+
+    onBeforeShow: (data) ->
+      if @visible == false
+        score = data.data.score
+        @showScoreDescription(score)
 
     serializeData: () ->
       out = {
-        fieldName: @field.name
-        fieldId: @field.id
+        fieldName: @options.field.name
+        fieldId: @options.field.id
         descriptions: []
       }
-      _.each(@rubric.ranges, (range) =>
-        description = @field.range_descriptions[range.id]
+      _.each(@options.rubric.ranges, (range) =>
+        description = @options.field.range_descriptions[range.id]
         out.descriptions.push({
           rangeName: range.name
           rangeLow: range.low

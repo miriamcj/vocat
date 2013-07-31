@@ -11,16 +11,24 @@ define [
     hideTimeout: null
     leftPositionAdjust: 0
     topPositionAdjust: -5
+    visible: false
 
+    # options.orientation = where the placard should display
+    # options.key = when help:show is triggered, a data is object that contains a key (data.key). The key must match options.key for this placard to be shown.
+    # options.showtest = () -> true || false -- an anonymous function to be execute before the placard is shown.
+    # options.key and options.orientation can also be set on the placard <aside> element as data-key and data-orienation attributes. This is useful for placards generated server-side.
     initialize: (options) ->
-      @data = @$el.data()
+      @options = options
 
-      if @data.trigger?
-        @key = @data.trigger
-      else
-        @key = options.key
+      data = @$el.data()
+      if data.key? && !@options.key then @options.key = data.key
+      if data.orientation? && !@options.orientation then @options.orientation = data.orientation
 
       @initializeEvents()
+      if typeof(@['onInitialize']) == 'function'
+        @.onInitialize()
+
+
 
     initializeEvents: () ->
       @$el.bind('mouseenter', () =>
@@ -28,12 +36,18 @@ define [
       )
 
       @$el.bind('mouseleave', () =>
-        Vocat.vent.trigger('help:hide', {key: @key})
+        Vocat.vent.trigger('help:hide', {key: @options.key})
       )
 
       @listenTo(Vocat.vent, 'help:show', (data) =>
+
+        if @options.showTest? && typeof @options.showTest == 'function'
+          showTestResults = @options.showTest()
+        else
+          showTestResults = true
+
         # I was totally talking to you, so please show
-        if data.key? && data.key == @key
+        if data.key? && data.key == @options.key && showTestResults
           @show(data)
         else
           # I wasn't talking to you, so please hide
@@ -44,13 +58,12 @@ define [
         # if @hideTimeout is not null, a hide has already been requested.
         if @hideTimeout == null
           @hideTimeout = setTimeout(() =>
-            if data.key? && data.key == @key
+            if data.key? && data.key == @options.key
               @hide()
           , 100)
       )
 
     positionOn: (targetEl, orientation) ->
-      console.log orientation,'orientation'
       $targetEl = $(targetEl)
 
       # Get width and height
@@ -74,7 +87,7 @@ define [
       myOffsetLeft = @leftPositionAdjust
 
       # Adjust offset based on orientation
-      orientation = @setOrientation(orientation)
+      orientation = @validateOrienation(orientation)
       if orientation?
         switch orientation
           when 'nnw'
@@ -118,7 +131,7 @@ define [
       @$el.css(newPosition)
       @shownOn = targetEl
 
-    setOrientation: (orientation) ->
+    validateOrienation: (orientation) ->
       if orientation? && _.indexOf(@orientations, orientation) != -1
         @$el.addClass(orientation).removeClass(_.reject(@orientations, (value) -> value == orientation).join(' '))
         orientation
@@ -130,11 +143,20 @@ define [
         clearTimeout(@hideTimeout)
         @hideTimeout = null
 
-      if @orientation then orientation = @orientation else orientation = data.orientation
+      if data.orientation
+        orientation = data.orientation
+      else
+        orientation = @options.orientation
+
       @positionOn(data.on, orientation)
       @shownData = data
-      console.log 'showing', @$el
+      @trigger('before:show', data)
       @$el.show()
+      @visible = true
+      @trigger('after:show', data)
 
     hide: () ->
+      @trigger('before:hide')
       @$el.hide()
+      @visible = false
+      @trigger('after:hide')

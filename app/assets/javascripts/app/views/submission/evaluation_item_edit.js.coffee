@@ -39,11 +39,19 @@ define ['marionette', 'hbs!templates/submission/evaluation_item_edit', 'vendor/p
         @ui.unpublishButton.hide()
         @ui.publishState.html('hidden')
 
+    getCurrentValueByKey: (key) ->
+      rawVal = @ui.scoreInputs.filter('[data-key="' + key + '"]').val()
+      parseInt(rawVal)
 
     onHelpShow: (event) ->
       target = $(event.currentTarget)
-      console.log 'help show', target.attr('data-help')
-      Vocat.vent.trigger('help:show',{on: target, orientation: 'nne', key: target.attr('data-help')})
+      Vocat.vent.trigger('help:show',{
+        on: target
+        key: target.attr('data-help')
+        data: {
+          score: @getCurrentValueByKey(target.attr('data-key'))
+        }
+      })
 
     onHelpHide: (event) ->
       target = $(event.currentTarget)
@@ -86,6 +94,7 @@ define ['marionette', 'hbs!templates/submission/evaluation_item_edit', 'vendor/p
       target = $(event.target)
       key = target.data().key
       @$el.find('[data-key="' + key + '"][data-slider-visible]').val(value)
+      Vocat.vent.trigger("rubric:field:#{key}:change", {score: value})
       @retotal()
 
     initialize: (options) ->
@@ -117,7 +126,8 @@ define ['marionette', 'hbs!templates/submission/evaluation_item_edit', 'vendor/p
       per = parseFloat(total / pointsPossible) * 100
       @ui.scoreTotalPercentage.html(per.toFixed(1))
       @ui.scoreTotal.html(total)
-      @ui.percentageBar.css('padding-right', (100 - parseInt(per)) + '%')
+      @ui.percentageBar.animate({'padding-right': (100 - parseInt(per)) + '%'})
+
     onShow: () ->
       @initializeSliders()
       @retotal()

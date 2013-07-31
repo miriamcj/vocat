@@ -17,16 +17,28 @@ define [
   'views/submission/discussion',
   'views/flash/flash_messages',
   'views/help/rubric_field_placard',
+  'views/help/glossary_toggle_placard',
   'models/attachment',
   'app/plugins/backbone_poller'
 ], (
-  Marionette, template, SubmissionCollection, AnnotationCollection, EvaluationCollection, PlayerView, AnnotationsView, AnnotatorView, EvaluationView, MyEvaluationView, UploadView, UploadFailedView, UploadStartedView, UploadTranscodingView, UploadStartView, DiscussionView, FlashMessagesView, RubricFieldPlacard, Attachment, Poller
+  Marionette, template, SubmissionCollection, AnnotationCollection, EvaluationCollection, PlayerView, AnnotationsView, AnnotatorView, EvaluationView, MyEvaluationView, UploadView, UploadFailedView, UploadStartedView, UploadTranscodingView, UploadStartView, DiscussionView, FlashMessagesView, RubricFieldPlacard, GlossaryTogglePlacard, Attachment, Poller
 ) ->
 
   class SubmissionLayout extends Marionette.Layout
 
     template: template
     children: {}
+    rubricPlacardsVisible: false
+
+    triggers: {
+      'mouseenter [data-trigger-glossary-toggle]': 'hover:glossary:show'
+      'mouseleave [data-trigger-glossary-toggle]': 'hover:glossary:hide'
+      'click [data-trigger-glossary-toggle]': 'null'
+    }
+
+    ui: {
+      glossaryToggle: '[data-trigger-glossary-toggle]'
+    }
 
     regions: {
       flash: '[data-region="flash"]'
@@ -38,6 +50,17 @@ define [
       annotations: '[data-region="annotations"]'
       player: '[data-region="player"]'
     }
+
+    onHoverGlossaryShow: () ->
+      Vocat.vent.trigger('help:show',{
+        on: @ui.glossaryToggle
+        orientation: 'sse'
+        key: 'glossary:toggle'
+        data: {}
+      })
+
+    onHoverGlossaryHide: () ->
+      Vocat.vent.trigger('help:hide',{key: 'glossary:toggle'})
 
     onPlayerStop: () ->
       # do something
@@ -54,7 +77,7 @@ define [
       })
 
     onSubmissionLoaded: () ->
-      @createRubricPlacards()
+      @createPlacards()
       @createEvaluationViews()
       @createAnnotationView()
       @createUploadView()
@@ -89,12 +112,13 @@ define [
     onClose: () ->
       @placards.call('remove')
 
-    createRubricPlacards: () ->
+    createPlacards: () ->
       if @project
         fields = @project.get('rubric').fields
         _.each(fields, (field) =>
-          @placards.add(new RubricFieldPlacard({field: field, rubric: @project.get('rubric')}))
+          @placards.add(new RubricFieldPlacard({orientation: 'nnw', field: field, key: "rubric:field:#{field.id}", rubric: @project.get('rubric')}))
         )
+        @placards.add(new GlossaryTogglePlacard({orientation: 'nne', key: 'glossary:toggle', rubric: @project.get('rubric')}))
         @placards.call('render')
 
     createEvaluationViews: () ->

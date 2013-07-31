@@ -526,7 +526,11 @@ a.table--heading {
   margin: 0;
   &>li {
     padding-top: 1rem;
+    padding-bottom: 4rem;
     border-top: 0.2rem solid $tealLightest;
+    .heading-large {
+      margin-bottom: 1rem;
+    }
   }
 }
 

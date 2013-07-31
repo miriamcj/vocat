@@ -8,9 +8,20 @@
 		<div data-region="annotator"></div>
 		<div class="box" data-region="upload"></div>
 	</div>
-	<div class="evaluation-detail-frame" data-region="my-evaluation"><!-- TODO: put loading indicator here --></div>
 
-	<div class="evaluation-detail-frame" data-region="evaluations"><!-- TODO: put loading indicator here --></div>
+	<div class="evaluation-detail-frame">
+
+    <header class="frame--header">
+      <h2 class="frame--title">Scores</h2>
+      <div class="frame--header--buttons">
+        <a class="gray-button" data-trigger-glossary-toggle href="">What do these scores mean?</a>
+      </div>
+    </header>
+    <ul class="frame--list">
+      <li data-region="my-evaluation"></li>
+      <li data-region="evaluations"></li>
+    </ul>
+	</div>
 
 	<div class="evaluation-detail-frame frame-light" data-region="discussion"><!-- TODO: put loading indicator here --></div>
 </div>

@@ -8,7 +8,7 @@
   <li>
     <ul style="margin-bottom: 4rem;" data-behavior="toggle-target" class="scoring-list">
       {{#each_property scores high=rubric.high_score}}
-      <li>
+      <li data-score="{{value}}" data-help="rubric:field:{{property}}">
         <div class="range-input">
           <div class="slider" style="position: relative; box-sizing: border-box;">
             <div class="track" style="position: absolute; width: {{per}}%;"></div>

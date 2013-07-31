@@ -11,6 +11,11 @@ define ['marionette', 'hbs!templates/submission/evaluation_item', 'vendor/plugin
       scoreTotal: '[data-score-total]'
     }
 
+    events: {
+      'mouseenter [data-help]': 'onHelpShow'
+      'mouseleave [data-help]': 'onHelpHide'
+    }
+
     triggers: {
       'click [data-behavior="toggle-trigger"]': 'detail:toggle'
     }
@@ -19,6 +24,22 @@ define ['marionette', 'hbs!templates/submission/evaluation_item', 'vendor/plugin
       # Need to set the height explicitly as soon as the element is rendered so that
       # the slide will have the correct height to animate.
       @ui.toggleTarget.height(@ui.toggleTarget.height()).hide()
+
+
+    onHelpShow: (event) ->
+      target = $(event.currentTarget)
+      Vocat.vent.trigger('help:show',{
+        on: target
+        key: target.attr('data-help')
+        data: {
+          score: target.attr('data-score')
+        }
+      })
+
+    onHelpHide: (event) ->
+      target = $(event.currentTarget)
+      Vocat.vent.trigger('help:hide',{on: target, key: target.attr('data-help')})
+
 
     onDetailToggle: () ->
       if @ui.toggleTarget.is(':visible')
