@@ -4,7 +4,7 @@ define [
   Backbone
 ) ->
 
-  class FlashMessagesItem extends Backbone.View
+  class Placard extends Backbone.View
 
     orientations: ['nnw', 'nne', 'ene', 'ese', 'sse', 'ssw', 'wsw', 'wnw']
     locked: false
@@ -14,8 +14,15 @@ define [
 
     initialize: (options) ->
       @data = @$el.data()
-      @key = @data.trigger
 
+      if @data.trigger?
+        @key = @data.trigger
+      else
+        @key = options.key
+
+      @initializeEvents()
+
+    initializeEvents: () ->
       @$el.bind('mouseenter', () =>
         Vocat.vent.trigger('help:show', @shownData)
       )
@@ -43,7 +50,7 @@ define [
       )
 
     positionOn: (targetEl, orientation) ->
-
+      console.log orientation,'orientation'
       $targetEl = $(targetEl)
 
       # Get width and height
@@ -122,8 +129,11 @@ define [
       if @hideTimeout
         clearTimeout(@hideTimeout)
         @hideTimeout = null
-      @positionOn(data.on, data.orientation)
+
+      if @orientation then orientation = @orientation else orientation = data.orientation
+      @positionOn(data.on, orientation)
       @shownData = data
+      console.log 'showing', @$el
       @$el.show()
 
     hide: () ->

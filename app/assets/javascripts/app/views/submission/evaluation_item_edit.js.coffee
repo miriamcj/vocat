@@ -42,6 +42,7 @@ define ['marionette', 'hbs!templates/submission/evaluation_item_edit', 'vendor/p
 
     onHelpShow: (event) ->
       target = $(event.currentTarget)
+      console.log 'help show', target.attr('data-help')
       Vocat.vent.trigger('help:show',{on: target, orientation: 'nne', key: target.attr('data-help')})
 
     onHelpHide: (event) ->

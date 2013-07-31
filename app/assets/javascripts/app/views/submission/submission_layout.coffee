@@ -16,10 +16,11 @@ define [
   'views/submission/upload/start',
   'views/submission/discussion',
   'views/flash/flash_messages',
+  'views/help/rubric_field_placard',
   'models/attachment',
   'app/plugins/backbone_poller'
 ], (
-  Marionette, template, SubmissionCollection, AnnotationCollection, EvaluationCollection, PlayerView, AnnotationsView, AnnotatorView, EvaluationView, MyEvaluationView, UploadView, UploadFailedView, UploadStartedView, UploadTranscodingView, UploadStartView, DiscussionView, FlashMessagesView, Attachment, Poller
+  Marionette, template, SubmissionCollection, AnnotationCollection, EvaluationCollection, PlayerView, AnnotationsView, AnnotatorView, EvaluationView, MyEvaluationView, UploadView, UploadFailedView, UploadStartedView, UploadTranscodingView, UploadStartView, DiscussionView, FlashMessagesView, RubricFieldPlacard, Attachment, Poller
 ) ->
 
   class SubmissionLayout extends Marionette.Layout
@@ -53,6 +54,7 @@ define [
       })
 
     onSubmissionLoaded: () ->
+      @createRubricPlacards()
       @createEvaluationViews()
       @createAnnotationView()
       @createUploadView()
@@ -64,6 +66,9 @@ define [
       @options = options || {}
       @collections = options.collections
       @collections.annotation = new AnnotationCollection([],{})
+
+      babysitter = require('backbone.babysitter');
+      @placards = new babysitter
 
       @courseId = Marionette.getOption(@, 'courseId')
       @project = Marionette.getOption(@, 'project')
@@ -80,6 +85,17 @@ define [
         })
       else
         @triggerMethod('submission:found')
+
+    onClose: () ->
+      @placards.call('remove')
+
+    createRubricPlacards: () ->
+      if @project
+        fields = @project.get('rubric').fields
+        _.each(fields, (field) =>
+          @placards.add(new RubricFieldPlacard({field: field, rubric: @project.get('rubric')}))
+        )
+        @placards.call('render')
 
     createEvaluationViews: () ->
       evaluations = new EvaluationCollection(@submission.get('evaluations'), {courseId: @courseId})
