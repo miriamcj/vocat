@@ -29,6 +29,5 @@ define [
       @vent = Marionette.getOption(@, 'vent')
 
     onRender: () ->
-      spacers = 4 - @collection.length + 1
-      while spacers -= 1
-        @$el.append('<li></li>')
+      spacers = 4 - @collection.length
+      if spacers > 0 then _(spacers).times => @$el.append '<li></li>'

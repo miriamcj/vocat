@@ -95,9 +95,8 @@ define [
     serializeData: () ->
 
       spacers = []
-      iter = 4 - @collections.project.length + 1
-      while iter -= 1
-        spacers.push({})
+      iter = 4 - @collections.project.length
+      if iter > 0 then _(iter).times -> spacers.push({})
 
       out = {
         spacers: spacers
