@@ -29,7 +29,8 @@ module ApplicationHelper
       flash.each do |level, msg|
         msg = {
             level: level,
-            msg: msg
+            msg: msg,
+            no_fade: true
         }
         messages << msg
       end

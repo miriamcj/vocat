@@ -30,7 +30,12 @@ define [
       @$el.hide()
 
     onRender: () ->
-      @$el.fadeIn()
+
+      if @model.get('no_fade') == true
+        @$el.show()
+      else
+        @$el.fadeIn()
+
       if @model.get('level') != 'error'
         setTimeout( () =>
           @onClose()

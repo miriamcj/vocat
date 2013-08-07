@@ -31,7 +31,6 @@ define [
         @collection.reset()
       )
 
-
     # This method is meant to allow direct display of server-side RAILS model validation errors.
     # The flashMessage can look like any of the following:
     #
