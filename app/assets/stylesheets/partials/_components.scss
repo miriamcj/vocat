@@ -1585,11 +1585,11 @@ a.table--heading {
     }
     &.matrix--row-spacer {
       &:hover {
-        background-color: $beigeAlt;
+        background-color: $beigeAlt !important;
       }
       &:nth-child(even) {
         &:hover {
-          background-color: $beigeLightAlt;
+          background-color: $beigeLightAlt !important;
         }
       }
     }
@@ -1751,11 +1751,11 @@ a.table--heading {
   }
   &.matrix--row-spacer {
     &:hover {
-      background-color: $beigeAlt;
+      background-color: $beigeAlt !important;
     }
     &:nth-child(even) {
       &:hover {
-        background-color: $beigeLightAlt;
+        background-color: $beigeLightAlt !important;
       }
     }
     .matrix--cell {
