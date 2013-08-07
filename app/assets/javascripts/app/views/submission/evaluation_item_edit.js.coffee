@@ -95,7 +95,7 @@ define ['marionette', 'hbs!templates/submission/evaluation_item_edit', 'vendor/p
       key = target.data().key
       @$el.find('[data-key="' + key + '"][data-slider-visible]').val(value)
       Vocat.vent.trigger("rubric:field:#{key}:change", {score: value})
-      @retotal()
+      #@retotal()
 
     initialize: (options) ->
       @vent = options.vent
@@ -117,7 +117,7 @@ define ['marionette', 'hbs!templates/submission/evaluation_item_edit', 'vendor/p
         })
       )
 
-    retotal: () ->
+    retotal: _.throttle(() ->
       total = 0
       pointsPossible = @rubric.get('points_possible')
       @ui.scoreInputs.each (index, element) ->
@@ -127,7 +127,8 @@ define ['marionette', 'hbs!templates/submission/evaluation_item_edit', 'vendor/p
       @ui.scoreTotalPercentage.html(per.toFixed(1))
       @ui.scoreTotal.html(total)
       @ui.percentageBar.animate({'padding-right': (100 - parseInt(per)) + '%'}, 150)
+    , 150)
 
     onShow: () ->
       @initializeSliders()
-      @retotal()
+      #@retotal()
