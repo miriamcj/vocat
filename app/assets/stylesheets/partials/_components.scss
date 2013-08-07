@@ -524,9 +524,9 @@ a.table--heading {
 .frame--list {
   @extend %unstyled-list;
   margin: 0;
-  &>li {
+  & .frame--list-item {
     padding-top: 1rem;
-    padding-bottom: 4rem;
+    padding-bottom: 3rem;
     border-top: 0.2rem solid $tealLightest;
     .heading-large {
       margin-bottom: 1rem;

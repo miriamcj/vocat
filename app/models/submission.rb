@@ -12,6 +12,9 @@ class Submission < ActiveRecord::Base
   delegate :name, :to => :course, :prefix => true
   delegate :section, :to => :course, :prefix => true
   delegate :name_long, :to => :course, :prefix => true
+  delegate :allows_peer_review, :to => :course, :prefix => true
+  delegate :allows_self_evaluation, :to => :course, :prefix => true
+
   delegate :id, :to => :course, :prefix => true
   delegate :name, :to => :project, :prefix => true
   delegate :name, :to => :creator, :prefix => true
@@ -175,7 +178,27 @@ class Submission < ActiveRecord::Base
     end
   end
 
-	private
+  def evaluations_visible_to(user)
+    submission_owner = creator_id
+    user_id = user.id
+    role = course.role(user)
+    # Admins and evaluators for the course can see everything
+    if role == :administrator || role == :evaluator
+      return evaluations
+    elsif role == :creator
+      if user.id == creator_id
+        # User is the submission owner, so can see own evaluation plus any published evaluations
+        return evaluations.where("evaluator_id = ? OR published = true", user.id)
+      else
+        return evaluations.where("evaluator_id = ?", user.id)
+      end
+    end
+ end
+
+
+
+
+  private
 
   def score_total(evaluations)
     sum = 0.0

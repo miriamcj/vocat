@@ -18,6 +18,14 @@ class Course < ActiveRecord::Base
 
   default_scope order("department ASC, number ASC, section ASC")
 
+  def allows_peer_review
+    get_boolean_setting_value('enable_peer_review')
+  end
+
+  def allows_self_evaluation
+    get_boolean_setting_value('enable_self_evaluation')
+  end
+
   def name_long
 		self.to_s
   end
@@ -42,6 +50,18 @@ class Course < ActiveRecord::Base
     return :creator if creators.include? user
     return :assistant if assistants.include? user
     return :evaluator if evaluators.include? user
+  end
+
+  private
+
+  def get_boolean_setting_value(key)
+    if settings.has_key?(key)
+      value = settings[key]
+      return true if value == true || value =~ (/^(true|t|yes|y|1)$/i)
+      return false if value == false || value.blank? || value =~ (/^(false|f|no|n|0)$/i)
+    else
+      return false
+    end
   end
 
 end

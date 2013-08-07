@@ -16,12 +16,12 @@ class Api::V1::SubmissionsController < ApiController
 
     role = course.role(current_user)
 
-    # Evaluators can see other creators. Creators can only see themselves
-    if role == :evaluator || role == :admin
-      authorize! :evaluate, @course
-    else
-      creator = current_user
-    end
+    ## Evaluators can see other creators. Creators can only see themselves
+    #if role == :evaluator || role == :admin
+    #  authorize! :evaluate, @course
+    #else
+    #  creator = current_user
+    #end
 
     if creator && project
       @submissions = Submission.find_or_create_by_course_creator_and_project(course, creator, project).all()
@@ -29,7 +29,7 @@ class Api::V1::SubmissionsController < ApiController
       @submissions = Submission.for_creator_and_course(creator, course).all()
     elsif project
       @submissions = Submission.for_project_and_course(project, course).all()
-    elsif role == :evaluator || role == :admin
+    elsif role == :evaluator || role == :admin || @course.allows_peer_review()
       @submissions = Submission.for_course(course).includes(:project, :course, :attachments)
     else
       @submissions = nil

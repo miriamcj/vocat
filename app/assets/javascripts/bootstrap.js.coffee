@@ -51,11 +51,9 @@ requirejs.config {
 }
 
 require ['layout/layout'], (Layout) ->
-  console.log 'bootstrapping layout'
   Layout.bootstrap()
 
 require ['app/vocat'], (Vocat) ->
-  console.log 'bootstrapping vocat'
   Vocat.start()
 
 

@@ -38,6 +38,7 @@ define [
     serializeData: () ->
       {
       evaluationExists: @collection.length > 0
+      label: @options.label
       }
 
     initialize: (options) ->

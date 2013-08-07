@@ -1,6 +1,7 @@
 class Courses::Manage::SettingsController < ApplicationController
 
   load_and_authorize_resource :course
+  before_filter :disable_layout_messages
 
   def edit
   end
@@ -8,7 +9,7 @@ class Courses::Manage::SettingsController < ApplicationController
   def update
     respond_to do |format|
       if @course.update_attributes({:settings => params[:settings]})
-        format.html { redirect_to course_settings_path(@course), notice: 'Course settings were successfully updated.' }
+        format.html { redirect_to course_manage_settings_path(@course), notice: 'Course settings were successfully updated.' }
       else
         format.html { render action: "edit" }
       end

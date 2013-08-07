@@ -33,11 +33,10 @@ class Ability
     end
 
     can [:evaluate], Course do |course|
-      if user.role?(:evaluator) && course.evaluators.include?(user) then
-        true
-      else
-        false
-      end
+      # CAN if user is an evaluator for this course
+      user.role?(:evaluator) && course.evaluators.include?(user) ||
+      # CAN if user is a creator for this course and peer review is enabled
+      user.role?(:creator) && course.settings['enable_peer_review']
     end
 
     ######################################################
@@ -85,9 +84,10 @@ class Ability
     end
 
     can :evaluate, Submission do |submission|
-      if can?(:evaluate, submission.course)
-        next true
-      end
+      # CAN if the user can evaluate for the course and the user is not the creator of this submission
+      can?(:evaluate, submission.course) && submission.creator_id != user.id ||
+      # CAN if the course allows self evaluation and the user is the creator of this submission
+      submission.course.settings['enable_self_evaluation'] && submission.creator_id == user.id
     end
 
     can :discuss, Submission do |submission|

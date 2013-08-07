@@ -1,6 +1,7 @@
 class Courses::Manage::RubricsController < ApplicationController
 
   load_and_authorize_resource :rubric
+  before_filter :disable_layout_messages
 
   def index
     if current_user.role?(:evaluator)

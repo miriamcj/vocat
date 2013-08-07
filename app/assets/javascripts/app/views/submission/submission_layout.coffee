@@ -42,8 +42,9 @@ define [
 
     regions: {
       flash: '[data-region="flash"]'
-      evaluations: '[data-region="evaluations"]'
-      myEvaluation: '[data-region="my-evaluation"]'
+      instructorEvaluations: '[data-region="instructor-evaluations"]'
+      peerEvaluations: '[data-region="peer-evaluations"]'
+      myEvaluations: '[data-region="my-evaluations"]'
       discussion: '[data-region="discussion"]'
       upload: '[data-region="upload"]'
       annotator: '[data-region="annotator"]'
@@ -123,16 +124,22 @@ define [
 
     createEvaluationViews: () ->
       evaluations = new EvaluationCollection(@submission.get('evaluations'), {courseId: @courseId})
+
+      myEvaluationModels = evaluations.where({current_user_is_owner: true})
+      myEvaluations = new EvaluationCollection(myEvaluationModels, {courseId: @courseId})
+
+      instructorEvaluationModels = evaluations.where({evaluator_role: 'Instructor'})
+      instructorEvaluations = new EvaluationCollection(instructorEvaluationModels, {courseId: @courseId})
+
+      evaluations.remove(myEvaluationModels)
+      evaluations.remove(instructorEvaluationModels)
+
       if @submission.get('current_user_can_evaluate') == true
-        myEvaluation = evaluations.findWhere({current_user_is_owner: true})
-        if myEvaluation
-          models = [myEvaluation]
-        else
-          models = []
-        evaluations.remove(myEvaluation)
-        myEvaluations = new EvaluationCollection(models, {courseId: @courseId})
-        @myEvaluation.show new MyEvaluationView({collection: myEvaluations, model: @submission, project: @project, vent: @, courseId: @courseId})
-      @evaluations.show new EvaluationView({collection: evaluations, model: @submission, project: @project, vent: @, courseId: @courseId})
+        @myEvaluations.show new MyEvaluationView({collection: myEvaluations, model: @submission, project: @project, vent: @, courseId: @courseId})
+
+      if @submission.get('current_user_is_owner') || @submission.get('current_user_is_instructor')
+        @instructorEvaluations.show new EvaluationView({collection: instructorEvaluations, label: 'Instructor', model: @submission, project: @project, vent: @, courseId: @courseId})
+        @peerEvaluations.show new EvaluationView({collection: evaluations, label: 'Peer', model: @submission, project: @project, vent: @, courseId: @courseId})
 
     createAnnotationView: () ->
       # Create the annotations view
