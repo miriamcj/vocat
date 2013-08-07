@@ -1,7 +1,9 @@
 define 'app/helpers/each_property', ['handlebars'], (Handlebars) ->
 
   Handlebars.registerHelper "each_property", (context, options) ->
-
+    console.log context,'context'
+    console.log options,'options'
+    rubric = options.hash.rubric
     if options.hash.high?
       high = parseInt(options.hash.high)
 
@@ -13,6 +15,12 @@ define 'app/helpers/each_property', ['handlebars'], (Handlebars) ->
       else
         per = null
 
-      ret = ret + options.fn({property: prop, value: value, per: per})
+      field = _.findWhere(rubric.fields, {id: prop})
+      if field?
+        name = field.name
+      else
+        name = prop
+
+      ret = ret + options.fn({property: prop, name: name, value: value, per: per})
     )
     ret

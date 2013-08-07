@@ -1,7 +1,7 @@
 define [
-  'marionette', 'backbone', 'controllers/global_flash_controller', 'routers/portfolio_router', 'routers/coursemap_router', 'routers/submission_router', 'routers/page_router', 'views/help/placard'
+  'marionette', 'backbone', 'controllers/global_flash_controller', 'routers/portfolio_router', 'routers/coursemap_router', 'routers/submission_router', 'routers/page_router', 'routers/rubric_router', 'views/help/placard'
 ], (
-  Marionette, Backbone, GlobalFlashController, PortfolioRouter, CourseMapRouter, SubmissionRouter, PageRouter, HelpPlacardView
+  Marionette, Backbone, GlobalFlashController, PortfolioRouter, CourseMapRouter, SubmissionRouter, PageRouter, RubricRouter, HelpPlacardView
 ) ->
 
   window.Vocat = Vocat = new Marionette.Application()
@@ -16,6 +16,7 @@ define [
     Vocat.courseMapRouter = new CourseMapRouter()
     Vocat.submissionRouter = new SubmissionRouter()
     Vocat.submissionRouter = new PageRouter()
+    Vocat.rubricRouter = new RubricRouter()
     Backbone.history.start({pushState: true})
 
 

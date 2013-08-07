@@ -1,5 +1,5 @@
 class RubricSerializer < ActiveModel::Serializer
-  attributes  :id, :name, :fields, :ranges, :high_score, :points_possible
+  attributes  :id, :name, :fields, :ranges, :field_descriptions, :range_descriptions, :high_score, :points_possible, :description
 
   def fields
     out = {}

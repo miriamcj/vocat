@@ -20,6 +20,9 @@ class Rubric < ActiveRecord::Base
   end
 
   def set_field_and_ranges_from_params(fields, ranges)
+
+    clear_rubric()
+
     if ranges.respond_to?('each')
       ranges.each do |range|
         self.add_range({
@@ -127,8 +130,18 @@ class Rubric < ActiveRecord::Base
   end
 
   def high_score
-    self.range_highs.values.max.to_i
+    self.range_highs.values.map(&:to_i).max
   end
 
+  private
+
+  def clear_rubric
+    self.fields = {}
+    self.ranges = {}
+    self.range_lows = {}
+    self.range_highs = {}
+    self.range_descriptions = {}
+    self.field_descriptions = {}
+  end
 
 end

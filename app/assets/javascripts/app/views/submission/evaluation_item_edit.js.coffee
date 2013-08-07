@@ -1,6 +1,6 @@
 define ['marionette', 'hbs!templates/submission/evaluation_item_edit', 'vendor/plugins/simple_slider'], (Marionette, template) ->
 
-  class ScoreItemEdit extends Marionette.ItemView
+  class EvaluationItemEdit extends Marionette.ItemView
 
     template: template
 
@@ -107,10 +107,10 @@ define ['marionette', 'hbs!templates/submission/evaluation_item_edit', 'vendor/p
       out
 
     initializeSliders: () ->
-      @ui.scoreSliders.each( (index, el) ->
+      @ui.scoreSliders.each( (index, el) =>
         $el = $(el)
         slider = $el.simpleSlider({
-          range: [0,6]
+          range: [0, @rubric.get('high_score')]
           step: 1
           snap: true
           highlight: true

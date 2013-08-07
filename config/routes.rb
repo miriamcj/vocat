@@ -15,6 +15,7 @@ Vocat::Application.routes.draw do
         end
       end
 
+      resources :rubrics
       resources :attachments
       resources :annotations
       resources :discussion_posts

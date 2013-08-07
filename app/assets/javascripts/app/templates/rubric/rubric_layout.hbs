@@ -1,0 +1,58 @@
+<header class="bar-header">
+<h2 class="bar-header--title" style="float: none; margin-bottom: 15px;">Edit Rubric: <span data-behavior="rubric-name-shadow">{{name}}</span></h2>
+<form>
+    <fieldset>
+      <div class="input-group">
+        <label class="text-label">Rubric Name</label>
+        <input class="text-input" type="text" value="{{name}}" data-behavior="rubric-name">
+      </div>
+      <div class="input-group">
+        <label class="text-label">Description</label>
+        <textarea data-behavior="rubric-desc" class="text-area-input" rows="3">{{description}}</textarea>
+        <small class="input-message">Enter a brief description of your rubric.</small>
+      </div>
+      <div class="input-group">
+        <label class="text-label">Range</label>
+        <input class="text-input" type="text" data-behavior="range-points">
+        <small class="input-message">Set the score range for your rubric. This should be a space or comma-separated list of numbers that will serve as the low score for each rubric range.<br />For example, "60 70 80 90 100" would be a valid range.</small>
+      </div>
+      <div class="input-group">
+        <div class="input-group--half">
+          <div class="input-group">
+            <label class="text-label">Rubric Configuration</label>
+            <label class="checkbox-label">
+              <input class="checkbox" type="checkbox">
+              <b></b>
+              Published
+            </label>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+	<a href="#" data-trigger="save" class="teal-arrow-button">Save rubric</a>
+  <a href="#" data-trigger="fieldAdd" class="teal-plus-button">Add Field</a>
+  <a href="#" data-trigger="rangeAdd" class="teal-plus-button">Add Range</a>
+</header>
+
+<div class="matrix editable">
+  <div>
+    <header class="matrix--column-header">
+      <nav class="matrix--controls">
+        <a class="matrix--next inactive" data-behavior="matrix-slider-right" href="#">Next</a>
+        <a class="matrix--previous inactive" data-behavior="matrix-slider-left" href="#">Previous</a>
+      </nav>
+      <div class="matrix--list-wrapper" data-behavior="matrix-slider" data-region="fields">
+      </div>
+    </header>
+    <nav class="matrix--name-nav">
+      <header class="matrix--row-header" data-behavior="matrix-creators-list" data-region="ranges">
+      </header>
+    </nav>
+    <div class="matrix--body" data-behavior="matrix-body" >
+      <div class="matrix--content" data-behavior="matrix-slider" data-region="rows">
+      </div>
+    </div>
+  </div>
+</div>

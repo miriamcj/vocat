@@ -7,14 +7,14 @@
   </li>
   <li>
     <ul class="scoring-list">
-      {{#each_property scores}}
+      {{#each_property scores rubric=rubric}}
       <li data-key="{{property}}" data-help="rubric:field:{{property}}" >
         <div class="range-input">
           <input data-key="{{property}}" type="text" value="{{value}}" data-slider="true" >
-          <div class="range-input--title">{{property}}</div>
+          <div class="range-input--title">{{name}}</div>
         </div>
         <div class="scoring-list--output">
-          <input data-key="{{property}}" data-slider-visible="true" class="scoring-list--value" type="text" disabled="disabled" value="{{value}}"><div class="scoring-list--ideal">6</div>
+          <input data-key="{{property}}" data-slider-visible="true" class="scoring-list--value" type="text" disabled="disabled" value="{{value}}"><div class="scoring-list--ideal">{{../rubric.high_score}}</div>
         </div>
       </li>
       {{/each_property}}
