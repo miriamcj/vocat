@@ -1,8 +1,6 @@
 define 'app/helpers/each_property', ['handlebars'], (Handlebars) ->
 
   Handlebars.registerHelper "each_property", (context, options) ->
-    console.log context,'context'
-    console.log options,'options'
     rubric = options.hash.rubric
     if options.hash.high?
       high = parseInt(options.hash.high)
