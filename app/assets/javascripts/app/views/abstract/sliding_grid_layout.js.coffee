@@ -62,7 +62,6 @@ define [
     updateSliderControls: () ->
 
       slider = @$el.find('[data-behavior="matrix-slider"]').first()
-      console.log slider.find('li').length, 'colCount'
 
       # The width of the slider has to be greater than 4 columns for the slider to be able to slide.
       visibleCols = @$el.find('[data-behavior="matrix-slider"]').outerWidth() / @sliderColWidth

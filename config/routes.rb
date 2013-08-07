@@ -70,11 +70,12 @@ Vocat::Application.routes.draw do
       namespace "manage" do
         resources :projects
         resources :groups
-        resources :rubrics, shallow: true
+        resources :rubrics, :only => [:index, :show, :new, :edit, :destroy]
         match 'settings' => 'settings#edit', :via => :get
         match 'settings' => 'settings#update', :via => :put
       end
     end
+
     resources :rubrics, shallow: true
 
     match 'evaluations(/creator/:creator_id)(/project/:project_id)' => 'courses/evaluations#course_map', :via => :get, :as => 'evaluations'

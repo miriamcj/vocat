@@ -5,6 +5,6 @@ define ['marionette', 'controllers/rubric_controller'], (Marionette, RubricContr
     controller: new RubricController
 
     appRoutes : {
-      'courses/:course/rubrics/new': 'new'
-      'rubrics/:rubric/edit': 'edit'
+      'courses/:course/manage/rubrics/new': 'new'
+      'courses/:course/manage/rubrics/:rubric/edit': 'edit'
     }

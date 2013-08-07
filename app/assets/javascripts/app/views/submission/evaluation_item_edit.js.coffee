@@ -95,7 +95,7 @@ define ['marionette', 'hbs!templates/submission/evaluation_item_edit', 'vendor/p
       key = target.data().key
       @$el.find('[data-key="' + key + '"][data-slider-visible]').val(value)
       Vocat.vent.trigger("rubric:field:#{key}:change", {score: value})
-      #@retotal()
+      @retotal()
 
     initialize: (options) ->
       @vent = options.vent
@@ -131,4 +131,4 @@ define ['marionette', 'hbs!templates/submission/evaluation_item_edit', 'vendor/p
 
     onShow: () ->
       @initializeSliders()
-      #@retotal()
+      @retotal()

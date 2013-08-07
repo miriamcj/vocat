@@ -10,7 +10,7 @@ define [
       view = new RubricLayoutView({courseId: courseId})
       Vocat.main.show view
 
-    edit: (rubricId) ->
+    edit: (courseId, rubricId) ->
       view = new RubricLayoutView({rubricId: rubricId})
       Vocat.main.show view
 

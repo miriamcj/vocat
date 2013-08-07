@@ -126,7 +126,6 @@ define [
       )
 
     onRubricSave: () ->
-      console.log @model.attributes, 'saving rubric'
       @model.save()
 
     onRangeAdd: () ->
@@ -143,7 +142,6 @@ define [
       @views.ranges = new RangesView({collection: @collections.range, vent: @})
 
       @listenTo(@views.fields,'after:item:added', () =>
-        console.log 'addtriggered'
         @sliderRecalculate()
       )
 
