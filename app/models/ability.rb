@@ -5,7 +5,6 @@ class Ability
 
     user ||= User.new # guest user (not logged in)
 
-
     ######################################################
     ### Courses
     ######################################################
@@ -15,45 +14,20 @@ class Ability
     end
 
     can [:update], Course do |course|
-      if course.creators.include?(user) then
-        next false
-      else
-        false
-      end
-      if user.role?(:creator) && course.assistants.include?(user) then
-        next true
-      else
-        false
-      end
-      if user.role?(:evaluator) && course.evaluators.include?(user) then
-        true
-      else
-        false
-      end
+      course.role(user) == :evaluator || user.role?('administrator') || course.role(user) == :assistant
     end
 
     can [:evaluate], Course do |course|
-      # CAN if user is an evaluator for this course
-      user.role?(:evaluator) && course.evaluators.include?(user) ||
-      # CAN if user is a creator for this course and peer review is enabled
-      user.role?(:creator) && course.settings['enable_peer_review']
+      user.role?('administrator') || (can?(:read, course) && (user.role?(:evaluator) && course.evaluators.include?(user) || user.role?(:creator) && course.settings['enable_peer_review']))
     end
 
     ######################################################
     ### Projects
     ######################################################
-    can [:manage], Project do |project|
-      begin
-        project.course.id
-      rescue
-        raise "Can't determine course role on unattached projects. Try `can? @course.projects.build` instead of `can? Project.new`."
-      end
-      if project.course.creators.include?(user)
-        next false
-      end
-      if project.course.assistants.include?(user) || project.course.evaluators.include?(user)
-        next true
-      end
+
+    can [:crud], Project do |project|
+      begin project.course.id rescue raise "Can't determine course role on unattached projects. Try `can? @course.projects.build` instead of `can? Project.new`." end
+      can?(:update, project.course)
     end
 
     can [:submit], Project do |project|
@@ -63,13 +37,7 @@ class Ability
     ######################################################
     ### Users
     ######################################################
-    can [:viewSubmissions], User do |theUser|
-      if user.id == theUser.id
-        true
-      else
-        false
-      end
-    end
+
 
     ######################################################
     ### Submissions

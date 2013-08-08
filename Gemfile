@@ -32,6 +32,12 @@ group :development do
   gem 'guard-copy'
 end
 
+group :development, :test do
+  gem 'factory_girl'
+  gem 'factory_girl_rails'
+  gem 'rspec-rails'
+end
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

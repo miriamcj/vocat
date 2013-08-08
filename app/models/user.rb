@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
 
   scope :evaluators, where(:role => "evaluator")
   scope :creators, where(:role => "creator")
-  scope :admins, where(:role => "admin")
+  scope :administrators, where(:role => "administrator")
 
   delegate :can?, :cannot?, :to => :ability
 
@@ -23,13 +23,13 @@ class User < ActiveRecord::Base
 
   default_scope order("last_name ASC")
 
-  ROLES = %w(creator evaluator admin)
+  ROLES = %w(creator evaluator administrator)
 
   def role?(base_role)
     unless User::ROLES.include? role.to_s
       raise "The role #{role.to_s} doesn't exist."
     end
-    ROLES.index(base_role.to_s) <= ROLES.index(role)
+    base_role.to_s == role.to_s
   end
 
   def name
