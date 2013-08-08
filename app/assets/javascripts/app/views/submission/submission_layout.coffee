@@ -127,11 +127,10 @@ define [
 
       myEvaluationModels = evaluations.where({current_user_is_owner: true})
       myEvaluations = new EvaluationCollection(myEvaluationModels, {courseId: @courseId})
+      evaluations.remove(myEvaluationModels)
 
       instructorEvaluationModels = evaluations.where({evaluator_role: 'Instructor'})
       instructorEvaluations = new EvaluationCollection(instructorEvaluationModels, {courseId: @courseId})
-
-      evaluations.remove(myEvaluationModels)
       evaluations.remove(instructorEvaluationModels)
 
       if @submission.get('current_user_can_evaluate') == true
