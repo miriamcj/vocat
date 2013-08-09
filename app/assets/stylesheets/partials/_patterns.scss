@@ -422,6 +422,14 @@ input%proto-button {
   }
 }
 
+%solid-ex-button {
+  @include opacity(82);
+  @include svg(circle-x-gray);
+  display: block;
+  width: 2rem;
+  height: 2rem;
+}
+
 // NB uses ems so font-size can be set on component
 %arrow-link {
   @extend %bare-link;

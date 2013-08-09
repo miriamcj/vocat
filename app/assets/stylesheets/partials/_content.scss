@@ -21,6 +21,7 @@
 .shaded-bottom {
   @extend %shaded-bottom;
   margin-bottom: 3.2rem;
+  position: relative;
 }
 
 // Headings

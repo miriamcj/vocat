@@ -178,55 +178,54 @@
   cursor: pointer;
 }
 
-
-.modal-dialog{
-  position:  absolute;
-  border: 2px solid #333333;
-  border-radius: 10px;
-  width: 400px;
-  z-index: 300;
-  background: white;
-  text-align: left;
-  .cell-edit-header {
-    border-radius: 10px 10px 0 0;
-    padding: 15px;
-    h5 {
-      display: inline;
-      margin: 0;
-      padding: 0;
-    }
-    .close-link {
-      float: right;
-    }
-    background:  #f0f0f0;
-  }
-  .cell-edit-footer {
-    position: absolute;
-    border-radius: 0 0 10px 10px;
-    bottom: 0px;
-    padding: 15px;
-    background:  #f0f0f0;
-    height: 30px;
-    width: 370px;
-    .pin-right {
-      float: right;
-    }
-    .pin-left{
-      float: left
-    }
-  }
-  .cell-edit-body {
-    @include clearfix();
-    padding: 15px 15px 70px 15px;
-    textarea {
-      height: 120px;
-      width: 95%;
-    }
-    input[type=submit] {
-      float: right;
-    }
-  }
-}
+// .modal-dialog {
+//   position:  absolute;
+//   border: 2px solid #333333;
+//   border-radius: 10px;
+//   width: 400px;
+//   z-index: 300;
+//   background: white;
+//   text-align: left;
+//   .cell-edit-header {
+//     border-radius: 10px 10px 0 0;
+//     padding: 15px;
+//     h5 {
+//       display: inline;
+//       margin: 0;
+//       padding: 0;
+//     }
+//     .close-link {
+//       float: right;
+//     }
+//     background:  #f0f0f0;
+//   }
+//   .cell-edit-footer {
+//     position: absolute;
+//     border-radius: 0 0 10px 10px;
+//     bottom: 0px;
+//     padding: 15px;
+//     background:  #f0f0f0;
+//     height: 30px;
+//     width: 370px;
+//     .pin-right {
+//       float: right;
+//     }
+//     .pin-left{
+//       float: left
+//     }
+//   }
+//   .cell-edit-body {
+//     @include clearfix();
+//     padding: 15px 15px 70px 15px;
+//     textarea {
+//       height: 120px;
+//       width: 95%;
+//     }
+//     input[type=submit] {
+//       float: right;
+//     }
+//   }
+// }
 
 h3 .editable-inline {
   display: inline;

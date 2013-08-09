@@ -4,12 +4,11 @@
 // Page level components
 // --------------------------------------------------------
 .container {
+  @extend %clearfix;
   @extend %shaded-sides;
 	width: $mainWidth;
   background-color: $beige;
 	margin: 0 auto;
-  // TODO this cuts off help overlays that extend beyond .container; reposition help overlays
-  // overflow: hidden;
   body.course-map & {
     overflow: visible;
   }
@@ -549,6 +548,9 @@ a.table--heading {
     padding: 1rem;
     border-radius: $radius;
   }
+  .compact & {
+    margin-bottom: 1.2rem;
+  }
 }
 
 .input-group--half {
@@ -702,11 +704,7 @@ a.table--heading {
     left: 1.6rem;
   }
   .close {
-    @include opacity(82);
-    @include svg(circle-x-gray);
-    display: block;
-    width: 2rem;
-    height: 2rem;
+    @extend %solid-ex-button;
     position: absolute;
     top: 1.2rem;
     right: 1.4rem;
@@ -2219,4 +2217,36 @@ a.table--heading {
       height: 1em;
     }
   }
+}
+
+// Modal
+// --------------------------------------------------------
+.modal {
+  @include box-shadow(
+    0 0 4rem 1.6rem transparentize($black, 0.92)
+  );
+  width: 61.8rem;
+  background-color: $tealLightestAlt;
+  padding: 2.4rem 5rem 2.4rem 2.4rem;
+  border-radius: $radius;
+  position: relative;
+  z-index: 300;
+}
+
+.modal--close {
+  @extend %solid-ex-button;
+  @extend %hidden-text;
+  position: absolute;
+  top: 1.4rem;
+  right: 1.4rem;
+}
+
+.modal-backdrop {
+  @include opacity(40);
+  background-color: $black;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 200;
 }

@@ -1,22 +1,13 @@
-<div class="js-modal modal-dialog">
-	<div class="cell-edit-header">
-		<h5></h5>
-		<a href="#" data-behavior="modal-close" class="close-link">close</a>
-	</div>
-	<div class="cell-edit-body">
-    <form>
-      <label>
-        {{#if_blank description}}
-          Add Description
-        {{else}}
-          Update Description
-        {{/if_blank}}
-      </label>
-      <textarea data-property="description" name="description">{{description}}</textarea>
-      <input type="submit" data-behavior="model-save" class="btn" value="save" />
-    </form>
-	</div>
-	<div class="cell-edit-footer">
+<form class="compact">
+  <div class="input-group">
+    <label class="text-label">
+      {{#if_blank description}}
+        Add Description
+      {{else}}
+        Update Description
+      {{/if_blank}}
+    </label>
+    <textarea class="text-area-input" data-property="description" name="description" rows="3">{{description}}</textarea>
   </div>
-
-</div>
+  <input type="submit" class="teal-plus-button" data-behavior="model-save" value="save" />
+</form>
