@@ -1356,6 +1356,13 @@ a.table--heading {
   }
 }
 
+.matrix--delete {
+  @extend %bare-gray-ex-button;
+  vertical-align: top;
+  margin-left: 0.6rem;
+  cursor: pointer;
+}
+
 // Column header
 // ------------
 .matrix--column-header {
@@ -1421,17 +1428,19 @@ a.table--heading {
 }
 
 // NB only use this on 'editable' matrices
-// TODO sort out what happens if three or more lines are entered
-.matrix--column-header--input {
+.matrix--column-header--editor {
   @extend %matrix--column-header--item;
   display: table-cell;
   vertical-align: middle;
   width: 100%;
   padding: 0 1.6rem;
-  [contenteditable] {
-    @extend %editable-content;
-    display: block;
-  }
+}
+
+.matrix--column-header--input {
+  @extend %medium-text-input;
+  display: inline-block;
+  width: 19rem;
+  margin-bottom: 0;
 }
 
 .matrix--controls {
@@ -1638,64 +1647,32 @@ a.table--heading {
 .matrix--row-header--item {
   display: table;
   height: 100%;
-  a,
-  .title-input {
-    @extend %beta;
-    font-weight: $bold;
-    color: $tealMedium;
-  }
   a {
+    @extend %beta;
     @extend %bare-focus;
     @extend %bare-link;
     display: table-cell;
     vertical-align: middle;
     width: $matrixCellWidth;
+    font-weight: $bold;
+    color: $tealMedium;
     padding: 0 1.6rem;
-  }
-  .title-input {
-    display: block;
-    margin-bottom: 1.2rem;
-    [contenteditable] {
-      @extend %editable-content;
-      display: block;
-    }
-  }
-  .value-input {
-    @extend %alpha;
-    display: block;
-    color: $tealLight;
-    margin-bottom: 1.2rem;
-  }
-  // TODO fix centered text in [contenteditable]:empty
-  .value-input--value {
-    display: inline-block;
-    vertical-align: middle;
-    width: 5.4rem;
-    height: 3.4rem;
-    color: $beigeLight;
-    line-height: 1;
-    background-color: $tealLight;
-    padding: 0.6rem 0.2rem;
-    border-radius: $radius;
-    overflow: hidden;
-    [contenteditable] {
-      @extend %editable-content;
-      display: block;
-      text-align: center;
-      &:hover,
-      &:focus {
-        padding-top: 0.8rem;
-        padding-bottom: 0.8rem;
-        margin-top: -0.8rem;
-        margin-bottom: -0.8rem;
-      }
-    }
   }
   .editable & {
     display: table-cell;
     vertical-align: middle;
     padding: 0 2rem;
   }
+}
+
+.matrix--row-header--input {
+  @extend %medium-text-input;
+  display: inline-block;
+  width: 12.2rem;
+}
+
+.matrix--row-header--label {
+  @extend %alpha;
 }
 
 .matrix--overlay-open {

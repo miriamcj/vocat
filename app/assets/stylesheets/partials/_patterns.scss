@@ -366,6 +366,30 @@ input%proto-button {
   }
 }
 
+// No text, just an ex in a circle
+%bare-gray-ex-button {
+  @extend %proto-button;
+  @extend %hidden-text;
+  width: 3.2rem;
+  height: 3.2rem;
+  background-color: $beigeDark;
+  padding: 0;
+  position: relative;
+  &:after {
+    @include svg(circle-x-beigeLight);
+    content: "";
+    display: block;
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+    top: 0.6rem;
+    left: 0.6rem;
+  }
+  &:hover {
+    background-color: darken($beigeDark, 12%);
+  }
+}
+
 // Not for use on <a>s; use %white-button for those
 %white-pill {
   @extend %heading-epsilon;
