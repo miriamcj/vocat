@@ -13,6 +13,7 @@ define [
   }
 
   Vocat.addInitializer () ->
+
     Vocat.portfolioRouter = new PortfolioRouter()
     Vocat.courseMapRouter = new CourseMapRouter()
     Vocat.submissionRouter = new SubmissionRouter()
@@ -22,16 +23,17 @@ define [
 
 
   Vocat.on('initialize:before', () ->
+
+    modal = new ModalLayoutView(vent: @)
+    Vocat.modal.show(modal)
+
     helpPlacardViews = []
     $('[data-view="help-placard"]').each( (index, el) ->
       helpPlacardViews.push new HelpPlacardView({el: el})
     )
   )
 
-  Vocat.on('start', () ->
-    modal = new ModalLayoutView(vent: @)
-    Vocat.modal.show(modal)
-  )
+
 
   # Some controllers are omnipresent, not tied to a router
   globalFlashController = new GlobalFlashController

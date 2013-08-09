@@ -5,5 +5,7 @@ define ['marionette', 'controllers/page_controller'], (Marionette, PageControlle
     controller: new PageController
 
     appRoutes : {
-      'pages/help_dev': 'help'
+      'pages/help_dev': 'helpDev'
+      'pages/modal_dev': 'modalDev'
     }
+
