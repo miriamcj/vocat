@@ -1,13 +1,14 @@
 define [
-  'marionette', 'backbone', 'controllers/global_flash_controller', 'routers/portfolio_router', 'routers/coursemap_router', 'routers/submission_router', 'routers/page_router', 'routers/rubric_router', 'views/help/placard'
+  'marionette', 'backbone', 'controllers/global_flash_controller', 'routers/portfolio_router', 'routers/coursemap_router', 'routers/submission_router', 'routers/page_router', 'routers/rubric_router', 'views/help/placard', 'views/modal/modal_layout'
 ], (
-  Marionette, Backbone, GlobalFlashController, PortfolioRouter, CourseMapRouter, SubmissionRouter, PageRouter, RubricRouter, HelpPlacardView
+  Marionette, Backbone, GlobalFlashController, PortfolioRouter, CourseMapRouter, SubmissionRouter, PageRouter, RubricRouter, HelpPlacardView, ModalLayoutView
 ) ->
 
   window.Vocat = Vocat = new Marionette.Application()
 
   Vocat.addRegions {
     main : '#region-main',
+    modal : '[data-region="modal"]'
     globalFlash : '#global-flash'
   }
 
@@ -25,6 +26,11 @@ define [
     $('[data-view="help-placard"]').each( (index, el) ->
       helpPlacardViews.push new HelpPlacardView({el: el})
     )
+  )
+
+  Vocat.on('start', () ->
+    modal = new ModalLayoutView(vent: @)
+    Vocat.modal.show(modal)
   )
 
   # Some controllers are omnipresent, not tied to a router

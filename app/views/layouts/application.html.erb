@@ -8,6 +8,7 @@
 </head>
 
 <body class="<%= yield(:body_class) %> <%= if current_user.role == 'admin' then 'role-admin' end %> <%= if !@course then 'no-course' end %>">
+  <div data-region="modal"></div>
   <div class="page-banner">
     <!-- TODO wrap this in a link -->
     <%= image_tag("logo-vocat-dark.png", :class => "page-banner--logo", :alt => "VOCAT") %>

@@ -1,11 +1,24 @@
-define ['marionette', 'hbs!templates/rubric/cell'], (Marionette, template) ->
+define ['marionette', 'hbs!templates/rubric/cell', 'views/rubric/cell_edit'], (Marionette, template, CellEditView) ->
 
-  class FieldsItem extends Marionette.ItemView
+  class Cell extends Marionette.ItemView
 
     template: template
 
     tagName: 'li'
     className: 'matrix--cell'
 
+    onShow: () ->
+      @$el.on( 'click', (event) =>
+        @triggerMethod('open:modal')
+      )
+
     initialize: (options) ->
-      @vent = options.vent
+      @vent = Vocat.vent
+
+      @listenTo(@model,'change', () =>
+        @render()
+      )
+
+
+    onOpenModal: () ->
+      @vent.trigger('modal:open', new CellEditView({model: @model, vent: @vent}))

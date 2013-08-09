@@ -15,7 +15,6 @@ define ['marionette', 'hbs!templates/rubric/rows_item', 'collections/cell_collec
 
     initialize: (options) ->
       @vent = options.vent
-
       proxy = CellCollectionProxy(options.cells)
       proxy.where({range: @model.get('range')})
 

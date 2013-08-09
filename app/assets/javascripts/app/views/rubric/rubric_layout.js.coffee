@@ -80,6 +80,8 @@ define [
 
     onRubricSync: () ->
       @render()
+      console.log 'rendering'
+
       @ui.rangePointsInput.val(@model.getRangeString())
 
     initialize: (options) ->
@@ -89,41 +91,41 @@ define [
           @model.fetch()
         else
           @model = new RubricModel({})
-
-      @collections.range = @model.get('ranges')
-      @collections.field = @model.get('fields')
-      @collections.row = new RowCollection([],{})
-      @collections.cell = new CellCollection([],{})
-
+#
+#      @collections.range = @model.get('ranges')
+#      @collections.field = @model.get('fields')
+#      @collections.row =  @model.get('rows')
+#      @collections.cell =  @model.get('cells')
+#
       @listenTo(@model, 'sync', (event) => @triggerMethod('rubric:sync'))
 
-      @listenTo(@collections.field, 'add', (field) =>
-        @collections.range.each((range) =>
-          @collections.cell.add(new CellModel({range: range.id, field: field.id, description: "range #{range.id} / field #{field.id}"}))
-        )
-      )
+      # SOMETHING IS WRONG HERE; SHOULDN'T BE MAKING SO MANY CELLS....
 
-      @listenTo(@model, 'change:name', () =>
-
-      )
-
-      @listenTo(@collections.field, 'remove', (field) =>
-        @collections.cell.remove(@collections.cell.where({field: field.id}))
-      )
-
-      @listenTo(@collections.range, 'add', (range) =>
+#      @listenTo(@collections.field, 'add', (field) =>
+#        @collections.range.each((range) =>
+#          @collections.cell.add(new CellModel({range: range.id, field: field.id, description: "range #{range.id} / field #{field.id}"}))
+#        )
+#      )
+#
+#      @listenTo(@model, 'change:name', () =>
+#      )
+#
+#      @listenTo(@collections.field, 'remove', (field) =>
+#        @collections.cell.remove(@collections.cell.where({field: field.id}))
+#      )
+#
+#      @listenTo(@collections.range, 'add', (range) =>
+#        @collections.field.each((field) =>
+#          @collections.cell.add(new CellModel({range: range.id, field: field.id, description: "range #{range.id} / field #{field.id}"}))
+#        )
+#        @collections.row.add(new RowModel({range: range.id}))
+#      )
+#
+#      @listenTo(@collections.range, 'remove', (range) =>
 #        @triggerMethod('range:refresh')
-        @collections.field.each((field) =>
-          @collections.cell.add(new CellModel({range: range.id, field: field.id, description: "range #{range.id} / field #{field.id}"}))
-        )
-        @collections.row.add(new RowModel({range: range.id}))
-      )
-
-      @listenTo(@collections.range, 'remove', (range) =>
-        @triggerMethod('range:refresh')
-        @collections.cell.remove(@collections.cell.where({range: range.id}))
-        @collections.row.remove(@collections.row.where({range: range.id}))
-      )
+#        @collections.cell.remove(@collections.cell.where({range: range.id}))
+#        @collections.row.remove(@collections.row.where({range: range.id}))
+#      )
 
     onRubricSave: () ->
       @model.save()
@@ -137,9 +139,9 @@ define [
       @collections.field.add(field)
 
     onRender: () ->
-      @views.rows = new RowsView({collection: @collections.row, cells: @collections.cell, vent: @})
-      @views.fields = new FieldsView({collection: @collections.field, vent: @})
-      @views.ranges = new RangesView({collection: @collections.range, vent: @})
+      @views.rows = new RowsView({collection: @model.get('rows'), cells: @model.get('cells'), vent: @})
+      @views.fields = new FieldsView({collection: @model.get('fields'), vent: @})
+      @views.ranges = new RangesView({collection: @model.get('ranges'), vent: @})
 
       @listenTo(@views.fields,'after:item:added', () =>
         @sliderRecalculate()
