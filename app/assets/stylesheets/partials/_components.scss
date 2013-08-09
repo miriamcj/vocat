@@ -988,13 +988,13 @@ a.table--heading {
 }
 
 .discussion--item {
+  @extend %clearfix;
   margin-bottom: 2.4rem;
 }
 
 // <div>
 // NB see pattern comments
 .discussion--input {
-  // @extend %speech-bubble-input;
   padding-top: 0.5rem;
   margin-bottom: 1.5rem;
   textarea {
@@ -1016,6 +1016,11 @@ a.table--heading {
     margin-top: 1.5rem;
     border: 2px solid $beigeDark;
   }
+}
+
+.discussion--submit {
+  @extend %small-teal-plus-button;
+  float: right;
 }
 
 // Discussion list
