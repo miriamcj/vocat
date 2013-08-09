@@ -132,11 +132,11 @@ define [
 
     onRangeAdd: () ->
       range = new RangeModel({})
-      @collections.range.add(range)
+      @model.get('ranges').add(range)
 
     onFieldAdd: () ->
       field = new FieldModel({})
-      @collections.field.add(field)
+      @model.get('fields').add(field)
 
     onRender: () ->
       @views.rows = new RowsView({collection: @model.get('rows'), cells: @model.get('cells'), vent: @})
