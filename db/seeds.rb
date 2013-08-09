@@ -13,7 +13,7 @@ other   = Organization.create(:name => Faker::Company.name)
 # Create developer user accounts
 for name in %w(alex gabe lucas peter scott zach)
   u = User.create(:email => "#{name}@castironcoding.com", :password => "testtest123", :first_name => name)
-  u.role = "admin"
+  u.role = "administrator"
   u.organization = baruch
   u.save
 end
