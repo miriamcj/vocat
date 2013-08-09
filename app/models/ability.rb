@@ -25,7 +25,7 @@ class Ability
     ### Projects
     ######################################################
 
-    can [:crud, :index, :new, :edit], Project do |project|
+    can [:crud, :index, :new, :edit, :show], Project do |project|
       begin project.course.id rescue raise "Can't determine course role on unattached projects. Try `can? @course.projects.build` instead of `can? Project.new`." end
       can?(:update, project.course)
     end
