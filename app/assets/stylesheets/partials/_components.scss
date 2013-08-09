@@ -417,9 +417,10 @@
     }
   }
   th {
+    vertical-align: top;
     color: $tealMedium;
     text-align: left;
-    padding: 0 1.2rem;
+    padding: 2rem 1.2rem;
     &:first-child {
       padding-left: 3.9rem;
     }
@@ -428,7 +429,7 @@
     @extend %delta;
     max-width: 33rem;
     vertical-align: top;
-    padding: 1rem 1.2rem;
+    padding: 2rem 1.2rem;
     border-left: 0.1rem solid transparentize($tealLight, 0.5);
     a {
       @extend %bare-link;
@@ -986,18 +987,24 @@ a.table--heading {
 
 }
 
+.discussion--item {
+  margin-bottom: 2.4rem;
+}
+
 // <div>
 // NB see pattern comments
 .discussion--input {
-  @extend %speech-bubble-input;
+  // @extend %speech-bubble-input;
   padding-top: 0.5rem;
-  margin-bottom: 4.3rem;
+  margin-bottom: 1.5rem;
   textarea {
     @extend %reset-input;
     @extend %bare-focus;
+    @include placeholder($beigeDark, italic);
     width: 100%;
     color: $grayDark;
     background-color: $beigeLight;
+    border-radius: $radius;
     .frame-light & {
       background-color: $beige;
     }
@@ -1031,16 +1038,15 @@ a.table--heading {
 
 .discussion-list--input-container {
   margin-left: 5rem;
-  margin-left: 5rem;
 }
 
 .discussion-list--item {
   @extend %comment;
-  margin-bottom: 2.7rem;
+  margin-bottom: 2.4rem;
   position: relative;
-  &:after {
-    @extend %speech-bubble-tail;
-  }
+  // &:after {
+  //   @extend %speech-bubble-tail;
+  // }
 }
 
 .discussion-list--header {
