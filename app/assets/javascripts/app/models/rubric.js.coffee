@@ -13,8 +13,7 @@ define [
     initialize: (options) ->
       @set 'fields', new FieldCollection(_.toArray(@get('fields')))
       @set 'ranges', new RangeCollection(_.toArray(@get('ranges')))
-      @set 'cells', new CellCollection([],{})
-      @set 'rows', new RowCollection([],{})
+      @set 'cells', new CellCollection( _.toArray(@get('cells')),{})
 #
 #      @get('fields').bind 'add remove change', =>
 #        @trigger('change')
@@ -30,23 +29,24 @@ define [
 
       @get('fields').bind 'add', (field) =>
         @get('ranges').each((range) =>
-          console.log range,'range'
-          @get('cells').add(new CellModel({range: range.id, field: field.id, description: "range #{range.id} / field #{field.id}"}))
+          @get('cells').add(new CellModel({range: range.id, field: field.id, description: 'click to enter description'}))
         )
 
       @get('fields').bind 'remove', (field) =>
         @get('cells').remove(@get('cells').where({field: field.id}))
 
       @get('ranges').bind 'add', (range) =>
-        @get('fields').each((field, range) =>
-          @get('cells').add(new CellModel({range: range.id, field: field.id, description: "range #{range.id} / field #{field.id}"}))
+        @get('fields').each((field) =>
+          @get('cells').add(new CellModel({range: range.id, field: field.id, description: 'click to enter description'}))
         )
-        @get('rows').add(new RowModel({range: range.id}))
 
       @get('ranges').bind 'remove', (range) =>
         @get('cells').remove(@get('cells').where({range: range.id}))
-        @get('rows').remove(@get('rows').where({range: range.id}))
 
+
+    getFieldNameById: (fieldId) ->
+      field = @get('fields').findWhere({id: fieldId})
+      if field? then field.get('name')
 
     getRangeString: () ->
       out = ''
@@ -56,6 +56,9 @@ define [
       out = out + ' ' + ranges.last().get('high')
       out
 
+    getCellDescription: (fieldId, rangeId) ->
+      cell = @get('cells').findWhere({field: fieldId, range: rangeId})
+      if cell? then cell.get('description')
 
     parse: (response, options) ->
       if response?
@@ -67,21 +70,21 @@ define [
         _.each(response.ranges, (range) =>
           range = new RangeModel(range)
           @get('ranges').add(range, {silent: true})
-          @get('rows').add(new RowModel({range: range.id}), {silent: true})
         )
 
         _.each(response.fields, (field) =>
           field = new FieldModel(field)
           @get('fields').add(field, {silent: true})
-          @get('ranges').each((range) =>
-              @get('cells').add(new CellModel({range: range.id, field: field.id, description: "range #{range.id} / field #{field.id}"}), {silent: true})
-          )
         )
 
-        # TODO: Assemble cells in here as well, and do it quietly.
+        _.each(response.cells, (cell) =>
+            cell = new CellModel(cell)
+            @get('cells').add(cell, {silent: true})
+        )
 
         delete response['ranges']
         delete response['fields']
+        delete response['cells']
       response
 
     toJSON: () ->

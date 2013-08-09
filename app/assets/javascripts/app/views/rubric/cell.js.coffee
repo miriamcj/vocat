@@ -14,11 +14,9 @@ define ['marionette', 'hbs!templates/rubric/cell', 'views/rubric/cell_edit'], (M
 
     initialize: (options) ->
       @vent = Vocat.vent
-
       @listenTo(@model,'change', () =>
         @render()
       )
-
 
     onOpenModal: () ->
       @vent.trigger('modal:open', new CellEditView({model: @model, vent: @vent}))

@@ -17,7 +17,7 @@
                grouped_options_for_select(
                    {
                        'My Rubrics' => options_from_collection_for_select(current_user.rubrics, :id, :name, @project.rubric_id),
-                       'VOCAT Rubrics' => options_from_collection_for_select(Rubric.public, :id, :name, @project.rubric_id)
+                       'VOCAT Rubrics' => options_from_collection_for_select(Rubric.publicly_visible, :id, :name, @project.rubric_id)
                    }
                )
   %>

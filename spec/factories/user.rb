@@ -3,6 +3,7 @@ FactoryGirl.define do
     first_name 'John'
     last_name  'Doe'
     password 'password'
+    email 'email@castironcoding.com'
   end
 
   factory :creator, parent: :user do

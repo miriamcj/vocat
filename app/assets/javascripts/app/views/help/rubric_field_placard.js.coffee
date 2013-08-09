@@ -14,6 +14,9 @@ define [
     }
 
     onInitialize: () ->
+      @rubric = @options.rubric
+      console.log @rubric
+      @fieldId = @options.fieldId
       @options.showTest = () =>
         if Vocat.glossaryEnabled == true then true else false
 
@@ -42,20 +45,18 @@ define [
 
     serializeData: () ->
       out = {
-        fieldName: @options.field.name
-        fieldId: @options.field.id
+        fieldName: @rubric.getFieldNameById(@fieldId)
+        fieldId: @fieldId
         descriptions: []
       }
-      _.each(@options.rubric.ranges, (range) =>
-        description = @options.field.range_descriptions[range.id]
+      @rubric.get('ranges').each (range) =>
         out.descriptions.push({
-          rangeName: range.name
-          rangeLow: range.low
-          rangeHigh: range.high
+          rangeName: range.get('name')
+          rangeLow: range.get('low')
+          rangeHigh: range.get('high')
           rangeId: range.id
-          rangeDescription: description
+          rangeDescription: @rubric.getCellDescription(@fieldId, range.id)
         })
-      )
       out
 
     render: () ->

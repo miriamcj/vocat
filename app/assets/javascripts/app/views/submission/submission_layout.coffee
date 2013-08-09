@@ -19,9 +19,10 @@ define [
   'views/help/rubric_field_placard',
   'views/help/glossary_toggle_placard',
   'models/attachment',
+  'models/rubric',
   'app/plugins/backbone_poller'
 ], (
-  Marionette, template, SubmissionCollection, AnnotationCollection, EvaluationCollection, PlayerView, AnnotationsView, AnnotatorView, EvaluationView, MyEvaluationView, UploadView, UploadFailedView, UploadStartedView, UploadTranscodingView, UploadStartView, DiscussionView, FlashMessagesView, RubricFieldPlacard, GlossaryTogglePlacard, Attachment, Poller
+  Marionette, template, SubmissionCollection, AnnotationCollection, EvaluationCollection, PlayerView, AnnotationsView, AnnotatorView, EvaluationView, MyEvaluationView, UploadView, UploadFailedView, UploadStartedView, UploadTranscodingView, UploadStartView, DiscussionView, FlashMessagesView, RubricFieldPlacard, GlossaryTogglePlacard, Attachment, RubricModel, Poller
 ) ->
 
   class SubmissionLayout extends Marionette.Layout
@@ -115,10 +116,9 @@ define [
 
     createPlacards: () ->
       if @project
-        fields = @project.get('rubric').fields
-        _.each(fields, (field) =>
-          @placards.add(new RubricFieldPlacard({orientation: 'nnw', field: field, key: "rubric:field:#{field.id}", rubric: @project.get('rubric')}))
-        )
+        rubric = new RubricModel(@project.get('rubric'))
+        rubric.get('fields').each (field) =>
+          @placards.add(new RubricFieldPlacard({orientation: 'nnw', rubric: rubric, fieldId: field.id, key: "rubric:field:#{field.id}"}))
         @placards.add(new GlossaryTogglePlacard({orientation: 'nne', key: 'glossary:toggle', rubric: @project.get('rubric')}))
         @placards.call('render')
 

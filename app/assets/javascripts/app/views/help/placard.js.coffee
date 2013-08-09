@@ -29,7 +29,6 @@ define [
         @.onInitialize()
 
 
-
     initializeEvents: () ->
       @$el.bind('mouseenter', () =>
         Vocat.vent.trigger('help:show', @shownData)
