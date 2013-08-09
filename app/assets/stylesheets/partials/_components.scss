@@ -22,6 +22,8 @@
 // Page banner
 // --------------------------
 .page-banner {
+  width: 100%;
+  min-width: $mainWidth;
 	height: 3.4rem;
   background-color: $tealLight;
 	padding: 0.9rem 0;
@@ -39,6 +41,7 @@
 // --------------------------
 .page-header {
   width: 100%;
+  min-width: $mainWidth;
   height: $headerHeight;
   position: absolute;
   z-index: 200;
