@@ -24,10 +24,8 @@ define [
     initialize: (options) ->
       @vent = Vocat.vent
       @$el.hide()
-      console.log @vent, 'modal'
 
       @listenTo(@vent, 'modal:open', (view) =>
-        console.log 'heard the event'
         @updateContent(view)
         @open()
       )
