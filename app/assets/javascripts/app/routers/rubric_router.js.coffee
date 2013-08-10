@@ -8,3 +8,4 @@ define ['marionette', 'controllers/rubric_controller'], (Marionette, RubricContr
       'courses/:course/manage/rubrics/new': 'new'
       'courses/:course/manage/rubrics/:rubric/edit': 'edit'
     }
+
