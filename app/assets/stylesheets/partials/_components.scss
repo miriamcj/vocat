@@ -1360,7 +1360,7 @@ a.table--heading {
 }
 
 .matrix--delete {
-  @extend %bare-gray-ex-button;
+  @extend %bare-ex-link;
   vertical-align: top;
   margin-left: 0.6rem;
   cursor: pointer;

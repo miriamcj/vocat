@@ -366,30 +366,6 @@ input%proto-button {
   }
 }
 
-// No text, just an ex in a circle
-%bare-gray-ex-button {
-  @extend %proto-button;
-  @extend %hidden-text;
-  width: 3.2rem;
-  height: 3.2rem;
-  background-color: $beigeDark;
-  padding: 0;
-  position: relative;
-  &:after {
-    @include svg(circle-x-beigeLight);
-    content: "";
-    display: block;
-    width: 2rem;
-    height: 2rem;
-    position: absolute;
-    top: 0.6rem;
-    left: 0.6rem;
-  }
-  &:hover {
-    background-color: darken($beigeDark, 12%);
-  }
-}
-
 // Not for use on <a>s; use %white-button for those
 %white-pill {
   @extend %heading-epsilon;
@@ -540,6 +516,30 @@ input%proto-button {
   @extend %arrow-link;
   &:after {
     @include svg(circle-x-teal);
+  }
+  &:hover {
+    &:after {
+      @include svg(circle-x-orange);
+    }
+  }
+}
+
+// No text, just an ex in a circle
+%bare-ex-link {
+  @extend %hidden-text;
+  display: inline-block;
+  width: 3.2rem;
+  height: 3.2rem;
+  position: relative;
+  &:after {
+    @include svg(circle-x-tealMedium);
+    content: "";
+    display: block;
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+    top: 0.6rem;
+    left: 0.6rem;
   }
   &:hover {
     &:after {
