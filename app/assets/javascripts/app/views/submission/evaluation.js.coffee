@@ -46,3 +46,5 @@ define [
       @vent = Marionette.getOption(@, 'vent')
       @courseId = Marionette.getOption(@, 'courseId')
 
+    onRender: () ->
+      if @collection.length == 0 then @$el.hide()

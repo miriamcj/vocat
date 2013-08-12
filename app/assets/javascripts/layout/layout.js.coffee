@@ -22,7 +22,7 @@ define ['jquery_rails', './plugins'], ($) ->
         $('.container').css('min-height', $(window).innerHeight() - $('.page-header').height() - 35)
 
         $('[data-behavior="dropdown"]').dropdownNavigation()
-        $('[data-behavior="sticky-header"]').stickyHeader()
+        #$('[data-behavior="sticky-header"]').stickyHeader()
         $('[data-behavior="shortcut-nav-toggle"]').shortcutNavigation()
         $('[data-behavior="help-overlay-toggle"]').helpOverlay()
 

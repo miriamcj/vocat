@@ -19,7 +19,6 @@ class Api::V1::RubricsController < ApplicationController
 
   def create
     @rubric.owner_id = current_user.id
-    @rubric.set_field_and_ranges_from_params(params[:fields], params[:ranges])
     respond_to do |format|
       if @rubric.save
         format.html { redirect_to @rubric, notice: 'Rubric was successfully created.' }
@@ -33,10 +32,7 @@ class Api::V1::RubricsController < ApplicationController
 
   def update
     respond_to do |format|
-
-      @rubric.set_field_and_ranges_from_params(params[:fields], params[:ranges])
-      @rubric.assign_attributes(params[:rubric])
-
+	    @rubric.update_attributes(params[:rubric])
       if @rubric.save
         format.html { redirect_to rubric_path(@rubric), notice: 'Rubric was successfully updated.' }
         format.json { head :no_content }

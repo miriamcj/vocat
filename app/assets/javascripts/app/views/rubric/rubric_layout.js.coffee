@@ -99,6 +99,9 @@ define [
     onRangeAdd: () ->
       range = new RangeModel({})
       @model.get('ranges').add(range)
+      setTimeout(() =>
+        $('html, body').animate({ scrollTop: $(document).height() }, 'slow')
+      , 100)
 
     onFieldAdd: () ->
       field = new FieldModel({})
@@ -111,6 +114,7 @@ define [
 
       @listenTo(@views.fields,'after:item:added', () =>
         @sliderRecalculate()
+        @triggerMethod('slider:right')
       )
 
       @listenTo(@views.fields,'item:removed', () =>

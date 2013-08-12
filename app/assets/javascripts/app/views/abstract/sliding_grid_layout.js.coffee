@@ -5,10 +5,11 @@ define [
   class SlidingGridLayout extends Marionette.Layout
 
     # We need to store various states of the slider, including column widths.
-    sliderColWidth: 267
+    sliderVisibleColumns: 3
     sliderWidth: 3000
     sliderMinLeft: 0
     sliderPosition: 0
+    sliderPositionLeft: 0
 
     ui: {
       sliderContainer: '[data-behavior="matrix-slider"]'
@@ -22,6 +23,7 @@ define [
     }
 
     onRender: () ->
+      @sliderPosition = 0
       @updateSliderControls()
 
     onRepaint: () ->
@@ -32,15 +34,23 @@ define [
       @onRepaint()
 
     onSliderLeft: () ->
-      @slide('backwards')
+      @slide('backward')
 
     onSliderRight: () ->
       @slide('forward')
 
     sliderRecalculate: () ->
+      console.log 'recalculating'
       @calculateAndSetSliderWidth()
       @updateSliderControls()
 
+    debug: () ->
+      console.clear()
+      console.log @sliderVisibleColumns,'@sliderVisibleColumns'
+      console.log @sliderContainerWidth,'@sliderContainerWidth'
+      console.log @sliderColumnCount,'@sliderColumnCount'
+      console.log @sliderColumnWidth,'@sliderColumnWidth'
+      console.log @sliderModulus,'@sliderModulus'
 
     setSpacerCellHeights: () ->
       $spacers = @$el.find('.matrix--row-spacer')
@@ -50,36 +60,61 @@ define [
       $spacers.height(diff)
 
     calculateAndSetSliderWidth: () ->
-      slider = @$el.find('[data-behavior="matrix-slider"]').first()
-      colCount = slider.find('li').length
-      @sliderWidth = colCount * @sliderColWidth
-      visibleCols = @$el.find('[data-behavior="matrix-slider"]').outerWidth() / @sliderColWidth
-      @sliderMinLeft = (@sliderWidth * -1) + (@sliderColWidth * visibleCols)
+      stage = @$el.find('[data-behavior="matrix-body"]')
+      container = @$el.find('[data-behavior="matrix-slider"]')
+      stageWidth = stage.width()
+      if stageWidth > 0
+        @sliderModulus = stageWidth % @sliderVisibleColumns
+        @sliderColumnWidth = (stageWidth - @sliderModulus) / @sliderVisibleColumns
+        @sliderColumnCount = container.first().find('ul li').length
+        @sliderContainerWidth = @sliderColumnCount * @sliderColumnWidth
+        if @sliderColumnCount >= @sliderVisibleColumns
+          multiplier = Math.floor(@sliderColumnCount / @sliderVisibleColumns)
+          @sliderContainerWidth += multiplier * @sliderModulus
+        container.find('ul').width(@sliderContainerWidth)
+        @debug()
+        console.log ((@sliderColumnCount % @sliderVisibleColumns) * @sliderModulus)
+        _.each container.find('.matrix--cell, ul.matrix--column-header--list li'), (el, index) =>
+          index = $(el).index()
+          if (index + 1) % @sliderVisibleColumns == 0
+            $(el).outerWidth(@sliderColumnWidth + @sliderModulus)
+          else
+            $(el).outerWidth(@sliderColumnWidth)
+        @updateSliderControls()
 
-      @$el.find('[data-behavior="matrix-slider"] ul').width(@sliderWidth)
-      @$el.find('[data-behavior="matrix-slider"] ul li').outerWidth(@sliderColWidth)
 
     updateSliderControls: () ->
-
-      slider = @$el.find('[data-behavior="matrix-slider"]').first()
-
-      # The width of the slider has to be greater than 4 columns for the slider to be able to slide.
-      visibleCols = @$el.find('[data-behavior="matrix-slider"]').outerWidth() / @sliderColWidth
-      if (@sliderColWidth * visibleCols) < @sliderWidth
-        if @sliderPosition == 0 then @ui.sliderLeft.addClass('inactive') else @ui.sliderLeft.removeClass('inactive')
-        if @sliderPosition == @sliderMinLeft then @ui.sliderRight.addClass('inactive') else @ui.sliderRight.removeClass('inactive')
-      else
+      if @sliderPosition == 0
         @ui.sliderLeft.addClass('inactive')
+      else
+        @ui.sliderLeft.removeClass('inactive')
+      if @sliderPosition + 1 <= (@sliderColumnCount - @sliderVisibleColumns)
+        @ui.sliderRight.removeClass('inactive')
+      else
         @ui.sliderRight.addClass('inactive')
 
     slideReposition: () ->
       @$el.find('[data-behavior="matrix-slider"] ul').css('left', @sliderPosition)
 
     slide: (direction) ->
-      if direction == 'forward' then travel = @sliderColWidth * -1 else travel = @sliderColWidth * 1
-      newLeft = @sliderPosition + travel
-      if newLeft <= 0 && newLeft >= @sliderMinLeft
+      currentPosition = @sliderPosition
+      if direction == 'forward'
+        travel = @sliderColumnWidth * -1
+        newPosition = currentPosition + 1
+      else
+        travel = @sliderColumnWidth * 1
+        newPosition = currentPosition - 1
+      if newPosition <= (@sliderColumnCount - @sliderVisibleColumns) && newPosition >= 0
+        if newPosition % @sliderVisibleColumns == 0 && direction == 'forward'
+          travel -= @sliderModulus
+        if currentPosition % @sliderVisibleColumns == 0 && direction == 'backward'
+          travel += @sliderModulus
+
+        #console.log "Travelling #{travel} to reach position #{newPosition} from #{currentPosition}"
+
+        newLeft = @sliderPositionLeft + travel
         @$el.find('[data-behavior="matrix-slider"] ul').css('left', newLeft)
-        @sliderPosition = newLeft
-      @updateSliderControls()
+        @sliderPosition = newPosition
+        @sliderPositionLeft = newLeft
+        @updateSliderControls()
 

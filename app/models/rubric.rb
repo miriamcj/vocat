@@ -1,4 +1,5 @@
 require 'json'
+require 'securerandom'
 
 class Rubric < ActiveRecord::Base
 
@@ -6,9 +7,9 @@ class Rubric < ActiveRecord::Base
   belongs_to :owner, :class_name => "User"
   has_many :projects
 
-  serialize :cells, ActiveRecord::Coders::Hstore
-  serialize :fields, ActiveRecord::Coders::Hstore
-  serialize :ranges, ActiveRecord::Coders::Hstore
+  serialize :cells
+  serialize :fields
+  serialize :ranges
 
   validates :name, :owner, :presence => true
 
@@ -19,33 +20,6 @@ class Rubric < ActiveRecord::Base
     RubricSerializer
   end
 
-  before_save :serialize_hstores
-  after_save :unserialize_hstores
-  after_initialize :unserialize_hstores
-
-  def serialize_hstores
-    self.ranges.each do |key, hash|
-      self.ranges[key] = hash.to_json
-    end
-    self.fields.each do |key, hash|
-      self.fields[key] = hash.to_json
-    end
-    self.cells.each do |key, hash|
-      self.cells[key] = hash.to_json
-    end
-  end
-
-  def unserialize_hstores
-    self.ranges.each do |key, hash|
-      if hash.is_a? String then self.ranges[key] = JSON.parse(hash) end
-    end
-    self.fields.each do |key, hash|
-      if hash.is_a? String  then self.fields[key] = JSON.parse(hash) end
-    end
-    self.cells.each do |key, hash|
-      if hash.is_a? String  then self.cells[key] = JSON.parse(hash) end
-    end
-  end
 
   #def set_field_and_ranges_from_params(fields, ranges)
   #
@@ -77,28 +51,28 @@ class Rubric < ActiveRecord::Base
   #  end
   #end
 
-  def add_field(options = {})
-    self.fields = {} unless self.fields
-    options.has_key?(:key) && !options[:key].blank? ? key = options[:key] : key = options[:name].parameterize
-    self.fields[key] = { name: options[:name], description: options[:description] }
-    key
-  end
-
-  def add_range(options = {})
-    self.ranges = {} unless self.ranges
-    options.has_key?(:key) && !options[:key].blank? ? key = options[:key] : key = options[:name].parameterize
-    self.ranges[key] = { name: options[:name], description: options[:description], low: options[:low], high: options[:high] }
-    key
-  end
-
-  def add_cell(options = {})
-    self.cells = {} unless self.cells
-    if !options.has_key?(:range) || !options.has_key?(:field) || !ranges.has_key?(options[:range]) || !fields.has_key?(options[:field])
-      raise 'Unable to add cell with corresponding field and/or rubric already present in the rubric'
-    else
-      key = get_cell_key(options[:field], options[:range])
-      self.cells[key] = { description: options[:description], range: options[:range], field: options[:field] }
+  def add_field(hash = {})
+    self.fields = [] unless self.fields.kind_of? Array
+    if hash.has_key?('id') || hash['id'].blank?
+	    hash['id'] = hash['name'].parameterize
     end
+    self.fields.push hash
+    hash['id']
+  end
+
+  def add_range(hash)
+	  self.ranges = [] unless self.ranges.kind_of? Array
+	  if hash.has_key?('id') || hash['id'].blank?
+		  hash['id'] = hash['name'].parameterize
+	  end
+	  self.ranges.push hash
+		hash['id']
+  end
+
+  def add_cell(hash = {})
+	  self.cells = [] unless self.cells.kind_of? Array
+	  self.cells.push hash
+	  hash['id']
   end
 
   def add_cells(cells)
@@ -108,8 +82,7 @@ class Rubric < ActiveRecord::Base
   end
 
   def get_cell(field_key, range_key)
-    key = get_cell_key(field_key, range_key)
-    self.cells[key]
+    self.cells.select{ |r| r['field'] == field_key && r['range'] == range_key}
   end
 
   def range_description_key(range_key, field_key)
@@ -117,10 +90,22 @@ class Rubric < ActiveRecord::Base
   end
 
   def get_low_for_range(range)
-    self.ranges[range]['low']
+		range = self.ranges.select{ |r| r['id'] == range }
+		if range != nil
+			range.low
+		else
+			nil
+		end
   end
 
   def get_high_for_range(range)
+	  range = self.ranges.select{ |r| r['id'] == range }
+	  if range != nil
+		  range.high
+	  else
+		  nil
+	  end
+
     self.ranges[range]['high']
   end
 
@@ -133,15 +118,15 @@ class Rubric < ActiveRecord::Base
   end
 
   def field_names
-    self.fields.collect { |key, value| value['name']}
+    self.fields.collect { |value| value['name']}
   end
 
   def field_keys
-    self.fields.keys
+	  self.fields.collect { |value| value['id']}
   end
 
   def low_score
-    self.ranges.collect { |key, value| value['low'].to_i }.min
+    self.ranges.collect { |value| value['low'].to_i }.min
   end
 
   def points_possible
@@ -149,7 +134,7 @@ class Rubric < ActiveRecord::Base
   end
 
   def high_score
-    self.ranges.collect { |key, value| value['high'].to_i }.max
+    self.ranges.collect { |value| value['high'].to_i }.max
   end
 
   private

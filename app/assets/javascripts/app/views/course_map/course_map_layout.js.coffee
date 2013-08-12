@@ -8,20 +8,17 @@ define [
   'views/course_map/detail_project',
   'views/submission/submission_layout',
   'views/course_map/header',
+  'views/abstract/sliding_grid_layout'
   '../../../layout/plugins'
-], (Marionette, template, CourseMapProjects, CourseMapCreators, CourseMapMatrix, CourseMapDetailCreator, CourseMapDetailProject, CourseMapDetailCreatorProject, CourseMapHeader) ->
+], (Marionette, template, CourseMapProjects, CourseMapCreators, CourseMapMatrix, CourseMapDetailCreator, CourseMapDetailProject, CourseMapDetailCreatorProject, CourseMapHeader, SlidingGridLayout) ->
 
-  class CourseMapView extends Marionette.Layout
+  class CourseMapView extends SlidingGridLayout
 
     children: {}
 
     template: template
 
-    # We need to store various states of the slider, including column widths.
-    sliderColWidth: 200
-    sliderWidth: 3000
-    sliderMinLeft: 0
-    sliderPosition: 0
+    sliderVisibleColumns: 4
 
     ui: {
       courseMapHeader: '.matrix--column-header'
@@ -49,6 +46,7 @@ define [
       @projects.show(@children.projects)
       @matrix.show(@children.matrix)
 
+      @sliderPosition = 0
       @updateSliderControls()
 
       # TODO: Consider whether this is the right spot for this.
@@ -113,25 +111,14 @@ define [
       # For now, do nothing.
       #@$el.find('[data-project="'+args.project+'"]').removeClass('active')
 
-    onRepaint: () ->
-      @calculateAndSetSliderWidth()
-      @setSpacerCellHeights()
-
-    onShow: () ->
-      @onRepaint()
-
-    onSliderLeft: () ->
-      @slide('backwards')
-
-    onSliderRight: () ->
-      @slide('forward')
-
     onOpenOverlay: () ->
       @ui.overlay.css({top: '8rem', zIndex: 250, position: 'absolute', minHeight: @matrix.$el.outerHeight()})
       if !@ui.overlay.is(':visible')
         @ui.overlay.fadeIn(500)
       if !@ui.header.is(':visible')
         @ui.header.fadeIn(500)
+      $('html, body').animate({ scrollTop: 116 + 34 }, 'fast')
+      @$el.find('.matrix--controls a').css(visibility: 'hidden')
 
     onOpenHeader: () ->
       # Fade it in if not visible
@@ -141,40 +128,12 @@ define [
       @collections.project.setActive(null)
       @collections.creator.setActive(null)
 
+      $('html, body').animate({ scrollTop: 116 + 34 }, 'fast')
+      @$el.find('.matrix--controls a').css(visibility: 'visible')
+
       Vocat.courseMapRouter.navigate("courses/#{@courseId}/evaluations")
       if @ui.overlay.is(':visible')
         @ui.overlay.fadeOut 500, () =>
       if @ui.header.is(':visible')
         @ui.header.fadeOut 500, () =>
-
-    setSpacerCellHeights: () ->
-      $spacers = @$el.find('.matrix--row-spacer')
-      documentHeight = $(document).outerHeight()
-      regionHeight = $('#region-main').outerHeight()
-      diff = documentHeight - regionHeight - 83 # This constant seems suspect. Not sure that it's really a constant. --ZD
-      $spacers.height(diff)
-
-    calculateAndSetSliderWidth: () ->
-      slider = @$el.find('[data-behavior="matrix-slider"]').first()
-      colCount = slider.find('li').length
-      @sliderWidth = colCount * @sliderColWidth
-      @sliderMinLeft = (@sliderWidth * -1) + (@sliderColWidth * 4)
-      @$el.find('[data-behavior="matrix-slider"] ul').width(@sliderWidth)
-
-    updateSliderControls: () ->
-      # The width of the slider has to be greater than 4 columns for the slider to be able to slide.
-      if (@sliderColWidth * 4) < @sliderWidth
-        if @sliderPosition == 0 then @ui.sliderLeft.addClass('inactive') else @ui.sliderLeft.removeClass('inactive')
-        if @sliderPosition == @sliderMinLeft then @ui.sliderRight.addClass('inactive') else @ui.sliderRight.removeClass('inactive')
-      else
-        @ui.sliderLeft.addClass('inactive')
-        @ui.sliderRight.addClass('inactive')
-
-    slide: (direction) ->
-      if direction == 'forward' then travel = @sliderColWidth * -1 else travel = @sliderColWidth * 1
-      newLeft = @sliderPosition + travel
-      if newLeft <= 0 && newLeft >= @sliderMinLeft
-        @$el.find('[data-behavior="matrix-slider"] ul').css('left', newLeft)
-        @sliderPosition = newLeft
-      @updateSliderControls()
 

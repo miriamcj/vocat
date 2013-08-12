@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130809194018) do
+ActiveRecord::Schema.define(:version => 20130812031429) do
 
   create_table "annotations", :force => true do |t|
     t.integer  "attachment_id"
@@ -157,16 +157,14 @@ ActiveRecord::Schema.define(:version => 20130809194018) do
     t.boolean  "public"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
-    t.text     "fields"
-    t.text     "ranges"
     t.integer  "owner_id"
     t.text     "description"
     t.integer  "organization_id"
     t.integer  "course_id"
-    t.hstore   "cells"
+    t.text     "cells"
+    t.text     "fields"
+    t.text     "ranges"
   end
-
-  add_index "rubrics", ["cells"], :name => "index_rubrics_on_cells"
 
   create_table "submissions", :force => true do |t|
     t.string   "name"
