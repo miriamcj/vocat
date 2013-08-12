@@ -13,12 +13,11 @@ define 'app/helpers/each_property', ['handlebars'], (Handlebars) ->
       else
         per = null
 
-      field = _.findWhere(rubric.fields, {id: prop})
+      field = _.findWhere(rubric.fields, {id: String(prop)})
       if field?
         name = field.name
       else
         name = prop
-
       ret = ret + options.fn({property: prop, name: name, value: value, per: per})
     )
     ret
