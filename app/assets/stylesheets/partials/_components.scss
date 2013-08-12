@@ -387,8 +387,8 @@
 }
 
 .matrix--overlay-header-subtitle {
-  
-  
+
+
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -883,6 +883,10 @@ a.table--heading {
 .attachment--left {
   @extend %annotated-media--object;
   overflow: hidden;
+}
+
+.attachment--left-wide {
+  width: 100%
 }
 
 // <video>

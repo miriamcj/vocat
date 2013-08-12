@@ -47,4 +47,4 @@ define [
       @courseId = Marionette.getOption(@, 'courseId')
 
     onRender: () ->
-      if @collection.length == 0 then @$el.hide()
+#      if @collection.length == 0 then @$el.hide()

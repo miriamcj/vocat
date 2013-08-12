@@ -38,6 +38,7 @@ define [
 
     onMyEvaluationUpdated: (data) ->
       if data.percentage?
+        @model.set('current_user_evaluation', data.model.toJSON())
         @model.set('current_user_percentage', data.percentage)
 
     onMyEvaluationPublished: () ->
@@ -70,7 +71,6 @@ define [
             @model.set('current_user_has_evaluated',false)
             @model.set('current_user_percentage',null)
             @model.set('current_user_evaluation_published',null)
-            console.log @model
             @trigger('error:add', {level: 'notice', msg: 'Evaluation successfully deleted'})
         })
         @render()

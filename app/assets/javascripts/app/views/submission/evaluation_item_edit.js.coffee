@@ -85,7 +85,7 @@ define ['marionette', 'hbs!templates/submission/evaluation_item_edit', 'vendor/p
       @model.save({scores: scores}, {
         success: (model) =>
           @model.trigger('change:scores')
-          @vent.triggerMethod('myEvaluation:updated', {percentage: @model.get('total_percentage_rounded')})
+          @vent.triggerMethod('myEvaluation:updated', {percentage: @model.get('total_percentage_rounded'), model: @model})
           @vent.trigger('error:add', {level: 'notice', msg: 'Evaluation has been successfully saved'})
       })
 

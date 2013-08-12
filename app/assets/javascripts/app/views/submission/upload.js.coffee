@@ -33,7 +33,6 @@ define [
       @$el.slideUp()
 
     onOpen: () ->
-      console.log 'open heard'
       @$el.slideDown()
 
     onRender: () ->

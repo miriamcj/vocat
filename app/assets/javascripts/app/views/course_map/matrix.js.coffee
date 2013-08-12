@@ -31,7 +31,6 @@ define [
       e.stopPropagation()
       $el = $(e.currentTarget)
       data = $el.data()
-      console.log data
       submission = @collections.submission.get(data.submission)
       evaluationData = submission.get('current_user_evaluation')
       if evaluationData?

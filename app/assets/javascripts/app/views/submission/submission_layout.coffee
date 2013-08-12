@@ -10,6 +10,7 @@ define [
   'views/submission/evaluation',
   'views/submission/my_evaluation',
   'views/submission/upload',
+  'views/submission/upload/not_allowed',
   'views/submission/upload/failed',
   'views/submission/upload/started',
   'views/submission/upload/transcoding',
@@ -22,7 +23,7 @@ define [
   'models/rubric',
   'app/plugins/backbone_poller'
 ], (
-  Marionette, template, SubmissionCollection, AnnotationCollection, EvaluationCollection, PlayerView, AnnotationsView, AnnotatorView, EvaluationView, MyEvaluationView, UploadView, UploadFailedView, UploadStartedView, UploadTranscodingView, UploadStartView, DiscussionView, FlashMessagesView, RubricFieldPlacard, GlossaryTogglePlacard, Attachment, RubricModel, Poller
+  Marionette, template, SubmissionCollection, AnnotationCollection, EvaluationCollection, PlayerView, AnnotationsView, AnnotatorView, EvaluationView, MyEvaluationView, UploadView, UploadNotAllowedView, UploadFailedView, UploadStartedView, UploadTranscodingView, UploadStartView, DiscussionView, FlashMessagesView, RubricFieldPlacard, GlossaryTogglePlacard, Attachment, RubricModel, Poller
 ) ->
 
   class SubmissionLayout extends Marionette.Layout
@@ -138,13 +139,20 @@ define [
 
       if @submission.get('current_user_is_owner') || @submission.get('current_user_is_instructor')
         @instructorEvaluations.show new EvaluationView({collection: instructorEvaluations, label: 'Instructor', model: @submission, project: @project, vent: @, courseId: @courseId})
-        @peerEvaluations.show new EvaluationView({collection: evaluations, label: 'Peer', model: @submission, project: @project, vent: @, courseId: @courseId})
+        if @submission.get('course_allows_peer_review')
+          @peerEvaluations.show new EvaluationView({collection: evaluations, label: 'Peer', model: @submission, project: @project, vent: @, courseId: @courseId})
+
+      # If there are no evaluations, hide the glossary button
+      if evaluations.length == 0 then @ui.glossaryToggle.hide()
+
 
     createAnnotationView: () ->
       # Create the annotations view
       if @submission.get('current_user_can_annotate')
         if @submission.attachment? then attachmentId = @submission.attachment.id else attachmentId = null
         @annotations.show new AnnotationsView({model: @submission, attachmentId: attachmentId, collection: @collections.annotation, vent: @})
+      else
+        $(@player.el).addClass('attachment--left-wide')
 
     createUploadView: () ->
       # Create the upload view
@@ -192,7 +200,9 @@ define [
       if data? && data.attachment?
         @collections.annotation.fetch({data: {attachment: data.attachment.id}})
       @player.show(new PlayerView({model: @submission.attachment, submission: @submission, vent: @}))
-      @annotator.show new AnnotatorView({model: @submission, collection: @collections.annotation, vent: @})
+      if @submission.get('current_user_can_annotate')
+        @annotator.show new AnnotatorView({model: @submission, collection: @collections.annotation, vent: @})
+
 
     onAttachmentUploadDone: () ->
       @player.show(new UploadTranscodingView({}))
@@ -202,7 +212,10 @@ define [
     onAttachmentDestroyed: () ->
       @collections.annotation.attachmentId = null
       @collections.annotation.reset()
-      @player.show(new UploadStartView({vent: @}))
+      if @submission.get('current_user_can_attach') == true
+        @player.show(new UploadStartView({vent: @}))
+      else
+        @player.show(new UploadNotAllowedView({vent: @}))
       @annotator.close()
 
     onAttachmentUploadFailed: () ->

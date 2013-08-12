@@ -53,11 +53,10 @@ class Ability
     end
 
     can :annotate, Submission do |submission|
-      can?(:evaluate, submission)
+      can?(:evaluate, submission) || can?(:own, submission)
     end
 
     can :evaluate, Submission do |submission|
-
       # CAN if the user can evaluate for the course and the user is not the creator of this submission
       can?(:evaluate, submission.project.course ) && submission.creator != user ||
       # CAN if the course allows self evaluation and the user is the creator of this submission

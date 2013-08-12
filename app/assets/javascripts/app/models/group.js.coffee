@@ -3,8 +3,6 @@ define ['backbone'], (Backbone) ->
   class Group extends Backbone.Model
 
     validate: (attributes, options) ->
-      console.log 'called validation'
-      console.log attributes
       errors = []
       if !attributes.name? || attributes.name == ''
         errors.push
