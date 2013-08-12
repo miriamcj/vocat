@@ -138,7 +138,10 @@ define [
         @myEvaluations.show new MyEvaluationView({collection: myEvaluations, model: @submission, project: @project, vent: @, courseId: @courseId})
 
       if @submission.get('current_user_is_owner') || @submission.get('current_user_is_instructor')
-        @instructorEvaluations.show new EvaluationView({collection: instructorEvaluations, label: 'Instructor', model: @submission, project: @project, vent: @, courseId: @courseId})
+
+        # It's useful for students to see that something hasn't been scored; less useful for instructors in this context.
+        unless @submission.get('current_user_is_instructor') && instructorEvaluations.length == 0
+          @instructorEvaluations.show new EvaluationView({collection: instructorEvaluations, label: 'Instructor', model: @submission, project: @project, vent: @, courseId: @courseId})
         if @submission.get('course_allows_peer_review')
           @peerEvaluations.show new EvaluationView({collection: evaluations, label: 'Peer', model: @submission, project: @project, vent: @, courseId: @courseId})
 
