@@ -29,7 +29,7 @@ define [
 
       @get('fields').bind 'add', (field) =>
         @get('ranges').each((range) =>
-          @get('cells').add(new CellModel({range: range.id, field: field.id, description: 'click to enter description'}))
+          @get('cells').add(new CellModel({range: range.id, field: field.id}))
         )
 
       @get('fields').bind 'remove', (field) =>
@@ -37,7 +37,7 @@ define [
 
       @get('ranges').bind 'add', (range) =>
         @get('fields').each((field) =>
-          @get('cells').add(new CellModel({range: range.id, field: field.id, description: 'click to enter description'}))
+          @get('cells').add(new CellModel({range: range.id, field: field.id}))
         )
 
       @get('ranges').bind 'remove', (range) =>
