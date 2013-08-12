@@ -32,7 +32,6 @@ class Ability
 
     can [:submit], Project do |project|
       project.course.creators.include?(user)
-      true
     end
 
     ######################################################
