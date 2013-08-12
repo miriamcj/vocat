@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.11'
+gem 'rails', '~> 3.2.11'
 
 gem 'paper_trail', '~> 2'
 gem 'active_model_serializers', '~> 0.7.0'
@@ -36,6 +36,7 @@ group :development, :test do
   gem 'factory_girl'
   gem 'factory_girl_rails'
   gem 'rspec-rails'
+  gem 'ruby-debug19'
 end
 
 # Gems used only for assets and not required
