@@ -1379,13 +1379,8 @@ a.table--heading {
 
 // Components
 // --------------------------
-.matrix {
-  &.matrix--overlay-open {
-
-  }
-}
-
 .matrix--delete {
+  @extend %no-select;
   @extend %bare-ex-link;
   vertical-align: top;
   margin-left: 0.6rem;
@@ -1488,6 +1483,7 @@ a.table--heading {
 }
 
 %matrix--controls--item {
+  @extend %no-select;
   @extend %bare-focus;
   @extend %hidden-text;
   display: block;

@@ -123,3 +123,9 @@ strong {
 		}
 	}
 }
+
+// Form elements
+// --------------------------
+select {
+	@extend %bare-focus;
+}
