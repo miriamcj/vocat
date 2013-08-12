@@ -1,6 +1,8 @@
 FactoryGirl.define do
 	factory :submission do
-		association :creator, factory: :creator, strategy: :build
-		association :project, factory: :project, strategy: :build
+    name 'a test submission'
+    published true
+    association :project, factory: :project
+    association :creator, factory: :creator
 	end
 end
