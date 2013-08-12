@@ -1,6 +1,8 @@
 define 'app/helpers/truncate', ['handlebars'], (Handlebars) ->
 
   Handlebars.registerHelper('truncate', (str, len) ->
+    console.log str, 'str'
+    console.log len, 'len'
     if str.length > len
       new_str = str.substr 0, len + 1
       while new_str.length
@@ -10,8 +12,8 @@ define 'app/helpers/truncate', ['handlebars'], (Handlebars) ->
           break
       if new_str == ''
         new_str = str.substr(0, len)
-
+    else
+      new_str = str
     return new_str + '...'
-    str
   )
 
