@@ -40,7 +40,6 @@ define [
       @slide('forward')
 
     sliderRecalculate: () ->
-      console.log 'recalculating'
       @calculateAndSetSliderWidth()
       @updateSliderControls()
 
@@ -72,8 +71,7 @@ define [
           multiplier = Math.floor(@sliderColumnCount / @sliderVisibleColumns)
           @sliderContainerWidth += multiplier * @sliderModulus
         container.find('ul').width(@sliderContainerWidth)
-        @debug()
-        console.log ((@sliderColumnCount % @sliderVisibleColumns) * @sliderModulus)
+        #@debug()
         _.each container.find('.matrix--cell, ul.matrix--column-header--list li'), (el, index) =>
           index = $(el).index()
           if (index + 1) % @sliderVisibleColumns == 0
