@@ -36,7 +36,6 @@ group :development, :test do
   gem 'factory_girl'
   gem 'factory_girl_rails'
   gem 'rspec-rails'
-  gem 'ruby-debug19'
 end
 
 # Gems used only for assets and not required
