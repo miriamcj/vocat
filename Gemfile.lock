@@ -34,7 +34,6 @@ GEM
     activesupport (3.2.14)
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
-    archive-tar-minitar (0.5.2)
     arel (3.0.2)
     aws-sdk (1.8.3.1)
       json (~> 1.4)
@@ -56,7 +55,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.1)
-    columnize (0.3.6)
     compass (0.12.2)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
@@ -114,8 +112,6 @@ GEM
       activesupport (>= 3.0.0)
     kgio (2.8.0)
     libv8 (3.11.8.13)
-    linecache19 (0.5.12)
-      ruby_core_source (>= 0.1.4)
     listen (1.2.2)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
@@ -195,16 +191,6 @@ GEM
       rspec-core (~> 2.13.0)
       rspec-expectations (~> 2.13.0)
       rspec-mocks (~> 2.13.0)
-    ruby-debug-base19 (0.11.25)
-      columnize (>= 0.3.1)
-      linecache19 (>= 0.5.11)
-      ruby_core_source (>= 0.1.4)
-    ruby-debug19 (0.11.6)
-      columnize (>= 0.3.1)
-      linecache19 (>= 0.5.11)
-      ruby-debug-base19 (>= 0.11.19)
-    ruby_core_source (0.1.5)
-      archive-tar-minitar (>= 0.5.2)
     sass (3.2.6)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -266,7 +252,6 @@ DEPENDENCIES
   rails (~> 3.2.11)
   rails-backbone
   rspec-rails
-  ruby-debug19
   sass-rails (~> 3.2.3)
   simple_form
   therubyracer
