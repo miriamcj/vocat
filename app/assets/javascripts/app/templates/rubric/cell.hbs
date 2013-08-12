@@ -1,3 +1,7 @@
 <div data-behavior="open-modal">
-<p>{{description}}</p>
+	{{#if description}}
+		<p>{{truncate description 100}}</p>
+	{{else}}
+		<p>Click to enter a description.</p>
+	{{/if}}
 </div>
