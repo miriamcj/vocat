@@ -180,6 +180,11 @@
   @extend %speech-bubble-input;
 }
 
+// <dl>
+.expository-list {
+  @extend %expository-list;
+}
+
 // Boxes
 // --------------------------------------------------------
 // An example:

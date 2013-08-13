@@ -711,6 +711,19 @@ input%proto-button {
   }
 }
 
+// <dl>
+%expository-list {
+  margin: 0;
+  dt {
+    @extend %heading-alpha;
+    color: $grayDark;
+    margin-bottom: 0.8rem;
+  }
+  dd {
+    margin: 0 0 3.2rem 0;
+  }
+}
+
 // Inputs
 // --------------------------
 %reset-input {
