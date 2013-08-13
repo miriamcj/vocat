@@ -2,10 +2,10 @@
   <div class="shortcut-nav--wrapper">
     <% if @course %>
     <div class="shortcut-nav--item">
-      <nav class="assignment-selector" data-class="dropdown-container">
+      <nav class="assignment-selector" data-behavior="dropdown">
         <h2 class="shortcut-nav--title">Go to Assignment</h2>
-        <a class="assignment-selector--toggle" data-class="dropdown-toggle" href="#">View All Assignments</a>
-        <div class="assignment-selector--dropdown" data-class="dropdown">
+        <a class="assignment-selector--toggle" data-behavior="toggle" href="#">View All Assignments</a>
+        <div class="assignment-selector--dropdown" data-behavior="dropdown-options">
           <ul>
             <li><a href="">Assignment 1</a></li>
             <li><a href="">Assignment 2</a></li>
@@ -14,10 +14,10 @@
       </nav>
     </div>
     <div class="shortcut-nav--item">
-      <nav class="peer-selector" data-class="dropdown-container">
+      <nav class="peer-selector" data-behavior="dropdown">
         <h2 class="shortcut-nav--title">Provide Peer Feedback</h2>
-        <a class="peer-selector--toggle" data-class="dropdown-toggle" href="#">View All Peers</a>
-        <div class="peer-selector--dropdown" data-class="dropdown">
+        <a class="peer-selector--toggle" data-behavior="toggle" href="#">View All Peers</a>
+        <div class="peer-selector--dropdown" data-behavior="dropdown-options">
           <ul>
             <li><a href="">Peer 1</a></li>
             <li><a href="">Peer 2</a></li>
