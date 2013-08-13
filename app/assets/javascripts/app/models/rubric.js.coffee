@@ -51,9 +51,11 @@ define [
     getRangeString: () ->
       out = ''
       ranges = @get('ranges')
-      ranges.each (range) ->
-        unless parseInt(range.get('low')) == 0 then out = out + ' ' + range.get('low')
-      out = out + ' ' + ranges.last().get('high')
+      if ranges.length > 0
+        ranges.each (range) ->
+          unless parseInt(range.get('low')) == 0 then out = out + ' ' + range.get('low')
+        out = out + ' ' + ranges.last().get('high')
+        out = $.trim(out)
       out
 
     getCellDescription: (fieldId, rangeId) ->
