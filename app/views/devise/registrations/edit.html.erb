@@ -27,6 +27,14 @@
     </div>
 
     <div class="input-group">
+      <%= f.label 'Enable Glossary', :class => 'text-label' %>
+      <%= check_box_tag('user[settings][enable_glossary]', 1, resource.settings['enable_glossary'], :class => 'checkbox')%>
+
+
+    </div>
+
+
+    <div class="input-group">
       <%= f.label :current_password, :class => 'text-label' %>
       <%= f.password_field :current_password, :class => 'text-input' %>
       <small class="input-message">We need your current password to confirm your changes</small>
@@ -37,12 +45,9 @@
       <%= link_to "Back", :back, :class => 'left-arrow-link' %>
     </div>
 
+
+
   <% end %>
   <hr>
-
-  <div class="input-group">
-    <label class="text-label">Unhappy?</label>
-    <%= button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'gray-button' %>
-  </div>
 
 </div>

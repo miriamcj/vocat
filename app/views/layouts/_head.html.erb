@@ -13,6 +13,10 @@
 <%= javascript_include_tag 'vendor/require/require', 'data-main' => '/build/bootstrap' %>
 <% end %>
 
+<script type="text/javascript">
+  window.VocatSessionData = JSON.parse('<%= raw @session_data.to_json %>');
+</script>
+
 <%= stylesheet_link_tag "application", :media => "all" %>
 
 <%= csrf_meta_tags %>

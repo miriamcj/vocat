@@ -18,10 +18,7 @@ define [
     }
 
     onToggleGlossary: (e) ->
-      if Vocat.glossaryEnabled == true
-        Vocat.glossaryEnabled = false
-      else
-        Vocat.glossaryEnabled = true
+      Vocat.trigger('glossary:enabled:toggle')
       @render()
 
     serializeData: () ->

@@ -300,6 +300,12 @@
       @include svg(radio-unchecked-orange);
     }
   }
+  &.active {
+    b {
+      @include svg(radio-checked-orange);
+    }
+  }
+
 }
 
 // Lives inside .help-nav--label

@@ -596,7 +596,8 @@ CREATE TABLE users (
     updated_at timestamp without time zone NOT NULL,
     first_name character varying(255),
     last_name character varying(255),
-    middle_name character varying(255)
+    middle_name character varying(255),
+    settings text
 );
 
 
@@ -1048,3 +1049,5 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 SET search_path TO "$user",public;
 
 INSERT INTO schema_migrations (version) VALUES ('20130812165404');
+
+INSERT INTO schema_migrations (version) VALUES ('20130813172916');

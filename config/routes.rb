@@ -1,7 +1,9 @@
 Vocat::Application.routes.draw do
 
 
-  devise_for :users, :controllers => {:registrations => 'registrations'}
+  devise_for :users, :controllers => {:registrations => 'registrations'} do
+    match '/users/settings' => 'registrations#update_settings', :via => :put
+  end
 
   match 'pages/*page' => 'pages#show', :via => :get
 
@@ -76,8 +78,6 @@ Vocat::Application.routes.draw do
       end
     end
 
-    resources :rubrics, shallow: true
-
     match 'evaluations(/creator/:creator_id)(/project/:project_id)' => 'courses/evaluations#course_map', :via => :get, :as => 'evaluations'
     match 'view/creator/:creator_id' => 'courses/evaluations#creator', :via => :get, :as => 'creator'
     match 'view/project/:project_id' => 'courses/evaluations#project', :via => :get, :as => 'project'
@@ -85,6 +85,7 @@ Vocat::Application.routes.draw do
 
   end
 
+  resources :rubrics, :controller => 'courses/manage/rubrics', :only => [:index, :show, :new, :edit, :destroy]
 
   get '/admin' => 'admin/dashboard#index', :as => 'admin_root'
   match '/' => 'portfolio#index', :as => 'portfolio'

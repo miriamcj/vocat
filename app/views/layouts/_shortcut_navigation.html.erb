@@ -1,5 +1,6 @@
 <div class="shortcut-nav js-shortcut-nav invisible" >
   <div class="shortcut-nav--wrapper">
+    <% if @course %>
     <div class="shortcut-nav--item">
       <nav class="assignment-selector" data-class="dropdown-container">
         <h2 class="shortcut-nav--title">Go to Assignment</h2>
@@ -24,20 +25,21 @@
         </div>
       </nav>
     </div>
+    <% end %>
     <div class="shortcut-nav--item">
       <nav class="help-nav">
         <h2 class="shortcut-nav--title">Help</h2>
         <ul class="help-nav--list">
-          <li>
+          <li data-view="glossary-toggle">
             <label class="help-nav--label">
               <input class="help-nav--checkbox" type="checkbox" data-behavior="help-overlay-toggle"><b></b><span class="help-nav--checkbox-text">Activate Help Overlay</span>
             </label>
           </li>
           <li>
-            <a href="">Go to FAQ</a>
+            <a href="/pages/faq">Go to FAQ</a>
           </li>
           <li>
-            <a href="">View Tutorial</a>
+            <a href="/pages/tutorial">View Tutorial</a>
           </li>
         </ul>
       </nav>

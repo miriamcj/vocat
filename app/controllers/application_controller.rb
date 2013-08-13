@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
 
   before_filter { |controller| controller.get_organization_and_current_course 'course_id' }
   before_filter :authenticate_user!
+  before_filter :inject_session_data
 
   check_authorization :unless => :devise_controller?
 
@@ -17,6 +18,12 @@ class ApplicationController < ActionController::Base
 
   def disable_layout_messages
     @disable_layout_messages = true
+  end
+
+  def inject_session_data
+    @session_data = {
+      enable_glossary: current_user.nil? ? false : current_user.get_setting_value('enable_glossary')
+    }
   end
 
   def after_sign_in_path_for(user)

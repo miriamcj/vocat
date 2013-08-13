@@ -51,9 +51,7 @@
   <% end %>
 </nav>
 
-<% if @course %>
 <a class="shortcut-nav--toggle" data-behavior="shortcut-nav-toggle" href="#">Toggle Shortcuts Drawer</a>
-<% end %>
 
 <% if @course %>
   <% if @course_role == :evaluator %>
@@ -64,5 +62,7 @@
 <% else %>
   <% if current_user.role? :admin %>
     <%= render 'layouts/navigation_admin' %>
+  <% elsif current_user.role == 'evaluator' %>
+    <%= render 'layouts/navigation_evaluator' %>
   <% end %>
 <% end %>

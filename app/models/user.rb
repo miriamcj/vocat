@@ -10,6 +10,9 @@ class User < ActiveRecord::Base
   scope :creators, where(:role => "creator")
   scope :administrators, where(:role => "administrator")
 
+  serialize :settings, Hash
+
+
   delegate :can?, :cannot?, :to => :ability
 
   # Include default devise modules. Others available are:
@@ -19,11 +22,15 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :settings
 
   default_scope order("last_name ASC")
 
   ROLES = %w(creator evaluator administrator)
+
+  DEFAULT_SETTINGS = {
+    'enable_glossary' => {value: false, type: 'boolean' }
+  }
 
   def role?(base_role)
     unless User::ROLES.include? role.to_s
@@ -56,6 +63,32 @@ class User < ActiveRecord::Base
     @ability ||= Ability.new(self)
   end
 
+  def update_settings(settings)
+    keys_intersection = settings.keys & User::DEFAULT_SETTINGS.keys
+    keys_intersection.each do |key|
+      self.settings[key] = settings[key]
+    end
+  end
+
+  def get_setting_value(key)
+    default = User::DEFAULT_SETTINGS[key]
+    if self.settings.has_key? key
+      out = self.settings[key]
+      if !default.nil? && default[:type]
+        case default[:type]
+          when 'boolean'
+            out = out == '1' || out == 1 || out.downcase == 'true' || out == true ? true : false
+        end
+      end
+    else
+      if default.nil?
+        out = nil
+      else
+        out = default[:value]
+      end
+    end
+    out
+  end
 
 
 end
