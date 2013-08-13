@@ -1,7 +1,11 @@
 <div class="rubric-index">
   <header class="bar-header">
     <h2 class="bar-header--title">Rubrics</h2>
-    <%= link_to 'New Rubric', new_course_manage_rubric_path(@course), :class => 'teal-plus-button' %>
+    <% if @course %>
+      <%= link_to 'New Rubric', new_course_manage_rubric_path(@course), :class => 'teal-plus-button' %>
+    <% else %>
+      <%= link_to 'New Rubric', new_rubric_path(), :class => 'teal-plus-button' %>
+    <% end %>
   </header>
   <table class="table">
     <thead>
@@ -15,17 +19,33 @@
     <% @my_rubrics.each do |rubric| %>
       <tr>
         <th>
-          <%= link_to rubric.name, course_manage_rubric_path(@course, rubric), :class => 'table--heading' %>
+          <% if @course %>
+            <%= link_to rubric.name, course_manage_rubric_path(@course, rubric), :class => 'table--heading' %>
+          <% else %>
+            <%= link_to rubric.name, rubric_path(rubric), :class => 'table--heading' %>
+          <% end %>
         </th>
         <td><%= rubric.description %></td>
         <td>
           <strong>
-            <%= link_to 'Show', course_manage_rubric_path(@course, rubric) %>
+            <% if @course %>
+              <%= link_to 'Show', course_manage_rubric_path(@course, rubric) %>
+            <% else %>
+              <%= link_to 'Show', rubric_path(rubric) %>
+            <% end %>
             <% if can? :update, rubric %>
-              &nbsp;/&nbsp;<%= link_to 'Edit', edit_course_manage_rubric_path(@course, rubric) %>
+              <% if @course %>
+                &nbsp;/&nbsp;<%= link_to 'Edit', edit_course_manage_rubric_path(@course, rubric) %>
+              <% else %>
+                &nbsp;/&nbsp;<%= link_to 'Edit', edit_rubric_path(rubric) %>
+              <% end %>
             <% end %>
             <% if can? :destroy, rubric %>
-              &nbsp;/&nbsp;<%= link_to 'Destroy', course_manage_rubric_path(@course, rubric), method: :delete, data: { confirm: 'Are you sure?' } %>
+              <% if @course %>
+                &nbsp;/&nbsp;<%= link_to 'Destroy', course_manage_rubric_path(@course, rubric), method: :delete, data: { confirm: 'Are you sure?' } %>
+              <% else %>
+                &nbsp;/&nbsp;<%= link_to 'Destroy', rubric_path(rubric), method: :delete, data: { confirm: 'Are you sure?' } %>
+              <% end %>
             <% end %>
           </strong>
         </td>
