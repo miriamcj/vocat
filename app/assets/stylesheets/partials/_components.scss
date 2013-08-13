@@ -243,6 +243,7 @@
 
 .assignment-selector--dropdown {
   @extend %dropdown;
+  top: 5.4rem;
 }
 
 // Peer selector
@@ -257,6 +258,7 @@
 
 .peer-selector--dropdown {
   @extend %dropdown;
+  top: 5.4rem;
 }
 
 // Help nav
