@@ -73,7 +73,6 @@ define [
     onRangeRefresh: (e) ->
       rangePoints = @ui.rangePointsInput.val()
       parsedRangePoints = @parseRangePoints(rangePoints)
-      console.log parsedRangePoints,'prp'
       @model.get('ranges').each (range, index) =>
         range.set('low', parsedRangePoints[index - 1]  || 0)
         if index + 1 == parsedRangePoints.length then high = parsedRangePoints[index] else high = parsedRangePoints[index] - 1

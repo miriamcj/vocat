@@ -78,6 +78,13 @@ define [
             $(el).outerWidth(@sliderColumnWidth + @sliderModulus)
           else
             $(el).outerWidth(@sliderColumnWidth)
+
+        if @sliderPositionLeft
+          @$el.find('[data-behavior="matrix-slider"] ul').css('left', @sliderPositionLeft)
+
+        if @sliderPosition > (@sliderColumnCount - @sliderVisibleColumns)
+          @slide('backward')
+
         @updateSliderControls()
 
 
@@ -107,8 +114,6 @@ define [
           travel -= @sliderModulus
         if currentPosition % @sliderVisibleColumns == 0 && direction == 'backward'
           travel += @sliderModulus
-
-        #console.log "Travelling #{travel} to reach position #{newPosition} from #{currentPosition}"
 
         newLeft = @sliderPositionLeft + travel
         @$el.find('[data-behavior="matrix-slider"] ul').css('left', newLeft)
