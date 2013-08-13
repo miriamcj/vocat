@@ -52,6 +52,7 @@ define [
       evaluation.save({}, {
         success: () =>
           @collection.add(evaluation)
+          @vent.triggerMethod('evaluation:created')
           @model.set('current_user_has_evaluated',true)
           @model.set('current_user_percentage',0)
           @model.set('current_user_evaluation_published',false)

@@ -111,6 +111,9 @@ define [
       else
         @triggerMethod('submission:found')
 
+    onEvaluationCreated: () ->
+      @ui.glossaryToggle.show()
+
     onClose: () ->
       @placards.call('remove')
 
@@ -125,6 +128,9 @@ define [
     createEvaluationViews: () ->
       evaluations = new EvaluationCollection(@submission.get('evaluations'), {courseId: @courseId})
 
+      # If there are no evaluations, hide the glossary button
+      if evaluations.length == 0 then @ui.glossaryToggle.hide()
+
       myEvaluationModels = evaluations.where({current_user_is_owner: true})
       myEvaluations = new EvaluationCollection(myEvaluationModels, {courseId: @courseId})
       evaluations.remove(myEvaluationModels)
@@ -137,8 +143,12 @@ define [
         @myEvaluations.show new MyEvaluationView({collection: myEvaluations, model: @submission, project: @project, vent: @, courseId: @courseId})
 
       if @submission.get('current_user_is_owner') || @submission.get('current_user_is_instructor')
-        @instructorEvaluations.show new EvaluationView({collection: instructorEvaluations, label: 'Instructor', model: @submission, project: @project, vent: @, courseId: @courseId})
-        @peerEvaluations.show new EvaluationView({collection: evaluations, label: 'Peer', model: @submission, project: @project, vent: @, courseId: @courseId})
+
+        # It's useful for students to see that something hasn't been scored; less useful for instructors in this context.
+        unless @submission.get('current_user_is_instructor') && instructorEvaluations.length == 0
+          @instructorEvaluations.show new EvaluationView({collection: instructorEvaluations, label: 'Instructor', model: @submission, project: @project, vent: @, courseId: @courseId})
+        if @submission.get('course_allows_peer_review')
+          @peerEvaluations.show new EvaluationView({collection: evaluations, label: 'Peer', model: @submission, project: @project, vent: @, courseId: @courseId})
 
     createAnnotationView: () ->
       # Create the annotations view
@@ -192,7 +202,8 @@ define [
       if data? && data.attachment?
         @collections.annotation.fetch({data: {attachment: data.attachment.id}})
       @player.show(new PlayerView({model: @submission.attachment, submission: @submission, vent: @}))
-      @annotator.show new AnnotatorView({model: @submission, collection: @collections.annotation, vent: @})
+      if @submission.get('current_user_can_annotate')
+        @annotator.show new AnnotatorView({model: @submission, collection: @collections.annotation, vent: @})
 
     onAttachmentUploadDone: () ->
       @player.show(new UploadTranscodingView({}))
