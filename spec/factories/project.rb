@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :project do
-    course
+    association :course, factory: :course
     name "Test Project"
     description "Qui quia fuga quo. Soluta ratione quis deleniti. Fu..."
   end

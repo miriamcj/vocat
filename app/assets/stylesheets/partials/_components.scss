@@ -353,10 +353,6 @@
     margin-left: 0.6rem;
     float: right;
   }
-  [contenteditable] {
-    @extend %editable-content;
-    display: inline-block;
-  }
   // NB there are context-specific styles for alerts
   // nested inside the %alert (in patterns) & .alerts (below)
 }
@@ -368,6 +364,36 @@
   padding: 0.7rem 0;
   float: left;
 }
+
+.bar-header--title-alt {
+  @extend %alpha;
+  vertical-align: top;
+  color: $grayDark;
+  font-weight: $bold;
+  padding: 0.3rem 1.2rem 0.3rem 0;
+  float: left;
+}
+
+.bar-header--subtitle {
+  @extend %alpha;
+  @include font-head;
+  vertical-align: top;
+  text-transform: uppercase;
+  color: $tealMedium;
+  line-height: 1;
+  padding: 0.7rem 0 0.3rem 1.2rem;
+  border-left: 0.1rem solid $tealMedium;
+  float: left;
+}
+
+.matrix--overlay-header-subtitle {
+
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 
 .bar-header--description {
   width: 50%;
@@ -857,6 +883,10 @@ a.table--heading {
 .attachment--left {
   @extend %annotated-media--object;
   overflow: hidden;
+}
+
+.attachment--left-wide {
+  width: 100%
 }
 
 // <video>
@@ -1353,13 +1383,8 @@ a.table--heading {
 
 // Components
 // --------------------------
-.matrix {
-  &.matrix--overlay-open {
-
-  }
-}
-
 .matrix--delete {
+  @extend %no-select;
   @extend %bare-ex-link;
   vertical-align: top;
   margin-left: 0.6rem;
@@ -1462,6 +1487,7 @@ a.table--heading {
 }
 
 %matrix--controls--item {
+  @extend %no-select;
   @extend %bare-focus;
   @extend %hidden-text;
   display: block;
@@ -1932,6 +1958,9 @@ a.table--heading {
   // 1px top pading is not ideal, but seems to be necessary for Chrome to respect the top-margin on the
   // .alert:first-child enclosed in .alerts.  Perhaps SM can find a better solution --ZD
   padding-top: 1px;
+  &:empty {
+    padding-top: 0;
+  }
   .bar-header & {
     clear: both;
   }

@@ -15,7 +15,6 @@ define [
 
     onInitialize: () ->
       @rubric = @options.rubric
-      console.log @rubric
       @fieldId = @options.fieldId
       @options.showTest = () =>
         if Vocat.glossaryEnabled == true then true else false

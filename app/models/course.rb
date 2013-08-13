@@ -13,8 +13,8 @@ class Course < ActiveRecord::Base
   serialize :settings, ActiveRecord::Coders::Hstore
 
   validates :department, :name, :number, :section, :presence => true
-  validates :evaluators, :length => {:minimum => 1, :message => "can't be empty."}
-  validates :creators, :length => {:minimum => 1, :message => "can't be empty."}
+  #validates :evaluators, :length => {:minimum => 1, :message => "can't be empty."}
+  #validates :creators, :length => {:minimum => 1, :message => "can't be empty."}
 
   default_scope order("department ASC, number ASC, section ASC")
 

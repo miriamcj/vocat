@@ -3,6 +3,3 @@ define ['marionette', 'hbs!templates/submission/upload/transcoding'], (Marionett
   class UploadTranscodingView extends Marionette.ItemView
 
     template: template
-
-    onRender: () ->
-      console.log 'test a'

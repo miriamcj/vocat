@@ -24,9 +24,9 @@
 {{else}}
 <div class="attachment-placeholder">
   {{#if submission.current_user_can_attach}}
-  <a data-behavior="routable" class="attachment-placeholder--button" href="#">Upload video now</a>
+  <a data-behavior="routable" class="attachment-placeholder--button" href="{{submission.path}}">Video not yet uploaded</a>
   {{else}}
-  <span class="attachment-placeholder--message">No video has been uploaded</span>
+  <span class="attachment-placeholder--message">Video not yet uploaded</span>
   {{/if}}
 </div>
 {{/if}}

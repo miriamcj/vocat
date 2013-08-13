@@ -7,9 +7,9 @@
     <fieldset>
       <div class="input-group">
         <label class="checkbox-label">
-          <%= check_box_tag('settings[enable_annotation]', 1, @course.settings['enable_annotation'], :class => 'checkbox')%>
+          <%= check_box_tag('settings[enable_public_discussion]', 1, @course.settings['enable_public_discussion'], :class => 'checkbox')%>
           <b></b>
-          Enable video annotation
+          Enable public discussion
         </label>
         <label class="checkbox-label">
           <%= check_box_tag('settings[enable_peer_review]', 1, @course.settings['enable_peer_review'], :class => 'checkbox')%>

@@ -43,21 +43,6 @@ define [
       @vent = Marionette.getOption(@, 'vent')
       @courseId = Marionette.getOption(@, 'courseId')
 
-      #@listenTo @model, 'all', (event) -> console.log "player view heard event '#{event}' on its model"
-
-
-
-#      if @model
-#        @model.bind 'file:upload_done', @startPolling, @
-#        @model.bind 'file:upload_done', @render, @
-#        @model.bind 'file:upload_started', @render, @
-#        @model.bind 'file:upload_failed', @render, @
-#        @model.bind 'change:has_transcoded_attachment', @render, @
-#        @model.bind 'change:has_uploaded_attachment', @render, @
-#
-#        if @model.get('has_uploaded_attachment') && !@model.get('is_transcoding_complete')
-#          @startPolling()
-#
       @listenTo(@model, 'change', (options) => @render())
       @listenTo(@vent, 'player:stop', (options) => @onPlayerStop(options))
       @listenTo(@vent, 'player:start', (options) => @onPlayerStart(options))

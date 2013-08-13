@@ -10,6 +10,7 @@ define [
   'views/submission/evaluation',
   'views/submission/my_evaluation',
   'views/submission/upload',
+  'views/submission/upload/not_allowed',
   'views/submission/upload/failed',
   'views/submission/upload/started',
   'views/submission/upload/transcoding',
@@ -22,7 +23,7 @@ define [
   'models/rubric',
   'app/plugins/backbone_poller'
 ], (
-  Marionette, template, SubmissionCollection, AnnotationCollection, EvaluationCollection, PlayerView, AnnotationsView, AnnotatorView, EvaluationView, MyEvaluationView, UploadView, UploadFailedView, UploadStartedView, UploadTranscodingView, UploadStartView, DiscussionView, FlashMessagesView, RubricFieldPlacard, GlossaryTogglePlacard, Attachment, RubricModel, Poller
+  Marionette, template, SubmissionCollection, AnnotationCollection, EvaluationCollection, PlayerView, AnnotationsView, AnnotatorView, EvaluationView, MyEvaluationView, UploadView, UploadNotAllowedView, UploadFailedView, UploadStartedView, UploadTranscodingView, UploadStartView, DiscussionView, FlashMessagesView, RubricFieldPlacard, GlossaryTogglePlacard, Attachment, RubricModel, Poller
 ) ->
 
   class SubmissionLayout extends Marionette.Layout
@@ -155,6 +156,8 @@ define [
       if @submission.get('current_user_can_annotate')
         if @submission.attachment? then attachmentId = @submission.attachment.id else attachmentId = null
         @annotations.show new AnnotationsView({model: @submission, attachmentId: attachmentId, collection: @collections.annotation, vent: @})
+      else
+        $(@player.el).addClass('attachment--left-wide')
 
     createUploadView: () ->
       # Create the upload view
@@ -213,7 +216,10 @@ define [
     onAttachmentDestroyed: () ->
       @collections.annotation.attachmentId = null
       @collections.annotation.reset()
-      @player.show(new UploadStartView({vent: @}))
+      if @submission.get('current_user_can_attach') == true
+        @player.show(new UploadStartView({vent: @}))
+      else
+        @player.show(new UploadNotAllowedView({vent: @}))
       @annotator.close()
 
     onAttachmentUploadFailed: () ->

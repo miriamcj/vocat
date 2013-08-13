@@ -3,17 +3,24 @@ class Ability
 
   def initialize(user)
 
+    alias_action :new, :show, :index, :create, :read, :update, :destroy, :to => :crud
+    alias_action :new, :show, :index, :create, :read, :update, :to => :crud_sans_destroy
+
     user ||= User.new # guest user (not logged in)
 
     ######################################################
     ### Courses
     ######################################################
 
-    can [:read], Course do |course|
+    can [:read, :show], Course do |course|
       true if course.role(user)
     end
 
-    can [:update], Course do |course|
+    can [:crud_sans_destroy], Course do |course|
+      course.role(user) == :evaluator || user.role?('administrator') || course.role(user) == :assistant
+    end
+
+    can [:crud], Course do |course|
       course.role(user) == :evaluator || user.role?('administrator') || course.role(user) == :assistant
     end
 
@@ -25,14 +32,12 @@ class Ability
     ### Projects
     ######################################################
 
-    can [:read, :update, :delete, :index, :new, :edit, :show, :create], Project do |project|
-      begin project.course.id rescue raise "Can't determine course role on unattached projects. Try `can? @course.projects.build` instead of `can? Project.new`." end
+    can [:crud], Project do |project|
       can?(:update, project.course)
     end
 
     can [:submit], Project do |project|
       project.course.creators.include?(user)
-      true
     end
 
     ######################################################
@@ -44,114 +49,101 @@ class Ability
     ### Submissions
     ######################################################
     can :own, Submission do |submission|
-      submission.creator.id == user.id
+      submission.creator == user
     end
 
     can :annotate, Submission do |submission|
-      # TODO: Set who can annotate a submission
-      true
+      can?(:evaluate, submission) || can?(:own, submission)
     end
 
     can :evaluate, Submission do |submission|
       # CAN if the user can evaluate for the course and the user is not the creator of this submission
-      can?(:evaluate, submission.course) && submission.creator_id != user.id ||
+      can?(:evaluate, submission.project.course ) && submission.creator != user ||
       # CAN if the course allows self evaluation and the user is the creator of this submission
-      submission.course.settings['enable_self_evaluation'] && submission.creator_id == user.id
-    end
-
-    can :discuss, Submission do |submission|
-      if can?(:evaluate, submission) || can?(:own, submission)
-        next true
-      end
-      if submission.course.settings['enable_public_discussions']
-        next true
-      end
-      false
+      submission.project.course .settings['enable_self_evaluation'] && submission.creator == user
     end
 
     can :attach, Submission do |submission|
-      next true
-
-      if can?(:own, submission) || can?(:evaluate, submission)
-        if cannot?(:evaluate, submission)
-          if submission.course.settings['enable_creator_attach']
-            next true
-          else
-            next false
-          end
-        else
-          next false
-        end
-      else
-        next false
-      end
+      (!can?(:own, submission) && can?(:evaluate, submission)) || (can?(:own, submission) && submission.project.course.settings['enable_creator_attach'])
     end
 
-    can [:read, :update], Submission do |submission|
-      if can?(:own, submission)
-        next true
-      end
-      if can?(:evaluate, submission.course)
-        next true
-      end
+    can :read, Submission do |submission|
+      can?(:own, submission) || can?(:evaluate, submission.project.course)
     end
+
+    can :update, Submission do |submission|
+      can?(:own, submission) || can?(:evaluate, submission.project.course)
+    end
+
+    can :discuss, Submission do |submission|
+      (submission.project.course.role(user) == :evaluator && can?(:evaluate, submission)) || can?(:own, submission) || (submission.project.course.settings['enable_public_discussion'] && can?(:evaluate, submission))
+    end
+
 
     ######################################################
     # Posts
     ######################################################
+    # TODO: Write spec
+    can :crud_sans_destroy, DiscussionPost do |discussionPost|
+      can?(:discuss, discussionPost.submission)
+      true
+    end
+
+    # TODO: Write spec
+    can :destroy, DiscussionPost do |discussionPost|
+      course = discussionPost.submission.project.course
+      course.role(user) == :evaluator || discussionPost.author == user
+      true
+    end
+
+    # TODO: Write spec
+    # TODO: Write block
     can :reply, DiscussionPost do |discussionPost|
       true
     end
-
-    can :manage, DiscussionPost do |discussionPost|
-      true
-    end
-
 
 
     ######################################################
     # Annotations
     ######################################################
+
+    # TODO: Write spec
     can :create, Annotation do |annotation|
-      if can?(:annotate, annotation.attachment.fileable)
-        next true
-      end
-      false
+      can?(:annotate, annotation.attachment.fileable)
     end
 
+    # TODO: Write spec
     can :read, Annotation do |annotation|
-      if can?(:read, annotation.attachment.fileable)
-        next true
-      end
-      false
+      can?(:read, annotation.attachment.fileable)
     end
 
+    # TODO: Write spec
     can :destroy, Annotation do |annotation|
-      if user == annotation.author
-        next true
-      end
-      false
+      user == annotation.author
     end
 
     ######################################################
     # Attachments
     ######################################################
+    # TODO: Write spec
+    # TODO: Write block
     can :create, Attachment do |attachment|
-      #TODO: Flesh this out
       true
     end
 
+    # TODO: Write spec
+    # TODO: Write block
     can :read, Attachment do |attachment|
       true
     end
 
+    # TODO: Write spec
+    # TODO: Write block
     can :update, Attachment do |attachment|
-      #TODO: Flesh this out
       true
     end
 
     can :destroy, Attachment do |attachment|
-      #TODO: Flesh this out
       true
     end
 
@@ -159,6 +151,9 @@ class Ability
     ######################################################
     # Rubrics
     ######################################################
+
+    # TODO: Write spec
+    # TODO: Write block
     can :manage, Rubric do |rubric|
       true
     end
@@ -166,6 +161,8 @@ class Ability
     ######################################################
     # Admins can do anything they want.
     ######################################################
+
+    # TODO: Write spec?
     if user.role? :admin
       can :manage, :all
     end
@@ -173,6 +170,9 @@ class Ability
     ######################################################
     # Evaluations
     ######################################################
+
+    # TODO: Write spec
+    # TODO: Write block
     can :manage, Evaluation do |evaluation|
       true
     end
@@ -181,88 +181,5 @@ class Ability
   end
 
 end
-
-
-
-  #
-  #
-  #
-  #
-  #  if user.role? :creator
-  #
-  #
-		#	can :evaluate, Course do |course|
-		#		false
-		#	end
-  #
-  #    can :manage, Submission do |submission|
-  #      true
-  #    end
-  #
-  #    can :read, Rubric do |rubric|
-  #      rubric.owner_id == user.id || rubric.public == true
-  #    end
-  #
-  #
-  #    # Creators can evaluate a project if the course and the project allow peer review
-  #    can :evaluate, Project do |project|
-  #      can? :evaluate, project.course and project.allows_peer_review
-  #    end
-  #
-  #    # Creators can evaluate an exhibit if the user is not the exhibit owner and the project allows evaluation
-  #    can :evaluate, Exhibit do |exhibit|
-  #      user.id != exhibit.creator.id and can? :evalute, project
-  #    end
-  #
-  #    # Set creator privileges as normal
-		#	can :create,      [Attachment]
-  #    cannot :destroy,  [Submission, Attachment]
-  #  end
-  #
-  #
-  #  if user.role? :evaluator
-  #
-  #    # Check that the user isn't acting as a
-  #    # creator for the current course
-  #    can :manage, Course do |course|
-  #      not course.creators.include? user
-  #    end
-  #
-  #    can :read, Rubric do |rubric|
-  #      rubric.owner_id == user.id || rubric.public == true
-  #    end
-  #
-  #    can :update, Rubric do |rubric|
-  #      rubric.owner_id == user.id
-  #    end
-  #
-  #    can :destroy, Rubric do |rubric|
-  #      rubric.owner_id == user.id
-  #    end
-  #
-  #    can :manage, Project do |project|
-  #      begin
-  #        project.course.id
-  #      rescue
-  #        raise "Can't determine course role on unattached projects. Try `can? @course.projects.build` instead of `can? Project.new`."
-  #      end
-  #      not project.course.creators.include? user
-  #    end
-  #
-  #    # Revoke creator-only privileges
-  #    can :evaluate,    [Submission, Exhibit, Course]
-  #    can :create,      [Rubric]
-  #    can :create,      [Submission, Attachment]
-  #    cannot :destroy,  [Submission, Attachment]
-  #    cannot :update,   [Submission, Attachment]
-  #
-  #  end
-  #
-  #
-  #  # Admins can do whatever
-  #  if user.role? :admin
-  #    can :manage,      :all
-  #  end
-  #end
 
 
