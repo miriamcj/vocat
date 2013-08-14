@@ -1,11 +1,13 @@
 class Submission < ActiveRecord::Base
   has_many :attachments, :as => :fileable
   has_many :evaluations
+  has_many :discussion_posts
+
   belongs_to :project
 	has_one :course, :through => :project
   belongs_to :creator, :class_name => 'User'
   attr_accessible :name, :evaluations, :summary, :project_id, :url, :published,
-                  :thumb, :instructor_score_percentage, :creator_id, :attachment_ids
+                  :thumb, :instructor_score_percentage, :creator_id, :attachment_ids, :discussion_posts_count
 
   delegate :department, :to => :course, :prefix => true
   delegate :number, :to => :course, :prefix => true

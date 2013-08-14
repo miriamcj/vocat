@@ -7,18 +7,19 @@
 </div>
 {{/if}}
 <figcaption class="frame-attachment--details">
+  {{#if submission.discussion_posts_count}}
   <nav class="comments-nav">
     <ul>
       <li>
-        <a data-behavior="routable" href="{{submission.path}}">12</a>
+        <a data-behavior="routable" href="{{submission.path}}">{{submission.discussion_posts_count}}</a>
       </li>
+      <!--
       <li>
        <a data-behavior="routable" href="{{submission.path}}">3 New</a>
       </li>
+      -->
     </ul>
   </nav>
-  {{#if showCourse}}
-  <a data-behavior="routable" class="frame-attachment--link" href="{{submission.path}}">See All Comments</a>
   {{/if}}
 </figcaption>
 {{else}}

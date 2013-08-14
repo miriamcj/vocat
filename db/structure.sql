@@ -551,7 +551,8 @@ CREATE TABLE submissions (
     creator_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    published boolean
+    published boolean,
+    discussion_posts_count integer DEFAULT 0
 );
 
 
@@ -1051,3 +1052,5 @@ SET search_path TO "$user",public;
 INSERT INTO schema_migrations (version) VALUES ('20130812165404');
 
 INSERT INTO schema_migrations (version) VALUES ('20130813172916');
+
+INSERT INTO schema_migrations (version) VALUES ('20130814170103');
