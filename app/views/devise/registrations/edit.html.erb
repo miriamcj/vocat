@@ -28,11 +28,12 @@
 
     <div class="input-group">
       <%= f.label 'Enable Glossary', :class => 'text-label' %>
-      <%= check_box_tag('user[settings][enable_glossary]', 1, resource.settings['enable_glossary'], :class => 'checkbox')%>
-
-
+      <label class="checkbox-label">
+        <%= check_box_tag('user[settings][enable_glossary]', 1, resource.settings['enable_glossary'], :class => 'checkbox')%>
+        <b></b>
+        &nbsp;
+      </label>
     </div>
-
 
     <div class="input-group">
       <%= f.label :current_password, :class => 'text-label' %>
@@ -45,9 +46,6 @@
       <%= link_to "Back", :back, :class => 'left-arrow-link' %>
     </div>
 
-
-
   <% end %>
-  <hr>
 
 </div>

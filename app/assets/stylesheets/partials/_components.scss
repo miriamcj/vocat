@@ -661,6 +661,7 @@ a.table--heading {
   float: left;
   position: relative;
   cursor: pointer;
+  [type="radio"],
   .radio {
     @extend %multicolored-round-checkbox;
     width: 1.7rem;
@@ -1309,10 +1310,9 @@ a.table--heading {
 }
 
 .authentication-tile--label {
-  @extend %delta;
   @extend %no-select;
   @include opacity(70);
-  margin: 0.8rem 0;
+  margin: 0.6rem 0;
   float: left;
   position: relative;
   cursor: pointer;
@@ -1326,7 +1326,7 @@ a.table--heading {
 // Lives inside .authentication-tile--label
 .authentication-tile--checkbox-text {
   color: $grayDark;
-  margin-left: 0.4rem;
+  margin-left: 0.7rem;
 }
 
 .authentication-tile--button {

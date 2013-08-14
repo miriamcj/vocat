@@ -1,47 +1,49 @@
-<div class="span4 offset4">
-  <h2 class="text-center">Sign up</h2>
-</div>
-<div class="well span4 offset4">
+<div class="authentication-tile alt">
+  <h2 class="heading-caps-large">Sign up</h2>
+  <hr>
+
   <%= render 'layouts/messages' %>
   <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
     <%= devise_error_messages! %>
 
-    <div>
-      <label><%= f.label :email %></label>
-      <%= f.email_field :email, :class => "span4", :autofocus => true %>
+    <div class="input-group">
+      <%= f.label :email, :class => 'text-label' %>
+      <%= f.email_field :email, :class => "text-input", :autofocus => true %>
     </div>
 
-    <div>
-      <label><%= f.label :password %></label>
-      <%= f.password_field :password, :class => "span4" %>
+    <div class="input-group">
+      <%= f.label :password, :class => 'text-label' %>
+      <%= f.password_field :password, :class => "text-input" %>
     </div>
 
-    <div>
-      <label><%= f.label :password_confirmation %></label>
-      <%= f.password_field :password_confirmation, :class => "span4" %>
+    <div class="input-group">
+      <%= f.label :password_confirmation, :class => 'text-label' %>
+      <%= f.password_field :password_confirmation, :class => "text-input" %>
     </div>
 
-    <div style="margin-bottom: 20px;">
-      <label style="margin-bottom: 0px;">Role</label>
+    <div class="input-group">
+      <label class="text-label">Role</label>
       <% User::ROLES.each do |role| %>
-        <label class="radio inline">
-          <%= radio_button(:resource, :role, role) %> <%= role %>
+        <label class="radio-label">
+          <%= radio_button(:resource, :role, role) %> 
+          <b></b>
+          <%= role %>
         </label>
       <% end %>
     </div>
 
-    <div style="margin-bottom: 10px;">
-      <label>Organization</label>
+    <div class="input-group">
+      <%= f.label 'Organization', :class => 'text-label' %>
       <%= collection_select(:organization, :id, Organization.all, :id, :name)  %>
     </div>
 
-    <div>
-      <%= f.submit "Sign up", :class => "btn btn-primary"%>
+    <div class="input-group">
+      <%= f.submit "Sign up", :class => "teal-arrow-button"%>
     </div>
   <% end %>
 
 </div>
 
-<div class="span4 offset4">
+<footer class="authentication-footer">
   <%= render "devise/shared/links" %>
-</div>
+</footer>

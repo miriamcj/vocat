@@ -1,21 +1,20 @@
-<div class="span4 offset4">
-  <h2 class="text-center">Reset Password</h2>
-</div>
-<div class="well span4 offset4">
+<div class="authentication-tile alt">
+  <h2 class="heading-caps-large">Reset Password</h2>
+  <hr>
   <%= render 'layouts/messages' %>
   <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
     <%= devise_error_messages! %>
 
-    <div>
-      <%= f.email_field :email, :autofocus => true, :class => "span4", :placeholder => "Your email address" %>
+    <div class="input-group">
+      <%= f.label 'Your email address', :class => 'text-label' %>
+      <%= f.email_field :email, :autofocus => true, :class => "text-input" %>
     </div>
-    <div>
-      <%= f.submit "Send me reset password instructions", :class => "btn btn-primary" %>
+    <div class="input-group">
+      <%= f.submit "Send me instructions", :class => "teal-arrow-button" %>
     </div>
   <% end %>
-
 </div>
 
-<div class="span4 offset4">
+<footer class="authentication-footer">
   <%= render "devise/shared/links" %>
-</div>
+</footer>
