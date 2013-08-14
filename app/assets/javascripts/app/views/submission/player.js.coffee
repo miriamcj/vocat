@@ -31,11 +31,13 @@ define [
       @model.requestTranscoding()
 
     onDestroy: ->
-      @model.destroy({
-        success: () =>
-          @model.clear()
-          @vent.triggerMethod('attachment:destroyed')
-      })
+      results = confirm('Deleted evaluations cannot be recovered. Please confirm that you would like to delete your evaluation.')
+      if results == true
+        @model.destroy({
+          success: () =>
+            @model.clear()
+            @vent.triggerMethod('attachment:destroyed')
+        })
 
     initialize: (options) ->
       @options = options || {}

@@ -177,7 +177,7 @@ define [
 
     startPolling: () ->
       options = {
-        delay: 1000
+        delay: 5000
         delayed: true
         condition: (attachment) =>
           results = attachment.get('transcoding_success') == true
@@ -197,9 +197,11 @@ define [
       else
         attachment = @submission.attachment
         if attachment
+          console.log attachment,'att'
           if attachment.get('transcoding_busy') then @triggerMethod('attachment:upload:done')
           if attachment.get('transcoding_error') then @triggerMethod('attachment:transcoding:failed')
           if attachment.get('transcoding_success') then @triggerMethod('attachment:transcoding:completed')
+          if attachment.get('transcoding_unnecessary') then @triggerMethod('attachment:transcoding:completed')
 
     onAttachmentTranscodingCompleted: (data) ->
       if data? && data.attachment?

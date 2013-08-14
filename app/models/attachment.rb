@@ -227,7 +227,7 @@ class Attachment < ActiveRecord::Base
           finished_transcoding = TRUE
           break
         else
-          sleep 1
+          sleep 5
       end
     end
     unless finished_transcoding
