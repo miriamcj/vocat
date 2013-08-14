@@ -1741,6 +1741,7 @@ a.table--heading {
   @extend %clearfix;
   padding: $subHeaderHeight 0 0 ($matrixCellWidth);
   position: relative;
+  border-bottom: 0.1rem solid transparentize($beigeDark, 0.1);
 }
 
 .matrix--content {
