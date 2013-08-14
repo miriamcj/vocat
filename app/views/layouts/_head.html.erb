@@ -19,6 +19,10 @@
 
 <%= stylesheet_link_tag "application", :media => "all" %>
 
+<!--[if lte IE 8]>
+<%= javascript_include_tag 'vendor/rem_unit_polyfill/rem.min.js' %>
+<!--<![endif]-->
+
 <%= csrf_meta_tags %>
 
 <%= yield(:head) %>
