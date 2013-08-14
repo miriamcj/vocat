@@ -226,12 +226,8 @@
 
 // Images
 // --------------------------------------------------------
-.gray-avatar {
-  @extend %gray-round-avatar;
-}
-
-.teal-avatar {
-  @extend %teal-round-avatar;
+.round-avatar {
+  @extend %round-avatar;
 }
 
 // Progress bar
