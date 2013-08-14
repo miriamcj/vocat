@@ -218,6 +218,10 @@ describe 'Ability' do
       it 'an evaluator that does not belongs to its course' do
         evaluator_b.should_not be_able_to(:attach, submission_a)
       end
+      it 'a creator in the same course, even if the course has peer review enabled' do
+	      course_a.settings['enable_peer_review'] = true
+	      creator_ab.should_not be_able_to(:attach, submission_a)
+      end
       it 'its owner if enable creator attach is not enabled' do
         course_a.settings['enable_creator_attach'] = false
         creator_a.should_not be_able_to(:attach, submission_a)

@@ -64,7 +64,12 @@ class Ability
     end
 
     can :attach, Submission do |submission|
-      (!can?(:own, submission) && can?(:evaluate, submission)) || (can?(:own, submission) && submission.project.course.settings['enable_creator_attach'])
+	    # CAN if the user is an administrator
+	    (user.role?(:administrator)) ||
+	    # CAN if the user is not the submission owner, and is an evaluator for the course
+			(!can?(:own, submission) && submission.project.course.role(user) == :evaluator) ||
+			# CAN if the user is the submission owner and enable_creator_attach is true
+			(can?(:own, submission) && submission.project.course.settings['enable_creator_attach'])
     end
 
     can :read, Submission do |submission|
