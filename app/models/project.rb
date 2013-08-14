@@ -2,7 +2,7 @@ class Project < ActiveRecord::Base
   belongs_to :course
   belongs_to :project_type
   belongs_to :rubric
-  has_many :submissions
+  has_many :submissions, :dependent => :destroy
   has_many :submitors, :through => :course
   attr_accessible :description, :name, :course, :rubric_id
 

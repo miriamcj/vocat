@@ -1,7 +1,7 @@
 class Submission < ActiveRecord::Base
-  has_many :attachments, :as => :fileable
-  has_many :evaluations
-  has_many :discussion_posts
+  has_many :attachments, :as => :fileable, :dependent => :destroy
+  has_many :evaluations, :dependent => :destroy
+  has_many :discussion_posts, :dependent => :destroy
 
   belongs_to :project
 	has_one :course, :through => :project
