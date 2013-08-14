@@ -15,8 +15,8 @@ define [
     className: 'annotations'
 
     triggers: {
-      'click [data-behavior="annotations-view-all"]': 'show:all'
-      'click [data-behavior="annotations-auto-scroll"]': 'show:active'
+      'click [data-behavior="show-all"]': 'show:all'
+      'click [data-behavior="show-auto"]': 'show:auto'
     }
 
     emptyView: EmptyView
@@ -26,6 +26,8 @@ define [
     itemViewContainer: '[data-behavior="annotations-container"]'
 
     ui: {
+      showAllLink: '[data-behavior="show-all"]'
+      showAutoLink: '[data-behavior="show-auto"]'
       count: '[data-behavior="count"]'
       anchor: '[data-behavior="anchor"]'
       scrollParent: '[data-behavior="scroll-parent"]'
@@ -57,10 +59,18 @@ define [
         @trigger('player:time', data)
       )
 
-
     # Triggered by child itemView; echoed up the event chain to the global event
     onPlayerSeek: (data) ->
       @vent.trigger('player:seek', data)
+
+    onShowAll: () ->
+      @ui.showAllLink.hide()
+      @ui.showAutoLink.show()
+
+    onShowAuto: () ->
+      @ui.showAllLink.show()
+      @ui.showAutoLink.hide()
+
 
     onItemShown: (options) ->
       if @disableScroll == false

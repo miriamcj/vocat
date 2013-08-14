@@ -3,6 +3,7 @@ define ['marionette', 'hbs!templates/submission/annotations_item'], (Marionette,
   class AnnotationItem extends Marionette.ItemView
 
     visible: true
+    ignoreTime: false
     template: template
     tagName: 'li'
     className: 'annotations--item'
@@ -15,18 +16,35 @@ define ['marionette', 'hbs!templates/submission/annotations_item'], (Marionette,
       @vent = options.vent
       @errorVent = options.errorVent
 
-      @listenTo(@vent, 'player:time', (data) =>
-        if @model.get('seconds_timecode') <= data.seconds
-          if @visible == false
-            @visible = true
-            @$el.fadeIn()
-            @vent.triggerMethod('item:shown')
-        else
-          if @visible == true
-            @visible = false
-            @$el.fadeOut()
-            @vent.triggerMethod('item:hidden')
+      @listenTo(@vent, 'show:all', () =>
+        @ignoreTime = true
+        @show()
       )
+
+      @listenTo(@vent, 'show:auto', () =>
+        @ignoreTime = false
+      )
+
+
+      @listenTo(@vent, 'player:time', (data) =>
+        if @ignoreTime == false
+          if @model.get('seconds_timecode') <= data.seconds
+            @show()
+          else
+            @hide()
+      )
+
+    show: () ->
+      if @visible == false
+        @visible = true
+        @$el.fadeIn()
+        @vent.triggerMethod('item:shown')
+
+    hide: () ->
+      if @visible == true
+        @visible = false
+        @$el.fadeOut()
+        @vent.triggerMethod('item:hidden')
 
     onBeforeRender: () ->
       @$el.hide()

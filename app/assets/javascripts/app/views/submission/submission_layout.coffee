@@ -197,7 +197,6 @@ define [
       else
         attachment = @submission.attachment
         if attachment
-          console.log attachment,'att'
           if attachment.get('transcoding_busy') then @triggerMethod('attachment:upload:done')
           if attachment.get('transcoding_error') then @triggerMethod('attachment:transcoding:failed')
           if attachment.get('transcoding_success') then @triggerMethod('attachment:transcoding:completed')
