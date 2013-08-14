@@ -26,7 +26,7 @@
           <% if can? :update, project %>
             <strong><%= link_to 'Edit', edit_course_manage_project_path(@course, project) %></strong> /
           <% end %>
-          <% if can? :delete, project %>
+          <% if can? :destroy, project %>
             <strong><%= link_to 'Delete', course_manage_project_path(@course, project), method: :delete, data: { confirm: 'Are you sure?' } %></strong>
           <% end %>
         </td>
