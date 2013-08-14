@@ -1,6 +1,13 @@
 class DiscussionPostSerializer < ActiveModel::Serializer
+
+  include ActionView::Helpers::TextHelper
+
   attributes :id, :author_id, :author_name, :body, :published, :parent_id, :gravatar, :created_at, :month, :day, :year, :time,
              :current_user_can_reply, :current_user_can_destroy
+
+  def body
+    simple_format(object.body)
+  end
 
   def month
     object.created_at.strftime("%b")
