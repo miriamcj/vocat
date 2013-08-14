@@ -13,9 +13,10 @@ define [
   'views/abstract/sliding_grid_layout'
   'views/rubric/fields',
   'views/rubric/ranges',
-  'views/rubric/rows'
+  'views/rubric/rows',
+  'views/flash/flash_messages',
 ], (
-  Marionette, template, RubricModel, FieldModel, RangeModel, RowModel, CellModel, RowCollection, CellCollection, FieldCollection, RangeCollection, SlidingGridLayout, FieldsView, RangesView, RowsView
+  Marionette, template, RubricModel, FieldModel, RangeModel, RowModel, CellModel, RowCollection, CellCollection, FieldCollection, RangeCollection, SlidingGridLayout, FieldsView, RangesView, RowsView, FlashMessagesView
 ) ->
 
   class RubricLayout extends SlidingGridLayout
@@ -28,6 +29,8 @@ define [
       fields: '[data-region="fields"]'
       ranges: '[data-region="ranges"]'
       rows: '[data-region="rows"]'
+      flash: '[data-region="flash"]'
+
     }
 
     events: {
@@ -78,24 +81,34 @@ define [
         if index + 1 == parsedRangePoints.length then high = parsedRangePoints[index] else high = parsedRangePoints[index] - 1
         range.set('high', high || 0)
 
-    onRubricSync: () ->
-      rangeString = @model.getRangeString()
-      @render()
-      @ui.rangePointsInput.val(rangeString)
-      @onRangeRefresh()
-
     initialize: (options) ->
       unless @model
         if options.rubricId
           @model = new RubricModel({id: options.rubricId})
-          @model.fetch()
+          @model.fetch({
+            success: (model) =>
+              rangeString = model.getRangeString()
+              @render()
+              @ui.rangePointsInput.val(rangeString)
+              @onRangeRefresh()
+
+          })
         else
           @model = new RubricModel({})
-
-      @listenTo(@model, 'sync', (event) => @triggerMethod('rubric:sync'))
+      @render()
 
     onRubricSave: () ->
-      @model.save()
+      @model.save({}, {
+        success: () =>
+          console.log 'called'
+          @trigger('error:add', {level: 'notice', msg: 'Rubric has been saved'})
+      , error: (model, xhr) =>
+          if xhr.responseJSON?
+            msg = xhr.responseJSON
+          else
+            msg = 'Unable to save rubric. Be sure to add a title, and at least one range and field.'
+          @trigger('error:add', {level: 'error', msg: msg})
+      })
 
     onRangeAdd: () ->
       range = new RangeModel({})
@@ -135,5 +148,6 @@ define [
       @rows.show(@views.rows)
       @fields.show(@views.fields)
       @ranges.show(@views.ranges)
+      @flash.show new FlashMessagesView({vent: @, clearOnAdd: true})
 
       @sliderRecalculate()
