@@ -1230,18 +1230,20 @@ input%proto-button {
 %box--link {
   @extend %heading-epsilon;
   @extend %arrow-link-beige-light;
+  margin-right: 0;
   position: absolute;
   top: 0.7rem;
-  right: 1.2rem;
+  right: 1.4rem;
 }
 
 // Lives inside %box>header
 %box--minus-link {
   @extend %heading-epsilon;
   @extend %minus-link;
+  margin-right: 0;
   position: absolute;
   top: 0.7rem;
-  right: 1.2rem;
+  right: 1.4rem;
 }
 
 %box--content {
