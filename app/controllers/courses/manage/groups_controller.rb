@@ -4,6 +4,11 @@ class Courses::Manage::GroupsController < ApplicationController
   load_and_authorize_resource :project, :through => :course
   before_filter :disable_layout_messages
 
+  def new
+	  @creators = @course.creators
+	  @groups = @course.groups
+  end
+
   # GET /courses/:course_id/groups
   # GET /courses/:course_id/groups.json
   def index

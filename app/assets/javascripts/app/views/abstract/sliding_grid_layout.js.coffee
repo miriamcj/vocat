@@ -43,13 +43,17 @@ define [
       @calculateAndSetSliderWidth()
       @updateSliderControls()
 
-    debug: () ->
-      console.clear()
+    debug: (msg = 'slider debug:', clear = true) ->
+      if clear == true
+        console.clear()
+      console.log msg
       console.log @sliderVisibleColumns,'@sliderVisibleColumns'
       console.log @sliderContainerWidth,'@sliderContainerWidth'
       console.log @sliderColumnCount,'@sliderColumnCount'
       console.log @sliderColumnWidth,'@sliderColumnWidth'
       console.log @sliderModulus,'@sliderModulus'
+      console.log @sliderPosition, '@sliderPosition'
+      console.log @sliderPositionLeft, '@sliderPositionLeft'
 
     setSpacerCellHeights: () ->
       $spacers = @$el.find('.matrix--row-spacer')
@@ -110,6 +114,7 @@ define [
         travel = @sliderColumnWidth * 1
         newPosition = currentPosition - 1
       if newPosition <= (@sliderColumnCount - @sliderVisibleColumns) && newPosition >= 0
+
         if newPosition % @sliderVisibleColumns == 0 && direction == 'forward'
           travel -= @sliderModulus
         if currentPosition % @sliderVisibleColumns == 0 && direction == 'backward'

@@ -1,14 +1,12 @@
 <header class="bar-header double-space-bottom">
   <h2 class="bar-header--title">Manage Course Groups</h2>
-  <%= link_to 'New Group', new_course_group_path(@course), :class => 'teal-plus-button' %>
+  <%= link_to 'New Group', new_course_manage_group_path(@course), :class => 'teal-plus-button' %>
   <%= render 'layouts/messages' %>
 </header>
 <table class="table">
   <thead>
   <tr>
     <th>Name</th>
-    <th>Description</th>
-    <th>Rubric</th>
     <th>Actions</th>
   </tr>
   </thead>
@@ -16,16 +14,11 @@
   <% @groups.each do |group| %>
     <tr>
       <th>
-        <%= link_to group.name, course_group_path(@course, group), :class => "table--heading" %>
+        <%= link_to group.name, course_manage_group_path(@course, group), :class => "table--heading" %>
       </th>
-      <td><%= group.description %></td>
       <td style="white-space: nowrap">
-        <% if can? :update, project %>
-          <strong><%= link_to 'Edit', edit_course_group_path(@course, group) %></strong> /
-        <% end %>
-        <% if can? :delete, project %>
-          <strong><%= link_to 'Delete', course_group_path(@course, group), method: :delete, data: { confirm: 'Are you sure?' } %></strong>
-        <% end %>
+        <strong><%= link_to 'Edit', edit_course_manage_group_path(@course, group) %></strong> /
+        <strong><%= link_to 'Delete', course_manage_group_path(@course, group), method: :delete, data: { confirm: 'Are you sure?' } %></strong>
       </td>
     </tr>
   <% end %>
