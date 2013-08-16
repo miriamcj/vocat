@@ -2,6 +2,9 @@ define ['backbone'], (Backbone) ->
 
   class Group extends Backbone.Model
 
+    urlRoot: () ->
+      "/api/v1/courses/#{@get('course_id')}/groups"
+
     validate: (attributes, options) ->
       errors = []
       if !attributes.name? || attributes.name == ''

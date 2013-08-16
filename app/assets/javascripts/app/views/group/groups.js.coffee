@@ -16,7 +16,6 @@ define [
       }
 
     initialize: (options) ->
-      console.log @collection.length
       @options = options || {}
       @vent = Marionette.getOption(@, 'vent')
 

@@ -5,5 +5,5 @@ define ['marionette', 'controllers/group_controller'], (Marionette, GroupControl
     controller: new GroupController
 
     appRoutes : {
-      'courses/:course/manage/groups/new': 'new'
+      'courses/:course/manage/groups': 'index'
     }

@@ -14,5 +14,5 @@ define [
     }
 
     show: () ->
-      view = new FlashMessagesView({vent: Vocat, collection: @collections.globalFlash})
+      view = new FlashMessagesView({vent: Vocat.vent, collection: @collections.globalFlash})
       Vocat.globalFlash.show view

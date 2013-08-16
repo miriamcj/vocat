@@ -20,7 +20,7 @@ gem 'delayed_job_active_record'
 gem 'quiet_assets'
 gem 'cancan'
 gem 'kaminari'
-
+gem 'strong_parameters'
 
 # These gems will likely be removed after prototyping is completed
 gem 'rails-backbone'

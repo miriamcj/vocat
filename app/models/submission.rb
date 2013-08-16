@@ -2,10 +2,12 @@ class Submission < ActiveRecord::Base
   has_many :attachments, :as => :fileable, :dependent => :destroy
   has_many :evaluations, :dependent => :destroy
   has_many :discussion_posts, :dependent => :destroy
+	has_one :course, :through => :project
 
   belongs_to :project
-	has_one :course, :through => :project
+  belongs_to :group
   belongs_to :creator, :class_name => 'User'
+
   attr_accessible :name, :evaluations, :summary, :project_id, :url, :published,
                   :thumb, :instructor_score_percentage, :creator_id, :attachment_ids, :discussion_posts_count
 
@@ -16,10 +18,10 @@ class Submission < ActiveRecord::Base
   delegate :name_long, :to => :course, :prefix => true
   delegate :allows_peer_review, :to => :course, :prefix => true
   delegate :allows_self_evaluation, :to => :course, :prefix => true
-
   delegate :id, :to => :course, :prefix => true
   delegate :name, :to => :project, :prefix => true
   delegate :name, :to => :creator, :prefix => true
+  delegate :name, :to => :group, :prefix => true, :allow_nil => true
 
   scope :for_course, lambda { |course| joins(:project).where('projects.course_id' => course).includes(:attachments) }
   scope :for_creator, lambda { |creator| where('creator_id' => creator).includes(:course, :project, :attachments) }
@@ -27,6 +29,9 @@ class Submission < ActiveRecord::Base
   scope :for_project_and_course, lambda { |project, course| where('project_id' => project, 'projects.course_id' => course).includes(:course, :project, :attachments) }
   scope :for_creator_and_project, lambda { |creator, project| where('creator_id' => creator, 'project_id' => project).includes(:course, :project, :attachments) }
   scope :for_course_creator_and_project, lambda { |course, creator, project| where('creator_id' => creator, 'project_id' => project, 'projects.course_id' => course).includes(:course, :project, :attachments) }
+  scope :for_group, lambda { |group| where('group_id' => group).includes(:course, :project, :attachments) }
+  scope :for_group_and_course, lambda { |group, course| where('group_id' => group, 'projects.course_id' => course).includes(:course, :project, :attachments) }
+  scope :for_group_and_project, lambda { |group, project| where('group_id' => group, 'project_id' => project).includes(:course, :project, :attachments) }
 
   def self.find_or_create_by_course_creator_and_project(course, creator, project)
     submissions = self.for_course_creator_and_project(course, creator, project)
@@ -196,8 +201,6 @@ class Submission < ActiveRecord::Base
       end
     end
  end
-
-
 
 
   private

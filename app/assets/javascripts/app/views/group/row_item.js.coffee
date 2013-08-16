@@ -10,6 +10,7 @@ define ['marionette', 'hbs!templates/rubric/rows_item', 'views/group/cell'], (Ma
     itemViewOptions: () ->
       {
         vent: @vent
+        creator: @model
       }
 
     initialize: (options) ->

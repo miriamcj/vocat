@@ -7,6 +7,28 @@ define ['marionette', 'hbs!templates/group/cell'], (Marionette, template) ->
     tagName: 'li'
     className: 'matrix--cell'
 
+    triggers: {
+      'click input': 'click:input'
+    }
+
+    onClickInput: () ->
+      @vent.triggerMethod('dirty')
+
+      if @isEnrolled() == true
+        @model.set('creator_ids', _.without(@model.get('creator_ids'), @creator.id))
+      else
+        @model.get('creator_ids').push(@creator.id)
+      @render()
+
+    serializeData: () ->
+      {
+        enrolled: @isEnrolled()
+      }
+
+    isEnrolled: () ->
+      _.indexOf(@model.get('creator_ids'), @creator.id) > -1
+
     initialize: (options) ->
-      @vent = Vocat.vent
+      @creator = options.creator
+      @vent = options.vent
 

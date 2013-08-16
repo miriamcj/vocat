@@ -11,7 +11,7 @@ define [
       group: new GroupCollection([], {})
     }
 
-    new: (courseId) ->
+    index: (courseId) ->
       view = new GroupLayout({courseId: courseId, collections: @collections})
       Vocat.main.show view
 

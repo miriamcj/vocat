@@ -24,6 +24,7 @@ Vocat::Application.routes.draw do
       resources :evaluations
       resources :submissions
       resources :courses do
+        resources :groups
         resources :submissions, :only => [:index]
         resources :evaluations, :only => [:index]
       end

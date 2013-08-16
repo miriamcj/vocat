@@ -1,7 +1,8 @@
 define [
-  'marionette', 'hbs!templates/submission/my_evaluation', 'collections/evaluation_collection', 'models/evaluation', 'models/rubric', 'views/flash/flash_messages', 'views/submission/evaluation_item', 'views/submission/evaluation_item_edit', 'views/submission/my_evaluation_empty'
+  'marionette', 'hbs!templates/submission/my_evaluation', 'collections/evaluation_collection', 'models/evaluation', 'models/rubric', 'views/flash/flash_messages',
+  'views/submission/evaluation_item', 'views/submission/evaluation_item_edit', 'views/submission/my_evaluation_empty', 'views/modal/modal_confirm'
 ], (
-  Marionette, template, EvaluationCollection, Evaluation, Rubric, FlashMessagesView, EvaluationItem, EvaluationItemEdit, MyEvaluationEmpty
+  Marionette, template, EvaluationCollection, Evaluation, Rubric, FlashMessagesView, EvaluationItem, EvaluationItemEdit, MyEvaluationEmpty, ModalConfirmView
 ) ->
   class MyEvaluationDetail extends Marionette.CompositeView
 
@@ -63,18 +64,25 @@ define [
           @render()
       })
 
-    onEvaluationDestroy: () ->
+    onConfirmDestroy: () ->
       evaluation = @collection.at(0)
-      results = confirm('Deleted evaluations cannot be recovered. Please confirm that you would like to delete your evaluation.')
-      if results == true
-        evaluation.destroy({
-          success: () =>
-            @model.set('current_user_has_evaluated',false)
-            @model.set('current_user_percentage',null)
-            @model.set('current_user_evaluation_published',null)
-            @trigger('error:add', {level: 'notice', msg: 'Evaluation successfully deleted'})
-        })
-        @render()
+      evaluation.destroy({
+        success: () =>
+          @model.set('current_user_has_evaluated',false)
+          @model.set('current_user_percentage',null)
+          @model.set('current_user_evaluation_published',null)
+          @trigger('error:add', {level: 'notice', msg: 'Evaluation successfully deleted'})
+      })
+      @render()
+
+    onEvaluationDestroy: () ->
+      Vocat.vent.trigger('modal:open', new ModalConfirmView({
+        model: @model,
+        vent: @,
+        descriptionLabel: 'Deleted evaluations cannot be recovered. Please confirm that you would like to delete your evaluation.',
+        confirmEvent: 'confirm:destroy',
+        dismissEvent: 'dismiss:destroy'
+      }))
 
     serializeData: () ->
       {

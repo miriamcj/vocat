@@ -1,29 +1,5 @@
-<header class="bar-header double-space-bottom">
-  <h2 class="bar-header--title">Manage Course Groups</h2>
-  <%= link_to 'New Group', new_course_manage_group_path(@course), :class => 'teal-plus-button' %>
-  <%= render 'layouts/messages' %>
-</header>
-<table class="table">
-  <thead>
-  <tr>
-    <th>Name</th>
-    <th>Actions</th>
-  </tr>
-  </thead>
-  <tbody>
-  <% @groups.each do |group| %>
-    <tr>
-      <th>
-        <%= link_to group.name, course_manage_group_path(@course, group), :class => "table--heading" %>
-      </th>
-      <td style="white-space: nowrap">
-        <strong><%= link_to 'Edit', edit_course_manage_group_path(@course, group) %></strong> /
-        <strong><%= link_to 'Delete', course_manage_group_path(@course, group), method: :delete, data: { confirm: 'Are you sure?' } %></strong>
-      </td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
-
+<div id="region-main"></div>
+<%= render :partial => 'shared/bootstrap_collection', :locals => {:type => 'Collections', :key => 'creator', :data => @creators }%>
+<%= render :partial => 'shared/bootstrap_collection', :locals => {:type => 'Collections', :key => 'group', :data => @groups}%>
 
 

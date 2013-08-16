@@ -84,6 +84,16 @@ class Ability
       (submission.project.course.role(user) == :evaluator && can?(:evaluate, submission)) || can?(:own, submission) || (submission.project.course.settings['enable_public_discussion'] && can?(:evaluate, submission))
     end
 
+    ######################################################
+    ### Groups
+    ######################################################
+    can :read, Group do |group|
+      group.course.role(user)
+    end
+
+    can :crud, Group do |group|
+      group.course.role(user) == :evaluator || group.course.role(user) == :administrator
+    end
 
     ######################################################
     # Posts

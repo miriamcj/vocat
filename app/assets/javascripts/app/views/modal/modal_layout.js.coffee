@@ -26,6 +26,7 @@ define [
       @$el.hide()
 
       @listenTo(@vent, 'modal:open', (view) =>
+        @view = view
         @updateContent(view)
         @open()
       )
@@ -51,6 +52,7 @@ define [
       @centerModal()
       @$el.show()
       @vent.trigger('modal:after:show')
+      @view.trigger('modal:after:show')
 
     centerModal: () ->
       yOffset = $(document).scrollTop()
@@ -82,4 +84,4 @@ define [
 
     showBackdrop: () ->
       @resizeBackdrop()
-      @ensureBackdrop().fadeIn(250)
+      @ensureBackdrop().fadeIn(150)

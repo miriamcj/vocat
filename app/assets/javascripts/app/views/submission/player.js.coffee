@@ -2,13 +2,11 @@
 define [
   'marionette',
   'hbs!templates/submission/partials/player_has_transcoded_video',
-  'hbs!templates/submission/partials/player_no_video',
-  'models/attachment'
+  'views/modal/modal_confirm'
 ], (
   Marionette,
   templateVideo,
-  templateNoVideo,
-  Attachment
+  ModalConfirmView
 ) ->
 
   class PlayerView extends Marionette.ItemView
@@ -30,14 +28,21 @@ define [
     onStartTranscoding: (e) ->
       @model.requestTranscoding()
 
+    onConfirmDestroy: () ->
+      @model.destroy({
+        success: () =>
+          @model.clear()
+          @vent.triggerMethod('attachment:destroyed')
+      })
+
     onDestroy: ->
-      results = confirm('Deleted evaluations cannot be recovered. Please confirm that you would like to delete your evaluation.')
-      if results == true
-        @model.destroy({
-          success: () =>
-            @model.clear()
-            @vent.triggerMethod('attachment:destroyed')
-        })
+      Vocat.vent.trigger('modal:open', new ModalConfirmView({
+        model: @model,
+        vent: @,
+        descriptionLabel: 'Deleted videos cannot be recovered. Please confirm that you would like to delete this video.',
+        confirmEvent: 'confirm:destroy',
+        dismissEvent: 'dismiss:destroy'
+      }))
 
     initialize: (options) ->
       @options = options || {}

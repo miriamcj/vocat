@@ -7,7 +7,11 @@ class Course < ActiveRecord::Base
   has_many :groups, :dependent => :destroy
   has_one :project_type
 
-  attr_accessible :department, :description, :name, :number, :section, :evaluators, :assistants, :creators, :settings
+  accepts_nested_attributes_for :groups
+
+  include ActiveModel::ForbiddenAttributesProtection
+
+  attr_accessible :department, :description, :name, :number, :section, :evaluators, :assistants, :creators, :settings, :groups, :groups_attributes
 
   serialize :settings, ActiveRecord::Coders::Hstore
 

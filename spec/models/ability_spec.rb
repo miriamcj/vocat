@@ -21,7 +21,9 @@ course_b.evaluators = [evaluator_in_b, evaluator_in_a_and_b]
 project_a_1 = FactoryGirl.build(:project, name: 'course A project 1', course: course_a)
 project_a_2 = FactoryGirl.build(:project, name: 'course A project 2', course: course_a)
 project_b_1 = FactoryGirl.build(:project, name: 'course A project 1', course: course_b)
-project_b_2 = FactoryGirl.build(:project, name: 'course A project 2', course: course_b)
+
+group_a_1 = FactoryGirl.build(:group, name: 'course A group 1', course: course_a)
+
 
 submission_a = FactoryGirl.build(:submission, name: 'submission for creator_a and project_a in course_a', project: project_a_1, creator: creator_in_a)
 submission_b = FactoryGirl.build(:submission, name: 'submission for creator_b and project_b in course_b', project: project_b_1, creator: creator_in_b)
@@ -284,7 +286,45 @@ describe 'Ability' do
       end
     end
 
+  end
 
+  describe 'group' do
+
+    describe 'can be CRUDed by' do
+      it 'an evaluator belonging to its course' do
+        evaluator_a.should be_able_to(:crud, group_a_1)
+      end
+      it 'an administrator' do
+        admin.should be_able_to(:crud, group_a_1)
+      end
+    end
+
+    describe 'cannot be CRUDed by' do
+      it 'an evaluator not belonging to its course' do
+        evaluator_b.should_not be_able_to(:crud, group_a_1)
+      end
+      it 'any creator that is not also an evaluator belonging to its course' do
+        creator_a.should_not be_able_to(:crud, group_a_1)
+        creator_b.should_not be_able_to(:crud, group_a_1)
+        creator_ab.should_not be_able_to(:crud, group_a_1)
+      end
+    end
+
+    describe 'can be read by' do
+      it 'any user associated with the course or an administrator' do
+        creator_a.should be_able_to(:read, group_a_1)
+        creator_ab.should be_able_to(:read, group_a_1)
+        evaluator_a.should be_able_to(:read, group_a_1)
+        admin.should be_able_to(:read, group_a_1)
+      end
+    end
+
+    describe 'cannot be read by' do
+      it 'any user not associated with the course' do
+        creator_b.should_not be_able_to(:read, group_a_1)
+        evaluator_b.should_not be_able_to(:read, group_a_1)
+      end
+    end
 
   end
 
