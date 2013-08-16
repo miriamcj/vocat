@@ -395,13 +395,16 @@
 }
 
 .matrix--overlay-header-subtitle {
-
-
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  @extend %truncated;
 }
 
+.bar-header--text-link {
+  @extend %heading-epsilon;
+  @extend %bare-link;
+  line-height: 1.1;
+  color: $tealMedium;
+  margin: 0.9rem 0.6rem;
+}
 
 .bar-header--description {
   width: 50%;
@@ -479,13 +482,11 @@
 // Lives inside tbody>tr>th
 .table--heading {
   @extend %kilo;
+  @extend %truncated;
   @include font-head;
   display: block;
   width: 21rem;
   text-transform: uppercase;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
 }
 
 // Dear SASS, it would be great if something like 'a&'
@@ -666,7 +667,7 @@ a.table--heading {
       width: auto;
       height: 100%;
       text-align: center;
-      padding: 1.1rem 0;
+      padding: 0.6rem 0;
       float: none;
       .checkbox {
         display: inline-block;
@@ -675,7 +676,7 @@ a.table--heading {
         left: auto;
         & + b {
           margin-left: -1.3rem;
-          top: 1.1rem;
+          top: 0.6rem;
           left: 50%;
         }
       }
@@ -1409,6 +1410,9 @@ a.table--heading {
   .editable & {
     height: 13.6rem;
   }
+  .compact & {
+    height: 5.8rem;
+  }
 }
 
 // TODO hide right border
@@ -1431,6 +1435,12 @@ a.table--heading {
   vertical-align: top;
   margin-left: 0.6rem;
   cursor: pointer;
+  .compact .matrix--column-header--link & {
+    margin: -1.6rem 0 0 0;
+    position: absolute;
+    top: 50%;
+    right: 0;
+  }
 }
 
 // Column header
@@ -1494,6 +1504,15 @@ a.table--heading {
     display: block;
     height: 5.5rem;
     overflow: hidden;
+    .compact & {
+      @extend %truncated;
+      height: 2.7rem;
+      margin: 1.25rem 0;
+    }
+  }
+  .compact & {
+    padding-right: 3.2rem;
+    position: relative;
   }
 }
 
@@ -1597,6 +1616,7 @@ a.table--heading {
 
 .matrix--overlay-header-subtitle {
   @extend %alpha;
+  @extend %truncated;
   @include font-head;
   vertical-align: top;
   text-transform: uppercase;
@@ -1605,9 +1625,6 @@ a.table--heading {
   padding: 0.7rem 0 0.3rem 1.2rem;
   border-left: 0.1rem solid $tealMedium;
   margin: 0.8rem 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .matrix--overlay-header-selector {

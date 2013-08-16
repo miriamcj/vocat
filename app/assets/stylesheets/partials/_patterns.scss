@@ -934,7 +934,6 @@ input%proto-button {
 }
 
 // Multi-purpose component patterns
-// Tack one of these puppies on and go crazy
 // --------------------------------------------------------
 %centered-tile {
 	@extend %center;
@@ -991,6 +990,12 @@ input%proto-button {
 
 %gradient-dark-bottom {
   @include gradient-vertical(transparent, transparentize($black, 0.72));
+}
+
+%truncated {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 // Frame
