@@ -1439,7 +1439,7 @@ a.table--heading {
     margin: -1.6rem 0 0 0;
     position: absolute;
     top: 50%;
-    right: 0;
+    right: 1rem;
   }
 }
 
@@ -1511,7 +1511,7 @@ a.table--heading {
     }
   }
   .compact & {
-    padding-right: 3.2rem;
+    padding-right: 4rem;
     position: relative;
   }
 }
