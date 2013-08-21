@@ -14,7 +14,7 @@ define ['jquery_rails', './plugins'], ($) ->
             )
         )
       catch e
-
+        $('html').addClass('wf-inactive')
       $ ->
 
         # Set a minimum height for every page except course map.
