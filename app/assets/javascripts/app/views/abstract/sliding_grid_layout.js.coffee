@@ -26,12 +26,7 @@ define [
       @sliderPosition = 0
       @updateSliderControls()
 
-    onRepaint: () ->
-      @calculateAndSetSliderWidth()
-      @setSpacerCellHeights()
-
     onShow: () ->
-      @onRepaint()
 
     onSliderLeft: () ->
       @slide('backward')
@@ -42,6 +37,7 @@ define [
     sliderRecalculate: () ->
       @calculateAndSetSliderWidth()
       @updateSliderControls()
+      @setSpacerCellHeights()
 
     debug: (msg = 'slider debug:', clear = true) ->
       if clear == true
@@ -56,13 +52,11 @@ define [
       console.log @sliderPositionLeft, '@sliderPositionLeft'
 
     setSpacerCellHeights: () ->
-      $spacers = @$el.find('.matrix--row-spacer')
-      documentHeight = $(document).outerHeight()
-      console.log documentHeight, 'document height'
-      regionHeight = $('#region-main').outerHeight()
-      console.log regionHeight, $('#region-main')
-      diff = documentHeight - regionHeight - 83 # This constant seems suspect. Not sure that it's really a constant. --ZD
-      $spacers.height(diff)
+#      $spacers = @$el.find('.matrix--row-spacer')
+#      documentHeight = $(document).outerHeight()
+#      regionHeight = $('#region-main').outerHeight()
+#      diff = documentHeight - regionHeight - 83 # This constant seems suspect. Not sure that it's really a constant. --ZD
+#      $spacers.height(diff)
 
     calculateAndSetSliderWidth: () ->
       stage = @$el.find('[data-behavior="matrix-body"]')

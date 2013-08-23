@@ -85,14 +85,14 @@ define [
       @creators.show(@children.users)
       @projects.show(@children.projects)
       @matrix.show(@children.userRows)
-      @setSpacerCellHeights()
+      @sliderRecalculate()
 
     showGroupViews: () ->
       @creatorType = 'Group'
       @creators.show(@children.groups)
       @projects.show(@children.projects)
       @matrix.show(@children.groupRows)
-      @setSpacerCellHeights()
+      @sliderRecalculate()
 
     setActive: (models) ->
       @collections.user.setActive(if models.user? then models.user.id else null)
@@ -188,18 +188,27 @@ define [
     onColInactive: (args) ->
       # For now, do nothing.
 
-    scrollToHeader: () ->
-      $('html, body').animate({ scrollTop: 116 + 34 }, 'normal')
+    scrollToHeader: (noAnimate) ->
+      if noAnimate == true
+        $('html, body').scrollTop(116 + 34)
+      else
+        $('html, body').animate({ scrollTop: 116 + 34 }, 'normal')
 
     scrollToTop: () ->
       $('html, body').animate({ scrollTop: 0 }, 'normal')
 
     onOpenOverlay: () ->
-      @ui.overlay.css({top: '8rem', position: 'absolute', minHeight: @matrix.$el.outerHeight()})
+      viewportHeight = $(window).height()
+      creatorsHeight = @creators.$el.outerHeight()
+      minHeight = if creatorsHeight > viewportHeight then creatorsHeight else viewportHeight
+      @ui.overlay.css({top: '8rem', position: 'absolute', minHeight: minHeight})
       if !@ui.overlay.is(':visible')
         @ui.overlay.fadeIn(250, () =>
           @scrollToHeader()
         )
+      else
+        @scrollToHeader(true)
+
       if !@ui.header.is(':visible')
         @ui.header.fadeIn(250)
       @$el.find('.matrix--controls a').css(visibility: 'hidden')
