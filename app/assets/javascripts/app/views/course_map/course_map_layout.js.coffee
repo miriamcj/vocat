@@ -85,6 +85,7 @@ define [
       @creators.show(@children.users)
       @projects.show(@children.projects)
       @matrix.show(@children.userRows)
+      @children.header.creatorType == 'Users'
       @sliderRecalculate()
 
     showGroupViews: () ->
@@ -92,6 +93,7 @@ define [
       @creators.show(@children.groups)
       @projects.show(@children.projects)
       @matrix.show(@children.groupRows)
+      @children.header.creatorType == 'Group'
       @sliderRecalculate()
 
     setActive: (models) ->
@@ -149,7 +151,7 @@ define [
       view = new CourseMapDetailProject({collections: {creators: @collections.user,submissions: @collections.submission}, courseId: @courseId, vent: @, model: args.project})
       @overlay.show(view)
 
-    onOpenDetailProjectGroups: () ->
+    onOpenDetailProjectGroups: (args) ->
       @showGroupViews()
       @setActive({project: args.project})
       Vocat.courseMapRouter.navigate("courses/#{@courseId}/groups/evaluations/project/#{args.project.id}")

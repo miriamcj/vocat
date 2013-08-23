@@ -1,11 +1,15 @@
 <a href="#" class="matrix--overlay-header-close" data-behavior="overlay-close">Close</a>
 <div class="matrix--overlay-header-wrapper">
-  <h2 class="matrix--overlay-header-title">{{creator.name}}</h2>{{#if project.name}}<h3 class="matrix--overlay-header-subtitle">{{project.name}}</h2>{{/if}}
+	{{#if activeCreator}}
+	<h2 class="matrix--overlay-header-title">{{creator.name}}</h2>{{#if project.name}}<h3 class="matrix--overlay-header-subtitle">{{project.name}}</h3>{{/if}}
+	{{else}}
+	<h2 class="matrix--overlay-header-title">{{project.name}}</h2>
+	{{/if}}
 </div>
 <nav class="matrix--overlay-header-selector" data-behavior="dropdown">
   <a class="project-selector--toggle" data-behavior="toggle" href="#">
-      {{#if creator.id}}
-          {{creator.first_name}}'s submissions
+      {{#if activeCreator}}
+        {{creator.first_name}}'s submissions
       {{else}}
         {{#if project.id}}
           View submissions
@@ -14,14 +18,26 @@
   </a>
   <div class="project-selector--dropdown" data-behavior="dropdown-options">
     <ul>
-      {{#if creator.id}}
+      {{#if activeCreator}}
         {{#each ../projects}}
-          <li><a data-behavior="routable" href="/courses/{{course_id}}/{{#if ../../isGroup}}group_evaluations{{else}}evaluations{{/if}}/creator/{{../../creator.id}}/project/{{id}}"><strong>{{name}}</strong></a></li>
+	        <li>
+	        {{#if creatorIsGroup}}
+		        <a data-behavior="routable" href="/courses/{{course_id}}/groups/evaluations/creator/{{../../creator.id}}/project/{{id}}"><strong>{{name}}</strong></a>
+	        {{else}}
+		        <a data-behavior="routable" href="/courses/{{course_id}}/users/evaluations/creator/{{../../creator.id}}/project/{{id}}"><strong>{{name}}</strong></a>
+	        {{/if}}
+	        </li>
         {{/each}}
       {{else}}
         {{#if ../project.id}}
           {{#each ../../creators}}
-            <li><a data-behavior="routable" href="/courses/{{../../../courseId}}/{{#if ../../isGroup}}group_evaluations{{else}}evaluations{{/if}}/creator/{{this.id}}/project/{{../../../project.id}}"><strong>{{this.name}}</strong></a></li>
+	          <li>
+					  {{#if creatorIsGroup}}
+		          <a data-behavior="routable" href="/courses/{{../../project.course_id}}/groups/evaluations/creator/{{this.id}}/project/{{../../../project.id}}"><strong>{{this.name}}</strong></a>
+					  {{else}}
+		          <a data-behavior="routable" href="/courses/{{../../project.course_id}}/users/evaluations/creator/{{this.id}}/project/{{../../../project.id}}"><strong>{{this.name}}</strong></a>
+					  {{/if}}
+	          </li>
           {{/each}}
         {{/if}}
       {{/if}}

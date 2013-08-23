@@ -8,6 +8,7 @@ define [
   class CourseMapHeader extends Marionette.ItemView
 
     template: template
+    creatorType: 'User'
 
     ui: {
       dropdowns: '[data-behavior="dropdown"]'
@@ -20,6 +21,7 @@ define [
       e.preventDefault()
       href = $(e.currentTarget).attr('href')
       if href
+        console.log href
         window.Vocat.courseMapRouter.navigate(href, true)
 
     triggers: {
@@ -43,7 +45,18 @@ define [
     serializeData: () ->
       context = {}
       context.projects = @collections.project.toJSON()
+      context.creator = null
+      context.creatorType = @creatorType
+      if @creatorType == 'User'
+        context.creatorIsUser = true
+        context.creatorIsGroup = false
+        context.creators = @collections.user.toJSON()
+      else if @creatorType == 'Group'
+        context.creatorIsUser = false
+        context.creatorIsGroup = true
+        context.creators = @collections.group.toJSON()
       if @collections.group.getActive()? then context.creator = @collections.group.getActive().toJSON()
       if @collections.user.getActive()? then context.creator = @collections.user.getActive().toJSON()
+      if context.creator != null then context.activeCreator = true else context.activeCreator = false
       if @collections.project.getActive()? then context.project = @collections.project.getActive().toJSON()
       context
