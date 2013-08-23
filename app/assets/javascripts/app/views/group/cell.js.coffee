@@ -32,3 +32,4 @@ define ['marionette', 'hbs!templates/group/cell'], (Marionette, template) ->
       @creator = options.creator
       @vent = options.vent
 
+      @listenTo(@model,'change:creator_ids', @render)

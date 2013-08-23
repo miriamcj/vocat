@@ -20,11 +20,11 @@ define [
       portfolioSubmissions = new PortfolioSubmissionsView({collection: @collections.submission})
       portfolioProjects = new PortfolioProjectsView({collection: @collections.incomplete})
 
-      submissionsFetching = @collections.submission.fetch({data: {course: courseId, limit: 10}})
-      incompleteFetching = @collections.incomplete.fetch({data: {course: courseId}})
+      @collections.submission.fetch({url: @collections.submission.url({course: courseId}), data: {brief: true, limit: 10}})
+#      @collections.incomplete.fetch({data: {course: courseId}})
 
       # Assign the collection views to the layout; assign the layout to the main region
       window.Vocat.main.show(portfolio)
-      submissionsFetching.done () => portfolio.submissions.show(portfolioSubmissions)
-      incompleteFetching.done () => portfolio.projects.show(portfolioProjects)
+      portfolio.submissions.show(portfolioSubmissions)
+#      portfolio.projects.show(portfolioProjects)
 

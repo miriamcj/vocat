@@ -5,8 +5,12 @@ define ['marionette', 'controllers/coursemap_controller'], (Marionette, CourseMa
     controller: new CourseMapController
 
     appRoutes : {
-      'courses/:course/evaluations': 'grid'
-      'courses/:course/evaluations/creator/:creator': 'creatorDetail'
-      'courses/:course/evaluations/project/:project': 'projectDetail'
-      'courses/:course/evaluations/creator/:creator/project/:project': 'creatorProjectDetail'
+      'courses/:course/users/evaluations': 'userGrid'
+      'courses/:course/users/evaluations/creator/:creator': 'userCreatorDetail'
+      'courses/:course/users/evaluations/project/:project': 'userProjectDetail'
+      'courses/:course/users/evaluations/creator/:creator/project/:project': 'userCreatorProjectDetail'
+      'courses/:course/groups/evaluations': 'groupGrid'
+      'courses/:course/groups/evaluations/creator/:creator': 'groupCreatorDetail'
+      'courses/:course/groups/evaluations/project/:project': 'groupProjectDetail'
+      'courses/:course/groups/evaluations/creator/:creator/project/:project': 'groupCreatorProjectDetail'
     }

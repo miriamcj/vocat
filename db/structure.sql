@@ -552,7 +552,8 @@ CREATE TABLE submissions (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     published boolean,
-    discussion_posts_count integer DEFAULT 0
+    discussion_posts_count integer DEFAULT 0,
+    creator_type character varying(255) DEFAULT 'User'::character varying
 );
 
 
@@ -1054,3 +1055,5 @@ INSERT INTO schema_migrations (version) VALUES ('20130812165404');
 INSERT INTO schema_migrations (version) VALUES ('20130813172916');
 
 INSERT INTO schema_migrations (version) VALUES ('20130814170103');
+
+INSERT INTO schema_migrations (version) VALUES ('20130819183119');

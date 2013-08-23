@@ -1,0 +1,23 @@
+{{#each creators}}
+<ul class="matrix--row" data-creator="{{this.id}}">
+  {{#each ../projects}}
+  <li data-project="{{this.id}}" class="matrix--cell" data-behavior="matrix-cell">
+
+  </li>
+  {{/each}}
+  {{#each ../spacers}}
+  <li class="matrix--cell"></li>
+  {{/each}}
+</ul>
+{{/each}}
+<!--
+<ul class="matrix--row matrix--row-spacer">
+    {{#each projects}}
+    <li class="matrix--cell matrix--row-spacer">
+    </li>
+    {{/each}}
+    {{#each spacers}}
+    <li class="matrix--cell matrix--row-spacer"></li>
+    {{/each}}
+</ul>
+-->

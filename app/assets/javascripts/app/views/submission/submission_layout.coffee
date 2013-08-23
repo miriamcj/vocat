@@ -73,12 +73,6 @@ define [
         @children.annotator = new AnnotatorView({model: @submission, collection: @collections.annotation, vent: @})
         @annotator.show(@children.annotator)
 
-    onSubmissionFound: () ->
-      @submission.fetch({
-        success: () =>
-          @triggerMethod('submission:loaded')
-      })
-
     onSubmissionLoaded: () ->
       @createPlacards()
       @createEvaluationViews()
@@ -93,24 +87,25 @@ define [
       @collections = options.collections
       @collections.annotation = new AnnotationCollection([],{})
 
+      @vent = if options.vent? then options.vent else Vocat.vent
+
       babysitter = require('backbone.babysitter');
       @placards = new babysitter
 
       @courseId = Marionette.getOption(@, 'courseId')
       @project = Marionette.getOption(@, 'project')
       @creator = Marionette.getOption(@, 'creator')
+      creatorType = @creator.creatorType
+
+      onSuccess = (collection, response) =>
+        @submission = @collections.submission.findWhere({creator_id: @creator.id, project_id: @project.id, creator_type: creatorType})
+        @triggerMethod('submission:loaded')
 
       # Load the submission for this view and then instantiate all child views
-      @submission = @collections.submission.findWhere({project_id: @project.id, creator_id: @creator.id})
-      if !@submission
-        temporaryCollection = new SubmissionCollection([], {courseId: @courseId})
-        temporaryCollection.fetch({data: {project: @project.id, creator: @creator.id}, success: () =>
-          @submission = temporaryCollection.pop()
-          @collections.submission.add(@submission)
-          @triggerMethod('submission:found')
-        })
-      else
-        @triggerMethod('submission:found')
+      if creatorType == 'User'
+        @collections.submission.fetchByCourseAndUserAndProject(@courseId, @creator.id, @project.id, {success: onSuccess})
+      else if creatorType == 'Group'
+        @collections.submission.fetchByCourseAndGroupAndProject(@courseId, @creator.id, @project.id, {success: onSuccess})
 
     onEvaluationCreated: () ->
       @ui.glossaryToggle.show()
@@ -144,7 +139,6 @@ define [
         @myEvaluations.show new MyEvaluationView({collection: myEvaluations, model: @submission, project: @project, vent: @, courseId: @courseId})
 
       if @submission.get('current_user_is_owner') || @submission.get('current_user_is_instructor')
-
         # It's useful for students to see that something hasn't been scored; less useful for instructors in this context.
         unless @submission.get('current_user_is_instructor') && instructorEvaluations.length == 0
           @instructorEvaluations.show new EvaluationView({collection: instructorEvaluations, label: 'Instructor', model: @submission, project: @project, vent: @, courseId: @courseId})
@@ -228,6 +222,5 @@ define [
 
     onAttachmentUploadStarted: () ->
       @player.show(new UploadStartedView({}))
-
 
 

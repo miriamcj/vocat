@@ -15,8 +15,15 @@ define ['marionette', 'hbs!templates/course_map/projects_item'], (Marionette, te
 
     serializeData: () ->
       data = super()
+      if @creatorType == 'Group'
+        data.isGroup = true
+        data.isUser = false
+      if @creatorType == 'User'
+        data.isGroup = false
+        data.isUser = true
       data.courseId = @options.courseId
       data
 
     initialize: (options) ->
+      @creatorType = Marionette.getOption(@, 'creatorType')
       @$el.attr('data-project', @model.id)

@@ -1,65 +1,47 @@
 Vocat::Application.routes.draw do
 
-
-  devise_for :users, :controllers => {:registrations => 'registrations'} do
-    match '/users/settings' => 'registrations#update_settings', :via => :put
-  end
+	devise_for :users
+	devise_scope :user do
+		match '/users/settings' => 'registrations#update_settings', :via => :put
+	end
 
   match 'pages/*page' => 'pages#show', :via => :get
 
   namespace :api do
     namespace :v1 do
 
-      # Singular because a user only has one portfolio
-      resources :portfolio, :only => [:index] do
-        collection do
-          get 'unsubmitted'
+      resources :rubrics, :except => [:new, :edit]
+      resources :attachments, :except => [:new, :edit]
+      resources :annotations, :except => [:new, :edit]
+      resources :discussion_posts, :except => [:new, :edit]
+      resources :evaluations, :except => [:new, :edit]
+      resources :submissions, :only => [:index]
+
+      resources :courses do
+
+        resources :submissions, :shallow => true, :except => [:new, :edit] do
+        end
+
+        resources :users, :only => [:index, :show] do
+	        resources :submissions, :only => [:index]
+	        resources :projects, :only => [] do
+		        resources :submissions, :only => [:index]
+	        end
+        end
+
+        resources :groups, :shallow => true,:except => [:new, :edit]
+				resources :groups, :only => [] do
+					resources :submissions, :only => [:index]
+					resources :projects, :only => [] do
+						resources :submissions, :only => [:index]
+					end
+				end
+
+        resources :projects, :shallow => true, :except => [:new, :edit]
+        resources :projects, :only => [] do
+	        resources :submissions, :only => [:index]
         end
       end
-
-      resources :rubrics
-      resources :attachments
-      resources :annotations
-      resources :discussion_posts
-      resources :evaluations
-      resources :submissions
-      resources :courses do
-        resources :groups
-        resources :submissions, :only => [:index]
-        resources :evaluations, :only => [:index]
-      end
-      resources :creator
-      resources :project
-
-
-
-      #resources :attachment, :only => [] do
-      #  resources :annotations, :only => [:index, :show, :create, :destroy]
-      #end
-      #
-      #resources :submissions do
-      #  resources :attachments, :only => [:create, :destroy, :show]
-      #  resources :discussion_posts, :shallow => true
-      #end
-      #
-      #resources :course, :only => [:index, :show] do
-      #  resources :submissions, :only =>[:index]
-      #  resources :creator, :only => [] do
-      #    resources :submissions, :only =>[:index]
-      #    resources :project, :only =>[:index] do
-	     #     resources :submissions, :only =>[:index]
-	     #   end
-      #  end
-      #  resources :projects, :only =>[:index] do
-      #    resources :submissions, :only =>[:index]
-      #  end
-      #end
-      #
-      #resources :creator, :only => [] do
-      #  resources :submissions, :only =>[:index]
-      #  resources :projects, :only =>[:index]
-      #end
-
     end
   end
 
@@ -79,7 +61,8 @@ Vocat::Application.routes.draw do
       end
     end
 
-    match 'evaluations(/creator/:creator_id)(/project/:project_id)' => 'courses/evaluations#course_map', :via => :get, :as => 'evaluations'
+    match 'groups/evaluations/(/creator/:creator_id)(/project/:project_id)' => 'courses/evaluations#course_map', :via => :get, :as => 'group_evaluations'
+    match 'users/evaluations(/creator/:creator_id)(/project/:project_id)' => 'courses/evaluations#course_map', :via => :get, :as => 'user_evaluations'
     match 'view/creator/:creator_id' => 'courses/evaluations#creator', :via => :get, :as => 'creator'
     match 'view/project/:project_id' => 'courses/evaluations#project', :via => :get, :as => 'project'
     match 'view/creator/:creator_id/project/:project_id' => 'courses/evaluations#creator_and_project', :via => :get, :as => 'creator_and_project'

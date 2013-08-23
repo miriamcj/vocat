@@ -17,7 +17,7 @@
       <% if current_user && current_user.has_courses %>
         <% current_user.courses.each do |course| %>
           <% if course.role(current_user) == :evaluator %>
-            <li><a <%= if @course == course then 'class=active' end %> href="<%= url_for course_evaluations_path(course) %>"><%= raw "<strong>#{course.department}#{course.number} :</strong> #{course.name} <small>[Section #{course.section}]</small>" %></a></li>
+            <li><a <%= if @course == course then 'class=active' end %> href="<%= url_for course_user_evaluations_path(course) %>"><%= raw "<strong>#{course.department}#{course.number} :</strong> #{course.name} <small>[Section #{course.section}]</small>" %></a></li>
           <% else %>
             <li><a <%= if @course == course then 'class=active' end %> href="<%= url_for portfolio_course_path(course) %>"><%= raw "<strong>#{course.department}#{course.number} :</strong> #{course.name} <small>[Section #{course.section}]</small>" %></a></li>
           <% end %>

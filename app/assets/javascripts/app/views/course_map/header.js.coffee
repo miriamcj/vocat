@@ -36,13 +36,14 @@ define [
       @options = options || {}
       @vent = Marionette.getOption(@, 'vent')
       @collections = Marionette.getOption(@, 'collections')
-
-      @listenTo(@collections.creator,'change:active', () => @render())
+      @listenTo(@collections.user,'change:active', () => @render())
+      @listenTo(@collections.group,'change:active', () => @render())
       @listenTo(@collections.project,'change:active', () => @render())
 
     serializeData: () ->
       context = {}
       context.projects = @collections.project.toJSON()
-      if @collections.creator.getActive()? then context.creator = @collections.creator.getActive().toJSON()
+      if @collections.group.getActive()? then context.creator = @collections.group.getActive().toJSON()
+      if @collections.user.getActive()? then context.creator = @collections.user.getActive().toJSON()
       if @collections.project.getActive()? then context.project = @collections.project.getActive().toJSON()
       context

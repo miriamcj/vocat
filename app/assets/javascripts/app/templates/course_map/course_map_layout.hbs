@@ -3,6 +3,10 @@
     <header class="matrix--column-header">
       <div class="matrix--overlay-header" style="display: none" data-region="overlay-header"></div>
       <nav class="matrix--controls">
+        <div style="float: left;">
+          <a href="#" data-behavior="show-groups">groups</a><br />
+          <a href="#" data-behavior="show-users">users</a>
+        </div>
         <a class="matrix--next" data-behavior="matrix-slider-right" href="#">Next</a>
         <a class="matrix--previous inactive" data-behavior="matrix-slider-left" href="#">Previous</a>
       </nav>
@@ -13,8 +17,9 @@
       </header>
     </nav>
     <div class="matrix--body" data-behavior="matrix-body" >
-      <div class="matrix--overlay" style="display: none;" data-region="overlay">
-        <div data-behavior="overlay-content"></div>
+      <div class="matrix--overlay" style="display: none;" data-behavior="overlay-container">
+	      <div class="shim"></div>
+        <div data-region="overlay" data-behavior="overlay-content"></div>
       </div>
       <div class="matrix--content" data-region="matrix" data-behavior="matrix-slider"></div>
     </div>

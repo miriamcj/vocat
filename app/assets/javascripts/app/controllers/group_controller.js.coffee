@@ -1,13 +1,13 @@
 define [
-  'marionette', 'controllers/vocat_controller', 'views/group/group_layout', 'collections/creator_collection', 'collections/group_collection'
+  'marionette', 'controllers/vocat_controller', 'views/group/group_layout', 'collections/user_collection', 'collections/group_collection'
 ], (
-  Marionette, VocatController, GroupLayout, CreatorCollection, GroupCollection
+  Marionette, VocatController, GroupLayout, UserCollection, GroupCollection
 ) ->
 
   class GroupController extends VocatController
 
     collections: {
-      creator: new CreatorCollection([], {})
+      creator: new UserCollection([], {})
       group: new GroupCollection([], {})
     }
 

@@ -1,7 +1,7 @@
-define ['backbone', 'models/creator'], (Backbone, CreatorModel) ->
-  class CreatorCollection  extends Backbone.Collection
+define ['backbone', 'models/user'], (Backbone, UserModel) ->
+  class UserCollection  extends Backbone.Collection
 
-    model: CreatorModel
+    model: UserModel
 
     activeModel: null
 

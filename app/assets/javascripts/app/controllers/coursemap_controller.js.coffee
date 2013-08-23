@@ -1,37 +1,68 @@
 define [
-  'marionette', 'controllers/vocat_controller', 'collections/creator_collection', 'collections/project_collection', 'collections/submission_collection', 'views/course_map/course_map_layout'
+  'marionette',
+  'controllers/vocat_controller',
+  'collections/user_collection',
+  'collections/project_collection',
+  'collections/submission_collection',
+  'collections/group_collection',
+  'views/course_map/course_map_layout'
 ], (
-  Marionette, VocatController, CreatorCollection, ProjectCollection, SubmissionCollection, CourseMap
+  Marionette, VocatController, UserCollection, ProjectCollection, SubmissionCollection, GroupCollection, CourseMap
 ) ->
 
   class CourseMapController extends VocatController
 
     collections: {
-      creator: new CreatorCollection([], {})
+      user: new UserCollection([], {})
+      group: new GroupCollection([], {})
       project: new ProjectCollection([], {})
       submission: new SubmissionCollection([], {})
     }
 
     layoutInitialized: false
 
-    initializeLayout: (courseId) ->
-      @collections.submission.courseId = courseId
-      if @layoutInitialized == false
-        @courseMap = new CourseMap({courseId: courseId, collections: @collections})
+    initialize: () ->
+      @bootstrapCollections()
+
+    createCoursemap: () ->
+      unless @courseMap instanceof CourseMap
+        @courseMap = new CourseMap({courseId: @collections.project.first().get('course_id'), collections: @collections})
         window.Vocat.main.show(@courseMap)
-        @layoutInitialized = true
 
-    grid: (courseId) ->
-      @initializeLayout(courseId)
+    userGrid: (courseId) ->
+      @createCoursemap()
+      @courseMap.triggerMethod('show:users', {})
 
-    creatorDetail: (courseId, creatorId) ->
-      @initializeLayout(courseId)
-      @courseMap.triggerMethod('open:detail:creator', {creator: creatorId})
+    userCreatorDetail: (courseId, userId) ->
+      @createCoursemap()
+      @courseMap.triggerMethod('open:detail:user', {user: @collections.user.get(userId)})
 
-    projectDetail: (courseId, projectId) ->
-      @initializeLayout(courseId)
-      @courseMap.triggerMethod('open:detail:project', {project: projectId})
+    userProjectDetail: (courseId, projectId) ->
+      @createCoursemap()
+      @courseMap.triggerMethod('open:detail:project:users', {project: @collections.project.get(projectId)})
 
-    creatorProjectDetail: (courseId, creatorId, projectId) ->
-      @initializeLayout(courseId)
-      @courseMap.triggerMethod('open:detail:creator:project', {creator: creatorId, project: projectId})
+    userCreatorProjectDetail: (courseId, creatorId, projectId) ->
+      @createCoursemap()
+      @courseMap.triggerMethod('open:detail:creator:project', {
+        creator: @collections.user.get(creatorId),
+        project: @collections.project.get(projectId)
+      })
+
+    groupGrid: (courseId) ->
+      @createCoursemap()
+      @courseMap.triggerMethod('show:groups', {})
+
+    groupCreatorDetail: (courseId, groupId) ->
+      @createCoursemap()
+      @courseMap.triggerMethod('open:detail:group', {group: @collections.group.get(groupId)})
+
+    groupProjectDetail: (courseId, projectId) ->
+      @createCoursemap()
+      @courseMap.triggerMethod('open:detail:project:groups', {project: @collections.project.get(projectId)})
+
+    groupCreatorProjectDetail: (courseId, creatorId, projectId) ->
+      @createCoursemap()
+      @courseMap.triggerMethod('open:detail:creator:project', {
+        creator: @collections.group.get(creatorId),
+        project: @collections.project.get(projectId)
+      })

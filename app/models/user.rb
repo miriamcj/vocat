@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :creator_courses, :class_name => "Course", :join_table => "courses_creators"
   has_and_belongs_to_many :groups, :join_table => "groups_creators"
 
+  has_many :submissions, :as => :creator
+
   scope :evaluators, where(:role => "evaluator")
   scope :creators, where(:role => "creator")
   scope :administrators, where(:role => "administrator")

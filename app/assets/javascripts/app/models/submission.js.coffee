@@ -2,11 +2,12 @@ define ['backbone', 'models/attachment'], (Backbone, Attachment) ->
 
   class SubmissionModel extends Backbone.Model
 
-    urlRoot: '/api/v1/submissions'
+    urlRoot: () ->
+      '/api/v1/submissions'
+
     paramRoot: 'submission'
 
     requestTranscoding: () ->
-      $
 
     canBeAnnotated: () ->
       @get('current_user_can_annotate') == true && @get('has_transcoded_attachment') == true
@@ -23,7 +24,6 @@ define ['backbone', 'models/attachment'], (Backbone, Attachment) ->
       rawAttachment = @.get('attachment')
       if rawAttachment?
         @attachment = new Attachment(rawAttachment)
-        @unset('attachment',{silent: true})
 
     initialize: () ->
       @listenTo(@, 'change:attachment', () =>

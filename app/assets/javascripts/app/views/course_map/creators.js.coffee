@@ -1,6 +1,10 @@
-define ['marionette', 'hbs!templates/course_map/creators', 'views/course_map/creators_item'], (Marionette, template, Item) ->
+define [
+  'marionette',
+  'hbs!templates/course_map/creators',
+  'views/course_map/creators_item
+'], (Marionette, template, Item) ->
 
-  class CourseMapCreatorsView extends Marionette.CollectionView
+  class CourseMapCreatorsView extends Marionette.CompositeView
 
     tagName: 'ul'
 
@@ -8,23 +12,30 @@ define ['marionette', 'hbs!templates/course_map/creators', 'views/course_map/cre
 
     itemView: Item
 
+    ui: {
+      spacer: '[data-behavior="spacer"]'
+    }
+
     itemViewOptions: () ->
-      {courseId: @options.courseId}
+      {
+      courseId: @options.courseId
+      creatorType: @creatorType
+      }
 
     onItemviewActive: (view) ->
-      @vent.triggerMethod('row:active', {creator: view.model.id})
+      @vent.triggerMethod('row:active', {creator: view.model})
 
     onItemviewInactive: (view) ->
-      @vent.triggerMethod('row:inactive', {creator: view.model.id})
+      @vent.triggerMethod('row:inactive', {creator: view.model})
 
     onItemviewDetail: (view) ->
-      @vent.triggerMethod('open:detail:creator', {creator: view.model.id})
+      @vent.triggerMethod('open:detail:creator', {creator: view.model})
 
-    addSpacer: () ->
-      @$el.append('<li class="matrix--row-spacer"></li>')
+    appendHtml: (collectionView, itemView, index) ->
+      itemView.$el.insertBefore(collectionView.ui.spacer)
 
     initialize: (options) ->
       @options = options || {}
       @vent = Marionette.getOption(@, 'vent')
-      @listenTo(@, 'render', @addSpacer)
+      @creatorType = Marionette.getOption(@, 'creatorType')
 

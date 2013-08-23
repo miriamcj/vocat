@@ -1,8 +1,20 @@
 <nav class="adaptive-nav">
   <ul class="adaptive-nav--list">
-    <li><%= link_to 'Evaluations', course_evaluations_path(@course) %></li>
     <li data-behavior="dropdown">
-      <a class="adaptive-nav--link" data-behavior="toggle" href="<%= url_for course_path(@course) %>">Manage Course</a>
+      <a class="adaptive-nav--link" data-behavior="toggle" href="">Evaluations</a>
+      <div class="adaptive-nav--dropdown" data-behavior="dropdown-options">
+        <ul>
+          <li>
+            <%=  link_to 'Individual Evaluations', course_user_evaluations_path(@course) %>
+          </li>
+          <li>
+            <%=  link_to 'Group Evaluations', course_group_evaluations_path(@course) %>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li data-behavior="dropdown">
+      <a class="adaptive-nav--link" data-behavior="toggle" href="#">Manage Course</a>
       <div class="adaptive-nav--dropdown" data-behavior="dropdown-options">
         <ul>
           <li>

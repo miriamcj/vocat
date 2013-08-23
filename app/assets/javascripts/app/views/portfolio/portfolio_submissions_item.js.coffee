@@ -20,8 +20,10 @@ define ['marionette', 'hbs!templates/portfolio/portfolio_item_submission'], (Mar
 
     serializeData: () ->
       data = super()
-      {
+      out = {
         submission: data
         showCourse: @showCourse
         showCreator: @showCreator
       }
+      out
+

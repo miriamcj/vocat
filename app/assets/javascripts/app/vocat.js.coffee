@@ -24,7 +24,6 @@ define [
   }
 
   Vocat.addInitializer () ->
-
     Vocat.portfolioRouter = new PortfolioRouter()
     Vocat.courseMapRouter = new CourseMapRouter()
     Vocat.submissionRouter = new SubmissionRouter()

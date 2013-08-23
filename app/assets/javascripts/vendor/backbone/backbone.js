@@ -530,7 +530,8 @@
     url: function() {
       var base = _.result(this, 'urlRoot') || _.result(this.collection, 'url') || urlError();
       if (this.isNew()) return base;
-      return base + (base.charAt(base.length - 1) === '/' ? '' : '/') + encodeURIComponent(this.id);
+      out = base + (base.charAt(base.length - 1) === '/' ? '' : '/') + encodeURIComponent(this.id);
+      return out;
     },
 
     // **parse** converts a response into the hash of attributes to be `set` on

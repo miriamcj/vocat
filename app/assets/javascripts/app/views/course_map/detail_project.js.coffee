@@ -14,11 +14,7 @@ define [
       @options = options || {}
       @vent = Marionette.getOption(@, 'vent')
       @courseId = Marionette.getOption(@, 'courseId')
-      @projectId = Marionette.getOption(@, 'projectId')
       collections = Marionette.getOption(@, 'collections')
-      @projects = collections.project
-      @creators = collections.creator
-      @project = @projects.get(@projectId)
 
 #      @collection = collections.submission
 #      @collection.creatorId = @creatorId

@@ -1,4 +1,4 @@
-define ['marionette', 'hbs!templates/rubric/rows_item', 'collections/cell_collection_proxy', 'views/rubric/cell'], (Marionette, template, CellCollectionProxy, CellView) ->
+define ['marionette', 'hbs!templates/rubric/rows_item', 'collections/collection_proxy', 'views/rubric/cell'], (Marionette, template, CollectionProxy, CellView) ->
 
   class RowsItem extends Marionette.CollectionView
 
@@ -15,6 +15,6 @@ define ['marionette', 'hbs!templates/rubric/rows_item', 'collections/cell_collec
 
     initialize: (options) ->
       @vent = options.vent
-      proxy = CellCollectionProxy(options.cells)
+      proxy = CollectionProxy(options.cells)
       proxy.where({range: @model.id})
       @collection = proxy

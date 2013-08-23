@@ -1,0 +1,56 @@
+{{#each groups}}
+<ul class="matrix--row" data-creator="{{this.id}}">
+	{{#each ../projects}}
+	<li data-project="{{this.id}}" class="matrix--cell" data-behavior="matrix-cell">
+		{{#get_submission ../../submissions ../this this}}
+		{{#if this}}
+		<a href="/courses/{{../../../../courseId}}/evaluations/creator/{{../../../this.id}}/project/{{../../this.id}}" data-behavior="routable">
+			{{#if has_video}}
+			<b class="matrix--cell--play">Play video</b>
+			{{else}}
+			<b class="matrix--cell--play inactive">No video has been uploaded</b>
+			{{/if}}
+			<h2 class="matrix--cell--value">
+				{{#if current_user_has_evaluated }}
+				{{current_user_percentage}}<small>%</small>
+				{{else}}
+				&ndash;&ndash;<small>%</small>
+				{{/if}}
+			</h2>
+		</a>
+		<div data-submission="{{id}}" data-behavior="publish-toggle" class="matrix--cell--indicator {{#if current_user_evaluation_published}}active{{/if}}">
+			{{#if current_user_has_evaluated}}
+			<b></b>
+			{{#if current_user_evaluation_published}}
+			Published
+			{{else}}
+			Unpublished
+			{{/if}}
+			{{/if}}
+		</div>
+		{{else}}
+		<a href="/courses/{{../../../../courseId}}/evaluations/creator/{{../../../this.id}}/project/{{../../this.id}}" data-behavior="routable">
+			<b class="matrix--cell--play inactive">No video has been uploaded</b>
+			<h2 class="matrix--cell--value">&ndash;&ndash;<small>%</small></h2>
+		</a>
+		<div class="matrix--cell--indicator"></div>
+		{{/if}}
+		{{/get_submission}}
+	</li>
+	{{/each}}
+	{{#each ../spacers}}
+	<li class="matrix--cell"></li>
+	{{/each}}
+</ul>
+{{/each}}
+<!--
+<ul class="matrix--row matrix--row-spacer">
+	{{#each projects}}
+	<li class="matrix--cell matrix--row-spacer">
+	</li>
+	{{/each}}
+	{{#each spacers}}
+	<li class="matrix--cell matrix--row-spacer"></li>
+	{{/each}}
+</ul>
+-->

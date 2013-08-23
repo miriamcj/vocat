@@ -2,6 +2,8 @@ define ['backbone', 'models/group'], (Backbone, GroupModel) ->
   class GroupCollection extends Backbone.Collection
 
     model: GroupModel
+    activeModel: null
+
 
     initialize: (models, options) ->
       @options = options
@@ -27,6 +29,21 @@ define ['backbone', 'models/group'], (Backbone, GroupModel) ->
       url = "/api/v1/courses/#{@courseId}"
       response = Backbone.sync('update', @, url: url, contentType: 'application/json', data: JSON.stringify(data))
       response.done( (models) =>
-        console.log models
-        #@reset models.resources
       )
+
+
+    getActive: () ->
+      @activeModel
+
+    setActive: (id) ->
+      current = @getActive()
+      if id?
+        model = @get(id)
+        if model?
+          @activeModel = model
+        else
+          @activeModel = null
+      else
+        @activeModel = null
+      if @activeModel != current
+        @trigger('change:active', @activeModel)

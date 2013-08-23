@@ -6,6 +6,7 @@ class Course < ActiveRecord::Base
   has_many :projects, :dependent => :destroy
   has_many :groups, :dependent => :destroy
   has_one :project_type
+  has_many :submissions, :through => :projects
 
   accepts_nested_attributes_for :groups
 

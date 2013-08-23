@@ -6,6 +6,7 @@ class Project < ActiveRecord::Base
   has_many :submitors, :through => :course
   attr_accessible :description, :name, :course, :rubric_id
 
+
   delegate :name, :to => :rubric, :prefix => true, :allow_nil => true
   delegate :department, :to => :course, :prefix => true
   delegate :number, :to => :course, :prefix => true

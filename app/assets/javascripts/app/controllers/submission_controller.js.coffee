@@ -1,13 +1,13 @@
 define [
-  'marionette', 'controllers/vocat_controller', 'views/submission/submission_layout', 'collections/submission_collection', 'collections/project_collection', 'collections/creator_collection'
+  'marionette', 'controllers/vocat_controller', 'views/submission/submission_layout', 'collections/submission_collection', 'collections/project_collection', 'collections/user_collection'
 ], (
-  Marionette, VocatController, SubmissionLayoutView, SubmissionCollection, ProjectCollection, CreatorCollection
+  Marionette, VocatController, SubmissionLayoutView, SubmissionCollection, ProjectCollection, UserCollection
 ) ->
 
   class SubmissionController extends VocatController
 
     collections: {
-      creator: new CreatorCollection({})
+      user: new UserCollection({})
       submission: new SubmissionCollection({})
       project: new ProjectCollection({})
     }

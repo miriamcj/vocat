@@ -20,9 +20,13 @@ class Api::V1::GroupsController < ApiController
     respond_with(@group)
   end
 
+  def show
+		respond_with(@group)
+  end
+
   def create
     if @group.save
-      respond_with @group, :root => false, status: :created, location: api_v1_course_group_url(@course, @group)
+      respond_with @group, :root => false, status: :created, location: api_v1_group_url(@group)
     else
       respond_with @group, :root => false, status: :unprocessable_entity
     end

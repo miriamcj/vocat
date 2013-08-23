@@ -3,14 +3,16 @@ define [
   'hbs!templates/course_map/course_map_layout',
   'views/course_map/projects',
   'views/course_map/creators',
-  'views/course_map/matrix',
+  'views/course_map/rows',
   'views/course_map/detail_creator',
   'views/course_map/detail_project',
   'views/submission/submission_layout',
   'views/course_map/header',
-  'views/abstract/sliding_grid_layout'
+  'views/abstract/sliding_grid_layout',
+  'models/user',
+  'models/group',
   '../../../layout/plugins'
-], (Marionette, template, CourseMapProjects, CourseMapCreators, CourseMapMatrix, CourseMapDetailCreator, CourseMapDetailProject, CourseMapDetailCreatorProject, CourseMapHeader, SlidingGridLayout) ->
+], (Marionette, template, CourseMapProjects, CourseMapCreators, CourseMapRows, CourseMapDetailCreator, CourseMapDetailProject, CourseMapDetailCreatorProject, CourseMapHeader, SlidingGridLayout, UserModel, GroupModel) ->
 
   class CourseMapView extends SlidingGridLayout
 
@@ -23,7 +25,7 @@ define [
     ui: {
       courseMapHeader: '.matrix--column-header'
       header: '[data-region="overlay-header"]'
-      overlay: '[data-region="overlay"]'
+      overlay: '[data-behavior="overlay-container"]'
       sliderLeft: '[data-behavior="matrix-slider-left"]'
       sliderRight: '[data-behavior="matrix-slider-right"]'
     }
@@ -31,6 +33,8 @@ define [
     triggers: {
       'click [data-behavior="matrix-slider-left"]':   'slider:left'
       'click [data-behavior="matrix-slider-right"]':  'slider:right'
+      'click [data-behavior="show-groups"]':  'show:groups'
+      'click [data-behavior="show-users"]':  'show:users'
     }
 
     regions: {
@@ -42,9 +46,6 @@ define [
     }
 
     onRender: () ->
-      @creators.show(@children.creators)
-      @projects.show(@children.projects)
-      @matrix.show(@children.matrix)
 
       @sliderPosition = 0
       @updateSliderControls()
@@ -58,43 +59,121 @@ define [
         @ui.courseMapHeader.stickyHeader()
       , 500
 
+    instantiateChildViews: () ->
+      @children.projects = new CourseMapProjects({collection: @collections.project, courseId: @courseId, vent: @})
+      @children.header = new CourseMapHeader({collections: @collections, courseId: @courseId, vent: @})
+      @children.users = new CourseMapCreators({collection: @collections.user, courseId: @courseId, vent: @})
+      @children.userRows = new CourseMapRows({collection: @collections.user, collections: {project: @collections.project, submission: @collections.submission}, courseId: @courseId, vent: @})
+      @children.groups = new CourseMapCreators({collection: @collections.group, courseId: @courseId, vent: @})
+      @children.groupRows = new CourseMapRows({collection: @collections.group, collections: {project: @collections.project, submission: @collections.submission}, courseId: @courseId, vent: @})
+
     initialize: (options) ->
       @collections = options.collections
       @courseId = options.courseId
 
-      # Whenever we show the overlay region, we need to make it appear
-      @listenTo(@overlay, 'show', () ->
-        @onOpenOverlay()
-      )
+      @collections.submission.courseId = @courseId
+      @collections.submission.fetch({reset: true})
 
-      @listenTo(@header, 'show', () ->
-          @onOpenHeader()
-      )
+      @instantiateChildViews()
 
-      @children.creators = new CourseMapCreators({collection: @collections.creator, courseId: @courseId, vent: @})
-      @children.projects = new CourseMapProjects({collection: @collections.project, courseId: @courseId, vent: @})
-      @children.matrix = new CourseMapMatrix({collections: @collections, courseId: @courseId, vent: @})
-      @children.header = new CourseMapHeader({collections: @collections, courseId: @courseId, vent: @})
+      @listenTo(@overlay, 'show', () -> @onOpenOverlay())
+      @listenTo(@header, 'show', () -> @onOpenHeader())
 
-    onOpenDetailCreator: (args) ->
-      @collections.creator.setActive(args.creator)
-      @collections.project.setActive(null)
-      Vocat.courseMapRouter.navigate("courses/#{@courseId}/evaluations/creator/#{args.creator}")
-      view = new CourseMapDetailCreator({collections: _.clone(@collections), courseId: @courseId, vent: @, creatorId: args.creator})
-      @overlay.show(view)
+
+    showUserViews: () ->
+      @creatorType = 'User'
+      @creators.show(@children.users)
+      @projects.show(@children.projects)
+      @matrix.show(@children.userRows)
+      @setSpacerCellHeights()
+
+    showGroupViews: () ->
+      @creatorType = 'Group'
+      @creators.show(@children.groups)
+      @projects.show(@children.projects)
+      @matrix.show(@children.groupRows)
+      @setSpacerCellHeights()
+
+    setActive: (models) ->
+      @collections.user.setActive(if models.user? then models.user.id else null)
+      @collections.group.setActive(if models.group? then models.group.id else null)
+      @collections.project.setActive(if models.project? then models.project.id else null)
+
+    onShowGroups: () ->
+      @showGroupViews()
+      @triggerMethod('close:overlay')
+      Vocat.courseMapRouter.navigate("courses/#{@courseId}/groups/evaluations")
+
+    onShowUsers: () ->
+      @showUserViews()
+      @triggerMethod('close:overlay')
+      Vocat.courseMapRouter.navigate("courses/#{@courseId}/users/evaluations")
 
     onOpenDetailProject: (args) ->
-      @collections.project.setActive(args.project)
-      @collections.creator.setActive(null)
-      Vocat.courseMapRouter.navigate("courses/#{@courseId}/evaluations/project/#{args.project}")
-      view = new CourseMapDetailProject({collections: _.clone(@collections), courseId: @courseId, vent: @, projectId: args.project})
+      if @creatorType == 'User'
+        @triggerMethod('open:detail:project:users', {project: args.project})
+      else if @creatorType == 'Group'
+        @triggerMethod('open:detail:project:groups', {project: args.project})
+
+    onOpenDetailCreator: (args) ->
+      creator = args.creator
+      if creator.creatorType == 'User'
+        @triggerMethod('open:detail:user', {user: creator})
+      else if creator.creatorType == 'Group'
+        @triggerMethod('open:detail:group', {group: creator})
+
+    onOpenDetailUser: (args) ->
+      @showUserViews()
+      @setActive({user: args.user})
+      Vocat.courseMapRouter.navigate("courses/#{@courseId}/users/evaluations/creator/#{args.user.id}")
+      view = new CourseMapDetailCreator({
+        collection: @collections.submission,
+        projects: @collections.project,
+        courseId: @courseId,
+        vent: @,
+        model: args.user
+      })
+      @overlay.show(view)
+
+    onOpenDetailGroup: (args) ->
+      @showGroupViews()
+      @setActive({group: args.group})
+      Vocat.courseMapRouter.navigate("courses/#{@courseId}/groups/evaluations/creator/#{args.group.id}")
+      view = new CourseMapDetailCreator({collection: @collections.submission, creatorType: 'Group', courseId: @courseId, vent: @, model: args.group})
+      @overlay.show(view)
+
+    onOpenDetailProjectUsers: (args) ->
+      @showUserViews()
+      @setActive({project: args.project})
+      Vocat.courseMapRouter.navigate("courses/#{@courseId}/users/evaluations/project/#{args.project.id}")
+      view = new CourseMapDetailProject({collections: {creators: @collections.user,submissions: @collections.submission}, courseId: @courseId, vent: @, model: args.project})
+      @overlay.show(view)
+
+    onOpenDetailProjectGroups: () ->
+      @showGroupViews()
+      @setActive({project: args.project})
+      Vocat.courseMapRouter.navigate("courses/#{@courseId}/groups/evaluations/project/#{args.project.id}")
+      view = new CourseMapDetailProject({collections: {creators: @collections.group, submissions: @collections.submission}, courseId: @courseId, vent: @, model: args.project})
       @overlay.show(view)
 
     onOpenDetailCreatorProject: (args) ->
-      @collections.creator.setActive(args.creator)
-      @collections.project.setActive(args.project)
-      Vocat.courseMapRouter.navigate("courses/#{@courseId}/evaluations/creator/#{args.creator}/project/#{args.project}")
-      view = new CourseMapDetailCreatorProject({collections: _.clone(@collections), courseId: @courseId, vent: @, creator: @collections.creator.getActive(), project: @collections.project.getActive()})
+      if args.creator.creatorType == 'User'
+        @showUserViews()
+        @setActive({project: args.project, user: args.creator})
+        Vocat.courseMapRouter.navigate("courses/#{@courseId}/users/evaluations/creator/#{args.creator.id}/project/#{args.project.id}")
+      else if args.creator.creatorType == 'Group'
+        @showGroupViews()
+        @setActive({project: args.project, group: args.creator})
+        Vocat.courseMapRouter.navigate("courses/#{@courseId}/groups/evaluations/creator/#{args.creator.id}/project/#{args.project.id}")
+
+      view = new CourseMapDetailCreatorProject({
+        collections: { submission: @collections.submission },
+        courseId: @courseId,
+        vent: @,
+        creator: args.creator,
+        project: args.project
+      })
+
       @overlay.show(view)
 
     onRowInactive: (args) ->
@@ -105,19 +184,24 @@ define [
 
     onColActive: (args) ->
       # For now, do nothing.
-      #@$el.find('[data-project="'+args.project+'"]').addClass('active')
 
     onColInactive: (args) ->
       # For now, do nothing.
-      #@$el.find('[data-project="'+args.project+'"]').removeClass('active')
+
+    scrollToHeader: () ->
+      $('html, body').animate({ scrollTop: 116 + 34 }, 'normal')
+
+    scrollToTop: () ->
+      $('html, body').animate({ scrollTop: 0 }, 'normal')
 
     onOpenOverlay: () ->
-      @ui.overlay.css({top: '8rem', zIndex: 250, position: 'absolute', minHeight: @matrix.$el.outerHeight()})
+      @ui.overlay.css({top: '8rem', position: 'absolute', minHeight: @matrix.$el.outerHeight()})
       if !@ui.overlay.is(':visible')
-        @ui.overlay.fadeIn(500)
+        @ui.overlay.fadeIn(250, () =>
+          @scrollToHeader()
+        )
       if !@ui.header.is(':visible')
-        @ui.header.fadeIn(500)
-      $('html, body').animate({ scrollTop: 116 + 34 }, 'fast')
+        @ui.header.fadeIn(250)
       @$el.find('.matrix--controls a').css(visibility: 'hidden')
 
     onOpenHeader: () ->
@@ -125,15 +209,21 @@ define [
 
     onCloseOverlay: (args) ->
       @matrix.$el.css({visibility: 'visible'})
-      @collections.project.setActive(null)
-      @collections.creator.setActive(null)
+      @setActive({})
 
-      $('html, body').animate({ scrollTop: 116 + 34 }, 'fast')
       @$el.find('.matrix--controls a').css(visibility: 'visible')
 
-      Vocat.courseMapRouter.navigate("courses/#{@courseId}/evaluations")
-      if @ui.overlay.is(':visible')
-        @ui.overlay.fadeOut 500, () =>
+      if @creatorType == 'Group'
+        Vocat.courseMapRouter.navigate("courses/#{@courseId}/groups/evaluations")
+      else if @creatorType == 'User'
+        Vocat.courseMapRouter.navigate("courses/#{@courseId}/users/evaluations")
+
       if @ui.header.is(':visible')
-        @ui.header.fadeOut 500, () =>
+        @ui.header.fadeOut 250, () =>
+
+      if @ui.overlay.is(':visible')
+        @ui.overlay.fadeOut 250, () =>
+          @scrollToTop()
+
+
 

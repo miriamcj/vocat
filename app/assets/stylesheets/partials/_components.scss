@@ -660,7 +660,7 @@ a.table--heading {
       height: 2.6rem;
       & + b {
         width: 2.6rem;
-        height: 2.6rem;        
+        height: 2.6rem;
       }
     }
     .compact & {
@@ -2321,7 +2321,7 @@ a.table--heading {
 }
 
 .modal-backdrop {
-  @include opacity(40);
+  @include opacity(80);
   background-color: $black;
   width: 100%;
   position: absolute;

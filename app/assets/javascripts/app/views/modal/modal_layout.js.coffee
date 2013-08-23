@@ -62,11 +62,20 @@ define [
       yPosition = yCenter - (@$el.find('[data-behavior=modal]').outerHeight() / 2)
       xPosition = xCenter - (@$el.find('[data-behavior=modal]').outerWidth() / 2)
       @$el.prependTo('body')
+#      @$el.css({
+#        position: 'absolute'
+#        left: (xPosition + xOffset) + 'px'
+#        top: (yPosition + yOffset) + 'px'
+#      })
       @$el.css({
-        position: 'absolute'
-        left: (xPosition + xOffset) + 'px'
-        top: (yPosition + yOffset) + 'px'
+        zIndex: 4000
+        marginTop: '-150px'
+        marginLeft: -1 * (@$el.find('[data-behavior=modal]').outerWidth() / 2) + 'px'
+        position: 'fixed'
+        left: '50%'
+        top: '50%'
       })
+
 
     resizeBackdrop: () ->
       @ensureBackdrop().css({

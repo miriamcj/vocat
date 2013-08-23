@@ -5,11 +5,11 @@ class Submission < ActiveRecord::Base
 	has_one :course, :through => :project
 
   belongs_to :project
-  belongs_to :group
-  belongs_to :creator, :class_name => 'User'
 
-  attr_accessible :name, :evaluations, :summary, :project_id, :url, :published,
-                  :thumb, :instructor_score_percentage, :creator_id, :attachment_ids, :discussion_posts_count
+  belongs_to :creator, :polymorphic => true
+
+  attr_accessible :name, :evaluations, :summary, :project_id, :url, :published, :creator_id, :creator_type, :project,
+                  :thumb, :instructor_score_percentage, :creator, :attachment_ids, :discussion_posts_count
 
   delegate :department, :to => :course, :prefix => true
   delegate :number, :to => :course, :prefix => true
@@ -23,27 +23,9 @@ class Submission < ActiveRecord::Base
   delegate :name, :to => :creator, :prefix => true
   delegate :name, :to => :group, :prefix => true, :allow_nil => true
 
-  scope :for_course, lambda { |course| joins(:project).where('projects.course_id' => course).includes(:attachments) }
-  scope :for_creator, lambda { |creator| where('creator_id' => creator).includes(:course, :project, :attachments) }
-  scope :for_creator_and_course, lambda { |creator, course| where('creator_id' => creator, 'projects.course_id' => course).includes(:course, :project, :attachments) }
-  scope :for_project_and_course, lambda { |project, course| where('project_id' => project, 'projects.course_id' => course).includes(:course, :project, :attachments) }
-  scope :for_creator_and_project, lambda { |creator, project| where('creator_id' => creator, 'project_id' => project).includes(:course, :project, :attachments) }
-  scope :for_course_creator_and_project, lambda { |course, creator, project| where('creator_id' => creator, 'project_id' => project, 'projects.course_id' => course).includes(:course, :project, :attachments) }
-  scope :for_group, lambda { |group| where('group_id' => group).includes(:course, :project, :attachments) }
-  scope :for_group_and_course, lambda { |group, course| where('group_id' => group, 'projects.course_id' => course).includes(:course, :project, :attachments) }
-  scope :for_group_and_project, lambda { |group, project| where('group_id' => group, 'project_id' => project).includes(:course, :project, :attachments) }
+  scope :for_courses, lambda { |course| joins(:project).where('projects.course_id' => course).includes(:attachments) }
 
-  def self.find_or_create_by_course_creator_and_project(course, creator, project)
-    submissions = self.for_course_creator_and_project(course, creator, project)
-    if submissions.count() == 0 && course.role(creator) == :creator && project.course_id == course.id
-      submission = Submission.create({:creator_id => creator.id, :project_id => project.id, :published => false})
-      submissions = self.for_course_creator_and_project(course, creator, project)
-    else
-      submissions
-    end
-  end
-
-  default_scope :include => :attachments
+  #default_scope :include => :attachments
 
   def active_model_serializer
 	  SubmissionSerializer
@@ -186,14 +168,13 @@ class Submission < ActiveRecord::Base
   end
 
   def evaluations_visible_to(user)
-    submission_owner = creator_id
     user_id = user.id
     role = course.role(user)
     # Admins and evaluators for the course can see everything
     if role == :administrator || role == :evaluator
       return evaluations
     elsif role == :creator
-      if user.id == creator_id
+      if user.id == creator
         # User is the submission owner, so can see own evaluation plus any published evaluations
         return evaluations.where("evaluator_id = ? OR published = true", user.id)
       else

@@ -4,3 +4,9 @@ define ['marionette', 'views/portfolio/portfolio_submissions_item', 'views/portf
 
     itemView: PortfolioSubmissionItem
     emptyView: EmptyView
+
+    onShow: () ->
+      console.log 'on show'
+
+    onRender: () ->
+      console.log 'rendering'

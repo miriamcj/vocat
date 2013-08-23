@@ -1,17 +1,23 @@
 define [
   'marionette',
-  'hbs!templates/course_map/matrix',
+  'hbs!templates/course_map/creator_matrix',
+  'hbs!templates/course_map/group_matrix',
   'collections/submission_collection',
   'models/evaluation'
 ], (
   Marionette,
-  template,
+  creatorTemplate,
+  groupTemplate
   SubmissionCollection,
   EvaluationModel
 ) ->
   class CourseMapMatrix extends Marionette.ItemView
 
-    template: template
+    template: (serializedModel) ->
+      if serializedModel.type == 'groups'
+        groupTemplate(serializedModel)
+      else
+        creatorTemplate(serializedModel)
 
     ui: {
       spacerCells: '.matrix--row-spacer li'
@@ -74,8 +80,9 @@ define [
       @vent = Marionette.getOption(@, 'vent')
       @courseId = Marionette.getOption(@, 'courseId')
       @collections = Marionette.getOption(@, 'collections')
+      @creatorType = Marionette.getOption(@, 'creatorType')
 
-      @collections.submission.fetch({data: {brief: 1}})
+      @collections.submission.fetch({url: @collections.submission.url({courses: @courseId}), data: {brief: 1, creator_type: @creatorType}})
       @collections.submission.isMatrixCollection = true
 
       @listenTo @collections.submission, 'sync', (name) =>
@@ -96,9 +103,9 @@ define [
       spacers = []
       iter = 4 - @collections.project.length
       if iter > 0 then _(iter).times -> spacers.push({})
-
-      out = {
+      {
         spacers: spacers
+        creatorType: @creatorType
         courseId: @courseId
         creators: @collections.creator.toJSON()
         projects: @collections.project.toJSON()

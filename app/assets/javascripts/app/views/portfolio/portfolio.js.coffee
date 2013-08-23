@@ -8,3 +8,4 @@ define ['marionette', 'hbs!templates/portfolio/portfolio'], (Marionette, Templat
       submissions: '[data-region="submissions"]'
       projects: '[data-region="projects"]'
     }
+

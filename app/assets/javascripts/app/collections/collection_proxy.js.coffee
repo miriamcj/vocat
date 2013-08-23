@@ -15,7 +15,7 @@ define [], () ->
 
       filtered.reset(items)
 
-    collection.on 'reset add remove', () ->
+    collection.on 'reset add remove', (event) ->
       filtered.where(filtered._currentCriteria)
 
     filtered

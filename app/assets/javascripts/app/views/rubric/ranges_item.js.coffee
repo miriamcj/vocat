@@ -1,4 +1,4 @@
-define ['marionette', 'hbs!templates/rubric/ranges_item'], (Marionette, template) ->
+define ['marionette', 'hbs!templates/rubric/ranges_item', 'views/modal/modal_confirm'], (Marionette, template, ModalConfirmView) ->
 
   class RangesItem extends Marionette.ItemView
 
@@ -27,6 +27,16 @@ define ['marionette', 'hbs!templates/rubric/ranges_item'], (Marionette, template
       @model.set('name', @ui.nameInput.val())
 
     onModelDestroy: () ->
+      console.log 'called'
+      Vocat.vent.trigger('modal:open', new ModalConfirmView({
+        model: @model,
+        vent: @,
+        descriptionLabel: 'Deleting this range will also delete all descriptions associated with this range. Are you sure you want to do this?',
+        confirmEvent: 'confirm:model:destroy',
+        dismissEvent: 'dismiss:model:destroy'
+      }))
+
+    onConfirmModelDestroy: () ->
       @model.destroy()
 
     updateLowRange: () ->

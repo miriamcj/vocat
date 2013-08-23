@@ -18,11 +18,18 @@ define ['marionette', 'hbs!templates/course_map/creators_item'], (Marionette, te
 
     serializeData: () ->
       data = super()
+      if @creatorType == 'Group'
+        data.isGroup = true
+        data.isUser = false
+      if @creatorType == 'User'
+        data.isGroup = false
+        data.isUser = true
       data.courseId = @options.courseId
       data
 
     initialize: (options) ->
       @options = options || {}
+      @creatorType = Marionette.getOption(@, 'creatorType')
       @listenTo(@model.collection, 'change:active', (activeCreator) ->
         if activeCreator == @model
           @$el.addClass('selected')

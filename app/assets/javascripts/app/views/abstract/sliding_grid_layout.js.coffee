@@ -58,7 +58,9 @@ define [
     setSpacerCellHeights: () ->
       $spacers = @$el.find('.matrix--row-spacer')
       documentHeight = $(document).outerHeight()
+      console.log documentHeight, 'document height'
       regionHeight = $('#region-main').outerHeight()
+      console.log regionHeight, $('#region-main')
       diff = documentHeight - regionHeight - 83 # This constant seems suspect. Not sure that it's really a constant. --ZD
       $spacers.height(diff)
 
