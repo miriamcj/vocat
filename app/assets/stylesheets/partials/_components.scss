@@ -1638,11 +1638,12 @@ a.table--heading {
 // Wraps .matrix--row-header
 .matrix--name-nav {
   width: $mainWidth;
+  width: 200px;
   padding-top: $subHeaderHeight;
   position: absolute;
   // top: 0;
   left: 0;
-  z-index: 110;
+  z-index: 150;
   &.stuck {
     position: fixed;
     margin: 0 auto;
@@ -1974,8 +1975,19 @@ a.table--heading {
   width: $matrixOverlayWidth;
   background-color: $beige;
   position: relative;
-  overflow: hidden;
-  z-index: 120;
+//  overflow: hidden;
+  z-index: 130;
+  .shim {
+	border-top: 2px solid blue;
+	@extend %shaded-inside-right;
+	background-color: $beigeAlt;
+	bottom: 0;
+	width: 200px;
+	left: -200px;
+	height: 1000px;
+	position: absolute
+  }
+
 }
 
 // .matrix--overlay--header {
