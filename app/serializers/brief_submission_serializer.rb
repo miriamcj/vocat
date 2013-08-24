@@ -19,6 +19,12 @@ class BriefSubmissionSerializer < AbstractSubmissionSerializer
               :course_number,
               :course_name_long,
               :project_name,
-              :project_id
+              :project_id,
+              :serialized_state
+
+
+  def serialized_state
+	  'partial'
+  end
 
 end

@@ -1,9 +1,9 @@
 class Api::V1::SubmissionsController < ApiController
 
-  load_and_authorize_resource :submission
   load_and_authorize_resource :course
-  load_and_authorize_resource :project
-  load_and_authorize_resource :group
+  load_resource :submission
+  load_resource :project
+  load_resource :group
   load_resource :user
   respond_to :json
 
@@ -35,7 +35,7 @@ class Api::V1::SubmissionsController < ApiController
 			# TODO: Finish this!
 			@submissions = current_user.submissions
     end
-
+		myvar = @submissions.count()
 		if brief == true
 	    respond_with @submissions, :each_serializer => BriefSubmissionSerializer
     else

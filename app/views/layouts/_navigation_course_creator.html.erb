@@ -2,7 +2,7 @@
   <ul class="adaptive-nav--list">
     <li><%= link_to 'My Presentations', portfolio_course_path(:id => @course) %></li>
     <% if can? :evaluate, @course %>
-      <li><%= link_to 'Evaluations', course_evaluations_path(@course) %></li>
+      <li><%= link_to 'Evaluations', course_user_evaluations_path(@course) %></li>
     <% end %>
   </ul>
 </nav>

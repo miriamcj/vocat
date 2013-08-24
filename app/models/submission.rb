@@ -11,6 +11,8 @@ class Submission < ActiveRecord::Base
   attr_accessible :name, :evaluations, :summary, :project_id, :url, :published, :creator_id, :creator_type, :project,
                   :thumb, :instructor_score_percentage, :creator, :attachment_ids, :discussion_posts_count
 
+  validates_presence_of :project_id, :creator_id, :creator_type
+
   delegate :department, :to => :course, :prefix => true
   delegate :number, :to => :course, :prefix => true
   delegate :name, :to => :course, :prefix => true
@@ -168,13 +170,12 @@ class Submission < ActiveRecord::Base
   end
 
   def evaluations_visible_to(user)
-    user_id = user.id
     role = course.role(user)
     # Admins and evaluators for the course can see everything
     if role == :administrator || role == :evaluator
       return evaluations
     elsif role == :creator
-      if user.id == creator
+      if user == creator
         # User is the submission owner, so can see own evaluation plus any published evaluations
         return evaluations.where("evaluator_id = ? OR published = true", user.id)
       else

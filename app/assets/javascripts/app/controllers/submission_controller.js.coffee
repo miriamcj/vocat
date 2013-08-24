@@ -12,20 +12,14 @@ define [
       project: new ProjectCollection({})
     }
 
-    # TODO: Remove this controller method when this static view is no longer needed
-    helpDev: () ->
-      @creatorProjectDetail(8, 67, 14)
-
-
-    creatorProjectDetail: (course = null, creator = null, project = null) ->
-
+    creatorProjectDetail: (course , project) ->
       # The layout that contains the two lists of portfolio items
       submission = new SubmissionLayoutView({
         courseId: course
         collections: @collections
-        creator: @collections.creator.get(creator)
-        project: @collections.project.get(project)
-        submission: @collections.submission.get(submission)
+        submission: @collections.submission.first()
+        creator: @collections.user.first()
+        project: @collections.project.first()
       })
 
       # Assign the collection views to the layout; assign the layout to the main region

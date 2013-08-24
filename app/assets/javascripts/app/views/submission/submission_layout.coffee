@@ -73,6 +73,12 @@ define [
         @children.annotator = new AnnotatorView({model: @submission, collection: @collections.annotation, vent: @})
         @annotator.show(@children.annotator)
 
+    onRender: () ->
+      if @submission? && @submission.get('serialized_state') == 'full'
+        @triggerMethod('submission:loaded')
+      else
+        @fetchSubmission()
+
     onSubmissionLoaded: () ->
       @createPlacards()
       @createEvaluationViews()
@@ -81,6 +87,17 @@ define [
       @createFlashView()
       @createPlayerView()
       @createDiscussionView()
+
+    fetchSubmission: () ->
+      onSuccess = (collection, response) =>
+        @submission = @collections.submission.findWhere({creator_id: @creator.id, project_id: @project.id, creator_type: @creator.creatorType})
+        @triggerMethod('submission:loaded')
+
+      # Load the submission for this view and then instantiate all child views
+      if @creator.creatorType == 'User'
+        @collections.submission.fetchByCourseAndUserAndProject(@courseId, @creator.id, @project.id, {success: onSuccess})
+      else if @creator.creatorType == 'Group'
+        @collections.submission.fetchByCourseAndGroupAndProject(@courseId, @creator.id, @project.id, {success: onSuccess})
 
     initialize: (options) ->
       @options = options || {}
@@ -92,20 +109,10 @@ define [
       babysitter = require('backbone.babysitter');
       @placards = new babysitter
 
+      @submission = options.submission
       @courseId = Marionette.getOption(@, 'courseId')
       @project = Marionette.getOption(@, 'project')
       @creator = Marionette.getOption(@, 'creator')
-      creatorType = @creator.creatorType
-
-      onSuccess = (collection, response) =>
-        @submission = @collections.submission.findWhere({creator_id: @creator.id, project_id: @project.id, creator_type: creatorType})
-        @triggerMethod('submission:loaded')
-
-      # Load the submission for this view and then instantiate all child views
-      if creatorType == 'User'
-        @collections.submission.fetchByCourseAndUserAndProject(@courseId, @creator.id, @project.id, {success: onSuccess})
-      else if creatorType == 'Group'
-        @collections.submission.fetchByCourseAndGroupAndProject(@courseId, @creator.id, @project.id, {success: onSuccess})
 
     onEvaluationCreated: () ->
       @ui.glossaryToggle.show()
@@ -134,7 +141,7 @@ define [
       instructorEvaluationModels = evaluations.where({evaluator_role: 'Instructor'})
       instructorEvaluations = new EvaluationCollection(instructorEvaluationModels, {courseId: @courseId})
       evaluations.remove(instructorEvaluationModels)
-
+      console.log @instructorEvaluations,'ie'
       if @submission.get('current_user_can_evaluate') == true
         @myEvaluations.show new MyEvaluationView({collection: myEvaluations, model: @submission, project: @project, vent: @, courseId: @courseId})
 

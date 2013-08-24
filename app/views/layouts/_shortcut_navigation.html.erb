@@ -15,7 +15,7 @@
                 <% if @course.role(current_user) == :creator %>
                   <li><a href="/courses/<%= @course.id %>/view/creator/<%= current_user.id %>/project/<%= project.id %>"><%= project.name %></a></li>
                 <% else %>
-                  <li><a href="/courses/<%= @course.id %>/evaluations/project/<%= project.id %>"><%= project.name %></a></li>
+                  <li><a href="/courses/<%= @course.id %>/users/evaluations/project/<%= project.id %>"><%= project.name %></a></li>
                 <% end %>
               <% end %>
             </ul>
@@ -30,7 +30,7 @@
             <div class="peer-selector--dropdown" data-behavior="dropdown-options">
               <ul>
                 <% @course.creators.each do |creator| %>
-                  <li><a href="/courses/<%= @course.id %>/evaluations/creator/<%= creator.id %>"><%= creator.name %></a></li>
+                  <li><a href="/courses/<%= @course.id %>/users/evaluations/creator/<%= creator.id %>"><%= creator.name %></a></li>
                 <% end %>
               </ul>
             </div>

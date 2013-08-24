@@ -31,9 +31,6 @@ define [
     onItemviewDetail: (view) ->
       @vent.triggerMethod('open:detail:creator', {creator: view.model})
 
-    appendHtml: (collectionView, itemView, index) ->
-      itemView.$el.insertBefore(collectionView.ui.spacer)
-
     initialize: (options) ->
       @options = options || {}
       @vent = Marionette.getOption(@, 'vent')

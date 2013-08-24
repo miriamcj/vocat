@@ -5,5 +5,5 @@ define ['marionette', 'controllers/submission_controller'], (Marionette, Submiss
     controller: new SubmissionController
 
     appRoutes : {
-      'courses/:course/view/creator/:creator/project/:project': 'creatorProjectDetail'
+      'courses/:course/view/project/:project': 'creatorProjectDetail'
     }
