@@ -1637,11 +1637,10 @@ a.table--heading {
 // ------------
 // Wraps .matrix--row-header
 .matrix--name-nav {
-  width: $mainWidth;
+  // width: $mainWidth;
   width: 20rem;
   padding-top: $subHeaderHeight;
   position: absolute;
-  // top: 0;
   left: 0;
   z-index: 150;
   &.stuck {
@@ -1978,30 +1977,16 @@ a.table--heading {
 //  overflow: hidden;
   z-index: 130;
   .shim {
-	border-top: 2px solid blue;
-	@extend %shaded-inside-right;
-	background-color: $beigeAlt;
-	bottom: 0;
-	width: 200px;
-	left: -200px;
-	height: 10000px;
-	position: absolute
+    @extend %shaded-inside-right;
+    width: 200px;
+    height: 10000px;
+  	background-color: $beigeAlt;
+    border-top: 2px solid blue;
+    position: absolute;
+  	bottom: 0;
+  	left: -200px;
   }
-
 }
-
-// .matrix--overlay--header {
-//   background-color: $beigeLight;
-//   padding: 3.6rem 26rem 0 6.3rem;
-//   position: relative;
-// }
-
-// .matrix--overlay--title {
-//   @extend %mega-alt;
-//   font-weight: $medium;
-//   color: $tealMedium;
-//   padding: 2rem 0;
-// }
 
 // Project selector
 // ------------
