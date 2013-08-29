@@ -365,14 +365,14 @@ input%proto-button {
 // This is $grayDark by default
 %check-button {
   @extend %proto-button;
-  color: $beigeDark;
+  color: $grayLighter;
   background-color: $grayDarker;
   padding-top: 0.9rem;
   padding-left: 3.6rem;
   padding-bottom: 1rem;
   position: relative;
   &:after {
-    @include svg(checkbox-unchecked-beigeDark);
+    @include svg(checkbox-unchecked-grayLighter);
     content: "";
     display: block;
     width: 1.8rem;
@@ -382,11 +382,21 @@ input%proto-button {
     left: 0.9rem;
   }
   &:hover {
-    background-color: darken($grayDarker, 10%);
+    color: $beigeLight;
+    // background-color: darken($grayDarker, 10%);
+    background-color: $orange;
+    &:after {
+      @include svg(checkbox-unchecked-beigeLight);
+    }
   }
   &.active {
     &:after {
-      @include svg(checkbox-beigeDark);
+      @include svg(checkbox-grayLighter);
+    }
+    &:hover {
+      &:after {
+        @include svg(checkbox-beigeLight);
+      }      
     }
   }
 }
