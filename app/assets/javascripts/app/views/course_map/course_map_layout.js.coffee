@@ -9,10 +9,11 @@ define [
   'views/submission/submission_layout',
   'views/course_map/header',
   'views/abstract/sliding_grid_layout',
+  'views/modal/modal_error'
   'models/user',
   'models/group',
   '../../../layout/plugins'
-], (Marionette, template, CourseMapProjects, CourseMapCreators, CourseMapRows, CourseMapDetailCreator, CourseMapDetailProject, CourseMapDetailCreatorProject, CourseMapHeader, SlidingGridLayout, UserModel, GroupModel) ->
+], (Marionette, template, CourseMapProjects, CourseMapCreators, CourseMapRows, CourseMapDetailCreator, CourseMapDetailProject, CourseMapDetailCreatorProject, CourseMapHeader, SlidingGridLayout, ModalErrorView, UserModel, GroupModel) ->
 
   class CourseMapView extends SlidingGridLayout
 
@@ -72,12 +73,23 @@ define [
       @courseId = options.courseId
 
       @collections.submission.courseId = @courseId
-      @collections.submission.fetch({reset: true})
+      @collections.submission.fetch({reset: true, error: () =>
+        @triggerMethod('load:error')
+      , success: () =>
+        @triggerMethod('load:success')
+      })
 
       @instantiateChildViews()
 
       @listenTo(@overlay, 'show', () -> @onOpenOverlay())
       @listenTo(@header, 'show', () -> @onOpenHeader())
+
+    onLoadError: () ->
+      Vocat.vent.trigger('modal:open', new ModalErrorView({
+        model: @model,
+        vent: @,
+        message: 'Unable to load course submissions.',
+      }))
 
 
     showUserViews: () ->
