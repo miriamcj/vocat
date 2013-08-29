@@ -99,6 +99,21 @@
   margin-right: 0.6rem;
 }
 
+.check-button {
+  @extend %check-button;
+  margin-right: 0.6rem;
+}
+
+.gray-check-button {
+  @extend %gray-check-button;
+  margin-right: 0.6rem;
+}
+
+.teal-check-button {
+  @extend %teal-check-button;
+  margin-right: 0.6rem;
+}
+
 .white-pill {
   @extend %white-pill;
 }

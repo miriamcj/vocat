@@ -229,7 +229,7 @@
 // Buttons & pills
 // --------------------------
 // To be read in your best Werner Herzog voice:
-// "The ur-button from which all other buttons
+// "The notion from which all other buttons
 // derive; almost a form of proto-button"
 %proto-button {
   @extend %heading-epsilon;
@@ -359,6 +359,60 @@ input%proto-button {
   }
   &:hover {
     background-color: darken($beigeDark, 12%);
+  }
+}
+
+// This is $grayDark by default
+%check-button {
+  @extend %proto-button;
+  color: $beigeDark;
+  background-color: $grayDarker;
+  padding-top: 0.9rem;
+  padding-left: 3.6rem;
+  padding-bottom: 1rem;
+  position: relative;
+  &:after {
+    @include svg(checkbox-unchecked-beigeDark);
+    content: "";
+    display: block;
+    width: 1.8rem;
+    height: 1.8rem;
+    position: absolute;
+    top: 0.7rem;
+    left: 0.9rem;
+  }
+  &:hover {
+    background-color: darken($grayDarker, 10%);
+  }
+  &.active {
+    &:after {
+      @include svg(checkbox-beigeDark);
+    }
+  }
+}
+
+%gray-check-button {
+  @extend %check-button;
+  color: $beigeLight;
+  background-color: $beigeDark;
+  &:after {
+    @include svg(checkbox-unchecked-beigeLight);
+  }
+  &:hover {
+    background-color: darken($beigeDark, 10%);
+  }
+  &.active {
+    &:after {
+      @include svg(checkbox-beigeLight);
+    }
+  }
+}
+
+%teal-check-button {
+  @extend %gray-check-button;
+  background-color: $tealLight;
+  &:hover {
+    background-color: $tealMedium;
   }
 }
 
@@ -894,6 +948,18 @@ input%proto-button {
   }
 }
 
+// %light-round-checkbox {
+//   @extend %round-checkbox;
+//   & + b {
+//     @include svg(radio-unchecked-beigeLight);
+//   }
+//   &:checked {
+//     & + b {
+//       @include svg(radio-checked-beigeLight);
+//     }
+//   }
+// }
+
 %multicolored-round-checkbox {
   @extend %round-checkbox;
   & + b {
@@ -902,6 +968,30 @@ input%proto-button {
   &:checked {
     & + b {
       @include svg(radio);
+    }
+  }
+}
+
+// <label>
+%active-label {
+  &.active,
+  &:hover {
+    color: $orange;
+    [type="checkbox"],
+    [type="radio"] {
+      &:checked {
+        & + b {
+          @include svg(radio-checked-orange);
+        }
+      }
+    }
+    b {
+      @include svg(radio-unchecked-orange);
+    }
+  }
+  &.active {
+    b {
+      @include svg(radio-checked-orange);
     }
   }
 }
@@ -958,6 +1048,8 @@ input%proto-button {
     top: 100%;
     right: 0;
     left: 0;
+    // Don't let the shadows block the hovers & clicks
+    pointer-events: none;
   }
 }
 
