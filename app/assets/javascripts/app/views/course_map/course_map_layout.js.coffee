@@ -29,13 +29,14 @@ define [
       overlay: '[data-behavior="overlay-container"]'
       sliderLeft: '[data-behavior="matrix-slider-left"]'
       sliderRight: '[data-behavior="matrix-slider-right"]'
+      groupsInput: '[data-behavior="show-groups"]'
+      usersInput: '[data-behavior="show-users"]'
+
     }
 
     triggers: {
       'click [data-behavior="matrix-slider-left"]':   'slider:left'
       'click [data-behavior="matrix-slider-right"]':  'slider:right'
-      'click [data-behavior="show-groups"]':  'show:groups'
-      'click [data-behavior="show-users"]':  'show:users'
     }
 
     regions: {
@@ -61,12 +62,8 @@ define [
       , 500
 
     instantiateChildViews: () ->
-      @children.projects = new CourseMapProjects({collection: @collections.project, courseId: @courseId, vent: @})
       @children.header = new CourseMapHeader({collections: @collections, courseId: @courseId, vent: @})
-      @children.users = new CourseMapCreators({collection: @collections.user, courseId: @courseId, vent: @})
-      @children.userRows = new CourseMapRows({collection: @collections.user, collections: {project: @collections.project, submission: @collections.submission}, courseId: @courseId, vent: @})
-      @children.groups = new CourseMapCreators({collection: @collections.group, courseId: @courseId, vent: @})
-      @children.groupRows = new CourseMapRows({collection: @collections.group, collections: {project: @collections.project, submission: @collections.submission}, courseId: @courseId, vent: @})
+
 
     initialize: (options) ->
       @collections = options.collections
@@ -94,17 +91,17 @@ define [
 
     showUserViews: () ->
       @creatorType = 'User'
-      @creators.show(@children.users)
-      @projects.show(@children.projects)
-      @matrix.show(@children.userRows)
+      @creators.show(new CourseMapCreators({collection: @collections.user, courseId: @courseId, vent: @, creatorType: 'User'}))
+      @projects.show(new CourseMapProjects({collection: @collections.project, courseId: @courseId, vent: @}))
+      @matrix.show(new CourseMapRows({collection: @collections.user, collections: {project: @collections.project, submission: @collections.submission}, courseId: @courseId, vent: @}))
       @children.header.creatorType == 'Users'
       @sliderRecalculate()
 
     showGroupViews: () ->
       @creatorType = 'Group'
-      @creators.show(@children.groups)
-      @projects.show(@children.projects)
-      @matrix.show(@children.groupRows)
+      @creators.show(new CourseMapCreators({collection: @collections.group, courseId: @courseId, vent: @, creatorType: 'Group'}))
+      @projects.show(new CourseMapProjects({collection: @collections.project, courseId: @courseId, vent: @}))
+      @matrix.show(new CourseMapRows({collection: @collections.group, collections: {project: @collections.project, submission: @collections.submission}, courseId: @courseId, vent: @}))
       @children.header.creatorType == 'Group'
       @sliderRecalculate()
 
@@ -115,11 +112,15 @@ define [
 
     onShowGroups: () ->
       @showGroupViews()
+      @ui.groupsInput.prop('checked', true)
+      @ui.usersInput.prop('checked', false)
       @triggerMethod('close:overlay')
       Vocat.courseMapRouter.navigate("courses/#{@courseId}/groups/evaluations")
 
     onShowUsers: () ->
       @showUserViews()
+      @ui.groupsInput.prop('checked', false)
+      @ui.usersInput.prop('checked', true)
       @triggerMethod('close:overlay')
       Vocat.courseMapRouter.navigate("courses/#{@courseId}/users/evaluations")
 
