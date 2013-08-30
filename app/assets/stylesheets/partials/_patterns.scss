@@ -253,7 +253,6 @@ input%proto-button {
 
 %teal-button {
   @extend %proto-button;
-  @extend %bare-link;
   @extend %shaded-inside-bottom;
   background-color: $tealLight;
   padding-top: 0.6rem;
@@ -271,24 +270,36 @@ input%proto-button {
   }
 }
 
+%dark-button {
+  @extend %teal-button;
+  color: $grayLighter;
+  background-color: $grayDarker;
+  &:hover {
+     color: $beigeLight;
+    background-color: $orange;
+  }
+}
+
 %large-teal-button {
   @extend %teal-button;
-  padding-top: 0.9rem;
-  padding-bottom: 1rem;
+  @extend %proto-large-button;
 }
 
 %large-gray-button {
   @extend %gray-button;
-  padding-top: 0.9rem;
-  padding-bottom: 1rem;
+  @extend %proto-large-button;
+}
+
+%large-dark-button {
+  @extend %dark-button;
+  @extend %proto-large-button;
 }
 
 %teal-arrow-button {
   @extend %proto-button;
+  @extend %proto-large-button;
   background-color: $tealLight;
-  padding-top: 0.9rem;
   padding-right: 3.7rem;
-  padding-bottom: 1rem;
   position: relative;
   &:after {
     @include svg(circle-arrow-right-beigeLight);
@@ -367,23 +378,22 @@ input%proto-button {
   @extend %proto-button;
   color: $grayLighter;
   background-color: $grayDarker;
-  padding-top: 0.9rem;
-  padding-left: 3.6rem;
-  padding-bottom: 1rem;
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+  padding-left: 2.9rem;
   position: relative;
   &:after {
     @include svg(checkbox-unchecked-grayLighter);
     content: "";
     display: block;
-    width: 1.8rem;
-    height: 1.8rem;
+    width: 1.4rem;
+    height: 1.4rem;
     position: absolute;
-    top: 0.7rem;
-    left: 0.9rem;
+    top: 0.5rem;
+    left: 0.8rem;
   }
   &:hover {
     color: $beigeLight;
-    // background-color: darken($grayDarker, 10%);
     background-color: $orange;
     &:after {
       @include svg(checkbox-unchecked-beigeLight);
@@ -398,6 +408,18 @@ input%proto-button {
         @include svg(checkbox-beigeLight);
       }      
     }
+  }
+}
+
+%large-check-button {
+  @extend %check-button;
+  @extend %proto-large-button;
+  padding-left: 3.6rem;
+  &:after {
+    width: 1.8rem;
+    height: 1.8rem;
+    top: 0.7rem;
+    left: 0.9rem;
   }
 }
 
@@ -424,6 +446,23 @@ input%proto-button {
   &:hover {
     background-color: $tealMedium;
   }
+}
+
+%large-gray-check-button {
+  @extend %gray-check-button;
+  @extend %large-check-button;
+}
+
+%large-teal-check-button {
+  @extend %teal-check-button;
+  @extend %large-check-button;
+}
+
+// Extended by all large button patterns
+// Lives down here so it will be respected
+%proto-large-button {
+  padding-top: 0.9rem;
+  padding-bottom: 1rem;
 }
 
 // Not for use on <a>s; use %white-button for those
