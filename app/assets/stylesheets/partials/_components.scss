@@ -1412,7 +1412,7 @@ a.table--heading {
 // --------------------------
 // A unit that is one cell-width (any height)
 %matrix--wide {
-  width: $matrixCellWidth;
+  width: $matrixCellWidth - .5rem;
 }
 
 // A unit that is one cell-height (any width)
