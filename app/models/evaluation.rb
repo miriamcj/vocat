@@ -44,7 +44,7 @@ class Evaluation < ActiveRecord::Base
   end
 
   def total_percentage_rounded
-    total_percentage.round(1)
+    total_percentage.round(0)
   end
 
   def total_percentage

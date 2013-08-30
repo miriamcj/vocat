@@ -687,7 +687,7 @@ a.table--heading {
 }
 
 .radio-label {
-  @extend %radio-label;  
+  @extend %radio-label;
   padding: 0 0.5rem 0 2.6rem;
   margin-bottom: 1rem;
   [type="radio"],
@@ -1546,7 +1546,7 @@ a.table--heading {
 .matrix--controls {
   @extend %clearfix;
   @extend %shaded-inside-right;
-  width: $matrixCellWidth;
+  width: $matrixRowHeaderWidth;
   height: $subHeaderHeight;
   background-color: $tealLightestAlt;
   padding: 2.1rem 3.2rem 1.7rem 1.6rem;
@@ -1590,13 +1590,13 @@ a.table--heading {
 // ------------
 // Lives inside .matrix--column-header
 .matrix--overlay-header {
-  width: $mainWidth - $matrixCellWidth;
+  width: $mainWidth - $matrixRowHeaderWidth;
   background-color: $tealLightestAlt;
   padding: 1.6rem 3.2rem 1.6rem 2.4rem;
   position: absolute;
   top: 0;
   bottom: 0;
-  left: $matrixCellWidth;
+  left: $matrixRowHeaderWidth;
   z-index: 320;
 }
 
@@ -1668,7 +1668,7 @@ a.table--heading {
   ul {
     @extend %clearfix;
     @extend %unstyled-list;
-    width: $matrixCellWidth;
+    width: $matrixRowHeaderWidth;
     margin: 0;
   }
   li {
@@ -1800,7 +1800,7 @@ a.table--heading {
 // Wraps .matrix--content
 .matrix--body {
   @extend %clearfix;
-  padding: $subHeaderHeight 0 0 ($matrixCellWidth);
+  padding: $subHeaderHeight 0 0 ($matrixRowHeaderWidth);
   position: relative;
   border-bottom: 0.1rem solid transparentize($beigeDark, 0.1);
 }
@@ -1925,7 +1925,7 @@ a.table--heading {
   text-align: center;
   color: $tealMedium;
   padding: 0.4rem 0;
-  margin: 0 1.6rem;
+  margin: 0 .8rem;
   float: left;
   small {
     font-size: 0.65em;

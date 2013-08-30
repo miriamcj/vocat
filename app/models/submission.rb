@@ -101,7 +101,7 @@ class Submission < ActiveRecord::Base
 
   def user_score_percentage(user)
     if evaluated_by_user?(user)
-      user_evaluation(user).total_percentage
+      user_evaluation(user).total_percentage_rounded
     end
   end
 
