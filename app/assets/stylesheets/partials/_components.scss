@@ -1989,13 +1989,13 @@ a.table--heading {
   z-index: 130;
   .shim {
     @extend %shaded-inside-right;
-    width: 200px;
+    width: $matrixRowHeaderWidth;
     height: 10000px;
   	background-color: $beigeAlt;
     border-top: 2px solid blue;
     position: absolute;
   	bottom: 0;
-  	left: -200px;
+  	left: -$matrixRowHeaderWidth;
   }
 }
 
@@ -2026,6 +2026,12 @@ a.table--heading {
     background-color: $grayDark;
     padding: 1.4rem 1.6rem;
     position: relative;
+    .light-radio-label {
+      width: auto;
+      &:first-child {
+        padding-right: 1.5rem;
+      }
+    }
     .highlightable & {
       &:hover {
         background-color: $grayDark;
@@ -2044,11 +2050,12 @@ a.table--heading {
 .matrix--meta-nav--cell {
   @extend %shaded-bottom;
   height: 4.8rem;
-  padding: 0.8rem 1.6rem;
+  padding: 1.15rem 1.6rem;
   position: relative;
   z-index: 200;
   cursor: auto;
   a {
+    text-align: center;
     width: 100%;
   }
 }

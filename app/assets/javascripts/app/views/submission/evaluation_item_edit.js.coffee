@@ -61,7 +61,7 @@ define ['marionette', 'hbs!templates/submission/evaluation_item_edit', 'vendor/p
       @model.save({published: true}, {
         success: () =>
           @vent.triggerMethod('myEvaluation:published')
-          @vent.trigger('error:add', {level: 'notice', msg: 'Evaluation has been published'})
+          @vent.trigger('error:add', {level: 'notice', msg: 'Evaluation has been successfully published'})
           @setUiPublishedState(true)
         error: () =>
           @vent.trigger('error:add', {level: 'notice', msg: 'Unable to update evaluation'})
@@ -71,7 +71,7 @@ define ['marionette', 'hbs!templates/submission/evaluation_item_edit', 'vendor/p
       @model.save({published: false}, {
         success: () =>
           @vent.triggerMethod('myEvaluation:unpublished')
-          @vent.trigger('error:add', {level: 'notice', msg: 'Evaluation has been hidden'})
+          @vent.trigger('error:add', {level: 'notice', msg: 'Evaluation has been successfully unpublished'})
           @setUiPublishedState(false)
         error: () =>
           @vent.trigger('error:add', {level: 'notice', msg: 'Unable to update evaluation'})
