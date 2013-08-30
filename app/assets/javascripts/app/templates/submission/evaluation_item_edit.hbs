@@ -30,6 +30,6 @@
 
 <a data-behavior="evaluation-destroy" class="small-teal-minus-button" href="#">Delete Evaluation</a>
 
-<a {{#unless published}}style="display: none"{{/unless}} data-behavior="model-unpublish" class="small-teal-check-button" href="#">Unpublish Evaluation</a>
-<a {{#if published}}style="display: none"{{/if}}data-behavior="model-publish" class="small-teal-check-button active" href="#">Publish Evaluation</a>
+<a {{#unless published}}style="display: none"{{/unless}} data-behavior="model-unpublish" class="teal-check-button active" href="#">Published</a>
+<a {{#if published}}style="display: none"{{/if}}data-behavior="model-publish" class="teal-check-button" href="#">Unpublished</a>
 <a style="float: right;" data-behavior="model-save" class="small-teal-arrow-button" href="#">Save Evaluation</a>
