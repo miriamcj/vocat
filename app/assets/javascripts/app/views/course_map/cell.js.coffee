@@ -27,16 +27,7 @@ define ['marionette', 'hbs!templates/course_map/cell', 'models/user', 'models/gr
       @vent.triggerMethod('open:detail:creator:project', args)
 
     onPublishToggle: () ->
-      evaluationData = @model.get('current_user_evaluation')
-      if evaluationData?
-        evaluation = new EvaluationModel(evaluationData)
-        if @model.get('current_user_evaluation_published') == true
-          evaluation.save({published: false})
-          @model.set('current_user_evaluation_published', false)
-        else
-          evaluation.save({published: true})
-          @model.set('current_user_evaluation_published', true)
-        @render()
+      if @model? then @model.toggleEvaluationPublish()
 
     findModel: () ->
       if @creator instanceof UserModel

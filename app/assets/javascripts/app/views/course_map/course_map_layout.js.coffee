@@ -3,6 +3,7 @@ define [
   'hbs!templates/course_map/course_map_layout',
   'views/course_map/projects',
   'views/course_map/creators',
+  'views/course_map/matrix',
   'views/course_map/rows',
   'views/course_map/detail_creator',
   'views/course_map/detail_project',
@@ -13,7 +14,7 @@ define [
   'models/user',
   'models/group',
   '../../../layout/plugins'
-], (Marionette, template, CourseMapProjects, CourseMapCreators, CourseMapRows, CourseMapDetailCreator, CourseMapDetailProject, CourseMapDetailCreatorProject, CourseMapHeader, SlidingGridLayout, ModalErrorView, UserModel, GroupModel) ->
+], (Marionette, template, CourseMapProjects, CourseMapCreators, CourseMapMatrix, CourseMapRows, CourseMapDetailCreator, CourseMapDetailProject, CourseMapDetailCreatorProject, CourseMapHeader, SlidingGridLayout, ModalErrorView, UserModel, GroupModel) ->
 
   class CourseMapView extends SlidingGridLayout
 
@@ -93,7 +94,7 @@ define [
       @creatorType = 'User'
       @creators.show(new CourseMapCreators({collection: @collections.user, courseId: @courseId, vent: @, creatorType: 'User'}))
       @projects.show(new CourseMapProjects({collection: @collections.project, courseId: @courseId, vent: @}))
-      @matrix.show(new CourseMapRows({collection: @collections.user, collections: {project: @collections.project, submission: @collections.submission}, courseId: @courseId, vent: @}))
+      @matrix.show(new CourseMapMatrix({collection: @collections.user, collections: {project: @collections.project, submission: @collections.submission}, courseId: @courseId, creatorType: 'User', vent: @}))
       @children.header.creatorType == 'Users'
       @sliderRecalculate()
 
@@ -101,7 +102,7 @@ define [
       @creatorType = 'Group'
       @creators.show(new CourseMapCreators({collection: @collections.group, courseId: @courseId, vent: @, creatorType: 'Group'}))
       @projects.show(new CourseMapProjects({collection: @collections.project, courseId: @courseId, vent: @}))
-      @matrix.show(new CourseMapRows({collection: @collections.group, collections: {project: @collections.project, submission: @collections.submission}, courseId: @courseId, vent: @}))
+      @matrix.show(new CourseMapMatrix({collection: @collections.group, collections: {project: @collections.project, submission: @collections.submission}, courseId: @courseId, creatorType: 'Group', vent: @}))
       @children.header.creatorType == 'Group'
       @sliderRecalculate()
 

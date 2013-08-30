@@ -1,21 +1,8 @@
-define ['marionette', 'hbs!templates/course_map/rows', 'views/course_map/row_item'], (Marionette, template, ItemView) ->
+define ['marionette', 'views/course_map/row_item'], (Marionette, ItemView) ->
 
-  class RowsView extends Marionette.CompositeView
+  class RowsView extends Marionette.CollectionView
 
     itemView: ItemView
-    template: template
-
-    ui: {
-      spacer: '[data-behavior="spacer"]'
-    }
-
-    appendHtml: (collectionView, itemView, index) ->
-      itemView.$el.insertBefore(collectionView.ui.spacer)
-
-    serializeData: () ->
-      {
-        projectCount: @collections.project.length
-      }
 
     itemViewOptions: () ->
       {

@@ -1,4 +1,4 @@
-define ['backbone', 'models/attachment'], (Backbone, Attachment) ->
+define ['backbone', 'models/attachment', 'models/evaluation'], (Backbone, Attachment, EvaluationModel) ->
 
   class SubmissionModel extends Backbone.Model
 
@@ -25,7 +25,28 @@ define ['backbone', 'models/attachment'], (Backbone, Attachment) ->
       if rawAttachment?
         @attachment = new Attachment(rawAttachment)
 
-    initialize: () ->
+    publishEvaluation: () ->
+      evaluationData = @.get('current_user_evaluation')
+      evaluation = new EvaluationModel(evaluationData)
+      evaluation.save({published: true})
+      @.set('current_user_evaluation_published', true)
+
+    unpublishEvaluation: () ->
+      evaluationData = @.get('current_user_evaluation')
+      evaluation = new EvaluationModel(evaluationData)
+      evaluation.save({published: false})
+      @.set('current_user_evaluation_published', false)
+
+    toggleEvaluationPublish: () ->
+      evaluationData = @.get('current_user_evaluation')
+      if evaluationData?
+        if @.get('current_user_evaluation_published') == true
+          @unpublishEvaluation()
+        else
+          @publishEvaluation()
+
+
+      initialize: () ->
       @listenTo(@, 'change:attachment', () =>
         @updateAttachment()
       )
