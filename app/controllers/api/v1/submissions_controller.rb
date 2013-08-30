@@ -32,10 +32,15 @@ class Api::V1::SubmissionsController < ApiController
 			brief = true
       @submissions = @course.submissions
     else
-			# TODO: Finish this!
-			@submissions = current_user.submissions
+			if current_user.role?('evaluator')
+				brief = true
+				@submissions = Submission.for_courses(current_user.courses)
+			else
+				brief = true
+				@submissions = current_user.submissions
+			end
     end
-		myvar = @submissions.count()
+		if params[:limit] then @submissions = @submissions.limit(params[:limit]) end
 		if brief == true
 	    respond_with @submissions, :each_serializer => BriefSubmissionSerializer
     else
