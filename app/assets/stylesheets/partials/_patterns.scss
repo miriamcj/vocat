@@ -380,17 +380,17 @@ input%proto-button {
   background-color: $grayDarker;
   padding-top: 0.6rem;
   padding-bottom: 0.6rem;
-  padding-left: 2.9rem;
+  padding-left: 3.4rem;
   position: relative;
   &:after {
     @include svg(checkbox-unchecked-grayLighter);
     content: "";
     display: block;
-    width: 1.4rem;
-    height: 1.4rem;
+    width: 1.6rem;
+    height: 1.6rem;
     position: absolute;
-    top: 0.5rem;
-    left: 0.8rem;
+    top: 0.4rem;
+    left: 0.9rem;
   }
   &:hover {
     color: $beigeLight;
