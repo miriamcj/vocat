@@ -14,10 +14,6 @@ define ['marionette', 'hbs!templates/course_map/cell', 'models/user', 'models/gr
     triggers:
       'click': 'detail'
       'click [data-behavior="publish-toggle"]': 'publish:toggle'
-      'mouseover .matrix--row': 'row:active'
-      'mouseout .matrix--row': 'row:inactive'
-      'mouseover [data-behavior="matrix-cell"]': 'col:active'
-      'mouseout [data-behavior="matrix-cell"]': 'col:inactive'
 
     onDetail: () ->
       args = {

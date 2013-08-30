@@ -27,9 +27,28 @@ define ['marionette', 'hbs!templates/course_map/creators_item'], (Marionette, te
       data.courseId = @options.courseId
       data
 
+    onActive: () ->
+      @vent.triggerMethod('row:active', {creator: @model})
+
+    onInactive: () ->
+      @vent.triggerMethod('row:inactive', {creator: @model})
+
+    onDetail: () ->
+      @vent.triggerMethod('open:detail:creator', {creator: @model})
+
     initialize: (options) ->
       @options = options || {}
+      @vent = Marionette.getOption(@, 'vent')
       @creatorType = Marionette.getOption(@, 'creatorType')
+
+      @listenTo(@vent,'row:active', (data) ->
+        if data.creator == @model then @$el.addClass('active')
+      )
+
+      @listenTo(@vent,'row:inactive', (data) ->
+        if data.creator == @model then @$el.removeClass('active')
+      )
+
       @listenTo(@model.collection, 'change:active', (activeCreator) ->
         if activeCreator == @model
           @$el.addClass('selected')

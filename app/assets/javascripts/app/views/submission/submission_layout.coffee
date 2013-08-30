@@ -141,7 +141,6 @@ define [
       instructorEvaluationModels = evaluations.where({evaluator_role: 'Instructor'})
       instructorEvaluations = new EvaluationCollection(instructorEvaluationModels, {courseId: @courseId})
       evaluations.remove(instructorEvaluationModels)
-      console.log @instructorEvaluations,'ie'
       if @submission.get('current_user_can_evaluate') == true
         @myEvaluations.show new MyEvaluationView({collection: myEvaluations, model: @submission, project: @project, vent: @, courseId: @courseId})
 

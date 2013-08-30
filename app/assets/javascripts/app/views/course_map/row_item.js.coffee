@@ -11,9 +11,16 @@ define ['marionette', 'hbs!templates/course_map/row_item', 'views/course_map/cel
 
     itemView: ItemView
 
-    events: {
-      'mouseover .matrix--row': 'onRowActive'
+    triggers: {
+      'mouseover': 'row:active'
+      'mouseout': 'row:inactive'
     }
+
+    onRowActive: () ->
+      @vent.triggerMethod('row:active', {creator: @model})
+
+    onRowInactive: () ->
+      @vent.triggerMethod('row:inactive', {creator: @model})
 
     itemViewOptions: () ->
       {
@@ -26,13 +33,12 @@ define ['marionette', 'hbs!templates/course_map/row_item', 'views/course_map/cel
       @vent = options.vent
       @submissions = options.submissions
 
-    onClose: () ->
-      # TODO: Unbind jquery events from onRender
+      @listenTo(@vent,'row:active', (data) ->
+        if data.creator == @model then @$el.addClass('active')
+      )
 
-    onRender: () ->
-      @$el.on('mouseover', () =>
-        @vent.triggerMethod('row:active', {creator: @model})
+      @listenTo(@vent,'row:inactive', (data) ->
+        if data.creator == @model then @$el.removeClass('active')
       )
-      @$el.on('mouseout', () =>
-        @vent.triggerMethod('row:inactive', {creator: @model})
-      )
+
+

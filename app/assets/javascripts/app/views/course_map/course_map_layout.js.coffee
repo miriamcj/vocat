@@ -192,12 +192,6 @@ define [
 
       @overlay.show(view)
 
-    onRowInactive: (args) ->
-      @$el.find('[data-creator="'+args.creator+'"]').removeClass('active')
-
-    onRowActive: (args) ->
-      @$el.find('[data-creator="'+args.creator+'"]').addClass('active')
-
     onColActive: (args) ->
       # For now, do nothing.
 

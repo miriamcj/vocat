@@ -31,6 +31,7 @@ define [
       {
       courseId: @options.courseId
       creatorType: @creatorType
+      vent: @vent
       }
 
     serializeData: () ->
@@ -39,18 +40,7 @@ define [
       isGroups: @creatorType == 'Group'
       }
 
-
-    onItemviewActive: (view) ->
-      @vent.triggerMethod('row:active', {creator: view.model})
-
-    onItemviewInactive: (view) ->
-      @vent.triggerMethod('row:inactive', {creator: view.model})
-
-    onItemviewDetail: (view) ->
-      @vent.triggerMethod('open:detail:creator', {creator: view.model})
-
     initialize: (options) ->
-      console.log 'initialized'
       @options = options || {}
       @vent = Marionette.getOption(@, 'vent')
       @creatorType = Marionette.getOption(@, 'creatorType')
