@@ -41,6 +41,9 @@ define ['marionette', 'hbs!templates/course_map/creators_item'], (Marionette, te
       @vent = Marionette.getOption(@, 'vent')
       @creatorType = Marionette.getOption(@, 'creatorType')
 
+      if @creatorType == 'Group'
+        @$el.addClass('matrix--group-title')
+
       @listenTo(@vent,'row:active', (data) ->
         if data.creator == @model then @$el.addClass('active')
       )

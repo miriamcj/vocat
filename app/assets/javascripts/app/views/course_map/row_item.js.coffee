@@ -8,7 +8,6 @@ define ['marionette', 'hbs!templates/course_map/row_item', 'views/course_map/cel
 
     tagName: 'ul'
     className: 'matrix--row'
-
     itemView: ItemView
 
     triggers: {
@@ -32,6 +31,10 @@ define ['marionette', 'hbs!templates/course_map/row_item', 'views/course_map/cel
     initialize: (options) ->
       @vent = options.vent
       @submissions = options.submissions
+      @creatorType = options.creatorType
+
+      if @creatorType == 'Group'
+        @$el.addClass('matrix--group-row')
 
       @listenTo(@vent,'row:active', (data) ->
         if data.creator == @model then @$el.addClass('active')
