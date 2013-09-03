@@ -4,13 +4,17 @@
 	{{else}}
 	<b class="matrix--cell--play inactive">No video has been uploaded</b>
 	{{/if}}
-	<h2 class="matrix--cell--value">
+	<h2 class="matrix--cell--value {{#unless current_user_has_evaluated}}inactive{{/unless}}">
 		{{#if current_user_has_evaluated }}
 		{{current_user_percentage}}<small>%</small>
+		{{else}}
+			{{#if has_video }}
+			&ndash;&ndash;			
+			{{/if}}
 		{{/if}}
 	</h2>
 </a>
-<div data-submission="{{id}}" data-behavior="publish-toggle" class="matrix--cell--indicator {{#if current_user_evaluation_published}}active{{/if}}">
+<div data-submission="{{id}}" data-behavior="publish-toggle" class="matrix--cell--indicator {{#if current_user_evaluation_published}}active{{else}}inactive{{/if}}">
 	{{#if current_user_has_evaluated}}
 	<b></b>
 	{{#if current_user_evaluation_published}}
@@ -23,6 +27,6 @@
 {{else}}
 <a href="{{path}}" data-behavior="routable">
 	<b class="matrix--cell--play inactive">No video has been uploaded</b>
-	<h2 class="matrix--cell--value">&ndash;&ndash;<small>%</small></h2>
+	<h2 class="matrix--cell--value">&ndash;&ndash;</h2>
 </a>
 <div class="matrix--cell--indicator"></div>

@@ -1648,7 +1648,7 @@ a.table--heading {
 // ------------
 // Wraps .matrix--row-header
 .matrix--name-nav {
-  width: 20rem;
+  width: $matrixRowHeaderWidth;
   padding-top: $subHeaderHeight;
   position: absolute;
   left: 0;
@@ -1681,9 +1681,9 @@ a.table--heading {
       background-color: $beigeLightAlt;
     }
     &.matrix--group-title {
-      background-color: $tealLightestAlt;
+      background-color: #deedf4;
       &:nth-child(even) {
-        background-color: #d7dcdd;
+        background-color: #eaf3f8;
       }
       &.first {
         @extend %shaded-inside-top-right;
@@ -1744,6 +1744,7 @@ a.table--heading {
 
 .matrix--row-header--item {
   display: table;
+  width: 100%;
   height: 100%;
   a {
     @extend %beta;
@@ -1822,9 +1823,9 @@ a.table--heading {
     background-color: $beigeLightAlt;
   }
   &.matrix--group-row {
-    background-color: $tealLightestAlt;
+    background-color: #deedf4;
     &:nth-child(even) {
-      background-color: #d7dcdd;
+      background-color: #eaf3f8;
     }
     &.first {
       @extend %shaded-top;
@@ -1907,8 +1908,10 @@ a.table--heading {
   float: left;
   // Changes play icon when no video exists
   &.inactive {
+    @include opacity(25);
     @include svg(play-slash);
     .active & {
+      @include opacity(100);
       @include svg(play-slash-beigeDark);
     }
   }
@@ -1927,6 +1930,9 @@ a.table--heading {
   padding: 0.4rem 0;
   margin: 0 .8rem;
   float: left;
+  &.inactive {
+    @include opacity(25);
+  }
   small {
     font-size: 0.65em;
     vertical-align: top;
@@ -1937,6 +1943,9 @@ a.table--heading {
   // Changes icon color when .matrix--row is active (on hover)
   .active & {
     color: $beigeDark;
+    &.inactive {
+      @include opacity(100);
+    }
   }
 }
 
@@ -1965,6 +1974,9 @@ a.table--heading {
       @include svg(checkbox);
     }
   }
+  &.inactive {
+    @include opacity(25);
+  }
   // Changes icon color when .matrix--row is active (on hover)
   .active & {
     color: $beigeDark;
@@ -1975,6 +1987,9 @@ a.table--heading {
       b {
         @include svg(checkbox-beigeDark);
       }
+    }
+    &.inactive {
+      @include opacity(100);
     }
   }
 }
