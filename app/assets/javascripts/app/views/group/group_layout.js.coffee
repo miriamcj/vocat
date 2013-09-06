@@ -89,6 +89,7 @@ define [
       @creators.show(@children.creators)
       @groups.show(@children.groups)
       @rows.show(@children.rows)
+      @sliderRecalculate()
 
     initialize: (options) ->
       @collections = options.collections
@@ -99,11 +100,17 @@ define [
       @children.rows = new RowsView({collection: @collections.creator, collections: @collections, courseId: @courseId, vent: @})
 
       @listenTo(@children.groups,'after:item:added item:removed', () =>
-        @sliderRecalculate()
+        #TODO: Hack to wait until all rendering is complete... replace with better solution
+        setTimeout( () =>
+          @sliderRecalculate()
+        , 0)
       )
 
       @listenTo(@children.groups,'after:item:added', () =>
-        @triggerMethod('slider:right')
+        #TODO: Hack to wait until all rendering is complete... replace with better solution
+        setTimeout( () =>
+          @triggerMethod('slider:right')
+        , 0)
       )
 
       setTimeout () =>

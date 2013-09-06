@@ -15,6 +15,12 @@ define ['marionette', 'hbs!templates/group/groups_item', 'views/modal/modal_conf
       'click [data-behavior="edit"]': 'click:edit'
     }
 
+    onShow: () ->
+      console.log 'on show in item'
+
+    onRender: () ->
+      console.log 'on render in item'
+
     onClickEdit: () ->
       Vocat.vent.trigger('modal:open', new GroupEditView({model: @model, vent: @vent}))
 
