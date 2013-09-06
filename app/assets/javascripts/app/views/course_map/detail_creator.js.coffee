@@ -23,7 +23,7 @@ define [
       e.preventDefault()
       href = $(e.currentTarget).attr('href')
       if href
-        window.Vocat.courseMapRouter.navigate(href, true)
+        window.Vocat.router.navigate(href, true)
 
     initialize: (options) ->
 

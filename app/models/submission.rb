@@ -25,6 +25,7 @@ class Submission < ActiveRecord::Base
   delegate :name, :to => :creator, :prefix => true
   delegate :name, :to => :group, :prefix => true, :allow_nil => true
 
+  default_scope includes(:attachments, :evaluations, :project)
   scope :for_courses, lambda { |course| joins(:project).where('projects.course_id' => course).includes(:attachments) }
 
   #default_scope :include => :attachments

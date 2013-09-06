@@ -6,6 +6,8 @@ define [
 
   class PageController extends VocatController
 
+    initialize: () ->
+
     helpDev: () ->
       view = new HelpTestView({})
       Vocat.main.show view

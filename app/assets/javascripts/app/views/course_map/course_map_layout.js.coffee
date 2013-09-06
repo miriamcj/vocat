@@ -116,14 +116,14 @@ define [
       @ui.groupsInput.prop('checked', true)
       @ui.usersInput.prop('checked', false)
       @triggerMethod('close:overlay')
-      Vocat.courseMapRouter.navigate("courses/#{@courseId}/groups/evaluations")
+      Vocat.router.navigate("courses/#{@courseId}/groups/evaluations")
 
     onShowUsers: () ->
       @showUserViews()
       @ui.groupsInput.prop('checked', false)
       @ui.usersInput.prop('checked', true)
       @triggerMethod('close:overlay')
-      Vocat.courseMapRouter.navigate("courses/#{@courseId}/users/evaluations")
+      Vocat.router.navigate("courses/#{@courseId}/users/evaluations")
 
     onOpenDetailProject: (args) ->
       if @creatorType == 'User'
@@ -141,7 +141,7 @@ define [
     onOpenDetailUser: (args) ->
       @showUserViews()
       @setActive({user: args.user})
-      Vocat.courseMapRouter.navigate("courses/#{@courseId}/users/evaluations/creator/#{args.user.id}")
+      Vocat.router.navigate("courses/#{@courseId}/users/evaluations/creator/#{args.user.id}")
       view = new CourseMapDetailCreator({
         collection: @collections.submission,
         projects: @collections.project,
@@ -154,21 +154,21 @@ define [
     onOpenDetailGroup: (args) ->
       @showGroupViews()
       @setActive({group: args.group})
-      Vocat.courseMapRouter.navigate("courses/#{@courseId}/groups/evaluations/creator/#{args.group.id}")
+      Vocat.router.navigate("courses/#{@courseId}/groups/evaluations/creator/#{args.group.id}")
       view = new CourseMapDetailCreator({collection: @collections.submission, creatorType: 'Group', courseId: @courseId, vent: @, model: args.group})
       @overlay.show(view)
 
     onOpenDetailProjectUsers: (args) ->
       @showUserViews()
       @setActive({project: args.project})
-      Vocat.courseMapRouter.navigate("courses/#{@courseId}/users/evaluations/project/#{args.project.id}")
+      Vocat.router.navigate("courses/#{@courseId}/users/evaluations/project/#{args.project.id}")
       view = new CourseMapDetailProject({collections: {creators: @collections.user,submissions: @collections.submission}, courseId: @courseId, vent: @, model: args.project})
       @overlay.show(view)
 
     onOpenDetailProjectGroups: (args) ->
       @showGroupViews()
       @setActive({project: args.project})
-      Vocat.courseMapRouter.navigate("courses/#{@courseId}/groups/evaluations/project/#{args.project.id}")
+      Vocat.router.navigate("courses/#{@courseId}/groups/evaluations/project/#{args.project.id}")
       view = new CourseMapDetailProject({collections: {creators: @collections.group, submissions: @collections.submission}, courseId: @courseId, vent: @, model: args.project})
       @overlay.show(view)
 
@@ -176,11 +176,11 @@ define [
       if args.creator.creatorType == 'User'
         @showUserViews()
         @setActive({project: args.project, user: args.creator})
-        Vocat.courseMapRouter.navigate("courses/#{@courseId}/users/evaluations/creator/#{args.creator.id}/project/#{args.project.id}")
+        Vocat.router.navigate("courses/#{@courseId}/users/evaluations/creator/#{args.creator.id}/project/#{args.project.id}")
       else if args.creator.creatorType == 'Group'
         @showGroupViews()
         @setActive({project: args.project, group: args.creator})
-        Vocat.courseMapRouter.navigate("courses/#{@courseId}/groups/evaluations/creator/#{args.creator.id}/project/#{args.project.id}")
+        Vocat.router.navigate("courses/#{@courseId}/groups/evaluations/creator/#{args.creator.id}/project/#{args.project.id}")
 
       view = new CourseMapDetailCreatorProject({
         collections: { submission: @collections.submission },
@@ -233,9 +233,9 @@ define [
       @$el.find('.matrix--controls a').css(visibility: 'visible')
 
       if @creatorType == 'Group'
-        Vocat.courseMapRouter.navigate("courses/#{@courseId}/groups/evaluations")
+        Vocat.router.navigate("courses/#{@courseId}/groups/evaluations")
       else if @creatorType == 'User'
-        Vocat.courseMapRouter.navigate("courses/#{@courseId}/users/evaluations")
+        Vocat.router.navigate("courses/#{@courseId}/users/evaluations")
 
       if @ui.header.is(':visible')
         @ui.header.fadeOut 250, () =>

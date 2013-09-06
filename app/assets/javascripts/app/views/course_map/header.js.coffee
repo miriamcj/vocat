@@ -21,8 +21,7 @@ define [
       e.preventDefault()
       href = $(e.currentTarget).attr('href')
       if href
-        console.log href
-        window.Vocat.courseMapRouter.navigate(href, true)
+        window.Vocat.router.navigate(href, true)
 
     triggers: {
       'click [data-behavior="overlay-close"]' : 'close'
