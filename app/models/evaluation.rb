@@ -1,6 +1,7 @@
 class Evaluation < ActiveRecord::Base
   attr_accessible :evaluator_id, :submission_id, :rubric_id, :published, :scores, :total_percentage
   belongs_to :evaluator, :class_name => 'User'
+  has_one :creator, :through => :submission
   belongs_to :submission
   belongs_to :rubric
 

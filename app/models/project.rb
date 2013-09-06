@@ -4,6 +4,7 @@ class Project < ActiveRecord::Base
   belongs_to :rubric
   has_many :submissions, :dependent => :destroy
   has_many :submitors, :through => :course
+  has_many :published_evaluations, :through => :submissions, :source => :evaluations, :conditions => {:published => true}
   attr_accessible :description, :name, :course, :rubric_id
 
 

@@ -39,7 +39,8 @@ Vocat::Application.routes.draw do
 
         resources :projects, :shallow => true, :except => [:new, :edit]
         resources :projects, :only => [] do
-	        resources :submissions, :only => [:index]
+          resources :evaluations, :only => [:index]
+	        resources :scores, :only => [:index]
         end
       end
     end
@@ -63,6 +64,9 @@ Vocat::Application.routes.draw do
 
     match 'groups/evaluations/(/creator/:creator_id)(/project/:project_id)' => 'courses/evaluations#course_map', :via => :get, :as => 'group_evaluations'
     match 'users/evaluations(/creator/:creator_id)(/project/:project_id)' => 'courses/evaluations#course_map', :via => :get, :as => 'user_evaluations'
+
+    match 'users/project/:project_id' => 'courses/evaluations#user_project_detail', :via => :get, :as => 'user_project_detail'
+    match 'groups/project/:project_id' => 'courses/evaluations#user_project_detail', :via => :get, :as => 'groups_project_detail'
 
     match 'view/project/:project_id' => 'courses/evaluations#current_user_project', :via => :get, :as => 'current_user_project'
 

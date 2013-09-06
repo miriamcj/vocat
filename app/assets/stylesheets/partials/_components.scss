@@ -2395,3 +2395,40 @@ a.table--heading {
   left: 0;
   z-index: 200;
 }
+
+
+// Charts
+// --------------------------------------------------------
+
+
+.lead-chart {
+  @extend %clearfix;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  .bar-chart {
+    display: inline-block;
+  }
+}
+
+.filter-row {
+  @extend %clearfix;
+//  background-color: green;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.pie-chart {
+//  background-color: blue;
+  width: 160px;
+  display: inline-block;
+  margin-right: 1rem;
+  &:last-child { margin-right: 0 !important; }
+
+  h2 {
+    @extend %heading-beta-alt;
+    color: $teal;
+    text-align: center;
+    padding-bottom: 1rem;
+  }
+
+}

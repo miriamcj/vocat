@@ -6,8 +6,9 @@ define [
   'collections/submission_collection',
   'collections/group_collection',
   'views/course_map/course_map_layout'
+  'views/course_map/detail_project'
 ], (
-  Marionette, VocatController, UserCollection, ProjectCollection, SubmissionCollection, GroupCollection, CourseMap
+  Marionette, VocatController, UserCollection, ProjectCollection, SubmissionCollection, GroupCollection, CourseMap, ProjectDetail
 ) ->
 
   class CourseMapController extends VocatController
@@ -47,6 +48,10 @@ define [
         creator: @collections.user.get(creatorId),
         project: @collections.project.get(projectId)
       })
+
+    standaloneUserProjectDetail: (courseId, projectId) ->
+      projectDetail = new ProjectDetail({courseId: courseId, collections: @collections, vent: Vocat.vent, projectId: projectId})
+      window.Vocat.main.show(projectDetail)
 
     groupGrid: (courseId) ->
       @createCoursemap()

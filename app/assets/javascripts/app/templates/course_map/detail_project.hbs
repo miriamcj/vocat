@@ -1,1 +1,18 @@
-<div data-behavior="submission-summaries"></div>
+
+<div class="evaluation-detail-frame">
+
+  <h2 class="frame--title">Total Score Distribution</h2>
+  <div class="lead-chart">
+    <div id="bar-chart"></div>
+  </div>
+
+
+  <div class="filter-row">
+    {{#each fields}}
+    <div class="pie-chart" id="pie-chart-{{this.id}}">
+      <h2>{{this.name}}</h2>
+    </div>
+    {{/each}}
+  </div>
+
+</div>

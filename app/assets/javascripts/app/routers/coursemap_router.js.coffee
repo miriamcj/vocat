@@ -13,4 +13,5 @@ define ['marionette', 'controllers/coursemap_controller'], (Marionette, CourseMa
       'courses/:course/groups/evaluations/creator/:creator': 'groupCreatorDetail'
       'courses/:course/groups/evaluations/project/:project': 'groupProjectDetail'
       'courses/:course/groups/evaluations/creator/:creator/project/:project': 'groupCreatorProjectDetail'
+      'courses/:course/users/project/:project': 'standaloneUserProjectDetail'
     }

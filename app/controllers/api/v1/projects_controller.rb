@@ -24,7 +24,7 @@ class Api::V1::ProjectsController < ApiController
 
 	# GET /api/v1/projects/:id.json
 	def show
-		respond_with(@project)
+		respond_with @project, :root => false
 	end
 
 	# POST /api/v1/courses/:course_id/projects/:id.json

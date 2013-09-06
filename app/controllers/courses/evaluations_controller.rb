@@ -14,6 +14,12 @@ class Courses::EvaluationsController < ApplicationController
     @submissions = Submission.find_all_by_project_id(@projects)
   end
 
+  def user_project_detail
+    @disable_layout_messages = true
+    authorize! :evaluate, @course
+    @project = Project.find(params[:project_id])
+  end
+
   def current_user_project
 	  factory = SubmissionFactory.new
 	  submissions = factory.creator_and_project(@current_user, @project)

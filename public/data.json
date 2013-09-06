@@ -1,0 +1,5002 @@
+[
+	{
+		"voice": 5,
+		"body": 9,
+		"poise": 2,
+		"rhetoric": 6,
+		"name": "Slater Nelson",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 3,
+		"body": 8,
+		"poise": 4,
+		"rhetoric": 1,
+		"name": "Frost Harper",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 5,
+		"body": 5,
+		"poise": 3,
+		"rhetoric": 3,
+		"name": "Jillian Morgan",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 7,
+		"body": 6,
+		"poise": 5,
+		"rhetoric": 9,
+		"name": "Janna Parks",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 2,
+		"body": 8,
+		"poise": 7,
+		"rhetoric": 8,
+		"name": "Earline Cameron",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 5,
+		"body": 8,
+		"poise": 1,
+		"rhetoric": 10,
+		"name": "Albert Savage",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 8,
+		"body": 3,
+		"poise": 3,
+		"rhetoric": 8,
+		"name": "Manning Kirk",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 7,
+		"body": 7,
+		"poise": 8,
+		"rhetoric": 3,
+		"name": "Enid Maddox",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 10,
+		"body": 0,
+		"poise": 2,
+		"rhetoric": 4,
+		"name": "Diaz Hampton",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 6,
+		"body": 3,
+		"poise": 3,
+		"rhetoric": 6,
+		"name": "Juarez Norris",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 5,
+		"body": 3,
+		"poise": 0,
+		"rhetoric": 4,
+		"name": "Massey Wilkinson",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 1,
+		"body": 9,
+		"poise": 2,
+		"rhetoric": 6,
+		"name": "Pickett Kemp",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 0,
+		"body": 5,
+		"poise": 7,
+		"rhetoric": 6,
+		"name": "Espinoza Castillo",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 6,
+		"body": 1,
+		"poise": 1,
+		"rhetoric": 7,
+		"name": "Ramona Heath",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 5,
+		"body": 0,
+		"poise": 3,
+		"rhetoric": 6,
+		"name": "Ward Sweeney",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 4,
+		"body": 7,
+		"poise": 6,
+		"rhetoric": 10,
+		"name": "Elise Aguilar",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 8,
+		"body": 6,
+		"poise": 10,
+		"rhetoric": 1,
+		"name": "Daisy Wilson",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 2,
+		"body": 0,
+		"poise": 4,
+		"rhetoric": 9,
+		"name": "Elvia Estrada",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 2,
+		"body": 9,
+		"poise": 6,
+		"rhetoric": 9,
+		"name": "Mabel Price",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 5,
+		"body": 5,
+		"poise": 10,
+		"rhetoric": 10,
+		"name": "Trudy Rich",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 6,
+		"body": 2,
+		"poise": 2,
+		"rhetoric": 4,
+		"name": "Tami Conway",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 9,
+		"body": 10,
+		"poise": 0,
+		"rhetoric": 0,
+		"name": "Lillian Mueller",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 4,
+		"body": 3,
+		"poise": 2,
+		"rhetoric": 5,
+		"name": "Jenny Koch",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 9,
+		"body": 9,
+		"poise": 0,
+		"rhetoric": 0,
+		"name": "Marylou Espinoza",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 1,
+		"body": 1,
+		"poise": 0,
+		"rhetoric": 4,
+		"name": "Walsh Michael",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 8,
+		"body": 5,
+		"poise": 9,
+		"rhetoric": 5,
+		"name": "Jaclyn Mcclure",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 4,
+		"body": 7,
+		"poise": 9,
+		"rhetoric": 8,
+		"name": "Alisha Potts",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 5,
+		"body": 2,
+		"poise": 6,
+		"rhetoric": 3,
+		"name": "Richardson Puckett",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 2,
+		"body": 6,
+		"poise": 2,
+		"rhetoric": 2,
+		"name": "Wright Nielsen",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 7,
+		"body": 6,
+		"poise": 7,
+		"rhetoric": 6,
+		"name": "Lou Poole",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 8,
+		"body": 10,
+		"poise": 1,
+		"rhetoric": 2,
+		"name": "Juliette Irwin",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 3,
+		"body": 9,
+		"poise": 4,
+		"rhetoric": 8,
+		"name": "Kristy Schneider",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 7,
+		"body": 3,
+		"poise": 9,
+		"rhetoric": 1,
+		"name": "Yolanda Haley",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 1,
+		"body": 10,
+		"poise": 8,
+		"rhetoric": 3,
+		"name": "French Garner",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 4,
+		"body": 2,
+		"poise": 6,
+		"rhetoric": 0,
+		"name": "Brandie Wheeler",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 6,
+		"body": 5,
+		"poise": 0,
+		"rhetoric": 0,
+		"name": "Bonnie Schmidt",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 2,
+		"body": 5,
+		"poise": 0,
+		"rhetoric": 1,
+		"name": "Sheree Hull",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 2,
+		"body": 6,
+		"poise": 10,
+		"rhetoric": 5,
+		"name": "Nguyen Downs",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 0,
+		"body": 7,
+		"poise": 9,
+		"rhetoric": 1,
+		"name": "Swanson Welch",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 2,
+		"body": 8,
+		"poise": 7,
+		"rhetoric": 8,
+		"name": "Rebecca Russo",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 5,
+		"body": 8,
+		"poise": 2,
+		"rhetoric": 2,
+		"name": "Harrell Dixon",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 8,
+		"body": 1,
+		"poise": 9,
+		"rhetoric": 1,
+		"name": "Wells Farley",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 2,
+		"body": 2,
+		"poise": 7,
+		"rhetoric": 7,
+		"name": "Tracie Leach",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 6,
+		"body": 10,
+		"poise": 10,
+		"rhetoric": 7,
+		"name": "Erma Manning",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 2,
+		"body": 4,
+		"poise": 4,
+		"rhetoric": 5,
+		"name": "Summers Barber",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 8,
+		"body": 2,
+		"poise": 0,
+		"rhetoric": 5,
+		"name": "Sheri Solis",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 3,
+		"body": 2,
+		"poise": 9,
+		"rhetoric": 8,
+		"name": "Angelita Lott",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 9,
+		"body": 4,
+		"poise": 3,
+		"rhetoric": 7,
+		"name": "Humphrey Evans",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 4,
+		"body": 8,
+		"poise": 7,
+		"rhetoric": 8,
+		"name": "Tanisha Richmond",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 0,
+		"body": 4,
+		"poise": 9,
+		"rhetoric": 3,
+		"name": "Jody Orr",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 1,
+		"body": 9,
+		"poise": 5,
+		"rhetoric": 9,
+		"name": "Lori Horton",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 3,
+		"body": 0,
+		"poise": 0,
+		"rhetoric": 10,
+		"name": "Prince Sears",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 8,
+		"body": 7,
+		"poise": 7,
+		"rhetoric": 0,
+		"name": "Nadine Dickerson",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 2,
+		"body": 8,
+		"poise": 5,
+		"rhetoric": 2,
+		"name": "Shelton Browning",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 4,
+		"body": 3,
+		"poise": 5,
+		"rhetoric": 2,
+		"name": "Clayton Rollins",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 10,
+		"body": 0,
+		"poise": 5,
+		"rhetoric": 9,
+		"name": "Iva Elliott",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 8,
+		"body": 6,
+		"poise": 7,
+		"rhetoric": 10,
+		"name": "Corina Zimmerman",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 10,
+		"body": 2,
+		"poise": 3,
+		"rhetoric": 8,
+		"name": "Bush Mosley",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 1,
+		"body": 7,
+		"poise": 3,
+		"rhetoric": 5,
+		"name": "Lancaster Riddle",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 9,
+		"body": 10,
+		"poise": 9,
+		"rhetoric": 8,
+		"name": "Reyes Jacobson",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 6,
+		"body": 10,
+		"poise": 8,
+		"rhetoric": 2,
+		"name": "Robbie Miles",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 9,
+		"body": 10,
+		"poise": 7,
+		"rhetoric": 9,
+		"name": "Harvey Skinner",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 3,
+		"body": 4,
+		"poise": 5,
+		"rhetoric": 9,
+		"name": "Daniel Mcmahon",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 0,
+		"body": 9,
+		"poise": 7,
+		"rhetoric": 9,
+		"name": "Jenkins Hinton",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 6,
+		"body": 4,
+		"poise": 6,
+		"rhetoric": 2,
+		"name": "Oneal Bender",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 9,
+		"body": 3,
+		"poise": 4,
+		"rhetoric": 1,
+		"name": "Minnie Mccarty",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 0,
+		"body": 0,
+		"poise": 0,
+		"rhetoric": 1,
+		"name": "Clara Wise",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 1,
+		"body": 2,
+		"poise": 9,
+		"rhetoric": 6,
+		"name": "Lolita Hood",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 6,
+		"body": 8,
+		"poise": 4,
+		"rhetoric": 4,
+		"name": "Annabelle Solomon",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 10,
+		"body": 1,
+		"poise": 0,
+		"rhetoric": 10,
+		"name": "Christa Valdez",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 1,
+		"body": 2,
+		"poise": 9,
+		"rhetoric": 7,
+		"name": "Townsend Stafford",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 6,
+		"body": 7,
+		"poise": 2,
+		"rhetoric": 2,
+		"name": "Booth Nichols",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 6,
+		"body": 10,
+		"poise": 6,
+		"rhetoric": 7,
+		"name": "Dalton Copeland",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 9,
+		"body": 6,
+		"poise": 6,
+		"rhetoric": 4,
+		"name": "Christina Hogan",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 7,
+		"body": 10,
+		"poise": 7,
+		"rhetoric": 3,
+		"name": "Leigh Cain",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 2,
+		"body": 10,
+		"poise": 8,
+		"rhetoric": 8,
+		"name": "Cochran Parsons",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 2,
+		"body": 0,
+		"poise": 1,
+		"rhetoric": 2,
+		"name": "Hampton King",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 10,
+		"body": 1,
+		"poise": 8,
+		"rhetoric": 5,
+		"name": "Flynn Ayala",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 4,
+		"body": 1,
+		"poise": 4,
+		"rhetoric": 10,
+		"name": "Darla Hendricks",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 1,
+		"body": 0,
+		"poise": 5,
+		"rhetoric": 10,
+		"name": "Carver Murphy",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 1,
+		"body": 1,
+		"poise": 2,
+		"rhetoric": 2,
+		"name": "Hale Christian",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 0,
+		"body": 0,
+		"poise": 0,
+		"rhetoric": 1,
+		"name": "Collier Carter",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 6,
+		"body": 8,
+		"poise": 5,
+		"rhetoric": 0,
+		"name": "Elliott Grant",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 6,
+		"body": 0,
+		"poise": 7,
+		"rhetoric": 1,
+		"name": "Johnston Hodge",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 6,
+		"body": 3,
+		"poise": 7,
+		"rhetoric": 10,
+		"name": "Guerra Bryant",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 6,
+		"body": 7,
+		"poise": 2,
+		"rhetoric": 6,
+		"name": "Kitty Bennett",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 0,
+		"body": 0,
+		"poise": 7,
+		"rhetoric": 8,
+		"name": "Sasha Bullock",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 8,
+		"body": 9,
+		"poise": 5,
+		"rhetoric": 1,
+		"name": "Garza Yang",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 7,
+		"body": 9,
+		"poise": 0,
+		"rhetoric": 9,
+		"name": "Mcpherson Emerson",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 10,
+		"body": 0,
+		"poise": 0,
+		"rhetoric": 8,
+		"name": "Maxwell Padilla",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 9,
+		"body": 10,
+		"poise": 3,
+		"rhetoric": 4,
+		"name": "Owens Mcbride",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 1,
+		"body": 3,
+		"poise": 4,
+		"rhetoric": 5,
+		"name": "Lott Patel",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 8,
+		"body": 4,
+		"poise": 3,
+		"rhetoric": 5,
+		"name": "Virgie Austin",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 8,
+		"body": 4,
+		"poise": 4,
+		"rhetoric": 10,
+		"name": "Bettye Dejesus",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 8,
+		"body": 1,
+		"poise": 5,
+		"rhetoric": 5,
+		"name": "Megan Neal",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 4,
+		"body": 1,
+		"poise": 6,
+		"rhetoric": 6,
+		"name": "Nola Reeves",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 8,
+		"body": 3,
+		"poise": 0,
+		"rhetoric": 2,
+		"name": "Lina Jennings",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 5,
+		"body": 10,
+		"poise": 0,
+		"rhetoric": 0,
+		"name": "Chasity Delacruz",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 2,
+		"body": 0,
+		"poise": 7,
+		"rhetoric": 0,
+		"name": "Reba Pace",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 9,
+		"body": 6,
+		"poise": 4,
+		"rhetoric": 3,
+		"name": "Heath Hardin",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 8,
+		"body": 9,
+		"poise": 0,
+		"rhetoric": 9,
+		"name": "Lindsay Zamora",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 2,
+		"body": 7,
+		"poise": 3,
+		"rhetoric": 2,
+		"name": "Helena Albert",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 10,
+		"body": 9,
+		"poise": 7,
+		"rhetoric": 4,
+		"name": "Rich Richards",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 4,
+		"body": 7,
+		"poise": 2,
+		"rhetoric": 6,
+		"name": "Jannie Baxter",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 1,
+		"body": 6,
+		"poise": 6,
+		"rhetoric": 9,
+		"name": "Rae Mercado",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 8,
+		"body": 4,
+		"poise": 9,
+		"rhetoric": 2,
+		"name": "Alba Tanner",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 10,
+		"body": 9,
+		"poise": 10,
+		"rhetoric": 4,
+		"name": "Ola Boyer",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 4,
+		"body": 5,
+		"poise": 0,
+		"rhetoric": 1,
+		"name": "Claudette Holmes",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 0,
+		"body": 0,
+		"poise": 6,
+		"rhetoric": 2,
+		"name": "Kaye Coleman",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 8,
+		"body": 6,
+		"poise": 1,
+		"rhetoric": 4,
+		"name": "Webster Robbins",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 2,
+		"body": 8,
+		"poise": 0,
+		"rhetoric": 2,
+		"name": "Rhea Mann",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 6,
+		"body": 0,
+		"poise": 9,
+		"rhetoric": 5,
+		"name": "Kane Pratt",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 5,
+		"body": 3,
+		"poise": 0,
+		"rhetoric": 10,
+		"name": "Kimberly Fischer",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 5,
+		"body": 1,
+		"poise": 3,
+		"rhetoric": 8,
+		"name": "Julianne Mcgee",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 1,
+		"body": 3,
+		"poise": 2,
+		"rhetoric": 3,
+		"name": "Harding Duncan",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 6,
+		"body": 5,
+		"poise": 4,
+		"rhetoric": 10,
+		"name": "Lorrie Cohen",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 2,
+		"body": 3,
+		"poise": 9,
+		"rhetoric": 9,
+		"name": "Lowe Casey",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 0,
+		"body": 10,
+		"poise": 5,
+		"rhetoric": 5,
+		"name": "Jodi Pugh",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 10,
+		"body": 8,
+		"poise": 3,
+		"rhetoric": 5,
+		"name": "Gilliam Marquez",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 8,
+		"body": 0,
+		"poise": 8,
+		"rhetoric": 7,
+		"name": "Gwen Mcintosh",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 7,
+		"body": 3,
+		"poise": 4,
+		"rhetoric": 3,
+		"name": "Cervantes Gilliam",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 5,
+		"body": 6,
+		"poise": 0,
+		"rhetoric": 2,
+		"name": "Rosalinda Drake",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 4,
+		"body": 4,
+		"poise": 8,
+		"rhetoric": 1,
+		"name": "Blevins Larson",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 4,
+		"body": 5,
+		"poise": 3,
+		"rhetoric": 0,
+		"name": "Shauna Graham",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 9,
+		"body": 10,
+		"poise": 7,
+		"rhetoric": 0,
+		"name": "Ruth Barton",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 9,
+		"body": 8,
+		"poise": 4,
+		"rhetoric": 9,
+		"name": "Jeanine Fulton",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 10,
+		"body": 9,
+		"poise": 8,
+		"rhetoric": 10,
+		"name": "Thompson Roberson",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 5,
+		"body": 2,
+		"poise": 2,
+		"rhetoric": 6,
+		"name": "Marion Sherman",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 7,
+		"body": 5,
+		"poise": 10,
+		"rhetoric": 8,
+		"name": "Haynes Mcconnell",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 5,
+		"body": 0,
+		"poise": 8,
+		"rhetoric": 10,
+		"name": "Yang Robles",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 2,
+		"body": 7,
+		"poise": 0,
+		"rhetoric": 2,
+		"name": "Daugherty Lowe",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 0,
+		"body": 6,
+		"poise": 10,
+		"rhetoric": 10,
+		"name": "Moore Dotson",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 3,
+		"body": 5,
+		"poise": 5,
+		"rhetoric": 6,
+		"name": "Chapman Joyce",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 3,
+		"body": 2,
+		"poise": 0,
+		"rhetoric": 7,
+		"name": "Daphne Jacobs",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 7,
+		"body": 1,
+		"poise": 1,
+		"rhetoric": 3,
+		"name": "Kristi Bartlett",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 3,
+		"body": 5,
+		"poise": 3,
+		"rhetoric": 8,
+		"name": "Gamble Raymond",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 0,
+		"body": 4,
+		"poise": 0,
+		"rhetoric": 3,
+		"name": "Selma Mckay",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 10,
+		"body": 3,
+		"poise": 5,
+		"rhetoric": 10,
+		"name": "Mullen Clarke",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 4,
+		"body": 6,
+		"poise": 2,
+		"rhetoric": 2,
+		"name": "Jayne Medina",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 7,
+		"body": 7,
+		"poise": 6,
+		"rhetoric": 2,
+		"name": "Strickland Gillespie",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 5,
+		"body": 3,
+		"poise": 1,
+		"rhetoric": 0,
+		"name": "Louella Hurley",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 2,
+		"body": 6,
+		"poise": 5,
+		"rhetoric": 1,
+		"name": "Richards Wilcox",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 9,
+		"body": 3,
+		"poise": 8,
+		"rhetoric": 10,
+		"name": "Nannie Alford",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 10,
+		"body": 4,
+		"poise": 4,
+		"rhetoric": 3,
+		"name": "Robin Singleton",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 0,
+		"body": 6,
+		"poise": 3,
+		"rhetoric": 10,
+		"name": "Roxanne Matthews",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 0,
+		"body": 8,
+		"poise": 2,
+		"rhetoric": 6,
+		"name": "Mooney Rodriguez",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 5,
+		"body": 1,
+		"poise": 2,
+		"rhetoric": 10,
+		"name": "Jackie Mcknight",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 9,
+		"body": 6,
+		"poise": 5,
+		"rhetoric": 10,
+		"name": "Lee Everett",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 4,
+		"body": 2,
+		"poise": 10,
+		"rhetoric": 8,
+		"name": "Meghan Lopez",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 8,
+		"body": 3,
+		"poise": 1,
+		"rhetoric": 10,
+		"name": "Johns Bolton",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 5,
+		"body": 9,
+		"poise": 8,
+		"rhetoric": 10,
+		"name": "Christie Walter",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 8,
+		"body": 3,
+		"poise": 7,
+		"rhetoric": 5,
+		"name": "Avila Sullivan",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 1,
+		"body": 0,
+		"poise": 3,
+		"rhetoric": 1,
+		"name": "Mona Calhoun",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 9,
+		"body": 0,
+		"poise": 6,
+		"rhetoric": 5,
+		"name": "Collins Blanchard",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 5,
+		"body": 4,
+		"poise": 8,
+		"rhetoric": 2,
+		"name": "Judy Todd",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 10,
+		"body": 5,
+		"poise": 3,
+		"rhetoric": 9,
+		"name": "Elisabeth Mcdowell",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 5,
+		"body": 2,
+		"poise": 8,
+		"rhetoric": 9,
+		"name": "Hoover Romero",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 0,
+		"body": 5,
+		"poise": 10,
+		"rhetoric": 4,
+		"name": "Neva Parker",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 5,
+		"body": 5,
+		"poise": 9,
+		"rhetoric": 10,
+		"name": "Sweet Walsh",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 3,
+		"body": 3,
+		"poise": 10,
+		"rhetoric": 10,
+		"name": "Michael Holloway",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 2,
+		"body": 7,
+		"poise": 3,
+		"rhetoric": 3,
+		"name": "Barnett Rose",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 10,
+		"body": 3,
+		"poise": 8,
+		"rhetoric": 6,
+		"name": "Lucile Battle",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 8,
+		"body": 3,
+		"poise": 7,
+		"rhetoric": 1,
+		"name": "Guerrero Barrett",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 9,
+		"body": 1,
+		"poise": 4,
+		"rhetoric": 10,
+		"name": "Roach Warren",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 2,
+		"body": 1,
+		"poise": 0,
+		"rhetoric": 5,
+		"name": "Oneil Townsend",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 5,
+		"body": 3,
+		"poise": 5,
+		"rhetoric": 8,
+		"name": "Roseann Melton",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 1,
+		"body": 8,
+		"poise": 3,
+		"rhetoric": 5,
+		"name": "Duncan Whitaker",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 9,
+		"body": 0,
+		"poise": 5,
+		"rhetoric": 0,
+		"name": "Mayra Lester",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 5,
+		"body": 10,
+		"poise": 9,
+		"rhetoric": 0,
+		"name": "Sarah Cole",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 6,
+		"body": 0,
+		"poise": 1,
+		"rhetoric": 3,
+		"name": "Riddle Olsen",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 10,
+		"body": 4,
+		"poise": 1,
+		"rhetoric": 5,
+		"name": "Carter Stout",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 4,
+		"body": 8,
+		"poise": 9,
+		"rhetoric": 1,
+		"name": "Hebert Oneill",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 9,
+		"body": 10,
+		"poise": 4,
+		"rhetoric": 10,
+		"name": "Whitley Rodgers",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 10,
+		"body": 3,
+		"poise": 8,
+		"rhetoric": 1,
+		"name": "Jefferson Griffith",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 8,
+		"body": 5,
+		"poise": 5,
+		"rhetoric": 6,
+		"name": "Nieves Weeks",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 3,
+		"body": 9,
+		"poise": 7,
+		"rhetoric": 1,
+		"name": "Wilda Ochoa",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 10,
+		"body": 4,
+		"poise": 5,
+		"rhetoric": 8,
+		"name": "Stacey Delgado",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 2,
+		"body": 8,
+		"poise": 3,
+		"rhetoric": 9,
+		"name": "Imelda Morin",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 7,
+		"body": 10,
+		"poise": 5,
+		"rhetoric": 6,
+		"name": "Roman Love",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 2,
+		"body": 2,
+		"poise": 9,
+		"rhetoric": 8,
+		"name": "Woodard Thompson",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 6,
+		"body": 2,
+		"poise": 0,
+		"rhetoric": 1,
+		"name": "Twila Huff",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 6,
+		"body": 6,
+		"poise": 1,
+		"rhetoric": 5,
+		"name": "May Le",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 6,
+		"body": 6,
+		"poise": 4,
+		"rhetoric": 4,
+		"name": "Ida Richardson",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 10,
+		"body": 2,
+		"poise": 5,
+		"rhetoric": 2,
+		"name": "Alexandria Shaw",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 5,
+		"body": 7,
+		"poise": 7,
+		"rhetoric": 7,
+		"name": "Cassie Mayer",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 8,
+		"body": 2,
+		"poise": 9,
+		"rhetoric": 7,
+		"name": "Ethel Thornton",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 8,
+		"body": 10,
+		"poise": 1,
+		"rhetoric": 7,
+		"name": "Melton Johnston",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 6,
+		"body": 1,
+		"poise": 7,
+		"rhetoric": 4,
+		"name": "Carrie Marks",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 2,
+		"body": 2,
+		"poise": 3,
+		"rhetoric": 5,
+		"name": "Colon Moran",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 2,
+		"body": 5,
+		"poise": 8,
+		"rhetoric": 8,
+		"name": "Eleanor Simon",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 0,
+		"body": 3,
+		"poise": 6,
+		"rhetoric": 0,
+		"name": "Greta Howe",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 3,
+		"body": 4,
+		"poise": 1,
+		"rhetoric": 10,
+		"name": "Woods Gibson",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 7,
+		"body": 2,
+		"poise": 4,
+		"rhetoric": 5,
+		"name": "Edwina Conrad",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 10,
+		"body": 3,
+		"poise": 9,
+		"rhetoric": 6,
+		"name": "Erna Newton",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 9,
+		"body": 1,
+		"poise": 5,
+		"rhetoric": 7,
+		"name": "Yvette Lancaster",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 1,
+		"body": 4,
+		"poise": 9,
+		"rhetoric": 2,
+		"name": "Leola Contreras",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 5,
+		"body": 3,
+		"poise": 1,
+		"rhetoric": 7,
+		"name": "Wade Cox",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 1,
+		"body": 8,
+		"poise": 8,
+		"rhetoric": 4,
+		"name": "Potter Hart",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 0,
+		"body": 8,
+		"poise": 2,
+		"rhetoric": 1,
+		"name": "Bradshaw Hartman",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 5,
+		"body": 3,
+		"poise": 8,
+		"rhetoric": 3,
+		"name": "Michelle Knowles",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 5,
+		"body": 4,
+		"poise": 9,
+		"rhetoric": 6,
+		"name": "Francisca Massey",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 10,
+		"body": 7,
+		"poise": 8,
+		"rhetoric": 0,
+		"name": "Hopkins Molina",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 6,
+		"body": 3,
+		"poise": 4,
+		"rhetoric": 5,
+		"name": "Ball Santos",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 6,
+		"body": 3,
+		"poise": 9,
+		"rhetoric": 2,
+		"name": "Tabatha Ortiz",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 5,
+		"body": 10,
+		"poise": 8,
+		"rhetoric": 6,
+		"name": "Ilene Harvey",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 7,
+		"body": 5,
+		"poise": 2,
+		"rhetoric": 6,
+		"name": "Charmaine Brown",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 10,
+		"body": 6,
+		"poise": 0,
+		"rhetoric": 3,
+		"name": "Aguilar Mcpherson",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 8,
+		"body": 1,
+		"poise": 6,
+		"rhetoric": 3,
+		"name": "Sanders Harrell",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 6,
+		"body": 6,
+		"poise": 3,
+		"rhetoric": 9,
+		"name": "Valenzuela Buchanan",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 3,
+		"body": 2,
+		"poise": 6,
+		"rhetoric": 4,
+		"name": "West Head",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 6,
+		"body": 10,
+		"poise": 5,
+		"rhetoric": 9,
+		"name": "Lea Burgess",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 2,
+		"body": 4,
+		"poise": 3,
+		"rhetoric": 8,
+		"name": "Bentley Harrison",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 7,
+		"body": 4,
+		"poise": 4,
+		"rhetoric": 6,
+		"name": "Rosa Reilly",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 2,
+		"body": 6,
+		"poise": 0,
+		"rhetoric": 4,
+		"name": "Kim Randolph",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 9,
+		"body": 3,
+		"poise": 0,
+		"rhetoric": 9,
+		"name": "Malinda Wilkins",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 3,
+		"body": 1,
+		"poise": 4,
+		"rhetoric": 9,
+		"name": "Petersen Dalton",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 0,
+		"body": 1,
+		"poise": 10,
+		"rhetoric": 8,
+		"name": "Brandi Levy",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 2,
+		"body": 8,
+		"poise": 5,
+		"rhetoric": 7,
+		"name": "Duke Potter",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 1,
+		"body": 0,
+		"poise": 7,
+		"rhetoric": 0,
+		"name": "Poole Pennington",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 0,
+		"body": 5,
+		"poise": 8,
+		"rhetoric": 4,
+		"name": "Susanne Beach",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 0,
+		"body": 10,
+		"poise": 5,
+		"rhetoric": 0,
+		"name": "Lula Meyers",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 7,
+		"body": 6,
+		"poise": 3,
+		"rhetoric": 5,
+		"name": "Juliana Guerrero",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 8,
+		"body": 8,
+		"poise": 4,
+		"rhetoric": 8,
+		"name": "Salinas Stark",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 7,
+		"body": 3,
+		"poise": 9,
+		"rhetoric": 10,
+		"name": "Ava Waller",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 4,
+		"body": 0,
+		"poise": 2,
+		"rhetoric": 2,
+		"name": "Benton Johns",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 2,
+		"body": 1,
+		"poise": 8,
+		"rhetoric": 5,
+		"name": "Rodgers Chambers",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 5,
+		"body": 5,
+		"poise": 1,
+		"rhetoric": 7,
+		"name": "Georgia Weaver",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 3,
+		"body": 0,
+		"poise": 8,
+		"rhetoric": 0,
+		"name": "Bates Duffy",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 5,
+		"body": 3,
+		"poise": 10,
+		"rhetoric": 4,
+		"name": "Paige Alston",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 8,
+		"body": 2,
+		"poise": 0,
+		"rhetoric": 1,
+		"name": "Myrtle Lara",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 1,
+		"body": 5,
+		"poise": 1,
+		"rhetoric": 6,
+		"name": "Emerson Mitchell",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 6,
+		"body": 10,
+		"poise": 1,
+		"rhetoric": 7,
+		"name": "Garrison Nieves",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 0,
+		"body": 1,
+		"poise": 4,
+		"rhetoric": 7,
+		"name": "Adams Garcia",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 5,
+		"body": 8,
+		"poise": 2,
+		"rhetoric": 4,
+		"name": "Corine Riggs",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 2,
+		"body": 7,
+		"poise": 6,
+		"rhetoric": 9,
+		"name": "Carol Roberts",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 5,
+		"body": 8,
+		"poise": 3,
+		"rhetoric": 3,
+		"name": "Chavez Bradley",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 10,
+		"body": 2,
+		"poise": 9,
+		"rhetoric": 5,
+		"name": "Santana Becker",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 10,
+		"body": 4,
+		"poise": 0,
+		"rhetoric": 9,
+		"name": "Irene Robertson",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 5,
+		"body": 6,
+		"poise": 2,
+		"rhetoric": 4,
+		"name": "Allison Terrell",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 10,
+		"body": 3,
+		"poise": 9,
+		"rhetoric": 3,
+		"name": "Silvia Blankenship",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 6,
+		"body": 2,
+		"poise": 6,
+		"rhetoric": 5,
+		"name": "Calderon Ware",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 10,
+		"body": 0,
+		"poise": 1,
+		"rhetoric": 2,
+		"name": "Monica Mercer",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 8,
+		"body": 2,
+		"poise": 10,
+		"rhetoric": 0,
+		"name": "Amber Bauer",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 6,
+		"body": 9,
+		"poise": 4,
+		"rhetoric": 4,
+		"name": "Serena Cantu",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 5,
+		"body": 6,
+		"poise": 6,
+		"rhetoric": 0,
+		"name": "Wilder Glenn",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 5,
+		"body": 0,
+		"poise": 4,
+		"rhetoric": 8,
+		"name": "Ana Hensley",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 7,
+		"body": 10,
+		"poise": 0,
+		"rhetoric": 10,
+		"name": "Bray Johnson",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 2,
+		"body": 3,
+		"poise": 6,
+		"rhetoric": 6,
+		"name": "Roberson Mendez",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 1,
+		"body": 1,
+		"poise": 3,
+		"rhetoric": 0,
+		"name": "Ashlee Wyatt",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 4,
+		"body": 4,
+		"poise": 10,
+		"rhetoric": 3,
+		"name": "Morrison Grimes",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 6,
+		"body": 0,
+		"poise": 1,
+		"rhetoric": 8,
+		"name": "Santiago England",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 7,
+		"body": 8,
+		"poise": 4,
+		"rhetoric": 1,
+		"name": "Turner Joseph",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 4,
+		"body": 1,
+		"poise": 3,
+		"rhetoric": 5,
+		"name": "Olson Vang",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 10,
+		"body": 4,
+		"poise": 1,
+		"rhetoric": 7,
+		"name": "Mollie Coffey",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 7,
+		"body": 10,
+		"poise": 7,
+		"rhetoric": 10,
+		"name": "Klein Lawrence",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 5,
+		"body": 2,
+		"poise": 1,
+		"rhetoric": 10,
+		"name": "April Patrick",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 8,
+		"body": 6,
+		"poise": 6,
+		"rhetoric": 5,
+		"name": "Staci Morris",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 7,
+		"body": 6,
+		"poise": 5,
+		"rhetoric": 10,
+		"name": "Ophelia Kelly",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 1,
+		"body": 9,
+		"poise": 0,
+		"rhetoric": 10,
+		"name": "Lacey Burns",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 9,
+		"body": 10,
+		"poise": 0,
+		"rhetoric": 10,
+		"name": "Howard Malone",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 0,
+		"body": 8,
+		"poise": 2,
+		"rhetoric": 1,
+		"name": "Marisol Farmer",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 3,
+		"body": 0,
+		"poise": 3,
+		"rhetoric": 8,
+		"name": "Richmond Oliver",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 10,
+		"body": 6,
+		"poise": 3,
+		"rhetoric": 7,
+		"name": "Chambers Rodriquez",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 8,
+		"body": 0,
+		"poise": 6,
+		"rhetoric": 0,
+		"name": "Henson Cherry",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 1,
+		"body": 10,
+		"poise": 8,
+		"rhetoric": 10,
+		"name": "Oliver Wilkerson",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 0,
+		"body": 2,
+		"poise": 7,
+		"rhetoric": 10,
+		"name": "Lyons Fowler",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 8,
+		"body": 3,
+		"poise": 6,
+		"rhetoric": 3,
+		"name": "Leblanc May",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 4,
+		"body": 7,
+		"poise": 9,
+		"rhetoric": 7,
+		"name": "Kay Henderson",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 5,
+		"body": 10,
+		"poise": 10,
+		"rhetoric": 0,
+		"name": "Pruitt Decker",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 4,
+		"body": 0,
+		"poise": 2,
+		"rhetoric": 10,
+		"name": "Jami Madden",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 9,
+		"body": 4,
+		"poise": 2,
+		"rhetoric": 5,
+		"name": "Vilma Beard",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 2,
+		"body": 0,
+		"poise": 1,
+		"rhetoric": 4,
+		"name": "Frye Mathews",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 5,
+		"body": 5,
+		"poise": 9,
+		"rhetoric": 7,
+		"name": "Gilda Reynolds",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 5,
+		"body": 3,
+		"poise": 6,
+		"rhetoric": 7,
+		"name": "Rachel Klein",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 3,
+		"body": 3,
+		"poise": 2,
+		"rhetoric": 0,
+		"name": "Rosalind Montoya",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 2,
+		"body": 2,
+		"poise": 7,
+		"rhetoric": 0,
+		"name": "Davenport Arnold",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 5,
+		"body": 10,
+		"poise": 5,
+		"rhetoric": 2,
+		"name": "Dejesus Blevins",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 4,
+		"body": 0,
+		"poise": 7,
+		"rhetoric": 8,
+		"name": "Stokes Nicholson",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 5,
+		"body": 3,
+		"poise": 0,
+		"rhetoric": 2,
+		"name": "Connie Stevenson",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 6,
+		"body": 5,
+		"poise": 3,
+		"rhetoric": 2,
+		"name": "Mcleod Gallagher",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 2,
+		"body": 10,
+		"poise": 9,
+		"rhetoric": 6,
+		"name": "Petty Hooper",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 6,
+		"body": 3,
+		"poise": 3,
+		"rhetoric": 2,
+		"name": "Chang Mullen",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 6,
+		"body": 0,
+		"poise": 9,
+		"rhetoric": 3,
+		"name": "Lynn Patterson",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 4,
+		"body": 1,
+		"poise": 0,
+		"rhetoric": 0,
+		"name": "Finley Doyle",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 4,
+		"body": 4,
+		"poise": 3,
+		"rhetoric": 8,
+		"name": "Joseph Suarez",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 0,
+		"body": 3,
+		"poise": 5,
+		"rhetoric": 6,
+		"name": "Helga Robinson",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 5,
+		"body": 3,
+		"poise": 2,
+		"rhetoric": 7,
+		"name": "Cross Walton",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 4,
+		"body": 2,
+		"poise": 1,
+		"rhetoric": 7,
+		"name": "Robyn Ferrell",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 7,
+		"body": 0,
+		"poise": 9,
+		"rhetoric": 9,
+		"name": "Armstrong Banks",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 5,
+		"body": 3,
+		"poise": 6,
+		"rhetoric": 2,
+		"name": "Ginger Cross",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 2,
+		"body": 9,
+		"poise": 5,
+		"rhetoric": 8,
+		"name": "Jodie Hays",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 7,
+		"body": 5,
+		"poise": 3,
+		"rhetoric": 9,
+		"name": "Willie Goodman",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 1,
+		"body": 7,
+		"poise": 0,
+		"rhetoric": 0,
+		"name": "Mercado Mooney",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 8,
+		"body": 2,
+		"poise": 10,
+		"rhetoric": 9,
+		"name": "Anita Barlow",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 6,
+		"body": 4,
+		"poise": 1,
+		"rhetoric": 2,
+		"name": "Krystal Knox",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 4,
+		"body": 6,
+		"poise": 10,
+		"rhetoric": 2,
+		"name": "Lorraine Ramsey",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 4,
+		"body": 1,
+		"poise": 8,
+		"rhetoric": 6,
+		"name": "Dominguez Britt",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 7,
+		"body": 8,
+		"poise": 4,
+		"rhetoric": 9,
+		"name": "Elva Mclean",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 3,
+		"body": 10,
+		"poise": 6,
+		"rhetoric": 9,
+		"name": "Gill Fry",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 1,
+		"body": 6,
+		"poise": 1,
+		"rhetoric": 2,
+		"name": "Mandy Mills",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 6,
+		"body": 5,
+		"poise": 5,
+		"rhetoric": 0,
+		"name": "Darlene Brady",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 0,
+		"body": 2,
+		"poise": 10,
+		"rhetoric": 0,
+		"name": "Autumn Atkinson",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 6,
+		"body": 10,
+		"poise": 0,
+		"rhetoric": 6,
+		"name": "Ericka Hendrix",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 1,
+		"body": 5,
+		"poise": 2,
+		"rhetoric": 0,
+		"name": "Jeannette Roy",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 5,
+		"body": 4,
+		"poise": 8,
+		"rhetoric": 3,
+		"name": "Wilma Mckenzie",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 2,
+		"body": 0,
+		"poise": 1,
+		"rhetoric": 4,
+		"name": "Dotson Petersen",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 0,
+		"body": 8,
+		"poise": 6,
+		"rhetoric": 0,
+		"name": "Pearlie Joyner",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 0,
+		"body": 4,
+		"poise": 1,
+		"rhetoric": 6,
+		"name": "Jennings Lee",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 2,
+		"body": 0,
+		"poise": 1,
+		"rhetoric": 5,
+		"name": "Tameka Rush",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 3,
+		"body": 8,
+		"poise": 3,
+		"rhetoric": 10,
+		"name": "Burris Palmer",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 5,
+		"body": 0,
+		"poise": 6,
+		"rhetoric": 2,
+		"name": "Stout Donovan",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 4,
+		"body": 6,
+		"poise": 3,
+		"rhetoric": 9,
+		"name": "Terra Monroe",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 5,
+		"body": 8,
+		"poise": 6,
+		"rhetoric": 6,
+		"name": "Letha Shannon",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 2,
+		"body": 10,
+		"poise": 6,
+		"rhetoric": 5,
+		"name": "Maura Pitts",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 0,
+		"body": 0,
+		"poise": 10,
+		"rhetoric": 0,
+		"name": "Hernandez Ramirez",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 6,
+		"body": 3,
+		"poise": 10,
+		"rhetoric": 2,
+		"name": "Bartlett Morrison",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 2,
+		"body": 7,
+		"poise": 7,
+		"rhetoric": 6,
+		"name": "Shelly Ryan",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 9,
+		"body": 1,
+		"poise": 6,
+		"rhetoric": 6,
+		"name": "Joan Acevedo",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 8,
+		"body": 8,
+		"poise": 2,
+		"rhetoric": 2,
+		"name": "Ora Woodard",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 6,
+		"body": 7,
+		"poise": 1,
+		"rhetoric": 5,
+		"name": "Doyle Rice",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 3,
+		"body": 2,
+		"poise": 4,
+		"rhetoric": 7,
+		"name": "Claudia Cobb",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 0,
+		"body": 3,
+		"poise": 10,
+		"rhetoric": 1,
+		"name": "Butler Harris",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 6,
+		"body": 2,
+		"poise": 9,
+		"rhetoric": 3,
+		"name": "Barrett Figueroa",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 4,
+		"body": 2,
+		"poise": 3,
+		"rhetoric": 6,
+		"name": "Tammy Lane",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 6,
+		"body": 4,
+		"poise": 4,
+		"rhetoric": 10,
+		"name": "Lucille Hardy",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 7,
+		"body": 3,
+		"poise": 8,
+		"rhetoric": 2,
+		"name": "Myrna Sloan",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 3,
+		"body": 9,
+		"poise": 1,
+		"rhetoric": 10,
+		"name": "Mckinney Mcdaniel",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 0,
+		"body": 1,
+		"poise": 2,
+		"rhetoric": 7,
+		"name": "Knight Rosario",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 0,
+		"body": 4,
+		"poise": 1,
+		"rhetoric": 1,
+		"name": "Black Vincent",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 1,
+		"body": 3,
+		"poise": 7,
+		"rhetoric": 6,
+		"name": "Underwood Holder",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 6,
+		"body": 8,
+		"poise": 2,
+		"rhetoric": 8,
+		"name": "Francis Smith",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 9,
+		"body": 3,
+		"poise": 2,
+		"rhetoric": 0,
+		"name": "Barton Berger",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 2,
+		"body": 10,
+		"poise": 1,
+		"rhetoric": 2,
+		"name": "Odonnell Foster",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 0,
+		"body": 4,
+		"poise": 9,
+		"rhetoric": 2,
+		"name": "Gay Summers",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 10,
+		"body": 2,
+		"poise": 0,
+		"rhetoric": 8,
+		"name": "Wendy Guy",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 10,
+		"body": 6,
+		"poise": 5,
+		"rhetoric": 10,
+		"name": "Mack Gilmore",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 9,
+		"body": 5,
+		"poise": 3,
+		"rhetoric": 10,
+		"name": "Kelly Spears",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 6,
+		"body": 8,
+		"poise": 5,
+		"rhetoric": 1,
+		"name": "Hull Whitfield",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 5,
+		"body": 0,
+		"poise": 6,
+		"rhetoric": 9,
+		"name": "Antoinette Camacho",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 6,
+		"body": 0,
+		"poise": 0,
+		"rhetoric": 5,
+		"name": "Rice Daniel",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 5,
+		"body": 9,
+		"poise": 5,
+		"rhetoric": 9,
+		"name": "Burch Benson",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 10,
+		"body": 9,
+		"poise": 6,
+		"rhetoric": 1,
+		"name": "Edna Keith",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 9,
+		"body": 5,
+		"poise": 0,
+		"rhetoric": 3,
+		"name": "Maggie Payne",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 0,
+		"body": 2,
+		"poise": 7,
+		"rhetoric": 0,
+		"name": "Wolf Rasmussen",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 8,
+		"body": 6,
+		"poise": 4,
+		"rhetoric": 7,
+		"name": "Penny Chase",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 8,
+		"body": 3,
+		"poise": 4,
+		"rhetoric": 9,
+		"name": "Ryan Nolan",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 7,
+		"body": 3,
+		"poise": 8,
+		"rhetoric": 9,
+		"name": "Marta Justice",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 2,
+		"body": 3,
+		"poise": 4,
+		"rhetoric": 7,
+		"name": "Sadie Hebert",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 0,
+		"body": 10,
+		"poise": 3,
+		"rhetoric": 10,
+		"name": "Foley Carpenter",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 5,
+		"body": 8,
+		"poise": 3,
+		"rhetoric": 3,
+		"name": "Florence Salinas",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 2,
+		"body": 1,
+		"poise": 9,
+		"rhetoric": 0,
+		"name": "Contreras Hicks",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 2,
+		"body": 2,
+		"poise": 1,
+		"rhetoric": 8,
+		"name": "Becker Kent",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 6,
+		"body": 7,
+		"poise": 9,
+		"rhetoric": 4,
+		"name": "Teri Gaines",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 1,
+		"body": 10,
+		"poise": 1,
+		"rhetoric": 4,
+		"name": "Mullins Galloway",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 4,
+		"body": 9,
+		"poise": 8,
+		"rhetoric": 10,
+		"name": "Whitehead Stein",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 10,
+		"body": 10,
+		"poise": 8,
+		"rhetoric": 9,
+		"name": "Branch Santana",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 6,
+		"body": 7,
+		"poise": 8,
+		"rhetoric": 3,
+		"name": "Paul Gilbert",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 8,
+		"body": 10,
+		"poise": 8,
+		"rhetoric": 2,
+		"name": "Hess Mcguire",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 3,
+		"body": 8,
+		"poise": 3,
+		"rhetoric": 10,
+		"name": "Bolton Bray",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 7,
+		"body": 0,
+		"poise": 1,
+		"rhetoric": 5,
+		"name": "Hayes Vance",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 5,
+		"body": 5,
+		"poise": 3,
+		"rhetoric": 2,
+		"name": "Patrica Horn",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 8,
+		"body": 5,
+		"poise": 8,
+		"rhetoric": 9,
+		"name": "Charles Erickson",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 10,
+		"body": 2,
+		"poise": 3,
+		"rhetoric": 2,
+		"name": "Spears Valencia",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 2,
+		"body": 1,
+		"poise": 6,
+		"rhetoric": 6,
+		"name": "Eunice Bond",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 2,
+		"body": 5,
+		"poise": 6,
+		"rhetoric": 9,
+		"name": "Conner Hernandez",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 3,
+		"body": 4,
+		"poise": 6,
+		"rhetoric": 8,
+		"name": "Jenna Chapman",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 3,
+		"body": 0,
+		"poise": 2,
+		"rhetoric": 2,
+		"name": "Mccray Flynn",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 1,
+		"body": 0,
+		"poise": 7,
+		"rhetoric": 5,
+		"name": "Chaney Murray",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 2,
+		"body": 3,
+		"poise": 8,
+		"rhetoric": 10,
+		"name": "Morin Charles",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 3,
+		"body": 8,
+		"poise": 1,
+		"rhetoric": 9,
+		"name": "Lacy Quinn",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 3,
+		"body": 5,
+		"poise": 9,
+		"rhetoric": 8,
+		"name": "Spencer Wade",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 10,
+		"body": 10,
+		"poise": 10,
+		"rhetoric": 10,
+		"name": "Alta Langley",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 0,
+		"body": 2,
+		"poise": 6,
+		"rhetoric": 3,
+		"name": "Morse Sandoval",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 9,
+		"body": 7,
+		"poise": 9,
+		"rhetoric": 8,
+		"name": "Kemp Greene",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 3,
+		"body": 10,
+		"poise": 6,
+		"rhetoric": 10,
+		"name": "Camacho Griffin",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 0,
+		"body": 3,
+		"poise": 6,
+		"rhetoric": 2,
+		"name": "Rose Houston",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 5,
+		"body": 6,
+		"poise": 3,
+		"rhetoric": 10,
+		"name": "Joyce Carr",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 5,
+		"body": 9,
+		"poise": 7,
+		"rhetoric": 5,
+		"name": "Ila Clark",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 10,
+		"body": 0,
+		"poise": 1,
+		"rhetoric": 8,
+		"name": "Brooks Bird",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 5,
+		"body": 5,
+		"poise": 0,
+		"rhetoric": 9,
+		"name": "Vivian Scott",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 3,
+		"body": 5,
+		"poise": 0,
+		"rhetoric": 6,
+		"name": "Hansen Mcmillan",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 10,
+		"body": 4,
+		"poise": 7,
+		"rhetoric": 10,
+		"name": "Torres Moses",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 0,
+		"body": 0,
+		"poise": 6,
+		"rhetoric": 3,
+		"name": "Walls Russell",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 7,
+		"body": 6,
+		"poise": 7,
+		"rhetoric": 4,
+		"name": "Mcneil Slater",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 6,
+		"body": 5,
+		"poise": 2,
+		"rhetoric": 9,
+		"name": "Harriett Franklin",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 0,
+		"body": 9,
+		"poise": 5,
+		"rhetoric": 6,
+		"name": "Jordan Boyd",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 9,
+		"body": 0,
+		"poise": 6,
+		"rhetoric": 2,
+		"name": "Alicia Perry",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 1,
+		"body": 10,
+		"poise": 1,
+		"rhetoric": 0,
+		"name": "Ray Ayers",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 9,
+		"body": 8,
+		"poise": 2,
+		"rhetoric": 2,
+		"name": "Peggy Crawford",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 5,
+		"body": 9,
+		"poise": 4,
+		"rhetoric": 2,
+		"name": "Byers Warner",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 5,
+		"body": 10,
+		"poise": 9,
+		"rhetoric": 0,
+		"name": "Mindy Fernandez",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 5,
+		"body": 10,
+		"poise": 3,
+		"rhetoric": 7,
+		"name": "Perry Kelley",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 6,
+		"body": 0,
+		"poise": 4,
+		"rhetoric": 7,
+		"name": "Noemi Foreman",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 8,
+		"body": 8,
+		"poise": 6,
+		"rhetoric": 6,
+		"name": "Avis Roman",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 7,
+		"body": 10,
+		"poise": 7,
+		"rhetoric": 1,
+		"name": "Duran Wolfe",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 0,
+		"body": 5,
+		"poise": 7,
+		"rhetoric": 4,
+		"name": "Carroll Huber",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 7,
+		"body": 8,
+		"poise": 2,
+		"rhetoric": 6,
+		"name": "Hoffman Gonzalez",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 6,
+		"body": 1,
+		"poise": 9,
+		"rhetoric": 8,
+		"name": "Gail Cummings",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 1,
+		"body": 0,
+		"poise": 2,
+		"rhetoric": 8,
+		"name": "Courtney Gardner",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 1,
+		"body": 8,
+		"poise": 9,
+		"rhetoric": 5,
+		"name": "Castro Beasley",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 9,
+		"body": 0,
+		"poise": 1,
+		"rhetoric": 6,
+		"name": "Natalia Frye",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 8,
+		"body": 2,
+		"poise": 9,
+		"rhetoric": 9,
+		"name": "Hodges Gallegos",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 10,
+		"body": 8,
+		"poise": 4,
+		"rhetoric": 4,
+		"name": "Chase Gentry",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 8,
+		"body": 0,
+		"poise": 0,
+		"rhetoric": 1,
+		"name": "Shawna Schroeder",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 4,
+		"body": 5,
+		"poise": 1,
+		"rhetoric": 3,
+		"name": "Sargent Hale",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 5,
+		"body": 6,
+		"poise": 5,
+		"rhetoric": 1,
+		"name": "Cherry Hoover",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 7,
+		"body": 7,
+		"poise": 10,
+		"rhetoric": 5,
+		"name": "Virginia Pearson",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 7,
+		"body": 8,
+		"poise": 3,
+		"rhetoric": 6,
+		"name": "Page Young",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 10,
+		"body": 6,
+		"poise": 2,
+		"rhetoric": 5,
+		"name": "Horne Carroll",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 7,
+		"body": 8,
+		"poise": 10,
+		"rhetoric": 0,
+		"name": "Haley Valenzuela",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 9,
+		"body": 9,
+		"poise": 5,
+		"rhetoric": 5,
+		"name": "Althea Adkins",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 0,
+		"body": 10,
+		"poise": 5,
+		"rhetoric": 2,
+		"name": "Stephens Velasquez",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 1,
+		"body": 7,
+		"poise": 1,
+		"rhetoric": 4,
+		"name": "Mccall Abbott",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 9,
+		"body": 7,
+		"poise": 0,
+		"rhetoric": 6,
+		"name": "Martinez Simpson",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 8,
+		"body": 7,
+		"poise": 9,
+		"rhetoric": 6,
+		"name": "Montgomery Boyle",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 5,
+		"body": 6,
+		"poise": 7,
+		"rhetoric": 3,
+		"name": "Ursula Maynard",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 10,
+		"body": 6,
+		"poise": 2,
+		"rhetoric": 3,
+		"name": "Wiggins Webster",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 7,
+		"body": 2,
+		"poise": 4,
+		"rhetoric": 1,
+		"name": "Velma Barry",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 1,
+		"body": 8,
+		"poise": 5,
+		"rhetoric": 9,
+		"name": "Aimee Miranda",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 10,
+		"body": 3,
+		"poise": 3,
+		"rhetoric": 8,
+		"name": "Dana Paul",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 7,
+		"body": 5,
+		"poise": 8,
+		"rhetoric": 3,
+		"name": "Mcclain Baker",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 0,
+		"body": 7,
+		"poise": 2,
+		"rhetoric": 1,
+		"name": "Muriel Craft",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 3,
+		"body": 7,
+		"poise": 6,
+		"rhetoric": 2,
+		"name": "Landry Soto",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 4,
+		"body": 9,
+		"poise": 3,
+		"rhetoric": 7,
+		"name": "Vickie Sharpe",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 9,
+		"body": 7,
+		"poise": 4,
+		"rhetoric": 5,
+		"name": "Morgan Ballard",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 10,
+		"body": 6,
+		"poise": 3,
+		"rhetoric": 10,
+		"name": "Frances Rutledge",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 10,
+		"body": 4,
+		"poise": 9,
+		"rhetoric": 3,
+		"name": "Whitfield White",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 6,
+		"body": 1,
+		"poise": 0,
+		"rhetoric": 0,
+		"name": "Fleming Fletcher",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 8,
+		"body": 9,
+		"poise": 2,
+		"rhetoric": 1,
+		"name": "Shanna Baird",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 3,
+		"body": 4,
+		"poise": 10,
+		"rhetoric": 6,
+		"name": "Clarissa Hunt",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 2,
+		"body": 9,
+		"poise": 2,
+		"rhetoric": 7,
+		"name": "Robertson House",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 3,
+		"body": 6,
+		"poise": 7,
+		"rhetoric": 10,
+		"name": "Taylor Dean",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 2,
+		"body": 4,
+		"poise": 1,
+		"rhetoric": 10,
+		"name": "Bianca Colon",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 1,
+		"body": 2,
+		"poise": 7,
+		"rhetoric": 4,
+		"name": "Liza Day",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 6,
+		"body": 1,
+		"poise": 7,
+		"rhetoric": 7,
+		"name": "Baldwin Hurst",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 9,
+		"body": 7,
+		"poise": 10,
+		"rhetoric": 1,
+		"name": "Janell Chang",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 9,
+		"body": 0,
+		"poise": 3,
+		"rhetoric": 9,
+		"name": "Tia Buckner",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 6,
+		"body": 8,
+		"poise": 4,
+		"rhetoric": 2,
+		"name": "Dunlap Spencer",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 8,
+		"body": 7,
+		"poise": 1,
+		"rhetoric": 8,
+		"name": "Terri Calderon",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 7,
+		"body": 1,
+		"poise": 1,
+		"rhetoric": 9,
+		"name": "Janette Harrington",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 2,
+		"body": 5,
+		"poise": 5,
+		"rhetoric": 9,
+		"name": "Gena Craig",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 9,
+		"body": 3,
+		"poise": 9,
+		"rhetoric": 3,
+		"name": "Sophie Caldwell",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 6,
+		"body": 2,
+		"poise": 5,
+		"rhetoric": 5,
+		"name": "Reed Cruz",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 8,
+		"body": 2,
+		"poise": 2,
+		"rhetoric": 7,
+		"name": "Ayala Torres",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 3,
+		"body": 5,
+		"poise": 8,
+		"rhetoric": 6,
+		"name": "Pollard Bowen",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 3,
+		"body": 8,
+		"poise": 1,
+		"rhetoric": 6,
+		"name": "Christensen York",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 6,
+		"body": 2,
+		"poise": 8,
+		"rhetoric": 0,
+		"name": "Leslie Rojas",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 1,
+		"body": 4,
+		"poise": 0,
+		"rhetoric": 2,
+		"name": "Lang Jordan",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 10,
+		"body": 1,
+		"poise": 5,
+		"rhetoric": 1,
+		"name": "June Key",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 9,
+		"body": 5,
+		"poise": 4,
+		"rhetoric": 0,
+		"name": "Sharpe Riley",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 8,
+		"body": 3,
+		"poise": 0,
+		"rhetoric": 3,
+		"name": "Wiley James",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 5,
+		"body": 8,
+		"poise": 1,
+		"rhetoric": 10,
+		"name": "Sandy Branch",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 3,
+		"body": 4,
+		"poise": 1,
+		"rhetoric": 7,
+		"name": "Cheryl Prince",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 5,
+		"body": 1,
+		"poise": 6,
+		"rhetoric": 8,
+		"name": "Grace Mcleod",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 10,
+		"body": 3,
+		"poise": 9,
+		"rhetoric": 2,
+		"name": "Liliana Villarreal",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 4,
+		"body": 5,
+		"poise": 4,
+		"rhetoric": 8,
+		"name": "Emily Logan",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 5,
+		"body": 3,
+		"poise": 3,
+		"rhetoric": 3,
+		"name": "Golden Sanders",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 1,
+		"body": 9,
+		"poise": 2,
+		"rhetoric": 1,
+		"name": "Chris Woodward",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 5,
+		"body": 2,
+		"poise": 3,
+		"rhetoric": 1,
+		"name": "Olive Hansen",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 2,
+		"body": 5,
+		"poise": 4,
+		"rhetoric": 9,
+		"name": "Susan Harmon",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 8,
+		"body": 6,
+		"poise": 1,
+		"rhetoric": 7,
+		"name": "White Goodwin",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 10,
+		"body": 8,
+		"poise": 5,
+		"rhetoric": 4,
+		"name": "Tisha Sharp",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 6,
+		"body": 10,
+		"poise": 4,
+		"rhetoric": 5,
+		"name": "Sharron Francis",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 7,
+		"body": 0,
+		"poise": 3,
+		"rhetoric": 1,
+		"name": "Nash Hester",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 2,
+		"body": 9,
+		"poise": 7,
+		"rhetoric": 0,
+		"name": "Rosemary Kane",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 7,
+		"body": 4,
+		"poise": 4,
+		"rhetoric": 8,
+		"name": "Jaime Taylor",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 3,
+		"body": 5,
+		"poise": 8,
+		"rhetoric": 5,
+		"name": "Jana Serrano",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 4,
+		"body": 10,
+		"poise": 8,
+		"rhetoric": 0,
+		"name": "Buchanan Conner",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 5,
+		"body": 5,
+		"poise": 4,
+		"rhetoric": 4,
+		"name": "Walton Wallace",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 10,
+		"body": 10,
+		"poise": 1,
+		"rhetoric": 3,
+		"name": "English Blackburn",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 6,
+		"body": 5,
+		"poise": 8,
+		"rhetoric": 0,
+		"name": "Meyer Pena",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 5,
+		"body": 9,
+		"poise": 1,
+		"rhetoric": 6,
+		"name": "Debora Hahn",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 1,
+		"body": 10,
+		"poise": 7,
+		"rhetoric": 0,
+		"name": "Lana Berg",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 5,
+		"body": 5,
+		"poise": 1,
+		"rhetoric": 9,
+		"name": "Riggs Clayton",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 9,
+		"body": 0,
+		"poise": 7,
+		"rhetoric": 5,
+		"name": "Evelyn Whitehead",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 0,
+		"body": 6,
+		"poise": 7,
+		"rhetoric": 2,
+		"name": "Saunders Mejia",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 10,
+		"body": 7,
+		"poise": 6,
+		"rhetoric": 9,
+		"name": "George Hess",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 7,
+		"body": 1,
+		"poise": 4,
+		"rhetoric": 3,
+		"name": "Saundra Rowe",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 5,
+		"body": 5,
+		"poise": 9,
+		"rhetoric": 9,
+		"name": "Ballard Mckee",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 1,
+		"body": 8,
+		"poise": 9,
+		"rhetoric": 8,
+		"name": "Dunn Lowery",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 6,
+		"body": 6,
+		"poise": 3,
+		"rhetoric": 4,
+		"name": "Britt Cooley",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 4,
+		"body": 3,
+		"poise": 2,
+		"rhetoric": 9,
+		"name": "Kasey Buck",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 2,
+		"body": 5,
+		"poise": 0,
+		"rhetoric": 4,
+		"name": "Jeri Cooke",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 4,
+		"body": 5,
+		"poise": 2,
+		"rhetoric": 1,
+		"name": "Solis Park",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 7,
+		"body": 1,
+		"poise": 8,
+		"rhetoric": 4,
+		"name": "Patterson Woods",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 8,
+		"body": 5,
+		"poise": 9,
+		"rhetoric": 8,
+		"name": "Carmela Mayo",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 7,
+		"body": 8,
+		"poise": 0,
+		"rhetoric": 2,
+		"name": "Solomon Whitney",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 8,
+		"body": 10,
+		"poise": 4,
+		"rhetoric": 0,
+		"name": "Huber Watts",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 9,
+		"body": 0,
+		"poise": 8,
+		"rhetoric": 3,
+		"name": "Brewer Hammond",
+		"gender": "male",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 8,
+		"body": 1,
+		"poise": 6,
+		"rhetoric": 7,
+		"name": "Brandy Barron",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "theater"
+	},
+	{
+		"voice": 2,
+		"body": 4,
+		"poise": 9,
+		"rhetoric": 8,
+		"name": "Sherri Pickett",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 8,
+		"body": 10,
+		"poise": 4,
+		"rhetoric": 8,
+		"name": "Tamra Daugherty",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "speech"
+	},
+	{
+		"voice": 0,
+		"body": 7,
+		"poise": 4,
+		"rhetoric": 6,
+		"name": "Hyde Jensen",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 1,
+		"body": 7,
+		"poise": 0,
+		"rhetoric": 2,
+		"name": "Earnestine Aguirre",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 1,
+		"body": 8,
+		"poise": 6,
+		"rhetoric": 3,
+		"name": "Abby Obrien",
+		"gender": "female",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 0,
+		"body": 9,
+		"poise": 0,
+		"rhetoric": 7,
+		"name": "Dorothea Hayes",
+		"gender": "female",
+		"project_id": 0,
+		"rubric": "speech"
+	},
+	{
+		"voice": 5,
+		"body": 3,
+		"poise": 7,
+		"rhetoric": 9,
+		"name": "Park Long",
+		"gender": "male",
+		"project_id": 1,
+		"rubric": "speech"
+	},
+	{
+		"voice": 4,
+		"body": 4,
+		"poise": 4,
+		"rhetoric": 6,
+		"name": "Mclean Whitley",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "theater"
+	},
+	{
+		"voice": 6,
+		"body": 5,
+		"poise": 5,
+		"rhetoric": 2,
+		"name": "Ella Mccoy",
+		"gender": "female",
+		"project_id": 2,
+		"rubric": "theater"
+	},
+	{
+		"voice": 6,
+		"body": 6,
+		"poise": 1,
+		"rhetoric": 10,
+		"name": "Snow Santiago",
+		"gender": "male",
+		"project_id": 0,
+		"rubric": "speech"
+	}
+]
