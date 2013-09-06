@@ -81,19 +81,18 @@ define (require) ->
         Backbone.history.start({pushState: true})
 
       switch controllerName
-        when 'coursemap' then require ['controllers/coursemap_controller'], (Controller) ->
-          instantiateRouter(Controller, 'coursemap')
-        when 'group' then require ['controllers/group_controller'], (Controller) ->
-          instantiateRouter(Controller, 'group')
-        when 'page' then require ['controllers/page_controller'], (Controller) ->
-          instantiateRouter(Controller, 'page')
-        when 'portfolio' then require ['controllers/portfolio_controller'], (Controller) ->
-          instantiateRouter(Controller, 'portfolio')
-        when 'rubric' then require ['controllers/rubric_controller'], (Controller) ->
-          instantiateRouter(Controller, 'rubric')
-        when 'submission' then require ['controllers/submission_controller'], (Controller) ->
-          instantiateRouter(Controller, 'submission')
-
+        when 'coursemap' then require ['controllers/coursemap_controller'], (CourseMapController) ->
+          instantiateRouter(CourseMapController, 'coursemap')
+        when 'group' then require ['controllers/group_controller'], (GroupController) ->
+          instantiateRouter(GroupController, 'group')
+        when 'page' then require ['controllers/page_controller'], (PageController) ->
+          instantiateRouter(PageController, 'page')
+        when 'portfolio' then require ['controllers/portfolio_controller'], (PortfolioController) ->
+          instantiateRouter(PortfolioController, 'portfolio')
+        when 'rubric' then require ['controllers/rubric_controller'], (RubricController) ->
+          instantiateRouter(RubricController, 'rubric')
+        when 'submission' then require ['controllers/submission_controller'], (SubmissionController) ->
+          instantiateRouter(SubmissionController, 'submission')
 
   Vocat.on('initialize:before', () ->
 

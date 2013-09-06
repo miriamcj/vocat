@@ -1,4 +1,7 @@
 ({
+//  optimize: 'none',
+  // This allows us to find the nested dependencies in the Vocat object for dynamica router loading in dev.
+  findNestedDependencies: 'true',
   baseUrl: "javascripts/src",
   fileExclusionRegExp: /^(off)$/,
   shim: {
@@ -17,7 +20,7 @@
       return "app/helpers/" + name;
     }
   },
-  keepBuildDir: false,
+  keepBuildDir: true,
   paths: {
     'templates': 'app/templates',
     'routers': 'app/routers',
