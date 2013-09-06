@@ -71,14 +71,28 @@ define (require) ->
 
     if controllerName != false
       controllerPath = "controllers/#{controllerName}_controller"
-      require([controllerPath], (Controller) ->
+
+      instantiateRouter = (Controller, controllerName) ->
         subRoutes = Vocat.routes[controllerName]
         Vocat.router = new Marionette.AppRouter({
           controller: new Controller
           appRoutes: subRoutes
         })
         Backbone.history.start({pushState: true})
-      )
+
+      switch controllerName
+        when 'coursemap' then require ['controllers/coursemap_controller'], (Controller) ->
+          instantiateRouter(Controller, 'coursemap')
+        when 'group' then require ['controllers/group_controller'], (Controller) ->
+          instantiateRouter(Controller, 'group')
+        when 'page' then require ['controllers/page_controller'], (Controller) ->
+          instantiateRouter(Controller, 'page')
+        when 'portfolio' then require ['controllers/portfolio_controller'], (Controller) ->
+          instantiateRouter(Controller, 'portfolio')
+        when 'rubric' then require ['controllers/rubric_controller'], (Controller) ->
+          instantiateRouter(Controller, 'rubric')
+        when 'submission' then require ['controllers/submission_controller'], (Controller) ->
+          instantiateRouter(Controller, 'submission')
 
 
   Vocat.on('initialize:before', () ->
