@@ -19,9 +19,7 @@ define [
         @rubric.get('fields').each((field) =>
           total = total + parseInt(d[field.get('id')])
         )
-        console.log total,'total'
         out = Math.round((total / parseInt(@rubric.get('points_possible')) ) * 100)
-        console.log out,'out'
         out
       )
       percentageGroup = percentageDimension.group()
@@ -97,7 +95,6 @@ define [
     projectLoaded: () ->
       deferred = $.Deferred()
       resolve = () =>
-        console.log @,'at'
         @rubric = new RubricModel(@model.get('rubric'))
         deferred.resolve()
       unless @model?
@@ -112,7 +109,6 @@ define [
       $.ajax("/api/v1/courses/#{@courseId}/projects/#{@projectId}/scores",{
         dataType: 'json'
         success: (data, textStatus, jqXHR) =>
-          console.log data,'data'
           @scores = data
           deferred.resolve()
       })

@@ -13,7 +13,6 @@ requirejs.config {
       deps: ['vendor/crossfilter/crossfilter', 'vendor/d3/d3.v3.min'],
       exports: 'dc'
     }
-
     'vendor/crossfilter/crossfilter': {
       exports: 'crossfilter'
     }
