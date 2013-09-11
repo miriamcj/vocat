@@ -35,6 +35,7 @@ define [
       bc.dimension(percentageDimension) # set dimension
       bc.group(percentageGroup, 'Evaluations') # set group
       bc.elasticY(true)
+      #bc.elasticX(true)
       bc.colors(["#5f8688"])
       bc.y(d3.scale.linear())
       bc.x(d3.scale.linear().domain([-3, 103]))
@@ -60,7 +61,7 @@ define [
           .colors(['#344546', '#3d5152', '#455c5e', '#4e686a', '#577375', '#5f7f81', '#688a8d', '#729597', '#7e9da0', '#8aa6a8'])
           .colorDomain(['#232e2f'])
           .radius(80)
-          .innerRadius(30)
+          .innerRadius(0)
           .minAngleForLabel(0)
           .dimension(fieldDimensions[id])
           .group(fieldGroups[id])
