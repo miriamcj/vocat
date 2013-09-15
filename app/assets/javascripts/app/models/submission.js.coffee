@@ -45,7 +45,6 @@ define ['backbone', 'models/attachment', 'models/evaluation'], (Backbone, Attach
         else
           @publishEvaluation()
 
-
     initialize: () ->
       @listenTo(@, 'change:attachment', () =>
         @updateAttachment()
