@@ -21,7 +21,8 @@ class Api::V1::AttachmentsController < ApplicationController
   end
 
   def destroy
-    @attachment.destroy
+    @attachment.fileable = nil
+    @attachment.save
     respond_with @attachment
   end
 
