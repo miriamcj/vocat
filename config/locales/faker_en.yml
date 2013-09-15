@@ -1,0 +1,7 @@
+en:
+  faker:
+    company:
+      bs:
+        - [final, mid-term, group, pre-diagnostic, post-diagnostic, preliminary, first, second, third, initial, final]
+        - [theater, business, courtroom, interview, boardroom, marketing, sales, persuasive, rhetorical, theatrical, rehearsed]
+        - [presentation, performance, project, oration, speech, elocution, vocalization, dialogue, communication]
