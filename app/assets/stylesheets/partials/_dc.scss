@@ -22,13 +22,43 @@
 
 .dc-chart rect.deselected {
   stroke: none;
-  fill: #ccc;
+  fill: $tealLightest;
 }
 
 .dc-chart .pie-slice {
   fill: white;
   font-size: 12px;
   cursor: pointer;
+  &._0 path, &._10 path {
+	fill: #344546;
+  }
+  &._1 path, &._11 path {
+	fill: #3d5152;
+  }
+  &._2 path, &._12 path {
+	fill: #455c5e;
+  }
+  &._3 path, &._13 path {
+	fill: #4e686a;
+  }
+  &._4 path, &._14 path {
+	fill: #577375;
+  }
+  &._5 path, &._15 path {
+	fill: #5f7f81;
+  }
+  &._6 path, &._16 path {
+	fill: #688a8d;
+  }
+  &._7 path, &._17 path {
+	fill: #729597;
+  }
+  &._8 path, &._18 path {
+	fill: #7e9da0;
+  }
+  &._9 path, &._19 path {
+	fill: #8aa6a8;
+  }
 }
 
 .dc-chart .pie-slice :hover {
@@ -37,19 +67,19 @@
 
 .dc-chart .selected path {
   stroke-width: 3;
-  stroke: #ccc;
+  stroke: $tealLightest;
   fill-opacity: 1;
 }
 
 .dc-chart .deselected path {
   strok: none;
   fill-opacity: .5;
-  fill: #ccc;
+  fill: $tealLightest;
 }
 
 .dc-chart .axis path, .axis line {
   fill: none;
-  stroke: #000;
+  stroke: $tealMedium;
   shape-rendering: crispEdges;
 }
 
@@ -57,22 +87,33 @@
   font: 10px sans-serif;
 }
 
+.dc-chart .horizontal {
+  fill: $tealLightest;
+}
+
 .dc-chart .grid-line {
   fill: none;
-  stroke: #ccc;
+  stroke: #EFF3F3;
   opacity: .5;
   shape-rendering: crispEdges;
 }
 
 .dc-chart .grid-line line {
   fill: none;
-  stroke: #ccc;
+  stroke: #EFF3F3;
   opacity: .5;
   shape-rendering: crispEdges;
 }
 
 .dc-chart .brush rect.background {
   z-index: -999;
+  fill: $tealLightestAlt;
+}
+
+.dc-chart rect.background-custom {
+  fill: $tealLightestAlt;
+  width: 636px;
+  height: 210px;
 }
 
 .dc-chart .brush rect.extent {
@@ -116,14 +157,14 @@
 
 .dc-chart .selected circle {
   stroke-width: 3;
-  stroke: #ccc;
+  stroke: $tealLightest;
   fill-opacity: 1;
 }
 
 .dc-chart .deselected circle {
   strok: none;
   fill-opacity: .5;
-  fill: #ccc;
+  fill: $tealLightest;
 }
 
 .dc-chart .bubble {
@@ -233,4 +274,9 @@
 .dc-chart .fadeout {
   fill-opacity: 0.2;
   stroke-opacity: 0.2;
+}
+
+.dc-chart .tick text {
+  fill: $grayDark;
+  @include font-size(13.75);
 }

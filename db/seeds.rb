@@ -130,7 +130,7 @@ courses.each do |course|
       if rand > 0.3
         submission = project.submissions.create(:name => Faker::Lorem.words(rand(2..5)).map(&:capitalize).join(' '), :summary => Faker::Lorem.paragraph, :creator => course_creators[i] )
         insert = "INSERT INTO attachments (media_file_name, media_content_type, media_file_size, media_updated_at, transcoding_status, created_at, updated_at, fileable_id, fileable_type) "
-        values = "VALUES ('clipped_lebowski.avi', 'video/avi', '26709588', '2013-08-12 23:04:37', '#{Attachment::TRANSCODING_STATUS_SUCCESS}', '2013-08-12 23:04:37', '2013-08-12 23:04:37', '#{submission.id}', 'Submission')"
+        values = "VALUES ('clipped_lebowski.avi', 'video/avi', '26709588', '2013-09-13 23:04:37', '#{Attachment::TRANSCODING_STATUS_SUCCESS}', '2013-09-13 23:04:37', '2013-09-13 23:04:37', '#{submission.id}', 'Submission')"
         ActiveRecord::Base.connection.execute "#{insert}#{values}"
         submission.save!
 
