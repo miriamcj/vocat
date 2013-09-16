@@ -11,7 +11,17 @@ class Api::V1::ScoresController < ApiController
     else
       @evaluations = nil
     end
-    respond_with @evaluations, :root => false, :each_serializer => ScoreSerializer
+
+    response = {
+      statistics: {
+        # Count is not accurate for some reason
+        video_count: project.submissions.all.count{ |submission| submission.has_video? },
+        evaluation_count: Evaluation.joins(:submission).where(:evaluator_id => current_user, :submissions => {project_id: project}).count
+      },
+      scores: ActiveModel::ArraySerializer.new(@evaluations, :scope => current_user, :each_serializer => ScoreSerializer)
+    }
+
+    respond_with response, :root => false
   end
 
 

@@ -26,7 +26,6 @@ define [
     itemViewContainer: '[data-container="submission-summaries"]'
 
     onFiltersClear: () ->
-      console.log 'clearing filters'
       dc.filterAll('projectCharts')
       dc.redrawAll('projectCharts')
 
@@ -94,25 +93,28 @@ define [
       # You gots to fade it out, before you fadez it in.
       _.each ['bar', 'pie'], (key) =>
 
-        if key == 'pie' && bcFilter?
-          filterStringParts.push(bcFilter)
+        parts = _.clone(filterStringParts)
 
-        if _.some(filterStringParts, (string) -> string.indexOf(',') != -1) then sep = '; ' else sep =', '
-        if filterStringParts.length > 2
-          last = filterStringParts.pop()
-          filterString = "for submissions that received a score of #{filterStringParts.join(sep)}#{sep} and #{last}."
-        else if filterStringParts.length > 1
-          filterString = "for submissions that received a score of #{filterStringParts.join(' and ')}."
-        else if filterStringParts.length == 1
-          filterString = "for submissions that received a score of #{filterStringParts[0]}."
+        if key == 'pie' && bcFilter?
+          parts.push(bcFilter)
+
+        if _.some(parts, (string) -> string.indexOf(',') != -1) then sep = '; ' else sep =', '
+
+        partsCount = parts.length
+        if partsCount > 2
+          last = parts.pop()
+          filterString = "for submissions that received a score of #{parts.join(sep)}#{sep} and #{last}."
+        else if partsCount > 1
+          filterString = "for submissions that received a score of #{parts.join(' and ')}."
+        else if partsCount == 1
+          filterString = "for submissions that received a score of #{parts[0]}."
         else
           filterString = "for all project submissions."
-
         finalString = "#{strings[key]} #{filterString}"
 
         if finalString  != @ui["#{key}FilterLabel"].html()
           @ui["#{key}FilterLabelWrap"].fadeOut 200, () =>
-            if filterStringParts.length > 0
+            if partsCount > 0
               @ui["#{key}FilterLabelWrap"].find('[data-trigger="filters-clear"]').show()
             else
               @ui["#{key}FilterLabelWrap"].find('[data-trigger="filters-clear"]').hide()
@@ -140,7 +142,9 @@ define [
 
       bc.vocat_id = 'total'
       bc.on('filtered', (chart, filter) =>
-        @updateFilters(chart, filter)
+        dc.events.trigger( () =>
+          @updateFilters()
+        )
       )
 
       bc.renderlet (chart) ->
