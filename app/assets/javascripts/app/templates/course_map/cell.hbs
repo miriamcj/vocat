@@ -6,10 +6,10 @@
 	{{/if}}
 	<h2 class="matrix--cell--value {{#unless current_user_has_evaluated}}inactive{{/unless}}">
 		{{#if current_user_has_evaluated }}
-		{{current_user_percentage}}<small>%</small>
+		{{to_i current_user_percentage}}<small>%</small>
 		{{else}}
 			{{#if has_video }}
-			&ndash;&ndash;			
+			&ndash;&ndash;
 			{{/if}}
 		{{/if}}
 	</h2>

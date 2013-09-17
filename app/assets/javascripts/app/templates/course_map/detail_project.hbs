@@ -1,4 +1,3 @@
-
 <div class="evaluation-detail-frame">
 
 	<div class="project-detail-frame">
@@ -12,16 +11,16 @@
 		<h3 class="heading-large">Project Summary</h3>
 		<figure class="summary-box">
 			<div>
-				<b style="height: 83%"></b>
-				<span>83</span><small>%</small>
+				<b style="height: {{to_i statistics.project_average_percentage}}%"></b>
+				<span>{{to_i statistics.project_average_percentage}}</span><small>%</small>
 			</div>
 			<figcaption>Project Average: This Class</figcaption>
 		</figure>
 
 		<figure class="summary-box">
 			<div>
-				<b style="height: 88%"></b>
-				<span>88</span><small>%</small>
+				<b style="height: {{to_i statistics.rubric_average_percentage}}%"></b>
+				<span>{{to_i statistics.rubric_average_percentage}}</span><small>%</small>
 			</div>
 			<figcaption>Rubric Average: All Classes</figcaption>
 		</figure>
@@ -29,14 +28,14 @@
 		<figure class="summary-box">
 			<div>
 				<b style="height: 48%"></b>
-				<span>12</span><small>/25</small>
+				<span>{{statistics.video_count}}</span><small>/25</small>
 			</div>
 			<figcaption>Videos Submitted</figcaption>
 		</figure>
 		<figure class="summary-box">
 			<div>
 				<b style="height: 20%"></b>
-				<span>5</span><small>/25</small>
+				<span>{{statistics.evaluation_count}}</span><small>/25</small>
 			</div>
 			<figcaption>Submissions Evaluated</figcaption>
 		</figure>

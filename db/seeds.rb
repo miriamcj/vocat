@@ -6,6 +6,35 @@ def random_section
   rand(36**5).to_s(36).upcase
 end
 
+class RandomGaussian
+  def initialize(mean = 0.0, sd = 1.0, rng = lambda { Kernel.rand })
+    @mean, @sd, @rng = mean, sd, rng
+    @compute_next_pair = false
+  end
+
+  def rand
+    if (@compute_next_pair = !@compute_next_pair)
+      # Compute a pair of random values with normal distribution.
+      # See http://en.wikipedia.org/wiki/Box-Muller_transform
+      theta = 2 * Math::PI * @rng.call
+      scale = @sd * Math.sqrt(-2 * Math.log(1 - @rng.call))
+      @g1 = @mean + scale * Math.sin(theta)
+      @g0 = @mean + scale * Math.cos(theta)
+    else
+      @g1
+    end
+  end
+end
+
+def random_score
+  r = RandomGaussian.new(4.2, 1.0)
+  num = r.rand().round()
+  if num <= 1 then num = 1 end
+  if num >= 6 then num = 6 end
+  num
+end
+
+
 # Create the organizations
 baruch  = Organization.create(:name => "Baruch College")
 other   = Organization.create(:name => Faker::Company.name)
@@ -115,6 +144,15 @@ courses.each do |course|
 
   course.save
 
+
+  # Create some groups
+  rand(1..5).times do |x|
+    name = "Group #{x}"
+    group = course.groups.create(:name => name)
+    group.creators << course.creators[8..10]
+    group.save
+  end
+
   # Create projects in various states of completeness
   rand(1..4).times do
     project = course.projects.create(:name => Faker::Company.bs.split(' ').map(&:capitalize).join(' '), :description => Faker::Lorem.paragraph)
@@ -129,18 +167,20 @@ courses.each do |course|
       # Most creators submit a project
       if rand > 0.3
         submission = project.submissions.create(:name => Faker::Lorem.words(rand(2..5)).map(&:capitalize).join(' '), :summary => Faker::Lorem.paragraph, :creator => course_creators[i] )
-        insert = "INSERT INTO attachments (media_file_name, media_content_type, media_file_size, media_updated_at, transcoding_status, created_at, updated_at, fileable_id, fileable_type) "
-        values = "VALUES ('clipped_lebowski.avi', 'video/avi', '26709588', '2013-09-13 23:04:37', '#{Attachment::TRANSCODING_STATUS_SUCCESS}', '2013-09-13 23:04:37', '2013-09-13 23:04:37', '#{submission.id}', 'Submission')"
-        ActiveRecord::Base.connection.execute "#{insert}#{values}"
+        if submission.id
+          insert = "INSERT INTO attachments (media_file_name, media_content_type, media_file_size, media_updated_at, transcoding_status, created_at, updated_at, fileable_id, fileable_type) "
+          values = "VALUES ('clipped_lebowski.avi', 'video/avi', '26709588', '2013-09-13 23:04:37', '#{Attachment::TRANSCODING_STATUS_SUCCESS}', '2013-09-13 23:04:37', '2013-09-13 23:04:37', '#{submission.id}', 'Submission')"
+          ActiveRecord::Base.connection.execute "#{insert}#{values}"
+        end
         submission.save!
 
         # Some submitted projects have been evaluated
-        if rand > 0.5
+        if rand > 0.2
           evaluation  = submission.evaluations.create()
           evaluation.rubric = rubric
           evaluation.evaluator = evaluators[0]
           evaluation.published = true
-          rubric.field_keys.each { |key| evaluation.scores[key] = rand(rubric.low_score...rubric.high_score)}
+          rubric.field_keys.each { |key| evaluation.scores[key] = random_score()}
           evaluation.save()
 
           evaluation  = submission.evaluations.create()
@@ -148,7 +188,7 @@ courses.each do |course|
           this_key = rand(0..10)
           evaluation.evaluator = course_creators[this_key]
           evaluation.published = true
-          rubric.field_keys.each { |key| evaluation.scores[key] = rand(rubric.low_score...rubric.high_score)}
+          rubric.field_keys.each { |key| evaluation.scores[key] = random_score()}
           evaluation.save()
 
           new_key = rand(0..10)
@@ -157,29 +197,13 @@ courses.each do |course|
             evaluation.rubric = rubric
             evaluation.evaluator = course_creators[new_key]
             evaluation.published = true
-            rubric.field_keys.each { |key| evaluation.scores[key] = rand(rubric.low_score...rubric.high_score)}
+            rubric.field_keys.each { |key| evaluation.scores[key] = random_score()}
             evaluation.save()
           end
 
         end
       end
     end
-
-    # Create some groups
-    rand(2..5).times do
-      name = Faker::Lorem.words(rand(1..2)).map(&:capitalize).join(' ')
-      before = %w(Team Group Committee Troop).sample
-      after = rand > 0.5 ? %w(Club Brigade).sample : ''
-      if rand > 0.5
-        group = course.groups.create(:name => "#{before} #{name}")
-      else
-        group = course.groups.create(:name => "#{name} #{after}".rstrip)
-      end
-
-      group.creators << course_creators[3..4]
-      group.save
-    end
-
   end
 
 end

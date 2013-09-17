@@ -329,7 +329,9 @@ CREATE TABLE evaluations (
     published boolean,
     rubric_id integer,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    total_percentage numeric DEFAULT 0.0,
+    total_score numeric DEFAULT 0.0
 );
 
 
@@ -1057,3 +1059,5 @@ INSERT INTO schema_migrations (version) VALUES ('20130813172916');
 INSERT INTO schema_migrations (version) VALUES ('20130814170103');
 
 INSERT INTO schema_migrations (version) VALUES ('20130819183119');
+
+INSERT INTO schema_migrations (version) VALUES ('20130916190426');

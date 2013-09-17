@@ -13,11 +13,7 @@ class Api::V1::ScoresController < ApiController
     end
 
     response = {
-      statistics: {
-        # Count is not accurate for some reason
-        video_count: project.submissions.all.count{ |submission| submission.has_video? },
-        evaluation_count: Evaluation.joins(:submission).where(:evaluator_id => current_user, :submissions => {project_id: project}).count
-      },
+      statistics: project.statistics_for(current_user),
       scores: ActiveModel::ArraySerializer.new(@evaluations, :scope => current_user, :each_serializer => ScoreSerializer)
     }
 

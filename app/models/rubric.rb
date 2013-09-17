@@ -20,36 +20,13 @@ class Rubric < ActiveRecord::Base
     RubricSerializer
   end
 
+  def average_total_score()
+    Evaluation.includes(:project).where(projects: {rubric_id: self}).average('total_score')
+  end
 
-  #def set_field_and_ranges_from_params(fields, ranges)
-  #
-  #  clear_rubric()
-  #
-  #  if ranges.respond_to?('each')
-  #    ranges.each do |range|
-  #      self.add_range({
-  #        :low => range['low'],
-  #        :high => range['high'],
-  #        :key => range['id'],
-  #        :name => range['name']
-  #      })
-  #    end
-  #  end
-  #  if fields.respond_to?('each')
-  #    fields.each do |field|
-  #      self.add_field({
-  #        :name => field['name'],
-  #        :key => field['id'],
-  #        :description => field['description']
-  #      })
-  #      if field['range_descriptions'].respond_to?('each')
-  #        field['range_descriptions'].each do |range_key, description|
-  #          self.add_range_description_for_field(range_key, field['id'], description)
-  #        end
-  #      end
-  #    end
-  #  end
-  #end
+  def average_total_percentage()
+    Evaluation.includes(:project).where(projects: {rubric_id: self}).average('total_percentage')
+  end
 
   def add_field(hash = {})
     self.fields = [] unless self.fields.kind_of? Array
