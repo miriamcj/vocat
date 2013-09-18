@@ -85,7 +85,7 @@ end
   assistants << u
 end
 
-150.times do |i|
+50.times do |i|
   u = User.new(:email => "creator#{i}@test.com", :password => "testtest123", :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name)
   u.role = "creator"
   u.organization = baruch
@@ -167,11 +167,30 @@ courses.each do |course|
       # Most creators submit a project
       if rand > 0.3
         submission = project.submissions.create(:name => Faker::Lorem.words(rand(2..5)).map(&:capitalize).join(' '), :summary => Faker::Lorem.paragraph, :creator => course_creators[i] )
-        if submission.id
-          insert = "INSERT INTO attachments (media_file_name, media_content_type, media_file_size, media_updated_at, transcoding_status, created_at, updated_at, fileable_id, fileable_type) "
-          values = "VALUES ('clipped_lebowski.avi', 'video/avi', '26709588', '2013-09-13 23:04:37', '#{Attachment::TRANSCODING_STATUS_SUCCESS}', '2013-09-13 23:04:37', '2013-09-13 23:04:37', '#{submission.id}', 'Submission')"
-          ActiveRecord::Base.connection.execute "#{insert}#{values}"
-        end
+
+        videos = [
+          {source: 'youtube', source_id: 'kU0DwGEqfpU'},
+          {source: 'youtube', source_id: 'FJIqZ9OLbRY'},
+          {source: 'youtube', source_id: 'ND1X594F1wY'},
+          {source: 'youtube', source_id: 'ketb1jdUxTw'},
+          {source: 'youtube', source_id: 'NfMCeidJ8bg'},
+          {source: 'youtube', source_id: 'TBzHphcc2Jw'},
+          {source: 'vimeo', source_id: '66471154', thumbnail_url: 'http://b.vimeocdn.com/ts/437/900/437900494_640.jpg'},
+          {source: 'vimeo', source_id: '74472983', thumbnail_url: 'http://b.vimeocdn.com/ts/448/857/448857514_640.jpg'},
+          {source: 'vimeo', source_id: '64322426', thumbnail_url: 'http://b.vimeocdn.com/ts/434/926/434926549_640.jpg'},
+          {source: 'vimeo', source_id: '32379764', thumbnail_url: 'http://b.vimeocdn.com/ts/219/017/219017272_640.jpg'},
+          {source: 'vimeo', source_id: '45533199', thumbnail_url: 'http://b.vimeocdn.com/ts/316/703/316703562_640.jpg'},
+          {source: 'vimeo', source_id: '67871488', thumbnail_url: 'http://b.vimeocdn.com/ts/440/491/440491684_640.jpg'}
+        ]
+
+        video = Video.create(videos.sample)
+        submission.video = video
+
+        #if submission.id
+        #  insert = "INSERT INTO attachments (media_file_name, media_content_type, media_file_size, media_updated_at, transcoding_status, created_at, updated_at, fileable_id, fileable_type) "
+        #  values = "VALUES ('clipped_lebowski.avi', 'video/avi', '26709588', '2013-09-13 23:04:37', '#{Attachment::TRANSCODING_STATUS_SUCCESS}', '2013-09-13 23:04:37', '2013-09-13 23:04:37', '#{submission.id}', 'Submission')"
+        #  ActiveRecord::Base.connection.execute "#{insert}#{values}"
+        #end
         submission.save!
 
         # Some submitted projects have been evaluated

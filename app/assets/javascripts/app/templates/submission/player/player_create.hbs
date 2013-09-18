@@ -1,0 +1,82 @@
+<div data-ui="curtain" class="player-curtain">
+  <div data-ui="stage" class="player-stage">
+
+    <div style="display: none;" class="player-scene" data-ui="step1">
+      <div class="wrap">
+        <a data-behavior="show-step2" class="choice-button" href="#">Add a Video to This Submission</a>
+      </div>
+    </div>
+
+    <div style="display: none;" class="player-scene" data-ui="step2">
+      <div class="wrap">
+        <p><a data-behavior="show-step3" class="choice-button" href="#">Upload a Video</a></p>
+        <p><a data-behavior="show-step4" class="choice-button" href="#">Add a YouTube Video</a></p>
+        <p><a data-behavior="show-step5" class="choice-button" href="#">Add a Vimeo Video</a></p>
+        <p><a data-behavior="show-step1" class="choice-button" href="#">Back</a></p>
+      </div>
+    </div>
+
+    <div style="display: none;" class="player-scene" data-ui="step3">
+      <div class="wrap">
+        <p>
+	        <form accept-charset="UTF-8" data-remote="true" enctype="multipart/form-data" id="video-upload" method="post">
+		        <span class="file-input-container">
+	            <input type="hidden" name="video[source]" value="attachment" />
+              <input data-behavior="async-upload" name="video[attachment_attributes][media]" type="file" />
+              <a href="#" class="decorated choice-button" data-behavior="file-picker">Drag and Drop or Click to Select a Video File</a>
+            </span>
+		      </form>
+	      </p>
+        <p><a data-behavior="show-step2" class="choice-button" href="#">Back</a></p>
+      </div>
+    </div>
+
+    <div style="display: none;" class="player-scene" data-ui="step4">
+      <div class="wrap">
+        <p>
+	        <div data-ui="youtube-wrap" class="input-group">
+			      <label class="text-label">Enter the YouTube Video URL</label>
+			      <input data-ui="source-id-youtube" class="text-input" name="youtube" placeholder="YouTube URL" /><br />
+		      </div>
+					<a data-behavior="submit-youtube" class="choice-button" href="#">Submit</a>
+					<a data-behavior="show-step2" class="choice-button" href="#">Back</a>
+        </p>
+      </div>
+    </div>
+
+    <div style="display: none;" class="player-scene" data-ui="step5">
+      <div class="wrap">
+        <p>
+		      <div data-ui="vimeo-wrap" class="input-group">
+			      <label class="text-label">Enter the Vimeo Video URL</label>
+			      <input data-ui="source-id-vimeo" class="text-input" name="vimeo" placeholder="Vimeo URL" />
+	        </div>
+	        <a data-behavior="submit-vimeo" class="choice-button" href="#">Submit</a>
+	        <a data-behavior="show-step2" class="choice-button" href="#">Back</a>
+				</p>
+      </div>
+    </div>
+
+	  <div style="display: none;" class="player-scene" data-ui="step6">
+		  <div class="wrap">
+			  <span class="attachment-placeholder--button loading">Upload in progress</span>
+		  </div>
+	  </div>
+
+	  <div style="display: none;" class="player-scene" data-ui="step7">
+		  <div class="wrap">
+			  <a data-behavior="show-step2" class="choice-button" href="#">Upload failed</a>
+			  <a data-behavior="show-step2" class="choice-button" href="#">Back</a>
+		  </div>
+	  </div>
+
+	  <div style="display: none;" class="player-scene" data-ui="step8">
+		  <div class="wrap">
+			  <span class="attachment-placeholder--button loading">Transcoding in progress</span>
+		  </div>
+	  </div>
+
+
+  </div>
+</div>
+

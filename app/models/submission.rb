@@ -1,15 +1,21 @@
 class Submission < ActiveRecord::Base
-  has_many :attachments, :as => :fileable, :dependent => :destroy
+
+  has_one :video
   has_many :evaluations, :dependent => :destroy
   has_many :discussion_posts, :dependent => :destroy
 	has_one :course, :through => :project
+
+  delegate :thumb, :to => :video, :prefix => false, :allow_nil => true
 
   belongs_to :project
 
   belongs_to :creator, :polymorphic => true
 
+  include ActiveModel::ForbiddenAttributesProtection
+  accepts_nested_attributes_for :video
+
   attr_accessible :name, :evaluations, :summary, :project_id, :url, :published, :creator_id, :creator_type, :project,
-                  :thumb, :instructor_score_percentage, :creator, :attachment_ids, :discussion_posts_count
+                  :thumb, :instructor_score_percentage, :creator, :discussion_posts_count, :video, :video_attributes
 
   validates_presence_of :project_id, :creator_id, :creator_type
 
@@ -25,10 +31,9 @@ class Submission < ActiveRecord::Base
   delegate :name, :to => :creator, :prefix => true
   delegate :name, :to => :group, :prefix => true, :allow_nil => true
 
-  default_scope includes(:attachments, :evaluations, :project)
-  scope :for_courses, lambda { |course| joins(:project).where('projects.course_id' => course).includes(:attachments) }
+  default_scope includes(:video, :evaluations, :project)
 
-  #default_scope :include => :attachments
+  scope :for_courses, lambda { |course| joins(:project).where('projects.course_id' => course).includes(:video) }
 
   def active_model_serializer
 	  SubmissionSerializer
@@ -106,69 +111,70 @@ class Submission < ActiveRecord::Base
     end
   end
 
-  def video_attachment_id
-    if self.attachments.count() > 0
-      self.attachments.first().id
-    else
-      nil
-    end
-  end
+  #def video_attachment_id
+  #  if self.attachments.count() > 0
+  #    self.attachments.first().id
+  #  else
+  #    nil
+  #  end
+  #end
 
-  def attachment
-    self.attachments.first()
-  end
+  #def attachment
+  #  self.attachments.first()
+  #end
 
-  def video
-    self.attachment
-  end
+  #def video
+  #  self.attachment
+  #end
 
-  def video?
-    if attachment
-      self.attachment.is_video?
-    else
-      false
-    end
-  end
+  #def video?
+  #  if video
+  #    true
+  #  else
+  #    false
+  #  end
+  #end
 
   def has_video?
-    video?
+    if video.nil? then false else true end
   end
 
-  def transcoding_error?
-    self.attachment && self.attachment.transcoding_error != nil ? true : false
-  end
+  #def has_video?
+  #  video?
+  #end
 
-  def transcoding_in_progress?
-    attachment && attachment.transcoding_in_progress?
-  end
+  #def transcoding_error?
+  #  self.attachment && self.attachment.transcoding_error != nil ? true : false
+  #end
 
-  def transcoding_complete?
-    attachment && attachment.transcoding_complete?
-  end
+  #def transcoding_in_progress?
+  #  attachment && attachment.transcoding_in_progress?
+  #end
+  #
+  #def transcoding_complete?
+  #  attachment && attachment.transcoding_complete?
+  #end
+  #
+  #def transcoded_attachment
+  #  self.attachments.where(:transcoding_status => Attachment::TRANSCODING_STATUS_SUCCESS).first
+  #end
+  #
+  #def transcoded_attachment?
+  #  self.transcoded_attachment != nil ? true : false
+  #end
+  #
+  #def uploaded_attachment?
+  #  self.attachments.count() > 0 ? true: false
+  #end
 
-  def transcoded_attachment
-    self.attachments.where(:transcoding_status => Attachment::TRANSCODING_STATUS_SUCCESS).first
-  end
+  # DELETED!
 
-  def transcoded_attachment?
-    self.transcoded_attachment != nil ? true : false
-  end
+  #def url
+  #  if video?
+  #    return video.url
+  #  end
+  #end
 
-  def uploaded_attachment?
-    self.attachments.count() > 0 ? true: false
-  end
-
-  def url
-    if video?
-      return video.url
-    end
-  end
-
-  def thumb
-    if attachment
-      attachment.url(:thumb)
-    end
-  end
 
   def evaluations_visible_to(user)
     role = course.role(user)

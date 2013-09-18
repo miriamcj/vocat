@@ -48,14 +48,14 @@ SET default_with_oids = false;
 
 CREATE TABLE annotations (
     id integer NOT NULL,
-    attachment_id integer,
     body text,
     smpte_timecode character varying(255),
     published boolean,
     seconds_timecode double precision,
     author_id integer,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    video_id integer
 );
 
 
@@ -659,6 +659,43 @@ ALTER SEQUENCE versions_id_seq OWNED BY versions.id;
 
 
 --
+-- Name: videos; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE videos (
+    id integer NOT NULL,
+    name character varying(255),
+    url character varying(255),
+    source_id character varying(255),
+    source_url character varying(255),
+    source character varying(255),
+    submission_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    thumbnail_url character varying(255)
+);
+
+
+--
+-- Name: videos_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE videos_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: videos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE videos_id_seq OWNED BY videos.id;
+
+
+--
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -775,6 +812,13 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 --
 
 ALTER TABLE ONLY versions ALTER COLUMN id SET DEFAULT nextval('versions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY videos ALTER COLUMN id SET DEFAULT nextval('videos_id_seq'::regclass);
 
 
 --
@@ -911,6 +955,14 @@ ALTER TABLE ONLY users
 
 ALTER TABLE ONLY versions
     ADD CONSTRAINT versions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: videos_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY videos
+    ADD CONSTRAINT videos_pkey PRIMARY KEY (id);
 
 
 --
@@ -1061,3 +1113,9 @@ INSERT INTO schema_migrations (version) VALUES ('20130814170103');
 INSERT INTO schema_migrations (version) VALUES ('20130819183119');
 
 INSERT INTO schema_migrations (version) VALUES ('20130916190426');
+
+INSERT INTO schema_migrations (version) VALUES ('20130917124745');
+
+INSERT INTO schema_migrations (version) VALUES ('20130918035032');
+
+INSERT INTO schema_migrations (version) VALUES ('20130918161432');

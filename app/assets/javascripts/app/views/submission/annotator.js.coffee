@@ -27,7 +27,7 @@ define [
       @listenToOnce(@vent, 'player:broadcast:response', (response) =>
         seconds_timecode = response.currentTime.toFixed(2);
         annotation = new AnnotationModel({
-          attachment_id: @model.attachment.id
+          video_id: @model.video.id
           body: @ui.input.val()
           published: false
           seconds_timecode: seconds_timecode
@@ -35,8 +35,6 @@ define [
         annotation.save({},{
           success: (annotation) =>
             @collection.add(annotation)
-#            @vent.trigger('error:clear')
-#            @vent.trigger('error:add', {level: 'notice', lifetime: 3000, msg: 'annotation successfully added'})
             @render()
             @vent.triggerMethod('player:start', {})
           error: (annotation, xhr) =>

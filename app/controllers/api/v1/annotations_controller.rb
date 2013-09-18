@@ -4,10 +4,10 @@ class Api::V1::AnnotationsController < ApplicationController
   respond_to :json
 
   def index
-    attachment = Attachment.find(params[:attachment]) unless params[:attachment].blank?
+    video = Video.find(params[:video]) unless params[:video].blank?
 
-    if attachment
-      @annotations = Annotation.find_all_by_attachment_id(attachment)
+    if video
+      @annotations = Annotation.find_all_by_video_id(video)
     else
       @annotations = nil
     end

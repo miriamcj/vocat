@@ -9,7 +9,7 @@ define [
     model: AnnotationModel
 
     initialize: (models, options) ->
-      if options.attachmentId? then @attachmentId = options.attachmentId
+      if options.videoId? then @videoId = options.videoId
 
     url: '/api/v1/annotations'
 

@@ -89,7 +89,6 @@ define [
         message: 'Unable to load course submissions.',
       }))
 
-
     showUserViews: () ->
       @creatorType = 'User'
       @creators.show(new CourseMapCreators({collection: @collections.user, courseId: @courseId, vent: @, creatorType: 'User'}))
@@ -242,6 +241,7 @@ define [
 
       if @ui.overlay.is(':visible')
         @ui.overlay.fadeOut 250, () =>
+          @overlay.close()
           @scrollToTop()
 
 

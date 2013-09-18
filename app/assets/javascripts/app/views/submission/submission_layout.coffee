@@ -1,30 +1,19 @@
-define [
-  'marionette',
-  'hbs!templates/submission/submission_layout',
-  'collections/submission_collection',
-  'collections/annotation_collection',
-  'collections/evaluation_collection',
-  'views/submission/player',
-  'views/submission/annotations',
-  'views/submission/annotator',
-  'views/submission/evaluation',
-  'views/submission/my_evaluation',
-  'views/submission/upload',
-  'views/submission/upload/not_allowed',
-  'views/submission/upload/failed',
-  'views/submission/upload/started',
-  'views/submission/upload/transcoding',
-  'views/submission/upload/start',
-  'views/submission/discussion',
-  'views/flash/flash_messages',
-  'views/help/rubric_field_placard',
-  'views/help/glossary_toggle_placard',
-  'models/attachment',
-  'models/rubric',
-  'app/plugins/backbone_poller'
-], (
-  Marionette, template, SubmissionCollection, AnnotationCollection, EvaluationCollection, PlayerView, AnnotationsView, AnnotatorView, EvaluationView, MyEvaluationView, UploadView, UploadNotAllowedView, UploadFailedView, UploadStartedView, UploadTranscodingView, UploadStartView, DiscussionView, FlashMessagesView, RubricFieldPlacard, GlossaryTogglePlacard, Attachment, RubricModel, Poller
-) ->
+define (require) ->
+
+  Marionette = require('marionette')
+  template = require('hbs!templates/submission/submission_layout')
+  AnnotationCollection = require('collections/annotation_collection')
+  EvaluationCollection = require('collections/evaluation_collection')
+  PlayerView = require('views/submission/player/player_layout')
+  AnnotationsView = require('views/submission/annotations')
+  AnnotatorView = require('views/submission/annotator')
+  EvaluationView = require('views/submission/evaluation')
+  MyEvaluationView = require('views/submission/my_evaluation')
+  DiscussionView = require('views/submission/discussion')
+  FlashMessagesView = require('views/flash/flash_messages')
+  RubricFieldPlacard = require('views/help/rubric_field_placard')
+  GlossaryTogglePlacard = require('views/help/glossary_toggle_placard')
+  RubricModel = require('models/rubric')
 
   class SubmissionLayout extends Marionette.Layout
 
@@ -80,12 +69,14 @@ define [
         @fetchSubmission()
 
     onSubmissionLoaded: () ->
+      if @submission.video
+        @collections.annotation.fetch({data: {video: @submission.video.id}})
       @createPlacards()
       @createEvaluationViews()
       @createAnnotationView()
-      @createUploadView()
       @createFlashView()
       @createPlayerView()
+      @createAnnotatorView()
       @createDiscussionView()
 
     fetchSubmission: () ->
@@ -159,11 +150,6 @@ define [
       else
         $(@player.el).addClass('attachment--left-wide')
 
-    createUploadView: () ->
-      # Create the upload view
-      if @submission.get('current_user_can_attach')
-        @upload.show new UploadView({model: @submission, collection: @collections.submission, vent: @})
-
     createFlashView: () ->
       # Create the flash messages view
       @flash.show new FlashMessagesView({vent: @, clearOnAdd: true})
@@ -172,61 +158,21 @@ define [
       @discussion.show new DiscussionView({vent: @, submission: @submission})
 
     createPlayerView: () ->
-      # Create the player view
-      @getPlayerView()
+      @player.show new PlayerView({vent: @, model: @submission})
 
-    startPolling: () ->
-      options = {
-        delay: 5000
-        delayed: true
-        condition: (attachment) =>
-          results = attachment.get('transcoding_success') == true
-          if results
-            @triggerMethod('attachment:transcoding:completed', {attachment: attachment})
-            out = false
-          else
-            out = true
-          out
-      }
-      poller = Poller.get(@submission.attachment, options);
-      poller.start()
-
-    getPlayerView: () ->
-      if !@submission.attachment?
-        @triggerMethod('attachment:destroyed')
-      else
-        attachment = @submission.attachment
-        if attachment
-          if attachment.get('transcoding_busy') then @triggerMethod('attachment:upload:done')
-          if attachment.get('transcoding_error') then @triggerMethod('attachment:transcoding:failed')
-          if attachment.get('transcoding_success') then @triggerMethod('attachment:transcoding:completed')
-          if attachment.get('transcoding_unnecessary') then @triggerMethod('attachment:transcoding:completed')
-
-    onAttachmentTranscodingCompleted: (data) ->
-      if data? && data.attachment?
-        @collections.annotation.fetch({data: {attachment: data.attachment.id}})
-      @player.show(new PlayerView({model: @submission.attachment, submission: @submission, vent: @}))
-      if @submission.get('current_user_can_annotate')
+    createAnnotatorView: () ->
+      if @submission.get('current_user_can_annotate') && @submission.get('has_video')
         @annotator.show new AnnotatorView({model: @submission, collection: @collections.annotation, vent: @})
-
-    onAttachmentUploadDone: () ->
-      @player.show(new UploadTranscodingView({}))
-      @trigger('upload:close')
-      @startPolling()
-
-    onAttachmentDestroyed: () ->
-      @collections.annotation.attachmentId = null
-      @collections.annotation.reset()
-      if @submission.get('current_user_can_attach') == true
-        @player.show(new UploadStartView({vent: @}))
       else
-        @player.show(new UploadNotAllowedView({vent: @}))
-      @annotator.close()
+        @annotator.close()
 
-    onAttachmentUploadFailed: () ->
-      @player.show(new UploadFailedView({}))
+      @listenTo(@submission,'change:has_video', () =>
+        @createAnnotatorView()
+      )
 
-    onAttachmentUploadStarted: () ->
-      @player.show(new UploadStartedView({}))
+    onVideoDestroyed: () ->
+      @collections.annotation.videoId = null
+      @collections.annotation.reset()
+
 
 

@@ -1070,7 +1070,7 @@ a.table--heading {
 
 .attachment-placeholder--message {
   @extend %attachment-placeholder--item;
-  @extend %white-video-button;
+  @extend %white-button;
 }
 
 // Annotations
@@ -2482,6 +2482,50 @@ a.table--heading {
   left: 0;
   z-index: 200;
 }
+
+
+// Player Slider
+// --------------------------------------------------------
+.player-curtain {
+  height: 21.9rem;
+  overflow-y: hidden;
+  position: relative;
+}
+
+.player-stage {
+  position: relative;
+}
+
+.player-scene {
+  height: 21.9rem;
+  width: 38.7rem;
+  overflow-y: hidden;
+  text-align: center;
+  background-color: $tealLightest;
+  position: absolute;
+  .text-input {
+    width: 25rem;
+    display: inline;
+    margin: 0;
+  }
+  .wrap {
+	p {
+	  margin-bottom: .8rem;
+	}
+	p + p {
+	  margin-top: .8rem;
+	}
+  }
+  .choice-button {
+    @extend %white-button;
+    display: inline-block;
+  }
+  .attachment-placeholder--button {
+	margin-top: 0;
+
+  }
+}
+
 
 //
 //// Charts

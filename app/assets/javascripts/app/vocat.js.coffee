@@ -39,6 +39,7 @@ define (require) ->
       'rubrics/:rubric/edit': 'editWithoutCourse'
     }
     submission: {
+      'courses/:course/users/creator/:creator/project/:project': 'creatorProjectDetail'
       'courses/:course/view/project/:project': 'creatorProjectDetail'
     }
   }

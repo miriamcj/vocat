@@ -1,29 +1,40 @@
-define ['backbone', 'models/attachment', 'models/evaluation'], (Backbone, Attachment, EvaluationModel) ->
+define (require) ->
+
+  Backbone = require('backbone')
+  VideoModel = require('models/video')
+  EvaluationModel = require('models/evaluation')
 
   class SubmissionModel extends Backbone.Model
 
     urlRoot: () ->
       '/api/v1/submissions'
 
+    updateUrl: () ->
+      "#{@urlRoot()}/#{@id}"
+
     paramRoot: 'submission'
 
     requestTranscoding: () ->
 
     canBeAnnotated: () ->
-      @get('current_user_can_annotate') == true && @get('has_transcoded_attachment') == true
+      @get('current_user_can_annotate') == true && @get('has_video') == true
+
+    destroyVideo: () ->
+      @video.destroy()
+      @set('has_video',false)
 
     toJSON: () ->
       json = super()
-      if @attachment?
-        json.attachment = @attachment.toJSON()
+      if @video
+        json.video= @video.toJSON()
       else
-        json.attachment = null
+        json.video = null
       json
 
-    updateAttachment: () ->
-      rawAttachment = @.get('attachment')
-      if rawAttachment?
-        @attachment = new Attachment(rawAttachment)
+    updateVideo: () ->
+      rawVideo = @.get('video')
+      if rawVideo?
+        @video = new VideoModel(rawVideo)
 
     publishEvaluation: () ->
       evaluationData = @.get('current_user_evaluation')
@@ -46,7 +57,7 @@ define ['backbone', 'models/attachment', 'models/evaluation'], (Backbone, Attach
           @publishEvaluation()
 
     initialize: () ->
-      @listenTo(@, 'change:attachment', () =>
-        @updateAttachment()
+      @listenTo(@, 'change:video', () =>
+        @updateVideo()
       )
-      @updateAttachment()
+      @updateVideo()

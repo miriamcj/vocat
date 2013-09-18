@@ -16,6 +16,7 @@ Vocat::Application.routes.draw do
       resources :discussion_posts, :except => [:new, :edit]
       resources :evaluations, :except => [:new, :edit]
       resources :submissions, :only => [:index]
+      resources :videos, :only => [:destroy, :create, :show]
 
       resources :courses do
 
@@ -65,6 +66,7 @@ Vocat::Application.routes.draw do
     match 'groups/evaluations/(/creator/:creator_id)(/project/:project_id)' => 'courses/evaluations#course_map', :via => :get, :as => 'group_evaluations'
     match 'users/evaluations(/creator/:creator_id)(/project/:project_id)' => 'courses/evaluations#course_map', :via => :get, :as => 'user_evaluations'
 
+    match 'users/creator/:creator_id/project/:project_id' => 'courses/evaluations#user_creator_project_detail', :via => :get, :as => 'user_creator_project_detail'
     match 'users/project/:project_id' => 'courses/evaluations#user_project_detail', :via => :get, :as => 'user_project_detail'
     match 'groups/project/:project_id' => 'courses/evaluations#user_project_detail', :via => :get, :as => 'groups_project_detail'
 

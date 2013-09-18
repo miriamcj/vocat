@@ -65,15 +65,21 @@ class Api::V1::SubmissionsController < ApiController
 
   # PUT /api/v1/submissions/:id.json
   def update
-	  @submission.update_attributes(params[:submission])
+    filtered_params = update_params
+	  @submission.update_attributes!(filtered_params)
 	  respond_with(@submission)
-
   end
 
   # DELETE /api/v1/submissions/:id
   def destroy
 	  @submission.destroy
 	  respond_with(@submission)
+  end
+
+  private
+
+  def update_params
+    params.permit(:name, video_attributes: [ :source, :source_id])
   end
 
 end

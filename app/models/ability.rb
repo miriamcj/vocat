@@ -124,12 +124,12 @@ class Ability
 
     # TODO: Write spec
     can :create, Annotation do |annotation|
-      can?(:annotate, annotation.attachment.fileable)
+      true
     end
 
     # TODO: Write spec
     can :read, Annotation do |annotation|
-      can?(:read, annotation.attachment.fileable)
+      true
     end
 
     # TODO: Write spec
