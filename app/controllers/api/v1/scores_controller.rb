@@ -7,7 +7,8 @@ class Api::V1::ScoresController < ApiController
     project = Project.find(params[:project_id]) unless params[:project_id].blank?
 
     if project
-      @evaluations = project.published_evaluations.includes(:submission)
+      # For now, scope this to the current user's scores.
+      @evaluations = project.published_evaluations.created_by(current_user).includes(:submission)
     else
       @evaluations = nil
     end
