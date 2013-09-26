@@ -7,4 +7,12 @@ namespace :db do
     tables.delete "schema_migrations"
     tables.each { |t| conn.execute("TRUNCATE \"#{t}\"") }
   end
+
+  desc "Truncate all tables and reseed"
+  task :reseed => :environment do
+    Rake::Task['db:truncate'].invoke
+    Rake::Task['db:seed'].invoke
+
+  end
+
 end

@@ -147,7 +147,7 @@ courses.each do |course|
 
   # Create some groups
   rand(1..5).times do |x|
-    name = "Group #{x}"
+    name = "Group ##{x + 1}"
     group = course.groups.create(:name => name)
     group.creators << course.creators[8..10]
     group.save
