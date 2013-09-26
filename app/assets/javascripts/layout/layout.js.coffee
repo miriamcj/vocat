@@ -1,4 +1,4 @@
-define ['jquery_rails', './plugins'], ($) ->
+define ['jquery_rails', './plugins', 'vendor/plugins/chosen'], ($) ->
 
   {
     bootstrap: () ->
@@ -25,5 +25,7 @@ define ['jquery_rails', './plugins'], ($) ->
         #$('[data-behavior="sticky-header"]').stickyHeader()
         $('[data-behavior="shortcut-nav-toggle"]').shortcutNavigation()
         $('[data-behavior="help-overlay-toggle"]').helpOverlay()
-
+        $('[data-behavior="chosen"]').chosen({
+          disable_search_threshold: 1000
+        })
   }

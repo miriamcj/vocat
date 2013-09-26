@@ -9,6 +9,7 @@ requirejs.config {
     'vendor/plugins/file_upload': ['jquery_rails']
     'vendor/plugins/autosize': ['jquery_rails']
     'vendor/plugins/waypoints': ['jquery_rails']
+    'vendor/plugins/chosen': ['jquery_rails']
     'vendor/dc/dc': {
       deps: ['vendor/crossfilter/crossfilter', 'vendor/d3/d3.v3.min'],
       exports: 'dc'
