@@ -146,10 +146,12 @@ courses.each do |course|
 
 
   # Create some groups
-  rand(1..5).times do |x|
+  group_count = rand(1..5)
+  group_count.times do |x|
     name = "Group ##{x + 1}"
     group = course.groups.create(:name => name)
-    group.creators << course.creators[8..10]
+    per_group = (course.creators.count / group_count).floor
+    group.creators << course.creators.sample(per_group)
     group.save
   end
 
