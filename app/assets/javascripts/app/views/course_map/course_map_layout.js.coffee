@@ -211,6 +211,7 @@ define [
       creatorsHeight = @creators.$el.outerHeight()
       minHeight = if creatorsHeight > viewportHeight then creatorsHeight else viewportHeight
       @ui.overlay.css({top: '8rem', position: 'absolute', minHeight: minHeight})
+      @$el.find('.matrix').addClass('matrix--overlay-open')
       if !@ui.overlay.is(':visible')
         @ui.overlay.fadeIn(250, () =>
           @scrollToHeader()
@@ -228,6 +229,7 @@ define [
     onCloseOverlay: (args) ->
       @matrix.$el.css({visibility: 'visible'})
       @setActive({})
+      @$el.find('.matrix').removeClass('matrix--overlay-open')
 
       @$el.find('.matrix--controls a').css(visibility: 'visible')
 

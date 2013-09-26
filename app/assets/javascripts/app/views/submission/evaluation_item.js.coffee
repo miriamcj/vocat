@@ -25,7 +25,6 @@ define ['marionette', 'hbs!templates/submission/evaluation_item', 'vendor/plugin
       # the slide will have the correct height to animate.
       @ui.toggleTarget.height(@ui.toggleTarget.height()).hide()
 
-
     onHelpShow: (event) ->
       target = $(event.currentTarget)
       Vocat.vent.trigger('help:show',{
@@ -39,7 +38,6 @@ define ['marionette', 'hbs!templates/submission/evaluation_item', 'vendor/plugin
     onHelpHide: (event) ->
       target = $(event.currentTarget)
       Vocat.vent.trigger('help:hide',{on: target, key: target.attr('data-help')})
-
 
     onDetailToggle: () ->
       if @ui.toggleTarget.is(':visible')
@@ -57,10 +55,6 @@ define ['marionette', 'hbs!templates/submission/evaluation_item', 'vendor/plugin
     initialize: (options) ->
       @vent = options.vent
       @rubric = options.rubric
-
-      @listenTo(@vent,'rendered', () ->
-        alert('parent rendered')
-      )
 
     serializeData: () ->
       out = @model.toJSON()

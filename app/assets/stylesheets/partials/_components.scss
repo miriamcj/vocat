@@ -1640,9 +1640,6 @@ a.table--heading {
   float: left;
   position: relative;
   z-index: 310;
-  .matrix--overlay-open & {
-    background-color: $tealLighter;
-  }
 }
 
 %matrix--controls--item {
@@ -1761,6 +1758,7 @@ a.table--heading {
   li {
     @extend %matrix--tall;
     @extend %shaded-inside-right;
+    @include transition(0.25s opacity ease-out);
     display: table;
     width: 100%;
     background-color: $beigeAlt;
@@ -1796,26 +1794,6 @@ a.table--heading {
         }
       }
     }
-    // These background colors are one-offs, unworthy of variables
-    .matrix--overlay-open & {
-      @include opacity(50);
-      background-color: #c4c0c0;
-      &:nth-child(even) {
-        background-color: #ccc8c8;
-      }
-      &:hover {
-        a {
-          color: $white;
-        }
-      }
-      &.active {
-        @include opacity(100);
-        background-color: $tealLightest;
-        a {
-          color: $white;
-        }
-      }
-    }
     .highlightable & {
       &:hover,
       &.selected,
@@ -1824,6 +1802,14 @@ a.table--heading {
         a {
           color: $orange;
         }
+      }
+    }
+    .matrix--overlay-open & {
+      @include transition(0);
+      @include opacity(50);
+      &:hover,
+      &.active {
+        @include opacity(100);
       }
     }
   }
