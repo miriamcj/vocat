@@ -24,7 +24,7 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   width: 100%;
-  background-color: $grayDarker;
+  background-color: $beigeLight;
   border-radius: 0 0 $radius $radius;
 }
 .chosen-container.chosen-with-drop .chosen-drop {
@@ -37,13 +37,12 @@
 /* @end */
 /* @group Single Chosen */
 .chosen-container-single .chosen-single {
-  @extend %shaded-inside-bottom;
   display: block;
   height: 3.2rem;
-  color: $grayLighter;
+  color: $grayDark;
   line-height: 3.2rem;
   text-decoration: none;
-  background-color: $grayDarker;
+  background-color: $beigeLight;
   padding: 0 0 0 1.1rem;
   border-radius: $radius;
   overflow: hidden;
@@ -66,14 +65,13 @@
   height: 100%;
 }
 .chosen-container-single .chosen-single div b {
-  @include svg(arrow-down-gray);
+  @include svg(arrow-down-grayDark);
   display: block;
   width: 100%;
   height: 0.9rem;
   margin: 1.15rem 0;
 }
 .chosen-container-single .chosen-drop {
-  @extend %shaded-inside-bottom;
   margin-top: -1px;
   background-clip: padding-box;
 }
@@ -99,7 +97,7 @@
   padding: 0.5rem 0;
   list-style: none;
   line-height: 1;
-  color: $grayLighter;
+  color: $grayDark;
 }
 .chosen-container .chosen-results li.active-result {
   display: list-item;
@@ -115,7 +113,7 @@
 .chosen-container .chosen-results li.group-result {
   @extend %heading-epsilon;
   display: list-item;
-  color: $gray;
+  color: $grayLight;
   cursor: default;
 }
 .chosen-container .chosen-results li em {
