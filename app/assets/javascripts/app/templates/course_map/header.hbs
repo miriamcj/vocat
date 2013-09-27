@@ -1,46 +1,37 @@
 <a href="#" class="matrix--overlay-header-close" data-behavior="overlay-close">Close</a>
 <div class="matrix--overlay-header-wrapper">
+
 	{{#if activeCreator}}
-	<h2 class="matrix--overlay-header-title">{{creator.name}}</h2>{{#if project.name}}<h3 class="matrix--overlay-header-subtitle">{{project.name}}</h3>{{/if}}
-	{{else}}
-	<h2 class="matrix--overlay-header-title">{{project.name}}</h2>
+	<h2 class="matrix--overlay-header-title">{{creator.name}}</h2>
+	{{/if}}
+
+	{{#if project}}
+	<nav class="matrix--overlay-header-selector-inline"  data-behavior="dropdown">
+		{{#if activeCreator}}
+		<h2 data-behavior="toggle" class="matrix--overlay-header-subtitle">{{../project.name}}<span></span></h2>
+		{{else}}
+		<h2 data-behavior="toggle" class="matrix--overlay-header-title">{{../project.name}}<span></span></h2>
+		{{/if}}
+		<div class="project-selector--dropdown" data-behavior="dropdown-options">
+			<ul>
+				{{#each projects}}
+					{{#unless active}}
+					<li>
+						{{#if ../../activeCreator}}
+							{{#if ../../../creatorIsGroup}}
+							<a data-behavior="routable" href="/courses/{{course_id}}/groups/evaluations/creator/{{../../../../creator.id}}/project/{{id}}"><strong>{{name}}</strong></a>
+							{{else}}
+							<a data-behavior="routable" href="/courses/{{course_id}}/users/evaluations/creator/{{../../../../creator.id}}/project/{{id}}"><strong>{{name}}</strong></a>
+							{{/if}}
+						{{else}}
+							<a data-behavior="routable" href="/courses/{{course_id}}/users/evaluations/project/{{id}}"><strong>{{../../name}}</strong></a>
+						{{/if}}
+					</li>
+					{{/unless}}
+				{{/each}}
+			</ul>
+		</div>
+	</nav>
 	{{/if}}
 </div>
-<nav class="matrix--overlay-header-selector" data-behavior="dropdown">
-  <a class="project-selector--toggle" data-behavior="toggle" href="#">
-      {{#if activeCreator}}
-        {{creator.first_name}}'s submissions
-      {{else}}
-        {{#if project.id}}
-          View submissions
-        {{/if}}
-      {{/if}}
-  </a>
-  <div class="project-selector--dropdown" data-behavior="dropdown-options">
-    <ul>
-      {{#if activeCreator}}
-        {{#each ../projects}}
-	        <li>
-	        {{#if creatorIsGroup}}
-		        <a data-behavior="routable" href="/courses/{{course_id}}/groups/evaluations/creator/{{../../creator.id}}/project/{{id}}"><strong>{{name}}</strong></a>
-	        {{else}}
-		        <a data-behavior="routable" href="/courses/{{course_id}}/users/evaluations/creator/{{../../creator.id}}/project/{{id}}"><strong>{{name}}</strong></a>
-	        {{/if}}
-	        </li>
-        {{/each}}
-      {{else}}
-        {{#if ../project.id}}
-          {{#each ../../creators}}
-	          <li>
-					  {{#if creatorIsGroup}}
-		          <a data-behavior="routable" href="/courses/{{../../project.course_id}}/groups/evaluations/creator/{{this.id}}/project/{{../../../project.id}}"><strong>{{this.name}}</strong></a>
-					  {{else}}
-		          <a data-behavior="routable" href="/courses/{{../../project.course_id}}/users/evaluations/creator/{{this.id}}/project/{{../../../project.id}}"><strong>{{this.name}}</strong></a>
-					  {{/if}}
-	          </li>
-          {{/each}}
-        {{/if}}
-      {{/if}}
-    </ul>
-  </div>
-</nav>
+

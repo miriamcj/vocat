@@ -13,6 +13,7 @@ define ['vendor/plugins/waypoints', 'jquery_rails'], (waypoints, $) ->
         if !$container.hasClass('dropdown-initialized')
           $container.addClass('dropdown-initialized')
           $toggle = $container.find('[data-behavior="toggle"]')
+          $toggle.css({cursor: 'pointer'})
           $(document).click( ->
             $container.removeClass('open')
           )
