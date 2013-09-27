@@ -57,5 +57,9 @@ define [
       if @collections.group.getActive()? then context.creator = @collections.group.getActive().toJSON()
       if @collections.user.getActive()? then context.creator = @collections.user.getActive().toJSON()
       if context.creator != null then context.activeCreator = true else context.activeCreator = false
-      if @collections.project.getActive()? then context.project = @collections.project.getActive().toJSON()
+      if @collections.project.getActive()?
+        context.project = @collections.project.getActive().toJSON()
+        _.each context.projects, (project, index) ->
+          if project.id == context.project.id then context.projects[index].active = true
+      console.log context
       context

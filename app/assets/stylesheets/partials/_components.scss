@@ -1696,8 +1696,6 @@ a.table--heading {
 
 // Wraps .matrix--overlay-header-title & .matrix--overlay-header-subtitle
 .matrix--overlay-header-wrapper {
-  width: 46rem;
-  overflow: hidden;
 }
 
 .matrix--overlay-header-title {
@@ -1710,6 +1708,7 @@ a.table--heading {
 }
 
 .matrix--overlay-header-subtitle {
+  cursor: pointer;
   @extend %alpha;
   @extend %truncated;
   @include font-head;
@@ -1722,10 +1721,25 @@ a.table--heading {
   margin: 0.8rem 0;
 }
 
+
+.matrix--overlay-header-selector-inline {
+  & .matrix--overlay-header-subtitle, & .matrix--overlay-header-title {
+	padding-right: 2.3rem;
+	background: transparent inline-image('svg/arrow-down-gray.svg') no-repeat left top;
+	background-size: 1.6rem 1.6rem;
+	background-position: right center;
+  }
+}
+
 .matrix--overlay-header-selector {
   position: absolute;
   top: 2.4rem;
   right: 3.2rem;
+}
+
+.matrix--overlay-header-selector-inline {
+  float: left;
+  position: relative;
 }
 
 // Row header
