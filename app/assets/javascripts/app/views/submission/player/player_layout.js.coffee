@@ -14,7 +14,7 @@ define (require) ->
       playerMain: '[data-region="player-main"]'
     }
 
-    onRender: () ->
+    onShow: () ->
       @selectView()
 
     selectView: () ->

@@ -1,0 +1,8 @@
+WEBVTT
+<% @video.annotations.each_with_index do |annotation, index| %>
+
+<%= index + 1 %>
+<%= annotation.start_timecode %> --> <%= annotation.end_timecode %>
+<%= annotation.body %>
+
+<% end %>

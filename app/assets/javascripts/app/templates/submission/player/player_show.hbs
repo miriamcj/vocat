@@ -5,15 +5,10 @@
     <a href="#" data-behavior="destroy" class="box--minus-link">Delete Video</a>
     {{/if}}
   </header>
-	{{#if is_attachment}}
-	<video height="219" width="390" data-behavior="video-player" controls>
-		<source src="{{attachment_url}}">
+
+	<video height="219" id="video-player" width="390" data-behavior="video-player"
+	class="video-js vjs-default-skin" controls preload="auto" >
+    <source src="{{source_details.url}}" type="{{source_details.mime}}" />
+    <track kind="captions" src="/api/v1/videos/{{id}}.txt" srclang="en" label="English" default>
 	</video>
-	{{/if}}
-	{{#if is_youtube}}
-	<div style="width: 390px; height: 219px" data-behavior="video-player"></div>
-	{{/if}}
-	{{#if is_vimeo}}
-	<div style="width: 390px; height: 219px"  data-behavior="video-player"></div>
-	{{/if}}
 </div>

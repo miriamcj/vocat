@@ -51,27 +51,18 @@ define (require) ->
       @player.currentTime(options.seconds)
 
     instantiatePlayer: (@video) ->
-      source = @video.get('source')
+      console.log @video.id,'id'
+      sourceDetails = @video.getSourceDetails()
       domTarget = @ui.player[0]
-      switch source
-        when 'youtube'
-          url = "http://www.youtube.com/watch?v=#{@video.get('source_id')}"
-          pop = Popcorn.youtube(
-            domTarget,
-            url
-          )
-        when 'vimeo'
-          url = "http://player.vimeo.com/video/#{@video.get('source_id')}"
-          pop = Popcorn.vimeo(
-            domTarget,
-            url
-          )
-        when 'attachment'
-          pop = Popcorn(domTarget)
-      @player = pop
+      options = {
+        techOrder: [sourceDetails.key]
+        src: sourceDetails.url
+      }
+      @player = videojs(domTarget, options, () ->
+      )
 
     onClose: () ->
-#      @player.destroy()
+      @player.dispose()
 
     initializePlayerEvents: () ->
       if @player? && @vent?
@@ -80,11 +71,10 @@ define (require) ->
         , 500
         )
 
-    onRender: () ->
+    onShow: () ->
       if @video
         @instantiatePlayer(@video)
         @initializePlayerEvents()
-
 
     onPlayerBroadcastRequest: () ->
       @vent.trigger('player:broadcast:response', {
@@ -93,6 +83,7 @@ define (require) ->
 
     serializeData: () ->
       out = @video.toJSON()
+      out.source_details = @model.video.getSourceDetails()
       out.current_user_can_attach = @model.get('current_user_can_attach')
       out.is_youtube = @video.get('source') == 'youtube'
       out.is_vimeo = @video.get('source') == 'vimeo'
