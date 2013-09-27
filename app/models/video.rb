@@ -1,6 +1,6 @@
 class Video < ActiveRecord::Base
 
-  has_one :attachment, :as => :fileable, :dependent => :destroy
+  has_one :attachment, :as => :fileable
   belongs_to :submission
   has_many :annotations, :dependent => :destroy
 
