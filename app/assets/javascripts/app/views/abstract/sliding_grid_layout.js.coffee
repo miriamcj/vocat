@@ -73,10 +73,12 @@ define [
         container.find('ul').width(@sliderContainerWidth)
         _.each container.find('.matrix--cell, ul.matrix--column-header--list li'), (el, index) =>
           index = $(el).index()
+          # For some unknown reason, using outerWidth here instead of CSS fails. A hook in jquery
+          # styles method (cssHooks) was changing the value before it was set on the element. Not sure why.
           if (index + 1) % @sliderVisibleColumns == 0
-            $(el).outerWidth(@sliderColumnWidth + @sliderModulus)
+            $(el).css({width: @sliderColumnWidth + @sliderModulus})
           else
-            $(el).outerWidth(@sliderColumnWidth)
+            $(el).css({width: @sliderColumnWidth})
 
         if @sliderPositionLeft
           @$el.find('[data-behavior="matrix-slider"] ul').css('left', @sliderPositionLeft)
