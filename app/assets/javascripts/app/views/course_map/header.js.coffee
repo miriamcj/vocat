@@ -61,5 +61,4 @@ define [
         context.project = @collections.project.getActive().toJSON()
         _.each context.projects, (project, index) ->
           if project.id == context.project.id then context.projects[index].active = true
-      console.log context
       context

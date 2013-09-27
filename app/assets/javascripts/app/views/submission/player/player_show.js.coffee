@@ -51,7 +51,6 @@ define (require) ->
       @player.currentTime(options.seconds)
 
     instantiatePlayer: (@video) ->
-      console.log @video.id,'id'
       sourceDetails = @video.getSourceDetails()
       domTarget = @ui.player[0]
       options = {

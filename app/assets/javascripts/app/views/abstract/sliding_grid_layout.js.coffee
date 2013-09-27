@@ -71,7 +71,6 @@ define [
           multiplier = Math.floor(@sliderColumnCount / @sliderVisibleColumns)
           @sliderContainerWidth += multiplier * @sliderModulus
         container.find('ul').width(@sliderContainerWidth)
-        #@debug()
         _.each container.find('.matrix--cell, ul.matrix--column-header--list li'), (el, index) =>
           index = $(el).index()
           if (index + 1) % @sliderVisibleColumns == 0
@@ -86,7 +85,6 @@ define [
           @slide('backward')
 
         @updateSliderControls()
-
 
     updateSliderControls: () ->
       if @sliderPosition == 0
@@ -117,7 +115,9 @@ define [
           travel += @sliderModulus
 
         newLeft = @sliderPositionLeft + travel
-        @$el.find('[data-behavior="matrix-slider"] ul').css('left', newLeft)
+
+        @$el.find('[data-behavior="matrix-slider"] ul').animate({left: newLeft}, 250)
+
         @sliderPosition = newPosition
         @sliderPositionLeft = newLeft
         @updateSliderControls()

@@ -214,10 +214,10 @@ define [
       @$el.find('.matrix').addClass('matrix--overlay-open')
       if !@ui.overlay.is(':visible')
         @ui.overlay.fadeIn(250, () =>
-          @scrollToHeader()
+          #@scrollToHeader()
         )
       else
-        @scrollToHeader(true)
+        #@scrollToHeader(true)
 
       if !@ui.header.is(':visible')
         @ui.header.fadeIn(250)
@@ -244,7 +244,7 @@ define [
       if @ui.overlay.is(':visible')
         @ui.overlay.fadeOut 250, () =>
           @overlay.close()
-          @scrollToTop()
+          #@scrollToTop()
 
 
 

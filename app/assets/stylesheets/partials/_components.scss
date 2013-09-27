@@ -1520,7 +1520,7 @@ a.table--heading {
   // margin-right: 0.1rem;
   overflow-x: hidden;
   ul {
-    @include transition(0.3s left ease-in-out);
+//    @include transition(0.3s left ease-in-out);
     position: relative;
   }
 }
