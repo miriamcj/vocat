@@ -1035,6 +1035,14 @@ a.table--heading {
 .attachment--media {
   display: block;
   width: 100%;
+
+  .player-container {
+    height: 290px;
+    .matrix--overlay & {
+      height: 218px;
+    }
+  }
+
 }
 
 // Attachment placeholder

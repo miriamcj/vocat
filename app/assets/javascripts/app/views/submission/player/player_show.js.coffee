@@ -14,6 +14,7 @@ define (require) ->
 
     ui: {
       player: '[data-behavior="video-player"]'
+      playerContainer: '.player-container'
     }
 
     onVideoDestroy: () ->
@@ -53,10 +54,17 @@ define (require) ->
     instantiatePlayer: (@video) ->
       sourceDetails = @video.getSourceDetails()
       domTarget = @ui.player[0]
+
+      w = @ui.playerContainer.outerWidth()
+      h = @ui.playerContainer.outerHeight()
+
       options = {
         techOrder: [sourceDetails.key]
         src: sourceDetails.url
+        width: w
+        height: h
       }
+
       @player = videojs(domTarget, options, () ->
       )
 
