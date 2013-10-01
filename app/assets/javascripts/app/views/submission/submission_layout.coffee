@@ -62,7 +62,7 @@ define (require) ->
         @children.annotator = new AnnotatorView({model: @submission, collection: @collections.annotation, vent: @})
         @annotator.show(@children.annotator)
 
-    onRender: () ->
+    onShow: () ->
       if @submission? && @submission.get('serialized_state') == 'full'
         @triggerMethod('submission:loaded')
       else
