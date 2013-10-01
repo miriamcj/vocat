@@ -178,21 +178,22 @@ courses.each do |course|
           {source: 'youtube', source_id: 'NfMCeidJ8bg'},
           {source: 'youtube', source_id: 'TBzHphcc2Jw'},
           {source: 'vimeo', source_id: '66471154', thumbnail_url: 'http://b.vimeocdn.com/ts/437/900/437900494_640.jpg'},
-          {source: 'vimeo', source_id: '74472983', thumbnail_url: 'http://b.vimeocdn.com/ts/448/857/448857514_640.jpg'},
           {source: 'vimeo', source_id: '64322426', thumbnail_url: 'http://b.vimeocdn.com/ts/434/926/434926549_640.jpg'},
           {source: 'vimeo', source_id: '32379764', thumbnail_url: 'http://b.vimeocdn.com/ts/219/017/219017272_640.jpg'},
           {source: 'vimeo', source_id: '45533199', thumbnail_url: 'http://b.vimeocdn.com/ts/316/703/316703562_640.jpg'},
           {source: 'vimeo', source_id: '67871488', thumbnail_url: 'http://b.vimeocdn.com/ts/440/491/440491684_640.jpg'}
         ]
 
-        video = Video.create(videos.sample)
-        submission.video = video
-
-        #if submission.id
-        #  insert = "INSERT INTO attachments (media_file_name, media_content_type, media_file_size, media_updated_at, transcoding_status, created_at, updated_at, fileable_id, fileable_type) "
-        #  values = "VALUES ('clipped_lebowski.avi', 'video/avi', '26709588', '2013-09-13 23:04:37', '#{Attachment::TRANSCODING_STATUS_SUCCESS}', '2013-09-13 23:04:37', '2013-09-13 23:04:37', '#{submission.id}', 'Submission')"
-        #  ActiveRecord::Base.connection.execute "#{insert}#{values}"
-        #end
+        if rand > 0.3
+          video = Video.create(videos.sample)
+          submission.video = video
+        else
+          video = Video.create({source: 'attachment'})
+          insert = "INSERT INTO attachments (media_file_name, media_content_type, media_file_size, media_updated_at, transcoding_status, created_at, updated_at, fileable_id, fileable_type)"
+          values = "VALUES ('clipped_lebowski.avi', 'video/avi', '26709588', '2013-09-27 17:32:04', '1', '2013-09-27 17:32:04', '2013-09-27 17:32:04', '#{video.id}', 'Video')"
+          ActiveRecord::Base.connection.execute "#{insert} #{values}"
+          submission.video = video
+        end
         submission.save!
 
         # Some submitted projects have been evaluated
