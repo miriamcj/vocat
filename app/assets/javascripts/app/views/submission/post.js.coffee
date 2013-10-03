@@ -10,15 +10,10 @@ define [
 
     itemViewContainer: '[data-behavior="post-container"]'
 
-    triggers:
-      'click [data-behavior="post-save"]': 'post:save'
-      'click [data-behavior="toggle-reply"]': 'reply:toggle'
-      'click [data-behavior="toggle-delete-confirm"]': 'confirm:delete:toggle'
-      'click [data-behavior="delete"]': 'post:delete'
-
     tagName: 'li'
 
     initialize: (options) ->
+      @initializeFlash()
       @allPosts = options.allPosts
       @submission = options.submission
       @vent = options.vent

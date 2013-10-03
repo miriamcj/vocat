@@ -21,7 +21,8 @@ define [
       if lifetime? && lifetime != false && lifetime > 1000 then @lifetime = @model.get('lifetime')
 
     onClose: ->
-      @$el.fadeOut({
+      @$el.slideUp({
+        duration: 250
         done: () =>
           @model.destroy()
       })
@@ -36,8 +37,7 @@ define [
       else
         @$el.fadeIn()
 
-      if @model.get('level') != 'error'
-        setTimeout( () =>
-          @onClose()
-        , @lifetime
-        )
+      setTimeout( () =>
+        @onClose()
+      , @lifetime
+      )

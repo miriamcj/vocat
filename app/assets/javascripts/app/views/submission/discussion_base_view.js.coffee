@@ -1,7 +1,7 @@
 define [
-  'marionette', 'hbs!templates/submission/discussion', 'collections/discussion_post_collection', 'models/discussion_post'
+  'marionette', 'hbs!templates/submission/discussion', 'collections/discussion_post_collection', 'models/discussion_post', 'views/flash/flash_messages'
 ], (
-  Marionette, template, DiscussionPostCollection, DiscussionPostModel
+  Marionette, template, DiscussionPostCollection, DiscussionPostModel, FlashMessagesView
 ) ->
 
   class DiscussionView extends Marionette.CompositeView
@@ -9,12 +9,26 @@ define [
     ui:
       bodyInput: '[data-behavior="post-input"]'
       inputToggle: '[data-behavior="input-container"]'
+      flashContainer: '[data-container="flash"]'
+
+    triggers:
+      'click [data-behavior="post-save"]': 'post:save'
+      'click [data-behavior="toggle-reply"]': 'reply:toggle'
+      'click [data-behavior="toggle-delete-confirm"]': 'confirm:delete:toggle'
+      'click [data-behavior="delete"]': 'post:delete'
 
     itemViewOptions: () ->
       {
       allPosts: @allPosts
       submission: @submission
       }
+
+    onRender: () ->
+      @ui.flashContainer.append(@flash.$el)
+      @flash.render()
+
+    initializeFlash: () ->
+      @flash = new FlashMessagesView({vent: @, clearOnAdd: true})
 
     onPostSave: () ->
       if @model? then parent_id = @model.id else parent_id = null
@@ -24,14 +38,23 @@ define [
         published: true
         parent_id: parent_id
       })
-      # postInput.val('').trigger('autosize');
-      # TODO: Users should not be able to save empty posts.
+
+      postInput.val('').trigger('autosize');
+
+      @listenTo(post, 'invalid', (model, errors) =>
+        @trigger('error:add', {level: 'error', lifetime: 5000, msg: errors})
+      )
+
       post.save({},{
         success: (post) =>
           @collection.add(post)
           @allPosts.add(post)
           @resetInput()
+        error: (model, error) =>
       })
+
+    initialize: (options) ->
+      @vent = options.vent
 
     onReplyClear: () ->
       @ui.bodyInput.val('')

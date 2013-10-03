@@ -6,19 +6,14 @@ define [
 
   class DiscussionView extends DiscussionBaseView
 
-#    template: HBT["app/templates/evaluation_detail/discussion"]
-#    inputPartial:  HBT["app/templates/evaluation_detail/partials/post_input"]
-
     template: template
-
-    triggers:
-      'click [data-behavior="post-save"]': 'post:save'
 
     itemViewContainer: '[data-behavior="post-container"]'
     itemView: PostView
 
-
     initialize: (options) ->
+      @initializeFlash()
+      @vent = options.vent
       @submission = options.submission
       @collection = new DiscussionPostCollection([],{})
       @allPosts = new DiscussionPostCollection([],{})
