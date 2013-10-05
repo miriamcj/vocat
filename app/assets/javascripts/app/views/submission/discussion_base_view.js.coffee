@@ -39,7 +39,8 @@ define [
         parent_id: parent_id
       })
 
-      postInput.val('').trigger('autosize');
+      # TODO: Fix post input autosizing
+      #postInput.val('').trigger('autosize');
 
       @listenTo(post, 'invalid', (model, errors) =>
         @trigger('error:add', {level: 'error', lifetime: 5000, msg: errors})
