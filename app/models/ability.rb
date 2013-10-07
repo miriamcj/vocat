@@ -175,6 +175,15 @@ class Ability
       user == rubric.owner
     end
 
+    can :new, Rubric do |rubric|
+      user.role?(:evaluator)
+    end
+
+    can :create, Rubric do |rubric|
+      user.role?(:evaluator)
+    end
+
+
     ######################################################
     # Evaluations
     ######################################################
@@ -187,6 +196,13 @@ class Ability
       evaluation.evaluator == user
     end
 
+    can :create, Evaluation do |evaluation|
+      can?(:evaluate, evaluation.submission)
+    end
+
+    can :new, Evaluation do |evaluation|
+      can?(:evaluate, evaluation.submission)
+    end
 
     ######################################################
     # Admins

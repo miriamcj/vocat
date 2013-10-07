@@ -2,7 +2,7 @@ class Api::V1::EvaluationsController < ApiController
 
   # GET /submissions.json
   load_and_authorize_resource :course
-  load_and_authorize_resource :evaluation
+  load_resource :evaluation
   respond_to :json
 
   def index

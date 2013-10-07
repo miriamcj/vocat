@@ -1,7 +1,7 @@
 class Courses::EvaluationsController < ApplicationController
 
 	load_and_authorize_resource :course
-	load_resource :project
+  load_and_authorize_resource :project
 	load_resource :user
 	respond_to :html
 
@@ -30,9 +30,8 @@ class Courses::EvaluationsController < ApplicationController
   def current_user_project
 	  factory = SubmissionFactory.new
 	  submissions = factory.creator_and_project(@current_user, @project)
-	  @project
 	  @submission = submissions[0]
-    authorize! :read, @submission
+    authorize! :show, @submission
   end
 
 end

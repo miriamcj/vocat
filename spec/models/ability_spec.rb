@@ -640,6 +640,8 @@ describe "Abilities" do
       context "if the current_user is the evaluator that owns it, she" do
         let ( :user ) { @evaluator_in_course_a }
         it { expect(user).to have_ability(@ability_aliases[:read_write_destroy], for: rubric) }
+        it { expect(user).to have_ability({new: true}, for: Rubric) }
+        it { expect(user).to have_ability({create: true}, for: Rubric) }
       end
       context "if the current_user is a creator, she" do
         let ( :user ) { @creator_in_course_a }
@@ -654,7 +656,7 @@ describe "Abilities" do
       end
       context "if the current_user is the evaluator that owns it, she" do
         let ( :user ) { @evaluator_in_course_a }
-        it { expect(user).to have_ability(@ability_aliases[:read_only], for: rubric) }
+        it { expect(user).to have_ability({index: true, show: true, edit: false, new: true, create: true, update: false, destroy: false}, for: rubric) }
       end
       context "if the current_user is a creator, she" do
         let ( :user ) { @creator_in_course_a }
@@ -682,6 +684,14 @@ describe "Abilities" do
       context "if current_user is another creator in the course, she" do
         let ( :user ) { @creator_in_course_b }
         it { expect(user).to have_ability(@ability_aliases[:forbidden], for: evaluation) }
+      end
+    end
+
+    context "when Evaluation is a new evaluation where evaluator == nil" do
+      let ( :evaluation ) { FactoryGirl.build(:evaluation, evaluator: nil, published: false, submission: @submission_for_first_project_in_course_a)}
+      context "if the current_user can evaluate the submission, she" do
+        let ( :user ) { @evaluator_in_course_a }
+        it { expect(user).to have_ability({new: true, create: true}, for: evaluation) }
       end
     end
 

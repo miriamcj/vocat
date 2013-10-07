@@ -13,9 +13,7 @@ class Api::V1::CoursesController < ApiController
   end
 
   def show
-    if current_user.can? :read, @course
-      respond_with @course
-    end
+    respond_with @course
   end
 
 
