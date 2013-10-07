@@ -6,9 +6,9 @@
 
 <%= javascript_include_tag '//use.typekit.net/dwf7ffn.js' %>
 <%= javascript_include_tag 'vendor/modernizr/modernizr-2.6.2' %>
-<%= javascript_include_tag 'vendor/video.js/video' %>
-<%= javascript_include_tag 'vendor/video.js/vjs.youtube' %>
-<%= javascript_include_tag 'vendor/video.js/vjs.vimeo' %>
+<%= javascript_include_tag 'vendor/video_js/video' %>
+<%= javascript_include_tag 'vendor/video_js/vjs.youtube' %>
+<%= javascript_include_tag 'vendor/video_js/vjs.vimeo' %>
 <% if Rails.env.development? %>
 <%= javascript_include_tag 'vendor/require/require', 'data-main' => '/assets/bootstrap' %>
 <% else %>
