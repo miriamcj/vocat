@@ -3,37 +3,54 @@ class Ability
 
   def initialize(user)
 
-    alias_action :new, :show, :index, :create, :read, :update, :destroy, :to => :crud
-    alias_action :new, :show, :index, :create, :read, :update, :to => :crud_sans_destroy
+    alias_action :show, :to => :show_only
+    alias_action :index, :show, :to => :read_only
+    alias_action :index, :show, :edit, :new, :create, :update, :to => :read_write
+    alias_action :index, :show, :edit, :new, :create, :update, :destroy, :to => :read_write_destroy
 
     user ||= User.new # guest user (not logged in)
+
+
+    ######################################################
+    ### Users
+    ######################################################
+
+    can [:read_write], User do |a_user|
+      user == a_user
+    end
 
     ######################################################
     ### Courses
     ######################################################
 
-    can [:read, :show], Course do |course|
-      true if course.role(user)
+    can [:read_only], Course do |course|
+      res =  course.role(user)
+      true if res
     end
 
-    can [:crud_sans_destroy], Course do |course|
-      course.role(user) == :evaluator || user.role?('administrator') || course.role(user) == :assistant
-    end
-
-    can [:crud], Course do |course|
-      course.role(user) == :evaluator || user.role?('administrator') || course.role(user) == :assistant
+    # Note that we are not currently allowing evaluators to destroy courses.
+    can [:read_write], Course do |course|
+      course.role(user) == :evaluator || course.role(user) == :assistant
     end
 
     can [:evaluate], Course do |course|
-      user.role?('administrator') || (can?(:read, course) && (user.role?(:evaluator) && course.evaluators.include?(user) || user.role?(:creator) && course.settings['enable_peer_review']))
+      course.role(user) == :evaluator || user.role?(:creator) && course.settings['enable_peer_review']
+    end
+
+    can [:show_submissions], Course do |course|
+      course.role(user) == :evaluator || can?(:read_only, course) && (can?(:evaluate, course) || course.settings['enable_public_discussion'])
     end
 
     ######################################################
     ### Projects
     ######################################################
 
-    can [:crud], Project do |project|
-      can?(:update, project.course)
+    can [:read_only], Project do |project|
+      can?(:read_only, project.course)
+    end
+
+    can [:read_write_destroy], Project do |project|
+      can?(:read_write, project.course)
     end
 
     can [:submit], Project do |project|
@@ -41,15 +58,21 @@ class Ability
     end
 
     ######################################################
-    ### Users
-    ######################################################
-
-
-    ######################################################
     ### Submissions
     ######################################################
+
     can :own, Submission do |submission|
-      submission.creator == user
+      (submission.creator_type == 'User' && submission.creator == user) ||
+          (submission.creator_type == 'Group' && can?(:belong_to, submission.creator))
+    end
+
+    can :read_write, Submission do |submission|
+      can?(:own, submission) || submission.project.course.role(user) == :evaluator
+    end
+
+    can :read_only, Submission do |submission|
+      # Enabling public discussion assumes that submissions are visible to users.
+      can?(:evaluate, submission.project.course) || submission.project.course.settings['enable_public_discussion'] && can?(:show, submission.project.course)
     end
 
     can :annotate, Submission do |submission|
@@ -57,10 +80,8 @@ class Ability
     end
 
     can :evaluate, Submission do |submission|
-      # CAN if the user can evaluate for the course and the user is not the creator of this submission
       can?(:evaluate, submission.project.course ) && submission.creator != user ||
-      # CAN if the course allows self evaluation and the user is the creator of this submission
-      submission.project.course .settings['enable_self_evaluation'] && submission.creator == user
+      submission.project.course.settings['enable_self_evaluation'] && submission.creator == user
     end
 
     can :attach, Submission do |submission|
@@ -72,47 +93,42 @@ class Ability
 			(can?(:own, submission) && submission.project.course.settings['enable_creator_attach'])
     end
 
-    can :read, Submission do |submission|
-      can?(:own, submission) || can?(:evaluate, submission.project.course)
-    end
-
-    can :update, Submission do |submission|
-      can?(:own, submission) || can?(:evaluate, submission.project.course)
-    end
-
     can :discuss, Submission do |submission|
-      (submission.project.course.role(user) == :evaluator && can?(:evaluate, submission)) || can?(:own, submission) || (submission.project.course.settings['enable_public_discussion'] && can?(:evaluate, submission))
+      (submission.project.course.role(user) == :evaluator && can?(:evaluate, submission)) || can?(:own, submission) || (submission.project.course.settings['enable_public_discussion'] && can?(:show, submission))
     end
 
     ######################################################
     ### Groups
     ######################################################
-    can :read, Group do |group|
+    can :read_only, Group do |group|
       group.course.role(user)
     end
 
-    can :crud, Group do |group|
+    can :read_write_destroy, Group do |group|
       group.course.role(user) == :evaluator || group.course.role(user) == :administrator
+    end
+
+    can :belong_to, Group do |group|
+      group.creators.include? user
     end
 
     ######################################################
     # Posts
     ######################################################
-    # TODO: Write spec
-    can :crud_sans_destroy, DiscussionPost do |discussionPost|
+    can :read_only, DiscussionPost do |discussionPost|
       can?(:discuss, discussionPost.submission)
-      true
     end
 
-    # TODO: Write spec
-    can :destroy, DiscussionPost do |discussionPost|
+    can :read_write, DiscussionPost do |discussionPost|
       course = discussionPost.submission.project.course
       course.role(user) == :evaluator || discussionPost.author == user
-      true
     end
 
-    # TODO: Write spec
-    # TODO: Write block
+    can :destroy, DiscussionPost do |discussionPost|
+      course = discussionPost.submission.project.course
+      course.role(user) == :evaluator
+    end
+
     can :reply, DiscussionPost do |discussionPost|
       true
     end
@@ -122,79 +138,64 @@ class Ability
     # Annotations
     ######################################################
 
-    # TODO: Write spec
+    can :read_only, Annotation do |annotation|
+      can?(:annotate, annotation.video.submission)
+    end
+
     can :create, Annotation do |annotation|
-      true
+      can?(:annotate, annotation.video.submission)
     end
 
-    # TODO: Write spec
-    can :read, Annotation do |annotation|
-      true
-    end
-
-    # TODO: Write spec
-    can :destroy, Annotation do |annotation|
-      user == annotation.author
+    can :read_write_destroy, Annotation do |annotation|
+      annotation.author == user || annotation.video.submission.project.course.role(user) == :evaluator
     end
 
     ######################################################
-    # Attachments
+    # Videos
     ######################################################
-    # TODO: Write spec
-    # TODO: Write block
-    can :create, Attachment do |attachment|
-      true
+
+    can :read_only, Video do |video|
+      can?(:show, video.submission)
     end
 
-    # TODO: Write spec
-    # TODO: Write block
-    can :read, Attachment do |attachment|
-      true
+    can :read_write_destroy, Video do |video|
+      can?(:attach, video.submission)
     end
-
-    # TODO: Write spec
-    # TODO: Write block
-    can :update, Attachment do |attachment|
-      true
-    end
-
-    can :destroy, Attachment do |attachment|
-      true
-    end
-
 
     ######################################################
     # Rubrics
     ######################################################
 
-    # TODO: Write spec
-    # TODO: Write block
-    can :manage, Rubric do |rubric|
+    # For now, assume that all rubrics are public
+    can :read_only, Rubric do |rubric|
       true
     end
 
-    ######################################################
-    # Admins can do anything they want.
-    ######################################################
-
-    # TODO: Write spec?
-    if user.role? :admin
-      can :manage, :all
+    can :read_write_destroy, Rubric do |rubric|
+      user == rubric.owner
     end
 
     ######################################################
     # Evaluations
     ######################################################
 
-    # TODO: Write spec
-    # TODO: Write block
-    can :manage, Evaluation do |evaluation|
-      true
+    can :read_only, Evaluation do |evaluation|
+      can?(:own, evaluation.submission) && evaluation.published == true || evaluation.submission.project.course.role(user) == :evaluator
+    end
+
+    can :read_write_destroy, Evaluation do |evaluation|
+      evaluation.evaluator == user
     end
 
 
-  end
+    ######################################################
+    # Admins
+    ######################################################
+    if user.role?(:administrator)
+      can :manage, :all
+    end
 
+  end
 end
 
 
