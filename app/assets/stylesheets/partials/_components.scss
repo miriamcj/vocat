@@ -701,7 +701,7 @@ a.table--heading {
 .light-radio-label {
   @extend %radio-label;
   // @extend %active-label;
-  padding: 0 0.5rem 0 2.4rem;
+  padding: 0 0 0 2.4rem;
   // &:hover,
   // &.active {
   //   .light-radio-label--text {
