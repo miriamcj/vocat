@@ -1269,7 +1269,7 @@ a.table--heading {
     margin-bottom: 1.6rem;
   }
   .range-input {
-    width: 87%;
+    width: 84%;
     height: 3.4rem;
     float: left;
   }
@@ -1277,7 +1277,7 @@ a.table--heading {
 
 .scoring-list--label {
   @extend %beta-alt;
-  width: 87%;
+  width: 84%;
   font-weight: $medium;
   text-align: right;
   color: $tealMedium;
@@ -1287,7 +1287,7 @@ a.table--heading {
 
 .scoring-list--total-label {
   @extend %heading-beta-alt;
-  width: 87%;
+  width: 84%;
   color: $tealMedium;
   text-align: right;
   padding: 1.7rem 0 1.8rem;
@@ -1295,7 +1295,7 @@ a.table--heading {
 }
 
 .scoring-list--output {
-  width: 13%;
+  width: 16%;
   padding-left: 1.2rem;
   float: left;
 }
