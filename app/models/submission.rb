@@ -111,70 +111,9 @@ class Submission < ActiveRecord::Base
     end
   end
 
-  #def video_attachment_id
-  #  if self.attachments.count() > 0
-  #    self.attachments.first().id
-  #  else
-  #    nil
-  #  end
-  #end
-
-  #def attachment
-  #  self.attachments.first()
-  #end
-
-  #def video
-  #  self.attachment
-  #end
-
-  #def video?
-  #  if video
-  #    true
-  #  else
-  #    false
-  #  end
-  #end
-
   def has_video?
-    if video.nil? then false else true end
+    !video.nil?
   end
-
-  #def has_video?
-  #  video?
-  #end
-
-  #def transcoding_error?
-  #  self.attachment && self.attachment.transcoding_error != nil ? true : false
-  #end
-
-  #def transcoding_in_progress?
-  #  attachment && attachment.transcoding_in_progress?
-  #end
-  #
-  #def transcoding_complete?
-  #  attachment && attachment.transcoding_complete?
-  #end
-  #
-  #def transcoded_attachment
-  #  self.attachments.where(:transcoding_status => Attachment::TRANSCODING_STATUS_SUCCESS).first
-  #end
-  #
-  #def transcoded_attachment?
-  #  self.transcoded_attachment != nil ? true : false
-  #end
-  #
-  #def uploaded_attachment?
-  #  self.attachments.count() > 0 ? true: false
-  #end
-
-  # DELETED!
-
-  #def url
-  #  if video?
-  #    return video.url
-  #  end
-  #end
-
 
   def evaluations_visible_to(user)
     role = course.role(user)

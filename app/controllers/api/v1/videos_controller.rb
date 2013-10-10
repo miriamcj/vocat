@@ -1,9 +1,7 @@
 class Api::V1::VideosController < ApplicationController
 
-  # TODO: Add authorization!!!!!!!!
-
   respond_to :json
-  respond_to :json, :vtt, :only => :show
+  respond_to :vtt, :only => :show
 
   def create
     myvar = create_params

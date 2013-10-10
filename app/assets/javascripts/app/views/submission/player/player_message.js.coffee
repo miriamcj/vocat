@@ -6,3 +6,11 @@ define (require) ->
   class PlayerMessage extends Marionette.Layout
 
     template: template
+
+    initialize: (options) ->
+      @message = options.message
+
+    serializeData: () ->
+      {
+        message: @message
+      }

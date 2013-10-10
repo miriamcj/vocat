@@ -7,6 +7,7 @@ class Video < ActiveRecord::Base
   delegate :url, :to => :attachment, :prefix => true, :allow_nil => true
   delegate :thumb, :to => :attachment, :prefix => true, :allow_nil => true
   delegate :transcoding_status, :to => :attachment, :prefix => true, :allow_nil => true
+  delegate :transcoding_error, :to => :attachment, :prefix => true, :allow_nil => true
 
   attr_accessible :source_id, :source_url, :source_key, :submission_id, :thumbnail_url
 
@@ -30,6 +31,28 @@ class Video < ActiveRecord::Base
 
   def self.count_by_course(course)
     Video.joins(:submission => :project).where(:projects => {:course_id => course.id}).count()
+  end
+
+  def state
+    if source == 'attachment'
+      if attachment && attachment.is_video?
+        if (attachment.transcoding_success? || attachment.transcoding_unnecessary?)
+          'ready'
+        elsif (attachment.transcoding_error?)
+          'transcoding_error'
+        else
+          'transcoding_busy'
+        end
+      else
+        if attachment.nil?
+          'no_attachment'
+        else
+          'invalid_attachment'
+        end
+      end
+    else
+      'ready'
+    end
   end
 
   def thumb

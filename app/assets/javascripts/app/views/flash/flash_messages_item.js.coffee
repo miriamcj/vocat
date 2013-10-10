@@ -37,7 +37,6 @@ define [
       else
         @$el.fadeIn()
 
-      console.log @lifetime, 'lifetime'
       setTimeout( () =>
         @onClose()
       , @lifetime

@@ -1,7 +1,6 @@
 requirejs.config {
   shim: {
-#    'vendor/jquery/jquery-with-rails-ujs': ['vendor/jquery/jquery']
-#    'jquery_ujs': ['jquery_rails']
+    'jquery_ujs': ['jquery']
     'vendor/ui/jquery_ui': ['jquery_rails']
     'vendor/plugins/smooth_scroll': ['jquery_rails']
     'vendor/plugins/simple_slider': ['jquery_rails']

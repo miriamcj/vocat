@@ -127,7 +127,6 @@ class Attachment < ActiveRecord::Base
     end
   end
 
-  # Determine if the transcoding is complete
   def transcoding_complete?
     self.transcoding_status == TRANSCODING_STATUS_SUCCESS ||
         self.transcoding_status == TRANSCODING_STATUS_UNNECESSARY ||
@@ -137,6 +136,27 @@ class Attachment < ActiveRecord::Base
   def transcoding_in_progress?
     self.transcoding_status == TRANSCODING_STATUS_BUSY
   end
+
+  def transcoding_not_started?
+    self.transcoding_status == TRANSCODING_STATUS_NOT_STARTED
+  end
+
+  def transcoding_error?
+    self.transcoding_status == TRANSCODING_STATUS_ERROR
+  end
+
+  def transcoding_unnecessary?
+    self.transcoding_status == TRANSCODING_STATUS_UNNECESSARY
+  end
+
+  def transcoding_busy?
+    self.transcoding_status == TRANSCODING_STATUS_BUSY
+  end
+
+  def transcoding_success?
+    self.transcoding_status == TRANSCODING_STATUS_SUCCESS
+  end
+
 
   protected
 
@@ -184,27 +204,6 @@ class Attachment < ActiveRecord::Base
 
     # Poll the job queue to see if the job is done yet
     Thread.new(options, job.data[:job][:id], &method(:listen_for_transcoding_completion))
-
-  end
-
-  def transcoding_not_started
-    self.transcoding_status == TRANSCODING_STATUS_NOT_STARTED
-  end
-
-  def transcoding_error
-    self.transcoding_status == TRANSCODING_STATUS_ERROR
-  end
-
-  def transcoding_unnecessary
-    self.transcoding_status == TRANSCODING_STATUS_UNNECESSARY
-  end
-
-  def transcoding_busy
-    self.transcoding_status == TRANSCODING_STATUS_BUSY
-  end
-
-  def transcoding_success
-    self.transcoding_status == TRANSCODING_STATUS_SUCCESS
   end
 
   # Polls the AWS job queue to see if the given
@@ -232,7 +231,7 @@ class Attachment < ActiveRecord::Base
     end
     unless finished_transcoding
       self.update_column(:transcoding_status, TRANSCODING_STATUS_ERROR)
-      self.update_column(:transcoding_error, "Transcoding took too long. Please upload a smaller video file.")
+      self.update_column(:transcoding_error, "Timeout")
     end
   end
 

@@ -19,8 +19,22 @@ define (require) ->
 
     selectView: () ->
       msg = ''
-      if @model.get('has_video') == true
-        view = PlayerShowView
+      if @model.get('has_video') && @model.video?
+        switch @model.video.get('state')
+          when 'ready'
+            view = PlayerShowView
+          when 'transconscoding_error'
+            view = PlayerMessageView
+            msg = "Transcoding Error: #{@model.video.get('attachment_transcoding_error')}"
+          when 'transcoding_busy'
+            view = PlayerMessageView
+            msg = "Transcoding in progress"
+          when 'no_attachment'
+            view = PlayerMessageView
+            msg = "Invalid attachment"
+          when 'invalid attachment'
+            view = PlayerMessageView
+            msg = "Invalid attachment"
       else if @model.get('current_user_can_attach')
         view = PlayerCreateView
         @playerMain.show new PlayerCreateView({vent: @, model: @model})

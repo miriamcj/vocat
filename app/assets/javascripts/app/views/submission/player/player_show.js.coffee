@@ -35,8 +35,7 @@ define (require) ->
       @vent = Marionette.getOption(@, 'vent')
 
       @video = @model.video
-
-      @listenTo(@model, 'change', (options) => @render())
+      @listenTo(@model, 'change:attachment_url', (options) => @render())
       @listenTo(@vent, 'player:stop', (options) => @onPlayerStop(options))
       @listenTo(@vent, 'player:start', (options) => @onPlayerStart(options))
       @listenTo(@vent, 'player:seek', (options) => @onPlayerSeek(options))

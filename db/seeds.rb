@@ -171,26 +171,28 @@ courses.each do |course|
         submission = project.submissions.create(:name => Faker::Lorem.words(rand(2..5)).map(&:capitalize).join(' '), :summary => Faker::Lorem.paragraph, :creator => course_creators[i] )
 
         videos = [
-          {source: 'youtube', source_id: 'kU0DwGEqfpU'},
-          {source: 'youtube', source_id: 'FJIqZ9OLbRY'},
-          {source: 'youtube', source_id: 'ND1X594F1wY'},
-          {source: 'youtube', source_id: 'ketb1jdUxTw'},
-          {source: 'youtube', source_id: 'NfMCeidJ8bg'},
-          {source: 'youtube', source_id: 'TBzHphcc2Jw'},
-          {source: 'vimeo', source_id: '66471154', thumbnail_url: 'http://b.vimeocdn.com/ts/437/900/437900494_640.jpg'},
-          {source: 'vimeo', source_id: '64322426', thumbnail_url: 'http://b.vimeocdn.com/ts/434/926/434926549_640.jpg'},
-          {source: 'vimeo', source_id: '32379764', thumbnail_url: 'http://b.vimeocdn.com/ts/219/017/219017272_640.jpg'},
-          {source: 'vimeo', source_id: '45533199', thumbnail_url: 'http://b.vimeocdn.com/ts/316/703/316703562_640.jpg'},
-          {source: 'vimeo', source_id: '67871488', thumbnail_url: 'http://b.vimeocdn.com/ts/440/491/440491684_640.jpg'}
-        ]
+          {source: 'youtube', source_id: 'nKiaBFZPagA'},
+          {source: 'vimeo', source_id: '11556174', thumbnail_url: 'http://b.vimeocdn.com/ts/637/318/63731816_640.jpg'},
+          {source: 'vimeo', source_id: '53940306', thumbnail_url: 'http://b.vimeocdn.com/ts/372/779/372779541_640.jpg'},
+          ]
 
-        if rand > 0.3
+        if rand < 0.25
           video = Video.create(videos.sample)
           submission.video = video
         else
           video = Video.create({source: 'attachment'})
+
+          video_values = [
+              "VALUES ('Group1.mp4', 'video/mp4', '578662', '2013-10-10 19:05:58.701673', '1', '2013-10-10 19:05:58.715676', '2013-10-10 19:05:58.715676', '#{video.id}', 'Video')",
+              "VALUES ('Group2.mp4', 'video/mp4', '542502', '2013-10-10 19:06:45.340138', '1', '2013-10-10 19:06:45.350228', '2013-10-10 19:06:45.350228', '#{video.id}', 'Video')",
+              "VALUES ('Group3.mp4', 'video/mp4', '26831392', '2013-10-10 19:08:01.476938', '1', '2013-10-10 19:08:01.487502', '2013-10-10 19:08:01.487502', '#{video.id}', 'Video')",
+              "VALUES ('Group4.mp4', 'video/mp4', '68927739', '2013-10-10 19:12:22.249417', '1', '2013-10-10 19:12:22.259783', '2013-10-10 19:12:22.259783', '#{video.id}', 'Video')",
+              "VALUES ('Individual1.mp4', 'video/mp4', '1666146', '2013-10-10 19:07:24.435093', '1', '2013-10-10 19:07:24.445765', '2013-10-10 19:07:24.445765', '#{video.id}', 'Video')",
+              "VALUES ('Individual2.mp4', 'video/mp4', '1154964', '2013-10-10 19:26:28.158349', '1', '2013-10-10 19:26:28.168958', '2013-10-10 19:26:28.168958', '#{video.id}', 'Video')",
+          ]
+
           insert = "INSERT INTO attachments (media_file_name, media_content_type, media_file_size, media_updated_at, transcoding_status, created_at, updated_at, fileable_id, fileable_type)"
-          values = "VALUES ('clipped_lebowski.avi', 'video/avi', '26709588', '2013-09-27 17:32:04', '1', '2013-09-27 17:32:04', '2013-09-27 17:32:04', '#{video.id}', 'Video')"
+          values = video_values.sample()
           ActiveRecord::Base.connection.execute "#{insert} #{values}"
           submission.video = video
         end
