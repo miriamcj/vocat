@@ -114,6 +114,10 @@ class Rubric < ActiveRecord::Base
     self.ranges.collect { |value| value['high'].to_i }.max
   end
 
+  def to_s
+    self.name
+  end
+
   private
 
   def get_cell_key(field, range)

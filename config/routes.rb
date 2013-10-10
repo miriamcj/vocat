@@ -69,7 +69,6 @@ Vocat::Application.routes.draw do
     match 'users/creator/:creator_id/project/:project_id' => 'courses/evaluations#user_creator_project_detail', :via => :get, :as => 'user_creator_project_detail'
     match 'users/project/:project_id' => 'courses/evaluations#user_project_detail', :via => :get, :as => 'user_project_detail'
     match 'groups/project/:project_id' => 'courses/evaluations#user_project_detail', :via => :get, :as => 'groups_project_detail'
-
     match 'view/project/:project_id' => 'courses/evaluations#current_user_project', :via => :get, :as => 'current_user_project'
 
   end
@@ -77,7 +76,10 @@ Vocat::Application.routes.draw do
   resources :rubrics, :controller => 'courses/manage/rubrics', :only => [:index, :show, :new, :edit, :destroy]
 
   get '/admin' => 'admin/dashboard#index', :as => 'admin_root'
-  match '/' => 'portfolio#index', :as => 'portfolio'
+  match '/' => 'dashboard#index', :as => 'dashboard'
+  match '/dashboard/evaluator' => 'dashboard#evaluator', :as => 'dashboard_evaluator'
+  match '/dashboard/creator' => 'dashboard#creator', :as => 'dashboard_creator'
+  match '/dashboard/admin' => 'dashboard#admin', :as => 'dashboard_admin'
 
 
 

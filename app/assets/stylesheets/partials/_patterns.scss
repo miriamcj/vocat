@@ -406,7 +406,7 @@ input%proto-button {
     &:hover {
       &:after {
         @include svg(checkbox-beigeLight);
-      }      
+      }
     }
   }
 }
@@ -1570,7 +1570,7 @@ input%proto-button {
 // --------------------------------------------------------
 %comment {
   background-color: $beigeLight;
-  .frame-light & {
+  .frame-light &, .box & {
     background-color: $beige;
   }
 

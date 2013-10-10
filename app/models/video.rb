@@ -28,6 +28,10 @@ class Video < ActiveRecord::Base
     end
   end
 
+  def self.count_by_course(course)
+    Video.joins(:submission => :project).where(:projects => {:course_id => course.id}).count()
+  end
+
   def thumb
     case source
       when 'youtube'

@@ -9,8 +9,21 @@ class DiscussionPost < ActiveRecord::Base
 
   delegate :name, :to => :author, :prefix => true
 
+  scope :by_course, lambda { |course|
+    joins(:submission => :project).where(:projects => {:course_id => course.id}) unless course.nil?
+  }
+
   def active_model_serializer
     DiscussionPostSerializer
   end
+
+  def posted_on_string
+    "Posted #{created_at.strftime("%b %d, %Y at %I:%M %p")}"
+  end
+
+  def self.count_by_course(course)
+    Video.joins(:submission => :project).where(:projects => {:course_id => course.id}).count()
+  end
+
 
 end

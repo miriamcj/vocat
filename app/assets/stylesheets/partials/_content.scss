@@ -244,6 +244,14 @@
 
 .box {
   @extend %box;
+  aside {
+    margin-bottom: 1.6rem;
+    background-color: #E6DFDE;
+    padding: 1.6rem;
+    p {
+      margin: 0;
+    }
+  }
 }
 
 .box--title {
@@ -262,6 +270,29 @@
   @extend %box--content;
 }
 
+.box--columns {
+  padding: 0 !important;
+}
+
+.box--top {
+  @extend %clearfix;
+
+}
+
+.box--column {
+  width: 50%;
+  float: left;
+  padding: 1.6rem;
+}
+
+.box--column-single {
+  padding: 0 1.6rem 1.6rem 1.6rem;
+
+}
+
+.box--footer {
+  @extend %clearfix;
+}
 // NB make sure the height of .box is
 // constrained if you want this to work
 .box--scrolly-content {

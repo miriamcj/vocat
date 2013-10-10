@@ -49,6 +49,21 @@ class Course < ActiveRecord::Base
     out = out.gsub("%d", department)
   end
 
+  def submission_video_percentage()
+    video_count = Video.count_by_course(self)
+    possible_submissions = creators.count * projects.count
+    out = ((video_count.to_f / possible_submissions.to_f) * 100).round
+    out
+  end
+
+  def discussion_post_count()
+    DiscussionPost.count_by_course(self)
+  end
+
+  def recent_posts()
+    DiscussionPost.by_course(self).limit(5)
+  end
+
   def role(user)
     return :administrator if user.role? :administrator
     return :creator if creators.include? user
