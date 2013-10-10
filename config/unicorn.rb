@@ -1,7 +1,7 @@
 if ENV['RACK_ENV'] == 'development' || ENV['RACK_ENV'] == 'staging'
-  worker_processes 1
+  worker_processes 3
+  timeout 600
   listen "#{ENV['BOXEN_SOCKET_DIR']}/vocat", :backlog => 1024
-  timeout 120
 end
 
 after_fork do |server, worker|
