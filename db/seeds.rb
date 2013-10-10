@@ -156,7 +156,7 @@ courses.each do |course|
   end
 
   # Create projects in various states of completeness
-  rand(1..4).times do
+  rand(3..6).times do
     project = course.projects.create(:name => Faker::Company.bs.split(' ').map(&:capitalize).join(' '), :description => Faker::Lorem.paragraph)
     project.project_type = presentation
     project.rubric = rubric

@@ -28,6 +28,10 @@ class Ability
       true if res
     end
 
+    can [:portfolio], Course do |course|
+      user.role?(:creator) && course.role(user)
+    end
+
     # Note that we are not currently allowing evaluators to destroy courses.
     can [:read_write], Course do |course|
       course.role(user) == :evaluator || course.role(user) == :assistant

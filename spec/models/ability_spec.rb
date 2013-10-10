@@ -171,18 +171,21 @@ describe "Abilities" do
       let ( :user ) { @evaluator_in_course_a }
       it { expect(user).to have_ability(@ability_aliases[:read_write], for: course) }
       it { expect(user).to have_ability({evaluate: true}, for: course) }
+      it { expect(user).to have_ability({portfolio: false}, for: course) }
       it { expect(user).to have_ability({show_submissions: true}, for: course) }
     end
     context "when the current_user is a creator enrolled in the course, she" do
       let ( :user ) { @creator_in_course_a }
       it { expect(user).to have_ability(@ability_aliases[:read_only], for: course) }
       it { expect(user).to have_ability({evaluate: false}, for: course) }
+      it { expect(user).to have_ability({portfolio: true}, for: course) }
       it { expect(user).to have_ability({show_submissions: false}, for: course) }
     end
     context "when the current_user is a creator not enrolled in the course, she" do
       let ( :user ) { @creator_in_course_b }
       it { expect(user).to have_ability(@ability_aliases[:forbidden], for: course) }
       it { expect(user).to have_ability({evaluate: false}, for: course) }
+      it { expect(user).to have_ability({portfolio: false}, for: course) }
       it { expect(user).to have_ability({show_submissions: false}, for: course) }
     end
 

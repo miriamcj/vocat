@@ -29,7 +29,7 @@ define (require) ->
       'pages/modal_dev': 'modalDev'
     }
     portfolio: {
-      '': 'portfolio'
+      'dashboard/creator': 'portfolio'
       'courses/:course/portfolio': 'portfolio'
     }
     rubric: {

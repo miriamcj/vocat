@@ -64,7 +64,7 @@
 
       <div class="box--footer">
         <% if course.recent_posts().count > 0 %>
-        <div class="box--column">
+        <div class="box--column-single">
             <h3 class="heading-large">
               Recent Comments
             </h3>
@@ -86,22 +86,6 @@
             </ul>
         </div>
         <% end %>
-        <% if course.recent_posts().count > 0 %>
-        <div class="box--column">
-        <% else %>
-        <div class="box--column-single">
-        <% end %>
-          <h3 class="heading-large">
-            Recent Videos
-          </h3>
-          <% course.submissions.limit(9).each do |submission| %>
-             <% if submission.has_video? %>
-              <img src="<%= submission.video.thumb %>" width="135" height="76">
-
-            <% end %>
-
-          <% end %>
-        </div>
       </div>
     </div>
   </div>

@@ -1,13 +1,13 @@
 define [
-  'marionette', 'controllers/vocat_controller', 'views/portfolio/portfolio', 'views/portfolio/portfolio_projects', 'views/portfolio/portfolio_submissions', 'collections/portfolio_collection', 'collections/portfolio_unsubmitted_collection'
+  'marionette', 'controllers/vocat_controller', 'views/portfolio/portfolio', 'views/portfolio/portfolio_projects', 'views/portfolio/portfolio_submissions', 'collections/submission_collection', 'collections/portfolio_unsubmitted_collection'
 ], (
-  Marionette, VocatController, PortfolioView, PortfolioProjectsView, PortfolioSubmissionsView, PortfolioCollection, PortfolioUnsubmittedCollection
+  Marionette, VocatController, PortfolioView, PortfolioProjectsView, PortfolioSubmissionsView, SubmissionCollection, PortfolioUnsubmittedCollection
 ) ->
 
   class PortfolioController extends VocatController
 
     collections: {
-      submission: new PortfolioCollection({})
+      submission: new SubmissionCollection({})
       incomplete: new PortfolioUnsubmittedCollection({})
     }
 
@@ -20,11 +20,11 @@ define [
       portfolioSubmissions = new PortfolioSubmissionsView({collection: @collections.submission})
       portfolioProjects = new PortfolioProjectsView({collection: @collections.incomplete})
 
-      @collections.submission.fetch({url: @collections.submission.url({course: courseId}), data: {brief: true, limit: 10}})
-#      @collections.incomplete.fetch({data: {course: courseId}})
+
+      @collections.submission.courseId = courseId
+      @collections.submission.fetch({url: @collections.submission.url(), data: {brief: true, limit: 10}})
 
       # Assign the collection views to the layout; assign the layout to the main region
       window.Vocat.main.show(portfolio)
       portfolio.submissions.show(portfolioSubmissions)
-#      portfolio.projects.show(portfolioProjects)
 

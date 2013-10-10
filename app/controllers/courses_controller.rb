@@ -7,7 +7,7 @@ class CoursesController < ApplicationController
 
   def portfolio
     respond_with do |format|
-      format.html { render :template => 'portfolio/index' }
+      format.html { render :template => 'dashboard/creator' }
     end
   end
 
