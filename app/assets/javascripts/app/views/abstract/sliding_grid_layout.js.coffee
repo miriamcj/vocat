@@ -64,7 +64,7 @@ define [
       stageWidth = stage.width()
       if stageWidth > 0
         @sliderModulus = stageWidth % @sliderVisibleColumns
-        @sliderColumnWidth = (stageWidth - @sliderModulus) / @sliderVisibleColumns
+        @sliderColumnWidth = (stageWidth - @sliderModulus) / @sliderVisibleColumns + 1
         @sliderColumnCount = container.first().find('ul li').length
         @sliderContainerWidth = @sliderColumnCount * @sliderColumnWidth
         if @sliderColumnCount >= @sliderVisibleColumns

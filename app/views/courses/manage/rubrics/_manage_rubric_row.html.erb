@@ -6,7 +6,13 @@
       <%= link_to rubric.name, rubric_path(rubric), :class => 'table--heading' %>
     <% end %>
   </th>
-  <td><%= rubric.description %></td>
+  <td>
+    <% if show_projects == true %>
+    <%= rubric.projects.map(&:name).join(", ") %>
+    <% else %>
+    <%= rubric.description %>
+    <% end %>
+  </td>
   <td>
       <% if @course %>
         <%= link_to 'Show', course_manage_rubric_path(@course, rubric), :class => 'teal-button' %>

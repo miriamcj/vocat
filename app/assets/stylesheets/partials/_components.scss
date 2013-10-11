@@ -1558,6 +1558,7 @@ a.table--heading {
   @extend %shaded-bottom;
   width: $mainWidth;
   height: $subHeaderHeight;
+  border-top: 0.1rem solid $tealLighter;
   position: absolute;
   z-index: 300;
   &.stuck {
@@ -1637,7 +1638,7 @@ a.table--heading {
 .matrix--column-header--input {
   @extend %medium-text-input;
   display: inline-block;
-  width: 19rem;
+  width: 18.5rem;
   margin-bottom: 0;
 }
 

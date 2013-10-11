@@ -75,11 +75,21 @@ define [
 
     onRangeRefresh: (e) ->
       rangePoints = @ui.rangePointsInput.val()
+
       parsedRangePoints = @parseRangePoints(rangePoints)
-      @model.get('ranges').each (range, index) =>
-        range.set('low', parsedRangePoints[index - 1]  || 0)
-        if index + 1 == parsedRangePoints.length then high = parsedRangePoints[index] else high = parsedRangePoints[index] - 1
-        range.set('high', high || 0)
+      ranges = @model.get('ranges')
+
+      _.each(parsedRangePoints, (low, index) =>
+        if @last_range?
+          if index + 1 == parsedRangePoints.length && parsedRangePoints.length > ranges.length
+            @last_range.set('high', low)
+          else
+            @last_range.set('high', low - 1)
+        range = ranges.at(index)
+        if range? then range.set('low',low)
+        @last_range = range
+      )
+      lastRange = ranges.last()
 
     initialize: (options) ->
       unless @model

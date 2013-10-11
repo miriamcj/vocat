@@ -25,14 +25,14 @@
     <thead>
       <tr>
         <th style="width: 33%">Name</th>
-        <th style="width: 33%">Description</th>
+        <th style="width: 33%">Projects</th>
         <th style="width: 33%">Actions</th>
       </tr>
     </thead>
     <tbody>
 
     <% @my_rubrics.each do |rubric| %>
-      <%= render 'manage_rubric_row', rubric: rubric %>
+      <%= render 'manage_rubric_row', rubric: rubric, show_projects: true %>
     <% end %>
     </tbody>
   </table>
@@ -54,7 +54,7 @@
     </thead>
     <tbody>
     <% @system_rubrics.each do |rubric| %>
-      <%= render 'manage_rubric_row', rubric: rubric %>
+      <%= render 'manage_rubric_row', rubric: rubric, show_projects: false %>
     <% end %>
     </tbody>
   </table>

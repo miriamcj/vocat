@@ -14,18 +14,6 @@ define [
       @set 'fields', new FieldCollection(_.toArray(@get('fields')))
       @set 'ranges', new RangeCollection(_.toArray(@get('ranges')))
       @set 'cells', new CellCollection( _.toArray(@get('cells')),{})
-#
-#      @get('fields').bind 'add remove change', =>
-#        @trigger('change')
-#
-#      @get('ranges').bind 'add remove change', =>
-#        @trigger('change')
-#
-#      @get('rows').bind 'add remove change', =>
-#        @trigger('change')
-#
-#      @get('cell').bind 'add remove change', =>
-#        @trigger('change')
 
       @get('fields').bind 'add', (field) =>
         @get('ranges').each((range) =>
@@ -49,14 +37,27 @@ define [
       if field? then field.get('name')
 
     getRangeString: () ->
-      out = ''
+      values = @getLows()
+      values.push @getHigh()
+      values.join(' ')
+
+    getLows: () ->
       ranges = @get('ranges')
-      if ranges.length > 0
-        ranges.each (range) ->
-          unless parseInt(range.get('low')) == 0 then out = out + ' ' + range.get('low')
-        out = out + ' ' + ranges.last().get('high')
-        out = $.trim(out)
-      out
+      if ranges.length > 0 then lows = ranges.pluck('low')
+      lows
+
+    getHigh: () ->
+      ranges = @get('ranges')
+      if ranges.length > 0 then max = ranges.max(((model) -> model.get('high')))
+      if max? then max.get('high')
+
+    getLow: () ->
+      ranges = @get('ranges')
+      if ranges.length > 0 then min = ranges.min(((model) -> model.get('low')))
+      if min? then min.get('low')
+
+    getLows: () ->
+      @get('ranges').pluck('low')
 
     getCellDescription: (fieldId, rangeId) ->
       cell = @get('cells').findWhere({field: fieldId, range: rangeId})
