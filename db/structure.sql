@@ -331,7 +331,8 @@ CREATE TABLE evaluations (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     total_percentage numeric DEFAULT 0.0,
-    total_score numeric DEFAULT 0.0
+    total_score numeric DEFAULT 0.0,
+    evaluation_type integer
 );
 
 
@@ -1119,3 +1120,5 @@ INSERT INTO schema_migrations (version) VALUES ('20130917124745');
 INSERT INTO schema_migrations (version) VALUES ('20130918035032');
 
 INSERT INTO schema_migrations (version) VALUES ('20130918161432');
+
+INSERT INTO schema_migrations (version) VALUES ('20131010230313');

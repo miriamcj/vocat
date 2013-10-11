@@ -10,6 +10,10 @@ class Annotation < ActiveRecord::Base
 
   default_scope order('seconds_timecode ASC')
 
+  scope :by_course, lambda { |course|
+    joins(:video => {:submission => :project}).where(:projects => {:course_id => course.id}) unless course.nil?
+  }
+
   delegate :name, :to => :author, :prefix => true
 
   validates_presence_of :body, :seconds_timecode, :author_id, :video_id

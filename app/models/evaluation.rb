@@ -1,5 +1,9 @@
 class Evaluation < ActiveRecord::Base
-  attr_accessible :evaluator_id, :submission_id, :rubric_id, :published, :scores, :total_percentage, :total_score
+
+  EVALUATION_TYPE_CREATOR = 1
+  EVALUATION_TYPE_EVALUATOR = 2
+
+  attr_accessible :evaluator_id, :submission_id, :rubric_id, :published, :scores, :total_percentage, :total_score, :evaluation_type
   belongs_to :evaluator, :class_name => 'User'
   has_one :creator, :through => :submission
   has_one :project, :through => :submission
@@ -8,6 +12,14 @@ class Evaluation < ActiveRecord::Base
 
   scope :published, where(:published => true)
   scope :created_by, lambda { |creator| where(:evaluator_id =>  creator) }
+
+  before_save { |evaluation|
+    if evaluator.role?(:creator)
+      evaluation.evaluation_type = EVALUATION_TYPE_CREATOR
+    else
+      evaluation.evaluation_type = EVALUATION_TYPE_EVALUATOR
+    end
+  }
 
   delegate :high_score, :to => :rubric, :prefix => true
   delegate :low_score, :to => :rubric, :prefix => true
@@ -35,6 +47,22 @@ class Evaluation < ActiveRecord::Base
     end
   end
 
+  def self.average_score_by_course_and_type(course, type)
+    if type == :creator
+      type = EVALUATION_TYPE_CREATOR
+    elsif type == :evaluator || type == :assistant
+      type = EVALUATION_TYPE_EVALUATOR
+    else
+      type = EVALUATION_TYPE_EVALUATOR
+    end
+
+    evaluations = Evaluation.joins(:submission => :project).where(:evaluation_type => type, :projects => {:course_id => course.id}).all unless course.nil?
+    total = evaluations.reduce(0.0) do |memo, evaluation|
+      memo + evaluation.total_percentage_rounded
+    end
+    (total / evaluations.length).round(0)
+  end
+
   def update_total
     self.total_score = self.calculate_total_score
   end
@@ -54,7 +82,6 @@ class Evaluation < ActiveRecord::Base
       end
     end
   end
-
 
   def field_count
     self.scores.count

@@ -22,7 +22,7 @@ class DiscussionPost < ActiveRecord::Base
   end
 
   def self.count_by_course(course)
-    Video.joins(:submission => :project).where(:projects => {:course_id => course.id}).count()
+    DiscussionPost.joins(:submission => :project).where(:projects => {:course_id => course.id}).count()
   end
 
 

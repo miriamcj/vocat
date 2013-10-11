@@ -47,7 +47,6 @@ class Project < ActiveRecord::Base
     }
   end
 
-
   def submission_by_user(user)
     submissions.where(:creator_id => user.id).first
   end

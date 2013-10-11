@@ -1,94 +1,99 @@
 
-<div class="shaded-bottom">
-  <header class="bar-header">
-    <h2 class="bar-header--title-alt">Evaluator Dashboard</h2>
-  </header>
 
-</div>
-
-<div class="page-content--frame">
-
+<div class="portfolio-frame">
   <h2 class="frame--title">Greetings, <%= current_user.first_name %></h2>
-  <p class="double-space-bottom">
+  <p>
     Welcome to VOCAT 3. From here, you can view and score submissions, manage your courses, upload video and other
     documents, interact with your classes, and access useful statistical data for all of your courses. If you need help
     using VOCAT, direct your questions to TBD...
   </p>
+</div>
 
-  <% current_user.courses.each do |course| %>
-  <div class="box double-space-bottom">
-    <header>
-      <h2 class="box--title"><%= course %></h2>
-      <a class="box--link" href="<%= url_for course_user_evaluations_path(course_id: course) %>">All <%= course.format('%d%n') %> Evaluations</a>
-    </header>
-    <div class="box--content box--columns">
-      <div class="box--top">
-        <div class="box--column">
-          <h3 class="heading-large">
-            Course Projects
-          </h3>
-          <ul style="margin-top: 0px" class="unstyled-list">
-            <% course.projects.each do |project| %>
-              <li><%= link_to project, course_user_evaluations_path(course_id: course, project_id: project) %></li>
-            <% end %>
-          </ul>
-        </div>
-        <div class="box--column">
-          <h3 class="heading-large">
-            Course At a Glance
-          </h3>
-          <figure class="summary-box">
-            <div>
-              <span><%= course.creators.count %></span><small></small>
-            </div>
-            <figcaption>Enrolled Students</figcaption>
-          </figure>
+<% current_user.courses.each do |course| %>
+<div class="portfolio-frame">
+  <h2 class="frame--title"><%= link_to course, course_user_evaluations_path(course)  %></h2>
+  <div class="clearfix space-bottom">
 
-          <figure class="summary-box">
-            <div>
-              <span><%= course.discussion_post_count() %></span><small></small>
-            </div>
-            <figcaption>Number of Comments</figcaption>
-          </figure>
-
-          <figure class="summary-box">
-            <div>
-              <b style="height: <%= course.submission_video_percentage() %>%"></b>
-              <span><%= course.submission_video_percentage() %></span><small>%</small>
-            </div>
-            <figcaption>Submissions with Videos</figcaption>
-          </figure>
-
-        </div>
+    <figure class="summary-box">
+      <div>
+        <b style="height: <%= course.submission_video_percentage() %>%"></b>
+        <span><%= course.submission_video_percentage() %></span><small>%</small>
       </div>
+      <figcaption>Submissions with Videos</figcaption>
+    </figure>
 
-      <div class="box--footer">
-        <% if course.recent_posts().count > 0 %>
-        <div class="box--column-single">
-            <h3 class="heading-large">
-              Recent Comments
-            </h3>
-            <ul class="discussion-list" data-behavior="post-container">
-              <% course.recent_posts().each do |post| %>
-                <li>
-                  <div class="discussion-list--item">
-                    <div class="discussion-list--header">
-                      <h3 class="discussion-list--name"><%= post.author_name %></h3>
-                      <time class="discussion-list--timestamp" datetime=""><%= post.posted_on_string %></time>
-                      <div class="avatar">
-                        <img src="http://gravatar.com/avatar/895cc47ebc1bd5559d26be0df3a6b2a1.png?d=mm&amp;s=" alt="">
-                      </div>
-                    </div>
-                    <%= truncate post.body, length: 100, omission: '... ' %>
-                  </div>
-                </li>
-              <% end %>
-            </ul>
-        </div>
-        <% end %>
+    <figure class="summary-box">
+      <div>
+        <b style="height: <%= course.average_evaluator_score() %>%"></b>
+        <span><%= course.average_evaluator_score() %></span><small>%</small>
       </div>
-    </div>
+      <figcaption>Average Instructor Score</figcaption>
+    </figure>
+
+    <% if course.settings['enable_peer_review'] %>
+    <figure class="summary-box">
+      <div>
+        <b style="height: <%= course.average_peer_score() %>%"></b>
+        <span><%= course.average_peer_score() %></span><small>%</small>
+      </div>
+      <figcaption>Average Peer Score</figcaption>
+    </figure>
+    <% end %>
+
+    <figure class="summary-box">
+      <div>
+        <span><%= course.creators.count %></span><small></small>
+      </div>
+      <figcaption>Students</figcaption>
+    </figure>
+
+    <figure class="summary-box">
+      <div>
+        <span><%= course.annotation_count() %></span>
+      </div>
+      <figcaption>Annotations</figcaption>
+    </figure>
+
+    <figure class="summary-box">
+      <div>
+        <span><%= course.discussion_post_count() %></span><small></small>
+      </div>
+      <figcaption>Comments</figcaption>
+    </figure>
+
   </div>
-  <% end %>
+
+  <div class="clearfix">
+    <div style="width: 29.6rem; padding-right: 1.6rem; float: left">
+      <h3 class="heading-large">
+        Course Projects
+      </h3>
+
+      <ul style="margin-top: 0px" class="unstyled-list">
+        <% course.projects.each do |project| %>
+          <li><%= link_to project, course_user_evaluations_path(course_id: course, project_id: project) %></li>
+        <% end %>
+      </ul>
+    </div>
+    <div style="width: 64.0rem; float: left">
+      <h3 class="heading-large">
+        Recently Updated Submissions
+      </h3>
+
+      <ul style="margin-top: 0px" class="unstyled-list">
+        <% course.recent_submissions(course.projects.count).each do |submission| %>
+          <li>
+            <% if submission.creator_type == 'Group' %>
+              <%= link_to "#{submission.creator_name} - #{submission.project_name}", course_group_evaluations_path(course_id: course, creator_id: submission.creator, project_id: submission.project) %>
+            <% else %>
+              <%= link_to "#{submission.creator_name} - #{submission.project_name}", course_user_evaluations_path(course_id: course, creator_id: submission.creator, project_id: submission.project) %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+  </div>
 
 </div>
+<% end %>

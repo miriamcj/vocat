@@ -6,6 +6,10 @@ def random_section
   rand(36**5).to_s(36).upcase
 end
 
+def random_boolean
+  [true, false].sample
+end
+
 class RandomGaussian
   def initialize(mean = 0.0, sd = 1.0, rng = lambda { Kernel.rand })
     @mean, @sd, @rng = mean, sd, rng
@@ -50,19 +54,19 @@ end
 
 # Create the courses
 courses = Array.new
-courses << baruch.courses.create(:name => "Data Structures", :department => "CS", :number => "163", :section => random_section, :description => Faker::Lorem.paragraph)
-courses << baruch.courses.create(:name => "Programming Systems", :department => "CS", :number => "201", :section => random_section, :description => Faker::Lorem.paragraph)
-courses << baruch.courses.create(:name => "Systems Programming", :department => "CS", :number => "202", :section => random_section, :description => Faker::Lorem.paragraph)
-courses << baruch.courses.create(:name => "Discrete Structures I", :department => "CS", :number => "250", :section => random_section, :description => Faker::Lorem.paragraph)
-courses << baruch.courses.create(:name => "Discrete Structures II", :department => "CS", :number => "251", :section => random_section, :description => Faker::Lorem.paragraph)
-courses << baruch.courses.create(:name => "AI: Combinatorial Search", :department => "CS", :number => "443", :section => random_section, :description => Faker::Lorem.paragraph)
-courses << baruch.courses.create(:name => "Shakespeare", :department => "ENG", :number => "201", :section => random_section, :description => Faker::Lorem.paragraph)
-courses << baruch.courses.create(:name => "Survey of English Literature I", :department => "ENG", :number => "204", :section => random_section, :description => Faker::Lorem.paragraph)
-courses << baruch.courses.create(:name => "Survey of English Literature II", :department => "ENG", :number => "205", :section => random_section, :description => Faker::Lorem.paragraph)
-courses << baruch.courses.create(:name => "Introduction to Literature", :department => "ENG", :number => "100", :section => random_section, :description => Faker::Lorem.paragraph)
-courses << baruch.courses.create(:name => "Introduction to World Literature", :department => "ENG", :number => "108", :section => random_section, :description => Faker::Lorem.paragraph)
-courses << baruch.courses.create(:name => "Native American Women Writers", :department => "ENG", :number => "367U", :section => random_section, :description => Faker::Lorem.paragraph)
-courses << baruch.courses.create(:name => "Practical Grammar", :department => "ENG", :number => "425", :section => random_section, :description => Faker::Lorem.paragraph)
+courses << baruch.courses.create(:name => "Data Structures", :settings => { :enable_peer_review => random_boolean }, :department => "CS", :number => "163", :section => random_section, :description => Faker::Lorem.paragraph)
+courses << baruch.courses.create(:name => "Programming Systems", :settings => { :enable_peer_review => random_boolean }, :department => "CS", :number => "201", :section => random_section, :description => Faker::Lorem.paragraph)
+courses << baruch.courses.create(:name => "Systems Programming", :settings => { :enable_peer_review => random_boolean }, :department => "CS", :number => "202", :section => random_section, :description => Faker::Lorem.paragraph)
+courses << baruch.courses.create(:name => "Discrete Structures I", :settings => { :enable_peer_review => random_boolean }, :department => "CS", :number => "250", :section => random_section, :description => Faker::Lorem.paragraph)
+courses << baruch.courses.create(:name => "Discrete Structures II", :settings => { :enable_peer_review => random_boolean }, :department => "CS", :number => "251", :section => random_section, :description => Faker::Lorem.paragraph)
+courses << baruch.courses.create(:name => "AI: Combinatorial Search", :settings => { :enable_peer_review => random_boolean }, :department => "CS", :number => "443", :section => random_section, :description => Faker::Lorem.paragraph)
+courses << baruch.courses.create(:name => "Shakespeare", :settings => { :enable_peer_review => random_boolean }, :department => "ENG", :number => "201", :section => random_section, :description => Faker::Lorem.paragraph)
+courses << baruch.courses.create(:name => "Survey of English Literature I", :settings => { :enable_peer_review => random_boolean }, :department => "ENG", :number => "204", :section => random_section, :description => Faker::Lorem.paragraph)
+courses << baruch.courses.create(:name => "Survey of English Literature II", :settings => { :enable_peer_review => random_boolean }, :department => "ENG", :number => "205", :section => random_section, :description => Faker::Lorem.paragraph)
+courses << baruch.courses.create(:name => "Introduction to Literature", :settings => { :enable_peer_review => random_boolean }, :department => "ENG", :number => "100", :section => random_section, :description => Faker::Lorem.paragraph)
+courses << baruch.courses.create(:name => "Introduction to World Literature", :settings => { :enable_peer_review => random_boolean }, :department => "ENG", :number => "108", :section => random_section, :description => Faker::Lorem.paragraph)
+courses << baruch.courses.create(:name => "Native American Women Writers", :settings => { :enable_peer_review => random_boolean }, :department => "ENG", :number => "367U", :section => random_section, :description => Faker::Lorem.paragraph)
+courses << baruch.courses.create(:name => "Practical Grammar", :settings => { :enable_peer_review => random_boolean }, :department => "ENG", :number => "425", :section => random_section, :description => Faker::Lorem.paragraph)
 
 # Create sample users
 evaluators = Array.new

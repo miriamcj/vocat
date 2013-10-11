@@ -56,12 +56,28 @@ class Course < ActiveRecord::Base
     out
   end
 
+  def average_evaluator_score()
+    Evaluation.average_score_by_course_and_type(self, :evaluator)
+  end
+
+  def average_peer_score()
+    Evaluation.average_score_by_course_and_type(self, :creator)
+  end
+
   def discussion_post_count()
     DiscussionPost.count_by_course(self)
   end
 
-  def recent_posts()
-    DiscussionPost.by_course(self).limit(5)
+  def annotation_count()
+    Annotation.by_course(self).count
+  end
+
+  def recent_submissions(limit = 5)
+    submissions.order("updated_at DESC").limit(limit)
+  end
+
+  def recent_posts(limit = 5)
+    DiscussionPost.by_course(self).limit(limit)
   end
 
   def role(user)

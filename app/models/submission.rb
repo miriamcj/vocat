@@ -29,7 +29,6 @@ class Submission < ActiveRecord::Base
   delegate :id, :to => :course, :prefix => true
   delegate :name, :to => :project, :prefix => true
   delegate :name, :to => :creator, :prefix => true
-  delegate :name, :to => :group, :prefix => true, :allow_nil => true
 
   default_scope includes(:video, :evaluations, :project)
 
