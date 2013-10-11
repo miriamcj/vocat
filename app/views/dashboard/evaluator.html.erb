@@ -64,18 +64,7 @@
   </div>
 
   <div class="clearfix">
-    <div style="width: 29.6rem; padding-right: 1.6rem; float: left">
-      <h3 class="heading-large">
-        Course Projects
-      </h3>
-
-      <ul style="margin-top: 0px" class="unstyled-list">
-        <% course.projects.each do |project| %>
-          <li><%= link_to project, course_user_evaluations_path(course_id: course, project_id: project) %></li>
-        <% end %>
-      </ul>
-    </div>
-    <div style="width: 64.0rem; float: left">
+    <div style="width: 46.8rem; padding-right: 1.6rem; float: left">
       <h3 class="heading-large">
         Recently Updated Submissions
       </h3>
@@ -91,6 +80,20 @@
           </li>
         <% end %>
       </ul>
+    </div>
+
+    <div style="width: 46.8rem; float: left">
+
+      <h3 class="heading-large">
+        Course Projects
+      </h3>
+
+      <ul style="margin-top: 0px" class="unstyled-list">
+        <% course.projects.each do |project| %>
+          <li><%= link_to project, course_user_evaluations_path(course_id: course, project_id: project) %></li>
+        <% end %>
+      </ul>
+
     </div>
 
   </div>
