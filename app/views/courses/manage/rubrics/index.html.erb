@@ -1,55 +1,60 @@
 <div class="rubric-index">
-  <header class="bar-header">
-    <h2 class="bar-header--title">Rubrics</h2>
-    <% if @course %>
-      <%= link_to 'New Rubric', new_course_manage_rubric_path(@course), :class => 'teal-plus-button' %>
-    <% else %>
-      <%= link_to 'New Rubric', new_rubric_path(), :class => 'teal-plus-button' %>
-    <% end %>
-  </header>
-  <table class="table">
+  <div class="shaded-bottom">
+    <header class="bar-header">
+      <h2 class="bar-header--title">Rubrics</h2>
+      <% if @course %>
+        <%= link_to 'New Rubric', new_course_manage_rubric_path(@course), :class => 'teal-plus-button' %>
+      <% else %>
+        <%= link_to 'New Rubric', new_rubric_path(), :class => 'teal-plus-button' %>
+      <% end %>
+    </header>
+  </div>
+
+  <div class="page-content--frame double-space-bottom">
+    <p>As an evaluator, you may create and use your own scoring rubrics, or you can use system-wide VOCAT rubrics. The first table, below, lists your rubrics, which you may change as needed. To create a new rubric, press the "new rubic" button, above.</p>
+    <p>When creating a project, you may select one of your rubrics, or a VOCAT rubric. If you would like to modify a VOCAT rubric for your own purposes, click the "clone" button, below.</p>
+  </div>
+
+  <div class="page-content--frame">
+    <header class="button-header">
+      <h2 class="button-header--title">Your Rubrics</h2>
+    </header>
+  </div>
+
+  <table class="table double-space-bottom">
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Actions</th>
+        <th style="width: 33%">Name</th>
+        <th style="width: 33%">Description</th>
+        <th style="width: 33%">Actions</th>
       </tr>
     </thead>
     <tbody>
+
     <% @my_rubrics.each do |rubric| %>
-      <tr>
-        <th>
-          <% if @course %>
-            <%= link_to rubric.name, course_manage_rubric_path(@course, rubric), :class => 'table--heading' %>
-          <% else %>
-            <%= link_to rubric.name, rubric_path(rubric), :class => 'table--heading' %>
-          <% end %>
-        </th>
-        <td><%= rubric.description %></td>
-        <td>
-          <strong>
-            <% if @course %>
-              <%= link_to 'Show', course_manage_rubric_path(@course, rubric) %>
-            <% else %>
-              <%= link_to 'Show', rubric_path(rubric) %>
-            <% end %>
-            <% if can? :update, rubric %>
-              <% if @course %>
-                &nbsp;/&nbsp;<%= link_to 'Edit', edit_course_manage_rubric_path(@course, rubric) %>
-              <% else %>
-                &nbsp;/&nbsp;<%= link_to 'Edit', edit_rubric_path(rubric) %>
-              <% end %>
-            <% end %>
-            <% if can? :destroy, rubric %>
-              <% if @course %>
-                &nbsp;/&nbsp;<%= link_to 'Destroy', course_manage_rubric_path(@course, rubric), method: :delete, data: { confirm: 'Are you sure?' } %>
-              <% else %>
-                &nbsp;/&nbsp;<%= link_to 'Destroy', rubric_path(rubric), method: :delete, data: { confirm: 'Are you sure?' } %>
-              <% end %>
-            <% end %>
-          </strong>
-        </td>
-      </tr>
+      <%= render 'manage_rubric_row', rubric: rubric %>
+    <% end %>
+    </tbody>
+  </table>
+
+  <div class="page-content--frame">
+    <header class="button-header">
+      <h2 class="button-header--title">VOCAT Rubrics</h2>
+    </header>
+
+  </div>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th style="width: 33%">Name</th>
+      <th style="width: 33%">Description</th>
+      <th style="width: 33%">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @system_rubrics.each do |rubric| %>
+      <%= render 'manage_rubric_row', rubric: rubric %>
     <% end %>
     </tbody>
   </table>

@@ -1,0 +1,37 @@
+<tr>
+  <th>
+    <% if @course %>
+      <%= link_to rubric.name, course_manage_rubric_path(@course, rubric), :class => 'table--heading' %>
+    <% else %>
+      <%= link_to rubric.name, rubric_path(rubric), :class => 'table--heading' %>
+    <% end %>
+  </th>
+  <td><%= rubric.description %></td>
+  <td>
+      <% if @course %>
+        <%= link_to 'Show', course_manage_rubric_path(@course, rubric), :class => 'teal-button' %>
+      <% else %>
+        <%= link_to 'Show', rubric_path(rubric), :class => 'teal-button' %>
+      <% end %>
+      <% if can? :update, rubric %>
+        <% if @course %>
+          <%= link_to 'Edit', edit_course_manage_rubric_path(@course, rubric), :class => 'teal-button' %>
+        <% else %>
+          <%= link_to 'Edit', edit_rubric_path(rubric), :class => 'teal-button' %>
+        <% end %>
+      <% else %>
+        <% if @course %>
+          <%= link_to 'Clone', edit_course_manage_rubric_path(@course, rubric), :class => 'teal-button' %>
+        <% else %>
+          <%= link_to 'Clone', edit_rubric_path(rubric), :class => 'teal-button' %>
+        <% end %>
+      <% end %>
+      <% if can? :destroy, rubric %>
+        <% if @course %>
+          <%= link_to 'Destroy', course_manage_rubric_path(@course, rubric), method: :delete, data: { confirm: 'Are you sure?' }, :class => 'teal-button' %>
+        <% else %>
+          <%= link_to 'Destroy', rubric_path(rubric), method: :delete, data: { confirm: 'Are you sure?' }, :class => 'teal-button' %>
+        <% end %>
+      <% end %>
+  </td>
+</tr>

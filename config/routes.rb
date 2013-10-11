@@ -1,9 +1,9 @@
 Vocat::Application.routes.draw do
 
-	devise_for :users
-	devise_scope :user do
-		match '/users/settings' => 'registrations#update_settings', :via => :put
-	end
+  devise_for :users
+  devise_scope :user do
+    match '/users/settings' => 'registrations#update_settings', :via => :put
+  end
 
   match 'pages/*page' => 'pages#show', :via => :get
 
@@ -24,28 +24,30 @@ Vocat::Application.routes.draw do
         end
 
         resources :users, :only => [:index, :show] do
-	        resources :submissions, :only => [:index]
-	        resources :projects, :only => [] do
-		        resources :submissions, :only => [:index]
-	        end
+          resources :submissions, :only => [:index]
+          resources :projects, :only => [] do
+            resources :submissions, :only => [:index]
+          end
         end
 
         resources :groups, :shallow => true,:except => [:new, :edit]
-				resources :groups, :only => [] do
-					resources :submissions, :only => [:index]
-					resources :projects, :only => [] do
-						resources :submissions, :only => [:index]
-					end
-				end
+        resources :groups, :only => [] do
+          resources :submissions, :only => [:index]
+          resources :projects, :only => [] do
+            resources :submissions, :only => [:index]
+          end
+        end
 
         resources :projects, :shallow => true, :except => [:new, :edit]
         resources :projects, :only => [] do
           resources :evaluations, :only => [:index]
-	        resources :scores, :only => [:index]
+          resources :scores, :only => [:index]
         end
       end
     end
   end
+
+  resources :rubrics, :controller => 'courses/manage/rubrics', :only => [:index, :show, :new, :edit, :destroy]
 
   resources :courses do
 
@@ -73,7 +75,6 @@ Vocat::Application.routes.draw do
 
   end
 
-  resources :rubrics, :controller => 'courses/manage/rubrics', :only => [:index, :show, :new, :edit, :destroy]
 
   get '/admin' => 'admin/dashboard#index', :as => 'admin_root'
   match '/' => 'dashboard#index', :as => 'dashboard'

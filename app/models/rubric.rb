@@ -3,7 +3,7 @@ require 'securerandom'
 
 class Rubric < ActiveRecord::Base
 
-  attr_accessible :name, :public, :description, :cells, :fields, :ranges
+  attr_accessible :name, :public, :description, :cells, :fields, :ranges, :owner
   belongs_to :owner, :class_name => "User"
   has_many :projects
 
@@ -15,6 +15,15 @@ class Rubric < ActiveRecord::Base
 
   scope :publicly_visible, where(:public => true)
   scope :public_or_owned_by, lambda { |owner| where('owner_id = ? OR public = true', owner)}
+
+  def clone()
+    rubric = self.dup
+    rubric.public = false
+    rubric.owner.delete unless rubric.owner.nil?
+    rubric.projects.delete
+    rubric.name << ' - cloned'
+    rubric
+  end
 
   def active_model_serializer
     RubricSerializer
