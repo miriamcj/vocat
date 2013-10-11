@@ -1321,6 +1321,9 @@ a.table--heading {
   color: $beigeLight;
   background-color: $tealLight;
   border-radius: $radius 0 0 $radius;
+  &.input-focus {
+	background-color: $teal;
+  }
 }
 
 // Lives inside .scoring-list--output

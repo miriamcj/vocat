@@ -18,9 +18,12 @@ define [
       flashContainer: '[data-container="flash"]'
     }
 
+    events: {
+      'click [data-behavior="evaluation-destroy"]': 'onEvaluationDestroy'
+    }
+
     triggers: {
       'click [data-behavior="toggle-detail"]': 'detail:toggle'
-      'click [data-behavior="evaluation-destroy"]': 'evaluation:destroy'
     }
 
     onRender: () ->
@@ -74,7 +77,9 @@ define [
       })
       @render()
 
-    onEvaluationDestroy: () ->
+    onEvaluationDestroy: (event) ->
+      event.preventDefault()
+      event.stopPropagation()
       Vocat.vent.trigger('modal:open', new ModalConfirmView({
         model: @model,
         vent: @,

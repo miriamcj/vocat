@@ -257,7 +257,7 @@ input%proto-button {
   background-color: $tealLight;
   padding-top: 0.6rem;
   padding-bottom: 0.6rem;
-  &:hover {
+  &:hover, &:focus {
     background-color: $tealMedium;
   }
 }
@@ -265,7 +265,7 @@ input%proto-button {
 %gray-button {
   @extend %teal-button;
   background-color: $beigeDark;
-  &:hover {
+  &:hover, &:focus {
     background-color: darken($beigeDark, 10%);
   }
 }
@@ -274,7 +274,7 @@ input%proto-button {
   @extend %teal-button;
   color: $grayLighter;
   background-color: $grayDarker;
-  &:hover {
+  &:hover, &:focus {
      color: $beigeLight;
     background-color: $orange;
   }
@@ -368,7 +368,7 @@ input%proto-button {
   &:after {
     @include svg(circle-x-beigeLight);
   }
-  &:hover {
+  &:hover, &:focus {
     background-color: darken($beigeDark, 12%);
   }
 }
@@ -392,7 +392,7 @@ input%proto-button {
     top: 0.4rem;
     left: 0.9rem;
   }
-  &:hover {
+  &:hover, &:focus {
     color: $beigeLight;
     background-color: $orange;
     &:after {
@@ -430,7 +430,7 @@ input%proto-button {
   &:after {
     @include svg(checkbox-unchecked-beigeLight);
   }
-  &:hover {
+  &:hover, &:focus {
     background-color: darken($beigeDark, 10%);
   }
   &.active {
@@ -443,7 +443,7 @@ input%proto-button {
 %teal-check-button {
   @extend %gray-check-button;
   background-color: $tealLight;
-  &:hover {
+  &:hover, &:focus {
     background-color: $tealMedium;
   }
 }
@@ -482,7 +482,7 @@ input%proto-button {
 %white-button {
   @extend %white-pill;
   @extend %bare-link;
-  &:hover {
+  &:hover, &:focus {
     color: $beigeLight;
     background-color: $orange;
   }
@@ -547,7 +547,7 @@ input%proto-button {
     top: 0;
     right: 0;
   }
-  &:hover {
+  &:hover, &:focus {
     color: $orange;
     &:after {
       @include svg(circle-arrow-right-orange);
@@ -562,7 +562,7 @@ input%proto-button {
     @include svg(circle-arrow-left-teal);
     left: 0;
   }
-  &:hover {
+  &:hover, &:focus {
     &:after {
       @include svg(circle-arrow-left-orange);
     }
@@ -591,7 +591,7 @@ input%proto-button {
   &:after {
     @include svg(circle-arrow-bent-teal);
   }
-  &:hover {
+  &:hover, &:focus {
     color: $orange;
     &:after {
       @include svg(circle-arrow-bent-orange);
@@ -604,7 +604,7 @@ input%proto-button {
   &:after {
     @include svg(circle-minus);
   }
-  &:hover {
+  &:hover, &:focus {
     &:after {
       @include svg(circle-minus-orange);
     }
@@ -616,7 +616,7 @@ input%proto-button {
   &:after {
     @include svg(circle-x-teal);
   }
-  &:hover {
+  &:hover, &:focus {
     &:after {
       @include svg(circle-x-orange);
     }
@@ -640,7 +640,7 @@ input%proto-button {
     top: 0.6rem;
     left: 0.6rem;
   }
-  &:hover {
+  &:hover, &:focus {
     &:after {
       @include svg(circle-x-orange);
     }
@@ -709,7 +709,7 @@ input%proto-button {
 %speech-bubble-link {
   @extend %speech-bubble;
   @extend %bare-link;
-  &:hover {
+  &:hover, &:focus {
     background-color: $orange;
     &:after {
       border-top-color: $orange;

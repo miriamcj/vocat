@@ -18,6 +18,10 @@ define ['marionette', 'hbs!templates/submission/evaluation_item_edit', 'vendor/p
 
     events: {
       'slider:changed [data-slider="true"]': 'onInputInvisibleChange'
+      'keypress [data-slider-visible]': 'onUserInputKeypress'
+      'change [data-slider-visible]': 'onUserInputChange'
+      'focus [data-slider-visible]': 'onUserInputFocus'
+      'blur [data-slider-visible]': 'onUserInputBlur'
       'mouseenter [data-help]': 'onHelpShow'
       'mouseleave [data-help]': 'onHelpHide'
     }
@@ -88,6 +92,36 @@ define ['marionette', 'hbs!templates/submission/evaluation_item_edit', 'vendor/p
           @vent.triggerMethod('myEvaluation:updated', {percentage: @model.get('total_percentage_rounded'), model: @model})
           @vent.trigger('error:add', {level: 'notice', msg: 'Evaluation has been successfully saved'})
       })
+
+    onUserInputKeypress: (event) ->
+      if event.which == 13
+        @triggerMethod('model:save')
+
+    onUserInputFocus: (event) ->
+      $el = $(event.target)
+      $el.addClass('input-focus')
+      setTimeout(() =>
+        $el.select()
+      , 0)
+
+    onUserInputBlur: (event) ->
+      $el = $(event.target)
+      $el.removeClass('input-focus')
+
+    onUserInputChange: (event) ->
+      $el = $(event.target)
+      key = $el.data().key
+      val = $el.val()
+      newVal = parseInt(val)
+      if isNaN(newVal) then newVal = 0
+      if newVal > @rubric.get('high_score') then newVal = @rubric.get('high_score')
+      if newVal < 0 then newVal = 0
+      if newVal != val
+        $el.val(newVal)
+        @ui.scoreSliders.each( (index, el) =>
+          if $(el).data().key == key then $(el).simpleSlider("setValue", newVal)
+        )
+    #$el.select()
 
     onInputInvisibleChange: (event, data) ->
       value = data.value

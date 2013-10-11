@@ -14,7 +14,7 @@
           <div class="range-input--title">{{name}}</div>
         </div>
         <div class="scoring-list--output">
-          <input data-key="{{property}}" data-slider-visible="true" class="scoring-list--value" type="text" disabled="disabled" value="{{value}}"><div class="scoring-list--ideal">{{../rubric.high_score}}</div>
+          <input data-key="{{property}}" data-slider-visible="true" class="scoring-list--value" type="text" value="{{value}}"><div class="scoring-list--ideal">{{../rubric.high_score}}</div>
         </div>
       </li>
       {{/each_property}}
@@ -28,8 +28,8 @@
   </li>
 </ul>
 
-<a data-behavior="evaluation-destroy" class="small-teal-minus-button" href="#">Delete Evaluation</a>
-
 <a {{#unless published}}style="display: none"{{/unless}} data-behavior="model-unpublish" class="teal-check-button active" href="#">Published</a>
 <a {{#if published}}style="display: none"{{/if}}data-behavior="model-publish" class="teal-check-button" href="#">Unpublished</a>
+<a data-behavior="evaluation-destroy" class="small-teal-minus-button" href="#">Delete Evaluation</a>
+
 <a style="float: right;" data-behavior="model-save" class="small-teal-arrow-button" href="#">Save Evaluation</a>
