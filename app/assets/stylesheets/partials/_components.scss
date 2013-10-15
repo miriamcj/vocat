@@ -575,6 +575,19 @@ a.table--heading {
   }
 }
 
+
+.input-group--third {
+  width: 33%;
+  float: left;
+  padding-right: 2.1rem;
+  &:nth-child(3) {
+	padding: 0 0 0 2.1rem;
+  }
+  .input-group {
+	margin-bottom: 0;
+  }
+}
+
 .input-group--half {
   width: 50%;
   float: left;
@@ -1362,6 +1375,65 @@ a.table--heading {
     padding-left: 0.2rem;
   }
 }
+
+
+.range-picker {
+  .range-block {
+	float: left;
+  }
+  .ui-resizable {
+	position: relative;
+	height: 3.4rem;
+	border-bottom: 1px solid yellow;
+  }
+  .ui-resizable-handle {
+	position: absolute;
+	font-size: 0.1px;
+	display: block;
+  }
+  .ui-resizable-disabled .ui-resizable-handle,
+  .ui-resizable-autohide .ui-resizable-handle {
+	display: none;
+  }
+  .ui-resizable-e {
+	cursor: pointer;
+	right: 0rem;
+	top: 0;
+	height: 100%;
+	display: block;
+	@include box-shadow(
+		0.6rem 0 1rem 0 transparentize($black, 0.82)
+	);
+	width: 2.2rem;
+	height: 3.4rem;
+	background-color: $tealLight;
+	border-right: 0.1rem solid lighten($tealMedium, 4%);
+	border-radius: $radius;
+	&:after {
+	  @include svg(three-lines-tealLightest);
+	  content: "";
+	  display: block;
+	  width: 1.2rem;
+	  height: 2.4rem;
+	  position: absolute;
+	  top: 0.5rem;
+	  left: 0.5rem;
+	}
+  }
+  width: 100%;
+  .range-picker--handle {
+  }
+
+  td {
+	padding: 0;
+	margin: 0;
+	background-color: lightblue;
+	&:nth-child(odd) {
+	  background-color: lightseagreen;
+	}
+  }
+}
+
 
 // Range inputs
 // --------------------------

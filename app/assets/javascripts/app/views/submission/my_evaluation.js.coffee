@@ -58,6 +58,7 @@ define [
         success: () =>
           @collection.add(evaluation)
           @vent.triggerMethod('evaluation:created')
+          #TODO: Move these model changes into the model itself as a method
           @model.set('current_user_has_evaluated',true)
           @model.set('current_user_percentage',0)
           @model.set('current_user_evaluation_published',false)
@@ -70,6 +71,7 @@ define [
       evaluation = @collection.at(0)
       evaluation.destroy({
         success: () =>
+          #TODO: Move these model changes into the model itself as a method
           @model.set('current_user_has_evaluated',false)
           @model.set('current_user_percentage',null)
           @model.set('current_user_evaluation_published',null)
