@@ -1,9 +1,14 @@
-define [
-  'backbone', 'collections/field_collection', 'collections/range_collection', 'collections/cell_collection', 'collections/row_collection', 'models/row', 'models/range', 'models/field', 'models/cell'
-], (
-  Backbone, FieldCollection, RangeCollection, CellCollection, RowCollection, RowModel, RangeModel, FieldModel, CellModel) ->
+define (require) ->
 
-  class Rubric extends Backbone.Model
+  AbstractModel = require('models/abstract_model')
+  FieldCollection = require('collections/field_collection')
+  RangeCollection = require('collections/range_collection')
+  CellCollection = require('collections/cell_collection')
+  RangeModel = require('models/range')
+  FieldModel = require('models/field')
+  CellModel = require('models/cell')
+
+  class Rubric extends AbstractModel
 
     courseId: null
 
@@ -11,6 +16,9 @@ define [
         '/api/v1/rubrics'
 
     initialize: (options) ->
+
+      console.log @get('ranges')
+
       @set 'fields', new FieldCollection(_.toArray(@get('fields')))
       @set 'ranges', new RangeCollection(_.toArray(@get('ranges')))
       @set 'cells', new CellCollection( _.toArray(@get('cells')),{})
@@ -30,7 +38,6 @@ define [
 
       @get('ranges').bind 'remove', (range) =>
         @get('cells').remove(@get('cells').where({range: range.id}))
-
 
     getFieldNameById: (fieldId) ->
       field = @get('fields').findWhere({id: fieldId})
@@ -59,6 +66,12 @@ define [
     getLows: () ->
       @get('ranges').pluck('low')
 
+    setLow: (value) ->
+      @get('ranges').at(0).set('low',@toPositiveInt(value))
+
+    setHigh: (value) ->
+      @get('ranges').last().set('high',@toPositiveInt(value))
+
     getCellDescription: (fieldId, rangeId) ->
       cell = @get('cells').findWhere({field: fieldId, range: rangeId})
       if cell? then cell.get('description')
@@ -66,6 +79,7 @@ define [
     parse: (response, options) ->
       if response?
         response = response.rubric
+
         @set 'fields', new FieldCollection unless @get('fields')
         @set 'ranges', new RangeCollection unless @get('ranges')
         @set 'cells', new CellCollection unless @get('cells')
@@ -96,3 +110,15 @@ define [
         if value? && _(value.toJSON).isFunction()
           attributes[key] = value.toJSON()
 
+
+    validateName: (attrs, options) ->
+      if !attrs.name || attrs.name.length < 1
+        @addError(@errors, 'name', 'cannot be empty')
+        false
+      else
+        true
+
+    validate: (attrs, options) ->
+      @errors = {}
+      @validateName(attrs, options)
+      if _.size(@errors) > 0 then @errors else false

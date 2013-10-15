@@ -30,9 +30,20 @@
       </tr>
     </thead>
     <tbody>
-
-    <% @my_rubrics.each do |rubric| %>
-      <%= render 'manage_rubric_row', rubric: rubric, show_projects: true %>
+    <% if @my_rubrics.length > 0 %>
+      <% @my_rubrics.each do |rubric| %>
+        <%= render 'manage_rubric_row', rubric: rubric, show_projects: true %>
+      <% end %>
+    <% else %>
+      <tr>
+        <th colspan="3">It looks like you haven't created any rubrics yet.<br /><br />
+          <% if @course %>
+            <%= link_to 'Create a new rubric', new_course_manage_rubric_path(@course)  %>
+          <% else %>
+            <%= link_to 'Create a new rubric', new_rubric_path() %>
+          <% end %>
+          or clone one of the system rubrics, below, to get started.</th>
+      </tr>
     <% end %>
     </tbody>
   </table>
