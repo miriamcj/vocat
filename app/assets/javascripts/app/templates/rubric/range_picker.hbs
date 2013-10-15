@@ -1,5 +1,9 @@
 <div data-behavior="range-picker" border="0" class="range-picker">
-	{{#each handles}}
-		<div style="width: {{width}}%" class="range-block" data-behavior="resizable"><b></b></div>
-	{{/each}}
+  <div class="dragger dragger-low" data-behavior="dragger-low" >0</div>
+
+  {{#each handles}}
+  <div class="dragger" data-behavior="draggable"></div>
+  {{/each}}
+
+  <div class="dragger dragger-high" data-behavior="dragger-high">10</div>
 </div>

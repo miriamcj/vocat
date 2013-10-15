@@ -10,9 +10,10 @@ define (require) ->
 
     ui: {
       'handle': '[data-behavior="draggable"]'
-      'resizable': '[data-behavior="resizable"]'
+      'draggable': '[data-behavior="draggable"]'
       'rangePicker': '[data-behavior="range-picker"]'
     }
+
 
     serializeData: () ->
       highs = @collection.collect( (model) -> parseInt(model.get('high')))
@@ -38,63 +39,32 @@ define (require) ->
         handles: handles
       }
 
+    checkForCollision: (ui) ->
+      console.log ui
+
     onShow: () ->
 
       totalWidth = 922
+      draggablePositions
 
-      @cachedWidths = []
+      @ui.draggable.each((index, handle) =>
+        $handle = $(handle)
+        draggablePositions[index] = $handle.position().left
+      )
+      console.log draggablePositions,'test'
 
-      @ui.resizable.each((index, el) =>
+      @ui.draggable.each((index, handle) =>
 
-        $el = $(el)
-        @cachedWidths[index] = $el.width()
-        $el.find('b').html(@cachedWidths[index])
-        console.log @cachedWidths
-
-
-        $el.resizable({
-          handles: 'e'
-          minHeight: 34
-          maxHeight: 34
-
-          resize: (event, ui) =>
-
-            cachedWidth = @cachedWidths[index]
-            next = @ui.resizable.eq(index + 1)
-            diff = ui.size.width - cachedWidth
-            nextWidth = next.width()
-            newNextWidth = nextWidth - diff
-            if newNextWidth >= 22
-              next.width(newNextWidth)
-            else
-              ui.element.width(ui.size.width - diff)
-              ui.size.width = ui.size.width - diff
+        $handle = $(handle)
 
 
-            @cachedWidths[index + 1] = nextWidth
-            total = _.reduce(@ui.resizable, (memo, el) ->
-              memo + $(el).width()
-            , 0)
-            totalDiff = total - totalWidth
-            if totalDiff > 0
-              newWidth = ui.size.width - totalDiff
-              ui.element.width(newWidth)
-              ui.size.width = newWidth
-            ui.element.find('b').html(ui.size.width)
-            @cachedWidths[index] = ui.size.width
-
-            console.log @cachedWidths
+        $handle.draggable({
+          axis: "x",
+          containment: "parent"
+          drag: (event, ui) =>
+            @checkForCollision(ui)
         })
       )
-
-#      @ui.handle.each((index, handle) =>
-#        $(handle).draggable({
-#          axis: "x",
-#          containment: "parent"
-#          drag: (event, ui) =>
-#            parent = $(event.target).parent()
-#        })
-#      )
 
     initialize: (options) ->
       @vent = options.vent

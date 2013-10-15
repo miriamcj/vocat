@@ -1378,59 +1378,32 @@ a.table--heading {
 
 
 .range-picker {
-  .range-block {
-	float: left;
-  }
-  .ui-resizable {
-	position: relative;
-	height: 3.4rem;
-	border-bottom: 1px solid yellow;
-  }
-  .ui-resizable-handle {
-	position: absolute;
-	font-size: 0.1px;
-	display: block;
-  }
-  .ui-resizable-disabled .ui-resizable-handle,
-  .ui-resizable-autohide .ui-resizable-handle {
-	display: none;
-  }
-  .ui-resizable-e {
-	cursor: pointer;
-	right: 0rem;
-	top: 0;
-	height: 100%;
-	display: block;
-	@include box-shadow(
-		0.6rem 0 1rem 0 transparentize($black, 0.82)
-	);
-	width: 2.2rem;
-	height: 3.4rem;
-	background-color: $tealLight;
-	border-right: 0.1rem solid lighten($tealMedium, 4%);
-	border-radius: $radius;
-	&:after {
-	  @include svg(three-lines-tealLightest);
-	  content: "";
-	  display: block;
-	  width: 1.2rem;
-	  height: 2.4rem;
-	  position: absolute;
-	  top: 0.5rem;
-	  left: 0.5rem;
-	}
-  }
-  width: 100%;
-  .range-picker--handle {
-  }
+  height: 3.4rem;
+  background-color: $tealLightest;
+  border-radius: $radius;
+  left: 0;
+  right: 0;
+  width: 922px;
+  position: relative;
 
-  td {
-	padding: 0;
-	margin: 0;
-	background-color: lightblue;
-	&:nth-child(odd) {
-	  background-color: lightseagreen;
-	}
+  .dragger {
+    &.dragger-low {
+      position: absolute;
+      left: 0;
+    }
+    &.dragger-high {
+      position: absolute;
+      right: 0;
+    }
+    @include box-shadow(
+        0.6rem 0 1rem 0 transparentize($black, 0.82)
+    );
+    position: absolute;
+    width: 2.2rem;
+    height: 3.4rem;
+    background-color: $tealLight;
+    border-right: 0.1rem solid lighten($tealMedium, 4%);
+    border-radius: $radius;
   }
 }
 
