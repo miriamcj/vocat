@@ -137,6 +137,11 @@ class Ability
       true
     end
 
+    #TODO: Fix this ability check, which is not working.
+    can :create, DiscussionPost do |discussionPost|
+      true
+    end
+
 
     ######################################################
     # Annotations

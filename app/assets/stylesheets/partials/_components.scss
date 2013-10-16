@@ -336,6 +336,7 @@ p {
   @extend %clearfix;
   @extend %shaded-bottom;
   background-color: $tealLightestAlt;
+  border-bottom: 0.10rem solid $tealLightestAlt;
   padding: 2.4rem 3.9rem;
   position: relative;
   z-index: 310;
@@ -538,6 +539,12 @@ a.table--heading {
     margin-left: 0.6rem;
   }
 }
+
+.comment-indicator {
+  @extend %epsilon;
+  @extend %speech-bubble;
+}
+
 
 // Frame list
 // Generic unstyled list with top borders on the <li>s
@@ -816,6 +823,7 @@ a.table--heading {
 // --------------------------
 .frame-attachment {
   @extend %frame--left;
+
 }
 
 .frame-attachment--image {

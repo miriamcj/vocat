@@ -500,6 +500,7 @@ describe "Abilities" do
       context "if the current_user is a creator and the author of the post, she" do
         let ( :user ) { @creator_in_course_a }
         it { expect(user).to have_ability(@ability_aliases[:read_write], for: post) }
+        it { expect(user).to have_ability({:create => true}, for: post) }
       end
       context "if the current_user is a creator and not the author of the post, she" do
         let ( :user ) { @another_creator_in_course_a }
