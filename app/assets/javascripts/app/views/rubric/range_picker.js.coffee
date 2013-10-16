@@ -9,62 +9,122 @@ define (require) ->
     template: template
 
     ui: {
-      'handle': '[data-behavior="draggable"]'
-      'draggable': '[data-behavior="draggable"]'
+      'draggables': '[data-behavior="draggable"]'
+      'handles': '[data-handle]'
       'rangePicker': '[data-behavior="range-picker"]'
+      'ticks': '[data-container="ticks"]'
     }
 
 
     serializeData: () ->
-      highs = @collection.collect( (model) -> parseInt(model.get('high')))
-      lowRange = @collection.min((model) -> parseInt(model.get('low')))
-      unless lowRange == Infinity
-        low = parseInt(lowRange.get('low'))
-      else
-        low = 0
       handles = []
-      high = highs.pop()
-      handles = []
-      _.each(highs, (oneHigh) ->
-        deduct = _.reduce(handles, (memo, handle) ->
-          memo + handle.width
-        , 0)
-        handles.push({
-          width: (((oneHigh - low) / (high - low)) * 100) - deduct
-          high: oneHigh
-        })
+      @collection.each((range, index) =>
+        unless index == 0
+          handles.push(range.get('low'))
       )
       {
-        ranges: @collection.toJSON()
         handles: handles
+        high: @model.getHigh()
+        low: @model.getLow()
       }
 
-    checkForCollision: (ui) ->
-      console.log ui
 
-    onShow: () ->
+    avoidCollisions: ($el, left) ->
+      handleWidth = 1
+      index = $el.index()
+      previousHandlePosition = @draggablePositions[index - 1]
+      nextHandlePosition = @draggablePositions[index + 1]
+      newLeft = left
+      if nextHandlePosition?
+        nextDifference = (left + handleWidth) - nextHandlePosition
+        if nextDifference >= 0
+          newLeft = left - nextDifference
+      if previousHandlePosition?
+        previousDifference = left - (previousHandlePosition + handleWidth)
+        if previousDifference < 0
+          newLeft = left - previousDifference
+      newLeft
 
-      totalWidth = 922
-      draggablePositions
+    snapToTick: ($el, left) ->
+      remainder = left % @tickInc
+      if remainder >= @tickInc / 2
+        left = left + remainder
+      else
+        left = left - remainder
+      return left
 
-      @ui.draggable.each((index, handle) =>
+    updateLabel: ($el, left) ->
+      value = Math.floor((left / @tickInc))
+      $el.find('.dragger-label').html(value)
+
+    updatePositions: (ui) ->
+#      newLeft = @avoidCollisions(ui.helper, ui.position.left)
+      newLeft = ui.position.left
+      index = ui.helper.index()
+      if newLeft != ui.position.left
+        ui.position.left = newLeft
+      @updateLabel(ui.helper, newLeft)
+      @draggablePositions[index] = ui.position.left
+
+    updateTicks: () ->
+      tickCount = @model.get('high') - @model.get('low')
+      width = @ui.rangePicker.width()
+      @tickInc = width / tickCount
+
+    initializeUi: () ->
+      unless @draggablePositions && @draggablePositions instanceof Array
+        @draggablePositions = []
+
+      # Memorize starting positions
+      console.log @draggablePositions, 'starting'
+      @ui.handles.each((index, handle) =>
         $handle = $(handle)
-        draggablePositions[index] = $handle.position().left
+        if @draggablePositions[index] != undefined && index != 0 && index != @draggablePositions.length - 1
+          $handle.css({left: @draggablePositions[index]})
+          console.log @draggablePositions, 'A'
+        else
+          @draggablePositions[index] = $handle.position().left
+          console.log @draggablePositions, 'B'
       )
-      console.log draggablePositions,'test'
 
-      @ui.draggable.each((index, handle) =>
+      # Setup ticks
+      @updateTicks()
 
+      # Initial collision avoidance
+#      @ui.handles.each((index, handle) =>
+#        if index != 0 && index != @draggablePositions.length - 1
+#          $handle = $(handle)
+#          left = $handle.position().left
+#          newLeft = @avoidCollisions($handle, left)
+#          if newLeft != left
+#            $handle.css({left: newLeft})
+#            @draggablePositions[index] = newLeft
+#      )
+
+      # Initialize the draggables
+      @ui.draggables.each((index, handle) =>
         $handle = $(handle)
-
-
         $handle.draggable({
           axis: "x",
           containment: "parent"
           drag: (event, ui) =>
-            @checkForCollision(ui)
+            @updatePositions(ui)
+          stop: (event, ui) =>
+            newLeft = @snapToTick(ui.helper, ui.position.left)
+            ui.helper.animate({left: newLeft})
+            console.log newLeft,'snap to'
         })
       )
 
+    onRender: () ->
+      @initializeUi()
+
+    onShow: () ->
+      @initializeUi()
+
     initialize: (options) ->
       @vent = options.vent
+      @listenTo(@collection, 'add remove', () =>
+        @render()
+      )
+

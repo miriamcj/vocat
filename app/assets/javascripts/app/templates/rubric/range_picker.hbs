@@ -1,9 +1,12 @@
-<div data-behavior="range-picker" border="0" class="range-picker">
-  <div class="dragger dragger-low" data-behavior="dragger-low" >0</div>
-
-  {{#each handles}}
-  <div class="dragger" data-behavior="draggable"></div>
-  {{/each}}
-
-  <div class="dragger dragger-high" data-behavior="dragger-high">10</div>
+<div style="margin-top: 3.4rem; margin-bottom: 3.4rem; width: 922px" data-behavior="range-picker" border="0" class="range-picker">
+  <div class="ticks" data-container="ticks"></div>
+  <div class="handles">
+    <div class="dragger dragger-low" data-handle data-behavior="dragger-low" >{{low}}</div>
+    {{#each handles}}
+    <div class="dragger" data-handle data-behavior="draggable">
+      <div class="dragger-label">{{@index}}</div>
+    </div>
+    {{/each}}
+    <div class="dragger dragger-high" data-handle data-behavior="dragger-high">{{high}}</div>
+  </div>
 </div>

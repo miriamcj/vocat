@@ -15,6 +15,11 @@ define (require) ->
     urlRoot: () ->
         '/api/v1/rubrics'
 
+    defaults: {
+      low: 0
+      high: 100
+    }
+
     initialize: (options) ->
 
       console.log @get('ranges')
@@ -39,6 +44,9 @@ define (require) ->
       @get('ranges').bind 'remove', (range) =>
         @get('cells').remove(@get('cells').where({range: range.id}))
 
+
+
+
     getFieldNameById: (fieldId) ->
       field = @get('fields').findWhere({id: fieldId})
       if field? then field.get('name')
@@ -54,23 +62,19 @@ define (require) ->
       lows
 
     getHigh: () ->
-      ranges = @get('ranges')
-      if ranges.length > 0 then max = ranges.max(((model) -> model.get('high')))
-      if max? then max.get('high')
+      @get('high')
 
     getLow: () ->
-      ranges = @get('ranges')
-      if ranges.length > 0 then min = ranges.min(((model) -> model.get('low')))
-      if min? then min.get('low')
+      @get('low')
 
     getLows: () ->
       @get('ranges').pluck('low')
 
     setLow: (value) ->
-      @get('ranges').at(0).set('low',@toPositiveInt(value))
+      @set('low',parseInt(value))
 
     setHigh: (value) ->
-      @get('ranges').last().set('high',@toPositiveInt(value))
+      @set('high',parseInt(value))
 
     getCellDescription: (fieldId, rangeId) ->
       cell = @get('cells').findWhere({field: fieldId, range: rangeId})

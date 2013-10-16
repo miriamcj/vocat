@@ -1385,7 +1385,9 @@ a.table--heading {
   right: 0;
   width: 922px;
   position: relative;
+  .ticks {
 
+  }
   .dragger {
     &.dragger-low {
       position: absolute;
@@ -1399,11 +1401,27 @@ a.table--heading {
         0.6rem 0 1rem 0 transparentize($black, 0.82)
     );
     position: absolute;
-    width: 2.2rem;
-    height: 3.4rem;
+    width: 1px;
+    height: 6.8rem;
+    top: -3.4rem;
     background-color: $tealLight;
-    border-right: 0.1rem solid lighten($tealMedium, 4%);
     border-radius: $radius;
+    .dragger-label {
+      width: 3.4rem;
+      height: 3.4rem;
+      background-color: #7f9ea0;
+      position: absolute;
+      left: -1.7rem;
+      top: -0.2rem;
+      text-align: center;
+      line-height: 3.4rem;
+    }
+    &:nth-child(even) {
+      top: 0rem;
+      .dragger-label {
+        top: 3.6rem;
+      }
+    }
   }
 }
 

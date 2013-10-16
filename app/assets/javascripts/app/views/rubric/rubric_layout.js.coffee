@@ -80,15 +80,13 @@ define (require) ->
     handleRangeAdd: (event) ->
       range = new RangeModel({})
       @model.get('ranges').add(range)
-      setTimeout(() =>
-        $('html, body').animate({ scrollTop: $(document).height() }, 'slow')
-      , 100)
+#      setTimeout(() =>
+#        $('html, body').animate({ scrollTop: $(document).height() }, 'slow')
+#      , 100)
 
     handleFieldAdd: (event) ->
       field = new FieldModel({})
       @model.get('fields').add(field)
-
-
 
     parseRangePoints: (rangePoints) ->
       unless rangePoints? then rangePoints = ''
@@ -101,24 +99,6 @@ define (require) ->
         !num?
       numbers = _.uniq(numbers).sort((a, b) -> a - b)
       numbers
-
-    onRangeRefresh: (e) ->
-#      rangePoints = @ui.rangePointsInput.val()
-#
-#      parsedRangePoints = @parseRangePoints(rangePoints)
-#      ranges = @model.get('ranges')
-#
-#      _.each(parsedRangePoints, (low, index) =>
-#        if @last_range?
-#          if index + 1 == parsedRangePoints.length && parsedRangePoints.length > ranges.length
-#            @last_range.set('high', low)
-#          else
-#            @last_range.set('high', low - 1)
-#        range = ranges.at(index)
-#        if range? then range.set('low',low)
-#        @last_range = range
-#      )
-#      lastRange = ranges.last()
 
     initialize: (options) ->
       unless @model
@@ -147,7 +127,7 @@ define (require) ->
       @views.rows = new RowsView({collection: @model.get('ranges'), cells: @model.get('cells'), vent: @})
       @views.fields = new FieldsView({collection: @model.get('fields'), vent: @})
       @views.ranges = new RangesView({collection: @model.get('ranges'), vent: @})
-      @views.rangePicker = new RangePickerView({collection: @model.get('ranges'), vent: @})
+      @views.rangePicker = new RangePickerView({collection: @model.get('ranges'), model: @model, vent: @})
 
       @listenTo(@views.fields,'after:item:added', () =>
         @sliderRecalculate()
@@ -159,13 +139,11 @@ define (require) ->
       )
 
       @listenTo(@views.rows,'after:item:added', () =>
-        @onRangeRefresh()
         @sliderRecalculate()
         @views.rangePicker.render()
       )
 
       @listenTo(@views.rows,'item:removed', () =>
-        @onRangeRefresh()
         @sliderRecalculate()
         @views.rangePicker.render()
       )
@@ -175,5 +153,8 @@ define (require) ->
       @ranges.show(@views.ranges)
       @flash.show new FlashMessagesView({vent: @, clearOnAdd: true})
       @rangePicker.show(@views.rangePicker)
+
+      @ui.highInput.val(@model.getHigh())
+      @ui.lowInput.val(@model.getLow())
 
       @sliderRecalculate()
