@@ -1396,41 +1396,44 @@ a.table--heading {
   width: 922px;
   position: relative;
   .ticks {
-
+    .mark {
+      width: 1px;
+      height: 3.4rem;
+      background: white;
+      position: absolute;
+      text-align: center;
+      span {
+        display: block;
+        position: absolute;
+        top: 3.4rem;
+        font-size: .56em;
+      }
+    }
   }
   .dragger {
-    &.dragger-low {
-      position: absolute;
-      left: 0;
-    }
-    &.dragger-high {
-      position: absolute;
-      right: 0;
-    }
-    @include box-shadow(
-        0.6rem 0 1rem 0 transparentize($black, 0.82)
-    );
     position: absolute;
     width: 1px;
     height: 6.8rem;
-    top: -3.4rem;
     background-color: $tealLight;
     border-radius: $radius;
+    top: -3.4rem;
     .dragger-label {
+      @include box-shadow(
+          0.6rem 0 1rem 0 transparentize($black, 0.82)
+      );
+      @extend %heading-epsilon;
+      @extend %shaded-inside-bottom;
+      line-height: 1;
+      color: $beigeLight !important;
+      border-radius: $radius;
       width: 3.4rem;
       height: 3.4rem;
-      background-color: #7f9ea0;
+      background-color: $tealLight;
       position: absolute;
+      top: -.5rem;
       left: -1.7rem;
-      top: -0.2rem;
       text-align: center;
       line-height: 3.4rem;
-    }
-    &:nth-child(even) {
-      top: 0rem;
-      .dragger-label {
-        top: 3.6rem;
-      }
     }
   }
 }

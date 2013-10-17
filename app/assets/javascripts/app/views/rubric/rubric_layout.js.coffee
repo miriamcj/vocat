@@ -106,10 +106,15 @@ define (require) ->
           @model = new RubricModel({id: options.rubricId})
           @model.fetch({
             success: (model) =>
-              rangeString = model.getRangeString()
               @render()
-              #@ui.rangePointsInput.val(rangeString)
-              #@onRangeRefresh()
+              @listenTo(@views.rows,'after:item:added', () =>
+                @sliderRecalculate()
+                @views.rangePicker.render()
+              )
+              @listenTo(@views.rows,'item:removed', () =>
+                @sliderRecalculate()
+                @views.rangePicker.render()
+              )
 
           })
         else
@@ -136,16 +141,6 @@ define (require) ->
 
       @listenTo(@views.fields,'item:removed', () =>
         @sliderRecalculate()
-      )
-
-      @listenTo(@views.rows,'after:item:added', () =>
-        @sliderRecalculate()
-        @views.rangePicker.render()
-      )
-
-      @listenTo(@views.rows,'item:removed', () =>
-        @sliderRecalculate()
-        @views.rangePicker.render()
       )
 
       @rows.show(@views.rows)

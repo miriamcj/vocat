@@ -22,8 +22,6 @@ define (require) ->
 
     initialize: (options) ->
 
-      console.log @get('ranges')
-
       @set 'fields', new FieldCollection(_.toArray(@get('fields')))
       @set 'ranges', new RangeCollection(_.toArray(@get('ranges')))
       @set 'cells', new CellCollection( _.toArray(@get('cells')),{})

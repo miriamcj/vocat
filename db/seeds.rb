@@ -99,12 +99,14 @@ end
 
 # Create a rubric
 the_rubric = Rubric.new('name' => "Theater Rubric")
+the_rubric.low = 0
+the_rubric.high = 6
 the_rubric.public = true
 voice_key = the_rubric.add_field({'name' => 'Voice', 'description' => 'Breathing; Centering; Projection'})
 body_key = the_rubric.add_field({'name' => 'Body', 'description' => 'Relaxation; Physical tension; Eye-contact; Non-verbal communication'})
 expression_key = the_rubric.add_field({'name' => 'Expression', 'description' => 'Concentration; Focus; Point of View; Pacing'})
 overall_key = the_rubric.add_field({'name' => 'Overall Effect', 'description' => 'Integration of above categories; connection with audience'})
-low_key = the_rubric.add_range({'name' => 'Low', 'low' => 1, 'high' => 2})
+low_key = the_rubric.add_range({'name' => 'Low', 'low' => 0, 'high' => 2})
 medium_key = the_rubric.add_range({'name' => 'medium', 'low' => 3, 'high' => 4})
 high_key = the_rubric.add_range({'name' => 'high', 'low' => 5, 'high' => 6})
 the_rubric.owner = admin
@@ -126,6 +128,8 @@ the_rubric.save
 
 comm_rubric =  Rubric.new('name' => "COMM1010 Rubric")
 comm_rubric.public = true
+comm_rubric.low = 0
+comm_rubric.high = 6
 comm_rubric.owner = admin
 attention_key = comm_rubric.add_field({'name' => 'Attention', 'description' => 'Attention Step'})
 introduction_key = comm_rubric.add_field({'name' => 'Relation to Audience', 'description' => 'Relation to Audience'})
@@ -142,7 +146,7 @@ level_key = comm_rubric.add_field({'name' => 'Level', 'description' => 'Level'})
 eye_key = comm_rubric.add_field({'name' => 'Eye Contact', 'description' => 'Eye Contact'})
 movement_key = comm_rubric.add_field({'name' => 'Movement', 'description' => 'Movement'})
 visual_key = comm_rubric.add_field({'name' => 'Visual Aids / Attire', 'description' => 'Visual Aids / Attire'})
-comm_low_key = comm_rubric.add_range({'name' => 'Poor/Failure', 'low' => 1, 'high' => 2})
+comm_low_key = comm_rubric.add_range({'name' => 'Poor/Failure', 'low' => 0, 'high' => 2})
 comm_medium_key = comm_rubric.add_range({'name' => 'Good/Average', 'low' => 3, 'high' => 4})
 comm_high_key = comm_rubric.add_range({'name' => 'Excellent', 'low' => 5, 'high' => 6})
 
