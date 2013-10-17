@@ -24,22 +24,22 @@
   #{$property}: $integer * 1rem;
 }
 
-// Compass sprites
-// This generates a bunch of class selectors, consisting of 
-// the sprite folder name (icon) followed by the image name.
-// Extend them wherever you like: @extend .icon-tardis;
-// --------------------------
-@import "compass/utilities/sprites";
-@import "icon/*.png";
-@include all-icon-sprites;
-
 // SVG backgrounds
-// PNG version must be in icon directory for fallback to work
+// PNG version must be in png directory for fallback to work
 // --------------------------
 @mixin svg($image) {
-  background: transparent inline-image('svg/#{$image}.svg') no-repeat left top;
+  @if $mode == production {
+    @extend %icon-#{$image};
+  }
+  @else {
+    background-image: url('svg/#{$image}.svg');
+  }
   background-size: contain;
-  .no-inlinesvg & {
-    @extend .icon-#{$image};
+  background-position: left top;
+  background-repeat: no-repeat;
+  @if $mode == production {
+    .no-inlinesvg & {
+      @extend .png-#{$image};
+    }
   }
 }

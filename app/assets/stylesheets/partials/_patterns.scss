@@ -1472,13 +1472,23 @@ input%proto-button {
 %active-base {
   @include background-size(contain);
   background-color: $tealLighter;
-  background-image: inline-image('bg-criterion.png');
+  @if $mode == production {
+    background-image: inline-image('bg-criterion.png');
+  }
+  @else {
+    background-image: url('bg-criterion.png');
+  }
   background-repeat: repeat-y;
   background-position: right top;
   background-origin: content-box;
   &:hover {
     background-color: $orangeLight;
-    background-image: inline-image('bg-criterion-hover.png');
+    @if $mode == production {
+      background-image: inline-image('bg-criterion-hover.png');
+    }
+    @else {
+      background-image: url('bg-criterion-hover.png');
+    }
     .indicator {
       background-color: $orange;
     }

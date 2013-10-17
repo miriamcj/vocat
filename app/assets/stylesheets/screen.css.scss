@@ -3,11 +3,13 @@
 	By Scott (scott@castironcoding.com)
 */
 
-// @import "compass/reset";
+// NB: in 'development' mode, png fallbacks for icons in IE8- will not work
+$mode: development;
 
 @import "partials/normalize";
 @import "partials/variables";
 @import "partials/fonts";
+@import "partials/images";
 @import "partials/mixins-base";
 @import "partials/mixins-project";
 @import "partials/base";
@@ -19,4 +21,3 @@
 @import "partials/dc";
 @import "partials/video_js";
 @import "partials/prototyping";
-

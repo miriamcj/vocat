@@ -1744,11 +1744,12 @@ a.table--heading {
 
 
 .matrix--overlay-header-selector-inline {
-  & .matrix--overlay-header-subtitle, & .matrix--overlay-header-title {
-	padding-right: 2.3rem;
-	background: transparent inline-image('svg/arrow-down-gray.svg') no-repeat left top;
-	background-size: 1.6rem 1.6rem;
-	background-position: right center;
+  & .matrix--overlay-header-subtitle, 
+  & .matrix--overlay-header-title {
+    @include svg(arrow-down-gray);
+  	background-size: 1.6rem 1.6rem;
+  	background-position: right center;
+    padding-right: 2.3rem;
   }
 }
 
@@ -2546,7 +2547,6 @@ a.table--heading {
 
   }
 }
-
 
 //
 //// Charts
