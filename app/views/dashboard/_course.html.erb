@@ -1,0 +1,33 @@
+<div class="portfolio-frame">
+  <h2 class="frame-summary--title"><%= link_to course, portfolio_course_path(course)  %></h2>
+
+
+  <% current_user.submissions.for_courses(course).each_with_index do |submission, index| %>
+
+    <div style="padding-top: 2.4rem; padding-bottom: 2.4rem;">
+      <figure style="width: 24%" class="frame-attachment">
+        <% if submission.has_video? %>
+          <%= link_to image_tag(submission.thumb, :class => 'frame-attachment--image'), course_user_creator_project_detail_path(course, submission.creator, submission.project) %>
+        <% else %>
+          <div class="attachment-placeholder"></div>
+        <% end %>
+      </figure>
+
+      <div style="width: 75%" class="frame-summary">
+        <h2 class="heading-large" style="margin-bottom: 1.9rem;">
+          <%= link_to submission.project_name, course_user_creator_project_detail_path(course, submission.creator, submission.project) %>
+        </h2>
+
+        <%= render 'dashboard/scores', :submission => submission, :course => course %>
+
+        <a style="float: left; margin-top: 1.9rem;" class="comment-indicator"data-behavior="routable" href="<%= url_for course_user_creator_project_detail_path(course, submission.creator, submission.project) %>"><%= pluralize(submission.discussion_posts_count, 'comment') %></a>
+        <a class="frame-summary--link" style="float: right;" data-behavior="routable" href="<%= url_for course_user_creator_project_detail_path(course, submission.creator, submission.project) %>">View Evaluation Detail</a>
+
+      </div>
+    </div>
+    <% unless (index + 1) == current_user.submissions.for_courses(course).length %>
+      <div style="height: 2px; background-color: #AFC3C4"></div>
+    <% else %>
+    <% end %>
+  <% end %>
+</div>

@@ -336,6 +336,7 @@ p {
   @extend %clearfix;
   @extend %shaded-bottom;
   background-color: $tealLightestAlt;
+  border-bottom: 0.10rem solid $tealLightestAlt;
   padding: 2.4rem 3.9rem;
   position: relative;
   z-index: 310;
@@ -538,6 +539,12 @@ a.table--heading {
     margin-left: 0.6rem;
   }
 }
+
+.comment-indicator {
+  @extend %epsilon;
+  @extend %speech-bubble;
+}
+
 
 // Frame list
 // Generic unstyled list with top borders on the <li>s
@@ -829,6 +836,7 @@ a.table--heading {
 // --------------------------
 .frame-attachment {
   @extend %frame--left;
+
 }
 
 .frame-attachment--image {
@@ -957,7 +965,6 @@ a.table--heading {
     margin: 0;
     }
   }
-
   .pie-wrapper {
     margin-bottom: 1.6rem;
   }
@@ -968,13 +975,16 @@ a.table--heading {
 // --------------------------------------------------------
 // <figure>
 .pie {
-  width: 157px;
+  width: 15.7rem;
   float: left;
   margin-right: 1.6rem;
-  &:last-child {
-	margin-right: 0;
-  }
   text-align: center;
+  &:nth-child(4n) {
+    margin-right: 0;
+  }
+  figcaption {
+    min-height: 6rem;
+  }
 }
 
 // Summary box
@@ -986,42 +996,42 @@ a.table--heading {
   margin-right: 2rem;
   width: 12rem;
   figcaption {
-	margin-top: .75rem;
-	color: $tealMedium;
-	text-align: center;
-	@extend %delta;
+    @extend %delta;
+  	margin-top: .75rem;
+  	color: $tealMedium;
+  	text-align: center;
   }
   div {
-	padding: 0rem 2rem;
-	position: relative;
-	border-radius: $radius;
-	background-color: $tealLightestAlt;
-	text-align: center;
-	overflow: hidden;
-	@include font-head;
-	color: $tealMedium;
-	span {
-	  position: relative;
-	  top: .2rem;
-	  @include font-size(57.6);
-	}
-	b {
-	  display: block;
-	  position: absolute;
-	  left: 0;
-	  bottom: 0;
-	  border-bottom-left-radius: $radius;
-	  border-bottom-right-radius: $radius;
-	  width: 100%;
-	  background-color: $tealLightest;
-	}
-	small {
-	  vertical-align: top;
-	  position: relative;
-	  top: .6rem;
-	  left: .5rem;
-	  @extend %mega-alt;
-	}
+  	padding: 0rem 2rem;
+  	position: relative;
+  	border-radius: $radius;
+  	background-color: $tealLightestAlt;
+  	text-align: center;
+  	overflow: hidden;
+  	@include font-head;
+  	color: $tealMedium;
+  	span {
+      @include font-size(57.6);
+  	  position: relative;
+  	  top: 0.2rem;
+  	}
+  	b {
+  	  display: block;
+  	  position: absolute;
+  	  left: 0;
+  	  bottom: 0;
+  	  border-bottom-left-radius: $radius;
+  	  border-bottom-right-radius: $radius;
+  	  width: 100%;
+  	  background-color: $tealLightest;
+  	}
+  	small {
+      @extend %mega-alt;
+  	  vertical-align: top;
+  	  position: relative;
+  	  top: 0.6rem;
+  	  left: 0.5rem;
+  	}
   }
 }
 

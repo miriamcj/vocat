@@ -267,7 +267,7 @@ DEPENDENCIES
   rails-backbone
   rspec
   rspec-rails
-  sass-rails (~> 3.2.3)
+  sass-rails (~> 3.2.6)
   simple_form
   strong_parameters
   therubyracer

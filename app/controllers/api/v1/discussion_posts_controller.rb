@@ -5,6 +5,8 @@ class Api::V1::DiscussionPostsController < ApiController
   load_and_authorize_resource :discussion_post
   respond_to :json
 
+  skip_authorize_resource
+
   # GET /api/v1/submissions/1/discussion_posts.json
   def index
     @submission = Submission.find(params[:submission_id])
@@ -20,6 +22,7 @@ class Api::V1::DiscussionPostsController < ApiController
 
   def create
     @discussion_post.author_id = current_user.id
+    authorize! :create, @discussion_post
     if @discussion_post.save
       respond_with @discussion_post, :root => false, status: :created, location: ''
       #, location: api_v1_submission_discussion_post_url(@submission.id, @discussion_post.id)
