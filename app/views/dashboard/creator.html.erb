@@ -1,5 +1,9 @@
 <header class="bar-header">
-  <h2 class="bar-header--title" style="max-width: 100%">Dashboard<%= if @course then ": #{@course.department}#{@course.number} - #{@course.name} " end%></h2>
+  <% if @course %>
+    <h2 class="bar-header--title" style="max-width: 100%"><%= if @course then "#{@course.department}#{@course.number} - #{@course.name} " end%></h2>
+  <% else %>
+    <h2 class="bar-header--title" style="max-width: 100%">Dashboard</h2>
+  <% end %>
 </header>
 
 
