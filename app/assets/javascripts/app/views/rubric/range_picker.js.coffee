@@ -228,7 +228,6 @@ define (require) ->
               high = values[index + 1] - 1
             updates.push({low: low, high: high})
         )
-        console.log updates,'updates'
         _.each(updates, (update, index) =>
           range = @collection.at(index)
           if range?
