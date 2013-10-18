@@ -15,81 +15,117 @@ define (require) ->
       'ticks': '[data-container="ticks"]'
     }
 
+    fallBackWidth: 922
 
-    serializeData: () ->
-      handles = []
-      @collection.each((range, index) =>
-        handles.push(range.get('low'))
-      )
-      handles.push(@model.get('high'))
-      {
-        handles: handles
-        high: @model.getHigh()
-        low: @model.getLow()
-      }
+    # Snaps a dragger to the closest free tick.
+    snapToTick: ($dragger, startPosition = null) ->
+      values = @getValues()
+      left = $dragger.position().left
+      target = @getScoreFromLeft(left)
+      movePreference = 'next'
+      if startPosition? && startPosition < target then movePreference = 'previous'
 
-    snapToTick: ($el, left) ->
-      previousTick = Math.floor(left / @tickInc) * @tickInc
-      nextTick = Math.ceil(left / @tickInc) * @tickInc
-      if (left - previousTick) < (nextTick - left)
-        return previousTick
-      else
-        return nextTick
+      # Does the target value appear more than once in the values array? If so, we need to shunt
+      # the $dragger to a new position.
+      if _.filter(values, (value) -> value != target).length < (values.length - 1)
+        missing = @getMissingFromSequence(values)
+        # First we try to go up
+        nextViableTarget = _.min(_.reject(missing, (value) -> value < target ))
+        previousViableTarget = _.max(_.reject(missing, (value) -> value > target ))
+        nextDistance = @getLeftFromScore(nextViableTarget) - left
+        previousDistance = left - @getLeftFromScore(previousViableTarget)
+        if nextDistance < previousDistance then target = nextViableTarget else target = previousViableTarget
+      @moveTo($dragger, target, true)
 
-      remainder = left % @tickInc
-      if remainder >= @tickInc / 2
-        left = left + remainder
-      else
-        left = left - remainder
-      return left
-
+    # Updates the handle label based on the $el's position
     updateLabel: ($el, left) ->
       score = @getScoreFromLeft(left)
       $el.find('.dragger-label').html(score)
 
-    updatePositions: (ui) ->
+    # Called when the draggers are dragged. Currently only triggers a label update
+    handlePositionChange: (ui) ->
       @updateLabel(ui.helper, ui.position.left)
 
+    # Returns the number of ticks to show for a given range (assuming we limit ticks to 10.
     getTickCountForRange: (range) ->
       ticks = 0
       _.each([0..range], (i) ->
-        if range % i == 0 && i <= 20
+        if range % i == 0 && i <= 15
           ticks = i
       )
-      if range < 10
+      if range <= 15
         ticks == range
       else if ticks < 5
         ticks = 10
       ticks
 
-    moveTo: ($dragger, score) ->
+    # Moves a dragger to a specific score. Can also animate the move, but does not do so by default.
+    moveTo: ($dragger, score, animate = false) ->
       target = @getLeftFromScore(score)
-      $dragger.css({left: target})
+      if animate == true
+        $dragger.animate({left: target}, 200, () =>
+          @updateCollection()
+        )
+      else
+        $dragger.css({left: target})
+        @updateCollection()
+
       @updateLabel($dragger, target)
 
+    # Updates the tickes on the picker based on the current scale
     updateTicks: () ->
       @ui.ticks.empty()
-      tickCount = @getPossibleValueCount()
+      tickCount = @getPossibleTickCount()
       visibleTickCount = @getTickCountForRange(tickCount)
       @updateTickInc()
       i = 1
-      while i < visibleTickCount
+      while i <= visibleTickCount
         tickNumber = tickCount / visibleTickCount * i
         left = tickNumber * @tickInc
         score = @getScoreFromLeft(left)
-        html = '<div style="left: ' + left + 'px" class="mark"><span>' + score + '</span></div>'
-        @ui.ticks.append(html)
+        unless score == @model.get('high')
+          html = '<div style="left: ' + left + 'px" class="mark"><span>' + score + '</span></div>'
+          @ui.ticks.append(html)
         i++
 
+    isPrime: (n) ->
+      if _.isNaN(n) || !isFinite(n) || n % 1 || n < 2 then return false
+      if n % 2 == 0 then return n == 2
+      if n % 3 == 0 then return n == 3
+      m = Math.sqrt(n)
+      i = 5
+      while i <= m
+        return false  if n % i is 0
+        return false  if n % (i + 2) is 0
+        i += 6
+      true
+
+    # Calculates and sets the width of a tick on the range picker
     updateTickInc: () ->
       @tickInc = @getRangePickerWidth() / @getPossibleValueCount()
 
+    # Calculates the width of the range picker
     getRangePickerWidth: () ->
-      @ui.rangePicker.width()
+      if @ui.rangePicker.is(':visible')
+        width = @ui.rangePicker.width()
+      else
+        width = @fallBackWidth
+      width
 
+    # Gets the number of possible values for the model
     getPossibleValueCount: () ->
       @model.get('high') - @model.get('low')
 
+    getPossibleTickCount: () ->
+      valueCount = @getPossibleValueCount()
+      isPrime = @isPrime(valueCount) && valueCount > 15
+      if isPrime == true
+        i = valueCount
+        i-- while @isPrime(i) is true
+        valueCount = i
+      valueCount
+
+    # Give a left position, it returns the corresponding integer value based on the current scale
     getScoreFromLeft: (left) ->
       if left == 0
         score = @model.get('low')
@@ -98,10 +134,13 @@ define (require) ->
         score = Math.round(tickPosition + @model.get('low'))
       score
 
+    # Given a score integer, it returns the corresponding left position
     getLeftFromScore: (score) ->
       adjustedScore = score - @model.get('low')
       adjustedScore * @tickInc
 
+    # This function validates the values array to make sure
+    # there are enough values, no duplicates, etc.
     fixValues: (values) ->
       newValues = values.slice(0) # clone it
 
@@ -130,22 +169,49 @@ define (require) ->
         newValues.splice(1, 1)
 
       while missingCount > 0
-        missing = []
-        for value, i in newValues
-          if newValues[i + 1] - newValues[i] != 1
-            x = newValues[i + 1] - newValues[i]
-            j = 1
-            while j < x
-              missing.push(newValues[i] + j)
-              j++
-        if missing.length > 0 then newValues.push _.max(missing)
+        bestGuess = @guessNextValue(newValues)
+        if bestGuess? then newValues.push bestGuess
+#        missing = @getMissingFromSequence(newValues)
+#        if missing.length > 0 then newValues.push _.max(missing)
         newValues = _.sortBy(newValues, sortIterator)
         missingCount--
 
       newValues = _.uniq(newValues)
       newValues
 
+
+    guessNextValue: (values) ->
+      gap = @getLargestGapInSequence(values)
+      guess = Math.floor((_.reduce(gap, (memo, num) -> memo + num) / 2))
+      guess
+
+    getLargestGapInSequence: (sequence) ->
+      gaps = _.map(sequence, (value, index) ->
+        unless index == 0
+          value - sequence[index - 1]
+        else
+          0
+      )
+      highIndex = _.indexOf(gaps, _.max(gaps))
+      lowIndex = highIndex - 1
+      [sequence[lowIndex], sequence[highIndex]]
+
+    # Returns an array of numbers that are missing from the sequence. Assumes
+    # sequence is already sorted.
+    getMissingFromSequence: (sequence) ->
+      missing = []
+      for value, i in sequence
+        if sequence[i + 1] - sequence[i] != 1
+          x = sequence[i + 1] - sequence[i]
+          j = 1
+          while j < x
+            missing.push(sequence[i] + j)
+            j++
+      missing
+
+    # Updates the ranges collection from the current values
     updateCollection: () ->
+
       if @collection.length > 0
         values = @getValues()
         updates = []
@@ -162,12 +228,14 @@ define (require) ->
               high = values[index + 1] - 1
             updates.push({low: low, high: high})
         )
+        console.log updates,'updates'
         _.each(updates, (update, index) =>
           range = @collection.at(index)
           if range?
             range.set(update)
         )
 
+    # Returns the values based on handle positions
     getValues: () ->
       values = []
       _.each(@handles, (handle) =>
@@ -182,6 +250,7 @@ define (require) ->
       )
       values
 
+    # Returns the values from the range collection
     getValuesFromCollection: (collection) ->
 
       if collection.length > 0
@@ -192,7 +261,7 @@ define (require) ->
       else
         []
 
-
+    # Sets up the range picker UI
     initializeUi: () ->
 
       @handles = []
@@ -210,16 +279,27 @@ define (require) ->
         @moveTo($handle, value)
         @handles.push($handle)
         unless index == 0 || index + 1 == values.length
+          startPosition = 0
           $handle.draggable({
             axis: "x",
             containment: "parent"
             drag: (event, ui) =>
-              @updatePositions(ui)
+              @handlePositionChange(ui)
+            start: (event, ui) =>
+              _.each(@handles, ($dragger) =>
+                $dragger.removeClass('dragger-active')
+              )
+              ui.helper.addClass('dragger-active')
+              startPosition = ui.helper.position()
             stop: (event, ui) =>
-              newLeft = @snapToTick(ui.helper, ui.position.left)
-              ui.helper.animate({left: newLeft}, 200)
+              @snapToTick(ui.helper, startPosition.left)
               @updateCollection()
           })
+        else
+          if index == 0
+            $handle.addClass('dragger-locked dragger-low')
+          else
+            $handle.addClass('dragger-locked dragger-high')
       )
       @updateCollection()
 

@@ -1393,7 +1393,6 @@ a.table--heading {
   border-radius: $radius;
   left: 0;
   right: 0;
-  width: 922px;
   position: relative;
   .ticks {
     .mark {
@@ -1405,6 +1404,7 @@ a.table--heading {
       span {
         display: block;
         position: absolute;
+        margin-left: -50%;
         top: 3.4rem;
         font-size: .56em;
       }
@@ -1412,11 +1412,35 @@ a.table--heading {
   }
   .dragger {
     position: absolute;
+    cursor: pointer;
     width: 1px;
     height: 6.8rem;
     background-color: $tealLight;
     border-radius: $radius;
     top: -3.4rem;
+    z-index: 30;
+    &.dragger-active {
+      z-index: 40;
+    }
+    &.dragger-low .dragger-label {
+      left: 0;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    &.dragger-high .dragger-label {
+      left: -3.3rem;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    &.dragger-locked {
+      @include opacity(70);
+      top: -3.7rem;
+      z-index: 20;
+      .dragger-label {
+        top: -.2rem;
+      }
+    }
+
     .dragger-label {
       @include box-shadow(
           0.6rem 0 1rem 0 transparentize($black, 0.82)
