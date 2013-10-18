@@ -1,5 +1,7 @@
 class DashboardController < ApplicationController
 
+  skip_authorization_check
+
   def index
     if current_user.role?(:evaluator)
       redirect_to :action => :evaluator

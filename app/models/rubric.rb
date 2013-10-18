@@ -3,7 +3,7 @@ require 'securerandom'
 
 class Rubric < ActiveRecord::Base
 
-  attr_accessible :name, :public, :description, :cells, :fields, :ranges, :owner
+  attr_accessible :name, :public, :description, :cells, :fields, :ranges, :owner, :low, :high
   belongs_to :owner, :class_name => "User"
   has_many :projects
 
@@ -112,7 +112,7 @@ class Rubric < ActiveRecord::Base
   end
 
   def low_score
-    self.ranges.collect { |value| value['low'].to_i }.min
+    self.low
   end
 
   def points_possible
@@ -120,7 +120,7 @@ class Rubric < ActiveRecord::Base
   end
 
   def high_score
-    self.ranges.collect { |value| value['high'].to_i }.max
+    self.high
   end
 
   def to_s

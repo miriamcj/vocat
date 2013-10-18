@@ -1,14 +1,12 @@
 <div class="rubric-index">
-  <div class="shaded-bottom">
-    <header class="bar-header">
-      <h2 class="bar-header--title">Rubrics</h2>
-      <% if @course %>
-        <%= link_to 'New Rubric', new_course_manage_rubric_path(@course), :class => 'teal-plus-button' %>
-      <% else %>
-        <%= link_to 'New Rubric', new_rubric_path(), :class => 'teal-plus-button' %>
-      <% end %>
-    </header>
-  </div>
+  <header class="bar-header double-space-bottom">
+    <h2 class="bar-header--title">Rubrics</h2>
+    <% if @course %>
+      <%= link_to 'New Rubric', new_course_manage_rubric_path(@course), :class => 'teal-plus-button' %>
+    <% else %>
+      <%= link_to 'New Rubric', new_rubric_path(), :class => 'teal-plus-button' %>
+    <% end %>
+  </header>
 
   <div class="page-content--frame double-space-bottom">
     <p>As an evaluator, you may create and use your own scoring rubrics, or you can use system-wide VOCAT rubrics. The first table, below, lists your rubrics, which you may change as needed. To create a new rubric, press the "new rubic" button, above.</p>
@@ -25,14 +23,25 @@
     <thead>
       <tr>
         <th style="width: 33%">Name</th>
-        <th style="width: 33%">Description</th>
+        <th style="width: 33%">Projects</th>
         <th style="width: 33%">Actions</th>
       </tr>
     </thead>
     <tbody>
-
-    <% @my_rubrics.each do |rubric| %>
-      <%= render 'manage_rubric_row', rubric: rubric %>
+    <% if @my_rubrics.length > 0 %>
+      <% @my_rubrics.each do |rubric| %>
+        <%= render 'manage_rubric_row', rubric: rubric, show_projects: true %>
+      <% end %>
+    <% else %>
+      <tr>
+        <th colspan="3">It looks like you haven't created any rubrics yet.<br /><br />
+          <% if @course %>
+            <%= link_to 'Create a new rubric', new_course_manage_rubric_path(@course)  %>
+          <% else %>
+            <%= link_to 'Create a new rubric', new_rubric_path() %>
+          <% end %>
+          or clone one of the system rubrics, below, to get started.</th>
+      </tr>
     <% end %>
     </tbody>
   </table>
@@ -54,7 +63,7 @@
     </thead>
     <tbody>
     <% @system_rubrics.each do |rubric| %>
-      <%= render 'manage_rubric_row', rubric: rubric %>
+      <%= render 'manage_rubric_row', rubric: rubric, show_projects: false %>
     <% end %>
     </tbody>
   </table>

@@ -1146,7 +1146,7 @@ input%proto-button {
   padding: 3.4rem 3.2rem 2.4rem;
   position: relative;
   z-index: 110;
-  &:nth-child(even) {
+  &:nth-child(odd) {
     background-color: $beigeLight;
   }
   &:last-child {

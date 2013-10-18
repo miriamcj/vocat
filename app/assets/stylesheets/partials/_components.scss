@@ -582,6 +582,19 @@ a.table--heading {
   }
 }
 
+
+.input-group--third {
+  width: 33%;
+  float: left;
+  padding-right: 2.1rem;
+  &:nth-child(3) {
+	padding: 0 0 0 2.1rem;
+  }
+  .input-group {
+	margin-bottom: 0;
+  }
+}
+
 .input-group--half {
   width: 50%;
   float: left;
@@ -1373,6 +1386,83 @@ a.table--heading {
   }
 }
 
+
+.range-picker {
+  height: 3.4rem;
+  background-color: $tealLightest;
+  border-radius: $radius;
+  left: 0;
+  right: 0;
+  position: relative;
+  .ticks {
+    .mark {
+      width: 1px;
+      height: 3.4rem;
+      background: white;
+      position: absolute;
+      text-align: center;
+      span {
+        display: block;
+        position: absolute;
+        margin-left: -50%;
+        top: 3.4rem;
+        font-size: .56em;
+      }
+    }
+  }
+  .dragger {
+    position: absolute;
+    cursor: pointer;
+    width: 1px;
+    height: 6.8rem;
+    background-color: $tealLight;
+    border-radius: $radius;
+    top: -3.4rem;
+    z-index: 30;
+    &.dragger-active {
+      z-index: 40;
+    }
+    &.dragger-low .dragger-label {
+      left: 0;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    &.dragger-high .dragger-label {
+      left: -3.3rem;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    &.dragger-locked {
+      @include opacity(70);
+      top: -3.7rem;
+      z-index: 20;
+      .dragger-label {
+        top: -.2rem;
+      }
+    }
+
+    .dragger-label {
+      @include box-shadow(
+          0.6rem 0 1rem 0 transparentize($black, 0.82)
+      );
+      @extend %heading-epsilon;
+      @extend %shaded-inside-bottom;
+      line-height: 1;
+      color: $beigeLight !important;
+      border-radius: $radius;
+      width: 3.4rem;
+      height: 3.4rem;
+      background-color: $tealLight;
+      position: absolute;
+      top: -.5rem;
+      left: -1.7rem;
+      text-align: center;
+      line-height: 3.4rem;
+    }
+  }
+}
+
+
 // Range inputs
 // --------------------------
 // This wraps .slider
@@ -1568,6 +1658,7 @@ a.table--heading {
   @extend %shaded-bottom;
   width: $mainWidth;
   height: $subHeaderHeight;
+  border-top: 0.1rem solid $tealLighter;
   position: absolute;
   z-index: 300;
   &.stuck {
@@ -1647,7 +1738,7 @@ a.table--heading {
 .matrix--column-header--input {
   @extend %medium-text-input;
   display: inline-block;
-  width: 19rem;
+  width: 18.5rem;
   margin-bottom: 0;
 }
 

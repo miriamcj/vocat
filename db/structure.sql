@@ -510,7 +510,9 @@ CREATE TABLE rubrics (
     course_id integer,
     cells text,
     fields text,
-    ranges text
+    ranges text,
+    high integer,
+    low integer
 );
 
 
@@ -1122,3 +1124,5 @@ INSERT INTO schema_migrations (version) VALUES ('20130918035032');
 INSERT INTO schema_migrations (version) VALUES ('20130918161432');
 
 INSERT INTO schema_migrations (version) VALUES ('20131010230313');
+
+INSERT INTO schema_migrations (version) VALUES ('20131017163012');
