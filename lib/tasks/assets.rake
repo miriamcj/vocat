@@ -7,13 +7,14 @@ namespace :assets do
 
     # Get the guards
     Guard.setup
-    csg = Guard.guards(:coffeescript)
-    cg = Guard.guards(:copy)
+    csg = Guard.plugin(:coffeescript)
+    cg = Guard.plugin(:copy)
 
     # Should be done automatically; seems like a bug with the copy guard.
     cg.targets.each do |t|
       t.resolve!
     end
+
     csg.run_all
     cg.run_all
 
