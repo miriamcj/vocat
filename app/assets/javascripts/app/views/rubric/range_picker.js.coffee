@@ -143,14 +143,10 @@ define (require) ->
     # there are enough values, no duplicates, etc.
     fixValues: (values) ->
       newValues = values.slice(0) # clone it
-
       sortIterator = (aValue) ->
         out = parseInt(aValue)
-      newValues = _.sortBy(newValues, sortIterator)
 
-      # Remove the highest and lowest values
-      newValues.unshift()
-      newValues.pop()
+      newValues = _.sortBy(newValues, sortIterator)
 
       # And add the correct high and low values
       newValues.push(@model.get('low'))
@@ -167,6 +163,8 @@ define (require) ->
       missingCount = targetCount - newValues.length
       if missingCount < 0 && newValues.length > 2
         newValues.splice(1, 1)
+
+      newValues = _.uniq(newValues)
 
       while missingCount > 0
         bestGuess = @guessNextValue(newValues)
@@ -253,9 +251,10 @@ define (require) ->
     getValuesFromCollection: (collection) ->
 
       if collection.length > 0
-        # Assumed collection is sorted correctly (by low)
         values = collection.pluck('low')
-        values.push collection.last().get('high')
+        values = _.sortBy(values, (value) ->
+            parseInt(value)
+        )
         values
       else
         []
