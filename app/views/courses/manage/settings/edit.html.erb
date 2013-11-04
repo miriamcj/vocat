@@ -1,36 +1,51 @@
-<header class="bar-header double-space-bottom">
-  <h2 class="bar-header--title">Edit Course Settings: "<%= @course.name %>"</h2>
-  <%= render 'layouts/messages' %>
-</header>
-<div class="page-content--frame">
-  <%= form_tag(course_manage_settings_path(@course.id), :method => 'patch') do %>
-    <fieldset>
-      <div class="input-group">
-        <label class="checkbox-label">
-          <%= check_box_tag('settings[enable_public_discussion]', 1, @course.settings['enable_public_discussion'], :class => 'checkbox')%>
-          <b></b>
-          Enable public discussion
-        </label>
-        <label class="checkbox-label">
-          <%= check_box_tag('settings[enable_peer_review]', 1, @course.settings['enable_peer_review'], :class => 'checkbox')%>
-          <b></b>
-          Enable peer review
-        </label>
-        <label class="checkbox-label">
-          <%= check_box_tag('settings[enable_creator_attach]', 1, @course.settings['enable_creator_attach'], :class => 'checkbox')%>
-          <b></b>
-          Allow creators to upload videos
-        </label>
-        <label class="checkbox-label">
-          <%= check_box_tag('settings[enable_self_evaluation]', 1, @course.settings['enable_self_evaluation'], :class => 'checkbox')%>
-          <b></b>
-          Allow self-evaluation
-        </label>
+<% content_for :content_header do %>
+  Edit Course Settings
+<% end %>
 
-      </div>
-      <div class="input-group">
-        <%= submit_tag('Save Settings', :class => 'teal-arrow-button') %>
-      </div>
-    </fieldset>
-  <% end %>
-</div>
+<% content_for :content_header_links do %>
+<% end %>
+
+<% content_for :content_intro do %>
+  <p class="">
+    The following table contains the projects that you have configured for this course. Click the links below
+    to edit or delete existing projects. Click the "new project" button, above, to create a new project for the
+    course.
+  </p>
+<% end %>
+
+<% content_for :content_frames	 do %>
+  <div class="page-content--frame">
+    <%= form_tag(course_manage_settings_path(@course.id), :method => 'patch') do %>
+      <fieldset>
+        <div class="input-group">
+          <label class="checkbox-label">
+            <%= check_box_tag('settings[enable_public_discussion]', 1, @course.settings['enable_public_discussion'], :class => 'checkbox')%>
+            <b></b>
+            Enable public discussion
+          </label>
+          <label class="checkbox-label">
+            <%= check_box_tag('settings[enable_peer_review]', 1, @course.settings['enable_peer_review'], :class => 'checkbox')%>
+            <b></b>
+            Enable peer review
+          </label>
+          <label class="checkbox-label">
+            <%= check_box_tag('settings[enable_creator_attach]', 1, @course.settings['enable_creator_attach'], :class => 'checkbox')%>
+            <b></b>
+            Allow creators to upload videos
+          </label>
+          <label class="checkbox-label">
+            <%= check_box_tag('settings[enable_self_evaluation]', 1, @course.settings['enable_self_evaluation'], :class => 'checkbox')%>
+            <b></b>
+            Allow self-evaluation
+          </label>
+
+        </div>
+        <div class="input-group">
+          <%= submit_tag('Save Settings', :class => 'teal-arrow-button') %>
+        </div>
+      </fieldset>
+    <% end %>
+  </div>
+
+<% end %>
+

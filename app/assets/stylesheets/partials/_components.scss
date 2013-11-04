@@ -314,7 +314,10 @@
 }
 
 .page-content--frame {
-  padding: 0 3.9rem;
+  padding: 3.2rem 3.2rem 0rem 3.2rem;
+  &:last-child {
+	padding-bottom: 3.2rem;
+  }
 }
 
 p {
@@ -2301,8 +2304,10 @@ a.table--heading {
   }
 }
 
+
+
 .alert {
-  .evaluation-detail & {
+  .evaluation-detail &, .portfolio-frame &, .page-content--frame & {
     margin-left: 0;
     margin-right: 0;
     margin-bottom: 2rem;

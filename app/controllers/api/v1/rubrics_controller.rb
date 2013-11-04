@@ -3,53 +3,41 @@ class Api::V1::RubricsController < ApplicationController
   load_and_authorize_resource :rubric
 	respond_to :json
 
+  # GET /api/v1/rubrics.json
   def index
     if current_user.role?(:evaluator)
-      @my_rubrics = Rubric.where(owner: current_user)
+      @rubrics = Rubric.where(owner: current_user)
     elsif current_user.role?(:admin)
-      @my_rubrics = Rubric.where(public: true)
+      @rubrics = Rubric.where(public: true)
     end
-
-		respond_with @my_rubrics
+		respond_with @rubrics
   end
 
+  # GET /api/v1/rubrics/:rubric.json
   def show
 		respond_with @rubric
   end
 
+  # POST /api/v1/rubrics.json
   def create
     @rubric.owner_id = current_user.id
-    respond_to do |format|
-      if @rubric.save
-        format.html { redirect_to @rubric, notice: 'Rubric was successfully created.' }
-        format.json { render json: @rubric, status: :created, location: @rubric }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @rubric.errors, status: :unprocessable_entity }
-      end
+    if @rubric.save
+      respond_with @rubric, status: :created, location: api_v1_rubric_url(@rubric)
+    else
+      respond_with @rubric, status: :unprocessable_entity
     end
   end
 
+  # PATCH /api/v1/rubrics/:rubric.json
+  # PUT /api/v1/rubrics/:rubric.json
   def update
-    respond_to do |format|
-      @rubric.update_attributes(params[:rubric])
-      if @rubric.save
-        format.html { redirect_to rubric_path(@rubric), notice: 'Rubric was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @rubric.errors, status: :unprocessable_entity }
-      end
-    end
+    @rubric.update_attributes(rubric_params)
+    respond_with @rubric
   end
 
+  # DELETE /api/v1/rubrics/:rubric.json
   def destroy
-    flash[:notice] = "Rubric deleted."
     @rubric.destroy
-
-    respond_to do |format|
-      format.html { redirect_to course_rubrics_path(@course) }
-      format.json { head :no_content }
-    end
+    respond_with @rubric
   end
 end

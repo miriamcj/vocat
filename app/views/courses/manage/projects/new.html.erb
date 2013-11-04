@@ -1,14 +1,25 @@
-<div class="project-show">
-  <header class="bar-header double-space-bottom">
-    <h2 class="bar-header--title">New Project</h2>
-  </header>
+<% content_for :content_header do %>
+  New Project
+<% end %>
+
+<% content_for :content_header_links do %>
+<% end %>
+
+<% content_for :content_intro do %>
+  <p>
+    Project creation instructions go here...
+  </p>
+<% end %>
+
+<% content_for :content_frames	 do %>
   <div class="page-content--frame">
     <%= simple_form_for(@project, :url => course_manage_projects_path(@course)) do |f| %>
       <%= render 'form', :f => f %>
-        <div class="input-group">
-          <%= link_to 'Back', course_manage_projects_path(@course), :class => 'gray-ex-button' %>
-          <%= f.button :submit, 'Save project', :class => 'teal-arrow-button' %>
-        </div>
+      <div class="input-group">
+        <%= link_to 'Back', course_manage_projects_path(@course), :class => 'gray-ex-button' %>
+        <%= f.button :submit, 'Save project', :class => 'teal-arrow-button' %>
+      </div>
     <% end %>
   </div>
-</div>
+<% end %>
+

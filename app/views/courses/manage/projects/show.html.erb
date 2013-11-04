@@ -1,40 +1,41 @@
-<header class="bar-header double-space-bottom">
-  <h2 class="bar-header--title">Project Details</h2>
+<% content_for :content_header do %>
+  Project Details
+<% end %>
+
+<% content_for :content_header_links do %>
   <%= link_to 'Back', course_manage_projects_path(@course), :class => 'gray-ex-button' %>
-  <%= render 'layouts/messages' %>
-</header>
+<% end %>
 
-<div class="page-content--frame">
-  <header class="button-header">
-    <h2 class="button-header--title"><%= @project.name %></h2>
-  </header>
+<% content_for :content_intro do %>
+  <h2 class="frame--title"><%= @project.name %></h2>
   <p>
-    <strong>Name:</strong>
-    <%= @project.name %>
-  </p>
-
-  <p>
-    <strong>Description:</strong>
     <%= @project.description %>
   </p>
 
-  <p>
-    <strong>Course:</strong>
-    <%= @project.course %>
-  </p>
+<% end %>
 
-  <p>
-    <strong>Project type:</strong>
-    <%= @project.project_type %>
-  </p>
+<% content_for :content_frames	 do %>
+  <div class="page-content--frame">
+    <p>
+      <strong>Course:</strong>
+      <%= @project.course %>
+    </p>
 
-  <p>
-    <% if can? :update, @project %>
-      <%= link_to 'Edit', edit_course_manage_project_path(@course, @project), :class => 'teal-arrow-button'  %>
-    <% end %>
-    <%= link_to 'Back', course_manage_projects_path(@course), :class => 'gray-ex-button' %>
-  </p>
+    <p>
+      <strong>Project type:</strong>
+      <%= @project.project_type %>
+    </p>
 
-  </ul>
-</div>
+    <p>
+      <% if can? :update, @project %>
+        <%= link_to 'Edit', edit_course_manage_project_path(@course, @project), :class => 'teal-arrow-button'  %>
+      <% end %>
+      <%= link_to 'Back', course_manage_projects_path(@course), :class => 'gray-ex-button' %>
+    </p>
+
+    </ul>
+  </div>
+
+
+<% end %>
 

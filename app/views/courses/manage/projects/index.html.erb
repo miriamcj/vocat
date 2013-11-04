@@ -1,10 +1,20 @@
+<% content_for :content_header do %>
+Manage Course Projects
+<% end %>
 
-<div class="shaded-bottom">
-  <header class="bar-header">
-    <h2 class="bar-header--title">Manage Course Projects</h2>
-    <%= link_to 'New Project', new_course_manage_project_path(@course), :class => 'teal-plus-button' %>
-    <%= render 'layouts/messages' %>
-  </header>
+<% content_for :content_header_links do %>
+  <%= link_to 'New Project', new_course_manage_project_path(@course), :class => 'teal-plus-button' %>
+<% end %>
+
+<% content_for :content_intro do %>
+  <p class="bottom-flush">
+    The following table contains the projects that you have configured for this course. Click the links below
+    to edit or delete existing projects. Click the "new project" button, above, to create a new project for the
+    course.
+  </p>
+<% end %>
+
+<% content_for :content_frames do %>
   <table class="table">
     <thead>
     <tr>
@@ -35,8 +45,10 @@
     </tbody>
   </table>
   <%= paginate @projects %>
+<% end %>
 
-</div>
+
+
 
 
 

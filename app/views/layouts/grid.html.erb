@@ -1,0 +1,11 @@
+<% content_for :content do %>
+
+  <!-- BB views that use the grid layout are responsible for rendering the global flash themselves -->
+  <script type="text/json" class="bootstrap" data-bootstrap-key="globalFlash" id="bootstrap-globalFlash">
+    <%= serialize_flash %>
+  </script>
+
+  <%= yield %>
+<% end %>
+
+<%= render :template => 'layouts/application' %>

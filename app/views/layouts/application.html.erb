@@ -22,10 +22,7 @@
   </header>
   <div class="container">
     <div class="page-content">
-      <% if !@disable_layout_messages %>
-        <%= render 'layouts/messages' %>
-      <% end %>
-      <%= yield %>
+      <%= content_for?(:content) ? yield(:content) : yield %>
     </div>
   </div> <!-- container -->
   <script type="text/javascript">

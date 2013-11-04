@@ -1,2 +1,20 @@
-<div id="region-main"></div>
+<% content_for :content_header do %>
+  Edit Rubric
+<% end %>
+
+<% content_for :content_header_links do %>
+  <% if @course %>
+    <%= link_to 'Back to List', course_manage_rubrics_path(@course), :class => 'teal-arrow-button' %>
+  <% else %>
+    <%= link_to 'Back to List', rubrics_path(), :class => 'teal-arrow-button' %>
+  <% end %>
+<% end %>
+
+<% content_for :content_intro do %>
+<% end %>
+
+<% content_for :content_frames	 do %>
+  <div id="region-main"></div>
+<% end %>
+
 

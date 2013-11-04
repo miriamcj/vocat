@@ -46,9 +46,12 @@ define [
       matrix: '[data-region="matrix"]'
       header: '[data-region="overlay-header"]'
       overlay: '[data-region="overlay"]'
+      globalFlash: '[data-region="flash"]'
+
     }
 
     onRender: () ->
+      @globalFlash.show(Vocat.globalFlashView)
 
       @sliderPosition = 0
       @updateSliderControls()

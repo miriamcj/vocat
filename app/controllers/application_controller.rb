@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
+  layout 'frames'
+
   check_authorization :unless => :devise_controller?
   load_resource :course
 
@@ -29,6 +31,9 @@ class ApplicationController < ActionController::Base
   end
 
   def inject_session_data
+    flash[:notice] = "Testing flash messages. Remove this in application controller."
+    flash[:error] = "Testing flash messages. Remove this in application controller."
+
     @session_data = {
       enable_glossary: current_user.nil? ? false : current_user.get_setting_value('enable_glossary')
     }
@@ -93,6 +98,10 @@ class ApplicationController < ActionController::Base
       params.require(:evaluation).permit(:submission_id, :published).tap do |whitelisted|
         whitelisted[:scores] = params[:evaluation][:scores] # Scores is a hash with unknown keys, all of which are whitelisted.
       end
+    end
+
+    def rubric_params
+      params.require(:rubric).permit(:name, :description, :cells, :fields, :ranges, :high, :low)
     end
 
     def submission_params

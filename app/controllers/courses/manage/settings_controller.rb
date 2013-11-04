@@ -1,5 +1,7 @@
 class Courses::Manage::SettingsController < ApplicationController
 
+  layout 'frames'
+
   load_and_authorize_resource :course
   before_filter :disable_layout_messages
 

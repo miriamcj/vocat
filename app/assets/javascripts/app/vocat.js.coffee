@@ -2,10 +2,12 @@ define (require) ->
 
   Marionette = require('marionette')
   Backbone = require('backbone')
-  GlobalFlashController = require('controllers/global_flash_controller')
   HelpPlacardView = require('views/help/placard')
   GlossaryToggleView = require('views/layout/glossary_toggle')
+  GlossaryToggleView = require('views/layout/glossary_toggle')
   ModalLayoutView = require('views/modal/modal_layout')
+  FlashMessagesView = require('views/flash/flash_messages')
+  FlashMessagesCollection = require('collections/flash_message_collection')
 
   window.Vocat = Vocat = new Marionette.Application()
 
@@ -52,8 +54,8 @@ define (require) ->
   Vocat.addInitializer () ->
 
     # To reduce the amount of loading in development context, we load router/controller pairs dynamically.
-    # TODO: Make sure this works during compilation as well. We may need to do require(['string'] instead of a require(variable)
-    # so that r.js picks up the dependency correctly.
+    # TODO: Make sure this works during compilation as well. We may need to do require(['string'] instead
+    # TODO: of a require(variable) so that r.js picks up the dependency correctly.
     Backbone.history.start({pushState: true})
     fragment = Backbone.history.getFragment()
     Backbone.history.stop()
@@ -108,6 +110,20 @@ define (require) ->
       new GlossaryToggleView({el: el})
     )
 
+    # Handle global flash messages
+    flashMessages = new FlashMessagesCollection([], {})
+    dataContainer = $("#bootstrap-globalFlash")
+    if dataContainer.length > 0
+      div = $('<div></div>')
+      div.html dataContainer.text()
+      text = div.text()
+      if text? && !(/^\s*$/).test(text)
+        data = JSON.parse(text)
+        if data['globalFlash']? then flashMessages.reset(data['globalFlash'])
+
+    Vocat.globalFlashView = new FlashMessagesView({vent: Vocat.vent, collection: flashMessages})
+    if $(Vocat.globalFlash.el).length > 0 then Vocat.globalFlash.show(Vocat.globalFlashView)
+
   )
 
   Vocat.on('glossary:enabled:toggle', () =>
@@ -129,10 +145,6 @@ define (require) ->
       })
 
   )
-
-  # Some controllers are omnipresent, not tied to a router
-  globalFlashController = new GlobalFlashController
-  globalFlashController.show()
 
   # Some global app constants that we hang on the Vocat object rather than passing them around via events.
   # Another reason for setting these thing at a very high level is that they can potentially be stored in

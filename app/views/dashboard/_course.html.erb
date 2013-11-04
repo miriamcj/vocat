@@ -1,7 +1,6 @@
 <div class="portfolio-frame">
   <h2 class="frame-summary--title"><%= link_to course, portfolio_course_path(course)  %></h2>
 
-
   <% current_user.submissions.for_courses(course).each_with_index do |submission, index| %>
 
     <div style="padding-top: 2.4rem; padding-bottom: 2.4rem;">

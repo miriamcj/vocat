@@ -1,4 +1,7 @@
 class Courses::Manage::ProjectsController < ApplicationController
+
+  layout 'frames'
+
   load_and_authorize_resource :course
   load_and_authorize_resource :project, :through => :course
   respond_to :html

@@ -21,6 +21,7 @@ define [
     children: {}
 
     regions: {
+      globalFlash: '[data-region="flash"]'
       creators: '[data-region="creators"]'
       groups: '[data-region="groups"]'
       rows: '[data-region="rows"]'
@@ -89,6 +90,7 @@ define [
       @creators.show(@children.creators)
       @groups.show(@children.groups)
       @rows.show(@children.rows)
+      @globalFlash.show(Vocat.globalFlashView)
       @sliderRecalculate()
 
     initialize: (options) ->

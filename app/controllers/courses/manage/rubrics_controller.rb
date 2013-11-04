@@ -1,5 +1,7 @@
 class Courses::Manage::RubricsController < ApplicationController
 
+  layout 'frames'
+
   load_and_authorize_resource :rubric
   skip_authorize_resource :rubric, :only => :edit
 

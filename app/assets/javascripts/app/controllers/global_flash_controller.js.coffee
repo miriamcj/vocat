@@ -16,3 +16,6 @@ define [
     show: () ->
       view = new FlashMessagesView({vent: Vocat.vent, collection: @collections.globalFlash})
       Vocat.globalFlash.show view
+      setTimeout(() =>
+        console.log($('#global-flash').length)
+      ,0)
