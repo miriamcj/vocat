@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   check_authorization :unless => :devise_controller?
   load_resource :course
 
+  before_filter :test_flash_messages
   before_filter :authenticate_user!
   before_filter :inject_session_data
   before_filter { |controller| controller.get_organization_and_current_course 'course_id' }
@@ -20,6 +21,12 @@ class ApplicationController < ActionController::Base
     resource = controller_name.singularize.to_sym
     method = "#{resource}_params"
     params[resource] &&= send(method) if respond_to?(method, true)
+  end
+
+  def test_flash_messages
+    if params['test_flash']
+      flash[:notice] = 'This is a test flash message'
+    end
   end
 
   def index
