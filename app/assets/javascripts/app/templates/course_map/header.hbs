@@ -6,32 +6,42 @@
 	{{/if}}
 
 	{{#if project}}
-	<nav class="matrix--overlay-header-selector-inline"  data-behavior="dropdown">
-		{{#if activeCreator}}
-		<h2 data-behavior="toggle" class="matrix--overlay-header-subtitle">{{../project.name}}<span></span></h2>
+		{{#if show_project_nav}}
+			<nav class="matrix--overlay-header-selector-inline"  data-behavior="dropdown">
+				{{#if activeCreator}}
+				<h2 data-behavior="toggle" class="matrix--overlay-header-subtitle">{{../project.name}}<span></span></h2>
+				{{else}}
+				<h2 data-behavior="toggle" class="matrix--overlay-header-title">{{../project.name}}<span></span></h2>
+				{{/if}}
+				<div class="project-selector--dropdown" data-behavior="dropdown-options">
+					<ul>
+						{{#each projects}}
+							{{#unless active}}
+							<li>
+								{{#if ../../activeCreator}}
+									{{#if ../../../creatorIsGroup}}
+									<a data-behavior="routable" href="/courses/{{course_id}}/groups/evaluations/creator/{{../../../../creator.id}}/project/{{id}}"><strong>{{name}}</strong></a>
+									{{else}}
+									<a data-behavior="routable" href="/courses/{{course_id}}/users/evaluations/creator/{{../../../../creator.id}}/project/{{id}}"><strong>{{name}}</strong></a>
+									{{/if}}
+								{{else}}
+									<a data-behavior="routable" href="/courses/{{course_id}}/users/evaluations/project/{{id}}"><strong>{{../../name}}</strong></a>
+								{{/if}}
+							</li>
+							{{/unless}}
+						{{/each}}
+					</ul>
+				</div>
+			</nav>
 		{{else}}
-		<h2 data-behavior="toggle" class="matrix--overlay-header-title">{{../project.name}}<span></span></h2>
+			<nav style="float: left;">
+			{{#if activeCreator}}
+			<h2 style="cursor: default;" data-behavior="toggle" class="matrix--overlay-header-subtitle">{{../project.name}}<span></span></h2>
+			{{else}}
+			<h2 style="cursor: default;" data-behavior="toggle" class="matrix--overlay-header-title">{{../project.name}}<span></span></h2>
+			{{/if}}
+			</nav>
 		{{/if}}
-		<div class="project-selector--dropdown" data-behavior="dropdown-options">
-			<ul>
-				{{#each projects}}
-					{{#unless active}}
-					<li>
-						{{#if ../../activeCreator}}
-							{{#if ../../../creatorIsGroup}}
-							<a data-behavior="routable" href="/courses/{{course_id}}/groups/evaluations/creator/{{../../../../creator.id}}/project/{{id}}"><strong>{{name}}</strong></a>
-							{{else}}
-							<a data-behavior="routable" href="/courses/{{course_id}}/users/evaluations/creator/{{../../../../creator.id}}/project/{{id}}"><strong>{{name}}</strong></a>
-							{{/if}}
-						{{else}}
-							<a data-behavior="routable" href="/courses/{{course_id}}/users/evaluations/project/{{id}}"><strong>{{../../name}}</strong></a>
-						{{/if}}
-					</li>
-					{{/unless}}
-				{{/each}}
-			</ul>
-		</div>
-	</nav>
 	{{/if}}
 </div>
 

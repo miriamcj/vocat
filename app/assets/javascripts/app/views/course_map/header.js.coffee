@@ -28,7 +28,8 @@ define [
     }
 
     onRender: () ->
-      @ui.dropdowns.dropdownNavigation()
+      if @collections.project.length > 1
+        @ui.dropdowns.dropdownNavigation()
 
     onClose: () ->
       @vent.triggerMethod('close:overlay')
@@ -61,4 +62,8 @@ define [
         context.project = @collections.project.getActive().toJSON()
         _.each context.projects, (project, index) ->
           if project.id == context.project.id then context.projects[index].active = true
+      if @collections.project.length > 1
+        context.show_project_nav = true
+      else
+        context.show_project_nav = false
       context
