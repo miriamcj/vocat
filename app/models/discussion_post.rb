@@ -5,11 +5,9 @@ class DiscussionPost < ActiveRecord::Base
   belongs_to :submission, :counter_cache => true
   has_many :children, :class_name => 'DiscussionPost', :foreign_key => 'parent_id', :dependent => :destroy
 
-  attr_accessible :author_id, :body, :parent_id, :submission_id, :published
-
   delegate :name, :to => :author, :prefix => true
 
-  scope :by_course, lambda { |course|
+  scope :by_course, -> (course) {
     joins(:submission => :project).where(:projects => {:course_id => course.id}) unless course.nil?
   }
 

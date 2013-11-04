@@ -65,29 +65,12 @@ define [
     instantiateChildViews: () ->
       @children.header = new CourseMapHeader({collections: @collections, courseId: @courseId, vent: @})
 
-
     initialize: (options) ->
       @collections = options.collections
       @courseId = options.courseId
-
-      @collections.submission.courseId = @courseId
-      @collections.submission.fetch({reset: true, error: () =>
-        @triggerMethod('load:error')
-      , success: () =>
-        @triggerMethod('load:success')
-      })
-
       @instantiateChildViews()
-
       @listenTo(@overlay, 'show', () -> @onOpenOverlay())
       @listenTo(@header, 'show', () -> @onOpenHeader())
-
-    onLoadError: () ->
-      Vocat.vent.trigger('modal:open', new ModalErrorView({
-        model: @model,
-        vent: @,
-        message: 'Unable to load course submissions.',
-      }))
 
     showUserViews: () ->
       @creatorType = 'User'
@@ -180,13 +163,14 @@ define [
         @showGroupViews()
         @setActive({project: args.project, group: args.creator})
         Vocat.router.navigate("courses/#{@courseId}/groups/evaluations/creator/#{args.creator.id}/project/#{args.project.id}")
-
+      submission = @collections.submission.findWhere({creator_id: args.creator.id, project_id: args.project.id, creator_type: args.creator.creatorType})
       view = new CourseMapDetailCreatorProject({
         collections: { submission: @collections.submission },
         courseId: @courseId,
         vent: @,
         creator: args.creator,
         project: args.project
+        model: submission
       })
 
       @overlay.show(view)

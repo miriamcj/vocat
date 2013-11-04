@@ -13,6 +13,7 @@ define [
     itemViewOptions: () ->
       {
         courseId: @options.courseId
+        vent: @vent
       }
 
     initialize: (options) ->

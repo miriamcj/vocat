@@ -3,18 +3,28 @@ require 'securerandom'
 
 class Rubric < ActiveRecord::Base
 
-  attr_accessible :name, :public, :description, :cells, :fields, :ranges, :owner, :low, :high
   belongs_to :owner, :class_name => "User"
   has_many :projects
+  has_many :evaluations
 
-  serialize :cells
-  serialize :fields
-  serialize :ranges
+  serialize :cells, Array
+  serialize :fields, Array # A field is {'name' => 'name', 'description' => 'description'}
+  serialize :ranges, Array # A range is {'low' => X, 'high' => X, 'name' => 'name'}
 
-  validates :name, :owner, :presence => true
+  validates :name, :owner, :low, :high, :presence => true
+  validate :validate_ranges
 
-  scope :publicly_visible, where(:public => true)
-  scope :public_or_owned_by, lambda { |owner| where('owner_id = ? OR public = true', owner)}
+  def validate_ranges
+    self.ranges.each do |range|
+      errors.add(:ranges, "All Ranges must have a low value") unless range['low']
+      errors.add(:ranges, "All Ranges must have a high value") unless range['high']
+      errors.add(:ranges, "All Ranges must have a name") unless range['name']
+      errors.add(:ranges, "Rubrics must have at least one range") unless range.length > 0
+    end
+  end
+
+  scope :publicly_visible, -> { where(:public => true) }
+  scope :public_or_owned_by, -> (owner) { where('owner_id = ? OR public = true', owner)}
 
   def clone()
     rubric = self.dup

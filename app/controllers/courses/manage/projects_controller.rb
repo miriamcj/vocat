@@ -1,83 +1,57 @@
 class Courses::Manage::ProjectsController < ApplicationController
   load_and_authorize_resource :course
   load_and_authorize_resource :project, :through => :course
+  respond_to :html
 
   before_filter :disable_layout_messages
 
-  # GET /projects
-  # GET /projects.json
+  # GET courses/:course_id/manage/projects
   def index
     @projects = @course.projects.page params[:page]
-
-    respond_to do |format|
-      format.html # course_map.html.erb
-                  #format.json { render json: @projects }
-    end
+    respond_with @projects
   end
 
-  # GET /projects/1
-  # GET /projects/1.json
+  # GET courses/:course_id/manage/projects/1
   def show
-    respond_to do |format|
-      format.html # show.html.erb
-                  #format.json { render json: @project }
-    end
+    respond_with @project
   end
 
-  # GET /projects/new
-  # GET /projects/new.json
+  # GET courses/:course_id/manage/projects/new
   def new
-    @project = @course.projects.build
-
-    respond_to do |format|
-      format.html # new.html.erb
-                  #format.json { render json: @project }
-    end
+    respond_with @project
   end
 
-  # GET /projects/1/edit
+  # GET courses/:course_id/manage/projects/1/edit
   def edit
+    respond_with @project
   end
 
-  # POST /projects
-  # POST /projects.json
+  # POST courses/:course_id/manage/projects
   def create
-    @project = @course.projects.build(params[:project])
-
-    respond_to do |format|
-      if @project.save
-        format.html { redirect_to course_manage_project_path(@course, @project), notice: 'Project was successfully created.' }
-        #format.json { render json: @project, status: :created, location: @project }
-      else
-        format.html { render action: "new" }
-        #format.json { render json: @project.errors, status: :unprocessable_entity }
-      end
+    @project = @course.projects.build(project_params)
+    if @project.save
+      flash[:notice] = 'Project was successfully created.'
     end
+    respond_with @project, location: course_manage_project_path(@course, @project)
   end
 
-  # PUT /projects/1
-  # PUT /projects/1.json
+  # PATCH courses/:course_id/manage/projects/1/
   def update
-    respond_to do |format|
-      if @project.update_attributes(params[:project])
-        format.html { redirect_to course_manage_projects_path(@course), notice: 'Project was successfully updated.' }
-        #format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        #format.json { render json: @project.errors, status: :unprocessable_entity }
-      end
+    if @project.update_attributes(project_params)
+      flash[:notice] = 'Project was successfully updated.'
     end
+    respond_with @project, location: course_manage_project_path(@course, @project)
   end
 
-  # DELETE /projects/1
-  # DELETE /projects/1.json
+  # DELETE courses/:course_id/manage/projects/1/
   def destroy
-    flash[:notice] = "Project deleted."
     @project.destroy
-
-    respond_to do |format|
-      format.html { redirect_to course_manage_projects_path(@course) }
-      #format.json { head :no_content }
-    end
+    flash[:notice] = 'Successfully deleted project.'
+    respond_with @project, location: course_manage_projects_path(@course)
   end
+
+  private
+
 end
+
+

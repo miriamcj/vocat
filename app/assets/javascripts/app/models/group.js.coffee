@@ -4,12 +4,7 @@ define ['backbone'], (Backbone) ->
 
     creatorType: 'Group'
 
-    urlRoot: () ->
-      if @isNew() == true
-        "/api/v1/courses/#{@get('course_id')}/groups"
-      else
-        console.log 'b'
-        "/api/v1/groups"
+    urlRoot: '/api/v1/groups'
 
     validate: (attributes, options) ->
       errors = []

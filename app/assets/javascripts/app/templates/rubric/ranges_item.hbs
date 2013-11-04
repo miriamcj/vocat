@@ -1,10 +1,6 @@
 <div class="matrix--row-header--item">
-  <form>
-    <fieldset>
-      <input class="matrix--row-header--input" value="{{name}}" data-behavior="name" /><b class="matrix--delete" href="#" data-behavior="destroy">Destroy</b>
-      <div class="matrix--row-header--label">
-        <span data-behavior="low">{{low}}</span> <small>&ndash;</small> <span data-behavior="high">{{high}}</span>
-      </div>
-    </fieldset>
- </form>
+	<a style="width: 15rem;" href="#" data-behavior="edit">
+		{{name}}
+		<strong style="margin-left: 1rem; font-size: 1.374rem; color: #676263">{{low}} - {{high}}</strong>
+	</a>
 </div>

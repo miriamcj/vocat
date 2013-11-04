@@ -9,41 +9,28 @@ Vocat::Application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-
       resources :rubrics, :except => [:new, :edit]
-      resources :attachments, :except => [:new, :edit]
       resources :annotations, :except => [:new, :edit]
       resources :discussion_posts, :except => [:new, :edit]
       resources :evaluations, :except => [:new, :edit]
-      resources :submissions, :only => [:index]
-      resources :videos, :only => [:destroy, :create, :show]
-
-      resources :courses do
-
-        resources :submissions, :shallow => true, :except => [:new, :edit] do
-        end
-
-        resources :users, :only => [:index, :show] do
-          resources :submissions, :only => [:index]
-          resources :projects, :only => [] do
-            resources :submissions, :only => [:index]
-          end
-        end
-
-        resources :groups, :shallow => true,:except => [:new, :edit]
-        resources :groups, :only => [] do
-          resources :submissions, :only => [:index]
-          resources :projects, :only => [] do
-            resources :submissions, :only => [:index]
-          end
-        end
-
-        resources :projects, :shallow => true, :except => [:new, :edit]
-        resources :projects, :only => [] do
-          resources :evaluations, :only => [:index]
-          resources :scores, :only => [:index]
+      resources :submissions, :except => [:index, :new, :edit] do
+        collection do
+          get 'for_course'
+          get 'for_course_and_user'
+          get 'for_user'
+          get 'for_group'
+          get 'for_project'
         end
       end
+      resources :scores, :only => [] do
+        collection do
+          get 'for_project'
+        end
+      end
+      resources :videos, :only => [:destroy, :create, :show]
+      resources :groups, :except => [:new, :edit]
+      resources :projects, :except => [:new, :edit]
+      resources :courses
     end
   end
 
@@ -60,27 +47,24 @@ Vocat::Application.routes.draw do
         resources :projects
         resources :groups
         resources :rubrics, :only => [:index, :show, :new, :edit, :destroy]
-        match 'settings' => 'settings#edit', :via => :get
-        match 'settings' => 'settings#update', :via => :put
+        get 'settings' => 'settings#edit'
+        patch 'settings' => 'settings#update'
       end
     end
 
-    match 'groups/evaluations/(/creator/:creator_id)(/project/:project_id)' => 'courses/evaluations#course_map', :via => :get, :as => 'group_evaluations'
-    match 'users/evaluations(/creator/:creator_id)(/project/:project_id)' => 'courses/evaluations#course_map', :via => :get, :as => 'user_evaluations'
-
-    match 'users/creator/:creator_id/project/:project_id' => 'courses/evaluations#user_creator_project_detail', :via => :get, :as => 'user_creator_project_detail'
-    match 'users/project/:project_id' => 'courses/evaluations#user_project_detail', :via => :get, :as => 'user_project_detail'
-    match 'groups/project/:project_id' => 'courses/evaluations#user_project_detail', :via => :get, :as => 'groups_project_detail'
-    match 'view/project/:project_id' => 'courses/evaluations#current_user_project', :via => :get, :as => 'current_user_project'
-
+    get 'groups/evaluations/(/creator/:creator_id)(/project/:project_id)' => 'courses/evaluations#course_map', :as => 'group_evaluations'
+    get 'users/evaluations(/creator/:creator_id)(/project/:project_id)' => 'courses/evaluations#course_map', :as => 'user_evaluations'
+    get 'users/creator/:creator_id/project/:project_id' => 'courses/evaluations#user_creator_project_detail', :as => 'user_creator_project_detail'
+    get 'users/project/:project_id' => 'courses/evaluations#user_project_detail', :as => 'user_project_detail'
+    get 'groups/project/:project_id' => 'courses/evaluations#user_project_detail', :as => 'groups_project_detail'
+    get 'view/project/:project_id' => 'courses/evaluations#current_user_project', :as => 'current_user_project'
   end
 
-
   get '/admin' => 'admin/dashboard#index', :as => 'admin_root'
-  match '/' => 'dashboard#index', :as => 'dashboard'
-  match '/dashboard/evaluator' => 'dashboard#evaluator', :as => 'dashboard_evaluator'
-  match '/dashboard/creator' => 'dashboard#creator', :as => 'dashboard_creator'
-  match '/dashboard/admin' => 'dashboard#admin', :as => 'dashboard_admin'
+  get '/' => 'dashboard#index', :as => 'dashboard'
+  get '/dashboard/evaluator' => 'dashboard#evaluator', :as => 'dashboard_evaluator'
+  get '/dashboard/creator' => 'dashboard#creator', :as => 'dashboard_creator'
+  get '/dashboard/admin' => 'dashboard#admin', :as => 'dashboard_admin'
 
 
 

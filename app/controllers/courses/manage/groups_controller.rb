@@ -1,7 +1,7 @@
 class Courses::Manage::GroupsController < ApplicationController
 
   load_and_authorize_resource :course
-  load_and_authorize_resource :project, :through => :course
+  respond_to :html
   before_filter :disable_layout_messages
 
   # GET /courses/:course_id/groups
@@ -10,9 +10,7 @@ class Courses::Manage::GroupsController < ApplicationController
     @groups = @course.groups
     @creators = @course.creators
 
-    respond_to do |format|
-      format.html
-    end
+    respond_with @groups, @creators
   end
 
 end

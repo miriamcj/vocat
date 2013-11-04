@@ -1,6 +1,5 @@
 class Attachment < ActiveRecord::Base
 
-  attr_accessible :media
   belongs_to :fileable, :polymorphic => true
 
   # Transcoding constants
@@ -18,7 +17,6 @@ class Attachment < ActiveRecord::Base
                     :path => ":year/:month/:day/:hash:ending",
                     :hash_secret => "+hequ!ckbr0wnf@Xjump5o^3rThe1azyd0g",
                     :hash_data => Rails.env == "production" ? "attachment/:id/:updated_at" : "attachment/:updated_at" # need to predictably seed attachments
-
 
   Paperclip.interpolates(:year)  {|a, style| a.instance.created_at.year}
   Paperclip.interpolates(:month) {|a, style| a.instance.created_at.month}
@@ -46,7 +44,7 @@ class Attachment < ActiveRecord::Base
   after_save :transcode_media
 
   # Typically one attachment, so get the most recent to the top
-  default_scope order("updated_at DESC")
+  default_scope { order("updated_at DESC") }
 
   def active_model_serializer
     AttachmentSerializer

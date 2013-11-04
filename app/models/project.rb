@@ -4,9 +4,7 @@ class Project < ActiveRecord::Base
   belongs_to :rubric
   has_many :submissions, :dependent => :destroy
   has_many :submitors, :through => :course
-  has_many :published_evaluations, :through => :submissions, :source => :evaluations, :conditions => {:published => true}
-  attr_accessible :description, :name, :course, :rubric_id
-
+  has_many :evaluations, :through => :submissions
 
   delegate :name, :to => :rubric, :prefix => true, :allow_nil => true
   delegate :department, :to => :course, :prefix => true
@@ -17,7 +15,11 @@ class Project < ActiveRecord::Base
   delegate :name_long, :to => :course, :prefix => true
   delegate :id, :to => :course, :prefix => true
 
-  scope :unsubmitted_for_user_and_course, lambda { |creator, course| joins('LEFT OUTER JOIN submissions ON submissions.project_id = projects.id AND submissions.creator_id = ' + creator.id.to_s).where('submissions.creator_id IS NULL AND course_id IN (?)', course) }
+  scope :unsubmitted_for_user_and_course, -> (creator, course) { joins('LEFT OUTER JOIN submissions ON submissions.project_id = projects.id AND submissions.creator_id = ' + creator.id.to_s).where('submissions.creator_id IS NULL AND course_id IN (?)', course) }
+
+  def published_evaluations
+    evaluations.where(published: true)
+  end
 
   def active_model_serializer
     ProjectSerializer

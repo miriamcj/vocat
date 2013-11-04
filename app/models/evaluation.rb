@@ -3,15 +3,16 @@ class Evaluation < ActiveRecord::Base
   EVALUATION_TYPE_CREATOR = 1
   EVALUATION_TYPE_EVALUATOR = 2
 
-  attr_accessible :evaluator_id, :submission_id, :rubric_id, :published, :scores, :total_percentage, :total_score, :evaluation_type
   belongs_to :evaluator, :class_name => 'User'
   has_one :creator, :through => :submission
   has_one :project, :through => :submission
   belongs_to :submission
   belongs_to :rubric
 
-  scope :published, where(:published => true)
-  scope :created_by, lambda { |creator| where(:evaluator_id =>  creator) }
+  scope :published, -> { where(:published => true) }
+  scope :created_by, -> (creator) {
+    where(:evaluator_id =>  creator)
+  }
 
   before_save { |evaluation|
     if evaluator.role?(:creator)
@@ -32,11 +33,17 @@ class Evaluation < ActiveRecord::Base
   validates :evaluator, presence: true
   validates :submission_id, uniqueness: { scope: :evaluator_id, message: "can only exist once per submission/evaluator" }, :on => :create
 
-  before_save :scaffold_score
+  before_save :scaffold_scores
   before_save :update_percentage
   before_save :update_total
+  after_initialize :ensure_score_hash
 
-  serialize :scores, ActiveRecord::Coders::Hstore
+
+  def ensure_score_hash
+    unless self.scores.is_a?(Hash)
+      self.scores = {}
+    end
+  end
 
   def update_percentage
     score = self.calculate_total_score
@@ -75,10 +82,11 @@ class Evaluation < ActiveRecord::Base
     EvaluationSerializer
   end
 
-  def scaffold_score
+  def scaffold_scores
+    scores_will_change!
     rubric.field_keys.each do |key|
       unless scores.has_key? key
-        scores[key] = 0
+        scores[key] = rubric.low
       end
     end
   end

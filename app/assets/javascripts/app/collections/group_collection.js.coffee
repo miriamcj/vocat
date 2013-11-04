@@ -23,14 +23,15 @@ define ['backbone', 'models/group'], (Backbone, GroupModel) ->
 
     save: ->
       data = {
-        id: @courseId
-        groups_attributes: @toJSON()
+        course: {
+          id: @courseId
+          groups_attributes: @toJSON()
+        }
       }
       url = "/api/v1/courses/#{@courseId}"
       response = Backbone.sync('update', @, url: url, contentType: 'application/json', data: JSON.stringify(data))
       response.done( (models) =>
       )
-
 
     getActive: () ->
       @activeModel

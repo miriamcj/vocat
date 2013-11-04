@@ -3,9 +3,10 @@ define [
   'hbs!templates/course_map/detail_creator',
   'views/portfolio/portfolio_submissions_item',
   'collections/collection_proxy',
-  'collections/submission_collection'
+  'collections/submission_for_course_user_collection'
+  'collections/submission_for_group_collection'
 ], (
-  Marionette, template, PortfolioSubmissionItem, CollectionProxy, SubmissionCollection
+  Marionette, template, PortfolioSubmissionItem, CollectionProxy, SubmissionCourseUserCollection, SubmissionGroupCollection
 ) ->
 
   class CourseMapDetailCreator extends Marionette.CompositeView
@@ -31,14 +32,10 @@ define [
       @vent = Marionette.getOption(@, 'vent')
       @courseId = Marionette.getOption(@, 'courseId')
       @projects = Marionette.getOption(@, 'projects')
-      @submissions = @collection
 
-      proxy = CollectionProxy(@collection)
-      proxy.where({creator_id: @model.id, creator_type: @model.creatorType})
-      @collection = proxy
-
-      # This updates the submissions we need in our master submissions collection
       if @model.creatorType == 'User'
-        @submissions.fetchByCourseAndUser(@courseId, @model.id)
-      else if @model.creatorType == 'Group'
-        @submissions.fetchByCourseAndGroup(@courseId, @model.id)
+        @collection = new SubmissionCourseUserCollection
+        @collection.fetch({data: {course: @courseId, user: @model.id}})
+      else
+        @collection = new SubmissionGroupCollection
+        @collection.fetch({data: {group: @model.id}})

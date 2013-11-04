@@ -10,17 +10,16 @@ class Course < ActiveRecord::Base
 
   accepts_nested_attributes_for :groups
 
-  include ActiveModel::ForbiddenAttributesProtection
+  ALLOWED_SETTINGS = [:enable_creator_attach, :enable_self_evaluation, :enable_peer_review, :enable_public_discussion]
 
-  attr_accessible :department, :description, :name, :number, :section, :evaluators, :assistants, :creators, :settings, :groups, :groups_attributes
+  store_accessor :settings, *ALLOWED_SETTINGS
 
-  serialize :settings, ActiveRecord::Coders::Hstore
 
   validates :department, :name, :number, :section, :presence => true
   #validates :evaluators, :length => {:minimum => 1, :message => "can't be empty."}
   #validates :creators, :length => {:minimum => 1, :message => "can't be empty."}
 
-  default_scope order("department ASC, number ASC, section ASC")
+  default_scope { order("department ASC, number ASC, section ASC") }
 
   def allows_peer_review
     get_boolean_setting_value('enable_peer_review')

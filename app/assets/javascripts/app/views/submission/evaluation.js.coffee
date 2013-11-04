@@ -5,6 +5,8 @@ define [
 ) ->
   class EvaluationDetailScore extends Marionette.CompositeView
 
+    
+
     template: template
 
     detailVisible: false

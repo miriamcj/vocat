@@ -1835,7 +1835,7 @@ a.table--heading {
 
 
 .matrix--overlay-header-selector-inline {
-  & .matrix--overlay-header-subtitle, 
+  & .matrix--overlay-header-subtitle,
   & .matrix--overlay-header-title {
     @include svg(arrow-down-gray);
   	background-size: 1.6rem 1.6rem;
@@ -2066,6 +2066,16 @@ a.table--heading {
   a {
     display: block;
     float: left;
+  }
+  // Used on the rubric creation grid.
+  p {
+	margin: .6rem;
+	@extend %delta;
+	small {
+	  display: block;
+	  @extend %truncated;
+
+	}
   }
   // Changes component colors on hover
   &:hover {

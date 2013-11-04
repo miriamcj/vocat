@@ -1,16 +1,18 @@
 class User < ActiveRecord::Base
+
   belongs_to :organization
   has_many :rubrics, :foreign_key => :owner_id
-  has_and_belongs_to_many :assistant_courses, :class_name => "Course", :join_table => "courses_assistants"
-  has_and_belongs_to_many :evaluator_courses, :class_name => "Course", :join_table => "courses_evaluators"
-  has_and_belongs_to_many :creator_courses, :class_name => "Course", :join_table => "courses_creators"
+  has_and_belongs_to_many :assistant_courses, :class_name => "::Course", :join_table => "courses_assistants"
+  has_and_belongs_to_many :evaluator_courses, :class_name => "::Course", :join_table => "courses_evaluators"
+  has_and_belongs_to_many :creator_courses, :class_name => "::Course", :join_table => "courses_creators"
   has_and_belongs_to_many :groups, :join_table => "groups_creators"
 
   has_many :submissions, :as => :creator
 
-  scope :evaluators, where(:role => "evaluator")
-  scope :creators, where(:role => "creator")
-  scope :administrators, where(:role => "administrator")
+  default_scope { order("last_name ASC") }
+  scope :evaluators, -> { where(:role => "evaluator") }
+  scope :creators, -> { where(:role => "creator") }
+  scope :administrators, -> { where(:role => "administrator") }
 
   serialize :settings, Hash
 
@@ -23,10 +25,6 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :settings
-
-  default_scope order("last_name ASC")
 
   ROLES = %w(creator evaluator administrator)
 

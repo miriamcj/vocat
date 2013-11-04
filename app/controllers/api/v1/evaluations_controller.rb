@@ -1,35 +1,32 @@
 class Api::V1::EvaluationsController < ApiController
 
-  # GET /submissions.json
-  load_and_authorize_resource :course
-  load_resource :evaluation
+  load_and_authorize_resource :evaluation
   respond_to :json
 
+  # GET /api/v1/evaluations.json?submission=:submission
   def index
-    submission = Submission.find(params[:submission]) unless params[:submission].blank?
-
-    if submission
-      @evaluations = submission.evaluations
-    else
-      @evaluations = nil
-    end
-    respond_with @evaluations, :root => false
+    @submission = Submission.find(params.require(:submission))
+    @evaluations = @submission.evaluations
+    respond_with @evaluations
   end
 
+  # PATCH /api/v1/evaluations/:id.json
+  # PUT /api/v1/evaluations/:id.json
   def update
-    params[:evaluation].select!{|x| @evaluation.attribute_names.index(x)}
-    @evaluation.update_attributes(params[:evaluation])
+    @evaluation.update_attributes(evaluation_params)
     respond_with(@evaluation)
   end
 
+  # DELETE /api/v1/evaluations/:id.json
   def destroy
     @evaluation.destroy
     respond_with(@evaluation)
   end
 
+  # POST /api/v1/evaluations.json
   def create
     @evaluation.evaluator = current_user
-    if !@evaluation.rubric then @evaluation.rubric = @evaluation.submission.project.rubric end
+    @evaluation.rubric = @evaluation.submission.rubric # We fix the rubric on the evaluation, in case it changes on the project.
 
     if @evaluation.save
       respond_with @evaluation, :root => false, status: :created, location: api_v1_evaluation_url(@evaluation.id)

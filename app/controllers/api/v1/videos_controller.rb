@@ -1,14 +1,11 @@
 class Api::V1::VideosController < ApplicationController
 
+  load_and_authorize_resource :video
   respond_to :json
   respond_to :vtt, :only => :show
 
+  # POST /api/v1/videos.json
   def create
-    myvar = create_params
-    @video = Video.new(create_params)
-    submission = Submission.find(params[:submission])
-    @video.submission_id = submission.id
-
     if @video.save
       respond_with @video, status: :created, :root => false, :location => api_v1_video_url(@video)
     else
@@ -16,24 +13,15 @@ class Api::V1::VideosController < ApplicationController
     end
   end
 
+  # GET /api/v1/videos/:video.json
   def show
-    @video = Video.find(params[:id])
     respond_with @video, :root => false
   end
 
+  # DELETE /api/v1/videos/:video.json
   def destroy
-    @video = Video.find(params[:id])
     @video.destroy()
     respond_with(@video)
   end
-
-  def create_params
-    params.require(:video).permit(
-        :name,
-        :source,
-        attachment_attributes: :media
-    )
-  end
-
 
 end

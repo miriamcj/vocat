@@ -14,9 +14,6 @@ class Submission < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
   accepts_nested_attributes_for :video
 
-  attr_accessible :name, :evaluations, :summary, :project_id, :url, :published, :creator_id, :creator_type, :project,
-                  :thumb, :instructor_score_percentage, :creator, :discussion_posts_count, :video, :video_attributes
-
   validates_presence_of :project_id, :creator_id, :creator_type
 
   delegate :department, :to => :course, :prefix => true
@@ -28,11 +25,12 @@ class Submission < ActiveRecord::Base
   delegate :allows_self_evaluation, :to => :course, :prefix => true
   delegate :id, :to => :course, :prefix => true
   delegate :name, :to => :project, :prefix => true
+  delegate :rubric, :to => :project
   delegate :name, :to => :creator, :prefix => true
 
-  default_scope includes(:video, :evaluations, :project)
+  default_scope { includes(:video, :evaluations, :project) }
 
-  scope :for_courses, lambda { |course| joins(:project).where('projects.course_id' => course).includes(:video) }
+  scope :for_courses, -> (course) { joins(:project).where('projects.course_id' => course).includes(:video) }
 
   def active_model_serializer
 	  SubmissionSerializer
@@ -43,7 +41,7 @@ class Submission < ActiveRecord::Base
   end
 
   def peer_evaluations
-		self.evaluations.published.created_by(self.course.creators)
+		self.evaluations.published.created_by(self.course.creators.to_a)
   end
 
   def peer_score_total
@@ -62,7 +60,7 @@ class Submission < ActiveRecord::Base
   end
 
   def instructor_evaluations
-    self.evaluations.published.created_by(self.course.evaluators)
+    self.evaluations.published.created_by(self.course.evaluators.to_a)
   end
 
   def instructor_score_total

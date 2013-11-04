@@ -1,4 +1,9 @@
-define ['marionette', 'hbs!templates/rubric/ranges_item', 'views/modal/modal_confirm'], (Marionette, template, ModalConfirmView) ->
+define (require) ->
+
+  Marionette = require('marionette')
+  template = require('hbs!templates/rubric/ranges_item')
+  ModalConfirmView = require('views/modal/modal_confirm')
+  ShortTextInputView = require('views/property_editor/short_text_input')
 
   class RangesItem extends Marionette.ItemView
 
@@ -7,27 +12,20 @@ define ['marionette', 'hbs!templates/rubric/ranges_item', 'views/modal/modal_con
     tagName: 'li'
 
     ui: {
-      nameInput: '[data-behavior="name"]'
       lowRange: '[data-behavior="low"]'
       highRange: '[data-behavior="high"]'
     }
 
     triggers: {
       'click [data-behavior="destroy"]': 'model:destroy'
+      'click [data-behavior="edit"]': 'click:edit'
     }
 
     events: {
       'keyup [data-behavior="name"]': 'nameKeyPressed'
     }
 
-    nameKeyPressed: (e) ->
-      @onModelNameUpdate()
-
-    onModelNameUpdate: () ->
-      @model.set('name', @ui.nameInput.val())
-
     onModelDestroy: () ->
-      console.log 'called'
       Vocat.vent.trigger('modal:open', new ModalConfirmView({
         model: @model,
         vent: @,
@@ -35,6 +33,12 @@ define ['marionette', 'hbs!templates/rubric/ranges_item', 'views/modal/modal_con
         confirmEvent: 'confirm:model:destroy',
         dismissEvent: 'dismiss:model:destroy'
       }))
+
+    onClickEdit: () ->
+      @openModal()
+
+    openModal: () ->
+      Vocat.vent.trigger('modal:open', new ShortTextInputView({model: @model, property: 'name', inputLabel: 'What would you like to call this range?', vent: @vent}))
 
     onConfirmModelDestroy: () ->
       @model.destroy()
@@ -45,14 +49,10 @@ define ['marionette', 'hbs!templates/rubric/ranges_item', 'views/modal/modal_con
     updateHighRange: () ->
       @ui.highRange.html(@model.get('high'))
 
+    onRender: () ->
+      unless @model.get('name')
+        @openModal()
 
     initialize: (options) ->
       @vent = options.vent
-
-      @listenTo(@model, 'change:low', (range) =>
-        @updateLowRange()
-      )
-
-      @listenTo(@model, 'change:high', (range) =>
-        @updateHighRange()
-      )
+      @listenTo(@model, 'change', @render, @)

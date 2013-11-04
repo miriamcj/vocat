@@ -1,4 +1,9 @@
-define ['marionette', 'hbs!templates/group/groups_item', 'views/modal/modal_confirm', 'views/group/group_edit'], (Marionette, template, ModalConfirmView, GroupEditView) ->
+define (require) ->
+
+  Marionette = require('marionette')
+  template = require('hbs!templates/group/groups_item')
+  ModalConfirmView = require('views/modal/modal_confirm')
+  ShortTextInputView = require('views/property_editor/short_text_input')
 
   class GroupsItem extends Marionette.ItemView
 
@@ -8,21 +13,16 @@ define ['marionette', 'hbs!templates/group/groups_item', 'views/modal/modal_conf
       'data-behavior': 'navigate-group'
     }
 
-
-
     triggers: {
       'click [data-behavior="destroy"]': 'click:destroy'
       'click [data-behavior="edit"]': 'click:edit'
     }
 
-    onShow: () ->
-      console.log 'on show in item'
-
-    onRender: () ->
-      console.log 'on render in item'
-
     onClickEdit: () ->
-      Vocat.vent.trigger('modal:open', new GroupEditView({model: @model, vent: @vent}))
+      onSave = () =>
+        # Tell the parent layout that its dirty and needs to save.
+        @vent.triggerMethod('dirty')
+      Vocat.vent.trigger('modal:open', new ShortTextInputView({model: @model, vent: @vent, onSave: onSave, property: 'name', inputLabel: 'What would you like to call this group?'}))
 
     onConfirmDestroy: () ->
       @model.destroy({
@@ -50,6 +50,7 @@ define ['marionette', 'hbs!templates/group/groups_item', 'views/modal/modal_conf
 
     initialize: (options) ->
       messages = @options
+      @vent = options.vent
       @$el.attr('data-group', @model.id)
 
       @listenTo(@model, 'change:name', @render)

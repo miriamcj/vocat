@@ -1,10 +1,11 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 3.2.11'
+gem 'rails', '~> 4.0.1rc'
+#gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'paper_trail', '~> 2'
+gem 'paper_trail', '>= 3.0.0.beta1'
 gem 'active_model_serializers', '~> 0.7.0'
-gem 'activerecord-postgres-hstore'
+#gem 'activerecord-postgres-hstore'
 gem 'pg'
 
 #gem 'jquery-rails' # We vendor this directly so it can be included in our require.js pipeline
@@ -22,7 +23,6 @@ gem 'quiet_assets'
 # Stuck on this version until https://github.com/ryanb/cancan/issues/861 is released
 gem 'cancan', '= 1.6.9'
 gem 'kaminari'
-gem 'strong_parameters'
 
 # These gems will likely be removed after prototyping is completed
 gem 'rails-backbone'
@@ -41,11 +41,7 @@ group :development, :test do
   gem 'rspec-rails'
 end
 
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'compass-rails'
-  gem 'sass-rails',   '~> 3.2.6'
-	gem 'coffee-rails', '~> 3.2.1'
-	gem 'uglifier', '>= 1.0.3'
-end
+gem 'compass-rails', '~> 2.0.alpha.0'
+gem 'sass-rails',   '~> 4.0.0'
+gem 'coffee-rails', '~> 4.0.0'
+gem 'uglifier', '>= 1.0.3'

@@ -114,7 +114,7 @@ define ['marionette', 'hbs!templates/submission/evaluation_item_edit', 'vendor/p
       val = $el.val()
       newVal = parseInt(val)
       if isNaN(newVal) then newVal = 0
-      if newVal > @rubric.get('high_score') then newVal = @rubric.get('high_score')
+      if newVal > @rubric.get('high') then newVal = @rubric.get('high')
       if newVal < 0 then newVal = 0
       if newVal != val
         $el.val(newVal)
@@ -144,7 +144,7 @@ define ['marionette', 'hbs!templates/submission/evaluation_item_edit', 'vendor/p
       @ui.scoreSliders.each( (index, el) =>
         $el = $(el)
         slider = $el.simpleSlider({
-          range: [0, @rubric.get('high_score')]
+          range: [0, @rubric.get('high')]
           step: 1
           snap: true
           highlight: true

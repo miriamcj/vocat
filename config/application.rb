@@ -49,20 +49,16 @@ module Vocat
     # Use SQL instead of Active Record's schema dumper when creating the database.
     # This is necessary if your schema can't be completely dumped by the schema dumper,
     # like if you have constraints or database-specific column types
-    config.active_record.schema_format = :sql
+    #config.active_record.schema_format = :sql
 
     # Enforce whitelist mode for mass assignment.
     # This will create an empty whitelist of attributes available for mass-assignment for all models
     # in your app. As such, your models will need to explicitly whitelist or blacklist accessible
     # parameters by using an attr_accessible or attr_protected declaration.
 
-    # See https://github.com/rails/strong_parameters
-    config.active_record.whitelist_attributes = false
-
     # Enable the asset pipeline
     config.assets.enabled = true
     config.assets.precompile += ['vendor/require/require.js', 'vendor/modernizr/modernizr-2.6.2.js', 'vendor/video_js/video.js', 'vendor/video_js/vjs.youtube.js', 'vendor/video_js/vjs.vimeo.js', 'vendor/rem_unit_polyfill/rem.min.js']
-
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'

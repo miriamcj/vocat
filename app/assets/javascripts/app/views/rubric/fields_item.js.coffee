@@ -1,28 +1,33 @@
-define ['marionette', 'hbs!templates/rubric/fields_item', 'views/modal/modal_confirm'], (Marionette, template, ModalConfirmView) ->
+define (require) ->
+
+  Marionette = require('marionette')
+  template = require('hbs!templates/rubric/fields_item')
+  ModalConfirmView = require('views/modal/modal_confirm')
+  ShortTextInputView = require('views/property_editor/short_text_input')
 
   class FieldsItem extends Marionette.ItemView
 
     template: template
 
-    ui: {
-      nameInput: '[data-behavior="name"]'
-    }
-
     tagName: 'li'
 
     triggers: {
       'click [data-behavior="destroy"]': 'model:destroy'
+      'click [data-behavior="edit"]': 'click:edit'
     }
 
     events: {
       'keyup [data-behavior="name"]': 'nameKeyPressed'
     }
 
+    onClickEdit: () ->
+      @openModal()
+
+    openModal: () ->
+      Vocat.vent.trigger('modal:open', new ShortTextInputView({model: @model, property: 'name', inputLabel: 'What would you like to call this criteria?', vent: @vent}))
+
     nameKeyPressed: (e) ->
       @onModelNameUpdate()
-
-    onModelNameUpdate: () ->
-      @model.set('name', @ui.nameInput.val())
 
     onModelDestroy: () ->
       Vocat.vent.trigger('modal:open', new ModalConfirmView({
@@ -33,8 +38,13 @@ define ['marionette', 'hbs!templates/rubric/fields_item', 'views/modal/modal_con
         dismissEvent: 'dismiss:model:destroy'
       }))
 
+    onRender: () ->
+      unless @model.get('name')
+        @openModal()
+
     onConfirmModelDestroy: () ->
       @model.destroy()
 
     initialize: (options) ->
       @vent = options.vent
+      @listenTo(@model, 'change:name', @render, @)

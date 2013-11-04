@@ -28,7 +28,10 @@ define (require) ->
 
       @get('fields').bind 'add', (field) =>
         @get('ranges').each((range) =>
-          @get('cells').add(new CellModel({range: range.id, field: field.id}))
+          cell = new CellModel({range: range.id, field: field.id})
+          cell.fieldModel = field
+          cell.rangeModel = range
+          @get('cells').add(cell)
         )
 
       @get('fields').bind 'remove', (field) =>
@@ -36,13 +39,14 @@ define (require) ->
 
       @get('ranges').bind 'add', (range) =>
         @get('fields').each((field) =>
-          @get('cells').add(new CellModel({range: range.id, field: field.id}))
+          cell = new CellModel({range: range.id, field: field.id})
+          cell.fieldModel = field
+          cell.rangeModel = range
+          @get('cells').add(cell)
         )
 
       @get('ranges').bind 'remove', (range) =>
         @get('cells').remove(@get('cells').where({range: range.id}))
-
-
 
 
     getFieldNameById: (fieldId) ->
@@ -97,8 +101,10 @@ define (require) ->
         )
 
         _.each(response.cells, (cell) =>
-            cell = new CellModel(cell)
-            @get('cells').add(cell, {silent: true})
+          cell = new CellModel(cell)
+          cell.fieldModel = @get('fields').get(cell.get('field'))
+          cell.rangeModel = @get('ranges').get(cell.get('range'))
+          @get('cells').add(cell, {silent: true})
         )
 
         delete response['ranges']

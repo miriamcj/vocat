@@ -9,12 +9,10 @@ class Video < ActiveRecord::Base
   delegate :transcoding_status, :to => :attachment, :prefix => true, :allow_nil => true
   delegate :transcoding_error, :to => :attachment, :prefix => true, :allow_nil => true
 
-  attr_accessible :source_id, :source_url, :source_key, :submission_id, :thumbnail_url
-
   include ActiveModel::ForbiddenAttributesProtection
   accepts_nested_attributes_for :attachment
 
-  default_scope includes(:attachment)
+  default_scope { includes(:attachment) }
 
   before_save :get_vimeo_thumb
 
@@ -66,6 +64,5 @@ class Video < ActiveRecord::Base
     end
   end
 
-  attr_accessible :url, :source_id, :source_url, :source, :submission_id, :name, :attachment_attributes
 
 end

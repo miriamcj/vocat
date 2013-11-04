@@ -1,61 +1,64 @@
 class Api::V1::SubmissionsController < ApiController
 
-  load_and_authorize_resource :course
-  load_resource :submission
-  load_resource :project
-  load_resource :group
-  load_resource :user
   respond_to :json
+  skip_authorization_check # Authorization is more complex on this controller, so we do it in each individual action
+  load_resource :submission
 
-  # GET /api/v1/courses/:course_id/users/:user_id/projects/:project_id/submissions.json
-  # GET /api/v1/courses/:course_id/groups/:group_id/projects/:project_id/submissions.json
-  # GET /api/v1/courses/:course_id/users/:user_id/submissions.json
-  # GET /api/v1/courses/:course_id/groups/:group_id/submissions.json
-  # GET /api/v1/courses/:course_id/projects/:project_id/submissions.json
-	# GET /api/v1/courses/:course_id/submissions.json
-  def index
-		factory = SubmissionFactory.new
-    @submissions = []
-		brief = false
-    if @course && @user && @project
-			@submissions = factory.creator_and_project(@user, @project)
-    elsif @course && @group && @project
-	    @submissions = factory.creator_and_project(@group, @project)
-    elsif @course && @user
-			@submissions = factory.course_and_creator(@course, @user)
-    elsif @course && @group
-	    @submissions = factory.course_and_creator(@course, @group)
-    elsif @course && @project
-			brief = true
-	    @submissions = factory.course_and_project(@course, @project)
-    elsif @course
-			brief = true
-      @submissions = @course.submissions
-    else
-			if current_user.role?('evaluator')
-				brief = true
-				@submissions = Submission.for_courses(current_user.courses)
-			else
-				brief = true
-				@submissions = current_user.submissions
-			end
-    end
-		if params[:limit] then @submissions = @submissions.limit(params[:limit]) end
-		if brief == true
-	    respond_with @submissions, :each_serializer => BriefSubmissionSerializer
-    else
-      respond_with @submissions
-		end
+  # GET /api/v1/submissions/for_course.json?course=:course
+  def for_course
+    factory = SubmissionFactory.new
+    @course = Course.find(params.require(:course))
+    authorize! :show_submissions, @course
+    @submissions = factory.course(@course)
+    respond_with @submissions, :each_serializer => BriefSubmissionSerializer
+  end
 
+  # GET /api/v1/submissions/for_course_and_user.json?course=:course&user=:user
+  def for_course_and_user
+    factory = SubmissionFactory.new
+    @course = Course.find(params.require(:course))
+    authorize! :show_submissions, @course
+    @user = User.find(params.require(:user))
+    @submissions = factory.course_and_creator(@course, @user)
+    respond_with @submissions
+  end
+
+  # GET /api/v1/submissions/for_user.json?user=:user
+  def for_user
+    factory = SubmissionFactory.new
+    @user = Course.find(params.require(:user))
+    authorize! :read_write, @user
+    @submissions = factory.user(@user)
+    respond_with @submissions
+  end
+
+  # GET /api/v1/submissions/for_group.json?group=:group
+  def for_group
+    factory = SubmissionFactory.new
+    @group = Group.find(params.require(:group))
+    authorize! :show_submissions, @group.course
+    @submissions = factory.group(@group)
+    respond_with @submissions
+  end
+
+  # GET /api/v1/submissions/for_project.json?project=:project
+  def for_project
+    factory = SubmissionFactory.new
+    @project = Project.find(params.require(:project))
+    authorize! :show_submissions, @project.course
+    @submissions = factory.project(@project)
+    respond_with @submissions
   end
 
   # GET /api/v1/submissions/:id.json
   def show
+    authorize! :show, @submission
     respond_with @submission, :root => false
   end
 
 	# POST /api/v1/courses/:course_id/submissions.json
   def create
+    authorize! :create, @submission
 	  if @submission.save
 		  respond_with @submission, :root => false, status: :created, location: api_v1_submission_url(@submission)
 	  else
@@ -65,21 +68,18 @@ class Api::V1::SubmissionsController < ApiController
 
   # PUT /api/v1/submissions/:id.json
   def update
-    filtered_params = update_params
-	  @submission.update_attributes!(filtered_params)
+    authorize! :update, @submission
+	  @submission.update_attributes!(submission_params)
 	  respond_with(@submission)
   end
 
   # DELETE /api/v1/submissions/:id
   def destroy
+    authorize! :destroy, @submission
 	  @submission.destroy
 	  respond_with(@submission)
   end
 
   private
-
-  def update_params
-    params.permit(:name, video_attributes: [ :source, :source_id])
-  end
 
 end

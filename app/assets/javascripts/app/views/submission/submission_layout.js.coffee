@@ -62,12 +62,6 @@ define (require) ->
         @children.annotator = new AnnotatorView({model: @submission, collection: @collections.annotation, vent: @})
         @annotator.show(@children.annotator)
 
-    onShow: () ->
-      if @submission? && @submission.get('serialized_state') == 'full'
-        @triggerMethod('submission:loaded')
-      else
-        @fetchSubmission()
-
     onSubmissionLoaded: () ->
       if @submission.video
         @collections.annotation.fetch({data: {video: @submission.video.id}})
@@ -79,28 +73,19 @@ define (require) ->
       @createAnnotatorView()
       @createDiscussionView()
 
-    fetchSubmission: () ->
-      onSuccess = (collection, response) =>
-        @submission = @collections.submission.findWhere({creator_id: @creator.id, project_id: @project.id, creator_type: @creator.creatorType})
-        @triggerMethod('submission:loaded')
-
-      # Load the submission for this view and then instantiate all child views
-      if @creator.creatorType == 'User'
-        @collections.submission.fetchByCourseAndUserAndProject(@courseId, @creator.id, @project.id, {success: onSuccess})
-      else if @creator.creatorType == 'Group'
-        @collections.submission.fetchByCourseAndGroupAndProject(@courseId, @creator.id, @project.id, {success: onSuccess})
-
     initialize: (options) ->
       @options = options || {}
       @collections = options.collections
       @collections.annotation = new AnnotationCollection([],{})
-
       @vent = if options.vent? then options.vent else Vocat.vent
 
       babysitter = require('backbone.babysitter');
       @placards = new babysitter
 
-      @submission = options.submission
+      @submission = @model
+      @submission.fetch({success: () =>
+        @triggerMethod('submission:loaded')
+      })
       @courseId = Marionette.getOption(@, 'courseId')
       @project = Marionette.getOption(@, 'project')
       @creator = Marionette.getOption(@, 'creator')

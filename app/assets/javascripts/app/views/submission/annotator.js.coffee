@@ -29,7 +29,7 @@ define [
         annotation = new AnnotationModel({
           video_id: @model.video.id
           body: @ui.input.val()
-          published: false
+          published: true
           seconds_timecode: seconds_timecode
         })
         annotation.save({},{

@@ -18,7 +18,7 @@ define [
       @collection = new DiscussionPostCollection([],{})
       @allPosts = new DiscussionPostCollection([],{})
       @allPosts.fetch({
-          data: {submission_id: @submission.id}
+          data: {submission: @submission.id}
           success: () =>
             @collection.reset(@allPosts.where({parent_id: null}))
         })

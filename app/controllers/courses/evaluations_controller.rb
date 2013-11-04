@@ -8,10 +8,10 @@ class Courses::EvaluationsController < ApplicationController
   def course_map
     @disable_layout_messages = true
     authorize! :evaluate, @course
-    @projects = Project.find_all_by_course_id(@course)
+    @projects = Project.where(course: @course)
     @users = @course.creators
     @groups = @course.groups
-    @submissions = Submission.find_all_by_project_id(@projects)
+    @submissions = Submission.where(project: @projects)
   end
 
   def user_project_detail

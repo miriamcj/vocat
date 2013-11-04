@@ -1,8 +1,5 @@
-class ApiController < ActionController::Base
+class ApiController < ApplicationController
 
   protect_from_forgery
-  before_filter :authenticate_user!
-
-  check_authorization :unless => :devise_controller?
 
 end

@@ -1,16 +1,11 @@
 class Annotation < ActiveRecord::Base
-  attr_accessible :video_id,
-                  :author_id,
-                  :body,
-                  :published,
-                  :seconds_timecode,
-                  :smpte_timecode
+
   belongs_to :video
   belongs_to :author, :class_name => "User"
 
-  default_scope order('seconds_timecode ASC')
+  default_scope { order('seconds_timecode ASC') }
 
-  scope :by_course, lambda { |course|
+  scope :by_course, -> (course) {
     joins(:video => {:submission => :project}).where(:projects => {:course_id => course.id}) unless course.nil?
   }
 

@@ -6,8 +6,8 @@ class Courses::Manage::RubricsController < ApplicationController
   before_filter :disable_layout_messages
 
   def index
-    @my_rubrics = Rubric.find_all_by_owner_id(current_user)
-    @system_rubrics = Rubric.find_all_by_public(true)
+    @my_rubrics = Rubric.where(owner: current_user)
+    @system_rubrics = Rubric.where(public: true)
 
     respond_to do |format|
       format.html

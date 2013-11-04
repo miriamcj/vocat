@@ -592,6 +592,8 @@ describe "Abilities" do
       context "if the current_user is an evaluator in the course, she" do
         let ( :user ) { @evaluator_in_course_a }
         it { expect(user).to have_ability(@ability_aliases[:read_write_destroy], for: video) }
+        it { expect(user).to have_ability({new: true}, for: video) }
+        it { expect(user).to have_ability({create: true}, for: video) }
       end
       context "if the current_user is the creator for the submission with which the video is associated, she" do
         let ( :user ) { @creator_in_course_a }

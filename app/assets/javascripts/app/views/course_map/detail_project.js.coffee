@@ -211,8 +211,11 @@ define [
 
     scoresLoaded: () ->
       deferred = $.Deferred()
-      $.ajax("/api/v1/courses/#{@courseId}/projects/#{@projectId}/scores",{
+      $.ajax("/api/v1/scores/for_project",{
         dataType: 'json'
+        data: {
+          project: @projectId
+        }
         success: (data, textStatus, jqXHR) =>
           @scores = data.scores
           @statistics = data.statistics

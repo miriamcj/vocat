@@ -12,8 +12,6 @@ define (require) ->
     updateUrl: () ->
       "#{@urlRoot()}/#{@id}"
 
-    paramRoot: 'submission'
-
     requestTranscoding: () ->
 
     canBeAnnotated: () ->

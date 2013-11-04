@@ -5,9 +5,9 @@ class Api::V1::RubricsController < ApplicationController
 
   def index
     if current_user.role?(:evaluator)
-      @my_rubrics = Rubric.find_all_by_owner_id(current_user)
+      @my_rubrics = Rubric.where(owner: current_user)
     elsif current_user.role?(:admin)
-      @my_rubrics = Rubric.find_all_by_public(true)
+      @my_rubrics = Rubric.where(public: true)
     end
 
 		respond_with @my_rubrics

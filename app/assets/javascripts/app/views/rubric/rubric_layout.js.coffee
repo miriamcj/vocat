@@ -78,13 +78,15 @@ define (require) ->
       })
 
     handleRangeAdd: (event) ->
+      event.preventDefault()
       range = new RangeModel({})
       @model.get('ranges').add(range)
-#      setTimeout(() =>
-#        $('html, body').animate({ scrollTop: $(document).height() }, 'slow')
-#      , 100)
+      setTimeout(() =>
+        $('html, body').animate({ scrollTop: $(document).height() }, 'slow')
+      , 100)
 
     handleFieldAdd: (event) ->
+      event.preventDefault()
       field = new FieldModel({})
       @model.get('fields').add(field)
 
@@ -134,12 +136,11 @@ define (require) ->
       @views.ranges = new RangesView({collection: @model.get('ranges'), vent: @})
       @views.rangePicker = new RangePickerView({collection: @model.get('ranges'), model: @model, vent: @})
 
-      @listenTo(@views.fields,'after:item:added', () =>
+      @listenTo(@views.fields,'after:item:added item:removed', () =>
         @sliderRecalculate()
-        @triggerMethod('slider:right')
       )
 
-      @listenTo(@views.fields,'item:removed', () =>
+      @listenTo(@views.ranges,'after:item:added item:removed', () =>
         @sliderRecalculate()
       )
 

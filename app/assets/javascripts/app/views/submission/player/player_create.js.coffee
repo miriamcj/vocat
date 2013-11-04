@@ -72,7 +72,9 @@ define (require) ->
 
     initializeAsyncUploader: () ->
       @ui.upload.fileupload({
-        url: "/api/v1/videos?submission=#{@model.id}"
+        url: "/api/v1/videos"
+        multipart: true
+        formData: [ { name: 'video[submission_id]', value: @model.id }, { name: 'video[source]', value: 'attachment'}]
         dataType: 'json'
         done: (e, data) =>
           @video = new VideoModel(data.result)

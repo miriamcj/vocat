@@ -8,8 +8,6 @@ define [
     urlRoot: '/api/v1/annotations'
     paramRoot: 'annotation'
 
-    urlRoot: '/api/v1/annotations'
-
     initialize: () ->
       @visible = false
       @locked = false
