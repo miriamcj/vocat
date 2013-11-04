@@ -20,6 +20,7 @@ gem 'aws-sdk', '~> 1.8.1'
 gem 'delayed_job_active_record'
 gem 'quiet_assets'
 
+
 # Stuck on this version until https://github.com/ryanb/cancan/issues/861 is released
 gem 'cancan', '= 1.6.9'
 gem 'kaminari'

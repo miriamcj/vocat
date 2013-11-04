@@ -14,6 +14,10 @@ class Rubric < ActiveRecord::Base
   validates :name, :owner, :low, :high, :presence => true
   validate :validate_ranges
 
+  after_initialize :ensure_ranges
+  after_initialize :ensure_fields
+  after_initialize :ensure_cells
+
   def validate_ranges
     self.ranges.each do |range|
       errors.add(:ranges, "All Ranges must have a low value") unless range['low']
@@ -25,6 +29,22 @@ class Rubric < ActiveRecord::Base
 
   scope :publicly_visible, -> { where(:public => true) }
   scope :public_or_owned_by, -> (owner) { where('owner_id = ? OR public = true', owner)}
+
+  def ensure_fields()
+    self.fields = [] unless self.fields.kind_of? Array
+    self.fields.map! {|field| field.with_indifferent_access}
+  end
+
+  def ensure_ranges()
+    self.ranges = [] unless self.ranges.kind_of? Array
+    self.ranges.map! {|range| range.with_indifferent_access}
+  end
+
+  def ensure_cells()
+    self.cells = [] unless self.cells.kind_of? Array
+    self.cells.map! {|cell| cell.with_indifferent_access}
+
+  end
 
   def clone()
     rubric = self.dup
@@ -48,7 +68,6 @@ class Rubric < ActiveRecord::Base
   end
 
   def add_field(hash = {})
-    self.fields = [] unless self.fields.kind_of? Array
     if hash.has_key?('id') || hash['id'].blank?
 	    hash['id'] = hash['name'].parameterize
     end
@@ -57,7 +76,6 @@ class Rubric < ActiveRecord::Base
   end
 
   def add_range(hash)
-	  self.ranges = [] unless self.ranges.kind_of? Array
 	  if hash.has_key?('id') || hash['id'].blank?
 		  hash['id'] = hash['name'].parameterize
 	  end
@@ -66,7 +84,6 @@ class Rubric < ActiveRecord::Base
   end
 
   def add_cell(hash = {})
-	  self.cells = [] unless self.cells.kind_of? Array
 	  self.cells.push hash
 	  hash['id']
   end
@@ -78,7 +95,7 @@ class Rubric < ActiveRecord::Base
   end
 
   def get_cell(field_key, range_key)
-    self.cells.select{ |r| r['field'] == field_key && r['range'] == range_key}
+    self.cells.find{ |r| r['field'] == field_key && r['range'] == range_key}
   end
 
   def range_description_key(range_key, field_key)

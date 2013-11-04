@@ -84,8 +84,6 @@ define (require) ->
 
     parse: (response, options) ->
       if response?
-        response = response.rubric
-
         @set 'fields', new FieldCollection unless @get('fields')
         @set 'ranges', new RangeCollection unless @get('ranges')
         @set 'cells', new CellCollection unless @get('cells')

@@ -1,1 +1,59 @@
-<div id="region-main"></div>
+<% content_for :content_header do %>
+  View Rubric: <%= @rubric.name %>
+<% end %>
+
+<% content_for :content_header_links do %>
+  <% if @course %>
+    <%= link_to 'Back to List', course_manage_rubrics_path(@course), :class => 'teal-arrow-button' %>
+  <% else %>
+    <%= link_to 'Back to List', rubrics_path(), :class => 'teal-arrow-button' %>
+  <% end %>
+<% end %>
+
+<% content_for :content_intro do %>
+  <h2 class="frame--title">Rubric Description</h2>
+  <% if @rubric.description %>
+    <p><%= @rubric.description %></p>
+  <% else %>
+    <p>No description has been entered for this rubric.</p>
+  <% end %>
+<% end %>
+
+<% content_for :content_frames	 do %>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Criteria</th>
+      <% @rubric.ranges.each do |range| %>
+        <th>
+          <strong style="color: #676263"><%= "#{range[:low]} - #{range[:high]}" %></strong>
+          <%= range[:name] %>
+        </th>
+      <% end %>
+    </tr>
+    </thead>
+    <tbody>
+    <% @rubric.fields.each do |field| %>
+      <tr>
+        <th>
+          <%= field[:name] %>
+        </th>
+        <% @rubric.ranges.each do |range| %>
+          <% cell = @rubric.get_cell(field[:id], range[:id]) %>
+          <td>
+            <% unless cell.nil? %>
+              <p>
+                <strong style="color: #676263"><%= "#{range[:name]} (#{range[:low]} to #{range[:high]} points)" %></strong>
+              </p>
+              <p>
+                <%= cell[:description] %>
+              </p>
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+<% end %>

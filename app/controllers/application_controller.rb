@@ -93,12 +93,16 @@ class ApplicationController < ActionController::Base
 
     def evaluation_params
       params.require(:evaluation).permit(:submission_id, :published).tap do |whitelisted|
-        whitelisted[:scores] = params[:evaluation][:scores] # Scores is a hash with unknown keys, all of which are whitelisted.
+        whitelisted[:scores] = params[:evaluation][:scores]
       end
     end
 
     def rubric_params
-      params.require(:rubric).permit(:name, :description, :cells, :fields, :ranges, :high, :low)
+      params.require(:rubric).permit(:name, :description, :cells, :fields, :ranges, :high, :low).tap do |whitelisted|
+        whitelisted[:ranges] = params[:rubric][:ranges]
+        whitelisted[:fields] = params[:rubric][:fields]
+        whitelisted[:cells] = params[:rubric][:cells]
+      end
     end
 
     def submission_params

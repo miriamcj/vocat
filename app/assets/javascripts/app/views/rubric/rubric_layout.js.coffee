@@ -23,7 +23,6 @@ define (require) ->
       rows: '[data-region="rows"]'
       flash: '[data-region="flash"]'
       rangePicker: '[data-region="range-picker"]'
-
     }
 
     events: {
