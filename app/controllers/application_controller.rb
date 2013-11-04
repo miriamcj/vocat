@@ -31,9 +31,6 @@ class ApplicationController < ActionController::Base
   end
 
   def inject_session_data
-    flash[:notice] = "Testing flash messages. Remove this in application controller."
-    flash[:error] = "Testing flash messages. Remove this in application controller."
-
     @session_data = {
       enable_glossary: current_user.nil? ? false : current_user.get_setting_value('enable_glossary')
     }
