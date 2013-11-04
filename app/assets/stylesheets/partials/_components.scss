@@ -937,6 +937,12 @@ a.table--heading {
 // --------------------------------------------------------
 .evaluation-detail-frame {
   @extend %frame;
+  &:nth-child(even) {
+	background-color: $beigeLight;
+  }
+  &:nth-child(odd) {
+	background-color: $beige;
+  }
 }
 
 .evaluation-detail--header {
