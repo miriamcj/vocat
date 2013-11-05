@@ -114,7 +114,12 @@
   @extend %heading-epsilon;
   display: list-item;
   color: $grayLight;
+  border-bottom: 0.1rem solid transparentize($grayLightest, 0.25);
+  margin: 0.5rem 0 0.4rem;
   cursor: default;
+  &:first-child {
+    margin-top: 0;
+  }
 }
 .chosen-container .chosen-results li em {
   font-style: normal;
