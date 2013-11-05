@@ -18,11 +18,9 @@
 
       <% if submission.project.evaluatable() %>
         <%= render 'dashboard/scores', :submission => submission, :course => course %>
-        <a class="frame-summary--link pull-right" data-behavior="routable" href="<%= url_for course_user_creator_project_detail_path(course, submission.creator, submission.project) %>">View Evaluation Detail</a>
-      <% else %>
-        <h3 class="frame-summary--aside">There are no evaluations for this project yet.</h3>
       <% end %>
       <a class="comment-indicator pull-left" data-behavior="routable" href="<%= url_for course_user_creator_project_detail_path(course, submission.creator, submission.project) %>"><%= pluralize(submission.discussion_posts_count, 'comment') %></a>
+      <a class="frame-summary--link pull-right" data-behavior="routable" href="<%= url_for course_user_creator_project_detail_path(course, submission.creator, submission.project) %>">View Submission Detail</a>
 
     </div>
   </div>
