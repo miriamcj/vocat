@@ -8,4 +8,4 @@ define ['backbone'], (Backbone) ->
       _.isObject(@get('rubric'))
 
     evaluatable: () ->
-      @get('evalutable')
+      @get('evaluatable')
