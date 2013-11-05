@@ -54,26 +54,17 @@ end
 
 # Create the courses
 courses = Array.new
-courses << baruch.courses.create(:name => "Data Structures", :settings => { :enable_peer_review => random_boolean }, :department => "CS", :number => "163", :section => random_section, :description => Faker::Lorem.paragraph)
-courses << baruch.courses.create(:name => "Programming Systems", :settings => { :enable_peer_review => random_boolean }, :department => "CS", :number => "201", :section => random_section, :description => Faker::Lorem.paragraph)
-courses << baruch.courses.create(:name => "Systems Programming", :settings => { :enable_peer_review => random_boolean }, :department => "CS", :number => "202", :section => random_section, :description => Faker::Lorem.paragraph)
-courses << baruch.courses.create(:name => "Discrete Structures I", :settings => { :enable_peer_review => random_boolean }, :department => "CS", :number => "250", :section => random_section, :description => Faker::Lorem.paragraph)
-courses << baruch.courses.create(:name => "Discrete Structures II", :settings => { :enable_peer_review => random_boolean }, :department => "CS", :number => "251", :section => random_section, :description => Faker::Lorem.paragraph)
-courses << baruch.courses.create(:name => "AI: Combinatorial Search", :settings => { :enable_peer_review => random_boolean }, :department => "CS", :number => "443", :section => random_section, :description => Faker::Lorem.paragraph)
-courses << baruch.courses.create(:name => "Shakespeare", :settings => { :enable_peer_review => random_boolean }, :department => "ENG", :number => "201", :section => random_section, :description => Faker::Lorem.paragraph)
-courses << baruch.courses.create(:name => "Survey of English Literature I", :settings => { :enable_peer_review => random_boolean }, :department => "ENG", :number => "204", :section => random_section, :description => Faker::Lorem.paragraph)
-courses << baruch.courses.create(:name => "Survey of English Literature II", :settings => { :enable_peer_review => random_boolean }, :department => "ENG", :number => "205", :section => random_section, :description => Faker::Lorem.paragraph)
-courses << baruch.courses.create(:name => "Introduction to Literature", :settings => { :enable_peer_review => random_boolean }, :department => "ENG", :number => "100", :section => random_section, :description => Faker::Lorem.paragraph)
-courses << baruch.courses.create(:name => "Introduction to World Literature", :settings => { :enable_peer_review => random_boolean }, :department => "ENG", :number => "108", :section => random_section, :description => Faker::Lorem.paragraph)
-courses << baruch.courses.create(:name => "Native American Women Writers", :settings => { :enable_peer_review => random_boolean }, :department => "ENG", :number => "367U", :section => random_section, :description => Faker::Lorem.paragraph)
-courses << baruch.courses.create(:name => "Practical Grammar", :settings => { :enable_peer_review => random_boolean }, :department => "ENG", :number => "425", :section => random_section, :description => Faker::Lorem.paragraph)
+courses << baruch.courses.create(:name => "Computer Information Systems", :settings => { :enable_peer_review => random_boolean }, :department => "CIS", :number => "3810", :section => random_section, :description => Faker::Lorem.paragraph)
+courses << baruch.courses.create(:name => "Composition I", :settings => { :enable_peer_review => random_boolean }, :department => "ENG", :number => "2100", :section => random_section, :description => Faker::Lorem.paragraph)
+courses << baruch.courses.create(:name => "Composition II: Intro to Literature", :settings => { :enable_peer_review => random_boolean }, :department => "ENG", :number => "2150", :section => random_section, :description => Faker::Lorem.paragraph)
+courses << baruch.courses.create(:name => "Great Works of Literature", :settings => { :enable_peer_review => random_boolean }, :department => "ENG", :number => "2850", :section => random_section, :description => Faker::Lorem.paragraph)
 
 # Create sample users
 evaluators = Array.new
 assistants = Array.new
 creators = Array.new
 
-6.times do |i|
+5.times do |i|
   u = User.new(:email => "evaluator#{i}@test.com", :password => "testtest123", :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name)
   u.organization = baruch
   u.role = "evaluator"
@@ -81,7 +72,7 @@ creators = Array.new
   evaluators << u
 end
 
-15.times do |i|
+5.times do |i|
   u = User.new(:email => "assistant#{i}@test.com", :password => "testtest123", :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name)
   u.organization = baruch
   u.role = "creator"
