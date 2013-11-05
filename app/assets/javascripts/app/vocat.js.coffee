@@ -30,9 +30,9 @@ define (require) ->
       'pages/help_dev': 'helpDev'
       'pages/modal_dev': 'modalDev'
     }
-    portfolio: {
-      'courses/:course/portfolio': 'portfolio'
-    }
+#    portfolio: {
+#      'courses/:course/portfolio': 'portfolio'
+#    }
     rubric: {
       'courses/:course/manage/rubrics/new': 'new'
       'rubrics/new': 'new'
