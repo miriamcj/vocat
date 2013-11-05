@@ -823,12 +823,20 @@ a.table--heading {
 
 // Portfolio
 // --------------------------------------------------------
-.portfolio {
+// .portfolio {
 
-}
+// }
 
 .portfolio-frame {
-  @extend %frame;
+  @extend %clearfix;
+  padding: 3.4rem 0 2.4rem;
+  & + & {
+    border-top: 0.2rem solid $tealLightest;
+  }
+  .course-map & {
+    @extend %frame;
+    border-top: none;
+  }
 }
 
 .constrained-portfolio-frame {
@@ -886,6 +894,11 @@ a.table--heading {
   }
 }
 
+.frame-summary--project {
+  @extend %heading-alpha;
+  margin-bottom: 1.9rem;
+}
+
 .frame-summary--creator {
   @extend %gamma-sup;
   color: $grayLight;
@@ -898,16 +911,21 @@ a.table--heading {
   margin-bottom: 1.4rem;
 }
 
+.frame-summary--aside {
+  @extend %gamma-sup;
+  color: $grayLight;
+  margin-bottom: 1.9rem;
+}
+
 .frame-summary--link {
   @extend %heading-epsilon;
   @extend %arrow-link;
-  margin: 1.9rem 0 0 0.8rem;
+  margin-top: 0.3rem;
 }
 
 .frame-summary--status {
   @extend %heading-epsilon;
   @extend %check-indicator;
-  margin-top: 1.6rem;
   float: right;
 }
 
@@ -915,6 +933,7 @@ a.table--heading {
 // ------------
 .frame-summary--score-list {
   @extend %score-list;
+  margin-bottom: 1.9rem;
 }
 
 .frame-summary--evaluated {

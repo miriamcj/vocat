@@ -1142,7 +1142,8 @@ input%proto-button {
 // Frame
 // --------------------------------------------------------
 %frame {
-  // TODO adjust right & left padding if necessary
+  @extend %clearfix;
+   // TODO adjust right & left padding if necessary
   padding: 3.4rem 3.2rem 2.4rem;
   position: relative;
   z-index: 110;
@@ -1161,24 +1162,15 @@ input%proto-button {
   }
 }
 
-// Extended by %frame--left & %frame--right
-// Inline-block instead of float so it works with full-bleed
-// NB whitespace between the two column elements will display
-// TODO float it
-%frame--column {
-  display: inline-block;
-  vertical-align: top;
-}
-
 %frame--left {
-  @extend %frame--column;
-  width: 30.7%;
+  width: 28%;
+  float: left;
 }
 
 %frame--right {
-  @extend %frame--column;
-  width: 69.3%;
+  width: 72%;
   padding-left: 2.4rem;
+  float: left;
 }
 
 // Dropdowns

@@ -28,6 +28,14 @@
   position: relative;
 }
 
+.pull-right {
+  float: right;
+}
+
+.pull-left {
+  float: left;
+}
+
 // Headings
 // --------------------------------------------------------
 .heading-largest {
@@ -231,6 +239,15 @@
 // <dl>
 .expository-list {
   @extend %expository-list;
+}
+
+// Columns
+// --------------------------------------------------------
+// NB be sure to wrap these in .clearfix
+.half-column {
+  width: 50%;
+  padding-right: 1.6rem;
+  float: left;
 }
 
 // Boxes
