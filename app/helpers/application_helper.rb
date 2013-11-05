@@ -11,7 +11,7 @@ module ApplicationHelper
     p = content_tag :p, "Please fix the following errors:"
     errors = resource.errors.full_messages.map { |msg| content_tag(:li, msg, nil, false) }.join
     list = content_tag :ul, errors, nil, false
-    content_tag :div, p+list, :class => "alert alert-error"
+    content_tag :div, p+list, :class => "alert alert-error alert-list"
   end
 
   def serialize_for_bootstrap(data, current_user)
