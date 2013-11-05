@@ -53,8 +53,10 @@ class ApplicationController < ActionController::Base
 
   def get_organization_and_current_course
 
-    if params[:course_id]
-      @course = Course.find(params[:course_id])
+    course_id = self.class.to_s == 'CoursesController' ? params[:id] : params[:course_id]
+
+    if course_id
+      @course = Course.find(course_id)
 
       if @course
         authorize!(:show, @course)
