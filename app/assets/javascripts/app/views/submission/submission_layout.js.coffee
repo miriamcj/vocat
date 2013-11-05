@@ -14,6 +14,8 @@ define (require) ->
   RubricFieldPlacard = require('views/help/rubric_field_placard')
   GlossaryTogglePlacard = require('views/help/glossary_toggle_placard')
   RubricModel = require('models/rubric')
+  ProjectDetailView = require('views/project/project_detail')
+
 
   class SubmissionLayout extends Marionette.Layout
 
@@ -25,6 +27,7 @@ define (require) ->
       'mouseenter [data-trigger-glossary-toggle]': 'hover:glossary:show'
       'mouseleave [data-trigger-glossary-toggle]': 'hover:glossary:hide'
       'click [data-trigger-glossary-toggle]': 'null'
+      'click [data-trigger-project-details]': 'open:project:modal'
     }
 
     ui: {
@@ -42,6 +45,10 @@ define (require) ->
       annotations: '[data-region="annotations"]'
       player: '[data-region="player"]'
     }
+
+    onOpenProjectModal: () ->
+      console.log @project,'p'
+      Vocat.vent.trigger('modal:open', new ProjectDetailView({model: @project, vent: @vent}))
 
     onHoverGlossaryShow: () ->
       Vocat.vent.trigger('help:show',{
@@ -72,6 +79,8 @@ define (require) ->
       @createPlayerView()
       @createAnnotatorView()
       @createDiscussionView()
+
+      @onOpenProjectModal()
 
     initialize: (options) ->
       @options = options || {}

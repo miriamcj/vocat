@@ -15,6 +15,8 @@ class Project < ActiveRecord::Base
   delegate :name_long, :to => :course, :prefix => true
   delegate :id, :to => :course, :prefix => true
 
+  validates :name, :description, :rubric, :presence => true
+
   scope :unsubmitted_for_user_and_course, -> (creator, course) { joins('LEFT OUTER JOIN submissions ON submissions.project_id = projects.id AND submissions.creator_id = ' + creator.id.to_s).where('submissions.creator_id IS NULL AND course_id IN (?)', course) }
 
   def published_evaluations

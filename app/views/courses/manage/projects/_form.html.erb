@@ -1,18 +1,18 @@
 <%= form_errors(@project) %>
 
 <div class="input-group">
-  <%= f.label :name, :class => 'text-label' %>
+  <%= f.label :name, :required => true, :class => 'text-label' %>
   <%= f.input_field :name, :class => 'text-input' %>
 </div>
 
 
 <div class="model-form--row">
-  <%= f.label :description, :class => 'text-label' %>
-  <%= f.input_field :description, :class => 'text-area-input', :rows => '3' %>
+  <%= f.label :description, :required => true, :class => 'text-label' %>
+  <%= f.input_field :description, :class => 'text-area-input', :rows => '8' %>
 </div>
 
 <div class="model-form--row">
-  <%= f.label :rubric, :class => 'text-label' %>
+  <%= f.label :rubric, :required => true, :class => 'text-label' %>
   <%= f.select :rubric_id,
                grouped_options_for_select(
                    {
