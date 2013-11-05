@@ -14,6 +14,7 @@ class Course < ActiveRecord::Base
 
   store_accessor :settings, *ALLOWED_SETTINGS
 
+  after_initialize :ensure_settings
 
   validates :department, :name, :number, :section, :presence => true
   #validates :evaluators, :length => {:minimum => 1, :message => "can't be empty."}
@@ -27,6 +28,11 @@ class Course < ActiveRecord::Base
 
   def allows_self_evaluation
     get_boolean_setting_value('enable_self_evaluation')
+  end
+
+  def ensure_settings()
+    self.settings = {} unless self.settings.kind_of? Hash
+    self.settings = self.settings.with_indifferent_access
   end
 
   def name_long

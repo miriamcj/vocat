@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   before_filter :test_flash_messages
   before_filter :authenticate_user!
   before_filter :inject_session_data
-  before_filter { |controller| controller.get_organization_and_current_course 'course_id' }
+  before_filter :get_organization_and_current_course
 
   # This is a bit of a hack to deal with incompatibilities between CanCan 1.x and Rails 4 strong
   # parameters protection. Basically, CanCan attempts to access the params directly when it loads
@@ -51,19 +51,25 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def get_organization_and_current_course(param_name)
-    if @course
-      session[:course_id] = @course.id
-    end
+  def get_organization_and_current_course
 
-    if current_user
-      @organization = current_user.organization
-    end
+    if params[:course_id]
+      @course = Course.find(params[:course_id])
 
-    if @course && current_user
-      @course_role = @course.role(current_user)
-    else
-      @course_rol = nil
+      if @course
+        authorize!(:show, @course)
+        session[:course_id] = @course.id
+      end
+
+      if current_user
+        @organization = current_user.organization
+      end
+
+      if @course && current_user
+        @course_role = @course.role(current_user)
+      else
+        @course_role = nil
+      end
     end
   end
 
@@ -74,12 +80,8 @@ class ApplicationController < ActionController::Base
       params.require(:project).permit(:name, :description, :rubric_id)
     end
 
-    def course_settings_params
-      params.require(:settings).permit(*Course::ALLOWED_SETTINGS)
-    end
-
     def course_params
-      params.require(:course).permit(:id, :name, :groups_attributes => [ :id, :name, :creator_ids => [] ])
+      params.require(:course).permit(:id, :name, :message, :groups_attributes => [ :id, :name, :creator_ids => [] ], :settings => [ Course::ALLOWED_SETTINGS ])
     end
 
     def group_params

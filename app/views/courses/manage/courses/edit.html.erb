@@ -1,0 +1,69 @@
+<% content_for :content_header do %>
+  Edit Course Settings
+<% end %>
+
+<% content_for :content_header_links do %>
+<% end %>
+
+<% content_for :content_intro do %>
+  <p style="margin-bottom: 0">
+    Use the options below to configure the behavior of your course in VOCAT. Consider adding an introductort message to the course, which will be seen by
+    all course creators.
+  </p>
+<% end %>
+
+<% content_for :content_frames	 do %>
+  <div class="page-content--frame">
+    <%= form_for @course, :url => {action: 'update'} do |f| %>
+      <fieldset>
+        <div class="input-group">
+          <label class="text-label">Course Message</label>
+          <%= f.text_area :message, { :class => 'text-area-input', :rows => 10} %>
+          <small class="input-message">Any message you enter here will be visible to all students upon logging in to VOCAT and selecting
+
+          this course from the list of available courses.</small>
+        </div>
+        <div class="input-group">
+          <label class="text-label">Course Configuration</label>
+
+          <%= f.fields_for :settings do |settings| %>
+
+            <label class="checkbox-label">
+              <%= check_box_tag('course[settings][enable_public_discussion]', 1, @course.settings[:enable_public_discussion] == '1', :class => 'checkbox')%>
+              <b></b>
+              Enable public discussion
+            </label>
+
+            <label class="checkbox-label">
+              <%= check_box_tag('course[settings][enable_peer_review]', 1, @course.settings[:enable_peer_review] == '1', :class => 'checkbox')%>
+              <b></b>
+              Enable peer review
+            </label>
+
+            <label class="checkbox-label">
+              <%= check_box_tag('course[settings][enable_creator_attach]', 1, @course.settings[:enable_creator_attach] == '1', :class => 'checkbox')%>
+              <b></b>
+              Allow creators to upload videos
+            </label>
+
+            <label class="checkbox-label">
+              <%= check_box_tag('course[settings][enable_self_evaluation]', 1, @course.settings[:enable_self_evaluation] == '1', :class => 'checkbox')%>
+              <b></b>
+              Allow self-evaluation
+            </label>
+
+
+
+        <% end %>
+
+
+        </div>
+        <div class="input-group">
+          <%= submit_tag('Save Settings', :class => 'teal-arrow-button') %>
+        </div>
+      </fieldset>
+    <% end %>
+  </div>
+
+<% end %>
+

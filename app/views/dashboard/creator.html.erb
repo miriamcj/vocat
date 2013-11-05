@@ -11,12 +11,10 @@
 
 <% content_for :content_intro do %>
   <% if @course %>
-    <h2 class="frame--title">Announcements</h2>
-    <p>
-      <strong>Instructors will be able to add and update course announcements, which will appear here.</strong> Lorem
-      ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-      aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
-    </p>
+      <% unless @course.message.blank? %>
+        <h2 class="frame--title">Announcements</h2>
+        <%= simple_format @course.message %>
+      <% end %>
   <% else %>
     <h2 class="frame--title">Greetings, <%= current_user.first_name %></h2>
     <p>

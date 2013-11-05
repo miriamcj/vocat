@@ -47,8 +47,9 @@ Vocat::Application.routes.draw do
         resources :projects
         resources :groups
         resources :rubrics, :only => [:index, :show, :new, :edit, :destroy]
-        get 'settings' => 'settings#edit'
-        patch 'settings' => 'settings#update'
+        get '/' => 'courses#edit'
+        patch '/' => 'courses#update'
+        put '/' => 'courses#update'
       end
     end
 

@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
 
+  skip_authorization_check
   layout :select_layout
 
   def select_layout
