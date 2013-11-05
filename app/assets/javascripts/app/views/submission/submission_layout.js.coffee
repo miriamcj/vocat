@@ -80,8 +80,6 @@ define (require) ->
       @createAnnotatorView()
       @createDiscussionView()
 
-      @onOpenProjectModal()
-
     initialize: (options) ->
       @options = options || {}
       @collections = options.collections
