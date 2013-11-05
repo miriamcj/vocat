@@ -2316,11 +2316,12 @@ a.table--heading {
 // --------------------------------------------------------
 // Wrapper containing all alerts
 .alerts {
-  @extend %clearfix;
-  // 1px top pading is not ideal, but seems to be necessary for Chrome to respect the top-margin on the
-  // .alert:first-child enclosed in .alerts.  Perhaps SM can find a better solution --ZD
-  padding-top: 1px;
-  &:empty {
+  padding-top: 2.7rem;
+  position: relative;
+  z-index: 150;
+  &:empty,
+  .course-map &,
+  .model-form & {
     padding-top: 0;
   }
   .bar-header & {

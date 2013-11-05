@@ -1687,7 +1687,7 @@ input%proto-button {
   margin: 1rem 3.2rem 0;
   position: relative;
   &:first-child {
-    margin-top: 2.7rem;
+    margin-top: 0;
   }
   p {
     @extend %gamma-sub;
