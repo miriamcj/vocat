@@ -1,5 +1,4 @@
 <ul class="frame-summary--score-list">
-
   <% if submission.course_allows_self_evaluation %>
     <% if submission.user_evaluation_published?(current_user) %>
       <li class="frame-summary--evaluated" style="padding-right: <%= 100 - submission.user_score_percentage(current_user).to_i %>%">

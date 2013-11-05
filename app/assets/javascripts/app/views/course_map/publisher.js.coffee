@@ -92,6 +92,11 @@ define ['marionette', 'hbs!templates/course_map/publisher', 'views/modal/modal_c
     onRender: () ->
       @checkAllUnpublished()
 
+    serializeData: () ->
+      context = super()
+      context.publishable = @model.hasRubric()
+      context
+
     initialize: (options) ->
       @submissions = options.submissions
       @creatorType = options.creatorType

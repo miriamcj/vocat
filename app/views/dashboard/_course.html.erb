@@ -17,10 +17,12 @@
           <%= link_to submission.project_name, course_user_creator_project_detail_path(course, submission.creator, submission.project) %>
         </h2>
 
-        <%= render 'dashboard/scores', :submission => submission, :course => course %>
-
+        <% if submission.project.evaluatable() %>
+          <%= render 'dashboard/scores', :submission => submission, :course => course %>
+        <% end %>
         <a style="float: left; margin-top: 1.9rem;" class="comment-indicator"data-behavior="routable" href="<%= url_for course_user_creator_project_detail_path(course, submission.creator, submission.project) %>"><%= pluralize(submission.discussion_posts_count, 'comment') %></a>
         <a class="frame-summary--link" style="float: right;" data-behavior="routable" href="<%= url_for course_user_creator_project_detail_path(course, submission.creator, submission.project) %>">View Evaluation Detail</a>
+
 
       </div>
     </div>

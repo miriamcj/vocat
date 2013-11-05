@@ -38,6 +38,11 @@ define ['marionette', 'hbs!templates/course_map/cell', 'models/user', 'models/gr
         )
         @render()
 
+    serializeData: () ->
+      context = super()
+      context.project_evaluatable = @project.evaluatable()
+      context
+
     initialize: (options) ->
       @submissions = options.submissions
       @creator = options.creator

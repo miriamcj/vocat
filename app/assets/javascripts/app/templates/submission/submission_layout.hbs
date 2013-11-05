@@ -1,4 +1,8 @@
+<div style="margin: 3.2rem 3.2rem 0rem 3.2rem">
+	<a class="gray-button" data-trigger-project-details href="">View Project Description</a>
+</div>
 <div data-region="flash"></div>
+
 <div class="evaluation-detail">
 	<div class="evaluation-detail-frame">
 		<figure class="attachment">
@@ -8,8 +12,8 @@
 		<div data-region="annotator"></div>
 		<div class="box" data-region="upload"></div>
 	</div>
-
-	<div class="evaluation-detail-frame">
+	{{#if evaluatable}}
+	<div class="evaluation-detail-frame" data-class="evaluation-detail-frame">
 
     <header class="frame--header">
       <h2 class="frame--title">Scores</h2>
@@ -24,6 +28,7 @@
       <li data-region="peer-evaluations"></li>
     </ul>
 	</div>
+	{{/if}}
 
 	<div class="evaluation-detail-frame" data-region="discussion">
 

@@ -32,6 +32,7 @@ define (require) ->
 
     ui: {
       glossaryToggle: '[data-trigger-glossary-toggle]'
+      evaluationFrame: '[data-class="evaluation-detail-frame"]'
     }
 
     regions: {
@@ -73,7 +74,9 @@ define (require) ->
       if @submission.video
         @collections.annotation.fetch({data: {video: @submission.video.id}})
       @createPlacards()
-      @createEvaluationViews()
+      if @project.hasRubric()
+        @createEvaluationViews()
+
       @createAnnotationView()
       @createFlashView()
       @createPlayerView()
@@ -103,6 +106,11 @@ define (require) ->
     onClose: () ->
       @placards.call('remove')
 
+    serializeData: () ->
+      {
+        evaluatable: @project.hasRubric()
+      }
+
     createPlacards: () ->
       if @project
         rubric = new RubricModel(@project.get('rubric'))
@@ -112,6 +120,7 @@ define (require) ->
         @placards.call('render')
 
     createEvaluationViews: () ->
+
       evaluations = new EvaluationCollection(@submission.get('evaluations'), {courseId: @courseId})
 
       # If there are no evaluations, hide the glossary button

@@ -12,14 +12,13 @@
 </div>
 
 <div class="model-form--row">
-  <%= f.label :rubric, :required => true, :class => 'text-label' %>
-  <%= f.select :rubric_id,
-               grouped_options_for_select(
+  <%= f.label :rubric, :class => 'text-label' %>
+  <%= f.select :rubric_id, grouped_options_for_select(
                    {
                        'My Rubrics' => options_from_collection_for_select(current_user.rubrics, :id, :name, @project.rubric_id),
                        'VOCAT Rubrics' => options_from_collection_for_select(Rubric.publicly_visible, :id, :name, @project.rubric_id)
                    }
-               ), {}, {'data-behavior' => 'chosen'}
+               ), {:include_blank => 'No rubric'}, {'data-behavior' => 'chosen'}
   %>
 
 </div>

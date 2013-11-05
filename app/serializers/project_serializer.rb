@@ -4,9 +4,13 @@ class ProjectSerializer < ActiveModel::Serializer
 
   attributes  :id, :name, :current_user_is_owner, :course_name, :course_name_long,
               :course_id, :course_department, :course_section, :course_number,
-              :current_user_id, :description
+              :current_user_id, :description, :evaluatable
 
   has_one :rubric
+
+  def evaluatable
+    object.evaluatable
+  end
 
   def current_user_is_owner
     Ability.new(scope).can?(:update, object)
