@@ -1,37 +1,35 @@
-<header class="bar-header">
-  <div>
-    <input class="text-input inline" type="text"><input type="submit" class="large-teal-button" value="filter courses"><a class="ex-link" href="#">Reset</a>
-  </div>
-</header>
-<table class="table">
-  <thead>
+<% content_for :content_header do %>
+<% end %>
+
+<% content_for :content_header_links do %>
+  <input class="text-input inline" type="text"><input type="submit" class="large-teal-button" value="filter courses"><a class="ex-link" href="#">Reset</a>
+<% end %>
+
+<% content_for :content_intro do %>
+<% end %>
+
+<% content_for :content_frames	 do %>
+  <table class="table">
+    <thead>
     <tr>
       <th>Course Name</th>
       <th>Description</th>
       <th>Submissions</th>
       <th>Actions</th>
     </tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     <% @courses.each do |course| %>
-    <tr>
-      <th><a class="table--heading" href="#"><%= course.name %></a></th>
-      <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam provident magnam corporis maiores blanditiis.</td>
-      <td></td>
-      <td><strong><a href="#">Delete</a></strong></td>
-    </tr>
+      <tr>
+        <th><a class="table--heading" href="#"><%= course.name %></a></th>
+        <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam provident magnam corporis maiores blanditiis.</td>
+        <td></td>
+        <td><strong><a href="#">Delete</a></strong></td>
+      </tr>
     <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+  <%= paginate @courses %>
 
-<nav class="pagination-nav">
-  <ul>
-    <li class="inactive"><a href="#">First</a></li>
-    <li class="inactive"><a href="#">Previous</a></li>
-    <li class="active">1</li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">Next</a></li>
-    <li><a href="#">Last</a></li>
-  </ul>
-</nav>
+<% end %>
+

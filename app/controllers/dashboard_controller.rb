@@ -8,8 +8,8 @@ class DashboardController < ApplicationController
       redirect_to :action => :evaluator
     elsif current_user.role?(:creator)
       redirect_to :action => :creator
-    elsif current_user.role?(:admin)
-      redirect_to :action => :admin
+    elsif current_user.role?(:administrator)
+      redirect_to admin_root_path
     end
   end
 
