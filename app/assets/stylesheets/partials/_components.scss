@@ -420,6 +420,10 @@ p {
 
 // Table
 // --------------------------
+.table-wrapper {
+  margin: 0 -3.2rem;  
+}
+
 // <table>
 .table {
   width: 100%;
@@ -830,12 +834,13 @@ a.table--heading {
 .portfolio-frame {
   @extend %clearfix;
   padding: 3.4rem 0 2.4rem;
-  & + & {
-    border-top: 0.2rem solid $tealLightest;
+  border-bottom: 0.2rem solid $tealLightest;
+  &:last-child {
+    border-bottom: none;
   }
   .course-map & {
     @extend %frame;
-    border-top: none;
+    border-bottom: none;
   }
 }
 
@@ -888,9 +893,9 @@ a.table--heading {
 
 .frame-summary--title {
   @extend %heading-giga;
-  margin-bottom: 0.3rem;
+  margin: 3.4rem 0 0.3rem;
   .matrix--overlay & {
-    margin-bottom: 1rem;
+    margin: 0 0 1rem;
   }
 }
 

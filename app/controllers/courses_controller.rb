@@ -2,6 +2,7 @@ class CoursesController < ApplicationController
 
   load_resource
   authorize_resource :course, :except => :dashboard
+  layout 'content'
 
   respond_to :html, :json
 

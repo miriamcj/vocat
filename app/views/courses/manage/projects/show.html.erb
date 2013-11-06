@@ -15,27 +15,24 @@
 <% end %>
 
 <% content_for :content_frames	 do %>
-  <div class="page-content--frame">
-    <p>
-      <strong>Course:</strong>
-      <%= @project.course %>
-    </p>
+  <p>
+    <strong>Course:</strong>
+    <%= @project.course %>
+  </p>
 
-    <p>
-      <strong>Project type:</strong>
-      <%= @project.project_type %>
-    </p>
+  <p>
+    <strong>Project type:</strong>
+    <%= @project.project_type %>
+  </p>
 
-    <p>
-      <% if can? :update, @project %>
-        <%= link_to 'Edit', edit_course_manage_project_path(@course, @project), :class => 'teal-arrow-button'  %>
-      <% end %>
-      <%= link_to 'Back', course_manage_projects_path(@course), :class => 'gray-ex-button' %>
-    </p>
+  <p>
+    <% if can? :update, @project %>
+      <%= link_to 'Edit', edit_course_manage_project_path(@course, @project), :class => 'teal-arrow-button'  %>
+    <% end %>
+    <%= link_to 'Back', course_manage_projects_path(@course), :class => 'gray-ex-button' %>
+  </p>
 
-    </ul>
-  </div>
-
+  </ul>
 
 <% end %>
 

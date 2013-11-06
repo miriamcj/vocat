@@ -1,6 +1,6 @@
 class Courses::Manage::ProjectsController < ApplicationController
 
-  layout 'frames'
+  layout 'content'
 
   load_and_authorize_resource :course
   load_and_authorize_resource :project, :through => :course

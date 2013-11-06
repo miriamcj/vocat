@@ -1,6 +1,6 @@
 class Courses::Manage::CoursesController < ApplicationController
 
-  layout 'frames'
+  layout 'content'
   load_and_authorize_resource :course, :parent => true
   respond_to :html
 

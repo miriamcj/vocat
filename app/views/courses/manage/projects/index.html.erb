@@ -15,35 +15,37 @@ Manage Course Projects
 <% end %>
 
 <% content_for :content_frames do %>
-  <table class="table">
-    <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Rubric</th>
-      <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% @projects.each do |project| %>
+  <div class="table-wrapper">
+    <table class="table">
+      <thead>
       <tr>
-        <th>
-          <%= link_to project.name, course_manage_project_path(@course, project), :class => "table--heading" %>
-        </th>
-        <td><%= project.description %></td>
-        <td><%= project.rubric_name %></td>
-        <td style="white-space: nowrap">
-          <% if can? :update, project %>
-            <strong><%= link_to 'Edit', edit_course_manage_project_path(@course, project) %></strong> /
-          <% end %>
-          <% if can? :destroy, project %>
-            <strong><%= link_to 'Delete', course_manage_project_path(@course, project), method: :delete, data: { confirm: 'Are you sure?' } %></strong>
-          <% end %>
-        </td>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Rubric</th>
+        <th>Actions</th>
       </tr>
-    <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+      <% @projects.each do |project| %>
+        <tr>
+          <th>
+            <%= link_to project.name, course_manage_project_path(@course, project), :class => "table--heading" %>
+          </th>
+          <td><%= project.description %></td>
+          <td><%= project.rubric_name %></td>
+          <td style="white-space: nowrap">
+            <% if can? :update, project %>
+              <strong><%= link_to 'Edit', edit_course_manage_project_path(@course, project) %></strong> /
+            <% end %>
+            <% if can? :destroy, project %>
+              <strong><%= link_to 'Delete', course_manage_project_path(@course, project), method: :delete, data: { confirm: 'Are you sure?' } %></strong>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
   <%= paginate @projects %>
 <% end %>
 

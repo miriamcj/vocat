@@ -1,5 +1,6 @@
 class DashboardController < ApplicationController
 
+  layout 'content'
   skip_authorization_check
 
   def index
