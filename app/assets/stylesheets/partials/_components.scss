@@ -1107,12 +1107,16 @@ a.table--heading {
 // Only visible when no video has been uploaded
 // Thanks, Dave: http://daverupert.com/2012/04/uncle-daves-ol-padded-box/
 // Also: lower your eyes in deference to THE GOLDEN RATIO.
-.attachment-placeholder {
+%attachment-placeholder {
   height: 0;
   text-align: center;
   background-color: $tealLightest;
   padding-bottom: 61.8%;
   position: relative;
+}
+
+.attachment-placeholder {
+  @extend %attachment-placeholder;
 }
 
 // Extended by .attachment-placeholder--button & .attachment-placeholder--message
@@ -1184,6 +1188,45 @@ a.table--heading {
 // NB see pattern comments
 .annotation-input {
   @extend %speech-bubble-input;
+}
+
+// Player Slider
+// --------------------------------------------------------
+.player-curtain {
+  height: 31.8rem;
+  text-align: center;
+  background-color: $tealLightest;
+}
+
+.player-stage {
+  width: 100%;
+  height: 100%;
+}
+
+.player-scene {
+  display: table;
+  width: 100%;
+  height: 100%;
+  .text-input {
+    width: 25rem;
+    display: inline;
+    margin: 0;
+  }
+  .wrap {
+    display: table-cell;
+    vertical-align: middle;
+    p {
+      margin: 0.8rem 0;
+    }
+  }
+  .choice-button {
+    @extend %white-button;
+    display: inline-block;
+    cursor: pointer;
+  }
+  .attachment-placeholder--button {
+    margin-top: 0;
+  }
 }
 
 // Scores
@@ -2656,49 +2699,6 @@ a.table--heading {
   top: 0;
   left: 0;
   z-index: 200;
-}
-
-
-// Player Slider
-// --------------------------------------------------------
-.player-curtain {
-  height: 21.9rem;
-  overflow-y: hidden;
-  position: relative;
-}
-
-.player-stage {
-  position: relative;
-}
-
-.player-scene {
-  height: 21.9rem;
-  width: 38.7rem;
-  overflow-y: hidden;
-  text-align: center;
-  background-color: $tealLightest;
-  position: absolute;
-  .text-input {
-    width: 25rem;
-    display: inline;
-    margin: 0;
-  }
-  .wrap {
-	p {
-	  margin-bottom: .8rem;
-	}
-	p + p {
-	  margin-top: .8rem;
-	}
-  }
-  .choice-button {
-    @extend %white-button;
-    display: inline-block;
-  }
-  .attachment-placeholder--button {
-	margin-top: 0;
-
-  }
 }
 
 //
