@@ -11,7 +11,6 @@ class Submission < ActiveRecord::Base
 
   belongs_to :creator, :polymorphic => true
 
-  include ActiveModel::ForbiddenAttributesProtection
   accepts_nested_attributes_for :video
 
   validates_presence_of :project_id, :creator_id, :creator_type

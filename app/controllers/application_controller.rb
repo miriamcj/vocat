@@ -117,7 +117,11 @@ class ApplicationController < ActionController::Base
     end
 
     def submission_params
-      params.require(:submission).permit(:name, video_attributes: [ :source, :source_id])
+      # TODO: This is a temporary work around to solve the problem where params[:video_attributes] is
+      # TODO: not making it into params[:submission][:video_attributes]
+      params[:submission][:video_attributes] = params[:video_attributes]
+      #params.require(:submission).permit(:name, video_attributes: [:source, :source_id])
+      params.require(:submission).permit!
     end
 
     def project_params
