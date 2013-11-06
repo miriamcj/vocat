@@ -353,10 +353,12 @@ p {
 
 .bar-header--title {
   @extend %heading-gamma-sup;
-  max-width: 50%;
   color: $tealMedium;
   padding: 0.7rem 0;
   float: left;
+  // .with-link & {
+  //   max-width: 50%;    
+  // }
 }
 
 .bar-header--title-alt {
