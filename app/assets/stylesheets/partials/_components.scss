@@ -1282,13 +1282,17 @@ a.table--heading {
     @extend %reset-input;
     @extend %bare-focus;
     @include placeholder($beigeDark, italic);
-    @include box-shadow(0 0 0 0.2rem $beige);
     width: 100%;
     color: $grayDark;
     background-color: $beigeLight;
     border-radius: $radius;
     padding: 1rem;
     resize: none;
+    // If we're inside an even (light-colored) frame,
+    // the background-color should be inverted
+    .evaluation-detail-frame:nth-child(even) & {
+      background-color: $beige;
+    }
   }
   .frame-light & {
     background-color: $beige;
@@ -1330,9 +1334,11 @@ a.table--heading {
   @extend %comment;
   margin-bottom: 2.4rem;
   position: relative;
-  // &:after {
-  //   @extend %speech-bubble-tail;
-  // }
+  // If we're inside an even (light-colored) frame,
+  // the background-color should be inverted
+  .evaluation-detail-frame:nth-child(even) & {
+    background-color: $beige;
+  }
 }
 
 .discussion-list--header {
