@@ -353,10 +353,12 @@ p {
 
 .bar-header--title {
   @extend %heading-gamma-sup;
-  max-width: 50%;
   color: $tealMedium;
   padding: 0.7rem 0;
   float: left;
+  // .with-link & {
+  //   max-width: 50%;    
+  // }
 }
 
 .bar-header--title-alt {
@@ -1282,13 +1284,17 @@ a.table--heading {
     @extend %reset-input;
     @extend %bare-focus;
     @include placeholder($beigeDark, italic);
-    @include box-shadow(0 0 0 0.2rem $beige);
     width: 100%;
     color: $grayDark;
     background-color: $beigeLight;
     border-radius: $radius;
     padding: 1rem;
     resize: none;
+    // If we're inside an even (light-colored) frame,
+    // the background-color should be inverted
+    .evaluation-detail-frame:nth-child(even) & {
+      background-color: $beige;
+    }
   }
   .frame-light & {
     background-color: $beige;
@@ -1330,9 +1336,11 @@ a.table--heading {
   @extend %comment;
   margin-bottom: 2.4rem;
   position: relative;
-  // &:after {
-  //   @extend %speech-bubble-tail;
-  // }
+  // If we're inside an even (light-colored) frame,
+  // the background-color should be inverted
+  .evaluation-detail-frame:nth-child(even) & {
+    background-color: $beige;
+  }
 }
 
 .discussion-list--header {
@@ -2365,16 +2373,16 @@ a.table--heading {
 // --------------------------------------------------------
 // Wrapper containing all alerts
 .alerts {
-  padding-top: 2.7rem;
   position: relative;
   z-index: 150;
-  &:empty,
-  .course-map &,
-  .model-form & {
-    padding-top: 0;
-  }
-  .bar-header & {
+  .bar-header &,
+  .evaluation-detail--flash & {
+    @include transition(0.1s padding-top ease-out);
+    padding-top: 2.7rem;
     clear: both;
+  }
+  &:empty {
+    padding-top: 0;
   }
 }
 
