@@ -38,11 +38,11 @@ class Ability
     end
 
     can [:evaluate], Course do |course|
-      course.role(user) == :evaluator || user.role?(:creator) && course.settings['enable_peer_review']
+      course.role(user) == :evaluator || user.role?(:creator) && course.allows_peer_review?
     end
 
     can [:show_submissions], Course do |course|
-      course.role(user) == :evaluator || can?(:read_only, course) && (can?(:evaluate, course) || course.settings['enable_public_discussion'])
+      course.role(user) == :evaluator || can?(:read_only, course) && (can?(:evaluate, course) || course.allows_public_discussion?)
     end
 
     ######################################################
@@ -76,7 +76,7 @@ class Ability
 
     can :read_only, Submission do |submission|
       # Enabling public discussion assumes that submissions are visible to users.
-      can?(:evaluate, submission.project.course) || submission.project.course.settings['enable_public_discussion'] && can?(:show, submission.project.course)
+      can?(:evaluate, submission.project.course) || submission.project.course.allows_public_discussion? && can?(:show, submission.project.course)
     end
 
     can :annotate, Submission do |submission|
@@ -85,7 +85,7 @@ class Ability
 
     can :evaluate, Submission do |submission|
       can?(:evaluate, submission.project.course ) && submission.creator != user ||
-      submission.project.course.settings['enable_self_evaluation'] && submission.creator == user
+      submission.project.course.allows_self_evaluation? && submission.creator == user
     end
 
     can :attach, Submission do |submission|
@@ -94,11 +94,11 @@ class Ability
 	    # CAN if the user is not the submission owner, and is an evaluator for the course
 			(!can?(:own, submission) && submission.project.course.role(user) == :evaluator) ||
 			# CAN if the user is the submission owner and enable_creator_attach is true
-			(can?(:own, submission) && submission.project.course.settings['enable_creator_attach'])
+			(can?(:own, submission) && submission.project.course.allows_creator_attach?)
     end
 
     can :discuss, Submission do |submission|
-      (submission.project.course.role(user) == :evaluator && can?(:evaluate, submission)) || can?(:own, submission) || (submission.project.course.settings['enable_public_discussion'] && can?(:show, submission))
+      (submission.project.course.role(user) == :evaluator && can?(:evaluate, submission)) || can?(:own, submission) || (submission.project.course.allows_public_discussion? && can?(:show, submission))
     end
 
     ######################################################

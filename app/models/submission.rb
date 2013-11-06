@@ -20,8 +20,8 @@ class Submission < ActiveRecord::Base
   delegate :name, :to => :course, :prefix => true
   delegate :section, :to => :course, :prefix => true
   delegate :name_long, :to => :course, :prefix => true
-  delegate :allows_peer_review, :to => :course, :prefix => true
-  delegate :allows_self_evaluation, :to => :course, :prefix => true
+  delegate :allows_peer_review?, :to => :course, :prefix => true
+  delegate :allows_self_evaluation?, :to => :course, :prefix => true
   delegate :id, :to => :course, :prefix => true
   delegate :name, :to => :project, :prefix => true
   delegate :rubric, :to => :project
