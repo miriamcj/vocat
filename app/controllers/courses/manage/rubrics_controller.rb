@@ -25,8 +25,9 @@ class Courses::Manage::RubricsController < ApplicationController
   def edit
     if !can?(:edit, @rubric) && @rubric.public
       new_rubric = @rubric.clone()
-      new_rubric.save()
       current_user.rubrics << new_rubric
+      new_rubric.save()
+      authorize! :edit, new_rubric
       redirect_to :action => 'edit', :id => new_rubric.id
     else
       authorize! :edit, @rubric
