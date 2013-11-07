@@ -2375,15 +2375,12 @@ a.table--heading {
 .alerts {
   position: relative;
   z-index: 150;
-  .bar-header &,
-  .evaluation-detail--flash & {
-    @include transition(0.1s padding-top ease-out);
-    padding-top: 2.7rem;
-    clear: both;
+  .bar-header & {
+    clear: both;    
   }
-  &:empty {
-    padding-top: 0;
-  }
+  // &:empty {
+  //   padding-top: 0;
+  // }
 }
 
 .alert {
@@ -2394,7 +2391,7 @@ a.table--heading {
     margin-right: 0;
     margin-bottom: 2rem;
     &:first-child {
-      margin-top: 0rem;
+      margin-top: 0;
     }
   }
 }
