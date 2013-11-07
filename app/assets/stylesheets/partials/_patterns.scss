@@ -1709,6 +1709,12 @@ input%proto-button {
     margin-right: 0;
     margin-left: 0;
   }
+  .bar-header &,
+  .evaluation-detail--flash & {
+    &:first-child {
+      margin-top: 2.7rem;
+    }
+  }
 }
 
 // Lives inside %alert
