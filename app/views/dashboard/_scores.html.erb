@@ -1,5 +1,5 @@
 <ul class="frame-summary--score-list">
-  <% if submission.course_allows_self_evaluation %>
+  <% if submission.course_allows_self_evaluation? %>
     <% if submission.user_evaluation_published?(current_user) %>
       <li class="frame-summary--evaluated" style="padding-right: <%= 100 - submission.user_score_percentage(current_user).to_i %>%">
         <h4 class="frame-summary--score--title">Your Evaluation</h4>
@@ -13,7 +13,7 @@
     <% end %>
   <% end %>
 
-  <% if course.allows_self_evaluation %>
+  <% if course.allows_self_evaluation? %>
     <% if submission.peer_score_percentage %>
       <li class="frame-summary--evaluated" style="padding-right: <%= 100 - submission.peer_score_percentage.to_i %>%">
         <h4 class="frame-summary--score--title">Peer Evaluations</h4>

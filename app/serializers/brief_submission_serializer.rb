@@ -10,6 +10,7 @@ class BriefSubmissionSerializer < AbstractSubmissionSerializer
               :evaluated_by_instructor?,
               :current_user_percentage,
               :current_user_has_evaluated?,
+              :current_user_evaluation,
               :current_user_evaluation_published?,
               :discussion_posts_count,
               :course_id, :path,

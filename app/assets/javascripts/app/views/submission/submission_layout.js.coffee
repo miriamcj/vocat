@@ -48,7 +48,6 @@ define (require) ->
     }
 
     onOpenProjectModal: () ->
-      console.log @project,'p'
       Vocat.vent.trigger('modal:open', new ProjectDetailView({model: @project, vent: @vent}))
 
     onHoverGlossaryShow: () ->
@@ -124,7 +123,7 @@ define (require) ->
       evaluations = new EvaluationCollection(@submission.get('evaluations'), {courseId: @courseId})
 
       # If there are no evaluations, hide the glossary button
-      if evaluations.length == 0 then @ui.glossaryToggle.hide()
+      if evaluations.length == 0 && _.isObject(@ui.glossaryToggle) then @ui.glossaryToggle.hide()
 
       myEvaluationModels = evaluations.where({current_user_is_owner: true})
       myEvaluations = new EvaluationCollection(myEvaluationModels, {courseId: @courseId})

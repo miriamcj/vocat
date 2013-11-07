@@ -4,7 +4,7 @@
 	{{else}}
 	<b class="matrix--cell--play inactive">No video has been uploaded</b>
 	{{/if}}
-	<h2 class="matrix--cell--value {{#unless current_user_has_evaluated}}inactive{{/unless}}">
+	<h2 class="matrix--cell--value {{#unless is_active}}inactive{{/unless}}">
 		{{#if project_evaluatable}}
 			{{#if current_user_has_evaluated }}
 			{{to_i current_user_percentage}}<small>%</small>
@@ -14,7 +14,7 @@
 				{{/if}}
 			{{/if}}
 		{{else}}
-    n/a
+		&ndash;&ndash;
 		{{/if}}
 	</h2>
 </a>
@@ -30,9 +30,4 @@
 		{{/if}}
 	{{/if}}
 </div>
-{{else}}
-<a href="{{path}}" data-behavior="routable">
-	<b class="matrix--cell--play inactive">No video has been uploaded</b>
-	<h2 class="matrix--cell--value">&ndash;&ndash;</h2>
-</a>
-<div class="matrix--cell--indicator"></div>
+

@@ -17,19 +17,21 @@ class Api::V1::SubmissionsController < ApiController
   def for_course_and_user
     factory = SubmissionFactory.new
     @course = Course.find(params.require(:course))
-    authorize! :show_submissions, @course
     @user = User.find(params.require(:user))
+    unless @user == current_user
+      authorize! :show_submissions, @course
+    end
     @submissions = factory.course_and_creator(@course, @user)
     respond_with @submissions
   end
 
   # GET /api/v1/submissions/for_user.json?user=:user
   def for_user
-    factory = SubmissionFactory.new
-    @user = Course.find(params.require(:user))
-    authorize! :read_write, @user
-    @submissions = factory.user(@user)
-    respond_with @submissions
+#    factory = SubmissionFactory.new
+#    @user = User.find(params.require(:user))
+##    authorize! :read_write, @user
+#    @submissions = @user.submissions.all()
+#    respond_with @submissions
   end
 
   # GET /api/v1/submissions/for_group.json?group=:group
@@ -37,7 +39,7 @@ class Api::V1::SubmissionsController < ApiController
     factory = SubmissionFactory.new
     @group = Group.find(params.require(:group))
     authorize! :show_submissions, @group.course
-    @submissions = factory.group(@group)
+    @submissions = factory.course_and_creator(@group.course, @group)
     respond_with @submissions
   end
 

@@ -9,7 +9,6 @@ class Video < ActiveRecord::Base
   delegate :transcoding_status, :to => :attachment, :prefix => true, :allow_nil => true
   delegate :transcoding_error, :to => :attachment, :prefix => true, :allow_nil => true
 
-  include ActiveModel::ForbiddenAttributesProtection
   accepts_nested_attributes_for :attachment
 
   default_scope { includes(:attachment) }

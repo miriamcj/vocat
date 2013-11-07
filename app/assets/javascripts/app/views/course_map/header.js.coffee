@@ -33,6 +33,11 @@ define [
 
     onClose: () ->
       @vent.triggerMethod('close:overlay')
+      $(window).off('keyup', @onKeyUp)
+
+    onKeyUp: (e) ->
+      code = if e.keyCode? then e.keyCode else e.which
+      if code == 27 then @onClose()
 
     initialize: (options) ->
       @options = options || {}
@@ -41,6 +46,7 @@ define [
       @listenTo(@collections.user,'change:active', () => @render())
       @listenTo(@collections.group,'change:active', () => @render())
       @listenTo(@collections.project,'change:active', () => @render())
+      $(window).on('keyup', (e) => @onKeyUp(e))
 
     serializeData: () ->
       context = {}

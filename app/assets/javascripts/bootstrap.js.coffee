@@ -1,4 +1,5 @@
 requirejs.config {
+  waitSeconds: 14
   shim: {
     'jquery_ujs': ['jquery']
     'vendor/ui/jquery_ui': ['jquery_rails']

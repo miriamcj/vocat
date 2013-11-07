@@ -1,5 +1,7 @@
 class SubmissionFactory
 
+
+
   def course(course)
 
     to_create = []

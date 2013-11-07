@@ -41,7 +41,13 @@ define ['marionette', 'hbs!templates/course_map/cell', 'models/user', 'models/gr
     serializeData: () ->
       context = super()
       context.project_evaluatable = @project.evaluatable()
+      context.is_active = @isActive()
       context
+
+    isActive: () ->
+      if @project.evaluatable() == false then return true
+      if @model.get('current_user_has_evaluated') == true then return true
+      return false
 
     initialize: (options) ->
       @submissions = options.submissions
