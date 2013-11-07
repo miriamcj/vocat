@@ -2378,6 +2378,11 @@ a.table--heading {
   .bar-header & {
     clear: both;    
   }
+  .flash-top-padding & {
+	margin-top: 1.7rem;
+	margin-bottom: 0rem;
+  }
+
   // &:empty {
   //   padding-top: 0;
   // }
