@@ -2375,6 +2375,7 @@ a.table--heading {
 .alerts {
   position: relative;
   z-index: 150;
+  .flash-top-padding &,
   .bar-header &,
   .evaluation-detail--flash & {
     @include transition(0.1s padding-top ease-out);
