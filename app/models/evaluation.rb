@@ -22,11 +22,11 @@ class Evaluation < ActiveRecord::Base
     end
   }
 
-  delegate :high_score, :to => :rubric, :prefix => true
-  delegate :low_score, :to => :rubric, :prefix => true
+  delegate :high_score, :to => :rubric, :prefix => true, :allow_nil => true
+  delegate :low_score, :to => :rubric, :prefix => true, :allow_nil => true
+  delegate :points_possible, :to => :rubric, :allow_nil => true
   delegate :name, :to => :evaluator, :prefix => true
   delegate :role, :to => :evaluator, :prefix => true
-  delegate :points_possible, :to => :rubric
 
   validates :rubric, presence: true
   validates :submission, presence: true
