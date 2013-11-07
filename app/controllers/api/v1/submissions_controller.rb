@@ -17,8 +17,10 @@ class Api::V1::SubmissionsController < ApiController
   def for_course_and_user
     factory = SubmissionFactory.new
     @course = Course.find(params.require(:course))
-    authorize! :show_submissions, @course
     @user = User.find(params.require(:user))
+    unless @user == current_user
+      authorize! :show_submissions, @course
+    end
     @submissions = factory.course_and_creator(@course, @user)
     respond_with @submissions
   end

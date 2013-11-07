@@ -22,12 +22,20 @@ class Course < ActiveRecord::Base
 
   default_scope { order("department ASC, number ASC, section ASC") }
 
-  def allows_peer_review
+  def allows_public_discussion?
+    get_boolean_setting_value('enable_public_discussion')
+  end
+
+  def allows_peer_review?
     get_boolean_setting_value('enable_peer_review')
   end
 
-  def allows_self_evaluation
+  def allows_self_evaluation?
     get_boolean_setting_value('enable_self_evaluation')
+  end
+
+  def allows_creator_attach?
+    get_boolean_setting_value('enable_creator_attach')
   end
 
   def ensure_settings()

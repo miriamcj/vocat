@@ -24,24 +24,28 @@
         <%= f.fields_for :settings do |settings| %>
 
           <label class="checkbox-label">
+            <%= hidden_field_tag('course[settings][enable_public_discussion]', 0)%>
             <%= check_box_tag('course[settings][enable_public_discussion]', 1, @course.settings[:enable_public_discussion] == '1', :class => 'checkbox')%>
             <b></b>
             Enable public discussion
           </label>
 
           <label class="checkbox-label">
+            <%= hidden_field_tag('course[settings][enable_peer_review]', 0)%>
             <%= check_box_tag('course[settings][enable_peer_review]', 1, @course.settings[:enable_peer_review] == '1', :class => 'checkbox')%>
             <b></b>
             Enable peer review
           </label>
 
           <label class="checkbox-label">
+            <%= hidden_field_tag('course[settings][enable_creator_attach]', 0)%>
             <%= check_box_tag('course[settings][enable_creator_attach]', 1, @course.settings[:enable_creator_attach] == '1', :class => 'checkbox')%>
             <b></b>
             Allow creators to upload videos
           </label>
 
           <label class="checkbox-label">
+            <%= hidden_field_tag('course[settings][enable_self_evaluation]', 0)%>
             <%= check_box_tag('course[settings][enable_self_evaluation]', 1, @course.settings[:enable_self_evaluation] == '1', :class => 'checkbox')%>
             <b></b>
             Allow self-evaluation

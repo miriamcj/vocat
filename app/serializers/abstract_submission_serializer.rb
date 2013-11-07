@@ -17,8 +17,16 @@ class AbstractSubmissionSerializer < ActiveModel::Serializer
 		object.user_evaluation(scope)
 	end
 
+  def course_allows_peer_review
+    object.course_allows_peer_review?
+  end
 
-	def current_user_percentage
+  def course_allows_self_evaluation
+    object.course_allows_self_evaluation?
+  end
+
+
+  def current_user_percentage
 		object.user_score_percentage(scope)
 	end
 
