@@ -5,6 +5,7 @@ class Rubric < ActiveRecord::Base
 
   belongs_to :owner, :class_name => "User"
   has_many :projects
+  has_many :courses, :through => :projects
   has_many :evaluations
 
   serialize :cells, Array
@@ -29,6 +30,12 @@ class Rubric < ActiveRecord::Base
 
   scope :publicly_visible, -> { where(:public => true) }
   scope :public_or_owned_by, -> (owner) { where('owner_id = ? OR public = true', owner)}
+
+  # Params is a hash of search values including (:department || :semester || :year) || :section
+  def self.search(params)
+    r = Rubric.all
+    r
+  end
 
   def ensure_fields()
     self.fields = [] unless self.fields.kind_of? Array

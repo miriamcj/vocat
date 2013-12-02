@@ -1,0 +1,51 @@
+  <fieldset>
+    <div class="input-group">
+      <%= label_tag :name, 'Course Name', {class: 'text-label'} %>
+      <%= text_field :course, :name, {class: 'text-input'} %>
+    </div>
+    <div class="input-group">
+      <div class="input-group--third">
+        <div class="input-group">
+          <%= label_tag :department, 'Department', {class: 'text-label'} %>
+          <%= text_field :course, :department, {class: 'text-input'} %>
+        </div>
+      </div>
+      <div class="input-group--third">
+        <div class="input-group">
+          <%= label_tag :number, 'Number', {class: 'text-label'} %>
+          <%= text_field :course, :number, {class: 'text-input'} %>
+        </div>
+      </div>
+      <div class="input-group--third">
+        <div class="input-group">
+          <%= label_tag :section, 'Section', {class: 'text-label'} %>
+          <%= text_field :course, :section, {class: 'text-input'} %>
+        </div>
+      </div>
+    </div>
+    <div class="input-group">
+      <div class="input-group--third">
+        <div class="input-group">
+          <%= label_tag :year, 'Year', {class: 'text-label'} %>
+          <%= text_field :course, :year, {class: 'text-input'} %>
+        </div>
+      </div>
+      <div class="input-group--third">
+        <div class="input-group">
+          <%= label_tag :number, 'Semester', {class: 'text-label'} %>
+          <%= select(:course, :semester_id, options_from_collection_for_select(Semester.all, 'id', 'name', @course.semester_id), {:include_blank => true}, {'data-behavior' => 'chosen'}) %>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-group">
+      <%= label_tag :message, 'Message', {class: 'text-label'} %>
+      <%= text_area :course, :message, {class: 'text-area-input'} %>
+    </div>
+    <div class="input-group">
+      <%= label_tag :description, 'Description', {class: 'text-label'} %>
+      <%= text_area :course, :description, {class: 'text-area-input'} %>
+    </div>
+
+
+  </fieldset>

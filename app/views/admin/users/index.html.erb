@@ -1,0 +1,75 @@
+<% content_for :content_header do %>
+  Users
+<% end %>
+
+<% content_for :content_header_links do %>
+<% end %>
+
+<% content_for :content_intro do %>
+  <form>
+    <fieldset>
+      <div class="input-group">
+        <div class="input-group--fourth">
+          <%= label_tag :email, 'Email', {:class => 'text-label'} %>
+          <%= text_field_tag(:email, params[:email], {:class => 'text-input'}) %>
+        </div>
+        <div class="input-group--fourth">
+          <%= label_tag :last_name, 'Last Name', {:class => 'text-label'} %>
+          <%= text_field_tag(:last_name, params[:last_name], {:class => 'text-input'}) %>
+        </div>
+        <div class="input-group--fourth">
+          <%= label_tag :role, 'Role', {:class => 'text-label'} %>
+          <%= select_tag(:role, options_for_select(User::ROLES, params[:role]), {:include_blank => true, 'data-behavior' => 'chosen'}) %>
+        </div>
+        <div class="input-group--fourth">
+          <label class="text-label">&nbsp;</label>
+          <%= submit_tag('Filter Users', {:class => 'large-teal-button'}) %>
+          <%= link_to 'reset', admin_users_path, {:class => 'large-teal-button'} %>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+<% end %>
+
+<% content_for :content_frames do %>
+  <div class="table-wrapper">
+    <%= paginate @users %>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Org. ID</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Last Login</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <th><%= link_to user.list_name, admin_user_path(user) %></th>
+          <td><%= user.org_identity %></td>
+          <td><%= user.email %></td>
+          <td><%= user.role %></td>
+          <td>
+            <% if user.last_sign_in_at %>
+              <%= user.last_sign_in_at %>
+            <% else %>
+              Never logged in
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <%= paginate @users %>
+  </div>
+
+<% end %>
+
+
+
+
+
+
+

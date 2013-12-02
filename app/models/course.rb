@@ -1,5 +1,6 @@
 class Course < ActiveRecord::Base
   belongs_to :organization
+  belongs_to :semester
   has_and_belongs_to_many :evaluators, :class_name => "User", :join_table => "courses_evaluators"
   has_and_belongs_to_many :assistants, :class_name => "User", :join_table => "courses_assistants"
   has_and_belongs_to_many :creators, :class_name => "User", :join_table => "courses_creators"
@@ -8,11 +9,14 @@ class Course < ActiveRecord::Base
   has_one :project_type
   has_many :submissions, :through => :projects
 
+  delegate :name, :to => :semester, :prefix => true
+
   accepts_nested_attributes_for :groups
 
   ALLOWED_SETTINGS = [:enable_creator_attach, :enable_self_evaluation, :enable_peer_review, :enable_public_discussion]
-
   store_accessor :settings, *ALLOWED_SETTINGS
+
+  scope :sorted, -> { includes(:semester).order ('year DESC, semesters.position DESC') }
 
   after_initialize :ensure_settings
 
@@ -20,7 +24,23 @@ class Course < ActiveRecord::Base
   #validates :evaluators, :length => {:minimum => 1, :message => "can't be empty."}
   #validates :creators, :length => {:minimum => 1, :message => "can't be empty."}
 
-  default_scope { order("department ASC, number ASC, section ASC") }
+  # Params is a hash of search values including (:department || :semester || :year) || :section
+  def self.search(params)
+    c = Course.all
+    c = c.where({department: params[:department]}) unless params[:department].blank?
+    c = c.where({year: params[:year]}) unless params[:year].blank?
+    c = c.where({section: params[:section]}) unless params[:section].blank?
+    c = c.joins(:semester).where(:semesters => {id: params[:semester]}) unless params[:semester].blank?
+    c
+  end
+
+  def self.distinct_departments
+    Course.uniq.pluck(:department).sort
+  end
+
+  def self.distinct_years
+    Course.uniq.pluck(:year).sort
+  end
 
   def allows_public_discussion?
     get_boolean_setting_value('enable_public_discussion')
@@ -60,6 +80,9 @@ class Course < ActiveRecord::Base
     out = out.gsub("%c", name)
     out = out.gsub("%s", section)
     out = out.gsub("%d", department)
+    out = out.gsub("%y", year.to_s)
+    out = out.gsub("%S", semester.name)
+    out
   end
 
   def submission_video_percentage()

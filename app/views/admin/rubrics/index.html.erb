@@ -1,0 +1,54 @@
+<% content_for :content_header do %>
+  Rubrics
+<% end %>
+
+<% content_for :content_header_links do %>
+<% end %>
+
+<% content_for :content_intro do %>
+  <form>
+    <fieldset>
+      <div class="input-group">
+        <div class="input-group--fourth">
+          <%= label_tag :name, 'Name', {:class => 'text-label'} %>
+          <%= text_field_tag(:name, params[:name], {:class => 'text-input'}) %>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+<% end %>
+
+<% content_for :content_frames do %>
+  <div class="table-wrapper">
+    <%= paginate @rubrics %>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Owner</th>
+        <th>Projects Count</th>
+        <th>Public?</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @rubrics.each do |rubric| %>
+        <tr>
+          <th><%= link_to rubric.name, admin_rubric_path(rubric) %></th>
+          <td><%= link_to rubric.owner.name, admin_user_path(rubric.owner) %></td>
+          <td><%= rubric.projects.count %></td>
+          <td><%= human_boolean rubric.public? %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <%= paginate @rubrics %>
+  </div>
+
+<% end %>
+
+
+
+
+
+
+

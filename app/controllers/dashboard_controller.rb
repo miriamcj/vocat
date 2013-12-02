@@ -9,7 +9,7 @@ class DashboardController < ApplicationController
     elsif current_user.role?(:creator)
       redirect_to :action => :creator
     elsif current_user.role?(:administrator)
-      redirect_to admin_root_path
+      redirect_to admin_path
     end
   end
 

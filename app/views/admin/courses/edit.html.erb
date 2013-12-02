@@ -1,0 +1,34 @@
+<% content_for :content_header do %>
+  Courses
+<% end %>
+
+<% content_for :content_header_links do %>
+  <%= link_to 'Back to Course', admin_course_path(@course), :class => 'gray-ex-button' %>
+<% end %>
+
+<% content_for :content_intro do %>
+<% end %>
+
+<% content_for :content_frames	 do %>
+  <nav class="tab-nav space-bottom">
+    <ul>
+      <li><%= link_to 'All Courses', admin_courses_path %></li>
+      <li><%= link_to @course.section, admin_course_path(@course) %></li>
+      <li>Edit Course</li>
+    </ul>
+  </nav>
+  <header class="button-header">
+    <h2 class="button-header--title space-bottom"><%= "#{@course.name} - #{@course.semester_name} #{@course.year}" %></h2>
+  </header>
+
+  <%= form_errors @course %>
+
+  <%= form_for [:admin, @course] do |f| %>
+    <%= render 'form', :f => f %>
+    <div class="input-group">
+      <%= link_to 'Back', admin_course_path(@course), :class => 'gray-ex-button' %>
+      <%= f.submit 'Update Course', :class => 'teal-plus-button' %>
+    </div>
+  <% end %>
+<% end %>
+

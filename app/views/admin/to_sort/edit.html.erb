@@ -1,9 +1,0 @@
-<h3>Editing course:</h3>
-<h4><%= @course %></h4>
-
-<%= simple_form_for(@course, :url => admin_course_path(@course)) do |f| %>
-  <%= render 'form', :f => f %>
-<% end %>
-
-<%= link_to 'View course without saving', admin_course_path(@course), :class => "btn" %>
-<%= link_to 'Return to course list', admin_courses_path, :class => "btn" %>

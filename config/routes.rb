@@ -1,5 +1,10 @@
 Vocat::Application.routes.draw do
 
+  get "courses/index"
+  get "courses/create"
+  get "courses/new"
+  get "courses/destroy"
+  get "courses/show"
   devise_for :users
   devise_scope :user do
     match '/users/settings' => 'registrations#update_settings', :via => :put
@@ -61,11 +66,18 @@ Vocat::Application.routes.draw do
     get 'view/project/:project_id' => 'courses/evaluations#current_user_project', :as => 'current_user_project'
   end
 
-  get '/admin' => 'admin/dashboard#index', :as => 'admin_root'
+  namespace :admin do
+    resources :courses
+    resources :users
+    resources :rubrics
+  end
+
+  get '/admin' => 'admin/courses#index', :as => 'admin'
+
   get '/' => 'dashboard#index', :as => 'dashboard'
-  get '/dashboard/evaluator' => 'dashboard#evaluator', :as => 'dashboard_evaluator'
-  get '/dashboard/creator' => 'dashboard#creator', :as => 'dashboard_creator'
-  get '/dashboard/admin' => 'dashboard#admin', :as => 'dashboard_admin'
+  #get '/dashboard/evaluator' => 'dashboard#evaluator', :as => 'dashboard_evaluator'
+  #get '/dashboard/creator' => 'dashboard#creator', :as => 'dashboard_creator'
+  #get '/dashboard/admin' => 'dashboard#admin', :as => 'dashboard_admin'
 
 
 

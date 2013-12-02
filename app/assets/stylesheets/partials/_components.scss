@@ -591,6 +591,20 @@ a.table--heading {
   }
 }
 
+.input-group--fourth {
+  width: 25%;
+  float: left;
+  padding-right: 2.1rem;
+  &:nth-child(4) {
+	padding-right: 0;
+  }
+  select {
+	width: 20rem;
+  }
+  .input-group {
+	margin-bottom: 0;
+  }
+}
 
 .input-group--third {
   width: 33%;
@@ -598,6 +612,9 @@ a.table--heading {
   padding-right: 2.1rem;
   &:nth-child(3) {
 	padding: 0 0 0 2.1rem;
+  }
+  select {
+	width: 28.8rem;
   }
   .input-group {
 	margin-bottom: 0;

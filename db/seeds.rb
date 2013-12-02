@@ -44,20 +44,32 @@ baruch  = Organization.create(:name => "Baruch College")
 other   = Organization.create(:name => Faker::Company.name)
 
 # Create developer user accounts
-for name in %w(alex gabe lucas peter scott zach)
-  u = User.create(:email => "#{name}@castironcoding.com", :password => "testtest123", :first_name => name)
+first_names = %w(Casey Clark Gabe Lucas Peter Scott Zach)
+last_names = %w(Williams Burns Blair Thurston Soots Mills Davis)
+admin = nil
+first_names.each_with_index do |first_name, index|
+  u = User.create(:email => "#{first_name}@castironcoding.com", :org_identity => rand(11111111..99999999), :password => "testtest123", :first_name => first_name, :last_name => last_names[index])
   u.role = "administrator"
   u.organization = baruch
   u.save
   admin = u
 end
 
+time = Time.new
+year = time.year
+
+# Create the semesters
+fall = Semester.create(:name => 'Fall', position: 1)
+winter = Semester.create(:name => 'Winter', position: 2)
+spring = Semester.create(:name => 'Spring', position: 3)
+summer = Semester.create(:name => 'Summer', position: 4)
+
 # Create the courses
 courses = Array.new
-courses << baruch.courses.create(:name => "Computer Information Systems", :settings => { :enable_peer_review => random_boolean }, :department => "CIS", :number => "3810", :section => random_section, :description => Faker::Lorem.paragraph)
-courses << baruch.courses.create(:name => "Composition I", :settings => { :enable_peer_review => random_boolean }, :department => "ENG", :number => "2100", :section => random_section, :description => Faker::Lorem.paragraph)
-courses << baruch.courses.create(:name => "Composition II: Intro to Literature", :settings => { :enable_peer_review => random_boolean }, :department => "ENG", :number => "2150", :section => random_section, :description => Faker::Lorem.paragraph)
-courses << baruch.courses.create(:name => "Great Works of Literature", :settings => { :enable_peer_review => random_boolean }, :department => "ENG", :number => "2850", :section => random_section, :description => Faker::Lorem.paragraph)
+courses << baruch.courses.create(:semester => winter, :year => year, :name => "Computer Information Systems", :settings => { :enable_peer_review => random_boolean }, :department => "CIS", :number => "3810", :section => random_section, :description => Faker::Lorem.paragraph)
+courses << baruch.courses.create(:semester => spring, :year => year, :name => "Composition I", :settings => { :enable_peer_review => random_boolean }, :department => "ENG", :number => "2100", :section => random_section, :description => Faker::Lorem.paragraph)
+courses << baruch.courses.create(:semester => fall, :year => year, :name => "Composition II: Intro to Literature", :settings => { :enable_peer_review => random_boolean }, :department => "ENG", :number => "2150", :section => random_section, :description => Faker::Lorem.paragraph)
+courses << baruch.courses.create(:semester => summer, :year => year, :name => "Great Works of Literature", :settings => { :enable_peer_review => random_boolean }, :department => "ENG", :number => "2850", :section => random_section, :description => Faker::Lorem.paragraph)
 
 # Create sample users
 evaluators = Array.new
@@ -65,7 +77,7 @@ assistants = Array.new
 creators = Array.new
 
 5.times do |i|
-  u = User.new(:email => "evaluator#{i}@test.com", :password => "testtest123", :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name)
+  u = User.new(:email => "evaluator#{i}@test.com", :org_identity => rand(11111111..99999999), :password => "testtest123", :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name)
   u.organization = baruch
   u.role = "evaluator"
   u.save
@@ -73,7 +85,7 @@ creators = Array.new
 end
 
 5.times do |i|
-  u = User.new(:email => "assistant#{i}@test.com", :password => "testtest123", :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name)
+  u = User.new(:email => "assistant#{i}@test.com", :org_identity => rand(11111111..99999999), :password => "testtest123", :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name)
   u.organization = baruch
   u.role = "creator"
   u.save
@@ -81,7 +93,7 @@ end
 end
 
 50.times do |i|
-  u = User.new(:email => "creator#{i}@test.com", :password => "testtest123", :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name)
+  u = User.new(:email => "creator#{i}@test.com", :org_identity => rand(11111111..99999999), :password => "testtest123", :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name)
   u.role = "creator"
   u.organization = baruch
   u.save

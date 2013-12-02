@@ -1,7 +1,7 @@
 <% if !current_user.role? :admin %>
 <nav class="course-selector" data-behavior="dropdown">
   <a class="course-selector--toggle" data-behavior="toggle" href="#">
-	  <% if @course %>
+    <% if @course && @deselect_course != true %>
 		  <% if current_user.role?(:evaluator) %>
 	      <%= @course %>
 		  <% else %>
@@ -53,13 +53,13 @@
 
 <a class="shortcut-nav--toggle" data-behavior="shortcut-nav-toggle" href="#">Toggle Shortcuts Drawer</a>
 <% if @course %>
-  <% if @course_role == :evaluator %>
+  <% if @course_role == :evaluator || @course_role == :administrator %>
      <%= render 'layouts/navigation_course_evaluator' %>
   <% elsif @course_role == :creator %>
     <%= render 'layouts/navigation_course_creator' %>
   <% end %>
 <% else %>
-  <% if current_user.role? :admin %>
+  <% if current_user.role? :administrator %>
     <%= render 'layouts/navigation_admin' %>
   <% elsif current_user.role == 'evaluator' %>
     <%= render 'layouts/navigation_evaluator' %>

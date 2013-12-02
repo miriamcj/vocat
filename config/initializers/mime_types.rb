@@ -6,4 +6,4 @@
 
 
 Mime::Type.register_alias "text/vtt", :vtt
-Mime::Type.register "application/pdf", :pdf
+#Mime::Type.register "application/pdf", :pdf

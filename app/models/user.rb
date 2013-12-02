@@ -32,6 +32,15 @@ class User < ActiveRecord::Base
     'enable_glossary' => {value: false, type: 'boolean' }
   }
 
+  # Params is a hash of search values including (:department || :semester || :year) || :section
+  def self.search(params)
+    u = User.all
+    u = u.where({last_name: params[:last_name]}) unless params[:last_name].blank?
+    u = u.where({email: params[:email]}) unless params[:email].blank?
+    u = u.where({role: params[:role]}) unless params[:role].blank?
+    u
+  end
+
   def role?(base_role)
     unless User::ROLES.include? role.to_s
       raise "The role #{role.to_s} doesn't exist."
@@ -41,6 +50,10 @@ class User < ActiveRecord::Base
 
   def name
     "#{first_name} #{last_name}"
+  end
+
+  def list_name
+    [last_name, first_name].reject{ |s| s.blank? }.join(', ')
   end
 
   def has_courses

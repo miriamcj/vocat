@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
   layout 'frames'
 
   check_authorization :unless => :devise_controller?
-  load_resource :course
 
   before_filter :test_flash_messages
   before_filter :authenticate_user!
@@ -53,7 +52,9 @@ class ApplicationController < ActionController::Base
 
   def get_organization_and_current_course
 
-    course_id = self.class.to_s == 'CoursesController' ? params[:id] : params[:course_id]
+#    course_id = self.class.to_s == 'CoursesController' ? params[:id] : params[:course_id]
+
+    course_id = params[:course_id]
 
     if course_id
       @course = Course.find(course_id)
@@ -83,33 +84,74 @@ class ApplicationController < ActionController::Base
     end
 
     def course_params
-      params.require(:course).permit(:id, :name, :message, :groups_attributes => [ :id, :name, :creator_ids => [] ], :settings => [ Course::ALLOWED_SETTINGS ])
+      params.require(:course).permit(:id,
+                                     :department,
+                                     :number,
+                                     :section,
+                                     :year,
+                                     :description,
+                                     :semester_id,
+                                     :name,
+                                     :message,
+                                     :groups_attributes => [ :id,
+                                                             :name,
+                                                             :creator_ids => []
+                                     ],
+                                     :settings => [
+                                         Course::ALLOWED_SETTINGS
+                                     ]
+      )
     end
 
     def group_params
-      params.require(:group).permit(:name, :course_id, :creator_ids => [])
+      params.require(:group).permit(:name,
+                                    :course_id,
+                                    :creator_ids => []
+      )
     end
 
     def annotation_params
-      params.require(:annotation).permit(:body, :smpte_timecode, :published, :seconds_timecode, :video_id)
+      params.require(:annotation).permit(:body,
+                                         :smpte_timecode,
+                                         :published,
+                                         :seconds_timecode,
+                                         :video_id
+      )
     end
 
     def video_params
-      params.require(:video).permit(:submission_id, :name, :source, attachment_attributes: :media)
+      params.require(:video).permit(:submission_id,
+                                    :name,
+                                    :source,
+                                    attachment_attributes: :media
+      )
     end
 
     def discussion_post_params
-      params.require(:discussion_post).permit(:published, :parent_id, :submission_id, :body)
+      params.require(:discussion_post).permit(:published,
+                                              :parent_id,
+                                              :submission_id,
+                                              :body
+      )
     end
 
     def evaluation_params
-      params.require(:evaluation).permit(:submission_id, :published).tap do |whitelisted|
+      params.require(:evaluation).permit(:submission_id,
+                                         :published
+      ).tap do |whitelisted|
         whitelisted[:scores] = params[:evaluation][:scores]
       end
     end
 
     def rubric_params
-      params.require(:rubric).permit(:name, :description, :cells, :fields, :ranges, :high, :low).tap do |whitelisted|
+      params.require(:rubric).permit(:name,
+                                     :description,
+                                     :cells,
+                                     :fields,
+                                     :ranges,
+                                     :high,
+                                     :low
+      ).tap do |whitelisted|
         whitelisted[:ranges] = params[:rubric][:ranges]
         whitelisted[:fields] = params[:rubric][:fields]
         whitelisted[:cells] = params[:rubric][:cells]
@@ -125,7 +167,11 @@ class ApplicationController < ActionController::Base
     end
 
     def project_params
-      params.require(:project).permit(:name, :description, :course_id, :rubric_id)
+      params.require(:project).permit(:name,
+                                      :description,
+                                      :course_id,
+                                      :rubric_id
+      )
     end
 
 end

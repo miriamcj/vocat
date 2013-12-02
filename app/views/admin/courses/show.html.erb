@@ -1,0 +1,135 @@
+<% content_for :content_header do %>
+  Courses
+<% end %>
+
+<% content_for :content_header_links do %>
+  <%= link_to 'Back to Course List', admin_courses_path(), :class => 'gray-ex-button' %>
+<% end %>
+
+<% content_for :content_intro do %>
+<% end %>
+
+<% content_for :content_frames	 do %>
+
+  <nav class="tab-nav">
+    <ul>
+      <li><%= link_to 'All Courses', admin_courses_path %></li>
+      <li><%= link_to @course.section, admin_course_path(@course) %></li>
+    </ul>
+  </nav>
+  <header class="button-header">
+    <%= link_to 'Edit Course', edit_admin_course_path(@course) %>
+    <h2 class="button-header--title space-bottom"><%= "#{@course.name} - #{@course.semester_name} #{@course.year}" %></h2>
+  </header>
+
+  <div>
+    <div class="input-group">
+      <span class="text-label">Course Name</span>
+      <span><%= @course.name %></span>
+    </div>
+    <div class="input-group">
+      <div class="input-group--third">
+        <div class="input-group">
+          <span class="text-label">Department</span>
+          <span><%= @course.department %></span>
+        </div>
+      </div>
+      <div class="input-group--third">
+        <div class="input-group">
+          <span class="text-label">Number</span>
+          <span><%= @course.number %></span>
+        </div>
+      </div>
+      <div class="input-group--third">
+        <div class="input-group">
+          <span class="text-label">Section</span>
+          <span><%= @course.section %></span>
+        </div>
+      </div>
+    </div>
+    <div class="input-group">
+      <div class="input-group--third">
+        <div class="input-group">
+          <span class="text-label">Semester</span>
+          <span><%= @course.semester_name %></span>
+        </div>
+      </div>
+      <div class="input-group--third">
+        <div class="input-group">
+          <span class="text-label">Year</span>
+          <span><%= @course.year %></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-group">
+      <span class="text-label">Message</span>
+      <span><%= @course.message %></span>
+    </div>
+    <div class="input-group">
+      <span class="text-label">Description</span>
+      <span><%= @course.description %></span>
+    </div>
+  </div>
+
+  <div class="double-space-bottom">
+    <header class="frame--header">
+      <h2 class="frame--title">Evaluators</h2>
+      <div class="frame--header--buttons">
+        <a class="small-teal-minus-button" href="">Manage Evaluators</a>
+      </div>
+    </header>
+    <div>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Last Login</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @course.evaluators.each do |evaluator| %>
+          <tr>
+            <th><%= evaluator.name %></th>
+            <td><%= evaluator.email %></td>
+            <td><%= evaluator.last_sign_in_at || 'never' %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div>
+    <header class="frame--header">
+      <h2 class="frame--title">Creators</h2>
+      <div class="frame--header--buttons">
+        <a class="small-teal-minus-button" href="">Manage Creators</a>
+      </div>
+    </header>
+    <div>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Last Login</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @course.creators.each do |creator| %>
+          <tr>
+            <th><%= creator.name %></th>
+            <td><%= creator.email %></td>
+            <td><%= creator.last_sign_in_at || 'never' %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  </div>
+
+<% end %>
+
