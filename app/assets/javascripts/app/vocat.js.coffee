@@ -12,6 +12,9 @@ define (require) ->
   window.Vocat = Vocat = new Marionette.Application()
 
   Vocat.routes = {
+    admin: {
+      'admin/courses/:course': 'editCourse'
+    }
     coursemap: {
       'courses/:course/users/evaluations': 'userGrid'
       'courses/:course/users/evaluations/creator/:creator': 'userCreatorDetail'
@@ -83,6 +86,8 @@ define (require) ->
         Backbone.history.start({pushState: true})
 
       switch controllerName
+        when 'admin' then require ['controllers/admin_controller'], (AdminController) ->
+          instantiateRouter(AdminController, 'admin')
         when 'coursemap' then require ['controllers/coursemap_controller'], (CourseMapController) ->
           instantiateRouter(CourseMapController, 'coursemap')
         when 'group' then require ['controllers/group_controller'], (GroupController) ->

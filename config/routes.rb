@@ -35,7 +35,14 @@ Vocat::Application.routes.draw do
       resources :videos, :only => [:destroy, :create, :show]
       resources :groups, :except => [:new, :edit]
       resources :projects, :except => [:new, :edit]
-      resources :courses
+      resources :courses do
+        resources :creators do
+          collection do
+            get 'search'
+          end
+        end
+        resources :evaluators
+      end
     end
   end
 

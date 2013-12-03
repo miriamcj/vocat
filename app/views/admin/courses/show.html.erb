@@ -75,61 +75,17 @@
   <div class="double-space-bottom">
     <header class="frame--header">
       <h2 class="frame--title">Evaluators</h2>
-      <div class="frame--header--buttons">
-        <a class="small-teal-minus-button" href="">Manage Evaluators</a>
-      </div>
     </header>
-    <div>
-      <table class="table">
-        <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Last Login</th>
-        </tr>
-        </thead>
-        <tbody>
-        <% @course.evaluators.each do |evaluator| %>
-          <tr>
-            <th><%= evaluator.name %></th>
-            <td><%= evaluator.email %></td>
-            <td><%= evaluator.last_sign_in_at || 'never' %></td>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
+    <div data-region="evaluator-enrollment">
     </div>
   </div>
 
   <div>
     <header class="frame--header">
       <h2 class="frame--title">Creators</h2>
-      <div class="frame--header--buttons">
-        <a class="small-teal-minus-button" href="">Manage Creators</a>
-      </div>
     </header>
-    <div>
-      <table class="table">
-        <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Last Login</th>
-        </tr>
-        </thead>
-        <tbody>
-        <% @course.creators.each do |creator| %>
-          <tr>
-            <th><%= creator.name %></th>
-            <td><%= creator.email %></td>
-            <td><%= creator.last_sign_in_at || 'never' %></td>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
+    <div data-region="creator-enrollment">
     </div>
   </div>
-  </div>
-
 <% end %>
 
