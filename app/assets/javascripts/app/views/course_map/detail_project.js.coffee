@@ -4,7 +4,7 @@ define [
   Marionette, template, RubricModel, ProjectModel, d3, dc, crossfilter
 ) ->
 
-  class CourseMapDetailProject extends Marionette.CompositeView
+  class CourseMapDetailProject extends Marionette.ItemView
 
     template: template
     currentFilters: {}
@@ -23,7 +23,7 @@ define [
       pieFilterLabelWrap: '[data-behavior="pie-filter-label-wrap"]'
     }
 
-    itemViewContainer: '[data-container="submission-summaries"]'
+#    itemViewContainer: '[data-container="submission-summaries"]'
 
     onFiltersClear: () ->
       dc.filterAll('projectCharts')
