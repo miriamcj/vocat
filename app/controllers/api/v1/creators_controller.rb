@@ -13,8 +13,18 @@ class Api::V1::CreatorsController < ApplicationController
     respond_with user
   end
 
+  def create
+    user = User.find params[:id]
+    if @course.creators.include?(user)
+      user.errors.add :base, 'Creator is already enrolled in this course.'
+    else
+      @course.creators << user
+    end
+    respond_with :admin, user
+  end
+
   def search
-    @users = User.where(["lower(last_name) LIKE :last_name", {:last_name => "#{params[:last_name]}%"}])
+    @users = User.creators.where(["lower(last_name) LIKE :last_name", {:last_name => "#{params[:last_name].downcase}%"}])
     respond_with @users
   end
 

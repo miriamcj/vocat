@@ -10,6 +10,7 @@ requirejs.config {
     'vendor/plugins/autosize': ['jquery_rails']
     'vendor/plugins/waypoints': ['jquery_rails']
     'vendor/plugins/chosen': ['jquery_rails']
+    'vendor/plugins/ajax_chosen': ['vendor/plugins/chosen']
     'vendor/dc/dc': {
       deps: ['vendor/crossfilter/crossfilter', 'vendor/d3/d3.v3.min'],
       exports: 'dc'

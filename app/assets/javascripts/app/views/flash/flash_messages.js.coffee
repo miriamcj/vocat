@@ -46,6 +46,7 @@ define [
         _.each(flashMessage.msg, (message, property) =>
           if _.isObject(message) || _.isArray(message)
             _.each(message, (text) =>
+              if property == 'base' then property = ''
               @addMessage(level, text, property, lifetime)
             )
           else

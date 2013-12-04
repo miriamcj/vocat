@@ -41,7 +41,11 @@ Vocat::Application.routes.draw do
             get 'search'
           end
         end
-        resources :evaluators
+        resources :evaluators do
+          collection do
+            get 'search'
+          end
+        end
       end
     end
   end

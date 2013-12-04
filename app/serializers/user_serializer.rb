@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-	attributes :id, :email, :name, :gravatar, :first_name, :last_sign_in_at
+	attributes :id, :email, :name, :gravatar, :first_name, :last_sign_in_at, :org_identity, :list_name
 
   def gravatar
     gravatar_id = Digest::MD5.hexdigest(object.email.downcase)
