@@ -103,5 +103,13 @@ class User < ActiveRecord::Base
     out
   end
 
+  def to_csv_header_row
+    %w(VocatId FullName LastName FirstName Email OrgIdentity)
+  end
+
+  def to_csv
+    [id, list_name, last_name, first_name, email, org_identity]
+  end
+
 
 end

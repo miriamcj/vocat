@@ -52,35 +52,45 @@ class ApplicationController < ActionController::Base
 
   def get_organization_and_current_course
 
-#    course_id = self.class.to_s == 'CoursesController' ? params[:id] : params[:course_id]
+    if params[:controller].downcase.starts_with?('course')
+      course_id = params[:course_id]
+      if course_id
+        @selected_course = Course.find(course_id)
 
-    course_id = params[:course_id]
+        if @selected_course
+          authorize!(:show, @selected_course)
+          session[:course_id] = @selected_course.id
+        end
 
-    if course_id
-      @course = Course.find(course_id)
-
-      if @course
-        authorize!(:show, @course)
-        session[:course_id] = @course.id
-      end
-
-      if current_user
-        @organization = current_user.organization
-      end
-
-      if @course && current_user
-        @course_role = @course.role(current_user)
-      else
-        @course_role = nil
+        if @selected_course && current_user
+          @selected_course_role = @selected_course.role(current_user)
+        else
+          @selected_course_role = nil
+        end
       end
     end
+
+    if current_user
+      @current_organization = current_user.organization
+    end
   end
+
+
 
   protected
 
     # Parameters for creating and updating a project
     def project_params
       params.require(:project).permit(:name, :description, :rubric_id)
+    end
+
+    def user_params
+      params.require(:user).permit(:first_name,
+                                   :last_name,
+                                   :password,
+                                   :password_confirmation,
+                                   :email
+      )
     end
 
     def course_params

@@ -1,0 +1,28 @@
+<fieldset>
+  <div class="input-group">
+    <%= f.label :email, {class: 'text-label'} %>
+    <%= f.text_field :email, {class: 'text-input'} %>
+  </div>
+  <div class="input-group">
+    <div class="input-group--half">
+      <%= f.label :first_name, {class: 'text-label'} %>
+      <%= f.text_field :first_name, {class: 'text-input'} %>
+    </div>
+    <div class="input-group--half">
+      <%= f.label :last_name, {class: 'text-label'} %>
+      <%= f.text_field :last_name, {class: 'text-input'} %>
+    </div>
+  </div>
+
+  <div class="input-group">
+    <%= f.label :password, :class => 'text-label' %>
+    <%= f.password_field :password, :autocomplete => "off", :class => 'text-input' %>
+    <small class="input-message">Leave blank if you don't want to change it</small>
+  </div>
+
+  <div class="input-group">
+    <%= f.label :password_confirmation, :class => 'text-label' %>
+    <%= f.password_field :password_confirmation, :class => 'text-input' %>
+  </div>
+
+</fieldset>

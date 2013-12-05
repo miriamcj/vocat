@@ -4,17 +4,14 @@ class Submission < ActiveRecord::Base
   has_many :evaluations, :dependent => :destroy
   has_many :discussion_posts, :dependent => :destroy
 	has_one :course, :through => :project
-
-  delegate :thumb, :to => :video, :prefix => false, :allow_nil => true
-
   belongs_to :project
-
   belongs_to :creator, :polymorphic => true
 
   accepts_nested_attributes_for :video
 
   validates_presence_of :project_id, :creator_id, :creator_type
 
+  delegate :thumb, :to => :video, :prefix => false, :allow_nil => true
   delegate :department, :to => :course, :prefix => true
   delegate :number, :to => :course, :prefix => true
   delegate :name, :to => :course, :prefix => true

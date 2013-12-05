@@ -1,6 +1,6 @@
 <% content_for :course_selector do %>
-  <% if @course %>
-    <%= collection_select :course, :id, @courses, :id, :to_s, {}, :class => "span4", :id => "course_select", :selected => @course.id, :data => {:url => organization_course_projects_path(@organization, @course)} %>
+  <% if @selected_course %>
+    <%= collection_select :course, :id, @courses, :id, :to_s, {}, :class => "span4", :id => "course_select", :selected => @selected_course.id, :data => {:url => organization_course_projects_path(@organization, @selected_course)} %>
   <% end %>
 <% end %>
 <%= render :template => 'layouts/application' %>

@@ -357,7 +357,7 @@ p {
   padding: 0.7rem 0;
   float: left;
   // .with-link & {
-  //   max-width: 50%;    
+  //   max-width: 50%;
   // }
 }
 
@@ -420,10 +420,28 @@ p {
   padding: 0.2rem 0 0.1rem;
 }
 
+.button-header--subtitle {
+  @extend %alpha;
+  @extend %truncated;
+  @include font-head;
+  vertical-align: top;
+  text-transform: uppercase;
+  color: $tealMedium;
+  line-height: 1;
+  padding: 0.7rem 0 0.3rem 1.2rem;
+  border-left: 0.1rem solid $tealMedium;
+  margin: 0.8rem 0;
+  display: inline-block;
+  position: relative;
+  margin-bottom: -.9rem;
+  top: -.9rem;
+  left: 1rem;
+}
+
 // Table
 // --------------------------
 .table-wrapper {
-  margin: 0 -3.2rem;  
+  margin: 0 -3.2rem;
 }
 
 // <table>
@@ -2393,7 +2411,7 @@ a.table--heading {
   position: relative;
   z-index: 150;
   .bar-header & {
-    clear: both;    
+    clear: both;
   }
   .flash-top-padding & {
 	margin-top: 1.7rem;
@@ -2406,8 +2424,8 @@ a.table--heading {
 }
 
 .alert {
-  .evaluation-detail &, 
-  .portfolio-frame &, 
+  .evaluation-detail &,
+  .portfolio-frame &,
   .page-content--frame & {
     margin-left: 0;
     margin-right: 0;

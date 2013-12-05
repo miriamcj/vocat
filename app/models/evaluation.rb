@@ -4,7 +4,8 @@ class Evaluation < ActiveRecord::Base
   EVALUATION_TYPE_EVALUATOR = 2
 
   belongs_to :evaluator, :class_name => 'User'
-  has_one :creator, :through => :submission
+  has_one :user, :through => :submission, :source => :creator, :source_type => 'User'
+  has_one :group, :through => :submission, :source => :creator, :source_type => 'Group'
   has_one :project, :through => :submission
   belongs_to :submission
   belongs_to :rubric
@@ -39,6 +40,10 @@ class Evaluation < ActiveRecord::Base
   after_initialize :ensure_score_hash
 
 
+  def creator
+    group || user
+  end
+
   def ensure_score_hash
     unless self.scores.is_a?(Hash)
       self.scores = {}
@@ -54,6 +59,10 @@ class Evaluation < ActiveRecord::Base
     end
   end
 
+  def self.by_course(course)
+    Evaluation.all.joins(:submission => :project).where(:projects => {:course_id => course.id}) unless course.nil?
+  end
+
   def self.average_score_by_course_and_type(course, type)
     if type == :creator
       type = EVALUATION_TYPE_CREATOR
@@ -67,7 +76,12 @@ class Evaluation < ActiveRecord::Base
     total = evaluations.reduce(0.0) do |memo, evaluation|
       memo + evaluation.total_percentage_rounded
     end
-    (total / evaluations.length).round(0)
+    evaluations_count = evaluations.length
+    if evaluations_count > 0
+      (total / evaluations_count).round(0)
+    else
+      0
+    end
   end
 
   def update_total
@@ -99,5 +113,12 @@ class Evaluation < ActiveRecord::Base
     total_percentage.round(0)
   end
 
+  def to_csv_header_row
+    ['Vocat ID', 'Evaluator', 'Creator', 'Type', 'Project Name', 'Percentage', 'Total Score', 'Points Possible']
+  end
+
+  def to_csv
+    [id, evaluator_name, creator.name, evaluation_type, project.name, total_percentage_rounded, total_score, points_possible]
+  end
 
 end

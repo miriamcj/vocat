@@ -39,6 +39,8 @@ define (require) ->
             @trigger('error:add', {level: 'error', lifetime: 5000, msg: xhr.responseJSON.errors})
           success: () =>
             @collection.add(newEnrollment)
+            @collection.each (model) ->
+              console.log model.get('list_name')
             @trigger('error:add', {level: 'notice', lifetime: 5000, msg: "#{newEnrollment.get('name')} has been added to the course."})
         })
       )

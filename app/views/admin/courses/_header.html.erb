@@ -1,0 +1,19 @@
+<header class="button-header">
+  <h2 class="button-header--title"><%= "#{@course.name} - #{@course.semester_name} #{@course.year}" %></h2>
+  <% if local_assigns.fetch :subheader, nil %>
+    <h2 class="button-header--subtitle">
+      <%= subheader %><span></span>
+    </h2>
+  <% end %>
+
+</header>
+
+<nav class="tab-nav double-space-bottom">
+  <ul>
+    <li><%= link_to 'Overview', admin_course_path(@course) %></li>
+    <li><%= link_to 'Properties', edit_admin_course_path(@course) %></li>
+    <li><%= link_to 'Evaluators', evaluators_admin_course_path(@course) %></li>
+    <li><%= link_to 'Creators', creators_admin_course_path(@course) %></li>
+    <li><%= link_to 'Export Data', export_admin_course_path(@course) %></li>
+  </ul>
+</nav>

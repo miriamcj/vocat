@@ -1,6 +1,7 @@
-class Admin::UsersController < ApplicationController
+class Admin::UsersController < Devise::RegistrationsController
 
-  authorize_resource :course
+  load_and_authorize_resource :user
+  respond_to :html
   layout 'content'
 
   def index
@@ -13,23 +14,12 @@ class Admin::UsersController < ApplicationController
   end
 
   def new
-
+    respond_with @user
   end
 
   def create
-
-  end
-
-  def show
-
-  end
-
-  def edit
-
-  end
-
-  def update
-
+    flash[:notice] = "Successfully created user." if @user.save
+    respond_with(:admin, @user)
   end
 
   def destroy

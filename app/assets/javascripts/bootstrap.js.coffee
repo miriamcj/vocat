@@ -50,7 +50,7 @@ requirejs.config {
     'backbone.wreqr' : 'vendor/plugins/backbone.wreqr'
     'backbone.eventbinder' : 'vendor/plugins/backbone.eventbinder'
     'backbone.babysitter' : 'vendor/plugins/backbone.babysitter'
-    'marionette' : 'vendor/marionette/marionette'
+    'marionette' : 'vendor/marionette/marionette_1.4.0'
     'jquery_ui': 'vendor/ui/jquery_ui'
   }
 

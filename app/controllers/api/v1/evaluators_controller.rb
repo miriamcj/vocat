@@ -24,7 +24,7 @@ class Api::V1::EvaluatorsController < ApplicationController
   end
 
   def search
-    @users = User.evaluators.where(["lower(last_name) LIKE :last_name", {:last_name => "#{params[:last_name].downcase}%"}])
+    @users = User.administrators.where(["lower(last_name) LIKE :last_name", {:last_name => "#{params[:last_name].downcase}%"}])
     respond_with @users
   end
 

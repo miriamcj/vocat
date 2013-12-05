@@ -12,3 +12,6 @@ define ['backbone', 'collections/user_collection', 'models/creator'], (Backbone,
       @listenTo(@, 'add', (model) =>
         model.courseId = @courseId
       )
+
+    comparator: (user) ->
+      user.get('list_name')

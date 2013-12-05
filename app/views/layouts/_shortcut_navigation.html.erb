@@ -1,9 +1,9 @@
 <div class="shortcut-nav js-shortcut-nav invisible" >
   <div class="shortcut-nav--wrapper">
-    <% if @course %>
+    <% if @selected_course %>
       <div class="shortcut-nav--item">
         <nav class="assignment-selector" data-behavior="dropdown">
-          <% if @course.role(current_user) == 'creator' %>
+          <% if @selected_course.role(current_user) == 'creator' %>
             <h2 class="shortcut-nav--title">Jump to project</h2>
           <% else %>
             <h2 class="shortcut-nav--title">Evaluate project</h2>
@@ -11,26 +11,26 @@
             <a class="assignment-selector--toggle" data-behavior="toggle" href="#">Select a project</a>
             <div class="assignment-selector--dropdown" data-behavior="dropdown-options">
             <ul>
-              <% @course.projects.each do |project| %>
-                <% if @course.role(current_user) == :creator %>
-                  <li><a href="/courses/<%= @course.id %>/view/creator/<%= current_user.id %>/project/<%= project.id %>"><%= project.name %></a></li>
+              <% @selected_course.projects.each do |project| %>
+                <% if @selected_course.role(current_user) == :creator %>
+                  <li><a href="/courses/<%= @selected_course.id %>/view/creator/<%= current_user.id %>/project/<%= project.id %>"><%= project.name %></a></li>
                 <% else %>
-                  <li><a href="/courses/<%= @course.id %>/users/evaluations/project/<%= project.id %>"><%= project.name %></a></li>
+                  <li><a href="/courses/<%= @selected_course.id %>/users/evaluations/project/<%= project.id %>"><%= project.name %></a></li>
                 <% end %>
               <% end %>
             </ul>
           </div>
         </nav>
       </div>
-      <% if current_user.can?(:evaluate, @course) %>
+      <% if current_user.can?(:evaluate, @selected_course) %>
         <div class="shortcut-nav--item">
           <nav class="peer-selector" data-behavior="dropdown">
             <h2 class="shortcut-nav--title">Provide Peer Feedback</h2>
             <a class="peer-selector--toggle" data-behavior="toggle" href="#">View All Peers</a>
             <div class="peer-selector--dropdown" data-behavior="dropdown-options">
               <ul>
-                <% @course.creators.each do |creator| %>
-                  <li><a href="/courses/<%= @course.id %>/users/evaluations/creator/<%= creator.id %>"><%= creator.name %></a></li>
+                <% @selected_course.creators.each do |creator| %>
+                  <li><a href="/courses/<%= @selected_course.id %>/users/evaluations/creator/<%= creator.id %>"><%= creator.name %></a></li>
                 <% end %>
               </ul>
             </div>

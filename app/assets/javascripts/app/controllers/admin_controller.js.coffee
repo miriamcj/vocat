@@ -11,18 +11,20 @@ define [
       evaluator: new EvaluatorCollection([], {})
     }
 
-    editCourse: (courseId) ->
+    manageEvaluators: (courseId) ->
+      unless _.isNaN(parseInt(courseId))
+        Vocat.addRegions({
+          evaluatorEnrollment: '[data-region="evaluator-enrollment"]'
+        })
+        @collections.evaluator.courseId = courseId
+        evaluatorEnrollmentView = new EnrollmentLayout({courseId: courseId, collection: @collections.evaluator})
+        Vocat.evaluatorEnrollment.show evaluatorEnrollmentView
+
+    manageCreators: (courseId) ->
       unless _.isNaN(parseInt(courseId))
         Vocat.addRegions({
           creatorEnrollment: '[data-region="creator-enrollment"]'
-          evaluatorEnrollment: '[data-region="evaluator-enrollment"]'
         })
-
         @collections.creator.courseId = courseId
-        @collections.evaluator.courseId = courseId
-
         creatorEnrollmentView = new EnrollmentLayout({courseId: courseId, collection: @collections.creator})
-        evaluatorEnrollmentView = new EnrollmentLayout({courseId: courseId, collection: @collections.evaluator})
-
         Vocat.creatorEnrollment.show creatorEnrollmentView
-        Vocat.evaluatorEnrollment.show evaluatorEnrollmentView

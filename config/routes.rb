@@ -78,17 +78,33 @@ Vocat::Application.routes.draw do
   end
 
   namespace :admin do
-    resources :courses
-    resources :users
+    resources :courses do
+      member do
+        get 'evaluators'
+        get 'creators'
+        get 'export'
+        resource :reports, :only => [:index] do
+          member do
+            get 'roster'
+            get 'scores'
+          end
+        end
+      end
+    end
+    resources :users, :except => [:show] do
+      member do
+        get 'courses'
+      end
+    end
     resources :rubrics
   end
 
   get '/admin' => 'admin/courses#index', :as => 'admin'
 
   get '/' => 'dashboard#index', :as => 'dashboard'
-  #get '/dashboard/evaluator' => 'dashboard#evaluator', :as => 'dashboard_evaluator'
-  #get '/dashboard/creator' => 'dashboard#creator', :as => 'dashboard_creator'
-  #get '/dashboard/admin' => 'dashboard#admin', :as => 'dashboard_admin'
+  get '/dashboard/evaluator' => 'dashboard#evaluator', :as => 'dashboard_evaluator'
+  get '/dashboard/creator' => 'dashboard#creator', :as => 'dashboard_creator'
+  get '/dashboard/admin' => 'dashboard#admin', :as => 'dashboard_admin'
 
 
 

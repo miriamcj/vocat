@@ -1,6 +1,6 @@
 <% content_for :content_header do %>
-  <% if @course %>
-    <%= if @course then "#{@course.department}#{@course.number} - #{@course.name} " end%></h2>
+  <% if @selected_course%>
+    <%= if @selected_course then "#{@selected_course.department}#{@selected_course.number} - #{@selected_course.name} " end%></h2>
   <% else %>
     Dashboard
   <% end %>
@@ -10,10 +10,10 @@
 <% end %>
 
 <% content_for :content_intro do %>
-  <% if @course %>
-      <% unless @course.message.blank? %>
+  <% if @selected_course %>
+      <% unless @selected_course.message.blank? %>
         <h2 class="frame--title">Announcements</h2>
-        <%= simple_format @course.message %>
+        <%= simple_format @selected_course.message %>
       <% end %>
   <% else %>
     <h2 class="frame--title">Greetings, <%= current_user.first_name %></h2>
@@ -26,8 +26,8 @@
 <% end %>
 
 <% content_for :content_frames	 do %>
-  <% if @course %>
-    <%= render 'dashboard/course', :course => @course %>
+  <% if @selected_course %>
+    <%= render 'dashboard/course', :course => @selected_course %>
   <% else %>
     <% current_user.courses.each do |course| %>
       <%= render 'dashboard/course', :course => course %>

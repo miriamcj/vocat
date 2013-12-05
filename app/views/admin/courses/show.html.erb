@@ -11,81 +11,38 @@
 
 <% content_for :content_frames	 do %>
 
-  <nav class="tab-nav">
-    <ul>
-      <li><%= link_to 'All Courses', admin_courses_path %></li>
-      <li><%= link_to @course.section, admin_course_path(@course) %></li>
-    </ul>
-  </nav>
-  <header class="button-header">
-    <%= link_to 'Edit Course', edit_admin_course_path(@course) %>
-    <h2 class="button-header--title space-bottom"><%= "#{@course.name} - #{@course.semester_name} #{@course.year}" %></h2>
-  </header>
+  <%= render 'header', :subheader => 'Overview' %>
 
   <div>
     <div class="input-group">
-      <span class="text-label">Course Name</span>
-      <span><%= @course.name %></span>
+      <span class="text-label">Department, Number, and Section</span>
+      <span><%= @course.format "%d%n, Section %s" %></span>
     </div>
     <div class="input-group">
-      <div class="input-group--third">
-        <div class="input-group">
-          <span class="text-label">Department</span>
-          <span><%= @course.department %></span>
-        </div>
-      </div>
-      <div class="input-group--third">
-        <div class="input-group">
-          <span class="text-label">Number</span>
-          <span><%= @course.number %></span>
-        </div>
-      </div>
-      <div class="input-group--third">
-        <div class="input-group">
-          <span class="text-label">Section</span>
-          <span><%= @course.section %></span>
-        </div>
-      </div>
-    </div>
-    <div class="input-group">
-      <div class="input-group--third">
-        <div class="input-group">
-          <span class="text-label">Semester</span>
-          <span><%= @course.semester_name %></span>
-        </div>
-      </div>
-      <div class="input-group--third">
-        <div class="input-group">
-          <span class="text-label">Year</span>
-          <span><%= @course.year %></span>
-        </div>
-      </div>
-    </div>
-
-    <div class="input-group">
-      <span class="text-label">Message</span>
-      <span><%= @course.message %></span>
+      <span class="text-label">Course Message</span>
+      <span>
+        <% if @course.message.blank? %>
+          No message has been set for this course.
+        <% else %>
+          <%= @course.message %>
+        <% end %>
+      </span>
     </div>
     <div class="input-group">
       <span class="text-label">Description</span>
-      <span><%= @course.description %></span>
-    </div>
-  </div>
-
-  <div class="double-space-bottom">
-    <header class="frame--header">
-      <h2 class="frame--title">Evaluators</h2>
-    </header>
-    <div data-region="evaluator-enrollment">
+      <span>
+        <% if @course.description.blank? %>
+          No description has been added for this course.
+        <% else %>
+          <%= @course.description %>
+        <% end %>
+      </span>
     </div>
   </div>
 
   <div>
-    <header class="frame--header">
-      <h2 class="frame--title">Creators</h2>
-    </header>
-    <div data-region="creator-enrollment">
-    </div>
+    <%= render 'dashboard/course_synopsis', :course => @course %>
   </div>
+
 <% end %>
 

@@ -1,36 +1,32 @@
-<% if !current_user.role? :admin %>
-<nav class="course-selector" data-behavior="dropdown">
+ <nav class="course-selector" data-behavior="dropdown">
   <a class="course-selector--toggle" data-behavior="toggle" href="#">
-    <% if @course && @deselect_course != true %>
-		  <% if current_user.role?(:evaluator) %>
-	      <%= @course %>
-		  <% else %>
-				<%= "#{@course.department}#{@course.number}: #{@course.name}" %>
-			<% end %>
+    <% if @selected_course %>
+      <%= @selected_course %>
 		<% else %>
 			Select your course
 	  <% end %>
   </a>
   <div class="course-selector--dropdown" data-behavior="dropdown-options">
     <ul>
-      <li><a href="/">All Courses</a></li>
+      <% if current_user %>
+      <li><a href="/"><%= current_user.role.capitalize %> Dashboard</a></li>
+      <% end %>
       <% if current_user && current_user.has_courses %>
         <% current_user.courses.each do |course| %>
           <% if course.role(current_user) == :evaluator %>
-            <li><a <%= if @course == course then 'class=active' end %> href="<%= url_for course_user_evaluations_path(course) %>"><%= raw "<strong>#{course.department}#{course.number} :</strong> #{course.name} <small>[Section #{course.section}]</small>" %></a></li>
+            <li><a <%= if @selected_course == course then 'class=active' end %> href="<%= url_for course_user_evaluations_path(course) %>"><%= raw "<strong>#{course.department}#{course.number} :</strong> #{course.name} <small>[Section #{course.section}]</small>" %></a></li>
           <% else %>
-            <li><a <%= if @course == course then 'class=active' end %> href="<%= url_for portfolio_course_path(course) %>"><%= raw "<strong>#{course.department}#{course.number} :</strong> #{course.name} <small>[Section #{course.section}]</small>" %></a></li>
+            <li><a <%= if @selected_course == course then 'class=active' end %> href="<%= url_for portfolio_course_path(course) %>"><%= raw "<strong>#{course.department}#{course.number} :</strong> #{course.name} <small>[Section #{course.section}]</small>" %></a></li>
           <% end %>
         <% end %>
       <% end %>
     </ul>
   </div>
 </nav>
-<% end %>
 
 <nav class="user-selector" data-behavior="dropdown">
   <div class="primary-nav--avatar">
-    <%= image_tag avatar_url(current_user, 48), :alt => "Charles Xavier" %>
+    <%= image_tag avatar_url(current_user, 48), :alt => current_user.name %>
   </div>
   <% if user_signed_in? %>
     <a class="user-selector--toggle" data-behavior="toggle" href="#"><%= current_user.name %></a>
@@ -52,10 +48,10 @@
 </nav>
 
 <a class="shortcut-nav--toggle" data-behavior="shortcut-nav-toggle" href="#">Toggle Shortcuts Drawer</a>
-<% if @course %>
-  <% if @course_role == :evaluator || @course_role == :administrator %>
+<% if @selected_course %>
+  <% if @selected_course_role == :evaluator || @selected_course_role == :administrator %>
      <%= render 'layouts/navigation_course_evaluator' %>
-  <% elsif @course_role == :creator %>
+  <% elsif @selected_course_role == :creator %>
     <%= render 'layouts/navigation_course_creator' %>
   <% end %>
 <% else %>

@@ -1,0 +1,3 @@
+<% @course.creators.each_with_index do |user, index| %>
+<%= index + 1 %>. <%= user.list_name %> <<%= user.email %>>
+<% end %>

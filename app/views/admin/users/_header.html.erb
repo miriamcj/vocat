@@ -1,0 +1,16 @@
+<header class="button-header">
+  <h2 class="button-header--title"><%= @user.name %></h2>
+  <% if local_assigns.fetch :subheader, nil %>
+    <h2 class="button-header--subtitle">
+      <%= subheader %><span></span>
+    </h2>
+  <% end %>
+
+</header>
+
+<nav class="tab-nav double-space-bottom">
+  <ul>
+    <li><%= link_to 'Properties', edit_admin_user_path(@user) %></li>
+    <li><%= link_to 'Courses', courses_admin_user_path(@user) %></li>
+  </ul>
+</nav>

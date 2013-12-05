@@ -55,7 +55,17 @@ class Admin::CoursesController < ApplicationController
 
   # DELETE /admin/courses/1
   def destroy
+    @course.destroy()
+    respond_with @course
+  end
 
+  def evaluators
+  end
+
+  def creators
+  end
+
+  def export
   end
 
 
