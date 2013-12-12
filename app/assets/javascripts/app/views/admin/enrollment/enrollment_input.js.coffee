@@ -1,14 +1,14 @@
 define (require) ->
 
   Marionette = require('marionette')
-  template = require('hbs!templates/admin/enrollment_input')
-  EnrollmentInputItemView = require('views/admin/enrollment_input_item')
+  template = require('hbs!templates/admin/enrollment_user_input')
+  EnrollmentInputItemView = require('views/admin/enrollment_user_input_item')
   EnrollmentInputEmptyView = require('views/admin/enrollment_input_empty')
   EnrollmentInputNoResultsView = require('views/admin/enrollment_input_no_results')
   require('jquery_ui')
   require('vendor/plugins/ajax_chosen')
 
-  class EnrollmentInput extends Marionette.CompositeView
+  class EnrollmentUserInput extends Marionette.CompositeView
 
     template: template
     emptyView: EnrollmentInputEmptyView

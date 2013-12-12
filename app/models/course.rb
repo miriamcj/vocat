@@ -34,6 +34,10 @@ class Course < ActiveRecord::Base
     c
   end
 
+  def members
+    creators + evaluators + assistants
+  end
+
   def self.distinct_departments
     Course.uniq.pluck(:department).sort
   end
@@ -63,12 +67,24 @@ class Course < ActiveRecord::Base
     self.settings = self.settings.with_indifferent_access
   end
 
-  def name_long
-		self.to_s
+  def list_name
+    "[#{section}] #{department}#{number}: #{name}, #{semester_name} #{year}"
   end
 
   def to_s
     "#{department}#{number}: #{name}, Section #{section}"
+  end
+
+  def disenroll(user)
+    if role(user).nil? then
+      errors.add :base, 'Unable to disenroll user from course because user does not currently belong to course.'
+      return false
+    else
+      if creators.include?(user) then creators.delete(user) end
+      if evaluators.include?(user) then evaluators.delete(user) end
+      if assistants.include?(user) then assistants.delete(user) end
+      return true
+    end
   end
 
   # %n = number

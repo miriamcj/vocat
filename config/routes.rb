@@ -14,6 +14,13 @@ Vocat::Application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      resources :enrollments, :only => [:create, :destroy]
+      resources :users, :only => [:show] do
+        collection do
+          get 'search'
+        end
+        resources :enrollments, :only => [:index]
+      end
       resources :rubrics, :except => [:new, :edit]
       resources :annotations, :except => [:new, :edit]
       resources :discussion_posts, :except => [:new, :edit]
@@ -35,16 +42,11 @@ Vocat::Application.routes.draw do
       resources :videos, :only => [:destroy, :create, :show]
       resources :groups, :except => [:new, :edit]
       resources :projects, :except => [:new, :edit]
-      resources :courses do
-        resources :creators do
-          collection do
-            get 'search'
-          end
-        end
-        resources :evaluators do
-          collection do
-            get 'search'
-          end
+      resources :courses, :only => [:index, :update, :show] do
+        resources :enrollments, :only => [:index]
+        collection do
+          get 'for_user'
+          get 'search'
         end
       end
     end

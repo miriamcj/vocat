@@ -5,6 +5,11 @@ define ['backbone', 'models/user'], (Backbone, UserModel) ->
 
     activeModel: null
 
+    url: '/api/v1/users'
+
+    getSearchTerm: () ->
+      return 'last_name'
+
     getActive: () ->
       @activeModel
 

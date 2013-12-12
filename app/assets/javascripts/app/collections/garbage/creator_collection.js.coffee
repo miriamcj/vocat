@@ -6,11 +6,11 @@ define ['backbone', 'collections/user_collection', 'models/creator'], (Backbone,
     model: CreatorModel
 
     url: () ->
-      "/api/v1/courses/#{@courseId}/creators"
+      "/api/v1/courses/#{@id}/creators"
 
     initialize: () ->
       @listenTo(@, 'add', (model) =>
-        model.courseId = @courseId
+        model.courseId = @id
       )
 
     comparator: (user) ->

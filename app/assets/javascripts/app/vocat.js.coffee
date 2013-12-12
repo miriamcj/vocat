@@ -13,9 +13,9 @@ define (require) ->
 
   Vocat.routes = {
     admin: {
-      'admin/courses/:course/evaluators': 'manageEvaluators'
-      'admin/courses/:course/creators': 'manageCreators'
-      'admin/users/:user/courses': 'manageCourses'
+      'admin/courses/:course/evaluators': 'evaluatorEnrollment'
+      'admin/courses/:course/creators': 'creatorEnrollment'
+      'admin/users/:user/courses': 'courseEnrollment'
     }
     coursemap: {
       'courses/:course/users/evaluations': 'userGrid'

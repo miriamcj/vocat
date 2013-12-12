@@ -1,17 +1,10 @@
-define ['backbone', 'collections/user_collection', 'models/creator'], (Backbone, UserCollection, CreatorModel) ->
+define ['backbone', 'models/course'], (Backbone, courseModel) ->
+  class CourseCollection  extends Backbone.Collection
 
-  class CreatorCollection extends UserCollection
+    model: courseModel
+    activeModel: null
 
-    courseId = null
-    model: CreatorModel
+    url: '/api/v1/courses'
 
-    url: () ->
-      "/api/v1/courses/#{@courseId}/creators"
-
-    initialize: () ->
-      @listenTo(@, 'add', (model) =>
-        model.courseId = @courseId
-      )
-
-    comparator: (user) ->
-      user.get('list_name')
+    getSearchTerm: () ->
+      return 'section'

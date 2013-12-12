@@ -1,12 +1,15 @@
 define (require) ->
 
   Marionette = require('marionette')
-  template = require('hbs!templates/admin/enrollment_item')
+  userItemTemplate = require('hbs!templates/admin/enrollment/list_users_item')
+  courseItemTemplate = require('hbs!templates/admin/enrollment/list_courses_item')
 
   class CreatorEnrollmentItem extends Marionette.ItemView
 
-    template: template
     tagName: 'tr'
+
+    getTemplate: () =>
+      if @model.collection.searchType() == 'user' then return userItemTemplate else return courseItemTemplate
 
     triggers: () ->
       'click [data-behavior="destroy"]': 'clickDestroy'
@@ -18,7 +21,7 @@ define (require) ->
       @model.destroy({
         wait: true
         success: (model) =>
-          @vent.trigger('error:add', {level: 'notice', lifetime: 5000, msg: "#{model.get('name')} has been removed from the course."})
+          @vent.trigger('error:add', {level: 'notice', lifetime: 5000, msg: "#{model.get('user_name')} has been disenrolled from section ##{model.get('section')}."})
         error: (model, xhr) =>
           @vent.trigger('error:add', {level: 'error', lifetime: 5000, msg: xhr.responseJSON.errors})
       })

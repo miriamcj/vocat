@@ -1,9 +1,9 @@
 define (require) ->
 
   Marionette = require('marionette')
-  template = require('hbs!templates/admin/enrollment_input_item')
+  template = require('hbs!templates/admin/enrollment_user_input_item')
 
-  class EnrollmentInputItem extends Marionette.ItemView
+  class EnrollmentUserInputItem extends Marionette.ItemView
 
     template: template
     tagName: 'li'

@@ -1,14 +1,14 @@
 define (require) ->
 
-  Marionette = require('marionette')
-  template = require('hbs!templates/admin/enrollment_layout')
-  EnrollmentList = require('views/admin/enrollment_list')
-  EnrollmentInput = require('views/admin/enrollment_input')
+  Marionette =            require('marionette')
+  template =              require('hbs!templates/admin/enrollment_layout')
+  EnrollmentList =        require('views/admin/enrollment/list')
+  EnrollmentInput =       require('views/admin/enrollment/input')
   Flash = require('views/flash/flash_messages')
-  UserCollection = require('collections/user_collection')
 
   class CreatorEnrollment extends Marionette.Layout
 
+    listType: 'users'
     template: template
 
     ui: {
@@ -22,28 +22,28 @@ define (require) ->
     }
 
     initialize: (options) ->
-      @enrollmentList = new EnrollmentList({collection: @collection, vent: @})
-      searchCollection = @collection.clone().reset()
-      searchCollection.courseId = @collection.courseId
+
+      searchCollection = @collection.getSearchCollection()
       @enrollmentInput = new EnrollmentInput({collection: searchCollection, vent: @})
+      @enrollmentList = new EnrollmentList({collection: @collection, vent: @})
       @flashView = new Flash({vent: @, clearOnAdd: true})
 
-      # Send a post to the server to save the user.
-      @listenTo(@enrollmentInput, 'itemview:add', (itemView) ->
-        modelClass = @collection.model
-        newEnrollment = new modelClass(itemView.model.attributes)
-        newEnrollment.courseId = @collection.courseId
-        newEnrollment.save({},{
-          error: (model, xhr) =>
-            console.log xhr.responseJSON.errors,'errors'
-            @trigger('error:add', {level: 'error', lifetime: 5000, msg: xhr.responseJSON.errors})
-          success: () =>
-            @collection.add(newEnrollment)
-            @collection.each (model) ->
-              console.log model.get('list_name')
-            @trigger('error:add', {level: 'notice', lifetime: 5000, msg: "#{newEnrollment.get('name')} has been added to the course."})
-        })
+      # Send a post to the server to save the enrollment.
+      @listenTo(@enrollmentInput, 'itemview:add', (itemView) =>
+       @handleItemViewAdd(itemView)
       )
+
+    handleItemViewAdd: (itemView) ->
+      enrollment = @collection.newEnrollmentFromSearchModel(itemView.model)
+      console.log enrollment,'enrollment'
+      enrollment.save({},{
+        error: (model, xhr) =>
+          @trigger('error:add', {level: 'error', lifetime: 5000, msg: xhr.responseJSON.errors})
+        success: () =>
+          @collection.add(enrollment)
+
+          @trigger('error:add', {level: 'notice', lifetime: 5000, msg: "#{enrollment.get('user_name')} is now enrolled in section ##{enrollment.get('section')}."})
+      })
 
     onRender: () ->
       @list.show(@enrollmentList)

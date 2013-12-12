@@ -13,5 +13,8 @@ define ['backbone'], (Backbone) ->
       @isNew = isNew
       return xhr
 
+    setEnrollmentId: (id) ->
+      @courseId = id
+
     urlRoot: () ->
       "/api/v1/courses/#{@courseId}/evaluators"

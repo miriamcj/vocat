@@ -1,7 +1,7 @@
 define ['backbone'], (Backbone) ->
-  class CreatorModel extends Backbone.Model
+  class UserCourseModel extends Backbone.Model
 
-    courseId: null
+    userId: null
 
     isNew: () ->
       true
@@ -13,5 +13,5 @@ define ['backbone'], (Backbone) ->
       @isNew = isNew
       return xhr
 
-    urlRoot: () ->
-      "/api/v1/courses/#{@courseId}/creators"
+    setEnrollmentId: (id) ->
+      @userId = id
