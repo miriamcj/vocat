@@ -1,0 +1,147 @@
+<% content_for :content_header do %>
+  Users
+<% end %>
+
+<% content_for :content_header_links do %>
+  <%= link_to 'Back to Users', admin_users_path(), :class => 'gray-ex-button' %>
+<% end %>
+
+<% content_for :content_intro do %>
+<% end %>
+
+<% content_for :content_frames	 do %>
+
+  <%= render 'header', :subheader => 'Overview' %>
+
+
+  <div class="clearfix space-bottom">
+    <div style="min-height: 120px;" class="double-space-bottom">
+      <div style="position: absolute; width: 120px; margin-right: 20px;">
+        <%= image_tag avatar_url(@user, 120), :alt => @user.name %>
+      </div>
+      <div style="position: relative; padding-left: 140px;">
+        <div class="input-group">
+          <div class="input-group--fourth">
+            <div class="input-group">
+              <span class="text-label">Last Login</span>
+                <span>
+                  <% unless @user.last_sign_in_at.nil? %>
+                    <%= distance_of_time_in_words_to_now(@user.last_sign_in_at()) %> ago
+                  <% else %>
+                    Never logged in
+                  <% end %>
+                </span>
+            </div>
+          </div>
+          <div class="input-group--fourth">
+            <div class="input-group">
+              <span class="text-label">Organization</span>
+                <span>
+                  <%= @user.organization.name %>
+                </span>
+            </div>
+          </div>
+          <div class="input-group--fourth">
+            <div class="input-group">
+              <span class="text-label">Email</span>
+                <span>
+                  <%= @user.email %>
+                </span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group">
+          <div class="input-group--fourth">
+            <div class="input-group">
+              <span class="text-label">Organization Identity</span>
+                <span>
+                  <%= @user.org_identity %>
+                </span>
+            </div>
+          </div>
+          <div class="input-group--fourth">
+            <div class="input-group">
+              <span class="text-label">Role</span>
+                <span>
+                  <%= @user.role %>
+                </span>
+            </div>
+          </div>
+          <div class="input-group--fourth">
+            <div class="input-group">
+              <span class="text-label">gender</span>
+                <span>
+                  <%= @user.gender || 'none' %>
+                </span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group">
+          <div class="input-group--fourth">
+            <div class="input-group">
+              <span class="text-label">City</span>
+                <span>
+                  <%= @user.city || 'none' %>
+                </span>
+            </div>
+          </div>
+          <div class="input-group--fourth">
+            <div class="input-group">
+              <span class="text-label">State</span>
+                <span>
+                  <%= @user.state || 'none' %>
+                </span>
+            </div>
+          </div>
+          <div class="input-group--fourth">
+            <div class="input-group">
+              <span class="text-label">Country</span>
+                <span>
+                  <%= @user.country || 'none' %>
+                </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <figure class="summary-box">
+        <div>
+          <span><%= @user.sign_in_count %></span>
+        </div>
+        <figcaption>Total Logins</figcaption>
+      </figure>
+
+      <figure class="summary-box">
+        <div>
+          <span><%= @user.creator_courses.count %></span><small></small>
+        </div>
+        <figcaption>Creator Courses</figcaption>
+      </figure>
+
+      <figure class="summary-box">
+        <div>
+          <span><%= @user.evaluator_courses.count %></span><small></small>
+        </div>
+        <figcaption>Evaluator Courses</figcaption>
+      </figure>
+
+      <figure class="summary-box">
+        <div>
+          <span><%= @user.groups.count %></span><small></small>
+        </div>
+        <figcaption>Groups</figcaption>
+      </figure>
+
+      <figure class="summary-box">
+        <div>
+          <span><%= @user.submissions.count %></span><small></small>
+        </div>
+        <figcaption>Submissions</figcaption>
+      </figure>
+    </div>
+  </div>
+
+<% end %>
+

@@ -47,13 +47,13 @@
       <tbody>
       <% @users.each do |user| %>
         <tr>
-          <th><%= link_to user.list_name, edit_admin_user_path(user) %></th>
+          <th><%= link_to user.list_name, admin_user_path(user) %></th>
           <td><%= user.org_identity %></td>
           <td><%= user.email %></td>
           <td><%= user.role %></td>
           <td>
             <% if user.last_sign_in_at %>
-              <%= user.last_sign_in_at %>
+              <%= distance_of_time_in_words_to_now(user.last_sign_in_at()) %> ago
             <% else %>
               Never logged in
             <% end %>

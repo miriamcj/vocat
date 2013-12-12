@@ -17,8 +17,12 @@ class ApplicationController < ActionController::Base
   # looks for a params filtering method named after the resource and assigns the results of that method
   # to the corresponding entry in params.
   before_filter do
-    resource = controller_name.singularize.to_sym
-    method = "#{resource}_params"
+    if respond_to?('cancan_params_method_override', true)
+      method = 'cancan_params_method_override'
+    else
+      resource = controller_name.singularize.to_sym
+      method = "#{resource}_params"
+    end
     params[resource] &&= send(method) if respond_to?(method, true)
   end
 
@@ -86,10 +90,15 @@ class ApplicationController < ActionController::Base
 
     def user_params
       params.require(:user).permit(:first_name,
+                                   :middle_name,
                                    :last_name,
                                    :password,
                                    :password_confirmation,
-                                   :email
+                                   :email,
+                                   :city,
+                                   :state,
+                                   :country,
+                                   :gender
       )
     end
 

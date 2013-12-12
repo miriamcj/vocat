@@ -91,7 +91,7 @@ Vocat::Application.routes.draw do
         end
       end
     end
-    resources :users, :except => [:show] do
+    resources :users do
       member do
         get 'courses'
       end

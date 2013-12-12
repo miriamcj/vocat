@@ -1,28 +1,54 @@
 <fieldset>
   <div class="input-group">
-    <%= f.label :email, {class: 'text-label'} %>
-    <%= f.text_field :email, {class: 'text-input'} %>
+    <div class="input-group--half">
+      <%= f.label :email, {class: 'text-label'} %>
+      <%= f.text_field :email, {class: 'text-input'} %>
+    </div>
+    <div class="input-group--half">
+      <%= f.label :org_identity, {class: 'text-label'} %>
+      <%= f.text_field :org_identity, {class: 'text-input'} %>
+    </div>
   </div>
   <div class="input-group">
-    <div class="input-group--half">
+    <div class="input-group--third">
       <%= f.label :first_name, {class: 'text-label'} %>
       <%= f.text_field :first_name, {class: 'text-input'} %>
     </div>
-    <div class="input-group--half">
+    <div class="input-group--third">
+      <%= f.label :middle_name, {class: 'text-label'} %>
+      <%= f.text_field :middle_name, {class: 'text-input'} %>
+    </div>
+    <div class="input-group--third">
       <%= f.label :last_name, {class: 'text-label'} %>
       <%= f.text_field :last_name, {class: 'text-input'} %>
     </div>
   </div>
-
   <div class="input-group">
-    <%= f.label :password, :class => 'text-label' %>
-    <%= f.password_field :password, :autocomplete => "off", :class => 'text-input' %>
-    <small class="input-message">Leave blank if you don't want to change it</small>
+    <div class="input-group--half">
+      <%= f.label :city, {class: 'text-label'} %>
+      <%= f.text_field :city, {class: 'text-input'} %>
+    </div>
+    <div class="input-group--half">
+      <%= f.label :state, {class: 'text-label'} %>
+      <%= f.text_field :state, {class: 'text-input'} %>
+    </div>
+  </div>
+  <div class="input-group">
+    <div class="input-group--half">
+      <%= f.label :country, {class: 'text-label'} %>
+      <%= f.text_field :country, {class: 'text-input'} %>
+    </div>
+    <div class="input-group--half">
+      <%= f.label :gender, {class: 'text-label'} %>
+      <%= f.text_field :gender, {class: 'text-input'} %>
+    </div>
+  </div>
+  <div class="input-group">
+    <div class="input-group--half">
+      <%= f.label :role, {class: 'text-label'} %>
+      <%= f.select :role, User::ROLES, {:include_blank => false}, {'data-behavior' => 'chosen'} %>
+    </div>
   </div>
 
-  <div class="input-group">
-    <%= f.label :password_confirmation, :class => 'text-label' %>
-    <%= f.password_field :password_confirmation, :class => 'text-input' %>
-  </div>
 
 </fieldset>

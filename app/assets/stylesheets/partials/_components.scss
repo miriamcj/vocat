@@ -610,14 +610,14 @@ a.table--heading {
 }
 
 .input-group--fourth {
-  width: 25%;
+  width: 21.825rem;
   float: left;
-  padding-right: 2.1rem;
-  &:nth-child(4) {
-	padding-right: 0;
+  margin-right: 2.1rem;
+  &:last-child {
+  	margin-right: 0;
   }
   select {
-	width: 20rem;
+    width: 21.825rem;
   }
   .input-group {
 	margin-bottom: 0;
@@ -625,26 +625,45 @@ a.table--heading {
 }
 
 .input-group--third {
-  width: 33%;
+  width: 29.8rem;
   float: left;
-  padding-right: 2.1rem;
-  &:nth-child(3) {
-	padding: 0 0 0 2.1rem;
+  margin-right: 2.1rem;
+  &:last-child {
+	margin-right: 0;
   }
   select {
-	width: 28.8rem;
+    width: 29.8rem;
   }
   .input-group {
 	margin-bottom: 0;
   }
 }
 
-.input-group--half {
-  width: 50%;
+.input-group--two-third {
+  width: 61.7rem;
   float: left;
-  padding-right: 2.1rem;
-  &:nth-child(2) {
-    padding: 0 0 0 2.1rem;
+  margin-right: 2.1rem;
+  &:last-child {
+    margin-right: 0;
+  }
+  select {
+    width: 61.7rem;
+  }
+  .input-group {
+    margin-bottom: 0;
+  }
+}
+
+
+.input-group--half {
+  width: 45.75rem;
+  float: left;
+  margin-right: 2.1rem;
+  &:last-child {
+    margin-right: 0;
+  }
+  select {
+    width: 45.75rem;
   }
   .input-group {
     margin-bottom: 0;

@@ -16,7 +16,6 @@ class User < ActiveRecord::Base
 
   serialize :settings, Hash
 
-
   delegate :can?, :cannot?, :to => :ability
 
   # Include default devise modules. Others available are:
@@ -31,6 +30,8 @@ class User < ActiveRecord::Base
   DEFAULT_SETTINGS = {
     'enable_glossary' => {value: false, type: 'boolean' }
   }
+
+  validates :first_name, :last_name, :role, :presence => true
 
   # Params is a hash of search values including (:department || :semester || :year) || :section
   def self.search(params)

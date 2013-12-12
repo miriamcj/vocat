@@ -1,0 +1,19 @@
+<% content_for :content_header do %>
+  Courses
+<% end %>
+
+<% content_for :content_header_links do %>
+  <%= link_to 'Back to Users', admin_users_path(), :class => 'gray-ex-button' %>
+<% end %>
+
+<% content_for :content_frames	 do %>
+
+  <%= render 'header', :subheader => 'Courses' %>
+
+  <div class="double-space-bottom">
+    <div data-region="creator-enrollment">
+    </div>
+  </div>
+
+<% end %>
+

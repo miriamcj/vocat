@@ -9,6 +9,7 @@ define [
     collections: {
       creator: new CreatorCollection([], {})
       evaluator: new EvaluatorCollection([], {})
+      course: new CourseCollection([], {})
     }
 
     manageEvaluators: (courseId) ->
@@ -27,4 +28,13 @@ define [
         })
         @collections.creator.courseId = courseId
         creatorEnrollmentView = new EnrollmentLayout({courseId: courseId, collection: @collections.creator})
+        Vocat.creatorEnrollment.show creatorEnrollmentView
+
+    manageCourses: (userId) ->
+      unless _.isNaN(parseInt(userId))
+        Vocat.addRegions({
+          creatorEnrollment: '[data-region="creator-enrollment"]'
+        })
+        @collections.course.courseId = courseId
+        creatorEnrollmentView = new EnrollmentLayout({userId: userId, collection: @collections.course})
         Vocat.creatorEnrollment.show creatorEnrollmentView

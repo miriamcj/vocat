@@ -15,6 +15,7 @@ define (require) ->
     admin: {
       'admin/courses/:course/evaluators': 'manageEvaluators'
       'admin/courses/:course/creators': 'manageCreators'
+      'admin/users/:user/courses': 'manageCourses'
     }
     coursemap: {
       'courses/:course/users/evaluations': 'userGrid'
