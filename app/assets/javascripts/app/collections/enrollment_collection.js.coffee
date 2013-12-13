@@ -27,17 +27,17 @@ define ['backbone', 'models/enrollment', 'collections/user_collection', 'collect
         course: searchModel.id
         user: searchModel.id
       }
-      if @courseId? then attributes.course = @courseId
-      if @userId? then attributes.user = @userId
+      if @scope.course? then attributes.course = @scope.course
+      if @scope.user? then attributes.user = @scope.user
 
       model = new @model(attributes)
       model
 
     url: () ->
       if @searchType() == 'user'
-        "/api/v1/courses/#{@courseId}/enrollments"
+        "/api/v1/courses/#{@scope.course}/enrollments"
       else
-        "/api/v1/users/#{@userId}/enrollments"
+        "/api/v1/users/#{@scope.user}/enrollments"
 
     comparator: (model) ->
       if @searchType() == 'user'
@@ -46,5 +46,4 @@ define ['backbone', 'models/enrollment', 'collections/user_collection', 'collect
         model.get('course_name')
 
     initialize: (models, options) ->
-      console.log options
       @scope = options.scope

@@ -22,7 +22,6 @@ define [
         Vocat.addRegions({
           creatorEnrollment: '[data-region="creator-enrollment"]'
         })
-        @collections.enrollment.courseId = courseId
         view = new EnrollmentLayout({collection: new EnrollmentCollection([], {scope: {course: courseId, role: 'creator'}})})
         Vocat.creatorEnrollment.show view
 
@@ -31,6 +30,5 @@ define [
         Vocat.addRegions({
           creatorEnrollment: '[data-region="creator-enrollment"]'
         })
-        @collections.enrollment.userId = userId
         view = new EnrollmentLayout({collection: new EnrollmentCollection([], {scope: {user: userId}})})
         Vocat.creatorEnrollment.show view
