@@ -1,0 +1,39 @@
+<% content_for :content_header do %>
+  Users
+<% end %>
+
+<% content_for :content_header_links do %>
+  <%= link_to 'Back to Users', admin_users_path(), :class => 'gray-ex-button' %>
+<% end %>
+
+<% content_for :content_intro do %>
+<% end %>
+
+<% content_for :content_frames	 do %>
+
+  <header class="button-header">
+    <h2 class="button-header--title space-bottom">Create a new user</h2>
+  </header>
+  <%= form_errors @user %>
+
+  <%= form_for [:admin, @user] do |f| %>
+
+    <div class="input-group">
+      <div class="input-group--half">
+        <%= f.label :password, {class: 'text-label'} %>
+        <%= f.password_field :password, {class: 'text-input'} %>
+      </div>
+      <div class="input-group--half">
+        <%= f.label :password_confirmation, {class: 'text-label'} %>
+        <%= f.password_field :password_confirmation, {class: 'text-input'} %>
+      </div>
+    </div>
+
+    <%= render 'form', :f => f %>
+    <div class="input-group">
+      <%= link_to 'Back', admin_users_path(), :class => 'gray-ex-button' %>
+      <%= f.submit 'Create User', :class => 'teal-plus-button' %>
+    </div>
+  <% end %>
+<% end %>
+

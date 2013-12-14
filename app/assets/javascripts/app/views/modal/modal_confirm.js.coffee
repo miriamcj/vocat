@@ -8,6 +8,7 @@ define ['marionette', 'hbs!templates/modal/modal_confirm'], (Marionette, templat
     confirmLabel: 'Yes, proceed'
     dismissLabel: 'Cancel'
     confirmEvent: 'modal:confirm'
+    confirmHref: null
     dismissEvent: 'modal:dismiss'
 
     triggers: {
@@ -21,8 +22,15 @@ define ['marionette', 'hbs!templates/modal/modal_confirm'], (Marionette, templat
       if code == 27 then @onClickDismiss()
 
     onClickConfirm: () ->
-      @vent.triggerMethod(Marionette.getOption(@, 'confirmEvent'))
-      Vocat.vent.trigger('modal:close')
+      if Marionette.getOption(@, 'confirmElement')?
+        Vocat.vent.trigger('modal:close')
+        $el = Marionette.getOption(@, 'confirmElement')
+        $el.addClass('modal-blocked')
+        $el.click()
+        $el.removeClass('modal-blocked')
+      else
+        @vent.triggerMethod(Marionette.getOption(@, 'confirmEvent'))
+        Vocat.vent.trigger('modal:close')
 
     onClickDismiss: () ->
       @vent.triggerMethod(Marionette.getOption(@, 'dismissEvent'))

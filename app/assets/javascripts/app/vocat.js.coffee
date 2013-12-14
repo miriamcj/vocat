@@ -4,8 +4,8 @@ define (require) ->
   Backbone = require('backbone')
   HelpPlacardView = require('views/help/placard')
   GlossaryToggleView = require('views/layout/glossary_toggle')
-  GlossaryToggleView = require('views/layout/glossary_toggle')
   ModalLayoutView = require('views/modal/modal_layout')
+  ModalConfirmView = require('views/modal/modal_confirm')
   FlashMessagesView = require('views/flash/flash_messages')
   FlashMessagesCollection = require('collections/flash_message_collection')
 
@@ -103,10 +103,27 @@ define (require) ->
         when 'submission' then require ['controllers/submission_controller'], (SubmissionController) ->
           instantiateRouter(SubmissionController, 'submission')
 
+
   Vocat.on('initialize:before', () ->
 
     modal = new ModalLayoutView(vent: @)
     Vocat.modal.show(modal)
+
+    # Handle confirmation on data-modalconfirm elements
+    $('[data-modalconfirm]').each (index, el) ->
+      $el = $(el)
+      $el.on('click', (e) =>
+        unless $el.hasClass('modal-blocked')
+          e.preventDefault()
+          e.stopPropagation()
+          Vocat.vent.trigger('modal:open', new ModalConfirmView({
+            vent: Vocat,
+            descriptionLabel: $el.attr('data-modalconfirm'),
+            confirmElement: $el
+            dismissEvent: 'dismiss:publish'
+          }))
+      )
+
 
     helpPlacardViews = []
     $('[data-view="help-placard"]').each( (index, el) ->

@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :creator_courses, :class_name => "::Course", :join_table => "courses_creators"
   has_and_belongs_to_many :groups, :join_table => "groups_creators"
 
-  has_many :submissions, :as => :creator
+  has_many :submissions, :as => :creator, :dependent => :destroy
 
   default_scope { order("last_name ASC") }
   scope :evaluators, -> { where(:role => "evaluator") }
@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
   serialize :settings, Hash
 
   delegate :can?, :cannot?, :to => :ability
+  delegate :name, :to => :organization, :prefix => true, :allow_nil => true
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -36,9 +37,9 @@ class User < ActiveRecord::Base
   # Params is a hash of search values including (:department || :semester || :year) || :section
   def self.search(params)
     u = User.all
-    u = u.where({last_name: params[:last_name]}) unless params[:last_name].blank?
-    u = u.where({email: params[:email]}) unless params[:email].blank?
-    u = u.where({role: params[:role]}) unless params[:role].blank?
+    if params[:last_name] then u = u.where(["lower(last_name) LIKE :last_name", {:last_name => "#{params[:last_name].downcase}%"}]) end
+    if params[:email] then u = u.where(["lower(email) LIKE :email", {:email => "#{params[:email].downcase}%"}]) end
+    if params[:role] then u = u.where({role: params[:role]}) unless params[:role].blank? end
     u
   end
 

@@ -96,6 +96,8 @@ Vocat::Application.routes.draw do
     resources :users do
       member do
         get 'courses'
+        get 'edit_password'
+        patch 'update_password'
       end
     end
     resources :rubrics

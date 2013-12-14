@@ -15,5 +15,7 @@
     <li><%= link_to 'Evaluators', evaluators_admin_course_path(@course) %></li>
     <li><%= link_to 'Creators', creators_admin_course_path(@course) %></li>
     <li><%= link_to 'Export Data', export_admin_course_path(@course) %></li>
+    <li><%= link_to 'Delete', admin_course_path(@course), :method => :delete, :data => { :modalconfirm => 'Deleting this course will also delete all associated submissions, projects, and evaluations. This action is not reversible. Are you sure you would like to proceed?'} %></li>
+
   </ul>
 </nav>

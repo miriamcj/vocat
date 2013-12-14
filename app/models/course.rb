@@ -7,8 +7,7 @@ class Course < ActiveRecord::Base
   has_many :projects, :dependent => :destroy
   has_many :groups, :dependent => :destroy
   has_one :project_type
-  has_many :submissions, :through => :projects
-
+  has_many :submissions, :through => :projects, :dependent => :destroy
   delegate :name, :to => :semester, :prefix => true
 
   accepts_nested_attributes_for :groups
@@ -102,14 +101,15 @@ class Course < ActiveRecord::Base
   end
 
   def submission_video_percentage()
+    out = 0
     video_count = Video.count_by_course(self)
     if video_count > 0
       possible_submissions = creators.count * projects.count
-      out = ((video_count.to_f / possible_submissions.to_f) * 100).round
-      out
-    else
-      0
+      if possible_submissions.to_f > 0
+        out = ((video_count.to_f / possible_submissions.to_f) * 100).round
+      end
     end
+    out
   end
 
   def average_evaluator_score()

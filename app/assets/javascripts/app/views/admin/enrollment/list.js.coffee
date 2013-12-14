@@ -2,6 +2,8 @@ define (require) ->
 
   Marionette = require('marionette')
   ItemView = require('views/admin/enrollment/item')
+  EmptyCoursesView = require('views/admin/enrollment/empty_courses')
+  EmptyUsersView = require('views/admin/enrollment/empty_users')
   templateCourses = require('hbs!templates/admin/enrollment/list_courses')
   templateUsers = require('hbs!templates/admin/enrollment/list_users')
 
@@ -12,6 +14,8 @@ define (require) ->
 
     itemViewContainer: "tbody",
     itemView: ItemView
+
+    emptyView: EmptyCoursesView
 
     getTemplate: () =>
       if @collection.searchType() == 'user' then templateUsers else templateCourses
@@ -39,6 +43,10 @@ define (require) ->
 
     initialize: (options) ->
       @vent = options.vent
-      console.log @collection
+
+      if @collection.searchType() == 'user'
+        @emptyView = EmptyUsersView
+      else
+        @emptyView = EmptyCoursesView
 
       @collection.fetch()

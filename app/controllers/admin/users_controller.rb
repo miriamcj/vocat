@@ -38,6 +38,7 @@ class Admin::UsersController < ApplicationController
 
   # POST /admin/users/1
   def create
+    @user.organization = @current_organization
     flash[:notice] = "Successfully created user." if @user.save
     respond_with(:admin, @user)
   end
@@ -45,12 +46,28 @@ class Admin::UsersController < ApplicationController
   # DELETE /admin/users/1
   def destroy
     @user.destroy()
-    respond_with @user
+    respond_with(:admin, @user)
   end
+
+  def edit_password
+    respond_with(:admin, @user)
+  end
+
+  def update_password
+    filtered_params = user_params
+    @user.password = filtered_params[:password]
+    @user.password_confirmation = filtered_params[:password_confirmation]
+    if @user.save
+      flash[:notice] = 'Password was successfully updated.'
+      respond_with :admin, @user, :location => edit_password_admin_user_path(@user)
+    else
+      render :edit_password
+    end
+  end
+
 
   # GET /admin/users/1/courses
   def courses
-
   end
 
   protected

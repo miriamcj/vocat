@@ -1,6 +1,6 @@
 class Submission < ActiveRecord::Base
 
-  has_one :video
+  has_one :video, :dependent => :destroy
   has_many :evaluations, :dependent => :destroy
   has_many :discussion_posts, :dependent => :destroy
 	has_one :course, :through => :project
