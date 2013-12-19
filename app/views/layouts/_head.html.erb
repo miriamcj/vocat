@@ -17,6 +17,7 @@
 
 <script type="text/javascript">
   window.VocatSessionData = JSON.parse('<%= raw @session_data.to_json %>');
+  window.VocatUserRole = '<%= current_user_role %>';
 </script>
 
 <%= stylesheet_link_tag "application", :media => "all" %>

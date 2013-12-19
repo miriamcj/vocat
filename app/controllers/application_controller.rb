@@ -162,7 +162,23 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    def rubric_params
+    def admin_rubric_params
+      params.require(:rubric).permit(:name,
+                                     :description,
+                                     :cells,
+                                     :fields,
+                                     :ranges,
+                                     :high,
+                                     :public,
+                                     :low
+      ).tap do |whitelisted|
+        whitelisted[:ranges] = params[:rubric][:ranges]
+        whitelisted[:fields] = params[:rubric][:fields]
+        whitelisted[:cells] = params[:rubric][:cells]
+      end
+    end
+
+    def non_admin_rubric_params
       params.require(:rubric).permit(:name,
                                      :description,
                                      :cells,
@@ -174,6 +190,14 @@ class ApplicationController < ActionController::Base
         whitelisted[:ranges] = params[:rubric][:ranges]
         whitelisted[:fields] = params[:rubric][:fields]
         whitelisted[:cells] = params[:rubric][:cells]
+      end
+    end
+
+    def rubric_params
+      if current_user.role?('administrator')
+        admin_rubric_params
+      else
+        non_admin_rubric_params
       end
     end
 

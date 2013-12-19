@@ -11,8 +11,17 @@
     <fieldset>
       <div class="input-group">
         <div class="input-group--fourth">
-          <%= label_tag :name, 'Name', {:class => 'text-label'} %>
+          <%= label_tag :name, 'Rubric Name', {:class => 'text-label'} %>
           <%= text_field_tag(:name, params[:name], {:class => 'text-input'}) %>
+        </div>
+        <div class="input-group--fourth">
+          <%= label_tag :public, 'Is Rubric Public?', {:class => 'text-label'} %>
+          <%= select_tag(:public, options_for_select([['Yes',true],['No',false]], params[:public]), {:include_blank => true, 'data-behavior' => 'chosen'}) %>
+        </div>
+        <div class="input-group--third">
+          <label class="text-label">&nbsp;</label>
+          <%= submit_tag('Filter Rubrics', {:class => 'large-teal-button'}) %>
+          <%= link_to 'reset', admin_rubrics_path, {:class => 'large-teal-button'} %>
         </div>
       </div>
     </fieldset>
@@ -27,17 +36,26 @@
       <tr>
         <th>Name</th>
         <th>Owner</th>
-        <th>Projects Count</th>
+        <th>Projects</th>
         <th>Public?</th>
+        <th>Actions?</th>
       </tr>
       </thead>
       <tbody>
       <% @rubrics.each do |rubric| %>
         <tr>
           <th><%= link_to rubric.name, admin_rubric_path(rubric) %></th>
-          <td><%= link_to rubric.owner.name, admin_user_path(rubric.owner) %></td>
+          <td><%= rubric.owner_name %></td>
           <td><%= rubric.projects.count %></td>
           <td><%= human_boolean rubric.public? %></td>
+          <td><strong>
+            <%= link_to 'Clone', clone_admin_rubric_path(rubric), :method => :post %> /
+            <%= link_to 'Modify', edit_admin_rubric_path(rubric) %> /
+            <%= link_to 'Delete', admin_rubric_path(rubric), :method => :delete,
+                        :data => { :modalconfirm => 'Deleting this rubric will prevent users from seeing any evaluations associated with thie rubric. Projects using this rubric will not longer be able to be scored. Are you sure you want to do this?'}
+            %>
+
+          </strong></td>
         </tr>
       <% end %>
       </tbody>

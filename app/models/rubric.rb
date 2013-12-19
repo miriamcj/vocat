@@ -15,6 +15,8 @@ class Rubric < ActiveRecord::Base
   validates :name, :owner, :low, :high, :presence => true
   validate :validate_ranges
 
+  delegate :name, :to => :owner, :prefix => true, :allow_nil => true
+
   after_initialize :ensure_ranges
   after_initialize :ensure_fields
   after_initialize :ensure_cells
@@ -34,8 +36,31 @@ class Rubric < ActiveRecord::Base
   # Params is a hash of search values including (:department || :semester || :year) || :section
   def self.search(params)
     r = Rubric.all
+    if params[:name] then r = r.where(["lower(name) LIKE :name", {:name => "#{params[:name].downcase}%"}]) end
+    if params[:public] then r = r.where(:public => params[:public]) end
     r
   end
+
+  # Currently, filters is a hash that should include start_year, end_year, start_semester, and end_semester (semester IDs)
+  def evaluations_filtered(filters)
+    e = evaluations
+    if !filters[:start_year].blank? && !filters[:end_year].blank? && !filters[:start_semester].blank? && !filters[:end_semester].blank?
+      e = e.joins(:project => {:course => :semester})
+      start_year = filters[:start_year]
+      end_year = filters[:end_year]
+      start_position = Semester.find(filters[:start_semester]).position
+      end_position = Semester.find(filters[:end_semester]).position
+      if start_position > 0 && end_position > 0
+        e = e.where(' (
+                        (semesters.position >= :start_position AND courses.year = :start_year) AND
+                        (semesters.position <= :end_position AND courses.year = :end_year)
+                      ) OR (courses.year > :start_year AND courses.year < :end_year)',
+                    {start_position: start_position, start_year: start_year, end_year: end_year, end_position: end_position})
+      end
+    end
+    e
+  end
+
 
   def ensure_fields()
     self.fields = [] unless self.fields.kind_of? Array
@@ -56,7 +81,7 @@ class Rubric < ActiveRecord::Base
   def clone()
     rubric = self.dup
     rubric.public = false
-    rubric.owner.delete unless rubric.owner.nil?
+    rubric.owner = nil
     rubric.projects.delete
     rubric.name << ' - cloned'
     rubric

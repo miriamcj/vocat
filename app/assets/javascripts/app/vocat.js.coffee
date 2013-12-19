@@ -13,7 +13,7 @@ define (require) ->
 
   Vocat.routes = {
     admin: {
-      'admin/courses/:course/evaluators': 'evaluatorEnrollment'
+        'admin/courses/:course/evaluators': 'evaluatorEnrollment'
       'admin/courses/:course/creators': 'creatorEnrollment'
       'admin/users/:user/courses': 'courseEnrollment'
     }
@@ -79,7 +79,6 @@ define (require) ->
           controllerName = routeKey
 
     if controllerName != false
-      controllerPath = "controllers/#{controllerName}_controller"
 
       instantiateRouter = (Controller, controllerName) ->
         subRoutes = Vocat.routes[controllerName]
@@ -177,6 +176,6 @@ define (require) ->
   # session data and need to persist across page reloads. We want these variables stored in high-level
   # location rather than in individual views.
   Vocat.glossaryEnabled = window.VocatSessionData? && window.VocatSessionData.enable_glossary? && window.VocatSessionData.enable_glossary == true
-
+  Vocat.currentUserRole = window.VocatUserRole
   return Vocat
 

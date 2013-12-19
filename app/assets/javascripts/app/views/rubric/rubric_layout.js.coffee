@@ -30,6 +30,7 @@ define (require) ->
       'keyup [data-behavior="rubric-desc"]': 'handleDescChange'
       'change [data-behavior="rubric-low"]': 'handleLowChange'
       'change [data-behavior="rubric-high"]': 'handleHighChange'
+      'change [data-field="rubric-public"]': 'handlePublicChange'
       'click [data-trigger="save"]': 'handleSaveClick'
       'click [data-trigger="rangeAdd"]': 'handleRangeAdd'
       'click [data-trigger="fieldAdd"]': 'handleFieldAdd'
@@ -43,6 +44,8 @@ define (require) ->
 
     ui: {
       nameInput: '[data-behavior="rubric-name"]'
+      publicInput: '[data-field="rubric-public"]'
+      selectedPublicInput: '[data-behavior="rubric-public"]:checked'
       descInput: '[data-behavior="rubric-desc"]'
       lowInput: '[data-behavior="rubric-low"]'
       highInput: '[data-behavior="rubric-high"]'
@@ -50,6 +53,9 @@ define (require) ->
       sliderLeft: '[data-behavior="matrix-slider-left"]'
       sliderRight: '[data-behavior="matrix-slider-right"]'
     }
+
+    handlePublicChange: (event) ->
+      @model.set('public', @ui.publicInput.val())
 
     handleLowChange: (event) ->
       @model.setLow(@ui.lowInput.val())
@@ -101,6 +107,14 @@ define (require) ->
       numbers = _.uniq(numbers).sort((a, b) -> a - b)
       numbers
 
+    serializeData: () ->
+      results = super()
+      if Vocat.currentUserRole == 'administrator'
+        results.current_user_is_admin = true
+      else
+        results.current_user_is_admin = false
+      results
+
     initialize: (options) ->
       unless @model
         if options.rubricId
@@ -116,7 +130,6 @@ define (require) ->
                 @sliderRecalculate()
                 @views.rangePicker.render()
               )
-
           })
         else
           @model = new RubricModel({})
@@ -151,5 +164,9 @@ define (require) ->
 
       @ui.highInput.val(@model.getHigh())
       @ui.lowInput.val(@model.getLow())
+
+      @ui.publicInput.chosen({
+        disable_search_threshold: 1000
+      })
 
       @sliderRecalculate()

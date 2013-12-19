@@ -44,8 +44,8 @@ baruch  = Organization.create(:name => "Baruch College")
 other   = Organization.create(:name => Faker::Company.name)
 
 # Create developer user accounts
-first_names = %w(Casey Clark Gabe Lucas Peter Scott Zach)
-last_names = %w(Williams Burns Blair Thurston Soots Mills Davis)
+first_names = %w(Casey Clark Gabe Lucas Peter Scott Zach Blsci)
+last_names = %w(Williams Burns Blair Thurston Soots Mills Davis Institute)
 admin = nil
 first_names.each_with_index do |first_name, index|
   u = User.create(:email => "#{first_name}@castironcoding.com", :org_identity => rand(11111111..99999999), :password => "testtest123", :first_name => first_name, :last_name => last_names[index])

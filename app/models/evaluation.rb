@@ -7,6 +7,7 @@ class Evaluation < ActiveRecord::Base
   has_one :user, :through => :submission, :source => :creator, :source_type => 'User'
   has_one :group, :through => :submission, :source => :creator, :source_type => 'Group'
   has_one :project, :through => :submission
+  has_one :course, :through => :project
   belongs_to :submission
   belongs_to :rubric
 
@@ -113,12 +114,16 @@ class Evaluation < ActiveRecord::Base
     total_percentage.round(0)
   end
 
+  def evaluation_type_human_readable
+    if evaluation_type == EVALUATION_TYPE_CREATOR then 'peer' else 'instructor' end
+  end
+
   def to_csv_header_row
-    ['Vocat ID', 'Evaluator', 'Creator', 'Type', 'Project Name', 'Percentage', 'Total Score', 'Points Possible']
+    ['Vocat ID', 'Evaluator','Section','Course', 'Semester', 'Year', 'Creator', 'Evaluation Type', 'Project Name', 'Percentage', 'Total Score', 'Points Possible']
   end
 
   def to_csv
-    [id, evaluator_name, creator.name, evaluation_type, project.name, total_percentage_rounded, total_score, points_possible]
+    [id, evaluator_name, course.section, "#{course.department}#{course.number}", course.semester, course.year, creator.name, evaluation_type_human_readable, project.name, total_percentage_rounded, total_score, points_possible]
   end
 
 end

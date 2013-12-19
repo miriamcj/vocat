@@ -26,6 +26,17 @@
 				    <small class="input-message">VOCAT's max score is 100</small>
 			    </div>
 		    </div>
+		    {{#if current_user_is_admin}}
+		    <div class="input-group--third">
+			    <div class="input-group">
+				    <label class="text-label">Is this a system-wide rubric?</label>
+				    <select data-behavior="chosen" data-field="rubric-public">
+					    <option {{#unless public}}selected="selected"{{/unless}} value="false">No</option>
+					    <option {{#if public}}selected="selected"{{/if}} value="true">Yes</option>
+				    </select>
+			    </div>
+		    </div>
+				{{/if}}
 	    </div>
 	    <div class="input-group" >
 		    <label class="text-label">Rubric Score Ranges</label>

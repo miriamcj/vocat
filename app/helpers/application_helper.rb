@@ -60,4 +60,13 @@ module ApplicationHelper
     controller.send :_layout
   end
 
+  def current_user_role
+    myvar = current_user
+    if current_user.nil?
+      return ''
+    else
+      return current_user.role
+    end
+  end
+
 end

@@ -85,10 +85,10 @@ Vocat::Application.routes.draw do
         get 'evaluators'
         get 'creators'
         get 'export'
-        resource :reports, :only => [:index] do
+        resource :reports, :only => [] do
           member do
-            get 'roster'
-            get 'scores'
+            get 'course_roster'
+            get 'course_scores'
           end
         end
       end
@@ -100,7 +100,17 @@ Vocat::Application.routes.draw do
         patch 'update_password'
       end
     end
-    resources :rubrics
+    resources :rubrics, :except => [:create, :update] do
+      member do
+        post 'clone'
+        get 'export'
+        resource :reports, :only => [] do
+          member do
+            get 'rubric_scores'
+          end
+        end
+      end
+    end
   end
 
   get '/admin' => 'admin/courses#index', :as => 'admin'
@@ -109,14 +119,5 @@ Vocat::Application.routes.draw do
   get '/dashboard/evaluator' => 'dashboard#evaluator', :as => 'dashboard_evaluator'
   get '/dashboard/creator' => 'dashboard#creator', :as => 'dashboard_creator'
   get '/dashboard/admin' => 'dashboard#admin', :as => 'dashboard_admin'
-
-
-
-
-#  resources :rubrics, :controller => 'admin/rubrics', :only => [:create, :update, :delete]
-#  namespace :admin do
-#    resources :rubrics, :only => [:index, :new, :show, :destroy, :edit]
-#  end
-
 
 end

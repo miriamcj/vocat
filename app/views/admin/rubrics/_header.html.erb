@@ -13,5 +13,6 @@
     <li><%= link_to 'Overview', admin_rubric_path(@rubric) %></li>
     <li><%= link_to 'Modify', edit_admin_rubric_path(@rubric) %></li>
     <li><%= link_to 'Delete', admin_rubric_path(@rubric), :method => :delete, :data => { :modalconfirm => 'This action is not reversible. Are you sure you would like to proceed?'} %></li>
+    <li><%= link_to 'Export Data', export_admin_rubric_path(@rubric) %></li>
   </ul>
 </nav>
