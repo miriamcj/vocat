@@ -143,6 +143,10 @@ class Course < ActiveRecord::Base
     return :evaluator if evaluators.include? user
   end
 
+  def name_long
+    self.to_s
+  end
+
   private
 
   def get_boolean_setting_value(key)

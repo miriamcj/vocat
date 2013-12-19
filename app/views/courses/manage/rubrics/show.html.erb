@@ -20,40 +20,5 @@
 <% end %>
 
 <% content_for :content_frames	 do %>
-  <table class="table">
-    <thead>
-    <tr>
-      <th>Criteria</th>
-      <% @rubric.ranges.each do |range| %>
-        <th>
-          <strong style="color: #676263"><%= "#{range[:low]} - #{range[:high]}" %></strong>
-          <%= range[:name] %>
-        </th>
-      <% end %>
-    </tr>
-    </thead>
-    <tbody>
-    <% @rubric.fields.each do |field| %>
-      <tr>
-        <th>
-          <%= field[:name] %>
-        </th>
-        <% @rubric.ranges.each do |range| %>
-          <% cell = @rubric.get_cell(field[:id], range[:id]) %>
-          <td>
-            <% unless cell.nil? %>
-              <p>
-                <strong style="color: #676263"><%= "#{range[:name]} (#{range[:low]} to #{range[:high]} points)" %></strong>
-              </p>
-              <p>
-                <%= cell[:description] %>
-              </p>
-            <% end %>
-          </td>
-        <% end %>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
-
+  <%= render 'shared/rubric_show' %>
 <% end %>

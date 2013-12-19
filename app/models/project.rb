@@ -12,7 +12,6 @@ class Project < ActiveRecord::Base
   delegate :name, :to => :course, :prefix => true
   delegate :section, :to => :course, :prefix => true
   delegate :name_long, :to => :course, :prefix => true
-  delegate :name_long, :to => :course, :prefix => true
   delegate :id, :to => :course, :prefix => true
 
   validates :name, :description, :presence => true

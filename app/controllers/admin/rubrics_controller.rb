@@ -1,6 +1,7 @@
 class Admin::RubricsController < ApplicationController
 
-  authorize_resource :rubric
+  load_and_authorize_resource :rubric
+  respond_to :html
   layout 'content'
 
   def index
@@ -9,7 +10,7 @@ class Admin::RubricsController < ApplicationController
   end
 
   def new
-
+    respond_with @rubric, :layout => 'frames'
   end
 
   def create
@@ -17,11 +18,11 @@ class Admin::RubricsController < ApplicationController
   end
 
   def show
-
+    respond_with @rubric
   end
 
   def edit
-
+    respond_with @rubric, :layout => 'frames'
   end
 
   def update
@@ -29,7 +30,8 @@ class Admin::RubricsController < ApplicationController
   end
 
   def destroy
-
+    @rubric.destroy()
+    respond_with :admin, @rubric
   end
 
 

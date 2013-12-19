@@ -1,0 +1,55 @@
+<% content_for :content_header do %>
+  Rubrics
+<% end %>
+
+<% content_for :content_header_links do %>
+  <%= link_to 'Back to Rubric List', admin_rubrics_path(), :class => 'gray-ex-button' %>
+<% end %>
+
+<% content_for :content_intro do %>
+<% end %>
+
+<% content_for :content_frames	 do %>
+
+  <%= render 'header', :subheader => 'Overview' %>
+
+  <div class="clearfix space-bottom">
+
+    <figure class="summary-box">
+      <div>
+        <b style="height: <%= @rubric.average_total_percentage() %>%"></b>
+        <span><%= round @rubric.average_total_percentage() %></span><small>%</small>
+      </div>
+      <figcaption>Average Score</figcaption>
+    </figure>
+
+    <figure class="summary-box">
+      <div>
+        <b style="height: <%= @rubric.average_total_instructor_percentage() %>%"></b>
+        <span><%= round @rubric.average_total_instructor_percentage() %></span><small>%</small>
+      </div>
+      <figcaption>Average Peer Score</figcaption>
+    </figure>
+
+    <figure class="summary-box">
+      <div>
+        <b style="height: <%= @rubric.average_total_peer_percentage() %>%"></b>
+        <span><%= round @rubric.average_total_peer_percentage() %></span><small>%</small>
+      </div>
+      <figcaption>Average Instructor Score</figcaption>
+    </figure>
+
+    <figure class="summary-box">
+      <div>
+        <span><%= @rubric.evaluation_count() %></span>
+      </div>
+      <figcaption>Evaluations using this rubric</figcaption>
+    </figure>
+
+  </div>
+
+  <div class="table-wrapper">
+  <%= render 'shared/rubric_show' %>
+  </div>
+<% end %>
+

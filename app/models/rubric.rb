@@ -74,6 +74,22 @@ class Rubric < ActiveRecord::Base
     Evaluation.includes(:project).where(projects: {rubric_id: self}).average('total_percentage')
   end
 
+  def average_total_peer_percentage()
+    Evaluation.includes(:project, :evaluator).where(projects: {rubric_id: self}).where(users: {role: 'creator'}).average('total_percentage')
+  end
+
+  def average_total_instructor_percentage()
+    Evaluation.includes(:project, :evaluator).where(projects: {rubric_id: self}).where(users: {role: 'evaluator'}).average('total_percentage')
+  end
+
+  def evaluation_count()
+    Evaluation.includes(:project, :evaluator).where(projects: {rubric_id: self}).where(published: true).count()
+  end
+
+  def score_percentage_by_field_and_range
+
+  end
+
   def add_field(hash = {})
     if hash.has_key?('id') || hash['id'].blank?
 	    hash['id'] = hash['name'].parameterize

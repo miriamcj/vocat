@@ -23,6 +23,14 @@ module ApplicationHelper
     end
   end
 
+  def round(float, precision = 1)
+    if float.nil?
+      0
+    else
+      "%.#{precision}f" % float
+    end
+  end
+
   def serialize_flash()
     if flash.any?
       messages = []
@@ -46,6 +54,10 @@ module ApplicationHelper
   def avatar_url(user, size)
     gravatar_id = Digest::MD5.hexdigest(user.email.downcase)
     "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}&d=mm"
+  end
+
+  def debug_current_layout
+    controller.send :_layout
   end
 
 end

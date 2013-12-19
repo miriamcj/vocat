@@ -40,8 +40,10 @@ define (require) ->
 #    }
     rubric: {
       'courses/:course/manage/rubrics/new': 'new'
+      'admin/rubrics/new': 'new'
       'rubrics/new': 'new'
       'courses/:course/manage/rubrics/:rubric/edit': 'edit'
+      'admin/rubrics/:rubric/edit': 'editWithoutCourse'
       'rubrics/:rubric/edit': 'editWithoutCourse'
     }
     submission: {

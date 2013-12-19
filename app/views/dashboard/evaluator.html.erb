@@ -14,7 +14,7 @@ Dashboard
   <% current_user.courses.each do |course| %>
     <div class="portfolio-frame">
       <h2 class="frame--title"><%= link_to course, course_user_evaluations_path(course)  %></h2>
-      <%= render 'dashboard/course_synopsis', :course => course %>
+      <%= render 'shared/course_synopsis', :course => course %>
     </div>
   <% end %>
 <% end %>
