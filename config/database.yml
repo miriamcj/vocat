@@ -19,21 +19,11 @@ common: &common
 
 production:
   <<: *common
-  port: prod_port
+  port: <%= prod_port %>
 
 development:
   <<: *common
   database: vocat_development
-
-test:
-  <<: *common
-  database: vocat_test
-
-# For testing
-
-#staging:
-#  <<: *common
-#  database: vocat_development
 
 staging:
   adapter: postgresql
@@ -43,3 +33,8 @@ staging:
   username: vocat
   password: vocat
   database: vocat
+
+test:
+  <<: *common
+  database: vocat_test
+
