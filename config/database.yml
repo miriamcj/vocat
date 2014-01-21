@@ -4,6 +4,10 @@
   url = ENV["BOXEN_POSTGRESQL_URL"]
   port = ENV["BOXEN_POSTGRESQL_PORT"]
 
+  prod_port = ENV["APP_POSTGRESQL_PORT"]
+  prod_user = ENV["APP_POSTGRESQL_USER"]
+  prod_pass = ENV["APP_POSTGRESQL_PASS"]
+
 %>
 
 common: &common
@@ -12,6 +16,10 @@ common: &common
   encoding: unicode
   pool: 5
   port: <%= port %>
+
+production:
+  <<: *common
+  port: prod_port
 
 development:
   <<: *common
