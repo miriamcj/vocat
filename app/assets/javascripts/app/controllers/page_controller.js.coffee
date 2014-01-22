@@ -1,7 +1,7 @@
 define [
-  'marionette', 'controllers/vocat_controller', 'views/page/help_test', 'models/cell', 'views/rubric/cell_edit'
+  'marionette', 'controllers/vocat_controller', 'views/page/help_test', 'models/cell', 'views/property_editor/long_text_input'
 ], (
-  Marionette, VocatController, HelpTestView, CellModel, CellEditView
+  Marionette, VocatController, HelpTestView, CellModel, LongTextInputView
 ) ->
 
   class PageController extends VocatController
@@ -14,4 +14,4 @@ define [
 
     modalDev: () ->
       model = new CellModel({description: 'this is the description'})
-      Vocat.vent.trigger('modal:open', new CellEditView({model: model, vent: Vocat.vent}))
+      Vocat.vent.trigger('modal:open', new LongTextInputView({model: model, vent: Vocat.vent}))

@@ -32,7 +32,7 @@
     @extend %icon-#{$image};
   }
   @else {
-    background-image: url('svg/#{$image}.svg');
+    background-image: url(image-path('svg/#{$image}.svg'));
   }
   background-size: contain;
   background-position: left top;
