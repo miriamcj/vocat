@@ -515,7 +515,7 @@ input%proto-button {
       background-color: $beigeLight;
     }
     &:after {
-      background: transparent url('spinner-tealLight.png') no-repeat left top;
+      background: transparent url(image-path('spinner-tealLight.png')) no-repeat left top;
       background-size: 100%;
     }
   }
@@ -1465,10 +1465,10 @@ input%proto-button {
   @include background-size(contain);
   background-color: $tealLighter;
   @if $mode == production {
-    background-image: inline-image('bg-criterion.png');
+    background-image: inline-image(image-path('bg-criterion.png'));
   }
   @else {
-    background-image: url('bg-criterion.png');
+    background-image: url(image-path('bg-criterion.png'));
   }
   background-repeat: repeat-y;
   background-position: right top;
@@ -1476,10 +1476,10 @@ input%proto-button {
   &:hover {
     background-color: $orangeLight;
     @if $mode == production {
-      background-image: inline-image('bg-criterion-hover.png');
+      background-image: inline-image(image-path('bg-criterion-hover.png'));
     }
     @else {
-      background-image: url('bg-criterion-hover.png');
+      background-image: url(image-path('bg-criterion-hover.png'));
     }
     .indicator {
       background-color: $orange;

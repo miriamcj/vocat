@@ -2464,7 +2464,7 @@ a.table--heading {
   }
   .alert--label {
     width: $width;
-    background: transparent url('alert-labels/alert-success.png') no-repeat left top;
+    background: transparent url(image-path('alert-labels/alert-success.png')) no-repeat left top;
     background-size: contain;
     .no-backgroundsize & {
       @extend .icon-alert-success;
@@ -2481,7 +2481,7 @@ a.table--heading {
   }
   .alert--label {
     width: $width;
-    background: transparent url('alert-labels/alert-notice.png') no-repeat left top;
+    background: transparent url(image-path('alert-labels/alert-notice.png')) no-repeat left top;
     background-size: contain;
     .no-backgroundsize & {
       @extend .icon-alert-notice;
@@ -2498,7 +2498,7 @@ a.table--heading {
   }
   .alert--label {
     width: $width;
-    background: transparent url('alert-labels/alert-alert.png') no-repeat left top;
+    background: transparent url(image-path('alert-labels/alert-alert.png')) no-repeat left top;
     background-size: contain;
     .no-backgroundsize & {
       @extend .icon-alert-alert;
@@ -2515,7 +2515,7 @@ a.table--heading {
   }
   .alert--label {
     width: $width;
-    background: transparent url('alert-labels/alert-warning.png') no-repeat left top;
+    background: transparent url(image-path('alert-labels/alert-warning.png')) no-repeat left top;
     background-size: contain;
     .no-backgroundsize & {
       @extend .icon-alert-warning;
@@ -2532,7 +2532,7 @@ a.table--heading {
   }
   .alert--label {
     width: $width;
-    background: transparent url('alert-labels/alert-error.png') no-repeat left top;
+    background: transparent url(image-path('alert-labels/alert-error.png')) no-repeat left top;
     background-size: contain;
     .no-backgroundsize & {
       @extend .icon-alert-error;
