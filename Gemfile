@@ -12,7 +12,7 @@ gem 'pg'
 gem 'jquery-fileupload-rails'
 
 gem 'simple_form'
-gem 'therubyracer'
+#gem 'therubyracer'
 gem 'unicorn'
 gem 'devise'
 gem 'paperclip', '~> 3.4.0'
