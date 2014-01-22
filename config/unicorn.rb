@@ -2,7 +2,7 @@ rails_env = ENV['RAILS_ENV'] || 'production'
 
 if rails_env == 'production'
   worker_processes 6
-  listen "#{ENV['RAILS_SOCKET_DIR']}/vocat", :backlog => 1024
+  listen "#{ENV['APP_SOCKET_DIR']}/vocat", :backlog => 1024
   preload_app true
 else
   worker_processes 3
@@ -10,6 +10,7 @@ else
 end
 
 timeout 600
+stderr_path = "#{ENV['APP_LOG_DIR']}/unicorn.log"
 
 after_fork do |server, worker|
   ActiveRecord::Base.establish_connection if defined?(ActiveRecord)

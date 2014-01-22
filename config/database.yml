@@ -20,6 +20,8 @@ common: &common
 production:
   <<: *common
   port: <%= prod_port %>
+  database: vocat_production
+  password: <%= prod_pass %>
 
 development:
   <<: *common
