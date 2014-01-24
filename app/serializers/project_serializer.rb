@@ -17,7 +17,9 @@ class ProjectSerializer < ActiveModel::Serializer
   end
 
   def description
-    simple_format(object.description)
+    object.description
+# TODO: Determine why this shows an error.
+#    simple_format(object.description)
   end
 
   def current_user_id
