@@ -27,7 +27,7 @@ after_fork do |server, worker|
       Process::UID.change_privilege(target_uid)
     end
   rescue => e
-    if RAILS_ENV == 'development'
+    if ENV['RAILS_ENV'] == 'development'
       STDERR.puts "couldn't change user, oh well"
     else
       raise e

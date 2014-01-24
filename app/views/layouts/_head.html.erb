@@ -10,7 +10,7 @@
 <%= javascript_include_tag 'vendor/video_js/vjs.youtube' %>
 <%= javascript_include_tag 'vendor/video_js/vjs.vimeo' %>
 <% if Rails.env.development? %>
-<%= javascript_include_tag 'vendor/require/require', 'data-main' => '/assets/bootstrap' %>
+<%= javascript_include_tag 'vendor/require/require', 'data-main' => '/dev-assets/bootstrap' %>
 <% else %>
 <%= javascript_include_tag 'vendor/require/require', 'data-main' => '/build/bootstrap' %>
 <% end %>

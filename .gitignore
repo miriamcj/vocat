@@ -17,8 +17,8 @@ config/s3.yml
 .vagrant
 .idea
 
-/public/assets
-/public/build
+#/public/assets
+#/public/build
 /build/javascripts
 node_modules
 npm-debug.log
