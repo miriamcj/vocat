@@ -1,0 +1,15 @@
+<div class="box">
+  <header>
+    <h2 class="box--title">Video Submission</h2>
+    {{#if current_user_can_attach}}
+    <a href="#" data-behavior="destroy" class="box--minus-link">Delete Video</a>
+    {{/if}}
+  </header>
+  <div class="player-container">
+    <video id="video-player" data-behavior="video-player"
+    class="video-js vjs-default-skin" controls preload="auto" >
+      <source src="{{source_details.url}}" type="{{source_details.mime}}" />
+      <track kind="captions" src="/api/v1/videos/{{id}}.vtt" srclang="en" label="English" default>
+    </video>
+  </div>
+</div>
