@@ -4,9 +4,9 @@
   url = ENV["BOXEN_POSTGRESQL_URL"]
   port = ENV["BOXEN_POSTGRESQL_PORT"]
 
-  prod_port = ENV["APP_POSTGRESQL_PORT"]
-  prod_user = ENV["APP_POSTGRESQL_USER"]
-  prod_pass = ENV["APP_POSTGRESQL_PASS"]
+  prod_user = ENV["RAILS_DB_USER"]
+  prod_pass = ENV["RAILS_DB_PASS"]
+  prod_db = ENV["RAILS_DB_NAME"]
 
 %>
 
@@ -19,8 +19,8 @@ common: &common
 
 production:
   <<: *common
-  port: <%= prod_port %>
-  database: vocat_production
+  user: <%= prod_user %>
+  database: <%= prod_db %>
   password: <%= prod_pass %>
 
 development:
