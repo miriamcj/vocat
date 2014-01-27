@@ -6,11 +6,13 @@ if rails_env == 'production'
   preload_app true
 else
   worker_processes 3
-  listen "#{ENV['BOXEN_SOCKET_DIR']}/unicorn", :backlog => 1024
+  listen "#{ENV['BOXEN_SOCKET_DIR']}/vocat", :backlog => 1024
 end
 
 timeout 600
-stderr_path = "#{ENV['UNICORN_LOG_DIR']}/unicorn.log"
+if ENV['UNICORN_LOG_DIR']
+  stderr_path = "#{ENV['UNICORN_LOG_DIR']}/unicorn.log"
+end
 
 after_fork do |server, worker|
   ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
