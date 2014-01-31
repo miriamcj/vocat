@@ -1,12 +1,18 @@
 rails_env = ENV['RAILS_ENV'] || 'production'
 
-if rails_env == 'production'
-  worker_processes 6
-  listen "#{ENV['UNICORN_SOCKET_DIR']}/unicorn", :backlog => 1024
-  preload_app true
+if ENV['BOXEN_SOCKET_DIR']
+  socket = "#{ENV['BOXEN_SOCKET_DIR']}/vocat"
+  processes = 3
 else
-  worker_processes 3
-  listen "#{ENV['BOXEN_SOCKET_DIR']}/vocat", :backlog => 1024
+  socket = "#{ENV['UNICORN_SOCKET_DIR']}/unicorn"
+  processes = 6
+end
+
+worker_processes processes
+listen socket, :backlog => 1024
+
+if rails_env == 'production'
+  preload_app true
 end
 
 timeout 600
