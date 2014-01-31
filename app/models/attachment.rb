@@ -12,7 +12,11 @@ class Attachment < ActiveRecord::Base
   # Paperclip configurations
   has_attached_file :media,
                     :storage => :s3,
-                    :s3_credentials => "#{Rails.root}/config/aws.yml",
+                    :bucket => Rails.application.config.vocat.aws[:s3_bucket],
+                    :s3_credentials => {
+                        :access_key_id => Rails.application.config.vocat.aws[:key],
+                        :secret_access_key => Rails.application.config.vocat.aws[:secret]
+                    },
                     :s3_permissions => :private,
                     :path => ":year/:month/:day/:hash:ending",
                     :hash_secret => "+hequ!ckbr0wnf@Xjump5o^3rThe1azyd0g",
@@ -111,15 +115,8 @@ class Attachment < ActiveRecord::Base
         return
     end
 
-
-    options = media.s3_credentials
-    trans_opts = options[:transcoding]
-    if trans_opts
-      trans_opts.each do |encoding,v|
-        transcode(encoding)
-        transcoding_happened = TRUE
-      end
-    end
+    transcode('mp4')
+    transcoding_happened = TRUE
     unless transcoding_happened
       self.update_column(:transcoding_status, TRANSCODING_STATUS_SUCCESS)
     end
@@ -165,8 +162,11 @@ class Attachment < ActiveRecord::Base
 
     # Create the ElasticTranscoder object and S3 object
     options = media.s3_credentials
-    trans_opts = options[:transcoding][extension]
-    et = AWS::ElasticTranscoder.new(options)
+    AWS.config({
+                   :access_key_id => Rails.application.config.vocat.aws[:key],
+                   :secret_access_key => Rails.application.config.vocat.aws[:secret]
+               })
+    et = AWS::ElasticTranscoder::Client.new({:region => Rails.application.config.vocat.aws[:s3_region]})
     s3 = AWS::S3.new(options)
 
     # Get the transcoding variables
@@ -177,14 +177,17 @@ class Attachment < ActiveRecord::Base
 
     # Can't override files
     if input_key == output_key
-      input_file = s3.buckets[options[:bucket]].objects[input_key]
+      input_file = s3.buckets[Rails.application.config.vocat.aws[:s3_bucket]].objects[input_key]
       input_key = "#{input_key}_original"
       input_file.move_to(input_key)
     end
 
     # Queue the job
-    job = et.client.create_job(
-        :pipeline_id => trans_opts['pipeline'],
+    pipeline = Rails.application.config.vocat.aws[:et_pipeline]
+    preset = Rails.application.config.vocat.aws[:et_preset]
+
+    job = et.create_job(
+        :pipeline_id => Rails.application.config.vocat.aws[:et_pipeline],
         :input => {
             :key => input_key,
             :frame_rate => 'auto',
@@ -197,20 +200,24 @@ class Attachment < ActiveRecord::Base
             :key => output_key,
             :thumbnail_pattern => thumb_pattern,
             :rotate => '0',
-            :preset_id => trans_opts['preset']
+            :preset_id => Rails.application.config.vocat.aws[:et_preset]
         })
 
     # Poll the job queue to see if the job is done yet
     Thread.new(options, job.data[:job][:id], &method(:listen_for_transcoding_completion))
   end
 
-  # Polls the AWS job queue to see if the given
+  # Polls the AWS job queue to see if the transcoding has completed.
+  # This should probably be queued to delayed job.
   def listen_for_transcoding_completion(options, job_id)
-    et = AWS::ElasticTranscoder.new(options)
-
+    AWS.config({
+                   :access_key_id => Rails.application.config.vocat.aws[:key],
+                   :secret_access_key => Rails.application.config.vocat.aws[:secret]
+               })
+    et = AWS::ElasticTranscoder::Client.new({:region => Rails.application.config.vocat.aws[:s3_region]})
     finished_transcoding = FALSE
     300.times do
-      job = et.client.read_job(:id => job_id)
+      job = et.read_job(:id => job_id)
       status = job.data[:job][:output][:status]
       case status
         when 'Complete'

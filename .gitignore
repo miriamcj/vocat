@@ -21,3 +21,6 @@ config/s3.yml
 /build/javascripts
 node_modules
 npm-debug.log
+
+# Ingnore environment-specific configuration
+/config/environment.yml
