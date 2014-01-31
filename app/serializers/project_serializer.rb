@@ -1,5 +1,7 @@
 class ProjectSerializer < ActiveModel::Serializer
 
+  # See https://github.com/rails/rails/pull/13152
+  include ActionView::Helpers::OutputSafetyHelper
   include ActionView::Helpers::TextHelper
 
   attributes  :id, :name, :current_user_is_owner, :course_name, :course_name_long,
@@ -17,9 +19,7 @@ class ProjectSerializer < ActiveModel::Serializer
   end
 
   def description
-    object.description
-# TODO: Determine why this shows an error.
-#    simple_format(object.description)
+    simple_format(object.description)
   end
 
   def current_user_id

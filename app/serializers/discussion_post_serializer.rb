@@ -1,5 +1,7 @@
 class DiscussionPostSerializer < ActiveModel::Serializer
 
+  # See https://github.com/rails/rails/pull/13152
+  include ActionView::Helpers::OutputSafetyHelper
   include ActionView::Helpers::TextHelper
 
   attributes :id, :author_id, :author_name, :body, :published, :parent_id, :gravatar, :created_at, :month, :day, :year, :time,
