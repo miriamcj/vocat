@@ -274,8 +274,11 @@ courses.each_with_index do |course, course_index|
 
         videos = [
           {source: 'youtube', source_id: 'nKiaBFZPagA'},
+          {source: 'youtube', source_id: 'Yn1ZhiHyJW4'},
+          {source: 'youtube', source_id: 'Yn1ZhiHyJW4'},
+          {source: 'youtube', source_id: 'BivvZkSEZxI'},
+          {source: 'youtube', source_id: 'cptqwfsNjjg'},
           {source: 'vimeo', source_id: '11556174', thumbnail_url: 'http://b.vimeocdn.com/ts/637/318/63731816_640.jpg'},
-          {source: 'vimeo', source_id: '53940306', thumbnail_url: 'http://b.vimeocdn.com/ts/372/779/372779541_640.jpg'},
           ]
 
         video = Video.create(videos.sample)
