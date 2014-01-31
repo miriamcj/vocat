@@ -107,7 +107,11 @@ class Vocat < Thor
       bucket = create_bucket(options[:s3_bucket], options[:s3_region])
       role = create_role(options[:iam_et_role])
       policy = create_role_policy(role)
-      pipeline = create_pipeline(role, options[:s3_region], bucket, options[:et_pipeline])
+      if yes? "Would you like me to create a new transcoding pipeline?", :yellow
+        pipeline = create_pipeline(role, options[:s3_region], bucket, options[:et_pipeline])
+      else
+        pipeline = ask "Enter the ID of an existing pipeline", :yellow
+      end
       pipeline
     end
 
