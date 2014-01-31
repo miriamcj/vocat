@@ -76,16 +76,16 @@ evaluators = Array.new
 assistants = Array.new
 creators = Array.new
 
-5.times do |i|
-  u = User.new(:email => "evaluator#{i}@test.com", :org_identity => rand(11111111..99999999), :password => "testtest123", :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name)
+2.times do |i|
+  u = User.new(:email => "evaluator#{i + 1}@test.com", :org_identity => rand(11111111..99999999), :password => "testtest123", :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name)
   u.organization = baruch
   u.role = "evaluator"
   u.save
   evaluators << u
 end
 
-5.times do |i|
-  u = User.new(:email => "assistant#{i}@test.com", :org_identity => rand(11111111..99999999), :password => "testtest123", :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name)
+2.times do |i|
+  u = User.new(:email => "assistant#{i + 1}@test.com", :org_identity => rand(11111111..99999999), :password => "testtest123", :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name)
   u.organization = baruch
   u.role = "creator"
   u.save
@@ -226,7 +226,7 @@ presentation = ProjectType.new(:name => "Presentation")
 # SQL for finding number of courses per creator:
 # select user_id, email, count(*) from courses_creators inner join users on users.id=courses_creators.user_id group by user_id;
 #
-courses.each do |course|
+courses.each_with_index do |course, course_index|
 
   # Scramble the users
   evaluators.shuffle!
@@ -234,12 +234,16 @@ courses.each do |course|
   creators.shuffle!
 
   # Add users to the course
-  course.evaluators << evaluators[0]
+  if course_index == 0
+    course.evaluators << evaluators[0]
+  elsif course_index == 1
+    course.evaluators << evaluators[0]
+  else
+    course.evaluators << evaluators.sample
+  end
   course.assistants << assistants[0..2]
   course.creators << creators[0..rand(10..15)]
-
   course.save
-
 
   # Create some groups
   group_count = rand(1..5)
@@ -250,18 +254,6 @@ courses.each do |course|
     group.creators << course.creators.sample(per_group)
     group.save
   end
-
-  #stock_attachment_1 = Attachment.create({})
-  #file = File.open("#{Rails.root}/app/assets/images/placeholders/video_1.mp4")
-  #stock_attachment_1.media = file
-  #file.close
-  #stock_attachment_1.save!
-  #
-  #stock_attachment_2 = Attachment.create({})
-  #file = File.open("#{Rails.root}/app/assets/images/placeholders/video_2.mp4")
-  #stock_attachment_2.media = file
-  #file.close
-  #stock_attachment_2.save!
 
   # Create projects in various states of completeness
   rand(3..6).times do
