@@ -199,11 +199,12 @@ class Vocat < Thor
     end
 
     def create_pipeline(role, region, bucket, pipeline_id = nil)
-      pipeline_name = 'vocat_transcoding_pipeline'
+      pipeline_name = "vocat_#{bucket.name}"
       tc = AWS::ElasticTranscoder::Client.new({:region => region})
       begin
         response = tc.list_pipelines
-        pipeline = response.pipelines.first { |pipeline| pipeline[:name].eql? pipeline_name }
+        say "Looking for an existing pipeline with the id of #{pipeline_id}", :yellow
+        pipeline = response.pipelines.first { |pipeline| pipeline[:id].eql?(pipeline_id) }
         if pipeline.nil?
           options = {
               name: pipeline_name,
