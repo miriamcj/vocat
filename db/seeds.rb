@@ -251,6 +251,18 @@ courses.each do |course|
     group.save
   end
 
+  #stock_attachment_1 = Attachment.create({})
+  #file = File.open("#{Rails.root}/app/assets/images/placeholders/video_1.mp4")
+  #stock_attachment_1.media = file
+  #file.close
+  #stock_attachment_1.save!
+  #
+  #stock_attachment_2 = Attachment.create({})
+  #file = File.open("#{Rails.root}/app/assets/images/placeholders/video_2.mp4")
+  #stock_attachment_2.media = file
+  #file.close
+  #stock_attachment_2.save!
+
   # Create projects in various states of completeness
   rand(3..6).times do
     project = course.projects.create(:name => Faker::Company.bs.split(' ').map(&:capitalize).join(' '), :description => Faker::Lorem.paragraph)
@@ -274,26 +286,9 @@ courses.each do |course|
           {source: 'vimeo', source_id: '53940306', thumbnail_url: 'http://b.vimeocdn.com/ts/372/779/372779541_640.jpg'},
           ]
 
-        if rand < 0.25
-          video = Video.create(videos.sample)
-          submission.video = video
-        else
-          video = Video.create({source: 'attachment'})
+        video = Video.create(videos.sample)
+        submission.video = video
 
-          video_values = [
-              "VALUES ('Group1.mp4', 'video/mp4', '578662', '2013-10-10 19:05:58.701673', '1', '2013-10-10 19:05:58.715676', '2013-10-10 19:05:58.715676', '#{video.id}', 'Video')",
-              "VALUES ('Group2.mp4', 'video/mp4', '542502', '2013-10-10 19:06:45.340138', '1', '2013-10-10 19:06:45.350228', '2013-10-10 19:06:45.350228', '#{video.id}', 'Video')",
-              "VALUES ('Group3.mp4', 'video/mp4', '26831392', '2013-10-10 19:08:01.476938', '1', '2013-10-10 19:08:01.487502', '2013-10-10 19:08:01.487502', '#{video.id}', 'Video')",
-              "VALUES ('Group4.mp4', 'video/mp4', '68927739', '2013-10-10 19:12:22.249417', '1', '2013-10-10 19:12:22.259783', '2013-10-10 19:12:22.259783', '#{video.id}', 'Video')",
-              "VALUES ('Individual1.mp4', 'video/mp4', '1666146', '2013-10-10 19:07:24.435093', '1', '2013-10-10 19:07:24.445765', '2013-10-10 19:07:24.445765', '#{video.id}', 'Video')",
-              "VALUES ('Individual2.mp4', 'video/mp4', '1154964', '2013-10-10 19:26:28.158349', '1', '2013-10-10 19:26:28.168958', '2013-10-10 19:26:28.168958', '#{video.id}', 'Video')",
-          ]
-
-          insert = "INSERT INTO attachments (media_file_name, media_content_type, media_file_size, media_updated_at, transcoding_status, created_at, updated_at, fileable_id, fileable_type)"
-          values = video_values.sample()
-          ActiveRecord::Base.connection.execute "#{insert} #{values}"
-          submission.video = video
-        end
         submission.save!
 
         # Some submitted projects have been evaluated
