@@ -50,6 +50,10 @@ class User < ActiveRecord::Base
     base_role.to_s == role.to_s
   end
 
+  def to_s
+    name
+  end
+
   def name
     "#{first_name} #{last_name}"
   end

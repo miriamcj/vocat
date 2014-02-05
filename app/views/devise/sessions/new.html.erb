@@ -14,7 +14,10 @@
       <%= f.submit "Sign in", :class => "authentication-tile--button" %>
     <% end %>
 </div>
-
 <footer class="authentication-footer">
-  <%= render "devise/shared/links" %> 
+  <% unless Rails.application.config.vocat.ldap.enabled %>
+    <%= render "devise/shared/links" %>
+  <% else %>
+    <%= render "devise/shared/ldap_links" %>
+<% end %>
 </footer>
