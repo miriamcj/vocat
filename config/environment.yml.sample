@@ -6,19 +6,37 @@
 :development:
   :aws_enabled: false
   :aws:
+    # Your AWS key
     :key: ''
+    # Your AWS secret key
     :secret: ''
+    # The name of the AWS bucket you'll use for video storage
     :s3_bucket: ''
+    # The name of the AWS region you want to use
     :s3_region: ''
+    # The UUID of the AWS pipeline that will do your transcoding
     :et_pipeline: ''
+    # The name of the AWS elastic transcoder role
     :iam_et_role: ''
+    # The UUID of the elastic transcoder preset to be used for transcoding
     :et_preset: ''
   :enable_ldap: false
   :ldap:
-    :host: ''
-    :base_dn: ''
-    :bind_user: ''
-    :bind_pw: ''
+    :host: 'ldap.sever.com'
+    # See http://net-ldap.rubyforge.org/Net/LDAP.html#method-i-encryption
+    :encryption: 'simple_tls'
+    :port: 3269
+    # For example, this is what we use at Baruch
+    :bind_dn: 'cn=vocat_bind,ou=externalBindAccounts,dc=Baruch,dc=local'
+    # Bind user password
+    :bind_pass: 'pass'
+    # DN for authenticating users
+    :filter_dn: 'dc=Baruch,dc=local'
+    # Filter for finding the user by email
+    :filter: '(mail={email})'
+    # The name of the LDAP record attribute that you would like to use to populate VOCAT's org_identity field
+    # on the user model.
+    :org_identity: 'name'
 :production:
   :aws_enabled: false
   :aws:

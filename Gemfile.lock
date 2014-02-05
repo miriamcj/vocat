@@ -126,6 +126,7 @@ GEM
     mini_portile (0.5.2)
     minitest (4.7.5)
     multi_json (1.8.4)
+    net-ldap (0.3.1)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
     orm_adapter (0.5.0)
@@ -245,6 +246,7 @@ DEPENDENCIES
   hashie
   jquery-fileupload-rails
   kaminari
+  net-ldap
   paper_trail (>= 3.0.0.beta1)
   paperclip (~> 3.4.0)
   pg
