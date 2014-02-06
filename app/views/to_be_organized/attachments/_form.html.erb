@@ -1,7 +1,0 @@
-<%= form_for [@fileable, @attachment] do |f| %>
-  <%= form_errors(@course) %>
-
-  <div class="field">
-    <%= f.file_field :media, :id => "fileupload", :data => {:url => "/submissions/#{@fileable.id}/attachments"}%>
-  </div>
-<% end %>
