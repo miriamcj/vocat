@@ -34,8 +34,10 @@ class Courses::Manage::ProjectsController < ApplicationController
     @project = @course.projects.build(project_params)
     if @project.save
       flash[:notice] = 'Project was successfully created.'
+      respond_with @project, location: course_manage_project_path(@course.id, @project.id)
+    else
+      render :new
     end
-    respond_with @project, location: course_manage_project_path(@course, @project)
   end
 
   # PATCH courses/:course_id/manage/projects/1/

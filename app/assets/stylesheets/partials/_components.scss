@@ -949,10 +949,15 @@ a.table--heading {
 
 .frame-summary--title {
   @extend %heading-giga;
-  margin: 3.4rem 0 0.3rem;
+  margin: 0rem 0 0.3rem;
   .matrix--overlay & {
     margin: 0 0 1rem;
   }
+}
+
+.frame-summary--label {
+  @extend %heading-epsilon;
+  float: right;
 }
 
 .frame-summary--project {
@@ -2444,6 +2449,7 @@ a.table--heading {
 
 .alert {
   .evaluation-detail &,
+  .evaluation-detail-frame &,
   .portfolio-frame &,
   .page-content--frame & {
     margin-left: 0;

@@ -39,7 +39,12 @@ class AbstractSubmissionSerializer < ActiveModel::Serializer
 	end
 
 	def evaluations
-		ActiveModel::ArraySerializer.new(object.evaluations_visible_to(scope), :scope => scope)
+    evaluations = object.evaluations_visible_to(scope)
+    unless evaluations.nil?
+      ActiveModel::ArraySerializer.new(evaluations, :scope => scope)
+    else
+      []
+    end
 	end
 
 	def current_user_can_evaluate

@@ -1,0 +1,16 @@
+<% content_for :content_header do %>
+  <%= @course %>
+<% end %>
+
+<% content_for :content_frames do %>
+  <% unless @course.message.blank? %>
+  <div class="evaluation-detail-frame">
+      <h2 class="frame--title">Announcements</h2>
+      <%= simple_format @course.message %>
+  </div>
+  <% end %>
+
+  <div class="evaluation-detail-frame">
+    <%= render '/dashboard/creator_course', :course => @course, :hide_header => true %>
+  </div>
+<% end %>

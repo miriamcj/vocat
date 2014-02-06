@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
 
   check_authorization :unless => :devise_controller?
 
+  before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :test_flash_messages
   before_filter :authenticate_user!
   before_filter :inject_session_data
@@ -79,16 +80,29 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.for(:account_update) << :first_name
+    devise_parameter_sanitizer.for(:account_update) << :last_name
+    devise_parameter_sanitizer.for(:account_update) << :settings
+    devise_parameter_sanitizer.for(:account_update) << :city
+    devise_parameter_sanitizer.for(:account_update) << :state
+    devise_parameter_sanitizer.for(:account_update) << :country
+    devise_parameter_sanitizer.for(:account_update) << :gender
+  end
 
 
   protected
 
-    # Parameters for creating and updating a project
     def project_params
-      params.require(:project).permit(:name, :description, :rubric_id)
+      params.require(:project).permit(:name,
+                                      :description,
+                                      :course_id,
+                                      :rubric_id
+      )
     end
 
     def user_params
+
       params.require(:user).permit(:first_name,
                                    :middle_name,
                                    :last_name,
@@ -207,14 +221,6 @@ class ApplicationController < ActionController::Base
       params[:submission][:video_attributes] = params[:video_attributes]
       #params.require(:submission).permit(:name, video_attributes: [:source, :source_id])
       params.require(:submission).permit!
-    end
-
-    def project_params
-      params.require(:project).permit(:name,
-                                      :description,
-                                      :course_id,
-                                      :rubric_id
-      )
     end
 
 end

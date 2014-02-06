@@ -1,28 +1,20 @@
 class DashboardController < ApplicationController
 
-  layout 'content'
+  layout 'dashboard'
   skip_authorization_check
 
   def index
-    if current_user.role?(:evaluator)
-      redirect_to :action => :evaluator
-    elsif current_user.role?(:creator)
-      redirect_to :action => :creator
-    elsif current_user.role?(:administrator)
+    current_user.creator_courses.each do |course|
+      factory = SubmissionFactory.new
+      @submissions = factory.course_and_creator(course, current_user)
+    end
+
+    if current_user.role?(:administrator)
       redirect_to admin_path
     end
   end
 
-  def creator
-
-  end
-
-  def evaluator
-
-  end
-
   def admin
-
   end
 
 end

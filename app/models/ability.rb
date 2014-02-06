@@ -29,7 +29,7 @@ class Ability
     end
 
     can [:portfolio], Course do |course|
-      user.role?(:creator) && course.role(user)
+      course.role(user) == :creator
     end
 
     # Note that we are not currently allowing evaluators to destroy courses.
@@ -38,11 +38,11 @@ class Ability
     end
 
     can [:evaluate], Course do |course|
-      course.role(user) == :evaluator || user.role?(:creator) && course.allows_peer_review?
+      course.role(user) == :evaluator || course.role(user) == :assistant || user.role?(:creator) && course.allows_peer_review?
     end
 
     can [:show_submissions], Course do |course|
-      course.role(user) == :evaluator || can?(:read_only, course) && (can?(:evaluate, course) || course.allows_public_discussion?)
+      course.role(user) == :evaluator || course.role(user) == :assistant || can?(:read_only, course) && (can?(:evaluate, course) || course.allows_public_discussion?)
     end
 
     ######################################################
@@ -71,7 +71,7 @@ class Ability
     end
 
     can :read_write, Submission do |submission|
-      can?(:own, submission) || submission.project.course.role(user) == :evaluator
+      can?(:own, submission) || submission.project.course.role(user) == :evaluator || submission.project.course.role(user) == :assistant
     end
 
     can :read_only, Submission do |submission|
@@ -91,8 +91,14 @@ class Ability
     can :attach, Submission do |submission|
 	    # CAN if the user is an administrator
 	    (user.role?(:administrator)) ||
-	    # CAN if the user is not the submission owner, and is an evaluator for the course
-			(!can?(:own, submission) && submission.project.course.role(user) == :evaluator) ||
+	    # CAN if the user is not the submission owner, and is an evaluator or assistant for the course
+			(
+        !can?(:own, submission) &&
+        (
+          submission.project.course.role(user) == :assistant ||
+          submission.project.course.role(user) == :evaluator
+        )
+      ) ||
 			# CAN if the user is the submission owner and enable_creator_attach is true
 			(can?(:own, submission) && submission.project.course.allows_creator_attach?)
     end

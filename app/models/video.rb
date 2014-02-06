@@ -55,7 +55,7 @@ class Video < ActiveRecord::Base
   def thumb
     case source
       when 'youtube'
-        "http://img.youtube.com/vi/#{source_id}/default.jpg"
+        "http://img.youtube.com/vi/#{source_id}/mqdefault.jpg"
       when 'vimeo'
         thumbnail_url
       when 'attachment'

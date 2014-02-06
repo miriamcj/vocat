@@ -18,6 +18,7 @@ Vocat::Application.routes.draw do
       resources :users, :only => [:show] do
         collection do
           get 'search'
+          post 'invite'
         end
         resources :enrollments, :only => [:index]
       end
@@ -83,6 +84,7 @@ Vocat::Application.routes.draw do
     resources :courses do
       member do
         get 'evaluators'
+        get 'assistants'
         get 'creators'
         get 'export'
         resource :reports, :only => [] do

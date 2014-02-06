@@ -13,7 +13,7 @@
       <% end %>
       <% if current_user && current_user.has_courses %>
         <% current_user.courses.each do |course| %>
-          <% if course.role(current_user) == :evaluator %>
+          <% if course.role(current_user) == :evaluator || course.role(current_user) == :assistant %>
             <li><a <%= if @selected_course == course then 'class=active' end %> href="<%= url_for course_user_evaluations_path(course) %>"><%= raw "<strong>#{course.department}#{course.number} :</strong> #{course.name} <small>[Section #{course.section}]</small>" %></a></li>
           <% else %>
             <li><a <%= if @selected_course == course then 'class=active' end %> href="<%= url_for portfolio_course_path(course) %>"><%= raw "<strong>#{course.department}#{course.number} :</strong> #{course.name} <small>[Section #{course.section}]</small>" %></a></li>
@@ -48,11 +48,11 @@
 </nav>
 
 <a class="shortcut-nav--toggle" data-behavior="shortcut-nav-toggle" href="#">Toggle Shortcuts Drawer</a>
-<% if @selected_course %>
-  <% if @selected_course_role == :evaluator || @selected_course_role == :administrator %>
+ <% if @selected_course %>
+  <% if @selected_course_role == :creator %>
+     <%= render 'layouts/navigation_course_creator' %>
+  <% else %>
      <%= render 'layouts/navigation_course_evaluator' %>
-  <% elsif @selected_course_role == :creator %>
-    <%= render 'layouts/navigation_course_creator' %>
   <% end %>
 <% else %>
   <% if current_user.role? :administrator %>

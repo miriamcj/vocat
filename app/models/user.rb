@@ -50,6 +50,10 @@ class User < ActiveRecord::Base
     base_role.to_s == role.to_s
   end
 
+  def to_s
+    name
+  end
+
   def name
     "#{first_name} #{last_name}"
   end
@@ -129,5 +133,6 @@ class User < ActiveRecord::Base
   def to_csv
     [id, list_name, last_name, first_name, email, org_identity]
   end
+
 
 end
