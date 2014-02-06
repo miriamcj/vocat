@@ -59,6 +59,9 @@ class Admin::CoursesController < ApplicationController
     respond_with @course
   end
 
+  def assistants
+  end
+
   def evaluators
   end
 

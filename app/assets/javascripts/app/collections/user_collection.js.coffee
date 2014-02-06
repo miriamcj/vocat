@@ -8,7 +8,7 @@ define ['backbone', 'models/user'], (Backbone, UserModel) ->
     url: '/api/v1/users'
 
     getSearchTerm: () ->
-      return 'last_name'
+      return 'email'
 
     getActive: () ->
       @activeModel

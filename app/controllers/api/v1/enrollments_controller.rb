@@ -14,7 +14,16 @@ class Api::V1::EnrollmentsController < ApiController
         enrollments << build_enrollment_hash(course, @user)
       end
     elsif @course
-      @course.members.each do |user|
+      if params[:role] == 'evaluator'
+        users = @course.evaluators
+      elsif params[:role] == 'creator'
+        users = @course.creators
+      elsif params[:role] == 'assistant'
+        users = @course.assistants
+      else
+        users = @course.members
+      end
+      users.each do |user|
         enrollments << build_enrollment_hash(@course, user)
       end
     end
@@ -39,7 +48,8 @@ class Api::V1::EnrollmentsController < ApiController
   def create
     user = User.find params[:user]
     course = Course.find params[:course]
-    user.enroll(course)
+    role = params[:role]
+    user.enroll(course, role)
     if user.errors.empty?
       respond_with build_enrollment_hash(course, user), :location => nil
       course.save()

@@ -7,7 +7,6 @@ define (require) ->
   class EnrollmentUserInputItem extends Marionette.ItemView
 
     getTemplate: () ->
-      console.log @model.get('section')
       if @model.get('section')?
         courseTemplate
       else

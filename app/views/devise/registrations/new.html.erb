@@ -22,17 +22,6 @@
     </div>
 
     <div class="input-group">
-      <label class="text-label">Role</label>
-      <% User::ROLES.each do |role| %>
-        <label class="radio-label">
-          <%= radio_button(:resource, :role, role) %> 
-          <b></b>
-          <%= role %>
-        </label>
-      <% end %>
-    </div>
-
-    <div class="input-group">
       <%= f.label 'Organization', :class => 'text-label' %>
       <%= collection_select(:organization, :id, Organization.all, :id, :name)  %>
     </div>

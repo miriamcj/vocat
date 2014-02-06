@@ -13,7 +13,8 @@ define (require) ->
 
   Vocat.routes = {
     admin: {
-        'admin/courses/:course/evaluators': 'evaluatorEnrollment'
+      'admin/courses/:course/evaluators': 'evaluatorEnrollment'
+      'admin/courses/:course/assistants': 'assistantEnrollment'
       'admin/courses/:course/creators': 'creatorEnrollment'
       'admin/users/:user/courses': 'courseEnrollment'
     }

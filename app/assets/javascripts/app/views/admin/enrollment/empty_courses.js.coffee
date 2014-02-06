@@ -14,5 +14,4 @@ define (require) ->
       }
 
     onShow: () ->
-      console.log @
       @$el.find('th').attr('colspan', @$el.closest('table').find('thead th').length)

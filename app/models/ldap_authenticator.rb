@@ -38,26 +38,72 @@ class LDAPAuthenticator
     end
   end
 
+  def query(email)
+    bind
+    result = self.conn.search(
+        :base => filter_dn,
+        :filter => filter(email)
+    )
+    ldap_user = result.first
+    ldap_user
+  end
+
+  def create_vocat_user_from_ldap_email!(email)
+    ldap_user = query(email)
+    if ldap_user
+      create_vocat_user_from_ldap_user!(ldap_user)
+    else
+      nil
+    end
+  end
+
+  def fix_case(string)
+    string.titleize
+  end
+
+  def create_vocat_user_from_ldap_user!(ldap_user)
+    password = SecureRandom.hex
+    user = User.create({
+                           :email => ldap_user.mail.first,
+                           :password => password,
+                           :password_confirmation => password,
+                           :first_name => fix_case(ldap_user.givenName.first),
+                           :last_name => fix_case(ldap_user.sn.first),
+                           :role => pick_role(ldap_user.mail.first),
+                           # TODO: Decide on a better way to handle organizations in VOCAT
+                           :organization => Organization.first,
+                           :org_identity => ldap_user.send(:name).first,
+                           :is_ldap_user => true
+                       })
+    user.save
+    user
+  end
+
+  def update_vocat_user_from_ldap_user(vocat_user, ldap_user)
+    # TODO: Decide on a better way to handle organizations in VOCAT
+    vocat_user.organization = Organization.first
+    vocat_user.org_identity = ldap_user.send(:name).first
+    vocat_user.is_ldap_user = true
+    vocat_user.save
+    vocat_user
+  end
+
+  # Picks a role for the ldap user on creation based on the user's email address and ldap config.
+  def pick_role(email)
+    role = default_role
+    domain = Mail::Address.new(email.to_s).domain
+    match_domain = instructor_email_domain
+    if domain == match_domain then role = 'evaluator' end
+    role
+  end
+
   def find_or_create_user(bind_result)
     ldap_user = bind_result.first
     user = User.where(:email => ldap_user.mail).first
     if user.nil?
-      password = SecureRandom.hex
-      user = User.create({
-          :email => ldap_user.mail.first,
-          :password => password,
-          :password_confirmation => password,
-          :first_name => ldap_user.givenName.first,
-          :last_name => ldap_user.sn.first,
-          :role => 'creator',
-          :organization => Organization.first,
-          :org_identity => ldap_user.send(:name).first
-      })
-      user.save
+      user = create_vocat_user_from_ldap_user!(ldap_user)
     else
-      user.organization = Organization.first
-      user.org_identity = ldap_user.send(:name).first
-      user.save
+      user = update_vocat_user_from_ldap_user(user, ldap_user)
     end
     user
   end
@@ -67,8 +113,17 @@ class LDAPAuthenticator
     if config.has_key?(value)
       config[value]
     else
-      raise "Missing required LDAP configuration: #{value}. Set it in config/environment.yml"
+      error = "Missing required LDAP configuration: #{value}. Set it in config/environment.yml"
+      raise error
     end
+  end
+
+  def instructor_email_domain
+    config_value('instructor_email_domain')
+  end
+
+  def default_role
+    config_value('default_role')
   end
 
   def org_identity
@@ -99,13 +154,13 @@ class LDAPAuthenticator
     config_value 'base_dn'
   end
 
+  def filter_dn
+    config_value 'filter_dn'
+  end
+
   def filter(lookup)
     filter = config_value 'filter'
     filter.gsub('{email}', lookup)
-  end
-
-  def filter_dn
-    config_value 'filter_dn'
   end
 
 end

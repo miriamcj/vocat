@@ -1,0 +1,4 @@
+<ul class="authentication-footer--list">
+  <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
+    <li><%= link_to "Forgot your password?", Rails.application.config.vocat.ldap.recover_pw_url %><% end -%></li>
+</ul>

@@ -17,6 +17,14 @@ define [
         view = new EnrollmentLayout({collection: new EnrollmentCollection([], {scope: {course: courseId, role: 'evaluator'}})})
         Vocat.evaluatorEnrollment.show view
 
+    assistantEnrollment: (courseId) ->
+      unless _.isNaN(parseInt(courseId))
+        Vocat.addRegions({
+          assistantEnrollment: '[data-region="assistant-enrollment"]'
+        })
+        view = new EnrollmentLayout({collection: new EnrollmentCollection([], {scope: {course: courseId, role: 'assistant'}})})
+        Vocat.assistantEnrollment.show view
+
     creatorEnrollment: (courseId) ->
       unless _.isNaN(parseInt(courseId))
         Vocat.addRegions({

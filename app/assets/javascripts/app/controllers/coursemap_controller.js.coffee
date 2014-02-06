@@ -35,7 +35,7 @@ define (require) ->
         @collections.submission = new SubmissionForCourseCollection
         deferred = @deferredCollectionFetching(@collections.submission, {course: courseId}, 'Loading course submissions...')
         $.when(deferred).then(() =>
-          @courseMap = new CourseMap({courseId: @collections.project.first().get('course_id'), collections: @collections})
+          @courseMap = new CourseMap({courseId: courseId, collections: @collections})
           window.Vocat.main.show(@courseMap)
         )
         deferred

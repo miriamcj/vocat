@@ -3,69 +3,85 @@
 # future, this will change.
 
 ---
-:development:
-  :aws_enabled: false
+
+common: &common
+
   :aws:
+
+    # Enable or disable AWS integration
+    :enabled: false
+
     # Your AWS key
     :key: ''
+
     # Your AWS secret key
     :secret: ''
+
     # The name of the AWS bucket you'll use for video storage
     :s3_bucket: ''
+
     # The name of the AWS region you want to use
     :s3_region: ''
+
     # The UUID of the AWS pipeline that will do your transcoding
     :et_pipeline: ''
+
     # The name of the AWS elastic transcoder role
     :iam_et_role: ''
+
     # The UUID of the elastic transcoder preset to be used for transcoding
     :et_preset: ''
-  :enable_ldap: false
+
   :ldap:
+
+    # Enable or disable LDAP server
+    :enabled: false
+
+    # The ldap server hostname or IP
     :host: 'ldap.sever.com'
+
     # See http://net-ldap.rubyforge.org/Net/LDAP.html#method-i-encryption
     :encryption: 'simple_tls'
+
+    # The LDAP server port
     :port: 3269
+
     # For example, this is what we use at Baruch
-    :bind_dn: 'cn=vocat_bind,ou=externalBindAccounts,dc=Baruch,dc=local'
+    :bind_cn: 'cn=vocat_bind,ou=externalBindAccounts,dc=Baruch,dc=local'
+
     # Bind user password
     :bind_pass: 'pass'
+
     # DN for authenticating users
     :filter_dn: 'dc=Baruch,dc=local'
+
     # Filter for finding the user by email
     :filter: '(mail={email})'
+
     # The name of the LDAP record attribute that you would like to use to populate VOCAT's org_identity field
     # on the user model.
     :org_identity: 'name'
+
+    # The URL where users can reset their LDAP password; not currently used
+    :reset_pw_url: 'https://mypassword.baruch.cuny.edu/'
+
+    # The URL where users can recover their LDAP password
+    :recover_pw_url: 'https://mypassword.baruch.cuny.edu/'
+
+    # A message that appears on the edit profile view
+    :account_management_message: 'Your Vocat account is the same as your Baruch College Active Directory account. Use <a href="https://mypassword.baruch.cuny.edu/">mypassword.baruch.cuny.edu</a> to recover or reset your password.'
+
+    # Users belonging to this email domain will automatically be assigned to the instructor role
+    :instructor_email_domain: 'baruch.cuny.edu'
+
+    # The default role for users who login via LDAP
+    :default_role: 'creator'
+
+:development:
+  <<: *common
+
 :production:
-  :aws_enabled: false
-  :aws:
-    :key: ''
-    :secret: ''
-    :s3_bucket: ''
-    :s3_region: ''
-    :et_pipeline: ''
-    :iam_et_role: ''
-    :et_preset: ''
-  :enable_ldap: false
-  :ldap:
-    :host: ''
-    :base_dn: ''
-    :bind_user: ''
-    :bind_pw: ''
+  <<: *common
+
 :testing:
-  :aws_enabled: false
-  :aws:
-    :key: ''
-    :secret: ''
-    :s3_bucket: ''
-    :s3_region: ''
-    :et_pipeline: ''
-    :iam_et_role: ''
-    :et_preset: ''
-  :enable_ldap: false
-  :ldap:
-    :host: ''
-    :base_dn: ''
-    :bind_user: ''
-    :bind_pw: ''
+  <<: *common

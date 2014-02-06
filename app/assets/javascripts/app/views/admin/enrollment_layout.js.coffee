@@ -6,7 +6,7 @@ define (require) ->
   EnrollmentInput =       require('views/admin/enrollment/input')
   Flash = require('views/flash/flash_messages')
 
-  class CreatorEnrollment extends Marionette.Layout
+  class CreatorEnrollmentLayout extends Marionette.Layout
 
     listType: 'users'
     template: template
@@ -24,7 +24,7 @@ define (require) ->
     initialize: (options) ->
 
       searchCollection = @collection.getSearchCollection()
-      @enrollmentInput = new EnrollmentInput({collection: searchCollection, vent: @})
+      @enrollmentInput = new EnrollmentInput({collection: searchCollection, collectionType: @collection.searchType(), vent: @})
       @enrollmentList = new EnrollmentList({collection: @collection, vent: @})
       @flashView = new Flash({vent: @, clearOnAdd: true})
 
@@ -33,15 +33,22 @@ define (require) ->
        @handleItemViewAdd(itemView)
       )
 
+      @listenTo(@enrollmentInput, 'itemview:invite:failure', (itemView) =>
+        @handleItemViewInviteFailure(itemView)
+      )
+
+
+    handleItemViewInviteFailure: (emptyView) ->
+      console.log emptyView.error
+
     handleItemViewAdd: (itemView) ->
       enrollment = @collection.newEnrollmentFromSearchModel(itemView.model)
-      console.log enrollment,'enrollment'
+      console.log enrollment.attributes, 'attr'
       enrollment.save({},{
         error: (model, xhr) =>
           @trigger('error:add', {level: 'error', lifetime: 5000, msg: xhr.responseJSON.errors})
         success: () =>
           @collection.add(enrollment)
-
           @trigger('error:add', {level: 'notice', lifetime: 5000, msg: "#{enrollment.get('user_name')} is now enrolled in section ##{enrollment.get('section')}."})
       })
 

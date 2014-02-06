@@ -27,15 +27,17 @@ define ['backbone', 'models/enrollment', 'collections/user_collection', 'collect
         course: searchModel.id
         user: searchModel.id
       }
+      console.log @scope,'scope'
       if @scope.course? then attributes.course = @scope.course
       if @scope.user? then attributes.user = @scope.user
+      if @scope.role? then attributes.role = @scope.role
 
       model = new @model(attributes)
       model
 
     url: () ->
       if @searchType() == 'user'
-        "/api/v1/courses/#{@scope.course}/enrollments"
+        "/api/v1/courses/#{@scope.course}/enrollments?role=#{@scope.role}"
       else
         "/api/v1/users/#{@scope.user}/enrollments"
 
