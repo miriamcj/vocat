@@ -99,7 +99,7 @@ class LDAPAuthenticator
 
   def find_or_create_user(bind_result)
     ldap_user = bind_result.first
-    user = User.where(:email => ldap_user.mail).first
+    user = User.where("lower(email) = ?", ldap_user.mail.first.downcase).first
     if user.nil?
       user = create_vocat_user_from_ldap_user!(ldap_user)
     else
