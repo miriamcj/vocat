@@ -1,4 +1,4 @@
-class Admin::RubricsController < ApplicationController
+class Admin::RubricsController < Admin::AdminController
 
   load_and_authorize_resource :rubric
   respond_to :html

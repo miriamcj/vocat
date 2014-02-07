@@ -1,9 +1,10 @@
-class Admin::CoursesController < ApplicationController
+class Admin::CoursesController < Admin::AdminController
 
   load_and_authorize_resource :course
   respond_to :html
 
   before_filter :deselect_course
+
 
   layout 'content'
 

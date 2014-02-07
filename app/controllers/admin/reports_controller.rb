@@ -1,5 +1,5 @@
 require 'csv'
-class Admin::ReportsController < ApplicationController
+class Admin::ReportsController < Admin::AdminController
 
   before_filter do
     if params[:format] && ['json', 'csv', 'text'].include?(params[:format].downcase)
