@@ -10,7 +10,6 @@ class Courses::Manage::CoursesController < ApplicationController
 
   def update
     @course.update_attributes!(course_params)
-    flash[:error] = 'test flash'
     respond_with :course, :location => course_manage_path(@course), notice: 'Course settings were successfully updated.'
   end
 
