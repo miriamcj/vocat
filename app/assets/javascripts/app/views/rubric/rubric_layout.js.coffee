@@ -142,6 +142,11 @@ define (require) ->
 
       @render()
 
+    onShow: () ->
+      @ui.publicInput.chosen({
+        disable_search_threshold: 1000
+      })
+
     onRender: () ->
       @views.rows = new RowsView({collection: @model.get('ranges'), cells: @model.get('cells'), vent: @})
       @views.fields = new FieldsView({collection: @model.get('fields'), vent: @})
@@ -164,9 +169,5 @@ define (require) ->
 
       @ui.highInput.val(@model.getHigh())
       @ui.lowInput.val(@model.getLow())
-
-      @ui.publicInput.chosen({
-        disable_search_threshold: 1000
-      })
 
       @sliderRecalculate()
