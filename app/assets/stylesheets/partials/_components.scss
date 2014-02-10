@@ -2099,6 +2099,11 @@ a.table--heading {
     color: $tealMedium;
     padding: 0 1.6rem;
   }
+  div {
+    .ie9 & {
+      overflow: hidden;
+    }
+  }
   .editable & {
     display: table-cell;
     vertical-align: middle;
