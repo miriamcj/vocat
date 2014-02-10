@@ -28,6 +28,7 @@
   },
   hbs: {
     'disableI18n': true,
+    'partialsUrl': 'templates/partials',
     'helperPathCallback': function(name) {
       return "app/helpers/" + name;
     }

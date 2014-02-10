@@ -1,5 +1,5 @@
 requirejs.config {
-  waitSeconds: 14
+  waitSeconds: 20
   shim: {
     'jquery_ujs': ['jquery']
     'vendor/ui/jquery_ui': ['jquery_rails']
@@ -25,6 +25,7 @@ requirejs.config {
 
   hbs: {
     'disableI18n' : true
+    'partialsUrl': 'templates/partials'
     'helperPathCallback' : (name) ->
       "app/helpers/#{name}"
   }

@@ -62,12 +62,15 @@ define (require) ->
   Vocat.addInitializer () ->
 
     # To reduce the amount of loading in development context, we load router/controller pairs dynamically.
-    # TODO: Make sure this works during compilation as well. We may need to do require(['string'] instead
-    # TODO: of a require(variable) so that r.js picks up the dependency correctly.
-    Backbone.history.start({pushState: true})
-    fragment = Backbone.history.getFragment()
-    Backbone.history.stop()
+    # TODO: Improve this for better IE support.
+    pushStateEnabled = Modernizr.history
+    Backbone.history.start({pushState: pushStateEnabled })
+    if pushStateEnabled
+      fragment = Backbone.history.getFragment()
+    else
+      fragment = window.location.pathname.substring(1)
 
+    Backbone.history.stop()
     regexes = {}
     controllerName = false
     router = new Backbone.Router
@@ -80,14 +83,15 @@ define (require) ->
           controllerName = routeKey
 
     if controllerName != false
-
       instantiateRouter = (Controller, controllerName) ->
         subRoutes = Vocat.routes[controllerName]
         Vocat.router = new Marionette.AppRouter({
           controller: new Controller
           appRoutes: subRoutes
         })
-        Backbone.history.start({pushState: true})
+        Backbone.history.start({pushState: pushStateEnabled})
+        if pushStateEnabled == false
+          router.navigate(fragment, { trigger: true });
 
       switch controllerName
         when 'admin' then require ['controllers/admin_controller'], (AdminController) ->
@@ -104,7 +108,6 @@ define (require) ->
           instantiateRouter(RubricController, 'rubric')
         when 'submission' then require ['controllers/submission_controller'], (SubmissionController) ->
           instantiateRouter(SubmissionController, 'submission')
-
 
   Vocat.on('initialize:before', () ->
 
