@@ -46,7 +46,7 @@
   <div class="input-group">
     <div class="input-group--half">
       <%= f.label :role, {class: 'text-label'} %>
-      <%= f.select :role, User::ROLES, {:include_blank => false}, {'data-behavior' => 'chosen'} %>
+      <%= f.select :role, User::ROLES.map { |role| [role.capitalize, role]}, {:include_blank => false}, {'data-behavior' => 'chosen'} %>
     </div>
   </div>
 
