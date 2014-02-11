@@ -143,6 +143,7 @@ define (require) ->
       @render()
 
     onShow: () ->
+      console.log 'show'
       @ui.publicInput.chosen({
         disable_search_threshold: 1000
       })
@@ -169,5 +170,9 @@ define (require) ->
 
       @ui.highInput.val(@model.getHigh())
       @ui.lowInput.val(@model.getLow())
+
+      @ui.publicInput.chosen({
+        disable_search_threshold: 1000
+      })
 
       @sliderRecalculate()
