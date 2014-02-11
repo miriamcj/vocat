@@ -2100,9 +2100,29 @@ a.table--heading {
     color: $tealMedium;
     padding: 0 1.6rem;
   }
-  div {
-    .ie9 & {
-      overflow: hidden;
+  .range-label {
+    width: 18.2rem;
+    height: 5.4rem;
+    padding-top: 1rem;
+    padding-left: 1rem;
+    float: left;
+    overflow-x: hidden;
+    a {
+      height: auto;
+      padding: 0;
+    }
+    strong {
+      @extend %delta;
+      color: $grayDark;
+    }
+  }
+  .range-destroy {
+    width: 4rem; 
+    padding-top: 1rem; 
+    padding-right: 0rem; 
+    float: left;
+    .matrix--delete {
+      float: right;
     }
   }
   .editable & {

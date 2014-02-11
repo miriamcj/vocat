@@ -1,10 +1,9 @@
-<div class="matrix--row-header--item" style="">
-	<div data-behavior="edit" style="width: 18.2rem; height: 5.4rem; overflow-x: hidden; padding-left: 1rem; padding-top: 1rem; float: left">
-		<a  href="#" style="padding: 0">{{name}}</a>
-		<strong style="font-size: 1.374rem; color: #676263">{{low}} - {{high}}</strong>
-
+<div class="matrix--row-header--item">
+	<div class="range-label" data-behavior="edit">
+		<a href="#">{{name}}</a>
+		<strong>{{low}} - {{high}}</strong>
 	</div>
-	<div style="width: 4rem; padding-right: 0rem; padding-top: 1rem; float: left">
-		<b style="float: right" class="matrix--delete" href="#" data-behavior="destroy">Destroy</b>
+	<div class="range-destroy">
+		<b class="matrix--delete" href="#" data-behavior="destroy">Destroy</b>
 	</div>
 </div>
