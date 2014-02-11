@@ -52,7 +52,7 @@
             <%= link_to 'Clone', clone_admin_rubric_path(rubric), :method => :post %> /
             <%= link_to 'Modify', edit_admin_rubric_path(rubric) %> /
             <%= link_to 'Delete', admin_rubric_path(rubric), :method => :delete,
-                        :data => { :modalconfirm => 'Deleting this rubric will prevent users from seeing any evaluations associated with thie rubric. Projects using this rubric will not longer be able to be scored. Are you sure you want to do this?'}
+                        :data => { :modalconfirm => 'Deleting this rubric will prevent users from seeing any evaluations associated with it. Projects using this rubric will no longer be available for scoring. Are you sure you want to do this?'}
             %>
 
           </strong></td>

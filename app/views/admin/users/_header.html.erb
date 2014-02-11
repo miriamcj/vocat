@@ -14,6 +14,6 @@
     <li><%= link_to 'Properties', edit_admin_user_path(@user) %></li>
     <li><%= link_to 'Courses', courses_admin_user_path(@user) %></li>
     <li><%= link_to 'Password', edit_password_admin_user_path(@user) %></li>
-    <li><%= link_to 'Delete', admin_user_path(@user), :method => :delete, :data => { :modalconfirm => 'Deleting this user will also delete all submissions and evaluations associated with this user. This action is not reversible. Are you sure you would like to proceed?'} %></li>
+    <li><%= link_to 'Delete', admin_user_path(@user), :method => :delete, :data => { :modalconfirm => 'Deleting this user will also delete all associated submissions and evaluations. This action is not reversible. Are you sure you would like to proceed?'} %></li>
   </ul>
 </nav>
