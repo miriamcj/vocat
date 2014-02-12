@@ -49,10 +49,7 @@ define (require) ->
     updateHighRange: () ->
       @ui.highRange.html(@model.get('high'))
 
-    onRender: () ->
-      unless @model.get('name')
-        @openModal()
-
     initialize: (options) ->
       @vent = options.vent
       @listenTo(@model, 'change', @render, @)
+      @listenTo(@model, 'edit', @openModal, @)

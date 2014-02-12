@@ -28,7 +28,7 @@ define (require) ->
       # Does the target value appear more than once in the values array? If so, we need to shunt
       # the $dragger to a new position.
       if _.filter(values, (value) -> value != target).length < (values.length - 1)
-        missing = @getMissingFromSequence(values)
+        missing = @getAvailableValues(values)
         # First we try to go up
         nextViableTarget = _.min(_.reject(missing, (value) -> value < target ))
         previousViableTarget = _.max(_.reject(missing, (value) -> value > target ))
@@ -174,7 +174,7 @@ define (require) ->
         newValues = _.sortBy(newValues, sortIterator)
         missingCount--
 
-      newValues = _.uniq(newValues)
+#      newValues = _.uniq(newValues)
       newValues
 
 
@@ -184,15 +184,30 @@ define (require) ->
       guess
 
     getLargestGapInSequence: (sequence) ->
-      gaps = _.map(sequence, (value, index) ->
-        unless index == 0
-          value - sequence[index - 1]
-        else
-          0
+      maxRanges = _.max(sequence) - _.min(sequence) + 1
+      if sequence.length == maxRanges
+        out = [_.max(sequence), _.max(sequence)]
+      else
+        gaps = _.map(sequence, (value, index) ->
+          unless index == 0
+            gap = value - sequence[index - 1] - 1
+          else
+            0
+        )
+        highIndex = _.indexOf(gaps, _.max(gaps))
+        lowIndex = highIndex - 1
+        out = [sequence[lowIndex], sequence[highIndex]]
+      out
+
+    getAvailableValues: (sequence) ->
+      counts = _.countBy(sequence, (num) -> num)
+      min = _.min(sequence)
+      max = _.max(sequence)
+      all = [min..max]
+      available = _.filter(all, (num) ->
+        _.indexOf(sequence, num, true) == -1 || (num == max && counts[num] <= 2 )
       )
-      highIndex = _.indexOf(gaps, _.max(gaps))
-      lowIndex = highIndex - 1
-      [sequence[lowIndex], sequence[highIndex]]
+      available
 
     # Returns an array of numbers that are missing from the sequence. Assumes
     # sequence is already sorted.

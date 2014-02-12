@@ -10,6 +10,8 @@ define ['backbone', 'models/rubric_property'], (Backbone, RubricProperty) ->
       dupe:			'All ranges must have a unique name.'
     }
 
+    modalOpened: false
+
     isNew: () ->
       true
 

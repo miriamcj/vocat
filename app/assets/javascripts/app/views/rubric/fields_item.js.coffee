@@ -38,13 +38,10 @@ define (require) ->
         dismissEvent: 'dismiss:model:destroy'
       }))
 
-    onRender: () ->
-      unless @model.get('name')
-        @openModal()
-
     onConfirmModelDestroy: () ->
       @model.destroy()
 
     initialize: (options) ->
       @vent = options.vent
       @listenTo(@model, 'change:name', @render, @)
+      @listenTo(@model, 'edit', @openModal, @)

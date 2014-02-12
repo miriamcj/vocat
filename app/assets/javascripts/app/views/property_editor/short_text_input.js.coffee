@@ -47,7 +47,8 @@ define (require) ->
       }
 
     onRender: () ->
-      setTimeout(() =>
-        @ui.input.trigger('focus')
-      , 0)
+      input = @$el.find('[data-property="input"]')
+      setTimeout(() ->
+        input.focus()
+      ,0)
 

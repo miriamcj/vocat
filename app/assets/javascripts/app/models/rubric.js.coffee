@@ -58,6 +58,11 @@ define (require) ->
       values.push @getHigh()
       values.join(' ')
 
+    canAddRange: () ->
+      maxRanges = @get('high') - @get('low') + 1
+      rangeCount = @get('ranges').length
+      rangeCount + 1 <= maxRanges
+
     getLows: () ->
       ranges = @get('ranges')
       if ranges.length > 0 then lows = ranges.pluck('low')
@@ -71,6 +76,19 @@ define (require) ->
 
     getLows: () ->
       @get('ranges').pluck('low')
+
+    isValidLow: (low) ->
+      difference = @getHigh() - parseInt(low)
+      console.log difference,'diff'
+      console.log @get('ranges').length - 1, 'ranges'
+      out = difference >= (@get('ranges').length - 1)
+      console.log out, 'isvalid?'
+      out
+
+    isValidHigh: (high) ->
+      difference = parseInt(high) - @getLow()
+      difference >= @get('ranges').length - 1
+
 
     setLow: (value) ->
       @set('low',parseInt(value))

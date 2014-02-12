@@ -58,10 +58,20 @@ define (require) ->
       @model.set('public', @ui.publicInput.val())
 
     handleLowChange: (event) ->
-      @model.setLow(@ui.lowInput.val())
+      low = @ui.lowInput.val()
+      if @model.isValidLow(low)
+        @model.setLow(low)
+      else
+        @ui.lowInput.val(@model.getLow())
+        @trigger('error:add', {level: 'notice', msg: "Setting the lowest possible score above #{@model.getLow()} would make the total range too small to accomodate this rubric. Before you can increase the lowest possible score, you must remove one or more ranges from your rubric."})
 
     handleHighChange: (event) ->
-      @model.setHigh(@ui.highInput.val())
+      high = @ui.highInput.val()
+      if @model.isValidHigh(high)
+        @model.setHigh(high)
+      else
+        @ui.highInput.val(@model.getHigh())
+        @trigger('error:add', {level: 'notice', msg: "Setting the highest possible score below #{@model.getHigh()} would make the total range too small to accomodate this rubric. Before you can reduce the highest possible score, you must remove one or more ranges from your rubric."})
 
     handleNameChange: (event) ->
       @model.set('name', @ui.nameInput.val())
@@ -84,16 +94,21 @@ define (require) ->
 
     handleRangeAdd: (event) ->
       event.preventDefault()
-      range = new RangeModel({})
-      @model.get('ranges').add(range)
-      setTimeout(() =>
-        $('html, body').animate({ scrollTop: $(document).height() }, 'slow')
-      , 100)
+      if @model.canAddRange()
+        range = new RangeModel({})
+        @model.get('ranges').add(range)
+        range.trigger('edit')
+        setTimeout(() =>
+          $('html, body').animate({ scrollTop: $(document).height() }, 'slow')
+        , 100)
+      else
+        @trigger('error:add', {level: 'notice', msg: 'Before you can add another range to this rubric, you must increase the number of available points by changing the highest possible score field, above.'})
 
     handleFieldAdd: (event) ->
       event.preventDefault()
       field = new FieldModel({})
       @model.get('fields').add(field)
+      field.trigger('edit')
 
     parseRangePoints: (rangePoints) ->
       unless rangePoints? then rangePoints = ''
@@ -134,8 +149,6 @@ define (require) ->
         else
           @model = new RubricModel({})
 
-
-
       @listenTo(@model, 'invalid', (model, errors) =>
         @trigger('error:add', {level: 'error', lifetime: 5000, msg: errors})
       )
@@ -143,7 +156,6 @@ define (require) ->
       @render()
 
     onShow: () ->
-      console.log 'show'
       @ui.publicInput.chosen({
         disable_search_threshold: 1000
       })
