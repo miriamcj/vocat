@@ -1911,6 +1911,10 @@ a.table--heading {
   .matrix--overlay-open & {
     visibility: hidden;
   }
+  @include newIE {
+    width: 4.4rem;
+    height: 4.4rem;
+  }
 }
 
 .matrix--previous {
@@ -1946,6 +1950,10 @@ a.table--heading {
   height: 2rem;
   margin: 1.4rem 0;
   float: left;
+  @include newIE {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
 }
 
 // Wraps .matrix--overlay-header-title & .matrix--overlay-header-subtitle
@@ -2114,6 +2122,9 @@ a.table--heading {
     strong {
       @extend %delta;
       color: $grayDark;
+    }
+    @include newIE {
+      overflow: hidden;
     }
   }
   .range-destroy {

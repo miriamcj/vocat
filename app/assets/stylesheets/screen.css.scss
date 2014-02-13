@@ -3,9 +3,6 @@
 	By Scott (scott@castironcoding.com)
 */
 
-// NB: in 'development' mode, png fallbacks for icons in IE8- will not work
-$mode: development;
-
 @import "partials/normalize";
 @import "partials/variables";
 @import "partials/fonts";

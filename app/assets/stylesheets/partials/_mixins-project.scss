@@ -24,22 +24,29 @@
   #{$property}: $integer * 1rem;
 }
 
+// Detect IE10
+// --------------------------
+@mixin newIE {
+  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    @content;
+  }
+  .ie9 & {
+    @content;
+  }
+}
+
 // SVG backgrounds
 // PNG version must be in png directory for fallback to work
 // --------------------------
 @mixin svg($image) {
-  @if $mode == production {
-    @extend %icon-#{$image};
-  }
-  @else {
-    background-image: url(image-path('svg/#{$image}.svg'));
-  }
+  @extend %icon-#{$image};
   background-size: contain;
   background-position: left top;
   background-repeat: no-repeat;
-  @if $mode == production {
-    .no-inlinesvg & {
-      @extend .png-#{$image};
-    }
+  .no-inlinesvg & {
+    @extend .png-#{$image};
+  }
+  @include newIE {
+    background-size: 90% auto;
   }
 }
