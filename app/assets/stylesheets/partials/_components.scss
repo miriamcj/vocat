@@ -124,7 +124,9 @@
 .adaptive-nav {
   position: absolute;
   bottom: 2rem;
-  left: 6.3rem;
+  // Uncomment when the help nav is re-enabled.
+  //left: 6.3rem;
+  left: 2rem;
   .role-admin.no-course & {
     left: 2rem;
   }
