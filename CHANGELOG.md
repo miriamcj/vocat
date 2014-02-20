@@ -1,3 +1,12 @@
+## Vocat v3.0.0-beta1.5 (February 18, 2014)
+
+* [BUGFIX] Increases DB pool size in production **(zdavis)**
+* [BUGFIX] Fixes #42: Temporarily disable shortcut nav until help content has been written. **(zdavis)**
+* [BUGFIX] Fixes #36: Dropdown menu items in admin/users/edit view should be capitalized **(zdavis)**
+* [DELIVERS BUGFIX #27] Fixes dimensions of SVG images in IE9-10 **(smills)**
+* [CHORE] Moving changelog to correct location **(zdavis)**
+* [CHORE] Changelog formatting adjustment **(zdavis)**
+
 ## Vocat v3.0.0-beta1.4 (February 12, 2014)
 
 * [CHORE] Adds changelog to VOCAT **(zdavis)**
