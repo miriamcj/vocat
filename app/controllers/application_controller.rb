@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   before_filter :test_flash_messages
   before_filter :authenticate_user!
   before_filter :inject_session_data
+  before_filter :inject_aws_info
   before_filter :get_organization_and_current_course
 
   # This is a bit of a hack to deal with incompatibilities between CanCan 1.x and Rails 4 strong
@@ -39,6 +40,11 @@ class ApplicationController < ActionController::Base
 
   def disable_layout_messages
     @disable_layout_messages = true
+  end
+
+  def inject_aws_info
+    @S3_bucket = Rails.application.config.vocat.aws[:s3_bucket]
+    @aws_public_key = Rails.application.config.vocat.aws[:key]
   end
 
   def inject_session_data
@@ -150,6 +156,10 @@ class ApplicationController < ActionController::Base
                                          :seconds_timecode,
                                          :video_id
       )
+    end
+
+    def attachment_params
+      params.require(:attachment).permit(:media_file_name)
     end
 
     def video_params

@@ -181,5 +181,7 @@ define (require) ->
   # location rather than in individual views.
   Vocat.glossaryEnabled = window.VocatSessionData? && window.VocatSessionData.enable_glossary? && window.VocatSessionData.enable_glossary == true
   Vocat.currentUserRole = window.VocatUserRole
+  Vocat.S3Bucket = window.VocatS3Bucket
+  Vocat.AWSPublicKey = window.VocatAWSPublicKey
   return Vocat
 

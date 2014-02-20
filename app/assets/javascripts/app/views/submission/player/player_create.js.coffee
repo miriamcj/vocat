@@ -2,8 +2,7 @@ define (require) ->
 
   Marionette = require('marionette')
   template = require('hbs!templates/submission/player/player_create')
-  VideoModel = require('models/video')
-  Poller = require('app/plugins/backbone_poller')
+  iFrameTransport= require('vendor/plugins/iframe_transport')
   FileUpload = require('vendor/plugins/file_upload')
 
   class PlayerCreate extends Marionette.Layout
@@ -18,7 +17,7 @@ define (require) ->
       step5: '[data-ui="step5"]'
       step6: '[data-ui="step6"]'
       step7: '[data-ui="step7"]'
-      step8: '[data-ui="step8"]'
+
       sourceIdYoutube: '[data-ui="source-id-youtube"]'
       sourceIdVimeo: '[data-ui="source-id-vimeo"]'
       youTubeWrap: '[data-ui="youtube-wrap"]'
@@ -36,6 +35,19 @@ define (require) ->
       'click [data-behavior="submit-youtube"]': 'submit:youtube'
       'click [data-behavior="submit-vimeo"]': 'submit:vimeo'
     }
+
+
+    template: template
+
+    initialize: (options) ->
+      @options = options || {}
+      @vent = Marionette.getOption(@, 'vent')
+
+    serializeData: () ->
+      {
+        s3Bucket: Vocat.S3Bucket
+        AWSPublicKey: Vocat.AWSPublicKey
+      }
 
     saveModel: (attributes) ->
       @model.save({video_attributes: attributes},{url: @model.updateUrl(), success: () =>
@@ -71,26 +83,45 @@ define (require) ->
         @ui.vimeoWrap.addClass('error')
 
     initializeAsyncUploader: () ->
+      attachmentId = null
       @ui.upload.fileupload({
-        url: "/api/v1/videos"
-        multipart: true
-        formData: [ { name: 'video[submission_id]', value: @model.id }, { name: 'video[source]', value: 'attachment'}]
-        dataType: 'json'
-        done: (e, data) =>
-          @video = new VideoModel(data.result)
-          @vent.triggerMethod('video:upload:done')
-          @showStep(8)
-          @vent.triggerMethod('video:transcoding:started')
-          @startPolling(@video)
-        fail: (e, data) =>
-          @vent.triggerMethod('video:upload:failed')
-          @showStep(7)
+        forceIframeTransport: true,
+        autoUpload: true,
+        add: (e, data) =>
+          $.ajax({
+            url: '/api/v1/attachments'
+            type: 'POST'
+            dataType: 'json'
+            data: {attachment: {media_file_name: data.files[0].name}}
+            async: false
+            success: (retdata) =>
+              attachmentId = retdata.attachment_id
+              @ui.upload.find('input[name=key]').val(retdata.key)
+              @ui.upload.find('input[name=policy]').val(retdata.policy)
+              @ui.upload.find('input[name=signature]').val(retdata.signature)
+              data.submit()
+          })
         send: (e, data) =>
-          @vent.triggerMethod('video:upload:started')
           @showStep(6)
+        fail: (e, data) =>
+          @showStep(7)
+        done: (e, data) =>
+          $.ajax({
+            # This is a hack that should be fixed. It will come back to haunt you later.
+            # Unsure where, exactly, to create the video object, and generally unhappy with the
+            # attachment/video relationship, I put it here. When we commit the attachment,
+            # we pass the submission ID and create a video record.
+            url: "/api/v1/attachments/#{attachmentId}/commit?submission_id=#{@model.id}"
+            type: 'POST'
+            dataType: 'json'
+            success: (data) =>
+              @model.fetch({url: @model.updateUrl()}, success: () =>
+                @model.trigger('change:has_video')
+              )
+            fail: (data) =>
+              @showStep(7)
+          })
       })
-
-    onRender: () ->
 
     onShow: () ->
       @showStep(1, false)
@@ -120,23 +151,6 @@ define (require) ->
     onRender: () ->
       @initializeAsyncUploader()
 
-    startPolling: (video) ->
-      options = {
-        delay: 5000
-        delayed: true
-        condition: (video) =>
-          if video.get('attachment_transcoding_status') == 1
-            @vent.triggerMethod('video:transcoding:completed', {video: video})
-            @model.fetch({url: @model.updateUrl()})
-            out = false
-          else
-            out = true
-          out
-      }
-
-      poller = Poller.get(video, options);
-      poller.start()
-
     onShowStep1: () ->
       @showStep(1)
 
@@ -154,10 +168,4 @@ define (require) ->
 
     onCloseCreateUi: () ->
       @ui.createIntro.slideDown()
-
-    template: template
-
-    initialize: (options) ->
-      @options = options || {}
-      @vent = Marionette.getOption(@, 'vent')
 

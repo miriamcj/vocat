@@ -1415,6 +1415,7 @@ input%proto-button {
 // Lives inside %box>header
 %box--title {
   @extend %beta-alt;
+  text-align: left;
   color: $beigeLight;
   line-height: 1;
 }

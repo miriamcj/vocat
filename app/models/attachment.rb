@@ -1,6 +1,6 @@
 class Attachment < ActiveRecord::Base
 
-  belongs_to :fileable, :polymorphic => true
+#  belongs_to :fileable, :polymorphic => true
 
   # Transcoding constants
   TRANSCODING_STATUS_NOT_STARTED = 0
@@ -9,236 +9,155 @@ class Attachment < ActiveRecord::Base
   TRANSCODING_STATUS_UNNECESSARY = 3
   TRANSCODING_STATUS_BUSY = 4
 
-  # Paperclip configurations
-  has_attached_file :media,
-                    :storage => :s3,
-                    :bucket => Rails.application.config.vocat.aws[:s3_bucket],
-                    :s3_credentials => {
-                        :access_key_id => Rails.application.config.vocat.aws[:key],
-                        :secret_access_key => Rails.application.config.vocat.aws[:secret]
-                    },
-                    :s3_permissions => :private,
-                    :path => ":year/:month/:day/:hash:ending",
-                    :hash_secret => "+hequ!ckbr0wnf@Xjump5o^3rThe1azyd0g",
-                    :hash_data => Rails.env == "production" ? "attachment/:id/:updated_at" : "attachment/:updated_at" # need to predictably seed attachments
+  belongs_to :video
+  belongs_to :user
 
-  Paperclip.interpolates(:year)  {|a, style| a.instance.created_at.year}
-  Paperclip.interpolates(:month) {|a, style| a.instance.created_at.month}
-  Paperclip.interpolates(:day)   {|a, style| a.instance.created_at.day}
-  Paperclip.interpolates(:ending) do |a, style|
-    if a.instance.transcoding_complete?
-      case style
-        when :original
-          ".mp4"
-        when :thumb
-          "_thumb00001.png"
-        else
-          File.extname(a.instance.media_file_name)
+  after_initialize :check_processing_state
+
+  state_machine :initial => :uncommitted do
+    state :uncommitted
+    state :committed
+    state :processing
+    state :processing_error
+    state :processed
+
+    event :commit do
+      transition :uncommitted => :committed
+    end
+
+    event :complete_processing do
+      transition :committed => :processed
+      transition :processing => :processed
+      transition :processing_error => :processed
+    end
+
+    event :start_processing do
+      transition :committed => :processing
+    end
+
+    event :stop_processing_with_error do
+      transition :processing => :processing_error
+    end
+
+    before_transition :uncommitted => :committed do |attachment, transition|
+      attachment.do_commit
+    end
+
+    after_transition :committed => :processing do |attachment, transition|
+      attachment.do_processing
+    end
+
+    after_transition any => :committed do |attachment, transition|
+      if attachment.can_be_processed?
+        attachment.start_processing
+      else
+        attachment.complete_processing
       end
-    else
-      File.extname(a.instance.media_file_name)
     end
   end
 
-  # Validations
-  validates :media, :attachment_presence => true
-  validates_with AttachmentPresenceValidator, :attributes => :media
-
-  # Start transcoding right after saving attachment
-  after_save :transcode_media
-
-  # Typically one attachment, so get the most recent to the top
-  default_scope { order("updated_at DESC") }
+  def check_processing_state
+    if processing?
+      processor = processor_class.constantize.new
+      processor.check_for_and_handle_processing_completion(self, processor_job_id)
+    end
+  end
 
   def active_model_serializer
     AttachmentSerializer
   end
 
-  # Some wrappers
-  def url(style = :original)
-    case style
-    when :original
-      media.url
-      media.expiring_url(Time.now + 3600, style)
-    when :thumb
-      media.url :thumb
-    end
+  def available_processors
+    [
+        AttachmentProcessor::Transcoder
+    ]
   end
 
-  def to_s
-    self.url
-  end
-
-  def size
-    media.size
-  end
-
-  def original_filename
-    media_file_name
-  end
-
-  def content_type
-    media_content_type
-  end
-
-  def make_thumbnail_public
-    options = media.s3_credentials
-    input_key = media.interpolator.interpolate media.options[:path], media, :original
-    base = "#{File.dirname(input_key)}/#{File.basename(input_key, ".*")}"
-    target_key = "#{base}_thumb00001.png"
-
-    s3 = AWS::S3.new(options)
-    s3.client.put_object_acl(
-      bucket_name: options[:bucket],
-      key: target_key,
-      acl: "public_read"
-    )
-  end
-
-  def is_video?
-    case media_content_type
-      when "video/mpeg","video/mp4","video/ogg","video/quicktime","video/webm","video/x-matroska","video/x-ms-wmv","video/x-flv","video/avi"
+  def can_be_processed?
+    available_processors.each do |processor_class|
+      processor = processor_class.send(:new)
+      if processor.can_process?(self)
         return true
-      else
-        return false
-    end
-  end
-
-  # A method for generically running the transcoding
-  def transcode_media
-    transcoding_happened = FALSE
-    self.update_column(:transcoding_status , TRANSCODING_STATUS_BUSY)
-
-    # Skip transcoding for non-movie files
-    unless is_video?
-        self.update_column(:transcoding_status, TRANSCODING_STATUS_UNNECESSARY)
-        return
-    end
-
-    transcode('mp4')
-    transcoding_happened = TRUE
-    unless transcoding_happened
-      self.update_column(:transcoding_status, TRANSCODING_STATUS_SUCCESS)
-    end
-  end
-
-  def transcoding_complete?
-    self.transcoding_status == TRANSCODING_STATUS_SUCCESS ||
-        self.transcoding_status == TRANSCODING_STATUS_UNNECESSARY ||
-        self.transcoding_status == TRANSCODING_STATUS_ERROR
-  end
-
-  def transcoding_in_progress?
-    self.transcoding_status == TRANSCODING_STATUS_BUSY
-  end
-
-  def transcoding_not_started?
-    self.transcoding_status == TRANSCODING_STATUS_NOT_STARTED
-  end
-
-  def transcoding_error?
-    self.transcoding_status == TRANSCODING_STATUS_ERROR
-  end
-
-  def transcoding_unnecessary?
-    self.transcoding_status == TRANSCODING_STATUS_UNNECESSARY
-  end
-
-  def transcoding_busy?
-    self.transcoding_status == TRANSCODING_STATUS_BUSY
-  end
-
-  def transcoding_success?
-    self.transcoding_status == TRANSCODING_STATUS_SUCCESS
-  end
-
-
-  protected
-
-  # Queues an AWS transcoding job
-  def transcode(encoding)
-
-    extension = encoding.to_s
-
-    # Create the ElasticTranscoder object and S3 object
-    options = media.s3_credentials
-    AWS.config({
-                   :access_key_id => Rails.application.config.vocat.aws[:key],
-                   :secret_access_key => Rails.application.config.vocat.aws[:secret]
-               })
-    et = AWS::ElasticTranscoder::Client.new({:region => Rails.application.config.vocat.aws[:s3_region]})
-    s3 = AWS::S3.new(options)
-
-    # Get the transcoding variables
-    input_key = media.interpolator.interpolate media.options[:path], media, :original
-    base = "#{File.dirname(input_key)}/#{File.basename(input_key, ".*")}"
-    output_key = "#{base}.#{extension}"
-    thumb_pattern = "#{base}_thumb{count}"
-
-    # Can't override files
-    if input_key == output_key
-      input_file = s3.buckets[Rails.application.config.vocat.aws[:s3_bucket]].objects[input_key]
-      input_key = "#{input_key}_original"
-      input_file.move_to(input_key)
-    end
-
-    # Queue the job
-    pipeline = Rails.application.config.vocat.aws[:et_pipeline]
-    preset = Rails.application.config.vocat.aws[:et_preset]
-
-    job = et.create_job(
-        :pipeline_id => Rails.application.config.vocat.aws[:et_pipeline],
-        :input => {
-            :key => input_key,
-            :frame_rate => 'auto',
-            :resolution => 'auto',
-            :aspect_ratio => 'auto',
-            :interlaced => 'auto',
-            :container => 'auto'
-        },
-        :output => {
-            :key => output_key,
-            :thumbnail_pattern => thumb_pattern,
-            :rotate => '0',
-            :preset_id => Rails.application.config.vocat.aws[:et_preset]
-        })
-
-    # Poll the job queue to see if the job is done yet
-    Thread.new(options, job.data[:job][:id], &method(:listen_for_transcoding_completion))
-  end
-
-  # Polls the AWS job queue to see if the transcoding has completed.
-  # This should probably be queued to delayed job.
-  def listen_for_transcoding_completion(options, job_id)
-    AWS.config({
-                   :access_key_id => Rails.application.config.vocat.aws[:key],
-                   :secret_access_key => Rails.application.config.vocat.aws[:secret]
-               })
-    et = AWS::ElasticTranscoder::Client.new({:region => Rails.application.config.vocat.aws[:s3_region]})
-    finished_transcoding = FALSE
-    300.times do
-      job = et.read_job(:id => job_id)
-      status = job.data[:job][:output][:status]
-      case status
-        when 'Complete'
-          self.update_column(:transcoding_status, TRANSCODING_STATUS_SUCCESS)
-          self.make_thumbnail_public
-          finished_transcoding = TRUE
-          break
-        when 'Error'
-          self.update_column(:transcoding_status, TRANSCODING_STATUS_ERROR)
-          self.update_column(:transcoding_error, job.data[:job][:output][:status_detail])
-          finished_transcoding = TRUE
-          break
-        else
-          sleep 5
       end
     end
-    unless finished_transcoding
-      self.update_column(:transcoding_status, TRANSCODING_STATUS_ERROR)
-      self.update_column(:transcoding_error, "Timeout")
+    return false
+  end
+
+  def s3_thumb_key
+    input_key = self.s3_source_key
+    base = "#{File.dirname(input_key)}/#{File.basename(input_key, ".*")}"
+    "#{base}_thumb00001.png"
+  end
+
+  def s3_source_key
+    if uncommitted?
+      uncommitted_s3_source_key
+    else
+      committed_s3_source_key
     end
   end
 
+  def thumb
+  end
+
+  def url
+    if processed? and !processed_key.blank?
+      key = processed_key
+    else
+      key = s3_source_key
+    end
+    s3 = get_s3_instance
+    object = s3.buckets[Rails.application.config.vocat.aws[:s3_bucket]].objects[key]
+    object.url_for(:read).to_s
+  end
+
+  def get_s3_instance
+    options = {
+        :access_key_id => Rails.application.config.vocat.aws[:key],
+        :secret_access_key => Rails.application.config.vocat.aws[:secret]
+    }
+    s3 = AWS::S3.new(options)
+    s3
+  end
+
+  def do_processing
+    available_processors.each do |processor_class|
+      processor = processor_class.send(:new)
+      if processor.can_process?(self)
+        processor.process(self)
+        return true
+      end
+    end
+  end
+
+  def do_commit
+    s3 = get_s3_instance
+    object = s3.buckets[Rails.application.config.vocat.aws[:s3_bucket]].objects[uncommitted_s3_source_key]
+    self.media_content_type = MIME::Types.type_for(media_file_name).first.simplified
+    self.media_file_size = object.content_length
+    self.media_updated_at = Time.now
+    object.move_to(committed_s3_source_key)
+    self.save
+  end
+
+  private
+
+  def committed_s3_source_key
+    ext = File.extname(media_file_name)
+    lower_thousand = (id/1000).floor * 1000
+    upper_thousand = lower_thousand + 1000
+    lower_hundred = (id/100).floor * 100
+    upper_hundred = lower_hundred + 100
+    "source/attachment/#{lower_thousand}_#{upper_thousand}/#{lower_hundred}_#{upper_hundred}/#{id}#{ext}"
+  end
+
+  def uncommitted_s3_source_key
+    ext = File.extname(media_file_name)
+    lower_thousand = (id/1000).floor * 1000
+    upper_thousand = lower_thousand + 1000
+    lower_hundred = (id/100).floor * 100
+    upper_hundred = lower_hundred + 100
+    "temporary/attachment/#{lower_thousand}_#{upper_thousand}/#{lower_hundred}_#{upper_hundred}/#{id}#{ext}"
+  end
 
 end

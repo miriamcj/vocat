@@ -1,15 +1,16 @@
 class Video < ActiveRecord::Base
 
-  has_one :attachment, :as => :fileable
+#  has_one :attachment, :as => :fileable
+
+  has_one :attachment
+
   belongs_to :submission
   has_many :annotations, :dependent => :destroy
 
+  delegate :processing_error, :to => :attachment, :prefix => false, :allow_nil => true
   delegate :url, :to => :attachment, :prefix => true, :allow_nil => true
-  delegate :thumb, :to => :attachment, :prefix => true, :allow_nil => true
-  delegate :transcoding_status, :to => :attachment, :prefix => true, :allow_nil => true
-  delegate :transcoding_error, :to => :attachment, :prefix => true, :allow_nil => true
 
-  accepts_nested_attributes_for :attachment
+#  accepts_nested_attributes_for :attachment
 
   default_scope { includes(:attachment) }
 
@@ -31,24 +32,10 @@ class Video < ActiveRecord::Base
   end
 
   def state
-    if source == 'attachment'
-      if attachment && attachment.is_video?
-        if (attachment.transcoding_success? || attachment.transcoding_unnecessary?)
-          'ready'
-        elsif (attachment.transcoding_error?)
-          'transcoding_error'
-        else
-          'transcoding_busy'
-        end
-      else
-        if attachment.nil?
-          'no_attachment'
-        else
-          'invalid_attachment'
-        end
-      end
-    else
-      'ready'
+    if attachment
+      attachment.state
+    elsif source && source_id
+      'processed'
     end
   end
 
@@ -59,7 +46,7 @@ class Video < ActiveRecord::Base
       when 'vimeo'
         thumbnail_url
       when 'attachment'
-        attachment.url(:thumb)
+        attachment.thumb
     end
   end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140205163110) do
+ActiveRecord::Schema.define(version: 20140220221028) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,12 +33,20 @@ ActiveRecord::Schema.define(version: 20140205163110) do
     t.string   "media_content_type"
     t.integer  "media_file_size"
     t.datetime "media_updated_at"
-    t.integer  "transcoding_status", default: 0
+    t.integer  "transcoding_status",  default: 0
     t.string   "transcoding_error"
     t.integer  "fileable_id"
     t.string   "fileable_type"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.string   "state"
+    t.integer  "video_id"
+    t.string   "processor_error"
+    t.integer  "user_id"
+    t.string   "processed_key"
+    t.string   "processor_job_id"
+    t.string   "processor_class"
+    t.string   "processed_thumb_key"
   end
 
   add_index "attachments", ["fileable_id", "fileable_type"], name: "index_attachments_on_fileable_id_and_fileable_type", using: :btree

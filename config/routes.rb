@@ -14,6 +14,11 @@ Vocat::Application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      resources :attachments, :only => [:create, :show, :destroy] do
+        member do
+          post 'commit'
+        end
+      end
       resources :enrollments, :only => [:create, :destroy]
       resources :users, :only => [:show] do
         collection do

@@ -12,5 +12,5 @@ define (require) ->
 
     serializeData: () ->
       {
-        message: @message
+      message: @message
       }

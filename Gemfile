@@ -16,9 +16,12 @@ gem 'devise'
 gem 'paperclip', '~> 3.4.0'
 gem 'aws-sdk', '~> 1.32.0'
 gem 'delayed_job_active_record'
+gem 'daemons'
 gem 'quiet_assets'
 gem 'net-ldap'
+gem 'mime-types'
 gem 'thor', :git => 'https://github.com/erikhuda/thor.git'
+gem 'state_machine'
 
 # Stuck on this version until https://github.com/ryanb/cancan/issues/861 is released
 gem 'cancan', '= 1.6.9'

@@ -1,6 +1,7 @@
 class AttachmentSerializer < ActiveModel::Serializer
-  attributes :id, :submission_id, :url, :current_user_can_destroy, :transcoding_status, :transcoding_not_started,
-             :transcoding_error, :transcoding_unnecessary, :transcoding_busy, :transcoding_success, :is_video
+  attributes :id, :submission_id, :current_user_can_destroy, :state
+  #, :url, :transcoding_status, :transcoding_not_started,
+  #           :transcoding_error, :transcoding_unnecessary, :transcoding_busy, :transcoding_success, :is_video
 
   def is_video
     object.is_video?

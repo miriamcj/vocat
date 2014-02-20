@@ -178,6 +178,25 @@ class Ability
     end
 
     ######################################################
+    # Attachments
+    ######################################################
+
+    # TODO: Improve this ability check
+    can :create, Attachment do |attachment|
+      true
+    end
+
+    can :commit, Attachment do |attachment|
+      attachment.user == user
+    end
+
+    # TODO: Improve this ability check
+    can :show, Attachment do |attachment|
+      true
+    end
+
+
+    ######################################################
     # Rubrics
     ######################################################
 
