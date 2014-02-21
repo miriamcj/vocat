@@ -176,9 +176,6 @@ define [
         model: submission
       })
       @overlay.show(view)
-#      @listenToOnce(view, 'submission:loaded', () =>
-#      )
-#
 
     onColActive: (args) ->
       # For now, do nothing.
@@ -202,10 +199,10 @@ define [
       @ui.overlay.css({top: '8rem', position: 'absolute', minHeight: minHeight})
       @$el.find('.matrix').addClass('matrix--overlay-open')
       if !@ui.overlay.is(':visible')
-        #@ui.overlay.fadeIn(250)
+        @scrollToHeader(true)
         @ui.overlay.show()
       else
-        #@scrollToHeader(true)
+        @scrollToHeader(true)
 
       if !@ui.header.is(':visible')
         @ui.header.show()

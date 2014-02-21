@@ -23,29 +23,29 @@
 
         <%= f.fields_for :settings do |settings| %>
 
-          <label class="checkbox-label">
-            <%= hidden_field_tag('course[settings][enable_public_discussion]', 0)%>
+          <label class="checkbox-label" for="course_settings_enable_public_discussion">
+            <%= hidden_field_tag('course[settings][enable_public_discussion]', 0, :id => 'enable_public_discussion_hidden')%>
             <%= check_box_tag('course[settings][enable_public_discussion]', 1, @course.settings[:enable_public_discussion] == '1', :class => 'checkbox')%>
             <b></b>
             Enable public discussion
           </label>
 
-          <label class="checkbox-label">
-            <%= hidden_field_tag('course[settings][enable_peer_review]', 0)%>
+          <label class="checkbox-label" for="course_settings_enable_peer_review">
+            <%= hidden_field_tag('course[settings][enable_peer_review]', 0, :id => 'enable_peer_review_hidden')%>
             <%= check_box_tag('course[settings][enable_peer_review]', 1, @course.settings[:enable_peer_review] == '1', :class => 'checkbox')%>
             <b></b>
             Enable peer review
           </label>
 
-          <label class="checkbox-label">
-            <%= hidden_field_tag('course[settings][enable_creator_attach]', 0)%>
+          <label class="checkbox-label" for="course_settings_enable_creator_attach">
+            <%= hidden_field_tag('course[settings][enable_creator_attach]', 0, :id => 'enable_creator_attach_hidden')%>
             <%= check_box_tag('course[settings][enable_creator_attach]', 1, @course.settings[:enable_creator_attach] == '1', :class => 'checkbox')%>
             <b></b>
             Allow creators to upload videos
           </label>
 
-          <label class="checkbox-label">
-            <%= hidden_field_tag('course[settings][enable_self_evaluation]', 0)%>
+          <label class="checkbox-label" for="course_settings_enable_self_evaluation">
+            <%= hidden_field_tag('course[settings][enable_self_evaluation]', 0, :id => 'enable_self_evaluation_hidden')%>
             <%= check_box_tag('course[settings][enable_self_evaluation]', 1, @course.settings[:enable_self_evaluation] == '1', :class => 'checkbox')%>
             <b></b>
             Allow self-evaluation
