@@ -71,11 +71,12 @@ define (require) ->
     onSubmitVimeo: () ->
       value = @ui.sourceIdVimeo.val()
       matches = value.match(/^.+vimeo.com\/(.*\/)?([^#\?]*)/)
+      console.log matches
       id = if matches then matches[2] || matches[1] else null
       if id
         attributes = {
           source: 'vimeo'
-          source_id: @ui.sourceIdVimeo.val()
+          source_id: id
         }
         @saveModel(attributes)
         @ui.vimeoWrap.removeClass('error')

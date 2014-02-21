@@ -133,7 +133,6 @@
                                 // enctype must be set as encoding for IE:
                                 .prop('encoding', 'multipart/form-data');
                         }
-                        console.log('submitting iframe form');
                         form.submit();
                         // Insert the file input fields at their original location
                         // by replacing the clones with the originals:

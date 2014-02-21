@@ -37,13 +37,11 @@ define (require) ->
         @handleItemViewInviteFailure(itemView)
       )
 
-
     handleItemViewInviteFailure: (emptyView) ->
-      console.log emptyView.error
+      # TODO: Handle this error
 
     handleItemViewAdd: (itemView) ->
       enrollment = @collection.newEnrollmentFromSearchModel(itemView.model)
-      console.log enrollment.attributes, 'attr'
       enrollment.save({},{
         error: (model, xhr) =>
           @trigger('error:add', {level: 'error', lifetime: 5000, msg: xhr.responseJSON.errors})

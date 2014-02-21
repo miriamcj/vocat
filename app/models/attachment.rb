@@ -98,6 +98,11 @@ class Attachment < ActiveRecord::Base
   end
 
   def thumb
+    if processed? and !processed_thumb_key.blank?
+      s3 = get_s3_instance
+      object = s3.buckets[Rails.application.config.vocat.aws[:s3_bucket]].objects[processed_thumb_key]
+      object.url_for(:read).to_s
+    end
   end
 
   def url

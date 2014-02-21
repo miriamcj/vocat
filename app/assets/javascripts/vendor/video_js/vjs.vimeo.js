@@ -143,7 +143,7 @@ videojs.Vimeo.prototype.onReady = function(){
 };
 
 videojs.Vimeo.prototype.onLoad = function(){
-  if (this.vimeo.api) {
+  if (this.vimeo && this.vimeo.api) {
     this.vimeo.api('unload');
     delete this.vimeo;
   }
