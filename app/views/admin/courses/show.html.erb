@@ -24,7 +24,7 @@
         <% if @course.message.blank? %>
           No message has been set for this course.
         <% else %>
-          <%= @course.message %>
+          <%= simple_format @course.message %>
         <% end %>
       </span>
     </div>
@@ -34,7 +34,7 @@
         <% if @course.description.blank? %>
           No description has been added for this course.
         <% else %>
-          <%= @course.description %>
+          <%= simple_format @course.description %>
         <% end %>
       </span>
     </div>
