@@ -1,3 +1,16 @@
+## Vocat v3.0.0-beta1.6 (February 20, 2014)
+
+* [FEATURE] Delivers #44: add ability to configure Google Analytics tracking code for VOCAT
+* [BUGFIX] Fixes #50 No paragraph breaks in project description
+* [BUGFIX] Fixes #57: Need to crop long course titles in header nav
+* [CHORE] Removes unneeded factory and spec files
+* [BUGFIX] Fixes #47: Vimeo thumbnails not generated correctly
+* [CHORE] Updates production assets
+* [FEATURE] Significant rewrite and refactoring of upload and transcoding mechanisms
+* [BUGFIX] Fixes #54: Corrects icon color in annotations header
+* [BUGFIX] Fixes #53: When the overlay is opened in the course map, the viewport should scroll to the header
+* [BUGFIX] Fixes #41: Unable to check course settings checkboxes in Firefox
+
 ## Vocat v3.0.0-beta1.5 (February 18, 2014)
 
 * [BUGFIX] Increases DB pool size in production **(zdavis)**
