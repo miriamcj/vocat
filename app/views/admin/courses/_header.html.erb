@@ -1,5 +1,5 @@
 <header class="button-header">
-  <h2 class="button-header--title"><%= "#{@course.name} - #{@course.semester_name} #{@course.year}" %></h2>
+  <h2 class="button-header--title"><%= "#{truncate(@course.name, length: 50, separator: ' ')} - #{@course.semester_name} #{@course.year}" %></h2>
   <% if local_assigns.fetch :subheader, nil %>
     <h2 class="button-header--subtitle">
       <%= subheader %><span></span>

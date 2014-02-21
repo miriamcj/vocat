@@ -1,7 +1,7 @@
  <nav class="course-selector" data-behavior="dropdown">
   <a class="course-selector--toggle" data-behavior="toggle" href="#">
     <% if @selected_course %>
-      <%= @selected_course %>
+      <%= truncate(@selected_course.to_s, length: 50, separator: ' ') %>
 		<% else %>
 			Select your course
 	  <% end %>
