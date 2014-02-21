@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :test_flash_messages
   before_filter :authenticate_user!
+  before_filter :inject_global_layout_variables
   before_filter :inject_session_data
   before_filter :inject_aws_info
   before_filter :get_organization_and_current_course
@@ -40,6 +41,12 @@ class ApplicationController < ActionController::Base
 
   def disable_layout_messages
     @disable_layout_messages = true
+  end
+
+  def inject_global_layout_variables
+    @analytics_enabled = Rails.application.config.vocat.tracking[:analytics_enabled]
+    @analytics_id = Rails.application.config.vocat.tracking[:analytics_id]
+    @analytics_domain = Rails.application.config.vocat.tracking[:analytics_domain]
   end
 
   def inject_aws_info
