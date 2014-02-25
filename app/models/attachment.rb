@@ -58,8 +58,10 @@ class Attachment < ActiveRecord::Base
 
   def check_processing_state
     if processing?
-      processor = processor_class.constantize.new
-      processor.check_for_and_handle_processing_completion(self, processor_job_id)
+      unless processor_class.blank?
+        processor = processor_class.constantize.new
+        processor.check_for_and_handle_processing_completion(self, processor_job_id)
+      end
     end
   end
 
