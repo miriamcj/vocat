@@ -107,6 +107,14 @@
   @extend %small-teal-arrow-button;
 }
 
+.small-teal-arrow-up-button {
+  @extend %small-teal-arrow-up-button;
+}
+
+.small-teal-arrow-down-button {
+  @extend %small-teal-arrow-down-button;
+}
+
 .small-teal-plus-button {
   @extend %small-teal-plus-button;
 }
@@ -118,6 +126,14 @@
 .teal-minus-button {
   @extend %teal-minus-button;
   margin-right: 0.6rem;
+}
+
+.teal-circle-arrow-down-button {
+  @extend %teal-circle-arrow-down-button;
+}
+
+.teal-circle-arrow-up-button {
+  @extend %teal-circle-arrow-up-button;
 }
 
 .gray-ex-button {

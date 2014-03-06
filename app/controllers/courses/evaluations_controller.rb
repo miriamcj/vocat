@@ -10,7 +10,7 @@ class Courses::EvaluationsController < ApplicationController
   def course_map
     @disable_layout_messages = true
     authorize! :evaluate, @course
-    @projects = Project.where(course: @course)
+    @projects = Project.rank(:listing_order).where(course: @course)
     @users = @course.creators
     @groups = @course.groups
     @submissions = Submission.where(project: @projects)

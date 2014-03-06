@@ -1,4 +1,8 @@
 class Project < ActiveRecord::Base
+
+  include RankedModel
+  ranks :listing_order, :with_same => :course_id
+
   belongs_to :course
   belongs_to :project_type
   belongs_to :rubric

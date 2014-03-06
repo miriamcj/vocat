@@ -57,6 +57,10 @@ class Ability
       can?(:read_write, project.course)
     end
 
+    can [:position], Project do |project|
+      can?(:update, project)
+    end
+
     can [:submit], Project do |project|
       project.course.creators.include?(user)
     end

@@ -110,7 +110,8 @@ class ApplicationController < ActionController::Base
       params.require(:project).permit(:name,
                                       :description,
                                       :course_id,
-                                      :rubric_id
+                                      :rubric_id,
+                                      :listing_order_position
       )
     end
 

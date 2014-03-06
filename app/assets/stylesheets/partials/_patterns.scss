@@ -185,15 +185,15 @@
 // https://github.com/h5bp/html5-boilerplate/blob/master/css/main.css#L120
 %hidden-text {
 	background-color: transparent;
-    border: 0;
-    overflow: hidden;
-    *text-indent: -9999px;
-    &:before {
-	    content: "";
-	    display: block;
-	    width: 0;
-	    height: 100%;
-    }
+  border: 0;
+  overflow: hidden;
+  *text-indent: -9999px;
+  &:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 100%;
+  }
 }
 
 %inactive-link {
@@ -368,6 +368,59 @@ input%proto-button {
   @extend %small-teal-plus-button;
   &:after {
     @include svg(circle-arrow-right-beigeLight);
+  }
+}
+
+%small-teal-arrow-down-button {
+  @extend %small-teal-plus-button;
+  &:after {
+  	@include svg(circle-arrow-down-beigeLight);
+  }
+}
+
+%small-teal-arrow-up-button {
+  @extend %small-teal-plus-button;
+  &:after {
+  	@include svg(circle-arrow-up-beigeLight);
+  }
+}
+
+%teal-circle-arrow-up-button,
+%teal-circle-arrow-down-button {
+  @extend %teal-button;
+  width: 3.2rem;
+  height: 3.2rem;
+  text-indent: -400em;
+  padding: 0;
+  position: relative;
+  &:after {
+    content: "";
+    display: block;
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+    top: 0.6rem;
+    left: 0.6rem;
+  }
+  @include newIE {
+    &:after {
+      width: 20px;
+      height: 20px;
+      top: 7px;
+      left: 7px;
+    }
+  }
+}
+
+%teal-circle-arrow-down-button {
+  &:after {
+    @include svg(circle-arrow-down-beigeLight);
+  }
+}
+
+%teal-circle-arrow-up-button {
+  &:after {
+    @include svg(circle-arrow-up-beigeLight);
   }
 }
 
