@@ -1,9 +1,11 @@
 class Course < ActiveRecord::Base
   belongs_to :organization
   belongs_to :semester
+
   has_and_belongs_to_many :evaluators, :class_name => "User", :join_table => "courses_evaluators"
   has_and_belongs_to_many :assistants, :class_name => "User", :join_table => "courses_assistants"
   has_and_belongs_to_many :creators, :class_name => "User", :join_table => "courses_creators"
+
   has_many :projects, :dependent => :destroy
   has_many :groups, :dependent => :destroy
   has_one :project_type
@@ -104,7 +106,7 @@ class Course < ActiveRecord::Base
     out = 0
     video_count = Video.count_by_course(self)
     if video_count > 0
-      possible_submissions = creators.count * projects.count
+      possible_submissions = creators.count * projects.count + groups.count * projects.count
       if possible_submissions.to_f > 0
         out = ((video_count.to_f / possible_submissions.to_f) * 100).round
       end

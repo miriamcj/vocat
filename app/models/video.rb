@@ -28,7 +28,8 @@ class Video < ActiveRecord::Base
   end
 
   def self.count_by_course(course)
-    Video.joins(:submission => :project).where(:projects => {:course_id => course.id}).count()
+    submissions = Submission.for_courses(course).pluck(:id)
+    Video.where(:submission_id => submissions).count()
   end
 
   def state

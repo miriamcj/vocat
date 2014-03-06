@@ -26,7 +26,10 @@ class Submission < ActiveRecord::Base
 
   default_scope { includes(:video, :evaluations, :project) }
 
-  scope :for_courses, -> (course) { joins(:project).where('projects.course_id' => course).includes(:video) }
+  scope :for_courses, -> (course) { joins(:project)
+      .where('projects.course_id' => course)
+      .where('(creator_id in (?) AND creator_type = \'User\') OR (creator_id in (?) AND creator_type = \'Group\')', course.creators.pluck(:id), course.groups.ids)
+      .includes(:video) }
 
   def active_model_serializer
 	  SubmissionSerializer
