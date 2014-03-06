@@ -1,7 +1,7 @@
 <div class="authentication-tile">
   <%= image_tag("placeholders/logo-baruch.png", :class => "authentication-tile--image", :alt => "Baruch College") %>
     <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-      <%= f.email_field :email, :class => "authentication-tile--input", :placeholder => "Email", :autofocus => "autofocus" %>
+      <%= f.text_field :email, :class => "authentication-tile--input", :placeholder => "Email or Username", :autofocus => "autofocus" %>
 
       <%= f.password_field :password, :class => "authentication-tile--input", :placeholder => "Password" %>
 

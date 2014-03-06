@@ -5,7 +5,6 @@ module Devise
   module Strategies
     class VocatAuthenticatable < Authenticatable
 
-
       def authenticate!
         ldap = LDAPAuthenticator.new
         resource = ldap.authenticate(authentication_hash.merge(password: password))

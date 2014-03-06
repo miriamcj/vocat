@@ -67,11 +67,11 @@ common: &common
     :filter_dn: 'dc=Baruch,dc=local'
 
     # Filter for finding the user by email
-    :filter: '(mail={email})'
+    :filter: '(|(mail={email})(sAMAccountName={email}))'
 
     # The name of the LDAP record attribute that you would like to use to populate VOCAT's org_identity field
     # on the user model.
-    :org_identity: 'name'
+    :org_identity: 'objectGUID'
 
     # The URL where users can reset their LDAP password; not currently used
     :reset_pw_url: 'https://mypassword.baruch.cuny.edu/'
