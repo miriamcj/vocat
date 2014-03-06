@@ -115,6 +115,18 @@ class Rubric < ActiveRecord::Base
 
   end
 
+  def description
+    desc = read_attribute(:description)
+    if desc.blank?
+      desc = "The highest possible score for this rubric is #{points_possible} points.
+              Each criteria may receive a score between #{low_score} and #{high_score}.
+              The available critiria for this rubric are #{field_names_downcase.to_sentence}.
+              The available scoring ranges for this rubric are #{range_names_downcase.to_sentence}."
+    else
+      return desc
+    end
+  end
+
   def add_field(hash = {})
     if hash.has_key?('id') || hash['id'].blank?
 	    hash['id'] = hash['name'].parameterize
@@ -178,8 +190,20 @@ class Rubric < ActiveRecord::Base
     self.public
   end
 
+  def range_names
+    self.ranges.collect { |value| value['name']}
+  end
+
+  def range_names_downcase
+    self.ranges.collect { |value| value['name'].downcase}
+  end
+
   def field_names
     self.fields.collect { |value| value['name']}
+  end
+
+  def field_names_downcase
+    self.fields.collect { |value| value['name'].downcase }
   end
 
   def field_keys

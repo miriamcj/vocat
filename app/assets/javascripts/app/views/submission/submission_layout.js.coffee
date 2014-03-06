@@ -15,6 +15,7 @@ define (require) ->
   GlossaryTogglePlacard = require('views/help/glossary_toggle_placard')
   RubricModel = require('models/rubric')
   ProjectDetailView = require('views/project/project_detail')
+  RubricDetailView = require('views/rubric/rubric_detail')
 
 
   class SubmissionLayout extends Marionette.Layout
@@ -22,16 +23,19 @@ define (require) ->
     template: template
     children: {}
     rubricPlacardsVisible: false
+    rubricIsOpen: false
 
     triggers: {
       'mouseenter [data-trigger-glossary-toggle]': 'hover:glossary:show'
       'mouseleave [data-trigger-glossary-toggle]': 'hover:glossary:hide'
       'click [data-trigger-glossary-toggle]': 'null'
+      'click [data-trigger-view-rubric]': 'toggle:rubric'
       'click [data-trigger-project-details]': 'open:project:modal'
     }
 
     ui: {
       glossaryToggle: '[data-trigger-glossary-toggle]'
+      rubricToggle: '[data-trigger-view-rubric]'
       evaluationFrame: '[data-class="evaluation-detail-frame"]'
     }
 
@@ -45,7 +49,20 @@ define (require) ->
       annotator: '[data-region="annotator"]'
       annotations: '[data-region="annotations"]'
       player: '[data-region="player"]'
+      rubricDetail: '[data-region="rubric-detail"]'
     }
+
+    onToggleRubric: () ->
+      if @rubricDetail.currentView?
+        $.when(@rubricDetail.currentView.transitionOut()).then( () =>
+          @rubricDetail.close()
+        )
+        @ui.rubricToggle.html(@ui.rubricToggle.data().triggerToggleOnText)
+      else
+        rubric = new RubricModel(@project.get('rubric'))
+        view = new RubricDetailView({model: rubric, vent: @vent})
+        @ui.rubricToggle.html(@ui.rubricToggle.data().triggerToggleOffText)
+        @rubricDetail.show(view)
 
     onOpenProjectModal: () ->
       Vocat.vent.trigger('modal:open', new ProjectDetailView({model: @project, vent: @vent}))
@@ -76,8 +93,8 @@ define (require) ->
       if @project.hasRubric()
         @createEvaluationViews()
 
-      @createAnnotationView()
       @createFlashView()
+      @createAnnotationView()
       @createPlayerView()
       @createAnnotatorView()
       @createDiscussionView()
@@ -107,6 +124,7 @@ define (require) ->
 
     serializeData: () ->
       {
+        rubric: @project.get('rubric')
         evaluatable: @project.hasRubric()
       }
 

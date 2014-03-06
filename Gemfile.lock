@@ -227,6 +227,9 @@ GEM
     uuidtools (2.1.4)
     warden (1.2.3)
       rack (>= 1.0)
+    wicked_pdf (0.9.7)
+      rails
+    wkhtmltopdf-binary (0.9.9.1)
 
 PLATFORMS
   ruby
@@ -265,3 +268,5 @@ DEPENDENCIES
   thor!
   uglifier (>= 1.0.3)
   unicorn
+  wicked_pdf
+  wkhtmltopdf-binary

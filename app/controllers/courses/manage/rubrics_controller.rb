@@ -5,6 +5,7 @@ class Courses::Manage::RubricsController < ApplicationController
   load_and_authorize_resource :rubric
   skip_authorize_resource :rubric, :only => :edit
   respond_to :html
+  respond_to :pdf, :only => :show
 
   before_filter :disable_layout_messages
 

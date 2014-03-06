@@ -22,6 +22,8 @@ gem 'net-ldap'
 gem 'mime-types'
 gem 'thor', :git => 'https://github.com/erikhuda/thor.git'
 gem 'state_machine'
+gem 'wkhtmltopdf-binary'
+gem 'wicked_pdf'
 
 # Stuck on this version until https://github.com/ryanb/cancan/issues/861 is released
 gem 'cancan', '= 1.6.9'
