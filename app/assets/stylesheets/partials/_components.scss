@@ -2110,6 +2110,9 @@ a.table--heading {
     font-weight: $bold;
     color: $tealMedium;
     padding: 0 1.6rem;
+    .compact & {
+      height: auto;
+    }
   }
   .range-label {
     width: 18.2rem;
