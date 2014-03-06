@@ -6,6 +6,17 @@
 
 common: &common
 
+  :tracking:
+
+    # Enable or disable google analytics
+    :analytics_enabled: false
+
+    # Your google analytics ID
+    :analytics_id:
+
+    # Your google analytics domain
+    :analytics_domain:
+
   :aws:
 
     # Enable or disable AWS integration
