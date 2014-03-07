@@ -8,7 +8,11 @@
       <!-- <%=  collection_select(:organization, :id, Organization.all, :id, :name, :placeholder => "Organization") %> -->
 
       <% if devise_mapping.rememberable? -%>
-        <label class="authentication-tile--label"><%= f.check_box :remember_me, :class => "authentication-tile--checkbox" %> <b></b><span class="authentication-tile--checkbox-text">Remember me</span></label>
+        <label class="authentication-tile--label" for="user_remember_me">
+          <%= f.check_box :remember_me, :class => "authentication-tile--checkbox" %> 
+          <b></b>
+          <span class="authentication-tile--checkbox-text">Remember me</span>
+        </label>
       <% end -%>
 
       <%= f.submit "Sign in", :class => "authentication-tile--button" %>
