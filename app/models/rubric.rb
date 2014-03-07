@@ -120,7 +120,7 @@ class Rubric < ActiveRecord::Base
     if desc.blank?
       desc = "The highest possible score for this rubric is #{points_possible} points.
               Each criteria may receive a score between #{low_score} and #{high_score}.
-              The available critiria for this rubric are #{field_names_downcase.to_sentence}.
+              The available criteria for this rubric are #{field_names_downcase.to_sentence}.
               The available scoring ranges for this rubric are #{range_names_downcase.to_sentence}."
     else
       return desc
