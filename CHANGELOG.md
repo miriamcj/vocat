@@ -1,3 +1,18 @@
+## Vocat v3.0.0-beta1.7 (March 7, 2014)
+
+* [FEATURE] Fixes #16: Improve handling of 403, 404, and 500 errors
+* [FEATURE] Fixes #59: Add project ordering to course manage projects view
+* [FEATURE] Fixes #51: Creators should have access to the rubric before assessment occurs
+* [FEATURE] Fixes #38: Adjust sample env configuration and login form wording to accommodate ldap login via email or username
+* [CHORE] Built production assets
+* [CHORE] Changed language on admin course list to make view as role more clear
+* [BUGFIX] Corrects typo in generated rubric description
+* [BUGFIX] Fixes #62: Non LDAP users should be able to change their password
+* [BUGFIX] Fixes #66: Inaccurate Percentage Data Display
+* [BUGFIX] Fixes #65: :tracking: section is absent from config/environment.yml.sample
+* [BUGFIX] Fixes #58: Fixed height of matrix--row-header--item in compact matrix
+* [BUGFIX] Videos without processors were breaking the course map JSON request
+
 ## Vocat v3.0.0-beta1.6 (February 20, 2014)
 
 * [FEATURE] Delivers #44: add ability to configure Google Analytics tracking code for VOCAT
