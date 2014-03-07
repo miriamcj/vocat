@@ -25,7 +25,7 @@
       <%= f.text_field :gender, {class: 'text-input'} %>
     </div>
 
-    <% unless Rails.application.config.vocat.ldap.enabled  %>
+    <% if Rails.application.config.vocat.ldap.enabled == false || resource.org_identity.blank?  %>
       <div class="input-group">
         <%= f.label :email, :class => 'text-label' %>
         <%= f.email_field :email, :class => 'text-input' %>
