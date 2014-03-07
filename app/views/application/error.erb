@@ -1,0 +1,21 @@
+<header class="bar-header">
+  <h2 class="bar-header--title">We're sorry, VOCAT has encountered an error</h2>
+</header>
+
+<div class="page-content--frame">
+  <header class="button-header">
+    <h2 class="button-header--title"><%= @type || "Application Error" %></h2>
+  </header>
+  <p>
+    <%= @message || "There are no additional details for this error at this time." %>
+  </p>
+  <p>
+    If you believe that you are receiving this message in error, please contact the VOCAT support team at
+    <a href="mailto:vocat@baruch.cuny.edu">vocat@baruch.cuny.edu</a>. In your message, please be sure to include
+    the URL that's currently showing in your browser, the browser brand and version (e.g., Internet Explorer version 9.0),
+    your operating system, and a complete description of your issue.
+  </p>
+  <p>
+    Otherwise, <a href="/">click here</a> to return to your VOCAT dashboard.
+  </p>
+</div>

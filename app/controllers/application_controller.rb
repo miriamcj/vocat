@@ -6,8 +6,23 @@ class ApplicationController < ActionController::Base
 
   check_authorization :unless => :devise_controller?
 
+  if Rails.env.production?
+    rescue_from Exception, with: :forbidden
+    rescue_from CanCan::AccessDenied, with: :access_denied
+    rescue_from ActionController::RoutingError, with: :not_found
+    rescue_from ActionController::UnknownController, with: :not_found
+    rescue_from ActionController::UnknownFormat, with: :not_found
+    rescue_from ActionController::UnknownHttpMethod, with: :not_found
+  end
+
+  # If we're in a devise controller, whitelist some parameters
   before_filter :configure_permitted_parameters, if: :devise_controller?
-  before_filter :test_flash_messages
+
+  # Used for testing flash messages
+  unless Rails.env.production?
+    before_filter :test_flash_messages
+  end
+
   before_filter :authenticate_user!
   before_filter :inject_global_layout_variables
   before_filter :inject_session_data
@@ -34,6 +49,34 @@ class ApplicationController < ActionController::Base
       flash[:notice] = 'This is a test flash message'
     end
   end
+
+  def not_found
+    @type = 'Page not found'
+    @message = 'VOCAT has experienced a 404 error.'
+    respond_to do |format|
+      format.html { render 'application/error', :layout => 'application' }
+      format.all { render nothing: true, status: 404}
+    end
+  end
+
+  def access_denied
+    @type = 'Access Denied'
+    @message = 'You do not have access to the requested resource.'
+    respond_to do |format|
+      format.html { render 'application/error', :layout => 'application' }
+      format.all { render nothing: true, status: 403}
+    end
+  end
+
+  def forbidden
+    @type = '500: Internal Application Error'
+    @message = 'VOCAT has experienced a 500 error.'
+    respond_to do |format|
+      format.html { render 'application/error', :layout => 'application' }
+      format.all { render nothing: true, status: 500}
+    end
+  end
+
 
   def index
     redirect_to org_root_path :organization_id => current_user.organization
@@ -66,6 +109,7 @@ class ApplicationController < ActionController::Base
     else
       sign_in_url = '/'
     end
+    sign_in_url
   end
 
   def get_organization_and_current_course
@@ -102,7 +146,6 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:account_update) << :country
     devise_parameter_sanitizer.for(:account_update) << :gender
   end
-
 
   protected
 
@@ -240,5 +283,7 @@ class ApplicationController < ActionController::Base
       #params.require(:submission).permit(:name, video_attributes: [:source, :source_id])
       params.require(:submission).permit!
     end
+
+
 
 end
