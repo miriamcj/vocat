@@ -10,7 +10,7 @@ class Course < ActiveRecord::Base
   has_many :groups, :dependent => :destroy
   has_one :project_type
   has_many :submissions, :through => :projects, :dependent => :destroy
-  delegate :name, :to => :semester, :prefix => true
+  delegate :name, :to => :semester, :prefix => true, :allow_nil => true
 
   accepts_nested_attributes_for :groups
 
@@ -44,7 +44,9 @@ class Course < ActiveRecord::Base
   end
 
   def self.distinct_years
-    Course.uniq.pluck(:year).reject! { |c| c.nil? }.sort
+    years = Course.uniq.pluck(:year)
+    years.reject! { |y| y.nil? }
+    years.sort
   end
 
   def allows_public_discussion?
@@ -98,7 +100,9 @@ class Course < ActiveRecord::Base
     out = out.gsub("%s", section)
     out = out.gsub("%d", department)
     out = out.gsub("%y", year.to_s)
-    out = out.gsub("%S", semester.name)
+    unless semester.nil?
+      out = out.gsub("%S", semester.name)
+    end
     out
   end
 
