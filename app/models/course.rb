@@ -44,7 +44,9 @@ class Course < ActiveRecord::Base
   end
 
   def self.distinct_years
-    Course.uniq.pluck(:year).reject! { |c| c.nil? }.sort
+    years = Course.uniq.pluck(:year)
+    years.reject! { |y| y.nil? }
+    years.sort
   end
 
   def allows_public_discussion?
