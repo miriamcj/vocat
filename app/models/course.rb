@@ -10,7 +10,7 @@ class Course < ActiveRecord::Base
   has_many :groups, :dependent => :destroy
   has_one :project_type
   has_many :submissions, :through => :projects, :dependent => :destroy
-  delegate :name, :to => :semester, :prefix => true
+  delegate :name, :to => :semester, :prefix => true, :allow_nil => true
 
   accepts_nested_attributes_for :groups
 
@@ -98,7 +98,9 @@ class Course < ActiveRecord::Base
     out = out.gsub("%s", section)
     out = out.gsub("%d", department)
     out = out.gsub("%y", year.to_s)
-    out = out.gsub("%S", semester.name)
+    unless semester.nil?
+      out = out.gsub("%S", semester.name)
+    end
     out
   end
 
