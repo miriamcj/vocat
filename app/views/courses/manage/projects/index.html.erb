@@ -42,7 +42,7 @@ Manage Course Projects
               <strong><%= link_to 'Delete', course_manage_project_path(@course, project), method: :delete, data: { modalconfirm: 'Deleting this project will also delete submissions and evaluations associated with this project. This action is irreversible. Are you sure you want to do this?' } %></strong>
             <% end %>
           </td>
-          <td class="centered">
+          <td class="centered sorting">
             <% if index == 0 %>
             <a style="visibility: hidden" class="teal-circle-arrow-up-button">&nbsp;</a>
             <% end %>

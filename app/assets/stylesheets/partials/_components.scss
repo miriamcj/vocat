@@ -483,6 +483,10 @@ p {
     vertical-align: top;
     padding: 2rem 1.2rem;
     border-left: 0.1rem solid transparentize($tealLight, 0.5);
+	&.sorting {
+	  width: 10rem;
+	  vertical-align: top !important;
+	}
     &.centered {
       vertical-align: middle;
       text-align: center;
