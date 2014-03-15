@@ -35,13 +35,13 @@
       <% end %>
 
       <div class="input-group">
-        <%= f.label :password, :class => 'text-label' %>
+        <%= f.label 'New Password', :class => 'text-label' %>
         <%= f.password_field :password, :autocomplete => "off", :class => 'text-input' %>
         <small class="input-message">Leave blank if you don't want to change it</small>
       </div>
 
       <div class="input-group">
-        <%= f.label :password_confirmation, :class => 'text-label' %>
+        <%= f.label 'Retype New Password', :class => 'text-label' %>
         <%= f.password_field :password_confirmation, :class => 'text-input' %>
       </div>
     <% end %>
