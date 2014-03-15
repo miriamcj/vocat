@@ -18,7 +18,8 @@ class Admin::CoursesController < Admin::AdminController
       :department => params[:department],
       :semester => params[:semester],
       :year => params[:year],
-      :section => params[:section]
+      :section => params[:section],
+      :evaluator => params[:evaluator]
     }
     @courses = Course.search(search).page
   end
