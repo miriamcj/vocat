@@ -10,36 +10,33 @@
   <form>
     <fieldset>
       <div class="input-group">
-        <div class="input-group--fourth">
+        <div class="input-group--third">
           <%= label_tag :department, 'Department', {:class => 'text-label'} %>
           <%= select_tag(:department, options_for_select(Course.distinct_departments, params[:department]), {:include_blank => true, 'data-behavior' => 'chosen'}) %>
         </div>
-        <div class="input-group--fourth">
+        <div class="input-group--third">
           <%= label_tag :semester, 'Semester', {:class => 'text-label'} %>
           <%= select_tag(:semester, options_from_collection_for_select(Semester.all, 'id', 'name', params[:semester]), {:include_blank => true, 'data-behavior' => 'chosen'}) %>
         </div>
-        <div class="input-group--fourth">
+        <div class="input-group--third">
           <%= label_tag :year, 'Year', {:class => 'text-label'} %>
           <%= select_tag(:year, options_for_select(Course.distinct_years, params[:year]), {:include_blank => true, 'data-behavior' => 'chosen'}) %>
         </div>
-        <div class="input-group--fourth">
-          <label class="text-label">&nbsp;</label>
-          <%= submit_tag('Filter Courses', {:class => 'large-teal-button'}) %>
-        </div>
       </div>
-    </fieldset>
-  </form>
-  <form>
-    <fieldset>
       <div class="input-group">
-        <div class="input-group--fourth">
+        <div class="input-group--third">
+          <%= label_tag :evaluator, 'Instructor', {:class => 'text-label'} %>
+          <%= select_tag(:evaluator, options_from_collection_for_select(User.evaluators, 'id', 'list_name', params[:evaluator]), {:include_blank => true, 'data-behavior' => 'chosen'}) %>
+        </div>
+        <div class="input-group--third">
           <%= label_tag :section, 'Section', {:class => 'text-label'} %>
           <%= text_field_tag(:section, params[:section], {:class => 'text-input'}) %>
         </div>
-        <div class="input-group--fourth">
+        <div class="input-group--third">
           <label class="text-label">&nbsp;</label>
-          <%= submit_tag('Find Course by Section',  {:class => 'large-teal-button'}) %>
+          <%= submit_tag('Filter Courses', {:class => 'large-teal-button'}) %>
         </div>
+
       </div>
     </fieldset>
   </form>
@@ -53,6 +50,7 @@
       <tr>
         <th>Number</th>
         <th>Name</th>
+        <th>Instructor</th>
         <th>Section</th>
         <th>Semester</th>
         <th>Actions</th>
@@ -63,6 +61,7 @@
         <tr>
           <th><%= link_to "#{course.department}#{course.number}", admin_course_path(course) %></th>
           <td><%= course.name %></td>
+          <td><%= course.evaluators.pluck(:last_name).join(', ') %></td>
           <td><%= course.section %></td>
           <td><%= "#{course.semester} #{course.year}" %></td>
           <td><strong>
