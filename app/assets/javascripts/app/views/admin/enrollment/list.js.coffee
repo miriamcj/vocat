@@ -22,6 +22,7 @@ define (require) ->
 
     itemViewOptions: () ->
       {
+        role: @collection.role()
         vent: @vent
       }
 

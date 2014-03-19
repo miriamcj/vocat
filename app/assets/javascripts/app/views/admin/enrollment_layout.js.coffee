@@ -22,7 +22,6 @@ define (require) ->
     }
 
     initialize: (options) ->
-
       searchCollection = @collection.getSearchCollection()
       @enrollmentInput = new EnrollmentInput({collection: searchCollection, collectionType: @collection.searchType(), vent: @})
       @enrollmentList = new EnrollmentList({collection: @collection, vent: @})

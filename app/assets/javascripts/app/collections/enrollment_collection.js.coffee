@@ -10,6 +10,9 @@ define ['backbone', 'models/enrollment', 'collections/user_collection', 'collect
       else
         'course'
 
+    role: () ->
+      @scope.role
+
     getSearchCollection: () ->
       if @searchType() == 'user'
         new UserCollection

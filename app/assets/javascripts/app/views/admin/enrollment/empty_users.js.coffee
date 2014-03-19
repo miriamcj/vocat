@@ -11,6 +11,7 @@ define (require) ->
     serializeData: () ->
       {
       colspan: 4
+      role: @options.role
       }
 
     onShow: () ->
