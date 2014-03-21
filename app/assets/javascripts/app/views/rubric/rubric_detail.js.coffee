@@ -35,7 +35,6 @@ define (require) ->
       else
         @ui.container.show()
 
-
     onRender: () ->
       @ui.container.hide()
 
