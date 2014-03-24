@@ -14,12 +14,32 @@ define (require) ->
 
     tagName: 'li'
 
+    initialize: (options) ->
+      @enrollmentCollection = options.enrollmentCollection
+      @vent = options.vent
+
     triggers: () ->
       'click': 'click'
 
     onClick: () ->
-      @trigger('add', @model)
+      enrollment = @enrollmentCollection.newEnrollmentFromSearchModel(@model)
+      enrollment.save({},{
+        error: (model, xhr) =>
+          @vent.trigger('error:add', {level: 'error', lifetime: 5000, msg: xhr.responseJSON.errors})
+        success: () =>
+          @enrollmentCollection.add(enrollment)
+          @trigger('add', enrollment)
+          if @enrollmentCollection == 'users'
+            role = @enrollmentCollection.role()
+            l = role[0]
+            if l == 'a' || l == 'e' || l == 'i' || l == 'o' || l == 'u'
+              article = 'an'
+            else
+              article = 'a'
+            @vent.trigger('error:add', {level: 'notice', lifetime: 5000, msg: "#{enrollment.get('user_name')} is now #{article} #{role} in section ##{enrollment.get('section')}."})
+          else
+            @vent.trigger('error:add', {level: 'notice', lifetime: 5000, msg: "#{enrollment.get('user_name')} is now enrolled in section #{enrollment.get('section')}"})
 
-    initialize: () ->
+      })
 
     onRender: () ->

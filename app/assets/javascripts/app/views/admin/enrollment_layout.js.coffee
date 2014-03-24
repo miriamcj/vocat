@@ -4,6 +4,8 @@ define (require) ->
   template =              require('hbs!templates/admin/enrollment_layout')
   EnrollmentList =        require('views/admin/enrollment/list')
   EnrollmentInput =       require('views/admin/enrollment/input')
+  EnrollmentBulkInput =   require('views/admin/enrollment/bulk_input')
+  SingleInvite = require('views/admin/enrollment/invite')
   Flash = require('views/flash/flash_messages')
 
   class CreatorEnrollmentLayout extends Marionette.Layout
@@ -18,38 +20,54 @@ define (require) ->
     regions: {
       input: '[data-region="input"]'
       list: '[data-region="list"]'
+      invite: '[data-region="invite"]'
       flash: '[data-region="flash"]'
     }
 
+    # Collection for this view is an enrollment collection, created by the controller.
     initialize: (options) ->
-      searchCollection = @collection.getSearchCollection()
-      @enrollmentInput = new EnrollmentInput({collection: searchCollection, collectionType: @collection.searchType(), vent: @})
+      # The search collection contains the results of the asynch search
+      @searchCollection = @collection.getSearchCollection()
+
+      # Can be courses or users, since the same UI elements are used for both.
+      @searchType = @collection.searchType()
+
+      # The list of current enrollments
       @enrollmentList = new EnrollmentList({collection: @collection, vent: @})
-      @flashView = new Flash({vent: @, clearOnAdd: true})
 
-      # Send a post to the server to save the enrollment.
-      @listenTo(@enrollmentInput, 'itemview:add', (itemView) =>
-       @handleItemViewAdd(itemView)
+      # Error messages and feedback.
+      @flashView = new Flash({vent: @, clearOnAdd: false})
+
+    showBulkEnrollAndInvite: () ->
+      @invite.reset()
+      enrollmentBulkInput = new EnrollmentBulkInput({collection: @collection, vent: @})
+      @input.show(enrollmentBulkInput)
+      @listenTo(enrollmentBulkInput, 'showSingle', (event) =>
+        @showSingle()
       )
+      @input.show(enrollmentBulkInput)
 
-      @listenTo(@enrollmentInput, 'itemview:invite:failure', (itemView) =>
-        @handleItemViewInviteFailure(itemView)
+    showSingleInvite: () ->
+      singleInvite = new SingleInvite({collection: @collection, vent: @, useAltTemplate: true})
+      @invite.show(singleInvite)
+
+    showBulk: () ->
+      @showBulkEnrollAndInvite()
+
+    showSingle: () ->
+      @showSingleEnroll()
+      if @searchType == 'user'
+        @showSingleInvite()
+
+    showSingleEnroll: () ->
+      enrollmentInput = new EnrollmentInput({collection: @searchCollection, enrollmentCollection: @collection, collectionType: @searchType, vent: @})
+      @input.show(enrollmentInput)
+      @listenTo(enrollmentInput, 'showBulk', (event) =>
+        @showBulk()
       )
-
-    handleItemViewInviteFailure: (emptyView) ->
-      # TODO: Handle this error
-
-    handleItemViewAdd: (itemView) ->
-      enrollment = @collection.newEnrollmentFromSearchModel(itemView.model)
-      enrollment.save({},{
-        error: (model, xhr) =>
-          @trigger('error:add', {level: 'error', lifetime: 5000, msg: xhr.responseJSON.errors})
-        success: () =>
-          @collection.add(enrollment)
-          @trigger('error:add', {level: 'notice', lifetime: 5000, msg: "#{enrollment.get('user_name')} is now enrolled in section ##{enrollment.get('section')}."})
-      })
+      @input.show(enrollmentInput)
 
     onRender: () ->
       @list.show(@enrollmentList)
-      @input.show(@enrollmentInput)
       @flash.show(@flashView)
+      @showSingle()

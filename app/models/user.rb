@@ -111,15 +111,15 @@ class User < ActiveRecord::Base
 
   def enroll(course, enrollment_role = nil)
     if creator_courses.include?(course) || evaluator_courses.include?(course) || assistant_courses.include?(course)
-      errors.add :base, "#{list_name} is already a member of this course."
+      errors.add :base, "#{list_name} is already associated with this course."
       return false
     end
     if enrollment_role.nil?
       enrollment_role = role
     end
-    if role?(:creator) && enrollment_role.to_s == 'evaluator'
-      enrollment_role = 'creator'
-    end
+    #if role?(:creator) && enrollment_role.to_s == 'evaluator'
+    #  enrollment_role = 'creator'
+    #end
     if enrollment_role.eql?('creator') then course.creators << self end
     if enrollment_role.eql?('evaluator') then course.evaluators << self end
     if enrollment_role.eql?('administrator') then course.evaluators << self end

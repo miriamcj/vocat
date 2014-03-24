@@ -1,0 +1,21 @@
+Hello!
+
+You're receiving this email because you're enrolled in one or more classes in which you'll use VOCAT, a powerful online tool for teaching and learning developed at Baruch College. You'll use VOCAT to receive feedback on your presentations, speeches, or video assignments and to interact with your peers and instructors.
+
+<% if @user.has_courses %>
+Your Vocat courses are <% @user.courses.collect{ |c| c.to_s }.to_sentence %>
+<% end %>
+
+<% if @user.is_ldap_user %>
+  You can log into the system with your <%= @user.organization_name %> password (the one you use to check your school email or to log on to a computer in a lab) by <%= link_to 'following this link', new_user_session_url %>.
+<% else %>
+  You have been assigned a temporary password. Your username is your email address. <%= link_to 'Follow this link to go to VOCAT and create your account password.', edit_password_url(@user, :reset_password_token => @token) %>
+<% end %>
+
+
+If you have trouble logging into VOCAT (and you're sure you're entering the correct ID and password) or encountering another problem or issue, please contact vocat@baruch.cuny.edu.
+
+Welcome to VOCAT, and good luck with your studies!
+
+the VOCAT team
+<%= @user.organization_name %>

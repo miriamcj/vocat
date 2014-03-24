@@ -58,6 +58,20 @@ class Api::V1::EnrollmentsController < ApiController
     end
   end
 
+  # POST /api/v1/enrollments/bulk
+  def bulk
+    course = Course.find params[:course_id]
+    role = params[:role]
+    if params[:invite] == 'true' || params[:invite] == true
+      invite = true
+    else
+      invite = false
+    end
+    contacts = params[:contacts]
+    enroller = BulkEnroller.new
+    respond_with enroller.enroll(contacts, course, role, invite), :location => nil
+  end
+
   protected
 
   def build_enrollment_hash(course, user)

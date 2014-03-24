@@ -17,11 +17,11 @@ class Api::V1::UsersController < ApplicationController
   # /api/v1/users/invite?email=XXX
   def invite
     inviter = Inviter.new
-    response = inviter.invite(params[:email])
+    response = inviter.invite(params[:email], nil, nil)
     if response[:success] == true
       respond_with response[:user], location: nil
     else
-      render :json => { :errors => response[:errors] }, :status => :unprocessable_entity
+      render :json => { :errors => response[:message] }, :status => :unprocessable_entity
     end
   end
 

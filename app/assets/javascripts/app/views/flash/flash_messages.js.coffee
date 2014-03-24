@@ -43,19 +43,15 @@ define [
       if _.isObject(flashMessage.msg) || _.isArray(flashMessage.msg)
         if flashMessage.level? then level = flashMessage.level else level = 'notice'
         if flashMessage.lifetime? then lifetime = flashMessage.lifetime else lifetime = null
-        _.each(flashMessage.msg, (message, property) =>
-          if _.isObject(message) || _.isArray(message)
-            _.each(message, (text) =>
-              if property == 'base' then property = ''
-              @addMessage(level, text, property, lifetime)
-            )
-          else
-            @addMessage(level, message, null, lifetime)
-        )
+        if _.isArray(flashMessage.msg)
+          if flashMessage.msg.length > 0
+            @addMessage(level, flashMessage.msg, null, lifetime )
+        else
+          @addMessage(level, flashMessage.msg, null, lifetime )
       else
         @addMessage(flashMessage.level, flashMessage.msg, flashMessage.property, flashMessage.lifetime)
 
-    addMessage: (level = 'notice', msg = '', property = false, lifetime = false) ->
+    addMessage: (level = 'notice', msg = '', property = null, lifetime = false) ->
       m = {
         msg: msg
         level: level

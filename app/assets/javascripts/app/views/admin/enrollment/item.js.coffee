@@ -21,7 +21,7 @@ define (require) ->
       @model.destroy({
         wait: true
         success: (model) =>
-          @vent.trigger('error:add', {level: 'notice', lifetime: 5000, msg: "#{model.get('user_name')} has been disenrolled from section ##{model.get('section')}."})
+          @vent.trigger('error:add', {level: 'notice', lifetime: 5000, msg: "#{model.get('user_name')} has been removed from section ##{model.get('section')}."})
         error: (model, xhr) =>
           @vent.trigger('error:add', {level: 'error', lifetime: 5000, msg: xhr.responseJSON.errors})
       })

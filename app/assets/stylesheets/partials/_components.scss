@@ -2516,7 +2516,7 @@ a.table--heading {
   $width: 8.4rem;
   @extend %alert;
   background-color: $greenLight;
-  p {
+  ul, p {
     margin-left: $width + 2.5rem;
   }
   .alert--label {
@@ -2533,7 +2533,7 @@ a.table--heading {
   $width: 6.4rem;
   @extend %alert;
   background-color: $blueLight;
-  p {
+  ul, p {
     margin-left: $width + 2.5rem;
   }
   .alert--label {
@@ -2550,7 +2550,7 @@ a.table--heading {
   $width: 5.6rem;
   @extend %alert;
   background-color: $yellow;
-  p {
+  ul, p {
     margin-left: $width + 2.5rem;
   }
   .alert--label {
@@ -2567,7 +2567,7 @@ a.table--heading {
   $width: 8.4rem;
   @extend %alert;
   background-color: $yellow;
-  p {
+  ul, p {
     margin-left: $width + 2.5rem;
   }
   .alert--label {
@@ -2584,7 +2584,7 @@ a.table--heading {
   $width: 10rem;
   @extend %alert;
   background-color: $redLight;
-  p {
+  ul, p {
     margin-left: $width + 2.5rem;
   }
   .alert--label {

@@ -71,6 +71,7 @@ class LDAPAuthenticator
                            :last_name => fix_case(ldap_user.sn.first),
                            :role => pick_role(ldap_user.mail.first),
                            # TODO: Decide on a better way to handle organizations in VOCAT
+                           # In a nutshell, this is some BULLSHIT.
                            :organization => Organization.first,
                            :org_identity => ldap_user.send(:name).first,
                            :is_ldap_user => true

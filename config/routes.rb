@@ -49,7 +49,11 @@ Vocat::Application.routes.draw do
       resources :groups, :except => [:new, :edit]
       resources :projects, :except => [:new, :edit]
       resources :courses, :only => [:index, :update, :show] do
-        resources :enrollments, :only => [:index]
+        resources :enrollments, :only => [:index] do
+          collection do
+            post 'bulk'
+          end
+        end
         collection do
           get 'for_user'
           get 'search'
@@ -105,6 +109,11 @@ Vocat::Application.routes.draw do
       end
     end
     resources :users do
+      collection do
+        get 'bulk_new'
+        post 'bulk_confirm'
+        post 'bulk_create'
+      end
       member do
         get 'courses'
         get 'edit_password'

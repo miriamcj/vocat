@@ -15,7 +15,7 @@ define (require) ->
     itemViewContainer: "tbody",
     itemView: ItemView
 
-    emptyView: EmptyCoursesView
+#    emptyView: EmptyCoursesView
 
     getTemplate: () =>
       if @collection.searchType() == 'user' then templateUsers else templateCourses
