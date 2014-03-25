@@ -162,4 +162,4 @@ As of 3/25/14, it also relies on the following Gems:
 - uuidtools, 2.1.4, Apache 2.0
 - warden, 1.2.3, MIT
 - wicked_pdf, 0.9.7, MIT
-- wkhtmltopdf-binary, 0.9.9.1, other
+- wkhtmltopdf-binary, 0.9.9.1, Lesser GPL
