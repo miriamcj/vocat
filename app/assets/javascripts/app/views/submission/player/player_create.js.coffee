@@ -71,7 +71,6 @@ define (require) ->
     onSubmitVimeo: () ->
       value = @ui.sourceIdVimeo.val()
       matches = value.match(/^.+vimeo.com\/(.*\/)?([^#\?]*)/)
-      console.log matches
       id = if matches then matches[2] || matches[1] else null
       if id
         attributes = {
