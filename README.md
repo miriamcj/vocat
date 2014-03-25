@@ -34,3 +34,30 @@ The newest version features qualitative and quantitative feedback options, video
 ### Project Types
 - There is only one type: `presentation`
 
+## Open Source Dependencies
+
+Vocat incorporates code from a number of open source projects:
+
+- [Backbone.js](http://backbonejs.org/) - MIT License
+- [Backbone Babysitter](https://github.com/marionettejs/backbone.babysitter) - MIT License
+- [Backbone Wreqr](https://github.com/marionettejs/backbone.wreqr) - MIT License
+- [Marionette](https://github.com/marionettejs/backbone.marionette) - MIT License
+- [Crossfilter](https://github.com/square/crossfilter) - Apache 2.0 License
+- [d3](http://d3js.org/) - BSD License
+- [dc](https://github.com/dc-js/dc.js) - Apache 2.0 License
+- [handlebars](https://github.com/wycats/handlebars.js/) - MIT License
+- [hbs](https://github.com/SlexAxton/require-handlebars-plugin) - WTFPL License
+- [JQuery](http://jquery.com/) - MIT License
+- [JQuery UI](http://jquery.com/) - MIT License
+- [jQuery File Upload](https://github.com/blueimp/jQuery-File-Upload) - MIT License
+- [jQuery iFrame Transport](http://cmlenz.github.io/jquery-iframe-transport/) - MIT License
+- [jQuery Simple Slider](http://loopj.com/jquery-simple-slider/) - MIT License
+- [jQuery Smooth Scroll](https://github.com/kswedberg/jquery-smooth-scroll) - MIT License
+- [jQuery Waypoints](https://github.com/imakewebthings/jquery-waypoints) - MIT License
+- [jQuery Chosen](http://harvesthq.github.io/chosen/) - MIT License
+- [jQuery Autosize](http://www.jacklmoore.com/autosize/) - MIT License
+- [Modernizr](http://modernizr.com/) - MIT License
+- [Require.js](http://requirejs.org/) - MIT License
+- [Underscore.js](https://github.com/jashkenas/underscore/) - MIT License
+- [Video.js](https://github.com/videojs/video.js/blob/master/LICENSE) - Apache 2.0 License
+
