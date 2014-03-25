@@ -34,7 +34,7 @@ The newest version features qualitative and quantitative feedback options, video
 ### Project Types
 - There is only one type: `presentation`
 
-## Open Source Dependencies
+## Open Source Libraries Distributed with VOCAT
 
 Vocat incorporates code from a number of open source projects:
 
