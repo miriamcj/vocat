@@ -109,11 +109,6 @@ Vocat::Application.routes.draw do
       end
     end
     resources :users do
-      collection do
-        get 'bulk_new'
-        post 'bulk_confirm'
-        post 'bulk_create'
-      end
       member do
         get 'courses'
         get 'edit_password'
