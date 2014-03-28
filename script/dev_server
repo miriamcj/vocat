@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+#set -e
+#. ~/config/env.sh
+
+bundle exec unicorn_rails -E "development" -c config/unicorn.rb
+

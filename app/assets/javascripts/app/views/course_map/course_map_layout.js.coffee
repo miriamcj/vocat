@@ -32,7 +32,6 @@ define [
       sliderRight: '[data-behavior="matrix-slider-right"]'
       groupsInput: '[data-behavior="show-groups"]'
       usersInput: '[data-behavior="show-users"]'
-
     }
 
     triggers: {
@@ -47,7 +46,6 @@ define [
       header: '[data-region="overlay-header"]'
       overlay: '[data-region="overlay"]'
       globalFlash: '[data-region="flash"]'
-
     }
 
     onRender: () ->

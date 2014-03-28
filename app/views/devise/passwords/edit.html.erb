@@ -1,16 +1,29 @@
-<h2>Change your password</h2>
+<div class="authentication-tile alt">
+  <h2 class="heading-caps-large">Change your password</h2>
+  <hr>
+  <%= render 'layouts/messages' %>
 
-<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :patch }) do |f| %>
-  <%= devise_error_messages! %>
-  <%= f.hidden_field :reset_password_token %>
 
-  <div><%= f.label :password, "New password" %><br />
-  <%= f.password_field :password, :autofocus => true %></div>
+  <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :patch }) do |f| %>
+    <%= devise_error_messages! %>
+    <%= f.hidden_field :reset_password_token %>
 
-  <div><%= f.label :password_confirmation, "Confirm new password" %><br />
-  <%= f.password_field :password_confirmation %></div>
+    <div class="input-group">
+      <%= f.label :password, "New password", :class => 'text-label' %>
+      <%= f.password_field :password, :autofocus => true, :class => 'text-input' %>
+    </div>
 
-  <div><%= f.submit "Change my password" %></div>
-<% end %>
+    <div class="input-group">
+      <%= f.label :password_confirmation, "Confirm new password", :class => 'text-label' %>
+      <%= f.password_field :password_confirmation, :class => 'text-input' %>
+    </div>
 
-<%= render "devise/shared/links" %>
+    <div class="input-group">
+      <%= f.submit "Change my password", :class => "teal-arrow-button" %>
+    </div>
+  <% end %>
+</div>
+
+<footer class="authentication-footer">
+  <%= render "devise/shared/links" %>
+</footer>

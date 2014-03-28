@@ -38,11 +38,23 @@ define ['backbone', 'models/enrollment', 'collections/user_collection', 'collect
       model = new @model(attributes)
       model
 
-    url: () ->
+    baseUrl: () ->
       if @searchType() == 'user'
-        "/api/v1/courses/#{@scope.course}/enrollments?role=#{@scope.role}"
+        "/api/v1/courses/#{@scope.course}/enrollments"
       else
         "/api/v1/users/#{@scope.user}/enrollments"
+
+    bulkUrl: () ->
+      if @searchType() == 'user'
+        "#{@baseUrl()}/bulk?role=#{@scope.role}"
+      else
+        "#{@baseUrl()}/bulk"
+
+    url: () ->
+      if @searchType() == 'user'
+        "#{@baseUrl()}?role=#{@scope.role}"
+      else
+        @baseUrl()
 
     comparator: (model) ->
       if @searchType() == 'user'

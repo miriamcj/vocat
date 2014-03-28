@@ -5,37 +5,51 @@ define (require) ->
   coursesTemplate = require('hbs!templates/admin/enrollment/course_input')
   ItemView = require('views/admin/enrollment/input_item')
   EmptyView = require('views/admin/enrollment/input_empty')
-  UserEmptyView = require('views/admin/enrollment/user_input_empty')
   require('jquery_ui')
   require('vendor/plugins/ajax_chosen')
 
   class EnrollmentUserInput extends Marionette.CompositeView
 
-    getEmptyView: () ->
-      if @options.collectionType == 'user' then return UserEmptyView else return EmptyView
+    emptyView: EmptyView
 
     itemView: ItemView
 
     itemViewContainer: '[data-container="items"]'
 
     ui: {
+      emptyViewContainer: '[data-container="empty"]'
       termInput: '[data-behavior="search-term"]'
+      showBulk: '[data-behavior="show-bulk"]'
     }
 
     triggers: {
       'keyup [data-behavior="search-term"]': 'keyUp'
+      'click [data-behavior="show-bulk"]': 'showBulk'
     }
 
     initialize: (options) ->
+      @collectionType = options.collectionType
+      @enrollmentCollection = options.enrollmentCollection
       @listenTo(@, 'itemview:invited', (event) =>
         @ui.termInput.val('')
         @onKeyUp()
       )
 
+    onItemviewAdd: () ->
+      @ui.termInput.val('')
+      @onKeyUp()
+
+    checkCollectionLength: () ->
+      if @collection.length > 0
+        @showContainer()
+      else
+        @hideContainer()
+
     buildItemView: (item, ItemViewType, itemViewOptions) ->
       options = _.extend({model: item}, itemViewOptions)
+      options.enrollmentCollection = @enrollmentCollection
       options.vent = @options.vent
-      options.inputVent = @
+      options.collectionType = @collectionType
       itemView = new ItemViewType(options)
       itemView
 
@@ -55,7 +69,6 @@ define (require) ->
       @ui.termInput.val().trim()
 
     onSubmit: () ->
-      alert('gusha')
 
     # TODO: Clear input if escape key is pressed.
     onKeyUp: _.debounce(() ->

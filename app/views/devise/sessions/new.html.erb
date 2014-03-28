@@ -9,7 +9,7 @@
 
       <% if devise_mapping.rememberable? -%>
         <label class="authentication-tile--label" for="user_remember_me">
-          <%= f.check_box :remember_me, :class => "authentication-tile--checkbox" %> 
+          <%= f.check_box :remember_me, :class => "authentication-tile--checkbox" %>
           <b></b>
           <span class="authentication-tile--checkbox-text">Remember me</span>
         </label>
@@ -19,9 +19,5 @@
     <% end %>
 </div>
 <footer class="authentication-footer">
-  <% unless Rails.application.config.vocat.ldap.enabled %>
-    <%= render "devise/shared/links" %>
-  <% else %>
-    <%= render "devise/shared/ldap_links" %>
-<% end %>
+  <%= render "devise/shared/links" %>
 </footer>

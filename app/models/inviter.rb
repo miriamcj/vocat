@@ -2,48 +2,98 @@ require 'securerandom'
 
 class Inviter
 
-  def invite(email)
-    email = email.downcase.strip
-    user = User.where({:email => email}).first
-    if user.nil?
-      if Rails.application.config.vocat.ldap.enabled
-        ldap_invite(email)
+  def response_hash
+    {
+        success: nil,
+        user: nil,
+        reason: nil,
+        message: nil
+    }
+
+  end
+
+  def invite(email, first_name, last_name)
+
+    response = response_hash
+
+    # Validate the incoming email. TODO: Improve validation
+    if email.blank?
+      return failure!(response, :invalid, 'Unable to invite user without an email address')
+    end
+
+    # Attempt LDAP creation.
+    attempt_create_from_ldap!(email, response)
+    if response[:success] == true
+      return response
+    end
+
+    ## Validate presence of first and last name
+    #if first_name.blank? || last_name.blank?
+    #  return failure!(response, :invalid, "Please provide a first and last name for #{email}")
+    #end
+
+    # Attempt creation in local DB.
+    attempt_create_in_db!(email, first_name, last_name, response)
+    return response
+
+  end
+
+  private
+
+  def attempt_create_from_ldap!(email, response)
+    if Rails.application.config.vocat.ldap.enabled
+      ldap = LDAPAuthenticator.new
+      user = ldap.create_vocat_user_from_ldap_email!(email)
+      if user
+        success!(response, user)
+        return true
       else
-        db_invite(email)
+        failure!(response, :not_found, 'Unable to locate user in LDAP directory')
+        return false
       end
     else
-      success(user)
+      failure!(response, :ldap_disabled, 'LDAP integration is currently disabled')
     end
   end
 
-  def ldap_invite(email)
-    ldap = LDAPAuthenticator.new
-    user = ldap.create_vocat_user_from_ldap_email!(email)
-    if user
-      return success(user)
+  def attempt_create_in_db!(email, first_name, last_name, response)
+    password = SecureRandom.hex
+    user = User.create({
+                           :email => email,
+                           :password => password,
+                           :password_confirmation => password,
+                           :first_name => first_name,
+                           :last_name => last_name,
+                           :role => :creator,
+                           # TODO: Decide on a better way to handle organizations in VOCAT
+                           :organization => Organization.first,
+                           :org_identity => nil,
+                           :is_ldap_user => false
+                       })
+    user.save
+    if user.errors.blank?
+      success!(response, user)
+      UserMailer.welcome_email(user).deliver
+      return true
     else
-      return error("Unable to locate #{email} in LDAP database")
+      failure!(response, :db_create_failure, "#{email}: #{user.errors.full_messages().join('; ').downcase}")
+      return false
     end
   end
 
-  def db_invite(email)
-    # TODO: Build a simple invite system.
+  def failure!(response, reason, message)
+    response[:success] = false
+    response[:reason] = reason
+    response[:message] = message
+    return response
   end
 
-  def success(user)
-    {
-        success: true,
-        user: user,
-        errors: nil
-    }
+  def success!(response, user)
+    response[:success] = true
+    response[:user] = user
+    response[:message] = "Successfully invited #{user.email} to VOCAT."
+    return response
   end
 
-  def error(errors)
-    {
-        success: false,
-        user: nil,
-        errors: errors
-    }
-  end
 
 end

@@ -1,3 +1,14 @@
 <aside class="alert--label"></aside>
-<p>{{property}} {{msg}}</p>
+{{#if enumerable}}
+  <ul>
+    {{#each msg}}
+      <li>{{this}}</li>
+    {{/each}}
+    </ul>
+{{/if}}
+{{#unless enumerable}}
+  <p>
+  {{property}} {{msg}}
+  </p>
+{{/unless}}
 <a data-behavior="close" class="alert--close" href="#"></a>

@@ -66,6 +66,8 @@ class Admin::UsersController < Admin::AdminController
   end
 
 
+
+
   # GET /admin/users/1/courses
   def courses
   end

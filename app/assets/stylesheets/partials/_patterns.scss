@@ -1788,15 +1788,22 @@ input%proto-button {
   &:first-child {
     margin-top: 0;
   }
-  p {
+  p, ul {
     @extend %gamma-sub;
     line-height: 1.1;
     color: $darker;
     padding-left: 2rem;
     border-left: 0.1rem solid $darker;
-    margin-top: 0.5rem;
-    margin-bottom: 0.4rem;
+    margin: 0;
+    padding-bottom: 1rem;
   }
+  p:last-child, ul:last-child {
+    padding-bottom: 0rem;
+  }
+  ul {
+    list-style-position:inside;
+  }
+
   .flash-fullbleed & {
     margin: 0;
     border-radius: 0;

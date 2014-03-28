@@ -30,8 +30,15 @@ define [
     onBeforeRender: () ->
       @$el.hide()
 
-    onRender: () ->
+    serializeData: () ->
+      context = super()
+      if _.isArray(@model.get('msg')) ||  _.isObject(@model.get('msg'))
+        context.enumerable = true
+      else
+        context.enumerable = false
+      context
 
+    onRender: () ->
       if @model.get('no_fade') == true
         @$el.show()
       else

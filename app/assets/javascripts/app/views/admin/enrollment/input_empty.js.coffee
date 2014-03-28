@@ -7,3 +7,13 @@ define (require) ->
 
     template: template
     tagName: 'li'
+
+    initialize: (options) ->
+      @collectionType = options.collectionType
+
+    serializeData: ->
+      {
+        isUserCollection: @collectionType == 'user'
+        isCourseCollection: @collectionType == 'course'
+      }
+
