@@ -79,10 +79,7 @@ define (require) ->
 
     isValidLow: (low) ->
       difference = @getHigh() - parseInt(low)
-      console.log difference,'diff'
-      console.log @get('ranges').length - 1, 'ranges'
       out = difference >= (@get('ranges').length - 1)
-      console.log out, 'isvalid?'
       out
 
     isValidHigh: (high) ->

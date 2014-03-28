@@ -30,7 +30,6 @@ define ['backbone', 'models/enrollment', 'collections/user_collection', 'collect
         course: searchModel.id
         user: searchModel.id
       }
-      console.log @scope,'scope'
       if @scope.course? then attributes.course = @scope.course
       if @scope.user? then attributes.user = @scope.user
       if @scope.role? then attributes.role = @scope.role

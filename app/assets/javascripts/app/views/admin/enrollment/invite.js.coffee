@@ -26,7 +26,6 @@ define (require) ->
       @ui.button.addClass('loading')
       if @collection.searchType() == 'user'
         endpoint = @collection.bulkUrl()
-      console.log endpoint,'ep'
       $.ajax(endpoint, {
         type: 'POST'
         dataType: 'json'
