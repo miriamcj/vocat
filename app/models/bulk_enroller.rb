@@ -102,7 +102,7 @@ class BulkEnroller
   end
 
   def get_contact_user(contact)
-    User.where(:email => contact[:email]).take
+    User.where("lower(email) = ?", contact[:email].downcase).take
   end
 
   def enrollable?(contact)
