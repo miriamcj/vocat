@@ -21,7 +21,7 @@ class Admin::CoursesController < Admin::AdminController
       :section => params[:section],
       :evaluator => params[:evaluator]
     }
-    @courses = Course.search(search).page
+    @courses = Course.search(search).page params[:page]
   end
 
   # GET /admin/courses/new
