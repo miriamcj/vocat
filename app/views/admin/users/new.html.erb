@@ -14,7 +14,8 @@
   <header class="button-header">
     <h2 class="button-header--title space-bottom">Create a new user</h2>
   </header>
-  <%= form_errors @user %>
+
+  <%= render 'shared/model_errors', :model => @user %>
 
   <%= form_for [:admin, @user] do |f| %>
 

@@ -14,9 +14,10 @@
       <div class="input-group">
         <label class="text-label">Course Message</label>
         <%= f.text_area :message, { :class => 'text-area-input', :rows => 10} %>
-        <small class="input-message">Any message you enter here will be visible to all students when they log into VOCAT and select
-
-        this course from the list of available courses.</small>
+        <small class="input-message">
+          Any message you enter here will be visible to all students when they log into VOCAT and select this course
+          from the list of available courses.
+        </small>
       </div>
       <div class="input-group">
         <label class="text-label">Course Configuration</label>
@@ -51,11 +52,7 @@
             Allow self-evaluation
           </label>
 
-
-
       <% end %>
-
-
       </div>
       <div class="input-group">
         <%= submit_tag('Save Settings', :class => 'teal-arrow-button') %>

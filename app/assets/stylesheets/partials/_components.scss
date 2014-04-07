@@ -2512,6 +2512,22 @@ a.table--heading {
   }
 }
 
+.alert-list {
+  p {
+    @include font-size(17);
+    padding: 0;
+    border-left: none;
+    margin: 0;
+  }
+  ul {
+    @extend %gamma;
+    line-height: 1.1;
+    color: $darker;
+    padding-left: 1.6em;
+    margin: 0.8rem 0 0;
+  }
+}
+
 .alert-success {
   $width: 8.4rem;
   @extend %alert;
@@ -2594,22 +2610,6 @@ a.table--heading {
     .no-backgroundsize & {
       @extend .icon-alert-error;
     }
-  }
-}
-
-.alert-list {
-  p {
-    @include font-size(17);
-    padding: 0;
-    border-left: none;
-    margin: 0;
-  }
-  ul {
-    @extend %gamma;
-    line-height: 1.1;
-    color: $darker;
-    padding-left: 1.6em;
-    margin: 0.8rem 0 0;
   }
 }
 

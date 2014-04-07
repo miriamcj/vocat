@@ -1,19 +1,17 @@
-<div class="alerts">
-  <%= form_errors(@project) %>
+<%= render 'shared/model_errors', :model => @project %>
+
+
+<div class="input-group">
+  <%= f.label :name, :required => true, class: 'text-label' %>
+  <%= f.text_field :name, {class: 'text-input'} %>
 </div>
 
 <div class="input-group">
-  <%= f.label :name, :required => true, :class => 'text-label' %>
-  <%= f.input_field :name, :class => 'text-input' %>
+  <%= f.label :description, :required => true, class: 'text-label' %>
+  <%= f.text_area :description, {rows: 6, class: 'text-area-input'} %>
 </div>
 
-
-<div class="model-form--row">
-  <%= f.label :description, :required => true, :class => 'text-label' %>
-  <%= f.input_field :description, :class => 'text-area-input', :rows => '8' %>
-</div>
-
-<div class="model-form--row">
+<div class="input-group">
   <%= f.label :rubric, :class => 'text-label' %>
   <%= f.select :rubric_id, grouped_options_for_select(
                    {
@@ -22,6 +20,5 @@
                    }
                ), {:include_blank => 'No rubric'}, {'data-behavior' => 'chosen'}
   %>
-
 </div>
 

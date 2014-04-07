@@ -7,16 +7,19 @@
 
 <% content_for :content_intro do %>
   <p>
-    Project creation instructions go here...
+
   </p>
 <% end %>
 
 <% content_for :content_frames	 do %>
-  <%= simple_form_for(@project, :url => course_manage_projects_path(@course)) do |f| %>
+  <%= form_for(@project, :url => course_manage_projects_path(@course)) do |f| %>
+
     <%= render 'form', :f => f %>
+
     <div class="input-group">
       <%= link_to 'Back', course_manage_projects_path(@course), :class => 'gray-ex-button' %>
-      <%= f.button :submit, 'Save project', :class => 'teal-arrow-button' %>
+      <%= f.submit 'Save project', :class => 'teal-arrow-button' %>
     </div>
+
   <% end %>
 <% end %>
