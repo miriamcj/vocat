@@ -6,7 +6,7 @@ class ProjectSerializer < ActiveModel::Serializer
 
   attributes  :id, :name, :current_user_is_owner, :course_name, :course_name_long,
               :course_id, :course_department, :course_section, :course_number,
-              :current_user_id, :description, :evaluatable, :is_group_project
+              :current_user_id, :description, :evaluatable, :project_type
 
   has_one :rubric
 

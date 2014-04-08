@@ -166,7 +166,7 @@ ActiveRecord::Schema.define(version: 20140407231652) do
     t.datetime "updated_at",                       null: false
     t.integer  "rubric_id"
     t.integer  "listing_order"
-    t.boolean  "is_group_project", default: false
+    t.string   "project_type",    default: "user"
     t.date     "due_date"
   end
 

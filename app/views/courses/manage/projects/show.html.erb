@@ -26,11 +26,11 @@
   <div class="input-group">
     <div class="input-group--half">
       <span class="text-label">Rubric</span>
-      <span><%= @project.rubric %></span>
+      <span><%= @project.rubric || 'None' %></span>
     </div>
     <div class="input-group--half">
-      <span class="text-label">Is This a Group Project?</span>
-      <span><%= human_boolean @project.is_group_project %></span>
+      <span class="text-label">Who May Create a Submission for this Project?</span>
+      <span><%= @project.project_type_human.capitalize %></span>
     </div>
   </div>
 

@@ -4,7 +4,6 @@ class Project < ActiveRecord::Base
   ranks :listing_order, :with_same => :course_id
 
   belongs_to :course
-  belongs_to :project_type
   belongs_to :rubric
   has_many :submissions, :dependent => :destroy
   has_many :submitors, :through => :course
@@ -18,6 +17,9 @@ class Project < ActiveRecord::Base
   delegate :name_long, :to => :course, :prefix => true
   delegate :id, :to => :course, :prefix => true
 
+  PROJECT_TYPE_OPTIONS = ['group', 'user', 'any']
+
+  validates_inclusion_of :project_type, :in => PROJECT_TYPE_OPTIONS
   validates :name, :description, :presence => true
 
   scope :unsubmitted_for_user_and_course, -> (creator, course) { joins('LEFT OUTER JOIN submissions ON submissions.project_id = projects.id AND submissions.creator_id = ' + creator.id.to_s).where('submissions.creator_id IS NULL AND course_id IN (?)', course) }
@@ -56,6 +58,17 @@ class Project < ActiveRecord::Base
 
   def submission_by_user(user)
     submissions.where(:creator_id => user.id).first
+  end
+
+  def project_type_human()
+    case project_type
+      when 'group'
+        'groups'
+      when 'user'
+        'students'
+      when 'any'
+        'groups and students'
+    end
   end
 
   def evaluatable()

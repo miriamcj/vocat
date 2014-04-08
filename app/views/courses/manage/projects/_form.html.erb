@@ -23,16 +23,14 @@
     %>
   </div>
   <div class="input-group--half">
-    <%= f.label 'Is this a group project?', :class => 'text-label' %>
-    <%= f.select :is_group_project, [['Yes', true], ['No', false]], {:selected => @project.is_group_project}, {'data-behavior' => 'chosen'} %>
+    <%= f.label 'Who can create a submission for this project?', :class => 'text-label' %>
+    <%= f.select :project_type, [['Groups', 'group'], ['Students', 'user'], ['Groups and Users', 'any']], {:selected => @project.project_type}, {'data-behavior' => 'chosen'} %>
   </div>
 </div>
 
 <div class="input-group">
   <div class="input-group--half">
     <%= f.label 'Project Due Date', :class => 'text-label' %>
-    <%= f.date_select :due_date, {with_css_classes: true}, {'data-behavior' => 'chosen'} %>
+    <%= f.date_select :due_date, {include_blank: true, with_css_classes: true}, {'data-behavior' => 'chosen'} %>
   </div>
-
 </div>
-

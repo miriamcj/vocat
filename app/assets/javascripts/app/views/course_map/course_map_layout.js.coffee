@@ -1,6 +1,7 @@
 define [
   'marionette',
   'hbs!templates/course_map/course_map_layout',
+  'collections/collection_proxy',
   'views/course_map/projects',
   'views/course_map/creators',
   'views/course_map/matrix',
@@ -14,7 +15,7 @@ define [
   'models/user',
   'models/group',
   '../../../layout/plugins'
-], (Marionette, template, CourseMapProjects, CourseMapCreators, CourseMapMatrix, CourseMapRows, CourseMapDetailCreator, CourseMapDetailProject, CourseMapDetailCreatorProject, CourseMapHeader, SlidingGridLayout, ModalErrorView, UserModel, GroupModel) ->
+], (Marionette, template, CollectionProxy, CourseMapProjects, CourseMapCreators, CourseMapMatrix, CourseMapRows, CourseMapDetailCreator, CourseMapDetailProject, CourseMapDetailCreatorProject, CourseMapHeader, SlidingGridLayout, ModalErrorView, UserModel, GroupModel) ->
 
   class CourseMapView extends SlidingGridLayout
 
@@ -71,21 +72,27 @@ define [
       @courseId = options.courseId
       @instantiateChildViews()
       @listenTo(@overlay, 'show', () -> @onOpenOverlay())
-      @listenTo(@header, 'show', () -> @onOpenHeader())
 
     showUserViews: () ->
       @creatorType = 'User'
+      userProjectsCollection = CollectionProxy(@collections.project)
+      userProjectsCollection.where((model) -> model.get('project_type') == 'user' || model.get('project_type') == 'any')
+
       @creators.show(new CourseMapCreators({collection: @collections.user, courseId: @courseId, vent: @, creatorType: 'User'}))
-      @projects.show(new CourseMapProjects({collection: @collections.project, courseId: @courseId, vent: @, creatorType: 'User'}))
-      @matrix.show(new CourseMapMatrix({collection: @collections.user, collections: {project: @collections.project, submission: @collections.submission}, courseId: @courseId, creatorType: 'User', vent: @}))
+      @projects.show(new CourseMapProjects({collection: userProjectsCollection, courseId: @courseId, vent: @}))
+      @matrix.show(new CourseMapMatrix({collection: @collections.user, collections: {project: userProjectsCollection, submission: @collections.submission}, courseId: @courseId, creatorType: 'User', vent: @}))
       @children.header.creatorType == 'Users'
       @sliderRecalculate()
 
     showGroupViews: () ->
       @creatorType = 'Group'
+
+      groupProjectsCollection = CollectionProxy(@collections.project)
+      groupProjectsCollection.where((model) -> model.get('project_type') == 'group' || model.get('project_type') == 'any')
+
       @creators.show(new CourseMapCreators({collection: @collections.group, courseId: @courseId, vent: @, creatorType: 'Group'}))
-      @projects.show(new CourseMapProjects({collection: @collections.project, courseId: @courseId, vent: @, creatorType: 'Group'}))
-      @matrix.show(new CourseMapMatrix({collection: @collections.group, collections: {project: @collections.project, submission: @collections.submission}, courseId: @courseId, creatorType: 'Group', vent: @}))
+      @projects.show(new CourseMapProjects({collection: groupProjectsCollection, courseId: @courseId, vent: @}))
+      @matrix.show(new CourseMapMatrix({collection: @collections.group, collections: {project: groupProjectsCollection, submission: @collections.submission}, courseId: @courseId, creatorType: 'Group', vent: @}))
       @children.header.creatorType == 'Group'
       @sliderRecalculate()
 
@@ -201,14 +208,9 @@ define [
         @ui.overlay.show()
       else
         @scrollToHeader(true)
-
       if !@ui.header.is(':visible')
         @ui.header.show()
-        #@ui.header.fadeIn(250)
       @$el.find('.matrix--controls a').css(visibility: 'hidden')
-
-    onOpenHeader: () ->
-      # Fade it in if not visible
 
     onCloseOverlay: (args) ->
       @matrix.$el.css({visibility: 'visible'})
@@ -228,7 +230,6 @@ define [
       if @ui.overlay.is(':visible')
         @ui.overlay.fadeOut 250, () =>
           @overlay.close()
-          #@scrollToTop()
 
 
 

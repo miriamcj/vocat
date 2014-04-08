@@ -155,13 +155,12 @@ class ApplicationController < ActionController::Base
                                       :course_id,
                                       :rubric_id,
                                       :listing_order_position,
-                                      :is_group_project,
+                                      :project_type,
                                       :due_date
       )
     end
 
     def user_params
-
       params.require(:user).permit(:first_name,
                                    :middle_name,
                                    :last_name,

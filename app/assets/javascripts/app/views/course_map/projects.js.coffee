@@ -1,12 +1,13 @@
-define [
-  'marionette', 'views/course_map/projects_item'
-], (
-  Marionette, Item
-) ->
+define (require) ->
+
+  Marionette = require('marionette')
+  Item = require('views/course_map/projects_item')
+  EmptyView = require('views/course_map/projects_empty')
 
   class CourseMapProjectsView extends Marionette.CollectionView
 
     itemView: Item
+    emptyView: EmptyView
     className: 'matrix--column-header--list'
     tagName: 'ul'
 
@@ -36,7 +37,3 @@ define [
       if @creatorType == 'Group'
         return if item.get('is_group_project') == false
       super
-
-    onRender: () ->
-#      spacers = 4 - @collection.length
-#      if spacers > 0 then _(spacers).times => @$el.append '<li data-behavior="project-spacer"></li>'
