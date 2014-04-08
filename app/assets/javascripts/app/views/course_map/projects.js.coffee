@@ -30,6 +30,13 @@ define [
       @creatorType = Marionette.getOption(@, 'creatorType')
       @vent = Marionette.getOption(@, 'vent')
 
+    addItemView: (item, ItemView, index) ->
+      if @creatorType == 'User'
+        return if item.get('is_group_project') == true
+      if @creatorType == 'Group'
+        return if item.get('is_group_project') == false
+      super
+
     onRender: () ->
 #      spacers = 4 - @collection.length
 #      if spacers > 0 then _(spacers).times => @$el.append '<li data-behavior="project-spacer"></li>'

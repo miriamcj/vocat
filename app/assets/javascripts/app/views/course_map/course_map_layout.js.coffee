@@ -76,7 +76,7 @@ define [
     showUserViews: () ->
       @creatorType = 'User'
       @creators.show(new CourseMapCreators({collection: @collections.user, courseId: @courseId, vent: @, creatorType: 'User'}))
-      @projects.show(new CourseMapProjects({collection: @collections.project, courseId: @courseId, vent: @}))
+      @projects.show(new CourseMapProjects({collection: @collections.project, courseId: @courseId, vent: @, creatorType: 'User'}))
       @matrix.show(new CourseMapMatrix({collection: @collections.user, collections: {project: @collections.project, submission: @collections.submission}, courseId: @courseId, creatorType: 'User', vent: @}))
       @children.header.creatorType == 'Users'
       @sliderRecalculate()
@@ -84,7 +84,7 @@ define [
     showGroupViews: () ->
       @creatorType = 'Group'
       @creators.show(new CourseMapCreators({collection: @collections.group, courseId: @courseId, vent: @, creatorType: 'Group'}))
-      @projects.show(new CourseMapProjects({collection: @collections.project, courseId: @courseId, vent: @}))
+      @projects.show(new CourseMapProjects({collection: @collections.project, courseId: @courseId, vent: @, creatorType: 'Group'}))
       @matrix.show(new CourseMapMatrix({collection: @collections.group, collections: {project: @collections.project, submission: @collections.submission}, courseId: @courseId, creatorType: 'Group', vent: @}))
       @children.header.creatorType == 'Group'
       @sliderRecalculate()

@@ -675,6 +675,17 @@ a.table--heading {
   select {
     width: 45.75rem;
   }
+  select.year {
+    width: 12.75rem;
+    margin-right: 1rem;
+  }
+  select.month {
+    width: 22rem;
+    margin-right: 1rem;
+  }
+  select.day {
+    width: 10rem;
+  }
   .input-group {
     margin-bottom: 0;
   }

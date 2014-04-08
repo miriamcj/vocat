@@ -154,7 +154,9 @@ class ApplicationController < ActionController::Base
                                       :description,
                                       :course_id,
                                       :rubric_id,
-                                      :listing_order_position
+                                      :listing_order_position,
+                                      :is_group_project,
+                                      :due_date
       )
     end
 

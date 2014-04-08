@@ -8,22 +8,42 @@
 
 <% content_for :content_intro do %>
   <h2 class="frame--title"><%= @project.name %></h2>
-  <p>
-    <%= @project.description %>
-  </p>
 
 <% end %>
 
 <% content_for :content_frames	 do %>
-  <p>
-    <strong>Course:</strong>
-    <%= @project.course %>
-  </p>
 
-  <p>
-    <strong>Project type:</strong>
-    <%= @project.project_type %>
-  </p>
+  <div class="input-group">
+    <span class="text-label">Course</span>
+    <span><%= @project.course %></span>
+  </div>
+
+  <div class="input-group">
+    <span class="text-label">Description</span>
+    <span><%= @project.description %></span>
+  </div>
+
+  <div class="input-group">
+    <div class="input-group--half">
+      <span class="text-label">Rubric</span>
+      <span><%= @project.rubric %></span>
+    </div>
+    <div class="input-group--half">
+      <span class="text-label">Is This a Group Project?</span>
+      <span><%= human_boolean @project.is_group_project %></span>
+    </div>
+  </div>
+
+  <div class="input-group">
+    <div class="input-group--half">
+      <span class="text-label">Due Date</span>
+      <span><%= @project.due_date %></span>
+    </div>
+    <div class="input-group--half">
+    </div>
+  </div>
+
+
 
   <p>
     <% if can? :update, @project %>
