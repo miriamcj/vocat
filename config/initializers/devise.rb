@@ -225,7 +225,7 @@ Devise.setup do |config|
   #   manager.intercept_401 = false
   #   manager.default_strategies(:scope => :user).unshift :some_external_strategy
   # end
-  if Rails.application.config.vocat.ldap[:enabled]
+  if Rails.application.config.vocat.ldap && Rails.application.config.vocat.ldap[:enabled]
     config.warden do |manager|
       manager.strategies.add(:vocat_authenticatable, Devise::Strategies::VocatAuthenticatable)
       manager.default_strategies(:scope => :user).unshift :vocat_authenticatable
