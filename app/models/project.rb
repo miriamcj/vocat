@@ -80,6 +80,14 @@ class Project < ActiveRecord::Base
     return true
   end
 
+  def is_group_project?
+    project_type =='group' || project_type == 'any'
+  end
+
+  def is_user_project?
+    project_type =='user' || project_type == 'any'
+  end
+
 	def to_s()
 		self.name
 	end

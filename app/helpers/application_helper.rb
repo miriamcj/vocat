@@ -2,6 +2,14 @@ module ApplicationHelper
 
   require 'active_support'
 
+  def submission_detail_path(submission)
+    if submission.creator_type == 'Group'
+      course_group_creator_project_detail_path(submission.course, submission.creator, submission.project)
+    elsif submission.creator_type == 'User'
+      course_user_creator_project_detail_path(submission.course, submission.creator, submission.project)
+    end
+  end
+
   def serialize_for_bootstrap(data, current_user)
     if data.is_a?(Array)
       # See https://github.com/evrone/active_model_serializers/commit/22b6a74131682f086bd8095aaaf22d0cd6e8616d

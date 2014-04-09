@@ -88,6 +88,7 @@ Vocat::Application.routes.draw do
     get 'groups/evaluations/(/creator/:creator_id)(/project/:project_id)' => 'courses/evaluations#course_map', :as => 'group_evaluations'
     get 'users/evaluations(/creator/:creator_id)(/project/:project_id)' => 'courses/evaluations#course_map', :as => 'user_evaluations'
     get 'users/creator/:creator_id/project/:project_id' => 'courses/evaluations#user_creator_project_detail', :as => 'user_creator_project_detail'
+    get 'groups/creator/:creator_id/project/:project_id' => 'courses/evaluations#group_creator_project_detail', :as => 'group_creator_project_detail'
     get 'users/project/:project_id' => 'courses/evaluations#user_project_detail', :as => 'user_project_detail'
     get 'groups/project/:project_id' => 'courses/evaluations#user_project_detail', :as => 'groups_project_detail'
     get 'view/project/:project_id' => 'courses/evaluations#current_user_project', :as => 'current_user_project'

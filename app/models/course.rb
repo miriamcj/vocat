@@ -44,6 +44,11 @@ class Course < ActiveRecord::Base
     Course.uniq.pluck(:department).sort
   end
 
+  def submissions_for_creator(creator)
+    factory = SubmissionFactory.new
+    factory.course_and_creator(self, creator)
+  end
+
   def self.distinct_years
     years = Course.uniq.pluck(:year)
     years.reject! { |y| y.nil? }

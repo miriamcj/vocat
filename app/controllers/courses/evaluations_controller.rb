@@ -32,6 +32,16 @@ class Courses::EvaluationsController < ApplicationController
     authorize! :show, @submission
   end
 
+  def group_creator_project_detail
+    @disable_layout_messages = true
+    @project = Project.find(params[:project_id])
+    @creator = Group.find(params[:creator_id])
+    factory = SubmissionFactory.new
+    submissions = factory.creator_and_project(@creator, @project)
+    @submission = submissions[0]
+    authorize! :show, @submission
+  end
+
   def current_user_project
 	  factory = SubmissionFactory.new
 	  submissions = factory.creator_and_project(@current_user, @project)

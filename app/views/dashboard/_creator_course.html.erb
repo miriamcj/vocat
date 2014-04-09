@@ -3,19 +3,19 @@
 <h2 class="frame-summary--title"><%= link_to course, portfolio_course_path(course)  %></h2>
 <% end %>
 
-<% if course.projects.count == 0 %>
+<% if course.submissions_for_creator(current_user).count == 0 %>
 
 <div class="alert alert-notice"><aside class="alert--label"></aside>
   <p>You are currently enrolled in this course, but no projects have been set up by the instructor. Please check back soon.</p>
 </div>
 
 <% else %>
-  <% current_user.submissions.for_courses(course).each_with_index do |submission, index| %>
+  <% course.submissions_for_creator(current_user).each_with_index do |submission, index| %>
     <div class="portfolio-frame">
 
       <figure class="frame-attachment">
         <% if submission.has_video? %>
-          <%= link_to image_tag(submission.thumb, :class => 'frame-attachment--image'), course_user_creator_project_detail_path(course, submission.creator, submission.project) %>
+          <%= link_to image_tag(submission.thumb, :class => 'frame-attachment--image'), submission_detail_path(submission) %>
         <% else %>
           <div class="attachment-placeholder">
             <div class="wrap">
@@ -27,17 +27,17 @@
 
       <div class="frame-summary">
         <h2 class="frame-summary--<% if hide_header %>title<% else %>project<% end %>">
-          <%= link_to submission.project_name, course_user_creator_project_detail_path(course, submission.creator, submission.project) %>
+          <%= link_to submission.project_name, submission_detail_path(submission) %>
         </h2>
         <% if hide_header %>
           <h2 class="frame-summary--project"><%= submission.creator %></h2>
         <% end %>
 
         <% if submission.project.evaluatable() %>
-          <%= render 'dashboard/scores', :submission => submission, :course => course %>
+          <%= render 'dashboard/scores', :submission => submission, :course => submission.course %>
         <% end %>
-        <a class="comment-indicator pull-left" data-behavior="routable" href="<%= url_for course_user_creator_project_detail_path(course, submission.creator, submission.project) %>"><%= pluralize(submission.discussion_posts_count, 'comment') %></a>
-        <a class="frame-summary--link pull-right" data-behavior="routable" href="<%= url_for course_user_creator_project_detail_path(course, submission.creator, submission.project) %>">View Submission Detail</a>
+        <a class="comment-indicator pull-left" data-behavior="routable" href="<%= url_for course_user_creator_project_detail_path(submission.course, submission.creator, submission.project) %>"><%= pluralize(submission.discussion_posts_count, 'comment') %></a>
+        <a class="frame-summary--link pull-right" data-behavior="routable" href="<%= url_for course_user_creator_project_detail_path(submission.course, submission.creator, submission.project) %>">View Submission Detail</a>
       </div>
     </div>
   <% end %>

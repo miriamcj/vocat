@@ -20,12 +20,6 @@ describe 'Rubric' do
 	    rubric.add_field({'name' => 'Voice', 'description' => 'Breathing; Centering; Projection'})
   end
 
-  it 'returns an error if a cell is added for a range and field that do not exist' #do
-    #r = FactoryGirl.build(:rubric)
-    #cell_options = {'range' => 'muscle', 'field' => 'strength', 'description' => 'Vocal projection is weak. Posture is crumpled or slouched: breath is unsupported. Volume is unamplified. One has to strain, or cannot hear speaker. Articulation is mushy and difficult to understand.'}
-    #expect { r.add_cell(cell_options) }.to raise_error
-  #end
-
   it 'allows a cell to be added' do
     r = FactoryGirl.build(:rubric)
     field_key = r.add_field({'name' => 'Voice', 'description' => 'Breathing; Centering; Projection'})
@@ -59,22 +53,5 @@ describe 'Rubric' do
       rubric_cell.should include cell
     end
   end
-
-  it 'returns the lowest score possible' do
-    r = FactoryGirl.build(:rubric)
-    r.add_range({'name' => 'Low', 'low' => 0, 'high' => 2})
-    r.add_range({'name' => 'Medium', 'low' => 3, 'high' => 4})
-    r.add_range({'name' => 'High', 'low' => 5, 'high' => 6})
-    r.low_score().should equal 0
-  end
-
-  it 'returns the highest score possible' do
-    r = FactoryGirl.build(:rubric)
-    r.add_range({'name' => 'Low', 'low' => 0, 'high' => 2})
-    r.add_range({'name' => 'Medium', 'low' => 3, 'high' => 4})
-    r.add_range({'name' => 'High', 'low' => 5, 'high' => 6})
-    r.high_score().should equal 6
-  end
-
 
 end

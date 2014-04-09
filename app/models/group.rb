@@ -8,4 +8,8 @@ class Group < ActiveRecord::Base
     GroupSerializer
   end
 
+  def to_s
+    name
+  end
+
 end

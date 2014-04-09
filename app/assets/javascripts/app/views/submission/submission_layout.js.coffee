@@ -101,7 +101,7 @@ define (require) ->
 
     initialize: (options) ->
       @options = options || {}
-      @collections = options.collections
+      @collections = {}
       @collections.annotation = new AnnotationCollection([],{})
       @vent = if options.vent? then options.vent else Vocat.vent
 
