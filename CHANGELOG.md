@@ -1,10 +1,12 @@
 ## Vocat v3.0.0-beta1.9.0 (April 8, 2014)
 
-* [BUGFIX] Fixes #86: Some flash messages no longer display correctly **(zdavis)**
+* [BUGFIX]  Fixes #86: Some flash messages no longer display correctly **(zdavis)**
 * [FEATURE] Closes #90: Instructors should be able to define a project as available to groups, students, or groups and students **(zdavis)**
-* [CHORE] Fixes #91: Remove old, scaffolded unit tests **(zdavis)**
+* [CHORE]   Fixes #91: Remove old, scaffolded unit tests **(zdavis)**
 * [FEATURE] Fixes #88: Major refactoring of submission factory to allow users to see individual and group submissions **(zdavis)**
-* [CHORE] Remove scaffolded specs **(zdavis)**
+* [CHORE]   Remove placeholder specs **(zdavis)**
+* [FEATURE] When there are no projects in a course, show a "new project" button in the course map **(zdavis)**
+* [FEATURE] Adds a due date field to projects; currently this field is only visible to instructors. **(zdavis)**
 
 ## Vocat v3.0.0-beta1.8.3 (March 28, 2014)
 
