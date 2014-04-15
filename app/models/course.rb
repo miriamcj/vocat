@@ -112,9 +112,12 @@ class Course < ActiveRecord::Base
     out
   end
 
+  def video_count()
+    Video.count_by_course(self)
+  end
+
   def submission_video_percentage()
     out = 0
-    video_count = Video.count_by_course(self)
     if video_count > 0
       possible_submissions = creators.count * projects.count + groups.count * projects.count
       if possible_submissions.to_f > 0

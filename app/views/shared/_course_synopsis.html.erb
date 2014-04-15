@@ -2,10 +2,9 @@
 
   <figure class="summary-box">
     <div>
-      <b style="height: <%= course.submission_video_percentage() %>%"></b>
-      <span><%= course.submission_video_percentage() %></span><small>%</small>
+      <span><%= course.creators.count %></span><small></small>
     </div>
-    <figcaption>Submissions with Videos</figcaption>
+    <figcaption>Students</figcaption>
   </figure>
 
   <figure class="summary-box">
@@ -28,9 +27,9 @@
 
   <figure class="summary-box">
     <div>
-      <span><%= course.creators.count %></span><small></small>
+      <span><%= course.discussion_post_count() %></span><small></small>
     </div>
-    <figcaption>Students</figcaption>
+    <figcaption>Comments</figcaption>
   </figure>
 
   <figure class="summary-box">
@@ -42,10 +41,19 @@
 
   <figure class="summary-box">
     <div>
-      <span><%= course.discussion_post_count() %></span><small></small>
+      <span><%= course.video_count %></span><small></small>
     </div>
-    <figcaption>Comments</figcaption>
+    <figcaption>Videos</figcaption>
   </figure>
+
+  <figure class="summary-box">
+    <div>
+      <b style="height: <%= course.submission_video_percentage() %>%"></b>
+      <span><%= course.submission_video_percentage() %></span><small>%</small>
+    </div>
+    <figcaption>Submissions with Videos</figcaption>
+  </figure>
+
 
 </div>
 
