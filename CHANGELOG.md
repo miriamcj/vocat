@@ -1,3 +1,8 @@
+## Vocat v3.0.0-beta1.9.1 (April 17, 2014)
+
+* [BUGFIX] Fixes #93: Regression in collectinon proxy breaks rubric UI **(zdavis)**
+* [FEATURE] Fixes #92: Show video count and course link on course overview **(zdavis)**
+
 ## Vocat v3.0.0-beta1.9.0 (April 8, 2014)
 
 * [BUGFIX]  Fixes #86: Some flash messages no longer display correctly **(zdavis)**
