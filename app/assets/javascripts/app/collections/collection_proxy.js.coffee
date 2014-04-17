@@ -8,7 +8,7 @@ define [], () ->
     filtered.where = (criteria) ->
       if _.isFunction(criteria)
         items = collection.filter(criteria)
-      else if _.isHash(criteria)
+      else if _.isObject(criteria)
         items = collection.where(criteria)
       else
         items = collection.models
