@@ -3,9 +3,12 @@ class VideoSerializer < ActiveModel::Serializer
              :submission_id,
              :source,
              :source_id,
-             :attachment_url,
-             :thumb,
+             :locations,
              :state
+
+  def locations
+    object.locations
+  end
 
   def thumb
     object.thumb

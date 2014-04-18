@@ -8,16 +8,42 @@ class Video < ActiveRecord::Base
   has_many :annotations, :dependent => :destroy
 
   delegate :processing_error, :to => :attachment, :prefix => false, :allow_nil => true
-  delegate :url, :to => :attachment, :prefix => true, :allow_nil => true
+  delegate :creator, :to => :submission, :allow_nil => true
+  delegate :course, :to => :submission, :allow_nil => true
 
-#  accepts_nested_attributes_for :attachment
+  SOURCES = %w(attachment vimeo youtube)
+
+  validates_inclusion_of :source, :in => Video::SOURCES
+  before_save :get_vimeo_thumb
 
   default_scope { includes(:attachment) }
 
-  before_save :get_vimeo_thumb
-
   def active_model_serializer
     VideoSerializer
+  end
+
+  def locations
+    case source
+      when 'youtube'
+        {
+            'url' => "http://www.youtube.com/watch?v=#{source_id}"
+        }
+      when 'vimeo'
+        {
+            'url' => "http://vimeo.com/#{source_id}"
+        }
+      when 'attachment'
+        attachment.locations
+    end
+  end
+
+  # Params is a hash of search values including (:creator|| :source || :state)
+  def self.search(params)
+    v = Video.all
+    v = v.where({source: params[:source]}) unless params[:source].blank?
+    v = v.where("videos.source != 'attachment' OR (videos.source = 'attachment' AND attachments.state = ?)", params[:state]) unless params[:state].blank?
+    v = v.joins(:submission => :user).where("users.last_name LIKE ? OR users.first_name LIKE ? OR users.email LIKE ?", "%#{params[:creator]}%", "%#{params[:creator]}%", "%#{params[:creator]}%") unless params[:creator].blank?
+    v
   end
 
   def get_vimeo_thumb

@@ -59,10 +59,13 @@ define (require) ->
 
       options = {
         techOrder: [sourceDetails.key]
-        src: sourceDetails.url
         width: w
         height: h
       }
+
+      if @video.get('source') == 'youtube' || @video.get('source') == 'vimeo'
+        options.src = @model.video.get('locations').url
+
 
       @player = videojs(domTarget, options, () ->
       )
@@ -90,6 +93,7 @@ define (require) ->
     serializeData: () ->
       out = @video.toJSON()
       out.source_details = @model.video.getSourceDetails()
+      out.locations = @model.video.get('locations')
       out.current_user_can_attach = @model.get('current_user_can_attach')
       out.is_youtube = @video.get('source') == 'youtube'
       out.is_vimeo = @video.get('source') == 'vimeo'

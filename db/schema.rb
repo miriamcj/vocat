@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140408172637) do
+ActiveRecord::Schema.define(version: 20140428181902) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,17 +28,25 @@ ActiveRecord::Schema.define(version: 20140408172637) do
     t.integer  "video_id"
   end
 
+  create_table "attachment_variants", force: true do |t|
+    t.integer  "attachment_id"
+    t.string   "location"
+    t.string   "format"
+    t.string   "state"
+    t.string   "processor_name"
+    t.text     "processor_data"
+    t.string   "processor_error"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "attachments", force: true do |t|
     t.string   "media_file_name"
     t.string   "media_content_type"
     t.integer  "media_file_size"
     t.datetime "media_updated_at"
-    t.integer  "transcoding_status",  default: 0
-    t.string   "transcoding_error"
-    t.integer  "fileable_id"
-    t.string   "fileable_type"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
     t.string   "state"
     t.integer  "video_id"
     t.string   "processor_error"
@@ -47,9 +55,8 @@ ActiveRecord::Schema.define(version: 20140408172637) do
     t.string   "processor_job_id"
     t.string   "processor_class"
     t.string   "processed_thumb_key"
+    t.hstore   "processing_data"
   end
-
-  add_index "attachments", ["fileable_id", "fileable_type"], name: "index_attachments_on_fileable_id_and_fileable_type", using: :btree
 
   create_table "courses", force: true do |t|
     t.string   "name"

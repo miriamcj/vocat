@@ -1,18 +1,11 @@
 class Attachment < ActiveRecord::Base
 
-#  belongs_to :fileable, :polymorphic => true
-
-  # Transcoding constants
-  TRANSCODING_STATUS_NOT_STARTED = 0
-  TRANSCODING_STATUS_SUCCESS = 1
-  TRANSCODING_STATUS_ERROR = 2
-  TRANSCODING_STATUS_UNNECESSARY = 3
-  TRANSCODING_STATUS_BUSY = 4
-
   belongs_to :video
   belongs_to :user
+  has_many :variants
 
   after_initialize :check_processing_state
+  validates_presence_of :media_file_name
 
   state_machine :initial => :uncommitted do
     state :uncommitted
@@ -39,15 +32,15 @@ class Attachment < ActiveRecord::Base
       transition :processing => :processing_error
     end
 
-    before_transition :uncommitted => :committed do |attachment, transition|
+    before_transition :uncommitted => :committed do |attachment|
       attachment.do_commit
     end
 
-    after_transition :committed => :processing do |attachment, transition|
-      attachment.do_processing
+    after_transition :committed => :processing do |attachment|
+      attachment.process
     end
 
-    after_transition any => :committed do |attachment, transition|
+    after_transition any => :committed do |attachment|
       if attachment.can_be_processed?
         attachment.start_processing
       else
@@ -56,11 +49,23 @@ class Attachment < ActiveRecord::Base
     end
   end
 
+  def extension()
+    File.extname(media_file_name)
+  end
+
+  def variant_by_format(format)
+    variants.where(:format => format).first
+  end
+
   def check_processing_state
     if processing?
-      unless processor_class.blank?
-        processor = processor_class.constantize.new
-        processor.check_for_and_handle_processing_completion(self, processor_job_id)
+      if variants.with_state(:processing).count > 0
+        variants.with_state(:processing).each do |variant|
+          variant.check_processing_state
+        end
+      else
+        self.complete_processing
+        self.save
       end
     end
   end
@@ -69,29 +74,47 @@ class Attachment < ActiveRecord::Base
     AttachmentSerializer
   end
 
-  def available_processors
+  def all_processors
     [
-        AttachmentProcessor::Transcoder
+        Attachment::Processor::Transcoder::Mp4,
+        Attachment::Processor::Transcoder::Webm
     ]
   end
 
-  def can_be_processed?
-    available_processors.each do |processor_class|
-      processor = processor_class.send(:new)
-      if processor.can_process?(self)
-        return true
-      end
+  def locations
+    locations = variants.with_state(:processed).map do |variant|
+      [variant.format, variant.public_location]
     end
-    return false
+    Hash[locations]
   end
 
-  def s3_thumb_key
-    input_key = self.s3_source_key
-    base = "#{File.dirname(input_key)}/#{File.basename(input_key, ".*")}"
-    "#{base}_thumb00001.png"
+  def available_processors
+    processors = all_processors.collect do |processor_class|
+      processor = processor_class.send(:new)
+      processor.can_process?(self) ? processor : nil
+    end
+    processors.compact
   end
 
-  def s3_source_key
+  def process
+    available_processors.each do |processor|
+      processor.process(self)
+    end
+  end
+
+  def can_be_processed?
+    true if available_processors.length > 0
+  end
+
+  def dirname
+    File.dirname(location)
+  end
+
+  def basename
+    File.basename(location, ".*")
+  end
+
+  def location
     if uncommitted?
       uncommitted_s3_source_key
     else
@@ -100,46 +123,21 @@ class Attachment < ActiveRecord::Base
   end
 
   def thumb
-    if processed? and !processed_thumb_key.blank?
-      s3 = get_s3_instance
-      object = s3.buckets[Rails.application.config.vocat.aws[:s3_bucket]].objects[processed_thumb_key]
-      object.url_for(:read).to_s
-    end
-  end
-
-  def url
-    if processed? and !processed_key.blank?
-      key = processed_key
+    variant = variant_by_format(['mp4_thumb', 'webm_thumb'])
+    if variant.nil?
+      return nil
     else
-      key = s3_source_key
+      return variant.public_location
     end
-    s3 = get_s3_instance
-    object = s3.buckets[Rails.application.config.vocat.aws[:s3_bucket]].objects[key]
-    object.url_for(:read).to_s
   end
 
-  def get_s3_instance
-    options = {
-        :access_key_id => Rails.application.config.vocat.aws[:key],
-        :secret_access_key => Rails.application.config.vocat.aws[:secret]
-    }
-    s3 = AWS::S3.new(options)
-    s3
-  end
-
-  def do_processing
-    available_processors.each do |processor_class|
-      processor = processor_class.send(:new)
-      if processor.can_process?(self)
-        processor.process(self)
-        return true
-      end
-    end
+  def bucket
+    Rails.application.config.vocat.aws[:s3_bucket]
   end
 
   def do_commit
     s3 = get_s3_instance
-    object = s3.buckets[Rails.application.config.vocat.aws[:s3_bucket]].objects[uncommitted_s3_source_key]
+    object = s3.buckets[bucket].objects[uncommitted_s3_source_key]
     self.media_content_type = MIME::Types.type_for(media_file_name).first.simplified
     self.media_file_size = object.content_length
     self.media_updated_at = Time.now
@@ -165,6 +163,15 @@ class Attachment < ActiveRecord::Base
     lower_hundred = (id/100).floor * 100
     upper_hundred = lower_hundred + 100
     "temporary/attachment/#{lower_thousand}_#{upper_thousand}/#{lower_hundred}_#{upper_hundred}/#{id}#{ext}"
+  end
+
+  def get_s3_instance
+    options = {
+        :access_key_id => Rails.application.config.vocat.aws[:key],
+        :secret_access_key => Rails.application.config.vocat.aws[:secret]
+    }
+    s3 = AWS::S3.new(options)
+    s3
   end
 
 end

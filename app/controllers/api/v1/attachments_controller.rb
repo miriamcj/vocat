@@ -8,12 +8,12 @@ class Api::V1::AttachmentsController < ApplicationController
   def create
     params.require(:attachment).permit(:media_file_name)
     @attachment = Attachment.create({media_file_name: params[:attachment][:media_file_name], user_id: current_user.id})
-    key = @attachment.s3_source_key
-    policy = s3_upload_policy_document(key)
+    location = @attachment.location
+    policy = s3_upload_policy_document(location)
     render :json => {
         :policy => policy,
-        :signature => s3_upload_signature(key, policy),
-        :key => key,
+        :signature => s3_upload_signature(location, policy),
+        :key => location,
         :attachment_id => @attachment.id
     }
   end

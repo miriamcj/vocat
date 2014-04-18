@@ -6,6 +6,8 @@ class Submission < ActiveRecord::Base
 	has_one :course, :through => :project
   belongs_to :project
   belongs_to :creator, :polymorphic => true
+  belongs_to :user, -> { where "submissions.creator_type = 'User'" }, foreign_key: 'creator_id'
+  belongs_to :group, -> { where "submissions.creator_type = 'Group'" }, foreign_key: 'creator_id'
 
   accepts_nested_attributes_for :video
 

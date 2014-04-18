@@ -95,6 +95,9 @@ Vocat::Application.routes.draw do
   end
 
   namespace :admin do
+    resources :videos do
+
+    end
     resources :courses do
       member do
         get 'evaluators'

@@ -25,7 +25,6 @@ define ['jquery_rails', './plugins', 'vendor/plugins/chosen'], ($) ->
         #$('[data-behavior="sticky-header"]').stickyHeader()
         $('[data-behavior="shortcut-nav-toggle"]').shortcutNavigation()
         $('[data-behavior="help-overlay-toggle"]').helpOverlay()
-        console.log 'gusha'
         $('[data-behavior="chosen"]').chosen({
           disable_search_threshold: 1000,
           allow_single_deselect: true

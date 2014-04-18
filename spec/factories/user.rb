@@ -5,7 +5,7 @@ FactoryGirl.define do
     password 'password'
     role 'creator'
     sequence :email do |n|
-      "person#{n}@example.com"
+      "person#{Time.now.to_i}#{n}@example.com"
     end
 
   end

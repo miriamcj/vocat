@@ -8,16 +8,21 @@ require "securerandom"
 
 class Vocat < Thor
 
+
+
+
   desc "config", "Initial VOCAT installation task"
   def config
 
     say "I ask the questions. You answer the questions. Ready. Set. Go.", :red
+    say "Loading options", :blue
+
 
     options = load_yaml
     scoped_options = options[environment]
     do_not_save = false
-    scoped_options[:aws_enabled] = yes?("Do you want to enable S3 uploads and transcoding?", :yellow)
-    if scoped_options[:aws_enabled] == true
+    scoped_options[:aws][:enabled] = yes?("Do you want to enable S3 uploads and transcoding?", :yellow)
+    if scoped_options[:aws][:enabled] == true
       scoped_options[:aws] = {} if !scoped_options.has_key? :aws
       scoped_options[:aws][:key] = ask('Enter your AWS Key:', :yellow, default: scoped_options[:aws][:key])
       scoped_options[:aws][:secret] = ask('Enter your AWS Secret Key:', :yellow, default: scoped_options[:aws][:secret])
@@ -25,7 +30,8 @@ class Vocat < Thor
       scoped_options[:aws][:s3_region] = ask('Enter your region:', :yellow, limited_to: regions, default: scoped_options[:aws][:s3_region])
       scoped_options[:aws][:iam_et_role] = ask('Enter the IAM role name for the Elastic Transcoder to use:', :yellow, default: scoped_options[:aws][:iam_et_role])
       begin
-        pipeline_id = execute_setup_aws(scoped_options[:aws])
+        pipeline_id = execute_setup_aws_pipeline(scoped_options[:aws])
+        presets = execute_setup_aws_presets(scoped_options[:aws])
         scoped_options[:aws][:et_pipeline] = pipeline_id
       rescue ConfigurationExecutionError
         do_not_save = true
@@ -47,9 +53,8 @@ class Vocat < Thor
   def setup_aws
     options = load_yaml
     scoped_options = options[environment]
-
-    if scoped_options[:aws_enabled] == true
-      execute_setup_aws(scoped_options[:aws])
+    if scoped_options[:aws][:enabled] == true
+      execute_setup_aws_pipeline(scoped_options[:aws])
     else
       say 'AWS is not currently enabled. Before running this command, either run vocat configure or update your config/environment.yml file to enable AWS support'
     end
@@ -69,8 +74,8 @@ class Vocat < Thor
 
     def config_defaults
       {
-        :aws_enabled => true,
         :aws => {
+            :enabled => true,
             :key => '',
             :secret => '',
             :s3_bucket => '',
@@ -102,7 +107,11 @@ class Vocat < Thor
       end
     end
 
-    def execute_setup_aws(options)
+    def execute_setup_aws_presets()
+
+    end
+
+    def execute_setup_aws_pipeline(options)
       AWS.config(:access_key_id => options[:key], :secret_access_key => options[:secret])
       bucket = create_bucket(options[:s3_bucket], options[:s3_region])
       role = create_role(options[:iam_et_role])
