@@ -1,5 +1,7 @@
-.dc-chart {
-}
+@import "partials/variables";
+@import "partials/mixins-base";
+@import "partials/mixins-project";
+@import "partials/patterns";
 
 .dc-chart rect.bar {
   stroke: none;

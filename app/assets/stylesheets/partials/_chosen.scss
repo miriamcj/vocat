@@ -1,3 +1,8 @@
+@import "partials/variables";
+@import "partials/mixins-base";
+@import "partials/mixins-project";
+@import "partials/patterns";
+
 // Does a quick reset on <select>s before they're digested by chosen
 [data-behavior="chosen"] {
   @include appearance(none);
@@ -32,6 +37,12 @@
 }
 .chosen-container a {
   cursor: pointer;
+}
+
+.search-choice-close {
+  border: 1px solid red;
+  width: .5rem;
+  height: .5rem;
 }
 
 /* @end */
@@ -143,5 +154,26 @@
 .chosen-container-active.chosen-with-drop .chosen-single div b {
   @include svg(arrow-down-orange);
 }
-
 /* @end */
+
+
+.chosen-container-multi .chosen-choices li.search-choice .search-choice-close {
+  position: absolute;
+  top: 4px;
+  right: 3px;
+  display: block;
+  width: 12px;
+  height: 12px;
+//  background: url('chosen-sprite.png') -42px 1px no-repeat;
+  font-size: 1px;
+  z-index: 500;
+}
+.chosen-container-multi .chosen-choices li.search-choice .search-choice-close:hover {
+  background-position: -42px -10px;
+}
+.chosen-container-multi .chosen-choices li.search-choice-focus {
+  background: #d4d4d4;
+}
+.chosen-container-multi .chosen-choices li.search-choice-focus .search-choice-close {
+  background-position: -42px -10px;
+}

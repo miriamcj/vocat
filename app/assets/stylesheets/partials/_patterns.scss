@@ -1,3 +1,8 @@
+@import "partials/variables";
+@import "partials/fonts";
+@import "partials/mixins-base";
+@import "partials/mixins-project";
+
 // Patterns
 // --------
 
@@ -1105,18 +1110,6 @@ input%proto-button {
   }
 }
 
-// %light-round-checkbox {
-//   @extend %round-checkbox;
-//   & + b {
-//     @include svg(radio-unchecked-beigeLight);
-//   }
-//   &:checked {
-//     & + b {
-//       @include svg(radio-checked-beigeLight);
-//     }
-//   }
-// }
-
 %multicolored-round-checkbox {
   @extend %round-checkbox;
   & + b {
@@ -1881,23 +1874,3 @@ input%proto-button {
     background-color: $tealLight;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

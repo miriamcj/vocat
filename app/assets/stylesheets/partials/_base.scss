@@ -1,7 +1,13 @@
+@import "partials/variables";
+@import "partials/mixins-base";
+@import "partials/mixins-project";
+@import "partials/patterns";
+
+
 // Base
 // ----
 
-// Applies a natural box layout model to all the things 
+// Applies a natural box layout model to all the things
 * {
 	@include box-sizing(border-box);
 }
@@ -52,22 +58,22 @@ h2 {
 
 h3 {
 	@extend %heading;
-	@extend %gamma;	
+	@extend %gamma;
 }
 
 h4 {
 	@extend %heading;
-	@extend %delta;	
+	@extend %delta;
 }
 
 h5 {
 	@extend %heading;
-	@extend %epsilon;	
+	@extend %epsilon;
 }
 
 h6 {
 	@extend %heading;
-	@extend %epsilon;		
+	@extend %epsilon;
 }
 
 p {
@@ -77,7 +83,7 @@ p {
 	}
 }
 
-ul, 
+ul,
 ol {
 	// Base list styles
 }
