@@ -39,12 +39,6 @@
   cursor: pointer;
 }
 
-.search-choice-close {
-  border: 1px solid red;
-  width: .5rem;
-  height: .5rem;
-}
-
 /* @end */
 /* @group Single Chosen */
 .chosen-container-single .chosen-single {
@@ -89,6 +83,18 @@
 .chosen-container-single.chosen-container-single-nosearch .chosen-search {
   position: absolute;
   left: -9999px;
+}
+
+.chosen-container-single .search-choice-close {
+  position: absolute;
+  top: .8rem;
+  right: 3.5rem;
+  display: block;
+  height: 1.6rem;
+  width: 1.6rem;
+  @include svg(circle-x);
+  font-size: 1px;
+  z-index: 500;
 }
 
 /* @end */
