@@ -12,9 +12,9 @@
 *= require partials/_normalize
 *= require partials/_images
 *= require partials/_base
-*= require partials/_components
 *= require partials/_matrix
 *= require partials/_content
+*= require partials/_components
 *= require partials/_chosen
 *= require partials/_dc
 *= require partials/_video_js
