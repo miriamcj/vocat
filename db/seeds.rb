@@ -218,9 +218,6 @@ comm_rubric.save
 
 rubrics = [the_rubric, comm_rubric]
 
-# Create an project type
-presentation = ProjectType.new(:name => "Presentation")
-
 # Each course gets 1 evaluator, 2 assistants, 15 to 30 creators, and 2 to 10 projects
 #
 # SQL for finding number of courses per creator:
@@ -257,12 +254,15 @@ courses.each_with_index do |course, course_index|
 
   # Create projects in various states of completeness
   rand(3..6).times do
-    project = course.projects.create(:name => Faker::Company.bs.split(' ').map(&:capitalize).join(' '), :description => Faker::Lorem.paragraph)
-    project.project_type = presentation
 
     rubric = rubrics.sample()
-    project.rubric = rubric
-    project.save
+
+    project = course.projects.create(
+        :name => Faker::Company.bs.split(' ').map(&:capitalize).join(' '),
+        :description => Faker::Lorem.paragraph,
+        :rubric => rubric,
+        :project_type => 'user'
+    )
 
     course_creators = course.creators
     course_creators.shuffle!
