@@ -42,6 +42,12 @@ define ['marionette', 'hbs!templates/course_map/cell', 'models/user', 'models/gr
       context = super()
       context.project_evaluatable = @project.evaluatable()
       context.is_active = @isActive()
+      if Vocat.currentUserRole == 'administrator'
+        context.is_admin = true
+      else
+        context.is_admin = false
+      console.log context
+
       context
 
     isActive: () ->

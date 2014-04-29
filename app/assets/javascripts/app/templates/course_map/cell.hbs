@@ -9,6 +9,9 @@
 			{{#if current_user_has_evaluated }}
 			{{to_i current_user_percentage}}<small>%</small>
 			{{else}}
+				{{#if is_admin}}
+				{{to_i instructor_score_percentage}}<small>%</small>
+				{{/if}}
 				{{#if has_video }}
 				&ndash;&ndash;
 				{{/if}}

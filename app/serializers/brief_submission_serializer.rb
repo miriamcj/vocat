@@ -18,6 +18,22 @@ class BriefSubmissionSerializer < AbstractSubmissionSerializer
               :serialized_state
 
 
+  def evaluated_by_instructor?
+    if scope.role?(:administrator) || scope.role?(:evaluator)
+      object.evaluated_by_instructor?
+    else
+      false
+    end
+  end
+
+  def instructor_score_percentage
+    if scope.role?(:administrator) || scope.role?(:evaluator)
+      object.instructor_score_percentage
+    else
+      0
+    end
+  end
+
   def serialized_state
 	  'partial'
   end
