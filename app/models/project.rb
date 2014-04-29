@@ -16,6 +16,7 @@ class Project < ActiveRecord::Base
   delegate :section, :to => :course, :prefix => true
   delegate :name_long, :to => :course, :prefix => true
   delegate :id, :to => :course, :prefix => true
+  delegate :allows_peer_review, :to => :course
 
   PROJECT_TYPE_OPTIONS = ['group', 'user', 'any']
 
@@ -37,23 +38,29 @@ class Project < ActiveRecord::Base
   end
 
   def average_total_score()
-    Evaluation.includes(:project).where(projects: {id: self}).average('total_score')
+    Evaluation.includes(:project).where(projects: {id: self}).average('total_score') || 0
   end
 
   def average_total_percentage()
-    Evaluation.includes(:project).where(projects: {id: self}).average('total_percentage')
+    Evaluation.includes(:project).where(projects: {id: self}).average('total_percentage') || 0
   end
 
   def statistics_for(user)
-    {
-      # Count is not accurate for some reason
+    statistics = {
+      # Count is not accurate. Why?
       project_average_score: average_total_score(),
       project_average_percentage: average_total_percentage(),
-      rubric_average_score: rubric.average_total_score(),
-      rubric_average_percentage: rubric.average_total_percentage(),
       video_count: submissions.all.count{ |submission| submission.has_video? },
       evaluation_count: evaluation_count_by_user(user)
     }
+    if rubric.nil?
+      statistics[:rubric_average_score] = 0
+      statistics[:rubric_average_percentage] = 0
+    else
+      statistics[:rubric_average_score] = rubric.average_total_score()
+      statistics[:rubric_average_percentage] = rubric.average_total_percentage()
+    end
+    statistics
   end
 
   def submission_by_user(user)
@@ -73,11 +80,6 @@ class Project < ActiveRecord::Base
 
   def evaluatable()
     !rubric.nil?
-  end
-
-  def allows_peer_review()
-    # TODO: Replace this with a project configuration check
-    return true
   end
 
   def is_group_project?
