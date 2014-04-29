@@ -46,8 +46,6 @@ define ['marionette', 'hbs!templates/course_map/cell', 'models/user', 'models/gr
         context.is_admin = true
       else
         context.is_admin = false
-      console.log context
-
       context
 
     isActive: () ->
