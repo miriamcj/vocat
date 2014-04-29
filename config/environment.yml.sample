@@ -40,8 +40,10 @@ common: &common
     # The name of the AWS elastic transcoder role
     :iam_et_role: ''
 
-    # The UUID of the elastic transcoder preset to be used for transcoding
-    :et_preset: ''
+    # IDs of the the AWS transcoding presets
+    :presets:
+      :mp4:
+      :webm:
 
   :ldap:
 
