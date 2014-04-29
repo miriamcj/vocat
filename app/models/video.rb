@@ -1,12 +1,8 @@
 class Video < ActiveRecord::Base
 
-#  has_one :attachment, :as => :fileable
-
-  has_one :attachment
-
   belongs_to :submission
+  has_one :attachment, :dependent => :destroy
   has_many :annotations, :dependent => :destroy
-
   delegate :processing_error, :to => :attachment, :prefix => false, :allow_nil => true
   delegate :creator, :to => :submission, :allow_nil => true
   delegate :course, :to => :submission, :allow_nil => true

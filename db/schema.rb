@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(version: 20140428181902) do
     t.integer  "organization_id"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
-    t.hstore   "settings",        default: {}, null: false
+    t.hstore   "settings",        default: "", null: false
     t.text     "message"
     t.integer  "semester_id"
     t.integer  "year"
@@ -128,7 +128,7 @@ ActiveRecord::Schema.define(version: 20140428181902) do
   create_table "evaluations", force: true do |t|
     t.integer  "submission_id"
     t.integer  "evaluator_id"
-    t.hstore   "scores",           default: {},  null: false
+    t.hstore   "scores",           default: "",  null: false
     t.boolean  "published"
     t.integer  "rubric_id"
     t.datetime "created_at",                     null: false

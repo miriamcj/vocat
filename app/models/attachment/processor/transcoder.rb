@@ -11,47 +11,50 @@ module Attachment::Processor::Transcoder
   def processing_finished?(variant)
     AWS.config(credentials)
     et = AWS::ElasticTranscoder::Client.new({:region => Rails.application.config.vocat.aws[:s3_region]})
+    unless variant.processor_data.blank?
+      parsed_processor_data = ActiveSupport::JSON.decode(variant.processor_data)
+      job_id = parsed_processor_data['job_id']
+      job = et.read_job(:id => job_id)
+      status = job.data[:job][:output][:status]
 
-    processor_data = ActiveSupport::JSON.decode(variant.processor_data)
-    job_id = processor_data['job_id']
-    job = et.read_job(:id => job_id)
-    status = job.data[:job][:output][:status]
-
-    case status
-      when 'Complete'
-        variant.finish_processing
-        variant.save
-        create_thumb_variant(variant)
-      when 'Error'
-        variant.halt_processing
-        variant.processor_error =job.data[:job][:output][:status_detail]
-        variant.save
+      case status
+        when 'Complete'
+          variant.finish_processing
+          variant.save
+          create_thumb_variant(parsed_processor_data, variant.attachment_id)
+        when 'Error'
+          variant.halt_processing
+          variant.location = nil
+          variant.processor_error =job.data[:job][:output][:status_detail]
+          variant.save
+      end
     end
   end
 
 
   protected
 
-  def create_thumb_variant(variant)
-    processor_data = ActiveSupport::JSON.decode(variant.processor_data)
-    thumb_location = processor_data['thumb_location']
-    thumb_format = "#{@output_format}_thumb"
-    existing_thumb = variant.attachment.variant_by_format(thumb_format)
-    unless existing_thumb.nil?
-      existing_thumb.destroy()
+  def create_thumb_variant(parsed_processor_data, attachment_id)
+    thumb_location = parsed_processor_data['thumb_location']
+    s3 = AWS::S3.new(credentials)
+    if s3.buckets[bucket_name].objects[thumb_location].exists?
+      s3.client.put_object_acl(
+          bucket_name: bucket_name,
+          key: thumb_location,
+          acl: 'public_read'
+      )
     end
-    thumb_variant = create_variant(variant.attachment)
+
+    thumb_format = "#{@output_format}_thumb"
+    thumb_variant = Attachment::Variant.find_or_create_by(
+        :attachment_id => attachment_id,
+        :format => thumb_format,
+        :processor_name => self.class.name
+    )
     thumb_variant.format = thumb_format
     thumb_variant.location = thumb_location
     thumb_variant.finish_processing
     thumb_variant.save
-
-    s3 = AWS::S3.new(credentials)
-    s3.client.put_object_acl(
-      bucket_name: bucket_name,
-        key: thumb_location,
-        acl: 'public_read'
-    )
   end
 
   def bucket_name
@@ -66,8 +69,8 @@ module Attachment::Processor::Transcoder
   end
 
   def get_preset_id
-    myvar = Rails.application.config.vocat
-    Rails.application.config.vocat.aws[:presets][@output_format]
+    out = Rails.application.config.vocat.aws[:presets][@output_format]
+    out
   end
 
   def transcode(variant)
@@ -79,9 +82,8 @@ module Attachment::Processor::Transcoder
     # Get the transcoding variables
     attachment = variant.attachment
     input_location = attachment.location
-    base_location = "#{attachment.dirname}/#{attachment.basename}"
-    output_location = "#{base_location}_processed.#{@output_format}"
-    thumb_base = "#{base_location}_#{@output_format}_thumb"
+    output_location = "processed/attachment/#{attachment.path_segment}/#{attachment.id}_transcoded.#{@output_format}"
+    thumb_base = "processed/attachment/#{attachment.path_segment}/#{attachment.id}_thumb.#{@output_format}"
     thumb_pattern = "#{thumb_base}{count}"
     thumb_location = "#{thumb_base}00001.png"
 
@@ -108,7 +110,7 @@ module Attachment::Processor::Transcoder
       :output => {
         :key => output_location,
         :thumbnail_pattern => thumb_pattern,
-        :rotate => '0',
+        :rotate => 'auto',
         :preset_id => get_preset_id
       })
 

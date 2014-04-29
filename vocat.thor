@@ -156,68 +156,68 @@ class Vocat < Thor
     presets = et.list_presets[:presets]
     existing_preset = presets.find { |preset| preset[:name] == preset_name }
     if existing_preset
-      say "  '#{preset_name}' already exists. Nothing to do.", :yellow
-      return existing_preset
-    else
-      say "  '#{preset_name}' doesn't exists. Hold on while I attempt to create it.", :yellow
-      base_video_options = {
-          :keyframes_max_dist => '90',
-          :fixed_gop => 'false',
-          :bit_rate => '2200',
-          :frame_rate => '30',
-          :max_width => '1280',
-          :max_height => '720',
-          :sizing_policy => 'ShrinkToFit',
-          :padding_policy => 'NoPad',
-          :display_aspect_ratio => 'auto'
-      }
-      base_audio_options = {
-          :sample_rate => '44100',
-          :bit_rate => '160',
-          :channels => '2'
-      }
-      if type == "mp4"
-        video_options = base_video_options.clone
-        video_options[:codec] = 'H.264'
-        video_options[:codec_options] = {
-            'Profile' => 'baseline',
-            'MaxReferenceFrames' => '3',
-            'Level' => '3.1'
-        }
-        audio_options = base_audio_options.clone
-        audio_options[:codec] = 'AAC'
-        audio_options[:codec_options] = {
-            :profile => 'AAC-LC'
-        }
-      end
-      if type == "webm"
-        video_options = base_video_options.clone
-        video_options[:codec] = 'vp8'
-        video_options[:codec_options] = {
-            'Profile' => '0'
-        }
-        audio_options = base_audio_options.clone
-        audio_options[:codec] = 'vorbis'
-      end
-
-      preset_options = {
-          :name => preset_name,
-          :description => "The VOCAT #{type} transcoding preset. Generated automatically by VOCAT.",
-          :container => type,
-          :video => video_options,
-          :audio => audio_options,
-          :thumbnails => {
-              :format => 'png',
-              :interval => '60',
-              :max_width => '192',
-              :max_height => '108',
-              :sizing_policy => 'Fill',
-              :padding_policy => 'Pad'
-          }
-      }
-      preset = et.create_preset(preset_options)
-      return preset
+      say "  Deleting existing preset: '#{preset_name}'.", :yellow
+      et.delete_preset({id: existing_preset[:id]})
     end
+
+    say "  '#{preset_name}' doesn't exists. Hold on while I attempt to create it.", :yellow
+    base_video_options = {
+        :keyframes_max_dist => '90',
+        :fixed_gop => 'false',
+        :bit_rate => '2200',
+        :frame_rate => '30',
+        :max_width => '640',
+        :max_height => '480',
+        :sizing_policy => 'ShrinkToFit',
+        :padding_policy => 'NoPad',
+        :display_aspect_ratio => 'auto'
+    }
+    base_audio_options = {
+        :sample_rate => '44100',
+        :bit_rate => '160',
+        :channels => '2'
+    }
+    if type == "mp4"
+      video_options = base_video_options.clone
+      video_options[:codec] = 'H.264'
+      video_options[:codec_options] = {
+          'Profile' => 'baseline',
+          'MaxReferenceFrames' => '3',
+          'Level' => '3.1'
+      }
+      audio_options = base_audio_options.clone
+      audio_options[:codec] = 'AAC'
+      audio_options[:codec_options] = {
+          :profile => 'AAC-LC'
+      }
+    end
+    if type == "webm"
+      video_options = base_video_options.clone
+      video_options[:codec] = 'vp8'
+      video_options[:codec_options] = {
+          'Profile' => '0'
+      }
+      audio_options = base_audio_options.clone
+      audio_options[:codec] = 'vorbis'
+    end
+
+    preset_options = {
+        :name => preset_name,
+        :description => "The VOCAT #{type} transcoding preset. Generated automatically by VOCAT.",
+        :container => type,
+        :video => video_options,
+        :audio => audio_options,
+        :thumbnails => {
+            :format => 'png',
+            :interval => '99999',
+            :max_width => '320',
+            :max_height => '240',
+            :sizing_policy => 'Fill',
+            :padding_policy => 'Pad'
+        }
+    }
+    preset = et.create_preset(preset_options)
+    return preset[:preset]
   end
 
   def create_aws_bucket

@@ -1,6 +1,7 @@
 class Attachment::Variant < ActiveRecord::Base
 
   belongs_to :attachment
+  after_destroy :destroy_file_object
 
   state_machine :initial => :unprocessed do
     state :unprocessed
@@ -23,6 +24,15 @@ class Attachment::Variant < ActiveRecord::Base
 
   def processor
     processor_name.constantize.new
+  end
+
+  def has_processing_error?
+    !processor_error.blank?
+  end
+
+  def processing_complete?
+    return true if processed?
+    return true if unprocessed? && has_processing_error?
   end
 
   def sibling_variant_by_format(format)
@@ -51,5 +61,14 @@ class Attachment::Variant < ActiveRecord::Base
     object = s3.buckets[bucket].objects[location]
     object.url_for(:read).to_s
   end
+
+  def destroy_file_object
+    s3 = get_s3_instance
+    unless location.blank?
+      object = s3.buckets[bucket].objects[location]
+      object.delete if object.exists?
+    end
+  end
+
 
 end

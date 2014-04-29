@@ -2,8 +2,14 @@ class Attachment < ActiveRecord::Base
 
   belongs_to :video
   belongs_to :user
-  has_many :variants
+  has_many :variants, dependent: :destroy
 
+  ALL_PROCESSORS = [
+      Attachment::Processor::Transcoder::Mp4,
+      Attachment::Processor::Transcoder::Webm
+  ]
+
+  after_destroy :destroy_file_object
   after_initialize :check_processing_state
   validates_presence_of :media_file_name
 
@@ -13,6 +19,11 @@ class Attachment < ActiveRecord::Base
     state :processing
     state :processing_error
     state :processed
+
+    event :undo_processing do
+      transition :processing => :committed
+      transition :processed => :committed
+    end
 
     event :commit do
       transition :uncommitted => :committed
@@ -24,6 +35,11 @@ class Attachment < ActiveRecord::Base
       transition :processing_error => :processed
     end
 
+    event :complete_processing_with_error do
+      transition :committed => :processing_error
+      transition :processing => :processing_error
+    end
+
     event :start_processing do
       transition :committed => :processing
     end
@@ -33,11 +49,11 @@ class Attachment < ActiveRecord::Base
     end
 
     before_transition :uncommitted => :committed do |attachment|
-      attachment.do_commit
+      attachment.move_media_to_committed_location
     end
 
     after_transition :committed => :processing do |attachment|
-      attachment.process
+      attachment.start_processors
     end
 
     after_transition any => :committed do |attachment|
@@ -50,7 +66,7 @@ class Attachment < ActiveRecord::Base
   end
 
   def extension()
-    File.extname(media_file_name)
+    File.extname(media_file_name).downcase
   end
 
   def variant_by_format(format)
@@ -59,12 +75,25 @@ class Attachment < ActiveRecord::Base
 
   def check_processing_state
     if processing?
-      if variants.with_state(:processing).count > 0
-        variants.with_state(:processing).each do |variant|
+      processing_complete = true
+      processing_error = false
+
+      # Check if any variants are still processing
+      if variants.count > 0
+        variants.each do |variant|
           variant.check_processing_state
+          processing_complete = false unless variant.processing_complete?
+          processing_error = true unless !variant.has_processing_error?
         end
-      else
-        self.complete_processing
+      end
+
+      #If all processing is done, then we complete the attachment's processing
+      if processing_complete == true
+        if processing_error == false
+          self.complete_processing
+        else
+          self.complete_processing_with_error
+        end
         self.save
       end
     end
@@ -72,13 +101,6 @@ class Attachment < ActiveRecord::Base
 
   def active_model_serializer
     AttachmentSerializer
-  end
-
-  def all_processors
-    [
-        Attachment::Processor::Transcoder::Mp4,
-        Attachment::Processor::Transcoder::Webm
-    ]
   end
 
   def locations
@@ -89,17 +111,21 @@ class Attachment < ActiveRecord::Base
   end
 
   def available_processors
-    processors = all_processors.collect do |processor_class|
+    processors = ALL_PROCESSORS.collect do |processor_class|
       processor = processor_class.send(:new)
       processor.can_process?(self) ? processor : nil
     end
     processors.compact
   end
 
-  def process
+  def has_all_variants?
+    all_there = true
     available_processors.each do |processor|
-      processor.process(self)
+      if variants.where(:processor_name => processor.class.name).count == 0
+        all_there = false
+      end
     end
+    all_there
   end
 
   def can_be_processed?
@@ -116,9 +142,9 @@ class Attachment < ActiveRecord::Base
 
   def location
     if uncommitted?
-      uncommitted_s3_source_key
+      uncommitted_location
     else
-      committed_s3_source_key
+      committed_location
     end
   end
 
@@ -131,38 +157,51 @@ class Attachment < ActiveRecord::Base
     end
   end
 
-  def bucket
-    Rails.application.config.vocat.aws[:s3_bucket]
+  def start_processors
+    available_processors.each do |processor|
+      processor.process(self)
+    end
   end
 
-  def do_commit
+  def move_media_to_committed_location
     s3 = get_s3_instance
-    object = s3.buckets[bucket].objects[uncommitted_s3_source_key]
+    uncommitted_object = s3.buckets[bucket].objects[uncommitted_location]
+    uncommitted_object.move_to(committed_location)
+    committed_object = s3.buckets[bucket].objects[committed_location]
+    self.media_file_size = committed_object.content_length
     self.media_content_type = MIME::Types.type_for(media_file_name).first.simplified
-    self.media_file_size = object.content_length
     self.media_updated_at = Time.now
-    object.move_to(committed_s3_source_key)
     self.save
+  end
+
+  def path_segment
+    lower_thousand = (id/1000).floor * 1000
+    upper_thousand = lower_thousand + 1000
+    lower_hundred = (id/100).floor * 100
+    upper_hundred = lower_hundred + 100
+    "#{lower_thousand}_#{upper_thousand}/#{lower_hundred}_#{upper_hundred}"
   end
 
   private
 
-  def committed_s3_source_key
-    ext = File.extname(media_file_name)
-    lower_thousand = (id/1000).floor * 1000
-    upper_thousand = lower_thousand + 1000
-    lower_hundred = (id/100).floor * 100
-    upper_hundred = lower_hundred + 100
-    "source/attachment/#{lower_thousand}_#{upper_thousand}/#{lower_hundred}_#{upper_hundred}/#{id}#{ext}"
+  def bucket
+    Rails.application.config.vocat.aws[:s3_bucket]
   end
 
-  def uncommitted_s3_source_key
+  def destroy_file_object
+    s3 = get_s3_instance
+    object = s3.buckets[bucket].objects[location]
+    object.delete if object.exists?
+  end
+
+  def committed_location
     ext = File.extname(media_file_name)
-    lower_thousand = (id/1000).floor * 1000
-    upper_thousand = lower_thousand + 1000
-    lower_hundred = (id/100).floor * 100
-    upper_hundred = lower_hundred + 100
-    "temporary/attachment/#{lower_thousand}_#{upper_thousand}/#{lower_hundred}_#{upper_hundred}/#{id}#{ext}"
+    "source/attachment/#{path_segment}/#{id}#{ext}"
+  end
+
+  def uncommitted_location
+    ext = File.extname(media_file_name)
+    "temporary/attachment/#{path_segment}/#{id}#{ext}"
   end
 
   def get_s3_instance
