@@ -1,11 +1,22 @@
 namespace :attachments do
 
   desc "clean"
-  task :clean => :environment do
+  task :clean, [:confirm] => :environment do |task, args|
+
+    if args.confirm == 'true'
+      dry_run = false
+      puts "THIS IS NOT A DRY RUN!!!!"
+    else
+      dry_run = true
+      puts "THIS IS A DRY RUN."
+    end
+
     orphans = Attachment.with_state(:uncommitted).where("video_id IS NULL AND created_at < :day", {:day => 1.day.ago})
     orphans.each do |attachment|
       puts "destroying orphan attachment: id ##{attachment.id} / state: #{attachment.state} / created: #{attachment.created_at}"
-      attachment.destroy
+      if dry_run == false
+        attachment.destroy
+      end
     end
 
     options = {
@@ -32,26 +43,23 @@ namespace :attachments do
 
     delete_locations.each do |location|
       puts "deleting S3 object: #{location}"
-      bucket.objects[location].delete
+      if dry_run == false
+        bucket.objects[location].delete
+      end
     end
 
   end
 
   desc "checkprocessing"
   task :checkprocessing => :environment do
-
     count = 0
-    limit = 1
-
     processed = Attachment.with_state(:processed)
-
     processed.each do |attachment|
       if !attachment.has_all_variants?
-        puts "reprocessing attachment: id ##{attachment.id} / state: #{attachment.state} / location: #{attachment.location}"
         count += 1
+        puts "#{count}. reprocessing attachment: id ##{attachment.id} / state: #{attachment.state} / location: #{attachment.location}"
         attachment.undo_processing
         attachment.start_processing
-        break if count >= limit
       end
     end
   end
