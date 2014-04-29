@@ -147,16 +147,16 @@ define (require) ->
       myEvaluations = new EvaluationCollection(myEvaluationModels, {courseId: @courseId})
       evaluations.remove(myEvaluationModels)
 
-      instructorEvaluationModels = evaluations.where({evaluator_role: 'Instructor'})
+      instructorEvaluationModels = evaluations.where({evaluator_role: 'Evaluator'})
       instructorEvaluations = new EvaluationCollection(instructorEvaluationModels, {courseId: @courseId})
       evaluations.remove(instructorEvaluationModels)
 
       if @submission.get('current_user_can_evaluate') == true
         @myEvaluations.show new MyEvaluationView({collection: myEvaluations, model: @submission, project: @project, vent: @, courseId: @courseId})
 
-      # TODO: Too much logic here in the view around who gets to see the evaluator evaluations; this must be refactored
-      # to the server side.
+      # TODO: Too much logic here in the view around who gets to see the evaluator evaluations; this must be refactored to the server side.
       if @submission.get('current_user_is_owner') || @submission.get('current_user_is_instructor') || Vocat.currentUserRole == 'administrator'
+
         # It's useful for students to see that something hasn't been scored; less useful for instructors in this context.
         if(@submission.get('current_user_is_instructor') || Vocat.currentUserRole == 'administrator') && instructorEvaluations.length > 0
           @instructorEvaluations.show new EvaluationView({collection: instructorEvaluations, label: 'Instructor', model: @submission, project: @project, vent: @, courseId: @courseId})

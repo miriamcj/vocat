@@ -28,7 +28,6 @@ class Evaluation < ActiveRecord::Base
   delegate :low_score, :to => :rubric, :prefix => true, :allow_nil => true
   delegate :points_possible, :to => :rubric, :allow_nil => true
   delegate :name, :to => :evaluator, :prefix => true
-  delegate :role, :to => :evaluator, :prefix => true
 
   validates :rubric, presence: true
   validates :submission, presence: true
@@ -43,6 +42,10 @@ class Evaluation < ActiveRecord::Base
 
   def creator
     group || user
+  end
+
+  def evaluator_role
+    course.role(evaluator)
   end
 
   def ensure_score_hash
