@@ -1,0 +1,29 @@
+<div class="box">
+  <header>
+    <h2 class="box--title">Video Submission</h2>
+    {{#if current_user_can_attach}}
+    <a href="#" data-behavior="destroy" class="box--minus-link">Delete Video</a>
+    {{/if}}
+  </header>
+  <div class="player-container">
+    <video id="video-player" data-behavior="video-player"
+    class="video-js vjs-default-skin" controls preload="auto" >
+
+      {{#if is_youtube}}
+      <source src="{{locations.url}}" type="{{source_details.mime}}" />
+      {{/if}}
+
+      {{#if is_vimeo}}
+      GUSHA
+      <source src="{{locations.url}}" type="{{source_details.mime}}" />
+      {{/if}}
+
+      {{#if is_attachment}}
+      <source src="{{locations.mp4}}" type="video/mp4" />
+      <source src="{{locations.webm}}" type="video/webm" />
+      {{/if}}
+
+      <track kind="captions" src="/api/v1/videos/{{id}}.vtt" srclang="en" label="English" default>
+    </video>
+  </div>
+</div>
