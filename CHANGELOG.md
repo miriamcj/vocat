@@ -1,6 +1,19 @@
+## Vocat v3.0.0-beta1.10 (April 29, 2014)
+
+* [FEATURE] Fixes #94: Adjust transcoder so that it will not re-transcode a video if the target S3 object already exists
+* [FEATURE] Fixes #94: Refactors Thor CLI script and improves VOCAT's ability to create AWS objects.
+* [FEATURE] Fixes #94: Significant refactoring of the attachment processing subsystem.
+* [FEATURE] Fixes #98: Hide rubric description by default on submission detail pages
+* [BUGFIX]  Fixes #100: Fixes project statistics for projects without a rubric
+* [BUGFIX]  Fixes #99: Evaluation serializer should show relative role for evaluator rather than her global role
+* [BUGFIX]  Fixes #99: Admins should be able to see evaluator scores in submission and course map views
+* [BUGFIX]  Fixes #96: Single chosen selects should allow de-select
+* [BUGFIX]  Fixes #95: Improve CSS compile time in development context
+* [BUGFIX]  Projects in seed data were not being assigned a rubric
+
 ## Vocat v3.0.0-beta1.9.1 (April 17, 2014)
 
-* [BUGFIX] Fixes #93: Regression in collectinon proxy breaks rubric UI **(zdavis)**
+* [BUGFIX]  Fixes #93: Regression in collectinon proxy breaks rubric UI **(zdavis)**
 * [FEATURE] Fixes #92: Show video count and course link on course overview **(zdavis)**
 
 ## Vocat v3.0.0-beta1.9.0 (April 8, 2014)
