@@ -89,6 +89,24 @@ module Attachment::Processor::Transcoder
 
     # Check if objects exists at output locations and, if so, remove them.
     s3 = AWS::S3.new(credentials)
+    object_exists = s3.buckets[bucket_name].objects[output_location].exists?
+    thumb_exists = s3.buckets[bucket_name].objects[thumb_location].exists?
+
+    # To save money and computing power, if the variant and its thumbnail already
+    # exists in the destination, we'll just use that.
+    if object_exists == true && thumb_exists == true
+      variant.location = output_location
+      variant.location = output_location
+      variant.finish_processing
+      processor_data = {
+          'thumb_location' => thumb_location
+      }
+      create_thumb_variant(processor_data, variant.attachment_id)
+      variant.save
+      return variant
+    end
+
+    # If only the variant or the thumbnail exists, or if neither exists, delete it and do the transcoding.
     if s3.buckets[bucket_name].objects[output_location].exists?
       s3.buckets[bucket_name].objects[output_location].delete
     end
@@ -96,7 +114,7 @@ module Attachment::Processor::Transcoder
       s3.buckets[bucket_name].objects[thumb_location].delete
     end
 
-    # Request the new object.
+    # Send the transcoding job to S3
     job = et.create_job(
       :pipeline_id => Rails.application.config.vocat.aws[:et_pipeline],
       :input => {

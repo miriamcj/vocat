@@ -53,9 +53,18 @@ namespace :attachments do
   desc "checkprocessing"
   task :checkprocessing => :environment do
     count = 0
+    limit = 99999999
+
+    processing = Attachment.with_state(:processing)
+    processing.each do |attachment|
+      # Instantiating is enough to check processing
+      puts "Checking processing status for attachment: id ##{attachment.id} / state: #{attachment.state} / location: #{attachment.location}"
+    end
+
     processed = Attachment.with_state(:processed)
     processed.each do |attachment|
       if !attachment.has_all_variants?
+        break if count > limit
         count += 1
         puts "#{count}. reprocessing attachment: id ##{attachment.id} / state: #{attachment.state} / location: #{attachment.location}"
         attachment.undo_processing
