@@ -22,6 +22,21 @@ class Attachment::Variant < ActiveRecord::Base
     end
   end
 
+  def mime_type
+    case extension
+      when 'mp4'
+        'video/mp4'
+      when 'webm'
+        'video/webm'
+      when 'png'
+        'image/png'
+    end
+  end
+
+  def extension
+    File.extname(location).split('.').last
+  end
+
   def processor
     processor_name.constantize.new
   end
@@ -59,7 +74,11 @@ class Attachment::Variant < ActiveRecord::Base
   def public_location
     s3 = get_s3_instance
     object = s3.buckets[bucket].objects[location]
-    object.url_for(:read).to_s
+    options = {}
+    unless mime_type.blank?
+      options[:response_content_type] = mime_type
+    end
+    object.url_for(:read, options).to_s
   end
 
   def destroy_file_object
