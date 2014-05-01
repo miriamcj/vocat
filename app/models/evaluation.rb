@@ -45,7 +45,10 @@ class Evaluation < ActiveRecord::Base
   end
 
   def evaluator_role
-    course.role(evaluator)
+    # TODO: Consider checking an ability here, rather than looking at the role.
+    role = course.role(evaluator)
+    role = :evaluator if role.nil? && evaluator.role?(:administrator)
+    role
   end
 
   def ensure_score_hash

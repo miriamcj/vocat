@@ -147,6 +147,8 @@ define (require) ->
       myEvaluations = new EvaluationCollection(myEvaluationModels, {courseId: @courseId})
       evaluations.remove(myEvaluationModels)
 
+      # TODO: This should really be looking for "Instructor". See the evaluation_serializer, which is not being
+      # used correctly when serialized through the submission. Needs to be fixed. --ZD
       instructorEvaluationModels = evaluations.where({evaluator_role: 'Evaluator'})
       instructorEvaluations = new EvaluationCollection(instructorEvaluationModels, {courseId: @courseId})
       evaluations.remove(instructorEvaluationModels)
