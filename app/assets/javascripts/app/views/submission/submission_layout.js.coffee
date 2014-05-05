@@ -14,7 +14,7 @@ define (require) ->
   RubricFieldPlacard = require('views/help/rubric_field_placard')
   GlossaryTogglePlacard = require('views/help/glossary_toggle_placard')
   RubricModel = require('models/rubric')
-  ProjectDetailView = require('views/project/project_detail')
+  ProjectDialogView = require('views/project/project_dialog')
   RubricDetailView = require('views/rubric/rubric_detail')
 
 
@@ -65,7 +65,7 @@ define (require) ->
         @rubricDetail.show(view)
 
     onOpenProjectModal: () ->
-      Vocat.vent.trigger('modal:open', new ProjectDetailView({model: @project, vent: @vent}))
+      Vocat.vent.trigger('modal:open', new ProjectDialogView({model: @project, vent: @vent}))
 
     onHoverGlossaryShow: () ->
       Vocat.vent.trigger('help:show',{
