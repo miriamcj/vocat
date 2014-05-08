@@ -1284,6 +1284,7 @@ input%proto-button {
 // Extending this is optional
 %dropdown-toggle {
   @extend %beta-alt;
+  @extend %bare-link;
   @extend %bare-focus;
   @extend %shaded-inside-bottom;
   @include background-clip(padding);
