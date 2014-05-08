@@ -1,12 +1,12 @@
-define [
-  'marionette', 'hbs!templates/course_map/detail_project', 'models/rubric', 'models/project', 'vendor/d3/d3.v3.min', 'vendor/dc/dc', 'vendor/crossfilter/crossfilter'
-], (
-  Marionette, template, RubricModel, ProjectModel, d3, dc, crossfilter
-) ->
+define (require) ->
 
-  class CourseMapDetailProject extends Marionette.ItemView
+  Marionette = require('marionette')
+  template = require('hbs!templates/project/detail/crossfiltered')
+
+  class ProjectDetailCrossfilteredView extends Marionette.ItemView
 
     template: template
+
     currentFilters: {}
     barChart: null
     pieCharts: []
@@ -23,7 +23,13 @@ define [
       pieFilterLabelWrap: '[data-behavior="pie-filter-label-wrap"]'
     }
 
-#    itemViewContainer: '[data-container="submission-summaries"]'
+
+    initialize: (options) ->
+      @scores = Marionette.getOption(@, 'scores')
+      @rubric = Marionette.getOption(@, 'rubric')
+
+    onShow: () ->
+      @initializeCharts()
 
     onFiltersClear: () ->
       dc.filterAll('projectCharts')
@@ -112,7 +118,7 @@ define [
           filterString = "for all project submissions."
         finalString = "#{strings[key]} #{filterString}"
 
-        if finalString  != @ui["#{key}FilterLabel"].html()
+        if @ui["#{key}FilterLabel"] && finalString  != @ui["#{key}FilterLabel"].html()
           @ui["#{key}FilterLabelWrap"].fadeOut 200, () =>
             if partsCount > 0
               @ui["#{key}FilterLabelWrap"].find('[data-trigger="filters-clear"]').show()
@@ -173,52 +179,8 @@ define [
       )
       pc
 
-    initialize: (options) ->
-
-      @options = options || {}
-      @vent = Marionette.getOption(@, 'vent')
-      @courseId = Marionette.getOption(@, 'courseId')
-      if @model
-        # Viewed in coursemap
-        @projectId = @model.id
-      else
-        # Stand alone view
-        @projectId = Marionette.getOption(@, 'projectId')
-      collections = Marionette.getOption(@, 'collections')
-
-      $.when(@scoresLoaded(), @projectLoaded()).then(() =>
-        @initializeCharts()
-      )
-
     serializeData: () ->
       {
         fields: @rubric.get('fields').toJSON() if @rubric?
-        project: @model.toJSON()
-        statistics: @statistics
       }
 
-    projectLoaded: () ->
-      deferred = $.Deferred()
-      resolve = () =>
-        @rubric = new RubricModel(@model.get('rubric'))
-        deferred.resolve()
-      unless @model?
-        @model = new ProjectModel({id: @projectId})
-        @model.fetch({success: resolve})
-      else
-        resolve()
-      deferred
-
-    scoresLoaded: () ->
-      deferred = $.Deferred()
-      $.ajax("/api/v1/scores/for_project",{
-        dataType: 'json'
-        data: {
-          project: @projectId
-        }
-        success: (data, textStatus, jqXHR) =>
-          @scores = data.scores
-          @statistics = data.statistics
-          deferred.resolve()
-      })
-      deferred

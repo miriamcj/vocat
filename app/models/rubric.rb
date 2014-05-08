@@ -91,11 +91,11 @@ class Rubric < ActiveRecord::Base
     RubricSerializer
   end
 
-  def average_total_score()
+  def avg_score()
     Evaluation.includes(:project).where(projects: {rubric_id: self}).average('total_score')
   end
 
-  def average_total_percentage()
+  def avg_percentage()
     Evaluation.includes(:project).where(projects: {rubric_id: self}).average('total_percentage')
   end
 

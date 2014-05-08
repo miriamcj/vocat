@@ -270,7 +270,7 @@ courses.each_with_index do |course, course_index|
     course_creators.length.times do |i|
       # Most creators submit a project
       if rand > 0.3
-        submission = project.submissions.create(:name => Faker::Lorem.words(rand(2..5)).map(&:capitalize).join(' '), :summary => Faker::Lorem.paragraph, :creator => course_creators[i] )
+        submission = project.submissions.create(:name => Faker::Lorem.words(rand(2..5)).map(&:capitalize).join(' '), :detail => Faker::Lorem.paragraph, :creator => course_creators[i] )
 
         videos = [
           {source: 'youtube', source_id: 'nKiaBFZPagA'},

@@ -6,7 +6,7 @@ define (require) ->
   SubmissionForCourseCollection = require('collections/submission_for_course_collection')
   GroupCollection = require('collections/group_collection')
   CourseMap = require('views/course_map/course_map_layout')
-  ProjectDetail = require('views/course_map/detail_project')
+  ProjectDetail = require('views/project/detail')
 
   class CourseMapController extends VocatController
 

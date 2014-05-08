@@ -42,7 +42,10 @@ Vocat::Application.routes.draw do
       end
       resources :scores, :only => [] do
         collection do
-          get 'for_project'
+          get 'my_scores'
+          get 'all_scores'
+          get 'peer_scores'
+          get 'evaluator_scores'
         end
       end
       resources :videos, :only => [:destroy, :create, :show]

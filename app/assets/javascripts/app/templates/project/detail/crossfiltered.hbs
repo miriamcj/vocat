@@ -1,0 +1,28 @@
+<div class="project-detail-subframe">
+<h3 class="heading-large">Interactive Data</h3>
+<aside>
+	<p data-behavior="bar-filter-label-wrap">
+		<span data-behavior="bar-filter-label">This graph is currently displaying the overall score distribution for all project submissions.</span>
+		<span><a href="#" style="display: none" data-trigger="filters-clear">Clear all filters</a></span>
+	</p>
+</aside>
+<div id="bar-chart"></div>
+</div>
+
+<div class="project-detail-subframe">
+	<h3 class="heading-large">Criteria Score Distribution</h3>
+	<div class="clearfix pie-wrapper">
+		{{#each fields}}
+		<figure class="pie">
+			<div class="pie-chart" id="pie-chart-{{this.id}}"></div>
+			<figcaption>{{this.name}}</figcaption>
+		</figure>
+		{{/each}}
+	</div>
+	<aside>
+		<p data-behavior="pie-filter-label-wrap">
+			<span data-behavior="pie-filter-label">These pie charts are currently displaying the criteria score distribution for for all project submissions.</span>
+			<span><a href="#" style="display: none" data-trigger="filters-clear">Clear all filters</a></span>
+		</p>
+	</aside>
+</div>

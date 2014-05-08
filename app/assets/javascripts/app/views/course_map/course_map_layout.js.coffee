@@ -7,7 +7,7 @@ define [
   'views/course_map/matrix',
   'views/course_map/rows',
   'views/course_map/detail_creator',
-  'views/course_map/detail_project',
+  'views/project/detail',
   'views/submission/submission_layout',
   'views/course_map/header',
   'views/abstract/sliding_grid_layout',

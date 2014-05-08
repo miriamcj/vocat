@@ -36,12 +36,12 @@ class Course < ActiveRecord::Base
     c
   end
 
-  def members
-    creators + evaluators + assistants
-  end
-
   def self.distinct_departments
     Course.uniq.pluck(:department).sort
+  end
+
+  def members
+    creators + evaluators + assistants
   end
 
   def submissions_for_creator(creator)
@@ -116,10 +116,52 @@ class Course < ActiveRecord::Base
     Video.count_by_course(self)
   end
 
+  def count_possible_submissions_for(object)
+
+    if object.respond_to? :project_type
+      count_possible_submissions_for_project(object)
+    elsif object.respond_to? :creator_type
+      count_possible_submissions_for_creator(object)
+    elsif object.respond_to? :count_possible_submissions
+      object.count_possible_submissions
+    else
+      raise "Unable to count possible submissions for object of the type #{object.class}"
+    end
+  end
+
+  def count_possible_submissions()
+    count = 0
+    group_count = groups.count
+    creator_count = creators.count
+    projects.each do |project|
+        count += group_count if project.is_group_project?
+        count += creator_count if project.is_creator_project?
+    end
+    count
+  end
+
+  def count_possible_submissions_for_project(project)
+    count = 0
+    if projects.includes project
+      count += groups.count if project.is_group_project?
+      count += creators.count if project.is_user_project?
+    end
+    count
+  end
+
+  def count_possible_submissions_for_creator(creator)
+    count = 0
+    projects.each do |project|
+      count += 1 if creator.creator_type == 'Group' || project.is_group_project?
+      count += 1 if creator.creator_type == 'User' || project.is_user_project?
+    end
+    count
+  end
+
   def submission_video_percentage()
     out = 0
     if video_count > 0
-      possible_submissions = creators.count * projects.count + groups.count * projects.count
+      possible_submissions = count_possible_submissions
       if possible_submissions.to_f > 0
         out = ((video_count.to_f / possible_submissions.to_f) * 100).round
       end

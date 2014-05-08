@@ -1,9 +1,9 @@
 define (require) ->
 
   Marionette = require('marionette')
-  template = require('hbs!templates/project/project_detail')
+  template = require('hbs!templates/project/dialog')
 
-  class ProjectDetailView extends Marionette.ItemView
+  class ProjectDialogView extends Marionette.ItemView
 
     template: template
 

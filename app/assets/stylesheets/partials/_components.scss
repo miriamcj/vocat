@@ -1116,6 +1116,9 @@ a.table--heading {
 .project-detail-frame {
   width: 67.6rem;
   margin-bottom: 3.2rem;
+  .project-detail-subframe {
+	margin-bottom: 3.2rem;
+  }
   @include clearfix();
   h3 {
     margin-bottom: 1.6rem;

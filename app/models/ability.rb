@@ -37,6 +37,10 @@ class Ability
       course.role(user) == :evaluator || course.role(user) == :assistant
     end
 
+    can [:administer], Course do |course|
+      course.role(user) == :evaluator || course.role(user) == :assistant
+    end
+
     can [:evaluate], Course do |course|
       course.role(user) == :evaluator || course.role(user) == :assistant || user.role?(:creator) && course.allows_peer_review?
     end

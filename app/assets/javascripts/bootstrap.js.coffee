@@ -12,13 +12,13 @@ requirejs.config {
     'vendor/plugins/chosen': ['jquery_rails']
     'vendor/plugins/ajax_chosen': ['vendor/plugins/chosen']
     'vendor/dc/dc': {
-      deps: ['vendor/crossfilter/crossfilter', 'vendor/d3/d3.v3.min'],
+      deps: ['vendor/crossfilter/crossfilter', 'vendor/d3/d3'],
       exports: 'dc'
     }
     'vendor/crossfilter/crossfilter': {
       exports: 'crossfilter'
     }
-    'vendor/d3/d3.v3.min': {
+    'vendor/d3/d3': {
       exports: 'd3'
     }
   }

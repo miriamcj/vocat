@@ -14,7 +14,7 @@ define (require) ->
   RubricFieldPlacard = require('views/help/rubric_field_placard')
   GlossaryTogglePlacard = require('views/help/glossary_toggle_placard')
   RubricModel = require('models/rubric')
-  ProjectDialogView = require('views/project/project_dialog')
+  ProjectDialogView = require('views/project/dialog')
   RubricDetailView = require('views/rubric/rubric_detail')
 
 

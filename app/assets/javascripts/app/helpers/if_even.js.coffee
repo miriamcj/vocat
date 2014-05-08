@@ -1,4 +1,4 @@
-define 'app/helpers/if_even', ['handlebars'], (Handlebars) ->
+define 'app/helpers/if_string_compare', ['handlebars'], (Handlebars) ->
 
   Handlebars.registerHelper('if_even', (conditional, options) ->
     if conditional % 2 == 0

@@ -8,6 +8,18 @@ class Group < ActiveRecord::Base
     GroupSerializer
   end
 
+  def creator_type
+    "Group"
+  end
+
+  def is_group?
+    false
+  end
+
+  def is_user?
+    true
+  end
+
   def to_s
     name
   end

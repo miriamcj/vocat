@@ -62,6 +62,18 @@ class User < ActiveRecord::Base
     [last_name, first_name].reject{ |s| s.blank? }.join(', ')
   end
 
+  def is_group?
+    false
+  end
+
+  def is_user?
+    true
+  end
+
+  def creator_type
+    "User"
+  end
+
   def has_courses
     if self.courses.count() > 0
       true

@@ -1,0 +1,21 @@
+<div class="evaluation-detail-frame">
+
+	<div class="project-detail-frame">
+	  <h2 class="frame--title">Project Data for
+		  <select data-behavior="score-set-select" style="width: 375px;">
+			  <option {{#if_match loadedScoresSet 'my_scores'}}selected="selected"{{/if_match}} value="my_scores">my evaluations</option>
+			  <option {{#if_match loadedScoresSet 'evaluator_scores'}}selected="selected"{{/if_match}} value="evaluator_scores">instructor evaluations</option>
+			  <option {{#if_match loadedScoresSet 'peer_scores'}}selected="selected"{{/if_match}} value="peer_scores">peer evaluations</option>
+			  <option {{#if_match loadedScoresSet 'all_scores'}}selected="selected"{{/if_match}} value="all_scores">all evaluations</option>
+		  </select>
+	  </h2>
+	</div>
+
+	<div class="project-detail-frame" data-region="project-summary">
+	</div>
+
+	<div class="project-detail-frame" data-region="project-crossfiltered">
+	</div>
+
+
+</div>
