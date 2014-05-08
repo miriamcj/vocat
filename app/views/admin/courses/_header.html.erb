@@ -2,7 +2,7 @@
   <h2 class="button-header--title"><%= "#{truncate(@course.name, length: 50, separator: ' ')} - #{@course.semester_name} #{@course.year}" %></h2>
 </header>
 
-<div style="margin-bottom: 2rem;">
+<div class="double-space-bottom">
   <%= render 'nav', :course => @course, :subheader => subheader %>
 </div>
 

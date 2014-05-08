@@ -371,6 +371,9 @@
 .drop-nav {
   @extend %dropdown-container;
   width: 30rem;
+  table.table & {
+	width: 20rem;
+  }
 }
 
 .drop-nav--toggle {
