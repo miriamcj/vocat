@@ -135,7 +135,7 @@ class Course < ActiveRecord::Base
     creator_count = creators.count
     projects.each do |project|
         count += group_count if project.is_group_project?
-        count += creator_count if project.is_creator_project?
+        count += creator_count if project.is_user_project?
     end
     count
   end
