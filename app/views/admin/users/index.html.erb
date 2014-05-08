@@ -4,7 +4,6 @@
 
 <% content_for :content_header_links do %>
   <%= link_to 'Create New User', new_admin_user_path, class: 'teal-plus-button' %>
-
 <% end %>
 
 <% content_for :content_intro do %>
@@ -44,6 +43,7 @@
         <th>Email</th>
         <th>Role</th>
         <th>Last Login</th>
+        <th>Actions</th>
       </tr>
       </thead>
       <tbody>
@@ -57,9 +57,10 @@
             <% if user.last_sign_in_at %>
               <%= distance_of_time_in_words_to_now(user.last_sign_in_at()) %> ago
             <% else %>
-              Never logged in
+              Never
             <% end %>
           </td>
+          <td><%= render 'nav', :user => user %></td>
         </tr>
       <% end %>
       </tbody>

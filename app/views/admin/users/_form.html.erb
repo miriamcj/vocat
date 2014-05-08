@@ -1,15 +1,5 @@
 <fieldset>
   <div class="input-group">
-    <div class="input-group--half">
-      <%= f.label :email, {class: 'text-label'} %>
-      <%= f.text_field :email, {class: 'text-input'} %>
-    </div>
-    <div class="input-group--half">
-      <%= f.label :org_identity, {class: 'text-label'} %>
-      <%= f.text_field :org_identity, {class: 'text-input'} %>
-    </div>
-  </div>
-  <div class="input-group">
     <div class="input-group--third">
       <%= f.label :first_name, {class: 'text-label'} %>
       <%= f.text_field :first_name, {class: 'text-input'} %>
@@ -23,6 +13,28 @@
       <%= f.text_field :last_name, {class: 'text-input'} %>
     </div>
   </div>
+  <div class="input-group">
+    <div class="input-group--half">
+      <%= f.label :email, {class: 'text-label'} %>
+      <%= f.text_field :email, {class: 'text-input'} %>
+    </div>
+    <div class="input-group--half">
+      <%= f.label :org_identity, {class: 'text-label'} %>
+      <%= f.text_field :org_identity, {class: 'text-input'} %>
+    </div>
+  </div>
+  <% if local_assigns.fetch :show_password, nil %>
+    <div class="input-group">
+      <div class="input-group--half">
+        <%= f.label :password, {class: 'text-label'} %>
+        <%= f.password_field :password, {class: 'text-input'} %>
+      </div>
+      <div class="input-group--half">
+        <%= f.label :password_confirmation, {class: 'text-label'} %>
+        <%= f.password_field :password_confirmation, {class: 'text-input'} %>
+      </div>
+    </div>
+  <% end %>
   <div class="input-group">
     <div class="input-group--half">
       <%= f.label :city, {class: 'text-label'} %>
