@@ -347,7 +347,7 @@ p {
   @extend %shaded-bottom;
   background-color: $tealLightestAlt;
   border-bottom: 0.10rem solid $tealLightestAlt;
-  padding: 2.4rem 3.9rem;
+  padding: 2.4rem 3.2rem;
   position: relative;
   z-index: 310;
   > a {
@@ -499,6 +499,9 @@ p {
     a {
       @extend %bare-link;
       @extend %orange-hover;
+	  &.drop-nav--toggle {
+		color: $beigeLight;
+	  }
     }
   }
 }

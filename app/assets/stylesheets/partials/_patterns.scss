@@ -1284,7 +1284,6 @@ input%proto-button {
 // Extending this is optional
 %dropdown-toggle {
   @extend %beta-alt;
-  @extend %bare-link;
   @extend %bare-focus;
   @extend %shaded-inside-bottom;
   @include background-clip(padding);
@@ -1310,6 +1309,7 @@ input%proto-button {
     position: absolute;
     top: 0;
     right: -3.8rem;
+
   }
   &:after {
     @include svg(arrow-down-gray);
@@ -1365,7 +1365,7 @@ input%proto-button {
   border-radius: $radius * 2;
   margin-top: 2rem;
   position: absolute;
-  top: 32px;
+  top: 3.2rem;
   left: 0;
   z-index: 350;
   &:before {
@@ -1415,6 +1415,7 @@ input%proto-button {
 
 %dropdown-teal {
   @extend %dropdown;
+  color: $beigeLight;
   background-color: darken($tealMedium, 10%);
   &:before {
     border-bottom-color: darken($tealMedium, 10%);

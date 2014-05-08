@@ -3,16 +3,11 @@
 <% end %>
 
 <% content_for :content_header_links do %>
-  <%= link_to 'Back to Course List', admin_courses_path(), :class => 'gray-ex-button' %>
-<% end %>
-
-<% content_for :content_intro do %>
+  <%= render 'header_links' %>
 <% end %>
 
 <% content_for :content_frames	 do %>
-
-  <%= render 'header', :subheader => 'Export' %>
-
+  <%= render 'header', :subheader => 'Export Data' %>
   <div class="table-wrapper">
     <table class="table">
       <thead>

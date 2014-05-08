@@ -8,8 +8,11 @@ define ['vendor/plugins/waypoints', 'jquery_rails'], (waypoints, $) ->
       settings = {}
       settings = $.extend settings, options
 
+      dropdowns = []
+
       return @each ()->
         $container= $(@)
+        dropdowns.push $container
         if !$container.hasClass('dropdown-initialized')
           $container.addClass('dropdown-initialized')
           $toggle = $container.find('[data-behavior="toggle"]')
@@ -18,6 +21,9 @@ define ['vendor/plugins/waypoints', 'jquery_rails'], (waypoints, $) ->
             $container.removeClass('open')
           )
           $toggle.click( (event) ->
+            $.each dropdowns, (index, dropdown) ->
+              if dropdown != $container && dropdown.hasClass('open')
+                dropdown.removeClass('open')
             event.preventDefault()
             if $container.hasClass('open')
               $container.removeClass('open')

@@ -3,7 +3,7 @@
 <% end %>
 
 <% content_for :content_header_links do %>
-  <%= link_to 'Create New Course', new_admin_course_path, class: 'teal-plus-button' %>
+  <%= render 'header_links' %>
 <% end %>
 
 <% content_for :content_intro do %>
@@ -64,9 +64,7 @@
           <td><%= course.evaluators.pluck(:last_name).join(', ') %></td>
           <td><%= course.section %></td>
           <td><%= "#{course.semester} #{course.year}" %></td>
-          <td><strong>
-             <%= link_to 'View as Course Evaluator', course_user_evaluations_path(course) %>
-          </strong></td>
+          <td><%= render 'nav', :course => course %></td>
         </tr>
       <% end %>
       </tbody>

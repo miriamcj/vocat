@@ -1,23 +1,8 @@
-<header class="button-header">
+<header class="button-header clearfix ">
   <h2 class="button-header--title"><%= "#{truncate(@course.name, length: 50, separator: ' ')} - #{@course.semester_name} #{@course.year}" %></h2>
-  <% if local_assigns.fetch :subheader, nil %>
-    <h2 class="button-header--subtitle">
-      <%= subheader %><span></span>
-    </h2>
-  <% end %>
-
 </header>
 
-<nav class="tab-nav double-space-bottom">
-  <ul>
-    <li><%= link_to 'Overview', admin_course_path(@course) %></li>
-    <li><%= link_to 'View Course', course_user_evaluations_path(@course) %></li>
-    <li><%= link_to 'Properties', edit_admin_course_path(@course) %></li>
-    <li><%= link_to 'Assistants', assistants_admin_course_path(@course) %></li>
-    <li><%= link_to 'Evaluators', evaluators_admin_course_path(@course) %></li>
-    <li><%= link_to 'Creators', creators_admin_course_path(@course) %></li>
-    <li><%= link_to 'Export Data', export_admin_course_path(@course) %></li>
-    <li><%= link_to 'Delete', admin_course_path(@course), :method => :delete, :data => { :modalconfirm => 'Deleting this course will also delete all associated submissions, projects, and evaluations. This action is not reversible. Are you sure you would like to proceed?'} %></li>
+<div style="margin-bottom: 2rem;">
+  <%= render 'nav', :course => @course, :subheader => subheader %>
+</div>
 
-  </ul>
-</nav>

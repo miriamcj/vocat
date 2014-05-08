@@ -3,17 +3,12 @@
 <% end %>
 
 <% content_for :content_header_links do %>
-  <%= link_to 'Back to Course List', admin_courses_path(), :class => 'gray-ex-button' %>
+  <%= render 'header_links' %>
 <% end %>
 
 <% content_for :content_frames	 do %>
-
-  <%= render 'header', :subheader => 'Evaluators' %>
-
+  <%= render 'header', :subheader => 'Manage Evaluators' %>
   <div>
-    <header class="frame--header">
-      <h2 class="frame--title">Evaluators</h2>
-    </header>
     <div data-region="evaluator-enrollment">
     </div>
   </div>
