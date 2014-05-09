@@ -33,7 +33,7 @@ define (require) ->
 
     addItemView: (item, ItemView, index) ->
       if @creatorType == 'User'
-        return if item.get('is_group_project') == true
+        return if item.get('accepts_group_submissions') == true
       if @creatorType == 'Group'
-        return if item.get('is_group_project') == false
+        return if item.get('accepts_group_submissions') == false
       super

@@ -27,12 +27,12 @@ class SubmissionFactory
     group_project_ids = []
     user_project_ids = []
     user_ids, group_ids = get_user_and_group_ids_for_creator(project.course, creator)
-    if project.is_group_project?
+    if project.accepts_group_submissions?
       group_project_ids = [project.id]
       group_submissions = group_project_ids.product group_ids
       create_absent_group_submissions(group_submissions)
     end
-    if project.is_user_project?
+    if project.accepts_user_submissions?
       user_project_ids = [project.id]
       user_submissions = user_project_ids.product user_ids
       create_absent_user_submissions(user_submissions)
@@ -43,12 +43,12 @@ class SubmissionFactory
   def project(project)
     course = project.course
     project_ids = [project.id]
-    if project.is_group_project?
+    if project.accepts_group_submissions?
       group_ids = course.groups.pluck :id
       group_submissions = project_ids.product group_ids
       create_absent_group_submissions(group_submissions)
     end
-    if project.is_user_project?
+    if project.accepts_user_submissions?
       user_ids = course.creators.pluck :id
       user_submissions = project_ids.product user_ids
       create_absent_user_submissions(user_submissions)

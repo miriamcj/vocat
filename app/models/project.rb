@@ -45,11 +45,6 @@ class Project < ActiveRecord::Base
     Evaluation.joins(:submission).where(:evaluator_id => user, :submissions => {project_id: self}).count
   end
 
-  # TODO: Not happy with this
-  def possible_submissions_count
-    course.count_possible_submissions_for(self)
-  end
-
   def avg_score()
     Evaluation.includes(:project).where(projects: {id: self}).average('total_score') || 0
   end
@@ -80,16 +75,20 @@ class Project < ActiveRecord::Base
     self.name
   end
 
+  def possible_submissions_count
+    Course.count_possible_submissions_for(self)
+  end
+
   def type_human()
-    raise MethodNotImplemented
+    raise NotImplementedError
   end
 
-  def is_group_project?
-    raise MethodNotImplemented
+  def accepts_group_submissions?
+    raise NotImplementedError
   end
 
-  def is_user_project?
-    raise MethodNotImplemented
+  def accepts_user_submissions?
+    raise NotImplementedError
   end
 
 end

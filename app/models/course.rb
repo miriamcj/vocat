@@ -41,6 +41,15 @@ class Course < ActiveRecord::Base
     Course.uniq.pluck(:department).sort
   end
 
+  def self.count_possible_submissions_for(project)
+    course = project.course
+    count = 0
+    count += course.groups.count if project.accepts_group_submissions?
+    count += course.creators.count if project.accepts_user_submissions?
+    count
+  end
+
+
   def members
     creators + evaluators + assistants
   end
@@ -97,6 +106,8 @@ class Course < ActiveRecord::Base
     end
   end
 
+  # TODO: This is a target for refactoring. I don't see why this should
+  # belong to course. Move it to a helper or some kind of presenter class.
   # %n = number
   # %c = name
   # %s = section
@@ -117,49 +128,6 @@ class Course < ActiveRecord::Base
     Video.count_by_course(self)
   end
 
-  # TODO: THIS MUST BE FIXED. THE RESPONSIBILITY FOR THIS
-  # IS IN THE WRONG PLACE.
-  def count_possible_submissions_for(object)
-    if object.respond_to? :type
-      count_possible_submissions_for_project(object)
-    elsif object.respond_to? :creator_type
-      count_possible_submissions_for_creator(object)
-    elsif object.respond_to? :count_possible_submissions
-      object.count_possible_submissions
-    else
-      raise "Unable to count possible submissions for object of the type #{object.class}"
-    end
-  end
-
-  def count_possible_submissions()
-    count = 0
-    group_count = groups.count
-    creator_count = creators.count
-    projects.each do |project|
-        count += group_count if project.is_group_project?
-        count += creator_count if project.is_user_project?
-    end
-    count
-  end
-
-  def count_possible_submissions_for_project(project)
-    count = 0
-    if projects.includes project
-      count += groups.count if project.is_group_project?
-      count += creators.count if project.is_user_project?
-    end
-    count
-  end
-
-  def count_possible_submissions_for_creator(creator)
-    count = 0
-    projects.each do |project|
-      count += 1 if creator.creator_type == 'Group' || project.is_group_project?
-      count += 1 if creator.creator_type == 'User' || project.is_user_project?
-    end
-    count
-  end
-
   def submission_video_percentage()
     out = 0
     if video_count > 0
@@ -171,19 +139,27 @@ class Course < ActiveRecord::Base
     out
   end
 
-  def average_evaluator_score()
+  def count_cretors
+    creators.count
+  end
+
+  def count_groups
+    groups.count
+  end
+
+  def average_evaluator_score
     Evaluation.average_score_by_course_and_type(self, :evaluator)
   end
 
-  def average_peer_score()
+  def average_peer_score
     Evaluation.average_score_by_course_and_type(self, :creator)
   end
 
-  def discussion_post_count()
+  def discussion_post_count
     DiscussionPost.count_by_course(self)
   end
 
-  def annotation_count()
+  def annotation_count
     Annotation.by_course(self).count
   end
 

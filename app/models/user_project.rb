@@ -4,14 +4,12 @@ class UserProject < Project
     'students'
   end
 
-  def is_group_project?
+  def accepts_group_submissions?
     false
   end
 
-  def is_user_project?
+  def accepts_user_submissions?
     true
   end
-
-
 
 end
