@@ -73,6 +73,9 @@ class Evaluation < ActiveRecord::Base
     Evaluation.all.joins(:submission => :project).where(:projects => {:course_id => course.id}) unless course.nil?
   end
 
+  # TODO: This case statement masquerading as an if statement suggests
+  # that we might want to consider STI for these different types of
+  # evaluations, as we did for projects.
   def self.average_score_by_course_and_type(course, type)
     if type == :creator
       type = EVALUATION_TYPE_CREATOR
@@ -92,6 +95,11 @@ class Evaluation < ActiveRecord::Base
     else
       0
     end
+  end
+
+  # TODO: See previous method
+  def evaluation_type_human_readable
+    if evaluation_type == EVALUATION_TYPE_CREATOR then 'peer' else 'instructor' end
   end
 
   def update_total
@@ -123,11 +131,7 @@ class Evaluation < ActiveRecord::Base
     total_percentage.round(0)
   end
 
-  def evaluation_type_human_readable
-    if evaluation_type == EVALUATION_TYPE_CREATOR then 'peer' else 'instructor' end
-  end
-
-  def to_csv_header_row
+    def to_csv_header_row
     ['Vocat ID', 'Evaluator','Section','Course', 'Semester', 'Year', 'Creator', 'Evaluation Type', 'Project Name', 'Percentage', 'Total Score', 'Points Possible']
   end
 
