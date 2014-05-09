@@ -3,7 +3,7 @@
 <% end %>
 
 <% content_for :content_header_links do %>
-  <%= link_to 'New Course', new_admin_course_path, class: 'teal-plus-button' %>
+  <%= render 'header_links', hide_all: true %>
 <% end %>
 
 <% content_for :content_intro do %>
