@@ -14,30 +14,60 @@
     <% end %>
   </td>
   <td>
-      <% if @course %>
-        <%= link_to 'Show', course_manage_rubric_path(@course, rubric), :class => 'teal-button' %>
-      <% else %>
-        <%= link_to 'Show', rubric_path(rubric), :class => 'teal-button' %>
-      <% end %>
-      <% if can? :update, rubric %>
-        <% if @course %>
-          <%= link_to 'Edit', edit_course_manage_rubric_path(@course, rubric), :class => 'teal-button' %>
+    <nav class="drop-nav" data-behavior="dropdown">
+      <a class="drop-nav--toggle" data-behavior="toggle" href="#" style="cursor: pointer;">
+        <% if local_assigns.fetch :subheader, nil %>
+          <%= subheader %>
         <% else %>
-          <%= link_to 'Edit', edit_rubric_path(rubric), :class => 'teal-button' %>
+          Select an Action
         <% end %>
-      <% else %>
-        <% if @course %>
-          <%= link_to 'Clone', edit_course_manage_rubric_path(@course, rubric), :class => 'teal-button' %>
-        <% else %>
-          <%= link_to 'Clone', edit_rubric_path(rubric), :class => 'teal-button' %>
-        <% end %>
-      <% end %>
-      <% if can? :destroy, rubric %>
-        <% if @course %>
-          <%= link_to 'Destroy', course_manage_rubric_path(@course, rubric), method: :delete, data: { confirm: 'Are you sure?' }, :class => 'teal-button' %>
-        <% else %>
-          <%= link_to 'Destroy', rubric_path(rubric), method: :delete, data: { confirm: 'Are you sure?' }, :class => 'teal-button' %>
-        <% end %>
-      <% end %>
+      </a>
+      <div class="drop-nav--dropdown" data-behavior="dropdown-options">
+        <ul>
+          <% if @course %>
+            <li>
+              <%= link_to 'Rubric Overview', course_manage_rubric_path(@course, rubric)%>
+            </li>
+          <% else %>
+            <li>
+              <%= link_to 'Rubric Overview', rubric_path(rubric)%>
+            </li>
+          <% end %>
+          <% if can? :update, rubric %>
+            <% if @course %>
+              <li>
+                <%= link_to 'Edit Rubric', edit_course_manage_rubric_path(@course, rubric)%>
+              </li>
+            <% else %>
+              <li>
+                <%= link_to 'Edit Rubric', edit_rubric_path(rubric)%>
+              </li>
+            <% end %>
+          <% else %>
+            <% if @course %>
+              <li>
+                <%= link_to 'Clone Rubric', edit_course_manage_rubric_path(@course, rubric)%>
+              </li>
+            <% else %>
+              <li>
+                <%= link_to 'Clone Rubric', edit_rubric_path(rubric)%>
+              </li>
+            <% end %>
+          <% end %>
+          <% if can? :destroy, rubric %>
+            <% if @course %>
+              <li>
+                <%= link_to 'Delete Rubric', course_manage_rubric_path(@course, rubric), method: :delete, data: { confirm: 'Are you sure?' }%>
+              </li>
+            <% else %>
+              <li>
+                <%= link_to 'Delete Rubric', rubric_path(rubric), method: :delete, :data => { :modalconfirm => 'This action is not reversible. Are you sure you would like to proceed?'} %>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+    </nav>
+
   </td>
 </tr>

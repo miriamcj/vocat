@@ -30,17 +30,35 @@ Manage Course Projects
       <% @projects.each_with_index do |project, index| %>
         <tr>
           <th>
-            <%= link_to project.name, course_manage_project_path(@course, project), :class => "table--heading" %>
+            <%= link_to project.name, edit_course_manage_project_path(@course, project), :class => "table--heading" %>
           </th>
           <td><%= project.description %></td>
           <td><%= project.rubric_name %></td>
           <td style="white-space: nowrap">
-            <% if can? :update, project %>
-              <strong><%= link_to 'Edit', edit_course_manage_project_path(@course, project) %></strong> /
-            <% end %>
-            <% if can? :destroy, project %>
-              <strong><%= link_to 'Delete', course_manage_project_path(@course, project), method: :delete, data: { modalconfirm: 'Deleting this project will also delete submissions and evaluations associated with this project. This action is irreversible. Are you sure you want to do this?' } %></strong>
-            <% end %>
+
+            <nav class="drop-nav" data-behavior="dropdown">
+              <a class="drop-nav--toggle" data-behavior="toggle" href="#" style="cursor: pointer;">
+                <% if local_assigns.fetch :subheader, nil %>
+                  <%= subheader %>
+                <% else %>
+                  Select an Action
+                <% end %>
+              </a>
+              <div class="drop-nav--dropdown" data-behavior="dropdown-options">
+                <ul>
+                  <% if can? :update, project %>
+                    <li><%= link_to 'Edit Project', edit_course_manage_project_path(@course, project) %></li>
+                  <% end %>
+                  <% if can? :destroy, project %>
+                    <li><%= link_to 'Delete Project', course_manage_project_path(@course, project), method: :delete, data: { modalconfirm: 'Deleting this project will also delete submissions and evaluations associated with this project. This action is irreversible. Are you sure you want to do this?' } %></li>
+                  <% end %>
+                </ul>
+              </div>
+            </nav>
+
+
+
+
           </td>
           <td class="centered sorting">
             <% if index == 0 %>
