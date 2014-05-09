@@ -59,7 +59,7 @@
       <tbody>
       <% @courses.each do |course| %>
         <tr>
-          <th><%= link_to "#{course.department}#{course.number}", admin_course_path(course) %></th>
+          <th><%= link_to "#{course.department}#{course.number}", course_user_evaluations_path(course) %></th>
           <td><%= course.name %></td>
           <td><%= course.evaluators.pluck(:last_name).join(', ') %></td>
           <td><%= course.section %></td>

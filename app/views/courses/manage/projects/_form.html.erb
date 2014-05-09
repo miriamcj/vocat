@@ -1,6 +1,5 @@
 <%= render 'shared/model_errors', :model => @project %>
 
-
 <div class="input-group">
   <%= f.label :name, :required => true, class: 'text-label' %>
   <%= f.text_field :name, {class: 'text-input'} %>
@@ -24,7 +23,7 @@
   </div>
   <div class="input-group--half">
     <%= f.label 'Who can create a submission for this project?', :class => 'text-label' %>
-    <%= f.select :project_type, [['Groups', 'group'], ['Students', 'user'], ['Groups and Users', 'any']], {:selected => @project.project_type}, {'data-behavior' => 'chosen'} %>
+    <%= f.select :type, [['Groups', 'GroupProject'], ['Students', 'UserProject'], ['Groups and Users', 'OpenProject']], {:selected => @project.type}, {'data-behavior' => 'chosen'} %>
   </div>
 </div>
 

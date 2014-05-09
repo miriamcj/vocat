@@ -76,7 +76,7 @@ define [
     showUserViews: () ->
       @creatorType = 'User'
       userProjectsCollection = CollectionProxy(@collections.project)
-      userProjectsCollection.where((model) -> model.get('project_type') == 'user' || model.get('project_type') == 'any')
+      userProjectsCollection.where((model) -> model.get('type') == 'UserProject' || model.get('type') == 'OpenProject')
 
       @creators.show(new CourseMapCreators({collection: @collections.user, courseId: @courseId, vent: @, creatorType: 'User'}))
       @projects.show(new CourseMapProjects({collection: userProjectsCollection, courseId: @courseId, vent: @}))
@@ -88,7 +88,7 @@ define [
       @creatorType = 'Group'
 
       groupProjectsCollection = CollectionProxy(@collections.project)
-      groupProjectsCollection.where((model) -> model.get('project_type') == 'group' || model.get('project_type') == 'any')
+      groupProjectsCollection.where((model) -> model.get('type') == 'GroupProject' || model.get('type') == 'OpenProject')
 
       @creators.show(new CourseMapCreators({collection: @collections.group, courseId: @courseId, vent: @, creatorType: 'Group'}))
       @projects.show(new CourseMapProjects({collection: groupProjectsCollection, courseId: @courseId, vent: @}))

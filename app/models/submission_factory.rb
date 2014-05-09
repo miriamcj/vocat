@@ -1,8 +1,8 @@
 class SubmissionFactory
 
   def course(course)
-    group_project_ids = course.projects.where(:project_type => ['group', 'any']).pluck(:id)
-    user_project_ids = course.projects.where(:project_type => ['user', 'any']).pluck(:id)
+    group_project_ids = course.group_projects.pluck(:id)
+    user_project_ids = course.user_projects.pluck(:id)
     user_ids = course.creators.pluck(:id)
     group_ids = course.groups.pluck(:id)
     group_submissions = group_project_ids.product group_ids
@@ -14,8 +14,8 @@ class SubmissionFactory
 
   def course_and_creator(course, creator)
     user_ids, group_ids = get_user_and_group_ids_for_creator(course, creator)
-    group_project_ids = course.projects.where(:project_type => ['group', 'any']).pluck(:id)
-    user_project_ids = course.projects.where(:project_type => ['user', 'any']).pluck(:id)
+    group_project_ids = course.group_projects.pluck(:id) + course.open_projects.pluck(:id)
+    user_project_ids = course.user_projects.pluck(:id) + course.open_projects.pluck(:id)
     group_submissions = group_project_ids.product group_ids
     user_submissions = user_project_ids.product user_ids
     create_absent_group_submissions(group_submissions)

@@ -149,13 +149,13 @@ class ApplicationController < ActionController::Base
 
   protected
 
-    def project_params
-      params.require(:project).permit(:name,
+    def project_params(type = 'project')
+      params.require(type.to_sym).permit(:name,
                                       :description,
                                       :course_id,
                                       :rubric_id,
                                       :listing_order_position,
-                                      :project_type,
+                                      :type,
                                       :due_date
       )
     end

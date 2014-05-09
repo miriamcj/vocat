@@ -7,9 +7,12 @@ class Course < ActiveRecord::Base
   has_and_belongs_to_many :creators, :class_name => "User", :join_table => "courses_creators"
 
   has_many :projects, :dependent => :destroy
+  has_many :group_projects
+  has_many :open_projects
+  has_many :user_projects
   has_many :groups, :dependent => :destroy
-  has_one :project_type
   has_many :submissions, :through => :projects, :dependent => :destroy
+
   delegate :name, :to => :semester, :prefix => true, :allow_nil => true
 
   accepts_nested_attributes_for :groups
@@ -22,8 +25,6 @@ class Course < ActiveRecord::Base
   after_initialize :ensure_settings
 
   validates :department, :name, :number, :section, :presence => true
-  #validates :evaluators, :length => {:minimum => 1, :message => "can't be empty."}
-  #validates :creators, :length => {:minimum => 1, :message => "can't be empty."}
 
   # Params is a hash of search values including (:department || :semester || :year) || :section
   def self.search(params)
@@ -116,9 +117,10 @@ class Course < ActiveRecord::Base
     Video.count_by_course(self)
   end
 
+  # TODO: THIS MUST BE FIXED. THE RESPONSIBILITY FOR THIS
+  # IS IN THE WRONG PLACE.
   def count_possible_submissions_for(object)
-
-    if object.respond_to? :project_type
+    if object.respond_to? :type
       count_possible_submissions_for_project(object)
     elsif object.respond_to? :creator_type
       count_possible_submissions_for_creator(object)

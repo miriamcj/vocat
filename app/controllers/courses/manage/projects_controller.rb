@@ -42,7 +42,7 @@ class Courses::Manage::ProjectsController < ApplicationController
 
   # PATCH courses/:course_id/manage/projects/1/
   def update
-    if @project.update_attributes(project_params)
+    if @project.update_attributes(project_params(@project.type.underscore))
       flash[:notice] = 'Project was successfully updated.'
     end
     respond_with @project, location: course_manage_project_path(@course, @project)
