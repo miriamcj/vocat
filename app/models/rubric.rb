@@ -8,14 +8,14 @@ class Rubric < ActiveRecord::Base
   has_many :courses, :through => :projects
   has_many :evaluations
 
+  delegate :name, :to => :owner, :prefix => true, :allow_nil => true
+
   serialize :cells, Array
   serialize :fields, Array # A field is {'name' => 'name', 'description' => 'description'}
   serialize :ranges, Array # A range is {'low' => X, 'high' => X, 'name' => 'name'}
 
   validates :name, :owner, :low, :high, :presence => true
   validate :validate_ranges
-
-  delegate :name, :to => :owner, :prefix => true, :allow_nil => true
 
   after_initialize :ensure_ranges
   after_initialize :ensure_fields

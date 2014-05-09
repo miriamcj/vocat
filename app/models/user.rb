@@ -121,6 +121,7 @@ class User < ActiveRecord::Base
     out
   end
 
+  # TODO: Refactor this; Adding itself to the course is not the job of the user.
   def enroll(course, enrollment_role = nil)
     if creator_courses.include?(course) || evaluator_courses.include?(course) || assistant_courses.include?(course)
       errors.add :base, "#{list_name} is already associated with this course."

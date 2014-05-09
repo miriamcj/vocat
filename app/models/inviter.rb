@@ -27,11 +27,6 @@ class Inviter
       return response
     end
 
-    ## Validate presence of first and last name
-    #if first_name.blank? || last_name.blank?
-    #  return failure!(response, :invalid, "Please provide a first and last name for #{email}")
-    #end
-
     # Attempt creation in local DB.
     attempt_create_in_db!(email, first_name, last_name, response)
     return response
