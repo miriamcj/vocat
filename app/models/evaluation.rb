@@ -23,6 +23,8 @@ class Evaluation < ActiveRecord::Base
     end
   }
 
+
+
   delegate :high_score, :to => :rubric, :prefix => true, :allow_nil => true
   delegate :low_score, :to => :rubric, :prefix => true, :allow_nil => true
   delegate :points_possible, :to => :rubric, :allow_nil => true
@@ -38,16 +40,18 @@ class Evaluation < ActiveRecord::Base
   before_save :update_total
   after_initialize :ensure_score_hash
 
-
   def creator
     group || user
   end
 
   def evaluator_role
-    # TODO: Consider checking an ability here, rather than looking at the role.
     role = course.role(evaluator)
     role = :evaluator if role.nil? && evaluator.role?(:administrator)
-    role
+    if role.nil?
+      :none
+    else
+      role
+    end
   end
 
   def ensure_score_hash

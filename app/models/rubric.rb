@@ -111,22 +111,6 @@ class Rubric < ActiveRecord::Base
     Evaluation.includes(:project, :evaluator).where(projects: {rubric_id: self}).where(published: true).count()
   end
 
-  def score_percentage_by_field_and_range
-
-  end
-
-  def description
-    desc = read_attribute(:description)
-    if desc.blank?
-      desc = "The highest possible score for this rubric is #{points_possible} points.
-              Each criteria may receive a score between #{low_score} and #{high_score}.
-              The available criteria for this rubric are #{field_names_downcase.to_sentence}.
-              The available scoring ranges for this rubric are #{range_names_downcase.to_sentence}."
-    else
-      return desc
-    end
-  end
-
   def add_field(hash = {})
     if hash.has_key?('id') || hash['id'].blank?
 	    hash['id'] = hash['name'].parameterize

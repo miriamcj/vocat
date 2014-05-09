@@ -1,18 +1,8 @@
 <header class="button-header">
   <h2 class="button-header--title"><%= @rubric.name %></h2>
-  <% if local_assigns.fetch :subheader, nil %>
-    <h2 class="button-header--subtitle">
-      <%= subheader %><span></span>
-    </h2>
-  <% end %>
-
 </header>
 
-<nav class="tab-nav double-space-bottom">
-  <ul>
-    <li><%= link_to 'Overview', admin_rubric_path(@rubric) %></li>
-    <li><%= link_to 'Modify', edit_admin_rubric_path(@rubric) %></li>
-    <li><%= link_to 'Delete', admin_rubric_path(@rubric), :method => :delete, :data => { :modalconfirm => 'This action is not reversible. Are you sure you would like to proceed?'} %></li>
-    <li><%= link_to 'Export Data', export_admin_rubric_path(@rubric) %></li>
-  </ul>
-</nav>
+<div class="double-space-bottom">
+  <%= render 'nav', :rubric => @rubric, :subheader => subheader %>
+</div>
+

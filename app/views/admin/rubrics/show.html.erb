@@ -3,22 +3,19 @@
 <% end %>
 
 <% content_for :content_header_links do %>
-  <%= link_to 'Back to Rubric List', admin_rubrics_path(), :class => 'gray-ex-button' %>
-<% end %>
-
-<% content_for :content_intro do %>
+  <%= render 'header_links' %>
 <% end %>
 
 <% content_for :content_frames	 do %>
 
-  <%= render 'header', :subheader => 'Overview' %>
+  <%= render 'header', :subheader => 'Rubric Overview' %>
 
   <div class="clearfix space-bottom">
 
     <figure class="summary-box">
       <div>
         <b style="height: <%= @rubric.avg_percentage() %>%"></b>
-        <span><%= round @rubric.avg_percentage() %></span><small>%</small>
+        <span><%= round @rubric.avg_percentage(), 0 %></span><small>%</small>
       </div>
       <figcaption>Average Score</figcaption>
     </figure>
@@ -26,7 +23,7 @@
     <figure class="summary-box">
       <div>
         <b style="height: <%= @rubric.average_total_instructor_percentage() %>%"></b>
-        <span><%= round @rubric.average_total_instructor_percentage() %></span><small>%</small>
+        <span><%= round @rubric.average_total_instructor_percentage(), 0 %></span><small>%</small>
       </div>
       <figcaption>Average Peer Score</figcaption>
     </figure>
@@ -34,16 +31,23 @@
     <figure class="summary-box">
       <div>
         <b style="height: <%= @rubric.average_total_peer_percentage() %>%"></b>
-        <span><%= round @rubric.average_total_peer_percentage() %></span><small>%</small>
+        <span><%= round @rubric.average_total_peer_percentage(), 0 %></span><small>%</small>
       </div>
       <figcaption>Average Instructor Score</figcaption>
     </figure>
 
     <figure class="summary-box">
       <div>
-        <span><%= @rubric.evaluation_count() %></span>
+        <span><%= @rubric.evaluation_count %></span>
       </div>
       <figcaption>Evaluations using this rubric</figcaption>
+    </figure>
+
+    <figure class="summary-box">
+      <div>
+        <span><%= @rubric.projects.count %></span>
+      </div>
+      <figcaption>Projects using this rubric</figcaption>
     </figure>
 
   </div>
