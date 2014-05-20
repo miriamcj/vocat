@@ -57,11 +57,11 @@ define (require) ->
 
     onSubmitYoutube: () ->
       value = @ui.sourceIdYoutube.val()
-      matches = value.match(/v=([^&#]{5,})/)
-      if matches? && matches.length > 0 && typeof matches[1] == 'string'
+      matches = value.match(/(v=|\.be\/)([^&#]{5,})/)
+      if matches? && matches.length > 0 && typeof matches[2] == 'string'
         attributes = {
           source: 'youtube'
-          source_id: matches[1]
+          source_id: matches[2]
         }
         @saveModel(attributes)
         @ui.youTubeWrap.removeClass('error')
