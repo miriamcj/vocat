@@ -465,6 +465,40 @@ p {
       @extend %heading-epsilon;
       height: 3.6rem;
       border-left: 0.1rem solid transparentize($tealLight, 0.5);
+      position: relative;
+      // Prevents border hiding in IE
+      z-index: -1;
+      &.sort {
+        // Adjusted padding for sort arrows
+        padding-right: 2.7rem;
+        white-space: nowrap;
+        &:after {
+          content: "";
+          height: 1.1rem;
+          width: 0.9rem;
+          margin-left: .5rem;
+          display: block;
+          position: absolute;
+          right: 1.2em;
+          top: 2.2rem;
+        }
+        // TODO find out why this is necessary
+        .ie9 &{
+          &:after {
+            width: 1.5rem;
+          }
+        }
+      }
+      &.sort-asc {
+        &:after {
+          @include svg(arrow-narrow-up-teal);
+        }
+      }
+      &.sort-desc {
+        &:after {
+          @include svg(arrow-narrow-down-teal);
+        }
+      }
     }
   }
   tr {
