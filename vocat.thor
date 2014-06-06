@@ -1,6 +1,5 @@
 require "thor"
 require "rubygems" # ruby1.9 doesn't "require" it though
-require "thor"
 require "aws-sdk"
 require "socket"
 require "yaml"
