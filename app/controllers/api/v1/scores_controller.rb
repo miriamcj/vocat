@@ -8,7 +8,11 @@ class Api::V1::ScoresController < ApiController
     @project = Project.find(params.require(:project))
     #TODO: Figure out why this isnt working.
     #authorize! :read, @project.course
-    @evaluations = @project.published_evaluations.created_by(current_user).includes(:submission)
+    if current_user.role?(:administrator)
+      @evaluations = @project.published_evaluations.includes(:submission)
+    else
+      @evaluations = @project.published_evaluations.created_by(current_user).includes(:submission)
+    end
     respond_with build_response, :root => false
   end
 
