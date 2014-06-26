@@ -49,6 +49,13 @@ class Course < ActiveRecord::Base
     count
   end
 
+  def count_possible_submissions()
+    count = 0
+    projects.each do |project|
+      count += Course.count_possible_submissions_for project
+    end
+    count
+  end
 
   def members
     creators + evaluators + assistants
