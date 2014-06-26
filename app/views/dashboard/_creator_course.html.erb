@@ -19,7 +19,7 @@
         <% else %>
           <div class="attachment-placeholder">
             <div class="wrap">
-              <span class="attachment-placeholder--button">No video has been uploaded.</span>
+              <%= link_to "No video has been uploaded.", submission_detail_path(submission), class: "attachment-placeholder--button" %>
             </div>
           </div>
         <% end %>
