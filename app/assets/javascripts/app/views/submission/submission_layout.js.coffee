@@ -44,6 +44,7 @@ define (require) ->
       instructorEvaluations: '[data-region="instructor-evaluations"]'
       peerEvaluations: '[data-region="peer-evaluations"]'
       myEvaluations: '[data-region="my-evaluations"]'
+      selfEvaluations: '[data-region="self-evaluations"]'
       discussion: '[data-region="discussion"]'
       upload: '[data-region="upload"]'
       annotator: '[data-region="annotator"]'
@@ -153,6 +154,11 @@ define (require) ->
       instructorEvaluations = new EvaluationCollection(instructorEvaluationModels, {courseId: @courseId})
       evaluations.remove(instructorEvaluationModels)
 
+      selfEvaluationModels = evaluations.where({evaluator_id: @creator.id})
+      selfEvaluations = new EvaluationCollection(selfEvaluationModels, {courseId: @courseId})
+      evaluations.remove(selfEvaluationModels )
+
+
       if @submission.get('current_user_can_evaluate') == true
         @myEvaluations.show new MyEvaluationView({collection: myEvaluations, model: @submission, project: @project, vent: @, courseId: @courseId})
 
@@ -160,11 +166,15 @@ define (require) ->
       if @submission.get('current_user_is_owner') || @submission.get('current_user_is_instructor') || Vocat.currentUserRole == 'administrator'
 
         # It's useful for students to see that something hasn't been scored; less useful for instructors in this context.
-        if((@submission.get('current_user_is_instructor') || Vocat.currentUserRole == 'administrator') && instructorEvaluations.length > 0) || !@submission.get('current_user_is_instructor')
+        unless (@submission.get('current_user_is_instructor') || Vocat.currentUserRole == 'administrator') && instructorEvaluations.length == 0
           @instructorEvaluations.show new EvaluationView({collection: instructorEvaluations, label: 'Instructor', model: @submission, project: @project, vent: @, courseId: @courseId})
 
         if @submission.get('course_allows_peer_review')
           @peerEvaluations.show new EvaluationView({collection: evaluations, label: 'Peer', model: @submission, project: @project, vent: @, courseId: @courseId})
+
+        if @submission.get('course_allows_self_evaluation') && !@submission.get('current_user_is_owner')
+          @selfEvaluations.show new EvaluationView({collection: selfEvaluations, label: 'Self', model: @submission, project: @project, vent: @, courseId: @courseId})
+
 
     createAnnotationView: () ->
       # Create the annotations view
