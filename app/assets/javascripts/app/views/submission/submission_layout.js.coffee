@@ -160,7 +160,7 @@ define (require) ->
       if @submission.get('current_user_is_owner') || @submission.get('current_user_is_instructor') || Vocat.currentUserRole == 'administrator'
 
         # It's useful for students to see that something hasn't been scored; less useful for instructors in this context.
-        if(@submission.get('current_user_is_instructor') || Vocat.currentUserRole == 'administrator') && instructorEvaluations.length > 0
+        if((@submission.get('current_user_is_instructor') || Vocat.currentUserRole == 'administrator') && instructorEvaluations.length > 0) || !@submission.get('current_user_is_instructor')
           @instructorEvaluations.show new EvaluationView({collection: instructorEvaluations, label: 'Instructor', model: @submission, project: @project, vent: @, courseId: @courseId})
 
         if @submission.get('course_allows_peer_review')
