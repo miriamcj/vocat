@@ -3,12 +3,12 @@
   {{#if submission.course_allows_self_evaluation}}
     {{#if submission.current_user_has_evaluated}}
     <li class="frame-summary--evaluated" style="padding-right: {{ invert submission.current_user_percentage }}%">
-      <h4 class="frame-summary--score--title">Your Evaluation</h4>
+      <h4 class="frame-summary--score--title">Self-Evaluation</h4>
       <span class="frame-summary--score--value">{{ to_i submission.current_user_percentage }}<small>%</small></span>
     </li>
     {{else}}
     <li class="frame-summary--unevaluated">
-      <h4 class="frame-summary--score--title">Your Evaluation</h4>
+      <h4 class="frame-summary--score--title">Self-Evaluation</h4>
       <span class="frame-summary--score--value">&ndash;&ndash;&nbsp;&nbsp;</span>
     </li>
     {{/if}}
