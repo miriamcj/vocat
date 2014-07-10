@@ -10,7 +10,7 @@
   <figure class="summary-box">
     <div>
       <b style="height: <%= course.average_evaluator_score() %>%"></b>
-      <span><%= course.average_evaluator_score() %></span><small>%</small>
+      <span><%= course.average_evaluator_score().round %></span><small>%</small>
     </div>
     <figcaption>Average Instructor Score</figcaption>
   </figure>
@@ -19,7 +19,7 @@
     <figure class="summary-box">
       <div>
         <b style="height: <%= course.average_peer_score() %>%"></b>
-        <span><%= course.average_peer_score() %></span><small>%</small>
+        <span><%= course.average_peer_score().round %></span><small>%</small>
       </div>
       <figcaption>Average Peer Score</figcaption>
     </figure>
@@ -49,7 +49,7 @@
   <figure class="summary-box">
     <div>
       <b style="height: <%= course.submission_video_percentage() %>%"></b>
-      <span><%= course.submission_video_percentage() %></span><small>%</small>
+      <span><%= course.submission_video_percentage().round %></span><small>%</small>
     </div>
     <figcaption>Submissions with Videos</figcaption>
   </figure>
