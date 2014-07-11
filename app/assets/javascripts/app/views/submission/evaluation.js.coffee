@@ -21,6 +21,7 @@ define [
       {
         vent: @
         rubric: @rubric
+        label: @options.label
       }
 
     emptyView: EvaluationEmpty

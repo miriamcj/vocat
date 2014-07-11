@@ -13,12 +13,17 @@ class Group < ActiveRecord::Base
   end
 
   def is_group?
-    false
+    true
   end
 
   def is_user?
     true
   end
+
+  def include?(user)
+    creators.include?(user)
+  end
+
 
   def to_s
     name

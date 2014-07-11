@@ -147,5 +147,4 @@ class User < ActiveRecord::Base
     [id, list_name, last_name, first_name, email, org_identity]
   end
 
-
 end

@@ -6,3 +6,8 @@ define ['marionette', 'hbs!templates/submission/evaluation_empty'], (Marionette,
 
     initialize: (options) ->
       @vent = options.vent
+
+    serializeData: () ->
+      {
+      label: @options.label.toLowerCase()
+      }

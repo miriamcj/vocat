@@ -25,7 +25,6 @@ class AbstractSubmissionSerializer < ActiveModel::Serializer
     object.course_allows_self_evaluation?
   end
 
-
   def current_user_percentage
 		object.user_score_percentage(scope)
 	end
@@ -64,12 +63,16 @@ class AbstractSubmissionSerializer < ActiveModel::Serializer
 	end
 
 	def current_user_is_owner
-		scope == object.creator
+    Ability.new(scope).can?(:own, object)
 	end
 
 	def current_user_is_instructor
 		if object.course.role(scope) == :evaluator then true else false end
-	end
+  end
+
+  def current_user_can_read_evaluations
+    current_user_is_owner || current_user_is_instructor || scope.role == :administrator
+  end
 
 	def thumb
 		object.thumb()

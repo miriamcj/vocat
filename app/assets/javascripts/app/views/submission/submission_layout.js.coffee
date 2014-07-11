@@ -138,43 +138,34 @@ define (require) ->
         @placards.call('render')
 
     createEvaluationViews: () ->
-
       evaluations = new EvaluationCollection(@submission.get('evaluations'), {courseId: @courseId})
 
       # If there are no evaluations, hide the glossary button
       if evaluations.length == 0 && _.isObject(@ui.glossaryToggle) then @ui.glossaryToggle.hide()
 
-      myEvaluationModels = evaluations.where({current_user_is_owner: true})
-      myEvaluations = new EvaluationCollection(myEvaluationModels, {courseId: @courseId})
-      evaluations.remove(myEvaluationModels)
-
-      # TODO: This should really be looking for "Instructor". See the evaluation_serializer, which is not being
-      # used correctly when serialized through the submission. Needs to be fixed. --ZD
-      instructorEvaluationModels = evaluations.where({evaluator_role: 'Evaluator'})
-      instructorEvaluations = new EvaluationCollection(instructorEvaluationModels, {courseId: @courseId})
-      evaluations.remove(instructorEvaluationModels)
-
-      selfEvaluationModels = evaluations.where({evaluator_id: @creator.id})
-      selfEvaluations = new EvaluationCollection(selfEvaluationModels, {courseId: @courseId})
-      evaluations.remove(selfEvaluationModels )
-
-
       if @submission.get('current_user_can_evaluate') == true
+        myEvaluationModels = evaluations.where({current_user_is_owner: true})
+        myEvaluations = new EvaluationCollection(myEvaluationModels, {courseId: @courseId})
+        evaluations.remove(myEvaluationModels)
         @myEvaluations.show new MyEvaluationView({collection: myEvaluations, model: @submission, project: @project, vent: @, courseId: @courseId})
 
-      # TODO: Too much logic here in the view around who gets to see the evaluator evaluations; this must be refactored to the server side.
-      if @submission.get('current_user_is_owner') || @submission.get('current_user_is_instructor') || Vocat.currentUserRole == 'administrator'
+      if @submission.get('current_user_can_read_evaluations')
 
         # It's useful for students to see that something hasn't been scored; less useful for instructors in this context.
+        instructorEvaluationModels = evaluations.where({evaluator_role: 'Instructor'})
+        instructorEvaluations = new EvaluationCollection(instructorEvaluationModels, {courseId: @courseId})
         unless (@submission.get('current_user_is_instructor') || Vocat.currentUserRole == 'administrator') && instructorEvaluations.length == 0
           @instructorEvaluations.show new EvaluationView({collection: instructorEvaluations, label: 'Instructor', model: @submission, project: @project, vent: @, courseId: @courseId})
 
         if @submission.get('course_allows_peer_review')
-          @peerEvaluations.show new EvaluationView({collection: evaluations, label: 'Peer', model: @submission, project: @project, vent: @, courseId: @courseId})
+          peerEvaluationModels = evaluations.where({evaluator_role: 'Peer'})
+          peerEvaluations = new EvaluationCollection(peerEvaluationModels, {courseId: @courseId})
+          @peerEvaluations.show new EvaluationView({collection: peerEvaluations, label: 'Peer', model: @submission, project: @project, vent: @, courseId: @courseId})
 
         if @submission.get('course_allows_self_evaluation') && !@submission.get('current_user_is_owner')
+          selfEvaluationModels = evaluations.where({evaluator_role: 'Creator'})
+          selfEvaluations = new EvaluationCollection(selfEvaluationModels, {courseId: @courseId})
           @selfEvaluations.show new EvaluationView({collection: selfEvaluations, label: 'Self', model: @submission, project: @project, vent: @, courseId: @courseId})
-
 
     createAnnotationView: () ->
       # Create the annotations view

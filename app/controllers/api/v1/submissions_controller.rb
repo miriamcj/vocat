@@ -38,7 +38,7 @@ class Api::V1::SubmissionsController < ApiController
   def for_group
     factory = SubmissionFactory.new
     @group = Group.find(params.require(:group))
-    authorize! :show_submissions, @group.course
+    authorize! :show_submissions, @group
     @submissions = factory.course_and_creator(@group.course, @group)
     respond_with @submissions
   end

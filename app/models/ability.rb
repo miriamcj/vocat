@@ -93,7 +93,8 @@ class Ability
 
     can :evaluate, Submission do |submission|
       can?(:evaluate, submission.project.course ) && submission.creator != user ||
-      submission.project.course.allows_self_evaluation? && submission.creator == user
+      submission.creator.is_user? && submission.project.course.allows_self_evaluation? && submission.creator == user ||
+      submission.creator.is_group? && submission.project.course.allows_self_evaluation? && submission.creator.include?(user)
     end
 
     can :attach, Submission do |submission|
@@ -129,6 +130,11 @@ class Ability
     can :belong_to, Group do |group|
       group.creators.include? user
     end
+
+    can [:show_submissions], Group do |group|
+      can?(:show_submissions, group.course) || can?(:belong_to, group)
+    end
+
 
     ######################################################
     # Posts
@@ -244,6 +250,10 @@ class Ability
 
     can :new, Evaluation do |evaluation|
       can?(:evaluate, evaluation.submission)
+    end
+
+    can :own, Evaluation do |evaluation|
+      evaluation.evaluator == user
     end
 
     ######################################################

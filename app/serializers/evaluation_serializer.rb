@@ -3,18 +3,23 @@ class EvaluationSerializer < ActiveModel::Serializer
               :current_user_is_owner, :published, :submission_id, :points_possible
 
   def current_user_is_owner
-    object.evaluator_id == scope.id
+    scope.can?(:own, object)
   end
 
   def evaluator_role
     raw = object.evaluator_role
-    case raw
-      when 'evaluator'
+    case raw.downcase
+      when :evaluator
         'Instructor'
-      when 'creator'
-        'Student'
+      when :creator
+        evaluator = User.find(object.evaluator_id)
+        if evaluator.can?(:own, object.submission)
+          'Creator'
+        else
+          'Peer'
+        end
       else
-        raw.capitalize
+        raw.to_s.capitalize
     end
   end
 
