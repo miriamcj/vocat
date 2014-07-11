@@ -34,11 +34,9 @@ gem 'kaminari'
 gem 'rails-backbone'
 gem 'faker'
 
-group :development do
-  gem 'guard'
-  gem 'guard-coffeescript'
-  gem 'guard-copy'
-end
+gem 'guard'
+gem 'guard-coffeescript'
+gem 'guard-copy'
 
 group :development, :test do
   gem 'factory_girl'
