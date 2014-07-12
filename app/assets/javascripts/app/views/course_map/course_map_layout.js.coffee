@@ -81,19 +81,18 @@ define [
       @creators.show(new CourseMapCreators({collection: @collections.user, courseId: @courseId, vent: @, creatorType: 'User'}))
       @projects.show(new CourseMapProjects({collection: userProjectsCollection, courseId: @courseId, vent: @}))
       @matrix.show(new CourseMapMatrix({collection: @collections.user, collections: {project: userProjectsCollection, submission: @collections.submission}, courseId: @courseId, creatorType: 'User', vent: @}))
-      @children.header.creatorType == 'Users'
+      @children.header.creatorType = @creatorType
       @sliderRecalculate()
 
     showGroupViews: () ->
       @creatorType = 'Group'
-
       groupProjectsCollection = CollectionProxy(@collections.project)
       groupProjectsCollection.where((model) -> model.get('type') == 'GroupProject' || model.get('type') == 'OpenProject')
 
       @creators.show(new CourseMapCreators({collection: @collections.group, courseId: @courseId, vent: @, creatorType: 'Group'}))
       @projects.show(new CourseMapProjects({collection: groupProjectsCollection, courseId: @courseId, vent: @}))
       @matrix.show(new CourseMapMatrix({collection: @collections.group, collections: {project: groupProjectsCollection, submission: @collections.submission}, courseId: @courseId, creatorType: 'Group', vent: @}))
-      @children.header.creatorType == 'Group'
+      @children.header.creatorType = @creatorType
       @sliderRecalculate()
 
     setActive: (models) ->

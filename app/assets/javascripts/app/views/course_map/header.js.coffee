@@ -1,9 +1,11 @@
 define [
   'marionette',
-  'hbs!templates/course_map/header'
+  'hbs!templates/course_map/header',
+  'collections/collection_proxy'
 ], (
   Marionette,
   template,
+  CollectionProxy
 ) ->
   class CourseMapHeader extends Marionette.ItemView
 
@@ -50,9 +52,18 @@ define [
 
     serializeData: () ->
       context = {}
-      context.projects = @collections.project.toJSON()
       context.creator = null
       context.creatorType = @creatorType
+
+      projects = CollectionProxy(@collections.project)
+      projectType = "#{@creatorType}Project"
+      projects.where((model) -> model.get('type') == projectType || model.get('type') == 'OpenProject')
+      context.projects = projects.toJSON()
+      if context.projects.length > 1
+        context.show_project_nav = true
+      else
+        context.show_project_nav = false
+
       if @creatorType == 'User'
         context.creatorIsUser = true
         context.creatorIsGroup = false
@@ -61,6 +72,7 @@ define [
         context.creatorIsUser = false
         context.creatorIsGroup = true
         context.creators = @collections.group.toJSON()
+
       if @collections.group.getActive()? then context.creator = @collections.group.getActive().toJSON()
       if @collections.user.getActive()? then context.creator = @collections.user.getActive().toJSON()
       if context.creator != null then context.activeCreator = true else context.activeCreator = false
@@ -68,8 +80,4 @@ define [
         context.project = @collections.project.getActive().toJSON()
         _.each context.projects, (project, index) ->
           if project.id == context.project.id then context.projects[index].active = true
-      if @collections.project.length > 1
-        context.show_project_nav = true
-      else
-        context.show_project_nav = false
       context
