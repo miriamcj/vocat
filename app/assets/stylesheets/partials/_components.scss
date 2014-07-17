@@ -465,7 +465,8 @@ p {
       @extend %heading-epsilon;
       height: 3.6rem;
       border-left: 0.1rem solid transparentize($tealLight, 0.5);
-      position: relative;
+      // This breaks table headers --
+	  //position: relative;
       // Prevents border hiding in IE
       z-index: -1;
       &.sort {
