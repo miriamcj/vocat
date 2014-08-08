@@ -10,16 +10,14 @@
 
 <body class="<%= yield(:body_class) %> <%= if current_user.role == 'admin' then 'role-admin' end %> <%= if !@selected_course then 'no-course' end %>">
   <div data-region="modal"></div>
-  <div class="page-banner">
-    <%= link_to image_tag("logo-vocat-dark.png", :class => "page-banner--logo", :alt => "VOCAT"), dashboard_path %>
-  </div>
+
   <header class="page-header" data-behavior="sticky-header">
     <div class="primary-nav">
       <div class="primary-nav--wrapper">
         <%= render 'layouts/navigation' %>
       </div>
     </div>
-    <%= render 'layouts/shortcut_navigation' %>
+
   </header>
   <div class="container">
     <div class="page-content">

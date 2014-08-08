@@ -1,0 +1,65 @@
+ <nav class="course-selector" data-behavior="dropdown">
+  <a class="course-selector--toggle" data-behavior="toggle" href="#">
+    <% if @selected_course %>
+      <%= truncate(@selected_course.to_s, length: 50, separator: ' ') %>
+		<% else %>
+			Select your course
+	  <% end %>
+  </a>
+  <div class="course-selector--dropdown" data-behavior="dropdown-options">
+    <ul>
+      <% if current_user %>
+      <li><a href="/"><%= current_user.role.capitalize %> Dashboard</a></li>
+      <% end %>
+      <% if current_user && current_user.has_courses %>
+        <% current_user.courses.each do |course| %>
+          <% if course.role(current_user) == :evaluator || course.role(current_user) == :assistant %>
+            <li><a <%= if @selected_course == course then 'class=active' end %> href="<%= url_for course_user_evaluations_path(course) %>"><%= raw "<strong>#{course.department}#{course.number} :</strong> #{truncate(course.name, length: 50, seperator: ' ')} <small>[Section #{course.section}]</small>" %></a></li>
+          <% else %>
+            <li><a <%= if @selected_course == course then 'class=active' end %> href="<%= url_for portfolio_course_path(course) %>"><%= raw "<strong>#{course.department}#{course.number} :</strong> #{truncate(course.name, length: 50, seperator: ' ')} <small>[Section #{course.section}]</small>" %></a></li>
+          <% end %>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+</nav>
+
+<nav class="user-selector" data-behavior="dropdown">
+  <div class="primary-nav--avatar">
+    <%= image_tag avatar_url(current_user, 48), :alt => current_user.name %>
+  </div>
+  <% if user_signed_in? %>
+    <a class="user-selector--toggle" data-behavior="toggle" href="#"><%= current_user.name %></a>
+    <div class="user-selector--dropdown" data-behavior="dropdown-options">
+      <ul>
+        <li>
+          <%= link_to("#{current_user.name} [#{current_user.email}]", edit_user_registration_path) %>
+        </li>
+        <li>
+          <%= link_to('Log out', destroy_user_session_path, :method=>'delete') %>
+        </li>
+      </ul>
+    </div>
+  <% else %>
+    <!-- TODO how should these look? -->
+    <%= link_to('Sign up', new_user_registration_path)  %>
+    <%= link_to('Log in', new_user_session_path)  %>
+  <% end %>
+</nav>
+
+<!--
+<a class="shortcut-nav--toggle" data-behavior="shortcut-nav-toggle" href="#">Toggle Shortcuts Drawer</a>
+-->
+ <% if @selected_course %>
+  <% if @selected_course_role == :creator %>
+     <%= render 'layouts/navigation_course_creator' %>
+  <% else %>
+     <%= render 'layouts/navigation_course_evaluator' %>
+  <% end %>
+<% else %>
+  <% if current_user.role? :administrator %>
+    <%= render 'layouts/navigation_admin' %>
+  <% elsif current_user.role == 'evaluator' %>
+    <%= render 'layouts/navigation_evaluator' %>
+  <% end %>
+<% end %>

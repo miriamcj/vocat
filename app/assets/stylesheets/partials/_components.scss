@@ -10,9 +10,9 @@
 // --------------------------------------------------------
 .container {
   @extend %clearfix;
-  @extend %shaded-sides;
+//  @extend %shaded-sides;
     width: $mainWidth;
-  background-color: $beige;
+//  background-color: $beige;
     margin: 0 auto;
   body.course-map & {
     overflow: visible;
@@ -49,6 +49,7 @@
   min-width: $mainWidth;
   height: $headerHeight;
   position: absolute;
+  top: 0;
   z-index: 200;
   &.stuck {
     position: fixed;
@@ -66,10 +67,11 @@
 // Primary nav
 // --------------------------
 .primary-nav {
-  @extend %shaded-top;
+  @extend %shaded-bottom;
   background-color: $grayDark;
   margin: 0 auto;
   position: relative;
+  border-bottom: 2px solid $grayDarker;
   z-index: 220;
 }
 
@@ -126,12 +128,18 @@
 // Adaptive nav
 // Lives inside .primary-nav
 // --------------------------
+
+.logo-nav {
+  position: absolute;
+  bottom: 2rem;
+}
+
+
 .adaptive-nav {
   position: absolute;
   bottom: 2rem;
-  // Uncomment when the help nav is re-enabled.
-  //left: 6.3rem;
-  left: 2rem;
+  left: 10rem;
+
   .role-admin.no-course & {
     left: 2rem;
   }
@@ -311,7 +319,6 @@
 // Page content
 // --------------------------------------------------------
 .page-content {
-  background-color: $beige;
   margin-top: $headerHeight;
   position: relative;
   z-index: 100;
@@ -344,9 +351,6 @@ p {
 // --------------------------
 .bar-header {
   @extend %clearfix;
-  @extend %shaded-bottom;
-  background-color: $tealLightestAlt;
-  border-bottom: 0.10rem solid $tealLightestAlt;
   padding: 2.4rem 3.2rem;
   position: relative;
   z-index: 310;
