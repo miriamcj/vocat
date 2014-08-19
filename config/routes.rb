@@ -65,7 +65,11 @@ Vocat::Application.routes.draw do
     end
   end
 
-  resources :rubrics, :controller => 'courses/manage/rubrics', :only => [:index, :show, :new, :edit, :destroy]
+  resources :rubrics, :controller => 'courses/manage/rubrics', :only => [:index, :show, :new, :edit, :destroy] do
+    member do
+      post 'clone'
+    end
+  end
 
   resources :courses do
 
@@ -81,7 +85,11 @@ Vocat::Application.routes.draw do
           end
         end
         resources :groups
-        resources :rubrics, :only => [:index, :show, :new, :edit, :destroy]
+        resources :rubrics, :only => [:index, :show, :new, :edit, :destroy] do
+          member do
+            post 'clone'
+          end
+        end
         get '/' => 'courses#edit'
         patch '/' => 'courses#update'
         put '/' => 'courses#update'
