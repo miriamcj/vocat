@@ -18,6 +18,9 @@ define (require) ->
       'admin/courses/:course/creators': 'creatorEnrollment'
       'admin/users/:user/courses': 'courseEnrollment'
     }
+    course: {
+      'courses/:course/manage/enrollment': 'creatorEnrollment'
+    }
     coursemap: {
       'courses/:course/users/evaluations': 'userGrid'
       'courses/:course/users/evaluations/creator/:creator': 'userCreatorDetail'
@@ -95,6 +98,8 @@ define (require) ->
           router.navigate(fragment, { trigger: true });
 
       switch controllerName
+        when 'course' then require ['controllers/course_controller'], (CourseController) ->
+          instantiateRouter(CourseController, 'course')
         when 'admin' then require ['controllers/admin_controller'], (AdminController) ->
           instantiateRouter(AdminController, 'admin')
         when 'coursemap' then require ['controllers/coursemap_controller'], (CourseMapController) ->

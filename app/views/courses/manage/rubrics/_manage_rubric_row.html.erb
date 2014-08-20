@@ -1,7 +1,7 @@
 <tr>
   <th>
-    <% if @course %>
-      <%= link_to rubric.name, course_manage_rubric_path(@course, rubric), :class => 'table--heading' %>
+    <% if @selected_course %>
+      <%= link_to rubric.name, course_manage_rubric_path(@selected_course, rubric), :class => 'table--heading' %>
     <% else %>
       <%= link_to rubric.name, rubric_path(rubric), :class => 'table--heading' %>
     <% end %>
@@ -24,9 +24,9 @@
       </a>
       <div class="drop-nav--dropdown" data-behavior="dropdown-options">
         <ul>
-          <% if @course %>
+          <% if @selected_course %>
             <li>
-              <%= link_to 'Rubric Overview', course_manage_rubric_path(@course, rubric)%>
+              <%= link_to 'Rubric Overview', course_manage_rubric_path(@selected_course, rubric)%>
             </li>
           <% else %>
             <li>
@@ -34,30 +34,29 @@
             </li>
           <% end %>
           <% if can? :update, rubric %>
-            <% if @course %>
+            <% if @selected_course %>
               <li>
-                <%= link_to 'Edit Rubric', edit_course_manage_rubric_path(@course, rubric)%>
+                <%= link_to 'Edit Rubric', edit_course_manage_rubric_path(@selected_course, rubric)%>
               </li>
             <% else %>
               <li>
                 <%= link_to 'Edit Rubric', edit_rubric_path(rubric)%>
               </li>
             <% end %>
+          <% end %>
+          <% if @selected_course %>
+            <li>
+              <%= link_to 'Clone Rubric', clone_course_manage_rubric_path(@selected_course, rubric), method: :post %>
+            </li>
           <% else %>
-            <% if @course %>
-              <li>
-                <%= link_to 'Clone Rubric', edit_course_manage_rubric_path(@course, rubric)%>
-              </li>
-            <% else %>
-              <li>
-                <%= link_to 'Clone Rubric', edit_rubric_path(rubric)%>
-              </li>
-            <% end %>
+            <li>
+              <%= link_to 'Clone Rubric', clone_rubric_path(rubric), method: :post%>
+            </li>
           <% end %>
           <% if can? :destroy, rubric %>
-            <% if @course %>
+            <% if @selected_course %>
               <li>
-                <%= link_to 'Delete Rubric', course_manage_rubric_path(@course, rubric), method: :delete, data: { confirm: 'Are you sure?' }%>
+                <%= link_to 'Delete Rubric', course_manage_rubric_path(@selected_course, rubric), method: :delete, data: { confirm: 'Are you sure?' }%>
               </li>
             <% else %>
               <li>
