@@ -146,6 +146,14 @@ describe "Abilities" do
       let ( :user ) { @evaluator_in_course_a }
       it { expect(user).to have_ability(@ability_aliases[:forbidden], for: target_user) }
     end
+    context "when the current_user is an evaluator" do
+      let ( :user ) { @evaluator_in_course_a }
+      it { expect(user).to have_ability(:search, for: @creator_in_course_b) }
+    end
+    context "when the current_user is a creator" do
+      let ( :user ) { @creator_in_course_a}
+      it { expect(user).to_not have_ability(:search, for: @creator_in_course_b) }
+    end
     context "when the current_user is the same user, she" do
       let ( :user ) { @creator_in_course_a }
       it { expect(user).to have_ability(@ability_aliases[:read_write], for: target_user) }
@@ -524,7 +532,7 @@ describe "Abilities" do
       end
       context "if the current_user is the creator associated with the post's submission, she" do
         let ( :user ) { @creator_in_course_a }
-        it { expect(user).to have_ability(@ability_aliases[:read_only], for: post) }
+        it { expect(user).to have_ability(@ability_aliases[:read_create_only], for: post) }
       end
       context "if the current_user is a creator and is not associated with the post's submission, she" do
         let ( :user ) { @another_creator_in_course_a }
@@ -677,7 +685,7 @@ describe "Abilities" do
       let ( :evaluation ) { FactoryGirl.build(:evaluation, evaluator: @evaluator_in_course_a, published: true, submission: @submission_for_first_project_in_course_a)}
       context "if the current_user is an admin, she" do
         let ( :user ) { @admin }
-        it { expect(user).to have_ability(@ability_aliases[:read_write_destroy], for: evaluation) }
+        it { expect(user).to have_ability(@ability_aliases[:read_only], for: evaluation) }
       end
       context "if the current_user is the owner of the evaluation, she" do
         let ( :user ) { @evaluator_in_course_a }
@@ -705,7 +713,7 @@ describe "Abilities" do
       let ( :evaluation ) { FactoryGirl.build(:evaluation, evaluator: @evaluator_in_course_a, published: false, submission: @submission_for_first_project_in_course_a)}
       context "if the current_user is an admin, she" do
         let ( :user ) { @admin }
-        it { expect(user).to have_ability(@ability_aliases[:read_write_destroy], for: evaluation) }
+        it { expect(user).to have_ability(@ability_aliases[:read_only], for: evaluation) }
       end
       context "if the current_user is the owner of the evaluation, she" do
         let ( :user ) { @evaluator_in_course_a }

@@ -130,7 +130,7 @@ define (require) ->
 
     createBarChart: (dimension, group) ->
       bc = dc.barChart("#bar-chart",'projectCharts')
-      bc.width(716)
+      bc.width(936)
       bc.height(255)
       bc.transitionDuration(500)
       bc.margins({top: 10, right: 40, bottom: 20, left: 20})
@@ -156,7 +156,7 @@ define (require) ->
       bc.renderlet (chart) ->
         svg = chart.select('svg')
         if $(svg[0]).find('.background-custom').length == 0
-          chart.select('svg').insert('rect','g').attr('width', 656).attr('height', 225).attr('transform','translate(20,10)').attr('class', 'background-custom')
+          chart.select('svg').insert('rect','g').attr('width', 877).attr('height', 225).attr('transform','translate(20,10)').attr('class', 'background-custom')
       bc
 
     createPieChart: (id, dimension, group) ->

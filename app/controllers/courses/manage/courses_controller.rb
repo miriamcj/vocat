@@ -13,5 +13,9 @@ class Courses::Manage::CoursesController < ApplicationController
     respond_with :course, :location => course_manage_path(@course), notice: 'Course settings were successfully updated.'
   end
 
+  def enrollment
+    @course = Course.find params[:course_id]
+  end
+
 
 end

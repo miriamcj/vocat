@@ -469,7 +469,8 @@ p {
       @extend %heading-epsilon;
       height: 3.6rem;
       border-left: 0.1rem solid transparentize($tealLight, 0.5);
-      position: relative;
+      // This breaks table headers --
+	  //position: relative;
       // Prevents border hiding in IE
       z-index: -1;
       &.sort {
@@ -1155,8 +1156,7 @@ a.table--heading {
 // Project details
 // --------------------------------------------------------
 .project-detail-frame {
-  width: 67.6rem;
-  margin-bottom: 3.2rem;
+   margin-bottom: 3.2rem;
   .project-detail-subframe {
 	margin-bottom: 3.2rem;
   }

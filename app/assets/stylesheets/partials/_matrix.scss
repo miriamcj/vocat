@@ -189,13 +189,12 @@
 // ------------
 // Lives inside .matrix--column-header
 .matrix--overlay-header {
-  width: $mainWidth - $matrixRowHeaderWidth;
+  width: $mainWidth;
   background-color: $tealLightestAlt;
   padding: 1.6rem 3.2rem 1.6rem 2.4rem;
   position: absolute;
   top: 0;
   bottom: 0;
-  left: $matrixRowHeaderWidth;
   z-index: 320;
 }
 
@@ -570,6 +569,14 @@
   }
 }
 
+.matrix--cell--thumb {
+  @extend %hidden-text;
+  display: block;
+  width: 6rem;
+  margin: 1rem 0;
+  float: left;
+}
+
 .matrix--cell--value {
   @extend %mega-alt;
   @include font-head;
@@ -646,17 +653,17 @@
 // Overlay
 // ------------
 .matrix--overlay {
-  width: $matrixOverlayWidth;
+  width: $matrixOverlayWidth + $matrixRowHeaderWidth;
   background-color: $beige;
   position: relative;
+  left: 0;
   //  overflow: hidden;
-  z-index: 130;
+  z-index: 170;
   .shim {
     @extend %shaded-inside-right;
     width: $matrixRowHeaderWidth;
     height: 10000px;
     background-color: $beigeAlt;
-    border-top: 2px solid blue;
     position: absolute;
     bottom: 0;
     left: -$matrixRowHeaderWidth;

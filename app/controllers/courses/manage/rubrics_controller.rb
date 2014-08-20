@@ -3,7 +3,7 @@ class Courses::Manage::RubricsController < ApplicationController
   layout 'frames'
 
   load_and_authorize_resource :rubric
-  skip_authorize_resource :rubric, :only => :edit
+  skip_authorize_resource :rubric, :only => [:edit, :clone]
   respond_to :html
   respond_to :pdf, :only => :show
 
@@ -23,23 +23,22 @@ class Courses::Manage::RubricsController < ApplicationController
     respond_with @rubric
   end
 
+  def clone
+    new_rubric = @rubric.clone()
+    current_user.rubrics << new_rubric
+    new_rubric.save()
+    authorize! :edit, new_rubric
+    redirect_to :action => 'edit', :id => new_rubric.id
+  end
+
   def edit
-    if !can?(:edit, @rubric) && @rubric.public
-      new_rubric = @rubric.clone()
-      current_user.rubrics << new_rubric
-      new_rubric.save()
-      authorize! :edit, new_rubric
-      redirect_to :action => 'edit', :id => new_rubric.id
-    else
-      authorize! :edit, @rubric
-      respond_with @rubric
-    end
+    authorize! :edit, @rubric
+    respond_with @rubric
   end
 
   def destroy
     flash[:notice] = "Rubric deleted."
     @rubric.destroy
-
     if @course
       location = course_manage_rubrics_path(@course)
     else

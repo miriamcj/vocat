@@ -19,6 +19,10 @@ class Ability
       user == a_user
     end
 
+    can [:search], User do |a_user|
+      user.role?(:evaluator)
+    end
+
     ######################################################
     ### Courses
     ######################################################
@@ -154,12 +158,11 @@ class Ability
     end
 
     can :reply, DiscussionPost do |discussionPost|
-      true
+      can?(:discuss, discussionPost.submission)
     end
 
-    #TODO: Fix this ability check, which is not working.
     can :create, DiscussionPost do |discussionPost|
-      true
+      can?(:discuss, discussionPost.submission)
     end
 
 
@@ -233,11 +236,20 @@ class Ability
 
 
     ######################################################
+    # Admins
+    ######################################################
+    if user.role?(:administrator)
+      can :manage, :all
+      cannot :manage, Evaluation
+    end
+
+
+    ######################################################
     # Evaluations
     ######################################################
 
     can :read_only, Evaluation do |evaluation|
-      can?(:own, evaluation.submission) && evaluation.published == true || evaluation.submission.project.course.role(user) == :evaluator
+      can?(:own, evaluation.submission) && evaluation.published == true || evaluation.submission.project.course.role(user) == :evaluator || user.role?(:administrator)
     end
 
     can :read_write_destroy, Evaluation do |evaluation|
@@ -245,22 +257,15 @@ class Ability
     end
 
     can :create, Evaluation do |evaluation|
-      can?(:evaluate, evaluation.submission)
+      can?(:evaluate, evaluation.submission) && !user.role?(:administrator)
     end
 
     can :new, Evaluation do |evaluation|
-      can?(:evaluate, evaluation.submission)
+      can?(:evaluate, evaluation.submission) && !user.role?(:administrator)
     end
 
     can :own, Evaluation do |evaluation|
       evaluation.evaluator == user
-    end
-
-    ######################################################
-    # Admins
-    ######################################################
-    if user.role?(:administrator)
-      can :manage, :all
     end
 
   end
