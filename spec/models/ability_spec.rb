@@ -146,6 +146,14 @@ describe "Abilities" do
       let ( :user ) { @evaluator_in_course_a }
       it { expect(user).to have_ability(@ability_aliases[:forbidden], for: target_user) }
     end
+    context "when the current_user is an evaluator" do
+      let ( :user ) { @evaluator_in_course_a }
+      it { expect(user).to have_ability(:search, for: @creator_in_course_b) }
+    end
+    context "when the current_user is a creator" do
+      let ( :user ) { @creator_in_course_a}
+      it { expect(user).to_not have_ability(:search, for: @creator_in_course_b) }
+    end
     context "when the current_user is the same user, she" do
       let ( :user ) { @creator_in_course_a }
       it { expect(user).to have_ability(@ability_aliases[:read_write], for: target_user) }

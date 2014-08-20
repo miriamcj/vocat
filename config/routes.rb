@@ -90,6 +90,7 @@ Vocat::Application.routes.draw do
             post 'clone'
           end
         end
+        get '/enrollment' => 'courses#enrollment'
         get '/' => 'courses#edit'
         patch '/' => 'courses#update'
         put '/' => 'courses#update'
