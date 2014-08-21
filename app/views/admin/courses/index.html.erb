@@ -1,10 +1,20 @@
-<% content_for :content_header do %>
-  Courses
+<% content_for :content do %>
+
+  <div class="section">
+    <div class="section--top">
+      <div class="section--buttons">
+        <%= link_to 'New Course', new_admin_course_path, :class => 'teal-plus-button' %>
+      </div>
+      <h1 class="section--heading">Courses</h1>
+    </div>
+    <div class="section--body">
+
+    </div>
+
+  </div>
+
 <% end %>
 
-<% content_for :content_header_links do %>
-  <%= render 'header_links', hide_all: true %>
-<% end %>
 
 <% content_for :content_intro do %>
   <form>

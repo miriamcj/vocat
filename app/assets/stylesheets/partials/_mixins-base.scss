@@ -69,7 +69,7 @@
 	@include clearfix();
 }
 
-// Kill ye FOUT - 
+// Kill ye FOUT -
 // Depends on javascript adding the .wf-active class...
 // --------------------------------------------------------
 @mixin kill-fout {
@@ -89,7 +89,7 @@
 @mixin hyphenate {
 	-moz-hyphens: auto;
 	-webkit-hyphens: auto;
-	hyphens: auto;	
+	hyphens: auto;
 }
 
 // Background-size
@@ -104,7 +104,7 @@
 }
 
 // Background clip
-// $portion can take 'border', 
+// $portion can take 'border',
 // 'padding', or 'content'
 // --------------------------
 @mixin background-clip($portion) {
@@ -114,7 +114,7 @@
 }
 
 // Box sizing
-// $value can take 'border-box' 
+// $value can take 'border-box'
 // or 'content-box'
 // --------------------------
 @mixin box-sizing($value) {
@@ -235,15 +235,64 @@
     color: $color;
     font-style: $style;
   }
-  &:-ms-input-placeholder {  
+  &:-ms-input-placeholder {
     @include font-body;
     color: $color;
     font-style: $style;
   }
 }
 
+// Translate
+// Set $z to 'false' to disable 'translate3d' & 'translateZ' for Webkit, which
+// enable hardware acceleration on mobile devices
+// --------------------------
+@mixin translate($x, $y, $z: true) {
+  @if $z == true {
+    -webkit-transform: translate3d($x, $y, 0);
+  }
+  @else {
+    -webkit-transform: translate($x, $y);
+  }
+  -moz-transform: translate($x, $y);
+  -ms-transform: translate($x, $y);
+  -o-transform: translate($x, $y);
+  transform: translate($x, $y);
+}
 
 
+@mixin translateX($x, $z: true) {
+  @if $z == true {
+    -webkit-transform: translateX($x) translateZ(0);
+  }
+  @else {
+    -webkit-transform: translateX($x);
+  }
+  -moz-transform: translateX($x);
+  -ms-transform: translateX($x);
+  -o-transform: translateX($x);
+  transform: translateX($x);
+}
+
+@mixin translateY($y, $z: true) {
+  @if $z == true {
+    -webkit-transform: translateY($y) translateZ(0);
+  }
+  @else {
+    -webkit-transform: translateY($y);
+  }
+  -moz-transform: translateY($y);
+  -ms-transform: translateY($y);
+  -o-transform: translateY($y);
+  transform: translateY($y);
+}
+
+@mixin no-translate {
+  -webkit-transform: none;
+  -moz-transform: none;
+  -ms-transform: none;
+  -o-transform: none;
+  transform: none;
+}
 
 
 

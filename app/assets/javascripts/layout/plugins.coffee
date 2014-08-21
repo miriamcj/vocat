@@ -1,6 +1,21 @@
 define ['vendor/plugins/waypoints', 'jquery_rails'], (waypoints, $) ->
 
   ##########################################
+  # Drawer Navigation Plugin
+  ##########################################
+  $.fn.extend
+    drawerTrigger: (options) ->
+      $el = $(@)
+      $container = $('body')
+      $el.click( (event) ->
+        event.preventDefault()
+        if $container.hasClass('drawer-open')
+          $container.removeClass('drawer-open')
+        else
+          $container.addClass('drawer-open')
+      )
+
+  ##########################################
   # Dropdown Navigation Plugin
   ##########################################
   $.fn.extend

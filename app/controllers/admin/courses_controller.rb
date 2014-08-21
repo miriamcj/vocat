@@ -5,9 +5,6 @@ class Admin::CoursesController < Admin::AdminController
 
   before_filter :deselect_course
 
-
-  layout 'content'
-
   def deselect_course
     @deselect_course = true
   end

@@ -8,9 +8,9 @@
 // the sprite folder name (png) followed by the image name.
 // Extend them wherever you like: @extend .png-tardis;
 // --------------------------------------------------------
-@import "compass/utilities/sprites";
-@import "png/*.png";
-@include all-png-sprites;
+//@import "compass/utilities/sprites";
+//@import "png/*.png";
+//@include all-png-sprites;
 
 // Inline SVGs
 // Encoded once here for all posterity

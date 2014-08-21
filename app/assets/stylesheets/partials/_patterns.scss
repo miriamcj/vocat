@@ -240,13 +240,11 @@
   @extend %heading-epsilon;
   @extend %bare-focus;
   @extend %bare-link;
-  @extend %shaded-inside-bottom;
   display: inline-block;
   line-height: 1;
   color: $beigeLight !important;
   padding-right: 1.2rem;
   padding-left: 1.2rem;
-  border-radius: $radius;
 }
 
 // Psuedoelements don't stick to <input>s, so we
@@ -303,7 +301,7 @@ input%proto-button {
 %teal-arrow-button {
   @extend %proto-button;
   @extend %proto-large-button;
-  background-color: $tealLight;
+  background-color: $newTeal;
   padding-right: 3.7rem;
   position: relative;
   &:after {
@@ -1287,32 +1285,14 @@ input%proto-button {
   @extend %beta-alt;
   @extend %bare-link;
   @extend %bare-focus;
-  @extend %shaded-inside-bottom;
   @include background-clip(padding);
   display: inline-block;
   height: 3.2rem;
   line-height: 1;
-  color: $grayLighter;
-  background-color: $grayDarker;
-  padding: 0.6rem 2.6rem 0.7rem 1.1rem;
-  border-right: 0.2rem solid transparent;
-  border-radius: $radius 0 0 $radius;
+  padding: 0.6rem 0.7rem 0.7rem 1.1rem;
   margin-right: 3.6rem;
   position: relative;
   cursor: pointer;
-  &:before {
-    @extend %shaded-inside-bottom;
-    content: "";
-    background-color: inherit;
-    display: block;
-    width: 3.6rem;
-    height: 3.2rem;
-    border-radius: 0 $radius $radius 0;
-    position: absolute;
-    top: 0;
-    right: -3.8rem;
-
-  }
   &:after {
     @include svg(arrow-down-gray);
     content: "";
@@ -1325,13 +1305,10 @@ input%proto-button {
   }
   &:hover,
   .open & {
-    color: $orange;
-    background-color: $grayDarkest;
     &:before {
       background-color: inherit;
     }
     &:after {
-      @include svg(arrow-down-orange);
     }
   }
 }

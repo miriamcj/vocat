@@ -1,6 +1,18 @@
 // Variables
 //----------
 
+// New Variables
+// --------------------------------------------------------
+$newTeal: #3EC7BD;
+$newTealDark: #0FB1AA;
+$newBeigeLight: #F8F8F8;
+$white: #FFFFFF;
+
+$spacerUnit: 2rem;
+
+
+
+
 // Colors
 // --------------------------------------------------------
 $white: #fff;
@@ -73,6 +85,10 @@ $bold: 700 !default;
   $medium: 600;
   $bold: 700;
 }
+
+$mediumTransition: 0.5s;
+$fastTransition: 0.2s;
+$timing: ease;
 
 // Offsets
 // TODO adjust these once closed fonts are real; they might not be necessary, depending on final fonts

@@ -1,10 +1,53 @@
-<nav class="logo-nav">
-  <%= link_to image_tag("logo-vocat-dark.png", :class => "page-banner--logo", :alt => "VOCAT"), dashboard_path %>
+<div class="primary-nav">
+  <div class="primary-nav--wrapper">
+
+    <nav class="logo-nav">
+      <%= link_to image_tag("logo-vocat-light.png", :class => "page-banner--logo", :alt => "VOCAT"), dashboard_path %>
+    </nav>
+
+    <nav class="user-selector" data-behavior="dropdown">
+      <div class="primary-nav--avatar">
+        <%= image_tag avatar_url(current_user, 53), :alt => current_user.name %>
+      </div>
+      <% if user_signed_in? %>
+        <a class="user-selector--toggle" data-behavior="toggle" href="#"><%= current_user.name %></a>
+        <div class="user-selector--dropdown" data-behavior="dropdown-options">
+          <ul>
+            <li>
+              <%= link_to("#{current_user.name} [#{current_user.email}]", edit_user_registration_path) %>
+            </li>
+            <li>
+              <%= link_to('Log out', destroy_user_session_path, :method=>'delete') %>
+            </li>
+          </ul>
+        </div>
+      <% else %>
+        <!-- TODO how should these look? -->
+        <%= link_to('Sign up', new_user_registration_path)  %>
+        <%= link_to('Log in', new_user_session_path)  %>
+      <% end %>
+    </nav>
+
+    <header data-behavior="drawer-trigger" class="drawer-nav--trigger"><%= @selected_course || 'Dashboard' %></header>
+  </div>
+</div>
+
+<nav class="drawer-nav--wrapper">
+  <div class="drawer-nav">
+    <ul class="drawer-nav--first">
+      <li><%= link_to 'Courses', admin_courses_path %></li>
+      <li><%= link_to 'Users', admin_users_path %></li>
+      <li><%= link_to 'Rubrics', admin_rubrics_path %></li>
+      <li><%= link_to 'Videos', admin_videos_path %></li>
+    </ul>
+  </div>
 </nav>
 
-<nav class="adaptive-nav">
-  <ul class="adaptive-nav--list">
 
+
+
+<!--
+  <ul class="adaptive-nav--list">
     <% if current_user.role? :administrator %>
       <li data-behavior="dropdown">
         <a class="adaptive-nav--link" data-behavior="toggle" href="#">Administer VOCAT</a>
@@ -46,11 +89,11 @@
         </div>
       </li>
       <% end %>
+      <li>
+        <%=  link_to 'My Rubrics', course_manage_rubrics_path(@selected_course) %>
+      </li>
+
     <% end %>
-
-    <li>
-      <%=  link_to 'My Rubrics', course_manage_rubrics_path(@selected_course) %>
-    </li>
-
   </ul>
-</nav>
+-->
+
