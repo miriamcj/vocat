@@ -178,7 +178,10 @@ define (require) ->
         dataType: 'json'
         data: {user: {settings: {enable_glossary: true}}}
       })
+  )
 
+  Vocat.on('all', (e) ->
+    console.log "VOCAT heard #{e}"
   )
 
   # Some global app constants that we hang on the Vocat object rather than passing them around via events.

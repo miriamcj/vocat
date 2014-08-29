@@ -1,7 +1,5 @@
 @import "partials/variables";
-@import "partials/fonts";
-@import "partials/mixins-base";
-@import "partials/mixins-project";
+@import "partials/mixins";
 
 // Patterns
 // --------
@@ -1282,7 +1280,6 @@ input%proto-button {
 
 // Extending this is optional
 %dropdown-toggle {
-  @extend %beta-alt;
   @extend %bare-link;
   @extend %bare-focus;
   @include background-clip(padding);
@@ -1294,7 +1291,7 @@ input%proto-button {
   position: relative;
   cursor: pointer;
   &:after {
-    @include svg(arrow-down-gray);
+    @include svg(arrow-down-white);
     content: "";
     display: block;
     width: 1.8rem;
@@ -1337,29 +1334,19 @@ input%proto-button {
 }
 
 %dropdown {
-  display: none;
+  display: block;
   min-width: 100%;
-  background-color: darken($grayDarkest, 3%);
   padding: 1.8rem 2rem;
-  border-radius: $radius * 2;
   margin-top: 2rem;
   position: absolute;
-  top: 3.2rem;
+  top: 3.3rem;
+  max-height: 0px;
+  overflow: hidden;
   left: 0;
   z-index: 350;
-  &:before {
-    content: "";
-    display: block;
-    width: 0;
-    height: 0;
-    border-right: 1.5rem solid transparent;
-    border-left: 1.5rem solid transparent;
-    border-bottom: 1.5rem solid darken($grayDarkest, 3%);
-    position: absolute;
-    top: -1.5rem;
-    // TODO adjust
-    left: 4rem;
-  }
+  background: $newGrayDark;
+  @include opacity(50);
+  @include transition(max-height 1s $timing);
   ul {
     padding: 0;
     margin: 0;
@@ -1384,11 +1371,13 @@ input%proto-button {
     }
     &:hover,
     &.active {
-      color: $orange;
+      color: $newTealMedium;
     }
   }
   .open & {
     display: block;
+    opacity: 1;
+    max-height: 500px;
   }
 }
 
@@ -1414,6 +1403,7 @@ input%proto-button {
 // TODO should items be right-aligned?
 %dropdown-right {
   @extend %dropdown;
+
   right: 0;
   left: auto;
   &:before {

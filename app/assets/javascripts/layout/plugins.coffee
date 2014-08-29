@@ -5,15 +5,40 @@ define ['vendor/plugins/waypoints', 'jquery_rails'], (waypoints, $) ->
   ##########################################
   $.fn.extend
     drawerTrigger: (options) ->
-      $el = $(@)
-      $container = $('body')
-      $el.click( (event) ->
-        event.preventDefault()
-        if $container.hasClass('drawer-open')
-          $container.removeClass('drawer-open')
-        else
-          $container.addClass('drawer-open')
+      $trigger = $(@)
+      $body = $('body')
+      $drawer = $('.page-header--drawer')
+
+      $shield = ''
+
+      open = () ->
+        $shield = $('<div class="page-shield"></div>')
+        $shield.height($('body').height())
+        $body.prepend($shield)
+
+        $body.addClass('drawer-open')
+        $shield.show()
+
+      close = () ->
+        $body.removeClass('drawer-open')
+        $shield.detach()
+
+      $trigger.click( (event) ->
+        event.stopPropagation()
       )
+
+      $drawer.click( (event) ->
+        event.stopPropagation()
+      )
+
+      $(document).click ->
+        close()
+
+      $trigger.click ->
+        if $body.hasClass('drawer-open')
+          close()
+        else
+          open()
 
   ##########################################
   # Dropdown Navigation Plugin

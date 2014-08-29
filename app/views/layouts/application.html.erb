@@ -9,9 +9,74 @@
 </head>
 
 <body class="<%= yield(:body_class) %> <%= if current_user.role == 'admin' then 'role-admin' end %> <%= if !@selected_course then 'no-course' end %>">
+  <div class="shield" style="display: none;" data-class="shield"></div>
   <div data-region="modal"></div>
-
   <header class="page-header">
+
+    <div class="page-header--navigation-wrapper">
+      <div class="page-header--navigation">
+        <nav class="page-header--logo-nav">
+          <%= link_to image_tag("logo-vocat-light.png", :alt => "VOCAT"), dashboard_path %>
+        </nav>
+
+        <nav class="page-header--user-nav" data-behavior="dropdown">
+          <div class="user-nav--avatar">
+            <%= image_tag avatar_url(current_user, 53), :alt => current_user.name %>
+          </div>
+          <% if user_signed_in? %>
+            <a class="user-nav--toggle" data-behavior="toggle" href="#"><%= current_user.name %></a>
+            <div class="user-nav--dropdown" data-behavior="dropdown-options">
+              <ul>
+                <li>
+                  <%= link_to(current_user.email, edit_user_registration_path) %>
+                </li>
+                <li>
+                  <%= link_to('Log out', destroy_user_session_path, :method=>'delete') %>
+                </li>
+              </ul>
+            </div>
+          <% else %>
+            <%= link_to('Sign up', new_user_registration_path)  %>
+            <%= link_to('Log in', new_user_session_path)  %>
+          <% end %>
+        </nav>
+
+        <nav class="drawer-nav--trigger" data-behavior="drawer-trigger">
+          <span><%= @selected_course || 'Dashboard' %></span>
+        </nav>
+      </div>
+    </div>
+
+    <div class="page-header--drawer">
+      <div class="drawer--contents">
+        <div class="drawer--contents-column drawer--contents-left">
+          <ul>
+            <li><%= link_to 'Courses', admin_courses_path, :class => 'active' %></li>
+            <li><%= link_to 'Users', admin_users_path %></li>
+            <li><%= link_to 'Rubrics', admin_rubrics_path %></li>
+            <li><%= link_to 'Videos', admin_videos_path %></li>
+          </ul>
+        </div>
+        <div class="drawer--contents-column drawer--contents-right">
+          <ul>
+            <li><a href="#">Another option #1</a></li>
+            <li><a href="#">Another option #2</a></li>
+            <li><a href="#">Another option #3</a></li>
+            <li><a href="#">Another option #4</a></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+
+  </header>
+
+
+
+
+
+
     <%= render 'layouts/navigation' %>
   </header>
   <div class="container">

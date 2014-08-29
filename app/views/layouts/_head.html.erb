@@ -15,12 +15,15 @@
 <%= javascript_include_tag 'vendor/require/require', 'data-main' => '/build/bootstrap' %>
 <% end %>
 
+<script type="text/javascript" src="//use.typekit.net/ytz4hur.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+
 <script type="text/javascript">
   window.VocatSessionData = JSON.parse('<%= raw @session_data.to_json %>');
   window.VocatUserRole = '<%= current_user_role %>';
   window.VocatS3Bucket = '<%= @S3_bucket %>';
   window.VocatAWSPublicKey = '<%= @aws_public_key %>';
-
 </script>
 
 <%= stylesheet_link_tag "application", :media => "all" %>

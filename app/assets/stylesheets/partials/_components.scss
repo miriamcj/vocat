@@ -1,158 +1,9 @@
 @import "partials/variables";
-@import "partials/mixins-base";
-@import "partials/mixins-project";
+@import "partials/mixins";
 @import "partials/patterns";
 
 
-// Components
-// ----------
 
-// Page level components
-// --------------------------------------------------------
-.container {
-  @extend %clearfix;
-//  @extend %shaded-sides;
-    width: $mainWidth;
-//  background-color: $beige;
-    margin: 0 auto;
-  body.course-map & {
-    overflow: visible;
-  }
-  .authentication & {
-    @include box-shadow(none);
-    background-color: transparent;
-    margin-top: 8.5rem;
-  }
-}
-
-// Page banner
-// --------------------------
-.page-banner {
-  width: 100%;
-  min-width: $mainWidth;
-  height: 3.4rem;
-  background-color: $tealLight;
-  padding: 0.9rem 0;
-  position: relative;
-  z-index: 250;
-}
-
-.page-banner--logo {
-    @extend %center;
-    display: block;
-    height: 1.6rem;
-}
-
-// Page header
-// --------------------------
-.page-header {
-  width: 100%;
-  min-width: $mainWidth;
-  height: $headerHeight;
-  position: absolute;
-  top: 0;
-  z-index: 200;
-  .role-admin.no-course & {
-    height: 7.8rem;
-  }
-}
-
-// Primary nav
-// --------------------------
-.primary-nav {
-  background-color: $newTeal;
-  margin: 0 auto;
-  position: relative;
-  z-index: 220;
-}
-
-.primary-nav--wrapper {
-  width: $mainWidth;
-  height: $headerHeight;
-  margin: 0 auto;
-  position: relative;
-}
-
-// User selector
-// ------------
-.user-selector {
-  margin-right: 6.4rem;
-  position: absolute;
-  right: 2rem;
-}
-
-.user-selector--toggle {
-  top: 1rem;
-  @extend %dropdown-toggle;
-}
-
-.user-selector--dropdown {
-  @extend %dropdown-right;
-}
-
-.primary-nav--avatar {
-  position: absolute;
-  right: -6.4rem;
-}
-
-.logo-nav {
-  position: absolute;
-  bottom: 2rem;
-}
-
-// Drawer nav
-// Lives inside .primary-nav
-// --------------------------
-
-.drawer-nav {
-  background: #4D4D4F;
-  width: 100%;
-}
-
-.drawer-nav--trigger {
-  position: absolute;
-  left: 10rem;
-  height: $headerHeight;
-  cursor: pointer;
-  padding: 0 2rem;
-  line-height: $headerHeight;
-  background: $newTealDark;
-  font-weight: bold;
-}
-
-.drawer-nav--wrapper {
-  .drawer-open & {
-    display: block;
-    @include translateY(0);
-  }
-
-  @include transition(1s opacity $timing);
-  display: none;
-  position: absolute;
-  color: $white;
-  left: 0;
-  width: 100%;
-  padding: 2rem 0;
-  background-color: $grayDarkest;
-  .drawer-nav {
-    position: relative;
-    left: 10rem;
-    margin: 0 auto;
-    width: $mainWidth;
-    background-color: $grayDarkest;
-    .drawer-nav--first {
-      margin: 0;
-      padding: 0.6rem 0.7rem 0.7rem 1.1rem;
-      li {
-        margin-bottom: 1rem;
-      }
-      a {
-        color: $white;
-      }
-    }
-
-  }
-}
 
 
 // Sections
@@ -177,8 +28,6 @@
 
   }
 }
-
-
 
 
 // Page content
@@ -1622,6 +1471,8 @@ a.table--heading {
     display: none;
   }
 }
+
+
 
 .authentication-tile--input {
   @extend %white-text-input;

@@ -9,15 +9,16 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
 
-*= require partials/_normalize
-*= require partials/_images
-*= require partials/_base
-*= require partials/_matrix
-*= require partials/_content
-*= require partials/_components
-*= require partials/_chosen
-*= require partials/_dc
-*= require partials/_video_js
+ *= require partials/_normalize
+ *= require partials/_base
+ # require partials/_content
+ *= require partials/_components
+ *= require partials/_components_page
+ *= require partials/_components_matrix
 
- */
+ *= require partials/_chosen
+ *= require partials/_dc
+ *= require partials/_video_js
+
+*/
 
