@@ -1,12 +1,12 @@
-<nav class="drop-button drop-button-secondary" data-behavior="dropdown">
-  <a class="drop-button--toggle" data-behavior="toggle" href="#" style="cursor: pointer;">
+<nav class="drop-nav-secondary" data-behavior="dropdown">
+  <a class="gray-button" data-behavior="toggle" href="#" style="cursor: pointer;">
     <% if local_assigns.fetch :subheader, nil %>
       <%= subheader %>
     <% else %>
       Select an Action
     <% end %>
   </a>
-  <div class="drop-nav--dropdown" data-behavior="dropdown-options">
+  <div class="drop-nav-secondary--dropdown" data-behavior="dropdown-options">
     <ul>
       <li><%= link_to 'User Overview', admin_user_path(user) %></li>
       <li><%= link_to 'Edit User Properties', edit_admin_user_path(user) %></li>

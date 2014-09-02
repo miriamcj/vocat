@@ -34,11 +34,11 @@ input%proto-button {
 
 %gray-button {
   @extend %teal-button;
-  background-color: $newGrayBrown;
+  background-color: $newGrayMedium;
   color: $white !important;
   border: 0;
-  &:hover, &:focus {
-    background-color: darken($newGrayBrown, 10%);
+  .open &, &:hover, &:focus {
+    background-color: darken($newGrayMedium, 10%);
   }
 }
 

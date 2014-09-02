@@ -761,7 +761,7 @@
     width: 1.8rem;
     height: 0.9rem;
     position: absolute;
-    top: 1.3rem;
+    top: 1.1rem;
     right: -2.8rem;
   }
   &:hover,
@@ -774,60 +774,30 @@
   }
 }
 
-%dropdown-toggle-secondary {
-  @extend %dropdown-toggle;
-}
-
-//%dropdown-toggle-dark {
-//  @extend %dropdown-toggle;
-//  background-color: $grayDarkest;
-//}
-//
-//// NB make sure your dropdown matches your toggle, as they say
-//%dropdown-toggle-teal {
-//  @extend %dropdown-toggle;
-//  color: $beigeLight;
-//  background-color: $tealMedium;
-//  &:after {
-//    @include svg(arrow-down-beigeLight);
-//  }
-//  &:hover,
-//  .open & {
-//    color: $beigeLight;
-//    background-color: darken($tealMedium, 5%);
-//    &:after {
-//      @include svg(arrow-down-beigeLight);
-//    }
-//  }
-//}
-
 %dropdown {
   display: none;
   min-width: 100%;
   padding: 1.8rem 2rem;
   margin-top: 2rem;
   position: absolute;
-  top: 3.3rem;
-  max-height: 0px;
-  overflow: hidden;
+  top: 2rem;
   left: 0;
   z-index: 350;
-  background: $newGrayDark;
+  color: $white;
+  background: darken($newGrayMedium, 10%);
   @include opacity(50);
   &:before {
-    border-radius: $radius * 2;
     content: "";
     display: block;
     width: 0;
     height: 0;
     border-right: 1.5rem solid transparent;
     border-left: 1.5rem solid transparent;
-    border-bottom: 1.5rem solid darken($newGrayDark, 3%);
+    border-bottom: 1.5rem solid darken($newGrayMedium, 10%);
     position: absolute;
     top: -1.5rem;
     // TODO adjust
-    right: 4rem;
-    left: auto;
+    left: 4rem;
   }
   ul {
     padding: 0;
@@ -835,7 +805,7 @@
   }
   li + li {
     padding-top: 1.1rem;
-    border-top: 0.1rem solid $grayDark;
+    border-top: 0.1rem solid $white;
     margin-top: 1rem;
   }
   a {
@@ -844,39 +814,23 @@
     display: block;
     white-space: pre;
     line-height: 1;
-    color: $grayLighter;
+    color: $white;
     small {
-      color: $grayDark;
+      color: $white;
     }
     &:hover,
     &.active {
-      color: $newTealMedium;
+      color: $newTealMedium !important;
     }
   }
   .open & {
     display: block;
     opacity: 1;
-    max-height: 500px;
   }
 }
 
 %dropdown-gray {
   @extend %dropdown;
-  color: $white;
-  background-color: $newGrayMedium;
-  &:before {
-    border-bottom-color: darken($tealMedium, 10%);
-  }
-  li + li {
-    border-top-color: transparentize($beigeLight, 0.5);
-  }
-  a {
-    color: $beigeLight;
-    &:hover,
-    &.active {
-      color: $beigeLight;
-    }
-  }
 }
 
 %dropdown-right {
@@ -885,7 +839,6 @@
   right: 0;
   left: auto;
   &:before {
-    // TODO adjust
     right: 4rem;
     left: auto;
   }
