@@ -22,13 +22,13 @@ define ['jquery_rails', './plugins', 'vendor/plugins/chosen'], ($) ->
         #$('.container').css('min-height', $(window).innerHeight() - $('.page-header').height() - 35)
 
         $('[data-behavior="drawer-trigger"]').drawerTrigger()
-
         $('[data-behavior="dropdown"]').dropdownNavigation()
-        #$('[data-behavior="sticky-header"]').stickyHeader()
-        $('[data-behavior="shortcut-nav-toggle"]').shortcutNavigation()
-        $('[data-behavior="help-overlay-toggle"]').helpOverlay()
         $('[data-behavior="chosen"]').chosen({
           disable_search_threshold: 1000,
           allow_single_deselect: true
         })
+
+        #$('[data-behavior="sticky-header"]').stickyHeader()
+        #$('[data-behavior="shortcut-nav-toggle"]').shortcutNavigation()
+        #$('[data-behavior="help-overlay-toggle"]').helpOverlay()
   }

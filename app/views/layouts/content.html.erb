@@ -1,14 +1,14 @@
 <% content_for :content do %>
 
-  <header class="bar-header">
-    <h2 class="bar-header--title"><%= yield :content_header %></h2>
-    <%= yield :content_header_links %>
-  </header>
+  <div class="page-content">
+    <div class="page-content--header">
+      <div class="page-content--header-buttons"><%= yield :content_header_links %></div>
+      <h2 class="header-primary"><%= yield :content_header %></h2>
+    </div>
 
-  <div class="page-content--frame">
     <%= render 'layouts/messages' %>
     <%= yield :content_intro %>
-    <%= yield :content_frames %>  
+    <%= yield :content_frames %>
   </div>
 
 

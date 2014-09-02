@@ -27,7 +27,7 @@ html {
 
 body {
 	@include font-body;
-	@include font-size(17);
+	@include font-size(16);
 	font-weight: $regular;
 	line-height: $baseLineHeight;
 	color: $bodyTypeColor ;
@@ -96,8 +96,8 @@ hr {
 // --------------------------
 a {
 	// @extend %fade-color;
-	text-decoration: none;
-	color: $white;
+	text-decoration: underline;
+	color: $bodyTypeColor;
 	&:hover {
     color: $newTealMedium;
 	}

@@ -1,0 +1,552 @@
+// Buttons & pills
+// --------------------------
+// To be read in your best Werner Herzog voice:
+// "The notion from which all other buttons
+// derive; almost a form of proto-button"
+%proto-button {
+  @extend %heading-gamma-sub;
+  @extend %bare-focus;
+  @extend %bare-link;
+  display: inline-block;
+  line-height: 1;
+  padding-right: 1.2rem;
+  padding-left: 1.2rem;
+  color: $white !important;
+}
+
+// Psuedoelements don't stick to <input>s, so we
+// need to remove the right padding in those cases
+input%proto-button {
+  @extend %reset-input;
+  padding-right: 1.2rem;
+}
+
+%teal-button {
+  @extend %proto-button;
+  background-color: $newTealMedium;
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+  border: 0;
+  &:hover, &:focus {
+    background-color: darken($newTealMedium, 10%);
+  }
+}
+
+%gray-button {
+  @extend %teal-button;
+  background-color: $newGrayBrown;
+  color: $white !important;
+  border: 0;
+  &:hover, &:focus {
+    background-color: darken($newGrayBrown, 10%);
+  }
+}
+
+%dark-button {
+  @extend %teal-button;
+  color: $newGrayLightest;
+  background-color: $newGrayDark;
+  &:hover, &:focus {
+    background-color: darken($newGrayDark, 10%);
+  }
+}
+
+%large-teal-button {
+  @extend %teal-button;
+  @extend %proto-large-button;
+}
+
+%large-gray-button {
+  @extend %gray-button;
+  @extend %proto-large-button;
+}
+
+%large-dark-button {
+  @extend %dark-button;
+  @extend %proto-large-button;
+}
+
+%teal-arrow-button {
+  @extend %teal-button;
+  @extend %proto-large-button;
+  padding-right: 3.7rem;
+  position: relative;
+  &:after {
+    @include svg(circle-arrow-right-beigeLight);
+    content: "";
+    display: block;
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+    top: 0.6rem;
+    right: 0.9rem;
+    @include newIE {
+      width: 2.3rem;
+      height: 2.3rem;
+      top: 0.4em;
+    }
+  }
+}
+
+%teal-plus-button {
+  @extend %teal-arrow-button;
+  &:after {
+    @include svg(circle-plus);
+  }
+}
+
+%teal-minus-button {
+  @extend %teal-arrow-button;
+  &:after {
+    @include svg(circle-minus);
+  }
+}
+
+%small-teal-plus-button {
+  @extend %teal-button;
+  padding-top: 0.6rem;
+  padding-right: 3.4rem;
+  padding-bottom: 0.6rem;
+  position: relative;
+  &:after {
+    @include svg(circle-plus);
+    content: "";
+    display: block;
+    width: 1.8rem;
+    height: 1.8rem;
+    position: absolute;
+    top: 0.3rem;
+    right: 0.9rem;
+    @include newIE {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+}
+
+%small-teal-minus-button {
+  @extend %small-teal-plus-button;
+  &:after {
+    @include svg(circle-minus);
+  }
+}
+
+%small-teal-arrow-button {
+  @extend %small-teal-plus-button;
+  &:after {
+    @include svg(circle-arrow-right-beigeLight);
+  }
+}
+
+%small-teal-arrow-down-button {
+  @extend %small-teal-plus-button;
+  &:after {
+    @include svg(circle-arrow-down-beigeLight);
+  }
+}
+
+%small-teal-arrow-up-button {
+  @extend %small-teal-plus-button;
+  &:after {
+    @include svg(circle-arrow-up-beigeLight);
+  }
+}
+
+%teal-circle-arrow-up-button,
+%teal-circle-arrow-down-button {
+  @extend %teal-button;
+  width: 2.8rem;
+  height: 2.8rem;
+  text-indent: -400em;
+  padding: 0;
+  position: relative;
+  top: -.2rem;
+  &:after {
+    content: "";
+    display: block;
+    width: 1.8rem;
+    height: 1.8rem;
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+  }
+  @include newIE {
+    &:after {
+      width: 20px;
+      height: 20px;
+      top: 7px;
+      left: 7px;
+    }
+  }
+}
+
+%teal-circle-arrow-down-button {
+  &:after {
+    @include svg(circle-arrow-down-beigeLight);
+  }
+}
+
+%teal-circle-arrow-up-button {
+  &:after {
+    @include svg(circle-arrow-up-beigeLight);
+  }
+}
+
+%gray-ex-button {
+  @extend %teal-arrow-button;
+  &:after {
+    @include svg(circle-x-beigeLight);
+  }
+  &:hover, &:focus {
+    background-color: darken($beigeDark, 12%);
+  }
+}
+
+// This is $grayDark by default
+%check-button {
+  @extend %gray-button;
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+  padding-left: 3.4rem;
+  position: relative;
+  &:after {
+    @include svg(checkbox-unchecked-grayLighter);
+    content: "";
+    display: block;
+    width: 1.6rem;
+    height: 1.6rem;
+    position: absolute;
+    top: 0.4rem;
+    left: 0.9rem;
+    @include newIE {
+      width: 1.8rem;
+      height: 1.8rem;
+    }
+  }
+  &:hover, &:focus {
+    &:after {
+      @include svg(checkbox-unchecked-beigeLight);
+    }
+  }
+  &.active {
+    &:after {
+      @include svg(checkbox-grayLighter);
+    }
+    &:hover {
+      &:after {
+        @include svg(checkbox-beigeLight);
+      }
+    }
+  }
+}
+
+%large-check-button {
+  @extend %check-button;
+  @extend %proto-large-button;
+  padding-left: 3.6rem;
+  &:after {
+    width: 1.8rem;
+    height: 1.8rem;
+    top: 0.7rem;
+    left: 0.9rem;
+    @include newIE {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+}
+
+%gray-check-button {
+  @extend %check-button;
+  color: $beigeLight;
+  background-color: $beigeDark;
+  &:after {
+    @include svg(checkbox-unchecked-beigeLight);
+  }
+  &:hover, &:focus {
+    background-color: darken($beigeDark, 10%);
+  }
+  &.active {
+    &:after {
+      @include svg(checkbox-beigeLight);
+    }
+  }
+}
+
+%teal-check-button {
+  @extend %gray-check-button;
+  background-color: $tealLight;
+  &:hover, &:focus {
+    background-color: $tealMedium;
+  }
+}
+
+%large-gray-check-button {
+  @extend %gray-check-button;
+  @extend %large-check-button;
+}
+
+%large-teal-check-button {
+  @extend %teal-check-button;
+  @extend %large-check-button;
+}
+
+// Extended by all large button patterns
+// Lives down here so it will be respected
+%proto-large-button {
+  padding-top: 0.9rem;
+  padding-bottom: 1rem;
+}
+
+// Not for use on <a>s; use %white-button for those
+%white-pill {
+  @extend %heading-epsilon;
+  display: inline-block;
+  color: $tealLighter;
+  line-height: 1;
+  letter-spacing: 0;
+  background-color: $beigeLight;
+  // TODO adjust once comps have arrived
+  padding: 1rem;
+  border-radius: 3.4rem;
+  cursor: default;
+}
+
+%white-button {
+  @extend %white-pill;
+  @extend %bare-link;
+  &:hover, &:focus {
+    color: $beigeLight;
+    background-color: $orange;
+  }
+}
+
+%white-play-button {
+  @extend %white-button;
+  //  width: 5em;
+  //  height: 5em;
+  padding: 1rem;
+  cursor: pointer;
+  &:after {
+    @include svg(play);
+    content: "";
+    display: block;
+    width: 5rem;
+    height: 5rem;
+    //	position: absolute;
+    //	top: 0.5rem;
+    //	bottom: 0.5rem;
+    //	left: 0.5rem;
+  }
+
+}
+
+%white-video-button {
+  @extend %white-button;
+  padding: 1rem 0.7rem 1rem 3.3rem;
+  position: relative;
+  cursor: pointer;
+  &:after {
+    @include svg(play-slash);
+    content: "";
+    display: block;
+    width: 2.3rem;
+    height: 2.3rem;
+    position: absolute;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    left: 0.5rem;
+  }
+  &:hover {
+    &:after {
+      @include svg(play-slash-beigeLight);
+    }
+  }
+  &.loading {
+    &:hover {
+      color: $tealLighter;
+      background-color: $beigeLight;
+    }
+    &:after {
+      background: transparent url(image-path('spinner-tealLight.png')) no-repeat left top;
+      background-size: 100%;
+    }
+  }
+  @include newIE {
+    letter-spacing: -0.05em;
+    &:after {
+      width: 2.4rem;
+      height: 2.4rem;
+    }
+  }
+}
+
+%solid-ex-button {
+  @include opacity(82);
+  @include svg(circle-x-gray);
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  @include newIE {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+}
+
+// NB uses ems so font-size can be set on component
+%arrow-link {
+  @extend %bare-link;
+  display: inline-block;
+  color: $teal;
+  padding: 0.2em 2.2em 0.3em 0;
+  margin-right: 1.6rem;
+  position: relative;
+  &:after {
+    @include svg(circle-arrow-right-teal);
+    content: "";
+    display: block;
+    width: 1.5em;
+    height: 1.5em;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  &:hover, &:focus {
+    color: $orange;
+    &:after {
+      @include svg(circle-arrow-right-orange);
+    }
+  }
+}
+
+%left-arrow-link {
+  @extend %arrow-link;
+  padding: 0.2em 0 0.3em 2em;
+  &:after {
+    @include svg(circle-arrow-left-teal);
+    left: 0;
+  }
+  &:hover, &:focus {
+    &:after {
+      @include svg(circle-arrow-left-orange);
+    }
+  }
+}
+
+%arrow-link-beige {
+  @extend %arrow-link;
+  color: $beigeLight;
+  &:after {
+    @include svg(circle-arrow-right-beige);
+  }
+}
+
+%arrow-link-beige-light {
+  @extend %arrow-link;
+  color: $beigeLight;
+  &:after {
+    @include svg(circle-arrow-right-beigeLight);
+  }
+}
+
+%bent-arrow-link {
+  @extend %arrow-link;
+  margin-top: 2.3rem;
+  &:after {
+    @include svg(circle-arrow-bent-teal);
+  }
+  &:hover, &:focus {
+    color: $orange;
+    &:after {
+      @include svg(circle-arrow-bent-orange);
+    }
+  }
+}
+
+%minus-link {
+  @extend %arrow-link-beige-light;
+  &:after {
+    @include svg(circle-minus);
+  }
+  &:hover, &:focus {
+    &:after {
+      @include svg(circle-minus-orange);
+    }
+  }
+}
+
+%ex-link {
+  @extend %arrow-link;
+  &:after {
+    @include svg(circle-x-teal);
+  }
+  &:hover, &:focus {
+    &:after {
+      @include svg(circle-x-orange);
+    }
+  }
+}
+
+// No text, just an ex in a circle
+%bare-ex-link {
+  @extend %hidden-text;
+  display: inline-block;
+  width: 3.2rem;
+  height: 3.2rem;
+  position: relative;
+  &:after {
+    @include svg(circle-x-tealMedium);
+    content: "";
+    display: block;
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+    top: 0.6rem;
+    left: 0.6rem;
+    @include newIE {
+      width: 2.3rem;
+      height: 2.3rem;
+    }
+  }
+  &:hover, &:focus {
+    &:after {
+      @include svg(circle-x-orange);
+    }
+  }
+}
+
+// Not just for links!
+// NB uses ems so font-size can be set on component
+%check-indicator {
+  @extend %bare-link;
+  display: inline-block;
+  color: $teal;
+  padding: 0.5em 2.6em 0.6em 0;
+  position: relative;
+  &:before {
+    content: "";
+    display: block;
+    width: 1.9em;
+    height: 1.9em;
+    background-color: $tealLighter;
+    border-radius: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  &.active {
+    &:before {
+      background-color: $tealLight;
+    }
+    &:after {
+      @include svg(check-beigeLight);
+      content: "";
+      display: block;
+      width: 1.4rem;
+      height: 1.1rem;
+      position: absolute;
+      top: 0.55em;
+      right: 0.4em;
+    }
+  }
+}

@@ -14,7 +14,11 @@
  # require partials/_content
  *= require partials/_components
  *= require partials/_components_page
+ *= require partials/_components_table
+ *= require partials/_components_button
+ *= require partials/_components_form
  *= require partials/_components_matrix
+ *= require partials/_components_navigation
 
  *= require partials/_chosen
  *= require partials/_dc

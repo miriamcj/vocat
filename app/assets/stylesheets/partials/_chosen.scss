@@ -17,6 +17,9 @@
   *display: inline;
   -webkit-user-select: none;
   -moz-user-select: none;
+  border-top: 1px solid $newGrayMedium;
+  border-bottom: 1px solid $newGrayMedium;
+
   user-select: none;
 }
 .chosen-container .chosen-drop {
@@ -29,7 +32,6 @@
   box-sizing: border-box;
   width: 100%;
   background-color: $white;
-  border-radius: 0 0 $radius $radius;
 }
 .chosen-container.chosen-with-drop .chosen-drop {
   left: 0;
@@ -43,16 +45,18 @@
 .chosen-container-single .chosen-single {
   display: block;
   height: 3.2rem;
-  color: $grayDark;
+  color: $newGrayDark;
   line-height: 3.2rem;
   text-decoration: none;
   background-color: $white;
   padding: 0 0 0 1.1rem;
-  border-radius: $radius;
   overflow: hidden;
   white-space: nowrap;
   position: relative;
+  border-left: 1px solid $newGrayMedium;
+  border-right: 1px solid $newGrayMedium;
 }
+
 .chosen-container-single .chosen-single span {
   display: block;
   overflow: hidden;
@@ -78,6 +82,8 @@
 .chosen-container-single .chosen-drop {
   margin-top: -1px;
   background-clip: padding-box;
+  border: 1px solid $newGrayMedium;
+  border-top: 0px;
 }
 .chosen-container-single.chosen-container-single-nosearch .chosen-search {
   position: absolute;
@@ -113,7 +119,7 @@
   padding: 0.5rem 0;
   list-style: none;
   line-height: 1;
-  color: $grayDark;
+  color: $newGrayDark;
 }
 .chosen-container .chosen-results li.active-result {
   display: list-item;
@@ -124,13 +130,13 @@
   cursor: default;
 }
 .chosen-container .chosen-results li.highlighted {
-  color: $orange;
+  color: $newTealMedium;
 }
 .chosen-container .chosen-results li.group-result {
   @extend %heading-epsilon;
   display: list-item;
-  color: $grayLight;
-  border-bottom: 0.1rem solid transparentize($grayLightest, 0.25);
+  color: $newGrayDark;
+  border-bottom: 0.1rem solid transparentize($newGrayMedium, 0.25);
   margin: 0.5rem 0 0.4rem;
   cursor: default;
   &:first-child {
@@ -146,18 +152,16 @@
 /* @group Active  */
 .chosen-container-active.chosen-with-drop .chosen-single {
   @include box-shadow(none);
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
 }
 .chosen-container-active.chosen-with-drop .chosen-single span {
-  color: $orange;
+  color: $newTealMedium;
 }
 .chosen-container-active.chosen-with-drop .chosen-single div {
   border-left: none;
   background: transparent;
 }
 .chosen-container-active.chosen-with-drop .chosen-single div b {
-  @include svg(arrow-down-orange);
+  @include svg(arrow-down-grayDark);
 }
 /* @end */
 

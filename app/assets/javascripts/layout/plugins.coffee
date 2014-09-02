@@ -1,5 +1,7 @@
 define ['vendor/plugins/waypoints', 'jquery_rails'], (waypoints, $) ->
 
+
+
   ##########################################
   # Drawer Navigation Plugin
   ##########################################
@@ -15,16 +17,23 @@ define ['vendor/plugins/waypoints', 'jquery_rails'], (waypoints, $) ->
         $shield = $('<div class="page-shield"></div>')
         $shield.height($('body').height())
         $body.prepend($shield)
-
         $body.addClass('drawer-open')
         $shield.show()
 
       close = () ->
         $body.removeClass('drawer-open')
-        $shield.detach()
+        if $shield?
+          $shield.detach()
+
+      handleClick = () ->
+        if $body.hasClass('drawer-open')
+          close()
+        else
+          open()
 
       $trigger.click( (event) ->
         event.stopPropagation()
+        handleClick()
       )
 
       $drawer.click( (event) ->
@@ -32,13 +41,9 @@ define ['vendor/plugins/waypoints', 'jquery_rails'], (waypoints, $) ->
       )
 
       $(document).click ->
-        close()
-
-      $trigger.click ->
         if $body.hasClass('drawer-open')
           close()
-        else
-          open()
+
 
   ##########################################
   # Dropdown Navigation Plugin

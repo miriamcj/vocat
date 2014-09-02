@@ -7,8 +7,15 @@ $newTeal: #3CC6BC;
 $newTealMedium: #3DC7BD;
 $newTealDark: #0AB0A9;
 $newBeigeLight: #F8F8F8;
+
+
+$newGrayLightest: #F8F8F8;
+$newGrayLight: #D9D8D8;
+$newGrayMedium: #9D9FA1;
 $newGrayDark: #4C4C4E;
-$newGrayStroke: #9D9FA1;
+
+$newGrayBrown: #A19594;
+
 $white: #FFFFFF;
 
 $bodyTypeColor: $newGrayDark;
@@ -81,9 +88,15 @@ $usage: closed;
 
 // Font Weights
 // --------------------------
+$light: 300 !default;
 $regular: 400 !default;
 $medium: 500 !default;
+$semibold: 600 !default;
 $bold: 700 !default;
+
+
+
+
 
 @if $usage == open {
   $regular: 400;
