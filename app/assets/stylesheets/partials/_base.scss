@@ -1,14 +1,14 @@
-@import "partials/variables";
-@import "partials/mixins";
-@import "partials/patterns";
-
+@import "variables";
+@import "mixins";
 
 // Base
 // ----
 
 // Applies a natural box layout model to all the things
-* {
-	@include box-sizing(border-box);
+*,
+*:before,
+*:after {
+  @include box-sizing(border-box);
 }
 
 // Sets text selection background color
@@ -17,124 +17,155 @@
 // Global
 // --------------------------------------------------------
 html {
-	font-size: 62.5%;
-	-webkit-text-size-adjust: 100%;
-	-moz-text-size-adjust: 100%;
-	-ms-text-size-adjust: 100%;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+  // 18px
+  font-size: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  // Sadly, this occasionally causes width:auto elements to break to multiple lines in Chrome
+  // It seems that the width of the element is computed prior to kerning
+  // https://code.google.com/p/chromium/issues/detail?id=189755
+  // text-rendering: optimizeLegibility;
 }
 
 body {
-	@include font-body;
-	@include font-size(16);
-	font-weight: $regular;
-	line-height: $baseLineHeight;
-	color: $bodyTypeColor ;
-	overflow-x: hidden;
-}
-
-// <html> classes
-// --------------------------
-.authentication {
-	background-color: $beigeLight;
+  @include font-body;
+  font-size: 1em;
+  font-weight: 400;
+  line-height: $baseLineHeight;
+  color: $grayDark;
+  background-color: $offWhite;
+  // When primary nav is open, disable scrolling
+  // TODO get this working on iOS
+  &.no-scroll {
+    overflow: hidden;
+  }
+  .touch &{
+    &.no-scroll{
+      position: fixed;
+      width: 100%;
+    }
+  }
+  .no-mediaqueries & {
+    min-width: $michigan;
+  }
+  // Fade everything in once Typekit fonts load
+  // TODO make sure this doesn't break anything in the RTE
+  @include transition($fastTransition opacity $timing);
+  // Fade everything in if the fonts haven't loaded after two seconds
+  @include animation($fastTransition fade-in 2s forwards);
+  opacity: 0;
+  .no-js &,
+  .wf-active &,
+  &.mceContentBody {
+    // If the fonts load in less than two seconds or if javascript is not available, prevent
+    // the fallback animation from firing
+    @include animation(none);
+    opacity: 1;
+  }
 }
 
 // Typography
 // --------------------------------------------------------
 // Block-level elements
 // --------------------------
+%proto-heading {
+  line-height: 1;
+  margin: 0;
+}
+
 h1 {
-	@extend %heading;
-	@extend %giga;
+  @extend %proto-heading;
+  font-size: $alpha;
 }
 
 h2 {
-	@extend %heading;
-	@extend %beta;
+  @extend %proto-heading;
+  font-size: $beta;
 }
 
 h3 {
-	@extend %heading;
-	@extend %gamma;
+  @extend %proto-heading;
+  font-size: $gamma;
 }
 
 h4 {
-	@extend %heading;
-	@extend %delta;
+  @extend %proto-heading;
+  font-size: $delta;
 }
 
 h5 {
-	@extend %heading;
-	@extend %epsilon;
+  @extend %proto-heading;
+  font-size: $epsilon;
 }
 
 h6 {
-	@extend %heading;
-	@extend %epsilon;
+  @extend %proto-heading;
+  font-size: $zeta;
 }
 
 p {
-	margin: 0;
-	& + & {
-		margin-top: $verticalSpace;
-	}
+  margin: 0;
+  & + & {
+    margin-top: $verticalSpace;
+  }
 }
 
 ul,
 ol {
-	// Base list styles
+  margin-bottom: $verticalSpace;
+  p + & {
+    margin-top: $verticalSpace;
+  }
+}
+
+blockquote {
+  font-size: $zeta;
+  line-height: 1.524;
+  padding-left: 2em;
+  margin: 0 0 $verticalSpace;
+  p + & {
+    margin-top: $verticalSpace;
+  }
+  @include respond($superior) {
+    font-size: $eta;
+  }
 }
 
 hr {
-    border: 0;
-    border-top: 2px solid $tealLightest;
-    margin: 0 0 $verticalSpace;
+  display: block;
+  border: 0;
+  border-top: 2px solid $grayDark;
+  margin: 0;
+  padding: 0;
 }
 
 // Inline elements
 // --------------------------
 a {
-	// @extend %fade-color;
-	text-decoration: underline;
-	color: $bodyTypeColor;
-	&:hover {
-    color: $newTealMedium;
-	}
-  &.active {
-    text-decoration: underline;
-    color: $newTealMedium;
+  @include transition($mediumTransition opacity $timing);
+  text-decoration: none;
+  color: inherit;
+  &:hover {
+    opacity: 0.8;
+    &.active,
+    .active > & {
+      opacity: 1;
+    }
+  }
+  &:active {
   }
 }
 
 b {
-	font-weight: $regular;
+  font-weight: $semibold;
 }
 
 strong {
-	font-weight: $bold;
+  font-weight: $bold;
 }
 
-// Editable elements
+// Tables
 // --------------------------
-[contenteditable] {
-	&:hover,
-	&:focus {
-		outline: none;
-	}
-	&:empty {
-		// background-color: $redLight;
-		// This prevents the element from collapsing when empty in firefox
-		&:after {
-			content: '.';
-			color: transparent;
-		}
-	}
-}
-
-// Form elements
-// --------------------------
-select {
-	@extend %bare-focus;
-	margin-bottom: 0.7rem;
+table {
+  width: 100%;
 }

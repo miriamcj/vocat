@@ -1,6 +1,7 @@
-@import "partials/variables";
-@import "partials/mixins";
-@import "partials/patterns";
+@import "partials_off/variables";
+@import "partials_off/mixins";
+@import "partials_off/patterns";
+@import "partials_off/patterns_navigation";
 
 
 
@@ -84,6 +85,7 @@
 	}
   }
 }
+
 
 .drop-nav-right {
   .drop-nav--dropdown {

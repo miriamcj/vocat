@@ -1,0 +1,125 @@
+// Variables
+//----------
+
+// New Variables
+// --------------------------------------------------------
+$newTeal: #3CC6BC;
+$newTealMedium: #3DC7BD;
+$newTealDark: #0AB0A9;
+$newBeigeLight: #F8F8F8;
+
+
+$newGrayLightest: #F8F8F8;
+$newGrayLight: #D9D8D8;
+$newGrayMedium: #9D9FA1;
+$newGrayMedium-alt: #8B8B8B;
+$newGrayDark: #4C4C4E;
+
+$newGrayBrown: #A19594;
+
+$white: #FFFFFF;
+
+$bodyTypeColor: $newGrayDark;
+
+$spacerUnit: 2rem;
+
+
+
+
+// Colors
+// --------------------------------------------------------
+$white: #fff;
+$grayLightest: #d9d8d8;
+$grayLighter: #b3b0b1;
+$grayLight: #9c999a;
+$gray: #8d898a;
+$grayDark: #F3F0E8;
+$grayDarker: #CECECA;
+$grayDarkest: #282627;
+$black: #000;
+
+$beigeLight: #f9f7f7;
+$beigeLightAlt: #f0ecec;
+$beige: #ece7e6;
+$beigeAlt: #ebe6e4;
+$beigeDark: #a19594;
+
+$tealLightest: #b7c2c4;
+$tealLightestAlt: #c6cfd0;
+$tealLighter: #a7b6b8;
+$tealLight: #7f9ea0;
+$tealMedium: #618688;
+$teal: #5f8688;
+
+$orangeLight: #f2926d;
+$orange: #ec632f;
+
+$yellow: #fbeda1;
+
+$blueLight: #c6dfeb;
+
+$redLight: #f9ccd4;
+
+$greenLight: #bfe3c0;
+
+$lessDarker: transparentize($black, 0.82);
+$darker: transparentize($black, 0.54);
+
+// Measurements
+// --------------------------------------------------------
+$mainWidth: 100rem;
+$headerHeight: 5.3rem;
+$subHeaderHeight: 8rem;
+$matrixCellWidth: 20rem;
+$matrixRowHeaderWidth: 23.2rem;
+$matrixOverlayWidth: $mainWidth - $matrixRowHeaderWidth;
+
+$baseLineHeight: 1.2;
+$verticalSpace: $baseLineHeight * 1em;
+
+$radius: 0.5rem;
+
+// Typography
+// --------------------------------------------------------
+// $usage can be set to either 'open' or 'closed'
+// 'open' will replace typefaces with their open source
+// counterparts (in _fonts.scss) and adjust parameters accordingly
+$usage: closed;
+// $usage: open;
+
+// Font Weights
+// --------------------------
+$light: 300 !default;
+$regular: 400 !default;
+$medium: 500 !default;
+$semibold: 600 !default;
+$bold: 700 !default;
+
+
+
+
+
+@if $usage == open {
+  $regular: 400;
+  $medium: 600;
+  $bold: 700;
+}
+
+$mediumTransition: 0.5s;
+$fastTransition: 0.2s;
+$timing: ease;
+
+// Offsets
+// TODO adjust these once closed fonts are real; they might not be necessary, depending on final fonts
+// --------------------------
+$offset: 0 !default;
+
+@if $usage == open {
+  $offset: 0.1rem;
+}
+
+// Responsive breakpoints
+// --------------------------------------------------------
+// $screenNarrow: 480px;
+// $screenMedium: 610px;
+// $screenWide: 720px;

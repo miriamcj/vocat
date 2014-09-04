@@ -1,0 +1,27 @@
+// Project specific mixins
+// -----------------------
+
+// Fonts
+// --------------------------
+@mixin font-body {
+  font-family: "proxima-nova", "Helvetica Neue", Arial, sans-serif;
+}
+
+@mixin font-head {
+  font-family: "proxima-nova-condensed", "Helvetica Neue", Arial, sans-serif;
+  // This activates the alternate 'm' glyph
+  // -webkit-font-feature-settings: "ss06" on;
+  // -moz-font-feature-settings: "ss06" on;
+  // font-feature-settings: "ss06" on;
+}
+
+// Detect IE10
+// --------------------------
+@mixin newIE {
+  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    @content;
+  }
+  .ie9 & {
+    @content;
+  }
+}

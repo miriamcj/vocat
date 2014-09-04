@@ -1,125 +1,115 @@
 // Variables
 //----------
 
-// New Variables
-// --------------------------------------------------------
-$newTeal: #3CC6BC;
-$newTealMedium: #3DC7BD;
-$newTealDark: #0AB0A9;
-$newBeigeLight: #F8F8F8;
-
-
-$newGrayLightest: #F8F8F8;
-$newGrayLight: #D9D8D8;
-$newGrayMedium: #9D9FA1;
-$newGrayMedium-alt: #8B8B8B;
-$newGrayDark: #4C4C4E;
-
-$newGrayBrown: #A19594;
-
-$white: #FFFFFF;
-
-$bodyTypeColor: $newGrayDark;
-
-$spacerUnit: 2rem;
-
-
-
-
 // Colors
 // --------------------------------------------------------
 $white: #fff;
-$grayLightest: #d9d8d8;
-$grayLighter: #b3b0b1;
-$grayLight: #9c999a;
-$gray: #8d898a;
-$grayDark: #F3F0E8;
-$grayDarker: #CECECA;
-$grayDarkest: #282627;
-$black: #000;
+$whiteTransparent: transparentize(#fff, 0.25);
+$offWhite: #fafafa;
 
-$beigeLight: #f9f7f7;
-$beigeLightAlt: #f0ecec;
-$beige: #ece7e6;
-$beigeAlt: #ebe6e4;
-$beigeDark: #a19594;
+$grayLightest: #F8F8F8;
+$grayLight: #D9D8D8;
+$grayMedium: #9D9FA1;
+$grayMedium-alt: #8B8B8B;
+$grayDark: #4D4D4F;
 
-$tealLightest: #b7c2c4;
-$tealLightestAlt: #c6cfd0;
-$tealLighter: #a7b6b8;
-$tealLight: #7f9ea0;
-$tealMedium: #618688;
-$teal: #5f8688;
 
-$orangeLight: #f2926d;
-$orange: #ec632f;
+$black: #000000;
 
-$yellow: #fbeda1;
 
-$blueLight: #c6dfeb;
 
-$redLight: #f9ccd4;
+$highlightLight: #3CC6BC;
+$highlightDark: #0AB0A9;
 
-$greenLight: #bfe3c0;
 
-$lessDarker: transparentize($black, 0.82);
-$darker: transparentize($black, 0.54);
+
+// Typographic hierarchy
+// --------------------------------------------------------
+// 60px
+$alpha: 3.75em;
+// 48px
+$beta: 3em;
+// 36px
+$gamma: 2.25em;
+// 28px
+$delta: 1.75em;
+// 24px
+$epsilon: 1.5em;
+// 21px
+$zeta: 1.313em;
+// 18px
+$eta: 1.125em;
+// 16px (body)
+$theta: 1em;
+// 14px
+$iota: 0.875em;
+// 13px
+$kappa: 0.813em;
+// 12px
+$lambda: 0.750em;
 
 // Measurements
 // --------------------------------------------------------
-$mainWidth: 100rem;
-$headerHeight: 5.3rem;
-$subHeaderHeight: 8rem;
-$matrixCellWidth: 20rem;
-$matrixRowHeaderWidth: 23.2rem;
-$matrixOverlayWidth: $mainWidth - $matrixRowHeaderWidth;
+$containerWidth: 1200px;
+$minContainerWidth: 318px;
+$headerHeight: 60px;
+$headerUnitWidth: 82px;
+$navWidth: 240px;
+$tabWidth: 100 / 6 * 1%;
+$mapWidth: 832px;
 
-$baseLineHeight: 1.2;
+$baseLineHeight: .65;
 $verticalSpace: $baseLineHeight * 1em;
+$contentSpace: 2.778em;
+$listSpace: .8em;
 
-$radius: 0.5rem;
+$fluidUnitPadding: 4vw;
+$unitPadding: 48px;
+$mediumUnitPadding: 30px;
+$narrowUnitPadding: 13px;
+$headerUnitPadding: 21px;
 
-// Typography
-// --------------------------------------------------------
-// $usage can be set to either 'open' or 'closed'
-// 'open' will replace typefaces with their open source
-// counterparts (in _fonts.scss) and adjust parameters accordingly
-$usage: closed;
-// $usage: open;
+$contentUnitPadding: 2.75%;
+$formPadding: 2%;
 
-// Font Weights
-// --------------------------
-$light: 300 !default;
-$regular: 400 !default;
-$medium: 500 !default;
-$semibold: 600 !default;
-$bold: 700 !default;
+$iconSizeSmall: 10px;
+$iconSizeMedium: 14px;
 
 
 
-
-
-@if $usage == open {
-  $regular: 400;
-  $medium: 600;
-  $bold: 700;
-}
-
+// $slowTransition: ;
 $mediumTransition: 0.5s;
 $fastTransition: 0.2s;
 $timing: ease;
 
-// Offsets
-// TODO adjust these once closed fonts are real; they might not be necessary, depending on final fonts
-// --------------------------
-$offset: 0 !default;
 
-@if $usage == open {
-  $offset: 0.1rem;
-}
+// Font Weights
+// --------------------------------------------------------
+$thin: 200;
+$book: 300;
+$regular: 400;
+$semibold: 600;
+$bold: 700;
+$extrabold: 800;
+$heavy: 900;
 
 // Responsive breakpoints
+// https://en.wikipedia.org/wiki/List_of_lakes_by_area
 // --------------------------------------------------------
-// $screenNarrow: 480px;
-// $screenMedium: 610px;
-// $screenWide: 720px;
+// NB these values are subject to adjustment
+$superior: $containerWidth;
+$michigan: 1080px;
+$baikal: 960px;
+$ontario: 767px;
+$ladoga: 600px;
+$vostok: 446px;
+$onega: $minContainerWidth;
+
+// Z-index schema
+// 600-699: Overlays, modals, and lightboxes
+// 500-599: Drawer
+// 400-499: Page header
+// 300-399: Click Shield
+// 200-299: Fixed position components
+// 100-199: Page content
+// 0 - 99: Primary nav

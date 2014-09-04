@@ -3,65 +3,61 @@
   <div class="page-header--navigation-wrapper">
     <div class="page-header--navigation">
       <nav class="page-header--logo-nav">
-        <%= link_to image_tag("logo-vocat-light.png", :alt => "VOCAT"), dashboard_path %>
-      </nav>
-
-      <nav class="page-header--user-nav" data-behavior="dropdown">
-        <div class="user-nav--avatar">
-          <%= image_tag avatar_url(current_user, 53), :alt => current_user.name %>
-        </div>
-        <% if user_signed_in? %>
-          <a class="user-nav--toggle" data-behavior="toggle" href="#"><%= current_user.name %></a>
-          <div class="user-nav--dropdown" data-behavior="dropdown-options">
-            <ul>
-              <li>
-                <%= link_to(current_user.email, edit_user_registration_path) %>
-              </li>
-              <li>
-                <%= link_to('Log out', destroy_user_session_path, :method=>'delete') %>
-              </li>
-            </ul>
-          </div>
-        <% else %>
-          <%= link_to('Sign up', new_user_registration_path)  %>
-          <%= link_to('Log in', new_user_session_path)  %>
-        <% end %>
+        <%= link_to image_tag("png/logo.png", :alt => "VOCAT"), dashboard_path %>
       </nav>
 
       <nav class="drawer-nav--trigger" data-behavior="drawer-trigger">
         <span></span>
-          <% case @app_section
+        <% case @app_section
              when 'course' %><%= @selected_course %>
-          <% when 'admin' %> <%= 'Admin' %>
+        <% when 'admin' %> <%= 'Admin' %>
           <% when 'dashboard' %><%= 'Dashboard' %>
-          <% end %>
+        <% end %>
       </nav>
+
+      <nav class="page-header--user-nav user-nav" data-behavior="dropdown">
+        <% if user_signed_in? %>
+        <a class="user-nav--toggle" data-behavior="toggle" href="#">
+          <span><%= current_user.name %></span>
+          <%= image_tag avatar_url(current_user, 60), :alt => current_user.name %></a>
+        <div class="user-nav--dropdown" data-behavior="dropdown-options">
+          <ul>
+            <li>
+              <%= link_to(current_user.email, edit_user_registration_path) %>
+            </li>
+            <li>
+              <%= link_to('Log out', destroy_user_session_path, :method=>'delete') %>
+            </li>
+          </ul>
+        </div>
+        <% end %>
+      </nav>
+
+
     </div>
   </div>
 
   <div class="page-header--drawer">
     <div class="drawer--contents">
-      <div class="drawer--contents-column drawer--contents-left">
-        <ul>
-          <% case @app_section
-               when 'course' %><%= render 'layouts/_navigation_course' %>
-          <% when 'admin' %><%= render 'layouts/navigation_admin' %>
-          <% end %>
+      <ul>
+        <% case @app_section
+             when 'course' %><%= render 'layouts/_navigation_course' %>
+        <% when 'admin' %><%= render 'layouts/navigation_admin' %>
+        <% end %>
 
-          <% #if current_user.has_courses %>
-          <li style="margin-top: 3.4rem;">
-            <a href="#">My Courses</a>
-            <ul>
-              <li><a href="#">Course #1</a></li>
-              <li><a href="#">Course #2</a></li>
-              <li><a href="#">Course #3</a></li>
-              <li><a href="#">Course #4</a></li>
-            </ul>
-          </li>
-          <% #end %>
+        <% #if current_user.has_courses %>
+        <li style="margin-top: 3.4rem;">
+          <a href="#">My Courses</a>
+          <ul>
+            <li><a href="#">Course #1</a></li>
+            <li><a href="#">Course #2</a></li>
+            <li><a href="#">Course #3</a></li>
+            <li><a href="#">Course #4</a></li>
+          </ul>
+        </li>
+        <% #end %>
 
-        </ul>
-      </div>
+      </ul>
     </div>
 
   </div>

@@ -1,0 +1,1061 @@
+@import "partials_off/variables";
+@import "partials_off/mixins";
+
+// Patterns
+// --------
+
+// Really basic utility patterns
+// --------------------------------------------------------
+%pull-left {
+	float: left;
+}
+
+%pull-right {
+	float: right;
+}
+
+%center {
+	margin-right: auto;
+	margin-left: auto;
+}
+
+// Transitions
+// --------------------------------------------------------
+%fade-background-color {
+  @include transition(0.05s background-color ease-out);
+}
+
+%fade-color {
+  @include transition(0.05s color ease-out);
+}
+
+// Typography
+// --------------------------------------------------------
+// Hierarchy
+// --------------------------
+%alpha-sup {
+  @include font-size(34);
+}
+
+%alpha {
+  @include font-size(26);
+}
+
+%beta {
+  @include font-size(23);
+}
+
+%beta-alt {
+  @include font-size(18);
+}
+
+%gamma-sup {
+  @include font-size(17);
+}
+
+%gamma {
+  @include font-size(16);
+}
+
+%gamma-sub {
+  @include font-size(14);
+}
+
+%delta {
+  @include font-size(13);
+}
+
+%epsilon {
+  @include font-size(11);
+}
+
+%epsilon-caps {
+  @include font-size(12.75);
+  font-weight: $medium;
+  text-transform: uppercase;
+}
+
+// Extra-hierarchy
+// Very large & very small type,
+// outside the above hierarchy
+// Employs SI prefixes
+// --------------------------
+%tera {
+  @include font-size(49.2);
+}
+
+%giga {
+  @include font-size(42.9);
+}
+
+%giga-alt {
+  @include font-size(41.75);
+}
+
+%mega-alt {
+  @include font-size(34);
+}
+
+%mega-sup {
+  @include font-size(29);
+}
+
+%mega {
+  @include font-size(27.4);
+}
+
+%kilo {
+  @include font-size(24.4);
+}
+
+%deci {
+  // @include font-size(0.2);
+}
+
+// Block-level
+// --------------------------
+// Extended by h1-6
+%heading {
+  font-weight: $regular;
+	margin: 0;
+  a {
+    @extend %bare-link;
+    display: inline-block;
+  }
+}
+
+%heading-caps {
+  text-transform: uppercase;
+}
+
+// Headings
+// ------------
+%heading-tera {
+  @include font-head;
+  @extend %tera;
+  @include font-head;
+  text-transform: uppercase;
+  line-height: 1;
+  color: $teal;
+}
+
+%heading-giga {
+  @include font-head;
+  @extend %giga;
+  @include font-head;
+  text-transform: uppercase;
+  line-height: 1;
+  color: $teal;
+}
+
+%heading-mega-sup {
+  @include font-head;
+  @extend %mega-sup;
+  @include font-head;
+  text-transform: uppercase;
+  line-height: 1;
+  color: $tealMedium;
+}
+
+%heading-alpha {
+  @include font-head;
+  @extend %alpha;
+  font-weight: $medium;
+  line-height: 1;
+  color: $newGrayDark;
+}
+
+%heading-alpha-sup {
+  @include font-head;
+  @extend %alpha-sup;
+  font-weight: $medium;
+  line-height: 1;
+  color: $newGrayDark;
+}
+
+%heading-beta {
+  @include font-head;
+  @extend %beta;
+  @extend %heading-caps;
+  font-weight: $light;
+  line-height: 1;
+}
+
+%heading-beta-alt {
+  @include font-head;
+  @extend %beta-alt;
+  @extend %heading-caps;
+  font-weight: $bold;
+  line-height: 1;
+}
+
+%heading-gamma-sub {
+  @include font-body;
+  @extend %gamma-sub;
+  font-weight: $semibold;
+  line-height: 1;
+}
+
+%heading-delta {
+  @include font-body;
+  @extend %delta;
+  @extend %heading-caps;
+  letter-spacing: 0;
+
+  font-weight: $medium;
+  color: $newGrayDark;
+  line-height: 1;
+}
+
+%heading-epsilon {
+  @include font-head;
+  @extend %epsilon;
+  @extend %heading-caps;
+  font-weight: $medium;
+  line-height: 1;
+}
+
+// Inline
+// --------------------------
+
+// Links
+// --------------------------
+// https://github.com/h5bp/html5-boilerplate/blob/master/css/main.css#L120
+%hidden-text {
+	background-color: transparent;
+  border: 0;
+  overflow: hidden;
+  *text-indent: -9999px;
+  &:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 100%;
+  }
+}
+
+%inactive-link {
+  pointer-events: none;
+  cursor: default;
+}
+
+%box-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+%bare-link {
+  color: inherit;
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+%bare-focus {
+  &:focus {
+    outline: none;
+  }
+}
+
+
+
+// NB uses ems so font-size can be set on component
+%speech-bubble {
+  font-weight: $medium;
+  line-height: 1;
+  color: $beigeLight;
+  background-color: $tealMedium;
+  padding: 0.3em 0.7em 0.4em;
+  border-radius: $radius;
+  margin-bottom: 0.7em;
+  position: relative;
+  &:after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 0.75em solid $tealMedium;
+    border-right: 0.666em solid transparent;
+    position: absolute;
+    left: 0.5em;
+    bottom: -0.7em;
+  }
+}
+
+%speech-bubble-link {
+  @extend %speech-bubble;
+  @extend %bare-link;
+  &:hover, &:focus {
+    background-color: $orange;
+    &:after {
+      border-top-color: $orange;
+    }
+  }
+}
+
+
+// Lists
+// --------------------------
+%unstyled-list {
+	list-style-type: none;
+	padding: 0;
+}
+
+%floated-list {
+	@extend %clearfix;
+	@extend %unstyled-list;
+	&>li {
+		float: left;
+		&>a {
+			display: block;
+		}
+	}
+	// &>li + li {
+	// 	margin-left: 1em;
+	// }
+}
+
+%floated-list-right {
+  @extend %clearfix;
+  @extend %unstyled-list;
+  &>li {
+    float: right;
+    &>a {
+      display: block;
+    }
+  }
+  // &>li + li {
+  //   margin-right: 1em;
+  // }
+}
+
+
+%speech-bubble-list {
+  @extend %floated-list;
+  margin: 0;
+  &>li {
+    a {
+      @extend %epsilon;
+      @extend %speech-bubble-link;
+    }
+  }
+  &>li + li {
+    margin-left: 0.6rem;
+  }
+}
+
+// <dl>
+%expository-list {
+  margin: 0;
+  dt {
+    @extend %heading-alpha;
+    color: $grayDark;
+    margin-bottom: 0.8rem;
+  }
+  dd {
+    margin: 0 0 3.2rem 0;
+  }
+}
+
+// Inputs
+// --------------------------
+%reset-input {
+  -webkit-font-smoothing: antialiased;
+  @include font-body;
+  // border: 1px solid $newGrayMedium;
+}
+
+// Extended by %white-text-input & %speech-bubble-input
+%text-input {
+  @extend %reset-input;
+  @extend %bare-focus;
+  display: block;
+  width: 100%;
+  color: $newGrayDark;
+  background-color: $white;
+  margin-bottom: 1.3rem;
+}
+
+%medium-text-input {
+  @extend %text-input;
+  @extend %gamma;
+  @include placeholder($newGrayDark);
+  padding: 0.6rem 1.1rem;
+  margin-bottom: 0.7rem;
+}
+
+%white-text-input {
+  @extend %text-input;
+  @extend %alpha;
+  @include placeholder($beigeDark);
+  padding: 0.8rem 1.4rem 0.8rem;
+  border-radius: $radius;
+}
+
+%text-area-input {
+  @extend %reset-input;
+  @extend %bare-focus;
+  width: 100%;
+  color: $grayDark;
+  background-color: $beigeLight;
+  padding: 0.7rem 1.1rem 0.7rem;
+  border-radius: $radius;
+  margin-bottom: 1.3rem;
+  resize: none;
+}
+
+// NB only extend this onto pseudoelements
+%speech-bubble-tail {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 1.8rem solid $beigeLight;
+  .frame-light & {
+    border-top: 1.8rem solid $beige;
+  }
+
+  border-right: 1.6rem solid transparent;
+  position: absolute;
+  left: 1.8rem;
+  bottom: -1.8rem;
+}
+
+// NB extend this on a wrapper around your <input>
+// Why? <input>s can't have pseudoelements.
+%speech-bubble-input {
+  position: relative;
+  &:after {
+    @extend %speech-bubble-tail;
+  }
+  input {
+    @extend %gamma;
+    @extend %text-input;
+    font-style: italic;
+    padding: 1.2rem 1.3rem 1.2rem;
+    margin: 0 0 1.9rem;
+  }
+  textarea,
+  input {
+    @include placeholder($beigeDark, italic);
+    border-radius: $radius;
+  }
+}
+
+// NB uses ems so checkbox scales with type
+// Be sure to declare font-size on label
+%square-checkbox {
+	@include opacity(0);
+	.lt-ie9 & {
+		filter: alpha(opacity=100);
+	}
+	& + b {
+    @include svg(checkbox-unchecked);
+		display: block;
+    width: 1.2em;
+    height: 1.2em;
+		position: absolute;
+    top: 0;
+		left: 0;
+		.lt-ie9 & {
+			display: none;
+		}
+	}
+	&:checked {
+		& + b {
+      @include svg(checkbox);
+		}
+	}
+}
+
+%gray-square-checkbox {
+  @extend %square-checkbox;
+  & + b {
+    @include svg(checkbox-unchecked-grayDark);
+  }
+  &:checked {
+    & + b {
+      @include svg(checkbox-grayDark);
+    }
+  }
+}
+
+%light-square-checkbox {
+  @extend %square-checkbox;
+  & + b {
+    @include svg(checkbox-unchecked-tealLight);
+  }
+  &:checked {
+    & + b {
+      @include svg(checkbox-tealLight);
+    }
+  }
+}
+
+%multicolored-square-checkbox {
+  @extend %square-checkbox;
+  & + b {
+    @include svg(checkbox-unchecked-multi);
+    top: 0.1rem;
+  }
+  &:checked {
+    & + b {
+      @include svg(checkbox-multi);
+    }
+  }
+}
+
+%round-checkbox {
+  @include opacity(0);
+  & + b {
+    @include svg(radio-unchecked-gray);
+    display: block;
+    width: 1em;
+    height: 1em;
+    position: absolute;
+    top: 0.1em;
+    left: 0;
+    .lt-ie9 & {
+      display: none;
+    }
+    @include newIE {
+      top: 0.2em;
+    }
+  }
+  &:checked {
+    & + b {
+      @include svg(radio-checked-gray);
+    }
+  }
+  .lt-ie9 & {
+    filter: alpha(opacity=100);
+  }
+}
+
+%multicolored-round-checkbox {
+  @extend %round-checkbox;
+  & + b {
+    @include svg(radio-unchecked);
+  }
+  &:checked {
+    & + b {
+      @include svg(radio);
+    }
+  }
+}
+
+// <label>
+%active-label {
+  &.active,
+  &:hover {
+    color: $orange;
+    [type="checkbox"],
+    [type="radio"] {
+      &:checked {
+        & + b {
+          @include svg(radio-checked-orange);
+        }
+      }
+    }
+    b {
+      @include svg(radio-unchecked-orange);
+    }
+  }
+  &.active {
+    b {
+      @include svg(radio-checked-orange);
+    }
+  }
+}
+
+// <label>
+%input-label {
+	position: relative;
+}
+
+// Prevents user from accidentally selecting text
+// on click, helpful for labels
+%no-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+// Editable content
+// --------------------------
+// Extend onto elements with [contenteditable]
+%editable-content {
+  border-radius: 0.2rem;
+  &:hover,
+  &:focus {
+    @include box-shadow(0 0 1.6rem 0 transparentize($black, 0.98));
+    background-color: transparentize($white, 0.7);
+    padding: 0.4rem;
+    margin: -0.4rem;
+  }
+}
+
+// Multi-purpose component patterns
+// --------------------------------------------------------
+%centered-tile {
+	@extend %center;
+	width: 60.8rem;
+}
+
+%shaded-top {
+  @include box-shadow(
+    inset 0 2.4rem 1.6rem -1.6rem transparentize($black, 0.90)
+  );
+}
+
+// NB be sure whatever you extend this onto has positioning, and
+// isn't already using its :before pseudoelement
+%shaded-bottom {
+  &:before {
+    @extend %shaded-top;
+    content: "";
+    display: block;
+    height: 2.4rem;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    // Don't let the shadows block the hovers & clicks
+    pointer-events: none;
+  }
+}
+
+// NB this shadow will bleed out on all sides;
+// keep calm & mind your overflow
+%shaded-sides {
+  @include box-shadow(
+    0 0 4rem 1.6rem transparentize($black, 0.92)
+  );
+}
+
+%shaded-inside-right {
+  @include box-shadow(
+    inset -2.4rem 0 1.6rem -1.6rem transparentize($black, 0.82)
+  );
+}
+
+%shaded-inside-top-right {
+  @include box-shadow(
+    inset -2.4rem 0 1.6rem -1.6rem transparentize($black, 0.82),
+    inset 0 2.4rem 1.6rem -1.6rem transparentize($black, 0.82)
+  );
+}
+
+%shaded-inside-bottom {
+  @include box-shadow(
+    inset 0 -3.6rem 3.6rem -3.6rem transparentize($black, 0.5)
+  );
+}
+
+%gradient-dark-bottom {
+  @include gradient-vertical(transparent, transparentize($black, 0.72));
+}
+
+%truncated {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// Frame
+// --------------------------------------------------------
+%frame {
+  @extend %clearfix;
+   // TODO adjust right & left padding if necessary
+  padding: 3.4rem 3.2rem 2.4rem;
+  position: relative;
+  z-index: 110;
+  &:nth-child(even) {
+    background-color: $beigeLight;
+  }
+  &:last-child {
+    padding-bottom: 8rem;
+  }
+}
+
+%constrained-frame {
+  @extend %frame;
+  &:last-child {
+    padding-bottom: 2.4rem;
+  }
+}
+
+%frame--left {
+  width: 28%;
+  float: left;
+}
+
+%frame--right {
+  width: 72%;
+  padding-left: 2.4rem;
+  float: left;
+}
+
+// Avatars
+// --------------------------------------------------------
+// NB be sure to include <img> in your markup
+%round-avatar {
+  @include border-radius(100%);
+  width: 4.8rem;
+  height: 4.8rem;
+  border: 0.2rem solid $tealLight;
+  overflow: hidden;
+  img {
+    @include border-radius(100%);
+    display: block;
+    width: 100%;
+  }
+}
+
+
+// Score list
+// --------------------------------------------------------
+%score-list {
+  @extend %unstyled-list;
+  margin: 0;
+  li + li {
+    margin-top: 1.2rem;
+  }
+}
+
+%big-score-list {
+  @extend %unstyled-list;
+  margin: 0;
+  li + li {
+    margin-top: 1.5rem;
+  }
+}
+
+// Extended by %active-criterion & %inactive-criterion
+%criterion {
+  height: 5rem;
+  border-radius: 5rem;
+  position: relative;
+  cursor: default;
+}
+
+%big-criterion {
+  height: 5.5rem;
+  border-radius: 5.5rem;
+  position: relative;
+}
+
+// Extended by %active-criterion & %big-active-criterion
+%active-base {
+  @include background-size(contain);
+  background-color: $tealLighter;
+  background-image: url(image-path('bg-criterion.png'));
+  background-repeat: repeat-y;
+  background-position: right top;
+  background-origin: content-box;
+  &:hover {
+    background-color: $orangeLight;
+    background-image: url(image-path('bg-criterion-hover.png'));
+    .indicator {
+      background-color: $orange;
+    }
+  }
+}
+
+%active-criterion {
+  @extend %active-base;
+  @extend %criterion;
+}
+
+%big-active-criterion {
+  @extend %active-base;
+  @extend %big-criterion;
+}
+
+%inactive-criterion {
+  @extend %criterion;
+  background-color: $grayLighter;
+}
+
+%big-inactive-criterion {
+  @extend %big-criterion;
+  background-color: $grayLighter;
+}
+
+%score--title {
+  @extend %beta-alt;
+  @extend %no-select;
+  font-weight: $medium;
+  color: $beigeLight;
+  line-height: 1;
+  padding-top: 1.5rem;
+  position: absolute;
+  top: 0;
+  left: 2.7rem;
+  small {
+    font-weight: $regular;
+  }
+}
+
+%big-score--title {
+  @extend %score--title;
+  padding-top: 1.75rem;
+}
+
+%score--value {
+  @extend %giga-alt;
+  @extend %no-select;
+  @include font-head;
+  color: $beigeLight;
+  line-height: 1;
+  padding-top: 0.6rem;
+  position: absolute;
+  top: 0;
+  right: 1.7rem;
+  small {
+    @extend %mega;
+    vertical-align: top;
+    line-height: 1.1;
+    padding-left: 0.2rem;
+  }
+}
+
+%small-score--value {
+  @extend %gamma-sup;
+  @extend %no-select;
+  @include font-head;
+  color: $beigeLight;
+  line-height: 1;
+  padding-top: 0.7rem;
+  position: absolute;
+  top: 0;
+  right: 1.7rem;
+  small {
+    @extend %gamma-sup;
+    vertical-align: top;
+    line-height: 1.1;
+    padding-left: 0.2rem;
+  }
+}
+
+%big-score--value {
+  @extend %score--value;
+  padding-top: 0.85rem;
+}
+
+// Comments
+// --------------------------------------------------------
+%comment {
+  background-color: $beigeLight;
+  .frame-light &, .box & {
+    background-color: $beige;
+  }
+
+  padding: 1.6rem 1.8rem;
+  border-radius: $radius;
+}
+
+%comment-list {
+  @extend %unstyled-list;
+  margin: 0;
+  &>li {
+    background-color: $beige;
+    padding: 1.2rem 1.4rem;
+    border-radius: $radius;
+    margin-bottom: 2rem;
+    position: relative;
+    &:after {
+      @extend %speech-bubble-tail;
+      border-top-color: $beige;
+    }
+  }
+  &>li + li {
+    margin-top: 2.6rem;
+  }
+}
+
+// Headers
+// --------------------------------------------------------
+// Avatar header
+// --------------------------
+// NB be sure to include .avatar & <img> in your markup
+%avatar-header {
+  padding: 0.1rem 0 0.2rem 5.7rem;
+  margin-bottom: 1.2rem;
+  position: relative;
+  .avatar {
+    @extend %round-avatar;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+%avatar-header--title {
+  @extend %beta;
+  font-weight: $medium;
+  color: $teal;
+  margin-bottom: 0.1rem;
+}
+
+%avatar-header--subtitle {
+  @extend %epsilon;
+  color: $beigeDark;
+  margin-left: 0.1rem;
+}
+
+// Horizontal header
+// --------------------------
+// NB be sure to wrap subtitles in an <aside>
+%horizontal-header {
+  @extend %clearfix;
+  margin-bottom: 1.5rem;
+  aside {
+    padding-left: 1.6rem;
+    border-left: 0.2rem solid $gray;
+    margin: 0.3rem 0 0 1.8rem;
+    float: left;
+  }
+}
+
+%horizontal-header--title {
+  @extend %heading-tera;
+  float: left;
+}
+
+%horizontal-header--subtitle {
+  @extend %gamma;
+  color: $gray;
+  line-height: 1;
+  &:last-child {
+    margin-top: 0.7rem;
+  }
+}
+
+// Annotated media
+// --------------------------------------------------------
+// NB be sure to wrap annotations box in a <figcaption>
+%annotated-media {
+  position: relative;
+  figcaption {
+    width: 45%;
+    padding-left: 1.6rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+
+%annotated-media--object {
+  display: block;
+  width: 55%;
+}
+
+// Alerts
+// --------------------------------------------------------
+%alert {
+  @extend %clearfix;
+  color: $darker;
+  padding: 2rem 6.4rem 2rem 2rem;
+  border-radius: $radius;
+  margin: 1rem 3.2rem 0;
+  position: relative;
+  &:first-child {
+    margin-top: 0;
+  }
+  p, ul {
+    @extend %gamma-sub;
+    line-height: 1.1;
+    color: $darker;
+    padding-left: 2rem;
+    border-left: 0.1rem solid $darker;
+    margin: 0;
+    padding-bottom: 1rem;
+  }
+  p:last-child, ul:last-child {
+    padding-bottom: 0rem;
+  }
+  ul {
+    list-style-position:inside;
+  }
+
+  .flash-fullbleed & {
+    margin: 0;
+    border-radius: 0;
+  }
+  .authentication & {
+    @extend %centered-tile;
+  }
+  .bar-header & {
+    margin-right: 0;
+    margin-left: 0;
+  }
+  .bar-header &,
+  .evaluation-detail--flash & {
+    &:first-child {
+      margin-top: 2.7rem;
+    }
+  }
+}
+
+// Lives inside %alert
+// NB be sure to set a width and background-image
+// when you extend this
+%alert--label {
+  height: 2.8rem;
+  position: absolute;
+  top: 1.8rem;
+  left: 2.5rem;
+}
+
+// Lives inside %alert
+%alert--close {
+  @include svg(circle-x-gray);
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  position: absolute;
+  top: 2.3rem;
+  right: 2.4rem;
+}
+
+%mini-alert {
+  background-color: $redLight;
+  padding: 1rem 2rem;
+  border-radius: $radius;
+  margin: 0 -2rem 2.4rem;
+  h2,
+  ul,
+  p {
+    @extend %gamma-sub;
+    line-height: 1;
+    color: $darker;
+    padding: 0.4rem 0;
+    margin: 0;
+  }
+  ul,
+  p {
+    font-style: italic;
+  }
+  ul {
+    padding-left: 1.4em;
+  }
+}
+
+// Progress bars
+// --------------------------------------------------------
+// NB be sure to include an .indicator element in your markup
+%progress-bar {
+  height: 1.6rem;
+  background-color: $tealLighter;
+  border-radius: 1.6rem;
+  overflow: hidden;
+  .indicator {
+    display: block;
+    height: 100%;
+    background-color: $tealLight;
+  }
+}

@@ -1,6 +1,6 @@
-@import "partials/variables";
-@import "partials/mixins";
-@import "partials/patterns";
+@import "partials_off/variables";
+@import "partials_off/mixins";
+@import "partials_off/patterns";
 
 
 // Components
@@ -144,7 +144,6 @@
 
 
 .page-header--logo-nav {
-  @extend %center;
   width: 5.3rem;
   height: $headerHeight;
   position: absolute;

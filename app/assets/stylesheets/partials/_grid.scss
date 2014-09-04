@@ -1,0 +1,376 @@
+@import "variables";
+@import "mixins";
+
+
+// The Grid
+// --------
+// We're working with a 12 column grid, based loosely on:
+// http://csswizardry.com/2013/02/responsive-grid-systems-a-solution/
+
+// Instructions
+//
+// Create a block-level component and @extend a wide unit pattern onto it. Like so:
+// .component {
+//   @extend %wide-one-half;
+// }
+//
+// NB extending a unit pattern onto a component sets right and left padding as well as
+// width. Be careful not to override this.
+//
+// If the component needs to span a different number of columns at a narrower breakpoint,
+// @extend that unit pattern next. Like so:
+// .component {
+//   @extend %wide-one-half;
+//   @extend %medium-one-third;
+// }
+//
+// If the component needs to be shifted to the right, @extend one or more of the shift
+// patterns. Like so:
+// .component {
+//   @extend %wide-one-half;
+//   @extend %medium-one-third;
+//   @extend %wide-shift-one-half;
+//   @extend %medium-shift-none;
+// }
+
+// Mixins
+// --------------------------------------------------------
+// Unit widths
+// $span accepts whole numbers 1-12
+// --------------------------
+@mixin unit($span) {
+  width: ($span / 12) * 100%;
+}
+
+// Shift units eastward
+// $span accepts whole numbers 1-11
+// NB $span shouldn't exceed (12 - width of unit)
+// --------------------------
+@mixin shift($span) {
+  margin-left: ($span / 12) * 100%;
+}
+
+// Pad units appropriately
+// $mode takes 'padding' or 'margin'
+// NB 'margin' mode is only to be used for %unit-bleed
+// or similar, where negative margins are desired
+// --------------------------
+@mixin pad-unit($mode: padding) {
+  $sign: 1 !default;
+  // If $mode is set to 'margin', make all the units negative
+  @if $mode == margin {
+    $sign: -1;
+  }
+  // Left & right padding is equal to 4% of viewport width, with a
+  // maximum of 48px and minimum of 13px
+  #{$mode}-right: $unitPadding * $sign;
+  #{$mode}-left: $unitPadding * $sign;
+  @include respond($superior) {
+    #{$mode}-right: $fluidUnitPadding * $sign;
+    #{$mode}-left: $fluidUnitPadding * $sign;
+    .no-cssvwunit & {
+      #{$mode}-right: $unitPadding * $sign;
+      #{$mode}-left: $unitPadding * $sign;
+    }
+  }
+  @include respond($ontario) {
+    .no-cssvwunit & {
+      #{$mode}-right: $mediumUnitPadding * $sign;
+      #{$mode}-left: $mediumUnitPadding * $sign;
+    }
+  }
+  @include respond($onega) {
+    #{$mode}-right: $narrowUnitPadding * $sign;
+    #{$mode}-left: $narrowUnitPadding * $sign;
+  }
+}
+
+// Group
+// This wraps a row of units
+// On narrow screens, groups can break to multiple rows
+// --------------------------------------------------------
+.group {
+  @include clearfix;
+}
+
+// Unit & shift patterns
+// --------------------------------------------------------
+// This should only be @extended by 'wide' unit patterns below
+%unit {
+  // All units are 100% wide below the narrow breakpoint
+  @extend %narrow-one-whole;
+  @include pad-unit;
+  float: left;
+}
+
+// Content Grid
+// --------------------------
+// These live inside main columns and are based on a paired down
+// grid system that doesn't use pad-unit
+@mixin content-pad($amount, $mode: padding) {
+  $sign: 1 !default;
+  // If $mode is set to 'margin', make all the units negative
+  @if $mode == margin {
+    $sign: -1;
+  }
+  #{$mode}-right: $amount * $sign;
+  #{$mode}-left: $amount * $sign;
+  @include respond($ontario) {
+    #{$mode}-right: 0;
+    #{$mode}-left: 0;
+  }
+}
+
+%content-unit {
+  // Form units are inline blocks instead of float so they can be
+  // vertically aligned in the case of long labels or errors
+  @extend %narrow-one-whole;
+  display: inline-block;
+  margin: -2px;
+}
+
+%content-pad {
+  @include content-pad($contentUnitPadding);
+}
+
+// Forms
+// --------------------------
+// Form Padding
+// Vertically aligned bottom in the case of long labels or errors
+%form-pad {
+  @include content-pad($formPadding);
+  vertical-align: bottom;
+}
+
+%content-pad {
+  @include content-pad($contentUnitPadding);
+}
+
+// Wide
+// 960 +
+// --------------------------
+// Units
+%wide-one-whole {
+  @extend %unit;
+  @include unit(12);
+}
+
+%wide-three-fourths {
+  @extend %unit;
+  @include unit(9);
+}
+
+%wide-two-thirds {
+  @extend %unit;
+  @include unit(8);
+}
+
+%wide-one-half {
+  @extend %unit;
+  @include unit(6);
+}
+
+%wide-one-third {
+  @extend %unit;
+  @include unit(4);
+}
+
+%wide-one-fourth {
+  @extend %unit;
+  @include unit(3);
+}
+
+// Shifts
+%wide-shift-three-fourths {
+  @include shift(9);
+}
+
+%wide-shift-two-thirds {
+  @include shift(8);
+}
+
+%wide-shift-one-half {
+  @include shift(6);
+}
+
+%wide-shift-one-third {
+  @include shift(4);
+}
+
+%wide-shift-one-fourth {
+  @include shift(3);
+}
+
+%wide-shift-none {
+  @include shift(0);
+}
+
+// Hidden
+%wide-gone {
+  display: none;
+}
+
+// Forms
+// Content Units Wide
+// --------------------------
+// Units
+%content-wide-one-whole {
+  @extend %content-unit;
+  @extend %content-pad;
+  @include unit(12);
+}
+
+%content-wide-one-half {
+  @extend %content-unit;
+  @extend %content-pad;
+  @include unit(6);
+}
+
+%content-wide-one-third {
+  @extend %content-unit;
+  @extend %content-pad;
+  @include unit(4);
+}
+
+// Forms Wide
+// Currently only styled for 960 +
+// --------------------------
+%form-wide-one-whole {
+  @extend %content-unit;
+  @extend %form-pad;
+  @include unit(12);
+}
+
+%form-wide-two-thirds {
+  @extend %content-unit;
+  @extend %form-pad;
+  @include unit(8);
+}
+
+%form-wide-one-half {
+  @extend %content-unit;
+  @extend %form-pad;
+  @include unit(6);
+}
+
+%form-wide-one-third {
+  @extend %content-unit;
+  @extend %form-pad;
+  @include unit(3);
+}
+
+// Content
+// Currently only 960 +
+// --------------------------
+// Units
+%content-wide-one-whole {
+  @extend %content-unit;
+  @extend %content-pad;
+  @include unit(12);
+}
+
+%content-wide-one-half {
+  @extend %content-unit;
+  @extend %content-pad;
+  @include unit(6);
+}
+
+// Medium
+// 960 - 768
+// --------------------------
+@include respond($baikal) {
+  // Units
+  %medium-one-whole {
+    @include unit(12);
+  }
+  %medium-three-fourths {
+    @include unit(9);
+  }
+  %medium-two-thirds {
+    @include unit(8);
+  }
+  %medium-seven-twelfths {
+    @include unit(7);
+  }
+  %medium-one-half {
+    @include unit(6);
+  }
+  %medium-five-twelfths {
+    @include unit(5);
+  }
+  %medium-one-third {
+    @include unit(4);
+  }
+  %medium-one-fourth {
+    @include unit(3);
+  }
+  // Shifts
+  %medium-shift-three-fourths {
+    @include shift(9);
+  }
+  %medium-shift-two-thirds {
+    @include shift(8);
+  }
+  %medium-shift-one-half {
+    @include shift(6);
+  }
+  %medium-shift-one-third {
+    @include shift(4);
+  }
+  %medium-shift-one-fourth {
+    @include shift(3);
+  }
+  %medium-shift-none {
+    @include shift(0);
+  }
+  // Hidden
+  %medium-gone {
+    display: none;
+  }
+}
+
+// Narrow
+// 768 -
+// --------------------------
+@include respond($ontario) {
+  // As it stands, units default to one-whole below this breakpoint
+  %narrow-one-whole {
+    @include unit(12);
+    // Therefore, shifts ARE FORBIDDEN
+    @include shift(0);
+  }
+  // But they can be one-half if you really need them to be
+  %narrow-one-half {
+    @include unit(6);
+  }
+  // Hidden
+  %narrow-gone {
+    display: none;
+  }
+}
+
+// Extrawide
+// This is only relevant to the homepage
+// 1200 +
+// --------------------------
+@include respond($superior, min) {
+  // Units
+  %extrawide-one-whole {
+    @include unit(12);
+  }
+  %extrawide-three-fourths {
+    @include unit(9);
+  }
+  %extrawide-two-thirds {
+    @include unit(8);
+  }
+  %extrawide-one-half {
+    @include unit(6);
+  }
+  %extrawide-one-third {
+    @include unit(4);
+  }
+  %extrawide-one-fourth {
+    @include unit(3);
+  }
+}
