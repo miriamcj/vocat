@@ -1,4 +1,4 @@
-<div class="clearfix space-bottom">
+<div class="clearfix">
 
   <figure class="summary-box">
     <div>
@@ -54,44 +54,5 @@
     <figcaption>Submissions with Videos</figcaption>
   </figure>
 
-
-</div>
-
-<div class="clearfix">
-  <div class="half-column">
-    <% if course.recent_submissions(course.projects.count).length > 0 %>
-      <h3 class="heading-large">
-        Recently Updated Submissions
-      </h3>
-
-      <ul style="margin-top: 0px" class="unstyled-list">
-        <% course.recent_submissions(course.projects.count).each do |submission| %>
-          <li>
-            <% if submission.creator_type == 'Group' %>
-              <%= link_to "#{submission.creator_name} - #{submission.project_name}", course_group_evaluations_path(course_id: course, creator_id: submission.creator, project_id: submission.project) %>
-            <% else %>
-              <%= link_to "#{submission.creator_name} - #{submission.project_name}", course_user_evaluations_path(course_id: course, creator_id: submission.creator, project_id: submission.project) %>
-            <% end %>
-          </li>
-        <% end %>
-      </ul>
-    <% end %>
-  </div>
-
-  <div class="half-column">
-
-    <% if course.projects.length > 0 %>
-    <h3 class="heading-large">
-      Course Projects
-    </h3>
-
-    <ul style="margin-top: 0px" class="unstyled-list">
-      <% course.projects.each do |project| %>
-        <li><%= link_to project, course_user_evaluations_path(course_id: course, project_id: project) %></li>
-      <% end %>
-    </ul>
-    <% end %>
-
-  </div>
 
 </div>

@@ -10,8 +10,15 @@ define ['vendor/plugins/waypoints', 'jquery_rails'], (waypoints, $) ->
       $trigger = $(@)
       $body = $('body')
       $drawer = $('.page-header--drawer')
-
+      $nav = $('.drawer--contents ul:first-child')
       $shield = ''
+
+      setup = () ->
+        $nav.find('ul').hide()
+        $nav.children('li').click((e) ->
+          $nav.find('ul').hide()
+          $(@).children('ul').show()
+        )
 
       open = () ->
         $shield = $('<div class="page-shield"></div>')
@@ -44,6 +51,8 @@ define ['vendor/plugins/waypoints', 'jquery_rails'], (waypoints, $) ->
         if $body.hasClass('drawer-open')
           close()
 
+      setup()
+
 
   ##########################################
   # Dropdown Navigation Plugin
@@ -61,6 +70,7 @@ define ['vendor/plugins/waypoints', 'jquery_rails'], (waypoints, $) ->
         if !$container.hasClass('dropdown-initialized')
           $container.addClass('dropdown-initialized')
           $toggle = $container.find('[data-behavior="toggle"]')
+
           $toggle.css({cursor: 'pointer'})
           $(document).click( ->
             $container.removeClass('open')

@@ -108,7 +108,6 @@
 // Dear SASS, it would be great if something like 'a&'
 // would work nested inside the above block
 a.table--heading {
-  @extend %orange-hover;
   @extend %bare-link;
   text-decoration: none;
 }

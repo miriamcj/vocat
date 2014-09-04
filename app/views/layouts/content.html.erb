@@ -1,14 +1,14 @@
-<% content_for :content do %>
-
+<% content_for :main do %>
   <div class="page-content">
     <div class="page-content--header">
-      <div class="page-content--header-buttons"><%= yield :content_header_links %></div>
-      <h2 class="header-primary"><%= yield :content_header %></h2>
+      <div class="page-content--header-buttons"><%= yield :header_links %></div>
+      <h2 class="header-primary"><%= yield :header_text %></h2>
+      <% if content_for?(:subheader) %>
+      <%= yield :subheader %>
+      <% end %>
     </div>
-
     <%= render 'layouts/messages' %>
-    <%= yield :content_intro %>
-    <%= yield :content_frames %>
+    <%= yield :content %>
   </div>
 
 

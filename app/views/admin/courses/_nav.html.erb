@@ -1,12 +1,12 @@
-<nav class="drop-button drop-button-secondary" data-behavior="dropdown">
-  <a class="drop-button--toggle" data-behavior="toggle" href="#" style="cursor: pointer;">
+<nav class="drop-nav-secondary" data-behavior="dropdown">
+  <a class="gray-button" data-behavior="toggle" href="#" style="cursor: pointer;">
     <% if local_assigns.fetch :subheader, nil %>
       <%= subheader %>
     <% else %>
       Select an Action
     <% end %>
   </a>
-  <div class="drop-nav--dropdown" data-behavior="dropdown-options">
+  <div class="drop-nav-secondary--dropdown" data-behavior="dropdown-options">
     <ul>
       <li><%= link_to 'View as Instructor', course_user_evaluations_path(course) %></li>
       <li><%= link_to 'Course Overview', admin_course_path(course) %></li>
@@ -19,4 +19,5 @@
     </ul>
   </div>
 </nav>
+
 

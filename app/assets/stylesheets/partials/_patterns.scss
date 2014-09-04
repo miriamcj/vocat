@@ -33,6 +33,10 @@
 // --------------------------------------------------------
 // Hierarchy
 // --------------------------
+%alpha-sup {
+  @include font-size(34);
+}
+
 %alpha {
   @include font-size(26);
 }
@@ -116,7 +120,6 @@
 	margin: 0;
   a {
     @extend %bare-link;
-    @extend %orange-hover;
     display: inline-block;
   }
 }
@@ -157,6 +160,14 @@
 %heading-alpha {
   @include font-head;
   @extend %alpha;
+  font-weight: $medium;
+  line-height: 1;
+  color: $newGrayDark;
+}
+
+%heading-alpha-sup {
+  @include font-head;
+  @extend %alpha-sup;
   font-weight: $medium;
   line-height: 1;
   color: $newGrayDark;
@@ -232,12 +243,6 @@
   display: block;
   width: 100%;
   height: 100%;
-}
-
-%orange-hover {
-  &:hover {
-    color: $orange;
-  }
 }
 
 %bare-link {
@@ -365,7 +370,6 @@
   }
   a {
     @extend %bare-link;
-    @extend %orange-hover;
   }
 }
 
@@ -743,19 +747,19 @@
 }
 
 // Extending this is optional
-%dropdown-toggle {
-  @extend %bare-link;
+%proto-dropdown-toggle {
+  a {
+    @extend %bare-link;
+  }
   @extend %bare-focus;
-  @include background-clip(padding);
   display: inline-block;
   height: 3.2rem;
   line-height: 1;
-  padding: 0.6rem 0.7rem 0.7rem 1.1rem;
+  padding: 0.6rem 0.7rem 0.7rem 0rem;
   margin-right: 3.6rem;
   position: relative;
   cursor: pointer;
   &:after {
-    @include svg(arrow-down-white);
     content: "";
     display: block;
     width: 1.8rem;
@@ -773,6 +777,28 @@
     }
   }
 }
+
+%dropdown-toggle {
+  @extend %proto-dropdown-toggle;
+  &:after {
+    @include svg(arrow-down-white);
+  }
+}
+
+%dropdown-toggle-grayDark {
+  @extend %proto-dropdown-toggle;
+  &:after {
+    @include svg(arrow-down-grayDark);
+  }
+}
+
+%dropdown-toggle-gray {
+  @extend %proto-dropdown-toggle;
+  &:after {
+    @include svg(arrow-down-gray);
+  }
+}
+
 
 %dropdown {
   display: none;

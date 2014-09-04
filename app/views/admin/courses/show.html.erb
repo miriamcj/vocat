@@ -1,14 +1,8 @@
-<% content_for :content_header do %>
-  Courses
-<% end %>
+<%= render :partial => 'header', :locals => {course: @course} %>
 
-<% content_for :content_header_links do %>
-  <%= render 'header_links' %>
-<% end %>
+<% content_for :content do %>
 
-<% content_for :content_frames	 do %>
-  <%= render 'header', :subheader => 'Course  Overview' %>
-  <div>
+  <% body = capture do %>
     <div class="input-group">
       <span class="text-label">Department, Number, and Section</span>
       <span><%= @course.format "%d%n, Section %s" %></span>
@@ -33,11 +27,26 @@
         <% end %>
       </span>
     </div>
-  </div>
+  <% end %>
+  <%= render :partial => 'shared/section', :locals => {:header => 'Properties', :body => body} %>
 
-  <div>
+
+  <% body = capture do %>
     <%= render 'shared/course_synopsis', :course => @course %>
-  </div>
+  <% end %>
+  <%= render :partial => 'shared/section', :locals => {:header => 'Stats', :body => body} %>
+
+  <% body = capture do %>
+    <%= render 'shared/course_recent_submissions', :course => @course %>
+  <% end %>
+  <%= render :partial => 'shared/section', :locals => {:header => 'Recently Updated Submissions', :body => body} %>
+
+  <% body = capture do %>
+    <%= render 'shared/course_projects', :course => @course %>
+  <% end %>
+  <%= render :partial => 'shared/section', :locals => {:header => 'Projects', :body => body} %>
+
+
 
 <% end %>
 

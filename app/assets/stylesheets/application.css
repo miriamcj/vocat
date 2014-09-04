@@ -19,6 +19,8 @@
  *= require partials/_components_form
  *= require partials/_components_matrix
  *= require partials/_components_navigation
+ *= require partials/_components_boxes
+ *= require partials/_components_content
 
  *= require partials/_chosen
  *= require partials/_dc

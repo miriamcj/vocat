@@ -26,6 +26,45 @@
 
 // Dropdown
 // --------------------------------------------------------
+.header-primary-nav {
+  @extend %dropdown-container;
+}
+.header-secondary-nav-toggle {
+  @extend %dropdown-toggle-grayDark;
+}
+.header-secondary-nav-dropdown {
+  @extend %dropdown-gray;
+}
+
+
+.header-secondary-nav {
+  @extend %dropdown-container;
+  .nav-toggle {
+    @extend %dropdown-toggle-gray;
+  }
+  .nav-dropdown {
+    @extend %dropdown-gray;
+  }
+}
+
+
+.drop-nav-primary {
+  .header-secondary+.drop-nav-primary--toggle {
+    @extend %dropdown-toggle-gray;
+  }
+  .drop-nav-primary--toggle {
+    @extend %dropdown-toggle-grayDark;
+    &:after {
+      top: 1.5rem;
+    }
+  }
+}
+
+.drop-nav-primary--dropdown {
+  @extend %dropdown-gray;
+  top: 3rem;
+}
+
 .drop-nav-secondary {
   @extend %dropdown-container;
   display: inline;
@@ -36,5 +75,4 @@
 
 .drop-nav-secondary--dropdown {
   @extend %dropdown-gray;
-
 }

@@ -81,11 +81,6 @@
   }
 }
 
-// Lists
-// --------------------------------------------------------
-.unstyled-list {
-  @extend %unstyled-list;
-}
 
 // NB add this class to a wrapper around your <input>
 // Why? <input>s can't have pseudoelements.

@@ -91,12 +91,34 @@
     @extend %clearfix;
     width: $mainWidth;
     padding-left: 12rem;
+    a {
+      text-decoration: none;
+      &:hover {
+        color: $newTealMedium;
+      }
+    }
     ul {
+      position: relative;
       @extend %unstyled-list;
       margin: 0;
       li {
         @extend %gamma-sub;
         margin-bottom: $verticalSpace;
+        // TODO: Replace this with something else
+        > a:after {
+          content: ' >';
+        }
+        > a:only-child:after {
+          content: '';
+        }
+        ul {
+          width: 40rem;
+          position: absolute;
+          left: 20rem;
+          top: 0;
+        }
+
+
       }
       li:last-child {
         margin-bottom: 0;
@@ -194,7 +216,7 @@
 
 .page-content--header {
   min-height: 3.6rem;
-  margin-bottom: $spacerUnit;
+  margin-bottom: $verticalSpace * 3;
 }
 
 .page-content--header-buttons {
@@ -207,6 +229,18 @@
 // Headings
 // --------------------------------------------------------
 .header-primary {
+  @extend %heading-alpha-sup;
+  margin-bottom: .5rem;
+  letter-spacing: 0rem;
+}
+
+.header-secondary {
+  @extend %heading-alpha-sup;
+  letter-spacing: 0rem;
+  color: $newGrayMedium-alt;
+}
+
+.header-section {
   @extend %heading-beta;
   text-transform: uppercase;
   .page-content--header & {
