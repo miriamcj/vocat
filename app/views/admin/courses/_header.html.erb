@@ -12,13 +12,13 @@
 <% end %>
 
 <% content_for :subheader do %>
-  <nav class="header-secondary-nav" data-behavior="dropdown">
+  <nav class="drop-nav drop-nav-gray" data-behavior="dropdown">
     <h2 class="header-secondary">
-      <a class="header-secondary-nav-toggle" data-behavior="toggle" href="#" >
+      <a class="drop-nav--toggle" data-behavior="toggle" href="#" >
         <%= "#{truncate(@course.name, length: 50, separator: ' ')} - #{@course.semester_name} #{@course.year}" %>
       </a>
     </h2>
-    <div class="header-secondary-nav-dropdown" data-behavior="dropdown-options">
+    <div class="drop-nav--dropdown" data-behavior="dropdown-options">
       <ul>
         <li><%= link_to 'View as Instructor', course_user_evaluations_path(course) %></li>
         <li><%= link_to 'Course Overview', admin_course_path(course) %></li>

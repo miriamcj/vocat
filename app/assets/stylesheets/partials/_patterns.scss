@@ -747,7 +747,7 @@
 }
 
 // Extending this is optional
-%proto-dropdown-toggle {
+%dropdown-toggle {
   a {
     @extend %bare-link;
   }
@@ -759,15 +759,6 @@
   margin-right: 3.6rem;
   position: relative;
   cursor: pointer;
-  &:after {
-    content: "";
-    display: block;
-    width: 1.8rem;
-    height: 0.9rem;
-    position: absolute;
-    top: 1.1rem;
-    right: -2.8rem;
-  }
   &:hover,
   .open & {
     &:before {
@@ -777,28 +768,6 @@
     }
   }
 }
-
-%dropdown-toggle {
-  @extend %proto-dropdown-toggle;
-  &:after {
-    @include svg(arrow-down-white);
-  }
-}
-
-%dropdown-toggle-grayDark {
-  @extend %proto-dropdown-toggle;
-  &:after {
-    @include svg(arrow-down-grayDark);
-  }
-}
-
-%dropdown-toggle-gray {
-  @extend %proto-dropdown-toggle;
-  &:after {
-    @include svg(arrow-down-gray);
-  }
-}
-
 
 %dropdown {
   display: none;
@@ -855,20 +824,6 @@
   }
 }
 
-%dropdown-gray {
-  @extend %dropdown;
-}
-
-%dropdown-right {
-  @extend %dropdown;
-
-  right: 0;
-  left: auto;
-  &:before {
-    right: 4rem;
-    left: auto;
-  }
-}
 
 // Box
 // --------------------------------------------------------
