@@ -1,4 +1,38 @@
 @import "variables";
 @import "mixins";
+@import "patterns";
 
 
+// Psuedoelements don't stick to <input>s, so we
+// need to remove the right padding in those cases
+input%proto-button {
+  @extend %reset-input;
+  padding-right: 1.2rem;
+}
+
+
+%proto-button {
+  @extend %heading-gamma-sub;
+  @extend %bare-focus;
+  @extend %bare-link;
+  display: inline-block;
+  line-height: 1;
+  padding-right: 1.2rem;
+  padding-left: 1.2rem;
+  color: $white !important;
+}
+
+%primary-button {
+  @extend %proto-button;
+  background-color: $primaryButtonColor;
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+  border: 0;
+  &:hover, &:focus {
+	background-color: $primaryButtonHoverColor;
+  }
+}
+
+.primary-button {
+  @extend %primary-button;
+}

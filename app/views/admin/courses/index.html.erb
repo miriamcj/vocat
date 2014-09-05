@@ -1,10 +1,4 @@
-<% content_for :header_text do %>
-  Courses
-<% end %>
-
-<% content_for :header_links do %>
-  <%= link_to 'New Course', new_admin_course_path, :class => 'teal-plus-button' %>
-<% end %>
+<%= render :partial => 'header' %>
 
 <% content_for :content do %>
   <form>

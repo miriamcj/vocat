@@ -4,14 +4,15 @@
 
 <% content_for :header_links do %>
   <% unless local_assigns.fetch :hide_all, nil %>
-    <%= link_to 'All Courses', admin_courses_path(), :class => 'gray-ex-button' %>
+    <%= link_to 'All Courses', admin_courses_path(), :class => 'primary-button close-button' %>
   <% end %>
   <% unless local_assigns.fetch :hide_new, nil %>
-    <%= link_to 'New Course', new_admin_course_path, :class => 'highlight-plus-button' %>
+    <%= link_to 'New Course', new_admin_course_path, :class => 'primary-button plus-button' %>
   <% end %>
 <% end %>
 
 <% content_for :subheader do %>
+  <% if @course %>
   <nav class="drop-nav drop-nav-gray" data-behavior="dropdown">
     <h2 class="header-secondary">
       <a class="drop-nav--toggle" data-behavior="toggle" href="#" >
@@ -31,5 +32,6 @@
       </ul>
     </div>
   </nav>
+  <% end %>
 <% end %>
 
