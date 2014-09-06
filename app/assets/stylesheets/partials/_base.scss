@@ -49,7 +49,6 @@ body {
     min-width: $michigan;
   }
   // Fade everything in once Typekit fonts load
-  // TODO make sure this doesn't break anything in the RTE
   @include transition($fastTransition opacity $timing);
   // Fade everything in if the fonts haven't loaded after two seconds
   @include animation($fastTransition fade-in 2s forwards);
@@ -146,6 +145,7 @@ a {
   text-decoration: none;
   color: inherit;
   &:hover {
+    color: $tealLight;
     opacity: 0.8;
     &.active,
     .active > & {

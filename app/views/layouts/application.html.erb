@@ -14,9 +14,7 @@
     <%= render 'layouts/header' %>
   </header>
   <div class="container">
-    <div class="page-content">
-      <%= content_for?(:content) ? yield(:main) : yield %>
-    </div>
+    <%= content_for?(:content) ? yield(:main) : yield %>
   </div> <!-- container -->
   <script type="text/javascript">
   <%= yield(:backbone_bootstrap) %>

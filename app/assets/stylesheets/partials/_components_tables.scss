@@ -1,0 +1,70 @@
+@import "variables";
+@import "mixins";
+@import "patterns";
+
+// Table
+// --------------------------
+.table-wrapper {
+}
+
+// OMFG DELETE THIS
+.drop-nav-secondary {
+  display: none;
+}
+
+
+// <table>
+.table {
+  width: 100%;
+  thead {
+    tr {
+      background-color: $grayLightest;
+    }
+    th {
+      // Prevents border hiding in IE
+      z-index: -1;
+      @include font-body;
+      font-weight: $regular;
+      text-transform: uppercase;
+      font-size: $kappa;
+      color: $black;
+      letter-spacing: 0;
+    }
+  }
+  tr {
+    background-color: $white;
+    &:nth-child(even) {
+      background-color: $grayLightest;
+    }
+  }
+  th {
+    vertical-align: top;
+    font-weight: $semibold;
+    text-align: left;
+    padding: $contentUnitPadding;
+    border-right: 1px solid $grayLight;
+    &:last-child {
+      border-right: 0;
+    }
+  }
+  td {
+    border-right: 1px solid $grayLight;
+    vertical-align: top;
+    padding: $contentUnitPadding;
+    &:last-child {
+      border-right: 0;
+    }
+    &.centered {
+      vertical-align: middle;
+      text-align: center;
+    }
+  }
+}
+
+
+// Dear SASS, it would be great if something like 'a&'
+// would work nested inside the above block
+a.table--heading {
+  @extend %bare-link;
+  text-decoration: none;
+}

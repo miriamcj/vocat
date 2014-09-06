@@ -1,13 +1,13 @@
 <% content_for :header_text do %>
+  <%= link_to 'Back to Courses', admin_courses_path(), :class => 'header-link back-link' %>
+  <h2 class="header-primary">
   Courses
+  </h2>
 <% end %>
 
 <% content_for :header_links do %>
-  <% unless local_assigns.fetch :hide_all, nil %>
-    <%= link_to 'All Courses', admin_courses_path(), :class => 'primary-button close-button' %>
-  <% end %>
   <% unless local_assigns.fetch :hide_new, nil %>
-    <%= link_to 'New Course', new_admin_course_path, :class => 'primary-button plus-button' %>
+    <%= link_to 'New Course', new_admin_course_path, :class => 'primary-button new-button' %>
   <% end %>
 <% end %>
 

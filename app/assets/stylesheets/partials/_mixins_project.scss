@@ -9,10 +9,6 @@
 
 @mixin font-head {
   font-family: "proxima-nova-condensed", "Helvetica Neue", Arial, sans-serif;
-  // This activates the alternate 'm' glyph
-  // -webkit-font-feature-settings: "ss06" on;
-  // -moz-font-feature-settings: "ss06" on;
-  // font-feature-settings: "ss06" on;
 }
 
 // Detect IE10

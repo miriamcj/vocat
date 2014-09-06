@@ -2,7 +2,7 @@
   <div class="page-content">
     <div class="page-content--header">
       <div class="page-content--header-buttons"><%= yield :header_links %></div>
-      <h2 class="header-primary"><%= yield :header_text %></h2>
+      <%= yield :header_text %>
       <% if content_for?(:subheader) %>
       <%= yield :subheader %>
       <% end %>

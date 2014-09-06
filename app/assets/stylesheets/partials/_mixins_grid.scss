@@ -1,0 +1,71 @@
+
+// Mixins
+// --------------------------------------------------------
+// Unit widths
+// $span accepts whole numbers 1-12
+// --------------------------
+@mixin unit($span) {
+  width: ($span / 12) * 100%;
+}
+
+// Shift units eastward
+// $span accepts whole numbers 1-11
+// NB $span shouldn't exceed (12 - width of unit)
+// --------------------------
+@mixin shift($span) {
+  margin-left: ($span / 12) * 100%;
+}
+
+// Pad units appropriately
+// $mode takes 'padding' or 'margin'
+// NB 'margin' mode is only to be used for %unit-bleed
+// or similar, where negative margins are desired
+// --------------------------
+@mixin pad-unit($mode: padding) {
+  $sign: 1 !default;
+  // If $mode is set to 'margin', make all the units negative
+  @if $mode == margin {
+    $sign: -1;
+  }
+  // Left & right padding is equal to 4% of viewport width, with a
+  // maximum of 48px and minimum of 13px
+  #{$mode}-right: $unitPadding * $sign;
+  #{$mode}-left: $unitPadding * $sign;
+  @include respond($superior) {
+    #{$mode}-right: $fluidUnitPadding * $sign;
+    #{$mode}-left: $fluidUnitPadding * $sign;
+    .no-cssvwunit & {
+      #{$mode}-right: $unitPadding * $sign;
+      #{$mode}-left: $unitPadding * $sign;
+    }
+  }
+  @include respond($ontario) {
+    .no-cssvwunit & {
+      #{$mode}-right: $mediumUnitPadding * $sign;
+      #{$mode}-left: $mediumUnitPadding * $sign;
+    }
+  }
+  @include respond($onega) {
+    #{$mode}-right: $narrowUnitPadding * $sign;
+    #{$mode}-left: $narrowUnitPadding * $sign;
+  }
+}
+
+
+// Content Grid
+// --------------------------
+// These live inside main columns and are based on a paired down
+// grid system that doesn't use pad-unit
+@mixin content-pad($amount, $mode: padding) {
+  $sign: 1 !default;
+  // If $mode is set to 'margin', make all the units negative
+  @if $mode == margin {
+    $sign: -1;
+  }
+  #{$mode}-right: $amount * $sign;
+  #{$mode}-left: $amount * $sign;
+  @include respond($ontario) {
+    #{$mode}-right: 0;
+    #{$mode}-left: 0;
+  }
+}

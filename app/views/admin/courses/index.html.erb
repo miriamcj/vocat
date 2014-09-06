@@ -1,7 +1,9 @@
 <%= render :partial => 'header' %>
 
 <% content_for :content do %>
-  <form>
+<h2 class="header-page-section">Filter Courses</h2>
+<div class="page-section">
+  <form class="formgrid">
     <fieldset>
       <div class="formgrid third">
         <%= label_tag :department, 'Department', {:class => 'text-label'} %>
@@ -25,10 +27,11 @@
       </div>
       <div class="formgrid third">
         <label class="text-label">&nbsp;</label>
-        <%= submit_tag('Filter Courses', {:class => 'large-teal-button'}) %>
+        <%= submit_tag('New Courses', {:class => 'primary-button'}) %>
       </div>
     </fieldset>
   </form>
+</div>
 
   <div class="table-wrapper">
     <table class="table">

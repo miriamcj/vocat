@@ -7,7 +7,7 @@ $white: #fff;
 $whiteTransparent: transparentize(#fff, 0.25);
 $offWhite: #fafafa;
 
-$grayLightest: #F8F8F8;
+$grayLightest: #F7F7F7;
 $grayLight: #D9D8D8;
 $grayMedium: #9D9FA1;
 $grayMedium-alt: #8B8B8B;
@@ -20,6 +20,7 @@ $black: #000000;
 
 $primaryButtonColor: $tealLight;
 $primaryButtonHoverColor: $tealDark;
+$primaryLinkColor: $tealLight;
 
 
 
@@ -58,8 +59,12 @@ $navWidth: 240px;
 $tabWidth: 100 / 6 * 1%;
 $mapWidth: 832px;
 
-$baseLineHeight: .65;
+$baseLineHeight: 1;
 $verticalSpace: $baseLineHeight * 1em;
+$verticalSpaceTight: $baseLineHeight * .75em;
+$verticalSpaceTightest: $baseLineHeight * .5em;
+
+
 $contentSpace: 2.778em;
 $listSpace: .8em;
 

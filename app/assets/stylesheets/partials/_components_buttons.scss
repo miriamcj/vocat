@@ -3,36 +3,146 @@
 @import "patterns";
 
 
+// Button, Link Patterns and prototypes
+//-------------------------------------
+%button-text {
+  @include font-body;
+  font-size: $iota;
+  font-weight: $semibold;
+}
+
+%proto-button {
+  padding: .8em;
+  line-height: 1; // Inputs have line-height: normal, so we need to set this here to equalize input and link button heights.
+  @extend %button-text;
+  @extend %bare-focus;
+  @extend %bare-active;
+  display: inline-block;
+  color: $white !important;
+}
+
 // Psuedoelements don't stick to <input>s, so we
 // need to remove the right padding in those cases
 input%proto-button {
   @extend %reset-input;
-  padding-right: 1.2rem;
 }
 
-
-%proto-button {
-  @extend %heading-gamma-sub;
-  @extend %bare-focus;
-  @extend %bare-link;
-  display: inline-block;
-  line-height: 1;
-  padding-right: 1.2rem;
-  padding-left: 1.2rem;
-  color: $white !important;
+%icon-button {
+  padding-right: 2.6em;
+  position: relative;
+  &:after {
+    content: "";
+    display: block;
+    padding: 0;
+    height: 1.5em;
+    width: 1.5em;
+    position: absolute;
+    top: .55em;
+    right: .55em;
+  }
 }
 
 %primary-button {
   @extend %proto-button;
   background-color: $primaryButtonColor;
-  padding-top: 0.6rem;
-  padding-bottom: 0.6rem;
   border: 0;
   &:hover, &:focus {
 	background-color: $primaryButtonHoverColor;
   }
 }
 
+%proto-action-link {
+  @extend %button-text;
+  @extend %bare-focus;
+  @extend %bare-active;
+  text-decoration: underline;
+}
+
+%primary-link {
+  @extend %proto-action-link;
+  color: $primaryLinkColor;
+}
+
+%icon-link {
+  position: relative;
+  height: 2em;
+  line-height: 2em;
+  display: inline-block;
+}
+
+%icon-link-left {
+  @extend %icon-link;
+  padding-left: 2.25em;
+  &:before {
+    font-size: $iota;
+    content: "";
+    display: block;
+    padding: 0;
+    height: 2em;
+    width: 2em;
+    top: 0em;
+    position: absolute;
+    left: 0em;
+  }
+}
+
+%icon-link-right {
+  @extend %icon-link;
+  padding-right: 2.25em;
+  &:after {
+    font-size: $iota;
+    content: "";
+    display: block;
+    padding: 0;
+    height: 2em;
+    width: 2em;
+    top: 0em;
+    position: absolute;
+    right: 0em;
+  }
+
+}
+
+// Buttons should be of a type (primary-button or secondary-button)
+// and if they want an icon, they should also have an icon class.
+//-----------------------------------------------------------------
 .primary-button {
   @extend %primary-button;
+}
+
+.small-button{
+  padding: .25em;
+}
+
+.new-button {
+  @extend %icon-button;
+  &:after {
+    @include svg(circle-plus-white);
+  }
+}
+
+.show-button {
+  @extend %icon-button;
+  &:after {
+    @include svg(circle-plus-white);
+  }
+}
+
+// Links
+//-----------------------------------------------------------------
+
+.primary-link {
+  @extend %primary-link;
+}
+
+.header-link {
+  @extend %primary-link;
+  margin-bottom: $verticalSpaceTight;
+}
+
+.back-link {
+  @extend %icon-link-left;
+  &:before {
+    @include svg(circle-left-arrow-teal);
+  }
 }
