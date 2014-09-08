@@ -34,17 +34,6 @@ body {
   line-height: $baseLineHeight;
   color: $grayDark;
   background-color: $offWhite;
-  // When primary nav is open, disable scrolling
-  // TODO get this working on iOS
-  &.no-scroll {
-    overflow: hidden;
-  }
-  .touch &{
-    &.no-scroll{
-      position: fixed;
-      width: 100%;
-    }
-  }
   .no-mediaqueries & {
     min-width: $michigan;
   }

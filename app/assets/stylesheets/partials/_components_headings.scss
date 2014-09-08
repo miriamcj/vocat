@@ -1,0 +1,61 @@
+@import "variables";
+@import "mixins";
+@import "patterns";
+
+// Page content header
+// --------------------------
+.page-content--heading {
+  @include clearfix;
+  margin-bottom: $unitPadding;
+  .page-content--heading-buttons {
+	display: inline-block;
+	float: right;
+  }
+  h1, h2, h3, h4, h5, h6 {
+  }
+}
+
+%condensedHeading {
+  @include font-head;
+  font-weight: $regular;
+  letter-spacing: 0;
+}
+
+%capsHeading {
+  text-transform: uppercase;
+}
+
+%spacedHeading {
+  margin-bottom: $narrowUnitPadding;
+}
+
+
+// Headers
+.heading-primary {
+  @extend %condensedHeading;
+  @extend %spacedHeading;
+  font-size: $gamma;
+  color: $grayDark;
+}
+
+.heading-secondary {
+  @extend %condensedHeading;
+  font-size: $gamma;
+  color: $grayMedium;
+}
+
+.heading-tertiary {
+  @extend %condensedHeading;
+}
+
+.heading-page-section {
+  font-weight: $book;
+  font-size: $epsilon;
+  color: $grayDark;
+  letter-spacing: 0;
+  @extend %condensedHeading;
+  @extend %capsHeading;
+  @extend %spacedHeading;
+}
+
+

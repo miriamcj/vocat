@@ -17,7 +17,6 @@
   padding: 0px 0px 0px 1em;
   outline: none;
   border: 1px solid $grayMedium;
-
 }
 
 %input-full-width {
@@ -31,12 +30,19 @@ form.formgrid {
   margin-left: -$formPadding;
   margin-right: -$formPadding;
 }
+
+.formgrid--messaging {
+  @extend %form-wide-one-whole;
+  @extend %form-unit;
+}
+
 fieldset {
   border: none;
   padding: 0;
 }
 
 div.formgrid {
+
 
   label {
     display: block;
@@ -53,9 +59,13 @@ div.formgrid {
     @extend %input-full-width;
   }
 
-  input[type=text] {
+  input[type=text], textarea {
     @extend %proto-input;
     @extend %input-full-width;
+  }
+  textarea {
+	height: 6em;
+	padding: 1em;
   }
 
   &.whole {
@@ -74,6 +84,12 @@ div.formgrid {
     @extend %form-wide-one-third;
     @extend %form-unit;
   }
+  &.fourth {
+	@extend %form-wide-one-fourth;
+	@extend %form-unit;
+  }
+
+
 }
 
 

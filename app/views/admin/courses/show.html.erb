@@ -1,6 +1,12 @@
-<%= render :partial => 'header', :locals => {course: @course} %>
+<%= render :partial => 'heading', :locals => {course: @course, subheader: 'Overview'} %>
 
 <% content_for :content do %>
+
+  <% body = capture do %>
+    <%= render 'shared/course_synopsis', :course => @course %>
+  <% end %>
+  <%= render :partial => 'shared/section', :locals => {:header => 'Stats', :body => body} %>
+
 
   <% body = capture do %>
     <div class="input-group">
@@ -29,12 +35,6 @@
     </div>
   <% end %>
   <%= render :partial => 'shared/section', :locals => {:header => 'Properties', :body => body} %>
-
-
-  <% body = capture do %>
-    <%= render 'shared/course_synopsis', :course => @course %>
-  <% end %>
-  <%= render :partial => 'shared/section', :locals => {:header => 'Stats', :body => body} %>
 
   <% body = capture do %>
     <%= render 'shared/course_recent_submissions', :course => @course %>

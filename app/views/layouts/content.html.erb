@@ -1,11 +1,8 @@
 <% content_for :main do %>
   <div class="page-content">
-    <div class="page-content--header">
-      <div class="page-content--header-buttons"><%= yield :header_links %></div>
-      <%= yield :header_text %>
-      <% if content_for?(:subheader) %>
-      <%= yield :subheader %>
-      <% end %>
+    <div class="page-content--heading">
+      <div class="page-content--heading-buttons"><%= yield :heading_links %></div>
+      <%= yield :heading %>
     </div>
     <%= render 'layouts/messages' %>
     <%= yield :content %>

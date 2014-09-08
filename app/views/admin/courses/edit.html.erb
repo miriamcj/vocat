@@ -1,20 +1,21 @@
-<% content_for :content_header do %>
-  Courses
-<% end %>
+<%= render :partial => 'heading', :locals => {course: @course, subheader: 'Edit Course Properties'} %>
 
-<% content_for :content_header_links do %>
+<% content_for :content do %>
 
-<% end %>
-
-<% content_for :content_frames	 do %>
-  <%= render 'header', :subheader => 'Edit Course Properties' %>
-  <%= render 'shared/model_errors', :model => @course %>
-  <%= form_for [:admin, @course] do |f| %>
-    <%= render 'form', :f => f %>
-    <div class="input-group">
-      <%= f.submit 'Update Course', :class => 'teal-plus-button' %>
-      <%= link_to 'Back', admin_course_path(@course), :class => 'gray-ex-button' %>
-    </div>
+  <% body = capture do %>
+    <%= form_for [:admin, @course], :html => {:class => 'formgrid'} do |f| %>
+      <fieldset>
+        <div class="formgrid--messaging">
+          <%= render 'shared/model_errors', :model => @course %>
+        </div>
+        <%= render 'form', :f => f %>
+        <div class="formgrid whole">
+          <%= f.button 'Update Course', :class => 'primary-button new-button' %>
+          <%= link_to 'Back', admin_course_path(@course), :class => 'secondary-button' %>
+        </div>
+      </fieldset>
+    <% end %>
   <% end %>
+  <%= render :partial => 'shared/section', :locals => {:header => nil, :body => body} %>
 <% end %>
 

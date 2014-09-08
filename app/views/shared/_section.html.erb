@@ -1,8 +1,6 @@
-<section class="section">
-  <div class="section--header">
-    <h3 class="header-section"><%= header %></h3>
-  </div>
-  <div class="section--body">
-    <%= body %>
-  </div>
-</section>
+<% unless header.nil? %>
+<h2 class="heading-page-section"><%= header %></h2>
+<% end %>
+  <div class="page-section">
+  <%= body %>
+</div>

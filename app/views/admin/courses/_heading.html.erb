@@ -1,0 +1,38 @@
+<% content_for :heading do %>
+  <% if @course %>
+    <%= link_to 'Back to Courses', admin_courses_path(), :class => 'header-link back-link' %>
+  <% end %>
+  <% if @course && !@course.new_record? %>
+  <div>
+    <div class="dropdown dropdown-inline dropdown-header" data-behavior="dropdown">
+      <h2 class="dropdown--toggle heading-primary" data-behavior="toggle" >
+        <%= @course %>
+      </h2>
+      <div class="dropdown--options" data-behavior="dropdown-options">
+        <%= render 'nav', :course => course %>
+      </div>
+    </div>
+  </div>
+  <% else %>
+    <h3 class="heading-primary">
+      <% if local_assigns.fetch(:header, nil) %>
+        <%= header %>
+      <% else %>
+        Courses
+      <% end %>
+    </h3>
+  <% end %>
+  <% if local_assigns.fetch(:subheader, nil) %>
+    <h2 class="heading-secondary" >
+      <%= subheader %>
+    </h2>
+  <% end %>
+<% end %>
+
+<% content_for :heading_links do %>
+  <% unless local_assigns.fetch :hide_new, nil %>
+    <%= link_to 'New Course', new_admin_course_path, :class => 'primary-button new-button' %>
+  <% end %>
+<% end %>
+
+

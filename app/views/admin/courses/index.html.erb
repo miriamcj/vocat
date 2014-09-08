@@ -1,7 +1,7 @@
-<%= render :partial => 'header' %>
+<%= render :partial => 'heading' %>
 
 <% content_for :content do %>
-<h2 class="header-page-section">Filter Courses</h2>
+<h2 class="heading-page-section">Filter Courses</h2>
 <div class="page-section">
   <form class="formgrid">
     <fieldset>
@@ -25,9 +25,9 @@
         <%= label_tag :section, 'Section', {:class => 'text-label'} %>
         <%= text_field_tag(:section, params[:section], {:class => 'text-input'}) %>
       </div>
-      <div class="formgrid third">
+      <div class="formgrid whole">
         <label class="text-label">&nbsp;</label>
-        <%= submit_tag('New Courses', {:class => 'primary-button'}) %>
+        <%= submit_tag('Filter Courses', {:class => 'primary-button'}) %>
       </div>
     </fieldset>
   </form>
@@ -53,7 +53,16 @@
           <td><%= course.evaluators.pluck(:last_name).join(', ') %></td>
           <td><%= course.section %></td>
           <td><%= "#{course.semester} #{course.year}" %></td>
-          <td><%= render 'nav', :course => course %></td>
+          <td>
+            <div class="dropdown dropdown-inline" data-behavior="dropdown">
+              <a class="dropdown--toggle" data-behavior="toggle" href="#">
+                Select an Action
+              </a>
+              <div class="dropdown--options" data-behavior="dropdown-options">
+                <%= render 'nav', :course => course %>
+              </div>
+            </div>
+          </td>
         </tr>
       <% end %>
       </tbody>

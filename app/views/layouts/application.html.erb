@@ -11,11 +11,16 @@
 <body class="<%= yield(:body_class) %> <%= if current_user.role == 'admin' then 'role-admin' end %> <%= if !@selected_course then 'no-course' end %>">
   <div class="shield" style="display: none;" data-class="shield"></div>
   <div data-region="modal"></div>
-    <%= render 'layouts/header' %>
-  </header>
+
+  <%= render 'layouts/heading' %>
+
   <div class="container">
     <%= content_for?(:content) ? yield(:main) : yield %>
-  </div> <!-- container -->
+  </div>
+
+  <%= render 'layouts/footer' %>
+
+
   <script type="text/javascript">
   <%= yield(:backbone_bootstrap) %>
   </script>

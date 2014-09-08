@@ -1,6 +1,5 @@
 class Courses::EvaluationsController < ApplicationController
 
-  layout 'grid'
 
 	load_and_authorize_resource :course
   load_and_authorize_resource :project

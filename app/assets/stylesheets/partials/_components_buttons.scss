@@ -51,6 +51,16 @@ input%proto-button {
   }
 }
 
+%secondary-button {
+  @extend %proto-button;
+  background-color: $secondaryButtonColor;
+  border: 0;
+  &:hover, &:focus {
+	background-color: $secondaryButtonColor;
+  }
+}
+
+
 %proto-action-link {
   @extend %button-text;
   @extend %bare-focus;
@@ -110,6 +120,9 @@ input%proto-button {
   @extend %primary-button;
 }
 
+.secondary-button {
+  @extend %secondary-button;
+}
 .small-button{
   padding: .25em;
 }

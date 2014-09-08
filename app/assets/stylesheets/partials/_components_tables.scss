@@ -7,11 +7,6 @@
 .table-wrapper {
 }
 
-// OMFG DELETE THIS
-.drop-nav-secondary {
-  display: none;
-}
-
 
 // <table>
 .table {
@@ -41,7 +36,7 @@
     vertical-align: top;
     font-weight: $semibold;
     text-align: left;
-    padding: $contentUnitPadding;
+    padding: $contentUnitPadding * .5;
     border-right: 1px solid $grayLight;
     &:last-child {
       border-right: 0;
@@ -50,7 +45,7 @@
   td {
     border-right: 1px solid $grayLight;
     vertical-align: top;
-    padding: $contentUnitPadding;
+	padding: $contentUnitPadding * .5;
     &:last-child {
       border-right: 0;
     }

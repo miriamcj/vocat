@@ -20,7 +20,7 @@
         <a class="user-nav--toggle" data-behavior="toggle" href="#">
           <span><%= current_user.name %></span>
           <%= image_tag avatar_url(current_user, 60), :alt => current_user.name %></a>
-        <div class="user-nav--dropdown" data-behavior="dropdown-options">
+        <div class="user-nav--options" data-behavior="dropdown-options">
           <ul>
             <li>
               <%= link_to(current_user.email, edit_user_registration_path) %>
@@ -41,8 +41,8 @@
     <div class="drawer--contents">
       <ul>
         <% case @app_section
-             when 'course' %><%= render 'layouts/_navigation_course' %>
-        <% when 'admin' %><%= render 'layouts/navigation_admin' %>
+             when 'course' %><%= render 'layouts/navigation_course' %>
+          <% when 'admin' %><%= render 'layouts/navigation_admin' %>
         <% end %>
 
         <% #if current_user.has_courses %>

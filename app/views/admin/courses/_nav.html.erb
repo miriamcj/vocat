@@ -1,23 +1,10 @@
-<nav class="drop-nav-secondary" data-behavior="dropdown">
-  <a class="gray-button" data-behavior="toggle" href="#" style="cursor: pointer;">
-    <% if local_assigns.fetch :subheader, nil %>
-      <%= subheader %>
-    <% else %>
-      Select an Action
-    <% end %>
-  </a>
-  <div class="drop-nav-secondary--dropdown" data-behavior="dropdown-options">
-    <ul>
-      <li><%= link_to 'View as Instructor', course_user_evaluations_path(course) %></li>
-      <li><%= link_to 'Course Overview', admin_course_path(course) %></li>
-      <li><%= link_to 'Edit Course Properties', edit_admin_course_path(course) %></li>
-      <li><%= link_to 'Export Data', export_admin_course_path(course) %></li>
-      <li><%= link_to 'Manage Assistants', assistants_admin_course_path(course) %></li>
-      <li><%= link_to 'Manage Evaluators', evaluators_admin_course_path(course) %></li>
-      <li><%= link_to 'Manage Creators', creators_admin_course_path(course) %></li>
-      <li><%= link_to 'Delete Course', admin_course_path(course), :method => :delete, :data => { :modalconfirm => 'Deleting this course will also delete all associated submissions, projects, and evaluations. This action is not reversible. Are you sure you would like to proceed?'} %></li>
-    </ul>
-  </div>
-</nav>
-
-
+<ul>
+  <li><%= link_to 'View as Instructor', course_user_evaluations_path(course) %></li>
+  <li><%= link_to 'Course Overview', admin_course_path(course) %></li>
+  <li><%= link_to 'Edit Course Properties', edit_admin_course_path(course) %></li>
+  <li><%= link_to 'Export Data', export_admin_course_path(course) %></li>
+  <li><%= link_to 'Manage Assistants', assistants_admin_course_path(course) %></li>
+  <li><%= link_to 'Manage Evaluators', evaluators_admin_course_path(course) %></li>
+  <li><%= link_to 'Manage Creators', creators_admin_course_path(course) %></li>
+  <li><%= link_to 'Delete Course', admin_course_path(course), :method => :delete, :data => { :modalconfirm => 'Deleting this course will also delete all associated submissions, projects, and evaluations. This action is not reversible. Are you sure you would like to proceed?'} %></li>
+</ul>

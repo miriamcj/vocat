@@ -20,7 +20,6 @@
   padding-top: $headerHeight;
   position: relative;
   z-index: 100;
-  overflow: hidden;
 }
 
 .page-content {
@@ -42,6 +41,11 @@
   margin-bottom: $verticalSpace;
 }
 
+footer {
+  min-height: 0px;
+  background: $white;
+  margin-top: $headerHeight;
+}
 
 // Page header
 // This lives outside container so that its position remains
@@ -183,6 +187,9 @@
   line-height: $headerHeight;
   padding: 0 $headerUnitPadding + ($iconSizeMedium * 4) 0 $headerUnitPadding;
   background: $primaryButtonHoverColor;
+  &:hover {
+	text-decoration: underline;
+  }
   & span::after {
     position: absolute;
     right: $headerUnitPadding;
@@ -194,87 +201,5 @@
   }
 }
 
-// User navigation
-// --------------------------
-.page-header--user-nav {
-  float: right;
-  height: $headerHeight;
-}
-
-.user-nav--toggle {
-  height: $headerHeight;
-  display: block;
-  font-size: $theta;
-  span {
-    display: block;
-    float: left;
-    margin-right: $headerUnitPadding;
-    line-height: 60px;
-    position: relative;
-    padding: 0 $headerUnitPadding/2 + $iconSizeSmall 0 $headerUnitPadding;
-    &::after {
-      @include svg(arrow-down-white);
-      top: $headerHeight / 2 - ($iconSizeSmall / 2);
-    }
-  }
-}
-.user-nav--dropdown {
-  @extend %dropdown;
-}
-
-
-// Page content header
-// --------------------------
-.page-content--header {
-  @include clearfix;
-  .page-content--header-buttons {
-    display: inline-block;
-    float: right;
-  }
-  h1, h2, h3, h4, h5, h6 {
-  }
-}
-
-%condensedHeader {
-  @include font-head;
-  font-weight: $regular;
-  letter-spacing: 0;
-}
-
-%capsHeader {
-  text-transform: uppercase;
-}
-
-%spacedHeader {
-  margin-bottom: $verticalSpace;
-}
-
-// Headers
-.header-primary {
-  @extend %condensedHeader;
-  @extend %spacedHeader;
-  font-size: $gamma;
-  color: $grayDark;
-}
-
-.header-secondary {
-  @extend %condensedHeader;
-  font-size: $gamma;
-  color: $grayMedium;
-}
-
-.header-tertiary {
-  @extend %condensedHeader;
-}
-
-.header-page-section {
-  font-weight: $book;
-  font-size: $epsilon;
-  color: $grayDark;
-  letter-spacing: 0;
-  @extend %condensedHeader;
-  @extend %capsHeader;
-  @extend %spacedHeader;
-}
 
 
