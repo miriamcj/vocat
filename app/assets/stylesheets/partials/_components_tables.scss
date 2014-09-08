@@ -13,9 +13,9 @@
   width: 100%;
   thead {
     tr {
-      background-color: $grayLightest;
     }
     th {
+      background-color: $grayLightest;
       // Prevents border hiding in IE
       z-index: -1;
       @include font-body;
@@ -26,17 +26,23 @@
       letter-spacing: 0;
     }
   }
-  tr {
-    background-color: $white;
-    &:nth-child(even) {
-      background-color: $grayLightest;
+  tbody {
+    tr {
+      th, td {
+        background-color: $white;
+      }
+      &:nth-child(even) {
+        th, td {
+          background-color: $grayLightest;
+        }
+      }
     }
   }
   th {
     vertical-align: top;
     font-weight: $semibold;
     text-align: left;
-    padding: $contentUnitPadding * .5;
+    padding: 1em;
     border-right: 1px solid $grayLight;
     &:last-child {
       border-right: 0;
@@ -45,7 +51,7 @@
   td {
     border-right: 1px solid $grayLight;
     vertical-align: top;
-	padding: $contentUnitPadding * .5;
+    padding: 1em;
     &:last-child {
       border-right: 0;
     }

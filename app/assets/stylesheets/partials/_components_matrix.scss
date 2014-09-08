@@ -1,0 +1,167 @@
+@import "variables";
+@import "mixins";
+@import "patterns";
+
+// A more responsive approach for later...
+//$container: 100%;
+//$columns: 7;
+//$columnWidth: $container / $columns;
+
+
+$columns: 6;
+$flexibleColumnWidth: 100% / $columns;
+$container: $containerWidth;
+$columnWidth: $container / $columns;
+
+
+.matrix-wrapper {
+  position: relative;
+  @include clearfix(heavy);
+
+  .matrix {
+  }
+  .matrix-wrapper--creators {
+    float: left;
+    width: $flexibleColumnWidth;
+  }
+  .matrix-wrapper--body {
+    float: left;
+    width: $flexibleColumnWidth * ($columns - 1);
+    overflow-x: hidden;
+    overflow-y: hidden;
+
+  }
+  .matrix-wrapper--projects {
+  }
+  .matrix-cells-wrapper {
+  }
+}
+
+%matrix-nav-button {
+  height: 100%;
+  border: none;
+  background: $black;
+  width: 4em;
+  position: absolute;
+  opacity: .4;
+  z-index: 199;
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    margin-top: 1.25em;
+    left: .75em;
+    height: 2.5em;
+    width: 2.5em;
+  }
+}
+
+.matrix-cells-wrapper--back {
+  left: $flexibleColumnWidth;
+  @extend %matrix-nav-button;
+  &::after {
+    @include svg(arrow-left-white-tall);
+  }
+}
+.matrix-cells-wrapper--forward {
+  right: 0;
+  &::after {
+    @include svg(arrow-right-white-tall);
+  }
+  @extend %matrix-nav-button;
+}
+
+
+.matrix-col-headers, .matrix-cells {
+  border-left: 1px solid $grayLight;
+}
+
+.matrix {
+
+  overflow-x: hidden;
+
+  thead {
+    th {
+      @include font-head;
+      text-align: left;
+      font-size: $epsilon;
+      padding: 1em;
+      text-transform: none;
+      font-weight: $regular;
+      letter-spacing: 0;
+      min-width: $columnWidth;
+      width: $columnWidth;
+
+    }
+  }
+  tbody {
+    th {
+      vertical-align: middle;
+      font-weight: $regular;
+      font-size: $theta; // Baseline height for the cell is 16px. Need the same baseline in the row headers
+      height: 6.0em;
+      padding: 1.5em;
+    }
+    td {
+      white-space: nowrap;
+      min-width: $columnWidth;
+      width: $columnWidth;
+
+      font-size: $theta; // Baseline height for the cell is 16px. Need the same baseline in the row headers
+      height: 6.0em;
+      padding: .5em;
+      vertical-align: middle;
+
+    }
+  }
+
+  dl {
+    width: 31%;
+    &+dl {
+      margin-left: 3%;
+    }
+    float: left;
+    dt {
+      margin-bottom: 20%;
+      @include font-head;
+      font-weight: $semibold;
+      text-transform: uppercase;
+      text-align: center;
+      color: $grayMediumLighter;
+      font-size: $lambda-minor;
+    }
+    dd {
+      @include font-matrix;
+      line-height: .85em;
+      text-align: center;
+      font-size: $delta;
+      font-weight: $regular;
+      color: $grayLighter;
+      margin: 0;
+      b.matrix--scored {
+        font-weight: normal;
+        color: $grayMediumDarker;
+      }
+      b.matrix--check {
+        margin: auto;
+        height: .55em;
+        margin-top: .225em;
+        @include svg(check-gray);
+        display: block;
+      }
+      b.matrix--checkbox {
+        cursor: pointer;
+        margin-top: -1px;
+        height: .80em;
+        @include svg(checkbox-unchecked-gray);
+        display: block;
+        &.checked {
+          @include svg(checkbox-checked-gray);
+        }
+      }
+
+    }
+  }
+
+
+}

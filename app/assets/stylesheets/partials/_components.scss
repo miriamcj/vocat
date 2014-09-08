@@ -29,6 +29,7 @@
   margin-right: auto;
   margin-left: auto;
   margin-top: $headerHeight;
+  padding: 0 .5em;
 //  .home &,
 //  .full & {
 //    max-width: 100%;
@@ -79,6 +80,11 @@ footer {
 }
 
 .page-header--navigation {
+  @include clearfix();
+  padding: 0 .5em;
+  @include respond($vostok, max) {
+    padding-right: 0em;
+  }
   margin: auto;
   position: relative;
   max-width: $containerWidth;

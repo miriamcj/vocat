@@ -8,7 +8,7 @@ define ['marionette', 'hbs!templates/course_map/cell', 'models/user', 'models/gr
 
     template: template
 
-    tagName: 'li'
+    tagName: 'td'
     className: 'matrix--cell'
 
     triggers:
@@ -57,6 +57,7 @@ define ['marionette', 'hbs!templates/course_map/cell', 'models/user', 'models/gr
       @submissions = options.submissions
       @creator = options.creator
       @vent = options.vent
+
       @project = @model
       @findModel()
 

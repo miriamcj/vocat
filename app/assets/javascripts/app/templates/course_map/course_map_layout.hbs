@@ -1,23 +1,25 @@
 <div data-region="flash" class="flash-fullbleed"></div>
-<div class="matrix highlightable">
-  <div>
-    <header class="matrix--column-header">
-      <div class="matrix--overlay-header" style="display: none" data-region="overlay-header"></div>
-      <nav class="matrix--controls">
-        <a class="matrix--next" data-behavior="matrix-slider-right" href="#">Next</a>
-        <a class="matrix--previous inactive" data-behavior="matrix-slider-left" href="#">Previous</a>
-      </nav>
-      <div class="matrix--list-wrapper" data-behavior="matrix-slider" data-region="projects"></div>
-    </header>
-    <nav class="matrix--name-nav" data-behavior="matrix-creators">
-      <header class="matrix--row-header" data-behavior="matrix-creators-list" data-region="creators">
-      </header>
-    </nav>
-    <div class="matrix--body" data-behavior="matrix-body" >
-      <div class="matrix--overlay" style="display: none;" data-behavior="overlay-container">
-        <div data-region="overlay" data-behavior="overlay-content"></div>
+
+<div class="matrix-wrapper">
+
+  <div class="matrix-wrapper--creators" data-region="creators">
+     <!-- creators.hbs -->
+  </div>
+
+  <button data-behavior="matrix-slider-left" class="matrix-cells-wrapper--back"></button>
+  <button data-behavior="matrix-slider-right" class="matrix-cells-wrapper--forward"></button>
+
+  <div class="matrix-wrapper--body" data-behavior="matrix-body">
+    <div class="matrix-body" data-behavior="matrix-slider" style="position: relative">
+      <div class="matrix-wrapper--projects" >
+        <table class="table matrix matrix-col-headers" data-region="projects">
+        </table>
       </div>
-      <div class="matrix--content" data-region="matrix" data-behavior="matrix-slider"></div>
+      <div class="matrix-wrapper--cells">
+        <table class="table matrix matrix-cells" data-region="matrix">
+        </table
+      </div>
     </div>
   </div>
 </div>
+

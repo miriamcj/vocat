@@ -17,10 +17,10 @@
  *= require partials/_components_chosen
  *= require partials/_components_forms
  *= require partials/_components_tables
+ *= require partials/_components_matrix
  *= require partials/_components_dropdowns
  *= require partials/_components_headings
- *= require partials/_components_matrix
-
+ *= require partials/_components_utility
 
 */
 

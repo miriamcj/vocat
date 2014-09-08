@@ -31,4 +31,9 @@ define ['jquery_rails', './plugins', 'vendor/plugins/chosen'], ($) ->
         #$('[data-behavior="sticky-header"]').stickyHeader()
         #$('[data-behavior="shortcut-nav-toggle"]').shortcutNavigation()
         #$('[data-behavior="help-overlay-toggle"]').helpOverlay()
+
+
+
+
+
   }

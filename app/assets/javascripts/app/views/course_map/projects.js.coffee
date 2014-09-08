@@ -8,12 +8,12 @@ define (require) ->
 
     itemView: Item
     emptyView: EmptyView
-    className: 'matrix--column-header--list'
-    tagName: 'ul'
+    tagName: 'thead'
 
     itemViewOptions: () ->
       {
         creatorType: @creatorType
+        vent: @vent
         courseId: @options.courseId
       }
 
@@ -37,3 +37,5 @@ define (require) ->
       if @creatorType == 'Group'
         return if item.get('accepts_group_submissions') == false
       super
+
+    onShow: () ->

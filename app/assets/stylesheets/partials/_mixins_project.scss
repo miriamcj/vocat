@@ -11,6 +11,10 @@
   font-family: "proxima-nova-condensed", "Helvetica Neue", Arial, sans-serif;
 }
 
+@mixin font-matrix {
+  font-family: "alternate-gothic-no-1-d", "Helvetica Neue", Arial, sans-serif;
+}
+
 // Detect IE10
 // --------------------------
 @mixin newIE {

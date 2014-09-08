@@ -1,7 +1,7 @@
 define ['marionette', 'hbs!templates/course_map/projects_item'], (Marionette, template) ->
   class CourseMapProjectsItem extends Marionette.ItemView
 
-    tagName: 'li'
+    tagName: 'th'
     template: template
     attributes: {
       'data-behavior': 'navigate-project'
@@ -27,3 +27,7 @@ define ['marionette', 'hbs!templates/course_map/projects_item'], (Marionette, te
     initialize: (options) ->
       @creatorType = Marionette.getOption(@, 'creatorType')
       @$el.attr('data-project', @model.id)
+      @vent = options.vent
+
+    onShow: () ->
+      @vent.trigger('project_item:shown', @$el.height())

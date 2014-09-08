@@ -14,37 +14,37 @@
   background: darken($grayMedium, 10%);
   opacity: 1;
   &:before {
-	content: "";
-	display: block;
-	width: 0;
-	height: 0;
-	border-right: $iconSizeSmall solid transparent;
-	border-left: $iconSizeSmall solid transparent;
-	border-bottom: $iconSizeSmall solid darken($grayMedium, 10%);
-	position: absolute;
-	top: -$iconSizeSmall;
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border-right: $iconSizeSmall solid transparent;
+    border-left: $iconSizeSmall solid transparent;
+    border-bottom: $iconSizeSmall solid darken($grayMedium, 10%);
+    position: absolute;
+    top: -$iconSizeSmall;
   }
   ul {
-	@extend %unstyled-list;
-	padding: 0;
-	margin: 0;
+    @extend %unstyled-list;
+    padding: 0;
+    margin: 0;
   }
   li + li {
-	border-top: $defaultStroke solid $white;
-	padding-top: $verticalSpaceTightest;
-	margin-top: $verticalSpaceTightest;
+    border-top: $defaultStroke solid $white;
+    padding-top: $verticalSpaceTightest;
+    margin-top: $verticalSpaceTightest;
   }
   a {
-	display: block;
-	white-space: pre;
-	line-height: 1;
-	color: $white;
-	&:hover {
-	  color: $tealLight;
-	}
+    display: block;
+    white-space: pre;
+    line-height: 1;
+    color: $white;
+    &:hover {
+      color: $tealLight;
+    }
   }
   .open & {
-	display: block;
+    display: block;
   }
 }
 
@@ -64,20 +64,26 @@ a.user-nav--toggle:hover {
   }
 }
 .user-nav--toggle {
+
+  span {
+    @include respond($vostok, max) {
+      display: none !important;
+    }
+  }
   height: $headerHeight;
   display: block;
   font-size: $theta;
   span {
-	display: block;
-	float: left;
-	margin-right: $headerUnitPadding;
-	line-height: 60px;
-	position: relative;
-	padding: 0 $headerUnitPadding/2 + $iconSizeSmall 0 $headerUnitPadding;
-	&::after {
-	  @include svg(arrow-down-white);
-	  top: $headerHeight / 2 - ($iconSizeSmall / 2);
-	}
+    display: block;
+    float: left;
+    margin-right: $headerUnitPadding;
+    line-height: 60px;
+    position: relative;
+    padding: 0 $headerUnitPadding/2 + $iconSizeSmall 0 $headerUnitPadding;
+    &::after {
+      @include svg(arrow-down-white);
+      top: $headerHeight / 2 - ($iconSizeSmall / 2);
+    }
   }
 }
 .user-nav--options {
@@ -101,21 +107,21 @@ a.user-nav--toggle:hover {
   position: relative;
   padding-right: 1.2em;
   &:after {
-	content: "";
-	@include svg(arrow-down-gray-dark);
-	display: block;
-	padding: 0;
-	height: $iconSizeMedium;
-	width: $iconSizeMedium;
-	position: absolute;
-	right: 0;
-	top: .2em;
+    content: "";
+    @include svg(arrow-down-gray-dark);
+    display: block;
+    padding: 0;
+    height: $iconSizeMedium;
+    width: $iconSizeMedium;
+    position: absolute;
+    right: 0;
+    top: .2em;
   }
 }
 
 .dropdown--options {
   @extend %dropdown-options;
   .dropdown-header & {
-	top: 2.5em;
+    top: 2.5em;
   }
 }

@@ -9,7 +9,13 @@
       <nav class="drawer-nav--trigger" data-behavior="drawer-trigger">
         <span></span>
         <% case @app_section
-             when 'course' %><%= @selected_course %>
+             when 'course' %>
+            <span class="show-vostok">
+              <%= "#{@selected_course.department}#{@selected_course.number}" %>
+            </span>
+            <span class="hide-vostok">
+              <%= @selected_course %>
+            </span>
         <% when 'admin' %> <%= 'Admin' %>
           <% when 'dashboard' %><%= 'Dashboard' %>
         <% end %>

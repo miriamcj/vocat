@@ -7,11 +7,15 @@ $white: #fff;
 $whiteTransparent: transparentize(#fff, 0.25);
 $offWhite: #fafafa;
 
-$grayLightest: #F7F7F7;
-$grayLight: #D9D8D8;
-$grayMedium: #9D9FA1;
-$grayMedium-alt: #8B8B8B;
-$grayDark: #4D4D4F;
+$grayLightest: rgb(245, 245, 245);
+$grayLighter: rgb(224, 224, 224);
+$grayLight: rgb(199, 200, 202);
+$grayMediumLighter: rgb(167, 169, 172);
+$grayMedium: rgb(157, 159, 162);
+$grayMediumDarker: rgb(140, 140, 140);
+$grayDark: rgb(109, 110, 113);
+$grayDarker: rgb(77, 77, 79);
+$grayDarkest: rgb(35, 31, 32);
 
 $tealLight: #3CC6BC;
 $tealDark: #0AB0A9;
@@ -50,6 +54,8 @@ $iota: 0.875em;
 $kappa: 0.813em;
 // 12px
 $lambda: 0.750em;
+// 11px
+$lambda-minor: 0.688em;
 
 // Measurements
 // --------------------------------------------------------

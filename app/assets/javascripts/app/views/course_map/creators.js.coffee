@@ -6,10 +6,10 @@ define [
 
   class CourseMapCreatorsView extends Marionette.CompositeView
 
-    tagName: 'ul'
-
+    tagName: 'table'
+    className: 'table matrix matrix-row-headers'
     template: template
-
+    childViewContainer: 'tbody'
     itemView: Item
 
     ui: {
@@ -40,8 +40,16 @@ define [
       isGroups: @creatorType == 'Group'
       }
 
+    onShow: () ->
+      height = $('.matrix-cells thead th').height()
+      console.log height,'height'
+
     initialize: (options) ->
       @options = options || {}
       @vent = Marionette.getOption(@, 'vent')
       @creatorType = Marionette.getOption(@, 'creatorType')
+
+      @listenTo(@vent, 'project_item:shown', (yourHeight) ->
+        @$el.find('thead th').height(yourHeight)
+      )
 

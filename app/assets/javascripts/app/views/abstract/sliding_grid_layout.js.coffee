@@ -5,11 +5,11 @@ define [
   class SlidingGridLayout extends Marionette.Layout
 
     # We need to store various states of the slider, including column widths.
-    sliderVisibleColumns: 3
     sliderWidth: 3000
     sliderMinLeft: 0
     sliderPosition: 0
     sliderPositionLeft: 0
+    sliderVisibleColumns: 0
 
     ui: {
       sliderContainer: '[data-behavior="matrix-slider"]'
@@ -43,6 +43,8 @@ define [
       if clear == true
         console.clear()
       console.log msg
+      console.log @stage,'@stage'
+      console.log @container,'@container'
       console.log @sliderVisibleColumns,'@sliderVisibleColumns'
       console.log @sliderContainerWidth,'@sliderContainerWidth'
       console.log @sliderColumnCount,'@sliderColumnCount'
@@ -58,20 +60,28 @@ define [
 #      diff = documentHeight - regionHeight - 83 # This constant seems suspect. Not sure that it's really a constant. --ZD
 #      $spacers.height(diff)
 
+    calculateSliderVisibleColumns: () ->
+      stageWidth = @stage.width()
+      firstColumn = @container
+
     calculateAndSetSliderWidth: () ->
-      stage = @$el.find('[data-behavior="matrix-body"]')
-      container = @$el.find('[data-behavior="matrix-slider"]')
-      stageWidth = stage.width()
+      @stage = @$el.find('[data-behavior="matrix-body"]')
+      @container = @$el.find('[data-behavior="matrix-slider"]')
+
+      stageWidth = @stage.width()
+      console.log stageWidth,'sw'
       if stageWidth > 0
+        @sliderVisibleColumns = @calculateSliderVisibleColumns()
         @sliderModulus = stageWidth % @sliderVisibleColumns
         @sliderColumnWidth = (stageWidth - @sliderModulus) / @sliderVisibleColumns + 1
-        @sliderColumnCount = container.first().find('ul li').length
+        @sliderColumnCount = @container.find('th').length
+        console.log @sliderColumnCount,'scc'
         @sliderContainerWidth = @sliderColumnCount * @sliderColumnWidth
         if @sliderColumnCount >= @sliderVisibleColumns
           multiplier = Math.floor(@sliderColumnCount / @sliderVisibleColumns)
           @sliderContainerWidth += multiplier * @sliderModulus
-        container.find('ul').width(@sliderContainerWidth)
-        _.each container.find('.matrix--cell, ul.matrix--column-header--list li'), (el, index) =>
+        @container.find('ul').width(@sliderContainerWidth)
+        _.each @container.find('.matrix--cell, ul.matrix--column-header--list li'), (el, index) =>
           index = $(el).index()
           # For some unknown reason, using outerWidth here instead of CSS fails. A hook in jquery
           # styles method (cssHooks) was changing the value before it was set on the element. Not sure why.
@@ -87,6 +97,7 @@ define [
           @slide('backward')
 
         @updateSliderControls()
+      @debug()
 
     updateSliderControls: () ->
       if @sliderPosition == 0
@@ -117,9 +128,8 @@ define [
           travel += @sliderModulus
 
         newLeft = @sliderPositionLeft + travel
-
-        @$el.find('[data-behavior="matrix-slider"] ul').animate({left: newLeft}, 250)
-
+        console.log newLeft,'nl'
+        @$el.find('[data-behavior="matrix-slider"]').animate({left: newLeft}, 250)
         @sliderPosition = newPosition
         @sliderPositionLeft = newLeft
         @updateSliderControls()

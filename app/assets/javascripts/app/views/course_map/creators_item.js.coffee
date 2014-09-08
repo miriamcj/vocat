@@ -2,7 +2,7 @@ define ['marionette', 'hbs!templates/course_map/creators_item'], (Marionette, te
 
   class CourseMapCreatorsItem extends Marionette.ItemView
 
-    tagName: 'li'
+    tagName: 'tr'
 
     template: template
 
