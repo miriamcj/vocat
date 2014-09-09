@@ -99,24 +99,22 @@ class Ability
       results = can?(:evaluate, submission.project.course ) && submission.creator != user ||
         submission.creator.is_user? && submission.project.course.allows_self_evaluation? && submission.creator == user ||
         submission.creator.is_group? && submission.project.course.allows_self_evaluation? && submission.creator.include?(user)
-
-      myvar = results
       results
     end
 
     can :attach, Submission do |submission|
-	    # CAN if the user is an administrator
-	    (user.role?(:administrator)) ||
-	    # CAN if the user is not the submission owner, and is an evaluator or assistant for the course
-			(
+      # CAN if the user is an administrator
+      (user.role?(:administrator)) ||
+      # CAN if the user is not the submission owner, and is an evaluator or assistant for the course
+      (
         !can?(:own, submission) &&
         (
           submission.project.course.role(user) == :assistant ||
           submission.project.course.role(user) == :evaluator
         )
       ) ||
-			# CAN if the user is the submission owner and enable_creator_attach is true
-			(can?(:own, submission) && submission.project.course.allows_creator_attach?)
+      # CAN if the user is the submission owner and enable_creator_attach is true
+      (can?(:own, submission) && submission.project.course.allows_creator_attach?)
     end
 
     can :discuss, Submission do |submission|

@@ -122,7 +122,8 @@ class Submission < ActiveRecord::Base
     if role == :administrator
       return evaluations
     elsif role == :evaluator
-      return evaluations.where("published = true OR (published = false AND evaluator_id = ?)", user.id)
+      results = evaluations.where("published = true OR (published != true AND evaluator_id = ?)", user.id)
+      return results
     else
       if user.can?(:own, self)
         # User is the submission owner, so can see own evaluation plus any published evaluations
