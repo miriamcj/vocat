@@ -8,30 +8,46 @@
 //$columnWidth: $container / $columns;
 
 
-$columns: 6;
+$columns: 5;
 $flexibleColumnWidth: 100% / $columns;
 $container: $containerWidth;
-$columnWidth: $container / $columns;
-
+$columnWidth: ($container / $columns) - 12;
 
 .matrix-wrapper {
   position: relative;
   @include clearfix(heavy);
 
-  .matrix {
-  }
   .matrix-wrapper--creators {
     float: left;
-    width: $flexibleColumnWidth;
+	width: $flexibleColumnWidth;
+	@include respond($vostok) {
+	  width: $flexibleColumnWidth * 1.5;
+	}
+
+	th {
+	  width: auto !important;
+	  min-width: 100px;
+	  max-width: none !important;
+	}
   }
+
   .matrix-wrapper--body {
+
+	.matrix-body {
+	  position: relative;
+	}
     float: left;
     width: $flexibleColumnWidth * ($columns - 1);
+
+	@include respond($vostok) {
+	  width: $flexibleColumnWidth * ($columns - 1.5);
+	}
     overflow-x: hidden;
     overflow-y: hidden;
 
   }
   .matrix-wrapper--projects {
+	position: relative;
   }
   .matrix-cells-wrapper {
   }
@@ -78,7 +94,6 @@ $columnWidth: $container / $columns;
 
 .matrix {
 
-  overflow-x: hidden;
 
   thead {
     th {
@@ -86,7 +101,11 @@ $columnWidth: $container / $columns;
       text-align: left;
       font-size: $epsilon;
       padding: 1em;
-      text-transform: none;
+	  @include respond($vostok) {
+		padding: .5em;
+	  }
+
+	  text-transform: none;
       font-weight: $regular;
       letter-spacing: 0;
       min-width: $columnWidth;
@@ -101,6 +120,11 @@ $columnWidth: $container / $columns;
       font-size: $theta; // Baseline height for the cell is 16px. Need the same baseline in the row headers
       height: 6.0em;
       padding: 1.5em;
+	  @include respond($vostok) {
+		padding: .5em;
+		height: 6em;
+	  }
+
     }
     td {
       white-space: nowrap;

@@ -10,10 +10,10 @@
         <span></span>
         <% case @app_section
              when 'course' %>
-            <span class="show-vostok">
+            <span class="course-short">
               <%= "#{@selected_course.department}#{@selected_course.number}" %>
             </span>
-            <span class="hide-vostok">
+            <span class="course-long">
               <%= @selected_course %>
             </span>
         <% when 'admin' %> <%= 'Admin' %>

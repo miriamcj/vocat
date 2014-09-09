@@ -66,7 +66,7 @@ a.user-nav--toggle:hover {
 .user-nav--toggle {
 
   span {
-    @include respond($vostok, max) {
+    @include respond($baikal) {
       display: none !important;
     }
   }

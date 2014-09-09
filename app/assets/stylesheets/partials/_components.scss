@@ -29,11 +29,10 @@
   margin-right: auto;
   margin-left: auto;
   margin-top: $headerHeight;
-  padding: 0 .5em;
-//  .home &,
-//  .full & {
-//    max-width: 100%;
-//  }
+
+  @include respond($superior) {
+	padding: 0 .5em;
+  }
 }
 
 .page-section {
@@ -67,9 +66,6 @@ footer {
   z-index: 300;
   box-shadow: 0 1px 0 0 transparentize($black, 0.97);
   color: $white;
-  @include respond($vostok) {
-    padding-left: 0;
-  }
 }
 
 .page-header--navigation-wrapper {
@@ -81,10 +77,11 @@ footer {
 
 .page-header--navigation {
   @include clearfix();
-  padding: 0 .5em;
-  @include respond($vostok, max) {
-    padding-right: 0em;
+
+  @include respond($superior) {
+	padding-left: .5em;
   }
+
   margin: auto;
   position: relative;
   max-width: $containerWidth;
@@ -193,6 +190,17 @@ footer {
   line-height: $headerHeight;
   padding: 0 $headerUnitPadding + ($iconSizeMedium * 4) 0 $headerUnitPadding;
   background: $primaryButtonHoverColor;
+  .course-short {
+	display: inline;
+	@include respond($ontario, 'min') {
+	  display: none;
+	}
+  }
+  .course-long {
+	@include respond($ontario) {
+		display: none;
+	}
+  }
   &:hover {
 	text-decoration: underline;
   }

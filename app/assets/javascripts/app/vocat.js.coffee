@@ -180,9 +180,9 @@ define (require) ->
       })
   )
 
-  Vocat.on('all', (e) ->
-    console.log "VOCAT heard #{e}"
-  )
+#  Vocat.on('all', (e) ->
+#    console.log "VOCAT heard #{e}"
+#  )
 
   # Some global app constants that we hang on the Vocat object rather than passing them around via events.
   # Another reason for setting these thing at a very high level is that they can potentially be stored in

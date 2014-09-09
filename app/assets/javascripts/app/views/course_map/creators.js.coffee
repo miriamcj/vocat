@@ -42,7 +42,6 @@ define [
 
     onShow: () ->
       height = $('.matrix-cells thead th').height()
-      console.log height,'height'
 
     initialize: (options) ->
       @options = options || {}

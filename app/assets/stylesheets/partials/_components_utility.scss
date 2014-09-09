@@ -1,16 +1,3 @@
 @import "variables";
 @import "mixins";
 @import "patterns";
-
-.show-vostok {
-  display: inline;
-  @include respond($vostok, min) {
-    display: none;
-  }
-}
-
-.hide-vostok {
-  @include respond($vostok, max) {
-    display: none;
-  }
-}

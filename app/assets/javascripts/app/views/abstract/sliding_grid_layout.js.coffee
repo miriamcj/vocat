@@ -37,100 +37,93 @@ define [
     sliderRecalculate: () ->
       @calculateAndSetSliderWidth()
       @updateSliderControls()
-      @setSpacerCellHeights()
-
-    debug: (msg = 'slider debug:', clear = true) ->
-      if clear == true
-        console.clear()
-      console.log msg
-      console.log @stage,'@stage'
-      console.log @container,'@container'
-      console.log @sliderVisibleColumns,'@sliderVisibleColumns'
-      console.log @sliderContainerWidth,'@sliderContainerWidth'
-      console.log @sliderColumnCount,'@sliderColumnCount'
-      console.log @sliderColumnWidth,'@sliderColumnWidth'
-      console.log @sliderModulus,'@sliderModulus'
-      console.log @sliderPosition, '@sliderPosition'
-      console.log @sliderPositionLeft, '@sliderPositionLeft'
-
-    setSpacerCellHeights: () ->
-#      $spacers = @$el.find('.matrix--row-spacer')
-#      documentHeight = $(document).outerHeight()
-#      regionHeight = $('#region-main').outerHeight()
-#      diff = documentHeight - regionHeight - 83 # This constant seems suspect. Not sure that it's really a constant. --ZD
-#      $spacers.height(diff)
-
-    calculateSliderVisibleColumns: () ->
-      stageWidth = @stage.width()
-      firstColumn = @container
 
     calculateAndSetSliderWidth: () ->
-      @stage = @$el.find('[data-behavior="matrix-body"]')
-      @container = @$el.find('[data-behavior="matrix-slider"]')
+      # The actor moves across the stage.
+      @stage = @$el.find('[data-behavior="matrix-stage"]')
+      @stageWidth = @stage.width()
+      @actor = @$el.find('[data-behavior="matrix-actor"]')
 
-      stageWidth = @stage.width()
-      console.log stageWidth,'sw'
-      if stageWidth > 0
-        @sliderVisibleColumns = @calculateSliderVisibleColumns()
-        @sliderModulus = stageWidth % @sliderVisibleColumns
-        @sliderColumnWidth = (stageWidth - @sliderModulus) / @sliderVisibleColumns + 1
-        @sliderColumnCount = @container.find('th').length
-        console.log @sliderColumnCount,'scc'
-        @sliderContainerWidth = @sliderColumnCount * @sliderColumnWidth
-        if @sliderColumnCount >= @sliderVisibleColumns
-          multiplier = Math.floor(@sliderColumnCount / @sliderVisibleColumns)
-          @sliderContainerWidth += multiplier * @sliderModulus
-        @container.find('ul').width(@sliderContainerWidth)
-        _.each @container.find('.matrix--cell, ul.matrix--column-header--list li'), (el, index) =>
-          index = $(el).index()
-          # For some unknown reason, using outerWidth here instead of CSS fails. A hook in jquery
-          # styles method (cssHooks) was changing the value before it was set on the element. Not sure why.
-          if (index + 1) % @sliderVisibleColumns == 0
-            $(el).css({width: @sliderColumnWidth + @sliderModulus})
-          else
-            $(el).css({width: @sliderColumnWidth})
+      # Calculate and set actor width and col widths
+      colWidths = new Array
+      @columnWidth = @actor.find('tr').first().find('td').each((index, el) ->
+        colWidths.push $(el).outerWidth()
+      )
+      @colWidths = colWidths
+      @actorWidth = _.reduce(@colWidths, (memo, num) ->
+          memo + num
+      )
 
-        if @sliderPositionLeft
-          @$el.find('[data-behavior="matrix-slider"] ul').css('left', @sliderPositionLeft)
+      @hiddenWidth = @actorWidth - @stageWidth
+      @currentLeft = 0
 
-        if @sliderPosition > (@sliderColumnCount - @sliderVisibleColumns)
-          @slide('backward')
+      # Set the current column in pos 0
+      @currentPosition = 0
+      @columnCount = @colWidths.length
 
-        @updateSliderControls()
-      @debug()
+      @updateSliderControls()
+
+    canSlideForward: () ->
+      @currentLeft > @hiddenWidth * -1
+
+    canSlideBackward: () ->
+      @currentLeft < 0
 
     updateSliderControls: () ->
-      if @sliderPosition == 0
-        @ui.sliderLeft.addClass('inactive')
+      if @canSlideBackward()
+        @ui.sliderLeft.show()
       else
-        @ui.sliderLeft.removeClass('inactive')
-      if @sliderPosition + 1 <= (@sliderColumnCount - @sliderVisibleColumns)
-        @ui.sliderRight.removeClass('inactive')
+        @ui.sliderLeft.hide()
+      if @canSlideForward()
+        @ui.sliderRight.show()
       else
-        @ui.sliderRight.addClass('inactive')
+        @ui.sliderRight.hide()
 
-    slideReposition: () ->
-      @$el.find('[data-behavior="matrix-slider"] ul').css('left', @sliderPosition)
+    nextPosition: () ->
+      if @currentPosition + 1 <= @columnCount then @currentPosition + 1 else @currentPosition
+
+    previousPosition: () ->
+      if @currentPosition - 1 <= @columnCount then @currentPosition - 1 else @currentPosition
+
+    positionLeftOffset: (position) ->
+      previousColumns = @colWidths.slice(0, position)
+      offset = _.reduce(previousColumns, (memo, num) ->
+          memo + num
+      , 0)
+      if offset > @hiddenWidth then offset = @hiddenWidth
+      offset * -1
+
 
     slide: (direction) ->
-      currentPosition = @sliderPosition
       if direction == 'forward'
-        travel = @sliderColumnWidth * -1
-        newPosition = currentPosition + 1
+        targetPosition = @nextPosition()
       else
-        travel = @sliderColumnWidth * 1
-        newPosition = currentPosition - 1
-      if newPosition <= (@sliderColumnCount - @sliderVisibleColumns) && newPosition >= 0
+        targetPosition = @previousPosition()
+      offset = @positionLeftOffset(targetPosition)
 
-        if newPosition % @sliderVisibleColumns == 0 && direction == 'forward'
-          travel -= @sliderModulus
-        if currentPosition % @sliderVisibleColumns == 0 && direction == 'backward'
-          travel += @sliderModulus
+      @currentPosition = targetPosition
+      @currentLeft = offset
+      @actor.animate({left: offset}, 250)
+      @updateSliderControls()
 
-        newLeft = @sliderPositionLeft + travel
-        console.log newLeft,'nl'
-        @$el.find('[data-behavior="matrix-slider"]').animate({left: newLeft}, 250)
-        @sliderPosition = newPosition
-        @sliderPositionLeft = newLeft
-        @updateSliderControls()
+
+#      currentPosition = @sliderPosition
+#      if direction == 'forward'
+#        travel = @sliderColumnWidth * -1
+#        newPosition = currentPosition + 1
+#      else
+#        travel = @sliderColumnWidth * 1
+#        newPosition = currentPosition - 1
+#      if newPosition <= (@sliderColumnCount - @sliderVisibleColumns) && newPosition >= 0
+#
+#        if newPosition % @sliderVisibleColumns == 0 && direction == 'forward'
+#          travel -= @sliderModulus
+#        if currentPosition % @sliderVisibleColumns == 0 && direction == 'backward'
+#          travel += @sliderModulus
+#
+#        newLeft = @sliderPositionLeft + travel
+#
+#        @$el.find('[data-behavior="matrix-slider"]').animate({left: newLeft}, 250)
+#        @sliderPosition = newPosition
+#        @sliderPositionLeft = newLeft
 
