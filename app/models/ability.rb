@@ -92,9 +92,16 @@ class Ability
     end
 
     can :evaluate, Submission do |submission|
-      can?(:evaluate, submission.project.course ) && submission.creator != user ||
-      submission.creator.is_user? && submission.project.course.allows_self_evaluation? && submission.creator == user ||
-      submission.creator.is_group? && submission.project.course.allows_self_evaluation? && submission.creator.include?(user)
+      # User can evaluate if:
+      # 1) user can evaluate for the course and is not the creator of the submission
+      # 2) submission is a user submission and self evaluation is allowed and evaluator is the creator
+      # 3) submission is a group submission and self evaluation is allowed and evaluator is in the group.
+      results = can?(:evaluate, submission.project.course ) && submission.creator != user ||
+        submission.creator.is_user? && submission.project.course.allows_self_evaluation? && submission.creator == user ||
+        submission.creator.is_group? && submission.project.course.allows_self_evaluation? && submission.creator.include?(user)
+
+      myvar = results
+      results
     end
 
     can :attach, Submission do |submission|
@@ -232,20 +239,11 @@ class Ability
 
 
     ######################################################
-    # Admins
-    ######################################################
-    if user.role?(:administrator)
-      can :manage, :all
-      cannot :manage, Evaluation
-    end
-
-
-    ######################################################
     # Evaluations
     ######################################################
 
     can :read_only, Evaluation do |evaluation|
-      can?(:own, evaluation.submission) && evaluation.published == true || evaluation.submission.project.course.role(user) == :evaluator || user.role?(:administrator)
+      can?(:own, evaluation.submission) && evaluation.published == true || evaluation.submission.project.course.role(user) == :evaluator
     end
 
     can :read_write_destroy, Evaluation do |evaluation|
@@ -253,15 +251,28 @@ class Ability
     end
 
     can :create, Evaluation do |evaluation|
-      can?(:evaluate, evaluation.submission) && !user.role?(:administrator)
+      results = can?(:evaluate, evaluation.submission)
+      results
     end
 
     can :new, Evaluation do |evaluation|
-      can?(:evaluate, evaluation.submission) && !user.role?(:administrator)
+      can?(:evaluate, evaluation.submission)
     end
 
     can :own, Evaluation do |evaluation|
       evaluation.evaluator == user
+    end
+
+
+    ######################################################
+    # Admins
+    ######################################################
+    if user.role?(:administrator)
+      can :manage, :all
+      cannot [:new, :edit, :create, :update, :destroy], Evaluation do |evaluation|
+        result = evaluation.submission.project.course.role(user) != :evaluator
+        result
+      end
     end
 
   end
