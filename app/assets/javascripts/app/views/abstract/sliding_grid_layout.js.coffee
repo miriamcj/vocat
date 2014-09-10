@@ -39,6 +39,7 @@ define [
       @memoizeHashCount
 
     sliderRecalculate: () ->
+      console.log
       $(window).off("resize")
       $(window).on('resize', _.debounce(() => @sliderRecalculate()), 300)
       @memoizeHashCount++
