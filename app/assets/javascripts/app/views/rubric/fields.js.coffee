@@ -2,10 +2,10 @@ define ['marionette', 'views/rubric/fields_item'], (Marionette, ItemView) ->
 
   class FieldsView extends Marionette.CollectionView
 
-    itemView: ItemView
+    childView: ItemView
     tagName: 'ul'
     className: 'matrix--column-header--list'
-    itemViewOptions: () ->
+    childViewOptions: () ->
       {
       vent: @vent
       }

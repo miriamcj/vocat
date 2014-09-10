@@ -2,11 +2,11 @@ define ['marionette', 'views/course_map/publisher'], (Marionette, ItemView) ->
 
   class PublisherView extends Marionette.CollectionView
 
-    itemView: ItemView
+    childView: ItemView
     tagName: 'ul'
     className: 'matrix--meta-nav--row'
 
-    itemViewOptions: () ->
+    childViewOptions: () ->
       {
       vent: @vent
       submissions: @collections.submission

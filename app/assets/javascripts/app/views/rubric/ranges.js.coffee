@@ -2,9 +2,9 @@ define ['marionette', 'views/rubric/ranges_item'], (Marionette, ItemView) ->
 
   class RangesView extends Marionette.CollectionView
 
-    itemView: ItemView
+    childView: ItemView
     tagName: 'ul'
-    itemViewOptions: () ->
+    childViewOptions: () ->
       {
         vent: @vent
       }

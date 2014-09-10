@@ -4,7 +4,7 @@ define (require) ->
   template = require('hbs!templates/submission/player/player_show')
   ModalConfirmView = require('views/modal/modal_confirm')
 
-  class PlayerShow extends Marionette.Layout
+  class PlayerShow extends Marionette.LayoutView
 
     template: template
 
@@ -70,7 +70,7 @@ define (require) ->
       @player = videojs(domTarget, options, () ->
       )
 
-    onClose: () ->
+    onDestroy: () ->
       @player.dispose()
 
     initializePlayerEvents: () ->

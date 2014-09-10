@@ -7,7 +7,7 @@ define ['marionette', 'hbs!templates/course_map/row_item', 'views/course_map/cel
     # this view is a collection view. It creates a cell for each project.
 
     tagName: 'tr'
-    itemView: ItemView
+    childView: ItemView
 
     triggers: {
       'mouseover': 'row:active'
@@ -20,7 +20,7 @@ define ['marionette', 'hbs!templates/course_map/row_item', 'views/course_map/cel
     onRowInactive: () ->
       @vent.triggerMethod('row:inactive', {creator: @model})
 
-    itemViewOptions: () ->
+    childViewOptions: () ->
       {
       vent: @vent
       creator: @model

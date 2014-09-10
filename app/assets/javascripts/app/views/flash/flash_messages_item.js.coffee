@@ -14,13 +14,13 @@ define [
       "alert alert-#{@model.get('level')}"
 
     triggers:
-      'click [data-behavior="close"]': 'close'
+      'click [data-behavior="destroy"]': 'destroy'
 
     initialize: (options) ->
       lifetime = @model.get('lifetime')
       if lifetime? && lifetime != false && lifetime > 1000 then @lifetime = @model.get('lifetime')
 
-    onClose: ->
+    onDestroy: ->
       @$el.slideUp({
         duration: 250
         done: () =>
@@ -45,6 +45,6 @@ define [
         @$el.fadeIn()
 
       setTimeout( () =>
-        @onClose()
+        @onDestroy()
       , @lifetime
       )

@@ -6,18 +6,18 @@ define ['marionette', 'hbs!templates/course_map/creators', 'views/group/creators
 
     template: template
 
-    itemView: Item
+    childView: Item
 
-    itemViewOptions: () ->
+    childViewOptions: () ->
       {courseId: @options.courseId}
 
-    onItemviewActive: (view) ->
+    onChildviewActive: (view) ->
       @vent.triggerMethod('row:active', {creator: view.model.id})
 
-    onItemviewInactive: (view) ->
+    onChildviewInactive: (view) ->
       @vent.triggerMethod('row:inactive', {creator: view.model.id})
 
-    onItemviewDetail: (view) ->
+    onChildviewDetail: (view) ->
       @vent.triggerMethod('open:detail:creator', {creator: view.model.id})
 
     initialize: (options) ->

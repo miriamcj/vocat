@@ -32,7 +32,7 @@ define (require) ->
         @model.save(@property, @getValue())
       else
         @model.set(@property, @getValue())
-      Vocat.vent.trigger('modal:close')
+      Vocat.vent.trigger('modal:destroy')
 
     initialize: (options) ->
       @property = options.property

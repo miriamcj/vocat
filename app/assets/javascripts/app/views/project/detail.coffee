@@ -11,7 +11,7 @@ define (require) ->
   dc = require('vendor/dc/dc')
   crossfilter = require('vendor/crossfilter/crossfilter')
 
-  class CourseMapDetailProject extends Marionette.Layout
+  class CourseMapDetailProject extends Marionette.LayoutView
 
     loadedScoresSet = null
     template: template

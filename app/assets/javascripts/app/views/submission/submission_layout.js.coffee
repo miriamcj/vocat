@@ -18,7 +18,7 @@ define (require) ->
   RubricDetailView = require('views/rubric/rubric_detail')
 
 
-  class SubmissionLayout extends Marionette.Layout
+  class SubmissionLayout extends Marionette.LayoutView
 
     template: template
     children: {}
@@ -56,7 +56,7 @@ define (require) ->
     onToggleRubric: () ->
       if @rubricDetail.currentView?
         $.when(@rubricDetail.currentView.transitionOut()).then( () =>
-          @rubricDetail.close()
+          @rubricDetail.destroy()
         )
         @ui.rubricToggle.html(@ui.rubricToggle.data().triggerToggleOnText)
       else
@@ -120,7 +120,7 @@ define (require) ->
     onEvaluationCreated: () ->
       @ui.glossaryToggle.show()
 
-    onClose: () ->
+    onDestroy: () ->
       @placards.call('remove')
 
     serializeData: () ->
@@ -189,7 +189,7 @@ define (require) ->
       if @submission.get('current_user_can_annotate') && @submission.get('has_video')
         @annotator.show new AnnotatorView({model: @submission, collection: @collections.annotation, vent: @})
       else
-        @annotator.close()
+        @annotator.destroy()
 
       @listenTo(@submission,'change:has_video', () =>
         @createAnnotatorView()

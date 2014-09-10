@@ -2,7 +2,7 @@ define ['marionette', 'views/portfolio/portfolio_submissions_item', 'views/portf
 
   class PortfolioSubmissionsView extends Marionette.CollectionView
 
-    itemView: PortfolioSubmissionItem
+    childView: PortfolioSubmissionItem
     emptyView: EmptyView
 
     onShow: () ->

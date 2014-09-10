@@ -13,9 +13,9 @@ define [
 
     template: template
 
-    itemView: PortfolioSubmissionItem
+    childView: PortfolioSubmissionItem
 
-    itemViewContainer: '[data-container="submission-summaries"]'
+    childViewContainer: '[data-container="submission-summaries"]'
 
     events:
       'click [data-behavior="routable"]':  'onExecuteRoute'

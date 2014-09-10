@@ -9,8 +9,8 @@ define [
     tagName: 'table'
     className: 'table matrix matrix-row-headers'
     template: template
-    itemViewContainer: 'tbody'
-    itemView: Item
+    childViewContainer: 'tbody'
+    childView: Item
 
     ui: {
       spacer: '[data-behavior="spacer"]'
@@ -27,7 +27,7 @@ define [
     onShowUsers: () ->
       @vent.triggerMethod('show:users')
 
-    itemViewOptions: () ->
+    childViewOptions: () ->
       {
       courseId: @options.courseId
       creatorType: @creatorType

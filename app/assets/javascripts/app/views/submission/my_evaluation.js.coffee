@@ -8,9 +8,9 @@ define [
 
     template: template
     detailVisible: false
-    itemView: EvaluationItemEdit
+    childView: EvaluationItemEdit
     emptyView: MyEvaluationEmpty
-    itemViewContainer: '[data-behavior="scores-container"]'
+    childViewContainer: '[data-behavior="scores-container"]'
 
     ui: {
       toggleDetailOn: '.js-toggle-detail-on'
@@ -31,10 +31,10 @@ define [
       @flash.render()
 
     onBeforeClose: () ->
-      @flash.close()
+      @flash.destroy()
       # Do child view garbage collection here
 
-    itemViewOptions: () ->
+    childViewOptions: () ->
       {
       vent: @
       rubric: @rubric

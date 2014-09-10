@@ -2,7 +2,7 @@ define [
   'marionette',
 ], (Marionette) ->
 
-  class SlidingGridLayout extends Marionette.Layout
+  class SlidingGridLayout extends Marionette.LayoutView
 
     idealWidth: 230
     minWidth: 160

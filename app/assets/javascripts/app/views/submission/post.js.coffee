@@ -8,7 +8,7 @@ define [
 
     template: template
 
-    itemViewContainer: '[data-behavior="post-container"]'
+    childViewContainer: '[data-behavior="post-container"]'
 
     tagName: 'li'
 

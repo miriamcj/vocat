@@ -101,14 +101,14 @@ define [
       @children.groups = new GroupsView({collection: @collections.group, courseId: @courseId, vent: @})
       @children.rows = new RowsView({collection: @collections.creator, collections: @collections, courseId: @courseId, vent: @})
 
-      @listenTo(@children.groups,'after:item:added item:removed', () =>
+      @listenTo(@children.groups,'add:child remove:child', () =>
         #TODO: Hack to wait until all rendering is complete... replace with better solution
         setTimeout( () =>
           @sliderRecalculate()
         , 0)
       )
 
-      @listenTo(@children.groups,'after:item:added', () =>
+      @listenTo(@children.groups,'add:child', () =>
         #TODO: Hack to wait until all rendering is complete... replace with better solution
         setTimeout( () =>
           @triggerMethod('slider:right')

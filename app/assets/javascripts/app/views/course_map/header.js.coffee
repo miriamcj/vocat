@@ -26,20 +26,20 @@ define [
         window.Vocat.router.navigate(href, true)
 
     triggers: {
-      'click [data-behavior="overlay-close"]' : 'close'
+      'click [data-behavior="overlay-destroy"]' : 'destroy'
     }
 
     onRender: () ->
       if @collections.project.length > 1
         @ui.dropdowns.dropdownNavigation()
 
-    onClose: () ->
-      @vent.triggerMethod('close:overlay')
+    onDestroy: () ->
+      @vent.triggerMethod('destroy:overlay')
       $(window).off('keyup', @onKeyUp)
 
     onKeyUp: (e) ->
       code = if e.keyCode? then e.keyCode else e.which
-      if code == 27 then @onClose()
+      if code == 27 then @onDestroy()
 
     initialize: (options) ->
       @options = options || {}

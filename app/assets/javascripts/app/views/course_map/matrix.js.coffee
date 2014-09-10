@@ -4,9 +4,9 @@ define ['marionette', 'hbs!templates/course_map/matrix', 'views/course_map/row',
 
     template: template
     tagName: 'tbody'
-    itemView: Row
+    childView: Row
 
-    itemViewOptions: () ->
+    childViewOptions: () ->
       {
         creatorType: @creatorType,
         collection: @collections.project,

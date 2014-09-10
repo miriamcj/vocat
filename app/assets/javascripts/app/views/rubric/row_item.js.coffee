@@ -7,9 +7,9 @@ define ['marionette', 'hbs!templates/rubric/rows_item', 'collections/collection_
     tagName: 'ul'
     className: 'matrix--row'
 
-    itemView: CellView
+    childView: CellView
 
-    itemViewOptions: {
+    childViewOptions: {
       vent: @vent
     }
 

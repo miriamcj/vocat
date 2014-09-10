@@ -17,7 +17,7 @@ define [
       'click [data-behavior="toggle-delete-confirm"]': 'confirm:delete:toggle'
       'click [data-behavior="delete"]': 'post:delete'
 
-    itemViewOptions: () ->
+    childViewOptions: () ->
       {
       allPosts: @allPosts
       submission: @submission

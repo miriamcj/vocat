@@ -5,9 +5,9 @@ define ['marionette', 'hbs!templates/rubric/rows_item', 'views/group/cell'], (Ma
     tagName: 'ul'
     className: 'matrix--row'
 
-    itemView: ItemView
+    childView: ItemView
 
-    itemViewOptions: () ->
+    childViewOptions: () ->
       {
         vent: @vent
         creator: @model

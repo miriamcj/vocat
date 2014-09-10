@@ -12,9 +12,9 @@ define (require) ->
 
     emptyView: EmptyView
 
-    itemView: ItemView
+    childView: ItemView
 
-    itemViewContainer: '[data-container="items"]'
+    childViewContainer: '[data-container="items"]'
 
     ui: {
       emptyViewContainer: '[data-container="empty"]'
@@ -30,12 +30,12 @@ define (require) ->
     initialize: (options) ->
       @collectionType = options.collectionType
       @enrollmentCollection = options.enrollmentCollection
-      @listenTo(@, 'itemview:invited', (event) =>
+      @listenTo(@, 'childview:invited', (event) =>
         @ui.termInput.val('')
         @onKeyUp()
       )
 
-    onItemviewAdd: () ->
+    onChildviewAdd: () ->
       @ui.termInput.val('')
       @onKeyUp()
 
@@ -45,13 +45,13 @@ define (require) ->
       else
         @hideContainer()
 
-    buildItemView: (item, ItemViewType, itemViewOptions) ->
-      options = _.extend({model: item}, itemViewOptions)
+    buildItemView: (item, ItemViewType, childViewOptions) ->
+      options = _.extend({model: item}, childViewOptions)
       options.enrollmentCollection = @enrollmentCollection
       options.vent = @options.vent
       options.collectionType = @collectionType
-      itemView = new ItemViewType(options)
-      itemView
+      childView = new ItemViewType(options)
+      childView
 
     getTemplate: () ->
       if @collection.getSearchTerm() == 'email'
@@ -60,10 +60,10 @@ define (require) ->
         coursesTemplate
 
     hideContainer: () ->
-      @$el.find(@itemViewContainer).hide()
+      @$el.find(@childViewContainer).hide()
 
     showContainer: () ->
-      @$el.find(@itemViewContainer).show()
+      @$el.find(@childViewContainer).show()
 
     getTerm: () ->
       @ui.termInput.val().trim()

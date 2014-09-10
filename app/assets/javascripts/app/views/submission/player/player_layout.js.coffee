@@ -8,7 +8,7 @@ define (require) ->
   PlayerProcessingView = require('views/submission/player/player_processing')
   Poller = require('app/plugins/backbone_poller')
 
-  class PlayerLayout extends Marionette.Layout
+  class PlayerLayout extends Marionette.LayoutView
 
     template: template
 

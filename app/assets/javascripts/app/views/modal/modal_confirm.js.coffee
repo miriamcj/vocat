@@ -23,18 +23,18 @@ define ['marionette', 'hbs!templates/modal/modal_confirm'], (Marionette, templat
 
     onClickConfirm: () ->
       if Marionette.getOption(@, 'confirmElement')?
-        Vocat.vent.trigger('modal:close')
+        Vocat.vent.trigger('modal:destroy')
         $el = Marionette.getOption(@, 'confirmElement')
         $el.addClass('modal-blocked')
         $el.click()
         $el.removeClass('modal-blocked')
       else
         @vent.triggerMethod(Marionette.getOption(@, 'confirmEvent'))
-        Vocat.vent.trigger('modal:close')
+        Vocat.vent.trigger('modal:destroy')
 
     onClickDismiss: () ->
       @vent.triggerMethod(Marionette.getOption(@, 'dismissEvent'))
-      Vocat.vent.trigger('modal:close')
+      Vocat.vent.trigger('modal:destroy')
 
     serializeData: () ->
       {
@@ -43,7 +43,7 @@ define ['marionette', 'hbs!templates/modal/modal_confirm'], (Marionette, templat
         dismissLabel: Marionette.getOption(@, 'dismissLabel')
       }
 
-    onClose: () ->
+    onDestroy: () ->
         # Gotta be sure to unbind this event, so that views that have been closed out are no longer triggered.
         # Normally, marionette does this with listenTo, which registers events, but in this case we have to
         # do it differently because we're binding to a global object (window)

@@ -9,15 +9,15 @@ define [
 
     detailVisible: false
 
-    itemView: EvaluationItem
+    childView: EvaluationItem
 
-    getItemView: (item) ->
+    getChildView: (item) ->
       if item.get('current_user_is_owner') == true
         EvaluationItemEdit
       else
         EvaluationItem
 
-    itemViewOptions: () ->
+    childViewOptions: () ->
       {
         vent: @
         rubric: @rubric
@@ -25,7 +25,7 @@ define [
       }
 
     emptyView: EvaluationEmpty
-    itemViewContainer: '[data-behavior="scores-container"]'
+    childViewContainer: '[data-behavior="scores-container"]'
 
     ui: {
       toggleDetailOn: '.js-toggle-detail-on'

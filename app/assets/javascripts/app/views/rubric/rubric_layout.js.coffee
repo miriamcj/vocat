@@ -137,11 +137,11 @@ define (require) ->
           @model.fetch({
             success: (model) =>
               @render()
-              @listenTo(@views.rows,'after:item:added', () =>
+              @listenTo(@views.rows,'add:child', () =>
                 @sliderRecalculate()
                 @views.rangePicker.render()
               )
-              @listenTo(@views.rows,'item:removed', () =>
+              @listenTo(@views.rows,'remove:child', () =>
                 @sliderRecalculate()
                 @views.rangePicker.render()
               )
@@ -166,11 +166,11 @@ define (require) ->
       @views.ranges = new RangesView({collection: @model.get('ranges'), vent: @})
       @views.rangePicker = new RangePickerView({collection: @model.get('ranges'), model: @model, vent: @})
 
-      @listenTo(@views.fields,'after:item:added item:removed', () =>
+      @listenTo(@views.fields,'add:child remove:child', () =>
         @sliderRecalculate()
       )
 
-      @listenTo(@views.ranges,'after:item:added item:removed', () =>
+      @listenTo(@views.ranges,'add:child remove:child', () =>
         @sliderRecalculate()
       )
 

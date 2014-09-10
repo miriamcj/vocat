@@ -8,7 +8,7 @@ define (require) ->
   SingleInvite = require('views/admin/enrollment/invite')
   Flash = require('views/flash/flash_messages')
 
-  class CreatorEnrollmentLayout extends Marionette.Layout
+  class CreatorEnrollmentLayout extends Marionette.LayoutView
 
     listType: 'users'
     template: template

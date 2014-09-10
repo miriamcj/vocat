@@ -6,11 +6,11 @@ define [
 
   class GroupsView extends Marionette.CollectionView
 
-    itemView: Item
+    childView: Item
     className: 'matrix--column-header--list'
     tagName: 'ul'
 
-    itemViewOptions: () ->
+    childViewOptions: () ->
       {
         courseId: @options.courseId
         vent: @vent

@@ -21,9 +21,9 @@ define [
 
     emptyView: EmptyView
 
-    itemView: ItemView
+    childView: ItemView
 
-    itemViewContainer: '[data-behavior="annotations-container"]'
+    childViewContainer: '[data-behavior="annotations-container"]'
 
     ui: {
       showAllLink: '[data-behavior="show-all"]'
@@ -33,7 +33,7 @@ define [
       scrollParent: '[data-behavior="scroll-parent"]'
     }
 
-    itemViewOptions: (model, index) ->
+    childViewOptions: (model, index) ->
       {
         model: model
         vent: @
@@ -59,7 +59,7 @@ define [
         @trigger('player:time', data)
       )
 
-    # Triggered by child itemView; echoed up the event chain to the global event
+    # Triggered by child childView; echoed up the event chain to the global event
     onPlayerSeek: (data) ->
       @vent.trigger('player:seek', data)
 
@@ -82,21 +82,21 @@ define [
           scrollTarget: @ui.anchor
         })
 
-    onAfterItemAdded: () ->
+    onAddChild: () ->
       @ui.count.html(@collection.length)
 
-    onItemRemoved: () ->
+    onRemoveChild: () ->
       @ui.count.html(@collection.length)
 
     # See https://github.com/marionettejs/backbone.marionette/wiki/Adding-support-for-sorted-collections
-    appendHtml: (collectionView, itemView, index) ->
-      if collectionView.itemViewContainer
-        childrenContainer = collectionView.$(collectionView.itemViewContainer)
+    appendHtml: (collectionView, childView, index) ->
+      if collectionView.childViewContainer
+        childrenContainer = collectionView.$(collectionView.childViewContainer)
       else
         childrenContainer = collectionView.$el
       children = childrenContainer.children()
       if children.size() <= index
-        childrenContainer.append itemView.el
+        childrenContainer.append childView.el
       else
-        childrenContainer.children().eq(index).before(itemView.el)
+        childrenContainer.children().eq(index).before(childView.el)
 

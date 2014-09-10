@@ -6,7 +6,7 @@ define (require) ->
   ConfirmInvite =   require('views/admin/enrollment/confirm_invite')
   template = require('hbs!templates/admin/enrollment/bulk_input')
 
-  class EnrollmentBulkInput extends Marionette.Layout
+  class EnrollmentBulkInput extends Marionette.LayoutView
 
     ui: {
       showSingle: '[data-behavior="show-single"]'

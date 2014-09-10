@@ -19,7 +19,7 @@ define (require) ->
     }
 
     onCancel: () ->
-      @close()
+      @destroy()
 
     onSubmit: () ->
       contact_strings = new Array

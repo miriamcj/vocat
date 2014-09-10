@@ -115,7 +115,7 @@ define (require) ->
         when 'submission' then require ['controllers/submission_controller'], (SubmissionController) ->
           instantiateRouter(SubmissionController, 'submission')
 
-  Vocat.on('initialize:before', () ->
+  Vocat.on('before:start', () ->
 
     modal = new ModalLayoutView(vent: @)
     Vocat.modal.show(modal)

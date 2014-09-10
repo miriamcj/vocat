@@ -5,7 +5,7 @@ define (require) ->
   iFrameTransport= require('vendor/plugins/iframe_transport')
   FileUpload = require('vendor/plugins/file_upload')
 
-  class PlayerCreate extends Marionette.Layout
+  class PlayerCreate extends Marionette.LayoutView
 
     ui: {
       stage: '[data-ui="stage"]'
@@ -166,6 +166,6 @@ define (require) ->
     onShowStep5: () ->
       @showStep(5)
 
-    onCloseCreateUi: () ->
+    onDestroyCreateUi: () ->
       @ui.createIntro.slideDown()
 

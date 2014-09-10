@@ -9,11 +9,11 @@ define [
 
   class FlashMessages extends Marionette.CollectionView
 
-    itemView: ItemView
+    childView: ItemView
     clearOnAdd: true
     template: template
     className: 'alerts'
-    itemViewContainer: '[data-behavior="flash-container"]'
+    childViewContainer: '[data-behavior="flash-container"]'
 
     initialize: () ->
       @collection = Marionette.getOption(@, 'collection')

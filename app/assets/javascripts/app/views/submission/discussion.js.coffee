@@ -8,8 +8,8 @@ define [
 
     template: template
 
-    itemViewContainer: '[data-behavior="post-container"]'
-    itemView: PostView
+    childViewContainer: '[data-behavior="post-container"]'
+    childView: PostView
 
     initialize: (options) ->
       @initializeFlash()

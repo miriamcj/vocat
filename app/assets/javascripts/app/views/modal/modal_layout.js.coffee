@@ -2,7 +2,7 @@ define [
   'marionette', 'hbs!templates/modal/modal_layout'
 ], (Marionette, template) ->
 
-  class ModalLayout extends Marionette.Layout
+  class ModalLayout extends Marionette.LayoutView
 
     template: template
 
@@ -11,7 +11,7 @@ define [
     }
 
     triggers: {
-      'click [data-behavior="modal-close"]': 'click:modal:close'
+      'click [data-behavior="modal-destroy"]': 'click:modal:destroy'
     }
 
     regions: {
@@ -19,7 +19,7 @@ define [
     }
 
     onClickModalClose: () ->
-      @close()
+      @destroy()
 
     initialize: (options) ->
       @vent = Vocat.vent
@@ -31,20 +31,20 @@ define [
         @open()
       )
 
-      @listenTo(@vent, 'modal:close', () =>
-        @close()
+      @listenTo(@vent, 'modal:destroy', () =>
+        @destroy()
       )
 
 
     updateContent: (view) ->
       @content.show(view)
 
-    close: () ->
-      @vent.trigger('modal:before:close')
-      @content.close()
+    destroy: () ->
+      @vent.trigger('modal:before:destroy')
+      @content.destroy()
       @ensureBackdrop().fadeOut(250)
       @$el.hide()
-      @vent.trigger('modal:after:close')
+      @vent.trigger('modal:after:destroy')
 
     open: () ->
       @vent.trigger('modal:before:show')
