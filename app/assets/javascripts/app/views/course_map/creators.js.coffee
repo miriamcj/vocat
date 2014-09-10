@@ -9,7 +9,7 @@ define [
     tagName: 'table'
     className: 'table matrix matrix-row-headers'
     template: template
-    childViewContainer: 'tbody'
+    itemViewContainer: 'tbody'
     itemView: Item
 
     ui: {

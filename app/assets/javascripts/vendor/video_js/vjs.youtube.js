@@ -29,8 +29,10 @@ videojs.Youtube = videojs.MediaTechController.extend({
 
     // Save those for internal usage
     this.player_ = player;
-    this.player_el_ = document.getElementById(player.id());
-    this.player_el_.className += ' vjs-youtube';
+    if (this.player_el) {
+      this.player_el_ = document.getElementById(player.id());
+      this.player_el_.className += ' vjs-youtube';
+    }
 
     // Mobile devices are using their own native players
     if (!!navigator.userAgent.match(/iPhone/i) || !!navigator.userAgent.match(/iPad/i) || !!navigator.userAgent.match(/iPod/i) || !!navigator.userAgent.match(/Android.*AppleWebKit/i)) {
@@ -101,8 +103,10 @@ videojs.Youtube = videojs.MediaTechController.extend({
       this.iframeblocker.style.display = 'block';
     }
 
-    this.player_el_.insertBefore(this.iframeblocker, this.player_el_.firstChild);
-    this.player_el_.insertBefore(this.el_, this.iframeblocker);
+    if (this.player_el_) {
+      this.player_el_.insertBefore(this.iframeblocker, this.player_el_.firstChild);
+      this.player_el_.insertBefore(this.el_, this.iframeblocker);
+    }
 
     this.parseSrc(player.options()['src']);
 

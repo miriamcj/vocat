@@ -4,12 +4,9 @@ define [
 
   class SlidingGridLayout extends Marionette.Layout
 
-    # We need to store various states of the slider, including column widths.
-    sliderWidth: 3000
-    sliderMinLeft: 0
-    sliderPosition: 0
-    sliderPositionLeft: 0
-    sliderVisibleColumns: 0
+    idealWidth: 230
+    minWidth: 160
+    memoizeHashCount: 0
 
     ui: {
       sliderContainer: '[data-behavior="matrix-slider"]'
@@ -34,96 +31,129 @@ define [
     onSliderRight: () ->
       @slide('forward')
 
+    onBeforeClose: () ->
+      $(window).off("resize")
+      true
+
+    memoizeHash: () ->
+      @memoizeHashCount
+
     sliderRecalculate: () ->
-      @calculateAndSetSliderWidth()
+      $(window).off("resize")
+      $(window).on('resize', _.debounce(() => @sliderRecalculate()), 300)
+      @memoizeHashCount++
       @updateSliderControls()
 
-    calculateAndSetSliderWidth: () ->
-      # The actor moves across the stage.
-      @stage = @$el.find('[data-behavior="matrix-stage"]')
-      @stageWidth = @stage.width()
-      @actor = @$el.find('[data-behavior="matrix-actor"]')
+    currentLeft: () ->
+      l = @actor().css('left')
+      if l == 'auto'
+        l = 0
+      else
+        l = parseInt(l, 10)
+      l
 
-      # Calculate and set actor width and col widths
-      colWidths = new Array
-      @columnWidth = @actor.find('tr').first().find('td').each((index, el) ->
-        colWidths.push $(el).outerWidth()
-      )
-      @colWidths = colWidths
-      @actorWidth = _.reduce(@colWidths, (memo, num) ->
-          memo + num
-      )
+    stage: _.memoize () ->
+      @$el.find('[data-behavior="matrix-stage"]')
+    , () -> @memoizeHash()
 
-      @hiddenWidth = @actorWidth - @stageWidth
-      @currentLeft = 0
+    actor: _.memoize () ->
+      @$el.find('[data-behavior="matrix-actor"]')
+    , () ->
+      @memoizeHash()
 
-      # Set the current column in pos 0
-      @currentPosition = 0
-      @columnCount = @colWidths.length
+    columnCount: _.memoize () ->
+      @actor().find('tr:first-child td').length
+    , () -> @memoizeHash()
 
-      @updateSliderControls()
+    setColWidths: (w, tw) ->
+      @actor().find('tr:first-child th, tr:first-child td').css('min-width', @minWidth).outerWidth(w)
+      @actor().find('table:first-child').outerWidth(tw)
+      @actor().outerWidth(tw)
+      @$el.find('[data-match-height-target]').outerHeight(@$el.find('[data-match-height-source]').outerHeight())
+      @memoizeHashCount
 
-    canSlideForward: () ->
-      @currentLeft > @hiddenWidth * -1
+    # This is where most of the magic happens. We resize columns to best fit into the available space, while
+    # making sure we show some of the next column for the handle.
+    columnWidths: _.memoize () ->
+      if @stageWidth() > 0
+        availableWidth = @stageWidth() - @handleWidth()
+        max = @idealWidth
+        min = @minWidth
+        if Math.floor(availableWidth/min) > Math.floor(availableWidth/max)
+          max = min
+        else
+          while Math.floor(availableWidth/min) < Math.floor(availableWidth/max)
+            max - max - 1
+        columns = Math.floor(availableWidth/max)
+        columnWidth = availableWidth / columns
+        @setColWidths(columnWidth, columnWidth * @columnCount())
 
-    canSlideBackward: () ->
-      @currentLeft < 0
+        widths = _.range(@columnCount())
+        _.each widths, (value, i) ->
+          widths[i] = columnWidth
+        widths
+      else
+        []
+    , () -> @memoizeHash()
+
+    handleWidth: _.memoize () ->
+      @ui.sliderLeft.show()
+      w = Math.floor(@ui.sliderLeft.outerWidth())
+      @ui.sliderLeft.hide()
+      w
+    , () -> @memoizeHash()
+
+    stageWidth: _.memoize () ->
+      @stage().width()
+    , () -> @memoizeHash()
+
+    actorWidth: _.memoize () ->
+      _.reduce(@columnWidths(), (memo, num) ->
+        memo + num
+      , 0)
+    , () -> @memoizeHash()
+
+    hiddenWidth: _.memoize () ->
+      Math.floor(@actorWidth() - @stageWidth())
+    , () -> @memoizeHash()
+
+    canSlideForwardFrom: (left = null) ->
+      if left == null then left = @currentLeft()
+      left > @hiddenWidth() * -1
+
+    canSlideBackwardFrom: (left = null) ->
+      if left == null then left = @currentLeft()
+      left < 0
 
     updateSliderControls: () ->
-      if @canSlideBackward()
+      if @canSlideBackwardFrom()
         @ui.sliderLeft.show()
       else
         @ui.sliderLeft.hide()
-      if @canSlideForward()
+      if @canSlideForwardFrom()
         @ui.sliderRight.show()
       else
         @ui.sliderRight.hide()
+      @positionSliderLeft()
 
-    nextPosition: () ->
-      if @currentPosition + 1 <= @columnCount then @currentPosition + 1 else @currentPosition
+    positionSliderLeft: () ->
+      w = @$el.find('[data-vertical-headers]').outerWidth()
+      @ui.sliderLeft.css('left', w)
 
-    previousPosition: () ->
-      if @currentPosition - 1 <= @columnCount then @currentPosition - 1 else @currentPosition
+    targetFor: (direction) ->
+      target = @currentLeft()
+      if direction == 'forward'
+        if @canSlideForwardFrom()
+          target = @currentLeft() - @columnWidths()[0]
+      else
+        if @canSlideBackwardFrom()
+          target = @currentLeft() + @columnWidths()[0]
+      if target < @hiddenWidth() * -1 then target = @hiddenWidth() * -1
+      target = Math.ceil(target)
+      if target > 0 then target = 0
 
-    positionLeftOffset: (position) ->
-      previousColumns = @colWidths.slice(0, position)
-      offset = _.reduce(previousColumns, (memo, num) ->
-          memo + num
-      , 0)
-      if offset > @hiddenWidth then offset = @hiddenWidth
-      offset * -1
-
+      target
 
     slide: (direction) ->
-      if direction == 'forward'
-        targetPosition = @nextPosition()
-      else
-        targetPosition = @previousPosition()
-      offset = @positionLeftOffset(targetPosition)
-
-      @currentPosition = targetPosition
-      @currentLeft = offset
-      @actor.animate({left: offset}, 250)
-      @updateSliderControls()
-
-
-#      currentPosition = @sliderPosition
-#      if direction == 'forward'
-#        travel = @sliderColumnWidth * -1
-#        newPosition = currentPosition + 1
-#      else
-#        travel = @sliderColumnWidth * 1
-#        newPosition = currentPosition - 1
-#      if newPosition <= (@sliderColumnCount - @sliderVisibleColumns) && newPosition >= 0
-#
-#        if newPosition % @sliderVisibleColumns == 0 && direction == 'forward'
-#          travel -= @sliderModulus
-#        if currentPosition % @sliderVisibleColumns == 0 && direction == 'backward'
-#          travel += @sliderModulus
-#
-#        newLeft = @sliderPositionLeft + travel
-#
-#        @$el.find('[data-behavior="matrix-slider"]').animate({left: newLeft}, 250)
-#        @sliderPosition = newPosition
-#        @sliderPositionLeft = newLeft
-
+      target = @targetFor(direction)
+      @actor().animate({left: target}, 250).promise().done(() => @updateSliderControls())

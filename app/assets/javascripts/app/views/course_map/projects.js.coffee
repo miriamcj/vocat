@@ -3,12 +3,15 @@ define (require) ->
   Marionette = require('marionette')
   Item = require('views/course_map/projects_item')
   EmptyView = require('views/course_map/projects_empty')
+  template = require('hbs!templates/course_map/projects')
 
-  class CourseMapProjectsView extends Marionette.CollectionView
+  class CourseMapProjectsView extends Marionette.CompositeView
 
     itemView: Item
     emptyView: EmptyView
     tagName: 'thead'
+    template: template
+    itemViewContainer: "tr"
 
     itemViewOptions: () ->
       {

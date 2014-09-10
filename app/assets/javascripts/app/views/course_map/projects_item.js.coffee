@@ -5,6 +5,7 @@ define ['marionette', 'hbs!templates/course_map/projects_item'], (Marionette, te
     template: template
     attributes: {
       'data-behavior': 'navigate-project'
+      'data-match-height-source': ''
     }
 
     triggers: {
