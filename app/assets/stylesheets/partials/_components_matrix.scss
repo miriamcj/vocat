@@ -12,6 +12,14 @@ $flexibleColumnWidth: 100% / $columns;
 $container: $containerWidth;
 $columnWidth: ($container / $columns) - 12;
 
+.matrix-detail {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 200;
+  background: $white;
+}
+
 .matrix-wrapper {
   position: relative;
   @include clearfix(heavy);
@@ -131,7 +139,6 @@ $columnWidth: ($container / $columns) - 12;
       height: 100px;
       padding: .5em;
       vertical-align: middle;
-
     }
   }
 

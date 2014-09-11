@@ -1,0 +1,118 @@
+@import "variables";
+@import "mixins";
+@import "patterns";
+
+$barHeight: 2.5em;
+$barHeight: 45px;
+
+$lighten: 20%;
+
+$defaultFillColor: $grayMedium;
+$defaultColor: lighten($defaultFillColor, $lighten);
+
+$instructorFillColor: $yellow;
+$instructorColor: lighten($instructorFillColor, $lighten);
+
+$peerFillColor: $blue;
+$peerColor: lighten($peerFillColor, $lighten);
+
+$creatorFillColor: $purple;
+$creatorColor: lighten($creatorFillColor, $lighten);
+
+.evaluation-collection {
+  .evaluation-collection--bar {
+    position: relative;
+    border: 1px solid red;
+    background: $defaultColor;
+  }
+
+  margin-bottom: $barHeight;
+  @extend %unstyled-list;
+
+  .evaluation-collection--title {
+    color: $white;
+    position: relative;
+    z-index: 1;
+    font-size: $zeta;
+    font-weight: $semibold;
+    padding-left: .75em;
+    line-height: $barHeight;
+    height: $barHeight;
+    display: inline-block;
+  }
+
+  .evaluation-collection--fill {
+    position: absolute;
+    display: block;
+    background: $defaultFillColor;
+    height: $barHeight;
+    border-right: 10px solid $defaultColor;
+  }
+
+  .evaluation-collection--handle {
+    display: block;
+    position: absolute;
+    padding: .75em;
+    border: 7px solid $defaultFillColor;
+    background: $white;
+    top: -45%;
+    right: -10px;
+    border-radius: 50%;
+    b {
+      position: relative;
+      font-weight: $regular;
+      top: .1em;
+      color: $defaultFillColor;
+      font-size: $gamma-major;
+      @include font-matrix();
+    }
+  }
+}
+
+.evaluation-collection-instructor {
+  .evaluation-collection--bar {
+    background: $instructorColor;
+  }
+  .evaluation-collection--fill {
+    background: $instructorFillColor;
+    border-color: $instructorColor;
+  }
+  .evaluation-collection--handle {
+    b {
+      color: $instructorFillColor;
+    }
+    border-color: $instructorFillColor;
+  }
+}
+
+.evaluation-collection-peer {
+  .evaluation-collection--bar {
+    background: $peerColor;
+  }
+  .evaluation-collection--fill {
+    background: $peerFillColor;
+    border-color: $peerColor;
+  }
+  .evaluation-collection--handle {
+    b {
+      color: $peerFillColor;
+    }
+    border-color: $peerFillColor;
+  }
+}
+
+.evaluation-collection-creator {
+  .evaluation-collection--bar {
+    background: $creatorColor;
+  }
+  .evaluation-collection--fill {
+    background: $creatorFillColor;
+    border-color: $creatorColor;
+  }
+  .evaluation-collection--handle {
+    b {
+      color: $creatorFillColor;
+    }
+    border-color: $creatorFillColor;
+  }
+}

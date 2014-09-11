@@ -117,23 +117,24 @@ define (require) ->
 
   Vocat.on('before:start', () ->
 
-    modal = new ModalLayoutView(vent: @)
-    Vocat.modal.show(modal)
-
-    # Handle confirmation on data-modalconfirm elements
-    $('[data-modalconfirm]').each (index, el) ->
-      $el = $(el)
-      $el.on('click', (e) =>
-        unless $el.hasClass('modal-blocked')
-          e.preventDefault()
-          e.stopPropagation()
-          Vocat.vent.trigger('modal:open', new ModalConfirmView({
-            vent: Vocat,
-            descriptionLabel: $el.attr('data-modalconfirm'),
-            confirmElement: $el
-            dismissEvent: 'dismiss:publish'
-          }))
-      )
+# TODO: FIX THIS
+#    modal = new ModalLayoutView(vent: @)
+#    Vocat.modal.show(modal)
+#
+#    # Handle confirmation on data-modalconfirm elements
+#    $('[data-modalconfirm]').each (index, el) ->
+#      $el = $(el)
+#      $el.on('click', (e) =>
+#        unless $el.hasClass('modal-blocked')
+#          e.preventDefault()
+#          e.stopPropagation()
+#          Vocat.vent.trigger('modal:open', new ModalConfirmView({
+#            vent: Vocat,
+#            descriptionLabel: $el.attr('data-modalconfirm'),
+#            confirmElement: $el
+#            dismissEvent: 'dismiss:publish'
+#          }))
+#      )
 
 
     helpPlacardViews = []

@@ -3,7 +3,7 @@ class EvaluationSerializer < ActiveModel::Serializer
               :current_user_is_owner, :published, :submission_id, :points_possible
 
   def current_user_is_owner
-    scope.can?(:own, object)
+    scope.id == object.evaluator_id
   end
 
   def evaluator_role

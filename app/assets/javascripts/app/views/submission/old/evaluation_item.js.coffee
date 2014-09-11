@@ -1,6 +1,10 @@
-define ['marionette', 'hbs!templates/submission/evaluation_item', 'vendor/plugins/simple_slider'], (Marionette, template) ->
+define (require) ->
 
-  class ScoreItem extends Marionette.ItemView
+  Marionette = require('marionette')
+  template = require('hbs!templates/submission/evaluations/evaluation_item')
+  require('vendor/plugins/simple_slider')
+
+  class EvaluationItem extends Marionette.ItemView
 
     template: template
 

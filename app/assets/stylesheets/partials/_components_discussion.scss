@@ -29,7 +29,7 @@ $spacingUnit: $mediumUnitPadding * .75;
 
 .discussion-list--body {
   margin-left: $spacingUnit * 2;
-  padding: 0 $spacingUnit;
+  padding: 0 0 0 $spacingUnit;
   .rule {
     border-bottom: 1px solid $grayMediumLighter;
     height: 1px;
@@ -71,6 +71,16 @@ $spacingUnit: $mediumUnitPadding * .75;
 .discussion-list--input {
   .button-wrapper {
     float: right;
+    @include respond($vostok - 1) {
+      display: none;
+    }
+  }
+  .button-wrapper-responsive {
+    display: none;
+    margin-top: $spacingUnit;
+    @include respond($vostok - 1) {
+      display: block;
+    }
   }
   .input-wrapper {
     padding-right: $spacingUnit;

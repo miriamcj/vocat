@@ -2,7 +2,7 @@ define [
   'marionette',
 ], (Marionette) ->
 
-  class SlidingGridLayout extends Marionette.LayoutView
+  class AbstractMatrix extends Marionette.LayoutView
 
     idealWidth: 230
     minWidth: 160
@@ -19,11 +19,8 @@ define [
       'click [data-behavior="matrix-slider-right"]':  'slider:right'
     }
 
-    onRender: () ->
-      @sliderPosition = 0
-      @updateSliderControls()
-
     onShow: () ->
+      @updateSliderControls()
 
     onSliderLeft: () ->
       @slide('backward')
@@ -38,10 +35,10 @@ define [
     memoizeHash: () ->
       @memoizeHashCount
 
-    sliderRecalculate: () ->
-      console.log
+    recalculateMatrix: () ->
+      console.log 'recalc'
       $(window).off("resize")
-      $(window).on('resize', _.debounce(() => @sliderRecalculate()), 300)
+      $(window).on('resize', _.debounce(() => @recalculateMatrix()), 300)
       @memoizeHashCount++
       @updateSliderControls()
 
@@ -98,9 +95,11 @@ define [
     , () -> @memoizeHash()
 
     handleWidth: _.memoize () ->
+      if @ui.sliderLeft.is(':visible') then show = true else show = false
       @ui.sliderLeft.show()
       w = Math.floor(@ui.sliderLeft.outerWidth())
-      @ui.sliderLeft.hide()
+      if show == false
+        @ui.sliderLeft.hide()
       w
     , () -> @memoizeHash()
 

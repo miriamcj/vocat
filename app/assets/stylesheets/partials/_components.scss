@@ -16,7 +16,6 @@
 .container {
   @include vendor-transition($fastTransition, transform, $timing);
   min-width: $minContainerWidth;
-  background-color: $offWhite;
   padding-top: $headerHeight;
   position: relative;
   z-index: 100;
@@ -31,6 +30,7 @@
 
 .page-content {
   @include clearfix;
+  position: relative;
   width: 100%;
   max-width: $containerWidth;
   margin-right: auto;

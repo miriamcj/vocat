@@ -9,7 +9,7 @@ define ['marionette', 'hbs!templates/course_map/cell', 'models/user', 'models/gr
     template: template
 
     tagName: 'td'
-    className: 'matrix--cell'
+    className: 'clickable'
 
     triggers:
       'click': 'detail'

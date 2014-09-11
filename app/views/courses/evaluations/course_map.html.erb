@@ -1,12 +1,7 @@
 
 <% content_for :content do %>
-  <h2 class="heading-page-section">
-    Evaluations
-  </h2>
-
   <div id="region-main"></div>
   <%= render :partial => 'shared/bootstrap_collection', :locals => {:type => 'Collections', :key => 'group', :data => @groups }%>
   <%= render :partial => 'shared/bootstrap_collection', :locals => {:type => 'Collections', :key => 'user', :data => @users }%>
   <%= render :partial => 'shared/bootstrap_collection', :locals => {:type => 'Collections', :key => 'project', :data => @projects}%>
-
 <% end %>

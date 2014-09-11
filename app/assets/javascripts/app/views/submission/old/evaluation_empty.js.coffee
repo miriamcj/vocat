@@ -1,6 +1,9 @@
-define ['marionette', 'hbs!templates/submission/evaluation_empty'], (Marionette, template) ->
+define (require) ->
 
-  class ScoreEmpty extends Marionette.ItemView
+  Marionette = require('marionette')
+  template = require('hbs!templates/submission/evaluations/evaluation_empty')
+
+  class EvaluationEmpty extends Marionette.ItemView
 
     template: template
 

@@ -1,0 +1,12 @@
+
+<ul class="evaluation-collection evaluation-collection-{{to_lower evaluator_role}}">
+  <li data-behavior="toggle-trigger"  >
+    <div class="evaluation-collection--bar">
+      <h4 class="evaluation-collection--title">
+        {{evaluator_role}} Evaluations
+      </h4>
+      <span style="width: {{ averageScore }}%" class="evaluation-collection--fill"></span>
+      <span style="right: {{ invert averageScore }}%" class="evaluation-collection--handle"><b>{{averageScore}}%</b></span>
+    </div>
+  </li>
+</ul>

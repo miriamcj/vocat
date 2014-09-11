@@ -1,4 +1,8 @@
-define ['marionette', 'hbs!templates/submission/evaluation_item_edit', 'vendor/plugins/simple_slider'], (Marionette, template) ->
+define (require) ->
+
+  Marionette = require('marionette')
+  template = require('hbs!templates/submission/evaluations/evaluation_item_edit')
+  require('vendor/plugins/simple_slider')
 
   class EvaluationItemEdit extends Marionette.ItemView
 
