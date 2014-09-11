@@ -42,7 +42,14 @@
   //  }
 }
 
+.page-section-header {
+  .heading-page-section {
+    display: inline-block;
+  }
+}
+
 .page-section {
+  @include clearfix;
   background: $grayLightest;
   padding: $contentUnitPadding;
   margin-bottom: $verticalSpace;

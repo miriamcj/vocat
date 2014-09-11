@@ -1,5 +1,5 @@
 define [
-  'marionette', 'hbs!templates/submission/post', 'collections/discussion_post_collection', 'models/discussion_post', 'views/submission/discussion_base_view'
+  'marionette', 'hbs!templates/discussion/post', 'collections/discussion_post_collection', 'models/discussion_post', 'views/abstract/abstract_discussion'
 ], (
   Marionette, template, DiscussionPostCollection, DiscussionPostModel, DiscussionBaseView
 ) ->

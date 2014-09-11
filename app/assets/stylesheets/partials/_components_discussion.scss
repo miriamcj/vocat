@@ -1,0 +1,84 @@
+@import "variables";
+@import "mixins";
+@import "patterns";
+
+
+$spacingUnit: $mediumUnitPadding * .75;
+
+
+// Discussion list
+// --------------------------
+.discussion-list {
+  @extend %unstyled-list;
+  margin: 0;
+  & & {
+    margin-left: $spacingUnit * 3;
+  }
+  li {
+    position: relative;
+  }
+  .alert-warning {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+.discussion-list--input-container {
+  padding: 0 0 $spacingUnit 0;
+}
+
+.discussion-list--body {
+  margin-left: $spacingUnit * 2;
+  padding: 0 $spacingUnit;
+  .rule {
+    border-bottom: 1px solid $grayMediumLighter;
+    height: 1px;
+  }
+}
+
+.discussion-list--item {
+  margin-bottom: $spacingUnit;
+  position: relative;
+}
+
+.discussion-list--avatar {
+  width: $spacingUnit * 2;
+  img {
+    width: $spacingUnit * 2;
+  }
+  float: left;
+}
+
+.discussion-list--header {
+}
+
+.discussion-list--name {
+  font-weight: $regular;
+  font-size: $eta;
+  margin-bottom: .25em;
+}
+
+.discussion-list--timestamp {
+  @include font-head;
+  font-size: $iota;
+}
+
+.discussion-list--link {
+//  @extend %heading-epsilon;
+//  @extend %bent-arrow-link;
+}
+
+.discussion-list--input {
+  .button-wrapper {
+    float: right;
+  }
+  .input-wrapper {
+    padding-right: $spacingUnit;
+    overflow: hidden;
+    textarea {
+      width: 100%;
+      line-height: $theta;
+      font-size: $theta;
+    }
+  }
+}

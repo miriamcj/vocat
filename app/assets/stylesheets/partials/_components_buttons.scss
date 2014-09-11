@@ -82,15 +82,15 @@ input%proto-button {
 
 %icon-link-left {
   @extend %icon-link;
-  padding-left: 2.25em;
+  padding-left: 1.75em;
   &:before {
     font-size: $iota;
     content: "";
     display: block;
     padding: 0;
-    height: 2em;
-    width: 2em;
-    top: 0em;
+    height: 1.5em;
+    width: 1.5em;
+    top: .4em;
     position: absolute;
     left: 0em;
   }
@@ -98,20 +98,55 @@ input%proto-button {
 
 %icon-link-right {
   @extend %icon-link;
-  padding-right: 2.25em;
+  padding-right: 1.75em;
   &:after {
     font-size: $iota;
     content: "";
     display: block;
     padding: 0;
-    height: 2em;
-    width: 2em;
-    top: 0em;
+    height: 1.5em;
+    width: 1.5em;
+    top: .4em;
     position: absolute;
     right: 0em;
   }
-
 }
+
+
+// NB uses ems so font-size can be set on component
+%bubble-badge {
+  font-weight: $regular;
+  font-size: $iota;
+  line-height: 1;
+  color: $white;
+  background-color: $grayMedium;
+  padding: 0.3em 0.7em 0.3em;
+  margin-bottom: 0.7em;
+  position: relative;
+  &:after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 0.75em solid $grayMedium;
+    border-right: 0.666em solid transparent;
+    position: absolute;
+    left: 0.5em;
+    bottom: -0.7em;
+  }
+}
+
+%bubble-link {
+  @extend %bubble-badge;
+  &:hover, &:focus {
+    &:after {
+    }
+  }
+}
+
+
+
+
 
 // Buttons should be of a type (primary-button or secondary-button)
 // and if they want an icon, they should also have an icon class.
@@ -141,6 +176,14 @@ input%proto-button {
   }
 }
 
+.post-button {
+  @extend %icon-button;
+  &:after {
+    @include svg(airplane-white);
+  }
+}
+
+
 // Links
 //-----------------------------------------------------------------
 
@@ -158,4 +201,26 @@ input%proto-button {
   &:before {
     @include svg(circle-left-arrow-teal);
   }
+}
+
+.reply-link {
+  @extend %icon-link-right;
+  &:after {
+    @include svg(circle-left-bendy-arrow-teal);
+  }
+}
+
+.delete-link {
+  @extend %icon-link-right;
+  &:after {
+    @include svg(circle-ex-gray);
+  }
+}
+
+
+// Bubbles
+//-----------------------------------------------------------------
+
+.bubble {
+  @extend %bubble-badge;
 }

@@ -1,7 +1,7 @@
-<% content_for :content %>
+<% content_for :content do %>
 
-  <%= render :partial => 'shared/bootstrap_model', :locals => {:key => 'Project', :model => @project}%>
-  <%= render :partial => 'shared/bootstrap_model', :locals => {:key => 'Creator', :model => @creator}%>
+  <%= render :partial => 'shared/bootstrap_model', :locals => {:key => 'Project', :model => @project} %>
+  <%= render :partial => 'shared/bootstrap_model', :locals => {:key => 'Creator', :model => @creator} %>
   <% if @submission %>
     <%= render :partial => 'shared/bootstrap_model', :locals => {:key => 'Submission', :model => @submission}%>
   <% end %>

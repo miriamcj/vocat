@@ -48,7 +48,6 @@ define [
       @bindUIElements()
 
     onShow: () ->
-      console.log 'recalculatin 3'
       @sliderRecalculate()
 
     initialize: (options) ->
@@ -59,11 +58,9 @@ define [
       @creatorType = 'User'
       userProjectsCollection = CollectionProxy(@collections.project)
       userProjectsCollection.where((model) -> model.get('type') == 'UserProject' || model.get('type') == 'OpenProject')
-
       @creators.show(new CourseMapCreators({collection: @collections.user, courseId: @courseId, vent: @, creatorType: 'User'}))
       @projects.show(new CourseMapProjects({collection: userProjectsCollection, courseId: @courseId, vent: @}))
       @matrix.show(new CourseMapMatrix({collection: @collections.user, collections: {project: userProjectsCollection, submission: @collections.submission}, courseId: @courseId, creatorType: 'User', vent: @}))
-      console.log 'recalculatin 1'
       @sliderRecalculate()
 
     showGroupViews: () ->
@@ -74,7 +71,6 @@ define [
       @creators.show(new CourseMapCreators({collection: @collections.group, courseId: @courseId, vent: @, creatorType: 'Group'}))
       @projects.show(new CourseMapProjects({collection: groupProjectsCollection, courseId: @courseId, vent: @}))
       @matrix.show(new CourseMapMatrix({collection: @collections.group, collections: {project: groupProjectsCollection, submission: @collections.submission}, courseId: @courseId, creatorType: 'Group', vent: @}))
-      console.log 'recalculatin 2'
       @sliderRecalculate()
 
     setActive: (models) ->

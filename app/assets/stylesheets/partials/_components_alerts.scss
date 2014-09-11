@@ -1,0 +1,20 @@
+@import "variables";
+@import "mixins";
+@import "patterns";
+
+$spacingUnit: $mediumUnitPadding * .75;
+
+.alert {
+  margin-bottom: $spacingUnit;
+  background: $yellow;
+  padding: $spacingUnit;
+  .alert--label {
+  }
+  a {
+    font-weight: $semibold;
+    color: $white;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

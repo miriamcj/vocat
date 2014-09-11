@@ -7,13 +7,13 @@
 .page-content--heading {
   @include clearfix;
   margin-bottom: $unitPadding;
-  .page-content--heading-buttons {
-	display: inline-block;
-	float: right;
-  }
-  h1, h2, h3, h4, h5, h6 {
-  }
 }
+
+.page-content--heading-buttons, .page-section--heading-buttons {
+  display: inline-block;
+  float: right;
+}
+
 
 %condensedHeading {
   @include font-head;
@@ -27,6 +27,10 @@
 
 %spacedHeading {
   margin-bottom: $narrowUnitPadding;
+}
+
+%extraSpacedHeading {
+  margin-bottom: $headerUnitPadding;
 }
 
 
@@ -55,7 +59,7 @@
   letter-spacing: 0;
   @extend %condensedHeading;
   @extend %capsHeading;
-  @extend %spacedHeading;
+  @extend %extraSpacedHeading;
 }
 
 
