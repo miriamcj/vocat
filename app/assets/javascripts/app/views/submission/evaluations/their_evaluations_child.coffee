@@ -9,5 +9,26 @@ define (require) ->
     className: 'evaluation-single'
     template: template
 
+    triggers: {
+      'click @ui.toggleChild': 'toggle:child'
+    }
+
+    ui: {
+      toggleChild: '[data-behavior="toggle-evaluation-detail"]'
+      childContainer: '[data-behavior="detail-child-container"]'
+    }
+
+    onToggleChild: () ->
+      @ui.childContainer.toggleClass('evaluations-hidden')
+
+
     initialize: (options) ->
-      console.log @model
+
+    serializeData: () ->
+      sd ={
+        title: @model.get('evaluator_name')
+        percentage: Math.round(@model.get('total_percentage'))
+        score: @model.get('score')
+      }
+      console.log sd
+      sd

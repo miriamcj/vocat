@@ -10,6 +10,7 @@ define (require) ->
 
     template: template
     tagName: 'ul'
+    className: 'evaluation-collections'
     childView: TheirEvaluationsCollection
 
     initialize: (options) ->

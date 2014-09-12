@@ -2,8 +2,8 @@
 @import "mixins";
 @import "patterns";
 
-$barHeight: 2.5em;
 $barHeight: 45px;
+$shortBarHeight: 30px;
 $titleWidth: 300px;
 $lighten: 20%;
 
@@ -19,122 +19,178 @@ $peerColor: lighten($peerFillColor, $lighten);
 $selfFillColor: $purple;
 $selfColor: lighten($selfFillColor, $lighten);
 
-.evaluation-collection {
+
+ul.evaluation-collections, ul.evaluation-collection--children, ul.evaluation-single--details {
+  margin-bottom: 0;
+  overflow-y: hidden;
+  max-height: 1000px;
   @extend %unstyled-list;
-  margin-top: $barHeight / 2;
-  & + & {
-    margin-top: $barHeight * 1.5;
+  @include transition($fastTransition all ease-in);
+}
+
+.evaluation-collection:first-child {
+  padding-top: $barHeight * .5;
+}
+
+.evaluation-collection:last-child {
+  padding-bottom: $barHeight * .5;
+}
+
+.evaluation-collection + .evaluation-collection {
+  padding-top: $barHeight * .5;
+}
+
+.evaluation-collection--children {
+  margin-top: $barHeight * .5;
+}
+
+.evaluation-single--details {
+  padding-top: $barHeight * .25;
+}
+
+.evaluation-single--details li + li {
+  padding-top: $barHeight * .25;
+}
+.evaluation-single--details li:last-child {
+  padding-bottom: $barHeight * .25;
+}
+
+
+ul.evaluations-hidden {
+  max-height: 0;
+  .range--handle {
   }
 }
-.evaluation-detail {
 
+.evaluation-collection--children, .evaluation-single--details {
+  margin-left: $barHeight;
+}
+
+.evaluation-collections li {
 }
 
 .range-group {
   @extend %unstyled-list;
   cursor: pointer;
 }
-.range {
 
-  .range--track {
-    position: relative;
-    background: $defaultColor;
-    height: $barHeight;
-    margin-left: $titleWidth;
-    .evaluation-collection-instructor & {
-      background: $instructorColor;
-    }
-    .evaluation-collection-peer & {
-      background: $peerColor;
-    }
-    .evaluation-collection-self & {
-      background: $selfColor;
-    }
+
+.range--track {
+  position: relative;
+  background: $defaultColor;
+  height: $barHeight;
+  margin-left: $titleWidth;
+  .evaluation-collection-instructor & {
+    background: $instructorColor;
   }
-
-
-  .range--title {
-    float: left;
-    width: $titleWidth;
-    background: $defaultFillColor;
-    color: $white;
-    z-index: 1;
-    font-size: $zeta;
-    font-weight: $semibold;
-    padding-left: .75em;
-    line-height: $barHeight;
-    height: $barHeight;
-    display: block;
-    .evaluation-collection-instructor & {
-      background: $instructorFillColor;
-    }
-    .evaluation-collection-peer & {
-      background: $peerFillColor;
-    }
-    .evaluation-collection-self & {
-      background: $selfFillColor;
-    }
+  .evaluation-collection-peer & {
+    background: $peerColor;
   }
-
-  .range--fill {
-    position: absolute;
-  	display: inline-block;
-    background: $defaultFillColor;
-    height: $barHeight;
-    border-right: 10px solid $defaultColor;
-    .evaluation-collection-instructor & {
-      background: $instructorFillColor;
-      border-color: $instructorColor;
-    }
-    .evaluation-collection-peer & {
-      background: $peerFillColor;
-      border-color: $peerColor;
-    }
-    .evaluation-collection-self & {
-      background: $selfFillColor;
-      border-color: $selfColor;
-    }
+  .evaluation-collection-self & {
+    background: $selfColor;
   }
+}
 
-  .range--handle {
-  	display: inline-block;
-    position: absolute;
-    padding: .75em;
-	  z-index: 1;
-    border: 7px solid $defaultFillColor;
-    background: $white;
-    top: -45%;
-    margin-right: -10px;
-    border-radius: 50%;
-    .evaluation-collection-instructor & {
-      border-color: $instructorFillColor;
-    }
-    .evaluation-collection-peer & {
-      border-color: $peerFillColor;
-    }
-    .evaluation-collection-self & {
-      border-color: $selfFillColor;
-    }
 
+.range--title {
+  float: left;
+  width: $titleWidth;
+  background: $defaultFillColor;
+  color: $white;
+  z-index: 1;
+  font-size: $zeta;
+  font-weight: $semibold;
+  padding-left: .75em;
+  line-height: $barHeight;
+  height: $barHeight;
+  display: block;
+  .evaluation-collection-instructor & {
+    background: $instructorFillColor;
+  }
+  .evaluation-collection-peer & {
+    background: $peerFillColor;
+  }
+  .evaluation-collection-self & {
+    background: $selfFillColor;
+  }
+}
+
+.range--fill {
+  position: absolute;
+  display: inline-block;
+  background: $defaultFillColor;
+  height: $barHeight;
+  border-right: 10px solid $defaultColor;
+  .range-field, range-total & {
+    border-right: none;
+  }
+  .evaluation-collection-instructor & {
+    background: $instructorFillColor;
+    border-color: $instructorColor;
+  }
+  .evaluation-collection-peer & {
+    background: $peerFillColor;
+    border-color: $peerColor;
+  }
+  .evaluation-collection-self & {
+    background: $selfFillColor;
+    border-color: $selfColor;
+  }
+}
+
+
+.range--handle {
+  display: inline-block;
+  position: absolute;
+  padding: .75em;
+  z-index: 1;
+  border: 7px solid $defaultFillColor;
+  background: $white;
+  top: -45%;
+  margin-right: -10px;
+  border-radius: 50%;
+  .evaluation-collection-instructor & {
+    border-color: $instructorFillColor;
+  }
+  .evaluation-collection-peer & {
+    border-color: $peerFillColor;
+  }
+  .evaluation-collection-self & {
+    border-color: $selfFillColor;
+  }
+  .range-total &, .range-field & {
+    margin-right: 0px;
+    border: none;
+    border-radius: 0;
+    height: $barHeight;
+    background: none;
+    top: $barHeight * -.10;
+    margin-right: 10px;
     b {
-      position: relative;
-      font-weight: $regular;
-      top: .1em;
-      color: $defaultFillColor;
-      font-size: $gamma-major;
-      @include font-matrix();
-      .evaluation-collection-instructor & {
-        color: $instructorFillColor;
-      }
-      .evaluation-collection-peer & {
-        color: $peerFillColor;
-      }
-      .evaluation-collection-self & {
-        color: $selfFillColor;
-      }
+      top: 0;
+      font-size: $gamma;
+      color: $white !important;
+    }
+  }
+  b {
+    position: relative;
+    font-weight: $regular;
+    top: .1em;
+    color: $defaultFillColor;
+    font-size: $gamma-major;
+    @include font-matrix();
+    .evaluation-collection-instructor & {
+      color: $instructorFillColor;
+    }
+    .evaluation-collection-peer & {
+      color: $peerFillColor;
+    }
+    .evaluation-collection-self & {
+      color: $selfFillColor;
     }
   }
 }
+
 
 //.evaluation-collection-instructor {
 //  .evaluation-collection--bar {

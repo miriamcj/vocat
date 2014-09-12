@@ -1,9 +1,22 @@
 class EvaluationSerializer < ActiveModel::Serializer
-  attributes  :id, :evaluator_id, :scores, :total_percentage, :evaluator_name, :evaluator_role, :total_percentage_rounded,
-              :current_user_is_owner, :published, :submission_id, :points_possible
+  attributes  :id,
+              :submission_id,
+              :current_user_is_owner,
+              :published,
+              :evaluator_id,
+              :evaluator_name,
+              :evaluator_role,
+              :score,
+              :total_percentage,
+              :total_score,
+              :points_possible,
 
   def current_user_is_owner
     scope.id == object.evaluator_id
+  end
+
+  def score
+    object.score_detail
   end
 
   def evaluator_role

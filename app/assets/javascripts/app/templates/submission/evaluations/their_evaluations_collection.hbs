@@ -1,12 +1,5 @@
-<div class="range">
-  <h4 class="range--title">
-	  {{evaluator_role}} Evaluations
-  </h4>
-
-  <div class="range--track">
-	  <div style="right: {{ invert averageScore }}%" class="range--handle"><b>{{averageScore}}%</b></div>
-	  <span style="width: {{ averageScore }}%" class="range--fill"></span>
-  </div>
+<div data-behavior="toggle-collection-children">
+{{> range}}
 </div>
-<ul class="evaluation-collection--children" data-behavior="child-container">
+<ul class="evaluation-collection--children evaluations-hidden" data-behavior="collection-child-container">
 </ul>

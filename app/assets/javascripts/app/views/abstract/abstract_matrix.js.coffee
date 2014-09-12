@@ -36,9 +36,6 @@ define [
       @memoizeHashCount
 
     recalculateMatrix: () ->
-      console.log 'recalc'
-      $(window).off("resize")
-      $(window).on('resize', _.debounce(() => @recalculateMatrix()), 300)
       @memoizeHashCount++
       @updateSliderControls()
 

@@ -9,11 +9,36 @@ define (require) ->
     template: template
     className: 'evaluation-collection'
     tagName: 'li'
+    childView: ChildView
+    childViewContainer: '[data-behavior="collection-child-container"]'
+
+    triggers: {
+      'click @ui.toggleChild': 'toggle:child'
+    }
+
+    ui: {
+      toggleChild: '[data-behavior="toggle-collection-children"]'
+      childContainer: '[data-behavior="collection-child-container"]'
+    }
+
+    onToggleChild: () ->
+      @ui.childContainer.toggleClass('evaluations-hidden')
+
     className: () ->
       "evaluation-collection evaluation-collection-#{@model.get('evaluator_role').toLowerCase()}"
 
-    childView: ChildView
-    childViewContainer: '[data-behavior="child-container"]'
 
     initialize: (options) ->
       @collection = @model.get('evaluations')
+
+    onRender: () ->
+      @listenTo(@$el,'click', () ->
+        console.log 'clicked'
+      )
+
+
+    serializeData: () ->
+      {
+        title: "#{@model.get('evaluator_role')} Evaluations"
+        percentage: @model.averageScore()
+      }

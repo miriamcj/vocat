@@ -7,7 +7,6 @@ define ['backbone'], (Backbone) ->
       Math.round(_.reduce(numbers, (memo, num) ->
         memo + num
       , 0) / numbers.length)
-      0
 
     toJSON: () ->
       attributes = _.clone(this.attributes);

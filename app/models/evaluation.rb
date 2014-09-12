@@ -23,8 +23,6 @@ class Evaluation < ActiveRecord::Base
     end
   }
 
-
-
   delegate :high_score, :to => :rubric, :prefix => true, :allow_nil => true
   delegate :low_score, :to => :rubric, :prefix => true, :allow_nil => true
   delegate :points_possible, :to => :rubric, :allow_nil => true
@@ -42,6 +40,27 @@ class Evaluation < ActiveRecord::Base
 
   def creator
     group || user
+  end
+
+  def score_detail
+    out = {}
+    scores.each do |key, score|
+      out[key] = {
+        score: score.to_f,
+        low: rubric.low_possible_for(key),
+        high: rubric.high_possible_for(key),
+        percentage: (score.to_f / rubric.high_possible_for(key)) * 100
+      }
+    end
+    out
+  end
+
+  def score_ranges
+    ranges = {}
+    rubric.field_keys.each do |key|
+      ranges[key] = {low: rubric.low_score, high: rubric.high_score}
+    end
+    ranges
   end
 
   def evaluator_role
@@ -131,7 +150,7 @@ class Evaluation < ActiveRecord::Base
     total_percentage.round(0)
   end
 
-    def to_csv_header_row
+  def to_csv_header_row
     ['Vocat ID', 'Evaluator','Section','Course', 'Semester', 'Year', 'Creator', 'Evaluation Type', 'Project Name', 'Percentage', 'Total Score', 'Points Possible']
   end
 

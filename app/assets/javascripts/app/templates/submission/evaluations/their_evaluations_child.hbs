@@ -1,12 +1,11 @@
-<div class="range">
-	<h4 class="range--title">
-		{{evaluator_name}}
-	</h4>
-
-	<div class="range--track">
-		<div style="right: {{ invert total_percentage_rounded }}%" class="range--handle"><b>{{total_percentage_rounded}}%</b></div>
-		<span style="width: {{ total_percentage_rounded }}%" class="range--fill"></span>
-	</div>
+<div data-behavior="toggle-evaluation-detail">
+{{{include "range" title=this.title percentage=this.percentage range_class="range-total"}}}
 </div>
-<ul class="evaluation-single--details" data-behavior="child-container">
+
+<ul class="evaluation-single--details evaluations-hidden" data-behavior="detail-child-container">
+  {{#each score }}
+  <li>
+    {{{include "range" title=@key percentage=this.percentage range_class="range-field"}}}
+  </li>
+  {{/each}}
 </ul>

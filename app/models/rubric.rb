@@ -11,7 +11,7 @@ class Rubric < ActiveRecord::Base
   delegate :name, :to => :owner, :prefix => true, :allow_nil => true
 
   serialize :cells, Array
-  serialize :fields, Array # A field is {'name' => 'name', 'description' => 'description'}
+  serialize :fields, Array # A field is {'name' => 'name', 'id', description' => 'description'}
   serialize :ranges, Array # A range is {'low' => X, 'high' => X, 'name' => 'name'}
 
   validates :name, :owner, :low, :high, :presence => true
@@ -186,7 +186,7 @@ class Rubric < ActiveRecord::Base
     self.fields.collect { |value| value['name']}
   end
 
-  def field_names_downcase
+  def field_names
     self.fields.collect { |value| value['name'].downcase }
   end
 
@@ -204,6 +204,14 @@ class Rubric < ActiveRecord::Base
 
   def high_score
     self.high
+  end
+
+  def high_possible_for(field_key_)
+    high_score
+  end
+
+  def low_possible_for(field_key)
+    low_score
   end
 
   def to_s

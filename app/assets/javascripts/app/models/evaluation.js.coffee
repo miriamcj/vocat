@@ -27,8 +27,8 @@ define ['backbone'], (Backbone) ->
 
     updateCalculatedScoreFields: () ->
       total = 0
-      _.each(@.get('scores'), (score) =>
-        total = total + parseInt(score)
+      _.each(@.get('score'), (details, fieldKey) =>
+        total = total + parseInt(details['score'])
       )
 
       per = parseFloat(total / parseInt(@get('points_possible'))) * 100
