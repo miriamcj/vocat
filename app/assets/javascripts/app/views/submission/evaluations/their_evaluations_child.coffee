@@ -5,4 +5,9 @@ define (require) ->
 
   class TheirEvaluationsChild extends Marionette.ItemView
 
+    tagName: 'li'
+    className: 'evaluation-single'
     template: template
+
+    initialize: (options) ->
+      console.log @model

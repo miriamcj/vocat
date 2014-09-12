@@ -48,7 +48,7 @@ class Evaluation < ActiveRecord::Base
     role = course.role(evaluator)
     role = :evaluator if role.nil? && evaluator.role?(:administrator)
     if role.nil?
-      :none
+      :other
     else
       role
     end

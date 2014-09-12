@@ -9,7 +9,7 @@ define (require) ->
   class TheirEvaluations extends Marionette.CompositeView
 
     template: template
-
+    tagName: 'ul'
     childView: TheirEvaluationsCollection
 
     initialize: (options) ->

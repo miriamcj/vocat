@@ -52,7 +52,8 @@
   @include clearfix;
   background: $grayLightest;
   padding: $contentUnitPadding;
-  margin-bottom: $verticalSpace;
+  margin-bottom: $verticalSpace * 3;
+
 }
 
 footer {

@@ -14,7 +14,7 @@ class EvaluationSerializer < ActiveModel::Serializer
       when :creator
         evaluator = User.find(object.evaluator_id)
         if evaluator.can?(:own, object.submission)
-          'Creator'
+          'Self'
         else
           'Peer'
         end

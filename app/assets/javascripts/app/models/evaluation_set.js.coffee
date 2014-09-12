@@ -12,5 +12,4 @@ define ['backbone'], (Backbone) ->
     toJSON: () ->
       attributes = _.clone(this.attributes);
       attributes.averageScore = @averageScore()
-      console.log attributes,'attributes'
       attributes
