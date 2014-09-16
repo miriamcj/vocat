@@ -1,11 +1,11 @@
 <div data-behavior="toggle-evaluation-detail">
-{{{include "range" title=this.title percentage=this.percentage range_class="range-total"}}}
+{{{include "range" title=this.title percentage=this.percentage range_class="range-secondary"}}}
 </div>
 
 <ul class="evaluation-single--details evaluations-hidden" data-behavior="detail-child-container">
   {{#each score }}
   <li>
-    {{{include "range" title=@key percentage=this.percentage range_class="range-field"}}}
+    {{{include "range" title=@key percentage=this.percentage range_class="range-tertiary"}}}
   </li>
   {{/each}}
 </ul>

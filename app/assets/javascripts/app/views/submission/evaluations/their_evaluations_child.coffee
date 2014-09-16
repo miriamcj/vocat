@@ -8,6 +8,7 @@ define (require) ->
     tagName: 'li'
     className: 'evaluation-single'
     template: template
+    childrenVisible: false;
 
     triggers: {
       'click @ui.toggleChild': 'toggle:child'
@@ -19,8 +20,16 @@ define (require) ->
     }
 
     onToggleChild: () ->
-      @ui.childContainer.toggleClass('evaluations-hidden')
+      if @childrenVisible
+        @ui.childContainer.slideUp(250)
+      else
+        @ui.childContainer.slideDown(250)
+      @childrenVisible = !@childrenVisible
 
+
+    onShow: () ->
+      if @childrenVisible == false
+        @ui.childContainer.hide()
 
     initialize: (options) ->
 
@@ -30,5 +39,4 @@ define (require) ->
         percentage: Math.round(@model.get('total_percentage'))
         score: @model.get('score')
       }
-      console.log sd
       sd

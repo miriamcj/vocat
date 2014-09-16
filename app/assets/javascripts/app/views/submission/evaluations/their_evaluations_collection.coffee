@@ -10,6 +10,7 @@ define (require) ->
     className: 'evaluation-collection'
     tagName: 'li'
     childView: ChildView
+    childrenVisible: false
     childViewContainer: '[data-behavior="collection-child-container"]'
 
     triggers: {
@@ -22,11 +23,14 @@ define (require) ->
     }
 
     onToggleChild: () ->
-      @ui.childContainer.toggleClass('evaluations-hidden')
+      if @childrenVisible
+        @ui.childContainer.slideUp(250)
+      else
+        @ui.childContainer.slideDown(250)
+      @childrenVisible = !@childrenVisible
 
     className: () ->
       "evaluation-collection evaluation-collection-#{@model.get('evaluator_role').toLowerCase()}"
-
 
     initialize: (options) ->
       @collection = @model.get('evaluations')
@@ -36,6 +40,9 @@ define (require) ->
         console.log 'clicked'
       )
 
+    onShow: () ->
+      if @childrenVisible == false
+        @ui.childContainer.hide()
 
     serializeData: () ->
       {

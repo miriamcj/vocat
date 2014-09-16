@@ -2,7 +2,11 @@
 @import "mixins";
 @import "patterns";
 
-$barHeight: 45px;
+$barHeight: 40px;
+$secondaryBarHeight: 15px;
+$handleWidth: 100px;
+
+
 $shortBarHeight: 30px;
 $titleWidth: 300px;
 $lighten: 20%;
@@ -22,51 +26,55 @@ $selfColor: lighten($selfFillColor, $lighten);
 
 ul.evaluation-collections, ul.evaluation-collection--children, ul.evaluation-single--details {
   margin-bottom: 0;
-  overflow-y: hidden;
-  max-height: 1000px;
   @extend %unstyled-list;
-  @include transition($fastTransition all ease-in);
 }
 
 .evaluation-collection:first-child {
-  padding-top: $barHeight * .5;
+  margin-top: $secondaryBarHeight;
 }
 
 .evaluation-collection:last-child {
-  padding-bottom: $barHeight * .5;
+  margin-bottom: $secondaryBarHeight;
 }
 
 .evaluation-collection + .evaluation-collection {
-  padding-top: $barHeight * .5;
+  margin-top: $secondaryBarHeight * 3;
 }
 
 .evaluation-collection--children {
-  margin-top: $barHeight * .5;
+  margin-top: $secondaryBarHeight;
+}
+.evaluation-collection--children li + li {
+  margin-top: $secondaryBarHeight;
 }
 
 .evaluation-single--details {
-  padding-top: $barHeight * .25;
+  margin-top: $secondaryBarHeight;
 }
 
 .evaluation-single--details li + li {
-  padding-top: $barHeight * .25;
+  margin-top: $secondaryBarHeight;
 }
 .evaluation-single--details li:last-child {
-  padding-bottom: $barHeight * .25;
 }
 
-
 ul.evaluations-hidden {
-  max-height: 0;
-  .range--handle {
-  }
 }
 
 .evaluation-collection--children, .evaluation-single--details {
-  margin-left: $barHeight;
+  margin-left: $barHeight * .75;
 }
 
 .evaluation-collections li {
+}
+
+.range {
+  cursor: pointer;
+  position: relative;
+}
+
+.range-tertiary {
+  cursor: auto;
 }
 
 .range-group {
@@ -76,10 +84,13 @@ ul.evaluations-hidden {
 
 
 .range--track {
+  margin-right: $barHeight * 3;
   position: relative;
   background: $defaultColor;
   height: $barHeight;
-  margin-left: $titleWidth;
+  .range-secondary &, .range-tertiary & {
+    height: $secondaryBarHeight;
+  }
   .evaluation-collection-instructor & {
     background: $instructorColor;
   }
@@ -91,11 +102,9 @@ ul.evaluations-hidden {
   }
 }
 
-
 .range--title {
-  float: left;
+  position: absolute;
   width: $titleWidth;
-  background: $defaultFillColor;
   color: $white;
   z-index: 1;
   font-size: $zeta;
@@ -104,14 +113,18 @@ ul.evaluations-hidden {
   line-height: $barHeight;
   height: $barHeight;
   display: block;
-  .evaluation-collection-instructor & {
-    background: $instructorFillColor;
+  .range-secondary &, .range-tertiary & {
+    font-weight: $regular;
+    font-size: $theta;
+    padding-left: 0;
+    position: static;
+    color: $grayDark;
+    width: auto;
+    height: auto;
+    line-height: 1.5em;
   }
-  .evaluation-collection-peer & {
-    background: $peerFillColor;
-  }
-  .evaluation-collection-self & {
-    background: $selfFillColor;
+  .range-tertiary & {
+    font-size: $iota;
   }
 }
 
@@ -120,122 +133,99 @@ ul.evaluations-hidden {
   display: inline-block;
   background: $defaultFillColor;
   height: $barHeight;
-  border-right: 10px solid $defaultColor;
-  .range-field, range-total & {
-    border-right: none;
+  .range-secondary &, .range-tertiary & {
+    height: $secondaryBarHeight;
   }
   .evaluation-collection-instructor & {
     background: $instructorFillColor;
-    border-color: $instructorColor;
   }
   .evaluation-collection-peer & {
     background: $peerFillColor;
-    border-color: $peerColor;
   }
   .evaluation-collection-self & {
     background: $selfFillColor;
-    border-color: $selfColor;
   }
 }
 
+$largeHandleMultipler: 1.5;
+$largeHandleHeight: $barHeight + ($secondaryBarHeight * $largeHandleMultipler);
+$secondaryHandleHeight: $secondaryBarHeight * 3;
+$tertiaryHandleHeight: $secondaryBarHeight * 2;
+$triangleHeight: 10px;
 
 .range--handle {
-  display: inline-block;
+  right: -$handleWidth - ($secondaryBarHeight * $largeHandleMultipler );
   position: absolute;
-  padding: .75em;
+  width: $handleWidth;
+  top: -($secondaryBarHeight * $largeHandleMultipler) / 2;
+  text-align: center;
   z-index: 1;
-  border: 7px solid $defaultFillColor;
-  background: $white;
-  top: -45%;
-  margin-right: -10px;
-  border-radius: 50%;
+  background: $instructorFillColor;
+  color: $white;
+  height: $largeHandleHeight;
+  line-height: $largeHandleHeight;
+  font-weight: $semibold;
+  font-size: $delta;
+
+  .range-secondary &, .range-tertiary & {
+    right: -( $handleWidth * .75) - ($secondaryBarHeight * $largeHandleMultipler );
+    font-size: $zeta;
+    height: $secondaryHandleHeight;
+    width: $handleWidth * .75;
+    line-height: $secondaryHandleHeight;
+    top: -$secondaryBarHeight;
+  }
+  .range-tertiary & {
+    right: -( $handleWidth * .5) - ($secondaryBarHeight * $largeHandleMultipler );
+    height: $tertiaryHandleHeight;
+    line-height: $tertiaryHandleHeight;
+    width: $handleWidth * .5;
+    font-size: $theta;
+    top: -$secondaryBarHeight * .5;
+  }
   .evaluation-collection-instructor & {
-    border-color: $instructorFillColor;
+    background: $instructorFillColor;
   }
   .evaluation-collection-peer & {
-    border-color: $peerFillColor;
+    background: $peerFillColor;
   }
   .evaluation-collection-self & {
-    border-color: $selfFillColor;
-  }
-  .range-total &, .range-field & {
-    margin-right: 0px;
-    border: none;
-    border-radius: 0;
-    height: $barHeight;
-    background: none;
-    top: $barHeight * -.10;
-    margin-right: 10px;
-    b {
-      top: 0;
-      font-size: $gamma;
-      color: $white !important;
-    }
+    background: $selfFillColor;
   }
   b {
-    position: relative;
+    position: absolute;
+    top: ($largeHandleHeight * .5) - $triangleHeight;
+    .range-secondary & {
+      top: ($secondaryHandleHeight * .5) - $triangleHeight;
+    }
+    .range-tertiary & {
+      top: ($tertiaryHandleHeight * .5) - ($triangleHeight * .5);
+      left: -$triangleHeight * .5;
+      font-weight: $regular;
+      height: $triangleHeight * .5;
+      width: $triangleHeight * .5;
+      border-top: $triangleHeight * .5 solid transparent;
+      border-bottom: $triangleHeight * .5 solid transparent;
+      border-right: $triangleHeight * .5 solid $defaultFillColor;
+    }
+    left: -$triangleHeight;
     font-weight: $regular;
-    top: .1em;
-    color: $defaultFillColor;
-    font-size: $gamma-major;
-    @include font-matrix();
+    height: $triangleHeight;
+    width: $triangleHeight;
+    width: 0;
+    height: 0;
+    border-top: $triangleHeight solid transparent;
+    border-bottom: $triangleHeight solid transparent;
+    border-right: $triangleHeight solid $defaultFillColor;
     .evaluation-collection-instructor & {
-      color: $instructorFillColor;
+      border-right-color: $instructorFillColor;
     }
     .evaluation-collection-peer & {
-      color: $peerFillColor;
+      border-right-color: $peerFillColor;
     }
     .evaluation-collection-self & {
-      color: $selfFillColor;
+      border-right-color: $selfFillColor;
     }
   }
 }
 
-
-//.evaluation-collection-instructor {
-//  .evaluation-collection--bar {
-//    background: $instructorColor;
-//  }
-//  .evaluation-collection--fill {
-//    background: $instructorFillColor;
-//    border-color: $instructorColor;
-//  }
-//  .evaluation-collection--handle {
-//    b {
-//      color: $instructorFillColor;
-//    }
-//    border-color: $instructorFillColor;
-//  }
-//}
-//
-//.evaluation-collection-peer {
-//  .evaluation-collection--bar {
-//    background: $peerColor;
-//  }
-//  .evaluation-collection--fill {
-//    background: $peerFillColor;
-//    border-color: $peerColor;
-//  }
-//  .evaluation-collection--handle {
-//    b {
-//      color: $peerFillColor;
-//    }
-//    border-color: $peerFillColor;
-//  }
-//}
-//
-//.evaluation-collection-creator {
-//  .evaluation-collection--bar {
-//    background: $creatorColor;
-//  }
-//  .evaluation-collection--fill {
-//    background: $creatorFillColor;
-//    border-color: $creatorColor;
-//  }
-//  .evaluation-collection--handle {
-//    b {
-//      color: $creatorFillColor;
-//    }
-//    border-color: $creatorFillColor;
-//  }
-//}
