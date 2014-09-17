@@ -58,6 +58,20 @@ ActiveRecord::Schema.define(version: 20140509003849) do
     t.hstore   "processing_data"
   end
 
+  create_table "course_requests", force: true do |t|
+    t.string   "name"
+    t.string   "department"
+    t.string   "section"
+    t.integer  "year"
+    t.integer  "semester"
+    t.integer  "requestor_id"
+    t.integer  "state"
+    t.integer  "admin_id"
+    t.integer  "course_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "courses", force: true do |t|
     t.string   "name"
     t.string   "department"

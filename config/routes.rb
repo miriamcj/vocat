@@ -71,6 +71,8 @@ Vocat::Application.routes.draw do
     end
   end
 
+  resources :course_requests, :controller => 'course_requests', :only => [:new, :create]
+
   resources :courses do
 
     member do
@@ -123,6 +125,14 @@ Vocat::Application.routes.draw do
           end
         end
       end
+    end
+    resources :course_requests do
+      member do
+        get 'approve'
+        get 'deny'
+      end
+      get 'index'
+      get 'show'
     end
     resources :users do
       member do
