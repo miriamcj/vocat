@@ -1,19 +1,19 @@
-<div data-ui="curtain" class="box player-curtain">
-  <header>
-    <h2 class="box--title left">Video</h2>
-    {{#if current_user_can_attach}}
-    <a href="#" data-behavior="destroy" class="box--minus-link">Delete Video</a>
-    {{/if}}
-  </header>
-
-  <div data-ui="stage" class="player-stage">
-
-    <div class="player-scene">
-      <div class="wrap">
-        <span class="attachment-placeholder--button">{{message}}</span>
-      </div>
-    </div>
-
+<div class="page-section-header">
+  <h2 class="heading-page-section">Video</h2>
+  <div class="page-content--heading-buttons">
+      {{#if current_user_can_attach}}
+      <a href="#" data-behavior="destroy" class="secondary-button">Delete Video</a>
+      {{/if}}
   </div>
 </div>
-
+<div class="page-section">
+  <div data-ui="curtain" class="box player-curtain">
+    <div data-ui="stage" class="player-stage">
+      <div class="player-scene">
+        <div class="wrap">
+          <span class="attachment-placeholder--button">{{message}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

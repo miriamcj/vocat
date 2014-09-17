@@ -11,7 +11,7 @@ define [
     }
 
     triggers: {
-      'click [data-behavior="modal-destroy"]': 'click:modal:destroy'
+      'click [data-behavior="modal-close"]': 'click:modal:close'
     }
 
     regions: {
@@ -19,7 +19,7 @@ define [
     }
 
     onClickModalClose: () ->
-      @destroy()
+      @closeModal()
 
     initialize: (options) ->
       @vent = Vocat.vent
@@ -31,20 +31,20 @@ define [
         @open()
       )
 
-      @listenTo(@vent, 'modal:destroy', () =>
-        @destroy()
+      @listenTo(@vent, 'modal:close', () =>
+        @closeModal()
       )
-
 
     updateContent: (view) ->
       @content.show(view)
 
-    destroy: () ->
-      @vent.trigger('modal:before:destroy')
-      @content.destroy()
+    closeModal: () ->
+      @vent.trigger('modal:before:close')
+      console.log @content,'c'
+      @content.reset()
       @ensureBackdrop().fadeOut(250)
       @$el.hide()
-      @vent.trigger('modal:after:destroy')
+      @vent.trigger('modal:after:close')
 
     open: () ->
       @vent.trigger('modal:before:show')

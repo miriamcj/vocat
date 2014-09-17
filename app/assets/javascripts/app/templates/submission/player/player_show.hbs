@@ -1,10 +1,12 @@
-<div class="box">
-  <header>
-    <h2 class="box--title">Video Submission</h2>
-    {{#if current_user_can_attach}}
-    <a href="#" data-behavior="destroy" class="box--minus-link">Delete Video</a>
-    {{/if}}
-  </header>
+<div class="page-section-header">
+  <h2 class="heading-page-section">Video</h2>
+  <div class="page-content--heading-buttons">
+      {{#if current_user_can_attach}}
+      <a href="#" data-behavior="destroy" class="secondary-button">Delete Video</a>
+      {{/if}}
+  </div>
+</div>
+<div class="page-section">
   <div class="player-container">
     <video id="video-player" data-behavior="video-player"
     class="video-js vjs-default-skin" controls preload="auto" >

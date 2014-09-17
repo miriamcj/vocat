@@ -1,8 +1,11 @@
-define ['marionette', 'hbs!templates/submission/annotations_item'], (Marionette, template) ->
+define (require) ->
+
+  Marionette = require('marionette')
+  template = require('hbs!templates/submission/annotations/annotations_item')
 
   class AnnotationItem extends Marionette.ItemView
 
-    visible: true
+    highlighted: true
     ignoreTime: false
     template: template
     tagName: 'li'
@@ -16,39 +19,37 @@ define ['marionette', 'hbs!templates/submission/annotations_item'], (Marionette,
       @vent = options.vent
       @errorVent = options.errorVent
 
-      @listenTo(@vent, 'show:all', () =>
-        @ignoreTime = true
-        @show()
-      )
+#      @listenTo(@vent, 'show:all', () =>
+#        @ignoreTime = true
+#        @show()
+#      )
 
-      @listenTo(@vent, 'show:auto', () =>
-        @ignoreTime = false
-      )
+#      @listenTo(@vent, 'show:auto', () =>
+#        @ignoreTime = false
+#      )
 
+#
+#      @listenTo(@vent, 'player:time', (data) =>
+#        if @ignoreTime == false
+#          if @model.get('seconds_timecode') <= data.seconds
+#            @show()
+#      )
+#
+#      @listenTo(@vent, 'annotation:shown', (shownView) =>
+#        if shownView != @
+#          @hide()
+#      )
 
-      @listenTo(@vent, 'player:time', (data) =>
-        if @ignoreTime == false
-          if @model.get('seconds_timecode') <= data.seconds
-            @show()
-          else
-            @hide()
-      )
+    highlightableFor: (seconds) ->
+      @model.get('seconds_timecode') <= seconds
 
-    show: () ->
-      if @visible == false
-        @visible = true
-        @$el.fadeIn()
-        @vent.triggerMethod('item:shown')
+    highlight: () ->
+      @$el.addClass('highlighted')
 
-    hide: () ->
-      if @visible == true
-        @visible = false
-        @$el.fadeOut()
-        @vent.triggerMethod('item:hidden')
+    dehighlight: () ->
+      @$el.removeClass('highlighted')
 
     onBeforeRender: () ->
-      @$el.hide()
-      @visible = false
 
     onSeek: () ->
       @vent.triggerMethod('player:seek', {seconds: @model.get('seconds_timecode')})

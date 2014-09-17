@@ -1,12 +1,9 @@
-define [
-  'marionette',
-  'hbs!templates/submission/annotations',
-  'views/submission/annotations_item',
-  'views/submission/annotations_item_empty',
-  'vendor/plugins/smooth_scroll'
-],(
-  Marionette, template, ItemView, EmptyView
-) ->
+define (require) ->
+
+  Marionette = require('marionette')
+  template = require('hbs!templates/submission/annotations/annotations')
+  ItemView = require('views/submission/annotations/annotations_item')
+  EmptyView = require('views/submission/annotations/annotations_item_empty')
 
   class AnnotationsView extends Marionette.CompositeView
 
@@ -43,7 +40,10 @@ define [
     initialize: (options) ->
       @disableScroll = false
       @vent = Marionette.getOption(@, 'vent')
-      @videoId = Marionette.getOption(@, 'videoId')
+
+      if @model.video && @model.video.id
+        @videoId = @model.video.id
+
       @courseId = Marionette.getOption(@, 'courseId')
 
       # TODO: Consider improving this check; annotations view shouldn't have to know quite so much about the collection.
@@ -56,37 +56,34 @@ define [
 
       # Echo some events from parent down to the item view, whose vent is scoped to this annotations list view.
       @listenTo(@vent, 'player:time', (data) =>
-        @trigger('player:time', data)
+        @highlightChild(data)
       )
 
     # Triggered by child childView; echoed up the event chain to the global event
     onPlayerSeek: (data) ->
       @vent.trigger('player:seek', data)
 
-    onShowAll: () ->
-      @ui.showAllLink.hide()
-      @ui.showAutoLink.show()
+    highlightChild: (data) ->
+      highlightAnnotation = null
+      @children.each (annotation) ->
+        highlightAnnotation = annotation if annotation.highlightableFor(data.seconds)
+        annotation.dehighlight()
+      highlightAnnotation.highlight()
+      console.log highlightAnnotation.$el.position()
 
-    onShowAuto: () ->
-      @ui.showAllLink.show()
-      @ui.showAutoLink.hide()
-
-
-    onItemShown: (options) ->
-      if @disableScroll == false
-        if !speed? then speed = 300
-        $.smoothScroll({
-          direction: 'top'
-          speed: speed
-          scrollElement: @ui.scrollParent
-          scrollTarget: @ui.anchor
-        })
+    scrollToAnnotation: (shownAnnotation) ->
+      $el = shownAnnotation.$el
+      console.log $el,'el'
 
     onAddChild: () ->
       @ui.count.html(@collection.length)
 
     onRemoveChild: () ->
       @ui.count.html(@collection.length)
+
+    onShow: () ->
+      console.log @,'@'
+
 
     # See https://github.com/marionettejs/backbone.marionette/wiki/Adding-support-for-sorted-collections
     appendHtml: (collectionView, childView, index) ->

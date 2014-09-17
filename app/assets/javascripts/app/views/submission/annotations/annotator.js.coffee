@@ -1,8 +1,9 @@
-define [
-  'marionette', 'hbs!templates/submission/annotator', 'models/annotation'
-], (
-  Marionette, template, AnnotationModel
-) ->
+define (require) ->
+
+  Marionette = require('marionette')
+  template = require('hbs!templates/submission/annotations/annotator')
+  AnnotationModel = require('models/annotation')
+
   class AnnotatorView extends Marionette.ItemView
 
     template: template

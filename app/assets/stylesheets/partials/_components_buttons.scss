@@ -3,116 +3,6 @@
 @import "patterns";
 
 
-// Button, Link Patterns and prototypes
-//-------------------------------------
-%button-text {
-  @include font-body;
-  font-size: $iota;
-  font-weight: $semibold;
-}
-
-%proto-button {
-  padding: .8em;
-  line-height: 1; // Inputs have line-height: normal, so we need to set this here to equalize input and link button heights.
-  @extend %button-text;
-  @extend %bare-focus;
-  @extend %bare-active;
-  display: inline-block;
-  color: $white !important;
-}
-
-// Psuedoelements don't stick to <input>s, so we
-// need to remove the right padding in those cases
-input%proto-button {
-  @extend %reset-input;
-}
-
-%icon-button {
-  padding-right: 2.6em;
-  position: relative;
-  &:after {
-    content: "";
-    display: block;
-    padding: 0;
-    height: 1.5em;
-    width: 1.5em;
-    position: absolute;
-    top: .55em;
-    right: .55em;
-  }
-}
-
-%primary-button {
-  @extend %proto-button;
-  background-color: $primaryButtonColor;
-  border: 0;
-  &:hover, &:focus {
-	background-color: $primaryButtonHoverColor;
-  }
-}
-
-%secondary-button {
-  @extend %proto-button;
-  background-color: $secondaryButtonColor;
-  border: 0;
-  &:hover, &:focus {
-	background-color: $secondaryButtonColor;
-  }
-}
-
-
-%proto-action-link {
-  @extend %button-text;
-  @extend %bare-focus;
-  @extend %bare-active;
-  text-decoration: underline;
-}
-
-%primary-link {
-  @extend %proto-action-link;
-  color: $primaryLinkColor;
-}
-
-%icon-link {
-  position: relative;
-  height: 2em;
-  line-height: 2em;
-  display: inline-block;
-}
-
-%icon-link-left {
-  @extend %icon-link;
-  padding-left: 1.75em;
-  &:before {
-    font-size: $iota;
-    content: "";
-    display: block;
-    padding: 0;
-    height: 1.5em;
-    width: 1.5em;
-    top: .4em;
-    position: absolute;
-    left: 0em;
-  }
-}
-
-%icon-link-right {
-  @extend %icon-link;
-  padding-right: 1.75em;
-  &:after {
-    font-size: $iota;
-    content: "";
-    display: block;
-    padding: 0;
-    height: 1.5em;
-    width: 1.5em;
-    top: .4em;
-    position: absolute;
-    right: 0em;
-  }
-}
-
-
 // NB uses ems so font-size can be set on component
 %bubble-badge {
   font-weight: $regular;
@@ -182,6 +72,28 @@ input%proto-button {
     @include svg(airplane-white);
   }
 }
+
+// Extended by .attachment-placeholder--button & .attachment-placeholder--message
+%attachment-placeholder--item {
+  margin-top: 30.9%;
+  position: relative;
+  top: -1.7rem;
+}
+
+// Lives inside .attachment-placeholder
+// NB top value must be equal to half the
+// height of %white-video-button, but negative
+// TODO test in browsers; it's almost certainly not going to work in IE7
+.attachment-placeholder--button {
+  @extend %primary-button;
+  @extend %attachment-placeholder--item;
+}
+
+.attachment-placeholder--message {
+  @extend %primary-button;
+  @extend %attachment-placeholder--item;
+}
+
 
 
 // Links

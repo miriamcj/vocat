@@ -18,6 +18,7 @@ define (require) ->
     }
 
     onVideoDestroy: () ->
+      @.trigger('confirm:destroy')
       Vocat.vent.trigger('modal:open', new ModalConfirmView({
         model: @model,
         vent: @,
@@ -56,7 +57,6 @@ define (require) ->
 
       w = @ui.playerContainer.outerWidth()
       h = @ui.playerContainer.outerHeight()
-
       options = {
         techOrder: [sourceDetails.key]
         width: w

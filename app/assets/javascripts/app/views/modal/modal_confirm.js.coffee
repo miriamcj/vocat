@@ -23,18 +23,18 @@ define ['marionette', 'hbs!templates/modal/modal_confirm'], (Marionette, templat
 
     onClickConfirm: () ->
       if Marionette.getOption(@, 'confirmElement')?
-        Vocat.vent.trigger('modal:destroy')
+        Vocat.vent.trigger('modal:close')
         $el = Marionette.getOption(@, 'confirmElement')
         $el.addClass('modal-blocked')
         $el.click()
         $el.removeClass('modal-blocked')
       else
         @vent.triggerMethod(Marionette.getOption(@, 'confirmEvent'))
-        Vocat.vent.trigger('modal:destroy')
+        Vocat.vent.trigger('modal:close')
 
     onClickDismiss: () ->
       @vent.triggerMethod(Marionette.getOption(@, 'dismissEvent'))
-      Vocat.vent.trigger('modal:destroy')
+      Vocat.vent.trigger('modal:close')
 
     serializeData: () ->
       {

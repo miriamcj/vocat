@@ -1,0 +1,19 @@
+<div class="page-section-header">
+  <h2 class="heading-page-section">Annotations</h2>
+  <div class="page-content--heading-buttons">
+    <ul style="position: relative">
+      <li data-behavior="post-count">
+      {{#if count}}
+        {{count}} Annotations
+      {{else}}
+        0 Annotations
+      {{/if}}
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="page-section page-section-full-bleed" data-behavior="scroll-parent" class="annotations--content">
+ <ul data-behavior="annotations-container" class="annotations--list">
+  </ul>
+  <span data-behavior="anchor" class="annotation--scroll-anchor"></span>
+</div>

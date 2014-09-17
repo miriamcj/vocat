@@ -1,0 +1,35 @@
+@import "variables";
+@import "mixins";
+@import "patterns";
+
+.modal {
+  position: relative;
+  background: $grayDark;
+  color: $white;
+  position: fixed;
+  top: 25%;
+  left: 50%;
+  margin-left: -200px;
+  width: 400px;
+  padding: $verticalSpace;
+
+  .modal--close {
+    display: inline-block;
+    font-size: $iota;
+    margin-bottom: $verticalSpace;
+  }
+
+  header {
+
+  }
+
+  .content {
+    @include clearfix;
+
+  }
+
+  .footer {
+
+  }
+
+}

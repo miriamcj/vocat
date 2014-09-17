@@ -138,11 +138,12 @@ define (require) ->
       @$el.find('.player-scene:visible').hide
 
     showStep: (step, fade = true) ->
-      @$el.find('.player-scene:visible').fadeOut(200)
       $el = @ui[ "step#{step}" ]
       if fade
+        @$el.find('.player-scene:visible').fadeOut(200)
         $el.fadeIn({duration: 200, start: () => @centerContent()})
       else
+        @$el.find('.player-scene:visible').hide()
         $el.show()
         setTimeout(
           () => @centerContent()

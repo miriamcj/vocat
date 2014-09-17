@@ -68,27 +68,3 @@ $spacingUnit: $mediumUnitPadding * .75;
 //  @extend %bent-arrow-link;
 }
 
-.discussion-list--input {
-  .button-wrapper {
-    float: right;
-    @include respond($vostok - 1) {
-      display: none;
-    }
-  }
-  .button-wrapper-responsive {
-    display: none;
-    margin-top: $spacingUnit;
-    @include respond($vostok - 1) {
-      display: block;
-    }
-  }
-  .input-wrapper {
-    padding-right: $spacingUnit;
-    overflow: hidden;
-    textarea {
-      width: 100%;
-      line-height: $theta;
-      font-size: $theta;
-    }
-  }
-}

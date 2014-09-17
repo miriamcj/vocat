@@ -4,6 +4,8 @@ define (require) ->
   template = require('hbs!templates/submission/submission_layout')
   DiscussionView = require('views/discussion/discussion')
   EvaluationsView = require('views/submission/evaluations/evaluations_layout')
+  AssetsView = require('views/submission/assets/assets_layout')
+
 
 #  AnnotationCollection = require('collections/annotation_collection')
 #  EvaluationCollection = require('collections/evaluation_collection')
@@ -62,6 +64,7 @@ define (require) ->
     onSubmissionLoaded: () ->
       @discussion.show(new DiscussionView({vent: @vent, submission: @submission}))
       @evaluations.show(new EvaluationsView({vent: @vent, project: @project, model: @submission, courseId: @courseId}))
+      @assets.show(new AssetsView({vent: @vent, model: @submission, courseId: @courseId}))
 
     initialize: (options) ->
       @options = options || {}
