@@ -70,17 +70,39 @@ define [
     # This is where most of the magic happens. We resize columns to best fit into the available space, while
     # making sure we show some of the next column for the handle.
     columnWidths: _.memoize () ->
+
+      # Determine the widths of the columns before setting them. If the text in a column
+      # is too wide, it will exceed the set bounds.
+      naturalWidths = []
+      @actor().find('tr:first-child th').each((i, col) ->
+        $col = $(col)
+        w = $col.outerWidth()
+        naturalWidths.push(w)
+      )
+
+      # If one of our columns is "naturally" wider than what we set it to be, we use that width
+      # as our minimum column width.
+      max = @idealWidth
+      min = @minWidth
+      if naturalWidths.length > 0
+        maxNaturalWidth = _.max(naturalWidths)
+        min = maxNaturalWidth if maxNaturalWidth > @minWidth
+
       if @stageWidth() > 0
+
         availableWidth = @stageWidth() - @handleWidth()
-        max = @idealWidth
-        min = @minWidth
+
+        # Math to determine ideal column width
         if Math.floor(availableWidth/min) > Math.floor(availableWidth/max)
           max = min
         else
           while Math.floor(availableWidth/min) < Math.floor(availableWidth/max)
             max - max - 1
+
         columns = Math.floor(availableWidth/max)
         columnWidth = availableWidth / columns
+
+        # Where we actually set the width
         @setColWidths(columnWidth, columnWidth * @columnCount())
 
         widths = _.range(@columnCount())

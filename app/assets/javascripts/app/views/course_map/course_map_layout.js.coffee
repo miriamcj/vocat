@@ -44,7 +44,6 @@ define (require) ->
       }
 
       onRender: () ->
-        console.log 're-rendering layout'
         @globalFlash.show(Vocat.globalFlashView)
         @sliderPosition = 0
         @bindUIElements()
