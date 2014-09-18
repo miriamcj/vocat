@@ -9,7 +9,12 @@ class CourseRequestsController < ApplicationController
 
   def create
     @course_request.evaluator = current_user
-    flash[:notice] = "Your course request has been submitted." if @course_request.save
+
+    if @course_request.save
+      flash[:notice] = "Your course request has been submitted."
+      CourseRequestMailer.create_notify_email(@course_request).deliver
+    end
+
     respond_with(@course_request, :location => dashboard_path, :action => :new)
   end
 end
