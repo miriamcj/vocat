@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140909180756) do
+ActiveRecord::Schema.define(version: 20140917192811) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,7 +82,7 @@ ActiveRecord::Schema.define(version: 20140909180756) do
     t.integer  "organization_id"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
-    t.hstore   "settings",        default: {}, null: false
+    t.hstore   "settings",        default: "", null: false
     t.text     "message"
     t.integer  "semester_id"
     t.integer  "year"
@@ -143,7 +143,7 @@ ActiveRecord::Schema.define(version: 20140909180756) do
   create_table "evaluations", force: true do |t|
     t.integer  "submission_id"
     t.integer  "evaluator_id"
-    t.hstore   "scores",           default: {},    null: false
+    t.hstore   "scores",           default: "",    null: false
     t.boolean  "published",        default: false
     t.integer  "rubric_id"
     t.datetime "created_at",                       null: false
