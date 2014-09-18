@@ -1,19 +1,15 @@
 class CourseRequestsController < ApplicationController
+
+  load_and_authorize_resource :course_request
+  respond_to :html
+
   def new
+    respond_with @course_request
   end
 
   def create
+    flash[:notice] = "Your course request has been submitted." if @course_request.save
+    respond_with(@course_request, :location => dashboard_path, :action => :new)
   end
 
-  def index
-  end
-
-  def approve
-  end
-
-  def deny
-  end
-
-  def show
-  end
 end

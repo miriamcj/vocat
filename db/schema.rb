@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140509003849) do
+ActiveRecord::Schema.define(version: 20140917220830) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 20140509003849) do
     t.string   "name"
     t.string   "department"
     t.string   "section"
+    t.string   "number"
     t.integer  "year"
     t.integer  "semester"
     t.integer  "requestor_id"
@@ -81,7 +82,7 @@ ActiveRecord::Schema.define(version: 20140509003849) do
     t.integer  "organization_id"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
-    t.hstore   "settings",        default: "", null: false
+    t.hstore   "settings",        default: {}, null: false
     t.text     "message"
     t.integer  "semester_id"
     t.integer  "year"
@@ -142,11 +143,11 @@ ActiveRecord::Schema.define(version: 20140509003849) do
   create_table "evaluations", force: true do |t|
     t.integer  "submission_id"
     t.integer  "evaluator_id"
-    t.hstore   "scores",           default: "",  null: false
-    t.boolean  "published"
+    t.hstore   "scores",           default: {},    null: false
+    t.boolean  "published",        default: false
     t.integer  "rubric_id"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.decimal  "total_percentage", default: 0.0
     t.decimal  "total_score",      default: 0.0
     t.integer  "evaluation_type"

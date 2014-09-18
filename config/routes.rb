@@ -71,7 +71,7 @@ Vocat::Application.routes.draw do
     end
   end
 
-  resources :course_requests, :controller => 'course_requests', :only => [:new, :create]
+  resources :course_requests, :only => [:new, :create]
 
   resources :courses do
 

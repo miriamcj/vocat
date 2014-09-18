@@ -247,9 +247,9 @@ class Ability
     # Course Request
     ######################################################
 
-#    can :create, CourseRequest do |course_request|
-#      user.role?(:evaluator) || user.role?(:administrator)
-#    end
+    can :create, CourseRequest do |course_request|
+      user.role?(:evaluator) || user.role?(:administrator)
+    end
 
     ######################################################
     # Evaluations
