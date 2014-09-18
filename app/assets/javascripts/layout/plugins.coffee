@@ -47,9 +47,9 @@ define ['vendor/plugins/waypoints', 'jquery_rails'], (waypoints, $) ->
         event.stopPropagation()
       )
 
-      $(document).click ->
-        if $body.hasClass('drawer-open')
-          close()
+#      $(document).click ->
+#        if $body.hasClass('drawer-open')
+#          close()
 
       setup()
 

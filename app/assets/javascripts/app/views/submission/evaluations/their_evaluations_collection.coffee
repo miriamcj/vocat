@@ -14,7 +14,7 @@ define (require) ->
     childViewContainer: '[data-behavior="collection-child-container"]'
 
     triggers: {
-      'click @ui.toggleChild': 'toggle:child'
+      'click [data-behavior="toggle-collection-children"]': 'toggle:child'
     }
 
     ui: {
@@ -23,22 +23,18 @@ define (require) ->
     }
 
     onToggleChild: () ->
-      if @childrenVisible
-        @ui.childContainer.slideUp(250)
-      else
-        @ui.childContainer.slideDown(250)
-      @childrenVisible = !@childrenVisible
+      if @ui.childContainer.length > 0
+        if @childrenVisible
+          @ui.childContainer.slideUp(250)
+        else
+          @ui.childContainer.slideDown(250)
+        @childrenVisible = !@childrenVisible
 
     className: () ->
       "evaluation-collection evaluation-collection-#{@model.get('evaluator_role').toLowerCase()}"
 
     initialize: (options) ->
       @collection = @model.get('evaluations')
-
-    onRender: () ->
-      @listenTo(@$el,'click', () ->
-        console.log 'clicked'
-      )
 
     onShow: () ->
       if @childrenVisible == false

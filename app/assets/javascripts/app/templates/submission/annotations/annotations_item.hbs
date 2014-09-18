@@ -2,7 +2,7 @@
   <p class="annotations-list--title" data-behavior="seek">
     <span>{{smpte_timecode}}</span>&nbsp;&nbsp;&nbsp;{{author_name}}
     {{#if current_user_can_destroy}}
-      <a href="#" class="delete-link" data-behavior="destroy">Delete</a>
+      <a style="display: none;" href="#" class="delete-link" data-behavior="destroy">Delete</a>
     {{/if}}
   </p>
   <p data-behavior="seek">{{body}}</p>

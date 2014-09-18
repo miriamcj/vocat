@@ -20,12 +20,12 @@ define (require) ->
     }
 
     onToggleChild: () ->
-      if @childrenVisible
-        @ui.childContainer.slideUp(250)
-      else
-        @ui.childContainer.slideDown(250)
+      if @ui.childContainer.length > 0
+        if @childrenVisible
+          @ui.childContainer.slideUp(250)
+        else
+          @ui.childContainer.slideDown(250)
       @childrenVisible = !@childrenVisible
-
 
     onShow: () ->
       if @childrenVisible == false

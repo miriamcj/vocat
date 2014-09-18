@@ -5111,7 +5111,8 @@ jQuery.event = {
 
 					event.handleObj = handleObj;
 					event.data = handleObj.data;
-
+          //console.log(( (jQuery.event.special[ handleObj.origType ] || {}).handle || handleObj.handler ),'jq');
+          //console.log(matched,'matched');
 					ret = ( (jQuery.event.special[ handleObj.origType ] || {}).handle || handleObj.handler )
 							.apply( matched.elem, args );
 

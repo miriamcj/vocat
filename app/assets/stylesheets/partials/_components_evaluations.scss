@@ -11,7 +11,7 @@ $shortBarHeight: 30px;
 $titleWidth: 300px;
 $lighten: 20%;
 
-$defaultFillColor: $grayMedium;
+$defaultFillColor: $grayMediumLighter;
 $defaultColor: lighten($defaultFillColor, $lighten);
 
 $instructorFillColor: $yellow;
@@ -22,6 +22,13 @@ $peerColor: lighten($peerFillColor, $lighten);
 
 $selfFillColor: $purple;
 $selfColor: lighten($selfFillColor, $lighten);
+
+$largeHandleMultipler: 1.5;
+$largeHandleHeight: $barHeight + ($secondaryBarHeight * $largeHandleMultipler);
+$secondaryHandleHeight: $secondaryBarHeight * 3;
+$tertiaryHandleHeight: $secondaryBarHeight * 2;
+$triangleHeight: 10px;
+
 
 
 ul.evaluation-collections, ul.evaluation-collection--children, ul.evaluation-single--details {
@@ -91,6 +98,12 @@ ul.evaluations-hidden {
   .range-secondary &, .range-tertiary & {
     height: $secondaryBarHeight;
   }
+  .range-secondary & {
+    margin-right: ($handleWidth * .75) + ($secondaryBarHeight * $largeHandleMultipler);
+  }
+  .range-tertiary & {
+    margin-right: ($handleWidth * .5) + ($secondaryBarHeight * $largeHandleMultipler);
+  }
   .evaluation-collection-instructor & {
     background: $instructorColor;
   }
@@ -99,6 +112,9 @@ ul.evaluations-hidden {
   }
   .evaluation-collection-self & {
     background: $selfColor;
+  }
+  .range-tertiary & {
+    background: $defaultColor;
   }
 }
 
@@ -145,13 +161,11 @@ ul.evaluations-hidden {
   .evaluation-collection-self & {
     background: $selfFillColor;
   }
+  .range-tertiary & {
+    background: $defaultFillColor;
+  }
 }
 
-$largeHandleMultipler: 1.5;
-$largeHandleHeight: $barHeight + ($secondaryBarHeight * $largeHandleMultipler);
-$secondaryHandleHeight: $secondaryBarHeight * 3;
-$tertiaryHandleHeight: $secondaryBarHeight * 2;
-$triangleHeight: 10px;
 
 .range--handle {
   right: -$handleWidth - ($secondaryBarHeight * $largeHandleMultipler );
@@ -175,14 +189,6 @@ $triangleHeight: 10px;
     line-height: $secondaryHandleHeight;
     top: -$secondaryBarHeight;
   }
-  .range-tertiary & {
-    right: -( $handleWidth * .5) - ($secondaryBarHeight * $largeHandleMultipler );
-    height: $tertiaryHandleHeight;
-    line-height: $tertiaryHandleHeight;
-    width: $handleWidth * .5;
-    font-size: $theta;
-    top: -$secondaryBarHeight * .5;
-  }
   .evaluation-collection-instructor & {
     background: $instructorFillColor;
   }
@@ -192,6 +198,16 @@ $triangleHeight: 10px;
   .evaluation-collection-self & {
     background: $selfFillColor;
   }
+  .range-tertiary & {
+    right: -( $handleWidth * .5) - ($secondaryBarHeight * $largeHandleMultipler );
+    height: $tertiaryHandleHeight;
+    line-height: $tertiaryHandleHeight;
+    width: $handleWidth * .5;
+    font-size: $theta;
+    top: -$secondaryBarHeight * .5;
+    background: $defaultFillColor;
+  }
+
   b {
     position: absolute;
     top: ($largeHandleHeight * .5) - $triangleHeight;
@@ -225,6 +241,9 @@ $triangleHeight: 10px;
     }
     .evaluation-collection-self & {
       border-right-color: $selfFillColor;
+    }
+    .range-tertiary & {
+      border-right-color: $defaultFillColor;
     }
   }
 }

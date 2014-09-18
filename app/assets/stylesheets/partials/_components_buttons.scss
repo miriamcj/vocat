@@ -5,6 +5,7 @@
 
 // NB uses ems so font-size can be set on component
 %bubble-badge {
+  @extend %unstyled-list;
   font-weight: $regular;
   font-size: $iota;
   line-height: 1;
@@ -13,6 +14,7 @@
   padding: 0.3em 0.7em 0.3em;
   margin-bottom: 0.7em;
   position: relative;
+  display: inline-block;
   &:after {
     content: "";
     display: block;
@@ -106,6 +108,10 @@
 .header-link {
   @extend %primary-link;
   margin-bottom: $verticalSpaceTight;
+}
+
+.header-link-inline {
+  display: inline-block;
 }
 
 .back-link {

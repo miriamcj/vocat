@@ -12,33 +12,23 @@ define (require) ->
     className: 'annotations--item'
 
     triggers:
-      'click [data-behavior="destroy"]': 'destroy'
-      'click [data-behavior="seek"]': 'seek'
+      'click @ui.destroy': 'destroy'
+      'click @ui.seek': 'seek'
+
+    ui: {
+      destroy: '[data-behavior="destroy"]'
+      seek: '[data-behavior="seek"]'
+    }
 
     initialize: (options) ->
       @vent = options.vent
       @errorVent = options.errorVent
 
-#      @listenTo(@vent, 'show:all', () =>
-#        @ignoreTime = true
-#        @show()
-#      )
+    enableEdit: () ->
+      @ui.destroy.slideDown(200)
 
-#      @listenTo(@vent, 'show:auto', () =>
-#        @ignoreTime = false
-#      )
-
-#
-#      @listenTo(@vent, 'player:time', (data) =>
-#        if @ignoreTime == false
-#          if @model.get('seconds_timecode') <= data.seconds
-#            @show()
-#      )
-#
-#      @listenTo(@vent, 'annotation:shown', (shownView) =>
-#        if shownView != @
-#          @hide()
-#      )
+    disableEdit: () ->
+      @ui.destroy.slideUp(200)
 
     highlightableFor: (seconds) ->
       @model.get('seconds_timecode') <= seconds
@@ -48,6 +38,11 @@ define (require) ->
 
     dehighlight: () ->
       @$el.removeClass('highlighted')
+
+    remove: () ->
+      @$el.slideUp(200, () ->
+       $(@).remove()
+      )
 
     onBeforeRender: () ->
 

@@ -77,6 +77,7 @@
 
 .annotations .page-section {
   overflow-y: scroll;
+  position: relative;
 }
 
 ul.annotations--list {
@@ -85,7 +86,8 @@ ul.annotations--list {
     padding: $contentUnitPadding;
   }
   li.highlighted {
-    background: yellow;
+    background: $grayMedium;
+    color: $white;
   }
   li + li {
     border-top: 1px solid $grayMedium;

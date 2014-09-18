@@ -1,15 +1,15 @@
 <div class="page-section-header">
-  <h2 class="heading-page-section">Annotations</h2>
+  <div class="heading-page-section">
+    <h2>Annotations</h2>
+    <a href="#" data-behavior="enable-edit" class="header-link header-link-inline">(Edit)</a>
+    <a href="#" style="display: none;" data-behavior="disable-edit" class="header-link header-link-inline">(Stop Editing)</a>
+  </div>
   <div class="page-content--heading-buttons">
-    <ul style="position: relative">
-      <li data-behavior="post-count">
-      {{#if count}}
-        {{count}} Annotations
-      {{else}}
-        0 Annotations
-      {{/if}}
-      </li>
-    </ul>
+      <ul class="bubble" style="position: relative">
+        <li data-behavior="annotation-count">
+          {{count}} Annotations
+        </li>
+      </ul>
   </div>
 </div>
 <div class="page-section page-section-full-bleed" data-behavior="scroll-parent" class="annotations--content">
