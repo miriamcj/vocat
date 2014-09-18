@@ -6,9 +6,9 @@ class CreateCourseRequests < ActiveRecord::Migration
       t.string :section
       t.string :number
       t.integer :year
-      t.integer :semester
-      t.integer :requestor_id
-      t.integer :state
+      t.integer :semester_id
+      t.integer :evaluator_id
+      t.string :state
       t.integer :admin_id
       t.integer :course_id
 

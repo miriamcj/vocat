@@ -243,7 +243,8 @@ class ApplicationController < ActionController::Base
                                              :department,
                                              :section,
                                              :year,
-                                             :semester
+                                             :semester_id,
+                                             :number
       )
     end
 
