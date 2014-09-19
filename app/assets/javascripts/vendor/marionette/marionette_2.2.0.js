@@ -1209,7 +1209,6 @@
         this.$el = this.getEl(this.el);
         this.el = this.$el[0];
       }
-
       if (!this.$el || this.$el.length === 0) {
         throw new Marionette.Error('An "el" ' + this.$el.selector + ' must exist in DOM');
       }

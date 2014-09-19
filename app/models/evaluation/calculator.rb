@@ -16,4 +16,12 @@ class Evaluation::Calculator
     evaluations.average('total_score') || 0
   end
 
+  def self.average_percentage_for_submission(submission, type = nil)
+    set = submission.evaluations
+    if !type.nil?
+      set = set.where(:evaluation_type => type)
+    end
+    set.average(:total_percentage)
+  end
+
 end

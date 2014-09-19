@@ -120,7 +120,6 @@ ul.evaluations-hidden {
 
 .range--title {
   position: absolute;
-  width: $titleWidth;
   color: $white;
   z-index: 1;
   font-size: $zeta;
@@ -128,7 +127,27 @@ ul.evaluations-hidden {
   padding-left: .75em;
   line-height: $barHeight;
   height: $barHeight;
-  display: block;
+  display: inline-block;
+  .range-expandable & {
+    &::after {
+      content: "";
+      display: inline-block;
+      position: relative;
+      top: -2px;
+      width: 0;
+      height: 0;
+      margin-left: .5em;
+      border-left: .3em solid transparent;
+      border-right: .3em solid transparent;
+      border-top: .4em solid $white;
+    }
+  }
+  .range-expandable-open & {
+    &::after {
+      border-top: 0;
+      border-bottom: .4em solid $white;
+    }
+  }
   .range-secondary &, .range-tertiary & {
     font-weight: $regular;
     font-size: $theta;
@@ -142,6 +161,11 @@ ul.evaluations-hidden {
   .range-tertiary & {
     font-size: $iota;
   }
+}
+
+.range-secondary .range--title::after {
+  border-top-color: $defaultFillColor;
+  border-bottom-color: $defaultFillColor;
 }
 
 .range--fill {

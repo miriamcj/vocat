@@ -63,6 +63,9 @@ define (require) ->
     globalFlash : '#global-flash'
   }
 
+  r = Vocat.getRegion('modal')
+  console.log r,"Modal Region Length: #{r.$el.length}"
+
   Vocat.addInitializer () ->
 
     # To reduce the amount of loading in development context, we load router/controller pairs dynamically.

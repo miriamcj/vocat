@@ -92,6 +92,11 @@ class Evaluation < ActiveRecord::Base
     Evaluation.all.joins(:submission => :project).where(:projects => {:course_id => course.id}) unless course.nil?
   end
 
+  def self.by_course_and_evaluator(course, evaluator)
+    if course.is_a? Numeric then course_id = course else course_id = course.id end
+    Evaluation.all.joins(:submission => :project).where(:evaluator_id => evaluator.id, :projects => {:course_id => course_id})
+  end
+
   # TODO: This case statement masquerading as an if statement suggests
   # that we might want to consider STI for these different types of
   # evaluations, as we did for projects.
@@ -115,6 +120,7 @@ class Evaluation < ActiveRecord::Base
       0
     end
   end
+
 
   # TODO: See previous method
   def evaluation_type_human_readable

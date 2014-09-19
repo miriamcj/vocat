@@ -11,31 +11,21 @@
 <dl class="cell--score">
   <dt>Score</dt>
   <dd>
-    {{#if project_evaluatable}}
-      {{#if current_user_has_evaluated }}
-      {{to_i current_user_percentage}}<small>%</small>
-      {{else}}
-        {{#if is_admin}}
-        <b class="matrix--scored">{{to_i instructor_score_percentage}}%</b>
-        {{else}}
-         &mdash; &mdash;
-        {{/if}}
-      {{/if}}
+    {{#if current_user_percentage }}
+      <b class="matrix--scored">
+        {{to_i current_user_percentage}}<small>%</small>
+      </b>
     {{else}}
-    &mdash; &mdash;
+      &mdash; &mdash;
     {{/if}}
   </dd>
 </dl>
 <dl class="cell--published">
   <dt>Published</dt>
   <dd>
-    {{#if project_evaluatable}}
-      {{#if current_user_has_evaluated}}
-        {{#if current_user_evaluation_published}}
-          <b class="matrix--checkbox checked"></b>
-        {{else}}
-          <b class="matrix--checkbox "></b>
-        {{/if}}
+    {{#if current_user_percentage }}
+      {{#if current_user_published}}
+        <b class="matrix--checkbox checked"></b>
       {{else}}
         <b class="matrix--checkbox "></b>
       {{/if}}

@@ -77,9 +77,7 @@ class Submission < ActiveRecord::Base
   end
 
   def instructor_score_percentage
-    total_score = instructor_score_total
-    total_count = instructor_evaluation_count
-    score_percentage(total_score, total_count)
+    Evaluation::Calculator.average_percentage_for_submission(self, Evaluation::EVALUATION_TYPE_EVALUATOR)
   end
 
   def user_evaluation(user)
@@ -106,11 +104,12 @@ class Submission < ActiveRecord::Base
     self.evaluations.created_by(user).count
   end
 
-  def user_score_percentage(user)
-    if evaluated_by_user?(user)
-      user_evaluation(user).total_percentage_rounded
-    end
-  end
+#  def user_score_percentage(user)
+#    self.evaluations.created_by(user).pluck(:total_percentage).first
+#    if evaluated_by_user?(user)
+#      user_evaluation(user).total_percentage_rounded
+#    end
+#  end
 
   def has_video?
     !video.nil?

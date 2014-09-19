@@ -30,8 +30,8 @@ define (require) ->
       @vent = Marionette.getOption(@, 'vent')
 
     serializeData: () ->
+      console.log @model,'@model'
       {
-      message: @message
-      current_user_can_attach: @model.get('current_user_can_attach')
-
+        message: @message
+        abilities: @model.get('abilities')
       }

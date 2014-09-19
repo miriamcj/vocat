@@ -36,7 +36,6 @@ define (require) ->
       'click [data-behavior="submit-vimeo"]': 'submit:vimeo'
     }
 
-
     template: template
 
     initialize: (options) ->
@@ -116,7 +115,7 @@ define (require) ->
             dataType: 'json'
             success: (data) =>
               @model.fetch({url: @model.updateUrl()}, success: () =>
-                @model.trigger('change:has_video')
+                @model.trigger('change:video')
               )
             fail: (data) =>
               @showStep(7)

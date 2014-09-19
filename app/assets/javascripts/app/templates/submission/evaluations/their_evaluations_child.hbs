@@ -1,8 +1,8 @@
-<div data-behavior="toggle-evaluation-detail">
-{{{include "range" title=this.title percentage=this.percentage range_class="range-secondary"}}}
+<div data-behavior="toggle-children">
+{{{include "range" title=this.title percentage=this.percentage range_class="range-secondary range-expandable"}}}
 </div>
 
-<ul class="evaluation-single--details evaluations-hidden" data-behavior="detail-child-container">
+<ul class="evaluation-single--details evaluations-hidden" data-behavior="child-container">
   {{#each score }}
   <li>
     {{{include "range" title=@key percentage=this.percentage range_class="range-tertiary"}}}

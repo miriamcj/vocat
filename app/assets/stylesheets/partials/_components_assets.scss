@@ -83,7 +83,10 @@
 ul.annotations--list {
   @extend %unstyled-list;
   li {
-    padding: $contentUnitPadding;
+    div:first-child {
+      padding: $contentUnitPadding;
+    }
+    cursor: pointer;
   }
   li.highlighted {
     background: $grayMedium;

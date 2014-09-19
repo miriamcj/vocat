@@ -2,6 +2,7 @@ define (require) ->
 
   Marionette = require('marionette')
   template = require('hbs!templates/submission/evaluations/their_evaluations_child')
+  ExpandableRange = require('behaviors/expandable_range')
 
   class TheirEvaluationsChild extends Marionette.ItemView
 
@@ -10,26 +11,34 @@ define (require) ->
     template: template
     childrenVisible: false;
 
-    triggers: {
-      'click @ui.toggleChild': 'toggle:child'
+    behaviors: {
+      expandableRange: {
+        behaviorClass: ExpandableRange
+      }
     }
 
-    ui: {
-      toggleChild: '[data-behavior="toggle-evaluation-detail"]'
-      childContainer: '[data-behavior="detail-child-container"]'
-    }
 
-    onToggleChild: () ->
-      if @ui.childContainer.length > 0
-        if @childrenVisible
-          @ui.childContainer.slideUp(250)
-        else
-          @ui.childContainer.slideDown(250)
-      @childrenVisible = !@childrenVisible
+    #    triggers: {
+#      'click @ui.toggleChild': 'toggle:child'
+#    }
+#
+#    ui: {
+#      toggleChild: '[data-behavior="toggle-evaluation-detail"]'
+#      childContainer: '[data-behavior="detail-child-container"]'
+#      range: '[data-behavior="range"]:first'
+#    }
 
-    onShow: () ->
-      if @childrenVisible == false
-        @ui.childContainer.hide()
+#    onToggleChild: () ->
+#      if @ui.childContainer.length > 0
+#        if @childrenVisible
+#          @ui.childContainer.slideUp(250)
+#        else
+#          @ui.childContainer.slideDown(250)
+#      @childrenVisible = !@childrenVisible
+#
+#    onShow: () ->
+#      if @childrenVisible == false
+#        @ui.childContainer.hide()
 
     initialize: (options) ->
 

@@ -1,9 +1,9 @@
-<div data-behavior="player-seek">
-  <p class="annotations-list--title" data-behavior="seek">
+<div data-behavior="seek">
+  <p class="annotations-list--title" >
     <span>{{smpte_timecode}}</span>&nbsp;&nbsp;&nbsp;{{author_name}}
     {{#if current_user_can_destroy}}
       <a style="display: none;" href="#" class="delete-link" data-behavior="destroy">Delete</a>
     {{/if}}
   </p>
-  <p data-behavior="seek">{{body}}</p>
+  <p >{{body}}</p>
 </div>

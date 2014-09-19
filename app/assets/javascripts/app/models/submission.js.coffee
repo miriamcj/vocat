@@ -14,12 +14,9 @@ define (require) ->
 
     requestTranscoding: () ->
 
-    canBeAnnotated: () ->
-      @get('current_user_can_annotate') == true && @get('has_video') == true
-
     destroyVideo: () ->
       @video.destroy()
-      @set('has_video',false)
+      @set('video', null)
 
     toJSON: () ->
       json = super()
@@ -33,6 +30,9 @@ define (require) ->
       rawVideo = @.get('video')
       if rawVideo?
         @video = new VideoModel(rawVideo)
+
+    hasVideo: () ->
+      @.get('video')?
 
     publishEvaluation: () ->
       evaluationData = @.get('current_user_evaluation')

@@ -34,6 +34,7 @@ requirejs.config {
     'templates' : 'app/templates'
     'routers' : 'app/routers'
     'views' : 'app/views'
+    'behaviors' : 'app/behaviors'
     'controllers' : 'app/controllers'
     'collections' : 'app/collections'
     'helpers' : 'app/helpers'

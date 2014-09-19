@@ -1,7 +1,6 @@
 class EvaluationSerializer < ActiveModel::Serializer
   attributes  :id,
               :submission_id,
-              :current_user_is_owner,
               :published,
               :evaluator_id,
               :evaluator_name,
@@ -10,9 +9,12 @@ class EvaluationSerializer < ActiveModel::Serializer
               :total_percentage,
               :total_score,
               :points_possible,
+              :abilities
 
-  def current_user_is_owner
-    scope.id == object.evaluator_id
+  def abilities
+    {
+        :can_own => Ability.new(scope).can?(:own, object),
+    }
   end
 
   def score
