@@ -9,7 +9,7 @@ define (require) ->
   FlashMessagesView = require('views/flash/flash_messages')
   FlashMessagesCollection = require('collections/flash_message_collection')
 
-  window.Vocat = Vocat = new Marionette.Application()
+  window.Vocat = Vocat = new Backbone.Marionette.Application()
 
   Vocat.routes = {
     admin: {
@@ -64,7 +64,6 @@ define (require) ->
   }
 
   r = Vocat.getRegion('modal')
-  console.log r,"Modal Region Length: #{r.$el.length}"
 
   Vocat.addInitializer () ->
 
@@ -137,7 +136,6 @@ define (require) ->
             dismissEvent: 'dismiss:publish'
           }))
       )
-
 
     helpPlacardViews = []
     $('[data-view="help-placard"]').each( (index, el) ->

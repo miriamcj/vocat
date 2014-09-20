@@ -14,11 +14,11 @@ define ['vendor/plugins/waypoints', 'jquery_rails'], (waypoints, $) ->
       $shield = ''
 
       setup = () ->
-        $nav.find('ul').hide()
-        $nav.children('li').click((e) ->
-          $nav.find('ul').hide()
-          $(@).children('ul').show()
-        )
+#        $nav.find('ul').hide()
+#        $nav.children('li').click((e) ->
+#          $nav.find('ul').hide()
+#          $(@).children('ul').show()
+#        )
 
       open = () ->
         $shield = $('<div class="page-shield"></div>')

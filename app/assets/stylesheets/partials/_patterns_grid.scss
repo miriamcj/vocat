@@ -69,6 +69,12 @@
   @include unit(3);
 }
 
+%wide-one-sixth {
+  @extend %unit;
+  @include unit(2);
+}
+
+
 // Shifts
 %wide-shift-three-fourths {
   @include shift(9);

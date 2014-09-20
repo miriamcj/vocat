@@ -68,7 +68,8 @@ require ['layout/layout'], (Layout) ->
   Layout.bootstrap()
 
 require ['app/vocat'], (Vocat) ->
-  Vocat.start()
+  $ ->
+    Vocat.start()
 
 
 

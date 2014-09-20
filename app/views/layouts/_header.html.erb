@@ -9,7 +9,7 @@
       <nav class="drawer-nav--trigger" data-behavior="drawer-trigger">
         <span></span>
         <% case @app_section
-             when 'course' %>
+           when 'course' %>
             <span class="course-short">
               <%= "#{@selected_course.department}#{@selected_course.number}" %>
             </span>
@@ -17,7 +17,7 @@
               <%= @selected_course %>
             </span>
         <% when 'admin' %> <%= 'Admin' %>
-          <% when 'dashboard' %><%= 'Dashboard' %>
+        <% when 'dashboard' %><%= 'Dashboard' %>
         <% end %>
       </nav>
 
@@ -45,25 +45,7 @@
 
   <div class="page-header--drawer">
     <div class="drawer--contents">
-      <ul>
-        <% case @app_section
-             when 'course' %><%= render 'layouts/navigation_course' %>
-          <% when 'admin' %><%= render 'layouts/navigation_admin' %>
-        <% end %>
-
-        <% #if current_user.has_courses %>
-        <li style="margin-top: 3.4rem;">
-          <a href="#">My Courses</a>
-          <ul>
-            <li><a href="#">Course #1</a></li>
-            <li><a href="#">Course #2</a></li>
-            <li><a href="#">Course #3</a></li>
-            <li><a href="#">Course #4</a></li>
-          </ul>
-        </li>
-        <% #end %>
-
-      </ul>
+      <%= render 'layouts/navigation' %>
     </div>
 
   </div>
