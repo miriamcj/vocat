@@ -12,20 +12,22 @@ class Admin::CourseRequestsController < Admin::AdminController
 
   # PUT /admin/course_request/1/approve
   def approve
-
+    @course_request.admin = current_user
+    @course_request.approve
+    flash[:notice] = "The course request was approved. The requestor has been notified." if @course_request.save
+    respond_with(@course_request, :location => admin_course_requests_path)
   end
 
   # PUT /admin/course_request/1/deny
   def deny
     @course_request.admin = current_user
-    @course_request.state = "denied"
+    @course_request.deny
 
-    if @course_request.save
-      flash[:notice] = "The course request was deleted. The requestor has been notified."
-      CourseRequestMailer.deny_notify_email(@course_request).deliver
+    if @course_request.denied?
+      flash[:notice] = "The course request was denied. The requestor has been notified."
+    else
+      flash[:notice] = "There was a problem making this change."
     end
-
-    respond_with(@course_request, :location => admin_course_requests_path)
+    redirect_to admin_course_requests_path
   end
-
 end

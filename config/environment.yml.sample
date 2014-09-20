@@ -90,6 +90,10 @@ common: &common
     # The default role for users who login via LDAP
     :default_role: 'creator'
 
+    :admin_notification:
+      :course_request_create: 'lucas@castironcoding.com'
+
+
 :development:
   <<: *common
 
