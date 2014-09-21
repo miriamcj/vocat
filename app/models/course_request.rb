@@ -12,12 +12,13 @@ class CourseRequest < ActiveRecord::Base
   validates :name, :number, :year, :department, :semester_id, :section, :presence => true
 
   def to_course
-    Course.create do |c|
-      attribute_names = [:name, :number, :year, :department, :semester_id, :section, :evaluator_id]
-      attribute_names.each do |a|
-        c.attributes = { a => attribute(a) }
-      end
+    copy_attributes = [:name, :number, :year, :department, :semester, :section]
+    course = Course.create do |c|
+       copy_attributes.each { |a| c.send(a.to_s + "=", self.send(a)) }
     end
+    course.evaluators = [ evaluator ]
+    course.save
+    course
   end
 
   def evaluator_email
@@ -42,13 +43,14 @@ class CourseRequest < ActiveRecord::Base
   end
 
   def handle_denied
-    CourseRequestMailer.deny_notify_email(self).deliver
     save
+    CourseRequestMailer.deny_notify_email(self).deliver
   end
 
   def handle_approved
-     CourseRequestMailer.approve_notify_email(self).deliver
-     save
+    course = to_course
+    save
+    CourseRequestMailer.approve_notify_email(self).deliver
   end
 
   def notify
