@@ -1,86 +1,25 @@
-<% content_for :content_header do %>
-Manage Course Projects
+<% content_for :heading do %>
+  <h2 class="heading-primary">
+    Manage Course Projects
+  </h2>
 <% end %>
 
-<% content_for :content_header_links do %>
-  <%= link_to 'New Project', new_course_manage_project_path(@course), :class => 'teal-plus-button' %>
+<% content_for :heading_links do %>
+  <%= link_to 'New Project', new_course_manage_project_path(@course), :class => 'primary-button new-button' %>
 <% end %>
 
-<% content_for :content_intro do %>
-  <p>
+<% content_for :content do %>
+<div class="page-section">
     The following table shows the projects that you have configured for this course. Click the links below
     to edit or delete existing projects. Click the "new project" button, above, to create a new project for the
     course.
-  </p>
+</div>
+
+<div data-region="projects"></div>
+<%= render :partial => 'shared/bootstrap_collection', :locals => {:type => 'Collections', :key => 'project', :data => @projects }%>
+
 <% end %>
 
-<% content_for :content_frames do %>
-  <div class="table-wrapper">
-    <table class="table">
-      <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Rubric</th>
-        <th>Actions</th>
-        <th>Sorting</th>
-      </tr>
-      </thead>
-      <tbody>
-      <% @projects.each_with_index do |project, index| %>
-        <tr>
-          <th>
-            <%= link_to project.name, edit_course_manage_project_path(@course, project), :class => "table--heading" %>
-          </th>
-          <td><%= project.description %></td>
-          <td><%= project.rubric_name %></td>
-          <td style="white-space: nowrap">
-
-            <nav class="drop-nav" data-behavior="dropdown">
-              <a class="drop-nav--toggle" data-behavior="toggle" href="#" style="cursor: pointer;">
-                <% if local_assigns.fetch :subheader, nil %>
-                  <%= subheader %>
-                <% else %>
-                  Select an Action
-                <% end %>
-              </a>
-              <div class="drop-nav--dropdown" data-behavior="dropdown-options">
-                <ul>
-                  <% if can? :update, project %>
-                    <li><%= link_to 'Edit Project', edit_course_manage_project_path(@course, project) %></li>
-                  <% end %>
-                  <% if can? :destroy, project %>
-                    <li><%= link_to 'Delete Project', course_manage_project_path(@course, project), method: :delete, data: { modalconfirm: 'Deleting this project will also delete submissions and evaluations associated with this project. This action is irreversible. Are you sure you want to do this?' } %></li>
-                  <% end %>
-                </ul>
-              </div>
-            </nav>
-
-
-
-
-          </td>
-          <td class="centered sorting">
-            <% if index == 0 %>
-            <a style="visibility: hidden" class="teal-circle-arrow-up-button">&nbsp;</a>
-            <% end %>
-            <% if index > 0 %>
-            <%= link_to 'up', position_course_manage_project_path(@course, project, {project: {listing_order_position: index - 1}}), method: :put, :class => 'teal-circle-arrow-up-button' %>
-            <% end %>
-            <% if index + 1 < @projects.length %>
-            <%= link_to 'down', position_course_manage_project_path(@course, project, {project: {listing_order_position: index + 1}}), method: :put, :class => 'teal-circle-arrow-down-button' %>
-            <% end %>
-            <% if index == @projects.length - 1 %>
-              <a style="visibility: hidden" class="teal-circle-arrow-down-button">&nbsp;</a>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-  </div>
-  <%= paginate @projects %>
-<% end %>
 
 
 

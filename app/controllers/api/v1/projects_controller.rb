@@ -2,6 +2,7 @@ class Api::V1::ProjectsController < ApiController
 
 	load_and_authorize_resource :project
 	respond_to :json
+  #wrap_parameters :project, include: [:list_order_position]
 
 	# GET /api/v1/projects.json?course=:course
 	def index

@@ -1,0 +1,26 @@
+  <th class="row-handle"><span></span></th>
+  <th>
+    <a href="projects/{{id}}">
+      {{name}} [{{listing_order_position}}]
+    </a>
+  </th>
+  <td>{{{description}}}</td>
+  <td>{{rubric_name}}</td>
+  <td style="white-space: nowrap">
+
+    <nav class="drop-nav" data-behavior="dropdown">
+      <a class="drop-nav--toggle" data-behavior="toggle" href="#" style="">
+        Select an Action
+      </a>
+      <div class="drop-nav--dropdown" data-behavior="dropdown-options">
+        <ul>
+          {{#if abilities.update}}
+          <li>Edit Projects</li>
+          {{/if}}
+          {{#if abilities.destroy}}
+          <li>Delete Project</li>
+          {{/if}}
+        </ul>
+      </div>
+    </nav>
+  </td>

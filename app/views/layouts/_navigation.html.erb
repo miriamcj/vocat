@@ -5,7 +5,7 @@
     <div class="drawer-nav--column">
       <h4>Evaluations</h4>
       <ul>
-        <li><%=  link_to 'Evaluate Submissions', course_user_evaluations_path(@selected_course) %></li>
+        <li><%=  link_to 'Evaluate Student Submissions', course_user_evaluations_path(@selected_course) %></li>
       </ul>
     </div>
   </li>
@@ -14,7 +14,7 @@
       <h4>Setup Your Course</h4>
       <ul>
         <li><%=  link_to 'Create Projects', course_manage_projects_path(@selected_course) %></li>
-        <li><%=  link_to 'Configure Creator Groups', course_manage_groups_path(@selected_course) %></li>
+        <li><%=  link_to 'Configure Groups', course_manage_groups_path(@selected_course) %></li>
         <li>Manage Enrollment</li>
         <li><%=  link_to 'Adjust Course Settings', course_manage_path(@selected_course) %></li>
       </ul>

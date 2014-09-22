@@ -8,7 +8,7 @@
   <%= render 'layouts/head' %>
 </head>
 
-<body class="drawer-open <%= yield(:body_class) %> <%= if current_user.role == 'admin' then 'role-admin' end %> <%= if !@selected_course then 'no-course' end %>">
+<body class="<%= yield(:body_class) %> <%= if current_user.role == 'admin' then 'role-admin' end %> <%= if !@selected_course then 'no-course' end %>">
   <div class="shield" style="display: none;" data-class="shield"></div>
   <div data-region="modal"></div>
 

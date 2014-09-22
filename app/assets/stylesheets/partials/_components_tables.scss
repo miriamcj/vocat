@@ -62,6 +62,16 @@
   }
 }
 
+.row-handle {
+  span {
+    width: 20px;
+    height: 50px;
+    margin: .25em;
+    background: $grayLight;
+    display: block;
+  }
+}
+
 
 // Dear SASS, it would be great if something like 'a&'
 // would work nested inside the above block

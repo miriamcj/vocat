@@ -20,6 +20,7 @@ define (require) ->
     }
     course: {
       'courses/:course/manage/enrollment': 'creatorEnrollment'
+      'courses/:course/manage/projects': 'courseManageProjects'
     }
     coursemap: {
       'courses/:course/users/evaluations': 'userGrid'

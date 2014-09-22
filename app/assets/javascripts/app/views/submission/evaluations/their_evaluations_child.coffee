@@ -17,29 +17,6 @@ define (require) ->
       }
     }
 
-
-    #    triggers: {
-#      'click @ui.toggleChild': 'toggle:child'
-#    }
-#
-#    ui: {
-#      toggleChild: '[data-behavior="toggle-evaluation-detail"]'
-#      childContainer: '[data-behavior="detail-child-container"]'
-#      range: '[data-behavior="range"]:first'
-#    }
-
-#    onToggleChild: () ->
-#      if @ui.childContainer.length > 0
-#        if @childrenVisible
-#          @ui.childContainer.slideUp(250)
-#        else
-#          @ui.childContainer.slideDown(250)
-#      @childrenVisible = !@childrenVisible
-#
-#    onShow: () ->
-#      if @childrenVisible == false
-#        @ui.childContainer.hide()
-
     initialize: (options) ->
 
     serializeData: () ->
