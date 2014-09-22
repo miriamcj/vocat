@@ -238,6 +238,16 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    def course_request_params
+      params.require(:course_request).permit(:name,
+                                             :department,
+                                             :section,
+                                             :year,
+                                             :semester_id,
+                                             :number
+      )
+    end
+
     def admin_rubric_params
       params.require(:rubric).permit(:name,
                                      :description,

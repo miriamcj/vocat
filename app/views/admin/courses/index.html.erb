@@ -7,6 +7,13 @@
 <% end %>
 
 <% content_for :content_intro do %>
+
+  <% if @course_request_count > 0 %>
+    <div class="alert alert-notice"><aside class="alert--label"></aside>
+      <p>There are <%= @course_request_count %> pending course requests. <%= link_to 'Click here to review pending requests.', admin_course_requests_path %></p>
+    </div>
+  <% end %>
+
   <form>
     <fieldset>
       <div class="input-group">
@@ -71,9 +78,7 @@
       <%= paginate @courses %>
     </nav>
   </div>
-
 <% end %>
-
 
 
 

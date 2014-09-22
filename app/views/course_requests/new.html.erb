@@ -1,0 +1,44 @@
+<% content_for :content_header do %>
+    Request a Course
+<% end %>
+
+<% content_for :content_intro do %>
+    <%= render 'shared/model_errors', :model => @course_request %>
+
+    <%= form_for :course_request, url: course_requests_path do |f| %>
+      <fieldset>
+        <div class="input-group">
+          <%= label_tag :name, 'Course Name', {class: 'text-label'} %>
+          <%= f.text_field :name, {class: 'text-input'} %>
+        </div>
+        <div class="input-group">
+          <div class="input-group--third">
+            <%= label_tag :number, 'Number', {class: 'text-label'} %>
+            <%= f.text_field :number, {class: 'text-input'} %>
+          </div>
+          <div class="input-group--third">
+            <%= label_tag :department, 'Department', {:class => 'text-label'} %>
+            <%= f.select(:department, options_for_select(Course.distinct_departments, params[:department]), {:include_blank => true}, {'data-behavior' => 'chosen'}) %>
+          </div>
+          <div class="input-group--third">
+            <%= label_tag :section, 'Section', {:class => 'text-label'} %>
+            <%= f.text_field :section, {:class => 'text-input'} %>
+          </div>
+        </div>
+        <div class="input-group">
+          <div class="input-group--third">
+            <%= label_tag :year, 'Year', {:class => 'text-label'} %>
+            <%= f.select(:year, options_for_select(Course.distinct_years, params[:year]), {:include_blank => true}, {'data-behavior' => 'chosen'}) %>
+          </div>
+          <div class="input-group--third">
+            <%= label_tag :semester_id, 'Semester', {:class => 'text-label'} %>
+            <%= f.select(:semester_id, options_from_collection_for_select(Semester.all, 'id', 'name', @course_request.semester_id), {:include_blank => true}, {'data-behavior' => 'chosen'}) %>
+          </div>
+          <div class="input-group--third">
+            <label class="text-label">&nbsp;</label>
+            <%= f.submit('Request Course', {:class => 'large-teal-button'}) %>
+          </div>
+        </div>
+      </fieldset>
+    <% end %>
+<% end %>

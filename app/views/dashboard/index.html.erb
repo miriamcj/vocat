@@ -2,6 +2,10 @@
   Dashboard
 <% end %>
 
+<% content_for :content_header_links do %>
+    <%= link_to 'Request Course', new_course_request_path, :class => 'teal-plus-button' %>
+<% end %>
+
 <% content_for :content_frames do %>
 
   <div class="evaluation-detail-frame">

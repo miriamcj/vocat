@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
 
   has_many :submissions, :as => :creator, :dependent => :destroy
 
+  has_many :course_requests
+
   default_scope { order("last_name ASC") }
   scope :evaluators, -> { where(:role => "evaluator") }
   scope :creators, -> { where(:role => "creator") }
