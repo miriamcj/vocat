@@ -21,10 +21,6 @@ class CourseRequest < ActiveRecord::Base
     course
   end
 
-  def evaluator_email
-    "lucas@castironcoding.com"
-  end
-
   state_machine :state, :initial => :pending do
     state :pending
     state :approved

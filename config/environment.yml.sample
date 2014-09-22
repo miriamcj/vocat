@@ -90,8 +90,10 @@ common: &common
     # The default role for users who login via LDAP
     :default_role: 'creator'
 
-    :admin_notification:
-      :course_request_create: 'lucas@castironcoding.com'
+  :email:
+    :default_from: "do-not-reply@app.vocat.io"
+    :notification:
+      :course_request_create: 'notify@app.vocat.io'
 
 
 :development:
