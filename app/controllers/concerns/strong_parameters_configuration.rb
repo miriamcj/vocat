@@ -37,14 +37,15 @@ module StrongParametersConfiguration
   protected
 
   def project_params(type = 'project')
+    myvar = params
     params.require(type.to_sym).permit(:name,
                                        :description,
                                        :course_id,
                                        :rubric_id,
-                                       :listing_order_position,
                                        :type,
+                                       :listing_order_position,
                                        :due_date
-    )
+    ).merge({ listing_order_position: params[:listing_order_position]})
   end
 
   def user_params

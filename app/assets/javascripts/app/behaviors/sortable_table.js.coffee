@@ -28,7 +28,7 @@ define (require) ->
       })
 
     updateSort: (model, position) ->
-      adjustedPosition = position + 1
+      adjustedPosition = position
       @view.collection.remove(model)
       model.set('listing_order_position', adjustedPosition)
       @view.collection.add(model, {at: position})

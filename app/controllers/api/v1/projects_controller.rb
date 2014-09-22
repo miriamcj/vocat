@@ -2,7 +2,6 @@ class Api::V1::ProjectsController < ApiController
 
 	load_and_authorize_resource :project
 	respond_to :json
-  #wrap_parameters :project, include: [:list_order_position]
 
 	# GET /api/v1/projects.json?course=:course
 	def index
@@ -14,6 +13,7 @@ class Api::V1::ProjectsController < ApiController
 	# PUT /api/v1/projects/:id.json
   # PATCH /api/v1/projects/:id.json
 	def update
+    myvar = project_params
 		@project.update_attributes(project_params)
 		respond_with(@project)
 	end
