@@ -108,7 +108,7 @@ $columnWidth: ($container / $columns) - 12;
       @include font-head;
       text-align: left;
       font-size: $epsilon;
-      padding: 1em;
+      padding: 20px;
       @include respond($vostok) {
         padding: .5em;
       }
@@ -141,6 +141,9 @@ $columnWidth: ($container / $columns) - 12;
         padding: .25em;
         height: 3em;
       }
+      .matrix-groups & {
+        padding: 0 20px;
+      }
       white-space: nowrap;
       font-size: $theta; // Baseline height for the cell is 16px. Need the same baseline in the row headers
       height: 100px;
@@ -149,20 +152,24 @@ $columnWidth: ($container / $columns) - 12;
     }
   }
 
+  .cell--container {
+    text-align: center;
+    @include clearfix();
+
+  }
   dl {
-    width: 31%;
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 3%;
+    margin-right: 3%;
     @include respond($onega) {
       width: 47%;
-    }
-    & + dl {
-      margin-left: 3%;
     }
     &:last-child {
       @include respond($onega) {
         display: none;
       }
     }
-    float: left;
     dt {
       margin-bottom: 20%;
       @include font-head;

@@ -5,7 +5,8 @@ define [
   class AbstractMatrix extends Marionette.LayoutView
 
     idealWidth: 230
-    minWidth: 160
+    minWidth: 120
+    maxWidth: 300
     memoizeHashCount: 0
     position: 0
 
@@ -68,28 +69,30 @@ define [
       @$el.find('[data-match-height-target]').outerHeight(@$el.find('[data-match-height-source]').outerHeight())
       @memoizeHashCount
 
+    widthCheckCells: _.memoize () ->
+      @actor().find('tr:first-child th, tr:first-child td')
+    , () -> @memoizeHash()
+
     # This is where most of the magic happens. We resize columns to best fit into the available space, while
     # making sure we show some of the next column for the handle.
     columnWidths: _.memoize () ->
-      # Determine the widths of the columns before setting them. If the text in a column
-      # is too wide, it will exceed the set bounds.
-      naturalWidths = []
-      @actor().find('tr:first-child th').each((i, col) ->
-        $col = $(col)
-        $col.width('auto')
-        w = $col.outerWidth()
-        naturalWidths.push(w)
-      )
 
-      # If one of our columns is "naturally" wider than what we set it to be, we use that width
-      # as our minimum column width.
-      max = @idealWidth
-      min = @minWidth
-      if naturalWidths.length > 0
-        maxNaturalWidth = _.max(naturalWidths)
-        if maxNaturalWidth > @minWidth
-          min = maxNaturalWidth
-          min = max if min > max
+      columns = @columnCount()
+      @setColWidths(@minWidth, @minWidth * columns)
+      cellWidths = []
+      @widthCheckCells().each((i, col) ->
+        $col = $(col)
+        w = $col.outerWidth()
+        cellWidths.push(w)
+      )
+      widestCell = _.max(cellWidths)
+      if widestCell > @minWidth
+        min = widestCell
+      else
+        min = @minWidth
+      max = @maxWidth
+
+      @setColWidths(min, min * columns) if min > @minWidth
 
       if @stageWidth() > 0
 
