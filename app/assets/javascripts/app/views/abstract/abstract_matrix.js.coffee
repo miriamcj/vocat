@@ -7,6 +7,7 @@ define [
     idealWidth: 230
     minWidth: 160
     memoizeHashCount: 0
+    position: 0
 
     ui: {
       sliderContainer: '[data-behavior="matrix-slider"]'
@@ -37,7 +38,7 @@ define [
 
     recalculateMatrix: () ->
       @memoizeHashCount++
-      @updateSliderControls()
+      @adjustToCurrentPosition()
 
     currentLeft: () ->
       l = @actor().css('left')
@@ -70,12 +71,12 @@ define [
     # This is where most of the magic happens. We resize columns to best fit into the available space, while
     # making sure we show some of the next column for the handle.
     columnWidths: _.memoize () ->
-
       # Determine the widths of the columns before setting them. If the text in a column
       # is too wide, it will exceed the set bounds.
       naturalWidths = []
       @actor().find('tr:first-child th').each((i, col) ->
         $col = $(col)
+        $col.width('auto')
         w = $col.outerWidth()
         naturalWidths.push(w)
       )
@@ -86,7 +87,9 @@ define [
       min = @minWidth
       if naturalWidths.length > 0
         maxNaturalWidth = _.max(naturalWidths)
-        min = maxNaturalWidth if maxNaturalWidth > @minWidth
+        if maxNaturalWidth > @minWidth
+          min = maxNaturalWidth
+          min = max if min > max
 
       if @stageWidth() > 0
 
@@ -97,7 +100,7 @@ define [
           max = min
         else
           while Math.floor(availableWidth/min) < Math.floor(availableWidth/max)
-            max - max - 1
+            max = max - 1
 
         columns = Math.floor(availableWidth/max)
         columnWidth = availableWidth / columns
@@ -145,6 +148,7 @@ define [
       left < 0
 
     updateSliderControls: () ->
+      console.log 'test a'
       if @canSlideBackwardFrom()
         @ui.sliderLeft.show()
       else
@@ -159,20 +163,37 @@ define [
       w = @$el.find('[data-vertical-headers]').outerWidth()
       @ui.sliderLeft.css('left', w)
 
-    targetFor: (direction) ->
-      target = @currentLeft()
-      if direction == 'forward'
-        if @canSlideForwardFrom()
-          target = @currentLeft() - @columnWidths()[0]
-      else
-        if @canSlideBackwardFrom()
-          target = @currentLeft() + @columnWidths()[0]
+#    targetFor: (direction) ->
+#      target = @currentLeft()
+#      if direction == 'forward'
+#        if @canSlideForwardFrom()
+#          target = @currentLeft() - @columnWidths()[0]
+#      else
+#        if @canSlideBackwardFrom()
+#          target = @currentLeft() + @columnWidths()[0]
+#      if target < @hiddenWidth() * -1 then target = @hiddenWidth() * -1
+#      target = Math.ceil(target)
+#      if target > 0 then target = 0
+#
+#      target
+
+    targetForPosition: (position) ->
+      columnWidth = @columnWidths()[0]
+      target = position * columnWidth * -1
       if target < @hiddenWidth() * -1 then target = @hiddenWidth() * -1
       target = Math.ceil(target)
       if target > 0 then target = 0
-
       target
 
+    animate: (target, duration = 250) ->
+      @actor().animate({left: target}, duration).promise().done(() => @updateSliderControls())
+
+    adjustToCurrentPosition: () ->
+      @animate(@targetForPosition(@position), 0)
+
     slide: (direction) ->
-      target = @targetFor(direction)
-      @actor().animate({left: target}, 250).promise().done(() => @updateSliderControls())
+      if direction == 'forward' && @canSlideForwardFrom()
+        @position = @position + 1
+      if direction == 'backward' && @canSlideBackwardFrom()
+        @position = @position - 1
+      @animate(@targetForPosition(@position))

@@ -1,4 +1,9 @@
-<label class="checkbox-label oversized">
-  <input {{#if enrolled}}checked="checked"{{/if}} class="checkbox" type="checkbox">
-  <b></b>
-</label>
+<div class="switch">
+  <input id="checkbox-{{cid}}" {{#if enrolled}}checked="checked"{{/if}} class="switch-checkbox" type="checkbox">
+  <label for="checkbox-{{cid}}" class="switch-label" >
+    <span class="switch-inner">
+      <span class="switch-active"><span class="switch-switch">Yes</span></span>
+      <span class="switch-inactive"><span class="switch-switch">No</span></span>
+    </span>
+  </label>
+</div>

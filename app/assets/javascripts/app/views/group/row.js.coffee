@@ -1,8 +1,8 @@
 define ['marionette', 'hbs!templates/rubric/rows_item', 'views/group/cell'], (Marionette, template, ItemView) ->
 
-  class RowsItem extends Marionette.CollectionView
+  class Row extends Marionette.CollectionView
 
-    tagName: 'ul'
+    tagName: 'tr'
     className: 'matrix--row'
 
     childView: ItemView
@@ -15,3 +15,9 @@ define ['marionette', 'hbs!templates/rubric/rows_item', 'views/group/cell'], (Ma
 
     initialize: (options) ->
       @vent = options.vent
+
+    onAddChild: () ->
+      @vent.trigger('recalculate')
+
+    onRemoveChild: () ->
+      @vent.trigger('recalculate')

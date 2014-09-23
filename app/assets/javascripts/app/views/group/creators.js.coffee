@@ -1,12 +1,14 @@
 define ['marionette', 'hbs!templates/course_map/creators', 'views/group/creators_item'], (Marionette, template, Item) ->
 
-  class GroupCreatorsView extends Marionette.CollectionView
+  class GroupCreatorsView extends Marionette.CompositeView
 
-    tagName: 'ul'
+    tagName: 'table'
+    className: 'table matrix matrix-row-headers'
 
     template: template
-
+    childViewContainer: 'tbody'
     childView: Item
+
 
     childViewOptions: () ->
       {courseId: @options.courseId}

@@ -1,26 +1,14 @@
-  <th class="row-handle"><span></span></th>
-  <th>
+  <th style="width: 5%" class="row-handle"><span></span></th>
+  <th >
     <a href="projects/{{id}}">
+    {{#if abilities.can_update}}
+      <a href="projects/{{id}}/edit">{{name}}</a>
+    {{else}}
       {{name}}
+    {{/if}}
     </a>
   </th>
-  <td>{{{description}}}</td>
-  <td>{{rubric_name}}</td>
-  <td style="white-space: nowrap">
-
-    <nav class="drop-nav" data-behavior="dropdown">
-      <a class="drop-nav--toggle" data-behavior="toggle" href="#" style="">
-        Select an Action
-      </a>
-      <div class="drop-nav--dropdown" data-behavior="dropdown-options">
-        <ul>
-          {{#if abilities.update}}
-          <li>Edit Projects</li>
-          {{/if}}
-          {{#if abilities.destroy}}
-          <li>Delete Project</li>
-          {{/if}}
-        </ul>
-      </div>
-    </nav>
+  <td style="width: 25%">{{rubric_name}}</td>
+  <td style="width: 25%">
+    <a class="delete-link" href="projects/{{id}}" data-behavior="destroy">Delete Project</a>
   </td>

@@ -23,10 +23,22 @@ define ['jquery_rails', './plugins', 'vendor/plugins/chosen'], ($) ->
 
         $('[data-behavior="drawer-trigger"]').drawerTrigger()
         $('[data-behavior="dropdown"]').dropdownNavigation()
-        $('[data-behavior="chosen"]').chosen({
-          disable_search_threshold: 1000,
-          allow_single_deselect: true
-        })
+
+
+        $('[data-behavior="chosen"]').each((index, el) ->
+          $el = $(el)
+          msg = 'Select an Option'
+          msg = 'Month' if $el.hasClass('month')
+          msg = 'Year' if $el.hasClass('year')
+          msg = 'Day' if $el.hasClass('day')
+          options = {
+            disable_search_threshold: 1000,
+            allow_single_deselect: true,
+            placeholder_text_single: msg
+          }
+          console.log options
+          $el.chosen(options)
+        )
 
         #$('[data-behavior="sticky-header"]').stickyHeader()
         #$('[data-behavior="shortcut-nav-toggle"]').shortcutNavigation()

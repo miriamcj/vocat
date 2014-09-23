@@ -79,11 +79,7 @@ Vocat::Application.routes.draw do
 
     scope :module => "courses" do
       namespace "manage" do
-        resources :projects do
-          member do
-            put 'position'
-          end
-        end
+        resources :projects, :except => [:show]
         resources :groups
         resources :rubrics, :only => [:index, :show, :new, :edit, :destroy] do
           member do

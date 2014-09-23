@@ -4,7 +4,7 @@ class ProjectSerializer < ActiveModel::Serializer
   include ActionView::Helpers::OutputSafetyHelper
   include ActionView::Helpers::TextHelper
 
-  attributes  :id, :name, :description, :listing_order_position, :type, :rubric_id, :rubric_name
+  attributes  :id, :name, :description, :listing_order_position, :type, :rubric_id, :rubric_name, :abilities
 
   #has_one :rubric
 
@@ -14,6 +14,13 @@ class ProjectSerializer < ActiveModel::Serializer
 
   def current_user_id
     scope.id
+  end
+
+  def abilities
+    {
+        can_update: Ability.new(scope).can?(:update, object),
+        can_destroy: Ability.new(scope).can?(:destroy, object)
+    }
   end
 
 end

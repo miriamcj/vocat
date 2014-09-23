@@ -7,10 +7,12 @@ define (require) ->
 
   class GroupsItem extends Marionette.ItemView
 
-    tagName: 'li'
+    tagName: 'th'
     template: template
+
     attributes: {
       'data-behavior': 'navigate-group'
+      'data-match-height-source': ''
     }
 
     triggers: {

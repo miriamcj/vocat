@@ -1,38 +1,38 @@
-<header class="bar-header">
-	<h2 class="bar-header--title">Manage Groups</h2>
-	<a href="#" data-trigger="add" class="teal-plus-button">Add A Group</a>
-	<a href="#" data-trigger="assign" class="teal-arrow-button">Auto Assign to Groups</a>
-  {{! TODO fix this more gracefully }}
-  <div class="clearfix"></div>
-	<div class="alerts" data-region="flash"></div>
-  <div style="display: none;" data-behavior="dirty-message" class="alerts">
-    <div class="alert-notice">
-      <aside class="alert--label"></aside>
-      <p>
-	      You have made changes to the groups. <a href="#" data-trigger="save" >Click here to save your changes.</a>
-      </p>
+<div data-region="flash" class="flash-fullbleed"></div>
+<div style="display: none;" data-behavior="dirty-message" class="alerts">
+  <div class="alert-notice">
+    <aside class="alert--label"></aside>
+    <p>
+      You have made changes to the groups. <a href="#" data-trigger="save" >Click here to save your changes.</a>
+    </p>
+  </div>
+</div>
+
+<div class="page-section-header">
+  <h1>Manage Groups</h1>
+  <div class="page-content--heading-buttons">
+    <a href="#" data-trigger="add" class="primary-button new-button">Add A Group</a>
+    <a href="#" data-trigger="assign" class="secondary-button">Auto Assign to Groups</a>
+  </div>
+</div>
+
+<div class="matrix-wrapper matrix-tight">
+
+  <div class="matrix-wrapper--creators" data-vertical-headers data-region="creators"></div>
+
+  <button style="display: none;" data-behavior="matrix-slider-left" class="matrix-cells-wrapper--back"></button>
+  <button style="display: none;" data-behavior="matrix-slider-right" class="matrix-cells-wrapper--forward"></button>
+
+  <div class="matrix-wrapper--body" data-behavior="matrix-stage">
+    <div class="matrix-body" data-behavior="matrix-actor">
+      <div class="matrix-wrapper--projects" >
+        <table class="table matrix matrix-col-headers" data-region="groups">
+        </table>
+      </div>
+      <div class="matrix-wrapper--cells">
+        <table class="table matrix matrix-cells" data-region="matrix">
+        </table
+      </div>
     </div>
   </div>
-
-</header>
-
-<div class="matrix compact">
-	<div>
-		<header class="matrix--column-header">
-			<nav class="matrix--controls">
-				<a class="matrix--next inactive" data-behavior="matrix-slider-right" href="#">Next</a>
-				<a class="matrix--previous inactive" data-behavior="matrix-slider-left" href="#">Previous</a>
-			</nav>
-			<div class="matrix--list-wrapper" data-behavior="matrix-slider" data-region="groups">
-			</div>
-		</header>
-		<nav class="matrix--name-nav">
-			<header class="matrix--row-header" data-behavior="matrix-creators-list" data-region="creators">
-			</header>
-		</nav>
-		<div class="matrix--body" data-behavior="matrix-body" >
-			<div class="matrix--content" data-behavior="matrix-slider" data-region="rows">
-			</div>
-		</div>
-	</div>
 </div>

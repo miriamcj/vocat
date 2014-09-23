@@ -4,8 +4,7 @@ define ['marionette', 'hbs!templates/group/cell'], (Marionette, template) ->
 
     template: template
 
-    tagName: 'li'
-    className: 'matrix--cell'
+    tagName: 'td'
 
     triggers: {
       'click input': 'click:input'
@@ -23,6 +22,7 @@ define ['marionette', 'hbs!templates/group/cell'], (Marionette, template) ->
     serializeData: () ->
       {
         enrolled: @isEnrolled()
+        cid: @cid
       }
 
     isEnrolled: () ->

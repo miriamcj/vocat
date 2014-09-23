@@ -63,8 +63,8 @@ fieldset {
     @extend %input-full-width;
   }
   textarea {
-	height: 6em;
-	padding: 1em;
+  height: 6em;
+  padding: 1em;
   }
 
   &.whole {
@@ -84,12 +84,17 @@ fieldset {
     @extend %form-unit;
   }
   &.fourth {
-	@extend %form-wide-one-fourth;
-	@extend %form-unit;
+    @extend %form-wide-one-fourth;
+    @extend %form-unit;
+  }
+  &.twelfth {
+    @extend %form-wide-one-twelfth;
+    @extend %form-unit;
   }
 
-
 }
+
+
 
 // Misc. Form Related Styles
 // --------------------------
@@ -142,5 +147,9 @@ $spacingUnit: $mediumUnitPadding * .75;
       height: 2.7em;
     }
   }
+}
+
+select.month, select.day, select.year {
+  width: 32.7%;
 }
 

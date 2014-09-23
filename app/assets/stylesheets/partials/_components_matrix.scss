@@ -121,6 +121,10 @@ $columnWidth: ($container / $columns) - 12;
   }
   tbody {
     th {
+      .matrix-tight & {
+        padding: .25em;
+        height: 3em;
+      }
       vertical-align: middle;
       font-weight: $regular;
       font-size: $theta; // Baseline height for the cell is 16px. Need the same baseline in the row headers
@@ -133,8 +137,11 @@ $columnWidth: ($container / $columns) - 12;
 
     }
     td {
+      .matrix-tight & {
+        padding: .25em;
+        height: 3em;
+      }
       white-space: nowrap;
-
       font-size: $theta; // Baseline height for the cell is 16px. Need the same baseline in the row headers
       height: 100px;
       padding: .5em;
@@ -197,5 +204,5 @@ $columnWidth: ($container / $columns) - 12;
 
     }
   }
-
 }
+

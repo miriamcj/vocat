@@ -94,6 +94,13 @@ input%proto-button {
 %icon-link-right {
   @extend %icon-link;
   padding-right: 1.75em;
+  th & {
+    font-size: .667em;
+    font-weight: $regular;
+    @include font-body;
+    clear: left;
+
+  }
   &:after {
     font-size: $iota;
     content: "";

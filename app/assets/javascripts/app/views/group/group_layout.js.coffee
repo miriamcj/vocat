@@ -1,18 +1,14 @@
-define [
-  'marionette',
-  'hbs!templates/group/group_layout',
-  'views/abstract/sliding_grid_layout',
-  'views/group/creators'
-  'views/group/groups'
-  'views/group/rows'
-  'views/modal/modal_confirm'
-], (
-  Marionette, template, SlidingGridLayout, CreatorsView, GroupsView, RowsView, ModalConfirmView
-) ->
+define (require) ->
 
-  class GroupLayout extends SlidingGridLayout
+  Marionette = require('marionette')
+  template = require('hbs!templates/group/group_layout')
+  AbstractMatrix = require('views/abstract/abstract_matrix')
+  CreatorsView = require('views/group/creators')
+  GroupsView = require('views/group/groups')
+  ModalConfirmView = require('views/modal/modal_confirm')
+  GroupMatrixView = require('views/group/matrix')
 
-    sliderVisibleColumns: 4
+  class GroupLayout extends AbstractMatrix
 
     isDirty: false
 
@@ -24,7 +20,7 @@ define [
       globalFlash: '[data-region="flash"]'
       creators: '[data-region="creators"]'
       groups: '[data-region="groups"]'
-      rows: '[data-region="rows"]'
+      matrix: '[data-region="matrix"]'
     }
 
     events: {
@@ -89,9 +85,14 @@ define [
     onRender: () ->
       @creators.show(@children.creators)
       @groups.show(@children.groups)
-      @rows.show(@children.rows)
+      @matrix.show(@children.matrix)
       @globalFlash.show(Vocat.globalFlashView)
-      @sliderRecalculate()
+
+    onShow: () ->
+      @recalculateMatrix()
+      @listenTo(@,'recalculate', () ->
+        @recalculateMatrix()
+      )
 
     initialize: (options) ->
       @collections = options.collections
@@ -99,25 +100,7 @@ define [
       @collections.group.courseId = @courseId
       @children.creators = new CreatorsView({collection: @collections.creator, courseId: @courseId, vent: @})
       @children.groups = new GroupsView({collection: @collections.group, courseId: @courseId, vent: @})
-      @children.rows = new RowsView({collection: @collections.creator, collections: @collections, courseId: @courseId, vent: @})
-
-      @listenTo(@children.groups,'add:child remove:child', () =>
-        #TODO: Hack to wait until all rendering is complete... replace with better solution
-        setTimeout( () =>
-          @sliderRecalculate()
-        , 0)
-      )
-
-      @listenTo(@children.groups,'add:child', () =>
-        #TODO: Hack to wait until all rendering is complete... replace with better solution
-        setTimeout( () =>
-          @triggerMethod('slider:right')
-        , 0)
-      )
-
-      setTimeout () =>
-        @ui.header.stickyHeader()
-      , 500
+      @children.matrix = new GroupMatrixView({collection: @collections.creator, collections: @collections, courseId: @courseId, vent: @})
 
 
 
