@@ -109,10 +109,22 @@ $columnWidth: ($container / $columns) - 12;
       text-align: left;
       font-size: $epsilon;
       padding: 20px;
+      position: relative;
       @include respond($vostok) {
         padding: .5em;
       }
-
+      .matrix--column-header-instruction {
+        position: relative;
+        bottom: 0;
+        background: $grayLight;
+        margin: 0 -20px;
+//        margin: 20px -20px -20px -20px;
+        padding: 10px 20px;
+//        color: $white;
+        font-size: .5em; // 12px
+        @include font-body;
+        text-transform: uppercase;
+      }
       text-transform: none;
       font-weight: $regular;
       letter-spacing: 0;
@@ -212,4 +224,5 @@ $columnWidth: ($container / $columns) - 12;
     }
   }
 }
+
 

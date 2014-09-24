@@ -9,6 +9,9 @@ class SubmissionSerializer < AbstractSubmissionSerializer
               :discussion_posts_count,
               :project,
               :creator,
+              :creator_id,
+              :creator_type,
+              :project_id,
               :evaluations,
               :video,
               :abilities

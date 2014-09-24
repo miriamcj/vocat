@@ -15,15 +15,15 @@
 
         <li>
           {{#if parent_id}}
-            <a class="reply-link" data-behavior="toggle-reply" data-post="{{parent_id}}" href="#">Reply</a>
+            <a class="reply-link primary-link" data-behavior="toggle-reply" data-post="{{parent_id}}" href="#">Reply</a>
           {{else}}
-            <a class="reply-link" data-behavior="toggle-reply" data-post="{{id}}" href="#">Reply</a>
+            <a class="reply-link primary-link" data-behavior="toggle-reply" data-post="{{id}}" href="#">Reply</a>
           {{/if}}
         </li>
 
         {{#if current_user_can_destroy}}
           <li>
-            <a class="delete-link" data-behavior="toggle-delete-confirm" href="#">Delete</a>
+            <a class="delete-link secondary-link" data-behavior="toggle-delete-confirm" href="#">Delete</a>
           </li>
         {{/if}}
       </ul>

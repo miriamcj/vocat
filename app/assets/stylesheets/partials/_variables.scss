@@ -13,7 +13,7 @@ $grayLight: rgb(199, 200, 202);
 $grayMediumLighter: rgb(167, 169, 172);
 $grayMedium: rgb(157, 159, 162);
 $grayMediumDarker: rgb(140, 140, 140);
-$grayDark: rgb(109, 110, 113);
+$grayDark: rgb(109, 110, 113); // Body copy color
 $grayDarker: rgb(77, 77, 79);
 $grayDarkest: rgb(35, 31, 32);
 
@@ -27,11 +27,14 @@ $purple: #A197B9;
 $black: #000000;
 
 $primaryButtonColor: $tealLight;
-$primaryButtonHoverColor: $tealDark;
-$primaryLinkColor: $tealLight;
-
 $secondaryButtonColor: $grayMedium;
-$secondaryButtonHoverColor: $grayDark;
+$primaryLinkColor: $tealLight;
+$secondaryLinkColor: $grayMedium;
+
+$primaryLinkHoverColor: $grayDarker;
+$secondaryLinkHoverColor: $grayDarker;
+$primaryButtonHoverColor: $grayDarker;
+$secondaryButtonHoverColor: $grayDarker;
 
 
 // Typographic hierarchy

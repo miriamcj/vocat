@@ -61,6 +61,7 @@ $spacingUnit: $mediumUnitPadding * .75;
 .discussion-list--timestamp {
   @include font-head;
   font-size: $iota;
+  color: $grayMedium;
 }
 
 .discussion-list--link {

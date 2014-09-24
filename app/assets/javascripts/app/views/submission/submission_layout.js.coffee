@@ -67,6 +67,7 @@ define (require) ->
       @assets.show(new AssetsView({vent: @vent, model: @submission, courseId: @courseId}))
 
     initialize: (options) ->
+      console.log @model,'m'
       @options = options || {}
       @vent = if options.vent? then options.vent else Vocat.vent
       @collections = {}

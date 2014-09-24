@@ -105,6 +105,10 @@
   @extend %primary-link;
 }
 
+.secondary-link {
+  @extend %secondary-link;
+}
+
 .header-link {
   @extend %primary-link;
   margin-bottom: $verticalSpaceTight;

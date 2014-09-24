@@ -254,7 +254,7 @@ footer {
   cursor: pointer;
   line-height: $headerHeight;
   padding: 0 $headerUnitPadding + ($iconSizeMedium * 4) 0 $headerUnitPadding;
-  background: $primaryButtonHoverColor;
+  background: $tealDark;
   .course-short {
     display: inline;
     @include respond($ontario, 'min') {

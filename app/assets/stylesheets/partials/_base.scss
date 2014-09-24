@@ -130,15 +130,15 @@ hr {
 // Inline elements
 // --------------------------
 a {
-  @include transition($mediumTransition opacity $timing);
+//  @include transition($mediumTransition opacity $timing);
   text-decoration: none;
   color: inherit;
   &:hover {
     color: $tealLight;
-    opacity: 0.8;
+ //   opacity: 1;
     &.active,
     .active > & {
-      opacity: 1;
+//      opacity: 1;
     }
   }
   &:active {

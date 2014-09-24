@@ -3,6 +3,9 @@
 %button-text {
   @include font-body;
   font-size: $iota;
+  th & {
+    font-size: .583em; // 14px
+  }
   font-weight: $semibold;
 }
 
@@ -51,7 +54,7 @@ input%proto-button {
   background-color: $secondaryButtonColor;
   border: 0;
   &:hover, &:focus {
-    background-color: $secondaryButtonColor;
+    background-color: $secondaryButtonHoverColor;
   }
 }
 
@@ -60,19 +63,35 @@ input%proto-button {
   @extend %button-text;
   @extend %bare-focus;
   @extend %bare-active;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 %primary-link {
   @extend %proto-action-link;
   color: $primaryLinkColor;
+  &:hover {
+    color: $primaryLinkHoverColor;
+  }
 }
+
+%secondary-link {
+  @extend %proto-action-link;
+  color: $secondaryLinkColor;
+  &:hover {
+    color: $secondaryLinkHoverColor;
+  }
+}
+
 
 %icon-link {
   position: relative;
   height: 2em;
   line-height: 2em;
   display: inline-block;
+  @extend %button-text;
+  th & {
+    margin-top: 10px;
+  }
 }
 
 %icon-link-left {
@@ -94,13 +113,6 @@ input%proto-button {
 %icon-link-right {
   @extend %icon-link;
   padding-right: 1.75em;
-  th & {
-    font-size: .667em;
-    font-weight: $regular;
-    @include font-body;
-    clear: left;
-
-  }
   &:after {
     font-size: $iota;
     content: "";
@@ -110,6 +122,6 @@ input%proto-button {
     width: 1.5em;
     top: .4em;
     position: absolute;
-    right: 0em;
+    right: 0;
   }
 }
