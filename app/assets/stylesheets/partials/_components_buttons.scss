@@ -167,48 +167,76 @@
 }
 
 .switch-inner {
-  display: block; width: 200%; margin-left: -100%;
-  -moz-transition: margin 0.3s ease-in 0s; -webkit-transition: margin 0.3s ease-in 0s;
-  -o-transition: margin 0.3s ease-in 0s; transition: margin 0.3s ease-in 0s;
+  display: block;
+  width: 200%;
+  margin-left: -100%;
+  @include transition(margin)
 }
 
 .switch-inner > span {
-  display: block; float: left; position: relative; width: 50%; height: 30px; padding: 0; line-height: 30px;
-  font-size: 13px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
-  -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+  display: block;
+  float: left;
+  position: relative;
+  width: 50%;
+  height: 30px;
+  padding: 0;
+  line-height: 30px;
+  font-size: $iota;
+  color: $white;
+  font-weight: $bold;
 }
 
 .switch-inner .switch-active {
   padding-left: 15px;
-  background-color: #C2C2C2; color: #FFFFFF;
+  background-color: $grayLighter;
+  color: $white;
 }
 
 .switch-inner .switch-inactive {
   padding-right: 15px;
-  background-color: #C2C2C2; color: #FFFFFF;
+  background-color: $grayLighter;
+  color: $white;
   text-align: right;
 }
 
 .switch-switch {
-  display: block; width: 40px; margin: 0px; text-align: center;
-  border: 0px solid #999999;border-radius: 0px;
-  position: absolute; top: 0; bottom: 0;
+  display: block;
+  width: 40px;
+  margin: 0px;
+  text-align: center;
+  border: 0px solid #999999;
+  border-radius: 0px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
 }
 .switch-active .switch-switch {
-  background: #27A1CA; left: 0;
+  background: $tealLight;
+  left: 0;
 }
 .switch-inactive .switch-switch {
-  background: #A1A1A1; right: 0;
+  background: $grayLight;
+  right: 0;
 }
 
 .switch-active .switch-switch:before {
-  content: " "; position: absolute; top: 0; left: 40px;
-  border-style: solid; border-color: #27A1CA transparent transparent #27A1CA; border-width: 15px 10px;
+  content: " ";
+  position: absolute;
+  top: 0;
+  left: 40px;
+  border-style: solid;
+  border-color: $tealLight transparent transparent $tealLight;
+  border-width: 15px 10px;
 }
 
 .switch-inactive .switch-switch:before {
-  content: " "; position: absolute; top: 0; right: 40px;
-  border-style: solid; border-color: transparent #A1A1A1 #A1A1A1 transparent; border-width: 15px 10px;
+  content: " ";
+  position: absolute;
+  top: 0;
+  right: 40px;
+  border-style: solid;
+  border-color: transparent $grayLight $grayLight transparent;
+  border-width: 15px 10px;
 }
 
 .switch-checkbox:checked + .switch-label .switch-inner {

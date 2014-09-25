@@ -179,8 +179,7 @@ $columnWidth: ($container / $columns) - 12;
 
   .cell--container {
     text-align: center;
-    @include clearfix();
-
+    @include clearfix(hard);
   }
   dl {
     display: inline-block;
