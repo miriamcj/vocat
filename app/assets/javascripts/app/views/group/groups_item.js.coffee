@@ -8,6 +8,7 @@ define (require) ->
   class GroupsItem extends Marionette.ItemView
 
     tagName: 'th'
+    className: 'matrix--fullbleed'
     template: template
 
     attributes: {
