@@ -1,9 +1,11 @@
-<form class="compact">
-	<div class="input-group">
-		<label class="text-label">
+<form>
+	<div class="formgrid whole">
+		<label >
 			{{label}}
 		</label>
-		<input class="text-input" data-property="input" name="input" value="{{value}}" />
+		<input data-property="input" name="input" type="text" value="{{value}}" />
 	</div>
-	<input type="submit" class="teal-plus-button" data-behavior="model-save" value="save" />
+	<div class="formgrid whole">
+  	<input type="submit" class="secondary-button" data-behavior="model-save" value="Update Group Name" />
+  </div>
 </form>

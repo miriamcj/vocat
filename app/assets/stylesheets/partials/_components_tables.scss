@@ -7,7 +7,6 @@
 .table-wrapper {
 }
 
-
 // <table>
 .table {
   width: 100%;
@@ -16,8 +15,6 @@
     }
     th {
       background-color: $grayLightest;
-      // Prevents border hiding in IE
-      z-index: -1;
       @include font-body;
       font-weight: $regular;
       text-transform: uppercase;

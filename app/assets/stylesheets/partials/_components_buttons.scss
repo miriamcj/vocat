@@ -149,97 +149,90 @@
 
 
 
-.switch {
-  position: relative;
-  width: 100px;
-  -webkit-user-select:none;
-  -moz-user-select:none;
-  -ms-user-select: none;
-}
+// Switches
+//-----------------------------------------------------------------
 
-.switch-checkbox {
+$switchWidth: 3.5em;
+$switchHeight: 1.6em;
+$handleMargin: .3em;
+$handleWidth: $switchHeight - ($handleMargin * 2);
+
+.switch input.switch-checkbox:empty
+{
   display: none;
 }
 
-.switch-label {
-  display: block; overflow: hidden; cursor: pointer;
-  border: 0px solid #999999; border-radius: 0px;
-}
-
-.switch-inner {
-  display: block;
-  width: 200%;
-  margin-left: -100%;
-  @include transition(margin)
-}
-
-.switch-inner > span {
-  display: block;
-  float: left;
+.switch label.switch-label
+{
+  overflow: hidden;
+  width: $switchWidth;
+  height: $switchHeight;
   position: relative;
-  width: 50%;
-  height: 30px;
-  padding: 0;
-  line-height: 30px;
-  font-size: $iota;
-  color: $white;
-  font-weight: $bold;
+  float: left;
+  height: $switchHeight;
+  margin: 0.2em 0;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
-.switch-inner .switch-active {
-  padding-left: 15px;
-  background-color: $grayLighter;
-  color: $white;
-}
-
-.switch-inner .switch-inactive {
-  padding-right: 15px;
-  background-color: $grayLighter;
-  color: $white;
-  text-align: right;
-}
-
-.switch-switch {
-  display: block;
-  width: 40px;
-  margin: 0px;
-  text-align: center;
-  border: 0px solid #999999;
-  border-radius: 0px;
+label.switch-label:before,
+label.switch-label:after,
+{
   position: absolute;
+  display: block;
   top: 0;
   bottom: 0;
-}
-.switch-active .switch-switch {
-  background: $tealLight;
   left: 0;
+  content: ' ';
+  width: $switchWidth;
+  background-color: $grayMedium;
+  @include transition($fastTransition, all, $timing);
 }
-.switch-inactive .switch-switch {
-  background: $grayLight;
+
+.switch label:after {
+  width: $handleWidth;
+  margin: $handleMargin;
+  background-color: #fff;
+}
+
+.switch .switch-inner {
+  position: absolute;
+  height: $switchHeight;
+  width: $switchWidth;
+}
+.switch-text {
+  @include transition($fastTransition, all, $timing);
+  font-size: $kappa;
+  color: $white;
+  font-weight: $semibold;
+  width: auto;
+  position: absolute;
+  top: $switchHeight * .5 - .25em;
+}
+.switch-active {
   right: 0;
+  .switch-checked & {
+    margin-right: $handleWidth + ($handleMargin * 4);
+  }
+  margin-right: $handleWidth + ($handleMargin * 4) + ($switchWidth + $handleWidth + $handleMargin) ;
+
+}
+.switch-inactive {
+  .switch-checked & {
+    margin-left: $switchWidth + $handleWidth;
+  }
+  margin-left: $handleWidth + (4 * $handleMargin);
 }
 
-.switch-active .switch-switch:before {
-  content: " ";
-  position: absolute;
-  top: 0;
-  left: 40px;
-  border-style: solid;
-  border-color: $tealLight transparent transparent $tealLight;
-  border-width: 15px 10px;
+.switch-checked label:before
+{
+  background-color: $tealLight;
 }
 
-.switch-inactive .switch-switch:before {
-  content: " ";
-  position: absolute;
-  top: 0;
-  right: 40px;
-  border-style: solid;
-  border-color: transparent $grayLight $grayLight transparent;
-  border-width: 15px 10px;
+.switch-checked label:after
+{
+  margin-left: $switchWidth - $handleWidth - $handleMargin;
 }
-
-.switch-checkbox:checked + .switch-label .switch-inner {
-  margin-left: 0;
-}
-

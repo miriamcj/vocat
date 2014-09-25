@@ -11,7 +11,7 @@
 %proto-input {
 //  @include box-sizing(content-box);
   @include font-body;
-  color: $grayDark;
+  color: $grayDark !important;
   font-size: $iota;
   height: 2.6em;
   padding: 0px 0px 0px 1em;
@@ -61,6 +61,7 @@ fieldset {
   input[type=text], textarea {
     @extend %proto-input;
     @extend %input-full-width;
+
   }
   textarea {
   height: 6em;

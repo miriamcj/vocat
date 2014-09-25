@@ -21,8 +21,25 @@ define [
       'click [data-behavior="matrix-slider-right"]':  'slider:right'
     }
 
-    onShow: () ->
+    parentOnShow: () ->
       @updateSliderControls()
+      @recalculateMatrix()
+
+      @listenTo(@,'recalculate', () ->
+        @recalculateMatrix()
+      )
+
+      $(window).resize () ->
+        console.log 'test test'
+        if @resizeTo
+          clearTimeout(@resizeTo)
+          @resizeTo = setTimeout(() ->
+            $(@).trigger('resize_end')
+          )
+
+      $(window).bind('resize_end', () =>
+        @recalculateMatrix()
+      )
 
     onSliderLeft: () ->
       @slide('backward')
@@ -151,7 +168,6 @@ define [
       left < 0
 
     updateSliderControls: () ->
-      console.log 'test a'
       if @canSlideBackwardFrom()
         @ui.sliderLeft.show()
       else
@@ -165,20 +181,6 @@ define [
     positionSliderLeft: () ->
       w = @$el.find('[data-vertical-headers]').outerWidth()
       @ui.sliderLeft.css('left', w)
-
-#    targetFor: (direction) ->
-#      target = @currentLeft()
-#      if direction == 'forward'
-#        if @canSlideForwardFrom()
-#          target = @currentLeft() - @columnWidths()[0]
-#      else
-#        if @canSlideBackwardFrom()
-#          target = @currentLeft() + @columnWidths()[0]
-#      if target < @hiddenWidth() * -1 then target = @hiddenWidth() * -1
-#      target = Math.ceil(target)
-#      if target > 0 then target = 0
-#
-#      target
 
     targetForPosition: (position) ->
       columnWidth = @columnWidths()[0]

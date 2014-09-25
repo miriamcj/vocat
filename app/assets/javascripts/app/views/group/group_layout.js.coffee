@@ -89,10 +89,7 @@ define (require) ->
       @globalFlash.show(Vocat.globalFlashView)
 
     onShow: () ->
-      @recalculateMatrix()
-      @listenTo(@,'recalculate', () ->
-        @recalculateMatrix()
-      )
+      @parentOnShow()
 
     initialize: (options) ->
       @collections = options.collections

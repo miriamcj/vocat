@@ -27,5 +27,3 @@ define (require) ->
     onRemoveChild: () ->
       @vent.trigger('recalculate')
 
-    onRender: () ->
-      console.log 'rendering groups'

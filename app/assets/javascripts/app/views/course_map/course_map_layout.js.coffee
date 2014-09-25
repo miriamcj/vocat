@@ -50,7 +50,7 @@ define (require) ->
         @bindUIElements()
 
       onShow: () ->
-        @recalculateMatrix()
+        @parentOnShow()
 
       initialize: (options) ->
         @collections = options.collections

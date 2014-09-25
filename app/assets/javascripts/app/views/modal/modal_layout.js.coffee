@@ -86,7 +86,7 @@ define [
       backdrop = $('[data-behavior=modal-backdrop]')
       if backdrop.length == 0
         backdrop = $('<div class="modal-backdrop" data-behavior="modal-backdrop">').css({
-          height: $(document).height()
+          height: $(window).height()
         }).appendTo($('body')).hide()
         $(window).bind('resize', _.bind(@resizeBackdrop, @))
       backdrop

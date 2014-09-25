@@ -53,7 +53,6 @@ $columnWidth: ($container / $columns) - 12;
 
   }
   .matrix-wrapper--projects {
-    position: relative;
   }
   .matrix-cells-wrapper {
   }
@@ -117,11 +116,12 @@ $columnWidth: ($container / $columns) - 12;
       text-transform: none;
       font-weight: $regular;
       letter-spacing: 0;
-
     }
   }
+
   th.matrix--fullbleed {
     .matrix--padded {
+      z-index: 2;
       padding: 20px;
     }
     padding: 0 0 30px 0;
@@ -136,6 +136,7 @@ $columnWidth: ($container / $columns) - 12;
     padding: 10px 20px;
     background: $grayLight;
     color: $white;
+    font-weight: $semibold;
     font-size: .5em; // 12px
     @include font-body;
     text-transform: uppercase;

@@ -27,6 +27,7 @@ define (require) ->
         @vent.triggerMethod('dirty')
       Vocat.vent.trigger('modal:open', new ShortTextInputView({model: @model, vent: @vent, onSave: onSave, property: 'name', inputLabel: 'What would you like to call this group?'}))
 
+
     onConfirmDestroy: () ->
       @model.destroy({
         success: () =>
@@ -38,6 +39,7 @@ define (require) ->
       })
 
     onClickDestroy: () ->
+      console.log 'heard it'
       Vocat.vent.trigger('modal:open', new ModalConfirmView({
         model: @model,
         vent: @,

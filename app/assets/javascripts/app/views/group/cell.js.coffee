@@ -6,30 +6,55 @@ define ['marionette', 'hbs!templates/group/cell'], (Marionette, template) ->
 
     tagName: 'td'
 
+    ui: {
+      checkbox: 'input'
+      switch: '.switch'
+    }
+
     triggers: {
-      'click input': 'click:input'
+      'click @ui.checkbox': {
+        event: 'click:input'
+        preventDefault: false
+      }
     }
 
     onClickInput: () ->
       @vent.triggerMethod('dirty')
-
       if @isEnrolled() == true
-        @model.set('creator_ids', _.without(@model.get('creator_ids'), @creator.id))
+        ids = _.clone(@model.get('creator_ids'))
+        ids = _.without(ids, @creator.id)
+        @model.set('creator_ids', ids)
       else
-        @model.get('creator_ids').push(@creator.id)
-      @render()
+        ids =  _.clone(@model.get('creator_ids'))
+        ids.push(@creator.id)
+        @model.set('creator_ids', ids)
+      @updateUiState()
 
     serializeData: () ->
       {
         enrolled: @isEnrolled()
         cid: @cid
+        creatorId: @creator.id
       }
 
     isEnrolled: () ->
-      _.indexOf(@model.get('creator_ids'), @creator.id) > -1
+      res = _.indexOf(@model.get('creator_ids'), @creator.id) > -1
+      res
 
     initialize: (options) ->
       @creator = options.creator
       @vent = options.vent
 
-      @listenTo(@model,'change:creator_ids', @render)
+    onShow: () ->
+      @listenTo(@model,'change:creator_ids', () =>
+        @updateUiState()
+      )
+
+    updateUiState: () ->
+      res = @isEnrolled()
+      if @isEnrolled()
+        @ui.switch.addClass('switch-checked')
+        @ui.checkbox.attr('checked', true)
+      else
+        @ui.switch.removeClass('switch-checked')
+        @ui.checkbox.attr('checked', false)
