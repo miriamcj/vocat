@@ -86,7 +86,7 @@ define [
       @actor().find('table:first-child').outerWidth(tw)
       @actor().outerWidth(tw)
       @$el.find('[data-match-height-target]').outerHeight(@$el.find('[data-match-height-source]').outerHeight())
-      @memoizeHashCount
+      w
 
     widthCheckCells: _.memoize () ->
       @actor().find('tr:first-child th, tr:first-child td')
