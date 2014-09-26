@@ -5,10 +5,13 @@ define [
   class AbstractMatrix extends Marionette.LayoutView
 
     idealWidth: 230
-    minWidth: 120
+    minWidth: 200
     maxWidth: 300
     memoizeHashCount: 0
     position: 0
+    locks: {
+      forward: false
+    }
 
     ui: {
       sliderContainer: '[data-behavior="matrix-slider"]'
@@ -25,12 +28,11 @@ define [
       @updateSliderControls()
       @recalculateMatrix()
 
-      @listenTo(@,'recalculate', () ->
+      @listenTo(@,'recalculate', _.debounce(() =>
         @recalculateMatrix()
-      )
+      ), 500, true)
 
       $(window).resize () ->
-        console.log 'test test'
         if @resizeTo
           clearTimeout(@resizeTo)
           @resizeTo = setTimeout(() ->
@@ -90,10 +92,7 @@ define [
       @actor().find('tr:first-child th, tr:first-child td')
     , () -> @memoizeHash()
 
-    # This is where most of the magic happens. We resize columns to best fit into the available space, while
-    # making sure we show some of the next column for the handle.
-    columnWidths: _.memoize () ->
-
+    minimumViableColumnWidth: _.memoize () ->
       columns = @columnCount()
       @setColWidths(@minWidth, @minWidth * columns)
       cellWidths = []
@@ -107,27 +106,35 @@ define [
         min = widestCell
       else
         min = @minWidth
-      max = @maxWidth
+      min
+    , () -> @memoizeHash()
 
-      @setColWidths(min, min * columns) if min > @minWidth
+    idealColumnWidth: _.memoize () ->
+      if Math.floor(@visibleWidth()/@minimumViableColumnWidth()) > Math.floor(@visibleWidth()/@maxWidth)
+        ideal = @minimumViableColumnWidth()
+      else
+        ideal = @maxWidth
+        while Math.floor(@visibleWidth()/@minimumViableColumnWidth()) < Math.floor(@visibleWidth()/@maxWidth)
+          ideal  = ideal - 1
+    , () -> @memoizeHash()
+
+    visibleColumns: _.memoize (columnCount) ->
+      Math.floor(@visibleWidth() / @idealColumnWidth())
+    , () -> @memoizeHash()
+
+    visibleWidth: _.memoize () ->
+      @stageWidth() - @handleWidth()
+    , () -> @memoizeHash()
+
+    # This is where most of the magic happens. We resize columns to best fit into the available space, while
+    # making sure we show some of the next column for the handle.
+    columnWidths: _.memoize () ->
+      if @minimumViableColumnWidth() > @minWidth
+        @setColWidths(@minimumViableColumnWidth(), @minimumViableColumnWidth() * @visibleColumns())
 
       if @stageWidth() > 0
-
-        availableWidth = @stageWidth() - @handleWidth()
-
-        # Math to determine ideal column width
-        if Math.floor(availableWidth/min) > Math.floor(availableWidth/max)
-          max = min
-        else
-          while Math.floor(availableWidth/min) < Math.floor(availableWidth/max)
-            max = max - 1
-
-        columns = Math.floor(availableWidth/max)
-        columnWidth = availableWidth / columns
-
-        # Where we actually set the width
+        columnWidth = @visibleWidth() / @visibleColumns()
         @setColWidths(columnWidth, columnWidth * @columnCount())
-
         widths = _.range(@columnCount())
         _.each widths, (value, i) ->
           widths[i] = columnWidth
@@ -159,6 +166,10 @@ define [
       Math.floor(@actorWidth() - @stageWidth())
     , () -> @memoizeHash()
 
+    maxAttainablePosition: _.memoize () ->
+      @columnCount() - @visibleColumns()
+    , () -> @memoizeHash()
+
     canSlideForwardFrom: (left = null) ->
       if left == null then left = @currentLeft()
       left > @hiddenWidth() * -1
@@ -172,7 +183,7 @@ define [
         @ui.sliderLeft.show()
       else
         @ui.sliderLeft.hide()
-      if @canSlideForwardFrom()
+      if @canSlideForwardFrom() && @locks.forward == false
         @ui.sliderRight.show()
       else
         @ui.sliderRight.hide()
@@ -193,12 +204,34 @@ define [
     animate: (target, duration = 250) ->
       @actor().animate({left: target}, duration).promise().done(() => @updateSliderControls())
 
+    checkAndAdjustPosition: (position) ->
+      if position > @maxAttainablePosition()
+        position = @maxAttainablePosition()
+      if position < 0
+        position = 0
+      position
+
     adjustToCurrentPosition: () ->
       @animate(@targetForPosition(@position), 0)
 
+    slideTo: (position) ->
+      position = @checkAndAdjustPosition(position)
+      @position = position
+      @animate(@targetForPosition(@position), () =>
+        @locks.forward = false
+        @updateSliderControls()
+      )
+
+    slideToEnd: () ->
+      @locks.forward = true
+      @memoizeHashCount++
+      @slideTo(@columnCount() - 1)
+      @updateSliderControls()
+
     slide: (direction) ->
+      position = @checkAndAdjustPosition(@position)
       if direction == 'forward' && @canSlideForwardFrom()
-        @position = @position + 1
+        position = position + 1
       if direction == 'backward' && @canSlideBackwardFrom()
-        @position = @position - 1
-      @animate(@targetForPosition(@position))
+        position = position - 1
+      @slideTo(position)

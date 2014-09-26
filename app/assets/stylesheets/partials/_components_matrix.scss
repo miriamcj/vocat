@@ -63,6 +63,7 @@ $columnWidth: ($container / $columns) - 12;
   border: none;
   background: $black;
   width: 60px;
+  outline: 0;
   @include respond($vostok) {
     width: 20px;
   }

@@ -47,6 +47,11 @@ input%proto-button {
   &:hover, &:focus {
     background-color: $primaryButtonHoverColor;
   }
+  #notifications & {
+    background: none;
+    color: $primaryButtonColor !important;
+    border: 1px solid $primaryButtonColor;
+  }
 }
 
 %secondary-button {
@@ -55,6 +60,11 @@ input%proto-button {
   border: 0;
   &:hover, &:focus {
     background-color: $secondaryButtonHoverColor;
+  }
+  #notifications & {
+    background: none;
+    color: $red !important;
+    border: 1px solid $red;
   }
 }
 

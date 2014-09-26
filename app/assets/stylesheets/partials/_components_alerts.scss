@@ -18,3 +18,31 @@ $spacingUnit: $mediumUnitPadding * .75;
     }
   }
 }
+
+#notifications {
+  z-index: 200;
+  padding: 0 1.5em;
+
+  position: relative;
+  top: $headerHeight;
+//  margin-bottom: -$headerHeight;
+  background: $grayDarker;
+  opacity: 1;
+  @include transition(all .25s $timing);
+  #global-flash {
+    max-width: $containerWidth;
+    margin: 0 auto;
+  }
+  #global-notify {
+    max-width: $containerWidth;
+    margin: 0 auto;
+  }
+  .alert {
+    background: none;
+    text-transform: none;
+    color: $white;
+    margin-bottom: 0;
+    padding: $spacingUnit 0;
+    font-weight: $semibold;
+  }
+}

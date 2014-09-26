@@ -4,7 +4,6 @@ define ['backbone', 'models/group'], (Backbone, GroupModel) ->
     model: GroupModel
     activeModel: null
 
-
     initialize: (models, options) ->
       @options = options
       @courseId = options.courseId
@@ -31,6 +30,9 @@ define ['backbone', 'models/group'], (Backbone, GroupModel) ->
       url = "/api/v1/courses/#{@courseId}"
       response = Backbone.sync('update', @, url: url, contentType: 'application/json', data: JSON.stringify(data))
       response.done( (models) =>
+        @.trigger('sync')
+        @each (model) ->
+          model.trigger('sync')
       )
 
     getActive: () ->

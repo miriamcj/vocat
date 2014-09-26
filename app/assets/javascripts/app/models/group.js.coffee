@@ -17,3 +17,15 @@ define ['backbone'], (Backbone) ->
       else
         out = false
       out
+
+    takeSnapshot: () ->
+      @_snapshotAttributes = _.clone @attributes
+
+    revert: () ->
+      @set(@_snapshotAttributes, {}) if @_snapshotAttributes
+
+    initialize: () ->
+      @takeSnapshot()
+      @.on('sync', () =>
+        @takeSnapshot()
+      )

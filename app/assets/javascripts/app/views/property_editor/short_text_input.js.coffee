@@ -17,7 +17,11 @@ define (require) ->
 
     triggers: {
       'click [data-behavior="model-save"]': 'click:model:save'
+      'click [data-behavior="cancel"]': 'click:model:cancel'
     }
+
+    onClickModelCancel: () ->
+      Vocat.vent.trigger('modal:close')
 
     onClickModelSave: () ->
       @save()
@@ -44,6 +48,7 @@ define (require) ->
       {
         value: @model.get(@property)
         label: Marionette.getOption(@, "inputLabel")
+        saveLabel: Marionette.getOption(@, "saveLabel")
       }
 
     onRender: () ->

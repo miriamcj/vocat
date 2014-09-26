@@ -154,7 +154,7 @@ footer {
 .page-header--drawer {
   //  position: relative;
   //  z-index: 500;
-  background: $grayDark;
+  background: $grayDarker;
   z-index: 300;
   position: absolute;
   bottom: 0px;
@@ -168,47 +168,9 @@ footer {
   .drawer--contents {
     @include clearfix;
     margin: $headerUnitPadding auto;
-    @extend %wide-one-whole;
-//    padding-left: $headerUnitWidth + $headerUnitPadding * 2;
+    position: relative;
+    max-width: $containerWidth;
     text-transform: uppercase;
-//    ul {
-//      border-right: 1px solid $grayMedium;
-//      padding: 0 $headerUnitPadding + $iconSizeSmall + 5px 0 0;
-//      display: inline-block;
-//      position: relative;
-//      @extend %unstyled-list;
-//      margin: 0;
-//      li {
-//        margin-bottom: $listSpace;
-//        > a {
-//          position: relative;
-//        }
-//        > a:after {
-//          position: absolute;
-//          @include svg(arrow-right-white);
-//          content: "";
-//          width: $iconSizeSmall;
-//          height: $iconSizeSmall;
-//          top: 5px;
-//          right: (-1 * $iconSizeSmall) - 5px;
-//        }
-//        > a:only-child:after {
-//          background-image: none;
-//        }
-//        ul {
-//          border: none;
-//          width: 400px;
-//          display: inline-block;
-//          position: absolute;
-//          top: 0;
-//          right: -400 - $headerUnitPadding;
-//        }
-//      }
-//      li:last-child {
-//        margin-bottom: 0;
-//      }
-//    }
-
   }
 }
 

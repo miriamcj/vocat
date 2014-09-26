@@ -50,6 +50,14 @@
 .secondary-button {
   @extend %secondary-button;
 }
+
+.primary-button + .secondary-button,
+.primary-button + .primary-button,
+.secondary-button + .secondary-button,
+.secondary-button + .primary-button {
+  margin-left: 1em;
+}
+
 .small-button{
   padding: .25em;
 }

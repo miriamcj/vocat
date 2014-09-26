@@ -6,7 +6,7 @@ define (require) ->
   GlossaryToggleView = require('views/layout/glossary_toggle')
   ModalLayoutView = require('views/modal/modal_layout')
   ModalConfirmView = require('views/modal/modal_confirm')
-  FlashMessagesView = require('views/flash/flash_messages')
+  GlobalFlashMessagesView = require('views/flash/global_flash_messages')
   FlashMessagesCollection = require('collections/flash_message_collection')
 
   window.Vocat = Vocat = new Backbone.Marionette.Application()
@@ -62,6 +62,7 @@ define (require) ->
     main : '#region-main',
     modal : '[data-region="modal"]'
     globalFlash : '#global-flash'
+    globalNotify : '#global-notify'
   }
 
   r = Vocat.getRegion('modal')
@@ -158,8 +159,12 @@ define (require) ->
         data = JSON.parse(text)
         if data['globalFlash']? then flashMessages.reset(data['globalFlash'])
 
-    Vocat.globalFlashView = new FlashMessagesView({vent: Vocat.vent, collection: flashMessages})
+    Vocat.globalFlashView = new GlobalFlashMessagesView({vent: Vocat.vent, collection: flashMessages})
     if $(Vocat.globalFlash.el).length > 0 then Vocat.globalFlash.show(Vocat.globalFlashView)
+
+    # Used to test flash messages.
+    #Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '5000',  msg: 'This is a test global error message.'})
+
 
   )
 

@@ -7,17 +7,15 @@ define (require) ->
   GroupsView = require('views/group/groups')
   ModalConfirmView = require('views/modal/modal_confirm')
   GroupMatrixView = require('views/group/matrix')
+  SaveNotifyView = require('views/group/save_notify')
 
   class GroupLayout extends AbstractMatrix
-
-    isDirty: false
 
     template: template
 
     children: {}
 
     regions: {
-      globalFlash: '[data-region="flash"]'
       creators: '[data-region="creators"]'
       groups: '[data-region="groups"]'
       matrix: '[data-region="matrix"]'
@@ -31,7 +29,6 @@ define (require) ->
       'click [data-trigger="assign"]':   'click:group:assign'
       'click [data-behavior="matrix-slider-left"]':   'slider:left'
       'click [data-behavior="matrix-slider-right"]':  'slider:right'
-      'click [data-trigger="save"]': 'click:groups:save'
     }
 
     ui: {
@@ -42,15 +39,10 @@ define (require) ->
       sliderRight: '[data-behavior="matrix-slider-right"]'
     }
 
-    onClickGroupsSave: () ->
-      @collections.group.save()
-      @ui.dirtyMessage.slideUp()
-      @isDirty = false
-
     onDirty: () ->
-      if @isDirty == false
-        @ui.dirtyMessage.slideDown()
-      @isDirty = true
+      unless Vocat.globalNotify.hasOwnProperty('currentView')
+        Vocat.globalNotify.show(new SaveNotifyView({collection: @collections.group}))
+
 
     onClickGroupAssign: () ->
       Vocat.vent.trigger('modal:open', new ModalConfirmView({
@@ -82,14 +74,19 @@ define (require) ->
       model.save()
       @collections.group.add(model)
 
+
     onRender: () ->
       @creators.show(@children.creators)
       @groups.show(@children.groups)
       @matrix.show(@children.matrix)
-      @globalFlash.show(Vocat.globalFlashView)
 
     onShow: () ->
       @parentOnShow()
+      @listenTo(@collections.group, 'add', (model) =>
+        index = @collections.group.indexOf(model)
+        @slideToEnd()
+      )
+
 
     initialize: (options) ->
       @collections = options.collections
