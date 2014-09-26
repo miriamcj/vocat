@@ -2,6 +2,15 @@
 @import "mixins";
 @import "patterns";
 
+.modal-backdrop {
+  background: $grayDarkest;
+  opacity: .8;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 500;
+}
+
 .modal {
   position: relative;
   background: $grayDark;

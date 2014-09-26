@@ -39,12 +39,12 @@ define (require) ->
       })
 
     onClickDestroy: () ->
-      console.log 'heard it'
       Vocat.vent.trigger('modal:open', new ModalConfirmView({
         model: @model,
         vent: @,
         descriptionLabel: 'Deleting this group will also delete any submissions and evaluations owned by this group. Are you sure you want to do this?',
         confirmEvent: 'confirm:destroy',
+        confirmLabel: "Yes, delete #{@model.get('name') || 'this group'}",
         dismissEvent: 'dismiss:destroy'
       }))
 

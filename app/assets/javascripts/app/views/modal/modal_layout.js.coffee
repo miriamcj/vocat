@@ -80,6 +80,7 @@ define [
     resizeBackdrop: () ->
       @ensureBackdrop().css({
         height: $(document).height()
+        width: $(document).width()
       })
 
     ensureBackdrop: () ->
