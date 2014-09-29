@@ -18,7 +18,7 @@
           </div>
           <div class="input-group--third">
             <%= label_tag :department, 'Department', {:class => 'text-label'} %>
-            <%= f.select(:department, options_for_select(Course.distinct_departments, params[:department]), {:include_blank => true}, {'data-behavior' => 'chosen'}) %>
+            <%= f.select(:department, options_for_select(Course.distinct_departments, @course_request.department), {:include_blank => true}, {'data-behavior' => 'chosen'}) %>
           </div>
           <div class="input-group--third">
             <%= label_tag :section, 'Section', {:class => 'text-label'} %>
@@ -28,7 +28,7 @@
         <div class="input-group">
           <div class="input-group--third">
             <%= label_tag :year, 'Year', {:class => 'text-label'} %>
-            <%= f.select(:year, options_for_select(Course.distinct_years, params[:year]), {:include_blank => true}, {'data-behavior' => 'chosen'}) %>
+            <%= f.select(:year, options_for_select(Course.distinct_years, @course_request.year), {:include_blank => true}, {'data-behavior' => 'chosen'}) %>
           </div>
           <div class="input-group--third">
             <%= label_tag :semester_id, 'Semester', {:class => 'text-label'} %>

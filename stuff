@@ -1,0 +1,25 @@
+Teacher 
+=======
+
+evaluator1@test.com
+testest123
+
+
+Admin
+=====
+
+lucas@castironcoding.com
+testtest123
+
+Request A Course Form:
+
+If you leave Year/Department blank, then the other will reset when the form halts you and reloads.
+
+Course Overview - Admin
+
+Deleting course throws NoMethodError in 
+	CoursesController#index
+	undefined method `org_root_path' for #<CoursesController:0x007fa7d3881468>
+Course will be deleted, though.
+
+'Edit Course Properties' - When you submit a change, it returns you to the course overview and sends the edited course to the bottom of the list.
