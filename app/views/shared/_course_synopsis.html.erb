@@ -9,24 +9,6 @@
 
   <figure class="summary-box">
     <div>
-      <b style="height: <%= course.average_evaluator_score() %>%"></b>
-      <span><%= course.average_evaluator_score().round %></span><small>%</small>
-    </div>
-    <figcaption>Average Instructor Score</figcaption>
-  </figure>
-
-  <% if course.settings['enable_peer_review'] %>
-    <figure class="summary-box">
-      <div>
-        <b style="height: <%= course.average_peer_score() %>%"></b>
-        <span><%= course.average_peer_score().round %></span><small>%</small>
-      </div>
-      <figcaption>Average Peer Score</figcaption>
-    </figure>
-  <% end %>
-
-  <figure class="summary-box">
-    <div>
       <span><%= course.discussion_post_count() %></span><small></small>
     </div>
     <figcaption>Comments</figcaption>
@@ -53,6 +35,25 @@
     </div>
     <figcaption>Submissions with Videos</figcaption>
   </figure>
+
+  <figure class="summary-box">
+    <div>
+      <b style="height: <%= course.average_evaluator_score() %>%"></b>
+      <span><%= course.average_evaluator_score().round %></span><small>%</small>
+    </div>
+    <figcaption>Average Instructor Score</figcaption>
+  </figure>
+
+  <% if course.settings['enable_peer_review'] %>
+    <figure class="summary-box">
+      <div>
+        <b style="height: <%= course.average_peer_score() %>%"></b>
+        <span><%= course.average_peer_score().round %></span><small>%</small>
+      </div>
+      <figcaption>Average Peer Score</figcaption>
+    </figure>
+  <% end %>
+
 
 
 </div>

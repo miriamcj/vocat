@@ -41,11 +41,22 @@ fieldset {
   padding: 0;
 }
 
+fieldset + fieldset {
+  margin-top: $verticalSpace;
+}
+
 .formgrid {
 
   label {
+    font-weight: $semibold;
     display: block;
     margin-bottom: $verticalSpaceTightest;
+  }
+  .label-tight {
+    margin-bottom: 0;
+  }
+  .label-inline {
+    font-weight: $regular;
   }
 
   small {

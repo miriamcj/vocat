@@ -1,0 +1,41 @@
+<ul class="frame-summary--score-list">
+  <% if submission.course_allows_self_evaluation? %>
+    <% if submission.user_evaluation_published?(current_user) %>
+      <li class="frame-summary--evaluated" style="padding-right: <%= 100 - submission.user_score_percentage(current_user).to_i %>%">
+        <h4 class="frame-summary--score--title">Self-Evaluation</h4>
+        <span class="frame-summary--score--value"><%= submission.user_score_percentage(current_user).to_i %><small>%</small></span>
+      </li>
+    <% else %>
+      <li class="frame-summary--unevaluated">
+        <h4 class="frame-summary--score--title">Self-Evaluation</h4>
+        <span class="frame-summary--score--value">&ndash;&ndash;&nbsp;&nbsp;</span>
+      </li>
+    <% end %>
+  <% end %>
+
+  <% if course.allows_self_evaluation? %>
+    <% if submission.peer_score_percentage %>
+      <li class="frame-summary--evaluated" style="padding-right: <%= 100 - submission.peer_score_percentage.to_i %>%">
+        <h4 class="frame-summary--score--title">Peer Evaluations</h4>
+        <span class="frame-summary--score--value"><%= submission.peer_score_percentage.to_i %><small>%</small></span>
+      </li>
+    <% else %>
+      <li class="frame-summary--unevaluated">
+        <h4 class="frame-summary--score--title">Peer Evaluations</h4>
+        <span class="frame-summary--score--value">&ndash;&ndash;&nbsp;&nbsp;</span>
+      </li>
+    <% end %>
+  <% end %>
+
+  <% if submission.instructor_score_percentage %>
+    <li class="frame-summary--evaluated" style="padding-right: <%= 100 - submission.instructor_score_percentage.to_i %>%">
+      <h4 class="frame-summary--score--title">Instructor Evaluations</h4>
+      <span class="frame-summary--score--value"><%= submission.instructor_score_percentage.to_i %><small>%</small></span>
+    </li>
+  <% else %>
+    <li class="frame-summary--unevaluated">
+      <h4 class="frame-summary--score--title">Instructor Evaluations</h4>
+      <span class="frame-summary--score--value">&ndash;&ndash;&nbsp;&nbsp;</span>
+    </li>
+  <% end %>
+</ul>

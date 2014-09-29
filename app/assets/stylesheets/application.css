@@ -26,6 +26,7 @@
  *= require partials/_components_evaluations
  *= require partials/_components_assets
  *= require partials/_components_modal
+ *= require partials/_components_figures
  *= require partials/_video_js
 
 */

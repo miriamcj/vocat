@@ -1,0 +1,20 @@
+<div class="page-section-header">
+  <h4>
+    <%= link_to course, course_user_evaluations_path(course)  %>
+  </h4>
+</div>
+<div class="page-section">
+  <%= render 'shared/course_synopsis', :course => course %>
+  <div class="column-half">
+    <h5 class="heading-tertiary">
+      <strong>Recently Updated Submissions</strong>
+    </h5>
+    <%= render 'shared/course_recent_submissions', :course => course %>
+  </div>
+  <div class="column-half">
+    <h5 class="heading-tertiary">
+      <strong>Course Projects</strong>
+    </h5>
+    <%= render 'shared/course_projects', :course => course %>
+  </div>
+</div>

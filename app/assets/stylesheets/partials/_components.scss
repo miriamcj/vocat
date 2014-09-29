@@ -68,7 +68,18 @@
   margin-bottom: $verticalSpace * 3;
 }
 
+.page-section-clear {
+  background: none;
+  padding: 0;
+}
+
 .page-section-full-bleed {
+  padding: 0;
+}
+
+.column-half {
+  @extend %wide-one-half;
+  margin: 0;
   padding: 0;
 }
 

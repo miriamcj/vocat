@@ -1,0 +1,47 @@
+@import "variables";
+@import "mixins";
+@import "patterns";
+
+figure.summary-box {
+  @extend %wide-one-eighth;
+  @extend %medium-one-fourth;
+  @extend %narrow-one-half;
+  position: relative;
+  padding: .5em;
+  color: $grayDark;
+  div {
+    padding-top: .5em;
+    margin-top: -.5em;
+    background: $white;
+    @include font-matrix;
+    text-align: center;
+    position: relative;
+    span {
+      position: relative;
+      top: 50%;
+      z-index: 10;
+      font-size: $alpha;
+    }
+    small {
+      z-index: 10;
+      position: relative;
+      top: -.12em;
+      font-size: $beta;
+    }
+    b {
+      z-index: 5;
+      display: block;
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      background-color: $white;
+    }
+  }
+  figcaption {
+    font-size: $iota;
+    width: 100%;
+    color: $grayDark;
+    text-align: center;
+    padding: .5em 1em 0em 1em;
+  }
+}

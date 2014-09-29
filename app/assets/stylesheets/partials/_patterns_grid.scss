@@ -74,6 +74,11 @@
   @include unit(2);
 }
 
+%wide-one-eighth {
+  @extend %unit;
+  @include unit(1.5);
+}
+
 %wide-one-twelfth {
   @extend %unit;
   @include unit(1);
@@ -249,6 +254,9 @@
   %narrow-one-half {
     @include unit(6);
   }
+
+
+
   // Hidden
   %narrow-gone {
     display: none;

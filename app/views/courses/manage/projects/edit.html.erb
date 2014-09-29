@@ -15,7 +15,7 @@
     indicate whether this is a group or individual project.
   </div>
 
-  <%= simple_form_for(@project, :url => course_manage_project_path(@course, @project)) do |f| %>
+  <%= simple_form_for(@project, :url => course_manage_project_path(@course, @project), :html => {:class => 'formgrid'}) do |f| %>
     <%= render 'form', :f => f %>
     <div class="formgrid whole">
       <%= f.button :submit, 'Update project', :class => 'primary-button' %>

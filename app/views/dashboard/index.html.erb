@@ -1,12 +1,12 @@
-<% content_for :content_header do %>
-  Dashboard
-<% end %>
+<% content_for :content do %>
 
-<% content_for :content_frames do %>
+  <div class="page-section-header">
+    <h4><strong>
+      Greetings, <%= current_user.first_name %>
+    </strong></h4>
+  </div>
 
-  <div class="evaluation-detail-frame">
-    <%= render 'layouts/messages' %>
-
+  <div class="page-section page-section-clear">
     <% if current_user.role == 'assistant' %>
       <%= render 'dashboard/messages/_assistant_message' %>
     <% elsif current_user.role == 'evaluator' %>
@@ -17,16 +17,15 @@
   </div>
 
   <% current_user.courses.each do |course| %>
-  <% role = course.role(current_user) %>
 
-  <div class="evaluation-detail-frame">
+    <% role = course.role(current_user) %>
     <% if role == :assistant %>
-      <%= render 'assistant_course', :course => course %>
+      <%= render 'dashboard/shared/assistant_course', :course => course %>
     <% elsif role == :evaluator %>
-      <%= render 'evaluator_course', :course => course %>
+      <%= render 'dashboard/shared/evaluator_course', :course => course %>
     <% elsif role == :creator %>
-      <%= render 'creator_course', :course => course, :hide_header => false %>
+      <%= render 'dashboard/shared/creator_course', :course => course, :hide_header => false %>
     <% end %>
-  </div>
+
   <% end %>
 <% end %>

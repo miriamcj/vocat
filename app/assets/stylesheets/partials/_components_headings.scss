@@ -49,6 +49,7 @@
 }
 
 .heading-tertiary {
+  @extend %spacedHeading;
   @extend %condensedHeading;
 }
 
