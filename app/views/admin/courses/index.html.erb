@@ -1,11 +1,23 @@
 <%= render :partial => 'heading' %>
 
+<<<<<<< HEAD
 <% content_for :content do %>
 <div class="page-section-header">
   <h2>Filter Courses</h2>
 </div>
 <div class="page-section">
   <form class="formgrid">
+=======
+<% content_for :content_intro do %>
+
+  <% if @course_request_count > 0 %>
+    <div class="alert alert-notice"><aside class="alert--label"></aside>
+      <p>There are <%= @course_request_count %> pending course requests. <%= link_to 'Click here to review pending requests.', admin_course_requests_path %></p>
+    </div>
+  <% end %>
+
+  <form>
+>>>>>>> development
     <fieldset>
       <div class="formgrid third">
         <%= label_tag :department, 'Department', {:class => 'text-label'} %>
@@ -66,6 +78,7 @@
           </div>
         </td>
       </tr>
+<<<<<<< HEAD
     <% end %>
     </tbody>
   </table>
@@ -74,8 +87,27 @@
   </nav>
 </div>
 
+=======
+      </thead>
+      <tbody>
+      <% @courses.each do |course| %>
+        <tr>
+          <th><%= link_to "#{course.department}#{course.number}", course_user_evaluations_path(course) %></th>
+          <td><%= course.name %></td>
+          <td><%= course.evaluators.pluck(:last_name).join(', ') %></td>
+          <td><%= course.section %></td>
+          <td><%= "#{course.semester} #{course.year}" %></td>
+          <td><%= render 'nav', :course => course %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <nav class="pagination-nav">
+      <%= paginate @courses %>
+    </nav>
+  </div>
+>>>>>>> development
 <% end %>
-
 
 
 

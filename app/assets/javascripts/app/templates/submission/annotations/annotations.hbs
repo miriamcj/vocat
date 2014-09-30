@@ -1,19 +1,19 @@
-<div class="page-section-header">
-  <div class="heading-page-section">
-    <h2>Annotations</h2>
-    <a href="#" data-behavior="enable-edit" class="header-link header-link-inline">(Edit)</a>
-    <a href="#" style="display: none;" data-behavior="disable-edit" class="header-link header-link-inline">(Stop Editing)</a>
-  </div>
-  <div class="page-content--heading-buttons">
+<div class="header-wrapper">
+  <div class="buttons">
       <ul class="bubble" style="position: relative">
         <li data-behavior="annotation-count">
           {{count}} Annotations
         </li>
       </ul>
   </div>
+  <div class="header">
+    <h2>Annotations</h2>
+    <a href="#" data-behavior="enable-edit" class="header-link header-link-inline">(Edit)</a>
+    <a href="#" style="display: none;" data-behavior="disable-edit" class="header-link header-link-inline">(Stop Editing)</a>
+  </div>
 </div>
-<div class="page-section page-section-full-bleed" data-behavior="scroll-parent" class="annotations--content">
- <ul data-behavior="annotations-container" class="annotations--list">
+<div class="body body-full-bleed" data-behavior="scroll-parent" class="annotations--content">
+  <ul data-behavior="annotations-container" class="annotations--list">
   </ul>
   <span data-behavior="anchor" class="annotation--scroll-anchor"></span>
 </div>

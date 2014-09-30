@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140909180756) do
+ActiveRecord::Schema.define(version: 20140917192811) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,21 @@ ActiveRecord::Schema.define(version: 20140909180756) do
     t.string   "processor_class"
     t.string   "processed_thumb_key"
     t.hstore   "processing_data"
+  end
+
+  create_table "course_requests", force: true do |t|
+    t.string   "name"
+    t.string   "department"
+    t.string   "section"
+    t.string   "number"
+    t.integer  "year"
+    t.integer  "semester_id"
+    t.integer  "evaluator_id"
+    t.string   "state"
+    t.integer  "admin_id"
+    t.integer  "course_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "courses", force: true do |t|

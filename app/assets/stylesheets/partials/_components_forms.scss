@@ -16,7 +16,7 @@
   height: 2.6em;
   padding: 0px 0px 0px 1em;
   outline: none;
-  border: 1px solid $grayMedium;
+  border: 1px solid $grayMedium !important;
 }
 
 %input-full-width {
@@ -104,6 +104,11 @@ fieldset + fieldset {
     @extend %form-unit;
   }
 
+  &.submit-row {
+    margin-top: $verticalSpaceTightest * 2;
+    padding-bottom: 0;
+  }
+
 }
 
 
@@ -156,6 +161,8 @@ $spacingUnit: $mediumUnitPadding * .75;
       font-size: $theta;
     }
     input {
+      // Hack that needs to be fixed.
+      border-bottom: 2px solid $grayMedium !important;
       height: 2.7em;
     }
   }

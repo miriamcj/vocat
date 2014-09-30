@@ -31,9 +31,6 @@ class Courses::Manage::ProjectsController < ApplicationController
 
   # POST courses/:course_id/manage/projects
   def create
-    myvar = @project
-    a = 'bramb'
-
     @project = @course.projects.build(project_params)
     if @project.save
       flash[:notice] = 'Project was successfully created.'
@@ -48,7 +45,7 @@ class Courses::Manage::ProjectsController < ApplicationController
     if @project.update_attributes(project_params(@project.type.underscore))
       flash[:notice] = 'Project was successfully updated.'
     end
-    respond_with @project, location: course_manage_project_path(@course, @project)
+    respond_with @project, location: edit_course_manage_project_path(@course, @project)
   end
 
   # DELETE courses/:course_id/manage/projects/1/

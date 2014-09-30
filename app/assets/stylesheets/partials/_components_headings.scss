@@ -2,37 +2,6 @@
 @import "mixins";
 @import "patterns";
 
-// Page content header
-// --------------------------
-.page-content--heading {
-  @include clearfix;
-  margin-bottom: $unitPadding;
-}
-
-.page-content--heading-buttons, .page-section--heading-buttons {
-  display: inline-block;
-  float: right;
-}
-
-
-%condensedHeading {
-  @include font-head;
-  font-weight: $regular;
-  letter-spacing: 0;
-}
-
-%capsHeading {
-  text-transform: uppercase;
-}
-
-%spacedHeading {
-  margin-bottom: $narrowUnitPadding;
-}
-
-%extraSpacedHeading {
-  margin-bottom: $headerUnitPadding;
-}
-
 
 // Headers
 .heading-primary {
@@ -52,19 +21,4 @@
   @extend %spacedHeading;
   @extend %condensedHeading;
 }
-
-.page-section-header {
-  h1, h2, h3, h4, h5, h6 {
-    margin-right: .25em;
-    display: inline-block;
-    font-weight: $book;
-    font-size: $epsilon;
-    color: $grayDark;
-    letter-spacing: 0;
-    @extend %condensedHeading;
-    @extend %capsHeading;
-    @extend %extraSpacedHeading;
-  }
-}
-
 

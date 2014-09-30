@@ -2,17 +2,21 @@
 @import "mixins";
 @import "patterns";
 
+
 figure.summary-box {
   @extend %wide-one-eighth;
   @extend %medium-one-fourth;
   @extend %narrow-one-half;
   position: relative;
   padding: .5em;
-  color: $grayDark;
+  color: $white;
+  &:first-child {
+    padding-left: 0;
+  }
   div {
     padding-top: .5em;
     margin-top: -.5em;
-    background: $white;
+    background: $grayMediumLighter;
     @include font-matrix;
     text-align: center;
     position: relative;
@@ -34,7 +38,7 @@ figure.summary-box {
       width: 100%;
       position: absolute;
       bottom: 0;
-      background-color: $white;
+      background-color: $grayMedium;
     }
   }
   figcaption {

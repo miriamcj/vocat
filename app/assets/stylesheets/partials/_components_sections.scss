@@ -1,0 +1,126 @@
+@import "variables";
+@import "mixins";
+@import "patterns";
+
+$sectionSpacingUnit: 2em;
+
+%section-spacing {
+  margin-top: $sectionSpacingUnit;
+}
+
+.page-section-spacing-top {
+  @extend %section-spacing;
+}
+
+.page-section-wrapper {
+  position: relative;
+  height: auto;
+  @include clearfix(hard);
+  margin-bottom: $sectionSpacingUnit;
+}
+
+.page-section {
+  @include clearfix(hard);
+  .header-wrapper {
+    position: relative;
+  }
+  .header {
+    .header-link {
+      margin-bottom: 0;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      @extend %proto-section-header;
+      margin: 0;
+      margin-top: .6em;
+      padding: 0;
+      line-height: .8em;
+    }
+    width: 60%;
+    display: inline-block;
+  }
+  .buttons {
+    text-align: right;
+    width: 40%;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+  .body {
+    margin-top: $sectionSpacingUnit * .5;
+    @include clearfix;
+    background: $grayLightest;
+    padding: $sectionSpacingUnit * .5;
+  }
+  .body-full-bleed {
+    padding: 0;
+  }
+}
+
+.page-section-clear {
+  .body {
+    background: none;
+    padding: 0;
+  }
+}
+
+.page-section-half {
+  @extend %wide-one-half;
+  height: 100%;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.page-section-half + .page-section-half {
+  margin-top: 0;
+  padding-left: 2vw;
+  @include respond($ontario) {
+    margin-top: $sectionSpacingUnit;
+  }
+  background: none;
+}
+
+
+.page-section + .page-section{
+  @extend %section-spacing;
+}
+
+
+// Page Section Container
+//// --------------------------
+//.page-section-header {
+//  position: relative;
+//  margin-bottom: $verticalSpaceTight;
+//  h1, h2, h3, h4, h5, h6 {
+//}
+//
+//.page-section-50-50 {
+//  @include clearfix(hard);
+//  .page-section-wrapper {
+//    width: 48.625%;
+//    float: left;
+//    height: 100%;
+//  }
+//  .page-section-wrapper + .page-section-wrapper {
+//    margin-left: 2.75%;
+//  }
+//}
+//
+//.page-section {
+//  @include clearfix;
+//  background: $grayLightest;
+//  padding: $contentUnitPadding;
+//  margin-bottom: $verticalSpace * 3;
+//}
+//
+//.page-section-clear {
+//  background: none;
+//  padding: 0;
+//}
+//
+//.page-section-full-bleed {
+//  padding: 0;
+//}
+//
+//
+

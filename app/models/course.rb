@@ -34,7 +34,7 @@ class Course < ActiveRecord::Base
     c = c.where({section: params[:section]}) unless params[:section].blank?
     c = c.joins(:semester).where(:semesters => {id: params[:semester]}) unless params[:semester].blank?
     c = c.joins(:evaluators).where(:users => {id: params[:evaluator]}) unless params[:evaluator].blank?
-    c
+    c.sorted
   end
 
   def self.distinct_departments

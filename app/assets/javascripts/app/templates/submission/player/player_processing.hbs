@@ -1,12 +1,14 @@
-<div class="page-section-header">
-  <h2 class="heading-page-section">Video</h2>
-  <div class="page-content--heading-buttons">
-      {{#if abilities.can_attach}}
+<div class="header-wrapper">
+  <div class="buttons">
+    {{#if abilities.can_attach}}
       <a href="#" data-behavior="destroy" class="secondary-button">Delete Video</a>
-      {{/if}}
+    {{/if}}
+  </div>
+  <div class="header">
+    <h2>Video</h2>
   </div>
 </div>
-<div class="page-section">
+<div class="body">
   <div data-ui="curtain" class="box player-curtain">
     <div data-ui="stage" class="player-stage">
       <div class="player-scene">

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+
+<strong>Hello!</strong>
+
+<p>A new course has been requested by <%= @course_request.evaluator_name %>. The submitted course details follow:</p>
+
+<p><strong>Name:</strong><br />
+<%= @course_request.name %></p>
+
+<p><strong>Number:</strong><br />
+<%= @course_request.number %></p>
+
+<p><strong>Department:</strong><br />
+<%= @course_request.department %></p>
+
+<p><strong>Section:</strong><br />
+<%= @course_request.section %></p>
+
+<p><strong>Year:</strong><br />
+<%= @course_request.year %></p>
+
+<p><strong>Semester:</strong><br />
+<%= @course_request.semester %></p>
+
+<p>Please log into VOCAT to approve or deny this course request.</p>

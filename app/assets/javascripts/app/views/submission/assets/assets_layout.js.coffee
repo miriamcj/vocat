@@ -26,13 +26,14 @@ define (require) ->
       # TODO: This could be improved. The layout shouldn't know about the HTML structure of its child views. For now,
       # simpler is better, however, since I anticipate refactoring this entirely.
       @player.$el.css({minHeight: 0})
-      @annotations.$el.find('.page-section').css({height: 'auto'})
-      p = @player.$el.find('.page-section').outerHeight()
-      a = @annotations.$el.find('.page-section').outerHeight()
+      @annotations.$el.find('.body').css({height: 'auto'})
+      p = @player.$el.find('.body').outerHeight()
+      a = @annotations.$el.find('.body').outerHeight()
+      console.log p, a
       if p > a
-        @annotations.$el.find('.page-section').css({height: p})
+        @annotations.$el.find('.body').css({height: p})
       else
-        @player.$el.find('.page-section').css({height: a})
+        @player.$el.find('.body').css({height: a})
 
     showBabies: () ->
       a = new AnnotationsView({vent: @, model: @model, collection: @annotationsCollection})

@@ -1,37 +1,34 @@
-<div class="page-section-header">
-  <h1>Manage Groups</h1>
-  <div class="page-content--heading-buttons">
-    <a href="#" data-trigger="add" class="primary-button new-button">Add A Group</a>
-    <a href="#" data-trigger="assign" class="secondary-button">Auto Assign to Groups</a>
-  </div>
-</div>
-
-<div style="display: none;" data-behavior="dirty-message" class="alerts">
-  <div class="alert alert-notice">
-    <aside class="alert--label"></aside>
-    <p>
-      You have made changes to the groups. <a href="#" data-trigger="save" >Click here to save your changes.</a>
-    </p>
-  </div>
-</div>
-
-<div class="matrix-wrapper matrix-tight matrix-groups">
-
-  <div class="matrix-wrapper--creators" data-vertical-headers data-region="creators"></div>
-
-  <button style="display: none;" data-behavior="matrix-slider-left" class="matrix-cells-wrapper--back"></button>
-  <button style="display: none;" data-behavior="matrix-slider-right" class="matrix-cells-wrapper--forward"></button>
-
-  <div class="matrix-wrapper--body" data-behavior="matrix-stage">
-    <div class="matrix-body" data-behavior="matrix-actor">
-      <div class="matrix-wrapper--projects" >
-        <table class="table matrix matrix-col-headers" data-region="groups">
-        </table>
+<div class="page-section page-section-clear">
+  <div class="header-wrapper">
+    <div class="buttons">
+      <a href="#" data-trigger="add" class="primary-button new-button">Add A Group</a>
+      <a href="#" data-trigger="assign" class="secondary-button">Auto Assign to Groups</a>
     </div>
-      <div class="matrix-wrapper--cells">
-        <table class="table matrix matrix-cells" data-region="matrix">
-        </table
+    <div class="header">
+      <h1>Manage Groups</h1>
+    </div>
+  </div>
+  <div class="body">
+    <div class="matrix-wrapper matrix-tight matrix-groups">
+
+      <div class="matrix-wrapper--creators" data-vertical-headers data-region="creators"></div>
+
+      <button style="display: none;" data-behavior="matrix-slider-left" class="matrix-cells-wrapper--back"></button>
+      <button style="display: none;" data-behavior="matrix-slider-right" class="matrix-cells-wrapper--forward"></button>
+
+      <div class="matrix-wrapper--body" data-behavior="matrix-stage">
+        <div class="matrix-body" data-behavior="matrix-actor">
+          <div class="matrix-wrapper--projects" >
+            <table class="table matrix matrix-col-headers" data-region="groups">
+            </table>
+        </div>
+          <div class="matrix-wrapper--cells">
+            <table class="table matrix matrix-cells" data-region="matrix">
+            </table
+          </div>
+        </div>
       </div>
     </div>
+
   </div>
 </div>

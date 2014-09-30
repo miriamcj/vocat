@@ -1,9 +1,11 @@
 <% content_for :main do %>
   <div class="page-content">
+    <% if content_for?(:heading) || content_for?(:heading_links) %>
     <div class="page-content--heading">
       <div class="page-content--heading-buttons"><%= yield :heading_links %></div>
       <%= yield :heading %>
     </div>
+    <% end %>
     <%= yield :content %>
   </div>
 

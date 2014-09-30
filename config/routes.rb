@@ -71,6 +71,8 @@ Vocat::Application.routes.draw do
     end
   end
 
+  resources :course_requests, :only => [:new, :create]
+
   resources :courses do
 
     member do
@@ -103,9 +105,10 @@ Vocat::Application.routes.draw do
   end
 
   namespace :admin do
-    resources :videos do
 
+    resources :videos do
     end
+
     resources :courses do
       member do
         get 'evaluators'
@@ -120,6 +123,14 @@ Vocat::Application.routes.draw do
         end
       end
     end
+
+    resources :course_requests, :only => [:index] do
+      member do
+        put 'approve'
+        put 'deny'
+      end
+    end
+
     resources :users do
       member do
         get 'courses'
@@ -127,6 +138,7 @@ Vocat::Application.routes.draw do
         patch 'update_password'
       end
     end
+
     resources :rubrics, :except => [:create, :update] do
       member do
         post 'clone'
@@ -138,6 +150,7 @@ Vocat::Application.routes.draw do
         end
       end
     end
+
   end
 
   get '/admin' => 'admin/courses#index', :as => 'admin'

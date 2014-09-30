@@ -24,4 +24,21 @@
 
 .unstyled-list {
   @extend %unstyled-list;
+  li {
+    margin-bottom: .25em;
+  }
+}
+
+.clearfix {
+  @include clearfix();
+}
+
+.instructions {
+  margin-bottom: $verticalSpace * 2;
+}
+
+.column-half {
+  @extend %wide-one-half;
+  margin: 0;
+  padding: 0;
 }

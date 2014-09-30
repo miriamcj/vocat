@@ -1,12 +1,13 @@
-<div class="page-section-header">
-  <h2 class="heading-page-section">Video</h2>
-  <div class="page-content--heading-buttons">
-      {{#if current_user_can_attach}}
-      <a href="#" data-behavior="destroy" class="secondary-button">Delete Video</a>
-      {{/if}}
+<div class="header-wrapper">
+  {{#if current_user_can_attach}}
+  <div class="buttons">
+    <a href="#" data-behavior="destroy" class="secondary-button">Delete Video</a>
+  {{/if}}
   </div>
-</div>
-<div class="page-section">
+  <div class="header">
+    <h2>Video</h2>
+  </div>
+  <div class="body">
   <div data-ui="curtain" class="player-curtain">
 
     <div data-ui="stage" class="player-stage">
@@ -92,6 +93,6 @@
     </div>
   </div>
 
-
+  </div>
 </div>
 

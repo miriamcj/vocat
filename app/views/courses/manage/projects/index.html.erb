@@ -1,29 +1,21 @@
-<% content_for :heading do %>
-  <h2 class="heading-primary">
-    Manage Course Projects
-  </h2>
-<% end %>
-
-<% content_for :heading_links do %>
-  <%= link_to 'New Project', new_course_manage_project_path(@course), :class => 'primary-button new-button' %>
-<% end %>
-
 <% content_for :content do %>
-<div class="page-section">
-    The following table shows the projects that you have configured for this course. Click the links below
-    to edit or delete existing projects. Click the "new project" button, above, to create a new project for the
-    course.
+<div class="page-section page-section-clear">
+  <div class="header-wrapper">
+    <div class="buttons">
+      <%= link_to 'New Project', new_course_manage_project_path(@course), :class => 'primary-button new-button' %>
+    </div>
+    <div class="header">
+      <h2>Manage Course Projects</h2>
+    </div>
+  </div>
+  <div class="body">
+    <p class="instructions">
+      The following table shows the projects that you have configured for this course. Click the links below
+      to edit or delete existing projects. Click the "new project" button, above, to create a new project for the
+      course.
+    </p>
+    <div data-region="projects"></div>
+    <%= render :partial => 'shared/bootstrap_collection', :locals => {:type => 'Collections', :key => 'project', :data => @projects }%>
+  </div>
 </div>
-
-<div data-region="projects"></div>
-<%= render :partial => 'shared/bootstrap_collection', :locals => {:type => 'Collections', :key => 'project', :data => @projects }%>
 <% end %>
-
-
-
-
-
-
-
-
-

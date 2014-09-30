@@ -36,6 +36,18 @@ module StrongParametersConfiguration
 
   protected
 
+
+  def course_request_params
+    params.require(:course_request).permit(:name,
+                                           :department,
+                                           :section,
+                                           :year,
+                                           :semester_id,
+                                           :number
+    )
+  end
+
+
   def project_params(type = 'project')
     myvar = type
     a = 'b'

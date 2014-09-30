@@ -1,0 +1,43 @@
+<% content_for :heading do %>
+  <h2 class="heading-primary">
+    Request a New Course
+  </h2>
+<% end %>
+
+<% content_for :content do %>
+    <%= render 'shared/model_errors', :model => @course_request %>
+
+    <%= form_for :course_request, url: course_requests_path, html: {class: 'formgrid'} do |f| %>
+
+      <fieldset>
+        <div class="formgrid third">
+          <%= label_tag :name, 'Course Name' %>
+          <%= f.text_field :name %>
+        </div>
+        <div class="formgrid third">
+          <%= label_tag :number, 'Number' %>
+          <%= f.text_field :number %>
+        </div>
+        <div class="formgrid third">
+          <%= label_tag :department, 'Department' %>
+          <%= f.select(:department, options_for_select(Course.distinct_departments, @course_request.department), {:include_blank => true}, {'data-behavior' => 'chosen'}) %>
+        </div>
+        <div class="formgrid third">
+          <%= label_tag :section, 'Section' %>
+          <%= f.text_field :section %>
+        </div>
+        <div class="formgrid third">
+          <%= label_tag :year, 'Year' %>
+          <%= f.select(:year, options_for_select(Course.distinct_years, @course_request.year), {:include_blank => true}, {'data-behavior' => 'chosen'}) %>
+        </div>
+        <div class="formgrid third">
+          <%= label_tag :semester_id, 'Semester' %>
+          <%= f.select(:semester_id, options_from_collection_for_select(Semester.all, 'id', 'name', @course_request.semester_id), {:include_blank => true}, {'data-behavior' => 'chosen'}) %>
+        </div>
+        <div class="formgrid whole submit">
+          <label class="text-label">&nbsp;</label>
+          <%= f.submit('Request Course', {:class => 'primary-button new-button'}) %>
+        </div>
+      </fieldset>
+    <% end %>
+<% end %>
