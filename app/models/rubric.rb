@@ -31,7 +31,7 @@ class Rubric < ActiveRecord::Base
   end
 
   scope :publicly_visible, -> { where(:public => true) }
-  scope :public_or_owned_by, -> (owner) { where('owner_id = ? OR public = true', owner)}
+  scope :public_or_owned_by, ->(owner) { where('owner_id = ? OR public = true', owner)}
 
   # Params is a hash of search values including (:department || :semester || :year) || :section
   def self.search(params)
