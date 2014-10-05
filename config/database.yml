@@ -6,7 +6,7 @@
   port = ENV["BOXEN_POSTGRESQL_PORT"]
   user = ENV["RAILS_DB_USER"]
   pass = ENV["RAILS_DB_PASS"]
-  db   = ENV["RAILS_DB_NAME"]
+  db   = ENV["RAILS_DB_NAME"] || 'vocat_development'
 
 %>
 
@@ -25,7 +25,7 @@ production:
 
 development:
   <<: *common
-  database: vocat_development
+  database: <%= db %>
 
 test:
   <<: *common
