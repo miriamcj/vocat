@@ -5,7 +5,7 @@ class Annotation < ActiveRecord::Base
 
   default_scope { order('seconds_timecode ASC') }
 
-  scope :by_course, -> (course) {
+  scope :by_course, ->(course) {
     joins(:video => {:submission => :project}).where(:projects => {:course_id => course.id}) unless course.nil?
   }
 
