@@ -31,7 +31,7 @@ class Submission < ActiveRecord::Base
   default_scope { includes(:video, :evaluations, :project) }
 
   scope :with_video, -> { joins(:video) }
-  scope :for_courses, -> (course) { joins(:project)
+  scope :for_courses, ->(course) { joins(:project)
       .where('projects.course_id' => course)
       .where('(creator_id in (?) AND creator_type = \'User\') OR (creator_id in (?) AND creator_type = \'Group\')', course.creators.pluck(:id), course.groups.ids)
       .includes(:video) }

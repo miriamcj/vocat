@@ -12,8 +12,8 @@ class Evaluation < ActiveRecord::Base
   belongs_to :rubric
 
   scope :published,   -> { where(:published => true) }
-  scope :created_by,  -> (creator) { where(:evaluator_id =>  creator) }
-  scope :of_type,     -> (type) { where(:evaluation_type => type) }
+  scope :created_by,  ->(creator) { where(:evaluator_id =>  creator) }
+  scope :of_type,     ->(type) { where(:evaluation_type => type) }
 
   before_save { |evaluation|
     if evaluator.role?(:creator)
