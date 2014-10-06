@@ -4,7 +4,7 @@ if ENV['BOXEN_SOCKET_DIR']
   socket = "#{ENV['BOXEN_SOCKET_DIR']}/vocat"
   processes = 3
 else
-  socket = "#{ENV['UNICORN_SOCKET_DIR']}/unicorn"
+  socket = "#{ENV['UNICORN_SOCKET_DIR']}/vocat"
   processes = 6
 end
 
