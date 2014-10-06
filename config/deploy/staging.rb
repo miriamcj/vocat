@@ -1,14 +1,14 @@
 set :branch, "zd/redesign"
 set :server_name, "vocat.dev.cichq.com"
-set :application, "vocat_app"
+set :application, "vocat"
 
 
 set :stage, :development
 set :rails_env, :development
 
-role :app, %w{castiron@vocat.dev.cichq.com}
-role :web, %w{castiron@vocat.dev.cichq.com}
-role :db,  %w{castiron@vocat.dev.cichq.com}
+role :app, %w{vocat@vocat.dev.cichq.com}
+role :web, %w{vocat@vocat.dev.cichq.com}
+role :db,  %w{vocat@vocat.dev.cichq.com}
 
-set :deploy_to, "/home/castiron/#{fetch(:application)}"
+set :deploy_to, "~/#{fetch(:application)}"
 
