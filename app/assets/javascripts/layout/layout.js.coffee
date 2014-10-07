@@ -17,14 +17,6 @@ define ['jquery_rails', './plugins', 'vendor/plugins/chosen'], ($) ->
         $('html').addClass('wf-inactive')
       $ ->
 
-        # Set a minimum height for every page except course map.
-        #  if !$('body').hasClass('course-map')
-        #$('.container').css('min-height', $(window).innerHeight() - $('.page-header').height() - 35)
-
-        $('[data-behavior="drawer-trigger"]').drawerTrigger()
-        $('[data-behavior="dropdown"]').dropdownNavigation()
-
-
         $('[data-behavior="chosen"]').each((index, el) ->
           $el = $(el)
           msg = 'Select an Option'
@@ -36,14 +28,8 @@ define ['jquery_rails', './plugins', 'vendor/plugins/chosen'], ($) ->
             allow_single_deselect: true,
             placeholder_text_single: msg
           }
-          console.log options
           $el.chosen(options)
         )
-
-        #$('[data-behavior="sticky-header"]').stickyHeader()
-        #$('[data-behavior="shortcut-nav-toggle"]').shortcutNavigation()
-        #$('[data-behavior="help-overlay-toggle"]').helpOverlay()
-
 
 
 

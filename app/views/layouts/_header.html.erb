@@ -6,7 +6,7 @@
         <%= link_to image_tag("png/logo.png", :alt => "VOCAT"), dashboard_path %>
       </nav>
 
-      <nav class="drawer-nav--trigger" data-behavior="drawer-trigger">
+      <nav class="drawer-nav--trigger" data-behavior="header-drawer-trigger">
         <span></span>
         <% case @app_section
            when 'course' %>
@@ -43,7 +43,7 @@
     </div>
   </div>
 
-  <div class="page-header--drawer">
+  <div data-behavior="header-drawer" class="page-header--drawer">
     <div class="drawer--contents">
       <%= render 'layouts/navigation' %>
     </div>

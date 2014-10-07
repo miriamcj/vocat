@@ -1,6 +1,12 @@
-<% unless header.nil? %>
-<h2 class="heading-page-section"><%= header %></h2>
-<% end %>
-  <div class="page-section">
-  <%= body %>
+<% clear = false if local_assigns[:clear].nil? %>
+
+<div class="page-section <% if clear %>page-section-clear<% end %>">
+  <div class="header-wrapper">
+    <div class="header">
+      <h2 class="heading-page-section"><%= header %></h2>
+    </div>
+  </div>
+  <div class="body">
+    <%= body %>
+  </div>
 </div>

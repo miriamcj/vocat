@@ -50,7 +50,7 @@ $sectionSpacingUnit: 2em;
     margin-top: $sectionSpacingUnit * .5;
     @include clearfix;
     background: $grayLightest;
-    padding: $sectionSpacingUnit * .5;
+    padding: $sectionSpacingUnit * .75;
   }
   .body-full-bleed {
     padding: 0;

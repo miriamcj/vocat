@@ -17,6 +17,9 @@
   @extend %bare-active;
   display: inline-block;
   color: $white !important;
+  @include transition($fastTransition background-color $timing);
+  @include transition($fastTransition background-color $timing);
+
 }
 
 // Psuedoelements don't stick to <input>s, so we

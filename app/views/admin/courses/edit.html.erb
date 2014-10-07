@@ -1,7 +1,6 @@
-<%= render :partial => 'heading', :locals => {course: @course, subheader: 'Edit Course Properties'} %>
+<%= render :partial => 'heading', :locals => {course: @course} %>
 
 <% content_for :content do %>
-
   <% body = capture do %>
     <%= form_for [:admin, @course], :html => {:class => 'formgrid'} do |f| %>
       <fieldset>
@@ -11,11 +10,11 @@
         <%= render 'form', :f => f %>
         <div class="formgrid whole">
           <%= f.button 'Update Course', :class => 'primary-button new-button' %>
-          <%= link_to 'Back', admin_course_path(@course), :class => 'secondary-button' %>
+          <%= link_to 'Cancel', admin_course_path(@course), :class => 'secondary-button' %>
         </div>
       </fieldset>
     <% end %>
   <% end %>
-  <%= render :partial => 'shared/section', :locals => {:header => nil, :body => body} %>
+  <%= render :partial => 'shared/section', :locals => {:header => 'Edit Course Properties', :body => body} %>
 <% end %>
 

@@ -5,7 +5,7 @@
 // Form Patterns
 // --------------------------
 %form-unit{
-  padding-bottom: 1em;
+  padding-bottom: 2em;
 }
 
 %proto-input {
@@ -16,7 +16,7 @@
   height: 2.6em;
   padding: 0px 0px 0px 1em;
   outline: none;
-  border: 1px solid $grayMedium !important;
+  border: 1px solid $grayMedium;
 }
 
 %input-full-width {
@@ -26,9 +26,10 @@
 // Forms
 // --------------------------
 
-form.formgrid {
+form.formgrid, div.fake-formgrid {
   margin-left: -$formPadding;
   margin-right: -$formPadding;
+  margin-bottom: -2em;
 }
 
 .formgrid--messaging {
@@ -47,8 +48,8 @@ fieldset + fieldset {
 
 .formgrid {
 
-  label {
-    font-weight: $semibold;
+  label, .label {
+    @extend %label;
     display: block;
     margin-bottom: $verticalSpaceTightest;
   }
@@ -72,7 +73,6 @@ fieldset + fieldset {
   input[type=text], textarea {
     @extend %proto-input;
     @extend %input-full-width;
-
   }
   textarea {
   height: 6em;
@@ -111,6 +111,11 @@ fieldset + fieldset {
 
 }
 
+.field_with_errors {
+  input[type=text], textarea {
+    border: 1px solid $red !important;
+  }
+}
 
 
 // Misc. Form Related Styles

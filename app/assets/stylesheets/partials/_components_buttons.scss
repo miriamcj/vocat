@@ -55,7 +55,7 @@
 .primary-button + .primary-button,
 .secondary-button + .secondary-button,
 .secondary-button + .primary-button {
-  margin-left: 1em;
+  margin-left: .25em;
 }
 
 .small-button{
@@ -82,6 +82,14 @@
     @include svg(airplane-white);
   }
 }
+
+.filter-button {
+  @extend %icon-button;
+  &:after {
+    @include svg(filter-white);
+  }
+}
+
 
 // Extended by .attachment-placeholder--button & .attachment-placeholder--message
 %attachment-placeholder--item {

@@ -14,18 +14,15 @@
     tr {
     }
     th {
+      border-bottom: 1px solid $grayLight;
       background-color: $grayLightest;
-      @include font-body;
-      font-weight: $regular;
-      text-transform: uppercase;
-      font-size: $kappa;
-      color: $black;
-      letter-spacing: 0;
+      @extend %label;
     }
   }
   tbody {
     tr {
       th, td {
+        vertical-align: middle;
         background-color: $white;
       }
       &:nth-child(even) {
@@ -47,7 +44,7 @@
   }
   td {
     border-right: 1px solid $grayLight;
-    vertical-align: top;
+    vertical-align: middle;
     padding: 1em;
     &:last-child {
       border-right: 0;
@@ -55,6 +52,31 @@
     &.centered {
       vertical-align: middle;
       text-align: center;
+    }
+  }
+}
+
+.table-white-head {
+  border-bottom: 1px solid $grayLight;
+
+  thead {
+    tr {
+      th {
+        border-top: 1px solid $grayLight;
+        background-color: $white;
+      }
+    }
+  }
+  tbody {
+    tr {
+      th, td {
+        background-color: $grayLightest;
+      }
+      &:nth-child(even) {
+        th, td {
+          background-color: $white;
+        }
+      }
     }
   }
 }

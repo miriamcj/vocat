@@ -4,33 +4,20 @@
 
 %dropdown-options {
   display: none;
-  min-width: 100%;
-  padding: $verticalSpaceTightest;
+  padding: 2em;
   position: absolute;
-  top: $iconSizeSmall * 3;
   left: 0;
   z-index: 199;
   color: $white;
-  background: darken($grayMedium, 10%);
+  background: $grayDarker;
   opacity: 1;
-  &:before {
-    content: "";
-    display: block;
-    width: 0;
-    height: 0;
-    border-right: $iconSizeSmall solid transparent;
-    border-left: $iconSizeSmall solid transparent;
-    border-bottom: $iconSizeSmall solid darken($grayMedium, 10%);
-    position: absolute;
-    top: -$iconSizeSmall;
-  }
+  font-size: $iota;
   ul {
     @extend %unstyled-list;
     padding: 0;
     margin: 0;
   }
   li + li {
-    border-top: $defaultStroke solid $white;
     padding-top: $verticalSpaceTightest;
     margin-top: $verticalSpaceTightest;
   }
@@ -92,12 +79,11 @@ a.user-nav--toggle:hover {
   right: 1px;
 }
 
+
+// Default Dropdown Styles
+// --------------------------
 .dropdown {
   position: relative;
-}
-
-.dropdown-inline {
-  display: inline-block;
 }
 
 .dropdown--toggle {
@@ -125,3 +111,60 @@ a.user-nav--toggle:hover {
     top: 2.5em;
   }
 }
+
+// Inline dropdown
+// --------------------------
+
+.dropdown-inline {
+  display: inline-block;
+  .dropdown--toggle-inline {
+    cursor: pointer;
+    @include svg(arrow-down-gray-dark);
+    display: inline-block;
+    vertical-align: middle;
+    background-size: 50%;
+    height: .5em;
+    width: .5em;
+    padding: .5em;
+  }
+  .dropdown--options {
+    right: 0;
+    left: auto;
+  }
+}
+.dropdown-inline.open .dropdown--toggle-inline {
+  background-color: $grayDarker;
+  @extend %svg-#{arrow-down-white}-important;
+}
+
+.dropdown-inline.open .dropdown--toggle, .dropdown-inline .dropdown--toggle:hover {
+}
+
+// Dropdown button
+// --------------------------
+.dropdown-button {
+  display: inline-block;
+  .dropdown--toggle {
+    @extend %proto-button;
+    @extend %icon-button;
+    border: 1px solid $primaryButtonColor;
+    color: $primaryButtonColor !important;
+    &:after {
+      content: "";
+      @include svg(arrow-down-teal);
+      height: 1em;
+      width: 1em;
+      top: .75em;
+    }
+  }
+}
+
+.dropdown-button.open .dropdown--toggle:after, .dropdown-button .dropdown--toggle:hover:after {
+  @extend %svg-#{arrow-down-white}-important;
+}
+
+.dropdown-button.open .dropdown--toggle, .dropdown-button .dropdown--toggle:hover {
+  background: $primaryButtonColor;
+  color: $white !important;
+}
+

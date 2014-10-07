@@ -2,10 +2,11 @@ define (require) ->
 
   Marionette = require('marionette')
   Backbone = require('backbone')
-  HelpPlacardView = require('views/help/placard')
-  GlossaryToggleView = require('views/layout/glossary_toggle')
   ModalLayoutView = require('views/modal/modal_layout')
   ModalConfirmView = require('views/modal/modal_confirm')
+  DropdownView = require('views/layout/dropdown')
+  HeaderDrawerView = require('views/layout/header_drawer')
+  HeaderDrawerTriggerView = require('views/layout/header_drawer_trigger')
   GlobalFlashMessagesView = require('views/flash/global_flash_messages')
   FlashMessagesCollection = require('collections/flash_message_collection')
 
@@ -139,14 +140,24 @@ define (require) ->
           }))
       )
 
-    helpPlacardViews = []
-    $('[data-view="help-placard"]').each( (index, el) ->
-      helpPlacardViews.push new HelpPlacardView({el: el})
+    # Attach views to existing dom elements
+    $('[data-behavior="dropdown"]').each( (index, el) ->
+      new DropdownView({el: el, vent: Vocat.vent})
+    )
+    $('[data-behavior="header-drawer-trigger"]').each( (index, el) ->
+        new HeaderDrawerTriggerView ({el: el, vent: Vocat.vent})
+    )
+    $('[data-behavior="header-drawer"]').each( (index, el) ->
+      new HeaderDrawerView({el: el, vent: Vocat.vent})
     )
 
-    $('[data-view="glossary-toggle"]').each( (index, el) ->
-      new GlossaryToggleView({el: el})
-    )
+
+
+    # Announce some key events on the global channel
+    globalChannel = Backbone.Wreqr.radio.channel('global')
+    $('html').bind('click', (event) ->
+      globalChannel.vent.trigger('user:action', event)
+    );
 
     # Handle global flash messages
     flashMessages = new FlashMessagesCollection([], {})

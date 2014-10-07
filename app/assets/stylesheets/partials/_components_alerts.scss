@@ -8,6 +8,18 @@ $spacingUnit: $mediumUnitPadding * .75;
   margin-bottom: $spacingUnit;
   background: $yellow;
   padding: $spacingUnit;
+  font-weight: $semibold;
+  ul {
+    padding-left: 0;
+    margin-bottom: 0;
+    li {
+      margin-left: 2em;
+    }
+  }
+  &.alert-error {
+    background: $red;
+    color: $white;
+  }
   .alert--label {
   }
   a {

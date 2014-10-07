@@ -1,35 +1,56 @@
-<%= render :partial => 'heading', :locals => {course: @course, hide_new: true, subheader: 'Export Data'} %>
+<%= render :partial => 'heading', :locals => {course: @course} %>
 
 <% content_for :content	 do %>
-  <div class="table-wrapper">
-    <table class="table">
-      <thead>
-      <tr>
-        <th>Report Name</th>
-        <th>Description</th>
-        <th>Formats</th>
-      </tr>
-      </thead>
-      <tbody>
+
+  <% body = capture do %>
+    <div class="table-wrapper">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Report Name</th>
+          <th>Description</th>
+          <th>Select Format</th>
+        </tr>
+        </thead>
+        <tbody>
         <tr>
           <th>Roster</th>
           <td>Download a list of all students in the course</td>
           <td>
-            <%= link_to 'CSV', course_roster_admin_reports_path(@course, :format => 'csv'), :class => 'small-teal-arrow-button' %>
-            <%= link_to 'JSON', course_roster_admin_reports_path(@course, :format => 'json'), :class => 'small-teal-arrow-button' %>
-            <%= link_to 'Text', course_roster_admin_reports_path(@course, :format => 'text'), :class => 'small-teal-arrow-button' %>
+            <div class="dropdown dropdown-button" data-behavior="dropdown">
+              <a class="dropdown--toggle" data-behavior="toggle" href="#">Select Format</a>
+              <div class="dropdown--options" data-behavior="dropdown-options">
+                <ul>
+                  <li><%= link_to 'CSV', course_roster_admin_reports_path(@course, :format => 'csv') %></li>
+                  <li><%= link_to 'JSON', course_roster_admin_reports_path(@course, :format => 'json') %></li>
+                  <li><%= link_to 'Text', course_roster_admin_reports_path(@course, :format => 'text') %></li>
+                </ul>
+              </div>
+            </div>
           </td>
         </tr>
         <tr>
           <th>Scores</th>
           <td>Includes total score for all course submissions</td>
           <td>
-            <%= link_to 'CSV', course_scores_admin_reports_path(@course, :format => 'csv'), :class => 'small-teal-arrow-button' %>
-            <%= link_to 'JSON', course_scores_admin_reports_path(@course, :format => 'json'), :class => 'small-teal-arrow-button' %>
+            <div class="dropdown dropdown-button" data-behavior="dropdown">
+              <a class="dropdown--toggle" data-behavior="toggle" href="#">Select Format</a>
+              <div class="dropdown--options" data-behavior="dropdown-options">
+                <ul>
+                  <li><%= link_to 'CSV', course_scores_admin_reports_path(@course, :format => 'csv') %></li>
+                  <li><%= link_to 'JSON', course_scores_admin_reports_path(@course, :format => 'json') %></li>
+                </ul>
+              </div>
+            </div>
+
           </td>
         </tr>
-      </tbody>
-    </table>
-  </div>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+  <%= render :partial => 'shared/section', :locals => {:header => 'Export Course Data', :clear => true, :body => body} %>
+
+
 
 <% end %>
