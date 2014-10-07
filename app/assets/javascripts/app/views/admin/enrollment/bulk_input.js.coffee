@@ -44,7 +44,7 @@ define (require) ->
       })
 
     showInviteMustConfirm: (contacts) ->
-      @confirmInvite.show(new ConfirmInvite({collection: @collection, contacts: contacts, vent: @vent}))
+      Vocat.globalNotify.show(new ConfirmInvite({collection: @collection, contacts: contacts, vent: @vent}))
 
     handleSubmitSuccess: (response) ->
       @ui.submit.removeClass('loading')

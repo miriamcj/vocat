@@ -12,9 +12,11 @@ define (require) ->
 
     listType: 'users'
     template: template
+    label: ''
 
     ui: {
       studentInput: '[data-behavior="student-input"]'
+      labelContainer: '[data-behavior="label-container"]'
     }
 
     regions: {
@@ -54,6 +56,12 @@ define (require) ->
     showBulk: () ->
       @showBulkEnrollAndInvite()
 
+    onShow: () ->
+      data = @$el.parent().data()
+      if data.hasOwnProperty('label')
+        @label = data.label
+        @ui.labelContainer.html(@label)
+
     showSingle: () ->
       @showSingleEnroll()
       if @searchType == 'user'
@@ -68,6 +76,12 @@ define (require) ->
       @input.show(enrollmentInput)
 
     onRender: () ->
+      console.log 'rendered'
       @list.show(@enrollmentList)
       @flash.show(@flashView)
       @showSingle()
+
+    serializeData: () ->
+      {
+        label: @label
+      }

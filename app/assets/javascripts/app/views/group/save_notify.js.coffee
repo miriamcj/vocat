@@ -2,6 +2,7 @@ define (require) ->
 
   Marionette = require('marionette')
   template = require('hbs!templates/group/save_notify')
+  GlobalNotification = require('behaviors/global_notification')
 
   class GroupsView extends Marionette.ItemView
 
@@ -13,16 +14,11 @@ define (require) ->
 
     }
 
-    onRender: () ->
-      @$el.hide()
-
-    onShow: () ->
-      @$el.slideDown()
-
-    remove: () ->
-      @$el.slideUp(() =>
-        @$el.remove()
-      )
+    behaviors: {
+      globalNotification: {
+        behaviorClass: GlobalNotification
+      }
+    }
 
     onClickGroupsSave: () ->
       @collection.save()

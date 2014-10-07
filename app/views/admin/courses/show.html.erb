@@ -21,8 +21,10 @@
       </div>
 
       <div class="formgrid third">
-        <span class="label">Semester</span>
-        <span><%= "#{@course.semester}, #{@course.year}" %></span>
+        <span class="label">Semester, Year</span>
+        <span>
+          <%= "#{@course.semester || 'N/A'}, #{@course.year}" %>
+        </span>
       </div>
 
       <div class="formgrid whole">

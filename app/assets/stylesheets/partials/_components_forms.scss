@@ -189,7 +189,8 @@ select.month, select.day, select.year {
     border: 1px solid $grayMedium;
     border-top: 0;
     padding: 1em;
-    overflow-x: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
     max-height: 200px;
     .whole & {
       width: 100%;

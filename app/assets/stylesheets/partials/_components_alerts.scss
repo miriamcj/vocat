@@ -9,6 +9,9 @@ $spacingUnit: $mediumUnitPadding * .75;
   background: $yellow;
   padding: $spacingUnit;
   font-weight: $semibold;
+  small {
+    font-weight: $regular;
+  }
   ul {
     padding-left: 0;
     margin-bottom: 0;

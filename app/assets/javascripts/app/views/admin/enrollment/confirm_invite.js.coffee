@@ -2,6 +2,7 @@ define (require) ->
 
   Marionette = require('marionette')
   template = require('hbs!templates/admin/enrollment/confirm_invite')
+  GlobalNotification = require('behaviors/global_notification')
 
   class ConfirmInvite extends Marionette.ItemView
 
@@ -16,6 +17,12 @@ define (require) ->
     triggers: {
       'click [data-behavior="cancel-invite-and-enroll"]': 'cancel'
       'click [data-behavior="submit-invite-and-enroll"]': 'submit'
+    }
+
+    behaviors: {
+      globalNotification: {
+        behaviorClass: GlobalNotification
+      }
     }
 
     onCancel: () ->
@@ -62,7 +69,11 @@ define (require) ->
       @vent = options.vent
 
     serializeData: () ->
+      console.log @contacts
       out = {
+        contact_emails: _.pluck(@contacts, 'email').join(', ')
+        contacts_count: @contacts.length
+        multiple_contacts: @contacts.length > 1
         contacts: @contacts
       }
       out
