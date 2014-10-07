@@ -18,6 +18,7 @@ define (require) ->
 
     ui: {
       emptyViewContainer: '[data-container="empty"]'
+      containerWrapper: '[data-behavior="container-wrapper"]'
       termInput: '[data-behavior="search-term"]'
       showBulk: '[data-behavior="show-bulk"]'
     }
@@ -45,7 +46,7 @@ define (require) ->
       else
         @hideContainer()
 
-    buildItemView: (item, ItemViewType, childViewOptions) ->
+    buildChildView: (item, ItemViewType, childViewOptions) ->
       options = _.extend({model: item}, childViewOptions)
       options.enrollmentCollection = @enrollmentCollection
       options.vent = @options.vent
@@ -60,10 +61,10 @@ define (require) ->
         coursesTemplate
 
     hideContainer: () ->
-      @$el.find(@childViewContainer).hide()
+      @ui.containerWrapper.hide()
 
     showContainer: () ->
-      @$el.find(@childViewContainer).show()
+      @ui.containerWrapper.show()
 
     getTerm: () ->
       @ui.termInput.val().trim()

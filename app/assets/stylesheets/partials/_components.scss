@@ -35,7 +35,7 @@
   max-width: $containerWidth;
   margin-right: auto;
   margin-left: auto;
-  margin-top: $headerHeight;
+  margin-top: $headerHeight *  .75;
 }
 
 
@@ -176,6 +176,12 @@ footer {
         padding-left: 0;
         padding-right: 0;
         margin-bottom: 1em;
+        a {
+          color: $white;
+          &:hover {
+            color: $tealLight;
+          }
+        }
       }
     }
   }

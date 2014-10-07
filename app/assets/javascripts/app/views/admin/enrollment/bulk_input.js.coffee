@@ -40,7 +40,7 @@ define (require) ->
           @handleSubmitSuccess(jqXHR.responseJSON)
         error: (jqXHR, textStatus, error) =>
           @ui.submit.removeClass('loading')
-          @vent.trigger('error:add', {level: 'error', lifetime: 5000, msg: jqXHR.responseJSON.errors})
+          Vocat.vent.trigger('error:add', {level: 'error', lifetime: 5000, msg: jqXHR.responseJSON.errors})
       })
 
     showInviteMustConfirm: (contacts) ->
@@ -62,8 +62,8 @@ define (require) ->
           strings.push contact.string
           failures.push contact
       )
-      @vent.trigger('error:add', {level: 'notice', lifetime: 10000, msg: _.pluck(successes, 'message')})
-      @vent.trigger('error:add', {level: 'error', lifetime: 10000, msg: _.pluck(failures, 'message')})
+      Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 10000, msg: _.pluck(successes, 'message')})
+      Vocat.vent.trigger('error:add', {level: 'error', lifetime: 10000, msg: _.pluck(failures, 'message')})
 
       inputValue = strings.join("\n")
       @ui.bulkInput.val(inputValue)

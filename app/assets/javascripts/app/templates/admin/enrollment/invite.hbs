@@ -1,14 +1,12 @@
-<div class="input-group">
-  <label class="text-label">Or Invite a New User</label>
-    <input data-behavior="contact" class="text-input" type="text">
-    <small class="input-message">Enter one user per line. If LDAP is enabled and the user exists in LDAP, only the email
-    address is required. Otherwise, enter both the name and the email address in the format of "name, email" or
-    "name &lt;email&gt;". For example, "Jane Doe &lt;jane@vocat.io&gt;" and "Jane Doe, jane@vocat.io" are both acceptable
-    entries.
-    </small>
+<div class="formgrid whole">
+	<label>Or Invite a New User</label>
+	<input data-behavior="contact" type="text">
+	<small>If LDAP is enabled and the user exists in LDAP, only the email
+		address is required. Otherwise, enter both the name and the email address in the format of "name, email" or
+		"name &lt;email&gt;". For example, "Jane Doe &lt;jane@vocat.io&gt;" and "Jane Doe, jane@vocat.io" are both acceptable
+		entries.
+	</small>
 </div>
-<div class="input-group">
-  <a href="#" data-behavior="submit-invite-and-enroll" class="teal-plus-button">Invite New Users</a>
-  <a href="#" data-behavior="cancel-invite-and-enroll" class="gray-ex-button">Cancel</a>
-
+<div class="formgrid whole">
+	<a href="#" data-behavior="submit-invite-and-enroll" class="primary-button new-button">Invite User</a>
 </div>

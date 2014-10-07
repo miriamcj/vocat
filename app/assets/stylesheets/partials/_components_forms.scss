@@ -10,12 +10,12 @@
 
 %proto-input {
 //  @include box-sizing(content-box);
-  @include font-body;
-  color: $grayDark !important;
-  font-size: $iota;
   height: 2.6em;
   padding: 0px 0px 0px 1em;
   outline: none;
+  @include font-body;
+  font-size: $iota;
+  color: $grayDark !important;
   border: 1px solid $grayMedium;
 }
 
@@ -176,4 +176,37 @@ $spacingUnit: $mediumUnitPadding * .75;
 select.month, select.day, select.year {
   width: 32.7%;
 }
+
+.live-search {
+  position: relative;
+  .live-search--results {
+    position: absolute;
+    z-index: 100;
+    background: $white;
+    @include font-body;
+    font-size: $iota;
+    color: $grayDark !important;
+    border: 1px solid $grayMedium;
+    border-top: 0;
+    padding: 1em;
+    overflow-x: scroll;
+    max-height: 200px;
+    .whole & {
+      width: 100%;
+
+    }
+    ul {
+      @extend %unstyled-list;
+      margin-bottom: 0;
+      li {
+        padding: 0 0 .5em 0;
+      }
+      li+li {
+        padding: .5em 0em;
+      }
+    }
+  }
+}
+
+
 

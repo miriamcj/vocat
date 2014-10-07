@@ -34,9 +34,8 @@ $spacingUnit: $mediumUnitPadding * .75;
 #notifications {
   z-index: 200;
   padding: 0 1.5em;
-
   position: relative;
-  top: $headerHeight;
+//  top: $headerHeight;
 //  margin-bottom: -$headerHeight;
   background: $grayDarker;
   opacity: 1;
@@ -56,6 +55,12 @@ $spacingUnit: $mediumUnitPadding * .75;
     margin-bottom: 0;
     padding: $spacingUnit 0;
     font-weight: $semibold;
+    ul {
+      @extend %unstyled-list;
+      li {
+        margin-left: 0;
+      }
+    }
   }
 }
 

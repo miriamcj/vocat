@@ -132,7 +132,7 @@ hr {
 a {
 //  @include transition($mediumTransition opacity $timing);
   text-decoration: none;
-  color: inherit;
+  color: $tealLight;
   &:hover {
     color: $tealLight;
  //   opacity: 1;
