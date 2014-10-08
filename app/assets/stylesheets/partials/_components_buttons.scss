@@ -51,25 +51,56 @@
   @extend %secondary-button;
 }
 
-.primary-button + .secondary-button,
-.primary-button + .primary-button,
-.secondary-button + .secondary-button,
-.secondary-button + .primary-button {
-  margin-left: .25em;
+.warning-button {
+  @extend %warning-button;
 }
 
 .disabled-button {
   @extend %disabled-button;
 }
 
+
+.primary-button + .secondary-button,
+.primary-button + .dropdown-button,
+.primary-button + .primary-button,
+.secondary-button + .secondary-button,
+.secondary-button + .primary-button {
+  margin-left: .25em;
+}
+
 .small-button{
   padding: .25em;
 }
 
+// A primary button
 .new-button {
   @extend %icon-button;
   &:after {
     @include svg(circle-plus-white);
+    &:hover {
+      @include svg(circle-plus-gray);
+    }
+  }
+}
+
+// A secondary button
+.cancel-button {
+  @extend %icon-button;
+  &:after {
+    @include svg(ex-gray-on-white);
+    &:hover {
+      @include svg(circle-ex-gray-dark-on-white);
+    }
+  }
+}
+
+.delete-button {
+  @extend %icon-button;
+  &:after {
+    @include svg(circle-ex-red-on-white);
+    &:hover {
+      @include svg(circle-ex-gray-dark-on-white);
+    }
   }
 }
 
@@ -91,6 +122,38 @@
   @extend %icon-button;
   &:after {
     @include svg(filter-white);
+  }
+}
+
+.next-button {
+  @extend %icon-button;
+  &.disabled-button:after {
+    @include svg(circle-right-arrow-gray-light-on-white);
+    &:hover {
+      @include svg(circle-right-arrow-gray-light-on-white);
+    }
+  }
+  &:after {
+    @include svg(circle-right-arrow-teal-on-white);
+    &:hover {
+      @include svg(circle-right-arrow-gray-dark-on-white);
+    }
+  }
+}
+
+.previous-button {
+  @extend %icon-button-before;
+  &.disabled-button:before {
+    @include svg(circle-left-arrow-gray-light-on-white);
+    &:hover {
+      @include svg(circle-left-arrow-gray-light-on-white);
+    }
+  }
+  &:before {
+    @include svg(circle-left-arrow-teal-on-white);
+    &:hover {
+      @include svg(circle-left-arrow-gray-dark-on-white);
+    }
   }
 }
 
@@ -140,6 +203,9 @@
 
 .back-link {
   @extend %icon-link-left;
+  &:hover:before {
+    @include svg(circle-left-arrow-gray-dark );
+  }
   &:before {
     @include svg(circle-left-arrow-teal);
   }

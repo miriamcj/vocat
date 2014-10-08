@@ -51,7 +51,7 @@ a.user-nav--toggle:hover {
   }
 }
 .user-nav--toggle {
-
+  color: $white;
   span {
     @include respond($baikal) {
       display: none !important;
@@ -164,7 +164,8 @@ a.user-nav--toggle:hover {
 }
 
 .dropdown-button.open .dropdown--toggle, .dropdown-button .dropdown--toggle:hover {
-  background: $primaryButtonColor;
+  background: $primaryButtonHoverColor;
+  border: 1px solid $primaryButtonHoverColor;
   color: $white !important;
 }
 

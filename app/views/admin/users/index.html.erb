@@ -2,7 +2,7 @@
   <div class="page-section">
     <div class="header-wrapper">
       <div class="buttons">
-        <%= link_to 'New User', new_admin_user_path, class: 'primary-button new-button' %>
+        <%= link_to 'Add New User', new_admin_user_path, class: 'primary-button new-button' %>
       </div>
       <div class="header">
         <h2>Users</h2>
@@ -25,8 +25,7 @@
           </div>
           <div class="formgrid fourth">
            <label>&nbsp;</label>
-            <%= button_tag('Filter', {:class => 'primary-button filter-button'}) %>
-            <%= link_to 'Reset', admin_users_path, {:class => 'secondary-button'} %>
+            <%= button_tag('Filter Users', {:class => 'primary-button filter-button'}) %>
           </div>
         </fieldset>
       </form>

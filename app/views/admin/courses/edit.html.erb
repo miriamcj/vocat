@@ -4,13 +4,11 @@
   <% body = capture do %>
     <%= form_for [:admin, @course], :html => {:class => 'formgrid'} do |f| %>
       <fieldset>
-        <div class="formgrid--messaging">
-          <%= render 'shared/model_errors', :model => @course %>
-        </div>
+        <%= render 'shared/model_errors', :model => @course %>
         <%= render 'form', :f => f %>
         <div class="formgrid whole">
           <%= f.button 'Update Course', :class => 'primary-button new-button' %>
-          <%= link_to 'Cancel', admin_course_path(@course), :class => 'secondary-button' %>
+          <%= link_to 'Cancel', admin_course_path(@course), :class => 'secondary-button cancel-button' %>
         </div>
       </fieldset>
     <% end %>

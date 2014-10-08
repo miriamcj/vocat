@@ -15,8 +15,8 @@ define ['jquery_rails', './plugins', 'vendor/plugins/chosen'], ($) ->
         )
       catch e
         $('html').addClass('wf-inactive')
-      $ ->
 
+      $ ->
         $('[data-behavior="chosen"]').each((index, el) ->
           $el = $(el)
           msg = 'Select an Option'

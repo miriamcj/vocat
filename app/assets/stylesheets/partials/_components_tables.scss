@@ -111,13 +111,23 @@ a.table--heading {
       float: left;
       a, span {
         @extend %proto-button;
+        font-weight: $regular;
         background-color: $grayLightest;
         color: $grayDark;
         margin: 0;
       }
-      span, a:hover {
-        background-color: $primaryButtonColor;
+      span {
+        &:hover, &:focus {
+          color: $grayDark;
+        }
+      }
+      &.active span {
         color: $white;
+        background-color: $primaryButtonColor;
+      }
+      a:hover {
+        color: $white;
+        background-color: $primaryButtonHoverColor;
       }
     }
   }

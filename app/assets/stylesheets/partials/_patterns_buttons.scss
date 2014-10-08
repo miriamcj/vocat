@@ -17,8 +17,11 @@
   @extend %bare-active;
   display: inline-block;
   color: $white;
+  &:hover, &:focus {
+    color: $white;
+  }
   @include transition($fastTransition background-color $timing);
-  @include transition($fastTransition background-color $timing);
+  @include transition($fastTransition border-color $timing);
 
 }
 
@@ -43,12 +46,28 @@ input%proto-button {
   }
 }
 
+%icon-button-before {
+  padding-left: 2.6em;
+  position: relative;
+  &:before {
+    content: "";
+    display: block;
+    padding: 0;
+    height: 1.5em;
+    width: 1.5em;
+    position: absolute;
+    top: .55em;
+    left: .55em;
+  }
+}
+
 %primary-button {
   @extend %proto-button;
   background-color: $primaryButtonColor;
-  border: 0;
+  border: 1px solid $primaryButtonColor;
   &:hover, &:focus {
     background-color: $primaryButtonHoverColor;
+    border: 1px solid $primaryButtonHoverColor;
   }
   #notifications & {
     background: none;
@@ -60,9 +79,10 @@ input%proto-button {
 %secondary-button {
   @extend %proto-button;
   background-color: $secondaryButtonColor;
-  border: 0;
+  border: 1px solid $secondaryButtonColor;
   &:hover, &:focus {
     background-color: $secondaryButtonHoverColor;
+    border: 1px solid $secondaryButtonHoverColor;
   }
   #notifications & {
     background: none;
@@ -73,15 +93,31 @@ input%proto-button {
 
 %disabled-button {
   @extend %proto-button;
-  background-color: $grayLightest;
-  border: 0;
+  background-color: $grayLighter;
+  border: 1px solid $grayLighter;
   &:hover, &:focus {
-    background-color: $grayLightest;
+    background-color: $grayLighter;
+    border: 1px solid $grayLighter;
   }
   #notifications & {
     background: none;
     color: $grayLightest !important;
-    border: 1px solid $grayLightest;
+    border: 1px solid $grayLighter;
+  }
+}
+
+%warning-button {
+  @extend %proto-button;
+  background-color: $warningButtonColor;
+  border: 1px solid $warningButtonColor;
+  &:hover, &:focus {
+    background-color: $warningButtonHoverColor;
+    border: 1px solid $warningButtonHoverColor;
+  }
+  #notifications & {
+    background: none;
+    color: $red !important;
+    border: 1px solid $red;
   }
 }
 

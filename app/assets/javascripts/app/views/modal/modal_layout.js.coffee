@@ -48,11 +48,13 @@ define [
 
     open: () ->
       @vent.trigger('modal:before:show')
+      Backbone.Wreqr.radio.channel('global').vent.trigger('user:action')
       @showBackdrop()
       @centerModal()
       @$el.show()
       @vent.trigger('modal:after:show')
       @view.trigger('modal:after:show')
+
 
     centerModal: () ->
       yOffset = $(document).scrollTop()
@@ -75,7 +77,6 @@ define [
         left: '50%'
         top: '50%'
       })
-
 
     resizeBackdrop: () ->
       @ensureBackdrop().css({
