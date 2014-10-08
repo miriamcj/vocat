@@ -16,7 +16,7 @@
   @extend %bare-focus;
   @extend %bare-active;
   display: inline-block;
-  color: $white !important;
+  color: $white;
   @include transition($fastTransition background-color $timing);
   @include transition($fastTransition background-color $timing);
 
@@ -71,6 +71,19 @@ input%proto-button {
   }
 }
 
+%disabled-button {
+  @extend %proto-button;
+  background-color: $grayLightest;
+  border: 0;
+  &:hover, &:focus {
+    background-color: $grayLightest;
+  }
+  #notifications & {
+    background: none;
+    color: $grayLightest !important;
+    border: 1px solid $grayLightest;
+  }
+}
 
 %proto-action-link {
   @extend %button-text;

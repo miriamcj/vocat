@@ -98,3 +98,29 @@ a.table--heading {
   @extend %bare-link;
   text-decoration: none;
 }
+
+.pagination-nav {
+  margin-top: 1em;
+  .pagination-nav--prev-next {
+    float: left;
+  }
+  .pagination-nav--pages {
+    float: right;
+    li {
+      display: inline-block;
+      float: left;
+      a, span {
+        @extend %proto-button;
+        background-color: $grayLightest;
+        color: $grayDark;
+        margin: 0;
+      }
+      span, a:hover {
+        background-color: $primaryButtonColor;
+        color: $white;
+      }
+    }
+  }
+
+
+}

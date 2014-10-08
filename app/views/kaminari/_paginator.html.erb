@@ -8,13 +8,12 @@
 -%>
 <%= paginator.render do -%>
 
-  <%= prev_page_tag %>
-  <%= next_page_tag %>
-
-
-
   <nav class="pagination-nav">
-    <ul>
+    <div class="pagination-nav--prev-next">
+      <%= prev_page_tag %>
+      <%= next_page_tag %>
+    </div>
+    <ul class="pagination-nav--pages">
       <%= first_page_tag unless current_page.first? %>
       <% each_page do |page| -%>
         <% if page.left_outer? || page.right_outer? || page.inside_window? -%>
@@ -26,4 +25,4 @@
       <%= last_page_tag unless current_page.last? %>
     </ul>
   </nav>
-<% end -%>
+<% end %>
