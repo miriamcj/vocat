@@ -37,7 +37,7 @@ class Rubric < ActiveRecord::Base
   def self.search(params)
     r = Rubric.all
     if params[:name] then r = r.where(["lower(name) LIKE :name", {:name => "#{params[:name].downcase}%"}]) end
-    if params[:public] then r = r.where(:public => params[:public]) end
+    if params[:public] == true || params[:public] == false then r = r.where(:public => params[:public]) end
     r
   end
 
