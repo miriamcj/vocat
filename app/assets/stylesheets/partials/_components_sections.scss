@@ -8,6 +8,9 @@ $sectionSpacingUnit: 2em;
   margin-top: $sectionSpacingUnit;
 }
 
+// Page Section Container
+// --------------------------
+
 .page-section-spacing-top {
   @extend %section-spacing;
 }
@@ -85,42 +88,32 @@ $sectionSpacingUnit: 2em;
   @extend %section-spacing;
 }
 
+// User Profile Container
+// --------------------------
+.user-profile {
 
-// Page Section Container
-//// --------------------------
-//.page-section-header {
-//  position: relative;
-//  margin-bottom: $verticalSpaceTight;
-//  h1, h2, h3, h4, h5, h6 {
-//}
-//
-//.page-section-50-50 {
-//  @include clearfix(hard);
-//  .page-section-wrapper {
-//    width: 48.625%;
-//    float: left;
-//    height: 100%;
-//  }
-//  .page-section-wrapper + .page-section-wrapper {
-//    margin-left: 2.75%;
-//  }
-//}
-//
-//.page-section {
-//  @include clearfix;
-//  background: $grayLightest;
-//  padding: $contentUnitPadding;
-//  margin-bottom: $verticalSpace * 3;
-//}
-//
-//.page-section-clear {
-//  background: none;
-//  padding: 0;
-//}
-//
-//.page-section-full-bleed {
-//  padding: 0;
-//}
-//
-//
+  .user-profile--image {
+    @extend %content-unit;
+    @extend %form-pad;
+    @include unit(2);
 
+    @extend %medium-one-fourth;
+    @extend %narrow-gone;
+    padding-left: 0;
+    img {
+      width: 100%;
+    }
+  }
+  .user-profile--properties {
+    padding: 0;
+    @extend %content-unit;
+    @extend %form-pad;
+    @include unit(10);
+
+
+    @extend %medium-three-fourths;
+    @extend %narrow-whole;
+
+  }
+
+}

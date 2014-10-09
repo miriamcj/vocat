@@ -7,26 +7,24 @@
       <%= @course %>
     </h2>
    <% else %>
+    <% if local_assigns.fetch(:header, nil) %>
     <h3 class="heading-primary">
-      <% if local_assigns.fetch(:header, nil) %>
-        <%= header %>
-      <% else %>
-        Courses
-      <% end %>
+      <%= header %>
     </h3>
+    <% end %>
   <% end %>
 <% end %>
 
 <% content_for :heading_links do %>
-  <% unless local_assigns.fetch :hide_new, nil %>
-    <%= link_to 'Add New Course', new_admin_course_path, :class => 'primary-button new-button' %>
-  <% end %>
+  <% if @course && !@course.new_record? %>
+  <%= link_to 'Add New Course', new_admin_course_path, :class => 'primary-button new-button' %>
   <div class="dropdown dropdown-button" data-behavior="dropdown">
     <a class="dropdown--toggle" data-behavior="toggle" href="#">Course Actions</a>
     <div class="dropdown--options" data-behavior="dropdown-options">
-      <%= render 'nav', :course => course %>
+      <%= render 'nav', :course => @course %>
     </div>
   </div>
+  <% end %>
 <% end %>
 
 

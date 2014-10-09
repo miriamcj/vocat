@@ -1,6 +1,7 @@
 define (require) ->
 
   Marionette = require('marionette')
+  ClosesOnUserAction = require('behaviors/closes_on_user_action')
 
   class DropdownView extends Marionette.ItemView
 
@@ -13,6 +14,12 @@ define (require) ->
     ui: {
       trigger: '[data-behavior="toggle"]'
       dropdown: '[data-behavior="dropdown-options"]'
+    }
+
+    behaviors: {
+      closesOnUserAction: {
+        behaviorClass: ClosesOnUserAction
+      }
     }
 
     onClickTrigger: () ->
@@ -35,18 +42,13 @@ define (require) ->
     open: () ->
       @$el.addClass('open')
       @adjustPosition()
-      @globalChannel.vent.trigger('user:action')
-      @listenTo(@globalChannel.vent, 'user:action', (event) =>
-        unless event && $.contains(@el, event.target)
-          @close()
-      )
+      @triggerMethod('opened')
 
     close: () ->
       @$el.removeClass('open')
-      @stopListening(@globalChannel.vent, 'user:action')
+      @triggerMethod('closed')
 
     initialize: (options) ->
-      @globalChannel = Backbone.Wreqr.radio.channel('global')
       @vent = options.vent
       if !@$el.hasClass('dropdown-initialized')
         @$el.addClass('dropdown-initialized')

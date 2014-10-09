@@ -20,7 +20,6 @@ define (require) ->
     onCancel: () ->
       @ui.input.val('')
 
-
     onSubmit: () ->
       contact_string = @ui.input.val()
       @ui.button.addClass('loading')

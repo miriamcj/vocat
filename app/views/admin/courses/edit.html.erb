@@ -7,7 +7,7 @@
         <%= render 'shared/model_errors', :model => @course %>
         <%= render 'form', :f => f %>
         <div class="formgrid whole">
-          <%= f.button 'Update Course', :class => 'primary-button new-button' %>
+          <%= f.button 'Update Course', :class => 'primary-button update-button' %>
           <%= link_to 'Cancel', admin_course_path(@course), :class => 'secondary-button cancel-button' %>
         </div>
       </fieldset>

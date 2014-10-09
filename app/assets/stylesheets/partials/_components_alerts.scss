@@ -6,6 +6,9 @@ $spacingUnit: $mediumUnitPadding * .75;
 
 .alert {
   margin-bottom: $spacingUnit;
+  .formgrid & {
+    margin-bottom: 0;
+  }
   background: $yellow;
   padding: $spacingUnit;
   font-weight: $semibold;

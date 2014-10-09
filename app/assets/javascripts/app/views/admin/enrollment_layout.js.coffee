@@ -76,7 +76,6 @@ define (require) ->
       @input.show(enrollmentInput)
 
     onRender: () ->
-      console.log 'rendered'
       @list.show(@enrollmentList)
       @flash.show(@flashView)
       @showSingle()

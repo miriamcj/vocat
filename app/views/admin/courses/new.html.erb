@@ -1,20 +1,18 @@
-<%= render :partial => 'heading', :locals => {course: @course, header: 'New Course', hide_new: true} %>
+<%= render :partial => 'heading', :locals => {course: @course} %>
 
 <% content_for :content do %>
   <% body = capture do %>
     <%= form_for [:admin, @course], :html => {:class => 'formgrid'} do |f| %>
       <fieldset>
-        <div class="formgrid--messaging">
-          <%= render 'shared/model_errors', :model => @course %>
-        </div>
+        <%= render 'shared/model_errors', :model => @course %>
         <%= render 'form', :f => f %>
         <div class="formgrid whole">
           <%= f.button 'Create Course', :class => 'primary-button new-button' %>
-          <%= link_to 'Back', admin_courses_path, :class => 'secondary-button' %>
+          <%= link_to 'Cancel', admin_courses_path, :class => 'secondary-button cancel-button' %>
         </div>
       </fieldset>
     <% end %>
   <% end %>
-  <%= render :partial => 'shared/section', :locals => {:header => nil, :body => body} %>
+  <%= render :partial => 'shared/section', :locals => {:header => 'Create a New Course', :body => body} %>
 <% end %>
 

@@ -1,6 +1,14 @@
-<div class="input-group">
-  <label class="text-label">Search by Section</label>
-  <input data-behavior="search-term" class="text-input" type="text">
+<div class="formgrid whole">
+  <label>Search by Section</label>
+  <div class="live-search">
+    <input class="live-search--input" data-behavior="search-term" type="text">
+    <div data-behavior="container-wrapper" class="live-search--results">
+      <ul data-container="items">
+      </ul>
+    </div>
+  </div>
   <small class="input-message">As you type the section, the corresponding course will appear below. Simply click on the course to enroll the user.</small>
-  <ul class="pick-list" data-container="items"></ul>
+</div>
+<div class="formgrid whole">
+	<a href="#" data-behavior="submit-invite-and-enroll" class="primary-button new-button">Invite User</a>
 </div>

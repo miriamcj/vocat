@@ -23,6 +23,7 @@ define (require) ->
       'click': 'click'
 
     onClick: () ->
+      console.log 'cick here'
       enrollment = @enrollmentCollection.newEnrollmentFromSearchModel(@model)
       enrollment.save({},{
         error: (model, xhr) =>

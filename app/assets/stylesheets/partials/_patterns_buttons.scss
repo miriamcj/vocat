@@ -17,6 +17,7 @@
   @extend %bare-active;
   display: inline-block;
   color: $white;
+  white-space: nowrap;
   &:hover, &:focus {
     color: $white;
   }

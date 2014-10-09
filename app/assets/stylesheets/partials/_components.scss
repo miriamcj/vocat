@@ -43,7 +43,6 @@
 // --------------------------
 .page-content--heading {
   @include clearfix;
-  margin-bottom: $unitPadding * .5;
 }
 
 .page-content--heading-buttons, .page-section--heading-buttons {

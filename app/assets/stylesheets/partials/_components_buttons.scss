@@ -83,6 +83,16 @@
   }
 }
 
+.update-button {
+  @extend %icon-button;
+  &:after {
+    @include svg(circle-check-teal-on-white);
+    &:hover {
+      @include svg(circle-check-gray-dark-on-white);
+    }
+  }
+}
+
 // A secondary button
 .cancel-button {
   @extend %icon-button;
@@ -99,7 +109,7 @@
   &:after {
     @include svg(circle-ex-red-on-white);
     &:hover {
-      @include svg(circle-ex-gray-dark-on-white);
+      @include svg(circle-ex-red-dark-on-white);
     }
   }
 }

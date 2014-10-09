@@ -5,6 +5,7 @@ define (require) ->
   coursesTemplate = require('hbs!templates/admin/enrollment/course_input')
   ItemView = require('views/admin/enrollment/input_item')
   EmptyView = require('views/admin/enrollment/input_empty')
+  ClosesOnUserAction = require('behaviors/closes_on_user_action')
   require('jquery_ui')
   require('vendor/plugins/ajax_chosen')
 
@@ -24,27 +25,45 @@ define (require) ->
     }
 
     triggers: {
-      'keyup [data-behavior="search-term"]': 'keyUp'
+      'keypress [data-behavior="search-term"]': {
+        event: "update"
+        preventDefault: false
+        stopPropagation: false
+      }
+      'keyup [data-behavior="search-term"]': {
+        event: "update"
+        preventDefault: false
+        stopPropagation: false
+      }
+
+      'change [data-behavior="search-term"]': {
+        event: "update"
+        preventDefault: false
+        stopPropagation: false
+      }
+      'focus [data-behavior="search-term"]': 'focus'
+      'blur [data-behavior="search-term"]': 'blur'
       'click [data-behavior="show-bulk"]': 'showBulk'
     }
 
     initialize: (options) ->
       @collectionType = options.collectionType
       @enrollmentCollection = options.enrollmentCollection
+
       @listenTo(@, 'childview:invited', (event) =>
         @ui.termInput.val('')
-        @onKeyUp()
+        @onUpdate()
       )
 
     onChildviewAdd: () ->
       @ui.termInput.val('')
-      @onKeyUp()
+      @onUpdate()
 
     checkCollectionLength: () ->
       if @collection.length > 0
-        @showContainer()
+        @open()
       else
-        @hideContainer()
+        @close()
 
     buildChildView: (item, ItemViewType, childViewOptions) ->
       options = _.extend({model: item}, childViewOptions)
@@ -60,30 +79,39 @@ define (require) ->
       else
         coursesTemplate
 
-    hideContainer: () ->
-      @ui.containerWrapper.hide()
+    close: () ->
+      if @ui.containerWrapper.is(':visible')
+        @ui.containerWrapper.hide()
+        @triggerMethod('closed')
 
-    showContainer: () ->
-      @ui.containerWrapper.show()
+    open: () ->
+      if !@ui.containerWrapper.is(':visible')
+        @ui.containerWrapper.show()
+        @triggerMethod('opened')
 
     getTerm: () ->
       @ui.termInput.val().trim()
 
-    onSubmit: () ->
-
-    # TODO: Clear input if escape key is pressed.
-    onKeyUp: _.debounce(() ->
+    onFocus: () ->
       term = @getTerm()
       if term.length >= 1
-        @showContainer()
+        @open()
+
+    onBlur: () ->
+      @close()
+
+    onUpdate: _.debounce(() ->
+      term = @getTerm()
+      if term.length >= 1
         data = {}
         data[@collection.getSearchTerm()] = term
         @trigger('input:changed', {value: term})
         @collection.fetch({url: "#{@collection.url}/search", data: data})
       else
-        @hideContainer()
         @collection.reset()
+      if @ui.termInput.is(":focus")
+        @open()
     , 250)
 
-    onRender: () ->
-      @hideContainer()
+    onShow: () ->
+      @ui.containerWrapper.hide()

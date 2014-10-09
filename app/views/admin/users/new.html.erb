@@ -1,27 +1,16 @@
-<% content_for :content_header do %>
-  Users
-<% end %>
+<%= render :partial => 'heading', :locals => {user: @user, subheader: 'Overview'} %>
 
-<% content_for :content_header_links do %>
-  <%= render 'header_links' %>
-<% end %>
-
-<% content_for :content_frames	 do %>
-
-  <header class="button-header">
-    <h2 class="button-header--title space-bottom">Create a new user</h2>
-  </header>
-
-  <%= render 'shared/model_errors', :model => @user %>
-
-  <%= form_for [:admin, @user] do |f| %>
-
-    <%= render 'form', :f => f, :show_password => true %>
-
-    <div class="input-group">
-      <%= link_to 'Back', admin_users_path(), :class => 'gray-ex-button' %>
-      <%= f.submit 'Create User', :class => 'teal-plus-button' %>
-    </div>
+<% content_for :content do %>
+  <% body = capture do %>
+    <%= form_for [:admin, @user], :html => {:class => 'formgrid'} do |f| %>
+      <%= render 'shared/model_errors', :model => @user %>
+      <%= render 'form', :f => f, :show_password => true %>
+      <div class="formgrid whole">
+        <%= f.button 'Save User', :class => 'primary-button new-button' %>
+        <%= link_to 'Back', admin_users_path(), :class => 'secondary-button cancel-button' %>
+      </div>
+    <% end %>
   <% end %>
+  <%= render :partial => 'shared/section', :locals => {:header => 'Properties', :body => body} %>
 <% end %>
 

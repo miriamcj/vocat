@@ -70,7 +70,7 @@ fieldset + fieldset {
     @extend %input-full-width;
   }
 
-  input[type=text], textarea {
+  input[type=text], textarea, input[type=password] {
     @extend %proto-input;
     @extend %input-full-width;
   }
