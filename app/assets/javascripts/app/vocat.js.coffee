@@ -5,6 +5,7 @@ define (require) ->
   ModalLayoutView = require('views/modal/modal_layout')
   ModalConfirmView = require('views/modal/modal_confirm')
   DropdownView = require('views/layout/dropdown')
+  ChosenView = require('views/layout/chosen')
   HeaderDrawerView = require('views/layout/header_drawer')
   HeaderDrawerTriggerView = require('views/layout/header_drawer_trigger')
   GlobalFlashMessagesView = require('views/flash/global_flash_messages')
@@ -66,8 +67,6 @@ define (require) ->
     globalNotify : '#global-notify'
   }
 
-  r = Vocat.getRegion('modal')
-
   Vocat.addInitializer () ->
 
     # To reduce the amount of loading in development context, we load router/controller pairs dynamically.
@@ -122,6 +121,7 @@ define (require) ->
 
   Vocat.on('before:start', () ->
 
+    # Setup the global modal view
     modal = new ModalLayoutView(vent: @)
     Vocat.modal.show(modal)
 
@@ -150,8 +150,9 @@ define (require) ->
     $('[data-behavior="header-drawer"]').each( (index, el) ->
       new HeaderDrawerView({el: el, vent: Vocat.vent})
     )
-
-
+    $('[data-behavior="chosen"').each( (index, el) ->
+      new ChosenView({el: el, vent: Vocat.vent})
+    )
 
     # Announce some key events on the global channel
     globalChannel = Backbone.Wreqr.radio.channel('global')
@@ -179,36 +180,17 @@ define (require) ->
 
   )
 
-  Vocat.on('glossary:enabled:toggle', () =>
-    if Vocat.glossaryEnabled == true
-      Vocat.glossaryEnabled = false
-      Vocat.trigger('glossary:enabled:updated')
-      $.ajax('/users/settings', {
-        type: 'PUT'
-        dataType: 'json'
-        data: {user: {settings: {enable_glossary: false}}}
-      })
-    else
-      Vocat.glossaryEnabled = true
-      Vocat.trigger('glossary:enabled:updated')
-      $.ajax('/users/settings', {
-        type: 'PUT'
-        dataType: 'json'
-        data: {user: {settings: {enable_glossary: true}}}
-      })
-  )
-
-#  Vocat.on('all', (e) ->
-#    console.log "VOCAT heard #{e}"
-#  )
+  # Useful for debugging all application-level events
+  #Vocat.on('all', (e) ->
+  #  console.log "VOCAT heard #{e}"
+  #)
 
   # Some global app constants that we hang on the Vocat object rather than passing them around via events.
   # Another reason for setting these thing at a very high level is that they can potentially be stored in
-  # session data and need to persist across page reloads. We want these variables stored in high-level
-  # location rather than in individual views.
-  Vocat.glossaryEnabled = window.VocatSessionData? && window.VocatSessionData.enable_glossary? && window.VocatSessionData.enable_glossary == true
+  # session data and need to persist across page reloads.
   Vocat.currentUserRole = window.VocatUserRole
   Vocat.S3Bucket = window.VocatS3Bucket
   Vocat.AWSPublicKey = window.VocatAWSPublicKey
+
   return Vocat
 

@@ -64,12 +64,16 @@ requirejs.config {
   }
 }
 
-require ['layout/layout'], (Layout) ->
-  Layout.bootstrap()
-
 require ['app/vocat'], (Vocat) ->
-  $ ->
-    Vocat.start()
+#  $ ->
+  # Load Typekit
+  try
+    Typekit.load()
+  catch e
+    $('html').addClass('wf-inactive')
+
+  # Start Vocat App
+  Vocat.start()
 
 
 

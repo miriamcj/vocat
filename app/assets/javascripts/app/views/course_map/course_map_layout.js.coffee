@@ -1,6 +1,5 @@
 define (require) ->
 
-  Marionette = require('marionette')
   template = require('hbs!templates/course_map/course_map_layout')
   CollectionProxy = require('collections/collection_proxy')
   CourseMapProjects = require('views/course_map/projects')
@@ -10,10 +9,6 @@ define (require) ->
   CourseMapDetailProject = require('views/project/detail')
   CourseMapDetailCreatorProject = require('views/submission/submission_layout')
   AbstractMatrix = require('views/abstract/abstract_matrix')
-  ModalErrorView = require('views/modal/modal_error')
-  UserModel = require('models/user')
-  GroupModel = require('models/group')
-  require('../../../layout/plugins')
 
   class CourseMapLayout extends AbstractMatrix
 
@@ -21,7 +16,6 @@ define (require) ->
       minWidth: 170
 
       template: template
-
 
       ui: {
         detail: '[data-region="detail"]'
