@@ -2,7 +2,6 @@ class Admin::RubricsController < Admin::AdminController
 
   load_and_authorize_resource :rubric
   respond_to :html
-  layout 'content'
 
   # GET /admin/rubrics
   def index
@@ -15,7 +14,7 @@ class Admin::RubricsController < Admin::AdminController
 
   # GET /admin/rubrics/new
   def new
-    respond_with @rubric, :layout => 'frames'
+    respond_with @rubric
   end
 
   # GET /admin/rubrics/1
@@ -31,7 +30,7 @@ class Admin::RubricsController < Admin::AdminController
   # GET /admin/rubrics/1/edit
   def edit
     # Editing happens via API endpoint
-    respond_with @rubric, :layout => 'frames'
+    respond_with @rubric
   end
 
   # POST /admin/rubrics/1/clone

@@ -41,6 +41,10 @@
     &:last-child {
       border-right: 0;
     }
+    small {
+      font-weight: $regular;
+      font-size: $iota;
+    }
   }
   td {
     border-right: 1px solid $grayLight;

@@ -1,57 +1,74 @@
-<div style="padding-top: 0" class="page-content--frame double-space-bottom">
-	<form class="space-top">
+<div class="page-section">
+	<div class="body">
+	<form class="formgrid">
     <fieldset>
-      <div class="input-group">
-        <label class="text-label">Rubric Name</label>
-        <input class="text-input" type="text" value="{{name}}" data-behavior="rubric-name">
+      <div class="formgrid whole">
+        <label>Rubric Name</label>
+        <input type="text" value="{{name}}" data-behavior="rubric-name">
       </div>
-      <div class="input-group">
-        <label class="text-label">Description</label>
-        <input class="text-input" type="text" value="{{description}}" data-behavior="rubric-desc">
+	    <div class="formgrid whole">
+        <label>Description</label>
+        <input type="text" value="{{description}}" data-behavior="rubric-desc">
         <small class="input-message">Enter a brief description of your rubric.</small>
       </div>
-	    <div class="input-group">
-		    <div class="input-group--third">
-			    <div class="input-group">
-				    <label class="text-label">Lowest Possible Score</label>
-				    <input class="text-input" min="0" max="100" type="number" step="1" data-behavior="rubric-low">
-				    <small class="input-message">Usually, this will be 0.</small>
-			    </div>
-		    </div>
-		    <div class="input-group--third">
-			    <div class="input-group">
-				    <label class="text-label">Highest Possible Score</label>
-				    <input class="text-input" min="0" max="100" step="1" type="number" data-behavior="rubric-high">
-				    <small class="input-message">VOCAT's max score is 100</small>
-			    </div>
-		    </div>
-		    {{#if current_user_is_admin}}
-		    <div class="input-group--third">
-			    <div class="input-group">
-				    <label class="text-label">Is this a system-wide rubric?</label>
-				    <select data-behavior="chosen" data-field="rubric-public">
-					    <option {{#unless public}}selected="selected"{{/unless}} value="false">No</option>
-					    <option {{#if public}}selected="selected"{{/if}} value="true">Yes</option>
-				    </select>
-			    </div>
-		    </div>
-				{{/if}}
+	    <div class="formgrid third">
+		    <label>Lowest Possible Score</label>
+		    <input min="0" max="100" type="number" step="1" data-behavior="rubric-low">
+		    <small class="input-message">Usually, this will be 0.</small>
 	    </div>
-	    <div class="input-group" >
-		    <label class="text-label">Rubric Score Ranges</label>
+	    <div class="formgrid third">
+		    <label>Highest Possible Score</label>
+		    <input min="0" max="100" step="1" type="number" data-behavior="rubric-high">
+		    <small class="input-message">VOCAT's max score is 100</small>
+	    </div>
+	    {{#if current_user_is_admin}}
+	    <div class="formgrid third">
+		    <label>Is this a system-wide rubric?</label>
+		    <select data-behavior="chosen" data-field="rubric-public">
+			    <option {{#unless public}}selected="selected"{{/unless}} value="false">No</option>
+			    <option {{#if public}}selected="selected"{{/if}} value="true">Yes</option>
+		    </select>
+	    </div>
+			{{/if}}
+	    <div class="formgrid whole" style="display: none;">
+		    <label>Rubric Score Ranges</label>
 		    <div style="margin-top: 4.8rem; margin-bottom: 2rem;" data-region="range-picker"></div>
 		    <small class="input-message">As you add ranges to your rubric, dividers will appear on the range above. Drag
 		    these dividers to the correct locations to set the score ranges for your rubric.</small>
 	    </div>
     </fieldset>
   </form>
+	</div>
+<!--
 	<div style="margin-top: 0px" data-region="flash"></div>
 
   <a href="#" data-trigger="save" class="teal-arrow-button">Save rubric</a>
   <a href="#" data-trigger="fieldAdd" class="teal-plus-button">Add Criteria</a>
   <a href="#" data-trigger="rangeAdd" class="teal-plus-button">Add Range</a>
+-->
 </div>
 
+<div class="page-section">
+<!--
+	<div class="matrix-wrapper">
+		<div class="matrix-wrapper--creators" data-vertical-headers data-region="creators"></div>
+		<button style="display: none;" data-behavior="matrix-slider-left" class="matrix-cells-wrapper--back"></button>
+		<button style="display: none;" data-behavior="matrix-slider-right" class="matrix-cells-wrapper--forward"></button>
+		<div class="matrix-wrapper--body" data-behavior="matrix-stage">
+			<div class="matrix-body" data-behavior="matrix-actor">
+				<div class="matrix-wrapper--projects" >
+					<table class="table matrix matrix-col-headers" data-region="projects">
+					</table>
+				</div>
+				<div class="matrix-wrapper--cells">
+					<table class="table matrix matrix-cells" data-region="matrix">
+					</table
+				</div>
+			</div>
+		</div>
+	</div>
+-->
+</div>
 <div class="double-space-bottom matrix compact">
   <div>
     <header class="matrix--column-header">

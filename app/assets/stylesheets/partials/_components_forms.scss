@@ -70,7 +70,7 @@ fieldset + fieldset {
     @extend %input-full-width;
   }
 
-  input[type=text], textarea, input[type=password] {
+  input[type=text], textarea, input[type=password], input[type=number] {
     @extend %proto-input;
     @extend %input-full-width;
   }
@@ -97,6 +97,10 @@ fieldset + fieldset {
   }
   &.fourth {
     @extend %form-wide-one-fourth;
+    @extend %form-unit;
+  }
+  &.sixth {
+    @extend %form-wide-one-sixth;
     @extend %form-unit;
   }
   &.twelfth {
@@ -175,6 +179,10 @@ $spacingUnit: $mediumUnitPadding * .75;
 
 select.month, select.day, select.year {
   width: 32.7%;
+}
+
+select.from, select.to {
+  width: 48%;
 }
 
 .live-search {

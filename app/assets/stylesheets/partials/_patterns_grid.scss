@@ -170,6 +170,12 @@
   @include unit(3);
 }
 
+%form-wide-one-sixth {
+  @extend %content-unit;
+  @extend %form-pad;
+  @include unit(2);
+}
+
 
 // Content
 // Currently only 960 +

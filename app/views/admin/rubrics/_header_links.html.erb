@@ -1,7 +1,0 @@
-<% unless local_assigns.fetch :hide_all, nil %>
-  <%= link_to 'All Rubrics', admin_rubrics_path(), :class => 'gray-ex-button' %>
-<% end %>
-<% unless local_assigns.fetch :hide_new, nil %>
-  <%= link_to 'New Rubric', new_admin_rubric_path(), :class => 'teal-plus-button' %>
-<% end %>
-

@@ -9,9 +9,9 @@ define (require) ->
   RowsView = require('views/rubric/rows')
   RangePickerView = require('views/rubric/range_picker')
   FlashMessagesView = require('views/flash/flash_messages')
-  SlidingGridLayout = require('views/abstract/sliding_grid_layout')
+  AbstractMatrix = require('views/abstract/abstract_matrix')
 
-  class RubricLayout extends SlidingGridLayout
+  class RubricLayout extends AbstractMatrix
 
     template: template
     collections: {}
@@ -138,11 +138,9 @@ define (require) ->
             success: (model) =>
               @render()
               @listenTo(@views.rows,'add:child', () =>
-                @sliderRecalculate()
                 @views.rangePicker.render()
               )
               @listenTo(@views.rows,'remove:child', () =>
-                @sliderRecalculate()
                 @views.rangePicker.render()
               )
           })
@@ -167,11 +165,11 @@ define (require) ->
       @views.rangePicker = new RangePickerView({collection: @model.get('ranges'), model: @model, vent: @})
 
       @listenTo(@views.fields,'add:child remove:child', () =>
-        @sliderRecalculate()
+#        @sliderRecalculate()
       )
 
       @listenTo(@views.ranges,'add:child remove:child', () =>
-        @sliderRecalculate()
+#        @sliderRecalculate()
       )
 
       @rows.show(@views.rows)
@@ -187,4 +185,4 @@ define (require) ->
         disable_search_threshold: 1000
       })
 
-      @sliderRecalculate()
+#      @sliderRecalculate()
