@@ -9,7 +9,10 @@ define (require) ->
 
     template: template
 
-    tagName: 'li'
+    tagName: 'th'
+    attributes: {
+      'data-match-height-source': ''
+    }
 
     ui: {
       lowRange: '[data-behavior="low"]'

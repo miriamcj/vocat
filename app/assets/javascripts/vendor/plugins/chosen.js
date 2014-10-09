@@ -430,6 +430,7 @@
     };
 
     AbstractChosen.prototype.container_width = function() {
+	    console.log(this.options);
       if (this.options.width != null) {
         return this.options.width;
       } else {

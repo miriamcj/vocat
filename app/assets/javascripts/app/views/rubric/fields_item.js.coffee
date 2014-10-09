@@ -9,7 +9,7 @@ define (require) ->
 
     template: template
 
-    tagName: 'li'
+    tagName: 'tr'
 
     triggers: {
       'click [data-behavior="destroy"]': 'model:destroy'

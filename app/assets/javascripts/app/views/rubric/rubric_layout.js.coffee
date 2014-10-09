@@ -20,7 +20,7 @@ define (require) ->
     regions: {
       fields: '[data-region="fields"]'
       ranges: '[data-region="ranges"]'
-      rows: '[data-region="rows"]'
+      matrix: '[data-region="matrix"]'
       flash: '[data-region="flash"]'
       rangePicker: '[data-region="range-picker"]'
     }
@@ -154,6 +154,7 @@ define (require) ->
       @render()
 
     onShow: () ->
+      @parentOnShow()
       @ui.publicInput.chosen({
         disable_search_threshold: 1000
       })
@@ -164,6 +165,11 @@ define (require) ->
       @views.ranges = new RangesView({collection: @model.get('ranges'), vent: @})
       @views.rangePicker = new RangePickerView({collection: @model.get('ranges'), model: @model, vent: @})
 
+#      @globalFlash.show(Vocat.globalFlashView)
+      @sliderPosition = 0
+      @bindUIElements()
+
+
       @listenTo(@views.fields,'add:child remove:child', () =>
 #        @sliderRecalculate()
       )
@@ -172,17 +178,15 @@ define (require) ->
 #        @sliderRecalculate()
       )
 
-      @rows.show(@views.rows)
+#      @rows.show(@views.rows)
+      @matrix.show()
       @fields.show(@views.fields)
       @ranges.show(@views.ranges)
-      @flash.show new FlashMessagesView({vent: @, clearOnAdd: true})
-      @rangePicker.show(@views.rangePicker)
+#      @flash.show new FlashMessagesView({vent: @, clearOnAdd: true})
+#      @rangePicker.show(@views.rangePicker)
 
       @ui.highInput.val(@model.getHigh())
       @ui.lowInput.val(@model.getLow())
 
-      @ui.publicInput.chosen({
-        disable_search_threshold: 1000
-      })
 
 #      @sliderRecalculate()

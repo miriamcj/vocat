@@ -20,7 +20,3 @@ define ['marionette', 'hbs!templates/course_map/matrix', 'views/course_map/row',
       @courseId = options.courseId
       @vent = options.vent
       @creatorType = options.creatorType
-
-#    onShow: () ->
-#      @rows.show(new Rows({creatorType: @creatorType, collection: @collection, collections: {project: @collections.project, submission: @collections.submission}, courseId: @courseId, vent: @vent}))
-#      @publishers.show(new Publishers({creatorType: @creatorType, collection: @collections.project, collections: {submission: @collections.submission}}))

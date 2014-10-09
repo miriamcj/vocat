@@ -1,9 +1,11 @@
-define ['marionette', 'views/rubric/ranges_item'], (Marionette, ItemView) ->
+define ['marionette', 'hbs!templates/rubric/ranges', 'views/rubric/ranges_item'], (Marionette, template, ItemView) ->
 
-  class RangesView extends Marionette.CollectionView
+  class RangesView extends Marionette.CompositeView
 
+    tagName: 'thead'
+    template: template
+    childViewContainer: "tr"
     childView: ItemView
-    tagName: 'ul'
     childViewOptions: () ->
       {
         vent: @vent
