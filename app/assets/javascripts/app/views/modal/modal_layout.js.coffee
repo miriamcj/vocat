@@ -40,7 +40,6 @@ define [
 
     closeModal: () ->
       @vent.trigger('modal:before:close')
-      console.log @content,'c'
       @content.reset()
       @ensureBackdrop().fadeOut(250)
       @$el.hide()
@@ -55,20 +54,8 @@ define [
       @vent.trigger('modal:after:show')
       @view.trigger('modal:after:show')
 
-
     centerModal: () ->
-      yOffset = $(document).scrollTop()
-      xOffset = $(document).scrollLeft()
-      yCenter = $(window).height() / 2
-      xCenter = $(window).width() / 2
-      yPosition = yCenter - (@$el.find('[data-behavior=modal]').outerHeight() / 2)
-      xPosition = xCenter - (@$el.find('[data-behavior=modal]').outerWidth() / 2)
       @$el.prependTo('body')
-#      @$el.css({
-#        position: 'absolute'
-#        left: (xPosition + xOffset) + 'px'
-#        top: (yPosition + yOffset) + 'px'
-#      })
       @$el.css({
         zIndex: 4000
         marginTop: '-150px'

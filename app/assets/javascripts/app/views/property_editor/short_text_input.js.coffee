@@ -48,6 +48,7 @@ define (require) ->
       {
         value: @model.get(@property)
         label: Marionette.getOption(@, "inputLabel")
+        saveClasses: Marionette.getOption(@, "saveClasses")
         saveLabel: Marionette.getOption(@, "saveLabel")
       }
 

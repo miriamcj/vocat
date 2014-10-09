@@ -26,6 +26,14 @@ define (require) ->
       @set 'ranges', new RangeCollection(_.toArray(@get('ranges')))
       @set 'cells', new CellCollection( _.toArray(@get('cells')),{})
 
+      @listenTo(@get('fields'),'add remove', (e) ->
+        @trigger('change')
+      )
+
+      @listenTo(@get('ranges'),'add remove', (e) ->
+        @trigger('change')
+      )
+
       @get('fields').bind 'add', (field) =>
         @get('ranges').each((range) =>
           cell = new CellModel({range: range.id, field: field.id})

@@ -41,10 +41,11 @@ define (require) ->
       @openModal()
 
     openModal: () ->
-      Vocat.vent.trigger('modal:open', new ShortTextInputView({model: @model, property: 'name', inputLabel: 'What would you like to call this range?', vent: @vent}))
+      Vocat.vent.trigger('modal:open', new ShortTextInputView({model: @model, property: 'name', saveClasses: 'update-button', saveLabel: 'Update Range Name', inputLabel: 'What would you like to call this range?', vent: @vent}))
 
     onConfirmModelDestroy: () ->
-      @model.destroy()
+      @collection.remove(@model)
+#      @model.destroy()
 
     updateLowRange: () ->
       @ui.lowRange.html(@model.get('low'))

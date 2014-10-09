@@ -4,7 +4,6 @@ define [
 
   class AbstractMatrix extends Marionette.LayoutView
 
-    idealWidth: 230
     minWidth: 200
     maxWidth: 300
     memoizeHashCount: 0
@@ -57,8 +56,11 @@ define [
       @memoizeHashCount
 
     recalculateMatrix: () ->
+      console.log 'recalced'
       @memoizeHashCount++
-      @adjustToCurrentPosition()
+      setTimeout(() =>
+        @adjustToCurrentPosition()
+      ,0)
 
     currentLeft: () ->
       l = @actor().css('left')
@@ -85,8 +87,26 @@ define [
       @actor().find('tr:first-child th, tr:first-child td').css('min-width', @minWidth).outerWidth(w)
       @actor().find('table:first-child').outerWidth(tw)
       @actor().outerWidth(tw)
-      @$el.find('[data-match-height-target]').outerHeight(@$el.find('[data-match-height-source]').outerHeight())
+
+      targetHeight = @$el.find('[data-match-height-source]').outerHeight()
+      @$el.find('[data-match-height-target]').outerHeight(targetHeight)
+
+      @adjustRowHeights()
       w
+
+    adjustRowHeights: () ->
+      bodyRows = @actor().find('tr')
+      @$el.find('[data-vertical-headers] th').each((index, el) =>
+        $header = $(el)
+        $row = $(bodyRows[index]).find('td')
+        headerHeight = $header.outerHeight()
+        rowHeight = $row.outerHeight()
+        if headerHeight > rowHeight
+          $row.outerHeight(headerHeight)
+        else if rowHeight > headerHeight
+          $header.outerHeight(rowHeight)
+
+      )
 
     widthCheckCells: _.memoize () ->
       @actor().find('tr:first-child th, tr:first-child td')
@@ -102,7 +122,8 @@ define [
         cellWidths.push(w)
       )
       widestCell = _.max(cellWidths)
-      if widestCell > @minWidth
+
+      if widestCell > @minWidth && widestCell < @maxWidth
         min = widestCell
       else
         min = @minWidth
@@ -110,12 +131,16 @@ define [
     , () -> @memoizeHash()
 
     idealColumnWidth: _.memoize () ->
-      if Math.floor(@visibleWidth()/@minimumViableColumnWidth()) > Math.floor(@visibleWidth()/@maxWidth)
-        ideal = @minimumViableColumnWidth()
-      else
-        ideal = @maxWidth
-        while Math.floor(@visibleWidth()/@minimumViableColumnWidth()) < Math.floor(@visibleWidth()/@maxWidth)
-          ideal  = ideal - 1
+      min = @minimumViableColumnWidth()
+      max = @maxWidth
+      space = @visibleWidth()
+      colsAtMin = Math.floor(space / min)
+      colsAtMin = @columnCount() if @columnCount() < colsAtMin
+      while min < max
+        cols = Math.floor(space / min)
+        break if cols <= colsAtMin
+        min++
+      return min
     , () -> @memoizeHash()
 
     visibleColumns: _.memoize (columnCount) ->
@@ -212,7 +237,7 @@ define [
       position
 
     adjustToCurrentPosition: () ->
-      @animate(@targetForPosition(@position), 0)
+     @animate(@targetForPosition(@position), 0)
 
     slideTo: (position) ->
       position = @checkAndAdjustPosition(position)

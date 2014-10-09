@@ -230,8 +230,15 @@
 
 .delete-link {
   @extend %icon-link-right;
+  color: $red;
+  &:hover {
+    color: $redDark;
+  }
   &:after {
-    @include svg(circle-ex-gray);
+    @include svg(circle-ex-white-on-red);
+    &:hover {
+      @include svg(circle-ex-white-on-red-dark);
+    }
   }
 }
 

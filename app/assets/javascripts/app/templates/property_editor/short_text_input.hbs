@@ -1,12 +1,10 @@
-<form>
+<form class="formgrid">
 	<div class="formgrid whole">
-		<label >
-			{{label}}
-		</label>
+    <p>{{label}}</p>
 		<input data-property="input" name="input" type="text" value="{{value}}" />
 	</div>
 	<div class="formgrid whole">
-  	<input type="submit" class="primary-button" data-behavior="model-save" value="{{saveLabel}}" />
-  	<input type="submit" class="secondary-button" data-behavior="cancel" value="Cancel" />
+  	<button class="primary-button {{saveClasses}}" data-behavior="model-save">{{saveLabel}}</button>
+  	<button class="secondary-button" data-behavior="cancel">Cancel</button>
   </div>
 </form>

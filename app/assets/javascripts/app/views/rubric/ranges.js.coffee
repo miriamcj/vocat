@@ -8,6 +8,7 @@ define ['marionette', 'hbs!templates/rubric/ranges', 'views/rubric/ranges_item']
     childView: ItemView
     childViewOptions: () ->
       {
+        collection: @collection
         vent: @vent
       }
 

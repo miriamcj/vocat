@@ -1,8 +1,7 @@
-define ['marionette', 'hbs!templates/course_map/matrix', 'views/course_map/row', 'views/course_map/publishers'], (Marionette, template, Row, Publishers) ->
+define ['marionette', 'views/course_map/row', 'views/course_map/publishers'], (Marionette, Row, Publishers) ->
 
   class MatrixView extends Marionette.CollectionView
 
-    template: template
     tagName: 'tbody'
     childView: Row
 

@@ -1,6 +1,6 @@
-define ['marionette', 'hbs!templates/course_map/row_item', 'views/course_map/cell'], (Marionette, template, ItemView) ->
+define ['marionette', 'views/course_map/cell'], (Marionette, ItemView) ->
 
-  class RowsItem extends Marionette.CollectionView
+  class Row extends Marionette.CollectionView
 
     # @model = a user model or a group model (in other words, a creator)
     # @collection = projects collection
@@ -28,7 +28,6 @@ define ['marionette', 'hbs!templates/course_map/row_item', 'views/course_map/cel
       }
 
     initialize: (options) ->
-
       @vent = options.vent
       @submissions = options.collections.submission
       @creatorType = options.creatorType

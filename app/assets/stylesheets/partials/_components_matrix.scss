@@ -102,21 +102,29 @@ $columnWidth: ($container / $columns) - 12;
 }
 
 
+%matrix-heading {
+  @include font-head;
+  text-align: left;
+  font-size: $epsilon;
+  padding: 20px;
+  position: relative;
+  @include respond($vostok) {
+    padding: .5em;
+  }
+  .subheader {
+    margin-top: .5em;
+    font-size: .667em; // 16px;
+  }
+  text-transform: none;
+  font-weight: $regular;
+  letter-spacing: 0;
+}
+
 
 .matrix {
   thead {
     th {
-      @include font-head;
-      text-align: left;
-      font-size: $epsilon;
-      padding: 20px;
-      position: relative;
-      @include respond($vostok) {
-        padding: .5em;
-      }
-      text-transform: none;
-      font-weight: $regular;
-      letter-spacing: 0;
+      @extend %matrix-heading;
     }
   }
 
@@ -145,6 +153,22 @@ $columnWidth: ($container / $columns) - 12;
 
 }
 
+
+th {
+  a {
+    &.delete-link {
+      color: $red;
+      &:hover {
+        color: $redDark;
+      }
+    }
+    color: $grayDarker;
+    &:hover {
+      color: $primaryLinkColor;
+    }
+  }
+}
+
 .matrix {
   tbody {
     th {
@@ -161,7 +185,9 @@ $columnWidth: ($container / $columns) - 12;
         padding: .5em;
         height: 100px;
       }
-
+      &.large {
+        @extend %matrix-heading;
+      }
     }
     td {
       .matrix-tight & {
@@ -172,9 +198,12 @@ $columnWidth: ($container / $columns) - 12;
         padding: 0 20px;
       }
       white-space: nowrap;
+      &.wrap-cell {
+        white-space: normal;
+      }
       font-size: $theta; // Baseline height for the cell is 16px. Need the same baseline in the row headers
       height: 100px;
-      padding: .5em;
+      padding: 10px 20px;
       vertical-align: middle;
     }
   }
