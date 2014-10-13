@@ -9,19 +9,19 @@
       <form class="formgrid">
         <fieldset>
           <div class="formgrid">
-            <div class="formgrid third">
+            <div class="formgrid fourth">
               <%= label_tag :creator, 'Creator Name or Email', {:class => 'text-label'} %>
               <%= text_field_tag(:creator, params[:creator], {:class => 'text-input'}) %>
             </div>
-            <div class="formgrid third">
+            <div class="formgrid fourth">
               <%= label_tag :source, 'Video Type', {:class => 'text-label'} %>
               <%= select_tag(:source, options_for_select(Video::SOURCES.collect { |source| [source.capitalize, source]}, params[:source]), {:include_blank => true, 'data-behavior' => 'chosen'}) %>
             </div>
-            <div class="formgrid third">
+            <div class="formgrid fourth">
               <%= label_tag :state, 'Video State', {:class => 'text-label'} %>
               <%= select_tag(:state, options_for_select(Attachment.state_machine.states.collect{ |state| [state.human_name.capitalize, state.name]}, params[:source]), {:include_blank => true, 'data-behavior' => 'chosen'}) %>
             </div>
-            <div class="formgrid third">
+            <div class="formgrid fourth">
               <label class="text-label">&nbsp;</label>
               <%= button_tag('Filter Videos', {:class => 'primary-button filter-button'}) %>
             </div>
