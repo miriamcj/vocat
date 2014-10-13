@@ -321,7 +321,9 @@ define (require) ->
       @initializeUi()
 
     onShow: () ->
-      @initializeUi()
+      setTimeout () =>
+        @initializeUi()
+      ,0
 
     initialize: (options) ->
       @vent = options.vent

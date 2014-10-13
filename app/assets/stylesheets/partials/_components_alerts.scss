@@ -25,6 +25,12 @@ $spacingUnit: $mediumUnitPadding * .75;
   &.alert-error {
     background: $red;
     color: $white;
+    .modal & {
+      padding: .25em;
+      font-weight: $semibold;
+      background: none;
+      color: $red;
+    }
   }
   .alert--label {
   }

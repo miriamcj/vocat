@@ -94,7 +94,6 @@ define (require) ->
       difference = parseInt(high) - @getLow()
       difference >= @get('ranges').length - 1
 
-
     setLow: (value) ->
       @set('low',parseInt(value))
 

@@ -46,6 +46,10 @@ define [
         if _.isArray(flashMessage.msg)
           if flashMessage.msg.length > 0
             @addMessage(level, flashMessage.msg, null, lifetime )
+        else if !_.isString(flashMessage.msg) && _.isObject(flashMessage.msg)
+          _.each(flashMessage.msg, (text, property) =>
+            @addMessage(level, "#{property.charAt(0).toUpperCase() + property.slice(1);} #{text}.", null, lifetime )
+          )
         else
           @addMessage(level, flashMessage.msg, null, lifetime )
       else

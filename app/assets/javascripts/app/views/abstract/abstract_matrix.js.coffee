@@ -56,7 +56,6 @@ define [
       @memoizeHashCount
 
     recalculateMatrix: () ->
-      console.log 'recalced'
       @memoizeHashCount++
       setTimeout(() =>
         @adjustToCurrentPosition()

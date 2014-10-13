@@ -10,6 +10,7 @@ define (require) ->
   RangePickerView = require('views/rubric/range_picker')
   FlashMessagesView = require('views/flash/flash_messages')
   AbstractMatrix = require('views/abstract/abstract_matrix')
+  ShortTextInputView = require('views/property_editor/short_text_input')
 
   class RubricLayout extends AbstractMatrix
 
@@ -101,19 +102,22 @@ define (require) ->
       event.preventDefault()
       if @model.canAddRange()
         range = new RangeModel({})
-        @model.get('ranges').add(range)
-        range.trigger('edit')
-        setTimeout(() =>
-          $('html, body').animate({ scrollTop: $(document).height() }, 'slow')
-        , 100)
+        modal = new ShortTextInputView({model: range, property: 'name', saveClasses: 'update-button', saveLabel: 'Update Range', inputLabel: 'What would you like to call this range?', vent: @vent})
+        @listenTo(modal, 'model:updated', (e) ->
+          @model.get('ranges').add(range)
+        )
+        Vocat.vent.trigger('modal:open', modal)
       else
         @trigger('error:add', {level: 'notice', msg: 'Before you can add another range to this rubric, you must increase the number of available points by changing the highest possible score field, above.'})
 
     handleFieldAdd: (event) ->
       event.preventDefault()
       field = new FieldModel({})
-      @model.get('fields').add(field)
-      field.trigger('edit')
+      modal = new ShortTextInputView({model: field, property: 'name', saveClasses: 'update-button', saveLabel: 'Update Field Name', inputLabel: 'What would you like to call this criteria?', vent: @vent})
+      @listenTo(modal, 'model:updated', (e) ->
+        @model.get('fields').add(field)
+      )
+      Vocat.vent.trigger('modal:open', modal)
 
     parseRangePoints: (rangePoints) ->
       unless rangePoints? then rangePoints = ''
@@ -168,9 +172,11 @@ define (require) ->
       @chosenifySelects()
 
     chosenifySelects: () ->
-      @ui.publicInput.chosen({
-        disable_search_threshold: 1000
-      })
+      setTimeout () =>
+        @ui.publicInput.chosen({
+          disable_search_threshold: 1000
+        })
+      ,0
 
     onRender: () ->
       @chosenifySelects()
@@ -182,6 +188,7 @@ define (require) ->
       @matrix.show(@views.matrix)
       @fields.show(@views.fields)
       @ranges.show(@views.ranges)
+
       @flash.show new FlashMessagesView({vent: @, clearOnAdd: true})
       @rangePicker.show(@views.rangePicker)
       @bindUIElements()

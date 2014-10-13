@@ -17,7 +17,6 @@ define ['marionette', 'collections/collection_proxy', 'views/rubric/cell'], (Mar
       @rubric = options.rubric
       @vent = options.vent
 
-      @listenTo(@rubric.get('ranges'), 'remove add', (e) =>
-        console.log 're-rendering'
+      @listenTo(@rubric.get('ranges'), 'remove', (e) =>
         @render()
       )

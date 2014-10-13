@@ -65,15 +65,15 @@ requirejs.config {
 }
 
 require ['app/vocat'], (Vocat) ->
-#  $ ->
-  # Load Typekit
-  try
-    Typekit.load()
-  catch e
-    $('html').addClass('wf-inactive')
+  $ ->
+    # Load Typekit
+    try
+      Typekit.load()
+    catch e
+      $('html').addClass('wf-inactive')
 
-  # Start Vocat App
-  Vocat.start()
+    # Start Vocat App
+    Vocat.start()
 
 
 
