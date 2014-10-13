@@ -1,6 +1,17 @@
-define ['marionette', 'hbs!templates/course_map/projects_item'], (Marionette, template) ->
+define (require) ->
+
+  Marionette = require('marionette')
+  template = require('hbs!templates/course_map/projects_item')
+  DropdownView = require('views/layout/dropdown')
+  ModalConfirmView = require('views/modal/modal_confirm')
+
   class CourseMapProjectsItem extends Marionette.ItemView
 
+#
+#    $('[data-behavior="dropdown"]').each( (index, el) ->
+#        new DropdownView({el: el, vent: Vocat.vent})
+#    )
+#
     tagName: 'th'
     template: template
     attributes: {
@@ -8,10 +19,18 @@ define ['marionette', 'hbs!templates/course_map/projects_item'], (Marionette, te
       'data-match-height-source': ''
     }
 
+    ui: {
+      dropdowns: '[data-behavior="dropdown"]'
+      publishAll: '[data-behavior="publish-all"]'
+      unpublishAll: '[data-behavior="unpublish-all"]'
+    }
+
     triggers: {
       'mouseover a': 'active'
       'mouseout a': 'inactive'
       'click a':   'detail'
+      'click @ui.publishAll': 'click:publish'
+      'click @ui.unpublishAll': 'click:unpublish'
     }
 
     serializeData: () ->
@@ -31,4 +50,30 @@ define ['marionette', 'hbs!templates/course_map/projects_item'], (Marionette, te
       @vent = options.vent
 
     onShow: () ->
-      @vent.trigger('project_item:shown', @$el.height())
+      @ui.dropdowns.each( (index, el) ->
+        new DropdownView({el: el, vent: Vocat.vent, allowAdjustment: false})
+      )
+
+    onClickPublish: () ->
+      Vocat.vent.trigger('modal:open', new ModalConfirmView({
+        model: @model,
+        vent: @,
+        descriptionLabel: "All of your evaluations for \"#{@model.get('name')}\" will be visible to students in the course. Are you sure you want to do this?",
+        confirmEvent: 'confirm:publish',
+        dismissEvent: 'dismiss:publish'
+      }))
+
+    onClickUnpublish: () ->
+      Vocat.vent.trigger('modal:open', new ModalConfirmView({
+        model: @model,
+        vent: @,
+        descriptionLabel: "All of your evaluations for \"#{@model.get('name')}\" will no longer be visible to students in the course. Are you sure you want to do this?",
+        confirmEvent: 'confirm:unpublish',
+        dismissEvent: 'dismiss:unpublish'
+      }))
+
+    onConfirmPublish: () ->
+      @vent.triggerMethod('evaluations:publish', @model)
+
+    onConfirmUnpublish: () ->
+      @vent.triggerMethod('evaluations:unpublish', @model)

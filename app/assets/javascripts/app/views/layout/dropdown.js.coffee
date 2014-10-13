@@ -6,6 +6,7 @@ define (require) ->
   class DropdownView extends Marionette.ItemView
 
     adjusted: false
+    allowAdjustment: true
 
     triggers: {
       'click @ui.trigger': 'click:trigger'
@@ -29,7 +30,7 @@ define (require) ->
         @open()
 
     adjustPosition: () ->
-      if @adjusted == false
+      if @adjusted == false && @getOption('allowAdjustment') == true
         dd = @$el.find('[data-behavior="dropdown-options"]')
         if dd.offset().left < 0
           dd.css({left: 0})

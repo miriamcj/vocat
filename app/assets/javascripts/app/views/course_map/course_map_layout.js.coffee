@@ -164,6 +164,32 @@ define (require) ->
 
         @recalculateMatrix()
 
+      onEvaluationsPublish: (project) ->
+        endpoint = "#{project.url()}/publish_evaluations"
+        $.ajax(endpoint, {
+          type: 'put'
+          dataType: 'json'
+          data: {}
+          success: (data, textStatus, jqXHR) =>
+            Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 2000, msg: "Your evaluations for #{project.get('name')} submissions have been published"})
+            @collections.submission.fetch({data: {course: @courseId}})
+          error: (jqXHR, textStatus, error) =>
+            console.log error
+        })
+
+      onEvaluationsUnpublish: (project) ->
+        endpoint = "#{project.url()}/unpublish_evaluations"
+        $.ajax(endpoint, {
+          type: 'put'
+          dataType: 'json'
+          data: {}
+          success: (data, textStatus, jqXHR) =>
+            Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 2000, msg: "Your evaluations for #{project.get('name')} submissions have been unpublished"})
+            @collections.submission.fetch({data: {course: @courseId}})
+          error: (jqXHR, textStatus, error) =>
+            console.log error
+        })
+
       onColActive: (args) ->
         # For now, do nothing.
 

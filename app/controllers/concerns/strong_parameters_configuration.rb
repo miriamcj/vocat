@@ -49,8 +49,6 @@ module StrongParametersConfiguration
 
 
   def project_params(type = 'project')
-    myvar = type
-    a = 'b'
     params.require(type.to_sym).permit(:name,
                                        :description,
                                        :course_id,

@@ -50,7 +50,12 @@ Vocat::Application.routes.draw do
       end
       resources :videos, :only => [:destroy, :create, :show]
       resources :groups, :except => [:new, :edit]
-      resources :projects, :except => [:new, :edit]
+      resources :projects, :except => [:new, :edit] do
+        member do
+          put 'publish_evaluations'
+          put 'unpublish_evaluations'
+        end
+      end
       resources :courses, :only => [:index, :update, :show] do
         resources :enrollments, :only => [:index] do
           collection do

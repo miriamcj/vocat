@@ -73,6 +73,15 @@ class Ability
       project.course.creators.include?(user)
     end
 
+    can [:publish_evaluations], Project do |project|
+      can?(:evaluate, project.course)
+    end
+
+    can [:unpublish_evaluations], Project do |project|
+      can?(:publish_evaluations, project)
+    end
+
+
     ######################################################
     ### Submissions
     ######################################################

@@ -43,6 +43,14 @@ class Project < ActiveRecord::Base
     evaluations.where(published: true).includes(:submission)
   end
 
+  def publish_evaluations(user)
+    evaluations.where(:evaluator_id => user).update_all(:published => true)
+  end
+
+  def unpublish_evaluations(user)
+    evaluations.where(:evaluator_id => user).update_all(:published => false)
+  end
+
   def evaluation_count_by_user(user)
     Evaluation.joins(:submission).where(:evaluator_id => user, :submissions => {project_id: self}).count
   end

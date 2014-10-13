@@ -29,10 +29,6 @@ define [
       'click [data-behavior="overlay-destroy"]' : 'destroy'
     }
 
-    onRender: () ->
-      if @collections.project.length > 1
-        @ui.dropdowns.dropdownNavigation()
-
     onDestroy: () ->
       @vent.triggerMethod('destroy:overlay')
       $(window).off('keyup', @onKeyUp)

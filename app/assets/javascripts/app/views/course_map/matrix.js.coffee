@@ -1,4 +1,4 @@
-define ['marionette', 'views/course_map/row', 'views/course_map/publishers'], (Marionette, Row, Publishers) ->
+define ['marionette', 'views/course_map/row'], (Marionette, Row) ->
 
   class MatrixView extends Marionette.CollectionView
 

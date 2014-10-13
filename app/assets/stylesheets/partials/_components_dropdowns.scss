@@ -131,7 +131,39 @@ a.user-nav--toggle:hover {
     right: 0;
     left: auto;
   }
+  th &.open {
+    .dropdown--toggle {
+      background: $primaryButtonColor;
+      color: $white;
+      &:after {
+        @extend %svg-#{arrow-down-white}-important;
+      }
+    }
+  }
+  th & {
+    .dropdown--options {
+      font-size: .583em;
+      left: 0;
+      margin-left: -.6em;
+      right: auto;
+      padding: 1em;
+      min-width: 160px;
+    }
+    .dropdown--toggle {
+      margin-left: -.6em;
+      padding: .6em 1.8em .6em .6em;
+      font-size: .583em;
+      @include font-body;
+      &:after {
+        top: .6em;
+        right: .6em;
+        width: 12px;
+        height: 12px;
+      }
+    }
+  }
 }
+
 .dropdown-inline.open .dropdown--toggle-inline {
   background-color: $grayDarker;
   @extend %svg-#{arrow-down-white}-important;
