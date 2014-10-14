@@ -26,9 +26,9 @@
   <dd>
     {{#if current_user_percentage }}
       {{#if current_user_published}}
-        <b class="matrix--checkbox checked"></b>
+        <b data-behavior="publish-toggle" class="matrix--checkbox checked"></b>
       {{else}}
-        <b class="matrix--checkbox "></b>
+        <b data-behavior="publish-toggle" class="matrix--checkbox "></b>
       {{/if}}
     {{/if}}
   </dd>

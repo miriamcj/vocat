@@ -9,6 +9,7 @@ class EvaluationSerializer < ActiveModel::Serializer
               :total_percentage,
               :total_score,
               :points_possible,
+              :current_user_is_evaluator,
               :abilities
 
   def abilities
@@ -19,6 +20,10 @@ class EvaluationSerializer < ActiveModel::Serializer
 
   def score
     object.score_detail
+  end
+
+  def current_user_is_evaluator
+    scope.id == evaluator_id
   end
 
   def evaluator_role

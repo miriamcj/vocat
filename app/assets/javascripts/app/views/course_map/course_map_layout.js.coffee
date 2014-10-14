@@ -48,6 +48,7 @@ define (require) ->
 
       initialize: (options) ->
         @collections = options.collections
+        console.log @collections,'c'
         @courseId = options.courseId
 
       showUserViews: () ->

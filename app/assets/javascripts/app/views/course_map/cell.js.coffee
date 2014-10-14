@@ -23,7 +23,7 @@ define ['marionette', 'hbs!templates/course_map/cell', 'models/user', 'models/gr
       @vent.triggerMethod('open:detail:creator:project', args)
 
     onPublishToggle: () ->
-      if @model? then @model.toggleEvaluationPublish()
+      @model.toggleEvaluationPublish()
 
     findModel: () ->
       if @creator instanceof UserModel

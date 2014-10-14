@@ -14,7 +14,9 @@ class SubmissionSerializer < AbstractSubmissionSerializer
               :project_id,
               :evaluations,
               :video,
-              :abilities
+              :abilities,
+              :current_user_published?,
+              :current_user_percentage
 
   has_one :project
   has_one :creator
