@@ -86,11 +86,9 @@ define [
       @actor().find('tr:first-child th, tr:first-child td').css('min-width', @minWidth).outerWidth(w)
       @actor().find('table:first-child').outerWidth(tw)
       @actor().outerWidth(tw)
-
       targetHeight = @$el.find('[data-match-height-source]').outerHeight()
-      @$el.find('[data-match-height-target]').outerHeight(targetHeight)
-
-      @adjustRowHeights()
+      # Work around for chrome rendering bug when height of th in table is adjusted.
+      @$el.find('[data-match-height-target]').outerHeight(targetHeight).hide().show(0)
       w
 
     adjustRowHeights: () ->
