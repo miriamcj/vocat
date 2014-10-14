@@ -30,7 +30,6 @@ define (require) ->
       @vent = Marionette.getOption(@, 'vent')
 
     serializeData: () ->
-      console.log @model,'@model'
       {
         message: @message
         abilities: @model.get('abilities')

@@ -1,4 +1,4 @@
-define ['marionette', 'hbs!templates/rubric/rows_item', 'views/group/cell'], (Marionette, template, ItemView) ->
+define ['marionette', 'views/group/cell'], (Marionette, ItemView) ->
 
   class Row extends Marionette.CollectionView
 

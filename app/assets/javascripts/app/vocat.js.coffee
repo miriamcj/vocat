@@ -8,8 +8,8 @@ define (require) ->
   ChosenView = require('views/layout/chosen')
   HeaderDrawerView = require('views/layout/header_drawer')
   HeaderDrawerTriggerView = require('views/layout/header_drawer_trigger')
-  GlobalFlashMessagesView = require('views/flash/global_flash_messages')
-  FlashMessagesCollection = require('collections/flash_message_collection')
+  NotificationLayoutView = require('views/notification/notification_layout')
+
 
   window.Vocat = Vocat = new Backbone.Marionette.Application()
 
@@ -61,10 +61,9 @@ define (require) ->
   }
 
   Vocat.addRegions {
-    main : '#region-main',
+    main : '#region-main'
     modal : '[data-region="modal"]'
-    globalFlash : '#global-flash'
-    globalNotify : '#global-notify'
+    notification: '[data-region="global-notifications"]'
   }
 
   Vocat.addInitializer () ->
@@ -154,29 +153,24 @@ define (require) ->
       new ChosenView({el: el, vent: Vocat.vent})
     )
 
+    # Setup the global notifications view
+    notification = new NotificationLayoutView({vent: Vocat.vent})
+    Vocat.notification.show(notification)
+
     # Announce some key events on the global channel
     globalChannel = Backbone.Wreqr.radio.channel('global')
     $('html').bind('click', (event) ->
       globalChannel.vent.trigger('user:action', event)
     );
 
-    # Handle global flash messages
-    flashMessages = new FlashMessagesCollection([], {})
-    dataContainer = $("#bootstrap-globalFlash")
-    if dataContainer.length > 0
-      div = $('<div></div>')
-      div.html dataContainer.text()
-      text = div.text()
-      if text? && !(/^\s*$/).test(text)
-        data = JSON.parse(text)
-        if data['globalFlash']? then flashMessages.reset(data['globalFlash'])
-
-    Vocat.globalFlashView = new GlobalFlashMessagesView({vent: Vocat.vent, collection: flashMessages})
-    if $(Vocat.globalFlash.el).length > 0 then Vocat.globalFlash.show(Vocat.globalFlashView)
-
     # Used to test flash messages.
-    #Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '5000',  msg: 'This is a test global error message.'})
-
+#    setTimeout () =>
+#      Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '5000',  msg: 'This is a test global error message.'})
+#    , 2000
+#   setInterval(() ->
+#      Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '1000',  msg: 'This is a test global error message.'})
+#      Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '1000',  msg: 'This is a test global error message.'})
+#    ,2000)
 
   )
 

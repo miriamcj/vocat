@@ -17,15 +17,16 @@ define [
       'click [data-behavior="destroy"]': 'destroy'
 
     initialize: (options) ->
-      lifetime = @model.get('lifetime')
-      if lifetime? && lifetime != false && lifetime > 1000 then @lifetime = @model.get('lifetime')
+      lifetime = parseInt(@model.get('lifetime'))
+      @lifetime = lifetime if lifetime > 0
 
     onDestroy: ->
-      @$el.slideUp({
-        duration: 250
-        done: () =>
-          @model.destroy()
-      })
+      @model.destroy()
+#      @$el.slideUp({
+#        duration: 250
+#        done: () =>
+#          @model.destroy()
+#      })
 
     onBeforeRender: () ->
       @$el.hide()
@@ -43,6 +44,7 @@ define [
         @$el.show()
       else
         @$el.fadeIn()
+
 
       setTimeout( () =>
         @onDestroy()

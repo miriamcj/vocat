@@ -69,7 +69,6 @@ define (require) ->
       @vent = options.vent
 
     serializeData: () ->
-      console.log @contacts
       out = {
         contact_emails: _.pluck(@contacts, 'email').join(', ')
         contacts_count: @contacts.length

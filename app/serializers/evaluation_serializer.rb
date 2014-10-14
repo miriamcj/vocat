@@ -5,7 +5,7 @@ class EvaluationSerializer < ActiveModel::Serializer
               :evaluator_id,
               :evaluator_name,
               :evaluator_role,
-              :score,
+              :scores,
               :total_percentage,
               :total_score,
               :points_possible,

@@ -97,5 +97,4 @@ define (require) ->
       out.is_vimeo = @video.get('source') == 'vimeo'
       out.is_attachment = @video.get('source') == 'attachment'
       out.abilities = @model.get('abilities')
-      console.log out,'out'
       out

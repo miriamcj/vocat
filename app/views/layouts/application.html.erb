@@ -13,6 +13,7 @@
   <div data-region="modal"></div>
 
   <%= render 'layouts/header' %>
+  <%= render 'layouts/messages' %>
 
   <div class="container">
     <%= content_for?(:content) ? yield(:main) : yield %>

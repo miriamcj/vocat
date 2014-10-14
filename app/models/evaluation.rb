@@ -73,12 +73,6 @@ class Evaluation < ActiveRecord::Base
     end
   end
 
-  def ensure_score_hash
-    unless self.scores.is_a?(Hash)
-      self.scores = {}
-    end
-  end
-
   def update_percentage
     score = self.calculate_total_score
     if score
@@ -137,6 +131,12 @@ class Evaluation < ActiveRecord::Base
 
   def active_model_serializer
     EvaluationSerializer
+  end
+
+  def ensure_score_hash
+    unless self.scores.is_a?(Hash)
+      self.scores = {}
+    end
   end
 
   def scaffold_scores

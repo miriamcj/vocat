@@ -22,6 +22,7 @@ define (require) ->
 
     onClickGroupsSave: () ->
       @collection.save()
+      Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '3000',  msg: 'Groups have been saved.'})
       @destroy()
 
     onClickGroupsRevert: () ->

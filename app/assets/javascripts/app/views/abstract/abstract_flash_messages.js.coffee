@@ -1,11 +1,9 @@
-define [
-  'marionette',
-  'views/flash/flash_messages_item',
-  'collections/flash_message_collection',
-  'hbs!templates/flash/flash_messages'
-],(
-  Marionette, ItemView, FlashMessageCollection, template
-) ->
+define (require) ->
+
+  Marionette = require('marionette')
+  ItemView = require('views/flash/flash_messages_item')
+  FlashMessageCollection = require('collections/flash_message_collection')
+  template = require('hbs!templates/flash/flash_messages')
 
   class AbstractFlashMessages extends Marionette.CollectionView
 
@@ -42,6 +40,7 @@ define [
     processMessage: (flashMessage) ->
       if _.isObject(flashMessage.msg) || _.isArray(flashMessage.msg)
         if flashMessage.level? then level = flashMessage.level else level = 'notice'
+
         if flashMessage.lifetime? then lifetime = flashMessage.lifetime else lifetime = null
         if _.isArray(flashMessage.msg)
           if flashMessage.msg.length > 0

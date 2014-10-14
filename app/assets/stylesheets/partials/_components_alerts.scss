@@ -43,11 +43,12 @@ $spacingUnit: $mediumUnitPadding * .75;
   }
 }
 
-#notifications {
+.notification {
   z-index: 200;
   padding: 0 1.5em;
-  position: relative;
-//  top: $headerHeight;
+  position: fixed;
+  width: 100%;
+  top: $headerHeight;
 //  margin-bottom: -$headerHeight;
   background: $grayDarker;
   opacity: 1;

@@ -10,6 +10,8 @@ requirejs.config {
     'vendor/plugins/autosize': ['jquery_rails']
     'vendor/plugins/waypoints': ['jquery_rails']
     'vendor/plugins/chosen': ['jquery_rails']
+    'vendor/plugins/waypoints': ['jquery']
+    'vendor/plugins/waypoints_sticky': ['jquery']
     'vendor/plugins/ajax_chosen': ['vendor/plugins/chosen']
     'vendor/dc/dc': {
       deps: ['vendor/crossfilter/crossfilter', 'vendor/d3/d3'],
@@ -54,6 +56,8 @@ requirejs.config {
     'backbone.babysitter' : 'vendor/plugins/backbone.babysitter'
     'marionette' : 'vendor/marionette/marionette_2.2.0'
     'jquery_ui': 'vendor/ui/jquery_ui'
+    'waypoints': 'vendor/plugins/waypoints'
+    'waypoints_sticky': 'vendor/plugins/waypoints_sticky'
   }
 
   map: {

@@ -72,10 +72,6 @@ define (require) ->
 
     initialize: (options) ->
       @vent = options.vent
-      @listenTo(@model,'all',(e) ->
-        console.log e, 'heard something'
-      )
       @listenTo(@model,'change:video', (model) =>
-        console.log 'heard it, muthafunker'
         @selectView()
       )

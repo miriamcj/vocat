@@ -25,6 +25,5 @@ define ['marionette', 'hbs!templates/portfolio/portfolio_item_submission'], (Mar
         showCourse: @showCourse
         showCreator: @showCreator
       }
-      console.log data,'data'
       out
 

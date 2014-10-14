@@ -43,4 +43,3 @@ define (require) ->
       @$el.find('[data-behavior="dropdown"]').dropdownNavigation()
 
     initialize: (options) ->
-      console.log @model.attributes

@@ -39,7 +39,6 @@ define (require) ->
       }
 
       onRender: () ->
-        @globalFlash.show(Vocat.globalFlashView)
         @sliderPosition = 0
         @bindUIElements()
 
@@ -48,8 +47,8 @@ define (require) ->
 
       initialize: (options) ->
         @collections = options.collections
-        console.log @collections,'c'
         @courseId = options.courseId
+        Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '5000',  msg: 'This is a test global error message.'})
 
       showUserViews: () ->
         @creatorType = 'User'
@@ -175,7 +174,7 @@ define (require) ->
             Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 2000, msg: "Your evaluations for #{project.get('name')} submissions have been published"})
             @collections.submission.fetch({data: {course: @courseId}})
           error: (jqXHR, textStatus, error) =>
-            console.log error
+            # TODO: Handle error
         })
 
       onEvaluationsUnpublish: (project) ->
@@ -188,7 +187,7 @@ define (require) ->
             Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 2000, msg: "Your evaluations for #{project.get('name')} submissions have been unpublished"})
             @collections.submission.fetch({data: {course: @courseId}})
           error: (jqXHR, textStatus, error) =>
-            console.log error
+            # TODO: Handle error
         })
 
       onColActive: (args) ->

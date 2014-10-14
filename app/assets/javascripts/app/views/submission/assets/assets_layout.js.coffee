@@ -29,7 +29,6 @@ define (require) ->
       @annotations.$el.find('.body').css({height: 'auto'})
       p = @player.$el.find('.body').outerHeight()
       a = @annotations.$el.find('.body').outerHeight()
-      console.log p, a
       if p > a
         @annotations.$el.find('.body').css({height: p})
       else

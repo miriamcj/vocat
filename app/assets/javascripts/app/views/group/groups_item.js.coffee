@@ -32,7 +32,7 @@ define (require) ->
       @model.destroy({
         success: () =>
           Vocat.vent.trigger('error:clear')
-          Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '5000',  msg: 'The group was successfully deleted.'})
+          Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '3000',  msg: 'The group was successfully deleted.'})
       , error: () =>
           Vocat.vent.trigger('error:clear')
           Vocat.vent.trigger('error:add', {level: 'notice', msg: xhr.responseJSON.errors})
@@ -58,7 +58,6 @@ define (require) ->
       @$el.attr('data-group', @model.id)
 
       @listenTo(@model, 'change:name', () =>
-        console.log @vent,'vent'
         @render()
         @vent.trigger('recalculate')
       )

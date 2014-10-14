@@ -40,8 +40,7 @@ define (require) ->
     }
 
     onDirty: () ->
-      unless Vocat.globalNotify.hasOwnProperty('currentView')
-        Vocat.globalNotify.show(new SaveNotifyView({collection: @collections.group}))
+      Vocat.vent.trigger('notification:show', new SaveNotifyView({collection: @collections.group}))
 
 
     onClickGroupAssign: () ->
