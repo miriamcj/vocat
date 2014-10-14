@@ -89,7 +89,6 @@ define [
       targetHeight = @$el.find('[data-match-height-source]').outerHeight()
       # Work around for chrome rendering bug when height of th in table is adjusted.
       @$el.find('[data-match-height-target]').outerHeight(targetHeight).hide().show(0)
-      w
 
     adjustRowHeights: () ->
       bodyRows = @actor().find('tr')

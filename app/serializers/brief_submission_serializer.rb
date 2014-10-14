@@ -5,8 +5,8 @@ class BriefSubmissionSerializer < AbstractSubmissionSerializer
               :creator_type,
               :serialized_state,
               :current_user_published?,
-              :current_user_percentage
-
+              :current_user_percentage,
+              :has_video?
 
   def serialized_state
 	  'partial'

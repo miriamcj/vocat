@@ -60,7 +60,7 @@ define ['marionette', 'hbs!templates/course_map/cell', 'models/user', 'models/gr
 
       @project = @model
       @findModel()
-
+      console.log @model,'m'
       @listenTo(@submissions, 'sync', () ->
         @findModel()
       )

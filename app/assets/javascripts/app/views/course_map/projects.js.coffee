@@ -11,7 +11,19 @@ define (require) ->
     emptyView: EmptyView
     tagName: 'thead'
     template: template
-    childViewContainer: "tr"
+    ui: {
+      childContainer: '[data-container="children"]'
+    }
+
+
+    attachHtml: (collectionView, childView, index) ->
+      if collectionView.isBuffering
+        collectionView.elBuffer.appendChild(childView.el)
+      else
+        @ui.childContainer.append(childView.el)
+
+    attachBuffer: (collectionView, buffer) ->
+      @ui.childContainer.append(buffer)
 
     childViewOptions: () ->
       {
