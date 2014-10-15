@@ -10,8 +10,21 @@ define (require) ->
   HeaderDrawerTriggerView = require('views/layout/header_drawer_trigger')
   NotificationLayoutView = require('views/notification/notification_layout')
 
-
   window.Vocat = Vocat = new Backbone.Marionette.Application()
+
+  # Attach views to existing dom elements
+  $('[data-behavior="dropdown"]').each( (index, el) ->
+    new DropdownView({el: el, vent: Vocat.vent})
+  )
+  $('[data-behavior="header-drawer-trigger"]').each( (index, el) ->
+    new HeaderDrawerTriggerView ({el: el, vent: Vocat.vent})
+  )
+  $('[data-behavior="header-drawer"]').each( (index, el) ->
+    new HeaderDrawerView({el: el, vent: Vocat.vent})
+  )
+  $('[data-behavior="chosen"').each( (index, el) ->
+    new ChosenView({el: el, vent: Vocat.vent})
+  )
 
   Vocat.routes = {
     admin: {
@@ -139,19 +152,6 @@ define (require) ->
           }))
       )
 
-    # Attach views to existing dom elements
-    $('[data-behavior="dropdown"]').each( (index, el) ->
-      new DropdownView({el: el, vent: Vocat.vent})
-    )
-    $('[data-behavior="header-drawer-trigger"]').each( (index, el) ->
-        new HeaderDrawerTriggerView ({el: el, vent: Vocat.vent})
-    )
-    $('[data-behavior="header-drawer"]').each( (index, el) ->
-      new HeaderDrawerView({el: el, vent: Vocat.vent})
-    )
-    $('[data-behavior="chosen"').each( (index, el) ->
-      new ChosenView({el: el, vent: Vocat.vent})
-    )
 
     # Setup the global notifications view
     notification = new NotificationLayoutView({vent: Vocat.vent})
@@ -179,12 +179,7 @@ define (require) ->
   #  console.log "VOCAT heard #{e}"
   #)
 
-  # Some global app constants that we hang on the Vocat object rather than passing them around via events.
-  # Another reason for setting these thing at a very high level is that they can potentially be stored in
-  # session data and need to persist across page reloads.
-  Vocat.currentUserRole = window.VocatUserRole
-  Vocat.S3Bucket = window.VocatS3Bucket
-  Vocat.AWSPublicKey = window.VocatAWSPublicKey
+  
 
   return Vocat
 
