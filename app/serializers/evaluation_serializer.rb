@@ -18,7 +18,7 @@ class EvaluationSerializer < ActiveModel::Serializer
     }
   end
 
-  def score
+  def scores
     object.score_detail
   end
 

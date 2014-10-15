@@ -23,6 +23,6 @@ define (require) ->
       sd ={
         title: @model.get('evaluator_name')
         percentage: Math.round(@model.get('total_percentage'))
-        score: @model.get('score')
+        score: @model.get('scores')
       }
       sd
