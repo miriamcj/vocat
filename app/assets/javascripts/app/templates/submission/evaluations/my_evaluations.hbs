@@ -1,0 +1,30 @@
+<li class="evaluation-collection evaluation-collection-instructor">
+  <div data-behavior="toggle-children">
+    <div data-behavior="range" class="range range-expandable range-expandable-open">
+      <h4 class="range--title">
+        Your Evaluation
+      </h4>
+      <div class="range--track">
+        <span style="width: 50%" class="range--fill"></span>
+        <div class="range--handle"><b></b>0%</div>
+      </div>
+    </div>
+  </div>
+
+
+  <ul class="evaluation-single--details evaluations-hidden" data-behavior="child-container">
+    {{#each score_details }}
+      <li>
+        <div data-behavior="range" class="range range-tertiary range-editable">
+          <h4 class="range--title">{{ name }}</h4>
+          <div class="range--track">
+            <span style="width: {{ percentage }}%" class="range--fill"></span>
+            <div class="range--handle"><b></b>{{to_i percentage}}%</div>
+          </div>
+        </div>
+      </li>
+    {{/each}}
+  </ul>
+
+</li>
+

@@ -27,7 +27,7 @@ define ['backbone'], (Backbone) ->
 
     updateCalculatedScoreFields: () ->
       total = 0
-      _.each(@.get('scores'), (details, fieldKey) =>
+      _.each(@.get('score_details'), (details, fieldKey) =>
         total = total + parseInt(details['score'])
       )
 

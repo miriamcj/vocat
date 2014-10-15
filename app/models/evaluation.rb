@@ -49,7 +49,8 @@ class Evaluation < ActiveRecord::Base
         score: score.to_f,
         low: rubric.low_possible_for(key),
         high: rubric.high_possible_for(key),
-        percentage: (score.to_f / rubric.high_possible_for(key)) * 100
+        percentage: (score.to_f / rubric.high_possible_for(key)) * 100,
+        name: rubric.field_name_for(key)
       }
     end
     out

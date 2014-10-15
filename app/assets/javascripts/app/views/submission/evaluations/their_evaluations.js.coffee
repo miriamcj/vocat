@@ -22,8 +22,9 @@ define (require) ->
         proxy = new CollectionProxy(@evaluations)
 
         proxy.where((model) ->
-          model.get('evaluator_role') == evalRole && model.get('current_user_is_owner') != true)
-        set = new EvaluationSetModel({evaluations: proxy, evaluator_role: evalRole})
-        @collection.add(set)
+          model.get('evaluator_role') == evalRole && model.get('current_user_is_evaluator') != true)
+        if proxy.length > 0
+          set = new EvaluationSetModel({evaluations: proxy, evaluator_role: evalRole})
+          @collection.add(set)
       )
 

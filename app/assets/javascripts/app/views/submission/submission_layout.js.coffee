@@ -6,23 +6,6 @@ define (require) ->
   EvaluationsView = require('views/submission/evaluations/evaluations_layout')
   AssetsView = require('views/submission/assets/assets_layout')
 
-
-#  AnnotationCollection = require('collections/annotation_collection')
-#  EvaluationCollection = require('collections/evaluation_collection')
-#  PlayerView = require('views/submission/player/player_layout')
-#  AnnotationsView = require('views/submission/annotations')
-#  AnnotatorView = require('views/submission/annotator')
-#  EvaluationView = require('views/submission/evaluation')
-#  MyEvaluationView = require('views/submission/my_evaluation')
-#  DiscussionView = require('views/submission/discussion')
-#  FlashMessagesView = require('views/flash/flash_messages')
-#  RubricFieldPlacard = require('views/help/rubric_field_placard')
-#  GlossaryTogglePlacard = require('views/help/glossary_toggle_placard')
-#  RubricModel = require('models/rubric')
-#  ProjectDialogView = require('views/project/dialog')
-#  RubricDetailView = require('views/rubric/rubric_detail')
-
-
   class SubmissionLayout extends Marionette.LayoutView
 
     template: template

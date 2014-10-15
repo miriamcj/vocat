@@ -3,9 +3,9 @@
 </div>
 
 <ul class="evaluation-single--details evaluations-hidden" data-behavior="child-container">
-  {{#each score }}
+  {{#each score_details }}
   <li>
-    {{{include "range" title=@key percentage=this.percentage range_class="range-tertiary"}}}
+    {{{include "range" title=this.name percentage=this.percentage range_class="range-tertiary"}}}
   </li>
   {{/each}}
 </ul>

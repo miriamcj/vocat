@@ -183,15 +183,20 @@ class Rubric < ActiveRecord::Base
   end
 
   def field_names
-    self.fields.collect { |value| value['name']}
-  end
-
-  def field_names
     self.fields.collect { |value| value['name'].downcase }
   end
 
   def field_keys
 	  self.fields.collect { |value| value['id']}
+  end
+
+  def field_name_for(key)
+    f = self.fields.find{ |f| f['id'] == key }
+    if !f.nil?
+      f['name']
+    else
+      nil
+    end
   end
 
   def low_score

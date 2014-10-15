@@ -6,6 +6,7 @@ class EvaluationSerializer < ActiveModel::Serializer
               :evaluator_name,
               :evaluator_role,
               :scores,
+              :score_details,
               :total_percentage,
               :total_score,
               :points_possible,
@@ -18,7 +19,7 @@ class EvaluationSerializer < ActiveModel::Serializer
     }
   end
 
-  def scores
+  def score_details
     object.score_detail
   end
 
