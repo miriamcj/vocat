@@ -48,7 +48,6 @@ define (require) ->
       initialize: (options) ->
         @collections = options.collections
         @courseId = options.courseId
-        Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '5000',  msg: 'This is a test global error message.'})
 
       showUserViews: () ->
         @creatorType = 'User'

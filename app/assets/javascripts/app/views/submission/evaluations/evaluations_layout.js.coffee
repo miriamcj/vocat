@@ -27,8 +27,7 @@ define (require) ->
 
     showBabies: () ->
       @theirEvaluations.show(new TheirEvaluations({evaluations: @evaluations}))
-      console.log 'once'
-      @myEvaluations.show(new MyEvaluations({collection: @evaluations}))
+      @myEvaluations.show(new MyEvaluations({evaluations: @evaluations}))
 
     onRender: () ->
       @showBabies()

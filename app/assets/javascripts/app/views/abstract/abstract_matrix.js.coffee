@@ -75,8 +75,7 @@ define [
 
     actor: _.memoize () ->
       @$el.find('[data-behavior="matrix-actor"]')
-    , () ->
-      @memoizeHash()
+    , () -> @memoizeHash()
 
     columnCount: _.memoize () ->
       @actor().find('tr:first-child td').length

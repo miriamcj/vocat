@@ -1,4 +1,8 @@
-define ['backbone'], (Backbone) ->
+define (require) ->
+
+  Bacbone = require('backbone')
+  ScoreCollection = require('collections/score_collection')
+
   class EvaluationModel extends Backbone.Model
 
     paramRoot: 'evaluation'
@@ -35,3 +39,16 @@ define ['backbone'], (Backbone) ->
       @set('total_points', total)
       @set('total_percentage', per)
       @set('total_percentage_rounded', per.toFixed(0))
+
+    getScoresCollection: () ->
+      return @scoreCollection if @scoreCollection?
+
+      scores = @get('score_details')
+      addScores = []
+      _.each(scores, (score, key) ->
+        addScore = _.clone(score)
+        addScore.id = key
+        addScores.push addScore
+      )
+      @scoreCollection = new ScoreCollection(addScores)
+      return @scoreCollection

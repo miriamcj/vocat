@@ -4,6 +4,7 @@
 
 $barHeight: 40px;
 $secondaryBarHeight: 15px;
+$editableBarHeight: 24px;
 $handleWidth: 100px;
 
 
@@ -195,7 +196,98 @@ ul.evaluations-hidden {
 }
 
 .range-editable {
+  .range--grabber {
+    display: block;
+    width: 10px;
+    background: $white;
+    border: 5px solid $instructorFillColor;
+    border-radius: 50%;
+    height: $editableBarHeight * 1.25;
+    width: $editableBarHeight * 1.25;
+    z-index: 20;
+    top: ($editableBarHeight * .25 * -1) * .5;
+//    right: $editableBarHeight * -1.25 * .5;
 
+  }
+  .range--handle {
+    text-align: center;
+    width: $handleWidth !important;
+    background: none !important;
+    right: -$handleWidth - ($secondaryBarHeight * $largeHandleMultipler ) !important;
+    .score-wrapper {
+      margin-top: 5px;
+      display: inline-block;
+      font-size: $epsilon;
+      .possible, .score {
+        float: left;
+        font-weight: $semibold;
+        color: $defaultFillColor;
+        //      background: yellow;
+      }
+      .possible {
+        position: relative;
+        padding-left: 20px;
+        &:before {
+          position: absolute;
+          content: '';
+          left: 0;
+          top: -5px;
+          @include svg(slash-gray);
+          height: 40px;
+          width: 10px;
+        }
+      }
+      .score {
+        padding-right: 10px;
+        color: $instructorFillColor;
+      }
+    }
+  }
+  .range--fill {
+    margin-left: 12px;
+    position: absolute;
+    height: $editableBarHeight;
+    background: $instructorFillColor;
+  }
+  .range--track-wrapper {
+    position: relative;
+    margin-right: $barHeight * 3;
+    margin-top: $editableBarHeight;
+  }
+  .range--track {
+    margin-right: 0;
+    height: $editableBarHeight;
+    .range--fill-shim {
+      height: $editableBarHeight;
+      width: 12px;
+      position: absolute;
+      z-index: 5;
+      background: $instructorFillColor;
+    }
+    .range--ticks {
+      position: absolute;
+      width: 100%;
+      @extend %unstyled-list;
+      li {
+        &:before {
+          position: absolute;
+          top: 8px;
+          left: 8px;
+          content: '';
+          width: 8px;
+          border-radius: 50%;
+          background: $white;
+          height: 8px;
+        }
+        z-index: 10;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        float: left;
+        height: $editableBarHeight;
+      }
+    }
+  }
 }
 
 .range--handle {
