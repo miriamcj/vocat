@@ -38,12 +38,13 @@ body {
     min-width: $michigan;
   }
   // Fade everything in once Typekit fonts load
-  @include transition($fastTransition opacity $timing);
+  //@include transition($fastTransition opacity $timing);
   // Fade everything in if the fonts haven't loaded after two seconds
-  @include animation($fastTransition fade-in 2s forwards);
+  //@include animation($fastTransition fade-in 2s forwards);
   opacity: 0;
   .no-js &,
   .wf-active &,
+  .wf-inactive &,
   &.mceContentBody {
     // If the fonts load in less than two seconds or if javascript is not available, prevent
     // the fallback animation from firing

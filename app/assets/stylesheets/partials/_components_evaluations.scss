@@ -196,6 +196,10 @@ ul.evaluations-hidden {
 }
 
 .range-editable {
+  .grabber-wrapper {
+    position: relative;
+    left: -4px;
+  }
   .range--grabber {
     display: block;
     width: 10px;
@@ -206,8 +210,6 @@ ul.evaluations-hidden {
     width: $editableBarHeight * 1.25;
     z-index: 20;
     top: ($editableBarHeight * .25 * -1) * .5;
-//    right: $editableBarHeight * -1.25 * .5;
-
   }
   .range--handle {
     text-align: center;
@@ -218,33 +220,34 @@ ul.evaluations-hidden {
       margin-top: 5px;
       display: inline-block;
       font-size: $epsilon;
-      .possible, .score {
+      overflow: hidden;
+      .score, .slash, .possible {
+        display: block;
         float: left;
         font-weight: $semibold;
         color: $defaultFillColor;
-        //      background: yellow;
+      }
+      .possible, .score {
+        width: 35px;
+      }
+      .slash {
+        position: relative;
+        top: -2px;
+        @include svg(slash-gray);
+        height: 40px;
+        width: 10px;
+        margin: 0 10px;
       }
       .possible {
-        position: relative;
-        padding-left: 20px;
-        &:before {
-          position: absolute;
-          content: '';
-          left: 0;
-          top: -5px;
-          @include svg(slash-gray);
-          height: 40px;
-          width: 10px;
-        }
+        text-align: left;
       }
       .score {
-        padding-right: 10px;
+        text-align: right;
         color: $instructorFillColor;
       }
     }
   }
   .range--fill {
-    margin-left: 12px;
     position: absolute;
     height: $editableBarHeight;
     background: $instructorFillColor;
@@ -252,27 +255,22 @@ ul.evaluations-hidden {
   .range--track-wrapper {
     position: relative;
     margin-right: $barHeight * 3;
-    margin-top: $editableBarHeight;
+    margin-top: $editableBarHeight * .1;
   }
   .range--track {
     margin-right: 0;
     height: $editableBarHeight;
-    .range--fill-shim {
-      height: $editableBarHeight;
-      width: 12px;
-      position: absolute;
-      z-index: 5;
-      background: $instructorFillColor;
-    }
     .range--ticks {
       position: absolute;
       width: 100%;
       @extend %unstyled-list;
       li {
+        &:first-child {
+          visibility: hidden;
+        }
         &:before {
           position: absolute;
           top: 8px;
-          left: 8px;
           content: '';
           width: 8px;
           border-radius: 50%;

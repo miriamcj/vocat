@@ -2,7 +2,6 @@
   <h4 class="range--title">{{name}}</h4>
   <div class="range--track-wrapper">
     <div data-behavior="range-track" class="range--track">
-      <span class="range--fill-shim"></span>
       <ul class="range--ticks">
         {{#each ticks}}
         <li style="width: {{../tickWidth}}%"></li>
@@ -15,12 +14,9 @@
     </div>
     <div class="range--handle">
       <div class="score-wrapper">
-        <div class="score" data-behavior="score">
-          {{score}}
-        </div>
-        <div class="possible" data-behavior="possible">
-          {{high}}
-        </div>
+        <span class="score" data-behavior="score">{{score}}</span>
+	      <span class="slash"></span>
+        <span class="possible" data-behavior="possible">{{high}}</span>
       </div>
     </div>
   </div>

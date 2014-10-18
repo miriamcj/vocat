@@ -6,9 +6,46 @@ define (require) ->
 
   class ScoreSlider extends Marionette.ItemView
 
-    memoizeHashCount: 0
     template: template
+    baselineSnapDuration: 500
+    lowShim: 4
+    highShim: 4
     tagName: 'li'
+
+#    triggers: {
+#      'click @ui.track': {
+#        event: 'track:click'
+#        preventDefault: false
+#        stopPropagation: false
+#      }
+#      'mousedown @ui.grabber': {
+#        event: 'grabber:mouse:down'
+#        preventDefault: false
+#        stopPropagation: false
+#      }
+#      'drag @ui.grabber': {
+#        event: 'drag'
+#        preventDefault: false
+#        stopPropagation: false
+#      }
+#      'dragstop @ui.grabber': {
+#        event: 'drag:stop'
+#        preventDefault: false
+#        stopPropagation: false
+#      }
+#      'dragstart @ui.grabber': {
+#        event: 'drag:start'
+#        preventDefault: false
+#        stopPropagation: false
+#      }
+#    }
+
+    events: {
+      'drag @ui.grabber': 'onDrag'
+      'mousedown @ui.grabber': 'onGrabberMouseDown'
+      'dragstop @ui.grabber': 'onDragStop'
+      'click @ui.track': 'onTrackClick'
+    }
 
     ui: {
       grabber: '[data-behavior="range-grabber"]'
@@ -17,62 +54,104 @@ define (require) ->
       score: '[data-behavior="score"]'
     }
 
-    initialize: (options) ->
+    currentPosition: () ->
+      @ui.grabber.position().left
 
-    updateScoreFromSlider: (percentage) ->
-      score = @translatePercentageToScore(percentage)
-      @ui.score.html(score)
+    translatePositionToSnapPosition: (position) ->
+      score = @translatePositionToScore(position)
+      position = @translateScoreToPosition(score)
+      position
 
-    updateSliderFromScore: (score) ->
-
-    setPosition: (percentage, updateScore = true) ->
-      @setFillPosition(percentage)
-      @setGrabberPosition(percentage)
-      @updateScoreFromSlider(percentage) if updateScore == true
+    translateScoreToPercentage: (score) ->
+      (parseInt(score) / parseInt(@model.get('high'))) * 100
 
     translatePercentageToScore: (percentage) ->
       Math.round(parseInt(@model.get('high')) * (percentage / 100))
 
-    translateScoreToPercentage: (score) ->
-
+    translateScoreToPosition: (score) ->
+      percentage = (score / @model.get('high')) * 100
+      @translatePercentageToPosition(percentage)
 
     translatePositionToPercentage: (position) ->
-      Math.round((position / @trackWidth()) * 100)
+      b = @relativeBoundaryBox()
+      low = b[0]
+      high = b[2]
+      ( (position - low) / (high - low) ) * 100
 
-    memoizeHash: () ->
-      @memoizeHashCount
+    translatePositionToScore: (position) ->
+      percentage = @translatePositionToPercentage(position)
+      @translatePercentageToScore(percentage)
 
-    trackWidth: _.memoize () ->
-      @ui.track.outerWidth()
-    , () -> @memoizeHash()
+    translatePercentageToPosition: (percentage) ->
+      b = @relativeBoundaryBox()
+      low = b[0]
+      high = b[2]
+      distance = b[2] - b[0]
+      b[0] + distance * (percentage / 100)
 
-    setFillPosition: (percentage) ->
-      @ui.fill.css({width: "#{percentage}%"})
+    trackWidth: () ->
+      b = @boundaryBox()
+      b[2] - b[0]
 
-    setGrabberPosition: (percentage) ->
-      @ui.grabber.css({left: "#{percentage}%"})
+    relativeBoundaryBox: () ->
+      b = @absoluteBoundaryBox()
+      offset = @ui.track.offset()
+      out = [b[0] - offset.left + @lowShim, 0, b[2] - offset.left + @highShim, b[3]]
 
-    handleDrag: (event, ui) =>
-      position = ui.position
-      @setPosition(@translatePositionToPercentage(ui.position.left))
+    absoluteBoundaryBox: () ->
+      offset = @ui.track.offset()
+      grabberOffset = (@ui.grabber.outerWidth() * .5) - 4 # 4px is half the width of one tick
+      startCoord = offset.left - grabberOffset
+      endCoord = offset.left + @ui.track.outerWidth() - grabberOffset
+      boundary = [startCoord , 0, endCoord, 0]
 
-    initResizeListener: () ->
-      $(window).on("resize.score_slider_#{@cid}", () ->
-        @memoizeHashCount++
-      )
+    updateScore: (score) ->
+      @ui.score.html(score)
+
+    updateBarAndGrabberPosition: (position, animate = false) ->
+      @updateFillPosition(position, animate)
+      @updateGrabberPosition(position, animate)
+
+    updateGrabberPosition: (position, animate = false) ->
+      if animate == true
+        @ui.grabber.animate({left: "#{position}px"}, 250)
+      else
+        @ui.grabber.css({left: "#{position}px"})
+
+    updateFillPosition: (position, animate = false) ->
+      @updateScore(@translatePositionToScore(position))
+      if animate == true
+        @ui.fill.animate({width: "#{position}px"}, 250)
+      else
+        @ui.fill.width(position)
+
+    onDrag: (event, ui) ->
+      @updateFillPosition(ui.position.left)
+
+    onTrackClick: (event) ->
+      clickLoc = event.pageX
+      adjustedLoc = clickLoc - @ui.track.offset().left
+      snappedLoc = @translatePositionToSnapPosition(adjustedLoc)
+      @updateBarAndGrabberPosition(snappedLoc, true)
+
+    onDragStop: () ->
+      newPosition = @translatePositionToSnapPosition(@currentPosition())
+      @updateBarAndGrabberPosition(newPosition, true)
 
     onDestroy: () ->
       $(window).off("resize.score_slider_#{@cid}")
 
+    onGrabberMouseDown: () ->
+      @ui.grabber.draggable('option', 'containment', @absoluteBoundaryBox())
+
     onShow: () ->
       config = {
         axis: "x"
-        containment: ".grabber-wrapper"
       }
-
-      @initResizeListener()
       @ui.grabber.draggable(config)
-      @ui.grabber.on('drag', @handleDrag)
-      @setPosition(@model.get('percentage'))
 
+      setTimeout () =>
+        startPosition = @translatePercentageToPosition(@model.get('percentage'))
+        @updateBarAndGrabberPosition(startPosition)
+      , 0
 
