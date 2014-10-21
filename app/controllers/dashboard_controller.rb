@@ -3,6 +3,7 @@ class DashboardController < ApplicationController
   skip_authorization_check
 
   def index
+
     current_user.creator_courses.each do |course|
       factory = SubmissionFactory.new
       @submissions = factory.course_and_creator(course, current_user)

@@ -18,6 +18,63 @@ define (require) ->
 
     instantiateFlash: () ->
       @flashMessages = new FlashMessagesCollection([], {})
+      new GlobalFlashMessagesView({vent: Vocat.vent, collection: @flashMessages})
+
+    adjustScroll: (amount) ->
+#      container = $('.container')
+#      marginTop = parseInt(container.css('marginTop').replace('px', ''))
+#      newMargin = marginTop + amount
+#      console.log marginTop, amount, newMargin, 'adjusting margin'
+#      container.css({marginTop: "#{newMargin}px"})
+      currentScroll = $(window).scrollTop()
+      newScroll = currentScroll + amount
+      $(window).scrollTop(newScroll)
+
+    adjustMargin: () ->
+      container = $('.container')
+      marginTop = parseInt(container.css('marginTop').replace('px', ''))
+      height = @$el.outerHeight()
+      distance = height - marginTop
+      container.css({marginTop: "#{height}px"})
+      distance
+
+    setupListeners: () ->
+      @listenTo(@flash.currentView, 'all', (e) =>
+        distance = @adjustMargin()
+        @adjustScroll(distance)
+      )
+      @listenTo(@notify, 'all', (e) =>
+        distance = @adjustMargin()
+        @adjustScroll(distance)
+      )
+      @listenTo(Vocat.vent, 'notification:transition:complete', () =>
+        distance = @adjustMargin()
+        @adjustScroll(distance)
+      )
+
+      @listenTo(@getOption('vent'), 'notification:show', (view) =>
+        unless @notify.currentView?
+          @flashMessages.reset()
+          @notify.show(view)
+      )
+#      @listenTo(@getOption('vent'), 'notification:destroy', () =>
+#        @notify.reset()
+#      )
+#      @listenTo(@flash.currentView, 'add:child', (child) =>
+#        @updateMargins()
+#      )
+#      @listenTo(@flash.currentView, 'before:remove:child', (child) =>
+#        @updateMargins()
+#      )
+#      @listenTo(@flash)
+#      @listenTo(@notify, 'show before:empty', (e) ->
+#        @updateMargins()
+#      )
+#      @listenTo(@notify, 'before:empty', (e) ->
+#        @updateMargins()
+#      )
+
+    loadServerSideFlashMessages: () ->
       dataContainer = $("#bootstrap-globalFlash")
       if dataContainer.length > 0
         div = $('<div></div>')
@@ -25,43 +82,12 @@ define (require) ->
         text = div.text()
         if text? && !(/^\s*$/).test(text)
           data = JSON.parse(text)
-          if data['globalFlash']? then @flashMessages.reset(data['globalFlash'])
-      new GlobalFlashMessagesView({vent: Vocat.vent, collection: @flashMessages})
-
-    adjustScroll: (amount) ->
-      container = $('.container')
-      marginTop = parseInt(container.css('marginTop').replace('px', ''))
-      newMargin = marginTop + amount
-      container.css({marginTop: "#{newMargin}px"})
-      currentScroll = $(window).scrollTop()
-      newScroll = currentScroll + amount
-      $(window).scrollTop(newScroll)
-
-    setupListeners: () ->
-      @listenTo(@getOption('vent'), 'notification:show', (view) =>
-        @notify.show(view) unless @notify.currentView?
-      )
-      @listenTo(@getOption('vent'), 'notification:destroy', () =>
-        @notify.reset()
-      )
-      @listenTo(@flash.currentView, 'add:child', (child) =>
-        height = child.$el.outerHeight()
-        @adjustScroll(height)
-      )
-      @listenTo(@flash.currentView, 'before:remove:child', (child) =>
-        height = child.$el.outerHeight()
-        @adjustScroll(height * -1)
-      )
-      @listenTo(@notify, 'show', (e) ->
-        @flashMessages.reset()
-        height = @notify.currentView.$el.outerHeight()
-        @adjustScroll(height)
-      )
-      @listenTo(@notify, 'before:empty', (e) ->
-        height = @notify.currentView.$el.outerHeight()
-        @adjustScroll(height * -1)
-      )
+          if _.isArray(data.globalFlash)
+            _.each(data.globalFlash, (msg) =>
+              @flashMessages.add(msg)
+            )
 
     onShow: () ->
       @flash.show(@instantiateFlash())
       @setupListeners()
+      @loadServerSideFlashMessages()

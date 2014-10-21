@@ -164,9 +164,10 @@ define (require) ->
     );
 
     # Used to test flash messages.
+#    Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '5000',  msg: 'This is a test global error message.'})
 #    setTimeout () =>
 #      Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '5000',  msg: 'This is a test global error message.'})
-#    , 2000
+#    , 1000
 #   setInterval(() ->
 #      Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '1000',  msg: 'This is a test global error message.'})
 #      Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '1000',  msg: 'This is a test global error message.'})
@@ -179,7 +180,7 @@ define (require) ->
   #  console.log "VOCAT heard #{e}"
   #)
 
-  
+
 
   return Vocat
 

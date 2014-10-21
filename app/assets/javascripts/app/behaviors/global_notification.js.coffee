@@ -17,9 +17,11 @@ define (require) ->
       @$el.hide()
 
     onShow: () ->
-      @$el.slideDown()
+      @$el.fadeIn(() =>
+        Vocat.vent.trigger('notification:transition:complete')
+      )
 
     remove: () ->
-      @$el.slideUp(() =>
+      @$el.fadeOut(() =>
         @$el.remove()
       )

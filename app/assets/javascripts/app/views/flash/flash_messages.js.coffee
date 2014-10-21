@@ -4,4 +4,4 @@ define (require) ->
 
   class FlashMessages extends AbstractFlashMessages
 
-    # Not overrides, as of yet.
+    # No overrides, as of yet.

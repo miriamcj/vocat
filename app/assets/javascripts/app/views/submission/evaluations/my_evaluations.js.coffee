@@ -87,7 +87,6 @@ define (require) ->
         @collection = @model.getScoresCollection()
       else
         @collection = new ScoreCollection()
-      console.log @model.get('score_details')
 
     setupListeners: () ->
       @listenTo(@, 'childview:updated', () =>
