@@ -48,13 +48,11 @@ define (require) ->
       if @myEvaluationModel()?
         @myEvaluations.show(new MyEvaluations({model: @myEvaluationModel(), vent: @}))
         if openOnShow == true
-          console.log @myEvaluations.currentView,'view'
           @myEvaluations.currentView.triggerMethod('toggle:child')
       else
         @myEvaluations.show(new MyEvaluationsCreate({evaluations: @evaluations, vent: @}))
 
     showTheirEvaluations: () ->
-      console.log @$el
       @theirEvaluations.show(new TheirEvaluations({evaluations: @evaluations}))
 
     onRender: () ->

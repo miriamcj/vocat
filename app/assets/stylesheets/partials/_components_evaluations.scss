@@ -387,6 +387,7 @@ ul.evaluations-hidden {
 }
 
 .evaluation-create {
+  margin-top: $secondaryBarHeight * 3;
   border: 2px dashed $grayMediumDarker;
   a {
     width: 100%;

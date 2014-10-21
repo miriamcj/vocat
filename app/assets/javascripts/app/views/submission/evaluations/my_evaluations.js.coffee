@@ -85,6 +85,7 @@ define (require) ->
         @collection = @model.getScoresCollection()
       else
         @collection = new ScoreCollection()
+      console.log @model.get('score_details')
 
     initialize: (options) ->
       @vent = options.vent
@@ -95,8 +96,6 @@ define (require) ->
       @updateCollectionFromModel()
 
     updateTotals: () ->
-      console.log 'test'
-      console.log @model.get('total_percentage_rounded')
       @ui.percentage.html(@model.get('total_percentage_rounded'))
       @ui.totalScore.html(@model.get('total_score'))
       @ui.subtotalScore.html(@model.get('total_score'))

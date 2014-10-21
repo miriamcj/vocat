@@ -162,7 +162,6 @@ define (require) ->
       @updateBarAndGrabberPosition(startPosition, false, false)
 
     onShow: () ->
-      console.log 'slider shown'
       config = {
         axis: "x"
       }
@@ -173,12 +172,4 @@ define (require) ->
       , 0
 
     onRender: () ->
-      console.log 'slider rendered'
-      config = {
-        axis: "x"
-      }
-      @ui.grabber.draggable(config)
-
-      setTimeout () =>
-        @updatePositionFromModel()
-      , 0
+      @onShow()

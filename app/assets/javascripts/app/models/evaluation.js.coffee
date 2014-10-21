@@ -54,6 +54,11 @@ define (require) ->
       @scoreCollection = new ScoreCollection()
       @resetScoresCollection()
 
+      @listenTo(@,'sync', (e) =>
+        @resetScoresCollection()
+        @takeSnapshot()
+      )
+
       @listenTo(@scoreCollection, 'change', (e) =>
         @updateScoreFromCollection()
       )
@@ -62,9 +67,6 @@ define (require) ->
         @updateCalculatedScoreFields()
       )
 
-      @.on('sync', () =>
-        @takeSnapshot()
-      )
 
     updateCalculatedScoreFields: () ->
       total = 0
