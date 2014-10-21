@@ -39,7 +39,4 @@ define (require) ->
     onDrop: (e, i) ->
       @trigger("update-sort",[@model, i]);
 
-    onShow: () ->
-      @$el.find('[data-behavior="dropdown"]').dropdownNavigation()
-
     initialize: (options) ->
