@@ -307,6 +307,7 @@ label.switch-label:after,
   width: $switchWidth;
 }
 .switch-text {
+  text-align: left;
   @include transition($fastTransition, all, $timing);
   font-size: $kappa;
   color: $white;

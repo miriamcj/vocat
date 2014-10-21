@@ -29,10 +29,41 @@ define (require) ->
       myEvaluation = @evaluations.findWhere({current_user_is_evaluator: true})
       myEvaluation.destroy({wait: true, success: () =>
         @showMyEvaluations()
+        Vocat.vent.trigger('notification:destroy')
       })
 
     onEvaluationDirty: () ->
-      Vocat.vent.trigger('notification:show', new SaveNotifyView({model: @myEvaluationModel()}))
+      saveNotifyView = new SaveNotifyView({model: @myEvaluationModel(), vent: @})
+      Vocat.vent.trigger('notification:show', saveNotifyView)
+
+    onEvaluationSave: () ->
+      m = @myEvaluationModel()
+      if m?
+        Vocat.vent.trigger('notification:destroy')
+        m.save()
+        Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '3000',  msg: 'Your evaluation has been saved.'})
+
+    onEvaluationRevert: () ->
+      m = @myEvaluationModel()
+      if m?
+        m.revert()
+        Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '3000',  msg: 'Your evaluation has been reverted to its saved state.'})
+
+
+    # This generally is triggered by the child empty view
+    onEvaluationNew: () ->
+      evaluation = new Evaluation({submission_id: @model.id})
+      evaluation.save({}, {
+        success: () =>
+          @evaluations.add(evaluation)
+          @vent.triggerMethod('evaluation:created')
+          @model.unsetMyEvaluation()
+          Vocat.vent.trigger('error:add', {level: 'notice', msg: 'Evaluation successfully created'})
+          @showMyEvaluations(true)
+        , error: () =>
+          Vocat.vent.trigger('error:add', {level: 'error', msg: 'Unable to create evaluation. Perhaps you do not have permission to evaluate this submission.'})
+          @showMyEvaluations()
+      })
 
     # @model is a submission model.
     initialize: (options) ->
@@ -53,25 +84,13 @@ define (require) ->
         @myEvaluations.show(new MyEvaluationsCreate({evaluations: @evaluations, vent: @}))
 
     showTheirEvaluations: () ->
+      if (@myEvaluationModel() && @evaluations.length == 1) || @evaluations.length == 0
+        @theirEvaluations.$el.addClass('evaluation-collection-empty')
+      else
+        @theirEvaluations.$el.removeClass('evaluation-collection-empty')
+
       @theirEvaluations.show(new TheirEvaluations({evaluations: @evaluations}))
 
     onRender: () ->
       @showTheirEvaluations()
       @showMyEvaluations()
-
-    # This generally is triggered by the child empty view
-    onEvaluationNew: () ->
-      evaluation = new Evaluation({submission_id: @model.id})
-      evaluation.save({}, {
-        success: () =>
-          @evaluations.add(evaluation)
-          @vent.triggerMethod('evaluation:created')
-          @model.set('current_user_has_evaluated',true)
-          @model.set('current_user_percentage',0)
-          @model.set('current_user_evaluation_published',false)
-          Vocat.vent.trigger('error:add', {level: 'notice', msg: 'Evaluation successfully created'})
-          @showMyEvaluations(true)
-        , error: () =>
-          Vocat.vent.trigger('error:add', {level: 'error', msg: 'Unable to create evaluation. Perhaps you do not have permission to evaluate this submission.'})
-          @showMyEvaluations()
-      })

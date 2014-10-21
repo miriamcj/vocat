@@ -18,14 +18,14 @@ define (require) ->
       utility: '[data-behavior="utility"]'
       subtotal: '[data-behavior="subtotal"]'
       total: '[data-behavior="total"]'
-      publishButton: '[data-behavior="evaluation-publish"]'
-      unpublishButton: '[data-behavior="evaluation-unpublish"]'
       destroyButton: '[data-behavior="evaluation-destroy"]'
       saveButton: '[data-behavior="evaluation-save"]'
       percentage: '[data-container="percentage"]'
       totalScore: '[data-container="total-score"]'
       subtotalScore: '[data-container="subtotal-score"]'
-
+      childInsertBefore: '[data-anchor="child-insert-before"]'
+      publishCheckbox: '[data-behavior="publish-switch"]'
+      publishSwitch: '.switch'
     }
 
     childViewOptions: () ->
@@ -41,10 +41,13 @@ define (require) ->
 
     triggers: {
       'click @ui.destroyButton': 'evaluation:destroy'
-      'click @ui.publishButton': 'evaluation:publish'
-      'click @ui.unpublishButton': 'evaluation:unpublish'
       'click @ui.saveButton': 'evaluation:save'
       'click [data-behavior="toggle-detail"]': 'detail:toggle'
+      'click @ui.publishCheckbox': {
+        event: 'evaluation:toggle'
+        preventDefault: false
+      }
+
     }
 
     onEvaluationDestroy: () ->
@@ -62,23 +65,22 @@ define (require) ->
     onConfirmDestroy: () ->
       @vent.triggerMethod('evaluation:destroy')
 
-    onEvaluationPublish: () ->
-      @model.set('published',true)
-      @vent.triggerMethod('evaluation:dirty')
-      @updatePublishedUnpublished()
-
-    onEvaluationUnpublish: () ->
-      @model.set('published',false)
-      @vent.triggerMethod('evaluation:dirty')
-      @updatePublishedUnpublished()
-
-    updatePublishedUnpublished: () ->
-      if @model.get('published') == true
-        @ui.publishButton.hide()
-        @ui.unpublishButton.show()
+    onEvaluationToggle: () ->
+      state = @model.get('published')
+      if state == true
+        @model.set('published',false)
       else
-        @ui.unpublishButton.hide()
-        @ui.publishButton.show()
+        @model.set('published',true)
+      @vent.triggerMethod('evaluation:dirty')
+      @updatePublishedUIState()
+
+    updatePublishedUIState: () ->
+      if @model.get('published') == true
+        @ui.publishSwitch.addClass('switch-checked')
+        @ui.publishCheckbox.attr('checked', true)
+      else
+        @ui.publishSwitch.removeClass('switch-checked')
+        @ui.publishCheckbox.attr('checked', false)
 
     updateCollectionFromModel: () ->
       if @model?
@@ -87,12 +89,18 @@ define (require) ->
         @collection = new ScoreCollection()
       console.log @model.get('score_details')
 
-    initialize: (options) ->
-      @vent = options.vent
+    setupListeners: () ->
       @listenTo(@, 'childview:updated', () =>
         @vent.triggerMethod('evaluation:dirty')
         @updateTotals()
       )
+      @listenTo(@model, 'change', () =>
+        @updatePublishedUIState()
+      )
+
+    initialize: (options) ->
+      @vent = options.vent
+      @setupListeners()
       @updateCollectionFromModel()
 
     updateTotals: () ->
@@ -104,10 +112,10 @@ define (require) ->
       if collectionView.isBuffering
         collectionView.elBuffer.appendChild(childView.el)
       else
-        $(childView.el).insertBefore(collectionView.ui.subtotal)
+        $(childView.el).insertBefore(collectionView.ui.childInsertBefore)
 
     attachBuffer: (collectionView, buffer) ->
-      $(buffer).insertBefore(collectionView.ui.subtotal)
+      $(buffer).insertBefore(collectionView.ui.childInsertBefore)
 
     onRender: () ->
-      @updatePublishedUnpublished()
+      @updatePublishedUIState()

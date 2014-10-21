@@ -46,6 +46,11 @@ define (require) ->
       evaluation = new EvaluationModel(evaluationData)
       evaluation.save({published: false})
 
+    unsetMyEvaluation: () ->
+      @set('current_user_has_evaluated',true)
+      @set('current_user_percentage',0)
+      @set('current_user_evaluation_published',false)
+
     toggleEvaluationPublish: () ->
       promise = $.Deferred()
       promise.then( () =>

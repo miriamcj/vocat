@@ -13,13 +13,13 @@
 	</div>
 	<ul class="evaluation-single--details evaluations-hidden" data-behavior="child-container">
 		<!-- criteria will be inserted here -->
-		<li data-behavior="subtotal">
+		<li data-anchor="child-insert-before" data-behavior="subtotal">
 			<div class="range-tertiary range-editable range-total">
 				<div class="range--track-wrapper">
-					<h4 class="range--total-label">Rubric Total</h4>
+					<h4 class="range-total--label">Rubric Total</h4>
 					<div class="range--handle">
 						<div class="score-wrapper">
-							<span class="score" data-container="subtotal-score">0</span>
+							<span class="score" data-container="subtotal-score">{{total_score}}</span>
 							<span class="slash"></span>
 							<span class="possible">{{points_possible}}</span>
 						</div>
@@ -30,10 +30,10 @@
 		<li data-behavior="total">
 			<div class="range-tertiary range-editable range-total">
 				<div class="range--track-wrapper">
-					<h4 class="range--total-label">Weighted Score</h4>
+					<h4 class="range-total--label">Weighted Score</h4>
 					<div class="range--handle">
 						<div class="score-wrapper">
-							<span class="score" data-container="total-score">0</span>
+							<span class="score" data-container="total-score">{{total_score}}</span>
 							<span class="slash"></span>
 							<span class="possible">{{points_possible}}</span>
 						</div>
@@ -41,9 +41,30 @@
 				</div>
 			</div>
 		</li>
+		<li>
+			<div class="range-tertiary range-editable range-total">
+				<div class="range--track-wrapper">
+					<h4 class="range-total--label">Published</h4>
+					<div class="range-total--value">
+						<div class="switch {{#if published}}switch-checked{{/if}}">
+							<input data-behavior="publish-switch" id="checkbox-{{cid}}" {{#if published}}checked="checked"{{/if}} class="switch-checkbox" type="checkbox">
+							<label for="checkbox-{{cid}}" class="switch-label" >
+						    <span class="switch-inner">
+						      <span class="switch-text switch-active">Yes</span>
+						      <span class="switch-text switch-inactive">No</span>
+						    </span>
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</li>
+
+
+
+
 		<li data-behavior="utility" class="evaluation-single--utility">
-			<a data-behavior="evaluation-publish" class="primary-button show-button" href="#">Publish Evaluation</a>
-			<a data-behavior="evaluation-unpublish" class="secondary-button unpublish-button" href="#">Unpublish Evaluation</a>
+			<a data-behavior="evaluation-save" class="primary-button update-button" href="#">Save Evaluation</a>
 			<a data-behavior="evaluation-destroy" class="warning-button delete-button" href="#">Delete Evaluation</a>
 		</li>
 	</ul>

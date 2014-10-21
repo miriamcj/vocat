@@ -19,12 +19,13 @@ define (require) ->
       }
     }
 
+    initialize: (options) ->
+      @vent = options.vent
+
     onClickEvaluationSave: () ->
-      @model.save()
-      Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '3000',  msg: 'Your evaluation has been saved.'})
+      @vent.triggerMethod('evaluation:save')
       @destroy()
 
     onClickEvaluationRevert: () ->
-      @model.revert()
-      Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '3000',  msg: 'Your evaluation has been reverted to its saved state.'})
+      @vent.triggerMethod('evaluation:revert')
       @destroy()
