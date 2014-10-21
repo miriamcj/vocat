@@ -65,9 +65,10 @@ define (require) ->
           source_id: matches[2]
         }
         @saveModel(attributes)
-        @ui.youTubeWrap.removeClass('error')
+        @ui.youTubeWrap.removeClass('field_with_errors')
       else
-        @ui.youTubeWrap.addClass('error')
+        @ui.youTubeWrap.addClass('field_with_errors')
+        Vocat.vent.trigger('error:add', {level: 'error', msg: 'The Youtube URL you entered is invalid.'})
 
     onSubmitVimeo: () ->
       value = @ui.sourceIdVimeo.val()
@@ -79,9 +80,10 @@ define (require) ->
           source_id: id
         }
         @saveModel(attributes)
-        @ui.vimeoWrap.removeClass('error')
+        @ui.vimeoWrap.removeClass('field_with_errors')
       else
-        @ui.vimeoWrap.addClass('error')
+        @ui.vimeoWrap.addClass('field_with_errors')
+        Vocat.vent.trigger('error:add', {level: 'error', msg: 'The Vimeo URL you entered is invalid.'})
 
     initializeAsyncUploader: () ->
       attachmentId = null

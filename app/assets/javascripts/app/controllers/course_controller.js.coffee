@@ -27,8 +27,9 @@ define (require) ->
 
     courseManageProjects: (courseId) ->
       unless _.isNaN(parseInt(courseId))
-        Vocat.addRegions({
-          projects: '[data-region="projects"]'
-        })
-        view = new Projects({collection: @collections.project})
-        Vocat.projects.show view
+        if $('[data-region="projects"]').length > 0
+          Vocat.addRegions({
+            projects: '[data-region="projects"]'
+          })
+          view = new Projects({collection: @collections.project})
+          Vocat.projects.show view
