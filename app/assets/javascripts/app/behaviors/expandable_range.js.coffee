@@ -27,7 +27,9 @@ define (require) ->
         if @options.childrenVisible
           @ui.range.removeClass('range-expandable-open')
           @ui.childContainer.slideUp(250)
+          @view.trigger('range:closed')
         else
           @ui.childContainer.slideDown(250)
           @ui.range.addClass('range-expandable-open')
+          @view.trigger('range:open')
         @options.childrenVisible = !@options.childrenVisible

@@ -108,18 +108,25 @@ define (require) ->
     updateScore: (score) ->
       @ui.score.html(score)
 
-    updateBarAndGrabberPosition: (position, animate = false) ->
-      @updateFillPosition(position, animate)
-      @updateGrabberPosition(position, animate)
+    updateBarAndGrabberPosition: (position, animate = false, updateModel = true) ->
+      @updateFillPosition(position, animate, updateModel)
+      @updateGrabberPosition(position, animate, updateModel)
 
-    updateGrabberPosition: (position, animate = false) ->
+    updateGrabberPosition: (position, animate = false, updateModel = true) ->
       if animate == true
         @ui.grabber.animate({left: "#{position}px"}, 250)
       else
         @ui.grabber.css({left: "#{position}px"})
+      @updateModelFromPosition(position) if updateModel
 
-    updateFillPosition: (position, animate = false) ->
+    updateModelFromPosition: (position) ->
+      @model.set('score', @translatePositionToScore(position))
+      @model.set('percentage', @translatePositionToPercentage(position))
+      @trigger('updated')
+
+    updateFillPosition: (position, animate = false, updateModel = true) ->
       @updateScore(@translatePositionToScore(position))
+      position = position + 5
       if animate == true
         @ui.fill.animate({width: "#{position}px"}, 250)
       else
@@ -144,14 +151,34 @@ define (require) ->
     onGrabberMouseDown: () ->
       @ui.grabber.draggable('option', 'containment', @absoluteBoundaryBox())
 
+    initialize: (options) ->
+      @vent = options.vent
+      @listenTo(@vent, 'range:open', () =>
+        @updatePositionFromModel()
+      )
+
+    updatePositionFromModel: () ->
+      startPosition = @translatePercentageToPosition(@model.get('percentage'))
+      @updateBarAndGrabberPosition(startPosition, false, false)
+
     onShow: () ->
+      console.log 'slider shown'
       config = {
         axis: "x"
       }
       @ui.grabber.draggable(config)
 
       setTimeout () =>
-        startPosition = @translatePercentageToPosition(@model.get('percentage'))
-        @updateBarAndGrabberPosition(startPosition)
+        @updatePositionFromModel()
       , 0
 
+    onRender: () ->
+      console.log 'slider rendered'
+      config = {
+        axis: "x"
+      }
+      @ui.grabber.draggable(config)
+
+      setTimeout () =>
+        @updatePositionFromModel()
+      , 0

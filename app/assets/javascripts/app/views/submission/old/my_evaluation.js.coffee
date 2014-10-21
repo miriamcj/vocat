@@ -16,6 +16,10 @@ define [
       toggleDetailOn: '.js-toggle-detail-on'
       toggleDetailOff: '.js-toggle-detail-off'
       flashContainer: '[data-container="flash"]'
+      publishButton: '[data-behavior="evaluation-publish"]'
+      unpublishButton: '[data-behavior="evaluation-unpublish"]'
+      destroyButton: '[data-behavior="evaluation-destroy"]'
+      saveButton: '[data-behavior="evaluation-save"]'
     }
 
     events: {
@@ -23,8 +27,27 @@ define [
     }
 
     triggers: {
+      'click ui.destroyButton': 'evaluation:destroy'
+      'click @ui.publishButton': 'evaluation:publish'
+      'click @ui.unpublishButton': 'evaluation:unpublish'
+      'click @ui.saveButton': 'evaluation:save'
       'click [data-behavior="toggle-detail"]': 'detail:toggle'
     }
+
+    onEvaluationPublish: () ->
+      @model.set('published',true)
+
+    onEvaluationDestroy: () ->
+      Vocat.vent.trigger('modal:open', new ModalConfirmView({
+        model: @model,
+        vent: @,
+        descriptionLabel: 'Deleted evaluations cannot be recovered. Please confirm that you would like to delete your evaluation.',
+        confirmEvent: 'confirm:destroy',
+        dismissEvent: 'dismiss:destroy'
+      }))
+
+    onEvaluationUnpublish: () ->
+      @model.set('published',true)
 
     onRender: () ->
       @ui.flashContainer.append(@flash.$el)
@@ -96,6 +119,7 @@ define [
       }
 
     initialize: (options) ->
+      console.log @model.attributes, 'model'
       @rubric = new Rubric(options.project.get('rubric'))
       @vent = Marionette.getOption(@, 'vent')
       @courseId = Marionette.getOption(@, 'courseId')

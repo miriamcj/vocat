@@ -6,9 +6,23 @@ define (require) ->
   class EvaluationModel extends Backbone.Model
 
     paramRoot: 'evaluation'
-
     omitAttributes: ['total_points', 'total_percentage', 'total_percentage_rounded']
     urlRoot: "/api/v1/evaluations"
+
+    takeSnapshot: () ->
+      @_snapshotAttributes = _.clone @attributes
+      @_snapshotAttributes.score_details = {}
+      _.each(@attributes.score_details, (element, index) =>
+         @_snapshotAttributes.score_details[index] = _.clone(element)
+      )
+      @_snapshotAttributes.scores = _.clone @attributes.scores
+
+    revert: () ->
+      if @_snapshotAttributes
+        @set(@_snapshotAttributes, {})
+        @takeSnapshot()
+        @resetScoresCollection()
+      @trigger('revert')
 
     # We put a wrapper method around Backbone.sync to prevent calculated attribtues from being
     # sent to the server on post.
@@ -22,12 +36,35 @@ define (require) ->
         options.attrs = attributes
       Backbone.sync(method, model, options)
 
+    updateScoreFromCollection: () ->
+      scoreDetails = @get('score_details')
+      scores = @get('scores')
+      @scoreCollection.each (scoreModel) =>
+        key = scoreModel.id
+        scores[key] = scoreModel.get('score')
+        scoreDetails[key].score = scoreModel.get('score')
+        scoreDetails[key].percentage = scoreModel.get('percentage')
+      @set('score_details', scoreDetails)
+      @set('scores', scores)
+      @updateCalculatedScoreFields()
 
     initialize: () ->
+      @takeSnapshot()
+      @updateCalculatedScoreFields()
+      @scoreCollection = new ScoreCollection()
+      @resetScoresCollection()
+
+      @listenTo(@scoreCollection, 'change', (e) =>
+        @updateScoreFromCollection()
+      )
+
       @on('change:scores', () =>
         @updateCalculatedScoreFields()
       )
-      @updateCalculatedScoreFields()
+
+      @.on('sync', () =>
+        @takeSnapshot()
+      )
 
     updateCalculatedScoreFields: () ->
       total = 0
@@ -36,13 +73,11 @@ define (require) ->
       )
 
       per = parseFloat(total / parseInt(@get('points_possible'))) * 100
-      @set('total_points', total)
+      @set('total_score', total)
       @set('total_percentage', per)
       @set('total_percentage_rounded', per.toFixed(0))
 
-    getScoresCollection: () ->
-      return @scoreCollection if @scoreCollection?
-
+    resetScoresCollection: () ->
       scores = @get('score_details')
       addScores = []
       _.each(scores, (score, key) ->
@@ -50,5 +85,7 @@ define (require) ->
         addScore.id = key
         addScores.push addScore
       )
-      @scoreCollection = new ScoreCollection(addScores)
+      @scoreCollection.reset(addScores)
+
+    getScoresCollection: () ->
       return @scoreCollection

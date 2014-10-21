@@ -62,6 +62,36 @@ ul.evaluation-collections, ul.evaluation-collection--children, ul.evaluation-sin
 
 .evaluation-single--details {
   margin-top: $secondaryBarHeight;
+  .score-wrapper {
+    margin-top: 5px;
+    display: inline-block;
+    font-size: $epsilon;
+    overflow: hidden;
+    .score, .slash, .possible {
+      display: block;
+      float: left;
+      font-weight: $semibold;
+      color: $defaultFillColor;
+    }
+    .possible, .score {
+      width: 35px;
+    }
+    .slash {
+      position: relative;
+      top: -2px;
+      @include svg(slash-gray);
+      height: 40px;
+      width: 10px;
+      margin: 0 10px;
+    }
+    .possible {
+      text-align: left;
+    }
+    .score {
+      text-align: right;
+      color: $instructorFillColor;
+    }
+  }
 }
 
 .evaluation-single--details li + li {
@@ -166,6 +196,9 @@ ul.evaluations-hidden {
   .range-tertiary & {
     font-size: $iota;
   }
+  .range-editable & {
+    font-size: $theta;
+  }
 }
 
 .range-secondary .range--title::after {
@@ -216,36 +249,6 @@ ul.evaluations-hidden {
     width: $handleWidth !important;
     background: none !important;
     right: -$handleWidth - ($secondaryBarHeight * $largeHandleMultipler ) !important;
-    .score-wrapper {
-      margin-top: 5px;
-      display: inline-block;
-      font-size: $epsilon;
-      overflow: hidden;
-      .score, .slash, .possible {
-        display: block;
-        float: left;
-        font-weight: $semibold;
-        color: $defaultFillColor;
-      }
-      .possible, .score {
-        width: 35px;
-      }
-      .slash {
-        position: relative;
-        top: -2px;
-        @include svg(slash-gray);
-        height: 40px;
-        width: 10px;
-        margin: 0 10px;
-      }
-      .possible {
-        text-align: left;
-      }
-      .score {
-        text-align: right;
-        color: $instructorFillColor;
-      }
-    }
   }
   .range--fill {
     position: absolute;
@@ -369,3 +372,52 @@ ul.evaluations-hidden {
   }
 }
 
+.range-total {
+  height: $editableBarHeight;
+  margin-top: $barHeight;
+  .range--total-label {
+    text-align: right;
+    font-size: $theta;
+    font-weight: $regular;
+    color: $grayDark;
+  }
+}
+
+.evaluation-single--utility {
+}
+
+.evaluation-create {
+  border: 2px dashed $grayMediumDarker;
+  a {
+    width: 100%;
+    span {
+      &:after {
+        content: '';
+        @extend %svg-pencil-gray-on-white;
+        margin-left: 15px;
+        height: 15px;
+        width: 15px;
+        display: inline-block;
+      }
+    }
+    &:hover span {
+      color: $tealLight;
+      &:after {
+        @extend %svg-pencil-teal-on-white;
+        margin-left: 15px;
+        height: 15px;
+        width: 15px;
+      }
+    }
+    text-decoration: underline;
+    font-size: $zeta;
+    font-weight: $semibold;
+    padding-left: .75em;
+    line-height: $barHeight;
+    padding-right: $barHeight;
+    height: $barHeight;
+    display: inline-block;
+    color: $grayMediumDarker;
+  }
+
+}
