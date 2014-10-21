@@ -26,6 +26,12 @@ define (require) ->
         json.video = null
       json
 
+    getVideoId: () ->
+      if @video? && @video.id?
+        @video.id
+      else
+        null
+
     updateVideo: () ->
       rawVideo = @.get('video')
       if rawVideo?

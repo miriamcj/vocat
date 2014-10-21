@@ -12,7 +12,7 @@ define (require) ->
     className: 'annotations--item'
 
     triggers:
-      'click @ui.destroy': 'destroy'
+      'click @ui.destroy': 'annotation:destroy'
       'click @ui.seek': 'seek'
 
     ui: {
@@ -44,17 +44,15 @@ define (require) ->
        $(@).remove()
       )
 
-    onBeforeRender: () ->
-
     onSeek: () ->
       @vent.triggerMethod('player:seek', {seconds: @model.get('seconds_timecode')})
 
-    onDestroy: () ->
+    onAnnotationDestroy: () ->
       @model.destroy({
         success: () =>
           @errorVent.trigger('error:clear')
           @errorVent.trigger('error:add', {level: 'notice', lifetime: '5000',  msg: 'annotation successfully deleted'})
-      , error: () =>
+      , error: (xhr) =>
           @errorVent.trigger('error:clear')
           @errorVent.trigger('error:add', {level: 'notice', msg: xhr.responseJSON.errors})
       })

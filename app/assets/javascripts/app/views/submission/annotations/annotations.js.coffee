@@ -58,6 +58,11 @@ define (require) ->
 
       @listenTo(@collection, 'add,remove', (data) =>
         @updateCount()
+        @updateEditAvailability()
+      )
+
+      @listenTo(@vent,'video:destroyed video:created', (e) ->
+        @collection.reset()
       )
 
       # Echo some events from parent down to the item view, whose vent is scoped to this annotations list view.
@@ -84,26 +89,26 @@ define (require) ->
           @ui.scrollParent.scrollTop(targetScroll)
         @highlighted = toHighlight
 
-
-    scrollToAnnotation: (shownAnnotation) ->
-      $el = shownAnnotation.$el
-
     onAddChild: () ->
       @updateCount()
+      @updateEditAvailability()
 
     onRemoveChild: () ->
       @updateCount()
+      @updateEditAvailability()
 
     onEditEnable: () ->
       @children.call('enableEdit')
       @ui.enableEdit.hide()
       @ui.disableEdit.show()
 
-
     onEditDisable: () ->
       @children.call('disableEdit')
       @ui.enableEdit.show()
       @ui.disableEdit.hide()
+
+    onRender: () ->
+      @updateEditAvailability()
 
     serializeData: () ->
       {
@@ -118,6 +123,14 @@ define (require) ->
       else
         s = "#{l} Annotations"
       @ui.count.html(s)
+
+    updateEditAvailability: () ->
+      l = @collection.length
+      if l == 0
+        @ui.enableEdit.hide()
+        @ui.disableEdit.hide()
+      else
+        @ui.enableEdit.show()
 
     # See https://github.com/marionettejs/backbone.marionette/wiki/Adding-support-for-sorted-collections
     appendHtml: (collectionView, childView, index) ->

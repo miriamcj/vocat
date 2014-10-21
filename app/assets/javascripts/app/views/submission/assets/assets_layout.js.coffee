@@ -29,25 +29,34 @@ define (require) ->
       @annotations.$el.find('.body').css({height: 'auto'})
       p = @player.$el.find('.body').outerHeight()
       a = @annotations.$el.find('.body').outerHeight()
-      if p > a
-        @annotations.$el.find('.body').css({height: p})
+      @annotations.$el.find('.body').css({height: p})
+
+    setupEventListeners: () ->
+
+      @listenTo(@,'video:destroyed video:created', (e) ->
+        @ensureAnnotatorView()
+        @matchHeights()
+      )
+
+    initializeRegionViews: () ->
+      @annotationsView = new AnnotationsView({vent: @, model: @model, collection: @annotationsCollection})
+      @annotatorView = new AnnotatorView({model: @model, collection: @annotationsCollection, vent: @})
+      @playerView = new PlayerView({vent: @, model: @model})
+
+    showRegionViews: () ->
+      @player.show(@playerView)
+      @annotations.show(@annotationsView)
+      @annotate.show(@annotatorView)
+      @ensureAnnotatorView()
+      @matchHeights()
+
+    ensureAnnotatorView: () ->
+      if @model.hasVideo()
+        @annotate.$el.show()
       else
-        @player.$el.find('.body').css({height: a})
-
-    showBabies: () ->
-      a = new AnnotationsView({vent: @, model: @model, collection: @annotationsCollection})
-      p = new PlayerView({vent: @, model: @model})
-
-      @listenTo(a, 'show', (e) ->
-        @matchHeights()
-      )
-      @listenTo(p, 'show', (e) ->
-        @matchHeights()
-      )
-
-      @player.show(p)
-      @annotations.show(a)
-      @annotate.show(new AnnotatorView({model: @model, collection: @annotationsCollection, vent: @}))
+        @annotate.$el.hide()
 
     onShow: () ->
-      @showBabies()
+      @initializeRegionViews()
+      @setupEventListeners()
+      @showRegionViews()

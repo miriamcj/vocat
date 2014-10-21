@@ -51,7 +51,9 @@ define (require) ->
     saveModel: (attributes) ->
       @model.save({video_attributes: attributes},{url: @model.updateUrl(), success: () =>
         @hideAllSteps()
-        @model.fetch({url: @model.updateUrl()})
+        @model.fetch({url: @model.updateUrl(), success: () =>
+          @vent.triggerMethod('video:created')
+        })
       })
 
     onSubmitYoutube: () ->
@@ -116,6 +118,7 @@ define (require) ->
             success: (data) =>
               @model.fetch({url: @model.updateUrl()}, success: () =>
                 @model.trigger('change:video')
+                @vent.triggerMethod('video:created')
               )
             fail: (data) =>
               @showStep(7)
