@@ -20,11 +20,11 @@
         <ul>
           <% if @selected_course %>
             <li>
-              <%= link_to 'Rubric Overview', course_manage_rubric_path(@selected_course, rubric)%>
+              <%= link_to 'View Rubric', course_manage_rubric_path(@selected_course, rubric)%>
             </li>
           <% else %>
             <li>
-              <%= link_to 'Rubric Overview', rubric_path(rubric)%>
+              <%= link_to 'View Rubric', rubric_path(rubric)%>
             </li>
           <% end %>
           <% if can? :update, rubric %>

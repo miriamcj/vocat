@@ -57,7 +57,11 @@
         <div class="drawer-nav--column">
           <h4>Rubrics</h4>
           <ul>
-            <li>Create a New Rubric</li>
+            <% if @app_section == 'course' %>
+              <li><%=  link_to 'Create a New Rubric', new_course_manage_rubric_path(@selected_course) %></li>
+            <% else %>
+              <li><%=  link_to 'Create a New Rubric', new_rubric_path %></li>
+            <% end %>
 
             <% if @app_section == 'course' %>
               <li><%=  link_to 'My Rubrics', course_manage_rubrics_path(@selected_course) %></li>

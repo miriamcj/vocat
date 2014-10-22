@@ -1,24 +1,31 @@
-<% content_for :content_header do %>
-  View Rubric: <%= @rubric.name %>
-<% end %>
-
-<% content_for :content_header_links do %>
+<% content_for :heading do %>
   <% if @selected_course %>
-    <%= link_to 'Back to List', course_manage_rubrics_path(@selected_course), :class => 'teal-arrow-button' %>
+    <%=  link_to 'Back to My Rubrics', course_manage_rubrics_path(@selected_course), :class => 'header-link back-link' %>
   <% else %>
-    <%= link_to 'Back to List', rubrics_path(), :class => 'teal-arrow-button' %>
+    <%=  link_to 'My Rubrics', rubrics_path, :class => 'header-link back-link' %>
   <% end %>
 <% end %>
 
-<% content_for :content_intro do %>
-  <h2 class="frame--title">Rubric Description</h2>
-  <% if @rubric.description %>
-    <p><%= @rubric.description %></p>
+<% content_for :heading_links do %>
+  <% if @selected_course %>
+    <%= link_to 'Clone this Rubric', clone_course_manage_rubric_path(@selected_course, @rubric), method: :post, :class => 'primary-button new-button' %>
   <% else %>
-    <p>No description has been entered for this rubric.</p>
+    <%= link_to 'Clone this Rubric', clone_rubric_path(@rubric), method: :post, :class => 'primary-button new-button' %>
+  <% end %>
+  <% if can? :update, @rubric %>
+    <% if @selected_course %>
+      <%= link_to 'Edit Rubric', edit_course_manage_rubric_path(@selected_course, @rubric), :class => 'primary-button update-button' %>
+    <% else %>
+      <%= link_to 'Edit Rubric', edit_rubric_path(@rubric), :class => 'primary-button update-button' %>
+    <% end %>
   <% end %>
 <% end %>
 
-<% content_for :content_frames	 do %>
-  <%= render 'shared/rubric_show' %>
+<% content_for :content do %>
+
+  <% body = capture do %>
+    <%= render 'shared/rubric_show' %>
+  <% end %>
+  <%= render :partial => 'shared/section', :locals => {:header => @rubric.name, :clear => true, :body => body} %>
+
 <% end %>

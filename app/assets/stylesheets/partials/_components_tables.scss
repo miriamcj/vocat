@@ -126,6 +126,12 @@ a.table--heading {
   text-decoration: none;
 }
 
+.table-rubric {
+  tbody tr td {
+    vertical-align: top;
+  }
+}
+
 .pagination-nav {
   margin-top: 1em;
   .pagination-nav--prev-next {
