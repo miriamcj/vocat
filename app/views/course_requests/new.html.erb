@@ -1,14 +1,12 @@
-<% content_for :heading do %>
-  <h2 class="heading-primary">
-    Request a New Course
-  </h2>
-<% end %>
-
 <% content_for :content do %>
-    <%= render 'shared/model_errors', :model => @course_request %>
+  <% body = capture do %>
+    <p class="instructions">
+      To request that your course be added to Vocat, please fill out the form below. Your request will be reviewed by
+      Vocat administrators. Once your request has been approved or denied, you will be notified via email.
+    </p>
 
     <%= form_for :course_request, url: course_requests_path, html: {class: 'formgrid'} do |f| %>
-
+      <%= render 'shared/model_errors', :model => @course_request %>
       <fieldset>
         <div class="formgrid third">
           <%= label_tag :name, 'Course Name' %>
@@ -20,7 +18,7 @@
         </div>
         <div class="formgrid third">
           <%= label_tag :department, 'Department' %>
-          <%= f.select(:department, options_for_select(Course.distinct_departments, @course_request.department), {:include_blank => true}, {'data-behavior' => 'chosen'}) %>
+          <%= f.text_field :department %>
         </div>
         <div class="formgrid third">
           <%= label_tag :section, 'Section' %>
@@ -28,7 +26,7 @@
         </div>
         <div class="formgrid third">
           <%= label_tag :year, 'Year' %>
-          <%= f.select(:year, options_for_select(Course.distinct_years, @course_request.year), {:include_blank => true}, {'data-behavior' => 'chosen'}) %>
+          <%= f.select(:year, options_for_select(@years, @course_request.year), {:include_blank => true}, {'data-behavior' => 'chosen'}) %>
         </div>
         <div class="formgrid third">
           <%= label_tag :semester_id, 'Semester' %>
@@ -36,8 +34,11 @@
         </div>
         <div class="formgrid whole submit">
           <label class="text-label">&nbsp;</label>
-          <%= f.submit('Request Course', {:class => 'primary-button new-button'}) %>
+          <%= f.button('Request Course', {:class => 'primary-button new-button'}) %>
         </div>
       </fieldset>
     <% end %>
+  <% end %>
+  <%= render :partial => 'shared/section', :locals => {:header => 'Request a New Course', :clear => true, :body => body} %>
 <% end %>
+
