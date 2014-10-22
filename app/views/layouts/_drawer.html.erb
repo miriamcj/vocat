@@ -16,7 +16,7 @@
           <ul>
             <li><%=  link_to 'Create Projects', course_manage_projects_path(@selected_course) %></li>
             <li><%=  link_to 'Configure Groups', course_manage_groups_path(@selected_course) %></li>
-            <li>Manage Enrollment</li>
+            <li><%=  link_to 'Manage Enrollment', course_manage_enrollment_path(@selected_course) %></li>
             <li><%=  link_to 'Adjust Course Settings', course_manage_path(@selected_course) %></li>
           </ul>
         </div>

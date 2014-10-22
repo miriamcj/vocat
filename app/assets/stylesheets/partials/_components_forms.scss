@@ -85,7 +85,7 @@ fieldset + fieldset {
     border-right: 1px solid $grayMedium;
   }
 
-  input[type=text], textarea, input[type=password], input[type=number] {
+  input[type=text], textarea, input[type=password], input[type=number], input[type=email] {
     @extend %proto-input;
     @extend %input-full-width;
   }

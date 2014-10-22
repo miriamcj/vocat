@@ -4,7 +4,8 @@
 
 $spacingUnit: $mediumUnitPadding * .75;
 
-.alert {
+
+.alert, #error_explanation {
   margin-bottom: $spacingUnit;
   .formgrid & {
     margin-bottom: 0;
@@ -77,3 +78,13 @@ $spacingUnit: $mediumUnitPadding * .75;
   }
 }
 
+// Devise uses it's own error message wrapper.
+#error_explanation {
+  background: $red;
+  color: $white;
+  h2 {
+    font-weight: $regular;
+    font-size: $theta;
+    margin-bottom: 1em;
+  }
+}

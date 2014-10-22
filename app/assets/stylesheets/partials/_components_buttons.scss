@@ -151,7 +151,7 @@
   }
 }
 
-.previous-button {
+.previous-button, .back-button {
   @extend %icon-button-before;
   &.disabled-button:before {
     @include svg(circle-left-arrow-gray-light-on-white);

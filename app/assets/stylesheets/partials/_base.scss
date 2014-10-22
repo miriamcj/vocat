@@ -41,7 +41,7 @@ body {
   //@include transition($fastTransition opacity $timing);
   // Fade everything in if the fonts haven't loaded after two seconds
   //@include animation($fastTransition fade-in 2s forwards);
-  opacity: 0;
+//  opacity: 0;
   .no-js &,
   .wf-active &,
   .wf-inactive &,
