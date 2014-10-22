@@ -1,79 +1,83 @@
-<% content_for :content_header do %>
-  Rubrics
-<% end %>
-
-<% content_for :content_header_links do %>
-  <% if @selected_course %>
-    <%= link_to 'New Rubric', new_course_manage_rubric_path(@selected_course), :class => 'teal-plus-button' %>
-  <% else %>
-    <%= link_to 'New Rubric', new_rubric_path(), :class => 'teal-plus-button' %>
-  <% end %>
-<% end %>
-
-<% content_for :content_intro do %>
-  <p>As an evaluator, you may create and use your own scoring rubrics, or you can use system-wide VOCAT rubrics. The first table, below, lists your rubrics, which you may change as needed. To create a new rubric, press the "new rubic" button, above.</p>
-  <p>When creating a project, you may select one of your rubrics, or a VOCAT rubric. If you would like to modify a VOCAT rubric for your own purposes, click the "clone" button, below.</p>
-<% end %>
-
-<% content_for :content_frames	 do %>
-
-  <div class="rubric-index">
-
-    <div class="page-content--frame">
-      <header class="button-header">
-        <h2 class="button-header--title">Your Rubrics</h2>
-      </header>
-    </div>
-
-    <table class="table double-space-bottom">
-      <thead>
-      <tr>
-        <th style="width: 33%">Name</th>
-        <th style="width: 33%">Projects</th>
-        <th style="width: 33%">Actions</th>
-      </tr>
-      </thead>
-      <tbody>
-      <% if @my_rubrics.length > 0 %>
-        <% @my_rubrics.each do |rubric| %>
-          <%= render 'manage_rubric_row', rubric: rubric, show_projects: true %>
+<% content_for :content do %>
+  <div class="page-section page-section-clear">
+    <div class="header-wrapper">
+      <div class="buttons">
+        <% if @selected_course %>
+          <%= link_to 'Create a New Rubric', new_course_manage_rubric_path(@selected_course), :class => 'primary-button new-button' %>
+        <% else %>
+          <%= link_to 'Create a New Rubric', new_rubric_path(), :class => 'primary-button new-button' %>
         <% end %>
-      <% else %>
-        <tr>
-          <th colspan="3">It looks like you haven't created any rubrics yet.<br /><br />
-            <% if @selected_course %>
-              <%= link_to 'Create a new rubric', new_course_manage_rubric_path(@selected_course)  %>
-            <% else %>
-              <%= link_to 'Create a new rubric', new_rubric_path() %>
-            <% end %>
-            or clone one of the system rubrics, below, to get started.</th>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-    <div class="page-content--frame">
-      <header class="button-header">
-        <h2 class="button-header--title">VOCAT Rubrics</h2>
-      </header>
-
+      </div>
+      <div class="header">
+        <h2>Manage Rubrics</h2>
+      </div>
     </div>
+    <div class="body">
+      <p class="instructions">As an evaluator, you may create and use your own scoring rubrics, or you can use system-wide VOCAT rubrics. The first table, below, lists your rubrics, which you may change as needed. To create a new rubric, press the "new rubic" button, above.</p>
+      <p class="instructions">When creating a project, you may select one of your rubrics, or a VOCAT rubric. If you would like to modify a VOCAT rubric for your own purposes, click the "clone" button, below.</p>
+    </div>
+  </div>
 
-    <table class="table">
-      <thead>
-      <tr>
-        <th style="width: 33%">Name</th>
-        <th style="width: 33%">Description</th>
-        <th style="width: 33%">Actions</th>
-      </tr>
-      </thead>
-      <tbody>
-      <% @system_rubrics.each do |rubric| %>
-        <%= render 'manage_rubric_row', rubric: rubric, show_projects: false %>
-      <% end %>
-      </tbody>
-    </table>
+  <div class="page-section page-section-clear">
+    <div class="header-wrapper">
+      <div class="header">
+        <h2>Your Rubrics</h2>
+      </div>
+    </div>
+    <div class="body">
+
+      <table class="table double-space-bottom">
+        <thead>
+        <tr>
+          <th style="width: 33%">Name</th>
+          <th style="width: 33%">Projects</th>
+          <th style="width: 33%">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% if @my_rubrics.length > 0 %>
+          <% @my_rubrics.each do |rubric| %>
+            <%= render 'manage_rubric_row', rubric: rubric, show_projects: true %>
+          <% end %>
+        <% else %>
+          <tr>
+            <td colspan="3">It looks like you haven't created any rubrics yet.<br /><br />
+              <% if @selected_course %>
+                <%= link_to 'Create a new rubric', new_course_manage_rubric_path(@selected_course)  %>
+              <% else %>
+                <%= link_to 'Create a new rubric', new_rubric_path() %>
+              <% end %>
+              or clone one of the system rubrics, below, to get started.</td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="page-section page-section-clear">
+    <div class="header-wrapper">
+      <div class="header">
+        <h2>Vocat Rubrics</h2>
+      </div>
+    </div>
+    <div class="body">
+      <table class="table">
+        <thead>
+        <tr>
+          <th style="width: 33%">Name</th>
+          <th style="width: 33%">Description</th>
+          <th style="width: 33%">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @system_rubrics.each do |rubric| %>
+          <%= render 'manage_rubric_row', rubric: rubric, show_projects: false %>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
 <% end %>
-
 
 

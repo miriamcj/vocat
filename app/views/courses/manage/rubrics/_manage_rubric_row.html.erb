@@ -14,15 +14,9 @@
     <% end %>
   </td>
   <td>
-    <nav class="drop-nav" data-behavior="dropdown">
-      <a class="drop-nav--toggle" data-behavior="toggle" href="#" style="cursor: pointer;">
-        <% if local_assigns.fetch :subheader, nil %>
-          <%= subheader %>
-        <% else %>
-          Select an Action
-        <% end %>
-      </a>
-      <div class="drop-nav--dropdown" data-behavior="dropdown-options">
+    <div class="dropdown dropdown-button" data-behavior="dropdown">
+      <a class="dropdown--toggle" data-behavior="toggle" href="#">Actions</a>
+      <div class="dropdown--options" data-behavior="dropdown-options">
         <ul>
           <% if @selected_course %>
             <li>
@@ -66,7 +60,6 @@
           <% end %>
         </ul>
       </div>
-    </nav>
-
+    </div>
   </td>
 </tr>

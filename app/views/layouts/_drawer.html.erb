@@ -60,7 +60,9 @@
             <li>Create a New Rubric</li>
 
             <% if @app_section == 'course' %>
-            <li><%=  link_to 'My Rubrics', course_manage_rubrics_path(@selected_course) %></li>
+              <li><%=  link_to 'My Rubrics', course_manage_rubrics_path(@selected_course) %></li>
+            <% else %>
+              <li><%=  link_to 'My Rubrics', rubrics_path %></li>
             <% end %>
 
             <% if current_user.role? :administrator %>

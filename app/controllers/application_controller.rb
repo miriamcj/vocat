@@ -17,17 +17,14 @@ class ApplicationController < ActionController::Base
   before_filter :get_organization_and_current_course
   before_filter :inject_global_layout_variables
 
+
+  protected
+
   def test_flash_messages
     if params['test_flash']
       flash[:notice] = 'This is a test flash message'
     end
   end
-
-  def index
-    redirect_to org_root_path :organization_id => current_user.organization
-  end
-
-  protected
 
   def app_section
     if @selected_course
@@ -55,12 +52,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(user)
-    if user.role? 'admin'
-      sign_in_url = url_for(:action => 'index', :controller => 'admin/dashboard')
-    else
-      sign_in_url = '/'
-    end
-    sign_in_url
+    '/'
   end
 
   def get_organization_and_current_course

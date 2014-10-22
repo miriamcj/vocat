@@ -160,7 +160,8 @@ Vocat::Application.routes.draw do
 
   get '/admin' => 'admin/courses#index', :as => 'admin'
 
-  get '/' => 'dashboard#index', :as => 'dashboard'
+#  get '/' => 'dashboard#index', :as => 'dashboard'
+  get '/' => 'root#index', :as => 'root'
   get '/dashboard/evaluator' => 'dashboard#evaluator', :as => 'dashboard_evaluator'
   get '/dashboard/creator' => 'dashboard#creator', :as => 'dashboard_creator'
   get '/dashboard/admin' => 'dashboard#admin', :as => 'dashboard_admin'

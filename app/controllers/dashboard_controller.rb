@@ -2,19 +2,15 @@ class DashboardController < ApplicationController
 
   skip_authorization_check
 
-  def index
-
-    current_user.creator_courses.each do |course|
-      factory = SubmissionFactory.new
-      @submissions = factory.course_and_creator(course, current_user)
-    end
-
-    if current_user.role?(:administrator)
-      redirect_to admin_path
-    end
+  def evaluator
+    # Not sure why this is necessary... -ZD
+    # current_user.creator_courses.each do |course|
+    #   factory = SubmissionFactory.new
+    #   @submissions = factory.course_and_creator(course, current_user)
+    # end
   end
 
-  def admin
+  def creator
   end
 
 end
