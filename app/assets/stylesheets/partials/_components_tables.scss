@@ -89,15 +89,34 @@
   }
 }
 
-.row-handle {
-  span {
-    width: 20px;
-    height: 10px;
-    margin: .25em;
-    background: $grayLight;
-    display: block;
+.table {
+  .row-handle {
+    padding: .25em;
   }
 }
+.row-handle {
+  cursor: move;
+  thead & {
+    cursor: auto;
+  }
+  tr:hover & {
+    thead & {
+      background-color: $grayLighter !important;
+    }
+    background-color: $grayLight !important;
+    span {
+      @include svg(table-handle);
+    }
+  }
+  span {
+    display: block;
+    width: 4px;
+    height: 30px;
+  }
+  width: 1%;
+  background-color: $grayLighter !important;
+}
+
 
 
 // Dear SASS, it would be great if something like 'a&'

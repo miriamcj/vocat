@@ -23,6 +23,7 @@ define (require) ->
         handle: '.row-handle'
         items: 'tr:not([data-ui-behavior="drag-disabled"])'
         cursor: "move"
+        helper: 'clone'
         stop: (event, ui) ->
           ui.item.trigger('drop', ui.item.index())
       })
