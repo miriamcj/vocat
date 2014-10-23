@@ -5,9 +5,11 @@ define (require) ->
 
   class CourseMapProjectsEmptyView extends Marionette.ItemView
 
-    tagName: 'li'
+    tagName: 'th'
     template: template
     attributes: {
+      'data-behavior': 'navigate-project'
+      'data-match-height-source': ''
     }
 
     initialize: (options) ->

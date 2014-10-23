@@ -13,7 +13,7 @@ $spacingUnit: $mediumUnitPadding * .75;
   background: $yellow;
   padding: $spacingUnit;
   font-weight: $semibold;
-  small {
+  small, .small {
     font-weight: $regular;
   }
   ul {
@@ -41,6 +41,7 @@ $spacingUnit: $mediumUnitPadding * .75;
       text-decoration: underline;
     }
     &.primary-button, &.secondary-button, &.warning-button, &.disabled-botton {
+      color: $white !important;
       &:hover {
         text-decoration: none;
       }

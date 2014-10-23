@@ -4,9 +4,10 @@
       <% if @app_section == 'course' %>
       <li>
         <div class="drawer-nav--column">
-          <h4>Evaluations</h4>
+          <h4>Evaluate</h4>
           <ul>
-            <li><%=  link_to 'Evaluate Student Submissions', course_user_evaluations_path(@selected_course) %></li>
+            <li><%=  link_to 'Student Work', course_user_evaluations_path(@selected_course) %></li>
+            <li><%=  link_to 'Group Work', course_group_evaluations_path(@selected_course) %></li>
           </ul>
         </div>
       </li>
@@ -14,10 +15,10 @@
         <div class="drawer-nav--column">
           <h4>Setup Your Course</h4>
           <ul>
-            <li><%=  link_to 'Create Projects', course_manage_projects_path(@selected_course) %></li>
-            <li><%=  link_to 'Configure Groups', course_manage_groups_path(@selected_course) %></li>
-            <li><%=  link_to 'Manage Enrollment', course_manage_enrollment_path(@selected_course) %></li>
-            <li><%=  link_to 'Adjust Course Settings', course_manage_path(@selected_course) %></li>
+            <li><%=  link_to 'Projects', course_manage_projects_path(@selected_course) %></li>
+            <li><%=  link_to 'Groups', course_manage_groups_path(@selected_course) %></li>
+            <li><%=  link_to 'Enrollment', course_manage_enrollment_path(@selected_course) %></li>
+            <li><%=  link_to 'Settings', course_manage_path(@selected_course) %></li>
           </ul>
         </div>
       </li>
