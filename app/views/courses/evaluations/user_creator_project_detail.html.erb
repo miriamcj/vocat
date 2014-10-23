@@ -1,7 +1,5 @@
 <% content_for :content do %>
-<div id="region-main"></div>
-
-<%= render :partial => 'shared/bootstrap_collection', :locals => {:type => 'Collections', :key => 'user', :data => [@creator] }%>
-<%= render :partial => 'shared/bootstrap_collection', :locals => {:type => 'Collections', :key => 'project', :data => [@project]}%>
-
+  <div id="region-main"></div>
+  <%= render :partial => 'shared/bootstrap_collection', :locals => {:type => 'Collections', :key => 'user', :data => [@creator] }%>
+  <%= render :partial => 'shared/bootstrap_collection', :locals => {:type => 'Collections', :key => 'project', :data => [@project]}%>
 <% end %>

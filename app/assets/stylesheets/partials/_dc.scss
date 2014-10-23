@@ -1,6 +1,9 @@
-@import "partials_off/variables";
-@import "partials_off/mixins";
-@import "partials_off/patterns";
+@import "partials/variables";
+//@import "partials_off/mixins";
+//@import "partials_off/patterns";
+
+$tealMedium: $grayDarker;
+$tealDarkAlt: $white;
 
 .dc-chart rect.bar {
   stroke: none;
@@ -23,7 +26,7 @@
 
 .dc-chart rect.deselected {
   stroke: none;
-  fill: $tealLightest;
+  fill: $tealDark;
 }
 
 .dc-chart .pie-slice {
@@ -68,14 +71,14 @@
 
 .dc-chart .selected path {
   stroke-width: 3;
-  stroke: $tealLightest;
+  stroke: $tealDark;
   fill-opacity: 1;
 }
 
 .dc-chart .deselected path {
   strok: none;
   fill-opacity: .5;
-  fill: $tealLightest;
+  fill: $tealDark;
 }
 
 .dc-chart .axis path, .axis line {
@@ -89,7 +92,7 @@
 }
 
 .dc-chart .horizontal {
-  fill: $tealLightest;
+  fill: $tealDark;
 }
 
 .dc-chart .grid-line {
@@ -108,11 +111,11 @@
 
 .dc-chart .brush rect.background {
   z-index: -999;
-  fill: $tealLightestAlt;
+  fill: $tealDarkAlt;
 }
 
 .dc-chart rect.background-custom {
-  fill: $tealLightestAlt;
+  fill: $tealDarkAlt;
   width: 636px;
   height: 210px;
 }
@@ -158,14 +161,14 @@
 
 .dc-chart .selected circle {
   stroke-width: 3;
-  stroke: $tealLightest;
+  stroke: $tealDark;
   fill-opacity: 1;
 }
 
 .dc-chart .deselected circle {
   strok: none;
   fill-opacity: .5;
-  fill: $tealLightest;
+  fill: $tealDark;
 }
 
 .dc-chart .bubble {
@@ -279,5 +282,5 @@
 
 .dc-chart .tick text {
   fill: $grayDark;
-  @include font-size(13.75);
+  font-size: 14px;
 }

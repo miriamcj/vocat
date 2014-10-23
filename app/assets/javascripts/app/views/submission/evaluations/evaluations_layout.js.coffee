@@ -67,7 +67,6 @@ define (require) ->
 
     # @model is a submission model.
     initialize: (options) ->
-      @rubric = new Rubric(options.project.get('rubric'))
       @vent = Marionette.getOption(@, 'vent')
       @courseId = Marionette.getOption(@, 'courseId')
       @evaluations = new EvaluationCollection(@model.get('evaluations'), {courseId: @courseId})

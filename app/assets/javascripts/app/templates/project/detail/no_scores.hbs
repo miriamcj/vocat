@@ -1,33 +1,30 @@
-<div class="project-detail-subframe">
-	<h3 class="heading-large">Interactive Data</h3>
-	<aside>
-		<p data-behavior="bar-filter-label-wrap">
-				Unable to display interactive data because
+<aside>
+	<p data-behavior="bar-filter-label-wrap">
+			Unable to display interactive data because
 
-				{{#if loadedScoresSet}}
+			{{#if loadedScoresSet}}
 
-					{{#if_match loadedScoresSet 'my_scores'}}
-					you have not yet
-					{{/if_match}}
+				{{#if_match loadedScoresSet 'my_scores'}}
+				you have not yet
+				{{/if_match}}
 
-					{{#if_match loadedScoresSet 'all_scores'}}
+				{{#if_match loadedScoresSet 'all_scores'}}
+				no users have
+				{{/if_match}}
+
+				{{#if_match loadedScoresSet 'peer_scores'}}
+				no students have
+				{{/if_match}}
+
+				{{#if_match loadedScoresSet 'evaluator_scores'}}
+				no evaluators have
+				{{/if_match}}
+
+			{{else}}
+
 					no users have
-					{{/if_match}}
 
-					{{#if_match loadedScoresSet 'peer_scores'}}
-					no students have
-					{{/if_match}}
-
-					{{#if_match loadedScoresSet 'evaluator_scores'}}
-					no evaluators have
-					{{/if_match}}
-
-				{{else}}
-
-						no users have
-
-				{{/if}}
-				scored a submission for this project.
-		</p>
-	</aside>
-</div>
+			{{/if}}
+			scored a submission for this project.
+	</p>
+</aside>

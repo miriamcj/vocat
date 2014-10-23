@@ -21,28 +21,31 @@ define (require) ->
       crossfiltered: '[data-region="project-crossfiltered"]'
     }
 
-    triggers: {
-      'change [data-behavior="score-set-select"]': 'change:score:set'
-    }
+    triggers: () ->
+      t = {
+        'change [data-behavior="score-set-select"]': 'change:score:set'
+      }
+      if _.isFunction(@vent.triggerMethod)
+        t['click @ui.close'] = 'close'
+      t
 
     ui: {
+      close: '[data-behavior="detail-close"]'
       scoreSetSelect: '[data-behavior="score-set-select"]'
     }
+
+    onClose: () ->
+      @vent.triggerMethod('close:detail') if _.isFunction(@vent.triggerMethod)
 
     initialize: (options) ->
 
       @options = options || {}
       @vent = Marionette.getOption(@, 'vent')
 
-      if @model
-        # Viewed in coursemap
-        @projectId = @model.id
-      else
-        # Stand alone view
-        @projectId = Marionette.getOption(@, 'projectId')
+      @projectId = Marionette.getOption(@, 'projectId') || @model.id
 
-      # The layout is responsible for loading the data and passing it to its component views when it's been updated.
-      $.when(@scoresLoaded(), @projectLoaded()).then(() =>
+        # The layout is responsible for loading the data and passing it to its component views when it's been updated.
+      $.when(@scoresLoaded(), @projectAndRubricLoaded()).then(() =>
         @updateViews()
       )
 
@@ -65,23 +68,25 @@ define (require) ->
         disable_search_threshold: 1000
       })
 
-    projectLoaded: () ->
-      deferred = $.Deferred()
-      resolve = () =>
-        @rubric = new RubricModel(@model.get('rubric'))
-        deferred.resolve()
-      unless @model?
-        @model = new ProjectModel({id: @projectId})
-        @model.fetch({success: resolve})
-      else
-        resolve()
-      deferred
+    projectAndRubricLoaded: () ->
+      projectLoadPromise = $.Deferred()
+      rubricLoadPromise = $.Deferred()
 
-    serializeData: () ->
-      out = {
-        loadedScoresSet: @loadedScoresSet
-      }
-      out
+      if @model?
+        projectLoadPromise.resolve()
+      else
+        @model = new ProjectModel({id: @projectId})
+        @model.fetch({success: () ->
+          projectLoadPromise.resolve()
+        })
+
+      projectLoadPromise.then(() =>
+        @rubric = new RubricModel({id: @model.get('rubric_id')})
+        @rubric.fetch({success: () ->
+          rubricLoadPromise.resolve()
+        })
+      )
+      rubricLoadPromise
 
     scoresLoaded: (set = 'my_scores') ->
       @loadedScoresSet = set
@@ -96,3 +101,12 @@ define (require) ->
           deferred.resolve()
       })
       deferred
+
+    serializeData: () ->
+      project = super()
+      out = {
+        loadedScoresSet: @loadedScoresSet
+        project: project
+      }
+      out
+

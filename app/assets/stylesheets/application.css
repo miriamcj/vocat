@@ -29,6 +29,8 @@
  *= require partials/_components_figures
  *= require partials/_components_sections
  *= require partials/_components_authentication
+ *= require partials/_components_charts
+ *= require partials/_dc
  *= require partials/_video_js
 
 */

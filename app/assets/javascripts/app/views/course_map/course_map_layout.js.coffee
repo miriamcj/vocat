@@ -121,12 +121,14 @@ define (require) ->
         @setActive({project: args.project})
         Vocat.router.navigate("courses/#{@courseId}/users/evaluations/project/#{args.project.id}")
         view = new CourseMapDetailProject({collections: {creators: @collections.user,submissions: @collections.submission}, courseId: @courseId, vent: @, model: args.project})
+        @openDetail(view)
 
       onOpenDetailProjectGroups: (args) ->
         @showGroupViews()
         @setActive({project: args.project})
         Vocat.router.navigate("courses/#{@courseId}/groups/evaluations/project/#{args.project.id}")
         view = new CourseMapDetailProject({collections: {creators: @collections.group, submissions: @collections.submission}, courseId: @courseId, vent: @, model: args.project})
+        @openDetail(view)
 
       onOpenDetailCreatorProject: (args) ->
         if args.creator.creatorType == 'User'

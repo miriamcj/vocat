@@ -1,0 +1,36 @@
+@import "variables";
+@import "mixins";
+@import "patterns";
+
+// Pie chart
+// --------------------------------------------------------
+// <figure>
+
+.pie-wrapper {
+  margin-bottom: 1.6rem;
+}
+
+.chart-label {
+//  @extend %label;
+  margin-bottom: 1em;
+  display: block;
+
+  .delete-link {
+    font-size: 1em;
+  }
+}
+
+.chart-container {
+  @include clearfix;
+}
+
+.pie {
+  width: 107px;
+  float: left;
+  margin-right: 1.6rem;
+  text-align: center;
+  figcaption {
+    min-height: 70px;
+  }
+}
+
