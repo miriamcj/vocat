@@ -20,6 +20,7 @@
   white-space: nowrap;
   &:hover, &:focus {
     color: $white;
+    text-decoration: none;
   }
   @include transition($fastTransition background-color $timing);
   @include transition($fastTransition border-color $timing);
@@ -66,14 +67,21 @@ input%proto-button {
   @extend %proto-button;
   background-color: $primaryButtonColor;
   border: 1px solid $primaryButtonColor;
+  .notification & {
+    background: none;
+    color: $primaryButtonColor;
+    border: 1px solid $primaryButtonColor;
+  }
   &:hover, &:focus {
     background-color: $primaryButtonHoverColor;
     border: 1px solid $primaryButtonHoverColor;
+    .notification & {
+      background-color: $primaryButtonColor;
+      border: 1px solid $primaryButtonColor;
+      color: $white;
+    }
   }
   #notifications & {
-    background: none;
-    color: $primaryButtonColor !important;
-    border: 1px solid $primaryButtonColor;
   }
 }
 
@@ -81,14 +89,19 @@ input%proto-button {
   @extend %proto-button;
   background-color: $secondaryButtonColor;
   border: 1px solid $secondaryButtonColor;
+  .notification & {
+    background: none;
+    color: $secondaryButtonColor;
+    border: 1px solid $secondaryButtonColor;
+  }
   &:hover, &:focus {
     background-color: $secondaryButtonHoverColor;
     border: 1px solid $secondaryButtonHoverColor;
-  }
-  #notifications & {
-    background: none;
-    color: $red !important;
-    border: 1px solid $red;
+    .notification & {
+      background-color: $secondaryButtonColor;
+      border: 1px solid $secondaryButtonColor;
+      color: $white;
+    }
   }
 }
 
@@ -96,14 +109,19 @@ input%proto-button {
   @extend %proto-button;
   background-color: $grayLighter;
   border: 1px solid $grayLighter;
+  .notifications & {
+    background: none;
+    color: $grayLightest;
+    border: 1px solid $grayLighter;
+  }
   &:hover, &:focus {
     background-color: $grayLighter;
     border: 1px solid $grayLighter;
-  }
-  #notifications & {
-    background: none;
-    color: $grayLightest !important;
-    border: 1px solid $grayLighter;
+    .notifications & {
+      color: $grayLight;
+      background-color: $grayLighter;
+      border: 1px solid $grayLighter;
+    }
   }
 }
 
@@ -111,14 +129,19 @@ input%proto-button {
   @extend %proto-button;
   background-color: $warningButtonColor;
   border: 1px solid $warningButtonColor;
+  .notification & {
+    background: none;
+    color: $warningButtonColor;
+    border: 1px solid $warningButtonColor;
+  }
   &:hover, &:focus {
     background-color: $warningButtonHoverColor;
     border: 1px solid $warningButtonHoverColor;
-  }
-  #notifications & {
-    background: none;
-    color: $red !important;
-    border: 1px solid $red;
+    .notification & {
+      background-color: $warningButtonColor;
+      border: 1px solid $warningButtonColor;
+      color: $white;
+    }
   }
 }
 

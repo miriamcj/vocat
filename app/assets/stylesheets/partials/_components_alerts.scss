@@ -36,10 +36,14 @@ $spacingUnit: $mediumUnitPadding * .75;
   .alert--label {
   }
   a {
-    font-weight: $semibold;
-    color: $white;
+    color: $primaryLinkColor;
     &:hover {
       text-decoration: underline;
+    }
+    &.primary-button, &.secondary-button, &.warning-button, &.disabled-botton {
+      &:hover {
+        text-decoration: none;
+      }
     }
   }
 }
