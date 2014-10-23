@@ -54,7 +54,7 @@ define (require) ->
       Vocat.vent.trigger('modal:open', new ModalConfirmView({
         model: @model,
         vent: @,
-        descriptionLabel: 'Deleted evaluations cannot be recovered. Please confirm that you would like to delete your evaluation.',
+        descriptionLabel: 'Deleted evaluations cannot be recovered.',
         confirmEvent: 'confirm:destroy',
         dismissEvent: 'dismiss:destroy'
       }))

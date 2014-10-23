@@ -42,9 +42,8 @@ define (require) ->
       Vocat.vent.trigger('modal:open', new ModalConfirmView({
         model: @model,
         vent: @,
-        descriptionLabel: 'Deleting this group will also delete any submissions and evaluations owned by this group. Are you sure you want to do this?',
+        descriptionLabel: 'Deleting this group will also delete any submissions and evaluations owned by this group.',
         confirmEvent: 'confirm:destroy',
-        confirmLabel: "Yes, delete this group",
         dismissEvent: 'dismiss:destroy'
       }))
 

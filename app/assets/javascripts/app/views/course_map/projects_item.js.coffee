@@ -58,7 +58,8 @@ define (require) ->
       Vocat.vent.trigger('modal:open', new ModalConfirmView({
         model: @model,
         vent: @,
-        descriptionLabel: "All of your evaluations for \"#{@model.get('name')}\" will be visible to students in the course. Are you sure you want to do this?",
+        headerLabel: "Are You Sure?"
+        descriptionLabel: "If you proceed, all of your evaluations for \"#{@model.get('name')}\" will be visible to students in the course.",
         confirmEvent: 'confirm:publish',
         dismissEvent: 'dismiss:publish'
       }))
@@ -67,7 +68,8 @@ define (require) ->
       Vocat.vent.trigger('modal:open', new ModalConfirmView({
         model: @model,
         vent: @,
-        descriptionLabel: "All of your evaluations for \"#{@model.get('name')}\" will no longer be visible to students in the course. Are you sure you want to do this?",
+        headerLabel: "Are You Sure?"
+        descriptionLabel: "If you proceed, all of your evaluations for \"#{@model.get('name')}\" will no longer be visible to students in the course.",
         confirmEvent: 'confirm:unpublish',
         dismissEvent: 'dismiss:unpublish'
       }))

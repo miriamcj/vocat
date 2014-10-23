@@ -80,6 +80,10 @@ input%proto-button {
       border: 1px solid $primaryButtonColor;
       color: $white;
     }
+    .modal & {
+      background-color: $tealDark;
+      border: 1px solid $tealDark;
+    }
   }
   #notifications & {
   }
@@ -129,7 +133,7 @@ input%proto-button {
   @extend %proto-button;
   background-color: $warningButtonColor;
   border: 1px solid $warningButtonColor;
-  .notification & {
+  .notification &, .modal & {
     background: none;
     color: $warningButtonColor;
     border: 1px solid $warningButtonColor;
@@ -137,7 +141,7 @@ input%proto-button {
   &:hover, &:focus {
     background-color: $warningButtonHoverColor;
     border: 1px solid $warningButtonHoverColor;
-    .notification & {
+    .notification &, .modal & {
       background-color: $warningButtonColor;
       border: 1px solid $warningButtonColor;
       color: $white;

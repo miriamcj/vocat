@@ -47,7 +47,7 @@ define (require) ->
       Vocat.vent.trigger('modal:open', new ModalConfirmView({
         model: @model,
         vent: @,
-        descriptionLabel: 'Each student will be randomly assigned to one group. If you proceed, students will lose their current group assignments. Are you sure you want to do this?',
+        descriptionLabel: 'Each student will be randomly assigned to one group. If you proceed, students will lose their current group assignments.',
         confirmEvent: 'confirm:assign',
         dismissEvent: 'dismiss:assign'
       }))

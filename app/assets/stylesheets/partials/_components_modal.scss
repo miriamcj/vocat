@@ -3,8 +3,8 @@
 @import "patterns";
 
 .modal-backdrop {
-  background: $grayDarkest;
-  opacity: .8;
+  background: #000;
+  opacity: .9;
   position: fixed;
   top: 0;
   left: 0;
@@ -13,19 +13,36 @@
 
 .modal {
   position: relative;
-  background: $grayDark;
+  background: $grayDarker;
   color: $white;
   position: fixed;
   top: 25%;
   left: 50%;
   margin-left: -200px;
   width: 400px;
-  padding: $verticalSpace;
+  padding: $verticalSpace * 3;
+  padding-top: $verticalSpace * 3;
+  line-height: 1.25em;
+  .modal--content {
+    p {
+      font-size: $iota;
+    }
+  }
+  .modal--header {
+    font-size: $eta;
+    color: $tealLight;
+    font-weight: $regular;
+    margin-bottom: .5em;
+  }
 
   .modal--close {
-    display: inline-block;
-    font-size: $iota;
-    margin-bottom: $verticalSpace;
+    @include svg(white-close-ex);
+    position: absolute;
+    right: $verticalSpace;
+    top: $verticalSpace;
+    height: 13px;
+    width: 13px;
+    display: block;
   }
 
   header {

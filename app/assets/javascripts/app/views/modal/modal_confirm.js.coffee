@@ -4,8 +4,8 @@ define ['marionette', 'hbs!templates/modal/modal_confirm'], (Marionette, templat
 
     template: template
 
-    descriptionLabel: 'Are you sure you want to go through with this?'
-    confirmLabel: 'Yes, proceed'
+    headerLabel: 'Are You Sure?'
+    confirmLabel: 'Yes, Proceed'
     dismissLabel: 'Cancel'
     confirmEvent: 'modal:confirm'
     confirmHref: null
@@ -41,6 +41,7 @@ define ['marionette', 'hbs!templates/modal/modal_confirm'], (Marionette, templat
         descriptionLabel: Marionette.getOption(@, 'descriptionLabel')
         confirmLabel: Marionette.getOption(@, 'confirmLabel')
         dismissLabel: Marionette.getOption(@, 'dismissLabel')
+        headerLabel: Marionette.getOption(@, 'headerLabel')
       }
 
     onDestroy: () ->

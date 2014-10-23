@@ -33,7 +33,7 @@ define (require) ->
       Vocat.vent.trigger('modal:open', new ModalConfirmView({
         model: @model,
         vent: @,
-        descriptionLabel: 'Deleting this field will also delete all descriptions associated with this field. Are you sure you want to do this?',
+        descriptionLabel: 'Deleting this field will also delete all descriptions associated with this field.',
         confirmEvent: 'confirm:model:destroy',
         dismissEvent: 'dismiss:model:destroy'
       }))

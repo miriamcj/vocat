@@ -31,7 +31,8 @@ define (require) ->
       Vocat.vent.trigger('modal:open', new ModalConfirmView({
         model: @model,
         vent: @,
-        descriptionLabel: 'Deleting this project will also delete any submissions and evaluations associated with this project. Are you sure you want to do this?',
+        headerLabel: 'Are You Sure?'
+        descriptionLabel: 'Deleting this project will also delete all of its associated submissions and evaluations. Are you sure you want to do this?',
         confirmEvent: 'confirm:destroy',
         dismissEvent: 'dismiss:destroy'
       }))

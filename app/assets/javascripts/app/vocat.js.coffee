@@ -164,14 +164,17 @@ define (require) ->
     );
 
     # Used to test flash messages.
-#    Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '5000',  msg: 'This is a test global error message.'})
-#    setTimeout () =>
-#      Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '5000',  msg: 'This is a test global error message.'})
-#    , 1000
-#   setInterval(() ->
-#      Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '1000',  msg: 'This is a test global error message.'})
-#      Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '1000',  msg: 'This is a test global error message.'})
-#    ,2000)
+    # Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '5000',  msg: 'This is a test global error message.'})
+
+    # Used to test modals.
+    #Vocat.vent.trigger('modal:open', new ModalConfirmView({
+    #  model: @model,
+    #  vent: @,
+    #  headerLabel: 'This is the header',
+    #  descriptionLabel: 'This is a test modal message, buddy. This is a test modal message, buddy. This is a test modal message, buddy. This is a test modal message, buddy.',
+    #  confirmEvent: 'confirm:destroy',
+    #  dismissEvent: 'dismiss:destroy'
+    #}))
 
   )
 
@@ -179,8 +182,6 @@ define (require) ->
   #Vocat.on('all', (e) ->
   #  console.log "VOCAT heard #{e}"
   #)
-
-
 
   return Vocat
 
