@@ -23,7 +23,13 @@ define (require) ->
         handle: '.row-handle'
         items: 'tr:not([data-ui-behavior="drag-disabled"])'
         cursor: "move"
-        helper: 'clone'
+        start: (event, ui) =>
+          # TODO: Assign widths to the dragged row.
+          handle = ui.item.find('.row-handle')
+          w = handle.outerWidth()
+          @ui.table.find('.row-handle').each (index, el) =>
+            console.log $(el).outerWidth(w)
+
         stop: (event, ui) ->
           ui.item.trigger('drop', ui.item.index())
       })

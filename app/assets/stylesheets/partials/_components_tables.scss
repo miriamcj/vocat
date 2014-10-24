@@ -89,28 +89,31 @@
   }
 }
 
-.table {
-  .row-handle {
-    padding: .25em;
+.table-sortable {
+  table-layout: fixed;
+  tr {
+    width: 100%;
   }
 }
+
 .row-handle {
+  padding: .25em !important;
   cursor: move;
   thead & {
     cursor: auto;
   }
-  tr:hover & {
+  tr:hover &, .ui-sortable-helper & {
     thead & {
       background-color: $grayLighter !important;
     }
     background-color: $grayLight !important;
     span {
+      display: block;
       @include svg(table-handle);
     }
   }
   span {
     display: block;
-    width: 4px;
     height: 30px;
   }
   width: 1%;
