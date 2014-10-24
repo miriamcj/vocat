@@ -16,11 +16,12 @@ define (require) ->
     className: 'active-result'
 
     initialize: (options) ->
+      console.log options, 'opt'
       @enrollmentCollection = options.enrollmentCollection
       @vent = options.vent
 
     triggers: () ->
-      'click': 'click'
+      'mousedown': 'click'
 
     onClick: () ->
       enrollment = @enrollmentCollection.newEnrollmentFromSearchModel(@model)
@@ -40,7 +41,7 @@ define (require) ->
             Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 5000, msg: "#{enrollment.get('user_name')} is now #{article} #{role} in section ##{enrollment.get('section')}."})
           else
             Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 5000, msg: "#{enrollment.get('user_name')} is now enrolled in section #{enrollment.get('section')}"})
-
       })
+      @trigger('clicked')
 
     onRender: () ->

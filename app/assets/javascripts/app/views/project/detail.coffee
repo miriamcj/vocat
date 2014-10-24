@@ -57,6 +57,7 @@ define (require) ->
       else
         @crossfiltered.show new CrossfilteredView({scores: @data.scores, rubric: @rubric, vent: @vent})
 
+
     onChangeScoreSet: () ->
       set = @ui.scoreSetSelect.val()
       $.when(@scoresLoaded(set)).then(() =>

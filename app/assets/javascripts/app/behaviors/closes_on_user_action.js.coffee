@@ -21,6 +21,7 @@ define (require) ->
       @globalChannel.vent.trigger('user:action')
       @listenTo(@globalChannel.vent, 'user:action', (event) =>
         unless event && $.contains(@el, event.target)
+          console.log 'heard user action'
           @view[@defaults.closeMethod]()
       )
 
