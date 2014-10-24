@@ -9,16 +9,61 @@
   @extend %spacedHeading;
   font-size: $gamma;
   color: $grayDark;
+  a {
+    color: $grayDark;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
 }
 
 .heading-secondary {
   @extend %condensedHeading;
   font-size: $gamma;
   color: $grayMedium;
+  a {
+    color: $grayMedium;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.heading-secondary-dark {
+  @extend %condensedHeading;
+  font-size: $gamma;
+  color: $grayDark;
+  a {
+    color: $grayDark;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
 .heading-tertiary {
   @extend %spacedHeading;
   @extend %condensedHeading;
+  font-size: $delta;
+  font-weight: $regular;
+  color: $grayDark;
+  a {
+    color: $grayDark;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
+.heading-quarternary {
+  @extend %spacedHeading;
+  font-size: $zeta;
+  font-weight: $semibold;
+  color: $tealDark;
+  border-bottom: 1px solid $grayMediumLighter;
+  padding-bottom: .5em;
+  a {
+    color: $grayDark;
+  }
+}

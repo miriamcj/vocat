@@ -1,23 +1,21 @@
-<div class="page-section">
-  <div class="header">
-    <h4>
+<div class="page-section--subsection page-section--subsection-ruled">
+  <div class="subsection-header">
+    <h3 class="heading-secondary-dark">
       <%= link_to course, course_user_evaluations_path(course)  %>
-    </h4>
+    </h3>
   </div>
-  <div class="body">
+  <div class="page-section-half">
     <%= render 'shared/course_synopsis', :course => course %>
-    <div class="column-half">
-      <h5 class="heading-tertiary">
-        <strong>Recently Updated Submissions</strong>
-      </h5>
-      <%= render 'shared/course_recent_submissions', :course => course %>
-    </div>
-    <div class="column-half">
-      <h5 class="heading-tertiary">
-        <strong>Course Projects</strong>
-      </h5>
-      <%= render 'shared/course_projects', :course => course %>
-    </div>
+  </div>
+  <div class="page-section-half">
+    <h4 class="heading-quarternary">
+      Recently Updated Submissions
+    </h4>
+    <%= render 'shared/course_recent_submissions', :course => course %>
+    <h4 class="heading-quarternary">
+      Course Projects
+    </h4>
+    <%= render 'shared/course_projects', :course => course %>
   </div>
 </div>
 

@@ -1,42 +1,26 @@
 <div class="clearfix">
-
-  <figure class="summary-box">
+  <figure class="summary-box summary-box-creator">
     <div>
       <span><%= course.creators.count %></span><small></small>
     </div>
     <figcaption>Students</figcaption>
   </figure>
 
-  <figure class="summary-box">
+  <figure class="summary-box summary-box-creator-light">
     <div>
       <span><%= course.discussion_post_count() %></span><small></small>
     </div>
     <figcaption>Comments</figcaption>
   </figure>
 
-  <figure class="summary-box">
+  <figure class="summary-box summary-box-creator-light">
     <div>
       <span><%= course.annotation_count() %></span>
     </div>
     <figcaption>Annotations</figcaption>
   </figure>
 
-  <figure class="summary-box">
-    <div>
-      <span><%= course.video_count %></span><small></small>
-    </div>
-    <figcaption>Videos</figcaption>
-  </figure>
-
-  <figure class="summary-box">
-    <div>
-      <b style="height: <%= course.submission_video_percentage() %>%"></b>
-      <span><%= course.submission_video_percentage().round %></span><small>%</small>
-    </div>
-    <figcaption>Submissions with Videos</figcaption>
-  </figure>
-
-  <figure class="summary-box">
+  <figure class="summary-box summary-box-evaluator">
     <div>
       <b style="height: <%= course.average_evaluator_score() %>%"></b>
       <span><%= course.average_evaluator_score().round %></span><small>%</small>
@@ -45,7 +29,7 @@
   </figure>
 
   <% if course.settings['enable_peer_review'] %>
-    <figure class="summary-box">
+    <figure class="summary-box summary-box-peer">
       <div>
         <b style="height: <%= course.average_peer_score() %>%"></b>
         <span><%= course.average_peer_score().round %></span><small>%</small>
@@ -54,6 +38,19 @@
     </figure>
   <% end %>
 
+  <figure class="summary-box summary-box-default">
+    <div>
+      <span><%= course.video_count %></span><small></small>
+    </div>
+    <figcaption>Videos</figcaption>
+  </figure>
 
+  <figure class="summary-box summary-box-default-percentage">
+    <div>
+      <b style="height: <%= course.submission_video_percentage() %>%"></b>
+      <span><%= course.submission_video_percentage().round %></span><small>%</small>
+    </div>
+    <figcaption>Submissions with Videos</figcaption>
+  </figure>
 
 </div>

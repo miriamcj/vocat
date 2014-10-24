@@ -3,34 +3,96 @@
 @import "patterns";
 
 
-figure.summary-box {
-  @extend %wide-one-eighth;
-  @extend %medium-one-fourth;
+.summary-box {
+  @extend %wide-one-fourth;
+  @extend %medium-one-third;
   @extend %narrow-one-half;
   position: relative;
-  padding: .5em;
+  padding: 0 1em 1.5em 1em;
   color: $white;
   &:first-child {
     padding-left: 0;
   }
+  &.summary-box-creator div {
+    background: $tealLight;
+    &:after {
+      border-top-color: $tealLight;
+    }
+  }
+  &.summary-box-creator-light div {
+    background: $tealLightest;
+    &:after {
+      border-top-color: $tealLightest;
+    }
+  }
+  &.summary-box-default div {
+    background: $defaultFillColor;
+    &:after {
+      border-top-color: $defaultFillColor;
+    }
+  }
+  &.summary-box-default-percentage div {
+    background: $defaultColor;
+    &:after {
+      border-top-color: $defaultFillColor;
+    }
+    b {
+      background: $defaultFillColor;
+    }
+  }
+  &.summary-box-evaluator div {
+    background: $instructorColor;
+    b {
+      background: $instructorFillColor;
+    }
+    &:after {
+      border-top-color: $instructorFillColor;
+    }
+  }
+  &.summary-box-peer div {
+    background: $peerColor;
+    b {
+      background: $peerFillColor;
+    }
+    &:after {
+      border-top-color: $peerFillColor;
+    }
+  }
   div {
-    padding-top: .5em;
-    margin-top: -.5em;
-    background: $grayMediumLighter;
-    @include font-matrix;
+    background: $tealLightest;
+    padding: 1em 0;
     text-align: center;
     position: relative;
+    margin-bottom: 12px;
+
+    &:after {
+      content: '';
+      position: absolute;
+      z-index: 10;
+      display: block;
+      bottom: -12px;
+      left: 50%;
+      margin-left: -8px;
+      width: 10;
+      height: 10;
+      border-top: 12px solid $tealLightest;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+
+    }
     span {
+      @extend %condensedHeading;
+      font-weight: $semibold;
       position: relative;
       top: 50%;
       z-index: 10;
-      font-size: $alpha;
+      font-size: $beta;
     }
     small {
       z-index: 10;
       position: relative;
       top: -.12em;
-      font-size: $beta;
+      font-size: $gamma;
     }
     b {
       z-index: 5;
@@ -38,14 +100,15 @@ figure.summary-box {
       width: 100%;
       position: absolute;
       bottom: 0;
-      background-color: $grayMedium;
+      background-color: $tealLight;
     }
   }
   figcaption {
-    font-size: $iota;
+    @extend %label;
     width: 100%;
     color: $grayDark;
     text-align: center;
     padding: .5em 1em 0em 1em;
+    min-height: 2.5em;
   }
 }

@@ -10,19 +10,6 @@ $handleWidth: 100px;
 
 $shortBarHeight: 30px;
 $titleWidth: 300px;
-$lighten: 20%;
-
-$defaultFillColor: $grayMediumLighter;
-$defaultColor: lighten($defaultFillColor, $lighten);
-
-$instructorFillColor: $yellow;
-$instructorColor: lighten($instructorFillColor, $lighten);
-
-$peerFillColor: $blue;
-$peerColor: lighten($peerFillColor, $lighten);
-
-$selfFillColor: $purple;
-$selfColor: lighten($selfFillColor, $lighten);
 
 $largeHandleMultipler: 1.5;
 $largeHandleHeight: $barHeight + ($secondaryBarHeight * $largeHandleMultipler);

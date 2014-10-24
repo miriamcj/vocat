@@ -1,5 +1,5 @@
 <% if course.recent_submissions(course.projects.count).length > 0 %>
-  <ul style="margin-top: 0px" class="unstyled-list">
+  <ul class="large-list unstyled-list">
     <% course.recent_submissions(course.projects.count).each do |submission| %>
       <li>
         <% if submission.creator_type == 'Group' %>

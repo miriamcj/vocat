@@ -6,9 +6,6 @@ define (require) ->
 
     template: template
 
-    initialize: (options) ->
-      console.log options,'opt'
-
     serializeData: () ->
       out = {
         isCreatorWarning: Marionette.getOption(@, 'warningType') == 'Creator'

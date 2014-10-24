@@ -8,6 +8,25 @@ $sectionSpacingUnit: 2em;
   margin-top: $sectionSpacingUnit;
 }
 
+// Page Message Container
+// --------------------------
+.page-message {
+  margin-bottom: $sectionSpacingUnit * 2;
+  padding: $sectionSpacingUnit 0;
+  border-top: 1px solid $grayMediumLighter;
+  border-bottom: 1px solid $grayMediumLighter;
+
+  .header {
+    font-size: $delta;
+    color: $tealDark;
+  }
+  .body {
+    color: $grayDark;
+    margin-top: 1em;
+    line-height: 1.65em;
+  }
+}
+
 // Page Section Container
 // --------------------------
 
@@ -57,6 +76,16 @@ $sectionSpacingUnit: 2em;
   }
   .body-full-bleed {
     padding: 0;
+  }
+  .page-section--subsection {
+    @include clearfix;
+    .subsection-header {
+      margin-bottom: $sectionSpacingUnit * .75;
+    }
+  }
+  .page-section--subsection-ruled + .page-section--subsection-ruled {
+    padding-top: $sectionSpacingUnit;
+    border-top: 1px solid $grayMediumLighter;
   }
   .page-section--subsection + .page-section--subsection {
     margin-top: $sectionSpacingUnit;

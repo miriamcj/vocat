@@ -8,6 +8,7 @@ define (require) ->
   ModalConfirmView = require('views/modal/modal_confirm')
   GroupMatrixView = require('views/group/matrix')
   SaveNotifyView = require('views/group/save_notify')
+  WarningView = require('views/group/warning')
 
   class GroupLayout extends AbstractMatrix
 
@@ -19,6 +20,7 @@ define (require) ->
       creators: '[data-region="creators"]'
       groups: '[data-region="groups"]'
       matrix: '[data-region="matrix"]'
+      warning: '[data-region="warning"]'
     }
 
     events: {
@@ -75,9 +77,12 @@ define (require) ->
 
 
     onRender: () ->
-      @creators.show(@children.creators)
-      @groups.show(@children.groups)
-      @matrix.show(@children.matrix)
+      if @collections.creator.length == 0
+        @warning.show(new WarningView({courseId: @courseId}))
+      else
+        @creators.show(@children.creators)
+        @groups.show(@children.groups)
+        @matrix.show(@children.matrix)
 
     onShow: () ->
       @parentOnShow()

@@ -17,6 +17,7 @@ $grayDark: rgb(109, 110, 113); // Body copy color
 $grayDarker: rgb(77, 77, 79);
 $grayDarkest: rgb(35, 31, 32);
 
+$tealLightest: #A1DAD6;
 $tealLight: #3CC6BC;
 $tealDark: #0AB0A9;
 
@@ -39,6 +40,20 @@ $secondaryLinkHoverColor: $grayDarker;
 $primaryButtonHoverColor: $grayDarker;
 $secondaryButtonHoverColor: $grayDarker;
 $warningButtonHoverColor: $redDark;
+
+$lighten: 20%;
+
+$defaultFillColor: $grayMediumLighter;
+$defaultColor: lighten($defaultFillColor, $lighten);
+
+$instructorFillColor: $yellow;
+$instructorColor: lighten($instructorFillColor, $lighten);
+
+$peerFillColor: $blue;
+$peerColor: lighten($peerFillColor, $lighten);
+
+$selfFillColor: $purple;
+$selfColor: lighten($selfFillColor, $lighten);
 
 
 // Typographic hierarchy

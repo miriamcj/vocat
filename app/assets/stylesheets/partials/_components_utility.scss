@@ -29,6 +29,19 @@
   }
 }
 
+.large-list {
+  li {
+    font-size: $eta;
+    line-height: 1.25em;
+    a {
+      color: $grayDark;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
 .clearfix {
   @include clearfix();
 }
@@ -42,3 +55,4 @@
   margin: 0;
   padding: 0;
 }
+
