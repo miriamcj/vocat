@@ -115,6 +115,10 @@ class Submission < ActiveRecord::Base
     !video.nil?
   end
 
+  def has_rubric?
+    !rubric.nil?
+  end
+
   def evaluations_visible_to(user)
     role = course.role(user)
     # Admins and evaluators for the course can see everything

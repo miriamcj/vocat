@@ -92,4 +92,5 @@ define (require) ->
 
     onRender: () ->
       @showTheirEvaluations()
-      @showMyEvaluations()
+      if @model.get('abilities').can_evaluate == true
+        @showMyEvaluations()

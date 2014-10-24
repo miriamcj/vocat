@@ -109,7 +109,8 @@ class Ability
       # 1) user can evaluate for the course and is not the creator of the submission
       # 2) submission is a user submission and self evaluation is allowed and evaluator is the creator
       # 3) submission is a group submission and self evaluation is allowed and evaluator is in the group.
-      results = can?(:evaluate, submission.project.course ) && submission.creator != user ||
+      # 4) submission has a rubric
+      results = submission.has_rubric? && can?(:evaluate, submission.project.course ) && submission.creator != user ||
         submission.creator.is_user? && submission.project.course.allows_self_evaluation? && submission.creator == user ||
         submission.creator.is_group? && submission.project.course.allows_self_evaluation? && submission.creator.include?(user)
       results
@@ -300,6 +301,11 @@ class Ability
         result = evaluation.submission.project.course.role(user) != :evaluator
         result
       end
+      cannot [:evaluate], Submission do |submission|
+        result = submission.project.course.role(user) != :evaluator
+        result
+      end
+
     end
 
   end
