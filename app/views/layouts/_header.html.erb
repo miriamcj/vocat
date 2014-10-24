@@ -30,7 +30,7 @@
           <div class="user-nav--options" data-behavior="dropdown-options">
             <ul>
               <li>
-                <%= link_to(current_user.email, edit_user_registration_path) %>
+                <%= link_to('Edit Profile', edit_user_registration_path) %>
               </li>
               <li>
                 <%= link_to('Log out', destroy_user_session_path, :method=>'delete') %>
