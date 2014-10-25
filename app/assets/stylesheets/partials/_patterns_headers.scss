@@ -10,7 +10,7 @@
 }
 
 %spacedHeading {
-  margin-bottom: $narrowUnitPadding;
+  margin-bottom: 8px;
 }
 
 %extraSpacedHeading {
@@ -22,7 +22,7 @@
   display: inline-block;
   font-weight: $light;
   font-size: $epsilon;
-  color: $grayDark;
+  color: $grayDarkest;
   letter-spacing: 0;
   @extend %condensedHeading;
   @extend %capsHeading;

@@ -10,11 +10,11 @@
 
 %proto-input {
 //  @include box-sizing(content-box);
-  height: 2.6em;
-  padding: 0px 0px 0px 1em;
+  height: 2.2em;
+  padding: 0px 0px 0px .8em;
   outline: none;
   @include font-body;
-  font-size: $iota;
+  font-size: $eta;
   color: $grayDark !important;
   border: 1px solid $grayMedium;
 }
@@ -187,7 +187,6 @@ $spacingUnit: $mediumUnitPadding * .75;
     input {
       // Hack that needs to be fixed.
       border-bottom: 2px solid $grayMedium !important;
-      height: 2.7em;
     }
   }
 }

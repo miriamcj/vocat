@@ -5,13 +5,13 @@
 // Does a quick reset on <select>s before they're digested by chosen
 [data-behavior="chosen"] {
   @include appearance(none);
-  padding: 0 2.2rem;
+  padding: 0 22px;
 }
 
 /* @group Base */
 .chosen-container {
   @include clearfix(heavy);
-  font-size: $iota;
+  font-size: $eta;
   position: relative;
   display: inline-block;
   vertical-align: middle;
@@ -47,9 +47,9 @@
 /* @group Single Chosen */
 .chosen-container-single .chosen-single {
   display: block;
-  height: 2.6em;
+  height: 2.2em;
   color: $grayDark;
-  line-height: 2.6em;
+  line-height: 2.2em;
   text-decoration: none;
   background-color: $white;
   padding: 0 0 0 1em;
@@ -63,7 +63,6 @@
 .chosen-container-single .chosen-single span {
   display: block;
   overflow: hidden;
-//  margin-right: 2.6rem;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -77,7 +76,7 @@
   height: 100%;
 }
 .chosen-container-single .chosen-single div b {
-  @include svg(arrow-down-gray-dark);
+  @include svg(arrow-down-gray-medium);
   display: block;
   width: 100%;
   height: $iconSizeMedium;
@@ -103,7 +102,7 @@
   display: block;
   height: $iconSizeMedium;
   width: $iconSizeMedium;
-  @include svg(circle-ex-gray-dark);
+  @include svg(circle-ex-gray-medium);
   right: 2.5em;
   top: .75em;
   z-index: 500;
@@ -162,7 +161,7 @@
   background: transparent;
 }
 .chosen-container-active.chosen-with-drop .chosen-single div b {
-  @include svg(arrow-down-gray-dark);
+  @include svg(arrow-down-gray-medium);
 
 }
 /* @end */

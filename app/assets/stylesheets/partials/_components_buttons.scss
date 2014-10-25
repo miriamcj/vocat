@@ -43,29 +43,35 @@
 // Buttons should be of a type (primary-button or secondary-button)
 // and if they want an icon, they should also have an icon class.
 //-----------------------------------------------------------------
+%button-margin {
+  .primary-button + &, .secondary-button + &, .warning-button + &, .gentle-warning-button + &, .disabled-button + & {
+    margin-left: 10px;
+  }
+}
+
 .primary-button {
   @extend %primary-button;
+  @extend %button-margin;
 }
 
 .secondary-button {
   @extend %secondary-button;
+  @extend %button-margin;
+}
+
+.gentle-warning-button {
+  @extend %gentle-warning-button;
+  @extend %button-margin;
 }
 
 .warning-button {
   @extend %warning-button;
+  @extend %button-margin;
 }
 
 .disabled-button {
   @extend %disabled-button;
-}
-
-
-.primary-button + .secondary-button,
-.primary-button + .dropdown-button,
-.primary-button + .primary-button,
-.secondary-button + .secondary-button,
-.secondary-button + .primary-button {
-  margin-left: .25em;
+  @extend %button-margin;
 }
 
 .small-button{
@@ -108,6 +114,20 @@
   @extend %icon-button;
   &:after {
     @include svg(circle-ex-red-on-white);
+    .modal &, .notification & {
+      @include svg(circle-ex-gray-dark-on-red);
+    }
+    &:hover {
+      @include svg(circle-ex-red-dark-on-white);
+      .modal &, .notification & {
+        @include svg(circle-ex-red-dark-on-white);
+      }
+    }
+  }
+}
+.gentle-warning-button.delete-button, .gentle-warning-button.cancel-button {
+  &:after {
+    @include svg(circle-ex-white-on-red);
     .modal &, .notification & {
       @include svg(circle-ex-gray-dark-on-red);
     }
@@ -210,7 +230,7 @@
 
 .header-link {
   @extend %primary-link;
-  margin-bottom: $verticalSpaceTight;
+  margin-bottom: 10px;
 }
 
 .header-link-inline {
@@ -240,12 +260,12 @@
   &:hover {
     color: $redDark;
   }
-  &:after {
-    @include svg(circle-ex-white-on-red);
-    &:hover {
-      @include svg(circle-ex-white-on-red-dark);
-    }
-  }
+//  &:after {
+//    @include svg(circle-ex-white-on-red);
+//    &:hover {
+//      @include svg(circle-ex-white-on-red-dark);
+//    }
+//  }
 }
 
 

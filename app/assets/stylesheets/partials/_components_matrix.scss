@@ -154,22 +154,20 @@ $columnWidth: ($container / $columns) - 12;
 }
 
 
-th {
-  a {
-    &.delete-link {
-      color: $red;
-      &:hover {
-        color: $redDark;
-      }
-    }
-    color: $grayDarker;
-    &:hover {
-      color: $primaryLinkColor;
-    }
-  }
-}
 
 .matrix {
+  th {
+    a {
+      &.delete-link {
+        color: $red;
+        &:hover {
+          color: $redDark;
+        }
+      }
+    }
+  }
+
+
   tbody {
     th {
       .matrix-tight & {
@@ -203,7 +201,7 @@ th {
       }
       font-size: $theta; // Baseline height for the cell is 16px. Need the same baseline in the row headers
       height: 100px;
-      padding: 10px 20px;
+      padding: 10px;
       vertical-align: middle;
     }
   }
@@ -211,12 +209,30 @@ th {
   .cell--container {
     text-align: center;
     @include clearfix(hard);
+    &:hover {
+      dl, dl dt, dl dd, dl dd {
+        color: $tealDark;
+      }
+      dl dd b.matrix--check {
+        @include svg(check-teal);
+      }
+      dl dd b.matrix--scored {
+        color: $tealDark;
+      }
+      dl dd b.matrix--checkbox {
+        @include svg(checkbox-unchecked-teal);
+        &.checked {
+          @include svg(checkbox-checked-teal);
+        }
+      }
+    }
   }
+
   dl {
-    display: inline-block;
+    display: block;
+    float: left;
+    width: 33%;
     vertical-align: top;
-    margin-left: 3%;
-    margin-right: 3%;
     @include respond($onega) {
       width: 47%;
     }
@@ -242,21 +258,23 @@ th {
       font-weight: $regular;
       color: $grayLighter;
       margin: 0;
+      b.matrix--check {
+        margin: auto;
+        height: .55em;
+        margin-top: .4em;
+        @include svg(check-gray);
+        display: block;
+        text-align: left;
+      }
       b.matrix--scored {
         font-weight: normal;
         color: $grayMediumDarker;
       }
-      b.matrix--check {
-        margin: auto;
-        height: .55em;
-        margin-top: .225em;
-        @include svg(check-gray);
-        display: block;
-      }
+
       b.matrix--checkbox {
         cursor: pointer;
         margin-top: -1px;
-        height: .80em;
+        height: .70em;
         @include svg(checkbox-unchecked-gray);
         display: block;
         &.checked {

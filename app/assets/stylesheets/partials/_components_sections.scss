@@ -2,7 +2,7 @@
 @import "mixins";
 @import "patterns";
 
-$sectionSpacingUnit: 2em;
+$sectionSpacingUnit: 40px;
 
 %section-spacing {
   margin-top: $sectionSpacingUnit;
@@ -65,8 +65,12 @@ $sectionSpacingUnit: 2em;
     width: 40%;
     display: inline-block;
     position: absolute;
+    top: 3px;
     right: 0;
     bottom: 0;
+    .bubble {
+      margin-top: 5px;
+    }
   }
   .body {
     margin-top: $sectionSpacingUnit * .5;
@@ -83,12 +87,16 @@ $sectionSpacingUnit: 2em;
       margin-bottom: $sectionSpacingUnit * .75;
     }
   }
-  .page-section--subsection-ruled + .page-section--subsection-ruled {
-    padding-top: $sectionSpacingUnit;
-    border-top: 1px solid $grayMediumLighter;
+  .page-section--subsection-ruled {
+    border-bottom: 1px solid $grayMediumLighter;
+    padding-bottom: $sectionSpacingUnit * .75;
+    &:last-child {
+      border-bottom: none;
+    }
   }
+
   .page-section--subsection + .page-section--subsection {
-    margin-top: $sectionSpacingUnit;
+    @extend %section-spacing;
   }
 
 
@@ -106,20 +114,24 @@ $sectionSpacingUnit: 2em;
   height: 100%;
   padding-left: 0;
   padding-right: 0;
-}
-
-.page-section-half + .page-section-half {
-  margin-top: 0;
-  padding-left: 2vw;
-  @include respond($ontario) {
-    margin-top: $sectionSpacingUnit;
+  &.col-one {
+    padding-right: ($sectionSpacingUnit * .375);
   }
-  background: none;
+  &.col-two {
+    padding-left: ($sectionSpacingUnit * .375);
+  }
+  @include respond($ontario) {
+    padding: 0;
+    margin-top: $sectionSpacingUnit * .75;
+  }
 }
-
 
 .page-section + .page-section{
   @extend %section-spacing;
+}
+
+.col-one + .col-two {
+  margin-top: 0px;
 }
 
 // User Profile Container
@@ -149,5 +161,10 @@ $sectionSpacingUnit: 2em;
     @extend %narrow-whole;
 
   }
+}
 
+// Submission Section
+// --------------------------
+.submission-section {
+  margin-top: 50px;
 }

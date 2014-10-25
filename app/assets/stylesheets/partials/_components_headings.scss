@@ -51,7 +51,7 @@
   a {
     color: $grayDark;
     &:hover {
-      text-decoration: underline;
+      color: $tealDark;
     }
   }
 }
@@ -60,7 +60,6 @@
   @extend %spacedHeading;
   font-size: $zeta;
   font-weight: $semibold;
-  color: $tealDark;
   border-bottom: 1px solid $grayMediumLighter;
   padding-bottom: .5em;
   a {

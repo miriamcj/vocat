@@ -7,7 +7,7 @@ $white: #fff;
 $whiteTransparent: transparentize(#fff, 0.25);
 $offWhite: #fafafa;
 
-$grayLightest: rgb(248, 248, 248);
+$grayLightest: rgb(245, 245, 245);
 $grayLighter: rgb(224, 224, 224);
 $grayLight: rgb(199, 200, 202);
 $grayMediumLighter: rgb(167, 169, 172);
@@ -18,8 +18,10 @@ $grayDarker: rgb(77, 77, 79);
 $grayDarkest: rgb(35, 31, 32);
 
 $tealLightest: #A1DAD6;
-$tealLight: #3CC6BC;
-$tealDark: #0AB0A9;
+//$tealLight: #3CC6BC;
+$tealLight: #43B5AE;
+//$tealDark: #0AB0A9;
+$tealDark: #009C92;
 
 $yellow: #F5C92D;
 $blue: #60A3BF;

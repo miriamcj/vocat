@@ -23,12 +23,13 @@ define (require) ->
       dropdowns: '[data-behavior="dropdown"]'
       publishAll: '[data-behavior="publish-all"]'
       unpublishAll: '[data-behavior="unpublish-all"]'
+      projectTitle: '[data-behavior="project-title"]'
     }
 
     triggers: {
-      'mouseover a': 'active'
-      'mouseout a': 'inactive'
-      'click a':   'detail'
+      'mouseover @ui.projectTitle': 'active'
+      'mouseout @ui.projectTitle': 'inactive'
+      'click @ui.projectTitle':   'detail'
       'click @ui.publishAll': 'click:publish'
       'click @ui.unpublishAll': 'click:unpublish'
     }

@@ -32,7 +32,7 @@ body {
   font-size: 1em;
   font-weight: 400;
   line-height: $baseLineHeight;
-  color: $grayDarker;
+  color: $grayDark;
   background-color: $white;
   .no-mediaqueries & {
     min-width: $michigan;
@@ -135,14 +135,7 @@ a {
   text-decoration: none;
   color: $tealLight;
   &:hover {
-    color: $tealLight;
- //   opacity: 1;
-    &.active,
-    .active > & {
-//      opacity: 1;
-    }
-  }
-  &:active {
+    color: $tealDark;
   }
 }
 

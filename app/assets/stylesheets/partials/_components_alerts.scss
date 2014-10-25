@@ -40,9 +40,16 @@ $spacingUnit: $mediumUnitPadding * .75;
     &:hover {
       text-decoration: underline;
     }
-    &.primary-button, &.secondary-button, &.warning-button, &.disabled-botton {
+    &.primary-button, &.secondary-button, &.disabled-botton {
       color: $white !important;
       &:hover {
+        text-decoration: none;
+      }
+    }
+    &.warning-button, &.gentle-warning-button {
+      color: $warningButtonColor;
+      &:hover {
+        color: $white;
         text-decoration: none;
       }
     }

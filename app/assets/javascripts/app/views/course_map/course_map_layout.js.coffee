@@ -133,7 +133,13 @@ define (require) ->
         @showGroupViews()
         @setActive({group: args.group})
         Vocat.router.navigate("courses/#{@courseId}/groups/evaluations/creator/#{args.group.id}")
-        view = new CourseMapDetailCreator({collection: @collections.submission, creatorType: 'Group', courseId: @courseId, vent: @, model: args.group})
+        view = new CourseMapDetailCreator({
+          collection: @collections.submission,
+          creatorType: 'Group',
+          courseId: @courseId,
+          vent: @,
+          model: args.group
+        })
 
       onOpenDetailProjectUsers: (args) ->
         @showUserViews()
@@ -172,6 +178,7 @@ define (require) ->
       openDetail: (view) ->
         @ui.detail.show()
         @detail.show(view)
+        window.scrollTo(0,0);
 
       onCloseDetail: (args) ->
         @ui.detail.hide()

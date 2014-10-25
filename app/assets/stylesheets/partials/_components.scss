@@ -152,7 +152,7 @@ footer.page-footer {
   }
   .drawer--contents {
     @include clearfix;
-    margin: $headerUnitPadding auto;
+    margin: 35px auto 15px auto;
     position: relative;
     max-width: $containerWidth;
     text-transform: uppercase;
@@ -167,8 +167,18 @@ footer.page-footer {
     @extend %medium-one-half;
     .drawer-nav--column {
       h4 {
+        padding-bottom: .5em;
         border-bottom: 1px solid $grayMedium;
         margin-bottom: 1em;
+        @extend %label;
+        color: $white;
+
+      }
+      ul {
+        margin-bottom: 0;
+        li:last-child {
+          margin-bottom: 0;
+        }
       }
     }
     ul {
@@ -192,10 +202,6 @@ footer.page-footer {
       }
     }
   }
-  h4 {
-    font-weight: normal;
-    font-size: $theta;
-  }
 }
 
 
@@ -208,6 +214,7 @@ footer.page-footer {
   line-height: $headerHeight;
   padding: 0 $headerUnitPadding + ($iconSizeMedium * 4) 0 $headerUnitPadding;
   background: $tealDark;
+  @include transition($fastTransition background $timing);
   .course-short {
     display: inline;
     @include respond($ontario, 'min') {
@@ -219,8 +226,8 @@ footer.page-footer {
       display: none;
     }
   }
-  &:hover {
-    text-decoration: underline;
+  &:hover, .drawer-open & {
+    background: $grayDarker;
   }
   & span::after {
     position: absolute;

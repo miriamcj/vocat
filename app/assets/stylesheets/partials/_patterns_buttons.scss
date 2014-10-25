@@ -6,7 +6,7 @@
   th & {
     font-size: .583em; // 14px
   }
-  font-weight: $semibold;
+  font-weight: $regular;
 }
 
 %proto-button {
@@ -18,6 +18,7 @@
   display: inline-block;
   color: $white;
   white-space: nowrap;
+  text-decoration: none;
   &:hover, &:focus {
     color: $white;
     text-decoration: none;
@@ -43,7 +44,7 @@ input%proto-button {
     height: 1.5em;
     width: 1.5em;
     position: absolute;
-    top: .55em;
+    top: .50em;
     right: .55em;
   }
 }
@@ -146,6 +147,19 @@ input%proto-button {
       border: 1px solid $warningButtonColor;
       color: $white;
     }
+  }
+}
+
+
+%gentle-warning-button {
+  @extend %proto-button;
+  background: none;
+  color: $warningButtonColor;
+  border: 1px solid $warningButtonColor;
+  &:hover, &:focus {
+    background-color: $warningButtonColor;
+    border: 1px solid $warningButtonColor;
+    color: $white;
   }
 }
 

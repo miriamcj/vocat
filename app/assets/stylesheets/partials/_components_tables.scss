@@ -17,6 +17,7 @@
       border-bottom: 1px solid $grayLight;
       background-color: $grayLightest;
       @extend %label;
+      color: $grayMediumDarker;
     }
   }
   tbody {
