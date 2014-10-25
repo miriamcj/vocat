@@ -204,7 +204,6 @@ footer.page-footer {
   }
 }
 
-
 .drawer-nav--trigger {
   font-size: $eta;
   position: absolute;
@@ -212,7 +211,7 @@ footer.page-footer {
   height: $headerHeight;
   cursor: pointer;
   line-height: $headerHeight;
-  padding: 0 $headerUnitPadding + ($iconSizeMedium * 4) 0 $headerUnitPadding;
+  padding: 0 ($iconSizeMedium * 4) 0 $headerUnitPadding;
   background: $tealDark;
   @include transition($fastTransition background $timing);
   .course-short {
