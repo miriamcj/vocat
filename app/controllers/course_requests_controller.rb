@@ -12,7 +12,8 @@ class CourseRequestsController < ApplicationController
   def create
     assign_years
     @course_request.evaluator = current_user
-    flash[:notice] = "Your course request has been submitted." if @course_request.save
+    flash[:notice] = "Your course request has been submitted. The request will be reviewed by Vocat administrators and
+    you will receive notification via email when the request is approved or denied." if @course_request.save
     respond_with(@course_request, :location => root_path, :action => :new)
   end
 

@@ -1,3 +1,8 @@
+<% content_for :heading do %>
+  <%= link_to 'Back to Your Dashboard', dashboard_evaluator_path, :class => 'header-link back-link' %>
+<% end %>
+
+
 <% content_for :content do %>
   <% body = capture do %>
     <p class="instructions">
@@ -13,12 +18,12 @@
           <%= f.text_field :name %>
         </div>
         <div class="formgrid third">
-          <%= label_tag :number, 'Number' %>
-          <%= f.text_field :number %>
-        </div>
-        <div class="formgrid third">
           <%= label_tag :department, 'Department' %>
           <%= f.text_field :department %>
+        </div>
+        <div class="formgrid third">
+          <%= label_tag :number, 'Number' %>
+          <%= f.text_field :number %>
         </div>
         <div class="formgrid third">
           <%= label_tag :section, 'Section' %>
@@ -35,6 +40,7 @@
         <div class="formgrid whole submit">
           <label class="text-label">&nbsp;</label>
           <%= f.button('Request Course', {:class => 'primary-button new-button'}) %>
+          <%= link_to 'Back to Your Dashboard', dashboard_evaluator_path, :class => 'gentle-warning-button cancel-button' %>
         </div>
       </fieldset>
     <% end %>
