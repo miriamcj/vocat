@@ -40,7 +40,6 @@ define (require) ->
         @video = new VideoModel(rawVideo)
 
     hasVideo: () ->
-      console.log @.get('video')?, 'have I a video?'
       @.get('video')?
 
     publishEvaluation: () ->

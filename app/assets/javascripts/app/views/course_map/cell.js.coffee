@@ -35,7 +35,6 @@ define ['marionette', 'hbs!templates/course_map/cell', 'models/user', 'models/gr
 
       if @model?
         @listenTo(@model, 'change sync', () ->
-          console.log 'cell rendering'
           @render()
         )
         @render()
