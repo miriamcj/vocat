@@ -17,6 +17,11 @@ define (require) ->
     initialize: (options) ->
       @vent = options.vent
 
+    serializeData: () ->
+      out = super()
+      out.isAdmin = (window.VocatUserRole == 'administrator')
+      out
+
     onClickDestroy: () ->
       @model.destroy({
         wait: true
