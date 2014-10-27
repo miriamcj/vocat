@@ -57,22 +57,9 @@ define (require) ->
           @flashMessages.reset()
           @notify.show(view)
       )
-#      @listenTo(@getOption('vent'), 'notification:destroy', () =>
-#        @notify.reset()
-#      )
-#      @listenTo(@flash.currentView, 'add:child', (child) =>
-#        @updateMargins()
-#      )
-#      @listenTo(@flash.currentView, 'before:remove:child', (child) =>
-#        @updateMargins()
-#      )
-#      @listenTo(@flash)
-#      @listenTo(@notify, 'show before:empty', (e) ->
-#        @updateMargins()
-#      )
-#      @listenTo(@notify, 'before:empty', (e) ->
-#        @updateMargins()
-#      )
+      @listenTo(@getOption('vent'), 'notification:destroy', () =>
+        @notify.reset()
+      )
 
     loadServerSideFlashMessages: () ->
       dataContainer = $("#bootstrap-globalFlash")
