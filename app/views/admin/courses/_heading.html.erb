@@ -4,7 +4,7 @@
   <% end %>
   <% if @course && !@course.new_record? %>
     <h2 class="heading-primary">
-      <%= @course %>
+      <%= "#{@course.department}#{@course.number} - #{@course.semester}, #{@course.year} - #{@course.section}" %>
     </h2>
    <% else %>
     <% if local_assigns.fetch(:header, nil) %>
