@@ -97,7 +97,6 @@ define [
         $row = $(bodyRows[index]).find('td')
         headerHeight = $header.outerHeight()
         rowHeight = $row.outerHeight()
-        console.log rowHeight, headerHeight
         if headerHeight > rowHeight
           $row.outerHeight(headerHeight)
         else if rowHeight > headerHeight
