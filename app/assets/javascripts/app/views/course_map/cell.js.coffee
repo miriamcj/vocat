@@ -32,8 +32,10 @@ define ['marionette', 'hbs!templates/course_map/cell', 'models/user', 'models/gr
         @creatorType = 'Group'
 
       @model = @submissions.findWhere({creator_type: @creatorType, creator_id: @creator.id, project_id: @project.id})
+
       if @model?
-        @listenTo(@model, 'change', () ->
+        @listenTo(@model, 'change sync', () ->
+          console.log 'cell rendering'
           @render()
         )
         @render()

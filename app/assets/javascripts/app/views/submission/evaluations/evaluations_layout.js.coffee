@@ -41,8 +41,10 @@ define (require) ->
       m = @myEvaluationModel()
       if m?
         Vocat.vent.trigger('notification:destroy')
-        m.save()
-        Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '3000',  msg: 'Your evaluation has been saved.'})
+        m.save({}, {success: () =>
+          Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '3000',  msg: 'Your evaluation has been saved.'})
+          @model.fetch()
+        })
 
     onEvaluationRevert: () ->
       m = @myEvaluationModel()

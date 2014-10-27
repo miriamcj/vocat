@@ -15,8 +15,10 @@ define (require) ->
     requestTranscoding: () ->
 
     destroyVideo: () ->
-      @video.destroy()
-      @set('video', null)
+      @video.destroy({success: () =>
+        @set('video', null)
+        @fetch({url: @updateUrl()})
+      })
 
     toJSON: () ->
       json = super()
@@ -38,6 +40,7 @@ define (require) ->
         @video = new VideoModel(rawVideo)
 
     hasVideo: () ->
+      console.log @.get('video')?, 'have I a video?'
       @.get('video')?
 
     publishEvaluation: () ->
