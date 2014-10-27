@@ -202,7 +202,6 @@ define (require) ->
             submissions = @collections.submission.where({project_id: project.id})
             _.each(submissions, (submission) ->
               submission.set('current_user_published', true)
-              console.log submission,'unpublished'
             )
           error: (jqXHR, textStatus, error) =>
             Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 4000, msg: "Unable to publish submissions."})
@@ -219,7 +218,6 @@ define (require) ->
             submissions = @collections.submission.where({project_id: project.id})
             _.each(submissions, (submission) ->
               submission.set('current_user_published', false)
-              console.log submission,'unpublished'
             )
           error: (jqXHR, textStatus, error) =>
             Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 4000, msg: "Unable to unpublish submissions."})

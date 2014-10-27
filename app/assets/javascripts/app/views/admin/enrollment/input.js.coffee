@@ -62,7 +62,6 @@ define (require) ->
         @ui.termInput.blur()
         promise = @onUpdate()
         promise.then(() =>
-          console.log 'promise 2 resolve'
           @close()
         )
       )
@@ -92,13 +91,11 @@ define (require) ->
         coursesTemplate
 
     close: () ->
-      console.log 'closing'
       if @ui.containerWrapper.is(':visible')
         @ui.containerWrapper.hide()
         @triggerMethod('closed')
 
     open: () ->
-      console.log 'opening'
       if !@ui.containerWrapper.is(':visible')
         @ui.containerWrapper.show()
         @triggerMethod('opened')
@@ -118,7 +115,6 @@ define (require) ->
     onUpdate: _.debounce(() ->
       promise = $.Deferred()
       promise.then(() =>
-        console.log 'promise 1 resolve'
         if @ui.termInput.is(":focus")
           @open()
       )

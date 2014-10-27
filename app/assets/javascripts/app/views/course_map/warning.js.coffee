@@ -16,5 +16,4 @@ define (require) ->
         warningType: Marionette.getOption(@, 'warningType')
         courseId: Marionette.getOption(@, 'courseId')
       }
-      console.log out
       out

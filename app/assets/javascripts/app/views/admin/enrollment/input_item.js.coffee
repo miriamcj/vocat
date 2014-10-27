@@ -16,7 +16,6 @@ define (require) ->
     className: 'active-result'
 
     initialize: (options) ->
-      console.log options, 'opt'
       @enrollmentCollection = options.enrollmentCollection
       @vent = options.vent
 
