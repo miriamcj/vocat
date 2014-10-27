@@ -18,12 +18,13 @@ $grayDarker: rgb(77, 77, 79);
 $grayDarkest: rgb(35, 31, 32);
 
 $tealLightest: #A1DAD6;
-//$tealLight: #3CC6BC;
 $tealLight: #43B5AE;
-//$tealDark: #0AB0A9;
 $tealDark: #009C92;
 
+$lighten: 20%;
+
 $yellow: #F5C92D;
+$yellowLight: lighten($yellow, $lighten);
 $blue: #60A3BF;
 $purple: #A197B9;
 $red: #f44355;
@@ -42,8 +43,6 @@ $secondaryLinkHoverColor: $grayDarker;
 $primaryButtonHoverColor: $grayDarker;
 $secondaryButtonHoverColor: $grayDarker;
 $warningButtonHoverColor: $redDark;
-
-$lighten: 20%;
 
 $defaultFillColor: $grayMediumLighter;
 $defaultColor: lighten($defaultFillColor, $lighten);
