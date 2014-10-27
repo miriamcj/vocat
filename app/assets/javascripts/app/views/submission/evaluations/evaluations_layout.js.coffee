@@ -6,6 +6,7 @@ define (require) ->
   Evaluation = require('models/evaluation')
   CollectionProxy = require('collections/collection_proxy')
   TheirEvaluations = require('views/submission/evaluations/their_evaluations')
+  TheirEvaluationsEmpty = require('views/submission/evaluations/their_evaluations_empty')
   MyEvaluations = require('views/submission/evaluations/my_evaluations')
   MyEvaluationsCreate = require('views/submission/evaluations/my_evaluations_create')
   SaveNotifyView = require('views/submission/evaluations/save_notify')
@@ -85,12 +86,14 @@ define (require) ->
     showTheirEvaluations: () ->
       if (@myEvaluationModel() && @evaluations.length == 1) || @evaluations.length == 0
         @theirEvaluations.$el.addClass('evaluation-collection-empty')
+        if @model.get('abilities').can_evaluate == false
+          @theirEvaluations.show(new TheirEvaluationsEmpty())
       else
         @theirEvaluations.$el.removeClass('evaluation-collection-empty')
-
-      @theirEvaluations.show(new TheirEvaluations({evaluations: @evaluations}))
+        @theirEvaluations.show(new TheirEvaluations({evaluations: @evaluations}))
 
     onRender: () ->
+
       @showTheirEvaluations()
       if @model.get('abilities').can_evaluate == true
         @showMyEvaluations()

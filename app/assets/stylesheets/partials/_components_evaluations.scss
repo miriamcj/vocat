@@ -390,6 +390,18 @@ ul.evaluations-hidden {
 }
 
 
+.evaluation-empty {
+  border: 2px dashed $grayMediumDarker;
+  padding-left: .75em;
+  padding-right: $barHeight;
+  height: $barHeight;
+  line-height: $barHeight;
+  font-size: $zeta;
+  font-weight: $semibold;
+  color: $grayMediumDarker;
+
+}
+
 .evaluation-create {
 //  margin-top: $secondaryBarHeight * 3;
   border: 2px dashed $grayMediumDarker;
@@ -417,8 +429,8 @@ ul.evaluations-hidden {
     text-decoration: underline;
     font-size: $zeta;
     font-weight: $semibold;
-    padding-left: .75em;
     line-height: $barHeight;
+    padding-left: .75em;
     padding-right: $barHeight;
     height: $barHeight;
     display: inline-block;

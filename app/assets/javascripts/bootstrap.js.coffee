@@ -3,8 +3,6 @@ requirejs.config {
   shim: {
     'jquery_ujs': ['jquery']
     'vendor/ui/jquery_ui': ['jquery_rails']
-    'vendor/plugins/smooth_scroll': ['jquery_rails']
-    'vendor/plugins/simple_slider': ['jquery_rails']
     'vendor/plugins/iframe_transport': ['jquery_rails']
     'vendor/plugins/file_upload': ['jquery_rails']
     'vendor/plugins/autosize': ['jquery_rails']
