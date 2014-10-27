@@ -133,6 +133,10 @@ define (require) ->
 
   Vocat.on('before:start', () ->
 
+    # Setup the global notifications view
+    notification = new NotificationLayoutView({vent: Vocat.vent})
+    Vocat.notification.show(notification)
+
     # Setup the global modal view
     modal = new ModalLayoutView(vent: @)
     Vocat.modal.show(modal)
@@ -153,9 +157,6 @@ define (require) ->
       )
 
 
-    # Setup the global notifications view
-    notification = new NotificationLayoutView({vent: Vocat.vent})
-    Vocat.notification.show(notification)
 
     # Announce some key events on the global channel
     globalChannel = Backbone.Wreqr.radio.channel('global')

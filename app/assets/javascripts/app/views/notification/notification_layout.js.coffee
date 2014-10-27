@@ -21,13 +21,11 @@ define (require) ->
       new GlobalFlashMessagesView({vent: Vocat.vent, collection: @flashMessages})
 
     adjustScroll: (amount) ->
-#      container = $('.container')
-#      marginTop = parseInt(container.css('marginTop').replace('px', ''))
-#      newMargin = marginTop + amount
-#      console.log marginTop, amount, newMargin, 'adjusting margin'
-#      container.css({marginTop: "#{newMargin}px"})
       currentScroll = $(window).scrollTop()
-      newScroll = currentScroll + amount
+      if currentScroll == 0
+        newScroll = 0
+      else
+        newScroll = currentScroll + amount
       $(window).scrollTop(newScroll)
 
     adjustMargin: () ->
