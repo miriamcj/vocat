@@ -198,10 +198,14 @@ define (require) ->
           dataType: 'json'
           data: {}
           success: (data, textStatus, jqXHR) =>
-            Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 2000, msg: "Your evaluations for #{project.get('name')} submissions have been published"})
-            @collections.submission.fetch({data: {course: @courseId}})
+            Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 4000, msg: "Your evaluations for #{project.get('name')} submissions have been published"})
+            submissions = @collections.submission.where({project_id: project.id})
+            _.each(submissions, (submission) ->
+              submission.set('current_user_published', true)
+              console.log submission,'unpublished'
+            )
           error: (jqXHR, textStatus, error) =>
-            # TODO: Handle error
+            Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 4000, msg: "Unable to publish submissions."})
         })
 
       onEvaluationsUnpublish: (project) ->
@@ -211,10 +215,14 @@ define (require) ->
           dataType: 'json'
           data: {}
           success: (data, textStatus, jqXHR) =>
-            Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 2000, msg: "Your evaluations for #{project.get('name')} submissions have been unpublished"})
-            @collections.submission.fetch({data: {course: @courseId}})
+            Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 4000, msg: "Your evaluations for #{project.get('name')} submissions have been unpublished"})
+            submissions = @collections.submission.where({project_id: project.id})
+            _.each(submissions, (submission) ->
+              submission.set('current_user_published', false)
+              console.log submission,'unpublished'
+            )
           error: (jqXHR, textStatus, error) =>
-            # TODO: Handle error
+            Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 4000, msg: "Unable to unpublish submissions."})
         })
 
       onColActive: (args) ->
