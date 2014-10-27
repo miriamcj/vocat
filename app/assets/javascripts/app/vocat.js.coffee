@@ -76,8 +76,12 @@ define (require) ->
   Vocat.addRegions {
     main : '#region-main'
     modal : '[data-region="modal"]'
-    notification: '[data-region="global-notifications"]'
   }
+
+  if $('[data-region="global-notifications"]').length > 0
+    Vocat.addRegions {
+      notification: '[data-region="global-notifications"]'
+    }
 
   Vocat.addInitializer () ->
 
@@ -134,8 +138,9 @@ define (require) ->
   Vocat.on('before:start', () ->
 
     # Setup the global notifications view
-    notification = new NotificationLayoutView({vent: Vocat.vent})
-    Vocat.notification.show(notification)
+    if @.hasOwnProperty('notification')
+      notification = new NotificationLayoutView({vent: Vocat.vent})
+      Vocat.notification.show(notification)
 
     # Setup the global modal view
     modal = new ModalLayoutView(vent: @)
