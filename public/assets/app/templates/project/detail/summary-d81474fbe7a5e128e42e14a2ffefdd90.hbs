@@ -1,0 +1,29 @@
+<figure class="summary-box">
+	<div>
+		<b style="height: {{score.average_score}}%"></b>
+		<span>{{to_i score.average_score}}</span><small>%</small>
+	</div>
+	<figcaption>Project Average: This Class</figcaption>
+</figure>
+
+<figure class="summary-box">
+	<div>
+		<b style="height: {{project.rubric_avg_percentage}}%"></b>
+		<span>{{to_i project.rubric_avg_percentage}}</span><small>%</small>
+	</div>
+	<figcaption>Rubric Average: All Classes</figcaption>
+</figure>
+
+<figure class="summary-box">
+	<div>
+		<b style="height: {{project.video_percentage}}%"></b>
+		<span>{{project.video_count}}</span><small>/{{project.possible_submission_count}}</small>
+	</div>
+	<figcaption>Videos Submitted</figcaption>
+</figure>
+<figure class="summary-box">
+	<div>
+		<span>{{score.count}}</span>
+	</div>
+	<figcaption>Number of Evaluations</figcaption>
+</figure>

@@ -1,0 +1,11 @@
+<form class="formgrid">
+  <div class="formgrid whole">
+    <p>{{label}}</p>
+    <input data-property="input" name="input" type="text" value="{{value}}" />
+    <div class="alert alert-error" data-behavior="error-container" style="display: none;"></div>
+  </div>
+  <div class="formgrid whole">
+    <button class="primary-button {{saveClasses}}" data-behavior="model-save">{{saveLabel}}</button>
+    <button class="warning-button cancel-button" data-behavior="cancel">Cancel</button>
+  </div>
+</form>

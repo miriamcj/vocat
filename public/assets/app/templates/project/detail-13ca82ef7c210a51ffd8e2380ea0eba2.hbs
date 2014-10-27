@@ -1,0 +1,44 @@
+<div class="page-content--heading">
+	<a class="header-link back-link" data-behavior="detail-close" href="/courses/{{project.course_id}}/users/evaluations">Back to Evaluations</a>
+	<h2 class="heading-primary">
+		{{project.name}}
+	</h2>
+</div>
+
+<div class="page-section">
+	<div class="header-wrapper">
+		<div class="header">
+			<h2>Project Overview</h2>
+		</div>
+	</div>
+	<div class="body">
+		<div data-region="project-summary">
+		</div>
+	</div>
+</div>
+
+
+<div class="page-section">
+	<div class="header-wrapper">
+		<div class="header">
+			<h2>Interactive Evaluation Data</h2>
+		</div>
+	</div>
+	<div class="body">
+		<form class="formgrid page-section--subsection">
+			<div class="formgrid whole">
+				<span class="chart-label">Select the type of evaluations that you would like to visualize.</span>
+				<select data-behavior="score-set-select" style="width: 375px;">
+					<option {{#if_match loadedScoresSet 'my_scores'}}selected="selected"{{/if_match}} value="my_scores">my evaluations</option>
+					<option {{#if_match loadedScoresSet 'evaluator_scores'}}selected="selected"{{/if_match}} value="evaluator_scores">instructor evaluations</option>
+					<option {{#if_match loadedScoresSet 'peer_scores'}}selected="selected"{{/if_match}} value="peer_scores">peer evaluations</option>
+					<option {{#if_match loadedScoresSet 'all_scores'}}selected="selected"{{/if_match}} value="all_scores">all evaluations</option>
+				</select>
+			</div>
+		</form>
+		<div class="page-section--subsection" data-region="project-crossfiltered">
+		</div>
+	</div>
+</div>
+
+

@@ -2,7 +2,6 @@ set :branch, "zd/redesign"
 set :server_name, "vocat.dev.cichq.com"
 set :application, "vocat"
 
-
 set :stage, :production
 set :rails_env, :production
 
