@@ -439,6 +439,6 @@ ul.evaluations-hidden {
 }
 
 // Properly space their evaluationsa and my evaluations
-.their-evaluations .evaluation-collections li:last-child {
-  margin-bottom: $secondaryBarHeight * 3;
+.their-evaluations .evaluation-collections li.evaluation-collection:last-child {
+  padding-bottom: $secondaryBarHeight * 2;
 }
