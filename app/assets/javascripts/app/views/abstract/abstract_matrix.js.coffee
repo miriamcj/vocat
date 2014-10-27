@@ -88,6 +88,7 @@ define [
       targetHeight = @$el.find('[data-match-height-source]').outerHeight()
       # Work around for chrome rendering bug when height of th in table is adjusted.
       @$el.find('[data-match-height-target]').outerHeight(targetHeight).hide().show(0)
+      @adjustRowHeights()
 
     adjustRowHeights: () ->
       bodyRows = @actor().find('tr')
@@ -96,11 +97,11 @@ define [
         $row = $(bodyRows[index]).find('td')
         headerHeight = $header.outerHeight()
         rowHeight = $row.outerHeight()
+        console.log rowHeight, headerHeight
         if headerHeight > rowHeight
           $row.outerHeight(headerHeight)
         else if rowHeight > headerHeight
           $header.outerHeight(rowHeight)
-
       )
 
     widthCheckCells: _.memoize () ->
