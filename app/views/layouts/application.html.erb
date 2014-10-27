@@ -15,15 +15,8 @@
   <div class="shield" style="display: none;" data-class="shield"></div>
   <div data-region="modal"></div>
 
-  <%= render 'layouts/header' %>
-  <%= render 'layouts/messages' %>
 
-  <div class="container">
-    <%= content_for?(:content) ? yield(:main) : yield %>
-  </div>
-
-  <%= render 'layouts/footer' %>
-
+  <%= content_for?(:content) ? yield(:main) : yield %>
 
   <script type="text/javascript">
   <%= yield(:backbone_bootstrap) %>

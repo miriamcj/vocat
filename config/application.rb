@@ -70,7 +70,7 @@ module Vocat
 
     config.to_prepare do
 #      Devise::RegistrationsController.layout "authentication"
-#      Devise::SessionsController.layout "content"
+     Devise::SessionsController.layout "splash"
 #      Devise::PasswordsController.layout "authentication"
     end
   end

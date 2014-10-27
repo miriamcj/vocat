@@ -10,7 +10,6 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def update_settings
-
     # From corresponding devise controller method
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
     settings = resource_params[:settings]
