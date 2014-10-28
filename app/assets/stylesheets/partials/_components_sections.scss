@@ -96,10 +96,8 @@ $sectionSpacingUnit: 40px;
   }
 
   .page-section--subsection + .page-section--subsection {
-    @extend %section-spacing;
+    margin-top: $sectionSpacingUnit * .75;
   }
-
-
 }
 
 .page-section-clear {

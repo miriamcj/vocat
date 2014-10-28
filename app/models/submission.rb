@@ -44,6 +44,16 @@ class Submission < ActiveRecord::Base
     instructor_evaluation_count > 0
   end
 
+  def evaluated_by_peers?()
+    peer_evaluation_count > 0
+  end
+
+  def new_posts_for_user?(user)
+    last_post = discussion_posts.order(:created_at).last
+    return false if last_post.nil?
+    return last_post.created_at > user.last_sign_in_at
+  end
+
   def peer_evaluations
 		self.evaluations.published.created_by(self.course.creators.to_a)
   end
@@ -103,13 +113,6 @@ class Submission < ActiveRecord::Base
   def user_evaluation_count(user)
     self.evaluations.created_by(user).count
   end
-
-#  def user_score_percentage(user)
-#    self.evaluations.created_by(user).pluck(:total_percentage).first
-#    if evaluated_by_user?(user)
-#      user_evaluation(user).total_percentage_rounded
-#    end
-#  end
 
   def has_video?
     !video.nil?

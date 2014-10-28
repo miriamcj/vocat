@@ -61,6 +61,10 @@ class Course < ActiveRecord::Base
     creators + evaluators + assistants
   end
 
+  def has_projects?
+    projects.count > 0
+  end
+
   def submissions_for_creator(creator)
     factory = SubmissionFactory.new
     factory.course_and_creator(self, creator)

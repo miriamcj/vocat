@@ -30,6 +30,7 @@
  *= require partials/_components_sections
  *= require partials/_components_authentication
  *= require partials/_components_charts
+ *= require partials/_components_portfolio
  *= require partials/_dc
  *= require partials/_video_js
 

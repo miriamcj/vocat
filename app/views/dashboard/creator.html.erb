@@ -1,18 +1,16 @@
 <% content_for :content do %>
 
-  <div class="page-section">
-    <div class="header-wrapper">
-      <div class="buttons">
-      </div>
-      <div class="header">
-        <h4>Greetings, <%= current_user.first_name %></h4>
-      </div>
+  <div class="page-message">
+    <div class="header">
+      Hello <%= current_user.first_name %>,
     </div>
     <div class="body">
       <%= render 'dashboard/messages/creator_message' %>
     </div>
   </div>
+
   <% current_user.courses.each do |course| %>
     <%= render 'dashboard/shared/creator_course', :course => course %>
   <% end %>
+
 <% end %>

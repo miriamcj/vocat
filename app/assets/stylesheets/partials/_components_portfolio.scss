@@ -1,0 +1,98 @@
+@import "variables";
+@import "mixins";
+@import "patterns";
+
+
+.portfolio {
+  .alert {
+    margin-bottom: 0px;
+  }
+}
+
+.portfolio-item {
+  @include clearfix(hard);
+  .portfolio-item--content {
+    h3.heading-tertiary {
+      @include font-body;
+    }
+    @extend %unit;
+    @include unit(7);
+
+    padding-left: 0;
+    padding-right: 0;
+
+    .portfolio-item--ranges {
+      .range {
+        margin-bottom: 15px;
+      }
+    }
+
+  }
+  .portfolio-item--thumb {
+    @extend %unit;
+    @include unit(2);
+    padding-right: 30px;
+    padding-left: 0;
+
+  }
+  .portfolio-item--info {
+    @extend %unit;
+    @include unit(3);
+    padding-left: 30px;
+    padding-right: 0;
+    text-align: right;
+    .timestamp {
+      @include font-head;
+      color: $grayMediumLighter;
+      line-height: 2em;
+    }
+    .label {
+      @include font-head;
+      margin-top: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      line-height: 1em;
+    }
+    .label-active {
+      @include svg(check-gray);
+      background-position: right;
+      background-size: 15px;
+      padding-right: 20px;
+      color: $grayDark;
+    }
+    .label-inactive {
+      color: $grayMediumLighter;
+    }
+
+  }
+
+
+  .heading-tertiary {
+    font-size: $delta-minor;
+    a {
+      color: $tealLight;
+    }
+    small {
+
+      font-size: .654em; //17px
+    }
+  }
+  .thumb-container {
+    overflow: hidden;
+    width: 100%;
+    height: 112px;
+    text-align: center;
+    position: relative;
+    img {
+      position: relative;
+      left: -5%;
+      width: 110%;
+    }
+  }
+  .thumb-placeholder {
+    width: 100%;
+    height: 112px;
+    background: $grayLight;
+
+  }
+}

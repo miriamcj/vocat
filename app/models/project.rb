@@ -77,7 +77,15 @@ class Project < ActiveRecord::Base
     submissions.where(:creator_id => user.id).first
   end
 
+  def evaluatable?()
+    !rubric.nil?
+  end
+
+  # Deprecated
   def evaluatable()
+    if Rails.env == :development
+      raise "Evaluatable method on Project is deprecated. Please eplaces with evaluatable?"
+    end
     !rubric.nil?
   end
 
