@@ -20,6 +20,10 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def page_not_found
+    raise ActionController::RoutingError.new('Not Found')
+  end
+
   def test_flash_messages
     if params['test_flash']
       flash[:notice] = 'This is a test flash message'

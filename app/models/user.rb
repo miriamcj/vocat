@@ -64,6 +64,10 @@ class User < ActiveRecord::Base
     [last_name, first_name].reject{ |s| s.blank? }.join(', ')
   end
 
+  def course_groups(course)
+    groups.where(:course => course)
+  end
+
   def is_group?
     false
   end
@@ -95,6 +99,7 @@ class User < ActiveRecord::Base
   def ability
     @ability ||= Ability.new(self)
   end
+
 
   def update_settings(settings)
     keys_intersection = settings.keys & User::DEFAULT_SETTINGS.keys

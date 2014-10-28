@@ -24,7 +24,6 @@ class Group < ActiveRecord::Base
     creators.include?(user)
   end
 
-
   def to_s
     name
   end

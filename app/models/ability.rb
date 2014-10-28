@@ -305,6 +305,10 @@ class Ability
         result = submission.project.course.role(user) != :evaluator
         result
       end
+      cannot [:portfolio], Course do |course|
+        result = course.role(user) != :creator
+        result
+      end
 
     end
 

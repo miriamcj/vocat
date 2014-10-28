@@ -2,6 +2,14 @@ module ApplicationHelper
 
   require 'active_support'
 
+  def project_submission_detail_path(project, user)
+    if project.type == 'UserProject'
+      course_user_creator_project_detail_path(project.course, user, project)
+    elsif project.type == 'GroupProject'
+      course_group_creator_project_detail_path(project.course, user, project)
+    end
+  end
+
   def submission_detail_path(submission)
     if submission.creator_type == 'Group'
       course_group_creator_project_detail_path(submission.course, submission.creator, submission.project)

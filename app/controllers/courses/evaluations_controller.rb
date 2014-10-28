@@ -21,6 +21,7 @@ class Courses::EvaluationsController < ApplicationController
 
   def user_creator_project_detail
     @project = Project.find(params[:project_id])
+    page_not_found if @project.type == 'GroupProject'
     @creator = User.find(params[:creator_id])
     factory = SubmissionFactory.new
     submissions = factory.creator_and_project(@creator, @project)
@@ -30,6 +31,7 @@ class Courses::EvaluationsController < ApplicationController
 
   def group_creator_project_detail
     @project = Project.find(params[:project_id])
+    page_not_found if @project.type == 'UserProject'
     @creator = Group.find(params[:creator_id])
     factory = SubmissionFactory.new
     submissions = factory.creator_and_project(@creator, @project)
