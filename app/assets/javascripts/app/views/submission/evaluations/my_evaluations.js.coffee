@@ -25,6 +25,7 @@ define (require) ->
       subtotalScore: '[data-container="subtotal-score"]'
       childInsertBefore: '[data-anchor="child-insert-before"]'
       publishCheckbox: '[data-behavior="publish-switch"]'
+      rangeFill: '[data-behavior="range-fill"]'
       publishSwitch: '.switch'
     }
 
@@ -104,6 +105,7 @@ define (require) ->
 
     updateTotals: () ->
       @ui.percentage.html(@model.get('total_percentage_rounded'))
+      @ui.rangeFill.animate(width: "#{@model.get('total_percentage_rounded')}%")
       @ui.totalScore.html(@model.get('total_score'))
       @ui.subtotalScore.html(@model.get('total_score'))
 
