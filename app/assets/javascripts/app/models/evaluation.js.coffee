@@ -87,7 +87,11 @@ define (require) ->
         addScore.id = key
         addScores.push addScore
       )
-      @scoreCollection.reset(addScores, {silent: true})
+      if addScores.length != @scoreCollection.length
+        silent = false
+      else
+        silent = true
+      @scoreCollection.reset(addScores, {silent: silent})
 
     getScoresCollection: () ->
       return @scoreCollection
