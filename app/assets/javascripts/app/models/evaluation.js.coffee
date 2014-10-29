@@ -52,10 +52,10 @@ define (require) ->
       @takeSnapshot()
       @updateCalculatedScoreFields()
       @scoreCollection = new ScoreCollection()
-      @resetScoresCollection()
+      @updateScoresCollection()
 
       @listenTo(@,'sync', (e) =>
-        @resetScoresCollection()
+        @updateScoresCollection()
         @takeSnapshot()
       )
 
@@ -79,7 +79,7 @@ define (require) ->
       @set('total_percentage', per)
       @set('total_percentage_rounded', per.toFixed(0))
 
-    resetScoresCollection: () ->
+    updateScoresCollection: () ->
       scores = @get('score_details')
       addScores = []
       _.each(scores, (score, key) ->
@@ -87,7 +87,7 @@ define (require) ->
         addScore.id = key
         addScores.push addScore
       )
-      @scoreCollection.reset(addScores)
+      @scoreCollection.reset(addScores, {silent: true})
 
     getScoresCollection: () ->
       return @scoreCollection

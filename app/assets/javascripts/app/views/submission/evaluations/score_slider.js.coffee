@@ -12,34 +12,6 @@ define (require) ->
     highShim: 4
     tagName: 'li'
 
-#    triggers: {
-#      'click @ui.track': {
-#        event: 'track:click'
-#        preventDefault: false
-#        stopPropagation: false
-#      }
-#      'mousedown @ui.grabber': {
-#        event: 'grabber:mouse:down'
-#        preventDefault: false
-#        stopPropagation: false
-#      }
-#      'drag @ui.grabber': {
-#        event: 'drag'
-#        preventDefault: false
-#        stopPropagation: false
-#      }
-#      'dragstop @ui.grabber': {
-#        event: 'drag:stop'
-#        preventDefault: false
-#        stopPropagation: false
-#      }
-#      'dragstart @ui.grabber': {
-#        event: 'drag:start'
-#        preventDefault: false
-#        stopPropagation: false
-#      }
-#    }
-
     events: {
       'drag @ui.grabber': 'onDrag'
       'mousedown @ui.grabber': 'onGrabberMouseDown'
@@ -172,4 +144,5 @@ define (require) ->
       , 0
 
     onRender: () ->
+      console.trace()
       @onShow()
