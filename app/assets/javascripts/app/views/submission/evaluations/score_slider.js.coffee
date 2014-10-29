@@ -144,5 +144,4 @@ define (require) ->
       , 0
 
     onRender: () ->
-      console.trace()
       @onShow()
