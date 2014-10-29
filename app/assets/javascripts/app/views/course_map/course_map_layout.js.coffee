@@ -48,10 +48,12 @@ define (require) ->
         @parentOnShow()
 
       initialize: (options) ->
+        console.log options.collections,'opt.c'
         @collections = options.collections
         @courseId = options.courseId
 
       showUserViews: () ->
+        currentCreatorType = @creatorType
         @creatorType = 'User'
         userProjectsCollection = CollectionProxy(@collections.project)
         userProjectsCollection.where((model) -> model.get('type') == 'UserProject' || model.get('type') == 'OpenProject')
@@ -62,12 +64,15 @@ define (require) ->
         if @collections.user.length == 0
           return @showEmptyWarning('User', 'Creator')
 
-        @creators.show(new CourseMapCreators({collection: @collections.user, courseId: @courseId, vent: @, creatorType: 'User'}))
-        @projects.show(new CourseMapProjects({collection: userProjectsCollection, courseId: @courseId, vent: @}))
-        @matrix.show(new CourseMapMatrix({collection: @collections.user, collections: {project: userProjectsCollection, submission: @collections.submission}, courseId: @courseId, creatorType: 'User', vent: @}))
-        @recalculateMatrix()
+        @warning.reset()
+        if currentCreatorType != 'User'
+          @creators.show(new CourseMapCreators({collection: @collections.user, courseId: @courseId, vent: @, creatorType: 'User'}))
+          @projects.show(new CourseMapProjects({collection: userProjectsCollection, courseId: @courseId, vent: @}))
+          @matrix.show(new CourseMapMatrix({collection: @collections.user, collections: {project: userProjectsCollection, submission: @collections.submission}, courseId: @courseId, creatorType: 'User', vent: @}))
+          @recalculateMatrix()
 
       showGroupViews: () ->
+        currentCreatorType = @creatorType
         @creatorType = 'Group'
         groupProjectsCollection = CollectionProxy(@collections.project)
         groupProjectsCollection.where((model) -> model.get('type') == 'GroupProject' || model.get('type') == 'OpenProject')
@@ -79,10 +84,11 @@ define (require) ->
           return @showEmptyWarning('Group', 'Creator')
 
         @warning.reset()
-        @creators.show(new CourseMapCreators({collection: @collections.group, courseId: @courseId, vent: @, creatorType: 'Group'}))
-        @projects.show(new CourseMapProjects({collection: groupProjectsCollection, courseId: @courseId, vent: @}))
-        @matrix.show(new CourseMapMatrix({collection: @collections.group, collections: {project: groupProjectsCollection, submission: @collections.submission}, courseId: @courseId, creatorType: 'Group', vent: @}))
-        @recalculateMatrix()
+        if currentCreatorType != 'Group'
+          @creators.show(new CourseMapCreators({collection: @collections.group, courseId: @courseId, vent: @, creatorType: 'Group'}))
+          @projects.show(new CourseMapProjects({collection: groupProjectsCollection, courseId: @courseId, vent: @}))
+          @matrix.show(new CourseMapMatrix({collection: @collections.group, collections: {project: groupProjectsCollection, submission: @collections.submission}, courseId: @courseId, creatorType: 'Group', vent: @}))
+          @recalculateMatrix()
 
       showEmptyWarning: (creatorType, warningType) ->
         @warning.show(new WarningView({creatorType: creatorType, warningType: warningType, courseId: @courseId}))
