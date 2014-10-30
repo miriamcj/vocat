@@ -40,6 +40,13 @@ https://github.com/imakewebthings/jquery-waypoints/blob/master/licenses.txt
 
         $sticky = $(this).children(':first');
         shouldBeStuck = options.direction.indexOf(direction) !== -1;
+
+				if(direction == 'down') {
+					$sticky.outerWidth($sticky.outerWidth());
+				} else {
+					$sticky.outerWidth('auto');
+
+				}
         $sticky.toggleClass(options.stuckClass, shouldBeStuck);
         $wrap.height(shouldBeStuck ? $sticky.outerHeight() : '');
         if (originalHandler != null) {

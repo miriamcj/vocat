@@ -24,22 +24,51 @@ $columnWidth: ($container / $columns) - 12;
   position: relative;
   @include clearfix(heavy);
 
-  .matrix-wrapper--creators {
+  .matrix-wrapper--top {
+    position: relative;
+    @include clearfix;
+    .matrix-wrapper--top-left-cell {
+      border-bottom: 1px solid $grayLight;
+      background-color: $grayLightest;
+      color: $grayMediumDarker;
+      float: left;
+      width: $flexibleColumnWidth;
+      z-index: 2;
+    }
+    .matrix-wrapper--columns {
+      float: left;
+      width: $flexibleColumnWidth * ($columns - 1);
+      overflow-x: hidden;
+      overflow-y: hidden;
+      padding-bottom: 300px;
+      margin-bottom: -300px;
+      .matrix-col-headers {
+        position: relative;
+        z-index: 1;
+      }
+    }
+    &.stuck {
+      position: fixed !important;
+      top: $headerHeight;
+      z-index: 10;
+      width: 100%;
+    }
+  }
+
+  .matrix-wrapper--bottom {
+    @include clearfix(heavy);
+    position: relative;
+  }
+
+  .matrix-wrapper--left {
     float: left;
     width: $flexibleColumnWidth;
     @include respond($vostok) {
       width: $flexibleColumnWidth * 1.5;
     }
-
-    th {
-      width: auto !important;
-      min-width: 100px;
-      max-width: none !important;
-    }
   }
 
   .matrix-wrapper--body {
-
     float: left;
     width: $flexibleColumnWidth * ($columns - 1);
     overflow-x: hidden;
@@ -50,12 +79,19 @@ $columnWidth: ($container / $columns) - 12;
     .matrix-body {
       position: relative;
     }
+  }
 
+
+
+  .matrix-wrapper--creators {
+    th {
+      width: auto !important;
+      min-width: 100px;
+      max-width: none !important;
+    }
   }
-  .matrix-wrapper--projects {
-  }
-  .matrix-cells-wrapper {
-  }
+
+
 }
 
 %matrix-nav-button {
@@ -68,7 +104,7 @@ $columnWidth: ($container / $columns) - 12;
     width: 20px;
   }
   position: absolute;
-  opacity: .4;
+  opacity: .6;
   z-index: 199;
   &::after {
     content: '';
@@ -136,22 +172,24 @@ $columnWidth: ($container / $columns) - 12;
     padding: 0 0 30px 0;
   }
 }
-.matrix-groups thead th {
-  .matrix--column-header-instruction {
-    position: absolute;
-    display: block;
-    width: 100%;
-    bottom: 0;
-    padding: 10px 20px;
-    background: $grayLight;
-    color: $white;
-    font-weight: $semibold;
-    font-size: .5em; // 12px
-    @include font-body;
-    text-transform: uppercase;
-  }
 
+.matrix--column-header-instruction {
+  .matrix-wrapper--top-left-cell & {
+    border-top: 1px solid $grayLight;
+  }
+  position: absolute;
+  display: block;
+  width: 100%;
+  bottom: 0;
+  padding: 10px 20px;
+  background: $grayLight;
+  color: $white;
+  font-weight: $semibold;
+  font-size: 12px;
+  @include font-body;
+  text-transform: uppercase;
 }
+
 
 
 

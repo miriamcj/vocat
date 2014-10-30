@@ -40,9 +40,13 @@ define (require) ->
           dd.css({left: 'auto'})
         @adjusted = true
 
+    fixPosition: () ->
+      dd = @$el.find('[data-behavior="dropdown-options"]')
+
     open: () ->
       @$el.addClass('open')
       @adjustPosition()
+      @fixPosition()
       @triggerMethod('opened')
 
     close: () ->

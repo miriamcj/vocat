@@ -16,6 +16,7 @@ define (require) ->
       children: {}
       minWidth: 170
       capturedScroll: 0
+      stickyHeader: true
 
       template: template
 

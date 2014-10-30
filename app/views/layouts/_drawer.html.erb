@@ -93,7 +93,7 @@
       </li>
       <% end %>
 
-      <% if current_user.can?(:create, :rubric) %>
+      <% if current_user.can?(:create, Rubric) %>
       <li>
         <div class="drawer-nav--column">
           <h4>Rubrics</h4>
