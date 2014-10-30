@@ -77,14 +77,13 @@
 }
 .chosen-container-single .chosen-single div b {
   @include svg(arrow-down-gray-medium);
+  margin-left: 5px;
   display: block;
   width: 100%;
   height: $iconSizeMedium;
   width: $iconSizeMedium;
-  margin-top: 50%;
+  margin-top: 8px;
   right: 0;
-//  height: 0.9rem;
-//  margin: 1.15rem 0;
 }
 .chosen-container-single .chosen-drop {
   margin-top: -1px;
@@ -102,9 +101,10 @@
   display: block;
   height: $iconSizeMedium;
   width: $iconSizeMedium;
-  @include svg(circle-ex-gray-medium);
-  right: 2.5em;
-  top: .75em;
+  @include svg(circle-ex-gray);
+  right: 2em;
+  top: 0;
+  margin-top: 12px;
   z-index: 500;
 }
 
@@ -162,7 +162,6 @@
 }
 .chosen-container-active.chosen-with-drop .chosen-single div b {
   @include svg(arrow-down-gray-medium);
-
 }
 /* @end */
 
