@@ -1,0 +1,28 @@
+  <td class="row-handle"><span></span></td>
+  <th>
+    <a href="projects/{{id}}">
+    {{#if abilities.can_update}}
+      <a href="projects/{{id}}/edit">{{name}}</a>
+    {{else}}
+      {{name}}
+    {{/if}}
+    </a>
+  </th>
+  <td>
+	  {{#if rubric_name}}
+		  {{rubric_name}}
+    {{else}}
+	    None
+	  {{/if}}
+  </td>
+	<td>
+		{{#if_match type 'UserProject'}}
+			User Project
+		{{/if_match}}
+		{{#if_match type 'GroupProject'}}
+			Group Project
+		{{/if_match}}
+	</td>
+  <td>
+    <a class="gentle-warning-button delete-button" href="projects/{{id}}" data-behavior="destroy">Delete Project</a>
+  </td>
