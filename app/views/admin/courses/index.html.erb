@@ -34,6 +34,7 @@
           <div class="formgrid third">
             <label class="text-label">&nbsp;</label>
             <%= button_tag('Filter Courses', {:class => 'primary-button filter-button'}) %>
+            <%= link_to('Reset Filters', admin_courses_path, {:class => 'gentle-warning-button delete-button'}) %>
           </div>
         </fieldset>
       </form>
