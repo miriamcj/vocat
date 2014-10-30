@@ -190,10 +190,14 @@ define (require) ->
 
       captureScroll: () ->
         @capturedScroll = $(window).scrollTop()
+        console.log @capturedScroll, 'captured scroll'
 
       restoreScroll: () ->
         if @capturedScroll
           $(window).scrollTop(@capturedScroll)
+          setTimeout(() =>
+            $(window).scrollTop(@capturedScroll)
+          , 100)
 
       onCloseDetail: (args) ->
         @ui.detail.hide()
