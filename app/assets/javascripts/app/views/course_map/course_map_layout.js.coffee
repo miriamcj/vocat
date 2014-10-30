@@ -15,6 +15,7 @@ define (require) ->
 
       children: {}
       minWidth: 170
+      capturedScroll: 0
 
       template: template
 
@@ -48,7 +49,6 @@ define (require) ->
         @parentOnShow()
 
       initialize: (options) ->
-        console.log options.collections,'opt.c'
         @collections = options.collections
         @courseId = options.courseId
 
@@ -184,7 +184,15 @@ define (require) ->
       openDetail: (view) ->
         @ui.detail.show()
         @detail.show(view)
+        @captureScroll()
         window.scrollTo(0,0);
+
+      captureScroll: () ->
+        @capturedScroll = $(window).scrollTop()
+
+      restoreScroll: () ->
+        if @capturedScroll
+          $(window).scrollTop(@capturedScroll)
 
       onCloseDetail: (args) ->
         @ui.detail.hide()
@@ -196,6 +204,8 @@ define (require) ->
           Vocat.router.navigate("courses/#{@courseId}/users/evaluations")
 
         @recalculateMatrix()
+        @restoreScroll()
+
 
       onEvaluationsPublish: (project) ->
         endpoint = "#{project.url()}/publish_evaluations"
