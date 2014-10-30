@@ -245,10 +245,11 @@ class Ability
       user.role?(:evaluator)
     end
 
-    can :create, Rubric do |rubric|
-      user.role?(:evaluator)
+    if user.role?(:evaluator) || user.role?(:administrator)
+      can :create, Rubric
+    else
+      cannot :create, Rubric
     end
-
 
     ######################################################
     # Admins
