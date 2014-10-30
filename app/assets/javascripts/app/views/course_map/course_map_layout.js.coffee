@@ -190,7 +190,6 @@ define (require) ->
 
       captureScroll: () ->
         @capturedScroll = $(window).scrollTop()
-        console.log @capturedScroll, 'captured scroll'
 
       restoreScroll: () ->
         if @capturedScroll
