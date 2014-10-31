@@ -112,6 +112,12 @@ a.user-nav--toggle {
 
 .dropdown--options {
   @extend %dropdown-options;
+  &.open {
+    display: block;
+  }
+  &.stuck {
+    position: fixed;
+  }
   .dropdown-header & {
     top: 2.5em;
   }

@@ -27,7 +27,25 @@ $columnWidth: ($container / $columns) - 12;
   .matrix-wrapper--top {
     position: relative;
     @include clearfix;
+    // We can't use overflow hidden on .matrix-wrapper--columns to hide what's not
+    // currently in view, because it causes clipping on the dropdowns. So, instead, we
+    // use this positioned mask element to cover what should be out of the current view.
+    .matrix-wrapper--top-mask-right {
+      width: 2000px;
+      background: $white;
+      position: absolute;
+      z-index: 3;
+      right: -2000px;
+    }
+    .matrix-wrapper--top-mask-left {
+      width: 2000px;
+      background: $white;
+      position: absolute;
+      z-index: 3;
+      left: -2000px;
+    }
     .matrix-wrapper--top-left-cell {
+      position: relative;
       border-bottom: 1px solid $grayLight;
       background-color: $grayLightest;
       color: $grayMediumDarker;
@@ -38,10 +56,11 @@ $columnWidth: ($container / $columns) - 12;
     .matrix-wrapper--columns {
       float: left;
       width: $flexibleColumnWidth * ($columns - 1);
-      overflow-x: hidden;
-      overflow-y: hidden;
-      padding-bottom: 300px;
-      margin-bottom: -300px;
+//      overflow-x: hidden;
+//      overflow-y: hidden;
+//      padding-bottom: 300px;
+//      margin-bottom: -300px;
+      z-index: 0;
       .matrix-col-headers {
         position: relative;
         z-index: 1;
@@ -174,9 +193,6 @@ $columnWidth: ($container / $columns) - 12;
 }
 
 .matrix--column-header-instruction {
-  .matrix-wrapper--top-left-cell & {
-    border-top: 1px solid $grayLight;
-  }
   position: absolute;
   display: block;
   width: 100%;

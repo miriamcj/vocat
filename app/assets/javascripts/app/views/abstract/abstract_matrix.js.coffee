@@ -79,9 +79,13 @@ define (require) ->
         $el.waypoint('sticky', {
           offset: $('.page-header').outerHeight()
           handler: (direction) ->
-            child = $(@).children(':first')
+            $container = $(@)
+            child = $container.children(':first')
             if direction == 'down'
               child.outerWidth(child.outerWidth())
+              $container.find('[data-behavior="dropdown-options"]').each((index, el) ->
+                $(el).trigger('stuck')
+              )
             if direction == 'up'
               child.css({width: 'auto'})
         })
@@ -99,7 +103,11 @@ define (require) ->
       , () -> @memoizeHash()
 
       columnCount: _.memoize () ->
-        @actor().find('tr:first-child td').length
+        bodyCols = @actor().find('tr:first-child td').length
+        headerCols = @colHeaders().find('tr:first-child th, tr:first-child td').length
+        # In some cases, there might not be any body cells, or there might be a single cell
+        # with an error message. We'll always go with the greater of the two (body cols vs header cols)
+        Math.max(bodyCols, headerCols)
       , () -> @memoizeHash()
 
       setColWidths: (w, tw) ->
@@ -183,6 +191,7 @@ define (require) ->
         if @stageWidth() > 0
           columnWidth = @visibleWidth() / @visibleColumns()
           @setColWidths(columnWidth, columnWidth * @columnCount())
+
           widths = _.range(@columnCount())
           _.each widths, (value, i) ->
             widths[i] = columnWidth
@@ -278,6 +287,8 @@ define (require) ->
         @updateSliderControls()
 
       slide: (direction) ->
+        globalChannel = Backbone.Wreqr.radio.channel('global')
+        globalChannel.vent.trigger('user:action')
         position = @checkAndAdjustPosition(@position)
         if direction == 'forward' && @canSlideForwardFrom()
           position = position + 1

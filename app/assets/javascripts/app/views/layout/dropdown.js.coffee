@@ -40,13 +40,9 @@ define (require) ->
           dd.css({left: 'auto'})
         @adjusted = true
 
-    fixPosition: () ->
-      dd = @$el.find('[data-behavior="dropdown-options"]')
-
     open: () ->
       @$el.addClass('open')
       @adjustPosition()
-      @fixPosition()
       @triggerMethod('opened')
 
     close: () ->
@@ -55,5 +51,8 @@ define (require) ->
 
     initialize: (options) ->
       @vent = options.vent
+      @$dropdown = @$el.find(@ui.dropdown)
+      @$trigger = @$el.find(@ui.trigger)
+
       if !@$el.hasClass('dropdown-initialized')
         @$el.addClass('dropdown-initialized')

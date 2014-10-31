@@ -6,4 +6,7 @@ define (require) ->
   class RowEmpty extends Marionette.ItemView
 
     tagName: 'tr'
+    attributes: {
+      'data-behavior': 'no-rows'
+    }
     template: template

@@ -15,7 +15,7 @@ define (require) ->
     template: template
 
     children: {}
-
+    stickyHeader: false
     regions: {
       creators: '[data-region="creators"]'
       groups: '[data-region="groups"]'
