@@ -9,6 +9,7 @@
 
 $columns: 5;
 $flexibleColumnWidth: 100% / $columns;
+$responsiveFlexibleColumnWidth: $flexibleColumnWidth * 2;
 $container: $containerWidth;
 $columnWidth: ($container / $columns) - 12;
 
@@ -52,14 +53,18 @@ $columnWidth: ($container / $columns) - 12;
       float: left;
       width: $flexibleColumnWidth;
       z-index: 2;
+      @include respond($vostok) {
+        width: $responsiveFlexibleColumnWidth
+      }
+
     }
     .matrix-wrapper--columns {
       float: left;
       width: $flexibleColumnWidth * ($columns - 1);
-//      overflow-x: hidden;
-//      overflow-y: hidden;
-//      padding-bottom: 300px;
-//      margin-bottom: -300px;
+      @include respond($vostok) {
+        width: ($flexibleColumnWidth * $columns) - $responsiveFlexibleColumnWidth;
+      }
+
       z-index: 0;
       .matrix-col-headers {
         position: relative;
@@ -83,7 +88,7 @@ $columnWidth: ($container / $columns) - 12;
     float: left;
     width: $flexibleColumnWidth;
     @include respond($vostok) {
-      width: $flexibleColumnWidth * 1.5;
+      width: $responsiveFlexibleColumnWidth
     }
   }
 
@@ -93,19 +98,16 @@ $columnWidth: ($container / $columns) - 12;
     overflow-x: hidden;
     overflow-y: hidden;
     @include respond($vostok) {
-      width: $flexibleColumnWidth * ($columns - 1.5);
+      width: ($flexibleColumnWidth * $columns) - $responsiveFlexibleColumnWidth;
     }
     .matrix-body {
       position: relative;
     }
   }
 
-
-
   .matrix-wrapper--creators {
     th {
       width: auto !important;
-      min-width: 100px;
       max-width: none !important;
     }
   }
@@ -290,14 +292,6 @@ $columnWidth: ($container / $columns) - 12;
     float: left;
     width: 33%;
     vertical-align: top;
-    @include respond($onega) {
-      width: 47%;
-    }
-    &:last-child {
-      @include respond($onega) {
-        display: none;
-      }
-    }
     dt {
       margin-bottom: 20%;
       @include font-head;

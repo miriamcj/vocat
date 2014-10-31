@@ -124,9 +124,6 @@ define (require) ->
         $header = @$el.find('[data-class="sticky-header"]')
         $header.outerWidth($header.parent().outerWidth())
 
-
-
-
         # TODO: the +1 on the height here is to make the elements line up in chrome. We will likely
         # need to figure out why chrome is rendering two elements that are ostensibly the same height
         # with a 1px height difference.
@@ -184,7 +181,9 @@ define (require) ->
       , () -> @memoizeHash()
 
       visibleColumns: _.memoize (columnCount) ->
-        Math.floor(@visibleWidth() / @idealColumnWidth())
+        out = Math.floor(@visibleWidth() / @idealColumnWidth())
+        out = 1 if out == 0
+        out
       , () -> @memoizeHash()
 
       visibleWidth: _.memoize () ->
