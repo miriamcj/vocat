@@ -21,6 +21,7 @@ define (require) ->
 
     ui: {
       close: '[data-behavior="detail-close"]'
+      header: '[data-behavior="header"]'
     }
 
     regions: {
@@ -40,6 +41,10 @@ define (require) ->
       sd
 
     onShow: () ->
+      unless @$el.parent().data().hasOwnProperty('hideBackLink')
+        @ui.header.show()
+
+    onRender: () ->
 
     onClose: () ->
       @vent.triggerMethod('close:detail') if _.isFunction(@vent.triggerMethod)

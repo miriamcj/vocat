@@ -1,11 +1,7 @@
-<% content_for :body_class do %>course-map<% end %>
+<% content_for :content do %>
+  <div id="region-main"></div>
+  <%= render :partial => 'shared/bootstrap_collection', :locals => {:type => 'Collections', :key => 'group', :data => [@creator] }%>
+  <%= render :partial => 'shared/bootstrap_collection', :locals => {:type => 'Collections', :key => 'project', :data => [@project]}%>
+<% end %>
 
-<header class="bar-header">
-  <h2 class="bar-header--title-alt"><%= @creator.name %></h2>
-  <h2 class="bar-header--subtitle"><%= @project.name %></h2>
-</header>
 
-<div id="region-main"></div>
-
-<%= render :partial => 'shared/bootstrap_collection', :locals => {:type => 'Collections', :key => 'group', :data => [@creator] }%>
-<%= render :partial => 'shared/bootstrap_collection', :locals => {:type => 'Collections', :key => 'project', :data => [@project]}%>

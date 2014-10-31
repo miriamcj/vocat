@@ -2,7 +2,6 @@ class CoursesController < ApplicationController
 
   load_resource
   authorize_resource :course, :except => :dashboard
-  layout 'dashboard'
 
   respond_to :html, :json
 
@@ -14,4 +13,11 @@ class CoursesController < ApplicationController
   def determine_courses
     Course.all
   end
+
+  protected
+
+  def app_section
+    'course'
+  end
+
 end

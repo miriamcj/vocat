@@ -9,8 +9,37 @@
     </div>
   </div>
 
-  <% current_user.courses.each do |course| %>
-    <%= render 'dashboard/shared/creator_course', :course => course %>
-  <% end %>
-
+  <div class="page-section page-section-clear">
+    <div class="header-wrapper">
+      <div class="header">
+        <h2 class="heading-page-section">Your Courses</h2>
+      </div>
+    </div>
+    <div class="body">
+      <div class="table-wrapper">
+        <table class="table table-white-head">
+          <thead>
+          <tr>
+            <th class="">Number</th>
+            <th class="">Name</th>
+            <th class="">Instructor</th>
+            <th class="">Section</th>
+            <th class="">Semester</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% current_user.courses.each do |course| %>
+            <tr>
+              <th><%= link_to "#{course.department}#{course.number}", portfolio_course_path(course) %></th>
+              <td><%= link_to course.name, portfolio_course_path(course) %></td>
+              <td><%= link_to course.evaluators.pluck(:last_name).join(', '), portfolio_course_path(course) %></td>
+              <td><%= link_to course.section, portfolio_course_path(course) %></td>
+              <td><%= link_to "#{course.semester} #{course.year}", portfolio_course_path(course) %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 <% end %>

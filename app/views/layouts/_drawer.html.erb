@@ -3,7 +3,7 @@
     <ul class="drawer-nav">
       <% if @app_section == 'course' %>
         <% if current_user.can?(:evaluate, @selected_course) %>
-          <li>
+          <li class="a">
             <div class="drawer-nav--column">
               <% if @selected_course.role(current_user) == :creator %>
                 <h4>Peer Review</h4>
@@ -18,7 +18,7 @@
           </li>
         <% end %>
         <% if current_user.can?(:portfolio, @selected_course) %>
-          <li>
+          <li class="b">
             <div class="drawer-nav--column">
               <h4>Individual Projects</h4>
               <ul>
@@ -30,9 +30,9 @@
               </ul>
             </div>
           </li>
-          <li>
+          <% if current_user.course_groups(@selected_course).count > 0 && @selected_course.group_projects.count > 0 %>
+          <li class="c">
             <div class="drawer-nav--column">
-              <% if current_user.course_groups(@selected_course).count > 0 && @selected_course.group_projects.count > 0 %>
                 <h4>Group Projects</h4>
                 <ul>
                   <% current_user.course_groups(@selected_course).each do |group| %>
@@ -43,10 +43,9 @@
                     <% end %>
                   <% end %>
                 </ul>
-              <% end %>
             </div>
           </li>
-
+          <% end %>
         <% end %>
         <% if current_user.can?(:administer, @selected_course) %>
         <li>

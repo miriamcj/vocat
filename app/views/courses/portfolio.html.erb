@@ -1,16 +1,39 @@
-<% content_for :content_header do %>
-  <%= @course %>
-<% end %>
+<% content_for :content do %>
 
-<% content_for :content_frames do %>
   <% unless @course.message.blank? %>
-  <div class="evaluation-detail-frame">
-      <h2 class="frame--title">Announcements</h2>
-      <%= simple_format @course.message %>
+  <div class="page-message">
+    <div class="header">
+      Course Message
+    </div>
+    <div class="body">
+      <%= @course.message %>
+    </div>
   </div>
   <% end %>
 
-  <div class="evaluation-detail-frame">
-    <%= render '/dashboard/creator_course', :course => @course, :hide_header => true %>
-  </div>
+  <% body = capture do %>
+    <div class="portfolio">
+
+      <% if @course.has_projects? %>
+        <% @course.submissions_for_creator(current_user).each_with_index do |submission, index| %>
+          <%= render 'shared/submission_summary', :submission => submission %>
+        <% end %>
+      <% else %>
+        <div class="alert alert-notice">
+          No projects have been created for this course. Please check back soon.
+        </div>
+      <% end %>
+    </div>
+
+
+  <% end %>
+  <%= render :partial => 'shared/section', :locals => {
+                                             :header => "Your #{@course.department}#{@course.number} Submissions",
+                                             :body => body} %>
+
+
+
+
+
+
 <% end %>

@@ -1,4 +1,5 @@
 <% clear = false if local_assigns[:clear].nil? %>
+<% buttons = false if local_assigns[:buttons].nil? %>
 
 <div class="page-section <% if clear %>page-section-clear<% end %>">
   <% if header %>
@@ -6,6 +7,11 @@
     <div class="header">
       <h2 class="heading-page-section"><%= header %></h2>
     </div>
+    <% if buttons %>
+      <div class="buttons">
+        <%== buttons %>
+      </div>
+    <% end %>
   </div>
   <% end %>
   <div class="body">
