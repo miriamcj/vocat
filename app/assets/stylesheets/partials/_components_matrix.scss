@@ -193,6 +193,9 @@ $columnWidth: ($container / $columns) - 12;
 }
 
 .matrix--column-header-instruction {
+  .matrix-wrapper--top-left-cell & {
+    border-top: 1px solid $grayLight;
+  }
   position: absolute;
   display: block;
   width: 100%;

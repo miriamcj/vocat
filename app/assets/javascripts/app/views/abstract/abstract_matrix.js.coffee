@@ -33,7 +33,7 @@ define (require) ->
 
         @listenTo(@,'recalculate', _.debounce(() =>
           @recalculateMatrix()
-        ), 500, true)
+        ), 250, true)
 
         $(window).resize () ->
           if @resizeTo
@@ -74,7 +74,6 @@ define (require) ->
         l
 
       initializeStickyHeader: () ->
-        console.log 'called'
         $el = @$el.find('[data-class="sticky-header"]')
         $el.waypoint('sticky', {
           offset: $('.page-header').outerHeight()
@@ -111,6 +110,8 @@ define (require) ->
       , () -> @memoizeHash()
 
       setColWidths: (w, tw) ->
+
+        # Adjust the column widths
         @colHeaders().find('tr:first-child th, tr:first-child td').css('min-width', @minWidth).outerWidth(w)
         @colHeaders().find('table:first-child').outerWidth(tw)
         @colHeaders().outerWidth(tw)
@@ -118,6 +119,14 @@ define (require) ->
         @actor().find('tr:first-child th, tr:first-child td').css('min-width', @minWidth).outerWidth(w)
         @actor().find('table:first-child').outerWidth(tw)
         @actor().outerWidth(tw)
+
+        # Sticky headers need a width set on them, since they can become fixed and taken out of the flow.
+        $header = @$el.find('[data-class="sticky-header"]')
+        $header.outerWidth($header.parent().outerWidth())
+
+
+
+
         # TODO: the +1 on the height here is to make the elements line up in chrome. We will likely
         # need to figure out why chrome is rendering two elements that are ostensibly the same height
         # with a 1px height difference.
