@@ -1,0 +1,102 @@
+<div class="page-section">
+ <div class="header-wrapper">
+    <div class="header">
+      <h2 class="heading-page-section">Rubric Properties</h2>
+    </div>
+  </div>
+  <div class="body">
+    <div style="margin-top: 0px" data-region="flash"></div>
+    <form class="formgrid">
+      <fieldset>
+        <div class="formgrid whole">
+          <label>Rubric Name</label>
+          <input type="text" value="{{name}}" data-behavior="rubric-name">
+        </div>
+        <div class="formgrid whole">
+          <label>Description</label>
+          <input type="text" value="{{description}}" data-behavior="rubric-desc">
+          <small class="input-message">Enter a brief description of your rubric.</small>
+        </div>
+        <div class="formgrid third">
+          <label>Lowest Possible Score</label>
+          <input min="0" max="100" type="number" step="1" data-behavior="rubric-low">
+          <small class="input-message">Usually, this will be 0.</small>
+        </div>
+        <div class="formgrid third">
+          <label>Highest Possible Score</label>
+          <input min="0" max="100" step="1" type="number" data-behavior="rubric-high">
+          <small class="input-message">VOCAT's max score is 100</small>
+        </div>
+        {{#if current_user_is_admin}}
+        <div class="formgrid third">
+          <label>Is this a system-wide rubric?</label>
+          <select data-field="rubric-public" >
+            <option {{#unless public}}selected="selected"{{/unless}} value="false">No</option>
+            <option {{#if public}}selected="selected"{{/if}} value="true">Yes</option>
+          </select>
+        </div>
+        {{/if}}
+        <div class="formgrid whole">
+          <label>Rubric Score Ranges</label>
+          <div class="range-picker-container" data-region="range-picker"></div>
+          <small class="input-message">As you add ranges to your rubric, dividers will appear on the range above. Drag
+          these dividers to the correct locations to set the score ranges for your rubric.</small>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
+
+<div class="page-section page-section-clear">
+ <div class="header-wrapper">
+    <div class="header">
+      <h2 class="heading-page-section">Rubric Properties</h2>
+    </div>
+    <div class="buttons">
+      <!--
+      <a href="#" data-trigger="recalc" class="primary-button">Reclaculate Matrix</a>
+      -->
+      <a href="#" data-trigger="save" class="primary-button update-button">Save rubric</a>
+      <a href="#" data-trigger="fieldAdd" class="primary-button new-button">Add Criteria</a>
+      <a href="#" data-trigger="rangeAdd" class="primary-button new-button">Add Range</a>
+    </div>
+  </div>
+  <div class="body">
+    <div class="matrix-wrapper">
+
+	    <button style="display: none;" data-behavior="matrix-slider-left" class="matrix-cells-wrapper--back"></button>
+	    <button style="display: none;" data-behavior="matrix-slider-right" class="matrix-cells-wrapper--forward"></button>
+
+	    <div class="matrix-wrapper--top">
+		    <div class="matrix-wrapper--top-left-cell" data-behavior="top-left-cell" data-match-height-target></div>
+		    <div class="matrix-wrapper--top-mask-left" data-match-height-target></div>
+		    <div class="matrix-wrapper--top-mask-right" data-match-height-target></div>
+
+		    <div class="matrix-wrapper--columns">
+			    <table class="table matrix matrix-col-headers" data-behavior="col-headers" data-region="ranges">
+			    </table>
+		    </div>
+	    </div>
+
+	    <div class="matrix-wrapper--bottom">
+
+		    <div class="matrix-wrapper--left">
+			    <div class="matrix-wrapper--creators" data-vertical-headers data-region="fields"></div>
+		    </div>
+
+		    <div class="matrix-wrapper--body" data-behavior="matrix-stage">
+			    <div class="matrix-body" data-behavior="matrix-actor">
+				    <div class="matrix-wrapper--cells">
+					    <table class="table matrix matrix-cells" data-region="matrix">
+					    </table
+				    </div>
+			    </div>
+		    </div>
+
+	    </div>
+
+    </div>
+  </div>
+</div>
+
+
