@@ -9,9 +9,11 @@ define (require) ->
   GroupMatrixView = require('views/group/matrix')
   SaveNotifyView = require('views/group/save_notify')
   WarningView = require('views/group/warning')
+  GroupWarningView = require('views/group/group_warning')
 
   class GroupLayout extends AbstractMatrix
 
+    warningVisible: false
     template: template
 
     children: {}
@@ -39,6 +41,7 @@ define (require) ->
       sliderContainer: '[data-behavior="matrix-slider"]'
       sliderLeft: '[data-behavior="matrix-slider-left"]'
       sliderRight: '[data-behavior="matrix-slider-right"]'
+      hideOnWarning: '[data-behavior="hide-on-warning"]'
     }
 
     onDirty: () ->
@@ -79,10 +82,17 @@ define (require) ->
     onRender: () ->
       if @collections.creator.length == 0
         @warning.show(new WarningView({courseId: @courseId}))
+        @warningVisible = true
+        @ui.hideOnWarning.hide()
+      if @collections.group.length == 0
+        @warning.show(new GroupWarningView({courseId: @courseId, vent: @}))
+        @ui.hideOnWarning.hide()
+        @warningVisible = true
       else
-        @creators.show(@children.creators)
-        @groups.show(@children.groups)
-        @matrix.show(@children.matrix)
+        @creators.show(new CreatorsView({collection: @collections.creator, courseId: @courseId, vent: @}))
+        @groups.show(new GroupsView({collection: @collections.group, courseId: @courseId, vent: @}))
+        @matrix.show(new GroupMatrixView({collection: @collections.creator, collections: @collections, courseId: @courseId, vent: @}))
+        @warningVisible = false
 
     onShow: () ->
       @parentOnShow()
@@ -90,15 +100,18 @@ define (require) ->
         index = @collections.group.indexOf(model)
         @slideToEnd()
       )
-
+      @listenTo(@collections.group, 'add remove', () =>
+        if @collections.group.length == 0
+          @render()
+        else if @warningVisible == true
+          @render()
+      )
 
     initialize: (options) ->
       @collections = options.collections
       @courseId = options.courseId
       @collections.group.courseId = @courseId
-      @children.creators = new CreatorsView({collection: @collections.creator, courseId: @courseId, vent: @})
-      @children.groups = new GroupsView({collection: @collections.group, courseId: @courseId, vent: @})
-      @children.matrix = new GroupMatrixView({collection: @collections.creator, collections: @collections, courseId: @courseId, vent: @})
+
 
 
 
