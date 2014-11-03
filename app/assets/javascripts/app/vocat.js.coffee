@@ -22,7 +22,7 @@ define (require) ->
   $('[data-behavior="header-drawer"]').each( (index, el) ->
     new HeaderDrawerView({el: el, vent: Vocat.vent})
   )
-  $('[data-behavior="chosen"').each( (index, el) ->
+  $('[data-behavior="chosen"]').each( (index, el) ->
     new ChosenView({el: el, vent: Vocat.vent})
   )
 
