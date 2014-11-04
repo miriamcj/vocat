@@ -23,10 +23,11 @@
 
 <div class="formgrid half">
   <%= f.label 'Is this a group or individual project?', :class => 'text-label' %>
-  <%= f.select :type, [['Group', 'GroupProject'], ['Individual', 'UserProject'], ['Both', 'OpenProject']], {:selected => @project.type}, {'data-behavior' => 'chosen'} %>
+  <%= f.select :type, [['Individual', 'UserProject'], ['Group', 'GroupProject'], ['Both', 'OpenProject']], {:selected => @project.type}, {'data-behavior' => 'chosen'} %>
 </div>
 
 <div class="formgrid half date">
   <%= f.label 'Project Due Date', :class => 'text-label' %>
   <%= f.date_select :due_date, {include_blank: true, order: [:month, :day, :year], with_css_classes: true}, {'data-behavior' => 'chosen' } %>
+  <small>The project due date is for informational purposes. Students and instructors will still be able to modify submissions past the project due date.</small>
 </div>
