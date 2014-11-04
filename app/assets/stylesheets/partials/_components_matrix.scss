@@ -22,6 +22,7 @@ $columnWidth: ($container / $columns) - 12;
 }
 
 .matrix-wrapper {
+  overflow-x: hidden;
   position: relative;
   @include clearfix(heavy);
 
