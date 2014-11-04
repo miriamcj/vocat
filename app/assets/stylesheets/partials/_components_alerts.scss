@@ -63,7 +63,7 @@ $spacingUnit: $mediumUnitPadding * .75;
 .notification {
   z-index: 200;
   position: fixed;
-  position: relative;
+//  position: relative;
   width: 100%;
   top: $headerHeight;
   background: $grayDarker;
