@@ -15,26 +15,10 @@ define (require) ->
     template: template
 
     initialize: (options) ->
-      @setupAnimationQueue()
       @setupEvents()
 
     onShow: () ->
       @loadServerSideFlashMessages()
-
-    setupAnimationQueue: () ->
-      that = @
-      @globalAnimationQueue = {
-        queue: (animation) ->
-          that.$el.queue((dequeue) ->
-            animation().queue((innerDequeue) ->
-              console.log 'dequeuing'
-              dequeue()
-              innerDequeue();
-            )
-          )
-          @
-      }
-
 
     setupEvents: () ->
       @listenTo(@getOption('vent'), 'error:add', (messageParams) =>
@@ -44,6 +28,7 @@ define (require) ->
         @handleIncomingNotification(view)
       )
       @listenTo(@getOption('vent'), 'notification:empty', () =>
+        console.log 'triggered it D'
         @handleEmptyNotification()
       )
       @listenTo(@regionManager, 'transition:start', (height, timing) =>
@@ -51,13 +36,16 @@ define (require) ->
       )
 
     adjustPosition: (height, timing) ->
+      console.log 'adjusting position'
       $container = $('.container')
       marginTop = parseInt($container.css('marginTop').replace('px', ''))
       newMargin = marginTop + height
+      console.log newMargin,'nm'
       $container.animate({marginTop: "#{newMargin}px"}, timing)
       distance = height - marginTop
 
     handleEmptyNotification: () ->
+      console.log 'triggered it C'
       @notificationRegion.currentView.trigger('view:expired')
 
     handleIncomingNotification: (view) ->
@@ -88,7 +76,6 @@ define (require) ->
       $regionEl = $('<div style="display: none;" class="notification-item" id="' + regionId + '"></div>')
       @$el.append($regionEl)
       region = @addRegion(regionId, {selector: "##{regionId}", regionClass: NotificationRegion})
-      @[regionId].animationQueue = @globalAnimationQueue
       @listenTo(@[regionId],'region:expired', () =>
         @regionManager.removeRegion(regionId)
       )
