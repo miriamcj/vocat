@@ -31,9 +31,7 @@ define (require) ->
       )
 
       @listenTo(view, 'view:expired', () =>
-        console.log @expiring,'expiring'
         if @expiring == false
-          console.log 'heard view expired'
           @expiring = true
           NotificationRegion.PROMISE = NotificationRegion.PROMISE.then(() =>
             @trigger('transition:start', h * -1, timing)
