@@ -4,6 +4,8 @@ define (require) ->
 
   class NotificationRegion extends Marionette.Region
 
+    @PROMISE = $.Deferred().resolve()
+
     attachHtml: (view) ->
       @$el.hide()
       @$el.empty().append(view.el)
@@ -12,12 +14,31 @@ define (require) ->
       @$el.remove()
 
     onShow: (view) ->
-      @$el.slideDown(200, () =>
-        @trigger('fade:complete')
-      )
-      @listenTo(view, 'view:expired', () ->
-        @$el.slideUp(200, () =>
-          @trigger('fade:complete')
-          @trigger('region:expired')
+      timing = 250
+      h = @$el.outerHeight()
+
+
+      NotificationRegion.PROMISE = NotificationRegion.PROMISE.then(() =>
+        @trigger('transition:start', h, timing)
+        p = $.Deferred()
+        @$el.slideDown(timing, () =>
+          p.resolve()
+          @trigger('transition:complete', h, timing)
         )
+        p
+      )
+
+      @listenTo(view, 'view:expired', () =>
+        NotificationRegion.PROMISE = NotificationRegion.PROMISE.then(() =>
+          @trigger('transition:start', h * -1, timing)
+          p = $.Deferred()
+          @$el.slideUp(timing, () =>
+            p.resolve()
+            @trigger('transition:complete', h * -1, timing)
+            @trigger('region:expired')
+          )
+          p
+        )
+
+
       )

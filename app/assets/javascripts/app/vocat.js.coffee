@@ -170,7 +170,8 @@ define (require) ->
     );
 
     # Used to test flash messages.
-#    Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '5000',  msg: 'This is a test global error message.'})
+#    Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '4000',  msg: 'Test notification message #1.'})
+#    Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '4000',  msg: 'Test notification message #2.'})
 #    setTimeout(() =>
 #      Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '5000',  msg: {'something': 'something', 'something2': 'something2'}})
 #    ,2000)

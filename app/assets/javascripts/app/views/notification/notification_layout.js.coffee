@@ -14,6 +14,28 @@ define (require) ->
     notificationRegion = null
     template: template
 
+    initialize: (options) ->
+      @setupAnimationQueue()
+      @setupEvents()
+
+    onShow: () ->
+      @loadServerSideFlashMessages()
+
+    setupAnimationQueue: () ->
+      that = @
+      @globalAnimationQueue = {
+        queue: (animation) ->
+          that.$el.queue((dequeue) ->
+            animation().queue((innerDequeue) ->
+              console.log 'dequeuing'
+              dequeue()
+              innerDequeue();
+            )
+          )
+          @
+      }
+
+
     setupEvents: () ->
       @listenTo(@getOption('vent'), 'error:add', (messageParams) =>
         @handleIncomingMessages(messageParams)
@@ -24,13 +46,23 @@ define (require) ->
       @listenTo(@getOption('vent'), 'notification:empty', () =>
         @handleEmptyNotification()
       )
+      @listenTo(@regionManager, 'transition:start', (height, timing) =>
+        @adjustPosition(height, timing)
+      )
+
+    adjustPosition: (height, timing) ->
+      $container = $('.container')
+      marginTop = parseInt($container.css('marginTop').replace('px', ''))
+      newMargin = marginTop + height
+      $container.animate({marginTop: "#{newMargin}px"}, timing)
+      distance = height - marginTop
 
     handleEmptyNotification: () ->
       @notificationRegion.currentView.trigger('view:expired')
 
     handleIncomingNotification: (view) ->
       if !@notificationRegion?
-        @regionManager.removeRegions()
+#        @regionManager.removeRegions()
         regionId = @makeRegion()
         @notificationRegion = @[regionId]
         @listenTo(@notificationRegion, 'empty', () =>
@@ -56,8 +88,15 @@ define (require) ->
       $regionEl = $('<div style="display: none;" class="notification-item" id="' + regionId + '"></div>')
       @$el.append($regionEl)
       region = @addRegion(regionId, {selector: "##{regionId}", regionClass: NotificationRegion})
+      @[regionId].animationQueue = @globalAnimationQueue
       @listenTo(@[regionId],'region:expired', () =>
         @regionManager.removeRegion(regionId)
+      )
+      @regionManager.listenTo(@[regionId],'transition:start', (height, timing) =>
+        @regionManager.trigger('transition:start', height, timing)
+      )
+      @regionManager.listenTo(@[regionId],'transition:complete', (height, timing) =>
+        @regionManager.trigger('transition:complete', height, timing)
       )
       regionId
 
@@ -117,12 +156,6 @@ define (require) ->
       view = new NotificationMessage({
         model: model
       })
-
-    initialize: (options) ->
-      @setupEvents()
-
-    onShow: () ->
-      @loadServerSideFlashMessages()
 
     loadServerSideFlashMessages: () ->
       dataContainer = $("#bootstrap-globalFlash")

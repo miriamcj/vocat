@@ -21,7 +21,7 @@ define (require) ->
       if @_snapshotAttributes
         @set(@_snapshotAttributes, {})
         @takeSnapshot()
-        @resetScoresCollection()
+        @updateScoresCollection()
       @trigger('revert')
 
     # We put a wrapper method around Backbone.sync to prevent calculated attribtues from being

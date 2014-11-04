@@ -23,9 +23,9 @@ define (require) ->
       @vent = options.vent
 
     onClickEvaluationSave: () ->
+      Vocat.vent.trigger('notification:empty')
       @vent.triggerMethod('evaluation:save')
-      @destroy()
 
     onClickEvaluationRevert: () ->
+      Vocat.vent.trigger('notification:empty')
       @vent.triggerMethod('evaluation:revert')
-      @destroy()
