@@ -26,6 +26,7 @@ define (require) ->
         sliderRight: '[data-behavior="matrix-slider-right"]'
         groupsInput: '[data-behavior="show-groups"]'
         usersInput: '[data-behavior="show-users"]'
+        hideOnWarning: '[data-behavior="hide-on-warning"]'
       }
 
       triggers: {
@@ -60,10 +61,12 @@ define (require) ->
         userProjectsCollection.where((model) -> model.get('type') == 'UserProject' || model.get('type') == 'OpenProject')
 
         if userProjectsCollection.length == 0
+          @ui.hideOnWarning.hide()
           return @showEmptyWarning('User', 'Project')
 
         if @collections.user.length == 0
-          return @showEmptyWarning('User', 'Creator')
+          @ui.hideOnWarning.hide()
+        return @showEmptyWarning('User', 'Creator')
 
         @warning.reset()
         if currentCreatorType != 'User'
