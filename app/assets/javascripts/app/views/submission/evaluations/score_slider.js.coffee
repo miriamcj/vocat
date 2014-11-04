@@ -130,8 +130,9 @@ define (require) ->
       )
 
     updatePositionFromModel: () ->
-      startPosition = @translatePercentageToPosition(@model.get('percentage'))
-      @updateBarAndGrabberPosition(startPosition, false, false)
+      unless @isDestroyed == true
+        startPosition = @translatePercentageToPosition(@model.get('percentage'))
+        @updateBarAndGrabberPosition(startPosition, false, false)
 
     onShow: () ->
       config = {

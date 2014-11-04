@@ -30,7 +30,7 @@ define (require) ->
       myEvaluation = @evaluations.findWhere({current_user_is_evaluator: true})
       myEvaluation.destroy({wait: true, success: () =>
         @showMyEvaluations()
-        Vocat.vent.trigger('notification:destroy')
+        Vocat.vent.trigger('notification:empty')
       })
 
     onEvaluationDirty: () ->
@@ -40,7 +40,7 @@ define (require) ->
     onEvaluationSave: () ->
       m = @myEvaluationModel()
       if m?
-        Vocat.vent.trigger('notification:destroy')
+        Vocat.vent.trigger('notification:empty')
         m.save({}, {success: () =>
           Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '3000',  msg: 'Your evaluation has been saved.'})
           @model.fetch()
@@ -50,7 +50,7 @@ define (require) ->
       m = @myEvaluationModel()
       if m?
         m.revert()
-        Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '3000',  msg: 'Your evaluation has been reverted to its saved state.'})
+#        Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '3000',  msg: 'Your evaluation has been reverted to its saved state.'})
 
 
     # This generally is triggered by the child empty view
@@ -61,7 +61,7 @@ define (require) ->
           @evaluations.add(evaluation)
           @vent.triggerMethod('evaluation:created')
           @model.unsetMyEvaluation()
-          Vocat.vent.trigger('error:add', {level: 'notice', msg: 'Evaluation successfully created'})
+#          Vocat.vent.trigger('error:add', {level: 'notice', msg: 'Evaluation successfully created'})
           @showMyEvaluations(true)
         , error: () =>
           Vocat.vent.trigger('error:add', {level: 'error', msg: 'Unable to create evaluation. Perhaps you do not have permission to evaluate this submission.'})

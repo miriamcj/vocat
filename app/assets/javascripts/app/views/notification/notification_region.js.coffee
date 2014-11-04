@@ -6,6 +6,8 @@ define (require) ->
 
     @PROMISE = $.Deferred().resolve()
 
+    expiring: false
+
     attachHtml: (view) ->
       @$el.hide()
       @$el.empty().append(view.el)
@@ -21,7 +23,7 @@ define (require) ->
       NotificationRegion.PROMISE = NotificationRegion.PROMISE.then(() =>
         @trigger('transition:start', h, timing)
         p = $.Deferred()
-        @$el.slideDown(timing, () =>
+        @$el.fadeIn(timing, () =>
           p.resolve()
           @trigger('transition:complete', h, timing)
         )
@@ -29,16 +31,18 @@ define (require) ->
       )
 
       @listenTo(view, 'view:expired', () =>
-        NotificationRegion.PROMISE = NotificationRegion.PROMISE.then(() =>
-          @trigger('transition:start', h * -1, timing)
-          p = $.Deferred()
-          @$el.slideUp(timing, () =>
-            p.resolve()
-            @trigger('transition:complete', h * -1, timing)
-            @trigger('region:expired')
+        console.log @expiring,'expiring'
+        if @expiring == false
+          console.log 'heard view expired'
+          @expiring = true
+          NotificationRegion.PROMISE = NotificationRegion.PROMISE.then(() =>
+            @trigger('transition:start', h * -1, timing)
+            p = $.Deferred()
+            @$el.fadeOut(timing, () =>
+              p.resolve()
+              @trigger('transition:complete', h * -1, timing)
+              @trigger('region:expired')
+            )
+            p
           )
-          p
-        )
-
-
       )
