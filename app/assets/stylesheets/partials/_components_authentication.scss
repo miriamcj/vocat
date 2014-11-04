@@ -29,6 +29,11 @@
       @include svg(circle-right-arrow-teal-on-white);
     }
   }
+  .post-button:hover {
+    background-color: $tealDark;
+    border: 1px solid $tealDark;
+  }
+
   .baruch-logo {
     height: 50px;
     width: 125px;

@@ -1,20 +1,33 @@
-<div class="authentication-tile alt">
-  <h2 class="heading-caps-large">Reset Password</h2>
-  <hr>
-  <%= render 'layouts/messages' %>
-  <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
-    <%= devise_error_messages! %>
+<% content_for :content do %>
+  <div class="page-content">
+    <div class="authentication-tile">
+      <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
+        <%= devise_error_messages! %>
+        <div class="formgrid whole">
+          <div class="baruch-logo"></div>
+        </div>
+        <div class="formgrid whole">
+          <%= f.label 'If you have forgotten your password or haven\'t created one, enter your email address and click the button below.', :class => 'text-label' %>
+          <%= f.email_field :email, :autofocus => true, :placeholder => "Email Address", :class => "text-input" %>
+        </div>
+        <div class="formgrid whole submit-row">
+          <%= f.button "Send me instructions", :class => "primary-button post-button" %>
+        </div>
+      <% end %>
 
-    <div class="input-group">
-      <%= f.label 'Your email address', :class => 'text-label' %>
-      <%= f.email_field :email, :autofocus => true, :class => "text-input" %>
-    </div>
-    <div class="input-group">
-      <%= f.submit "Send me instructions", :class => "teal-arrow-button" %>
-    </div>
-  <% end %>
-</div>
 
-<footer class="authentication-footer">
-  <%= render "devise/shared/links" %>
-</footer>
+    </div>
+    <footer class="authentication-footer">
+      <ul>
+        <%= render "devise/shared/links" %>
+        <li><a href="http://vocat.io">Learn more about Vocat</a></li>
+      </ul>
+    </footer>
+  </div>
+<% end %>
+<% content_for :body_class do %>bg-dark<% end %>
+
+
+
+
+
