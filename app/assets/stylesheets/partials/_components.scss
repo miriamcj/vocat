@@ -29,6 +29,8 @@ body.bg-dark {
   z-index: 100;
   padding: $headerHeight 1.5em 0 1.5em;
   margin: auto;
+  overflow-x: hidden;
+
   //$baikal: 960px;
   //  $ontario: 767px;
   //  $ladoga: 600px;
