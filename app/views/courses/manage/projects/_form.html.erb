@@ -22,8 +22,8 @@
 </div>
 
 <div class="formgrid half">
-  <%= f.label 'Who can create a submission for this project?', :class => 'text-label' %>
-  <%= f.select :type, [['Groups', 'GroupProject'], ['Students', 'UserProject'], ['Groups and Users', 'OpenProject']], {:selected => @project.type}, {'data-behavior' => 'chosen'} %>
+  <%= f.label 'Is this a group or individual project?', :class => 'text-label' %>
+  <%= f.select :type, [['Group', 'GroupProject'], ['Individual', 'UserProject'], ['Both', 'OpenProject']], {:selected => @project.type}, {'data-behavior' => 'chosen'} %>
 </div>
 
 <div class="formgrid half date">
