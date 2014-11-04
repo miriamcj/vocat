@@ -46,11 +46,11 @@
         <tbody>
           <% @videos.each do |video| %>
             <tr>
-              <th><%= video.id %></th>
+              <th><%= link_to video.id, submission_detail_path(video.submission) %></th>
               <td><%= time_ago_in_words video.created_at %> ago</td>
               <td><%= video.source.capitalize %></td>
-              <td><%= video.creator %></td>
-              <td><%= video.course.format '%d%n %S %y [#%s]' %></td>
+              <td><%= link_to video.creator, admin_user_path(video.creator) %></td>
+              <td><%= link_to (video.course.format '%d%n %S %y [#%s]'), admin_course_path(video.course) %></td>
               <td><%= video.state %></td>
             </tr>
           <% end %>
