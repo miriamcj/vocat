@@ -2,62 +2,127 @@ define (require) ->
 
   Marionette = require('marionette')
   template = require('hbs!templates/notification/notification_layout')
-  GlobalFlashMessagesView = require('views/flash/global_flash_messages')
-  FlashMessagesCollection = require('collections/flash_message_collection')
+  NotificationMessage = require('views/notification/notification_message')
+  NotificationRegion = require('views/notification/notification_region')
+  FlashMessageModel = require('models/flash_message')
 
   class NotificationLayout extends Marionette.LayoutView
 
-    regions: {
-      'flash': '[data-region="flash"]'
-      'notify': '[data-region="notify"]'
-    }
+    notificationCounter: 0
 
     className: 'notification'
-
+    notificationRegion = null
     template: template
 
-    instantiateFlash: () ->
-      @flashMessages = new FlashMessagesCollection([], {})
-      new GlobalFlashMessagesView({vent: Vocat.vent, collection: @flashMessages})
-
-    adjustScroll: (amount) ->
-      currentScroll = $(window).scrollTop()
-      if currentScroll == 0
-        newScroll = 0
-      else
-        newScroll = currentScroll + amount
-      $(window).scrollTop(newScroll)
-
-    adjustMargin: () ->
-      container = $('.container')
-      marginTop = parseInt(container.css('marginTop').replace('px', ''))
-      height = @$el.outerHeight()
-      distance = height - marginTop
-      container.css({marginTop: "#{height}px"})
-      distance
-
-    setupListeners: () ->
-      @listenTo(@flash.currentView, 'all', (e) =>
-        distance = @adjustMargin()
-        @adjustScroll(distance)
+    setupEvents: () ->
+      @listenTo(@getOption('vent'), 'error:add', (messageParams) =>
+        @handleIncomingMessages(messageParams)
       )
-      @listenTo(@notify, 'all', (e) =>
-        distance = @adjustMargin()
-        @adjustScroll(distance)
-      )
-      @listenTo(Vocat.vent, 'notification:transition:complete', () =>
-        distance = @adjustMargin()
-        @adjustScroll(distance)
-      )
-
       @listenTo(@getOption('vent'), 'notification:show', (view) =>
-        unless @notify.currentView?
-          @flashMessages.reset()
-          @notify.show(view)
+        @handleIncomingNotification(view)
       )
-      @listenTo(@getOption('vent'), 'notification:destroy', () =>
-        @notify.reset()
+      @listenTo(@getOption('vent'), 'notification:empty', () =>
+        @handleEmptyNotification()
       )
+
+    handleEmptyNotification: () ->
+      @notificationRegion.currentView.trigger('view:expired')
+
+    handleIncomingNotification: (view) ->
+      if !@notificationRegion?
+        @regionManager.removeRegions()
+        regionId = @makeRegion()
+        @notificationRegion = @[regionId]
+        @listenTo(@notificationRegion, 'empty', () =>
+          @notificationRegion = null
+        )
+      unless @notificationRegion.hasView()
+        @notificationRegion.show(view)
+
+    handleIncomingMessages: (params) ->
+      views = @messageViewsFromMessageParams(params)
+      _.each(views, (view) =>
+        regionId = @makeRegion()
+        @[regionId].show(view)
+      )
+
+    getAndIncrementNotificationCounter: () ->
+      r = @notificationCounter
+      @notificationCounter++
+      r
+
+    makeRegion: () ->
+      regionId = "notificationRegion#{@getAndIncrementNotificationCounter()}"
+      $regionEl = $('<div style="display: none;" class="notification-item" id="' + regionId + '"></div>')
+      @$el.append($regionEl)
+      region = @addRegion(regionId, {selector: "##{regionId}", regionClass: NotificationRegion})
+      @listenTo(@[regionId],'region:expired', () =>
+        @regionManager.removeRegion(regionId)
+      )
+      regionId
+
+    messageViewsFromMessageParams: (params) ->
+      if !_.isString(params.msg) && (_.isObject(params.msg) || _.isArray(params.msg))
+        views = @viewsFromComplexMessageParams(params)
+      else
+        views = []
+        views.push @makeOneNotificationView(params)
+      views
+
+    viewsFromComplexMessageParams: (params) ->
+      views = []
+      if params.level? then level = params.level else level = 'notice'
+      if params.lifetime? then lifetime = params.lifetime else lifetime = null
+      if _.isArray(params.msg)
+        if params.msg.length > 0
+          views.push @makeOneNotificationView({
+            level: level
+            msg: params.msg.join(' ')
+            property: null
+            lifetime: lifetime
+          })
+      else if _.isObject(params.msg)
+        _.each(params.msg, (text, property) =>
+          if property == 'base'
+            views.push @makeOneNotificationView({
+              level: level
+              msg: text
+              property: null
+              lifetime: lifetime
+            })
+          else
+            views.push @makeOneNotificationView({
+              level: level
+              msg: "#{property.charAt(0).toUpperCase() + property.slice(1);} #{text}"
+              property: null
+              lifetime: lifetime
+            })
+        )
+      else
+        views.push @makeOneNotificationView({
+          level: level
+          msg: params.msg
+          property: null
+          lifetime: lifetime
+        })
+      views
+
+    makeOneNotificationView: (params) ->
+      model = new FlashMessageModel({
+        msg: params.msg
+        level: params.level
+        property: params.property
+        lifetime: params.lifetime
+      })
+      view = new NotificationMessage({
+        model: model
+      })
+
+    initialize: (options) ->
+      @setupEvents()
+
+    onShow: () ->
+      @loadServerSideFlashMessages()
 
     loadServerSideFlashMessages: () ->
       dataContainer = $("#bootstrap-globalFlash")
@@ -69,10 +134,5 @@ define (require) ->
           data = JSON.parse(text)
           if _.isArray(data.globalFlash)
             _.each(data.globalFlash, (msg) =>
-              @flashMessages.add(msg)
+              @handleIncomingMessages(msg)
             )
-
-    onShow: () ->
-      @flash.show(@instantiateFlash())
-      @setupListeners()
-      @loadServerSideFlashMessages()

@@ -13,15 +13,15 @@ define (require) ->
     ui: {
     }
 
-    onRender: () ->
-      @$el.hide()
+#    onRender: () ->
+#      @$el.hide()
 
-    onShow: () ->
-      @$el.fadeIn(() =>
-        Vocat.vent.trigger('notification:transition:complete')
-      )
-
-    remove: () ->
-      @$el.fadeOut(() =>
-        @$el.remove()
-      )
+#    onShow: () ->
+#      @$el.fadeIn(() =>
+#        Vocat.vent.trigger('notification:transition:complete')
+#      )
+#
+#    remove: () ->
+#      @$el.fadeOut(() =>
+#        @$el.remove()
+#      )

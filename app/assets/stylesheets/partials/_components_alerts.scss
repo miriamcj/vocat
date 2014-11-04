@@ -62,14 +62,25 @@ $spacingUnit: $mediumUnitPadding * .75;
 
 .notification {
   z-index: 200;
-  padding: 0 1.5em;
   position: fixed;
+  position: relative;
   width: 100%;
   top: $headerHeight;
-//  margin-bottom: -$headerHeight;
   background: $grayDarker;
   opacity: 1;
   @include transition(all .25s $timing);
+  padding: 0 $spacingUnit;
+  .notification-item {
+    padding-top: $spacingUnit * .75;
+  }
+
+  .notification-item:last-child {
+    padding-bottom: $spacingUnit * .75;
+  }
+//  .notification-item+.notification-item {
+//    padding-top: $spacingUnit;
+//  }
+
   #global-flash {
     max-width: $containerWidth;
     margin: 0 auto;
@@ -83,7 +94,7 @@ $spacingUnit: $mediumUnitPadding * .75;
     text-transform: none;
     color: $white;
     margin-bottom: 0;
-    padding: $spacingUnit 0;
+    padding: 0;
     font-weight: $semibold;
     ul {
       @extend %unstyled-list;
@@ -93,6 +104,7 @@ $spacingUnit: $mediumUnitPadding * .75;
     }
   }
 }
+
 
 // Devise uses it's own error message wrapper.
 #error_explanation {

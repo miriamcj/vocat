@@ -170,7 +170,12 @@ define (require) ->
     );
 
     # Used to test flash messages.
-    # Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '5000',  msg: 'This is a test global error message.'})
+    Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '5000',  msg: 'This is a test global error message.'})
+    setTimeout(() =>
+      Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '5000',  msg: {'something': 'something', 'something2': 'something2'}})
+    ,2000)
+
+
 
     # Used to test modals.
     #Vocat.vent.trigger('modal:open', new ModalConfirmView({

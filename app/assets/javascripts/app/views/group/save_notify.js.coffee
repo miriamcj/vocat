@@ -29,4 +29,4 @@ define (require) ->
       @collection.each((group) ->
         group.revert()
       )
-      @destroy()
+      Vocat.vent.trigger('notification:empty')

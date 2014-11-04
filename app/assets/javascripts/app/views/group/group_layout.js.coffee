@@ -47,7 +47,6 @@ define (require) ->
     onDirty: () ->
       Vocat.vent.trigger('notification:show', new SaveNotifyView({collection: @collections.group}))
 
-
     onClickGroupAssign: () ->
       Vocat.vent.trigger('modal:open', new ModalConfirmView({
         model: @model,

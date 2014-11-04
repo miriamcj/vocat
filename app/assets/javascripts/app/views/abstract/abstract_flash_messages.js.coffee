@@ -8,7 +8,7 @@ define (require) ->
   class AbstractFlashMessages extends Marionette.CollectionView
 
     childView: ItemView
-    clearOnAdd: true
+    clearOnAdd: false
     template: template
     className: 'alerts'
     childViewContainer: '[data-behavior="flash-container"]'
@@ -40,7 +40,6 @@ define (require) ->
     processMessage: (flashMessage) ->
       if _.isObject(flashMessage.msg) || _.isArray(flashMessage.msg)
         if flashMessage.level? then level = flashMessage.level else level = 'notice'
-
         if flashMessage.lifetime? then lifetime = flashMessage.lifetime else lifetime = null
         if _.isArray(flashMessage.msg)
           if flashMessage.msg.length > 0
