@@ -28,7 +28,6 @@ define (require) ->
         @handleIncomingNotification(view)
       )
       @listenTo(@getOption('vent'), 'notification:empty', () =>
-        console.log 'triggered it D'
         @handleEmptyNotification()
       )
       @listenTo(@regionManager, 'transition:start', (height, timing) =>
@@ -36,16 +35,13 @@ define (require) ->
       )
 
     adjustPosition: (height, timing) ->
-      console.log 'adjusting position'
       $container = $('.container')
       marginTop = parseInt($container.css('marginTop').replace('px', ''))
       newMargin = marginTop + height
-      console.log newMargin,'nm'
       $container.animate({marginTop: "#{newMargin}px"}, timing)
       distance = height - marginTop
 
     handleEmptyNotification: () ->
-      console.log 'triggered it C'
       @notificationRegion.currentView.trigger('view:expired')
 
     handleIncomingNotification: (view) ->
