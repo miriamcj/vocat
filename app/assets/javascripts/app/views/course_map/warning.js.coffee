@@ -7,6 +7,7 @@ define (require) ->
     template: template
 
     serializeData: () ->
+
       out = {
         isCreatorWarning: Marionette.getOption(@, 'warningType') == 'Creator'
         isProjectWarning: Marionette.getOption(@, 'warningType') == 'Project'
@@ -15,5 +16,6 @@ define (require) ->
         creatorType: Marionette.getOption(@, 'creatorType')
         warningType: Marionette.getOption(@, 'warningType')
         courseId: Marionette.getOption(@, 'courseId')
+        canUpdateCourse: window.VocatUserCourseRole == 'administrator' || window.VocatUserCourseRole == 'evaluator'
       }
       out

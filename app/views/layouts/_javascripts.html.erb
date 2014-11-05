@@ -12,6 +12,11 @@
 <script type="text/javascript">
   window.VocatSessionData = JSON.parse('<%= raw @session_data.to_json %>');
   window.VocatUserRole = '<%= current_user_role %>';
+  <% if @selected_course %>
+  window.VocatUserCourseRole = '<%= @selected_course.role(current_user) %>';
+  <% else %>
+  window.VocatUserCourseRole = null;
+  <% end %>
   window.VocatS3Bucket = '<%= @S3_bucket %>';
   window.VocatAWSPublicKey = '<%= @aws_public_key %>';
 </script>
