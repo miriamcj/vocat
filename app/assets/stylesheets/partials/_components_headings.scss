@@ -66,3 +66,11 @@
     color: $grayDark;
   }
 }
+
+.heading-informational {
+  @extend %doubleSpacedHeading;
+  @extend %condensedHeading;
+  font-size: $theta;
+  font-weight: $regular;
+  font-color: $grayMedium;
+}

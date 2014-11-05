@@ -12,11 +12,18 @@
 .portfolio-item {
   @include clearfix(hard);
   .portfolio-item--content {
+    a:hover {
+      color: $tealDark !important;
+    }
+
     h3.heading-tertiary {
       @include font-body;
+      margin-top: -4px;
     }
-    @extend %unit;
-    @include unit(7);
+
+    @extend %wide-five-sixths;
+    @extend %medium-three-fourths;
+    @extend %narrow-one-whole;
 
     padding-left: 0;
     padding-right: 0;
@@ -26,46 +33,65 @@
         margin-bottom: 15px;
       }
     }
-
   }
+
   .portfolio-item--thumb {
-    @extend %unit;
-    @include unit(2);
+    @extend %wide-one-sixth;
+    @extend %medium-one-fourth;
+    @extend %narrow-one-whole;
+
     padding-right: 30px;
     padding-left: 0;
+    .thumb-container {
+      overflow: hidden;
+      a {
+        position: relative;
+        display: block;
+        &:hover:after {
+          opacity: .2;
+        }
+        &:after {
+          @include transition($fastTransition opacity $timing);
+          content: '';
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          bottom: 0;
+          background: #000;
+          z-index: 1;
+          opacity: .5;
+        }
+        &:before {
+          content: '';
+          position: absolute;
+          height: 60px;
+          width: 60px;
+          z-index: 2;
+          top: 50%;
+          left: 50%;
+          margin-left: -30px;
+          margin-top: -30px;
+          @include svg(play-overlay-white);
+        }
+      }
+      img {
+        display: block;
+        position: relative;
+        left: -5%;
+        width: 110%;
+      }
+      .thumb-placeholder {
+        width: 100%;
+        height: 112px;
+        background: $grayLight;
+      }
+      position: relative;
+      &:hover:before {
+        opacity: 0;
+      }
 
+    }
   }
-  .portfolio-item--info {
-    @extend %unit;
-    @include unit(3);
-    padding-left: 30px;
-    padding-right: 0;
-    text-align: right;
-    .timestamp {
-      @include font-head;
-      color: $grayMediumLighter;
-      line-height: 2em;
-    }
-    .label {
-      @include font-head;
-      margin-top: 10px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      line-height: 1em;
-    }
-    .label-active {
-      @include svg(check-gray);
-      background-position: right;
-      background-size: 15px;
-      padding-right: 20px;
-      color: $grayDark;
-    }
-    .label-inactive {
-      color: $grayMediumLighter;
-    }
-
-  }
-
 
   .heading-tertiary {
     font-size: $delta-minor;
@@ -76,23 +102,5 @@
 
       font-size: .654em; //17px
     }
-  }
-  .thumb-container {
-    overflow: hidden;
-    width: 100%;
-    height: 112px;
-    text-align: center;
-    position: relative;
-    img {
-      position: relative;
-      left: -5%;
-      width: 110%;
-    }
-  }
-  .thumb-placeholder {
-    width: 100%;
-    height: 112px;
-    background: $grayLight;
-
   }
 }

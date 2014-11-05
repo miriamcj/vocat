@@ -54,6 +54,11 @@
   @include unit(8);
 }
 
+%wide-five-sixths {
+  @extend %unit;
+  @include unit(10);
+}
+
 %wide-one-half {
   @extend %unit;
   @include unit(6);
@@ -69,12 +74,16 @@
   @include unit(3);
 }
 
+%wide-one-fifth {
+  @extend %unit;
+  @include unit(12/5);
+}
+
+
 %wide-one-sixth {
   @extend %unit;
   @include unit(2);
 }
-
-
 
 %wide-one-eighth {
   @extend %unit;

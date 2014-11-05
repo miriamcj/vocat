@@ -276,6 +276,20 @@
   @extend %bubble-badge;
 }
 
+// Badges
+//-----------------------------------------------------------------
+.badge {
+  border: 2px solid $tealLight;
+  padding: .25em;
+  vertical-align: middle;
+  letter-spacing: .15em;
+  font-size: .5em;
+  text-transform: uppercase;
+  color: $tealLight;
+  font-weight: $semibold;
+}
+
+
 
 
 // Switches

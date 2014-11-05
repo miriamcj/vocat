@@ -1,3 +1,8 @@
+
+<% content_for :heading do %>
+  <%= link_to 'Back to Dashboard', dashboard_creator_path, :class => "header-link back-link" %>
+<% end %>
+
 <% content_for :content do %>
 
   <% unless @course.message.blank? %>
@@ -24,12 +29,13 @@
         </div>
       <% end %>
     </div>
-
-
   <% end %>
-  <%= render :partial => 'shared/section', :locals => {
-                                             :header => "Your #{@course.department}#{@course.number} Submissions",
-                                             :body => body} %>
+  <%= render :partial => 'shared/section',
+             :locals => {
+                 :header => "Your #{@course.department}#{@course.number} Submissions",
+                 :body => body
+             }
+  %>
 
 
 
