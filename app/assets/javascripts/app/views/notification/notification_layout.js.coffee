@@ -94,6 +94,7 @@ define (require) ->
       views
 
     viewsFromComplexMessageParams: (params) ->
+      console.log params,'params'
       views = []
       if params.level? then level = params.level else level = 'notice'
       if params.lifetime? then lifetime = params.lifetime else lifetime = null
