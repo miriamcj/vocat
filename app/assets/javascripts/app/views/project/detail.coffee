@@ -46,7 +46,6 @@ define (require) ->
 
         # The layout is responsible for loading the data and passing it to its component views when it's been updated.
       $.when(@scoresLoaded(), @projectAndRubricLoaded()).then(() =>
-        console.log 'CALLED B'
         @updateViews()
       ).fail((reason) =>
         @handleLoadFailure(reason)
