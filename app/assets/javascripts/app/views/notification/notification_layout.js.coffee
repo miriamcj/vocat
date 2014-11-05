@@ -100,12 +100,14 @@ define (require) ->
       if params.lifetime? then lifetime = params.lifetime else lifetime = null
       if _.isArray(params.msg)
         if params.msg.length > 0
-          views.push @makeOneNotificationView({
-            level: level
-            msg: params.msg.join(' ')
-            property: null
-            lifetime: lifetime
-          })
+          _.each(params.msg, (msg) =>
+            views.push @makeOneNotificationView({
+              level: level
+              msg: msg
+              property: null
+              lifetime: lifetime
+            })
+          )
       else if _.isObject(params.msg)
         _.each(params.msg, (text, property) =>
           if property == 'base'
