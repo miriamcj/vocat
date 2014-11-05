@@ -9,7 +9,7 @@ define (require) ->
     template: template
 
     tagName: 'td'
-    className: 'wrap-cell'
+    className: 'wrap-cell rubric-cell'
 
     onShow: () ->
       @$el.on( 'click', (event) =>

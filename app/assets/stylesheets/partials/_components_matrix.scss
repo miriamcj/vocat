@@ -251,6 +251,9 @@ $columnWidth: ($container / $columns) - 12;
       &.wrap-cell {
         white-space: normal;
       }
+      &.rubric-cell {
+        cursor: pointer;
+      }
       font-size: $theta; // Baseline height for the cell is 16px. Need the same baseline in the row headers
       height: 100px;
       padding: 10px;
