@@ -8,3 +8,19 @@
 <div class="formgrid whole">
 	<a class="primary-button new-button" href="#" data-behavior="submit">Add Users</a>
 </div>
+{{#if response }}
+<div class="formgrid whole">
+	<div class="alert alert-notice">
+		<ul>
+		{{#each responseData.successes}}
+			<li>{{this}}</li>
+		{{/each}}
+		</ul>
+		<ul>
+			{{#each responseData.failures}}
+			<li>{{this}}</li>
+			{{/each}}
+		</ul>
+	</div>
+</div>
+{{/if}}

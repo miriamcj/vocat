@@ -2,7 +2,6 @@ define 'app/helpers/cardinal', ['handlebars'], (Handlebars) ->
 
   Handlebars.registerHelper "cardinal", (value, capitalize = false) ->
     out = value
-    console.log out,'out'
     unless isNaN(value)
       n = parseInt(value)
       switch n

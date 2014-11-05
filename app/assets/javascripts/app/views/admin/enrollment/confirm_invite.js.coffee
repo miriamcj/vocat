@@ -26,7 +26,7 @@ define (require) ->
     }
 
     onCancel: () ->
-      @destroy()
+      Vocat.vent.trigger('notification:empty')
 
     onSubmit: () ->
       contact_strings = new Array
@@ -59,10 +59,12 @@ define (require) ->
           else
             failures.push contact
       )
-      Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 10000, msg: _.pluck(successes, 'message')})
-      Vocat.vent.trigger('error:add', {level: 'error', lifetime: 10000, msg: _.pluck(failures, 'message')})
+
       @collection.fetch()
       @onCancel()
+
+      Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 10000, msg: _.pluck(successes, 'message')})
+      Vocat.vent.trigger('error:add', {level: 'error', lifetime: 10000, msg: _.pluck(failures, 'message')})
 
     initialize: (options) ->
       @contacts = options.contacts
