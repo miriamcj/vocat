@@ -56,7 +56,7 @@ class Admin::CoursesController < Admin::AdminController
   # DELETE /admin/courses/1
   def destroy
     @course.destroy()
-    respond_with @course
+    respond_with(:admin, @user)
   end
 
   def assistants
