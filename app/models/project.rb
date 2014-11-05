@@ -6,7 +6,6 @@ class Project < ActiveRecord::Base
   belongs_to  :course
   belongs_to  :rubric
   has_many    :submissions,     :dependent => :destroy
-  has_many    :submitors,       :through => :course
   has_many    :evaluations,     :through => :submissions
 
   delegate :name,               :to => :rubric, :prefix => true, :allow_nil => true
@@ -66,11 +65,15 @@ class Project < ActiveRecord::Base
   # TODO: Not happy with this
   def statistics()
     {
-      video_count: submissions.with_video.count,
+      video_count: video_count,
       possible_submission_count: possible_submissions_count,
       rubric_avg_score: rubric_avg_score,
       rubric_avg_percentage: rubric_avg_percentage
     }
+  end
+
+  def video_count
+    submissions.where(:creator_type => 'User').with_video.for_courses(course).count
   end
 
   def submission_by_user(user)
