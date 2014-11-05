@@ -90,8 +90,9 @@ fieldset + fieldset {
     @extend %input-full-width;
   }
   textarea {
-  height: 6em;
-  padding: 1em;
+    resize: none;
+    height: 6em;
+    padding: 1em;
   }
 
   &.whole {
