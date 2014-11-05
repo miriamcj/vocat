@@ -107,8 +107,7 @@ $sectionSpacingUnit: 40px;
   }
 }
 
-.page-section-half {
-  @extend %wide-one-half;
+%page-section-column {
   height: 100%;
   padding-left: 0;
   padding-right: 0;
@@ -122,6 +121,22 @@ $sectionSpacingUnit: 40px;
     padding: 0;
     margin-top: $sectionSpacingUnit * .75;
   }
+
+}
+
+.page-section-half {
+  @extend %wide-one-half;
+  @extend %page-section-column;
+}
+
+.page-section-one-third {
+  @extend %wide-one-third;
+  @extend %page-section-column;
+}
+
+.page-section-two-thirds {
+  @extend %wide-two-thirds;
+  @extend %page-section-column;
 }
 
 .page-section + .page-section{
