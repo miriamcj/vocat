@@ -39,11 +39,4 @@ class Courses::EvaluationsController < ApplicationController
     authorize! :show, @submission
   end
 
-  def current_user_project
-    factory = SubmissionFactory.new
-    submissions = factory.creator_and_project(@current_user, @project)
-    @submission = submissions[0]
-    authorize! :show, @submission
-  end
-
 end
