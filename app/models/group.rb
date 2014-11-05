@@ -8,6 +8,10 @@ class Group < ActiveRecord::Base
     GroupSerializer
   end
 
+  def creator_names
+    creators.order(last_name: :asc, first_name: :asc).map { |creator| creator.name }
+  end
+
   def creator_type
     "Group"
   end

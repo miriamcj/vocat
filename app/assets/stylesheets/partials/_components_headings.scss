@@ -23,9 +23,9 @@
   font-size: $gamma;
   color: $grayMedium;
   a {
-    color: $grayMedium;
+    color: $tealLight;
     &:hover {
-      text-decoration: underline;
+      color: $tealDark;
     }
   }
 }

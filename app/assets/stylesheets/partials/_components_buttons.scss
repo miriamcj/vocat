@@ -287,6 +287,9 @@
   text-transform: uppercase;
   color: $tealLight;
   font-weight: $semibold;
+  .heading-primary & {
+    font-size: .35em;
+  }
 }
 
 

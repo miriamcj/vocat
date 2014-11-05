@@ -1,10 +1,19 @@
-<div style="display: none" data-behavior="header" class="page-content--heading">
-  <a class="header-link back-link" data-behavior="detail-close" href="/courses/{{courseId}}/{{to_lower creatorType}}s/evaluations">Back to Evaluations</a>
+<div class="page-content--heading">
+  <a class="header-link back-link" style="display: none;" data-behavior="detail-close" href="/courses/{{courseId}}/{{to_lower creatorType}}s/evaluations">Back to Evaluations</a>
   <h2 class="heading-primary">
     {{project.name}}
+	  {{#if isGroupProject }}
+	  <span class="badge">group</span>
+	  {{/if}}
   </h2>
   <h2 class="heading-secondary">
-    {{creator.name}}
+	  {{#if isGroupProject }}
+			<a data-behavior="open-group-modal" href="#">
+				{{creator.name}}
+			</a>
+	   {{else}}
+		  {{creator.name}}
+	  {{/if}}
   </h2>
 </div>
 

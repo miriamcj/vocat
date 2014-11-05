@@ -5,6 +5,7 @@ define (require) ->
   DiscussionView = require('views/discussion/discussion')
   EvaluationsView = require('views/submission/evaluations/evaluations_layout')
   AssetsView = require('views/submission/assets/assets_layout')
+  ModalGroupMembershipView = require('views/modal/modal_group_membership')
 
   class SubmissionLayout extends Marionette.LayoutView
 
@@ -13,15 +14,15 @@ define (require) ->
 
     triggers: () ->
       t = {
+        'click @ui.openGroupModal': 'open:groups:modal'
       }
       if _.isFunction(@vent.triggerMethod)
         t['click @ui.close'] = 'close'
       t
 
-
     ui: {
       close: '[data-behavior="detail-close"]'
-      header: '[data-behavior="header"]'
+      openGroupModal: '[data-behavior="open-group-modal"]'
     }
 
     regions: {
@@ -37,14 +38,16 @@ define (require) ->
         courseId: @courseId
         creator: @creator.toJSON()
         creatorType: @submission.get('creator_type')
+        isGroupProject: @submission.get('creator_type') == 'Group'
       }
       sd
 
+    onOpenGroupsModal: () ->
+      Vocat.vent.trigger('modal:open', new ModalGroupMembershipView({groupId: @creator.id}))
+
     onShow: () ->
       unless @$el.parent().data().hasOwnProperty('hideBackLink')
-        @ui.header.show()
-
-    onRender: () ->
+        @ui.close.show()
 
     onClose: () ->
       @vent.triggerMethod('close:detail') if _.isFunction(@vent.triggerMethod)

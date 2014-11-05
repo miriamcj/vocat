@@ -50,19 +50,13 @@ class SubmissionSerializer < AbstractSubmissionSerializer
   end
 
   def path
-    if object.creator_id == scope.id
-      course_current_user_project_path :course_id => object.course_id, :project_id => object.project_id
-    else
-      if object.creator_type == 'Group'
-        path_args = {:course_id => object.course_id, :project_id => object.project_id, :creator_id => object.creator_id}
-        course_group_evaluations_path path_args
-      elsif object.creator_type == 'User'
-        course_user_evaluations_path :course_id => object.course_id, :project_id => object.project_id, :creator_id => object.creator_id
-      end
+    if object.creator_type == 'Group'
+      path_args = {:course_id => object.course_id, :project_id => object.project_id, :creator_id => object.creator_id}
+      course_group_evaluations_path path_args
+    elsif object.creator_type == 'User'
+      course_user_evaluations_path :course_id => object.course_id, :project_id => object.project_id, :creator_id => object.creator_id
     end
   end
-
-
 
 	def serialized_state
 		'full'

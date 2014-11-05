@@ -2,21 +2,7 @@
   <div class="drawer--contents">
     <ul class="drawer-nav">
       <% if @app_section == 'course' %>
-        <% if current_user.can?(:evaluate, @selected_course) %>
-          <li class="a">
-            <div class="drawer-nav--column">
-              <% if @selected_course.role(current_user) == :creator %>
-                <h4>Peer Review</h4>
-              <% else %>
-                <h4>Evaluate</h4>
-              <% end %>
-              <ul>
-                <li><%=  link_to 'Individual Work', course_user_evaluations_path(@selected_course) %></li>
-                <li><%=  link_to 'Group Work', course_group_evaluations_path(@selected_course) %></li>
-              </ul>
-            </div>
-          </li>
-        <% end %>
+
         <% if current_user.can?(:portfolio, @selected_course) %>
           <li class="b">
             <div class="drawer-nav--column">
@@ -46,6 +32,21 @@
             </div>
           </li>
           <% end %>
+        <% end %>
+        <% if current_user.can?(:evaluate, @selected_course) %>
+          <li class="a">
+            <div class="drawer-nav--column">
+              <% if @selected_course.role(current_user) == :creator %>
+                <h4>Peer Review</h4>
+              <% else %>
+                <h4>Evaluate</h4>
+              <% end %>
+              <ul>
+                <li><%=  link_to 'Individual Work', course_user_evaluations_path(@selected_course) %></li>
+                <li><%=  link_to 'Group Work', course_group_evaluations_path(@selected_course) %></li>
+              </ul>
+            </div>
+          </li>
         <% end %>
         <% if current_user.can?(:administer, @selected_course) %>
         <li>

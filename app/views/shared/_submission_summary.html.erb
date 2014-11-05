@@ -17,10 +17,9 @@
       <% end %>
   </div>
   <div class="portfolio-item--content">
-
     <h3 class="heading-tertiary">
       <%= link_to submission.project, submission_detail_path(submission) %>
-      <% if submission.project.type_human == 'groups' %>
+      <% if submission.creator_type == 'Group' %>
         <span class="badge">group</span>
       <% end %>
     </h3>
