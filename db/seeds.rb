@@ -110,8 +110,8 @@ body_key = the_rubric.add_field({'name' => 'Body', 'description' => 'Relaxation;
 expression_key = the_rubric.add_field({'name' => 'Expression', 'description' => 'Concentration; Focus; Point of View; Pacing'})
 overall_key = the_rubric.add_field({'name' => 'Overall Effect', 'description' => 'Integration of above categories; connection with audience'})
 low_key = the_rubric.add_range({'name' => 'Low', 'low' => 0, 'high' => 2})
-medium_key = the_rubric.add_range({'name' => 'medium', 'low' => 3, 'high' => 4})
-high_key = the_rubric.add_range({'name' => 'high', 'low' => 5, 'high' => 6})
+medium_key = the_rubric.add_range({'name' => 'Medium', 'low' => 3, 'high' => 4})
+high_key = the_rubric.add_range({'name' => 'High', 'low' => 5, 'high' => 6})
 the_rubric.owner = admin
 the_rubric.add_cells([
    {'range' => low_key, 'field' => voice_key, 'description' => 'Vocal projection is weak. Posture is crumpled or slouched: breath is unsupported. Volume is unamplified. One has to strain, or cannot hear speakerubric. Articulation is mushy and difficult to understand.'},
