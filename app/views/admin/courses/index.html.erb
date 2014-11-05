@@ -54,21 +54,27 @@
         </tr>
         </thead>
         <tbody>
-        <% @courses.each do |course| %>
-          <tr>
-            <th><%= link_to "#{course.department}#{course.number}", course_user_evaluations_path(course) %></th>
-            <td><%= course.name %></td>
-            <td><%= course.evaluators.pluck(:last_name).join(', ') %></td>
-            <td><%= course.section %></td>
-            <td><%= "#{course.semester} #{course.year}" %></td>
-            <td>
-              <div class="dropdown dropdown-button" data-behavior="dropdown">
-                <a class="dropdown--toggle" data-behavior="toggle" href="#">Actions</a>
-                <div class="dropdown--options" data-behavior="dropdown-options">
-                  <%= render 'nav', :course => course %>
+        <% if @courses.count > 0 %>
+          <% @courses.each do |course| %>
+            <tr>
+              <th><%= link_to "#{course.department}#{course.number}", course_user_evaluations_path(course) %></th>
+              <td><%= course.name %></td>
+              <td><%= course.evaluators.pluck(:last_name).join(', ') %></td>
+              <td><%= course.section %></td>
+              <td><%= "#{course.semester} #{course.year}" %></td>
+              <td>
+                <div class="dropdown dropdown-button" data-behavior="dropdown">
+                  <a class="dropdown--toggle" data-behavior="toggle" href="#">Actions</a>
+                  <div class="dropdown--options" data-behavior="dropdown-options">
+                    <%= render 'nav', :course => course %>
+                  </div>
                 </div>
-              </div>
-            </td>
+              </td>
+            </tr>
+          <% end %>
+        <% else %>
+          <tr>
+            <td colspan="6">No Courses Found</td>
           </tr>
         <% end %>
         </tbody>
