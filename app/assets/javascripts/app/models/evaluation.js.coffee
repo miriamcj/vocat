@@ -88,11 +88,14 @@ define (require) ->
         addScores.push addScore
       )
       silent = true
-      _.each(addScores, (score, index) =>
-        model = @scoreCollection.get(score.id)
-        if model? && model.score != score.score
-          silent = false
-      )
+      if @scoreCollection.length == 0 && addScores.length > 0
+        silent = false
+      else
+        _.each(addScores, (score, index) =>
+          model = @scoreCollection.get(score.id)
+          if model? && model.score != score.score
+            silent = false
+        )
       @scoreCollection.reset(addScores, {silent: silent})
 
     getScoresCollection: () ->

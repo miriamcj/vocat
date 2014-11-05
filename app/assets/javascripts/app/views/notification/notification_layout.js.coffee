@@ -9,6 +9,7 @@ define (require) ->
   class NotificationLayout extends Marionette.LayoutView
 
     notificationCounter: 0
+    notificationRegion: null
 
     className: 'notification'
     notificationRegion = null
@@ -42,7 +43,8 @@ define (require) ->
       distance = height - marginTop
 
     handleEmptyNotification: () ->
-      @notificationRegion.currentView.trigger('view:expired')
+      if @notificationRegion?
+        @notificationRegion.currentView.trigger('view:expired')
 
     handleIncomingNotification: (view) ->
       if !@notificationRegion?
