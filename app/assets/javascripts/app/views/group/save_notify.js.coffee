@@ -4,7 +4,7 @@ define (require) ->
   template = require('hbs!templates/group/save_notify')
   GlobalNotification = require('behaviors/global_notification')
 
-  class GroupsView extends Marionette.ItemView
+  class SaveNotify extends Marionette.ItemView
 
     template: template
 

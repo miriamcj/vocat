@@ -9,6 +9,7 @@ define (require) ->
   HeaderDrawerView = require('views/layout/header_drawer')
   HeaderDrawerTriggerView = require('views/layout/header_drawer_trigger')
   NotificationLayoutView = require('views/notification/notification_layout')
+  NotificationExceptionView = require('views/notification/notification_exception')
 
   window.Vocat = Vocat = new Backbone.Marionette.Application()
 
@@ -145,6 +146,12 @@ define (require) ->
     # Setup the global modal view
     modal = new ModalLayoutView(vent: @)
     Vocat.modal.show(modal)
+
+    # Setup exception handler
+    Vocat.listenTo(Vocat.vent,'exception', (reason) =>
+      Vocat.main.reset()
+      Vocat.vent.trigger('notification:show', new NotificationExceptionView({msg: reason}))
+    )
 
     # Handle confirmation on data-modalconfirm elements
     $('[data-modalconfirm]').each (index, el) ->

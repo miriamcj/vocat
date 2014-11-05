@@ -4,9 +4,9 @@ require 'securerandom'
 class Rubric < ActiveRecord::Base
 
   belongs_to :owner, :class_name => "User"
-  has_many :projects
+  has_many :projects, :dependent => :nullify
   has_many :courses, :through => :projects
-  has_many :evaluations
+  has_many :evaluations, :dependent => :destroy
 
   delegate :name, :to => :owner, :prefix => true, :allow_nil => true
 

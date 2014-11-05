@@ -46,8 +46,14 @@ define (require) ->
 
         # The layout is responsible for loading the data and passing it to its component views when it's been updated.
       $.when(@scoresLoaded(), @projectAndRubricLoaded()).then(() =>
+        console.log 'CALLED B'
         @updateViews()
+      ).fail((reason) =>
+        @handleLoadFailure(reason)
       )
+
+    handleLoadFailure: (reason) ->
+      Vocat.vent.trigger('exception', reason)
 
     updateViews: () ->
       @render()
@@ -79,12 +85,16 @@ define (require) ->
         @model = new ProjectModel({id: @projectId})
         @model.fetch({success: () ->
           projectLoadPromise.resolve()
+        , error: () =>
+          projectLoadPromise.reject('Unable to load project data. Perhaps this project has been deleted?')
         })
 
       projectLoadPromise.then(() =>
         @rubric = new RubricModel({id: @model.get('rubric_id')})
         @rubric.fetch({success: () ->
           rubricLoadPromise.resolve()
+        , error: () =>
+          rubricLoadPromise.reject('Unable to load project rubric. Perhaps the rubric has been deleted?')
         })
       )
       rubricLoadPromise
