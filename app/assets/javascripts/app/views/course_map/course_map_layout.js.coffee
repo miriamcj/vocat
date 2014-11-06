@@ -10,6 +10,8 @@ define (require) ->
   CourseMapDetailProject = require('views/project/detail')
   CourseMapDetailCreatorProject = require('views/submission/submission_layout')
   AbstractMatrix = require('views/abstract/abstract_matrix')
+  CourseUserSubmissionCollection = require('collections/submission_for_course_user_collection')
+  GroupSubmissionCollection = require('collections/submission_for_group_collection')
 
   class CourseMapLayout extends AbstractMatrix
 
@@ -132,24 +134,25 @@ define (require) ->
         @setActive({user: args.user})
         Vocat.router.navigate("courses/#{@courseId}/users/evaluations/creator/#{args.user.id}")
         view = new CourseMapDetailCreator({
-          collection: @collections.submission,
-          projects: @collections.project,
+          collection: new CourseUserSubmissionCollection(),
           courseId: @courseId,
           vent: @,
           model: args.user
         })
+        @openDetail(view)
+
 
       onOpenDetailGroup: (args) ->
         @showGroupViews()
         @setActive({group: args.group})
         Vocat.router.navigate("courses/#{@courseId}/groups/evaluations/creator/#{args.group.id}")
         view = new CourseMapDetailCreator({
-          collection: @collections.submission,
-          creatorType: 'Group',
+          collection: new GroupSubmissionCollection(),
           courseId: @courseId,
           vent: @,
           model: args.group
         })
+        @openDetail(view)
 
       onOpenDetailProjectUsers: (args) ->
         @showUserViews()
@@ -166,6 +169,10 @@ define (require) ->
         @openDetail(view)
 
       onOpenDetailCreatorProject: (args) ->
+        console.log 'called'
+        if !_.isObject(args.project)
+          args.project = @collections.project.get(args.project)
+
         if args.creator.creatorType == 'User'
           @showUserViews()
           @setActive({project: args.project, user: args.creator})

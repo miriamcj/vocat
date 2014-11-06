@@ -4,6 +4,7 @@ class Courses::EvaluationsController < ApplicationController
   load_and_authorize_resource :course
   load_and_authorize_resource :project
   load_resource :user
+  load_resource :group
   respond_to :html
 
   def course_map
@@ -27,6 +28,20 @@ class Courses::EvaluationsController < ApplicationController
     submissions = factory.creator_and_project(@creator, @project)
     @submission = submissions[0]
     authorize! :show, @submission
+  end
+
+  def user_creator_detail
+    @creator = User.find(params[:creator_id])
+    factory = SubmissionFactory.new
+    @submissions = factory.course_and_creator(@course, @creator)
+    authorize! :administer, @course
+  end
+
+  def group_creator_detail
+    @creator = Group.find(params[:creator_id])
+    factory = SubmissionFactory.new
+    @submissions = factory.course_and_creator(@course, @creator)
+    authorize! :administer, @course
   end
 
   def group_creator_project_detail

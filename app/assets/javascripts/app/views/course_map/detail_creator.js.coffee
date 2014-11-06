@@ -1,24 +1,40 @@
-define [
-  'marionette',
-  'hbs!templates/course_map/detail_creator',
-  'views/portfolio/portfolio_submissions_item',
-  'collections/collection_proxy',
-  'collections/submission_for_course_user_collection'
-  'collections/submission_for_group_collection'
-], (
-  Marionette, template, PortfolioSubmissionItem, CollectionProxy, SubmissionCourseUserCollection, SubmissionGroupCollection
-) ->
+define (require) ->
+
+  Marionette = require('marionette')
+  template = require('hbs!templates/course_map/detail_creator')
+  PortfolioSubmissionItem = require('views/portfolio/portfolio_submissions_item')
+  CollectionProxy = require('collections/collection_proxy')
+  SubmissionCourseUserCollection = require('collections/submission_for_course_user_collection')
+  SubmissionGroupCollection = require('collections/submission_for_group_collection')
+  ModalGroupMembershipView = require('views/modal/modal_group_membership')
 
   class CourseMapDetailCreator extends Marionette.CompositeView
 
     template: template
-
+    standalone: false
     childView: PortfolioSubmissionItem
+    vent: Vocat.vent
 
     childViewContainer: '[data-container="submission-summaries"]'
+    childViewOptions: () ->
+      {
+        standalone: @standalone
+        creator: @model
+        vent: @vent
+      }
 
-    events:
-      'click [data-behavior="routable"]':  'onExecuteRoute'
+    triggers: () ->
+      t = {
+        'click @ui.openGroupModal': 'open:groups:modal'
+      }
+      if @standalone != true
+        t['click [data-behavior="detail-close"]'] = 'close'
+      t
+
+    ui: {
+      loadIndicator: '[data-behavior="load-indicator"]'
+      openGroupModal: '[data-behavior="open-group-modal"]'
+    }
 
     onExecuteRoute: (e) ->
       e.preventDefault()
@@ -26,16 +42,29 @@ define [
       if href
         window.Vocat.router.navigate(href, true)
 
-    initialize: (options) ->
+    onOpenGroupsModal: () ->
+      Vocat.vent.trigger('modal:open', new ModalGroupMembershipView({groupId: @model.id}))
 
+    onClose: () ->
+      @vent.triggerMethod('close:detail') if _.isFunction(@vent.triggerMethod)
+
+    initialize: (options) ->
       @options = options || {}
       @vent = Marionette.getOption(@, 'vent')
+      @standalone = Marionette.getOption(@, 'standalone')
       @courseId = Marionette.getOption(@, 'courseId')
-      @projects = Marionette.getOption(@, 'projects')
-
       if @model.creatorType == 'User'
-        @collection = new SubmissionCourseUserCollection
         @collection.fetch({data: {course: @courseId, user: @model.id}})
       else
-        @collection = new SubmissionGroupCollection
-        @collection.fetch({data: {group: @model.id}})
+        @collection.fetch({data: {group: @model.id}, success: () ->
+        })
+
+      @listenTo(@collection, 'sync', () =>
+        @ui.loadIndicator.hide()
+      )
+
+    serializeData: () ->
+      data = super()
+      data['creatorType'] = @model.creatorType
+      data['courseId'] = @courseId
+      data

@@ -4,7 +4,18 @@ class ProjectSerializer < ActiveModel::Serializer
   include ActionView::Helpers::OutputSafetyHelper
   include ActionView::Helpers::TextHelper
 
-  attributes  :id, :name, :description, :listing_order_position, :type, :rubric_id, :rubric_name, :abilities, :course_id
+  attributes  :id,
+              :name,
+              :description,
+              :listing_order_position,
+              :evaluatable?,
+              :evaluatable_by_peers?,
+              :evaluatable_by_creator?,
+              :type,
+              :rubric_id,
+              :rubric_name,
+              :abilities,
+              :course_id
 
   #has_one :rubric
 

@@ -72,6 +72,8 @@ define (require) ->
       'courses/:course/users/creator/:creator/project/:project': 'creatorProjectDetail'
       'courses/:course/groups/creator/:creator/project/:project': 'groupProjectDetail'
       'courses/:course/view/project/:project': 'creatorProjectDetail'
+      'courses/:course/groups/creator/:creator': 'groupDetail'
+      'courses/:course/users/creator/:creator': 'creatorDetail'
     }
   }
 

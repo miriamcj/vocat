@@ -1,8 +1,15 @@
-define [
-  'marionette', 'controllers/vocat_controller', 'views/submission/submission_layout', 'collections/submission_for_course_user_collection', 'collections/submission_for_group_collection', 'collections/project_collection', 'collections/user_collection', 'collections/group_collection'
-], (
-  Marionette, VocatController, SubmissionLayoutView, CourseUserSubmissionCollection, GroupSubmissionCollection, ProjectCollection, UserCollection, GroupCollection
-) ->
+define (require) ->
+
+  Marionette = require('marionette')
+  VocatController = require('controllers/vocat_controller')
+  CreatorDetailView = require('views/course_map/detail_creator')
+  SubmissionLayoutView = require('views/submission/submission_layout')
+  CourseUserSubmissionCollection = require('collections/submission_for_course_user_collection')
+  GroupSubmissionCollection = require('collections/submission_for_group_collection')
+  ProjectCollection = require('collections/project_collection')
+  UserCollection = require('collections/user_collection')
+  GroupCollection = require('collections/group_collection')
+
 
   class SubmissionController extends VocatController
 
@@ -11,6 +18,26 @@ define [
       group: new GroupCollection({}, {courseId: null})
       project: new ProjectCollection({})
     }
+
+    creatorDetail: (course, creator) ->
+      userModel = @collections.user.first()
+      view = new CreatorDetailView({
+        courseId: course
+        model: userModel
+        collection: new CourseUserSubmissionCollection()
+        standalone: true
+      })
+      window.Vocat.main.show(view)
+
+    groupDetail: (course, creator) ->
+      groupModel = @collections.group.first()
+      view = new CreatorDetailView({
+        courseId: course
+        model: groupModel
+        collection: new GroupSubmissionCollection()
+        standalone: true
+      })
+      window.Vocat.main.show(view)
 
     creatorProjectDetail: (course, creator, project) ->
       userModel = @collections.user.first()

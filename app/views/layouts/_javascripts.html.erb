@@ -14,7 +14,7 @@
   window.VocatUserRole = '<%= current_user_role %>';
   <% if @selected_course %>
   window.VocatUserCourseRole = '<%= @selected_course.role(current_user) %>';
-  window.VocatUserCourseAdministrator = <%= current_user.can?(:adminster, @selected_course) %>
+  window.VocatUserCourseAdministrator = <%= current_user.can?(:administer, @selected_course) %>
   <% else %>
   window.VocatUserCourseRole = null;
   <% end %>

@@ -7,6 +7,7 @@ class SubmissionSerializer < AbstractSubmissionSerializer
               :path,
               :role,
               :discussion_posts_count,
+              :new_posts_for_current_user?,
               :project,
               :creator,
               :creator_id,
@@ -17,6 +18,10 @@ class SubmissionSerializer < AbstractSubmissionSerializer
               :abilities,
               :current_user_published?,
               :current_user_percentage,
+              :evaluated_by_peers?,
+              :peer_score_percentage,
+              :evaluated_by_instructor?,
+              :instructor_score_percentage,
               :has_video?
 
   has_one :project
@@ -24,6 +29,10 @@ class SubmissionSerializer < AbstractSubmissionSerializer
   has_one :video
 
   protected
+
+  def new_posts_for_current_user?
+    object.new_posts_for_user?(scope)
+  end
 
   def abilities
     {

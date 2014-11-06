@@ -84,10 +84,19 @@ class Project < ActiveRecord::Base
     !rubric.nil?
   end
 
+  def evaluatable_by_peers?()
+    course.allows_peer_review?
+  end
+
+  def evaluatable_by_creator?()
+    course.allows_self_evaluation?
+  end
+
+
   # Deprecated
   def evaluatable()
     if Rails.env == :development
-      raise "Evaluatable method on Project is deprecated. Please eplaces with evaluatable?"
+      raise "Evaluatable method on Project is deprecated. Please replace with evaluatable?"
     end
     !rubric.nil?
   end

@@ -62,6 +62,10 @@ class Video < ActiveRecord::Base
     end
   end
 
+  def annotations_count
+    annotations.count
+  end
+
   # TODO: Another candidate for STI instead of this half-ass STI.
   def thumb
     case source
