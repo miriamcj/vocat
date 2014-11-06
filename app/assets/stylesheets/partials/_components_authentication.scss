@@ -39,7 +39,10 @@
     width: 125px;
     position: relative;
     left: -7px;
-    @include svg(baruch-logo)
+    @include svg(baruch-logo);
+    .ie9 & {
+      margin-bottom: 9px;
+    }
   }
   .submit-row {
     margin-top: .25em;
@@ -67,7 +70,13 @@
       text-transform: none;
       color: $white;
     }
-
+    .placeholder-fallback {
+      text-transform: uppercase; //OD
+      display: none;
+      .ie9 & {
+        display: block;
+      }
+    }
   }
 
 }
