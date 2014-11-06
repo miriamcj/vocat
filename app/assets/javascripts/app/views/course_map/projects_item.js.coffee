@@ -7,11 +7,6 @@ define (require) ->
 
   class CourseMapProjectsItem extends Marionette.ItemView
 
-#
-#    $('[data-behavior="dropdown"]').each( (index, el) ->
-#        new DropdownView({el: el, vent: Vocat.vent})
-#    )
-#
     tagName: 'th'
     template: template
     attributes: {
@@ -43,6 +38,7 @@ define (require) ->
         data.isGroup = false
         data.isUser = true
       data.courseId = @options.courseId
+      data.userCanAdministerCourse = window.VocatUserCourseAdministrator
       data
 
     initialize: (options) ->

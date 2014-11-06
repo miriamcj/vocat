@@ -1,3 +1,7 @@
 <th>
-  <a href="#">{{name}}</a>
+	{{#if userCanAdministerCourse}}
+		<a data-behavior="creator-name" href="#">{{name}}</a>
+	{{else}}
+		{{name}}
+	{{/if}}
 </th>

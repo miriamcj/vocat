@@ -7,9 +7,9 @@ define ['marionette', 'hbs!templates/course_map/creators_item'], (Marionette, te
     template: template
 
     triggers: {
-      'mouseover a': 'active'
-      'mouseout a': 'inactive'
-      'click a':   'detail'
+      'mouseover [data-behavior="creator-name"]': 'active'
+      'mouseout [data-behavior="creator-name"]': 'inactive'
+      'click [data-behavior="creator-name"]':   'detail'
     }
 
     attributes: {
@@ -25,6 +25,7 @@ define ['marionette', 'hbs!templates/course_map/creators_item'], (Marionette, te
         data.isGroup = false
         data.isUser = true
       data.courseId = @options.courseId
+      data.userCanAdministerCourse = window.VocatUserCourseAdministrator
       data
 
     onActive: () ->
