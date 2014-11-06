@@ -156,6 +156,7 @@ $columnWidth: ($container / $columns) - 12;
 
 .matrix-col-headers, .matrix-cells {
   border-left: 1px solid $grayLight;
+  border-collapse: separate;
 }
 
 
@@ -332,5 +333,3 @@ $columnWidth: ($container / $columns) - 12;
     }
   }
 }
-
-
