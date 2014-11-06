@@ -127,7 +127,7 @@ define (require) ->
         # TODO: the +1 on the height here is to make the elements line up in chrome. We will likely
         # need to figure out why chrome is rendering two elements that are ostensibly the same height
         # with a 1px height difference.
-        targetHeight = @$el.find('[data-match-height-source]').outerHeight() + 1
+        targetHeight = @$el.find('[data-match-height-source]').outerHeight() - .4
         # Work around for chrome rendering bug when height of th in table is adjusted.
         @$el.find('[data-match-height-target]').outerHeight(targetHeight).hide().show(0)
         @adjustRowHeights()
