@@ -40,10 +40,11 @@ define (require) ->
     }
     coursemap: {
       'courses/:course/users/evaluations': 'userGrid'
+      'courses/:course/groups/evaluations': 'groupGrid'
       'courses/:course/users/evaluations/creator/:creator': 'userCreatorDetail'
       'courses/:course/users/evaluations/project/:project': 'userProjectDetail'
+      # TODO: Can the following route be removed? Is it still active?
       'courses/:course/users/evaluations/creator/:creator/project/:project': 'userCreatorProjectDetail'
-      'courses/:course/groups/evaluations': 'groupGrid'
       'courses/:course/groups/evaluations/creator/:creator': 'groupCreatorDetail'
       'courses/:course/groups/evaluations/project/:project': 'groupProjectDetail'
       'courses/:course/groups/evaluations/creator/:creator/project/:project': 'groupCreatorProjectDetail'
