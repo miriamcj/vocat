@@ -131,6 +131,7 @@ define (require) ->
         @ui.disableEdit.hide()
       else
         @ui.enableEdit.show()
+        @ui.disableEdit.hide()
 
     # See https://github.com/marionettejs/backbone.marionette/wiki/Adding-support-for-sorted-collections
     appendHtml: (collectionView, childView, index) ->
