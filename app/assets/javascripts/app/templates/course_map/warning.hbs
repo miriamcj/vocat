@@ -8,7 +8,8 @@
 				group submissions.
 			</p>
 			<p class="small">
-					<a href="/courses/{{courseId}}/manage/groups" class="primary-button new-button">Create Groups for This Course</a>
+				<a href="/courses/{{courseId}}/manage/groups" class="primary-button new-button">Manage Course Groups</a>
+				<a href="/courses/{{courseId}}/users/evaluations" class="secondary-button back-button">Show Individual Evaluations</a>
 			</p>
 			{{/if}}
 		{{/if}}
@@ -36,7 +37,8 @@
 			{{to_lower creatorType}} submissions.
 		</p>
 		<p class="small">
-			<a href="/courses/{{courseId}}/manage/projects/new" class="primary-button new-button">Create a New Project for This Course</a>
+			<a href="/courses/{{courseId}}/manage/projects/new" class="primary-button new-button">Create a Group Project</a>
+			<a href="/courses/{{courseId}}/users/evaluations" class="secondary-button back-button">Show Individual Evaluations</a>
 		</p>
 		{{/if}}
 	{{/if}}

@@ -26,14 +26,18 @@ define (require) ->
         detail: '[data-region="detail"]'
         sliderLeft: '[data-behavior="matrix-slider-left"]'
         sliderRight: '[data-behavior="matrix-slider-right"]'
-        groupsInput: '[data-behavior="show-groups"]'
-        usersInput: '[data-behavior="show-users"]'
+        viewToggle: '[data-behavior="view-toggle"]';
         hideOnWarning: '[data-behavior="hide-on-warning"]'
       }
 
       triggers: {
         'click [data-behavior="matrix-slider-left"]':   'slider:left'
         'click [data-behavior="matrix-slider-right"]':  'slider:right'
+        'change @ui.viewToggle': {
+          event: 'view:toggle'
+          preventDefault: false
+          stopPropagation: false
+        }
       }
 
       regions: {
@@ -98,7 +102,6 @@ define (require) ->
         @warning.show(new WarningView({creatorType: creatorType, warningType: warningType, courseId: @courseId}))
         @ui.hideOnWarning.hide()
 
-
       setActive: (models) ->
         @collections.user.setActive(if models.user? then models.user.id else null)
         @collections.group.setActive(if models.group? then models.group.id else null)
@@ -106,15 +109,22 @@ define (require) ->
 
       onShowGroups: () ->
         @showGroupViews()
-        @ui.groupsInput.prop('checked', true)
-        @ui.usersInput.prop('checked', false)
+        @$el.find('#view-individuals').prop('checked', false)
+        @$el.find('#view-groups').prop('checked', true)
         Vocat.router.navigate("courses/#{@courseId}/groups/evaluations")
 
       onShowUsers: () ->
         @showUserViews()
-        @ui.groupsInput.prop('checked', false)
-        @ui.usersInput.prop('checked', true)
+        @$el.find('#view-individuals').prop('checked', true)
+        @$el.find('#view-groups').prop('checked', false)
         Vocat.router.navigate("courses/#{@courseId}/users/evaluations")
+
+      onViewToggle: () ->
+        val = @$el.find('[data-behavior="view-toggle"]:checked').val()
+        if val == 'individuals'
+          @triggerMethod('show:users')
+        else if val == 'groups'
+          @triggerMethod('show:groups')
 
       onOpenDetailProject: (args) ->
         if @creatorType == 'User'
@@ -140,7 +150,6 @@ define (require) ->
           model: args.user
         })
         @openDetail(view)
-
 
       onOpenDetailGroup: (args) ->
         @showGroupViews()
@@ -169,7 +178,6 @@ define (require) ->
         @openDetail(view)
 
       onOpenDetailCreatorProject: (args) ->
-        console.log 'called'
         if !_.isObject(args.project)
           args.project = @collections.project.get(args.project)
 
@@ -211,15 +219,12 @@ define (require) ->
       onCloseDetail: (args) ->
         @ui.detail.hide()
         @detail.empty()
-
         if @creatorType == 'Group'
           Vocat.router.navigate("courses/#{@courseId}/groups/evaluations")
         else if @creatorType == 'User'
           Vocat.router.navigate("courses/#{@courseId}/users/evaluations")
-
         @recalculateMatrix()
         @restoreScroll()
-
 
       onEvaluationsPublish: (project) ->
         endpoint = "#{project.url()}/publish_evaluations"
@@ -252,6 +257,12 @@ define (require) ->
           error: (jqXHR, textStatus, error) =>
             Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 4000, msg: "Unable to unpublish submissions."})
         })
+
+      serializeData: () ->
+        out = {
+          creatorType: @creatorType
+        }
+        out
 
       onColActive: (args) ->
         # For now, do nothing.

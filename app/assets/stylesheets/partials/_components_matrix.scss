@@ -333,3 +333,14 @@ $columnWidth: ($container / $columns) - 12;
     }
   }
 }
+
+.matrix-view-toggle {
+  padding: 23px 20px;
+  input, label {
+    cursor: pointer;
+  }
+  span.label {
+    color: $tealDark;
+    font-size: .8em;
+  }
+}

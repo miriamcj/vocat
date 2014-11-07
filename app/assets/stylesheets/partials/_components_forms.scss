@@ -31,6 +31,9 @@ form.formgrid, div.fake-formgrid {
   margin-right: -$formPadding;
   margin-bottom: -2em;
 }
+form.formgrid-tight {
+  margin: 0
+}
 
 .formgrid--messaging {
   @extend %form-wide-one-whole;
@@ -46,13 +49,14 @@ fieldset + fieldset {
   margin-top: $verticalSpace;
 }
 
+label, .label {
+  @extend %label;
+  display: block;
+  margin-bottom: $verticalSpaceTightest;
+}
+
 .formgrid {
 
-  label, .label {
-    @extend %label;
-    display: block;
-    margin-bottom: $verticalSpaceTightest;
-  }
   p {
     margin-bottom: $verticalSpaceTightest;
   }
