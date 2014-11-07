@@ -10,7 +10,7 @@
 
 %proto-input {
 //  @include box-sizing(content-box);
-  height: 2.2em;
+  height: 2.12em;
   padding: 0px 0px 0px .8em;
   outline: none;
   @include font-body;
@@ -189,10 +189,6 @@ $spacingUnit: $mediumUnitPadding * .75;
       line-height: $theta;
       font-size: $theta;
     }
-    input {
-      // Hack that needs to be fixed.
-      border-bottom: 2px solid $grayMedium !important;
-    }
   }
 }
 
@@ -313,6 +309,3 @@ select.from, select.to {
     }
   }
 }
-
-
-
