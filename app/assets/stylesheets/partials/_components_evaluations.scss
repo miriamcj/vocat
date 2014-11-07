@@ -120,6 +120,7 @@ ul.evaluations-hidden {
   position: relative;
   background: $defaultColor;
   height: $barHeight;
+  cursor: pointer;
   .range-secondary &, .range-tertiary & {
     height: $secondaryBarHeight;
   }
@@ -233,6 +234,8 @@ ul.evaluations-hidden {
     width: $editableBarHeight * 1.25;
     z-index: 20;
     top: ($editableBarHeight * .25 * -1) * .5;
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
   }
   .range--handle {
     text-align: center;

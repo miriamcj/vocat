@@ -336,6 +336,8 @@ label.switch-label:after,
   width: $switchWidth;
   background-color: $grayMedium;
   @include transition($fastTransition, all, $timing);
+  -webkit-transition-duration: $fastTransition;
+  transition-duration: $fastTransition;
 }
 
 .switch label:after {
@@ -352,6 +354,8 @@ label.switch-label:after,
 .switch-text {
   text-align: left;
   @include transition($fastTransition, all, $timing);
+  -webkit-transition-duration: $fastTransition;
+  transition-duration: $fastTransition;
   font-size: $kappa;
   color: $white;
   font-weight: $semibold;
