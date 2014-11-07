@@ -49,13 +49,13 @@ fieldset + fieldset {
   margin-top: $verticalSpace;
 }
 
-label, .label {
-  @extend %label;
-  display: block;
-  margin-bottom: $verticalSpaceTightest;
-}
-
 .formgrid {
+
+  label, .label {
+    @extend %label;
+    display: block;
+    margin-bottom: $verticalSpaceTightest;
+  }
 
   p {
     margin-bottom: $verticalSpaceTightest;
