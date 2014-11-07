@@ -12,9 +12,14 @@ define (require) ->
     tagName: 'ul'
     className: 'evaluation-collections'
     childView: TheirEvaluationsCollection
+    childViewOptions: () ->
+      {
+        rubric: @rubric
+      }
 
     initialize: (options) ->
       @evaluations= Marionette.getOption(@, 'evaluations')
+      @rubric = options.rubric
 
       @collection = new Backbone.Collection
       evalTypes = _.uniq(@evaluations.pluck('evaluator_role'))

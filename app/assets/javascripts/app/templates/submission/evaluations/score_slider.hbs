@@ -9,7 +9,14 @@
       </ul>
       <span data-behavior="range-fill" style="width: {{percentage}}%" class="range--fill"></span>
       <div class="grabber-wrapper">
-        <span data-behavior="range-grabber" class="range--grabber"></span>
+        <span data-behavior="range-grabber" class="range--grabber">
+				  <span style="display: none;" data-behavior="placard" class="placard">
+						<span data-behavior="placard-header" class="placard--header">{{placard_title}}</span>
+					  <span data-behavior="placard-content" class="placard--content">
+						  {{placard_desc}}
+					  </span>
+				  </span>
+        </span>
       </div>
     </div>
     <div class="range--handle">

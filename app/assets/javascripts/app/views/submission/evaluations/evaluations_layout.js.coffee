@@ -10,8 +10,7 @@ define (require) ->
   MyEvaluations = require('views/submission/evaluations/my_evaluations')
   MyEvaluationsCreate = require('views/submission/evaluations/my_evaluations_create')
   SaveNotifyView = require('views/submission/evaluations/save_notify')
-
-  Rubric = require('models/rubric')
+  RubricModel = require('models/rubric')
 
   class EvaluationsLayout extends Marionette.LayoutView
 
@@ -42,7 +41,7 @@ define (require) ->
       if m?
         Vocat.vent.trigger('notification:empty')
         m.save({}, {success: () =>
-          Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '3000',  msg: 'Your evaluation has been saved.'})
+          @trigger('evaluation:save:success')
           @model.fetch()
         })
 
@@ -50,8 +49,6 @@ define (require) ->
       m = @myEvaluationModel()
       if m?
         m.revert()
-#        Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '3000',  msg: 'Your evaluation has been reverted to its saved state.'})
-
 
     # This generally is triggered by the child empty view
     onEvaluationNew: () ->
@@ -61,7 +58,6 @@ define (require) ->
           @evaluations.add(evaluation)
           @vent.triggerMethod('evaluation:created')
           @model.unsetMyEvaluation()
-#          Vocat.vent.trigger('error:add', {level: 'notice', msg: 'Evaluation successfully created'})
           @showMyEvaluations(true)
         , error: () =>
           Vocat.vent.trigger('error:add', {level: 'error', msg: 'Unable to create evaluation. Perhaps you do not have permission to evaluate this submission.'})
@@ -72,6 +68,8 @@ define (require) ->
     initialize: (options) ->
       @vent = Marionette.getOption(@, 'vent')
       @courseId = Marionette.getOption(@, 'courseId')
+      @rubric = new RubricModel(@model.get('project').rubric)
+
       @evaluations = new EvaluationCollection(@model.get('evaluations'), {courseId: @courseId})
 
     myEvaluationModel: () ->
@@ -79,11 +77,11 @@ define (require) ->
 
     showMyEvaluations: (openOnShow = false) ->
       if @myEvaluationModel()?
-        @myEvaluations.show(new MyEvaluations({model: @myEvaluationModel(), vent: @}))
+        @myEvaluations.show(new MyEvaluations({model: @myEvaluationModel(), rubric: @rubric, vent: @}))
         if openOnShow == true
           @myEvaluations.currentView.triggerMethod('toggle:child')
       else
-        @myEvaluations.show(new MyEvaluationsCreate({evaluations: @evaluations, vent: @}))
+        @myEvaluations.show(new MyEvaluationsCreate({evaluations: @evaluations, rubric: @rubric, vent: @}))
 
     showTheirEvaluations: () ->
       if (@myEvaluationModel() && @evaluations.length == 1) || @evaluations.length == 0
@@ -92,10 +90,9 @@ define (require) ->
           @theirEvaluations.show(new TheirEvaluationsEmpty())
       else
         @theirEvaluations.$el.removeClass('evaluation-collection-empty')
-        @theirEvaluations.show(new TheirEvaluations({evaluations: @evaluations}))
+        @theirEvaluations.show(new TheirEvaluations({evaluations: @evaluations, rubric: @rubric}))
 
     onRender: () ->
-
       @showTheirEvaluations()
       if @model.get('abilities').can_evaluate == true
         @showMyEvaluations()

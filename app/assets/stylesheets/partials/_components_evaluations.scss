@@ -219,6 +219,55 @@ ul.evaluations-hidden {
   }
 }
 
+$placardWidth: 300px;
+$placardArrowSize: $placardWidth * .05;
+
+.placard {
+  display: block;
+  position: absolute;
+  background: $grayDarker;
+  color: $white;
+  padding: 1em;
+  bottom: $placardArrowSize;
+  width: $placardWidth;
+  left: -$placardWidth * .5;
+  line-height: 1.25em;
+  .placard--content {
+    display: block;
+    font-size: $iota;
+  }
+  .placard--header {
+    display: block;
+    font-size: $eta;
+    color: $tealLight;
+    font-weight: $regular;
+    margin-bottom: .5em;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    bottom: -$placardArrowSize;
+    left: ($placardWidth * .5) - $placardArrowSize;
+    border-left: $placardArrowSize solid transparent;
+    border-right: $placardArrowSize solid transparent;
+    border-top: $placardArrowSize solid $grayDarker;
+  }
+  .range--fill & {
+    right: -$placardWidth * .5;
+    left: auto;
+    bottom: $placardArrowSize + $secondaryBarHeight;
+    z-index: 10;
+  }
+  .range--grabber & {
+    bottom: 35px;
+    left: (-$placardWidth * .5) + 10px;
+  }
+}
+
+
 .range-editable {
   .grabber-wrapper {
     position: relative;
@@ -226,6 +275,7 @@ ul.evaluations-hidden {
   }
   .range--grabber {
     display: block;
+    position: relative;
     width: 10px;
     background: $white;
     border: 5px solid $instructorFillColor;

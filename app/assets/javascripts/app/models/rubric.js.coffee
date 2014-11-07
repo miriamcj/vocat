@@ -100,6 +100,17 @@ define (require) ->
     setHigh: (value) ->
       @set('high',parseInt(value))
 
+    getRangeForScore: (score) ->
+      @get('ranges').find((range) ->
+        s = parseInt(score)
+        s >= range.get('low') && s <= range.get('high')
+      )
+
+    getDescriptionByFieldAndScore: (fieldId, score) ->
+      range = @getRangeForScore(score)
+      desc = @getCellDescription(fieldId, range.id)
+      desc
+
     getCellDescription: (fieldId, rangeId) ->
       cell = @get('cells').findWhere({field: fieldId, range: rangeId})
       if cell? then cell.get('description')

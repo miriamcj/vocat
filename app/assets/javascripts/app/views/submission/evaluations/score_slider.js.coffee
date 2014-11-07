@@ -17,6 +17,8 @@ define (require) ->
       'mousedown @ui.grabber': 'onGrabberMouseDown'
       'dragstop @ui.grabber': 'onDragStop'
       'click @ui.track': 'onTrackClick'
+      'mouseenter @ui.grabber': 'showPlacard'
+      'mouseout @ui.grabber': 'hidePlacard'
     }
 
     ui: {
@@ -24,7 +26,17 @@ define (require) ->
       fill: '[data-behavior="range-fill"]'
       track: '[data-behavior="range-track"]'
       score: '[data-behavior="score"]'
+      placardTitle: '[data-behavior="placard-header"]'
+      placardContent: '[data-behavior="placard-content"]'
+      placard: '[data-behavior="placard"]'
     }
+
+    showPlacard: (e) ->
+      @ui.placard.fadeIn()
+
+    hidePlacard: (e) ->
+      if !@ui.grabber.hasClass('ui-draggable-dragging')
+        @ui.placard.hide()
 
     currentPosition: () ->
       @ui.grabber.position().left
@@ -80,6 +92,14 @@ define (require) ->
     updateScore: (score) ->
       @ui.score.html(score)
 
+    updatePlacard: (score) ->
+      if _.isNumber(score) && !_.isNaN(score)
+        range = @rubric.getRangeForScore(score)
+        desc = @rubric.getCellDescription(@model.id, range.id)
+        @ui.placardContent.html(desc)
+        @ui.placardTitle.html(range.get('name'))
+
+    # This is the main method for setting the current score.
     updateBarAndGrabberPosition: (position, animate = false, updateModel = true) ->
       @updateFillPosition(position, animate, updateModel)
       @updateGrabberPosition(position, animate, updateModel)
@@ -97,7 +117,9 @@ define (require) ->
       @trigger('updated')
 
     updateFillPosition: (position, animate = false, updateModel = true) ->
-      @updateScore(@translatePositionToScore(position))
+      score = @translatePositionToScore(position)
+      @updateScore(score)
+      @updatePlacard(score)
       position = position + 5
       if animate == true
         @ui.fill.animate({width: "#{position}px"}, 250)
@@ -125,6 +147,7 @@ define (require) ->
 
     initialize: (options) ->
       @vent = options.vent
+      @rubric = options.rubric
       @listenTo(@vent, 'range:open', () =>
         @updatePositionFromModel()
       )

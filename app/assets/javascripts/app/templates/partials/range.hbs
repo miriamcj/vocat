@@ -3,7 +3,16 @@
     {{ titlecase title }}
   </h4>
   <div class="range--track">
-	  <span style="width: {{ percentage }}%" class="range--fill"></span>
+	  <span style="width: {{ percentage }}%" class="range--fill">
+		  {{#if placard}}
+		  <span style="display: none;" data-behavior="range-placard" class="placard">
+				<span class="placard--header">{{placard_title}}</span>
+			  <span class="placard--content">
+				  {{placard_desc}}
+			  </span>
+		  </span>
+		  {{/if}}
+	  </span>
     <div class="range--handle"><b></b>{{to_i percentage}}%</div>
   </div>
 </div>

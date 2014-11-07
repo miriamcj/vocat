@@ -27,11 +27,13 @@ define (require) ->
       publishCheckbox: '[data-behavior="publish-switch"]'
       rangeFill: '[data-behavior="range-fill"]'
       publishSwitch: '.switch'
+      notice: '[data-behavior="notice"]'
     }
 
     childViewOptions: () ->
       {
         vent: @
+        rubric: @rubric
       }
 
     behaviors: {
@@ -89,6 +91,14 @@ define (require) ->
       else
         @collection = new ScoreCollection()
 
+    showSaveSuccessNotice: () ->
+      @ui.notice.html('Your evaluation has been successfully saved.')
+      @ui.notice.fadeIn()
+      setTimeout(() =>
+        if @ui.notice.length > 0 && _.isFunction(@ui.notice.slideUp)
+          @ui.notice.slideUp()
+      ,5000)
+
     setupListeners: () ->
       @listenTo(@, 'childview:updated', () =>
         @vent.triggerMethod('evaluation:dirty')
@@ -97,9 +107,13 @@ define (require) ->
       @listenTo(@model, 'change', () =>
         @updatePublishedUIState()
       )
+      @listenTo(@vent, 'evaluation:save:success', () =>
+        @showSaveSuccessNotice()
+      )
 
     initialize: (options) ->
       @vent = options.vent
+      @rubric = options.rubric
       @setupListeners()
       @updateCollectionFromModel()
 

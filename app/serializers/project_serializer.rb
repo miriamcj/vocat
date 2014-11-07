@@ -17,7 +17,7 @@ class ProjectSerializer < ActiveModel::Serializer
               :abilities,
               :course_id
 
-  #has_one :rubric
+  has_one :rubric
 
   def description
     simple_format(object.description)

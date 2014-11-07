@@ -15,3 +15,4 @@ define (require) ->
 
     initialize: (options) ->
       @vent = options.vent
+      @rubric = options.rubric

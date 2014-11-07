@@ -12,6 +12,10 @@ define (require) ->
     tagName: 'li'
     childView: ChildView
     childViewContainer: '[data-behavior="child-container"]:first'
+    childViewOptions: () ->
+      {
+      rubric: @rubric
+      }
 
     behaviors: {
       expandableRange: {
@@ -24,6 +28,7 @@ define (require) ->
 
     initialize: (options) ->
       @collection = @model.get('evaluations')
+      @rubric = options.rubric
 
     serializeData: () ->
       {

@@ -54,7 +54,8 @@ define (require) ->
 
     onSubmissionLoaded: () ->
       @discussion.show(new DiscussionView({vent: @vent, submission: @submission}))
-      @evaluations.show(new EvaluationsView({vent: @vent, project: @project, model: @submission, courseId: @courseId}))
+      if @submission.get('project').evaluatable
+        @evaluations.show(new EvaluationsView({vent: @vent, rubric: @rubric, project: @project, model: @submission, courseId: @courseId}))
       @assets.show(new AssetsView({vent: @vent, model: @submission, courseId: @courseId}))
 
     initialize: (options) ->
