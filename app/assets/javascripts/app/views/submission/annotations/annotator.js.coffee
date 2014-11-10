@@ -37,7 +37,7 @@ define (require) ->
           success: (annotation) =>
             @collection.add(annotation)
             @render()
-            #@vent.triggerMethod('player:start', {})
+            @vent.triggerMethod('player:start', {})
           error: (annotation, xhr) =>
             @vent.trigger('error:clear')
             @vent.trigger('error:add', {level: 'error', msg: xhr.responseJSON.errors})
