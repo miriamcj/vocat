@@ -1,0 +1,25 @@
+<div data-behavior="range" class="range {{range_class}}">
+  <h4 class="range--title">
+    {{ titlecase title }}
+  </h4>
+  <div class="range--track">
+	  <span style="width: {{ percentage }}%" class="range--fill">
+		  {{#if placard}}
+		  <span style="display: none;" data-behavior="range-placard" class="placard">
+				<span class="placard--header">{{placard_title}}</span>
+			  <span class="placard--content">
+				  {{placard_desc}}
+			  </span>
+		  </span>
+		  {{/if}}
+	  </span>
+    {{#if score}}
+	    <div class="range--handle"><b></b>{{score}}/{{possible}}</div>
+    {{else}}
+	    <div class="range--handle"><b></b>{{to_i percentage}}%</div>
+    {{/if}}
+  </div>
+</div>
+
+
+
