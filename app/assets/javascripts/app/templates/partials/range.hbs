@@ -13,7 +13,11 @@
 		  </span>
 		  {{/if}}
 	  </span>
-    <div class="range--handle"><b></b>{{to_i percentage}}%</div>
+    {{#if score}}
+	    <div class="range--handle"><b></b>{{score}}/{{possible}}</div>
+    {{else}}
+	    <div class="range--handle"><b></b>{{to_i percentage}}%</div>
+    {{/if}}
   </div>
 </div>
 

@@ -51,9 +51,12 @@ define (require) ->
       @setupEvents()
 
     serializeData: () ->
+
       sd ={
         title: @model.get('evaluator_name')
         percentage: Math.round(@model.get('total_percentage'))
         score_details: @model.scoreDetailsWithRubricDescriptions(@rubric)
+        points_possible: @model.get('points_possible')
+        total_score: @model.get('total_score')
       }
       sd
