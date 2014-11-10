@@ -41,8 +41,9 @@ input%proto-button {
     content: "";
     display: block;
     padding: 0;
-    height: 1.5em;
-    width: 1.5em;
+    // Switched to pixels for sharper rendering in IE10, 11
+    height: 21px;
+    width: 21px;
     position: absolute;
     top: .50em;
     right: .55em;
@@ -56,8 +57,8 @@ input%proto-button {
     content: "";
     display: block;
     padding: 0;
-    height: 1.5em;
-    width: 1.5em;
+    height: 21px;
+    width: 21px;
     position: absolute;
     top: .55em;
     left: .55em;
