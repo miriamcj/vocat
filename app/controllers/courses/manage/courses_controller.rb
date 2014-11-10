@@ -10,12 +10,12 @@ class Courses::Manage::CoursesController < ApplicationController
 
   def update
     @course.update_attributes!(course_params)
-    respond_with :course, :location => course_manage_path(@course), notice: 'Course settings were successfully updated.'
+    flash[:notice] = 'Course settings were successfully updated.'
+    respond_with :course, :location => course_manage_path(@course)
   end
 
   def enrollment
     @course = Course.find params[:course_id]
   end
-
 
 end
