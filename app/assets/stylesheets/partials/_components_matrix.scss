@@ -329,7 +329,6 @@ $columnWidth: ($container / $columns) - 12;
           @include svg(checkbox-checked-gray);
         }
       }
-
     }
   }
 }
@@ -338,9 +337,15 @@ $columnWidth: ($container / $columns) - 12;
   padding: 23px 20px;
   input, label {
     cursor: pointer;
+    @include respond($baikal) {
+      font-size: .7em;
+    }
   }
   span.label {
     color: $tealDark;
     font-size: .8em;
+    @include respond($baikal) {
+      font-size: .7em;
+    }
   }
 }

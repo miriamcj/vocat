@@ -64,17 +64,6 @@ a.user-nav--toggle {
     line-height: 60px;
     position: relative;
     padding: 0 0 0 $headerUnitPadding;
-//    padding: 0 $headerUnitPadding + $iconSizeMedium 0 $headerUnitPadding;
-//    &::after {
-//      position: absolute;
-//      right: 0;
-//      @include svg(arrow-down-white);
-//      content: "";
-//      width: $iconSizeMedium;
-//      height: $iconSizeMedium;
-//      top: $headerHeight / 2 - ($iconSizeMedium / 2);
-//    }
-
   }
 }
 .user-nav--options {
@@ -82,6 +71,13 @@ a.user-nav--toggle {
   width: 100%;
   top: $headerHeight;
   right: 1px;
+  @include respond($baikal) {
+    right: 0;
+    left: auto;
+    width: 150px;
+  }
+
+
 }
 
 
