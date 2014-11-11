@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if IE 9]>         <html class="no-js ie9"> <![endif]-->
+<!--[if !IE]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>404: Page Not found</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <script type="text/javascript" src="//use.typekit.net/ytz4hur.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+  <%= stylesheet_link_tag "application", :media => "all", :digest => true %>
+</head>
+
+<body class="bg-dark no-course">
+<header class="page-header">
+
+  <div class="page-header--navigation-wrapper">
+    <div class="page-header--navigation">
+      <nav class="page-header--logo-nav">
+        <a href="/"><%= image_tag("png/logo.png", :alt => "VOCAT") %></a>
+      </nav>
+    </div>
+  </div>
+</header>
+<div class="container">
+  <div class="page-content">
+    <div id="splash-notification-container">
+      <h1 class="heading-primary-error-page">The page you were looking for doesn't exist.</h1>
+      <p>You may have mistyped the address or the page may have moved.</p>
+      <p>If you believe you have reached this message in error, please <a href="http://vocat.io/help/">contact the Vocat Support team</a>.</p>
+      <p><a href="/">Return to Vocat</a></p>
+    </div>
+  </div>
+</div>
+
+<%= javascript_include_tag 'vendor/modernizr/modernizr-2.6.2' %>
+
+</body>
+</html>

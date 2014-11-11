@@ -13,7 +13,17 @@ namespace :deploy do
 
   before :deploy, 'deploy:check_revision'
   after :finishing, 'deploy:cleanup'
-  after :published, :restart
+
+  desc 'Copy Error Pages'
+  task :copy_error_pages do
+    on roles(:app) do
+      within "#{deploy_to}/current" do
+        execute "cp public/assets/500-*.html public/500.html"
+        execute "cp public/assets/404-*.html public/404.html"
+        execute "cp public/assets/422-*.html public/422.html"
+      end
+    end
+  end
 
   desc 'Restart application'
   task :restart do
@@ -22,5 +32,9 @@ namespace :deploy do
       execute "sudo start #{fetch(:application)}"
     end
   end
+
+  after :published, :copy_error_pages
+  after :published, :restart
+
 
 end

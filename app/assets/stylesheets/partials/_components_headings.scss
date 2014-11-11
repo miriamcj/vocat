@@ -15,7 +15,20 @@
       text-decoration: underline;
     }
   }
+}
 
+.heading-primary-error-page {
+  @extend %condensedHeading;
+  @extend %spacedHeading;
+  margin-bottom: 1em;
+  font-size: $gamma;
+  color: $tealLight;
+  a {
+    color: $grayDark;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
 .heading-secondary {
