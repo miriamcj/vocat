@@ -18,9 +18,9 @@ namespace :deploy do
   task :copy_error_pages do
     on roles(:app) do
       within "#{deploy_to}/current" do
-        execute "cp public/assets/500-*.html public/500.html"
-        execute "cp public/assets/404-*.html public/404.html"
-        execute "cp public/assets/422-*.html public/422.html"
+        execute "cp #{deploy_to}/current/public/assets/500-*.html #{deploy_to}/current/public/500.html"
+        execute "cp #{deploy_to}/current/public/assets/404-*.html #{deploy_to}/current/public/404.html"
+        execute "cp #{deploy_to}/current/public/assets/422-*.html #{deploy_to}/current/public/422.html"
       end
     end
   end
@@ -33,8 +33,8 @@ namespace :deploy do
     end
   end
 
-  after :published, :copy_error_pages
   after :published, :restart
+  after :finished, :copy_error_pages
 
 
 end
