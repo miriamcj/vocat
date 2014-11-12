@@ -27,6 +27,7 @@ class SubmissionSerializer < AbstractSubmissionSerializer
   has_one :project
   has_one :creator
   has_one :video
+  has_many :assets
 
   protected
 

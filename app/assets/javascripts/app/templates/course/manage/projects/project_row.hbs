@@ -2,7 +2,7 @@
   <th>
     <a href="projects/{{id}}">
     {{#if abilities.can_update}}
-      <a href="projects/{{id}}/edit">{{name}}</a>
+      <a href="projects/{{id}}/edit">{{name}} {{listing_order_position}}</a>
     {{else}}
       {{name}}
     {{/if}}

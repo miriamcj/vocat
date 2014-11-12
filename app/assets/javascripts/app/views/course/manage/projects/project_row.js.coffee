@@ -41,3 +41,4 @@ define (require) ->
       @trigger("update-sort",[@model, i]);
 
     initialize: (options) ->
+      console.log @model.attributes

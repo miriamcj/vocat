@@ -1,7 +1,11 @@
 class Submission < ActiveRecord::Base
 
   has_one     :course, :through => :project
+
+  # TODO: Remove this relation
   has_one     :video, :dependent => :destroy
+
+  has_many    :assets
   has_many    :evaluations, :dependent => :destroy
   has_many    :discussion_posts, :dependent => :destroy
   belongs_to  :project

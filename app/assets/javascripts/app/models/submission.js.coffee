@@ -3,8 +3,12 @@ define (require) ->
   Backbone = require('backbone')
   VideoModel = require('models/video')
   EvaluationModel = require('models/evaluation')
+  ProjectModel = require('models/project')
+  AssetCollection = require('collections/asset_collection')
 
   class SubmissionModel extends Backbone.Model
+
+    assetCollection : null
 
     urlRoot: () ->
       '/api/v1/submissions'
@@ -75,8 +79,17 @@ define (require) ->
       else
         promise.resolve()
 
+    assets: () ->
+      @assetCollection
+
+    project: () ->
+      if !@projectModel?
+        @projectModel = new ProjectModel(@get('project'))
+      @projectModel
+
     initialize: () ->
       @listenTo(@, 'change:video', () =>
         @updateVideo()
       )
       @updateVideo()
+      @assetCollection = new AssetCollection(@get('assets'))

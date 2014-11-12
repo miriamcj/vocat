@@ -4,7 +4,7 @@ define (require) ->
   template = require('hbs!templates/submission/submission_layout')
   DiscussionView = require('views/discussion/discussion')
   EvaluationsView = require('views/submission/evaluations/evaluations_layout')
-  AssetsView = require('views/submission/assets/assets_layout')
+  AssetsView = require('views/assets/assets_layout')
   ModalGroupMembershipView = require('views/modal/modal_group_membership')
 
   class SubmissionLayout extends Marionette.LayoutView
@@ -56,7 +56,7 @@ define (require) ->
       @discussion.show(new DiscussionView({vent: @vent, submission: @submission}))
       if @submission.get('project').evaluatable
         @evaluations.show(new EvaluationsView({vent: @vent, rubric: @rubric, project: @project, model: @submission, courseId: @courseId}))
-      @assets.show(new AssetsView({vent: @vent, model: @submission, courseId: @courseId}))
+      @assets.show(new AssetsView({vent: @vent, collection: @submission.assets(), model: @submission, courseId: @courseId}))
 
     initialize: (options) ->
       @options = options || {}
