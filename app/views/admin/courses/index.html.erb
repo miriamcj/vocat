@@ -47,6 +47,7 @@
         <tr>
           <th class="">Number</th>
           <th class="">Name</th>
+          <th class="">Projects</th>
           <th class="">Instructor</th>
           <th class="">Section</th>
           <th class="">Semester</th>
@@ -58,7 +59,8 @@
           <% @courses.each do |course| %>
             <tr>
               <th><%= link_to "#{course.department}#{course.number}", course_user_evaluations_path(course) %></th>
-              <td><%= course.name %></td>
+              <th><%= link_to course.name, course_user_evaluations_path(course) %></th>
+              <td><%= course.projects.count %></td>
               <td><%= course.evaluators.pluck(:last_name).join(', ') %></td>
               <td><%= course.section %></td>
               <td><%= "#{course.semester} #{course.year}" %></td>
