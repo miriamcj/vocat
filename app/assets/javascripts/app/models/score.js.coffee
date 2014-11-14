@@ -5,6 +5,7 @@ define ['backbone'], (Backbone) ->
     getTicks: () ->
       h = parseInt(@.get('high'))
       l = parseInt(@.get('low'))
+      l = 0
       possible = h - l
       if possible < 0
         tickCount = 1
