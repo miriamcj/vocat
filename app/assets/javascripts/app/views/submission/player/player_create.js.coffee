@@ -43,10 +43,11 @@ define (require) ->
       @vent = Marionette.getOption(@, 'vent')
 
     serializeData: () ->
-      {
-        s3Bucket: Vocat.S3Bucket
-        AWSPublicKey: Vocat.AWSPublicKey
+      sd = {
+        s3Bucket: window.VocatS3Bucket
+        AWSPublicKey: window.VocatAWSPublicKey
       }
+      sd
 
     saveModel: (attributes) ->
       @model.save({video_attributes: attributes},{url: @model.updateUrl(), success: () =>
