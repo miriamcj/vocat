@@ -19,6 +19,8 @@ class Admin::CoursesController < Admin::AdminController
       :evaluator => params[:evaluator]
     }
     @courses = Course.search(search).page params[:page]
+    @page = params[:page] || 1
+    @stats = Statistics::admin_stats
     @course_request_count = CourseRequest.with_state(:pending).count
   end
 

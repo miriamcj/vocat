@@ -1,4 +1,28 @@
 <% content_for :content do %>
+  <% if @page == 1%>
+    <div class="page-message">
+      <div class="header">
+        Vocat At a Glance
+      </div>
+      <div class="body clearfix">
+        <div data-behavior="figures">
+          <% cache :expire_in => 2.hours do %>
+            <% @stats.each do |stat| %>
+              <figure class="summary-box summary-box-default <%= if stat.has_key?(:class) then stat[:class] end %>">
+                <div class="summary-box--content">
+                  <p class="summary-box--content-wrapper">
+                    <%= number_to_human stat[:value], :format => '<span>%n</span><span class="unit">%u</span>' %>
+                  </p>
+                </div>
+                <figcaption><%= stat[:label] %></figcaption>
+              </figure>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+  <% end %>
   <div class="page-section">
     <div class="header-wrapper">
       <div class="buttons">

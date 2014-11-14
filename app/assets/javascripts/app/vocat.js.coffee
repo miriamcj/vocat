@@ -5,6 +5,7 @@ define (require) ->
   ModalLayoutView = require('views/modal/modal_layout')
   ModalConfirmView = require('views/modal/modal_confirm')
   DropdownView = require('views/layout/dropdown')
+  FigureCollectionView = require('views/layout/figures_collection')
   ChosenView = require('views/layout/chosen')
   HeaderDrawerView = require('views/layout/header_drawer')
   HeaderDrawerTriggerView = require('views/layout/header_drawer_trigger')
@@ -16,6 +17,9 @@ define (require) ->
   # Attach views to existing dom elements
   $('[data-behavior="dropdown"]').each( (index, el) ->
     new DropdownView({el: el, vent: Vocat.vent})
+  )
+  $('[data-behavior="figures"]').each( (index, el) ->
+    new FigureCollectionView({el: el, vent: Vocat.vent})
   )
   $('[data-behavior="header-drawer-trigger"]').each( (index, el) ->
     new HeaderDrawerTriggerView ({el: el, vent: Vocat.vent})
