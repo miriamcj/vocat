@@ -44,14 +44,16 @@ class Evaluation < ActiveRecord::Base
 
   def score_detail
     out = {}
-    scores.each do |key, score|
-      out[key] = {
-        score: score.to_f,
-        low: rubric.low_possible_for(key),
-        high: rubric.high_possible_for(key),
-        percentage: (score.to_f / rubric.high_possible_for(key)) * 100,
-        name: rubric.field_name_for(key)
-      }
+    if rubric
+      scores.each do |key, score|
+        out[key] = {
+          score: score.to_f,
+          low: rubric.low_possible_for(key),
+          high: rubric.high_possible_for(key),
+          percentage: (score.to_f / rubric.high_possible_for(key)) * 100,
+          name: rubric.field_name_for(key)
+        }
+      end
     end
     out
   end
