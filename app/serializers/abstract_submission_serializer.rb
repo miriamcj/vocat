@@ -20,6 +20,18 @@ class AbstractSubmissionSerializer < ActiveModel::Serializer
     end
   end
 
+  def role
+    object.course.role(scope)
+  end
+
+  def instructor_score_percentage
+    if scope.role?(:administrator) || scope.role?(:evaluator)
+      object.instructor_score_percentage
+    else
+      0
+    end
+  end
+
   protected
 
   def current_user_evaluations

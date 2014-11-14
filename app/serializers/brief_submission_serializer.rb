@@ -6,6 +6,8 @@ class BriefSubmissionSerializer < AbstractSubmissionSerializer
               :serialized_state,
               :current_user_published?,
               :current_user_percentage,
+              :instructor_score_percentage,
+              :role,
               :has_video?
 
   def serialized_state
