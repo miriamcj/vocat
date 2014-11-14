@@ -15,7 +15,7 @@
                 <%= "#{@selected_course.department}#{@selected_course.number}" %>
               </span>
               <span class="course-long">
-                <%= @selected_course %>
+                <%= truncate @selected_course.to_s, :length => 60 %>
               </span>
           <% when 'admin' %> <%= 'Admin' %>
           <% when 'dashboard' %><%= 'Dashboard' %>

@@ -7,6 +7,14 @@
   @extend %wide-one-fourth;
   @extend %medium-one-third;
   @extend %narrow-one-half;
+  .page-message & {
+    @extend %wide-one-sixth;
+    @extend %medium-one-fourth;
+    @extend %narrow-one-half;
+    padding-left: 0;
+    padding-right: 24px;
+    padding-bottom: 0;
+  }
   .portfolio-item & {
     @extend %wide-one-fifth;
     @extend %medium-one-fourth;
@@ -106,6 +114,10 @@
       font-size: $theta;
       margin: 6px 0;
     }
+    span.unit {
+      display: block;
+      font-size: $zeta;
+    }
     small {
       z-index: 10;
       position: relative;
@@ -119,6 +131,26 @@
       position: absolute;
       bottom: 0;
       background-color: $tealLight;
+    }
+  }
+  .summary-box--content {
+    &:before {
+      content: '';
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle;
+      margin-right: -.25em;
+    }
+    .summary-box--content-wrapper {
+      display: inline-block;
+      width: 100%;
+      vertical-align: middle;
+      margin: 0;
+      padding: 0;
+    }
+    span {
+      line-height: .85em;
+      top: 0;
     }
   }
   figcaption {

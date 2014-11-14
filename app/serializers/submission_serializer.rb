@@ -45,9 +45,7 @@ class SubmissionSerializer < AbstractSubmissionSerializer
     }
   end
 
-  def role
-    object.course.role(scope)
-  end
+
 
   # We scope the visible evaluations to the user
   def evaluations
@@ -109,13 +107,7 @@ class SubmissionSerializer < AbstractSubmissionSerializer
   end
 
 
-  def instructor_score_percentage
-    if scope.role?(:administrator) || scope.role?(:evaluator)
-      object.instructor_score_percentage
-    else
-      0
-    end
-  end
+
 
 
 

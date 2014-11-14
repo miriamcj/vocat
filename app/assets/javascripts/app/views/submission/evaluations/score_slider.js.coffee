@@ -34,6 +34,9 @@ define (require) ->
     showPlacard: (e) ->
       @ui.placard.fadeIn()
 
+    forceHidePlacard: () ->
+      @ui.placard.hide()
+
     hidePlacard: (e) ->
       if !@ui.grabber.hasClass('ui-draggable-dragging')
         @ui.placard.hide()
@@ -43,6 +46,8 @@ define (require) ->
 
     translatePositionToSnapPosition: (position) ->
       score = @translatePositionToScore(position)
+      if score < @model.get('low')
+        score = @model.get('low')
       position = @translateScoreToPosition(score)
       position
 
@@ -95,9 +100,10 @@ define (require) ->
     updatePlacard: (score) ->
       if _.isNumber(score) && !_.isNaN(score)
         range = @rubric.getRangeForScore(score)
-        desc = @rubric.getCellDescription(@model.id, range.id)
-        @ui.placardContent.html(desc)
-        @ui.placardTitle.html(range.get('name'))
+        if range?
+          desc = @rubric.getCellDescription(@model.id, range.id)
+          @ui.placardContent.html(desc)
+          @ui.placardTitle.html(range.get('name'))
 
     # This is the main method for setting the current score.
     updateBarAndGrabberPosition: (position, animate = false, updateModel = true) ->
@@ -106,6 +112,7 @@ define (require) ->
 
     updateGrabberPosition: (position, animate = false, updateModel = true) ->
       if animate == true
+        @forceHidePlacard()
         @ui.grabber.animate({left: "#{position}px"}, 250)
       else
         @ui.grabber.css({left: "#{position}px"})
@@ -122,6 +129,7 @@ define (require) ->
       @updatePlacard(score)
       position = position + 5
       if animate == true
+        @forceHidePlacard()
         @ui.fill.animate({width: "#{position}px"}, 250)
       else
         @ui.fill.width(position)
@@ -166,6 +174,10 @@ define (require) ->
       setTimeout () =>
         @updatePositionFromModel()
       , 0
+
+    serializeData: () ->
+      sd = super()
+      sd
 
     onRender: () ->
       @onShow()

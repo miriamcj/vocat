@@ -112,12 +112,10 @@ define (require) ->
       setColWidths: (w, tw) ->
 
         # Adjust the column widths
-        @colHeaders().find('tr:first-child th, tr:first-child td').css('min-width', @minWidth).outerWidth(w)
-        @colHeaders().find('table:first-child').outerWidth(tw)
+        @colHeaders().find('thead tr th').css({'min-width': @minWidth}).outerWidth(w)
         @colHeaders().outerWidth(tw)
 
-        @actor().find('tr:first-child th, tr:first-child td').css('min-width', @minWidth).outerWidth(w)
-        @actor().find('table:first-child').outerWidth(tw)
+        @actor().find('tbody tr:first-child td').css({'min-width', @minWidth}).outerWidth(w)
         @actor().outerWidth(tw)
 
         # Sticky headers need a width set on them, since they can become fixed and taken out of the flow.
