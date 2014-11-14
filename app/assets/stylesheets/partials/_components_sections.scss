@@ -72,11 +72,18 @@ $sectionSpacingUnit: 40px;
       margin-top: 5px;
     }
   }
-  .body {
+  .body, .page-section--component, .page-section--component-header {
     margin-top: $sectionSpacingUnit * .5;
     @include clearfix;
     background: $grayLightest;
     padding: $sectionSpacingUnit * .75;
+  }
+  .page-section--component-header {
+    background: $grayLight;
+    padding: $sectionSpacingUnit * .25;
+  }
+  .page-section--component-header + .page-section--component {
+    margin-top: 0;
   }
   .body-full-bleed {
     padding: 0;
@@ -124,6 +131,11 @@ $sectionSpacingUnit: 40px;
 
 }
 
+.page-section-whole {
+  @extend %wide-one-whole;
+  @extend %page-section-column;
+}
+
 .page-section-half {
   @extend %wide-one-half;
   @extend %page-section-column;
@@ -145,6 +157,10 @@ $sectionSpacingUnit: 40px;
 
 .col-one + .col-two {
   margin-top: 0px;
+}
+
+.page-section-component {
+
 }
 
 // User Profile Container

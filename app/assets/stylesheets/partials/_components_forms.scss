@@ -73,32 +73,6 @@ fieldset + fieldset {
     display: block;
   }
 
-  select {
-    @extend %input-full-width;
-    border-radius: 0;
-    display: block;
-    height: 2.4em;
-    color: $grayDark;
-    text-decoration: none;
-    background-color: $white;
-    padding: 0 0 0 1em;
-    overflow: hidden;
-    white-space: nowrap;
-    position: relative;
-    border-left: 1px solid $grayMedium;
-    border-right: 1px solid $grayMedium;
-  }
-
-  input[type=text], textarea, input[type=password], input[type=number], input[type=email] {
-    @extend %proto-input;
-    @extend %input-full-width;
-  }
-  textarea {
-    resize: none;
-    height: 6em;
-    padding: 1em;
-  }
-
   &.whole {
     @extend %form-wide-one-whole;
     @extend %form-unit;
@@ -133,6 +107,34 @@ fieldset + fieldset {
     margin-bottom: 1em;
   }
 
+}
+
+.formgrid, .formgrid-input {
+  select {
+    @extend %input-full-width;
+    border-radius: 0;
+    display: block;
+    height: 2.4em;
+    color: $grayDark;
+    text-decoration: none;
+    background-color: $white;
+    padding: 0 0 0 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    border-left: 1px solid $grayMedium;
+    border-right: 1px solid $grayMedium;
+  }
+
+  input[type=text], textarea, input[type=password], input[type=number], input[type=email] {
+    @extend %proto-input;
+    @extend %input-full-width;
+  }
+  textarea {
+    resize: none;
+    height: 6em;
+    padding: 1em;
+  }
 }
 
 .field_with_errors {

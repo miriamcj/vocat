@@ -21,10 +21,20 @@ class Project < ActiveRecord::Base
   delegate :allows_peer_review, :to => :course
 
   validates :course, :name, :description, :presence => true
+  validate :attachment_families_are_valid
 
   default_scope { includes(:course) }
-
   scope :unsubmitted_for_user_and_course, ->(creator, course) { joins('LEFT OUTER JOIN submissions ON submissions.project_id = projects.id AND submissions.creator_id = ' + creator.id.to_s).where('submissions.creator_id IS NULL AND course_id IN (?)', course) }
+
+  ATTACHMENT_FAMILIES = %w(audio image video)
+
+  def attachment_families_are_valid
+    allowed_attachment_families.split(',').each do |value|
+      if Project::ATTACHMENT_FAMILIES.include?(value)
+        errors.add(:allowed_attachment_families, "contains an invalid value \"#{value}\"")
+      end
+    end
+  end
 
   def active_model_serializer
     ProjectSerializer
@@ -91,7 +101,6 @@ class Project < ActiveRecord::Base
   def evaluatable_by_creator?()
     course.allows_self_evaluation?
   end
-
 
   # Deprecated
   def evaluatable()

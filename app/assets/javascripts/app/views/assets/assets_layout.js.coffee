@@ -33,13 +33,14 @@ define (require) ->
     onShowNew: () ->
       @newAsset.show(new NewAssetView({collection: @collection, model: @model.project(), vent: @}))
       @hideEmptyCollectionViewIfNewIsVisible()
-      @ui.manageLink.hide()
-      @ui.stopManagingLink.show()
+      @ui.manageLink.css(display: 'none')
+      @ui.stopManagingLink.css(display: 'inline-block')
       @newAsset.$el.fadeIn(200)
 
     onHideNew: () ->
       @ui.manageLink.show()
-      @ui.stopManagingLink.hide()
+      @ui.manageLink.css(display: 'inline-block')
+      @ui.stopManagingLink.css(display: 'none')
       @newAsset.$el.fadeOut(200, () =>
         @newAsset.empty()
         @ensureVisibleCollectionView()
@@ -56,9 +57,10 @@ define (require) ->
         @newAsset.$el.fadeIn(200)
 
     onRender: () ->
+      @ui.stopManagingLink.css(display: 'none')
       @ensureVisibleCollectionView()
       # TODO: Remove this
-      # @onShowNew()
+      @onShowNew()
 
     setupListeners: () ->
       @listenTo(@, 'hide:new', () =>

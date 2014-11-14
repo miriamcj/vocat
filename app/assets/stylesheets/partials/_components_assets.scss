@@ -2,6 +2,90 @@
 @import "mixins";
 @import "patterns";
 
+// Asset create interface
+// --------------------------------------------------------
+.page-section .page-section--component.asset-upload {
+  padding: 0;
+  padding-bottom: 30px;
+}
+
+.asset-done {
+  margin-top: 30px;
+  a {
+    padding-left: 4em;
+    padding-right: 4em;
+    text-align: center;
+  }
+}
+
+.page-section-one-third {
+  &.asset-upload--file, &.asset-upload--input, &.asset-upload--target {
+    height: 125px;
+    text-align: center;
+    &:before {
+      content: '';
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle;
+      margin-right: -.25em;
+    }
+    .wrapper {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+  &.asset-upload--input {
+    input {
+      width: 200px;
+    }
+  }
+  &.asset-upload--target {
+    position: relative;
+    .wrapper {
+      text-align: center;
+      form a {
+        display: block;
+        position: relative;
+        width: 125px;
+        margin: auto;
+        padding-top: 75px;
+        &:before {
+          content: '';
+          position: absolute;
+          height: 60px;
+          width: 60px;
+          z-index: 2;
+          top: 10%;
+          left: 50%;
+          margin-left: -30px;
+          @include svg(upload-overlay-teal);
+        }
+      }
+      &:before {
+        content: 'OR';
+        font-weight: bold;
+        width: 20px;
+        height: 1em;
+        margin-top: -.5em;
+        position: absolute;
+        top: 50%;
+        left: -.8em;
+      }
+      &:after {
+        content: 'OR';
+        font-weight: bold;
+        width: 20px;
+        height: 1em;
+        margin-top: -.5em;
+        position: absolute;
+        top: 50%;
+        right: -.6em;
+      }
+    }
+  }
+}
+
+
 
 // Annotated media
 // --------------------------------------------------------
