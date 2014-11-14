@@ -1,6 +1,5 @@
 <div class="alert notice">
 	{{#if isCreatorWarning}}
-
 		{{#if isCreatorTypeGroup}}
 			<p>The group evaluations grid is not available because no groups have been created for this course.</p>
 			{{#if canUpdateCourse}}
@@ -37,8 +36,11 @@
 			{{to_lower creatorType}} submissions.
 		</p>
 		<p class="small">
-			<a href="/courses/{{courseId}}/manage/projects/new" class="primary-button new-button">Create a Group Project</a>
-			<a href="/courses/{{courseId}}/users/evaluations" class="secondary-button back-button">Show Individual Evaluations</a>
+      {{#if_match creatorType "Group"}}
+	      <a href="/courses/{{courseId}}/manage/projects/new" class="primary-button new-button">Create a Group Project</a>
+      {{else}}
+	      <a href="/courses/{{courseId}}/manage/projects/new" class="primary-button new-button">Create a Individual Project</a>
+      {{/if_match}}
 		</p>
 		{{/if}}
 	{{/if}}
