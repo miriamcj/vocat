@@ -18,9 +18,9 @@ define (require) ->
   $('[data-behavior="dropdown"]').each( (index, el) ->
     new DropdownView({el: el, vent: Vocat.vent})
   )
-  $('[data-behavior="figures"]').each( (index, el) ->
-    new FigureCollectionView({el: el, vent: Vocat.vent})
-  )
+#  $('[data-behavior="figures"]').each( (index, el) ->
+#    new FigureCollectionView({el: el, vent: Vocat.vent})
+#  )
   $('[data-behavior="header-drawer-trigger"]').each( (index, el) ->
     new HeaderDrawerTriggerView ({el: el, vent: Vocat.vent})
   )
