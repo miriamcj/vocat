@@ -6,7 +6,7 @@
         </div>
       <% else %>
         <div class="thumb-container-placeholder">
-          <a href="<% submission_detail_path(submission) %>">
+          <a href="<%= submission_detail_path(submission) %>">
               <% if current_user.can?(:attach, submission) %>
               <span>Visit Submission Page to Upload Attachment</span>
               <% else %>
