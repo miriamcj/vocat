@@ -2,8 +2,6 @@
 @import "mixins";
 @import "patterns";
 
-$sectionSpacingUnit: 40px;
-
 %section-spacing {
   margin-top: $sectionSpacingUnit;
 }

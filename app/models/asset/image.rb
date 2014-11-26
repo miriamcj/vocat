@@ -1,7 +1,7 @@
 class Asset::Image < Asset
 
   def family
-    'image'
+    :image
   end
 
 

@@ -186,27 +186,27 @@ class Ability
     ######################################################
 
     can :read_only, Annotation do |annotation|
-      can?(:annotate, annotation.video.submission)
+      can?(:annotate, annotation.asset.submission)
     end
 
     can :create, Annotation do |annotation|
-      can?(:annotate, annotation.video.submission)
+      can?(:annotate, annotation.asset.submission)
     end
 
     can :read_write_destroy, Annotation do |annotation|
-      annotation.author == user || annotation.video.submission.project.course.role(user) == :evaluator
+      annotation.author == user || annotation.asset.submission.project.course.role(user) == :evaluator
     end
 
     ######################################################
-    # Videos
+    # Assets
     ######################################################
 
-    can :read_only, Video do |video|
-      can?(:show, video.submission)
+    can :read_only, Asset do |asset|
+      can?(:show, asset.submission)
     end
 
-    can :read_write_destroy, Video do |video|
-      can?(:attach, video.submission)
+    can :read_write_destroy, Asset do |asset|
+      can?(:attach, asset.submission)
     end
 
     ######################################################

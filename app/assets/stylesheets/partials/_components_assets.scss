@@ -6,7 +6,12 @@
 // --------------------------------------------------------
 .page-section .page-section--component.asset-upload {
   padding: 0;
-  padding-bottom: 30px;
+  .asset-uploading {
+    padding-bottom: 30px 0;
+    text-align: center;
+    height: 125px;
+    line-height: 125px;
+  }
 }
 
 .asset-done {
@@ -43,7 +48,7 @@
     position: relative;
     .wrapper {
       text-align: center;
-      form a {
+      a {
         display: block;
         position: relative;
         width: 125px;

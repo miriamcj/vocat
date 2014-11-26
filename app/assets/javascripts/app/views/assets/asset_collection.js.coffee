@@ -26,9 +26,6 @@ define (require) ->
       @render()
 
     setupListeners: () ->
-      @listenTo(@, 'all', (e) ->
-        console.log e,'event'
-      )
       @listenTo(@, 'childview:update:sort', (rowView, args) ->
         @updateSort(args[0], args[1])
       )
@@ -41,7 +38,6 @@ define (require) ->
     # behavior should be improved and abstracted so that it can be used in this
     # class as well.
     updateSort: (model, position) ->
-      console.log model, position
       adjustedPosition = position
       @collection.remove(model)
       model.set('listing_order_position', adjustedPosition)

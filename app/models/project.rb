@@ -29,9 +29,11 @@ class Project < ActiveRecord::Base
   ATTACHMENT_FAMILIES = %w(audio image video)
 
   def attachment_families_are_valid
-    allowed_attachment_families.split(',').each do |value|
-      if Project::ATTACHMENT_FAMILIES.include?(value)
-        errors.add(:allowed_attachment_families, "contains an invalid value \"#{value}\"")
+    if allowed_attachment_families
+      allowed_attachment_families.split(',').each do |value|
+        if Project::ATTACHMENT_FAMILIES.include?(value)
+          errors.add(:allowed_attachment_families, "contains an invalid value \"#{value}\"")
+        end
       end
     end
   end
@@ -75,15 +77,15 @@ class Project < ActiveRecord::Base
   # TODO: Not happy with this
   def statistics()
     {
-      video_count: video_count,
+      asset_count: asset_count,
       possible_submission_count: possible_submissions_count,
       rubric_avg_score: rubric_avg_score,
       rubric_avg_percentage: rubric_avg_percentage
     }
   end
 
-  def video_count
-    submissions.where(:creator_type => 'User').with_video.for_courses(course).count
+  def asset_count
+    submissions.where(:creator_type => 'User').with_assets.for_courses(course).count
   end
 
   def submission_by_user(user)

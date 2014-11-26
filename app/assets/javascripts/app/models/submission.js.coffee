@@ -88,8 +88,19 @@ define (require) ->
       @projectModel
 
     initialize: () ->
+
       @listenTo(@, 'change:video', () =>
         @updateVideo()
       )
       @updateVideo()
-      @assetCollection = new AssetCollection(@get('assets'))
+
+      @listenTo(@, 'sync', () =>
+        @updateAssetsCollection()
+      )
+      @updateAssetsCollection()
+
+    updateAssetsCollection: () ->
+      if !@assetCollection
+        @assetCollection = new AssetCollection(@get('assets'), {submissionId: @.id})
+      else
+        @assetCollection.reset(@get('assets'))

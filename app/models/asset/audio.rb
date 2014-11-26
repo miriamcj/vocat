@@ -1,7 +1,7 @@
 class Asset::Audio < Asset
 
   def family
-    'audio'
+    :audio
   end
 
 

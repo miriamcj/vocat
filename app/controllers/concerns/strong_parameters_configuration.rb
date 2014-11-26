@@ -113,6 +113,13 @@ module StrongParametersConfiguration
     params.require(:attachment).permit(:media_file_name)
   end
 
+  def asset_params
+    myvar = params
+    params.require(:asset).permit(:submission_id,
+                                  :attachment_attributes => [:id]
+    )
+  end
+
   def video_params
     params.require(:video).permit(:submission_id,
                                   :name,

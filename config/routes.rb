@@ -19,6 +19,7 @@ Vocat::Application.routes.draw do
           post 'commit'
         end
       end
+      resources :assets, :except => [:new, :edit, :index]
       resources :enrollments, :only => [:create, :destroy]
       resources :users, :only => [:show] do
         collection do

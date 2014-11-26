@@ -14,7 +14,6 @@ class SubmissionSerializer < AbstractSubmissionSerializer
               :creator_type,
               :project_id,
               :evaluations,
-              :video,
               :abilities,
               :current_user_published?,
               :current_user_percentage,
@@ -22,11 +21,10 @@ class SubmissionSerializer < AbstractSubmissionSerializer
               :peer_score_percentage,
               :evaluated_by_instructor?,
               :instructor_score_percentage,
-              :has_video?
+              :has_asset?
 
   has_one :project
   has_one :creator
-  has_one :video
   has_many :assets
 
   protected

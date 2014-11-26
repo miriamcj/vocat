@@ -135,16 +135,16 @@ class Course < ActiveRecord::Base
     out
   end
 
-  def video_count()
-    Video.count_by_course(self)
+  def asset_count()
+    Asset.count_by_course(self)
   end
 
-  def submission_video_percentage()
+  def submission_asset_percentage()
     out = 0
-    if video_count > 0
+    if asset_count > 0
       possible_submissions = count_possible_submissions
       if possible_submissions.to_f > 0
-        out = ((video_count.to_f / possible_submissions.to_f) * 100).round
+        out = ((asset_count.to_f / possible_submissions.to_f) * 100).round
       end
     end
     out

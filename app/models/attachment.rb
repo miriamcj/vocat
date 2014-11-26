@@ -1,6 +1,6 @@
 class Attachment < ActiveRecord::Base
 
-  belongs_to :video
+  belongs_to :asset
   belongs_to :user
   has_many :variants, dependent: :destroy
 
@@ -11,6 +11,7 @@ class Attachment < ActiveRecord::Base
 
   after_destroy :destroy_file_object
   after_initialize :check_processing_state
+
   validates_presence_of :media_file_name
 
   state_machine :initial => :uncommitted do
@@ -71,6 +72,12 @@ class Attachment < ActiveRecord::Base
 
   def variant_by_format(format)
     variants.where(:format => format).first
+  end
+
+  def commit_if_attached
+    if uncommitted? && asset
+      commit
+    end
   end
 
   def check_processing_state
@@ -182,6 +189,15 @@ class Attachment < ActiveRecord::Base
     "#{lower_thousand}_#{upper_thousand}/#{lower_hundred}_#{upper_hundred}"
   end
 
+  def s3_upload_document
+    policy = s3_upload_policy_document(location)
+    {
+      :policy => policy,
+      :signature => s3_upload_signature(location, policy),
+      :key => location
+    }
+  end
+
   private
 
   def bucket
@@ -196,7 +212,8 @@ class Attachment < ActiveRecord::Base
 
   def committed_location
     ext = File.extname(media_file_name)
-    "source/attachment/#{path_segment}/#{id}#{ext}"
+    out = "source/attachment/#{path_segment}/#{id}#{ext}"
+    out
   end
 
   def uncommitted_location
@@ -212,5 +229,26 @@ class Attachment < ActiveRecord::Base
     s3 = AWS::S3.new(options)
     s3
   end
+
+  # generate the policy document that amazon is expecting.
+  def s3_upload_policy_document(key)
+    ret = {
+      "expiration" => 15.minutes.from_now.utc.xmlschema,
+      "conditions" =>  [
+        {"bucket" =>  Rails.application.config.vocat.aws[:s3_bucket]},
+        ["starts-with", "$key", key],
+        {"acl" => "private"},
+        {"success_action_status" => "200"},
+        ["content-length-range", 0, 5368709120]
+      ]
+    }
+    Base64.encode64(ret.to_json).gsub(/\n/,'')
+  end
+
+  def s3_upload_signature(key, policy)
+    secret = Rails.application.config.vocat.aws[:secret]
+    signature = Base64.encode64(OpenSSL::HMAC.digest(OpenSSL::Digest::Digest.new('sha1'), secret, policy)).gsub("\n","")
+  end
+
 
 end

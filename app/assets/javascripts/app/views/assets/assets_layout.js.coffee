@@ -60,7 +60,7 @@ define (require) ->
       @ui.stopManagingLink.css(display: 'none')
       @ensureVisibleCollectionView()
       # TODO: Remove this
-      @onShowNew()
+      # @onShowNew()
 
     setupListeners: () ->
       @listenTo(@, 'hide:new', () =>
@@ -69,8 +69,12 @@ define (require) ->
       @listenTo(@, 'show:new', () =>
         @onShowNew()
       )
+      @listenTo(@collection, 'reset', (e) =>
+        @ensureVisibleCollectionView()
+      )
 
     # @model is a submission model.
     initialize: (options) ->
       @vent = Marionette.getOption(@, 'vent')
+
       @setupListeners()
