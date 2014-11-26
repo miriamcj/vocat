@@ -1,0 +1,34 @@
+<div class="page-section--component-header strong centered">This Project Accepts Videos, Images, and Audio</div>
+<div class="page-section--component asset-upload">
+	<div class="page-section-one-third asset-upload--file">
+		<div class="wrapper">
+			<a href="#" data-behavior="test-new-asset" class="primary-button new-button">Select File to Upload</a>
+		</div>
+	</div>
+	<div class="page-section-one-third asset-upload--target">
+		<div class="wrapper">
+			<form data-behavior="async-upload" accept-charset="UTF-8" action="http://{{s3Bucket}}.s3.amazonaws.com" data-remote="true" enctype="multipart/form-data" id="video-upload" method="post">
+        <span class="file-input-container">
+          <input type="hidden" name="AWSAccessKeyId" value="{{AWSPublicKey}}" />
+          <input type="hidden" name="acl" value="private" />
+          <input type="hidden" name="success_action_status" value="200" />
+          <input type="hidden" name="key" />
+          <input type="hidden" name="policy" />
+          <input type="hidden" name="signature" />
+          <input  name="file" type="file" />
+          <a href="#" class="decorated upload-target" data-behavior="file-picker">Drag and Drop</a>
+        </span>
+			</form>
+		</div>
+	</div>
+	<div class="page-section-one-third asset-upload--input">
+		<div class="wrapper">
+      <div class="formgrid-input">
+	      <input type="text" placeholder="Vimeo / YouTube URL" />
+      </div>
+		</div>
+	</div>
+</div>
+<div class="centered asset-done">
+	<a href="#" data-behavior="hide-manage" class="secondary-button close-button">Done</a>
+</div>
