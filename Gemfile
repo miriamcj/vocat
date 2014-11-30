@@ -13,9 +13,7 @@ gem 'simple_form'
 gem 'hashie'
 gem 'unicorn'
 gem 'devise'
-gem 'paperclip', '~> 3.4.0'
 gem 'aws-sdk', '~> 1.32.0'
-gem 'delayed_job_active_record'
 gem 'ranked-model', '~> 0.4.0'
 gem 'daemons'
 gem 'quiet_assets'
@@ -23,15 +21,9 @@ gem 'net-ldap'
 gem 'mime-types'
 gem 'thor', :git => 'https://github.com/erikhuda/thor.git'
 gem 'state_machine'
-gem 'wkhtmltopdf-binary'
-gem 'wicked_pdf'
 
-# Stuck on this version until https://github.com/ryanb/cancan/issues/861 is released
-gem 'cancan', '= 1.6.9'
+gem 'cancancan'
 gem 'kaminari'
-
-# These gems will likely be removed after prototyping is completed
-gem 'rails-backbone'
 gem 'faker'
 
 # Deployment
