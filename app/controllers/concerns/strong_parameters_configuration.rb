@@ -116,6 +116,9 @@ module StrongParametersConfiguration
   def asset_params
     myvar = params
     params.require(:asset).permit(:submission_id,
+                                  :listing_order_position,
+                                  :external_source,
+                                  :external_location,
                                   :attachment_attributes => [:id]
     )
   end

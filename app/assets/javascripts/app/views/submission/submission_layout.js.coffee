@@ -49,6 +49,15 @@ define (require) ->
       unless @$el.parent().data().hasOwnProperty('hideBackLink')
         @ui.close.show()
 
+      # Load submission detail
+      if @submission.get('serialized_state') == 'full'
+        @triggerMethod('submission:loaded')
+      else
+        @submission.fetch({success: () =>
+          @triggerMethod('submission:loaded')
+        })
+
+
     onClose: () ->
       @vent.triggerMethod('close:detail') if _.isFunction(@vent.triggerMethod)
 
@@ -68,8 +77,4 @@ define (require) ->
       @project = Marionette.getOption(@, 'project')
       @creator = Marionette.getOption(@, 'creator')
 
-      # Load submission detail
-      @submission.fetch({success: () =>
-        @triggerMethod('submission:loaded')
-      })
 

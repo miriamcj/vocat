@@ -1,14 +1,17 @@
 class Api::V1::AssetsController < ApplicationController
 
   load_and_authorize_resource :asset
+  wrap_parameters :asset, include: Asset.attribute_names << "listing_order_position"
   respond_to :json
 
   def create
-    attachment = Attachment.find(params[:attachment_id])
-    if attachment.user_id == current_user.id
-      @asset.attachment = attachment
-      attachment.commit
-      @asset.author_id = current_user.id
+    if params[:attachment_id]
+      attachment = Attachment.find(params[:attachment_id])
+      if attachment.user_id == current_user.id
+        @asset.attachment = attachment
+        attachment.commit
+        @asset.author_id = current_user.id
+      end
     end
     if @asset.save()
       # We need to reload the asset so it receives the correct type after the attachment is added.

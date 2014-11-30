@@ -22,18 +22,72 @@ define (require) ->
       policyInput: 'input[name=policy]'
       signatureInput: 'input[name=signature]'
       assetUploadingMessage: '[data-behavior="asset-uploading-message"]'
+      externalVideoForm: '[data-behavior="external-video-form"]'
+      externalVideoUrl: '[data-behavior="external-video-url"]'
     }
 
     triggers: {
       'click @ui.hideManage': 'hide:new'
       'click @ui.fileInputTrigger': 'show:file:input'
+      'submit @ui.externalVideoForm': 'handle:external:video:submit'
     }
+
+    regex: {
+      youtube: /(v=|\.be\/)([^&#]{5,})/
+      vimeo: /^.+vimeo.com\/(.*\/)?([^#\?]*)/
+    }
+
+    onHandleExternalVideoSubmit: () ->
+      url = @ui.externalVideoUrl.val()
+      @createRemoteVideoAsset(url)
+
+    createRemoteVideoAsset: (url) ->
+      vimeoMatches = url.match(@regex.vimeo)
+      if vimeoMatches? && vimeoMatches.length > 0
+        @createVimeoAsset(url)
+      else
+        @createYoutubeAsset(url)
+
+    createYoutubeAsset: (value) ->
+      matches = value.match(@regex.youtube)
+      if matches? && matches.length > 0 && typeof matches[2] == 'string'
+        attributes = {
+          external_source: 'youtube'
+          external_location: matches[2]
+          submission_id: @collection.submissionId
+        }
+        asset = new AssetModel(attributes)
+        asset.save({}, {success: () =>
+          console.log asset,'a'
+          @collection.add(asset)
+          Vocat.vent.trigger('error:add', {level: 'notice', msg: 'The YouTube asset has been saved.'})
+        })
+      else
+        Vocat.vent.trigger('error:add', {level: 'error', msg: 'The Youtube URL you entered is invalid.'})
+        @resetUploader()
+
+    createVimeoAsset: (value) ->
+      matches = value.match(@regex.vimeo)
+      id = if matches then matches[2] || matches[1] else null
+      if id
+        attributes = {
+          external_source: 'vimeo'
+          external_location: id
+          submission_id: @collection.submissionId
+        }
+        asset = new AssetModel(attributes)
+        asset.save({}, {success: () =>
+          @collection.add(asset)
+          Vocat.vent.trigger('error:add', {level: 'notice', msg: 'The Vimeo asset has been saved.'})
+        })
+      else
+        Vocat.vent.trigger('error:add', {level: 'error', msg: 'The Vimeo URL you entered is invalid.'})
+        @resetUploader()
 
     initialize: (options) ->
       @vent = Marionette.getOption(@, 'vent')
 
     onShowFileInput: () ->
-      console.log @ui.fileInput.length
       @ui.fileInput.click()
 
     onHideNew: () ->
@@ -52,21 +106,12 @@ define (require) ->
       @ui.uploadForm.show()
 
     initializeAsyncUploader: () ->
-#      $(document).bind('drop dragover', (e) ->
-#        console.log e,'rambo kill you'
-#        e.preventDefault()
-#      )
-#
-#      console.log @ui.dropzone.length, 'dz'
-#      @ui.dropzone.css({border: '5px solid red'})
       attachment = null
       @ui.uploadForm.fileupload({
         multipart: true
         limitMultiFileUploads: 1
         limitConcurrentUploads: 1
         autoUpload: true
-        drop: () =>
-          console.log 'heard drop'
         add: (e, uploadForm) =>
           @hideForm()
           attachment = new AttachmentModel({})
@@ -82,9 +127,8 @@ define (require) ->
               @resetUploader()
           })
         fail: (e, data) =>
-          Vocat.vent.trigger('error:add', {level: 'error', msg: 'Unable to upload file to S3.'})
+          Vocat.vent.trigger('error:add', {level: 'error', msg: 'Unable to upload file to Amazon S3.'})
           @resetUploader()
-
         done: (e, data) =>
           asset = new AssetModel({attachment_id: attachment.id, submission_id: @collection.submissionId})
           asset.save({},{success: () =>
@@ -98,7 +142,6 @@ define (require) ->
       })
 
     resetUploader: () ->
-      console.log 'reseting'
       @ui.uploadForm.fileupload('destroy')
       @render()
       @showForm()

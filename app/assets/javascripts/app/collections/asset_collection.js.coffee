@@ -11,7 +11,8 @@ define [
     model: AssetModel
 
     comparator: (asset) ->
-      asset.get('listing_order_position')
+      c = asset.get('listing_order')
+      parseInt(c)
 
     url: '/api/v1/assets'
 

@@ -10,7 +10,7 @@ class Courses::Manage::ProjectsController < ApplicationController
 
   # GET courses/:course_id/manage/projects
   def index
-    @projects = @course.projects.rank(:listing_order).page params[:page]
+      @projects = @course.projects.rank(:listing_order).page params[:page]
     respond_with @projects
   end
 

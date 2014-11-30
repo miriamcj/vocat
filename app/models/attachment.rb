@@ -1,3 +1,6 @@
+require 'action_view'
+include ActionView::Helpers::NumberHelper
+
 class Attachment < ActiveRecord::Base
 
   belongs_to :asset
@@ -153,6 +156,10 @@ class Attachment < ActiveRecord::Base
     else
       committed_location
     end
+  end
+
+  def size
+    number_to_human_size media_file_size
   end
 
   def thumb

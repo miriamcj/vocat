@@ -43,7 +43,7 @@ define (require) ->
       userModel = @collections.user.first()
       projectModel = @collections.project.first()
       collection = new CourseUserSubmissionCollection()
-      deferred = @deferredCollectionFetching(collection, {course: course, user: creator}, 'Loading submission...')
+      deferred = @deferredCollectionFetching(collection, {course: course, user: creator, project: project}, 'Loading submission...')
       $.when(deferred).then(() =>
         submissionModel = collection.findWhere({creator_type: 'User', creator_id: parseInt(creator), project_id: parseInt(project)})
         view = new SubmissionLayoutView({

@@ -13,7 +13,8 @@ class Api::V1::SubmissionsController < ApiController
     respond_with @submissions, :each_serializer => BriefSubmissionSerializer
   end
 
-  # GET /api/v1/submissions/for_course_and_user.json?course=:course&user=:user
+  # GET /api/v1/submissions/for_course_and_user.json?course=:course&user=:user&project=:project
+  # Note that project is optional.
   def for_course_and_user
     factory = SubmissionFactory.new
     @course = Course.find(params.require(:course))
@@ -21,7 +22,12 @@ class Api::V1::SubmissionsController < ApiController
     unless @user == current_user
       authorize! :show_submissions, @course
     end
-    @submissions = factory.course_and_creator(@course, @user)
+    if params[:project]
+      @project = Project.find(params[:project])
+      @submissions = factory.creator_and_project(@user, @project)
+    else
+      @submissions = factory.course_and_creator(@course, @user)
+    end
     respond_with @submissions
   end
 

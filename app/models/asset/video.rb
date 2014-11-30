@@ -1,5 +1,7 @@
 class Asset::Video < Asset
 
+  delegate :state, :to => :attachment, :prefix => true
+
   def family
     :video
   end

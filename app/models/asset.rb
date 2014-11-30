@@ -1,7 +1,7 @@
 class Asset < ActiveRecord::Base
 
   include RankedModel
-  ranks :listing_order, :with_same => :submission_id
+  ranks :listing_order, :with_same => :submission_id, :class_name => 'Asset'
 
   belongs_to :submission
   belongs_to  :author, :class_name => 'User'
@@ -11,7 +11,6 @@ class Asset < ActiveRecord::Base
   delegate :processing_error, :to => :attachment, :prefix => false, :allow_nil => true
   delegate :creator, :to => :submission, :allow_nil => true
   delegate :course, :to => :submission, :allow_nil => true
-  delegate :state, :to => :attachment, :prefix => true
 
   # We don't want any typeless assets being created.
   validates_presence_of :type
@@ -38,6 +37,12 @@ class Asset < ActiveRecord::Base
     annotations.count
   end
 
+  def file_info
+    if attachment
+      "#{attachment.size} #{attachment.extension.gsub('.','').upcase} #{family.capitalize}"
+    end
+  end
+
   def thumbnail
     raise NotImplementedError
   end
@@ -56,8 +61,8 @@ class Asset < ActiveRecord::Base
       if attachment
         attachment_type = Attachment::Inspector.attachmentToType(attachment)
         self.type = "Asset::#{attachment_type.to_s.capitalize}"
-      elsif external_location
-        case external_location
+      elsif external_source
+        case external_source
           when 'youtube'
             self.type = 'Asset::Youtube'
           when 'vimeo'

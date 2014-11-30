@@ -4,13 +4,13 @@
 		<div class="asset-uploading" data-behavior="asset-uploading-message" style="display: none">
 			Uploading...
 		</div>
+		<form data-behavior="upload-form" accept-charset="UTF-8" action="http://{{s3Bucket}}.s3.amazonaws.com" data-remote="true" enctype="multipart/form-data" id="video-upload" method="post">
 			<input type="hidden" name="AWSAccessKeyId" value="{{AWSPublicKey}}" />
 			<input type="hidden" name="acl" value="private" />
 			<input type="hidden" name="success_action_status" value="200" />
 			<input type="hidden" name="key" />
 			<input type="hidden" name="policy" />
 			<input type="hidden" name="signature" />
-			<form data-behavior="upload-form" accept-charset="UTF-8" action="http://{{s3Bucket}}.s3.amazonaws.com" data-remote="true" enctype="multipart/form-data" id="video-upload" method="post">
 			<div class="page-section-one-third asset-upload--file">
 				<div class="wrapper">
 				<span class="file-input-container">
@@ -28,11 +28,11 @@
 				</div>
 			</div>
 			</form>
-			<form data-behavior="upload-form" accept-charset="UTF-8" id="video-external" method="post">
+			<form data-behavior="external-video-form" accept-charset="UTF-8" id="video-external" method="post">
 			<div class="page-section-one-third asset-upload--input">
 				<div class="wrapper">
 					<div class="formgrid-input">
-						<input type="text" data-behavior="" placeholder="Vimeo / YouTube URL" />
+						<input type="text" data-behavior="external-video-url" placeholder="Vimeo / YouTube URL" />
 					</div>
 				</div>
 			</div>

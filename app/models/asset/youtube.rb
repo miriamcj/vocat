@@ -14,8 +14,12 @@ class Asset::Youtube < Asset
     }
   end
 
-  def state
+  def attachment_state
     'processed'
+  end
+
+  def file_info
+    "Youtube #{family.capitalize}"
   end
 
 end

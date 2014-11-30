@@ -16,10 +16,6 @@ class AttachmentSerializer < ActiveModel::Serializer
     object.extension.gsub('.','')
   end
 
-  def size
-    number_to_human_size object.media_file_size
-  end
-
   def current_user_can_destroy
     Ability.new(scope).can?(:destroy, object)
   end
