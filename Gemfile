@@ -21,6 +21,10 @@ gem 'net-ldap'
 gem 'mime-types'
 gem 'thor', :git => 'https://github.com/erikhuda/thor.git'
 gem 'state_machine'
+gem 'mini_magick'
+
+gem 'sidekiq'
+gem 'sinatra', '>= 1.3.0', :require => nil
 
 gem 'cancancan'
 gem 'kaminari'

@@ -1,5 +1,7 @@
 class Attachment::Variant < ActiveRecord::Base
 
+  include Storable
+
   belongs_to :attachment
   after_destroy :destroy_file_object
 
@@ -19,17 +21,6 @@ class Attachment::Variant < ActiveRecord::Base
 
     event :halt_processing do
       transition :processing => :unprocessed
-    end
-  end
-
-  def mime_type
-    case extension
-      when 'mp4'
-        'video/mp4'
-      when 'webm'
-        'video/webm'
-      when 'png'
-        'image/png'
     end
   end
 
@@ -58,36 +49,7 @@ class Attachment::Variant < ActiveRecord::Base
     processor.processing_finished?(self)
   end
 
-  def bucket
-    Rails.application.config.vocat.aws[:s3_bucket]
-  end
 
-  def get_s3_instance
-    options = {
-        :access_key_id => Rails.application.config.vocat.aws[:key],
-        :secret_access_key => Rails.application.config.vocat.aws[:secret]
-    }
-    s3 = AWS::S3.new(options)
-    s3
-  end
-
-  def public_location
-    s3 = get_s3_instance
-    object = s3.buckets[bucket].objects[location]
-    options = {}
-    unless mime_type.blank?
-      options[:response_content_type] = mime_type
-    end
-    object.url_for(:read, options).to_s
-  end
-
-  def destroy_file_object
-    s3 = get_s3_instance
-    unless location.blank?
-      object = s3.buckets[bucket].objects[location]
-      object.delete if object.exists?
-    end
-  end
 
 
 end

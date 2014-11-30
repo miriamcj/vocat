@@ -8,7 +8,4 @@ class Attachment::Processor::Transcoder::Mp4
     @output_format = 'mp4'
   end
 
-
-
-
 end

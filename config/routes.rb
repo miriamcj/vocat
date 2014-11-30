@@ -163,11 +163,14 @@ Vocat::Application.routes.draw do
   end
 
   get '/admin' => 'admin/courses#index', :as => 'admin'
-
-#  get '/' => 'dashboard#index', :as => 'dashboard'
   get '/' => 'root#index', :as => 'root'
   get '/dashboard/evaluator' => 'dashboard#evaluator', :as => 'dashboard_evaluator'
   get '/dashboard/creator' => 'dashboard#creator', :as => 'dashboard_creator'
   get '/dashboard/admin' => 'dashboard#admin', :as => 'dashboard_admin'
+
+  require 'sidekiq/web'
+  authenticate :user, lambda { |u| u.role?(:administrator) } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 
 end

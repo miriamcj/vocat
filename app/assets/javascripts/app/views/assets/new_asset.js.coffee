@@ -15,6 +15,7 @@ define (require) ->
       testNewButton: '[data-behavior="test-new-asset"]'
       hideManage: '[data-behavior="hide-manage"]'
       uploadForm: '[data-behavior="upload-form"]'
+      uploadFormWrapper: '[data-behavior="upload-form-wrapper"]'
       fileInputTrigger: '[data-behavior="file-input-trigger"]'
       fileInput: '[data-behavior="file-input"]'
       dropzone: '[data-behavior="dropzone"]'
@@ -99,11 +100,11 @@ define (require) ->
 
     hideForm: () ->
       @ui.assetUploadingMessage.show()
-      @ui.uploadForm.hide()
+      @ui.uploadFormWrapper.hide()
 
     showForm: () ->
       @ui.assetUploadingMessage.hide()
-      @ui.uploadForm.show()
+      @ui.uploadFormWrapper.show()
 
     initializeAsyncUploader: () ->
       attachment = null

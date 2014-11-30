@@ -1,7 +1,7 @@
 class Api::V1::AssetsController < ApplicationController
 
   load_and_authorize_resource :asset
-  wrap_parameters :asset, include: Asset.attribute_names << "listing_order_position"
+  # wrap_parameters :asset, include: Asset.attribute_names << "listing_order_position"
   respond_to :json
 
   def create

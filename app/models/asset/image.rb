@@ -6,13 +6,8 @@ class Asset::Image < Asset
     :image
   end
 
-  def thumbnail
-
-    ''
-  end
-
   def locations
     attachment.locations
   end
-  
+
 end

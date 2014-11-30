@@ -44,7 +44,7 @@ class Asset < ActiveRecord::Base
   end
 
   def thumbnail
-    raise NotImplementedError
+    attachment.thumb
   end
 
   def locations

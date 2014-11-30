@@ -1,6 +1,6 @@
 <div class="portfolio-item--thumb">
 	{{#if thumbnail }}
-	<div class="thumb-container">
+	<div class="thumb-container thumb-container-{{family}}">
 		<a href="#">
 			<img src="{{thumbnail}}">
 		</a>
@@ -16,18 +16,15 @@
 <div class="asset-collection-item--content">
 	<h3 class="heading-tertiary">
 		<a href="#" data-behavior="">
-			{{listing_order}}
 			{{#if name}}
 			{{else}}
 				{{titlecase family}} Submission
 			{{/if}}
 		</a>
 	</h3>
-	{{#if_match family 'video'}}
 	<h5 class="heading-informational">
 		{{file_info}}
 	</h5>
-	{{/if_match}}
 	<h5 class="heading-informational">
 		Uploaded {{created_at}} / {{attachment_state}}
 	</h5>

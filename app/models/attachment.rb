@@ -3,13 +3,16 @@ include ActionView::Helpers::NumberHelper
 
 class Attachment < ActiveRecord::Base
 
+  include Storable
+
   belongs_to :asset
   belongs_to :user
   has_many :variants, dependent: :destroy
 
   ALL_PROCESSORS = [
       Attachment::Processor::Transcoder::Mp4,
-      Attachment::Processor::Transcoder::Webm
+      Attachment::Processor::Transcoder::Webm,
+      Attachment::Processor::ThumbnailGenerator
   ]
 
   after_destroy :destroy_file_object
@@ -73,8 +76,12 @@ class Attachment < ActiveRecord::Base
     File.extname(media_file_name).downcase
   end
 
-  def variant_by_format(format)
-    variants.where(:format => format).first
+  def variant_by_format(format, state = nil)
+    if state
+      variants.where(:format => format, :state => state).first
+    else
+      variants.where(:format => format).first
+    end
   end
 
   def commit_if_attached
@@ -82,6 +89,7 @@ class Attachment < ActiveRecord::Base
       commit
     end
   end
+
 
   def check_processing_state
     if processing?
@@ -114,10 +122,17 @@ class Attachment < ActiveRecord::Base
   end
 
   def locations
+    formats = []
     locations = variants.with_state(:processed).map do |variant|
+      formats.push variant.format
       [variant.format, variant.public_location]
     end
+    ext = extension.gsub('.','')
+    unless formats.include? ext
+      locations.push [ext, public_location]
+    end
     Hash[locations]
+
   end
 
   def available_processors
@@ -163,7 +178,7 @@ class Attachment < ActiveRecord::Base
   end
 
   def thumb
-    variant = variant_by_format(['mp4_thumb', 'webm_thumb'])
+    variant = variant_by_format(['mp4_thumb', 'webm_thumb', 'jpg_thumb'], :processed)
     if variant.nil?
       return nil
     else
@@ -188,34 +203,9 @@ class Attachment < ActiveRecord::Base
     self.save
   end
 
-  def path_segment
-    lower_thousand = (id/1000).floor * 1000
-    upper_thousand = lower_thousand + 1000
-    lower_hundred = (id/100).floor * 100
-    upper_hundred = lower_hundred + 100
-    "#{lower_thousand}_#{upper_thousand}/#{lower_hundred}_#{upper_hundred}"
-  end
 
-  def s3_upload_document
-    policy = s3_upload_policy_document(location)
-    {
-      :policy => policy,
-      :signature => s3_upload_signature(location, policy),
-      :key => location
-    }
-  end
 
   private
-
-  def bucket
-    Rails.application.config.vocat.aws[:s3_bucket]
-  end
-
-  def destroy_file_object
-    s3 = get_s3_instance
-    object = s3.buckets[bucket].objects[location]
-    object.delete if object.exists?
-  end
 
   def committed_location
     ext = File.extname(media_file_name)
@@ -227,35 +217,5 @@ class Attachment < ActiveRecord::Base
     ext = File.extname(media_file_name)
     "temporary/attachment/#{path_segment}/#{id}#{ext}"
   end
-
-  def get_s3_instance
-    options = {
-        :access_key_id => Rails.application.config.vocat.aws[:key],
-        :secret_access_key => Rails.application.config.vocat.aws[:secret]
-    }
-    s3 = AWS::S3.new(options)
-    s3
-  end
-
-  # generate the policy document that amazon is expecting.
-  def s3_upload_policy_document(key)
-    ret = {
-      "expiration" => 15.minutes.from_now.utc.xmlschema,
-      "conditions" =>  [
-        {"bucket" =>  Rails.application.config.vocat.aws[:s3_bucket]},
-        ["starts-with", "$key", key],
-        {"acl" => "private"},
-        {"success_action_status" => "200"},
-        ["content-length-range", 0, 5368709120]
-      ]
-    }
-    Base64.encode64(ret.to_json).gsub(/\n/,'')
-  end
-
-  def s3_upload_signature(key, policy)
-    secret = Rails.application.config.vocat.aws[:secret]
-    signature = Base64.encode64(OpenSSL::HMAC.digest(OpenSSL::Digest::Digest.new('sha1'), secret, policy)).gsub("\n","")
-  end
-
 
 end

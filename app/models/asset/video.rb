@@ -6,10 +6,6 @@ class Asset::Video < Asset
     :video
   end
 
-  def thumbnail
-    attachment.thumb
-  end
-
   def locations
     attachment.locations
   end
