@@ -4,19 +4,15 @@ define (require) ->
   UserCollection = require('collections/user_collection')
   ProjectCollection = require('collections/project_collection')
   SubmissionForCourseCollection = require('collections/submission_for_course_collection')
-  GroupCollection = require('collections/group_collection')
-  AssetCollection = require('collections/asset_collection')
-  ProjectDetail = require('views/project/detail')
-  AssetShowLayout = require('views/assets/asset_show_layout')
-
   GroupSubmissionCollection = require('collections/submission_for_group_collection')
   CourseUserSubmissionCollection = require('collections/submission_for_course_user_collection')
+  GroupCollection = require('collections/group_collection')
+  AssetCollection = require('collections/asset_collection')
+  AssetShowLayout = require('views/assets/asset_show_layout')
   CourseMap = require('views/course_map/course_map')
   SubmissionDetail = require('views/submission/submission_layout')
   CreatorDetail = require('views/course_map/detail_creator')
   ProjectDetail = require('views/project/detail')
-#  UserCourseMap = require('views/course_map/user_course_map')
-#  GroupCourseMap = require('views/course_map/group_course_map')
 
   class CourseMapController extends VocatController
 
@@ -60,8 +56,18 @@ define (require) ->
       @_showCreatorDetail('User', courseId, creatorId)
 
     groupCreatorDetail: (courseId, creatorId) ->
-      console.log 'called a'
       @_showCreatorDetail('Group', courseId, creatorId)
+
+    standaloneUserProjectDetail: (courseId, projectId) ->
+      #TODO: Move standalone details into this controller
+
+    assetDetail: (courseId, assetId) ->
+      #TODO:  Setup controller action for standalone asset detail--will begin
+      #       by loading the submisison detail.
+      #deferred = @_loadOneSubmission(creatorType, creatorId, projectId)
+      #deferred.done((submission) =>
+
+
 
     _loadSubmissions: (courseId) ->
       if @submissionsSynced == false
@@ -152,15 +158,3 @@ define (require) ->
         courseMapContext: courseMapContext
       })
       window.Vocat.main.show(projectDetail)
-
-    standaloneUserProjectDetail: (courseId, projectId) ->
-#      projectDetail = new ProjectDetail({courseId: courseId, collections: @collections, vent: Vocat.vent, projectId: projectId})
-#      window.Vocat.main.show(projectDetail)
-#
-    assetDetail: (courseId, assetId) ->
-#      deferred = @setupCoursemap(courseId)
-#      $.when(deferred).then(() =>
-#        console.log @collections.asset
-#        @courseMap.triggerMethod('open:detail:asset',  @collections.asset.get(assetId),
-#        )
-#      )
