@@ -1,10 +1,16 @@
-<div class="page-section--component-header strong centered">This Project Accepts Videos, Images, and Audio</div>
+<div class="page-section--component-header strong centered">
+	This Project Accepts {{join project.allowed_attachment_families capitalize=true }} Files
+</div>
 
 	<div class="page-section--component asset-upload">
 		<div class="asset-uploading" data-behavior="asset-uploading-message" style="display: none">
+			<div class="progress-bar">
+				<div data-behavior="progress-bar" class="progress-bar--fill"></div>
+			</div>
 			Uploading...
 		</div>
-		<div data-behavior="upload-form-wrapper">
+		<div data-behavior="upload-form-wrapper"
+		     {{#if_include project.allowed_attachment_families "video"}}{{else}}class="asset-upload--two-col"{{/if_include}}>
 			<form data-behavior="upload-form" accept-charset="UTF-8" action="http://{{s3Bucket}}.s3.amazonaws.com" data-remote="true" enctype="multipart/form-data" id="video-upload" method="post">
 				<input type="hidden" name="AWSAccessKeyId" value="{{AWSPublicKey}}" />
 				<input type="hidden" name="acl" value="private" />
@@ -12,7 +18,7 @@
 				<input type="hidden" name="key" />
 				<input type="hidden" name="policy" />
 				<input type="hidden" name="signature" />
-				<div class="page-section-one-third asset-upload--file">
+				<div class="asset-upload--column asset-upload--file">
 					<div class="wrapper">
 					<span class="file-input-container">
 							<input  data-behavior="file-input" name="file" type="file" />
@@ -20,17 +26,18 @@
 						</span>
 					</div>
 				</div>
-				<div data-behavior="dropzone" class="page-section-one-third asset-upload--target">
+				<div data-behavior="dropzone" class="asset-upload--column asset-upload--target">
 					<div class="wrapper">
-							<a href="#" class="decorated" data-behavior="file-picker">
+							<a class="decorated" data-behavior="file-picker">
 								Drag and Drop
 							</a>
 						</span>
 					</div>
 				</div>
 			</form>
+			{{#if_include project.allowed_attachment_families "video"}}
 			<form data-behavior="external-video-form" accept-charset="UTF-8" id="video-external" method="post">
-				<div class="page-section-one-third asset-upload--input">
+				<div class="asset-upload--column asset-upload--input">
 					<div class="wrapper">
 						<div class="formgrid-input">
 							<input type="text" data-behavior="external-video-url" placeholder="Vimeo / YouTube URL" />
@@ -38,6 +45,7 @@
 					</div>
 				</div>
 			</form>
+			{{/if_include}}
 		</div>
 	</div>
 	<div class="centered asset-done">

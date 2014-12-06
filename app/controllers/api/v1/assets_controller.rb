@@ -1,21 +1,15 @@
 class Api::V1::AssetsController < ApplicationController
 
   load_and_authorize_resource :asset
-  # wrap_parameters :asset, include: Asset.attribute_names << "listing_order_position"
   respond_to :json
 
+  # POST /api/v1/assets.json
   def create
-    if params[:attachment_id]
-      attachment = Attachment.find(params[:attachment_id])
-      if attachment.user_id == current_user.id
-        @asset.attachment = attachment
-        attachment.commit
-        @asset.author_id = current_user.id
-      end
-    end
+    @asset.author = current_user
+    # If an attachment_id is sent along with the request, associate the attachment with the asset.
+    @asset.attach(Attachment.find(params[:attachment_id])) if params[:attachment_id]
     if @asset.save()
-      # We need to reload the asset so it receives the correct type after the attachment is added.
-      # Tl;dr: STI work around
+      # Due to STI, we need to completely reload the asset so it's given the correct class.
       @asset = Asset.find @asset.id
       respond_with @asset, location: api_v1_asset_url(@asset)
     else
@@ -23,14 +17,17 @@ class Api::V1::AssetsController < ApplicationController
     end
   end
 
+  # DELETE /api/v1/assets/:id.json
   def destroy
     @asset.destroy
     respond_with(@asset)
   end
 
-  # PATCH /api/v1/discussion_posts/:id.json
+  # PATCH /api/v1/assets/:id.json
   def update
-    @asset.update_attributes(asset_params)
+    update_params = asset_params
+    update_params[:listing_order_position] = params[:listing_order_position]
+    @asset.update_attributes(update_params)
     respond_with(@asset)
   end
 end

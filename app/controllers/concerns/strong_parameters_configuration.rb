@@ -55,6 +55,7 @@ module StrongParametersConfiguration
                                        :rubric_id,
                                        :type,
                                        :listing_order_position,
+                                       {:allowed_attachment_families => []},
                                        :due_date
     ).merge({ listing_order_position: params[:listing_order_position]})
   end
@@ -114,8 +115,8 @@ module StrongParametersConfiguration
   end
 
   def asset_params
-    myvar = params
-    params.require(:asset).permit(:submission_id,
+    params.require(:asset).permit(:id,
+                                  :submission_id,
                                   :listing_order_position,
                                   :external_source,
                                   :external_location,

@@ -11,7 +11,7 @@ define (require) ->
   dc = require('vendor/dc/dc')
   crossfilter = require('vendor/crossfilter/crossfilter')
 
-  class CourseMapDetailProject extends Marionette.LayoutView
+  class ProjectDetail extends Marionette.LayoutView
 
     loadedScoresSet = null
     template: template
@@ -21,13 +21,10 @@ define (require) ->
       crossfiltered: '[data-region="project-crossfiltered"]'
     }
 
-    triggers: () ->
-      t = {
-        'change [data-behavior="score-set-select"]': 'change:score:set'
-      }
-      if _.isFunction(@vent.triggerMethod)
-        t['click @ui.close'] = 'close'
-      t
+    triggers: {
+      'change [data-behavior="score-set-select"]': 'change:score:set'
+      'click @ui.close': 'close'
+    }
 
     ui: {
       close: '[data-behavior="detail-close"]'
@@ -35,13 +32,16 @@ define (require) ->
     }
 
     onClose: () ->
-      @vent.triggerMethod('close:detail') if _.isFunction(@vent.triggerMethod)
+      segment = ''
+      if @creatorType == 'User' then segment = 'users'
+      if @creatorType == 'Group' then segment = 'groups'
+      url = "courses/#{@model.get('course_id')}/#{segment}/evaluations"
+      Vocat.router.navigate(url, true)
 
     initialize: (options) ->
-
       @options = options || {}
       @vent = Marionette.getOption(@, 'vent')
-
+      @creatorType = Marionette.getOption(@, 'creatorType')
       @projectId = Marionette.getOption(@, 'projectId') || @model.id
 
         # The layout is responsible for loading the data and passing it to its component views when it's been updated.

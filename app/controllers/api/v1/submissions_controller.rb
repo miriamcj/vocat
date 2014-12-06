@@ -13,6 +13,25 @@ class Api::V1::SubmissionsController < ApiController
     respond_with @submissions, :each_serializer => BriefSubmissionSerializer
   end
 
+  # GET /api/v1/submissions/for_creator_and_project.json?creator=:user_or_group&project=:project&creator_type=user_or_group
+  def for_creator_and_project
+    factory = SubmissionFactory.new
+    creator_type = params.require(:creator_type)
+    @project = Project.find(params.require(:project))
+    @course = @project.course
+    if creator_type == 'User'
+      @creator = User.find(params.require(:creator))
+      unless @user == current_user
+        authorize! :show_submissions, @course
+      end
+    elsif creator_type == 'Group'
+      authorize! :show_submissions, @group
+      @creator = Group.find(params.require(:creator))
+    end
+    @submissions = factory.creator_and_project(@creator, @project)
+    respond_with @submissions
+  end
+
   # GET /api/v1/submissions/for_course_and_user.json?course=:course&user=:user&project=:project
   # Note that project is optional.
   def for_course_and_user

@@ -22,9 +22,9 @@ define ['marionette', 'views/course_map/cell'], (Marionette, ItemView) ->
 
     childViewOptions: () ->
       {
-      vent: @vent
-      creator: @model
-      submissions: @submissions
+        vent: @vent
+        creator: @model
+        submissions: @submissions
       }
 
     initialize: (options) ->

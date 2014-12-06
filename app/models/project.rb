@@ -30,8 +30,8 @@ class Project < ActiveRecord::Base
 
   def attachment_families_are_valid
     if allowed_attachment_families
-      allowed_attachment_families.split(',').each do |value|
-        if Project::ATTACHMENT_FAMILIES.include?(value)
+      allowed_attachment_families.each do |value|
+        unless Project::ATTACHMENT_FAMILIES.include?(value)
           errors.add(:allowed_attachment_families, "contains an invalid value \"#{value}\"")
         end
       end
@@ -40,6 +40,14 @@ class Project < ActiveRecord::Base
 
   def active_model_serializer
     ProjectSerializer
+  end
+
+  def allowed_extensions
+    Attachment::Inspector::extensions_for allowed_attachment_families
+  end
+
+  def allowed_mime_types
+    Attachment::Inspector::mime_types_for allowed_attachment_families
   end
 
   def published_evaluations_by_type(type)

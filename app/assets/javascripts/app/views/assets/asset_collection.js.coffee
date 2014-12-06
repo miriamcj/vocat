@@ -18,6 +18,10 @@ define (require) ->
     childViewContainer: '[data-behavior="collection-container"]'
     emptyView: EmptyView
 
+    ui: {
+      collectionContainer: '[data-behavior="collection-container"]'
+    }
+
     triggers: {
       'click [data-behavior="do-render"]': 'forceRender'
     }
@@ -44,8 +48,9 @@ define (require) ->
       @collection.add(model, {at: position})
       model.save()
 
-    onAddChild: ()->
+    onAddChild: () ->
       @$el.sortable({
+        containment: @ui.collectionContainer
         revert: true
         handle: '[data-behavior="move"]'
         items: '[data-behavior="sortable-item"]'

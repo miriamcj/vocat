@@ -28,14 +28,8 @@ define ['marionette', 'hbs!templates/course_map/creators_item'], (Marionette, te
       data.userCanAdministerCourse = window.VocatUserCourseAdministrator
       data
 
-    onActive: () ->
-      @vent.triggerMethod('row:active', {creator: @model})
-
-    onInactive: () ->
-      @vent.triggerMethod('row:inactive', {creator: @model})
-
     onDetail: () ->
-      @vent.triggerMethod('open:detail:creator', {creator: @model})
+      @vent.triggerMethod('navigate:creator', {creator: @model.id})
 
     initialize: (options) ->
       @options = options || {}

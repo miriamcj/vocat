@@ -16,10 +16,6 @@
 .portfolio-item, .asset-collection-item {
   @include clearfix(hard);
   .portfolio-item--content, .asset-collection-item--content {
-    a:hover {
-      color: $tealDark !important;
-    }
-
     h3.heading-tertiary {
       @include font-body;
       margin-top: -4px;
@@ -129,6 +125,9 @@
     font-size: $delta-minor;
     a {
       color: $tealLight;
+      &:hover {
+        color: $grayDark;
+      }
     }
     small {
 

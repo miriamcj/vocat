@@ -11,7 +11,7 @@ class Attachment::Processor::ThumbnailGenerator
     variant.location = output_location
     variant.format = 'jpg_thumb'
     variant.save
-    ThumbnailWorker.perform_async(variant.id, output_location, '200x165')
+    ThumbnailWorker.perform_in(2.seconds, variant.id, output_location)
     variant
   end
 
@@ -22,7 +22,7 @@ class Attachment::Processor::ThumbnailGenerator
   end
 
   def initialize
-    @handled_formats = [".jpg",".jpeg",".gif",".png"]
+    @handled_formats = Attachment::Inspector.extensions_for([:image])
     @output_format = "jpg"
   end
 

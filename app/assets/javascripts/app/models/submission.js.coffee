@@ -4,6 +4,8 @@ define (require) ->
   VideoModel = require('models/video')
   EvaluationModel = require('models/evaluation')
   ProjectModel = require('models/project')
+  UserModel = require('models/user')
+  GroupModel = require('models/group')
   AssetCollection = require('collections/asset_collection')
 
   class SubmissionModel extends Backbone.Model
@@ -86,6 +88,16 @@ define (require) ->
       if !@projectModel?
         @projectModel = new ProjectModel(@get('project'))
       @projectModel
+
+    creator: () ->
+      if !@creatorModel?
+        if @get('creator_type') == 'User'
+          @creatorModel = new UserModel(@get('creator'))
+        else if @get('creator_type') == 'Group'
+          @creatorModel = new GroupModel(@get('creator'))
+        else
+          @creatorModel = null
+      @creatorModel
 
     initialize: () ->
 

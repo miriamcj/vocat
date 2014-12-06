@@ -2,8 +2,6 @@ module Attachment::Processor::Transcoder
 
   include(Attachment::Processor)
 
-  TRANSCODER_INPUT_FORMATS = [".avi",".mp4",".m4v",".mov",".flv", ".wmv"]
-
   def do_processing(variant)
     transcode(variant)
   end

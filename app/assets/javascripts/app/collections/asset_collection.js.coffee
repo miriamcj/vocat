@@ -17,7 +17,7 @@ define [
     url: '/api/v1/assets'
 
     initialize: (models, options) ->
-      @submissionId = options.submissionId
+      @submissionId = Marionette.getOption(@, 'submissionId')
       @setupListeners()
 
     setupListeners: () ->

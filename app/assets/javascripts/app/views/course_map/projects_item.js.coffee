@@ -51,6 +51,9 @@ define (require) ->
         new DropdownView({el: el, vent: Vocat.vent, allowAdjustment: false})
       )
 
+    onDetail: () ->
+      @vent.triggerMethod('navigate:project', {project: @model.id})
+
     onClickPublish: () ->
       Vocat.vent.trigger('modal:open', new ModalConfirmView({
         model: @model,

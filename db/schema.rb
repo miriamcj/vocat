@@ -96,7 +96,7 @@ ActiveRecord::Schema.define(version: 20141125213025) do
     t.integer  "organization_id"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
-    t.hstore   "settings",        default: "", null: false
+    t.hstore   "settings",        default: {}, null: false
     t.text     "message"
     t.integer  "semester_id"
     t.integer  "year"
@@ -157,7 +157,7 @@ ActiveRecord::Schema.define(version: 20141125213025) do
   create_table "evaluations", force: true do |t|
     t.integer  "submission_id"
     t.integer  "evaluator_id"
-    t.hstore   "scores",           default: "",    null: false
+    t.hstore   "scores",           default: {},    null: false
     t.boolean  "published",        default: false
     t.integer  "rubric_id"
     t.datetime "created_at",                       null: false
@@ -204,7 +204,7 @@ ActiveRecord::Schema.define(version: 20141125213025) do
     t.integer  "listing_order"
     t.string   "type",                        default: "user"
     t.date     "due_date"
-    t.string   "allowed_attachment_families"
+    t.text     "allowed_attachment_families", default: [],                  array: true
   end
 
   add_index "projects", ["course_id"], name: "index_projects_on_course_id", using: :btree

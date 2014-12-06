@@ -1,6 +1,6 @@
 class AssetSerializer < ActiveModel::Serializer
   attributes :id, :family, :name, :created_at, :attachment_state, :thumbnail, :locations, :created_at, :file_info,
-             :listing_order
+             :listing_order, :submission_id
 
   has_one :attachment
 

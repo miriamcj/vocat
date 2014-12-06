@@ -13,6 +13,7 @@
   window.VocatSessionData = JSON.parse('<%= raw @session_data.to_json %>');
   window.VocatUserRole = '<%= current_user_role %>';
   <% if @selected_course %>
+  window.VocatCourseId = <%= @selected_course.id %>;
   window.VocatUserCourseRole = '<%= @selected_course.role(current_user) %>';
   window.VocatUserCourseAdministrator = <%= current_user.can?(:administer, @selected_course) %>
   <% else %>

@@ -18,9 +18,6 @@ define (require) ->
   $('[data-behavior="dropdown"]').each( (index, el) ->
     new DropdownView({el: el, vent: Vocat.vent})
   )
-#  $('[data-behavior="figures"]').each( (index, el) ->
-#    new FigureCollectionView({el: el, vent: Vocat.vent})
-#  )
   $('[data-behavior="header-drawer-trigger"]').each( (index, el) ->
     new HeaderDrawerTriggerView ({el: el, vent: Vocat.vent})
   )
@@ -43,16 +40,15 @@ define (require) ->
       'courses/:course/manage/projects': 'courseManageProjects'
     }
     coursemap: {
-      'courses/:course/users/evaluations': 'userGrid'
-      'courses/:course/groups/evaluations': 'groupGrid'
+      'courses/:course/users/evaluations': 'userCourseMap'
+      'courses/:course/groups/evaluations': 'groupCourseMap'
+      'courses/:course/evaluations/assets/:asset': 'assetDetail'
       'courses/:course/users/evaluations/creator/:creator': 'userCreatorDetail'
-      'courses/:course/users/evaluations/project/:project': 'userProjectDetail'
-      # TODO: Can the following route be removed? Is it still active?
-      'courses/:course/users/evaluations/creator/:creator/project/:project': 'userCreatorProjectDetail'
       'courses/:course/groups/evaluations/creator/:creator': 'groupCreatorDetail'
+      'courses/:course/users/evaluations/project/:project': 'userProjectDetail'
       'courses/:course/groups/evaluations/project/:project': 'groupProjectDetail'
-      'courses/:course/groups/evaluations/creator/:creator/project/:project': 'groupCreatorProjectDetail'
-      'courses/:course/users/project/:project': 'standaloneUserProjectDetail'
+      'courses/:course/users/evaluations/creator/:creator/project/:project': 'userSubmissionDetail'
+      'courses/:course/groups/evaluations/creator/:creator/project/:project': 'groupSubmissionDetail'
     }
     group: {
       'courses/:course/manage/groups': 'index'
@@ -61,9 +57,6 @@ define (require) ->
       'pages/help_dev': 'helpDev'
       'pages/modal_dev': 'modalDev'
     }
-#    portfolio: {
-#      'courses/:course/portfolio': 'portfolio'
-#    }
     rubric: {
       'courses/:course/manage/rubrics/new': 'new'
       'admin/rubrics/new': 'new'

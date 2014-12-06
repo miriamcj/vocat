@@ -5,8 +5,18 @@ define (require) ->
   ProjectCollection = require('collections/project_collection')
   SubmissionForCourseCollection = require('collections/submission_for_course_collection')
   GroupCollection = require('collections/group_collection')
-  CourseMap = require('views/course_map/course_map_layout')
+  AssetCollection = require('collections/asset_collection')
   ProjectDetail = require('views/project/detail')
+  AssetShowLayout = require('views/assets/asset_show_layout')
+
+  GroupSubmissionCollection = require('collections/submission_for_group_collection')
+  CourseUserSubmissionCollection = require('collections/submission_for_course_user_collection')
+  CourseMap = require('views/course_map/course_map')
+  SubmissionDetail = require('views/submission/submission_layout')
+  CreatorDetail = require('views/course_map/detail_creator')
+  ProjectDetail = require('views/project/detail')
+#  UserCourseMap = require('views/course_map/user_course_map')
+#  GroupCourseMap = require('views/course_map/group_course_map')
 
   class CourseMapController extends VocatController
 
@@ -15,87 +25,142 @@ define (require) ->
       group: new GroupCollection([], {})
       project: new ProjectCollection([], {})
       submission: new SubmissionForCourseCollection([], {})
+      asset: new AssetCollection([], {})
     }
 
     layoutInitialized: false
+    submissionsSynced: false
 
     initialize: () ->
       @bootstrapCollections()
 
-    setupCoursemap: (courseId) ->
+    userCourseMap: (courseId) ->
+      @_loadSubmissions(courseId)
+      courseMap = new CourseMap({creatorType: 'User', courseId: courseId, collections: @collections})
+      window.Vocat.main.show(courseMap)
 
-      # If we already have @courseMap, then the data has already been fetched.
-      if @courseMap
-        deferred = $.Deferred()
-        deferred.resolve()
-        deferred
-      # Otherwise, setup @courseMap and load the data. Routes won't execute until
-      # the loading is complete.
-      else
-        @collections.submission = new SubmissionForCourseCollection
-        deferred = @deferredCollectionFetching(@collections.submission, {course: courseId}, 'Loading course submissions...')
-        $.when(deferred).then(() =>
-          @courseMap = new CourseMap({courseId: courseId, collections: @collections})
-          window.Vocat.main.show(@courseMap)
-        )
-        deferred
-
-    userGrid: (courseId) ->
-      deferred = @setupCoursemap(courseId)
-      $.when(deferred).then(() =>
-        @courseMap.triggerMethod('show:users', {})
-        @courseMap.triggerMethod('close:detail', {})
-      )
-
-    groupGrid: (courseId) ->
-      deferred = @setupCoursemap(courseId)
-      $.when(deferred).then(() =>
-        @courseMap.triggerMethod('show:groups', {})
-        @courseMap.triggerMethod('close:detail', {})
-      )
-
-    userCreatorDetail: (courseId, userId) ->
-      deferred = @setupCoursemap(courseId)
-      $.when(deferred).then(() =>
-        @courseMap.triggerMethod('open:detail:user', {user: @collections.user.get(userId)})
-      )
-
-    userProjectDetail: (courseId, projectId) ->
-      deferred = @setupCoursemap(courseId)
-      $.when(deferred).then(() =>
-        @courseMap.triggerMethod('open:detail:project:users', {project: @collections.project.get(projectId)})
-      )
-
-    userCreatorProjectDetail: (courseId, creatorId, projectId) ->
-      deferred = @setupCoursemap(courseId)
-      $.when(deferred).then(() =>
-        @courseMap.triggerMethod('open:detail:creator:project', {
-          creator: @collections.user.get(creatorId),
-          project: @collections.project.get(projectId)
-        })
-      )
-
-    standaloneUserProjectDetail: (courseId, projectId) ->
-      projectDetail = new ProjectDetail({courseId: courseId, collections: @collections, vent: Vocat.vent, projectId: projectId})
-      window.Vocat.main.show(projectDetail)
-
-    groupCreatorDetail: (courseId, groupId) ->
-      deferred = @setupCoursemap(courseId)
-      $.when(deferred).then(() =>
-        @courseMap.triggerMethod('open:detail:group', {group: @collections.group.get(groupId)})
-      )
+    groupCourseMap: (courseId) ->
+      @_loadSubmissions(courseId)
+      courseMap = new CourseMap({creatorType: 'Group', courseId: courseId, collections: @collections})
+      window.Vocat.main.show(courseMap)
 
     groupProjectDetail: (courseId, projectId) ->
-      deferred = @setupCoursemap(courseId)
-      $.when(deferred).then(() =>
-        @courseMap.triggerMethod('open:detail:project:groups', {project: @collections.project.get(projectId)})
+      @_showProjectDetail(projectId, 'Group')
+
+    userProjectDetail: (courseId, projectId) ->
+      @_showProjectDetail(projectId, 'User')
+
+    groupSubmissionDetail: (courseId, creatorId, projectId) ->
+      @_showSubmissionDetail('Group', courseId, creatorId, projectId)
+
+    userSubmissionDetail: (courseId, creatorId, projectId) ->
+      @_showSubmissionDetail('User', courseId, creatorId, projectId)
+
+    userCreatorDetail: (courseId, creatorId) ->
+      @_showCreatorDetail('User', courseId, creatorId)
+
+    groupCreatorDetail: (courseId, creatorId) ->
+      console.log 'called a'
+      @_showCreatorDetail('Group', courseId, creatorId)
+
+    _loadSubmissions: (courseId) ->
+      if @submissionsSynced == false
+        @collections.submission.fetch({
+          reset: true
+          data: {course: courseId}
+          error: () =>
+            Vocat.vent.trigger('modal:open', new ModalErrorView({
+              model: @model,
+              vent: @,
+              message: 'Exception: Unable to fetch collection models. Please report this error to your VOCAT administrator.',
+            }))
+          success: () =>
+            @submissionsSynced = true
+        })
+
+    _loadOneSubmission: (creatorType, creatorId, projectId ) ->
+      deferred = $.Deferred()
+
+      # Check for existing, already loaded submission
+      existingSubmission = null
+      searchCriteria = {creator_id: creatorId, creator_type: creatorType, project_id: projectId}
+      if @submissionsSynced == true && @collections.submission.findWhere(searchCriteria)
+        existingSubmission = @collections.submission.findWhere(searchCriteria)
+        if existingSubmission.get('serialized_state') == 'full'
+          deferred.resolve(existingSubmission)
+          return deferred
+
+      # We don't deal in submission IDs in VOCAT (although I kind if wish we had), so we're fetching this
+      # model outside of the usual collection/model framework. At some point, we may want to move this fetching
+      # logic into a JS factory class or the submission model itself.
+      $.ajax({
+        url: "/api/v1/submissions/for_creator_and_project"
+        method: 'get'
+        data: {
+          creator: creatorId
+          project: projectId
+          creator_type: creatorType
+        }
+        success: (data) =>
+          if data.length > 0 && data[0].id?
+            raw = data[0]
+            id = raw.id
+            @collections.submission.add(raw, {merge: true})
+            submission = @collections.submission.get(id)
+            deferred.resolve(submission)
+          else
+            deferred.reject()
+        error: () =>
+          deferred.reject()
+      })
+      return deferred
+
+    _showSubmissionDetail: (creatorType, courseId, creatorId, projectId, courseMapContext = true) ->
+      deferred = @_loadOneSubmission(creatorType, creatorId, projectId)
+      deferred.done((submission) =>
+        submissionDetail = new SubmissionDetail({
+          collections: { submission: @collections.submission },
+          courseId: courseId
+          creator: creatorId
+          project: projectId
+          model: submission
+          courseMapContext: courseMapContext
+        })
+        window.Vocat.main.show(submissionDetail)
       )
 
-    groupCreatorProjectDetail: (courseId, creatorId, projectId) ->
-      deferred = @setupCoursemap(courseId)
-      $.when(deferred).then(() =>
-        @courseMap.triggerMethod('open:detail:creator:project', {
-          creator: @collections.group.get(creatorId),
-          project: @collections.project.get(projectId)
-        })
-      )
+    _showCreatorDetail: (creatorType, courseId, creatorId, courseMapContext = true) ->
+      if creatorType == 'User'
+        model = @collections.user.get(creatorId)
+        collection = new CourseUserSubmissionCollection()
+      else if creatorType == 'Group'
+        model = @collections.group.get(creatorId)
+        collection = new GroupSubmissionCollection()
+      creatorDetail = new CreatorDetail({
+        collection: collection
+        courseId: courseId
+        model: model
+        courseMapContext: courseMapContext
+      })
+      window.Vocat.main.show(creatorDetail)
+
+    _showProjectDetail: (projectId, creatorType, courseMapContext = true) ->
+      model = @collections.project.get(projectId)
+      projectDetail = new ProjectDetail({
+        model: model
+        creatorType: creatorType
+        courseMapContext: courseMapContext
+      })
+      window.Vocat.main.show(projectDetail)
+
+    standaloneUserProjectDetail: (courseId, projectId) ->
+#      projectDetail = new ProjectDetail({courseId: courseId, collections: @collections, vent: Vocat.vent, projectId: projectId})
+#      window.Vocat.main.show(projectDetail)
+#
+    assetDetail: (courseId, assetId) ->
+#      deferred = @setupCoursemap(courseId)
+#      $.when(deferred).then(() =>
+#        console.log @collections.asset
+#        @courseMap.triggerMethod('open:detail:asset',  @collections.asset.get(assetId),
+#        )
+#      )

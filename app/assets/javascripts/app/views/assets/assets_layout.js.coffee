@@ -22,13 +22,16 @@ define (require) ->
 
     triggers: {
       'click @ui.stopManagingLink': 'hide:new'
-      'click @ui.manageLink': 'show:new'
+      'click @ui.manageLink': 'click:manage'
     }
 
     regions: {
       assets: '[data-region="asset-collection"]'
       newAsset: '[data-region="asset-new"]'
     }
+
+    onClickManage: () ->
+      @onShowNew()
 
     onShowNew: () ->
       @newAsset.show(new NewAssetView({collection: @collection, model: @model.project(), vent: @}))
@@ -69,12 +72,20 @@ define (require) ->
       @listenTo(@, 'show:new', () =>
         @onShowNew()
       )
+      @listenTo(@, 'asset:show', (asset) =>
+        # TODO: Check if vent has trigger method. If it doesn't, trigger the stand alone asset route and let Rails handle it.
+        @vent.triggerMethod('open:detail:asset', asset)
+      )
+
+#      Vocat.router.navigate("courses/#{window.VocatCourseId}/assets/#{@model.id}", {trigger: true})
+
       @listenTo(@collection, 'reset', (e) =>
         @ensureVisibleCollectionView()
       )
 
+
+
     # @model is a submission model.
     initialize: (options) ->
       @vent = Marionette.getOption(@, 'vent')
-
       @setupListeners()

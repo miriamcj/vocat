@@ -17,7 +17,17 @@ class Asset < ActiveRecord::Base
   before_validation :ensure_type
 
   def family
-    'unknown'
+    raise NotImplementedError
+  end
+
+  # Attaches an existing attachment to the asset and commits the attachment
+  def attach(attachment)
+    # The attachment owner must be the same as the asset owner.
+    if attachment.user_id != author_id
+      raise CanCan::AccessDenied.new("Not authorized!", :update, Asset)
+    end
+    self.attachment = attachment
+    self.attachment.commit
   end
 
   def active_model_serializer
@@ -52,7 +62,7 @@ class Asset < ActiveRecord::Base
   end
 
   def state
-    raise NotImplementedError
+    attachment.state
   end
 
   protected

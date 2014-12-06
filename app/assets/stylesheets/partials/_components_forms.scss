@@ -130,6 +130,10 @@ fieldset + fieldset {
     @extend %proto-input;
     @extend %input-full-width;
   }
+  .checkbox-wrap {
+    height: 2.6em;
+    padding-top: .75em;
+  }
   textarea {
     resize: none;
     height: 6em;

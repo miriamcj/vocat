@@ -20,7 +20,6 @@ define (require) ->
       {
         standalone: @standalone
         creator: @model
-        vent: @vent
       }
 
     triggers: () ->
@@ -46,11 +45,14 @@ define (require) ->
       Vocat.vent.trigger('modal:open', new ModalGroupMembershipView({groupId: @model.id}))
 
     onClose: () ->
-      @vent.triggerMethod('close:detail') if _.isFunction(@vent.triggerMethod)
+      segment = ''
+      if @model.creatorType == 'User' then segment = 'users'
+      if @model.creatorType == 'Group' then segment = 'groups'
+      url = "courses/#{@courseId}/#{segment}/evaluations"
+      Vocat.router.navigate(url, true)
 
     initialize: (options) ->
       @options = options || {}
-      @vent = Marionette.getOption(@, 'vent')
       @standalone = Marionette.getOption(@, 'standalone')
       @courseId = Marionette.getOption(@, 'courseId')
       if @model.creatorType == 'User'

@@ -25,6 +25,7 @@ define (require) ->
       assetUploadingMessage: '[data-behavior="asset-uploading-message"]'
       externalVideoForm: '[data-behavior="external-video-form"]'
       externalVideoUrl: '[data-behavior="external-video-url"]'
+      progressBar: '[data-behavior="progress-bar"]'
     }
 
     triggers: {
@@ -95,6 +96,7 @@ define (require) ->
       @vent.trigger('hide:new')
 
     onRender: () ->
+      console.log 'rendered'
       @ui.assetUploadingMessage.hide()
       @initializeAsyncUploader()
 
@@ -114,19 +116,29 @@ define (require) ->
         limitConcurrentUploads: 1
         autoUpload: true
         add: (e, uploadForm) =>
-          @hideForm()
-          attachment = new AttachmentModel({})
-          attachment.save({'media_file_name': uploadForm.files[0].name}, {
-            success: (model) =>
-              uploadDocument = attachment.get('s3_upload_document')
-              @ui.keyInput.val(uploadDocument.key)
-              @ui.policyInput.val(uploadDocument.policy)
-              @ui.signatureInput.val(uploadDocument.signature)
-              uploadForm.submit()
-            error: () =>
-              Vocat.vent.trigger('error:add', {level: 'error', msg: 'Unable to create new attachment model.'})
-              @resetUploader()
-          })
+          console.log uploadForm,'uf'
+          file = uploadForm.files[0];
+          console.log file,'ft'
+          if @fileTypesRegex().test(file.name)
+            @hideForm()
+            attachment = new AttachmentModel({})
+            attachment.save({'media_file_name': file.name}, {
+              success: (model) =>
+                uploadDocument = attachment.get('s3_upload_document')
+                @ui.keyInput.val(uploadDocument.key)
+                @ui.policyInput.val(uploadDocument.policy)
+                @ui.signatureInput.val(uploadDocument.signature)
+                uploadForm.submit()
+              error: () =>
+                Vocat.vent.trigger('error:add', {level: 'error', msg: 'Unable to create new attachment model.'})
+                @resetUploader()
+            })
+          else
+            Vocat.vent.trigger('error:add', {level: 'error', msg: "Invalid file extension. Extension must be one of: #{@model.get('allowed_extensions').join(', ')}."})
+            @resetUploader()
+        progress: (e, data) =>
+          progress = parseInt(data.loaded / data.total * 100, 10)
+          @ui.progressBar.width("#{progress}%")
         fail: (e, data) =>
           Vocat.vent.trigger('error:add', {level: 'error', msg: 'Unable to upload file to Amazon S3.'})
           @resetUploader()
@@ -142,14 +154,22 @@ define (require) ->
           })
       })
 
+    fileTypesRegex: () ->
+      types = @model.get('allowed_extensions')
+      types = types.join('|')
+      out = "(\\.|\\/)(#{types})$"
+      new RegExp(out, 'i')
+
     resetUploader: () ->
       @ui.uploadForm.fileupload('destroy')
       @render()
       @showForm()
 
     serializeData: () ->
+      context = super()
       sd = {
         s3Bucket: window.VocatS3Bucket
         AWSPublicKey: window.VocatAWSPublicKey
+        project: context
       }
       sd

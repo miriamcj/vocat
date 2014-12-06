@@ -9,6 +9,8 @@ define (require) ->
   ProjectCollection = require('collections/project_collection')
   UserCollection = require('collections/user_collection')
   GroupCollection = require('collections/group_collection')
+  AssetCollection = require('collections/asset_collection')
+  AssetShowLayout = require('views/assets/asset_show_layout')
 
 
   class SubmissionController extends VocatController
@@ -17,6 +19,7 @@ define (require) ->
       user: new UserCollection({})
       group: new GroupCollection({}, {courseId: null})
       project: new ProjectCollection({})
+      asset: new AssetCollection({})
     }
 
     creatorDetail: (course, creator) ->
@@ -73,4 +76,13 @@ define (require) ->
         window.Vocat.main.show(view)
       )
 
+    assetShow: (course, asset) ->
+      assetModel = @collections.asset.first()
+      view = new AssetShowLayout({
+        courseId: course
+        model: assetModel
+        collection: @collections.asset
+        standalone: true
+      })
+      window.Vocat.main.show(view)
 

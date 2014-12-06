@@ -23,7 +23,31 @@
   }
 }
 
-.page-section-one-third {
+.asset-uploading {
+  position: relative;
+}
+
+.progress-bar {
+  height: 1em;
+  width: 50%;
+  position: absolute;
+  left: 25%;
+  top: 25px;
+  background: $grayMedium;
+  .progress-bar--fill {
+    height: 1em;
+    width: 0%;
+    position: absolute;
+    background: $grayDark;
+  }
+}
+
+.asset-upload--column {
+  @extend %wide-one-third;
+  @extend %page-section-column;
+  .asset-upload--two-col & {
+    @extend %wide-one-half;
+  }
   &.asset-upload--file, &.asset-upload--input, &.asset-upload--target {
     height: 125px;
     text-align: center;
@@ -85,6 +109,9 @@
         position: absolute;
         top: 50%;
         right: -.6em;
+        .asset-upload--two-col & {
+          content: '';
+        }
       }
     }
   }
