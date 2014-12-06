@@ -106,7 +106,7 @@ define (require) ->
       )
       @updateVideo()
 
-      @listenTo(@, 'sync', () =>
+      @listenTo(@, 'sync change', () =>
         @updateAssetsCollection()
       )
       @updateAssetsCollection()
