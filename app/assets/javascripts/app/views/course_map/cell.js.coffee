@@ -16,7 +16,8 @@ define ['marionette', 'hbs!templates/course_map/cell', 'models/user', 'models/gr
       'click [data-behavior="publish-toggle"]': 'publish:toggle'
 
     onDetail: () ->
-      @vent.trigger('navigate:submission', {submission: @model.id})
+      submissionId = @model.id if @model
+      @vent.trigger('navigate:submission', {project: @project.id, creator: @creator.id})
 
     onPublishToggle: () ->
       @model.toggleEvaluationPublish()
@@ -52,9 +53,8 @@ define ['marionette', 'hbs!templates/course_map/cell', 'models/user', 'models/gr
       return false
 
     initialize: (options) ->
+      @vent = options.vent
       @submissions = options.submissions
       @creator = options.creator
-      @vent = options.vent
-
       @project = @model
       @findModel()

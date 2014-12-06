@@ -54,20 +54,18 @@ define (require) ->
     onShow: () ->
       unless @$el.parent().data().hasOwnProperty('hideBackLink')
         @ui.close.show()
-
       @discussion.show(new DiscussionView({submission: @model}))
       if @model.get('project').evaluatable
         @evaluations.show(new EvaluationsView({rubric: @rubric, project: @project, model: @model, courseId: @courseId}))
+      console.log @model.assets()
       @assets.show(new AssetsView({collection: @model.assets(), model: @model, courseId: @courseId}))
 
     initialize: (options) ->
-      console.log options
       @options = options || {}
       @collections = {}
       @courseId = Marionette.getOption(@, 'courseId')
       @courseMapContext = Marionette.getOption(@, 'courseMapContext')
       @project = @model.project()
       @creator = @model.creator()
-
 
 

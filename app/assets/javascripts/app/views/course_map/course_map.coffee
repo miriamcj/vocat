@@ -57,7 +57,7 @@ define (require) ->
         @adjustToCurrentPosition()
       )
       @listenTo(@, 'navigate:submission', (args) ->
-        @navigateToSubmission(args.submission)
+        @navigateToSubmission(args.project, args.creator)
       )
       @listenTo(@, 'navigate:creator', (args) ->
         @navigateToCreator(args.creator)
@@ -72,17 +72,10 @@ define (require) ->
       else if @creatorType == 'Group'
         Vocat.router.navigate("courses/#{@courseId}/groups/evaluations/project/#{projectId}", true)
 
-    navigateToSubmission: (submissionId) ->
-      model = @collections.submission.get(submissionId)
-      if model?
-        type = model.get('creator_type')
-        if type == 'User'
-          url_base = "courses/#{@courseId}/users/"
-        else if type == 'Group'
-          url_base = "courses/#{@courseId}/groups/"
-        if url_base?
-          url = url_base + "evaluations/creator/#{model.get('creator_id')}/project/#{model.get('project_id')}"
-          Vocat.router.navigate(url, true)
+    navigateToSubmission: (projectId, creatorId) ->
+      typeSegment = "#{@creatorType.toLowerCase()}s"
+      url = "courses/#{@courseId}/#{typeSegment}/evaluations/creator/#{creatorId}/project/#{projectId}"
+      Vocat.router.navigate(url, true)
 
     navigateToCreator: (creatorId) ->
       if @creatorType == 'User'
