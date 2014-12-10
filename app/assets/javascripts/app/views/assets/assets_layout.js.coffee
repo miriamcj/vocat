@@ -65,6 +65,10 @@ define (require) ->
       # TODO: Remove this
       # @onShowNew()
 
+    navigateToAssetDetail: (assetId) ->
+      url = "courses/#{@courseId}/evaluations/assets/#{assetId}"
+      Vocat.router.navigate(url, true)
+
     setupListeners: () ->
       @listenTo(@, 'hide:new', () =>
         @onHideNew()
@@ -72,13 +76,9 @@ define (require) ->
       @listenTo(@, 'show:new', () =>
         @onShowNew()
       )
-      @listenTo(@, 'asset:show', (asset) =>
-        # TODO: Check if vent has trigger method. If it doesn't, trigger the stand alone asset route and let Rails handle it.
-        @vent.triggerMethod('open:detail:asset', asset)
+      @listenTo(@, 'asset:detail', (args) =>
+        @navigateToAssetDetail(args.asset)
       )
-
-#      Vocat.router.navigate("courses/#{window.VocatCourseId}/assets/#{@model.id}", {trigger: true})
-
       @listenTo(@collection, 'reset', (e) =>
         @ensureVisibleCollectionView()
       )
@@ -88,4 +88,5 @@ define (require) ->
     # @model is a submission model.
     initialize: (options) ->
       @vent = Marionette.getOption(@, 'vent')
+      @courseId = Marionette.getOption(@, 'courseId')
       @setupListeners()

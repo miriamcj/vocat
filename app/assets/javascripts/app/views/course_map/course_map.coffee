@@ -10,7 +10,6 @@ define (require) ->
   WarningView = require('views/course_map/warning')
   AbstractMatrix = require('views/abstract/abstract_matrix')
   GroupSubmissionCollection = require('collections/submission_for_group_collection')
-  AssetShowLayout = require('views/assets/asset_show_layout')
 
   class CourseMapLayout extends AbstractMatrix
 

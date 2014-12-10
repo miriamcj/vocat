@@ -8,11 +8,12 @@ define (require) ->
   CourseUserSubmissionCollection = require('collections/submission_for_course_user_collection')
   GroupCollection = require('collections/group_collection')
   AssetCollection = require('collections/asset_collection')
-  AssetShowLayout = require('views/assets/asset_show_layout')
+  AssetDetail = require('views/assets/asset_detail')
   CourseMap = require('views/course_map/course_map')
   SubmissionDetail = require('views/submission/submission_layout')
   CreatorDetail = require('views/course_map/detail_creator')
   ProjectDetail = require('views/project/detail')
+  AssetModel = require('models/asset')
 
   class CourseMapController extends VocatController
 
@@ -62,12 +63,22 @@ define (require) ->
       #TODO: Move standalone details into this controller
 
     assetDetail: (courseId, assetId) ->
-      #TODO:  Setup controller action for standalone asset detail--will begin
-      #       by loading the submisison detail.
-      #deferred = @_loadOneSubmission(creatorType, creatorId, projectId)
-      #deferred.done((submission) =>
+      @_loadAsset(assetId).done((asset) =>
+        assetDetail = new AssetDetail({
+          courseId: courseId
+          model: asset
+        })
+        window.Vocat.main.show(assetDetail)
+      )
 
-
+    _loadAsset: (assetId) ->
+      deferred = $.Deferred()
+      asset = new AssetModel({id: assetId})
+      asset.fetch({
+        success: () ->
+          deferred.resolve(asset)
+      })
+      deferred
 
     _loadSubmissions: (courseId) ->
       if @submissionsSynced == false
@@ -86,15 +97,6 @@ define (require) ->
 
     _loadOneSubmission: (creatorType, creatorId, projectId ) ->
       deferred = $.Deferred()
-
-      # Check for existing, already loaded submission
-      existingSubmission = null
-      searchCriteria = {creator_id: creatorId, creator_type: creatorType, project_id: projectId}
-      if @submissionsSynced == true && @collections.submission.findWhere(searchCriteria)
-        existingSubmission = @collections.submission.findWhere(searchCriteria)
-        if existingSubmission.get('serialized_state') == 'full'
-          deferred.resolve(existingSubmission)
-          return deferred
 
       # We don't deal in submission IDs in VOCAT (although I kind if wish we had), so we're fetching this
       # model outside of the usual collection/model framework. At some point, we may want to move this fetching

@@ -11,6 +11,9 @@ class Asset < ActiveRecord::Base
   delegate :processing_error, :to => :attachment, :prefix => false, :allow_nil => true
   delegate :creator, :to => :submission, :allow_nil => true
   delegate :course, :to => :submission, :allow_nil => true
+  delegate :project_id, :to => :submission, :allow_nil => true
+  delegate :creator_id, :to => :submission, :allow_nil => true
+  delegate :creator_type, :to => :submission, :allow_nil => true
 
   # We don't want any typeless assets being created.
   validates_presence_of :type

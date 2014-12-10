@@ -106,7 +106,7 @@ module StrongParametersConfiguration
                                        :smpte_timecode,
                                        :published,
                                        :seconds_timecode,
-                                       :video_id
+                                       :asset_id
     )
   end
 

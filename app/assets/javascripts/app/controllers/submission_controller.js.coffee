@@ -75,14 +75,3 @@ define (require) ->
 
         window.Vocat.main.show(view)
       )
-
-    assetShow: (course, asset) ->
-      assetModel = @collections.asset.first()
-      view = new AssetShowLayout({
-        courseId: course
-        model: assetModel
-        collection: @collections.asset
-        standalone: true
-      })
-      window.Vocat.main.show(view)
-

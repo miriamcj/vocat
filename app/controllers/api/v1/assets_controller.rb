@@ -17,6 +17,10 @@ class Api::V1::AssetsController < ApplicationController
     end
   end
 
+  def show
+    respond_with(@asset)
+  end
+
   # DELETE /api/v1/assets/:id.json
   def destroy
     @asset.destroy

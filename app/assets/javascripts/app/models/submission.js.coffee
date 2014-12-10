@@ -113,6 +113,6 @@ define (require) ->
 
     updateAssetsCollection: () ->
       if !@assetCollection
-        @assetCollection = new AssetCollection(@get('assets'), {submissionId: @.id})
+        @assetCollection = new AssetCollection(@get('assets'), {submissionId: @id})
       else
         @assetCollection.reset(@get('assets'))

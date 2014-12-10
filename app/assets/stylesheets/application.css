@@ -33,6 +33,7 @@
  *= require partials/_components_portfolio
  *= require partials/_dc
  *= require partials/_video_js
+ *= require partials/_video_js_overrides
 
 */
 

@@ -29,7 +29,7 @@ define (require) ->
     }
 
     onShowModel: () ->
-      @vent.trigger('asset:show', @model)
+      @vent.trigger('asset:detail', {asset: @model.id})
 
     onDrop: (e, i) ->
       @trigger("update:sort",[@model, i])
