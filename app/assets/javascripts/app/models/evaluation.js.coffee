@@ -101,9 +101,10 @@ define (require) ->
       sd = @get('score_details')
       _.each(sd, (scoreDetail, property) ->
         range = rubric.getRangeForScore(scoreDetail.score)
-        scoreDetail['desc'] = rubric.getCellDescription(property, range.id)
-        scoreDetail['range'] = range.get('name')
-        sd[property] = scoreDetail
+        if range
+          scoreDetail['desc'] = rubric.getCellDescription(property, range.id)
+          scoreDetail['range'] = range.get('name')
+          sd[property] = scoreDetail
       )
       sd
 
