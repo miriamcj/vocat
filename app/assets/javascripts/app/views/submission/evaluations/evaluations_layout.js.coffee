@@ -40,10 +40,15 @@ define (require) ->
       m = @myEvaluationModel()
       if m?
         Vocat.vent.trigger('notification:empty')
-        m.save({}, {success: () =>
-          @trigger('evaluation:save:success')
-          @model.fetch()
+        m.save({}, {
+          success: () =>
+            @trigger('evaluation:save:success')
+            @model.fetch()
+          error: (response) =>
+            Vocat.vent.trigger('error:add', {level: 'error', msg: 'Unable to save evaluation'})
         })
+        if m.validationError
+          Vocat.vent.trigger('error:add', {level: 'error', msg: m.validationError})
 
     onEvaluationRevert: () ->
       m = @myEvaluationModel()
