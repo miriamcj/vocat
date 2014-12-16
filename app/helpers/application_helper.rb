@@ -64,6 +64,15 @@ module ApplicationHelper
     controller.send :_layout
   end
 
+  def user_course_url(user, course)
+    role = course.role(user)
+    if role == :evaluator || role == :assistant
+      url_for course_user_evaluations_path(course)
+    else
+      url_for portfolio_course_path(course)
+    end
+  end
+
   def current_user_role
     myvar = current_user
     if current_user.nil?

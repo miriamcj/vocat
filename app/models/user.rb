@@ -2,6 +2,9 @@ class User < ActiveRecord::Base
 
   belongs_to :organization
   has_many :rubrics, :foreign_key => :owner_id
+  has_many :memberships
+  has_many :courses, :through => :memberships
+
   has_and_belongs_to_many :assistant_courses, :class_name => "::Course", :join_table => "courses_assistants"
   has_and_belongs_to_many :evaluator_courses, :class_name => "::Course", :join_table => "courses_evaluators"
   has_and_belongs_to_many :creator_courses, :class_name => "::Course", :join_table => "courses_creators"
@@ -35,6 +38,18 @@ class User < ActiveRecord::Base
   }
 
   validates :first_name, :last_name, :role, :presence => true
+
+  def assistant_courses
+    memberships.where({:role => 'assistant'})
+  end
+
+  def evaluator_courses
+    memberships.where({:role => 'evaluator'})
+  end
+
+  def creator_courses
+    memberships.where({:role => 'creator'})
+  end
 
   # Params is a hash of search values including (:department || :semester || :year) || :section
   def self.search(params)
@@ -80,6 +95,16 @@ class User < ActiveRecord::Base
     "User"
   end
 
+  def sorted_courses(limit = nil)
+    courses.sorted.limit(limit)
+  end
+
+  def grouped_sorted_courses(limit = nil)
+    sorted_courses(limit).group_by do |course|
+      "#{course.semester} #{course.year}"
+    end
+  end
+
   def has_courses
     if self.courses.count() > 0
       true
@@ -92,14 +117,13 @@ class User < ActiveRecord::Base
     Rubric.public_or_owned_by(self)
   end
 
-  def courses
-    creator_courses + assistant_courses + evaluator_courses
+  def courses_count
+    courses.count
   end
 
   def ability
     @ability ||= Ability.new(self)
   end
-
 
   def update_settings(settings)
     keys_intersection = settings.keys & User::DEFAULT_SETTINGS.keys
@@ -126,24 +150,6 @@ class User < ActiveRecord::Base
       end
     end
     out
-  end
-
-  # TODO: Refactor this; Adding itself to the course is not the job of the user.
-  def enroll(course, enrollment_role = nil)
-    if creator_courses.include?(course) || evaluator_courses.include?(course) || assistant_courses.include?(course)
-      errors.add :base, "#{list_name} is already associated with this course."
-      return false
-    end
-    if enrollment_role.nil?
-      enrollment_role = role
-    end
-    #if role?(:creator) && enrollment_role.to_s == 'evaluator'
-    #  enrollment_role = 'creator'
-    #end
-    if enrollment_role.eql?('creator') then course.creators << self end
-    if enrollment_role.eql?('evaluator') then course.evaluators << self end
-    if enrollment_role.eql?('administrator') then course.evaluators << self end
-    if enrollment_role.eql?('assistant') then course.assistants << self end
   end
 
   def to_csv_header_row

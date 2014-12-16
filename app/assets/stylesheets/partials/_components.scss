@@ -164,9 +164,10 @@ footer.page-footer {
 .drawer-nav {
   @extend %unstyled-list;
   li {
-    margin-bottom: $fluidUnitPadding;
+    margin-bottom: $headerUnitPadding * 2;
     @extend %wide-one-fourth;
-    @extend %medium-one-half;
+    @extend %medium-one-fourth;
+    @extend %narrow-one-half;
     .drawer-nav--column {
       h4 {
         padding-bottom: .5em;
@@ -195,6 +196,9 @@ footer.page-footer {
         padding-left: 0;
         padding-right: 0;
         margin-bottom: 1em;
+        small {
+          font-size: $kappa;
+        }
         a {
           color: $white;
           &:hover {
@@ -240,6 +244,3 @@ footer.page-footer {
     top: $headerHeight / 2 - ($iconSizeMedium / 2);
   }
 }
-
-
-

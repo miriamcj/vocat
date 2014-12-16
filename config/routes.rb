@@ -1,16 +1,11 @@
 Vocat::Application.routes.draw do
 
-  get "courses/index"
-  get "courses/create"
-  get "courses/new"
-  get "courses/destroy"
-  get "courses/show"
   devise_for :users
   devise_scope :user do
     match '/users/settings' => 'registrations#update_settings', :via => :put
   end
 
-  match 'pages/*page' => 'pages#show', :via => :get
+  match '/users/:user_id/courses' => 'courses#list', :via => :get, :as => :user_courses
 
   namespace :api do
     namespace :v1 do
