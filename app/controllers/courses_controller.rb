@@ -10,10 +10,6 @@ class CoursesController < ApplicationController
     @selected_course_role = @selected_course.role(current_user)
   end
 
-  def list
-
-  end
-
   def determine_courses
     Course.all
   end

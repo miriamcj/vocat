@@ -231,15 +231,15 @@ courses.each_with_index do |course, course_index|
   creators.shuffle!
 
   # Add users to the course
-  if course_index == 0
-    course.evaluators << evaluators[0]
-  elsif course_index == 1
-    course.evaluators << evaluators[0]
-  else
-    course.evaluators << evaluators.sample
+  evaluators.sample(rand(1..3)).each do |user|
+    course.enroll user, :evaluator
   end
-  course.assistants << assistants[0..2]
-  course.creators << creators[0..rand(10..15)]
+  assistants.sample(rand(0..2)).each do |user|
+    course.enroll user, :assistant
+  end
+  creators.sample(rand(10..25)).each do |user|
+    course.enroll user, :creator
+  end
   course.save
 
   # Create some groups

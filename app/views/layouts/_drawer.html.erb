@@ -61,13 +61,17 @@
 				</li>
 				<% end %>
 			<% end %>
-			<% if current_user && current_user.has_courses %>
+			<% if current_user %>
 			<li>
 				<div  class="drawer-nav--column drawer-nav--course-column" >
-					<h4>Jump to Course</h4>
+					<h4>Your Courses</h4>
 					<div class="drawer-course-list">
 						<ul data-behavior="drawer-courses">
-							<% if current_user.courses_count < 5 %>
+							<% if current_user.courses_count == 0 %>
+								<li>You are not currently enrolled any VOCAT courses.</li>
+
+
+							<% elsif current_user.courses_count < 5 %>
 								<% current_user.sorted_courses().each do |course| %>
 								<li>
 									<a href="<%= user_course_url(current_user, course) %>">

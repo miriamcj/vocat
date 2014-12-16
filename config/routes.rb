@@ -5,8 +5,6 @@ Vocat::Application.routes.draw do
     match '/users/settings' => 'registrations#update_settings', :via => :put
   end
 
-  match '/users/:user_id/courses' => 'courses#list', :via => :get, :as => :user_courses
-
   namespace :api do
     namespace :v1 do
       resources :attachments, :only => [:create, :show, :destroy] do
