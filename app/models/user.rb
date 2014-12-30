@@ -5,9 +5,9 @@ class User < ActiveRecord::Base
   has_many :memberships
   has_many :courses, :through => :memberships
 
-  has_many :creator_courses, -> { where 'role = "creator"' }, :through => :memberships, :source => "course"
-  has_many :evaluator_courses, -> { where 'role = "evaluator"' }, :through => :memberships, :source => "course"
-  has_many :assistant_courses, -> { where 'role = "assistant"' }, :through => :memberships, :source => "course"
+  has_many :creator_courses, -> { where '"memberships"."role" = ?', 'creator' }, :through => :memberships, :source => "course"
+  has_many :evaluator_courses, -> { where '"memberships"."role" = ?', 'evaluator' }, :through => :memberships, :source => "course"
+  has_many :assistant_courses, -> { where '"memberships"."role" = ?', 'assistant' }, :through => :memberships, :source => "course"
 
   has_and_belongs_to_many :groups, :join_table => "groups_creators"
   has_many :submissions, :as => :creator, :dependent => :destroy
