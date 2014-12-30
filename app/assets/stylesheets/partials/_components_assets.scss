@@ -1,0 +1,220 @@
+@import "variables";
+@import "mixins";
+@import "patterns";
+
+
+// Annotated media
+// --------------------------------------------------------
+// NB be sure to wrap annotations box in a <figcaption>
+%annotated-media {
+  position: relative;
+  figcaption {
+    width: 45%;
+    padding-left: 1.6rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+
+%annotated-media--object {
+  display: block;
+  width: 55%;
+}
+
+
+
+// Attachment
+// --------------------------------------------------------
+// <figure>
+.attachment {
+  @extend %annotated-media;
+  margin-bottom: 1.6rem;
+}
+
+// Lives inside .attachment
+// .box, for now
+.attachment--left {
+  @extend %annotated-media--object;
+  overflow: hidden;
+}
+
+.attachment--left-wide {
+  width: 100%
+}
+
+// <video>
+.attachment--media {
+  display: block;
+  width: 100%;
+  .player-container {
+    height: 290px;
+  }
+}
+
+// Attachment placeholder
+// --------------------------
+// Lives inside .attachment--media & .frame-attachment
+// Only visible when no video has been uploaded
+// Thanks, Dave: http://daverupert.com/2012/04/uncle-daves-ol-padded-box/
+// Also: lower your eyes in deference to THE GOLDEN RATIO.
+%attachment-placeholder {
+  height: 0;
+  text-align: center;
+  background-color: $tealLight;
+  padding-bottom: 61.8%;
+  position: relative;
+}
+
+.attachment-placeholder {
+  @extend %attachment-placeholder;
+}
+
+
+// Annotations
+// --------------------------------------------------------
+
+.page-section .annotations .body {
+  overflow-y: auto;
+  position: relative;
+}
+
+ul.annotations--list {
+  @extend %unstyled-list;
+  li {
+    div:first-child {
+      padding: $contentUnitPadding;
+    }
+    cursor: pointer;
+  }
+  li.highlighted {
+    background: $grayMedium;
+    color: $white;
+  }
+  li + li {
+    border-top: 1px solid $grayMedium;
+  }
+}
+.annotations-list--title {
+  font-weight: $semibold;
+  .delete-link {
+    float: right;
+    top: -8px;
+    font-weight: $regular;
+  }
+  span {
+    cursor: pointer;
+    font-weight: $regular;
+  }
+}
+
+
+// Player Slider
+// --------------------------------------------------------
+
+$emptyHeight: 200px;
+
+.player-curtain {
+  height: $emptyHeight;
+  text-align: center;
+  overflow: hidden;
+}
+
+.player-stage {
+  width: 100%;
+  height: 100%;
+}
+
+.player-scene {
+  display: table;
+  width: 100%;
+  height: $emptyHeight;
+  .text-input {
+    width: 25rem;
+    display: inline;
+    margin: 0;
+  }
+  .wrap {
+    display: table-cell;
+    vertical-align: middle;
+    p {
+      margin: 0.8rem 0;
+    }
+  }
+  .choice-button {
+    @extend %primary-button;
+    display: inline-block;
+    cursor: pointer;
+  }
+  .attachment-placeholder--button {
+    margin-top: 0;
+  }
+}
+
+
+// Boxes
+// --------------------------------------------------------
+// An example:
+// <div class="box">
+//   <header>
+//     <h2 class="box--title">Box title</h2>
+//     <a class="box--link" href="">Optional link</a>
+//   </header>
+//   <div class="box--content">
+//     Box content
+//   </div>
+// </div>
+
+.box {
+  @extend %box;
+  aside {
+    margin-bottom: 1.6rem;
+    background-color: #E6DFDE;
+    padding: 1.6rem;
+    p {
+      margin: 0;
+    }
+  }
+}
+
+.box--title {
+  @extend %box--title;
+}
+
+.box--minus-link {
+  @extend %box--minus-link;
+}
+
+.box--content {
+  @extend %box--content;
+}
+
+.box--columns {
+  padding: 0 !important;
+}
+
+.box--top {
+  @extend %clearfix;
+
+}
+
+.box--column {
+  width: 50%;
+  float: left;
+  padding: 1.6rem;
+}
+
+.box--column-single {
+  padding: 0 1.6rem 1.6rem 1.6rem;
+
+}
+
+.box--footer {
+  @extend %clearfix;
+}
+// NB make sure the height of .box is
+// constrained if you want this to work
+.box--scrolly-content {
+  @extend %box--scrolly-content;
+}

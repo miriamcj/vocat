@@ -1,0 +1,384 @@
+// Base mixins
+// -----------
+
+// Media queries
+// --------------------------------------------------------
+// Respond to viewport size
+// $size -> viewport size
+// $operator -> 'min' or 'max'
+// $aspect -> 'width' or 'height'
+// --------------------------
+@mixin respond($size, $operator: max, $aspect: width) {
+  @media all and (#{$operator}-#{$aspect}: $size) {
+    @content;
+  }
+}
+
+// Respond to pixel density
+// --------------------------
+@mixin respond-min-density($density: 1.5) {
+  @media only screen and (-Webkit-min-device-pixel-ratio: $density),
+  only screen and (-moz-min-device-pixel-ratio: $density),
+  only screen and (min-device-pixel-ratio: $density) {
+    @content;
+  }
+}
+
+// Utilities
+// --------------------------------------------------------
+// Full bleed
+// $direction accepts 'up', 'down' or 'none';
+// NB using 'up' or 'down' causes the shadow to
+// extend to the top or bottom of the viewport
+// Only use 'none' on relatively wide elements,
+// and set $width to the width of the element
+// --------------------------
+@mixin full-bleed($color, $direction: none, $width: 400em) {
+  @if $direction == none {
+    box-shadow: -$width 0 0 0 $color, $width 0 0 0 $color, (-$width * 2) 0 0 0 $color, ($width * 2) 0 0 0 $color;
+  }
+  @if $direction == down {
+    box-shadow: 0 $width 0 $width $color;
+  }
+  @if $direction == up {
+    box-shadow: 0 (-$width) 0 $width $color;
+  }
+  background-color: $color;
+}
+
+// Floated list
+// $direction can take 'right' or 'left'
+// --------------------------
+@mixin floated-list($space, $direction: left) {
+  @include clearfix;
+  list-style-type: none;
+  padding-left: 0;
+  margin-bottom: 0;
+  li {
+    float: $direction;
+  }
+  @if $direction == left {
+    li + li {
+      margin-left: $space;
+    }
+  }
+  @else {
+    li + li {
+      margin-right: $space;
+    }
+  }
+}
+
+// Clearfix
+// $mode accepts 'light' or 'heavy'
+// 'light' is sufficient for clearing floats, while 'heavy' is required to
+// prevent margin collapsing
+// --------------------------
+@mixin clearfix($mode: light) {
+  @if $mode == heavy {
+    &:before,
+    &:after {
+      content: " ";
+      display: table;
+    }
+    &:after {
+      clear: both;
+    }
+  }
+  @else {
+    &:after {
+      content: " ";
+      display: block;
+      clear: both;
+    }
+  }
+}
+
+.clearfix {
+  @include clearfix;
+}
+
+// Kill ye FOUT -
+// Depends on Typekit's webfontloader adding the .wf-active class...
+// --------------------------------------------------------
+@mixin kill-fout {
+  visibility: hidden;
+  .wf-active &, // Show when fonts become active
+  .no-js &, // Show if no javascript
+  .mceContentBody & { // Show if this is the RTE ;)
+    visibility: visible;
+  }
+}
+
+// Properties that require browser prefixes
+// --------------------------------------------------------
+// Hyphenation
+// NB this doesn't work in Chrome
+// --------------------------
+@mixin hyphenate {
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+// Background clip
+// $portion can take 'border',
+// 'padding', or 'content'
+// --------------------------
+@mixin background-clip($portion) {
+  -webkit-background-clip: $portion;
+  -moz-background-clip: $portion;
+  background-clip: #{$portion}-box;
+}
+
+// Box sizing
+// $value can take 'border-box'
+// or 'content-box'
+// --------------------------
+@mixin box-sizing($value) {
+  -webkit-box-sizing: $value;
+  -moz-box-sizing: $value;
+  box-sizing: $value;
+}
+
+// Transitions
+// --------------------------
+@mixin transition($transitions...) {
+  -webkit-transition: $transitions;
+  -moz-transition: $transitions;
+  -ms-transition: $transitions;
+  -o-transition: $transitions;
+  transition: $transitions;
+}
+
+@mixin transition-duration($duration) {
+  -webkit-transition-duration: $duration;
+  -moz-transition-duration: $duration;
+  -o-transition-duration: $duration;
+  transition-duration: $duration;
+}
+
+@mixin transition-delay($delay) {
+  -webkit-transition-delay: $delay;
+  -moz-transition-delay: $delay;
+  -o-transition-delay: $delay;
+  transition-delay: $delay;
+}
+
+// Vendorized transitions
+// Define the parameters of the transition you'd like to vendorize first ($duration, $property, $easing),
+// then optionally define as many standard transitions as you like, using the spec transition syntax. Eg:
+// @include vendor-transition(
+//   0.2s, transform, ease,
+//   0.4s opacity ease,
+//   0.1s color ease
+// );
+// --------------------------
+@mixin vendor-transition($duration, $property, $easing, $transforms...) {
+  -webkit-transition: $duration -webkit-#{$property} $easing, $transforms;
+  -moz-transition: $duration -moz-#{$property} $easing, $transforms;
+  -ms-transition: $duration -ms-#{$property} $easing, $transforms;
+  -o-transition: $duration -o-#{$property} $easing, $transforms;
+  transition: $duration #{$property} $easing, $transforms;
+}
+
+//// Keyframes
+//// --------------------------------------------------------
+//@mixin keyframes($name) {
+//  @-webkit-keyframes $name {
+//    @content;
+//  }
+//  @-moz-keyframes $name {
+//    @content;
+//  }
+//  @-ms-keyframes $name {
+//    @content;
+//  }
+//  @-o-keyframes $name {
+//    @content;
+//  }
+//  @keyframes $name {
+//    @content;
+//  }
+//}
+
+// Animation
+// --------------------------------------------------------
+@mixin animation($properties) {
+  -webkit-animation: $properties;
+  -moz-animation: $properties;
+  -ms-animation: $properties;
+  -o-animation: $properties;
+  animation: $properties;
+}
+
+// Translate
+// Set $z to 'false' to disable 'translate3d' & 'translateZ' for Webkit, which
+// enable hardware acceleration on mobile devices
+// --------------------------
+@mixin translate($x, $y, $z: true) {
+  @if $z == true {
+    -webkit-transform: translate3d($x, $y, 0);
+  }
+  @else {
+    -webkit-transform: translate($x, $y);
+  }
+  -moz-transform: translate($x, $y);
+  -ms-transform: translate($x, $y);
+  -o-transform: translate($x, $y);
+  transform: translate($x, $y);
+}
+
+
+@mixin translateX($x, $z: true) {
+  @if $z == true {
+    -webkit-transform: translateX($x) translateZ(0);
+  }
+  @else {
+    -webkit-transform: translateX($x);
+  }
+  -moz-transform: translateX($x);
+  -ms-transform: translateX($x);
+  -o-transform: translateX($x);
+  transform: translateX($x);
+}
+
+@mixin translateY($y, $z: true) {
+  @if $z == true {
+    -webkit-transform: translateY($y) translateZ(0);
+  }
+  @else {
+    -webkit-transform: translateY($y);
+  }
+  -moz-transform: translateY($y);
+  -ms-transform: translateY($y);
+  -o-transform: translateY($y);
+  transform: translateY($y);
+}
+
+@mixin no-translate {
+  -webkit-transform: none;
+  -moz-transform: none;
+  -ms-transform: none;
+  -o-transform: none;
+  transform: none;
+}
+
+// Rotate
+// --------------------------
+@mixin rotate($degrees, $origin: 50% 50%) {
+  -webkit-transform: rotate($degrees);
+  -moz-transform: rotate($degrees);
+  -ms-transform: rotate($degrees);
+  -o-transform: rotate($degrees);
+  transform: rotate($degrees);
+  -webkit-transform-origin: $origin;
+  -moz-transform-origin: $origin;
+  -ms-transform-origin: $origin;
+  -o-transform-origin: $origin;
+  transform-origin: $origin;
+}
+
+// Scale
+// --------------------------
+@mixin scale($factor, $origin: 50% 50%) {
+  -webkit-transform: scale($factor);
+  -moz-transform: scale($factor);
+  -ms-transform: scale($factor);
+  -o-transform: scale($factor);
+  transform: scale($factor);
+  -webkit-transform-origin: $origin;
+  -moz-transform-origin: $origin;
+  -ms-transform-origin: $origin;
+  -o-transform-origin: $origin;
+  transform-origin: $origin;
+}
+
+@mixin scaleY($factor, $origin: 0 0) {
+  -webkit-transform: scaleY($factor);
+  -moz-transform: scaleY($factor);
+  -ms-transform: scaleY($factor);
+  -o-transform: scaleY($factor);
+  transform: scaleY($factor);
+  -webkit-transform-origin: $origin;
+  -moz-transform-origin: $origin;
+  -ms-transform-origin: $origin;
+  -o-transform-origin: $origin;
+  transform-origin: $origin;
+}
+
+// Appearance
+// Possible values listed here:
+// http://css-tricks.com/almanac/properties/a/appearance/
+// Usually has to override styles in normalize/reset
+// --------------------------
+@mixin appearance($value) {
+  -webkit-appearance: $value !important;
+  -moz-appearance: $value !important;
+  appearance: $value !important;
+}
+
+// Selection background
+// --------------------------
+@mixin selection($color) {
+  ::-moz-selection {
+    background: $color;
+    text-shadow: none;
+  }
+  ::selection {
+    background: $color;
+    text-shadow: none;
+  }
+}
+
+// Placeholder text
+// --------------------------
+@mixin placeholder($color, $style: normal) {
+  @extend %thin-glyphs;
+  &::-webkit-input-placeholder {
+    color: $color;
+    font-style: $style;
+    @content;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  &:-moz-placeholder {
+    color: $color;
+    font-style: $style;
+    @content;
+    opacity: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  &::-moz-placeholder {
+    color: $color;
+    font-style: $style;
+    @content;
+    opacity: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  &:-ms-input-placeholder {
+    color: $color;
+    font-style: $style;
+    @content;
+  }
+  // Placeholder polyfill
+  &.placeholdersjs {
+    color: $color;
+    font-style: $style;
+    @content;
+  }
+}
+
+@mixin noSelectOrDrag {
+  -webkit-user-drag: none;
+  -moz-user-drag: none;
+  user-drag: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

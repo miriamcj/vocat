@@ -7,7 +7,7 @@ class DiscussionPost < ActiveRecord::Base
 
   delegate    :name, :to => :author, :prefix => true
 
-  scope :by_course, -> (course) {
+  scope :by_course, ->(course) {
     joins(:submission => :project).where(:projects => {:course_id => course.id}) unless course.nil?
   }
 

@@ -9,7 +9,7 @@ define (require) ->
 
     template: template
 
-    tagName: 'li'
+    tagName: 'tr'
 
     triggers: {
       'click [data-behavior="destroy"]': 'model:destroy'
@@ -24,7 +24,7 @@ define (require) ->
       @openModal()
 
     openModal: () ->
-      Vocat.vent.trigger('modal:open', new ShortTextInputView({model: @model, property: 'name', inputLabel: 'What would you like to call this criteria?', vent: @vent}))
+      Vocat.vent.trigger('modal:open', new ShortTextInputView({model: @model, property: 'name', saveClasses: 'update-button', saveLabel: 'Update Field Name', inputLabel: 'What would you like to call this criteria?', vent: @vent}))
 
     nameKeyPressed: (e) ->
       @onModelNameUpdate()
@@ -33,7 +33,7 @@ define (require) ->
       Vocat.vent.trigger('modal:open', new ModalConfirmView({
         model: @model,
         vent: @,
-        descriptionLabel: 'Deleting this field will also delete all descriptions associated with this field. Are you sure you want to do this?',
+        descriptionLabel: 'Deleting this field will also delete all descriptions associated with this field.',
         confirmEvent: 'confirm:model:destroy',
         dismissEvent: 'dismiss:model:destroy'
       }))

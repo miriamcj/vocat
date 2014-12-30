@@ -1,0 +1,61 @@
+@import "variables";
+@import "mixins";
+@import "patterns";
+
+.modal-backdrop {
+  background: #000;
+  opacity: .9;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 500;
+}
+
+.modal {
+  position: relative;
+  background: $grayDarker;
+  color: $white;
+  position: fixed;
+  top: 25%;
+  left: 50%;
+  margin-left: -200px;
+  width: 400px;
+  padding: $verticalSpace * 3;
+  padding-top: $verticalSpace * 3;
+  line-height: 1.25em;
+  .modal--content {
+    p {
+      font-size: $iota;
+    }
+  }
+  .modal--header {
+    font-size: $eta;
+    color: $tealLight;
+    font-weight: $regular;
+    margin-bottom: .5em;
+  }
+
+  .modal--close {
+    @include svg(white-close-ex);
+    position: absolute;
+    right: $verticalSpace;
+    top: $verticalSpace;
+    height: 13px;
+    width: 13px;
+    display: block;
+  }
+
+  header {
+
+  }
+
+  .content {
+    @include clearfix;
+
+  }
+
+  .footer {
+
+  }
+
+}

@@ -2,10 +2,8 @@ class Course < ActiveRecord::Base
   belongs_to :organization
   belongs_to :semester
 
-  has_and_belongs_to_many :evaluators, :class_name => "User", :join_table => "courses_evaluators"
-  has_and_belongs_to_many :assistants, :class_name => "User", :join_table => "courses_assistants"
-  has_and_belongs_to_many :creators, :class_name => "User", :join_table => "courses_creators"
-
+  has_many :memberships
+  has_many :users, :through => :memberships
   has_many :projects, :dependent => :destroy
   has_many :group_projects
   has_many :open_projects
@@ -26,15 +24,27 @@ class Course < ActiveRecord::Base
 
   validates :department, :name, :number, :section, :presence => true
 
+  def assistants
+    users.merge(Membership.assistants)
+  end
+
+  def evaluators
+    users.merge(Membership.evaluators)
+  end
+
+  def creators
+    users.merge(Membership.creators)
+  end
+
   # Params is a hash of search values including (:department || :semester || :year) || :section
   def self.search(params)
     c = Course.all
     c = c.where({department: params[:department]}) unless params[:department].blank?
     c = c.where({year: params[:year]}) unless params[:year].blank?
-    c = c.where({section: params[:section]}) unless params[:section].blank?
+    c = c.where("lower(section) LIKE ?", "#{params[:section].downcase}%") unless params[:section].blank?
     c = c.joins(:semester).where(:semesters => {id: params[:semester]}) unless params[:semester].blank?
-    c = c.joins(:evaluators).where(:users => {id: params[:evaluator]}) unless params[:evaluator].blank?
-    c
+    c = c.joins(:memberships => :user).where(:users => {id: params[:evaluator]}) unless params[:evaluator].blank?
+    c.sorted
   end
 
   def self.distinct_departments
@@ -58,7 +68,11 @@ class Course < ActiveRecord::Base
   end
 
   def members
-    creators + evaluators + assistants
+    users
+  end
+
+  def has_projects?
+    projects.count > 0
   end
 
   def submissions_for_creator(creator)
@@ -106,11 +120,21 @@ class Course < ActiveRecord::Base
       errors.add :base, 'Unable to disenroll user from course because user does not currently belong to course.'
       return false
     else
-      if creators.include?(user) then creators.delete(user) end
-      if evaluators.include?(user) then evaluators.delete(user) end
-      if assistants.include?(user) then assistants.delete(user) end
+      users.delete(user)
       return true
     end
+  end
+
+  def enroll(user, enrollment_role = nil)
+    if users.include?(user)
+      user.errors.add :base, "#{user.list_name} is already associated with this course."
+      return false
+    end
+    if enrollment_role.nil?
+      enrollment_role = user.role
+    end
+    membership = memberships.create({:user => user, :role => enrollment_role.to_s})
+    membership.save
   end
 
   # TODO: This is a target for refactoring. I don't see why this should
@@ -179,10 +203,12 @@ class Course < ActiveRecord::Base
   end
 
   def role(user)
+    membership = memberships.find_by({user: user})
+    if membership
+      return membership.role.to_sym()
+    end
     return :administrator if user.role? :administrator
-    return :creator if creators.include? user
-    return :assistant if assistants.include? user
-    return :evaluator if evaluators.include? user
+    return nil
   end
 
   def name_long

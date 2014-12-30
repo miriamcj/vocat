@@ -1,0 +1,23 @@
+<div data-behavior="range" class="range range-tertiary range-editable">
+  <h4 class="range--title">{{name}}</h4>
+  <div class="range--track-wrapper">
+    <div data-behavior="range-track" class="range--track">
+      <ul class="range--ticks">
+        {{#each ticks}}
+        <li style="width: {{../tickWidth}}%"></li>
+        {{/each}}
+      </ul>
+      <span data-behavior="range-fill" style="width: {{percentage}}%" class="range--fill"></span>
+      <div class="grabber-wrapper">
+        <span data-behavior="range-grabber" class="range--grabber"></span>
+      </div>
+    </div>
+    <div class="range--handle">
+      <div class="score-wrapper">
+        <span class="score" data-behavior="score">{{score}}</span>
+	      <span class="slash"></span>
+        <span class="possible" data-behavior="possible">{{high}}</span>
+      </div>
+    </div>
+  </div>
+</div>

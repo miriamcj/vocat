@@ -1,0 +1,53 @@
+<% content_for :heading do %>
+	<%= link_to 'Back to Courses', admin_courses_path(), :class => 'header-link back-link' %>
+<% end %>
+
+<% content_for :content do %>
+	<div class="page-section page-section-clear">
+		<div class="header-wrapper">
+			<div class="header">
+				<h2>Course Requests</h2>
+			</div>
+		</div>
+		<div class="body">
+			<% if @course_requests.count > 0 then %>
+				<div class="table-wrapper">
+					<table class="table table-white-head">
+						<thead>
+						<tr>
+							<th class="">Number</th>
+							<th class="">Name</th>
+							<th class="">Instructor</th>
+							<th class="">Section</th>
+							<th class="">Semester</th>
+							<th class="">Submitted</th>
+							<th class="">Actions</th>
+						</tr>
+						</thead>
+						<tbody>
+						<% @course_requests.each do |course_request| %>
+							<tr>
+								<th><%= "#{course_request.department}#{course_request.number}" %></th>
+								<td><%= course_request.name %></td>
+								<td><%= course_request.evaluator_name %></td>
+								<td><%= course_request.section %></td>
+								<td><%= "#{course_request.semester} #{course_request.year}" %></td>
+								<td><%= time_ago_in_words course_request.created_at %> ago </td>
+								<td>
+									<%= link_to 'Approve', approve_admin_course_request_url(course_request), :method => :put, :class => 'primary-button new-button' %>
+									&nbsp;&nbsp;
+									<%= link_to 'Deny', deny_admin_course_request_url(course_request), :method => :put, :class => 'warning-button delete-button' %></td>
+							</tr>
+						<% end %>
+						</tbody>
+					</table>
+					<nav class="pagination-nav">
+						<%= paginate @course_requests %>
+					</nav>
+				</div>
+			<% else %>
+				<div class="alert">There are no pending course requests.</div>
+			<% end %>
+		</div>
+	</div>
+<% end %>

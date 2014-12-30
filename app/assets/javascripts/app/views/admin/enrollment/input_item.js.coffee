@@ -13,19 +13,20 @@ define (require) ->
         userTemplate
 
     tagName: 'li'
+    className: 'active-result'
 
     initialize: (options) ->
       @enrollmentCollection = options.enrollmentCollection
       @vent = options.vent
 
     triggers: () ->
-      'click': 'click'
+      'mousedown': 'click'
 
     onClick: () ->
       enrollment = @enrollmentCollection.newEnrollmentFromSearchModel(@model)
       enrollment.save({},{
         error: (model, xhr) =>
-          @vent.trigger('error:add', {level: 'error', lifetime: 5000, msg: xhr.responseJSON.errors})
+          Vocat.vent.trigger('error:add', {level: 'error', lifetime: 5000, msg: xhr.responseJSON.errors})
         success: () =>
           @enrollmentCollection.add(enrollment)
           @trigger('add', enrollment)
@@ -36,10 +37,10 @@ define (require) ->
               article = 'an'
             else
               article = 'a'
-            @vent.trigger('error:add', {level: 'notice', lifetime: 5000, msg: "#{enrollment.get('user_name')} is now #{article} #{role} in section ##{enrollment.get('section')}."})
+            Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 5000, msg: "#{enrollment.get('user_name')} is now #{article} #{role} in section ##{enrollment.get('section')}."})
           else
-            @vent.trigger('error:add', {level: 'notice', lifetime: 5000, msg: "#{enrollment.get('user_name')} is now enrolled in section #{enrollment.get('section')}"})
-
+            Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 5000, msg: "#{enrollment.get('user_name')} is now enrolled in section #{enrollment.get('section')}"})
       })
+      @trigger('clicked')
 
     onRender: () ->

@@ -1,27 +1,26 @@
-<% content_for :content_header do %>
-  New Project
-<% end %>
+<% content_for :content do %>
 
-<% content_for :content_header_links do %>
-<% end %>
-
-<% content_for :content_intro do %>
-  <p>
-    Enter the unique name, brief description, and due date for this project and select a rubric in the drop-down menu
-    below. If you wish to evaluate the project with narrative comments only, select “No rubric.” Please be sure to
-    indicate whether this is a group or individual project.
-  </p>
-<% end %>
-
-<% content_for :content_frames	 do %>
-  <%= form_for(@project, :url => course_manage_projects_path(@course)) do |f| %>
-
-    <%= render 'form', :f => f %>
-
-    <div class="input-group">
-      <%= link_to 'Back', course_manage_projects_path(@course), :class => 'gray-ex-button' %>
-      <%= f.submit 'Save project', :class => 'teal-arrow-button' %>
+  <%= link_to 'Return to Projects List', course_manage_projects_path(@course), :class => 'header-link back-link' %>
+  <div class="page-section page-section-clear">
+    <div class="header-wrapper">
+      <div class="header">
+        <h2>New Project</h2>
+      </div>
     </div>
+    <div class="body">
+      <p class="instructions">
+        Enter the unique name, brief description, and due date for this project and select a rubric in the drop-down menu
+        below. If you wish to evaluate the project with narrative comments only, select “No rubric.” Please be sure to
+        indicate whether this is a group or individual project.
+      </p>
 
-  <% end %>
+      <%= simple_form_for(@project, :as => :project, :url => course_manage_projects_path(@course), :html => {:class => 'formgrid'}) do |f| %>
+        <%= render 'form', :f => f %>
+        <div class="formgrid whole submit-row">
+          <%= f.button :submit, 'Save Project', :class => 'primary-button' %>
+          <%= link_to 'Back', course_manage_projects_path(@course), :class => 'secondary-button' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 <% end %>

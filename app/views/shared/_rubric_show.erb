@@ -1,11 +1,11 @@
-<table class="table">
+<table class="table table-white-head table-rubric">
   <thead>
   <tr>
     <th>Criteria</th>
     <% @rubric.ranges.each do |range| %>
       <th>
-        <strong style="color: #676263"><%= "#{range[:low]} - #{range[:high]}" %></strong>
-        <%= range[:name] %>
+        <strong ><%= "#{range[:low]} - #{range[:high]}" %></strong>
+        &nbsp;<%= range[:name] %>
       </th>
     <% end %>
   </tr>
@@ -21,7 +21,7 @@
         <td>
           <% unless cell.nil? %>
             <p>
-              <strong style="color: #676263"><%= "#{range[:name]} (#{range[:low]} to #{range[:high]} points)" %></strong>
+              <strong><%= "#{range[:name]} (#{range[:low]} to #{range[:high]} points)" %></strong>
             </p>
             <p>
               <%= cell[:description] %>

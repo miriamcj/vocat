@@ -38,7 +38,7 @@ gem 'faker'
 gem 'capistrano', '~> 3.2.0'
 gem 'capistrano-rails', '~> 1.1.0'
 gem 'capistrano-bundler'
-gem 'capistrano-rbenv', "~> 2.0"
+gem 'capistrano-rbenv', '~> 2.0'
 
 gem 'guard'
 gem 'guard-coffeescript'
@@ -52,6 +52,6 @@ group :development, :test do
 end
 
 gem 'compass-rails', '~> 1.1.2'
-gem 'sass-rails',   '~> 4.0.0'
+gem 'sass-rails',   '~> 4.0.3'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.0.3'

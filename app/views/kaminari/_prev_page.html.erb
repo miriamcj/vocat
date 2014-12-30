@@ -6,6 +6,8 @@
     per_page:      number of items to fetch per page
     remote:        data-remote
 -%>
-<li class="prev">
-  <%= link_to_unless current_page.first?, 'previous', url, :rel => 'prev', :remote => remote %>
-</li>
+<% if current_page.first? %>
+  <span class="disabled-button previous-button">Previous</span>
+<% else %>
+  <%= link_to 'Previous', url, {:rel => 'prev', :class => 'primary-button previous-button', :remote => remote} %>
+<% end %>

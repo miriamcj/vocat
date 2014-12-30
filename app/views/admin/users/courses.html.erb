@@ -1,19 +1,8 @@
-<% content_for :content_header do %>
-  Users
-<% end %>
+<%= render :partial => 'heading', :locals => {user: @user} %>
 
-<% content_for :content_header_links do %>
-  <%= render 'header_links' %>
-<% end %>
+<% content_for :content do %>
 
-<% content_for :content_frames	 do %>
-
-  <%= render 'header', :subheader => 'List Courses' %>
-
-  <div class="double-space-bottom">
-    <div data-region="creator-enrollment">
-    </div>
-  </div>
+<div data-region="creator-enrollment" data-label="User's Courses"></div>
 
 <% end %>
 

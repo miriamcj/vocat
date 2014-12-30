@@ -1,0 +1,351 @@
+@import "variables";
+@import "mixins";
+@import "patterns";
+
+// A more responsive approach for later...
+//$container: 100%;
+//$columns: 7;
+//$columnWidth: $container / $columns;
+
+$columns: 5;
+$flexibleColumnWidth: 100% / $columns;
+$responsiveFlexibleColumnWidth: $flexibleColumnWidth * 2;
+$container: $containerWidth;
+$columnWidth: ($container / $columns) - 12;
+
+.matrix-detail {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 200;
+  background: $white;
+}
+
+.matrix-wrapper {
+  overflow-x: hidden;
+  position: relative;
+  @include clearfix(heavy);
+
+  .matrix-wrapper--top {
+    position: relative;
+    @include clearfix;
+    // We can't use overflow hidden on .matrix-wrapper--columns to hide what's not
+    // currently in view, because it causes clipping on the dropdowns. So, instead, we
+    // use this positioned mask element to cover what should be out of the current view.
+    .matrix-wrapper--top-mask-right {
+      width: 2000px;
+      background: $white;
+      position: absolute;
+      z-index: 3;
+      right: -2000px;
+    }
+    .matrix-wrapper--top-mask-left {
+      width: 2000px;
+      background: $white;
+      position: absolute;
+      z-index: 3;
+      left: -2000px;
+    }
+    .matrix-wrapper--top-left-cell {
+      position: relative;
+      border-bottom: 1px solid $grayLight;
+      background-color: $grayLightest;
+      color: $grayMediumDarker;
+      float: left;
+      width: $flexibleColumnWidth;
+      z-index: 2;
+      @include respond($vostok) {
+        width: $responsiveFlexibleColumnWidth
+      }
+
+    }
+    .matrix-wrapper--columns {
+      float: left;
+      width: $flexibleColumnWidth * ($columns - 1);
+      @include respond($vostok) {
+        width: ($flexibleColumnWidth * $columns) - $responsiveFlexibleColumnWidth;
+      }
+
+      z-index: 0;
+      .matrix-col-headers {
+        position: relative;
+        z-index: 1;
+      }
+    }
+    &.stuck {
+      position: fixed !important;
+      top: $headerHeight;
+      z-index: 10;
+      width: 100%;
+    }
+  }
+
+  .matrix-wrapper--bottom {
+    @include clearfix(heavy);
+    position: relative;
+  }
+
+  .matrix-wrapper--left {
+    float: left;
+    width: $flexibleColumnWidth;
+    @include respond($vostok) {
+      width: $responsiveFlexibleColumnWidth
+    }
+  }
+
+  .matrix-wrapper--body {
+    float: left;
+    width: $flexibleColumnWidth * ($columns - 1);
+    overflow-x: hidden;
+    overflow-y: hidden;
+    @include respond($vostok) {
+      width: ($flexibleColumnWidth * $columns) - $responsiveFlexibleColumnWidth;
+    }
+    .matrix-body {
+      position: relative;
+    }
+  }
+
+  .matrix-wrapper--creators {
+    th {
+      width: auto !important;
+      max-width: none !important;
+    }
+  }
+
+}
+
+%matrix-nav-button {
+  height: 100%;
+  border: none;
+  background: $black;
+  width: 60px;
+  outline: 0;
+  @include respond($vostok) {
+    width: 20px;
+  }
+  position: absolute;
+  opacity: .6;
+  z-index: 199;
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    margin-top: 1.25em;
+    left: .75em;
+    height: 2.5em;
+    width: 2.5em;
+  }
+}
+
+.matrix-cells-wrapper--back {
+  left: $flexibleColumnWidth;
+  @extend %matrix-nav-button;
+  &::after {
+    @include svg(arrow-left-white-tall);
+  }
+}
+
+.matrix-cells-wrapper--forward {
+  right: 0;
+  &::after {
+    @include svg(arrow-right-white-tall);
+  }
+  @extend %matrix-nav-button;
+}
+
+.matrix-col-headers, .matrix-cells {
+  border-left: 1px solid $grayLight;
+  border-collapse: separate;
+}
+
+
+%matrix-heading {
+  @include font-head;
+  text-align: left;
+  font-size: $epsilon;
+  padding: 20px;
+  position: relative;
+  @include respond($vostok) {
+    padding: .5em;
+  }
+  .subheader {
+    margin-top: .5em;
+    font-size: .667em; // 16px;
+  }
+  text-transform: none;
+  font-weight: $regular;
+  letter-spacing: 0;
+}
+
+
+.matrix {
+  thead {
+    th {
+      @extend %matrix-heading;
+    }
+  }
+
+  th.matrix--fullbleed {
+    .matrix--padded {
+      z-index: 2;
+      padding: 20px;
+    }
+    padding: 0 0 30px 0;
+  }
+}
+
+.matrix--column-header-instruction {
+  position: absolute;
+  display: block;
+  width: 100%;
+  bottom: 0;
+  padding: 10px 20px;
+  background: $grayLight;
+  color: $white;
+  font-weight: $semibold;
+  font-size: 12px;
+  @include font-body;
+  text-transform: uppercase;
+}
+
+.matrix {
+  th {
+    a {
+      &.delete-link {
+        color: $red;
+        &:hover {
+          color: $redDark;
+        }
+      }
+    }
+  }
+
+  tbody {
+    th {
+      .matrix-tight & {
+        padding: .25em;
+        height: 3em;
+      }
+      vertical-align: middle;
+      font-weight: $regular;
+      font-size: $theta; // Baseline height for the cell is 16px. Need the same baseline in the row headers
+      height: 100px;
+      padding: 1.5em;
+      @include respond($vostok) {
+        padding: .5em;
+        height: 100px;
+      }
+      &.large {
+        @extend %matrix-heading;
+      }
+    }
+    td {
+      .matrix-tight & {
+        padding: .25em;
+        height: 3em;
+      }
+      .matrix-groups & {
+        padding: 0 20px;
+      }
+      white-space: nowrap;
+      &.wrap-cell {
+        white-space: normal;
+      }
+      &.rubric-cell {
+        cursor: pointer;
+      }
+      font-size: $theta; // Baseline height for the cell is 16px. Need the same baseline in the row headers
+      height: 100px;
+      padding: 10px;
+      vertical-align: middle;
+    }
+  }
+
+  .cell--container {
+    text-align: center;
+    @include clearfix(hard);
+    &:hover {
+      dl, dl dt, dl dd, dl dd {
+        color: $tealDark;
+      }
+      dl dd b.matrix--check {
+        @include svg(check-teal);
+      }
+      dl dd b.matrix--scored {
+        color: $tealDark;
+      }
+      dl dd b.matrix--checkbox {
+        @include svg(checkbox-unchecked-teal);
+        &.checked {
+          @include svg(checkbox-checked-teal);
+        }
+      }
+    }
+  }
+
+  dl {
+    display: block;
+    float: left;
+    width: 33%;
+    vertical-align: top;
+    dt {
+      margin-bottom: 20%;
+      @include font-head;
+      font-weight: $semibold;
+      text-transform: uppercase;
+      text-align: center;
+      color: $grayMediumLighter;
+      font-size: $lambda-minor;
+    }
+    dd {
+      @include font-matrix;
+      line-height: .85em;
+      text-align: center;
+      font-size: $delta;
+      font-weight: $regular;
+      color: $grayLighter;
+      margin: 0;
+      b.matrix--check {
+        margin: auto;
+        height: .55em;
+        margin-top: .4em;
+        @include svg(check-gray);
+        display: block;
+        text-align: left;
+      }
+      b.matrix--scored {
+        font-weight: normal;
+        color: $grayMediumDarker;
+      }
+
+      b.matrix--checkbox {
+        cursor: pointer;
+        margin-top: -1px;
+        height: .70em;
+        @include svg(checkbox-unchecked-gray);
+        display: block;
+        &.checked {
+          @include svg(checkbox-checked-gray);
+        }
+      }
+    }
+  }
+}
+
+.matrix-view-toggle {
+  padding: 23px 20px;
+  input, label {
+    cursor: pointer;
+    @include respond($baikal) {
+      font-size: .7em;
+    }
+  }
+  span.label {
+    color: $tealDark;
+    font-size: .8em;
+    @include respond($baikal) {
+      font-size: .7em;
+    }
+  }
+}

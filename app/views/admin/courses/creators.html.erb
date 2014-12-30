@@ -1,15 +1,8 @@
-<% content_for :content_header do %>
-  Courses
-<% end %>
+<%= render :partial => 'heading', :locals => {course: @course, subheader: 'Manage Creators'} %>
 
-<% content_for :content_header_links do %>
-  <%= render 'header_links' %>
-<% end %>
-
-<% content_for :content_frames	 do %>
-  <%= render 'header', :subheader => 'Manage Creators' %>
+<% content_for :content	 do %>
   <div>
-    <div data-region="creator-enrollment">
+    <div data-region="creator-enrollment" data-label="Manage Course Creators">
     </div>
   </div>
 <% end %>

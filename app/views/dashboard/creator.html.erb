@@ -1,0 +1,51 @@
+<% content_for :content do %>
+
+  <div class="page-message">
+    <div class="header">
+      Hello <%= current_user.first_name %>,
+    </div>
+    <div class="body">
+      <%= render 'dashboard/messages/creator_message' %>
+    </div>
+  </div>
+
+  <div class="page-section page-section-clear">
+    <div class="header-wrapper">
+      <div class="header">
+        <h2 class="heading-page-section">Your Courses</h2>
+      </div>
+    </div>
+    <div class="body">
+      <div class="table-wrapper">
+        <table class="table table-white-head">
+          <thead>
+          <tr>
+            <th class="">Number</th>
+            <th class="">Name</th>
+            <th class="">Instructor</th>
+            <th class="">Section</th>
+            <th class="">Semester</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% if current_user.courses.count > 0 %>
+            <% current_user.courses.each do |course| %>
+              <tr>
+                <th><%= link_to "#{course.department}#{course.number}", portfolio_course_path(course) %></th>
+                <td><%= link_to course.name, portfolio_course_path(course) %></td>
+                <td><%= link_to course.evaluators.pluck(:last_name).join(', '), portfolio_course_path(course) %></td>
+                <td><%= link_to course.section, portfolio_course_path(course) %></td>
+                <td><%= link_to "#{course.semester} #{course.year}", portfolio_course_path(course) %></td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td colspan="5">You are not currently enrolled in any Vocat courses.</td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+<% end %>

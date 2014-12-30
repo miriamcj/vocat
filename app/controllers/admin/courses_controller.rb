@@ -5,9 +5,6 @@ class Admin::CoursesController < Admin::AdminController
 
   before_filter :deselect_course
 
-
-  layout 'content'
-
   def deselect_course
     @deselect_course = true
   end
@@ -22,6 +19,9 @@ class Admin::CoursesController < Admin::AdminController
       :evaluator => params[:evaluator]
     }
     @courses = Course.search(search).page params[:page]
+    @page = params[:page] || 1
+    @stats = Statistics::admin_stats
+    @course_request_count = CourseRequest.with_state(:pending).count
   end
 
   # GET /admin/courses/new
@@ -58,7 +58,7 @@ class Admin::CoursesController < Admin::AdminController
   # DELETE /admin/courses/1
   def destroy
     @course.destroy()
-    respond_with @course
+    respond_with(:admin, @user)
   end
 
   def assistants

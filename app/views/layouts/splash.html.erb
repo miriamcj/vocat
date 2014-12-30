@@ -1,0 +1,16 @@
+<% content_for :main do %>
+  <%= render 'layouts/header' %>
+
+  <div class="container">
+    <div class="page-content">
+      <%= render 'layouts/messages_server' %>
+      <%= yield :content %>
+    </div>
+  </div>
+
+  <%= render 'layouts/footer' %>
+
+<% end %>
+
+
+<%= render :template => 'layouts/application' %>

@@ -1,12 +1,10 @@
-<ul class="authentication-footer--list">
-
   <% if Rails.application.config.vocat.ldap.enabled %>
     <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
       <li><%= link_to "Forgot your LDAP/Active Directory password?", Rails.application.config.vocat.ldap.recover_pw_url %><% end -%></li>
   <% end %>
 
   <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
-    <li><%= link_to "Forgot your VOCAT password?", new_password_path(resource_name) %><% end -%></li>
+    <li><%= link_to "Forgot your Vocat password?", new_password_path(resource_name) %><% end -%></li>
 
 	<%- if controller_name != 'sessions' %>
 	  <li><%= link_to "Sign in", new_session_path(resource_name) %></li>
@@ -28,4 +26,3 @@
 	  <%- resource_class.omniauth_providers.each do |provider| %>
 	    <li><%= link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider) %>  <% end -%></li>
 	<% end -%>
-</ul>

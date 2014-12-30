@@ -6,12 +6,13 @@ define (require) ->
   RangeModel = require('models/range')
   FieldsView = require('views/rubric/fields')
   RangesView = require('views/rubric/ranges')
-  RowsView = require('views/rubric/rows')
+  MatrixView = require('views/rubric/matrix')
   RangePickerView = require('views/rubric/range_picker')
   FlashMessagesView = require('views/flash/flash_messages')
-  SlidingGridLayout = require('views/abstract/sliding_grid_layout')
+  AbstractMatrix = require('views/abstract/abstract_matrix')
+  ShortTextInputView = require('views/property_editor/short_text_input')
 
-  class RubricLayout extends SlidingGridLayout
+  class RubricLayout extends AbstractMatrix
 
     template: template
     collections: {}
@@ -20,7 +21,7 @@ define (require) ->
     regions: {
       fields: '[data-region="fields"]'
       ranges: '[data-region="ranges"]'
-      rows: '[data-region="rows"]'
+      matrix: '[data-region="matrix"]'
       flash: '[data-region="flash"]'
       rangePicker: '[data-region="range-picker"]'
     }
@@ -35,11 +36,13 @@ define (require) ->
       'click [data-trigger="rangeAdd"]': 'handleRangeAdd'
       'click [data-trigger="fieldAdd"]': 'handleFieldAdd'
 
+
     }
 
     triggers: {
       'click [data-behavior="matrix-slider-left"]':   'slider:left'
       'click [data-behavior="matrix-slider-right"]':  'slider:right'
+      'click [data-trigger="recalc"]': 'recalculate:matrix'
     }
 
     ui: {
@@ -53,6 +56,9 @@ define (require) ->
       sliderLeft: '[data-behavior="matrix-slider-left"]'
       sliderRight: '[data-behavior="matrix-slider-right"]'
     }
+
+    onRecalculateMatrix: () ->
+      @recalculateMatrix()
 
     handlePublicChange: (event) ->
       @model.set('public', @ui.publicInput.val())
@@ -83,32 +89,35 @@ define (require) ->
       event.preventDefault()
       @model.save({}, {
         success: () =>
-          @trigger('error:add', {level: 'notice', msg: 'Rubric has been saved'})
+          Vocat.vent.trigger('error:add', {level: 'notice', msg: 'Rubric has been saved'})
       , error: (model, xhr) =>
           if xhr.responseJSON?
             msg = xhr.responseJSON
           else
             msg = 'Unable to save rubric. Be sure to add a title, and at least one range and field.'
-          @trigger('error:add', {level: 'error', msg: msg})
+          Vocat.vent.trigger('error:add', {level: 'error', msg: msg})
       })
 
     handleRangeAdd: (event) ->
       event.preventDefault()
       if @model.canAddRange()
         range = new RangeModel({})
-        @model.get('ranges').add(range)
-        range.trigger('edit')
-        setTimeout(() =>
-          $('html, body').animate({ scrollTop: $(document).height() }, 'slow')
-        , 100)
+        modal = new ShortTextInputView({model: range, property: 'name', saveClasses: 'update-button', saveLabel: 'Update Range', inputLabel: 'What would you like to call this range?', vent: @vent})
+        @listenTo(modal, 'model:updated', (e) ->
+          @model.get('ranges').add(range)
+        )
+        Vocat.vent.trigger('modal:open', modal)
       else
         @trigger('error:add', {level: 'notice', msg: 'Before you can add another range to this rubric, you must increase the number of available points by changing the highest possible score field, above.'})
 
     handleFieldAdd: (event) ->
       event.preventDefault()
       field = new FieldModel({})
-      @model.get('fields').add(field)
-      field.trigger('edit')
+      modal = new ShortTextInputView({model: field, property: 'name', saveClasses: 'update-button', saveLabel: 'Update Field Name', inputLabel: 'What would you like to call this criteria?', vent: @vent})
+      @listenTo(modal, 'model:updated', (e) ->
+        @model.get('fields').add(field)
+      )
+      Vocat.vent.trigger('modal:open', modal)
 
     parseRangePoints: (rangePoints) ->
       unless rangePoints? then rangePoints = ''
@@ -137,54 +146,54 @@ define (require) ->
           @model.fetch({
             success: (model) =>
               @render()
-              @listenTo(@views.rows,'after:item:added', () =>
-                @sliderRecalculate()
-                @views.rangePicker.render()
-              )
-              @listenTo(@views.rows,'item:removed', () =>
-                @sliderRecalculate()
-                @views.rangePicker.render()
-              )
+#              @listenTo(@views.rows,'add:child', () =>
+#                @views.rangePicker.render()
+#              )
+#              @listenTo(@views.rows,'remove:child', () =>
+#                @views.rangePicker.render()
+#              )
           })
         else
           @model = new RubricModel({})
+
+      @listenTo(@model,'change',(e) =>
+        @recalculateMatrix()
+      )
+
 
       @listenTo(@model, 'invalid', (model, errors) =>
         @trigger('error:add', {level: 'error', lifetime: 5000, msg: errors})
       )
 
-      @render()
+#      @render()
 
     onShow: () ->
-      @ui.publicInput.chosen({
-        disable_search_threshold: 1000
-      })
+      @parentOnShow()
+      @chosenifySelects()
+
+    chosenifySelects: () ->
+      setTimeout () =>
+        @ui.publicInput.chosen({
+          disable_search_threshold: 1000
+        })
+      ,0
 
     onRender: () ->
-      @views.rows = new RowsView({collection: @model.get('ranges'), cells: @model.get('cells'), vent: @})
+      @chosenifySelects()
+
       @views.fields = new FieldsView({collection: @model.get('fields'), vent: @})
       @views.ranges = new RangesView({collection: @model.get('ranges'), vent: @})
+      @views.matrix = new MatrixView({model: @model, vent: @})
       @views.rangePicker = new RangePickerView({collection: @model.get('ranges'), model: @model, vent: @})
-
-      @listenTo(@views.fields,'after:item:added item:removed', () =>
-        @sliderRecalculate()
-      )
-
-      @listenTo(@views.ranges,'after:item:added item:removed', () =>
-        @sliderRecalculate()
-      )
-
-      @rows.show(@views.rows)
+      @matrix.show(@views.matrix)
       @fields.show(@views.fields)
       @ranges.show(@views.ranges)
+
       @flash.show new FlashMessagesView({vent: @, clearOnAdd: true})
       @rangePicker.show(@views.rangePicker)
+      @bindUIElements()
+      @recalculateMatrix()
+
 
       @ui.highInput.val(@model.getHigh())
       @ui.lowInput.val(@model.getLow())
-
-      @ui.publicInput.chosen({
-        disable_search_threshold: 1000
-      })
-
-      @sliderRecalculate()

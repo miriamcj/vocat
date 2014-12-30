@@ -1,0 +1,209 @@
+@import "variables";
+@import "mixins";
+@import "patterns";
+
+%dropdown-options {
+  display: none;
+  padding: 2em;
+  position: absolute;
+  left: 0;
+  z-index: 199;
+  color: $white;
+  background: $grayDarker;
+  opacity: 1;
+  font-size: $iota;
+  ul {
+    @extend %unstyled-list;
+    padding: 0;
+    margin: 0;
+  }
+  li + li {
+    padding-top: $verticalSpaceTightest;
+    margin-top: $verticalSpaceTightest;
+  }
+  a {
+    display: block;
+    white-space: pre;
+    line-height: 1;
+    color: $white;
+    &:hover {
+      color: $tealLight;
+    }
+  }
+  .open & {
+    display: block;
+  }
+}
+
+
+// User navigation
+// --------------------------
+.page-header--user-nav {
+  float: right;
+  position: relative;
+  height: $headerHeight;
+}
+
+a.user-nav--toggle {
+  @include transition($fastTransition background $timing);
+  color: $white;
+  height: $headerHeight;
+  display: block;
+  font-size: $theta;
+  &:hover, .open & {
+    color: $white;
+    background: $grayDarker;
+  }
+  span {
+    @include respond($baikal) {
+      display: none !important;
+    }
+    display: block;
+    float: left;
+    margin-right: $headerUnitPadding;
+    line-height: 60px;
+    position: relative;
+    padding: 0 0 0 $headerUnitPadding;
+  }
+}
+.user-nav--options {
+  @extend %dropdown-options;
+  width: 100%;
+  top: $headerHeight;
+  right: 1px;
+  @include respond($baikal) {
+    right: 0;
+    left: auto;
+    width: 150px;
+  }
+
+
+}
+
+
+// Default Dropdown Styles
+// --------------------------
+.dropdown {
+  position: relative;
+}
+
+.dropdown--toggle {
+  .dropdown-inline & {
+	display: inline-block;
+  }
+  position: relative;
+  padding-right: 1.2em;
+  &:after {
+    content: "";
+    @include svg(arrow-down-gray-dark);
+    display: block;
+    padding: 0;
+    height: $iconSizeMedium;
+    width: $iconSizeMedium;
+    position: absolute;
+    right: 0;
+    top: .2em;
+  }
+}
+
+.dropdown--options {
+  @extend %dropdown-options;
+  &.open {
+    display: block;
+  }
+  &.stuck {
+    position: fixed;
+  }
+  .dropdown-header & {
+    top: 2.5em;
+  }
+}
+
+// Inline dropdown
+// --------------------------
+
+.dropdown-inline {
+  display: inline-block;
+  .dropdown--toggle-inline {
+    cursor: pointer;
+    @include svg(arrow-down-gray-dark);
+    display: inline-block;
+    vertical-align: middle;
+    background-size: 50%;
+    height: .5em;
+    width: .5em;
+    padding: .5em;
+  }
+  .dropdown--options {
+    right: 0;
+    left: auto;
+  }
+  th &.open {
+    .dropdown--toggle {
+      background: $primaryButtonColor;
+      color: $white;
+      &:after {
+        @extend %svg-#{arrow-down-white}-important;
+      }
+    }
+  }
+  th & {
+    .dropdown--options {
+      font-size: .583em;
+      left: 0;
+      margin-left: -.6em;
+      right: auto;
+      padding: 1em;
+      min-width: 160px;
+    }
+    .dropdown--toggle {
+      margin-left: -.6em;
+      padding: .6em 1.8em .6em .6em;
+      font-size: .583em;
+      @include font-body;
+      &:after {
+        top: .6em;
+        right: .6em;
+        width: 12px;
+        height: 12px;
+      }
+    }
+  }
+}
+
+.dropdown-inline.open .dropdown--toggle-inline {
+  background-color: $grayDarker;
+  @extend %svg-#{arrow-down-white}-important;
+}
+
+.dropdown-inline.open .dropdown--toggle, .dropdown-inline .dropdown--toggle:hover {
+}
+
+// Dropdown button
+// --------------------------
+.dropdown-button {
+  display: inline-block;
+  .dropdown--toggle {
+    @extend %proto-button;
+    @extend %icon-button;
+    border: 1px solid $primaryButtonColor;
+    color: $primaryButtonColor !important;
+    &:after {
+      content: "";
+      @include svg(arrow-down-teal);
+      height: 1em;
+      width: 1em;
+      top: .75em;
+    }
+  }
+}
+
+.dropdown-button.open .dropdown--toggle:after, .dropdown-button .dropdown--toggle:hover:after {
+  @extend %svg-#{arrow-down-white}-important;
+}
+
+.dropdown-button.open .dropdown--toggle, .dropdown-button .dropdown--toggle:hover {
+  background: $primaryButtonHoverColor;
+  border: 1px solid $primaryButtonHoverColor;
+  color: $white !important;
+}

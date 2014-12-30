@@ -4,7 +4,7 @@ define (require) ->
   template = require('hbs!templates/submission/player/player_invalid')
   ModalConfirmView = require('views/modal/modal_confirm')
 
-  class PlayerInvalid extends Marionette.Layout
+  class PlayerInvalid extends Marionette.LayoutView
 
     template: template
 

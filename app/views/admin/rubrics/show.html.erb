@@ -1,17 +1,8 @@
-<% content_for :content_header do %>
-  Rubrics
-<% end %>
+<%= render :partial => 'heading', :locals => {rubric: @rubric} %>
 
-<% content_for :content_header_links do %>
-  <%= render 'header_links' %>
-<% end %>
+<% content_for :content	 do %>
 
-<% content_for :content_frames	 do %>
-
-  <%= render 'header', :subheader => 'Rubric Overview' %>
-
-  <div class="clearfix space-bottom">
-
+  <% body = capture do %>
     <figure class="summary-box">
       <div>
         <b style="height: <%= @rubric.avg_percentage() %>%"></b>
@@ -49,11 +40,15 @@
       </div>
       <figcaption>Projects using this rubric</figcaption>
     </figure>
+  <% end %>
+  <%= render :partial => 'shared/section', :locals => {:header => 'Overview', :body => body} %>
 
+  <div class="page-section">
+    <div class="table-wrapper">
+      <%= render 'shared/rubric_show' %>
+    </div>
   </div>
 
-  <div class="table-wrapper">
-  <%= render 'shared/rubric_show' %>
-  </div>
+
 <% end %>
 

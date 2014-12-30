@@ -7,10 +7,13 @@ define (require) ->
 
   class GroupsItem extends Marionette.ItemView
 
-    tagName: 'li'
+    tagName: 'th'
+    className: 'matrix--fullbleed'
     template: template
+
     attributes: {
       'data-behavior': 'navigate-group'
+      'data-match-height-source': ''
     }
 
     triggers: {
@@ -22,13 +25,14 @@ define (require) ->
       onSave = () =>
         # Tell the parent layout that its dirty and needs to save.
         @vent.triggerMethod('dirty')
-      Vocat.vent.trigger('modal:open', new ShortTextInputView({model: @model, vent: @vent, onSave: onSave, property: 'name', inputLabel: 'What would you like to call this group?'}))
+      Vocat.vent.trigger('modal:open', new ShortTextInputView({model: @model, vent: @vent, onSave: onSave, property: 'name', saveLabel: 'Update group name', inputLabel: 'What would you like to call this group?'}))
+
 
     onConfirmDestroy: () ->
       @model.destroy({
         success: () =>
           Vocat.vent.trigger('error:clear')
-          Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '5000',  msg: 'group successfully deleted'})
+          Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '3000',  msg: 'The group was successfully deleted.'})
       , error: () =>
           Vocat.vent.trigger('error:clear')
           Vocat.vent.trigger('error:add', {level: 'notice', msg: xhr.responseJSON.errors})
@@ -38,7 +42,7 @@ define (require) ->
       Vocat.vent.trigger('modal:open', new ModalConfirmView({
         model: @model,
         vent: @,
-        descriptionLabel: 'Deleting this group will also delete any submissions and evaluations owned by this group. Are you sure you want to do this?',
+        descriptionLabel: 'Deleting this group will also delete any submissions and evaluations owned by this group.',
         confirmEvent: 'confirm:destroy',
         dismissEvent: 'dismiss:destroy'
       }))
@@ -49,8 +53,10 @@ define (require) ->
       data
 
     initialize: (options) ->
-      messages = @options
       @vent = options.vent
       @$el.attr('data-group', @model.id)
 
-      @listenTo(@model, 'change:name', @render)
+      @listenTo(@model, 'change:name', () =>
+        @render()
+        @vent.trigger('recalculate')
+      )

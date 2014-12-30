@@ -1,9 +1,30 @@
 class EvaluationSerializer < ActiveModel::Serializer
-  attributes  :id, :evaluator_id, :scores, :total_percentage, :evaluator_name, :evaluator_role, :total_percentage_rounded,
-              :current_user_is_owner, :published, :submission_id, :points_possible
+  attributes  :id,
+              :submission_id,
+              :published,
+              :evaluator_id,
+              :evaluator_name,
+              :evaluator_role,
+              :scores,
+              :score_details,
+              :total_percentage,
+              :total_score,
+              :points_possible,
+              :current_user_is_evaluator,
+              :abilities
 
-  def current_user_is_owner
-    scope.can?(:own, object)
+  def abilities
+    {
+        :can_own => Ability.new(scope).can?(:own, object),
+    }
+  end
+
+  def score_details
+    object.score_detail
+  end
+
+  def current_user_is_evaluator
+    scope.id == evaluator_id
   end
 
   def evaluator_role
@@ -14,7 +35,7 @@ class EvaluationSerializer < ActiveModel::Serializer
       when :creator
         evaluator = User.find(object.evaluator_id)
         if evaluator.can?(:own, object.submission)
-          'Creator'
+          'Self'
         else
           'Peer'
         end

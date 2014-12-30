@@ -71,7 +71,7 @@ class Inviter
       UserMailer.welcome_email(user).deliver
       return true
     else
-      failure!(response, :db_create_failure, "#{email}: #{user.errors.full_messages().join('; ').downcase}")
+      failure!(response, :db_create_failure, "Unable to invite \"#{user.email}\": #{user.errors.full_messages().join('; ').downcase}")
       return false
     end
   end

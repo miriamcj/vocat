@@ -15,6 +15,11 @@ define ['backbone', 'models/rubric_property'], (Backbone, RubricProperty) ->
     isNew: () ->
       true
 
+    validate: (attr, options) ->
+      if attr
+        if attr.name.length < 1
+          return 'Range name must be at least one character long.'
+
     defaults: {
       name: ''
       low: 0

@@ -9,6 +9,7 @@ define (require) ->
 
     ui: {
       input: '[data-property="input"]'
+      errorContainer: '[data-behavior="error-container"]'
     }
 
     saveModelOnSave: false
@@ -17,7 +18,11 @@ define (require) ->
 
     triggers: {
       'click [data-behavior="model-save"]': 'click:model:save'
+      'click [data-behavior="cancel"]': 'click:model:cancel'
     }
+
+    onClickModelCancel: () ->
+      Vocat.vent.trigger('modal:close')
 
     onClickModelSave: () ->
       @save()
@@ -28,11 +33,26 @@ define (require) ->
       @ui.input.val()
 
     save: () ->
+      attr = {}
+      attr[@property] = @getValue()
+
+      # Save or set
       if Marionette.getOption(@, "saveModelOnSave") == true
-        @model.save(@property, @getValue())
+        @model.save(attr, {validate: true})
       else
-        @model.set(@property, @getValue())
-      Vocat.vent.trigger('modal:close')
+        @model.set(attr, {validate: true})
+
+      # Check if valid
+      if @model.isValid()
+        Vocat.vent.trigger('modal:close')
+        @trigger('model:updated')
+      else
+        error = @model.validationError
+        @updateError(error)
+
+    updateError: (error) ->
+      @ui.errorContainer.html(error)
+      @ui.errorContainer.show()
 
     initialize: (options) ->
       @property = options.property
@@ -44,6 +64,8 @@ define (require) ->
       {
         value: @model.get(@property)
         label: Marionette.getOption(@, "inputLabel")
+        saveClasses: Marionette.getOption(@, "saveClasses")
+        saveLabel: Marionette.getOption(@, "saveLabel")
       }
 
     onRender: () ->

@@ -1,17 +1,22 @@
-<% content_for :content do %>
+<% content_for :main do %>
+  <%= render 'layouts/header' %>
+  <%= render 'layouts/messages_backbone' %>
 
-  <header class="bar-header">
-    <h2 class="bar-header--title"><%= yield :content_header %></h2>
-    <%= yield :content_header_links %>
-  </header>
-
-  <div class="page-content--frame">
-    <%= render 'layouts/messages' %>
-    <%= yield :content_intro %>
-    <%= yield :content_frames %>  
+  <div class="container">
+    <div class="page-content">
+      <% if content_for?(:heading) || content_for?(:heading_links) %>
+      <div class="page-content--heading">
+        <div class="page-content--heading-buttons"><%= yield :heading_links %></div>
+        <%= yield :heading %>
+      </div>
+      <% end %>
+      <%= yield :content %>
+    </div>
   </div>
 
+  <%= render 'layouts/footer' %>
 
 <% end %>
+
 
 <%= render :template => 'layouts/application' %>

@@ -15,6 +15,12 @@ define ['backbone', 'models/rubric_property'], (Backbone, RubricProperty) ->
     isNew: () ->
       true
 
+    validate: (attr, options) ->
+      if attr
+        if attr.name.length < 1
+          return 'Criteria name must be at least one character long.'
+
+
     setDescription: (range, description) ->
       descriptions = _.clone(@get('range_descriptions'))
       descriptions[range.id] = description

@@ -10,13 +10,16 @@ class Ability
 
     user ||= User.new # guest user (not logged in)
 
-
     ######################################################
     ### Users
     ######################################################
 
     can [:read_write], User do |a_user|
       user == a_user
+    end
+
+    can [:search], User do |a_user|
+      user.role?(:evaluator)
     end
 
     ######################################################
@@ -69,6 +72,19 @@ class Ability
       project.course.creators.include?(user)
     end
 
+    can [:export], Project do |project|
+      can?(:administer, project.course)
+    end
+
+    can [:publish_evaluations], Project do |project|
+      can?(:evaluate, project.course)
+    end
+
+    can [:unpublish_evaluations], Project do |project|
+      can?(:publish_evaluations, project)
+    end
+
+
     ######################################################
     ### Submissions
     ######################################################
@@ -96,7 +112,8 @@ class Ability
       # 1) user can evaluate for the course and is not the creator of the submission
       # 2) submission is a user submission and self evaluation is allowed and evaluator is the creator
       # 3) submission is a group submission and self evaluation is allowed and evaluator is in the group.
-      results = can?(:evaluate, submission.project.course ) && submission.creator != user ||
+      # 4) submission has a rubric
+      results = submission.has_rubric? && can?(:evaluate, submission.project.course ) && submission.creator != user ||
         submission.creator.is_user? && submission.project.course.allows_self_evaluation? && submission.creator == user ||
         submission.creator.is_group? && submission.project.course.allows_self_evaluation? && submission.creator.include?(user)
       results
@@ -231,10 +248,27 @@ class Ability
       user.role?(:evaluator)
     end
 
-    can :create, Rubric do |rubric|
-      user.role?(:evaluator)
+    if user.role?(:evaluator) || user.role?(:administrator)
+      can :create, Rubric
+    else
+      cannot :create, Rubric
     end
 
+    ######################################################
+    # Admins
+    ######################################################
+    if user.role?(:administrator)
+      can :manage, :all
+      cannot :manage, Evaluation
+    end
+
+    ######################################################
+    # Course Request
+    ######################################################
+
+    can :create, CourseRequest do |course_request|
+      user.role?(:evaluator) || user.role?(:administrator)
+    end
 
     ######################################################
     # Evaluations
@@ -271,6 +305,15 @@ class Ability
         result = evaluation.submission.project.course.role(user) != :evaluator
         result
       end
+      cannot [:evaluate], Submission do |submission|
+        result = submission.project.course.role(user) != :evaluator
+        result
+      end
+      cannot [:portfolio], Course do |course|
+        result = course.role(user) != :creator
+        result
+      end
+
     end
 
   end

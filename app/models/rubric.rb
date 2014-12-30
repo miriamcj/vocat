@@ -4,14 +4,14 @@ require 'securerandom'
 class Rubric < ActiveRecord::Base
 
   belongs_to :owner, :class_name => "User"
-  has_many :projects
+  has_many :projects, :dependent => :nullify
   has_many :courses, :through => :projects
-  has_many :evaluations
+  has_many :evaluations, :dependent => :destroy
 
   delegate :name, :to => :owner, :prefix => true, :allow_nil => true
 
   serialize :cells, Array
-  serialize :fields, Array # A field is {'name' => 'name', 'description' => 'description'}
+  serialize :fields, Array # A field is {'name' => 'name', 'id', description' => 'description'}
   serialize :ranges, Array # A range is {'low' => X, 'high' => X, 'name' => 'name'}
 
   validates :name, :owner, :low, :high, :presence => true
@@ -31,7 +31,7 @@ class Rubric < ActiveRecord::Base
   end
 
   scope :publicly_visible, -> { where(:public => true) }
-  scope :public_or_owned_by, -> (owner) { where('owner_id = ? OR public = true', owner)}
+  scope :public_or_owned_by, ->(owner) { where('owner_id = ? OR public = true', owner)}
 
   # Params is a hash of search values including (:department || :semester || :year) || :section
   def self.search(params)
@@ -183,15 +183,20 @@ class Rubric < ActiveRecord::Base
   end
 
   def field_names
-    self.fields.collect { |value| value['name']}
-  end
-
-  def field_names_downcase
     self.fields.collect { |value| value['name'].downcase }
   end
 
   def field_keys
 	  self.fields.collect { |value| value['id']}
+  end
+
+  def field_name_for(key)
+    f = self.fields.find{ |f| f['id'] == key }
+    if !f.nil?
+      f['name']
+    else
+      nil
+    end
   end
 
   def low_score
@@ -204,6 +209,14 @@ class Rubric < ActiveRecord::Base
 
   def high_score
     self.high
+  end
+
+  def high_possible_for(field_key_)
+    high_score
+  end
+
+  def low_possible_for(field_key)
+    low_score
   end
 
   def to_s

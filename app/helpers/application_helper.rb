@@ -2,6 +2,14 @@ module ApplicationHelper
 
   require 'active_support'
 
+  def project_submission_detail_path(project, user)
+    if project.type == 'UserProject'
+      course_user_creator_project_detail_path(project.course, user, project)
+    elsif project.type == 'GroupProject'
+      course_group_creator_project_detail_path(project.course, user, project)
+    end
+  end
+
   def submission_detail_path(submission)
     if submission.creator_type == 'Group'
       course_group_creator_project_detail_path(submission.course, submission.creator, submission.project)
@@ -54,6 +62,15 @@ module ApplicationHelper
 
   def debug_current_layout
     controller.send :_layout
+  end
+
+  def user_course_url(user, course)
+    role = course.role(user)
+    if role == :evaluator || role == :assistant
+      url_for course_user_evaluations_path(course)
+    else
+      url_for portfolio_course_path(course)
+    end
   end
 
   def current_user_role

@@ -1,0 +1,51 @@
+@import "variables";
+@import "mixins";
+@import "patterns";
+
+.smaller {
+  font-size: $iota;
+}
+
+.horizontal-links {
+  @include clearfix();
+  font-size: $iota;
+  @extend %unstyled-list;
+  li {
+    display: inline-block;
+    &+li {
+      margin-left: $narrowUnitPadding;
+    }
+  }
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.unstyled-list {
+  @extend %unstyled-list;
+  li {
+    margin-bottom: .25em;
+  }
+}
+
+.large-list {
+  li {
+    font-size: $eta;
+    line-height: 1.25em;
+  }
+}
+
+.clearfix {
+  @include clearfix();
+}
+
+.instructions {
+  margin-bottom: $verticalSpace * 2;
+}
+
+.column-half {
+  @extend %wide-one-half;
+  margin: 0;
+  padding: 0;
+}

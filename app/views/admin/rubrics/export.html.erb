@@ -1,53 +1,58 @@
-<% content_for :content_header do %>
-  Rubrics
-<% end %>
+<%= render :partial => 'heading', :locals => {rubric: @rubric} %>
 
-<% content_for :content_header_links do %>
-  <%= render 'header_links' %>
-<% end %>
+<% content_for :content	 do %>
+  <% body = capture do %>
+    <div class="table-wrapper">
+      <table class="table table-white-head">
+        <thead>
+        <tr>
+          <th>Report Name</th>
+          <th>Filters</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th style="width: 33%">
+            Evaluations<br />
+            <small>This report includes a single entry for every evaluation that
+            was scored using this rubric.</small>
+          </th>
+          <td>
+            <%= form_tag rubric_scores_admin_reports_path(@rubric), :method => :get,:html_options => {:class => 'formgrid'} do %>
+              <fieldset>
+                <div class="formgrid sixth" >
+                  <%= label_tag :start_semester, 'From' %>
+                  <%= select_tag(:start_semester, options_from_collection_for_select(Semester.all, 'id', 'name', params[:semester]), {'data-behavior' => 'chosen', 'data-placeholder' => 'Semester'}) %>
+                </div>
+                <div class="formgrid sixth" >
+                  <label>&nbsp;</label>
+                  <%= select_tag(:start_year, options_for_select(Course.distinct_years, params[:year]), {'data-behavior' => 'chosen', 'data-placeholder' => 'Year'}) %>
+                </div>
+                <div class="formgrid sixth" >
+                  <%= label_tag :end_semester, 'To' %>
+                  <%= select_tag(:end_semester, options_from_collection_for_select(Semester.all, 'id', 'name', params[:semester]), {'data-behavior' => 'chosen', 'data-placeholder' => 'Semester'}) %>
+                </div>
+                <div class="formgrid sixth" >
+                  <label>&nbsp;</label>
+                  <%= select_tag(:end_year, options_for_select(Course.distinct_years, params[:year]), {'data-behavior' => 'chosen', 'data-placeholder' => 'Year'}) %>
+                </div>
+                <div class="formgrid third" >
+                  <%= label_tag :format, 'Export as', {class: 'text-label'} %>
+                  <%= submit_tag 'JSON', :name => :format, :class => 'primary-button' %>
+                  <%= submit_tag 'CSV', :name => :format, :class => 'primary-button' %>
+                </div>
+              </fieldset>
+            <% end %>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+  <%= render :partial => 'shared/section', :locals => {:header => 'Export Rubric Data', :clear => true, :body => body} %>
 
-<% content_for :content_frames	 do %>
-  <%= render 'header', :subheader => 'Export Data' %>
-  <div class="table-wrapper">
-    <table class="table">
-      <thead>
-      <tr>
-        <th>Report Name</th>
-        <th>Filters</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <th style="width: 33%">Evaluations<br />
-          <strong style="font-size: 1.374rem; color: #676263">This report includes a single entry for every evaluation that
-            was scored using this rubric.</strong>
-        </th>
-        <td>
-          <%= form_tag rubric_scores_admin_reports_path(@rubric), :method => :get do %>
-            <fieldset>
-              <div class="clearfix">
-                <div class="input-group" style="width: 20rem; float: left;">
-                    <%= label_tag :start_semester, 'From', {class: 'text-label'} %>
-                    <%= select_tag(:start_semester, options_from_collection_for_select(Semester.all, 'id', 'name', params[:semester]), {'data-behavior' => 'chosen', 'data-placeholder' => 'Semester'}) %>
-                    <%= select_tag(:start_year, options_for_select(Course.distinct_years, params[:year]), {'data-behavior' => 'chosen', 'data-placeholder' => 'Year'}) %>
-                </div>
-                <div class="input-group" style="width: 20rem; float: left;">
-                    <%= label_tag :end_semester, 'To', {class: 'text-label'} %>
-                    <%= select_tag(:end_semester, options_from_collection_for_select(Semester.all, 'id', 'name', params[:semester]), {'data-behavior' => 'chosen', 'data-placeholder' => 'Semester'}) %>
-                    <%= select_tag(:end_year, options_for_select(Course.distinct_years, params[:year]), {'data-behavior' => 'chosen', 'data-placeholder' => 'Year'}) %>
-                </div>
-              </div>
-              <div class="input-group">
-                <%= label_tag :format, 'Export as', {class: 'text-label'} %>
-                <%= submit_tag 'JSON', :name => :format, :class => 'small-teal-arrow-button' %>
-                <%= submit_tag 'CSV', :name => :format, :class => 'small-teal-arrow-button' %>
-              </div>
-            </fieldset>
-          <% end %>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+
+
+
 
 <% end %>

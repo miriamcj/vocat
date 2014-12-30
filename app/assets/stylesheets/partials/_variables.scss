@@ -4,87 +4,157 @@
 // Colors
 // --------------------------------------------------------
 $white: #fff;
-$grayLightest: #d9d8d8;
-$grayLighter: #b3b0b1;
-$grayLight: #9c999a;
-$gray: #8d898a;
-$grayDark: #676263;
-$grayDarker: #444243;
-$grayDarkest: #282627;
-$black: #000;
+$whiteTransparent: transparentize(#fff, 0.25);
+$offWhite: #fafafa;
 
-$beigeLight: #f9f7f7;
-$beigeLightAlt: #f0ecec;
-$beige: #ece7e6;
-$beigeAlt: #ebe6e4;
-$beigeDark: #a19594;
+$grayLightest: rgb(245, 245, 245);
+$grayLighter: rgb(224, 224, 224);
+$grayLight: rgb(199, 200, 202);
+$grayMediumLighter: rgb(167, 169, 172);
+$grayMedium: rgb(157, 159, 162);
+$grayMediumDarker: rgb(140, 140, 140);
+$grayDark: rgb(109, 110, 113); // Body copy color
+$grayDarker: rgb(77, 77, 79);
+$grayDarkest: rgb(35, 31, 32);
 
-$tealLightest: #b7c2c4;
-$tealLightestAlt: #c6cfd0;
-$tealLighter: #a7b6b8;
-$tealLight: #7f9ea0;
-$tealMedium: #618688;
-$teal: #5f8688;
+$tealLightest: #A1DAD6;
+$tealLight: #43B5AE;
+$tealDark: #009C92;
 
-$orangeLight: #f2926d;
-$orange: #ec632f;
+$lighten: 20%;
 
-$yellow: #fbeda1;
+$yellow: #F5C92D;
+$yellowLight: #FFFFCB;
+$blue: #60A3BF;
+$purple: #A197B9;
+$red: #f44355;
+$redDark: #bd2138;
+$black: #000000;
 
-$blueLight: #c6dfeb;
+$primaryButtonColor: $tealLight;
+$secondaryButtonColor: $grayMedium;
+$warningButtonColor: $red;
+$primaryLinkColor: $tealLight;
+$secondaryLinkColor: $grayMedium;
+$warningLinkColor: $red;
 
-$redLight: #f9ccd4;
+$primaryLinkHoverColor: $grayDarker;
+$secondaryLinkHoverColor: $grayDarker;
+$primaryButtonHoverColor: $grayDarker;
+$secondaryButtonHoverColor: $grayDarker;
+$warningButtonHoverColor: $redDark;
 
-$greenLight: #bfe3c0;
+$defaultFillColor: $grayMediumLighter;
+$defaultColor: lighten($defaultFillColor, $lighten);
 
-$lessDarker: transparentize($black, 0.82);
-$darker: transparentize($black, 0.54);
+$instructorFillColor: $yellow;
+$instructorColor: lighten($instructorFillColor, $lighten);
+
+$peerFillColor: $blue;
+$peerColor: lighten($peerFillColor, $lighten);
+
+$selfFillColor: $purple;
+$selfColor: lighten($selfFillColor, $lighten);
+
+
+// Typographic hierarchy
+// --------------------------------------------------------
+// 60px
+$alpha: 3.75em;
+// 48px
+$beta: 3em;
+// 44px
+$gamma-major: 2.75em;
+// 36px
+$gamma: 2.25em;
+// 30px
+$delta: 1.875em;
+// 26px
+$delta-minor: 1.625em;
+// 24px
+$epsilon: 1.5em;
+// 21px
+$zeta: 1.313em;
+// 18px
+$eta: 1.125em;
+// 16px (body)
+$theta: 1em;
+// 14px
+$iota: 0.875em;
+// 13px
+$kappa: 0.813em;
+// 12px
+$lambda: 0.750em;
+// 11px
+$lambda-minor: 0.688em;
 
 // Measurements
 // --------------------------------------------------------
-$mainWidth: 100rem;
-$headerHeight: 11.6rem;
-$subHeaderHeight: 8rem;
-$matrixCellWidth: 20rem;
-$matrixRowHeaderWidth: 23.2rem;
-$matrixOverlayWidth: $mainWidth - $matrixRowHeaderWidth;
+$containerWidth: 1200px;
+$minContainerWidth: 318px;
+$headerHeight: 60px;
+$headerUnitWidth: 82px;
+$navWidth: 240px;
+$tabWidth: 100 / 6 * 1%;
+$mapWidth: 832px;
 
-$baseLineHeight: 1.2;
+$baseLineHeight: 1;
 $verticalSpace: $baseLineHeight * 1em;
+$verticalSpaceTight: $baseLineHeight * .75em;
+$verticalSpaceTightest: $baseLineHeight * .5em;
 
-$radius: 0.5rem;
+$defaultStroke: 1px;
 
-// Typography
-// --------------------------------------------------------
-// $usage can be set to either 'open' or 'closed'
-// 'open' will replace typefaces with their open source
-// counterparts (in _fonts.scss) and adjust parameters accordingly
-$usage: closed;
-// $usage: open;
+$contentSpace: 2.778em;
+$listSpace: .8em;
+
+$fluidUnitPadding: 2vw;
+$unitPadding: 48px;
+$mediumUnitPadding: 30px;
+$narrowUnitPadding: 13px;
+$headerUnitPadding: 21px;
+
+$contentUnitPadding: 2.75%;
+$formPadding: 2%;
+
+$iconSizeSmall: 10px;
+$iconSizeMedium: 14px;
+
+
+
+// $slowTransition: ;
+$mediumTransition: 0.5s;
+$fastTransition: 0.2s;
+$timing: ease;
+
 
 // Font Weights
-// --------------------------
-$regular: 400 !default;
-$medium: 500 !default;
-$bold: 700 !default;
-
-@if $usage == open {
-  $regular: 400;
-  $medium: 600;
-  $bold: 700;
-}
-
-// Offsets
-// TODO adjust these once closed fonts are real; they might not be necessary, depending on final fonts
-// --------------------------
-$offset: 0 !default;
-
-@if $usage == open {
-  $offset: 0.1rem;
-}
+// --------------------------------------------------------
+$thin: 200;
+$light: 300;
+$regular: 400;
+$semibold: 600;
+$bold: 700;
+$extrabold: 800;
+$heavy: 900;
 
 // Responsive breakpoints
+// https://en.wikipedia.org/wiki/List_of_lakes_by_area
 // --------------------------------------------------------
-// $screenNarrow: 480px;
-// $screenMedium: 610px;
-// $screenWide: 720px;
+// NB these values are subject to adjustment
+$superior: $containerWidth;
+$michigan: 1080px;
+$baikal: 960px;
+$ontario: 767px;
+$ladoga: 600px;
+$vostok: 446px;
+$onega: $minContainerWidth;
+
+// Z-index schema
+// 600-699: Overlays, modals, and lightboxes
+// 500-599: Drawer
+// 400-499: Page header
+// 300-399: Click Shield
+// 200-299: Fixed position components
+// 100-199: Page content
+// 0 - 99: Primary nav

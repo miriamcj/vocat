@@ -1,0 +1,89 @@
+@import "variables";
+@import "mixins";
+@import "patterns";
+
+
+// Headers
+.heading-primary {
+  @extend %condensedHeading;
+  @extend %spacedHeading;
+  font-size: $gamma;
+  color: $grayDark;
+  a {
+    color: $grayDark;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.heading-primary-error-page {
+  @extend %condensedHeading;
+  @extend %spacedHeading;
+  margin-bottom: 1em;
+  font-size: $gamma;
+  color: $tealLight;
+  a {
+    color: $grayDark;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.heading-secondary {
+  @extend %condensedHeading;
+  font-size: $gamma;
+  color: $grayMedium;
+  a {
+    color: $tealLight;
+    &:hover {
+      color: $tealDark;
+    }
+  }
+}
+
+.heading-secondary-dark {
+  @extend %condensedHeading;
+  font-size: $gamma;
+  color: $grayDark;
+  a {
+    color: $grayDark;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.heading-tertiary {
+  @extend %spacedHeading;
+  @extend %condensedHeading;
+  font-size: $delta;
+  font-weight: $regular;
+  color: $grayDark;
+  a {
+    color: $grayDark;
+    &:hover {
+      color: $tealDark;
+    }
+  }
+}
+
+.heading-quarternary {
+  @extend %spacedHeading;
+  font-size: $zeta;
+  font-weight: $semibold;
+  border-bottom: 1px solid $grayMediumLighter;
+  padding-bottom: .5em;
+  a {
+    color: $grayDark;
+  }
+}
+
+.heading-informational {
+  @extend %doubleSpacedHeading;
+  @extend %condensedHeading;
+  font-size: $theta;
+  font-weight: $regular;
+  font-color: $grayMedium;
+}

@@ -1,64 +1,33 @@
-<% content_for :content_header do %>
-  Edit Course Settings
-<% end %>
-
-<% content_for :content_header_links do %>
-<% end %>
-
-<% content_for :content_intro do %>
-<% end %>
-
-<% content_for :content_frames	 do %>
-  <%= form_for @course, :url => {action: 'update'} do |f| %>
-    <fieldset>
-      <div class="input-group">
-        <label class="text-label">Course Message</label>
-        <%= f.text_area :message, { :class => 'text-area-input', :rows => 10} %>
-        <small class="input-message">
-          Any message you enter here will be visible to all students when they log into VOCAT and select this course
-          from the list of available courses.
-        </small>
+<% content_for :content	 do %>
+  <%= link_to 'Return to Course Evaluations', course_user_evaluations_path(@course), :class => 'header-link back-link' %>
+  <div class="page-section page-section-clear">
+    <div class="header-wrapper">
+      <div class="header">
+        <h2>Course Settings</h2>
       </div>
-      <div class="input-group">
-        <label class="text-label">Course Configuration</label>
+    </div>
+    <div class="body">
+      <%= form_for @course, :url => {action: 'update'}, :html => {:class => 'formgrid'} do |f| %>
+        <fieldset>
+          <div class="formgrid whole">
+            <label>Course Message</label>
+            <%= f.text_area :message, { :rows => 10} %>
+            <small class="input-message">
+              Any message you enter here will be visible to all students when they log into VOCAT and select this course
+              from the list of available courses.
+            </small>
+          </div>
+        </fieldset>
 
-        <%= f.fields_for :settings do |settings| %>
-
-          <label class="checkbox-label" for="course_settings_enable_public_discussion">
-            <%= hidden_field_tag('course[settings][enable_public_discussion]', 0, :id => 'enable_public_discussion_hidden')%>
-            <%= check_box_tag('course[settings][enable_public_discussion]', 1, @course.settings[:enable_public_discussion] == '1', :class => 'checkbox')%>
-            <b></b>
-            Enable public discussion
-          </label>
-
-          <label class="checkbox-label" for="course_settings_enable_peer_review">
-            <%= hidden_field_tag('course[settings][enable_peer_review]', 0, :id => 'enable_peer_review_hidden')%>
-            <%= check_box_tag('course[settings][enable_peer_review]', 1, @course.settings[:enable_peer_review] == '1', :class => 'checkbox')%>
-            <b></b>
-            Enable peer review
-          </label>
-
-          <label class="checkbox-label" for="course_settings_enable_creator_attach">
-            <%= hidden_field_tag('course[settings][enable_creator_attach]', 0, :id => 'enable_creator_attach_hidden')%>
-            <%= check_box_tag('course[settings][enable_creator_attach]', 1, @course.settings[:enable_creator_attach] == '1', :class => 'checkbox')%>
-            <b></b>
-            Allow creators to upload videos
-          </label>
-
-          <label class="checkbox-label" for="course_settings_enable_self_evaluation">
-            <%= hidden_field_tag('course[settings][enable_self_evaluation]', 0, :id => 'enable_self_evaluation_hidden')%>
-            <%= check_box_tag('course[settings][enable_self_evaluation]', 1, @course.settings[:enable_self_evaluation] == '1', :class => 'checkbox')%>
-            <b></b>
-            Allow self-evaluation
-          </label>
+        <fieldset>
+        <%= render 'shared/course_settings_fields', :f => f %>
+        <div class="formgrid whole">
+          <%= submit_tag('Save Settings', :class => 'primary-button') %>
+        </div>
+        </fieldset>
 
       <% end %>
-      </div>
-      <div class="input-group">
-        <%= submit_tag('Save Settings', :class => 'teal-arrow-button') %>
-      </div>
-    </fieldset>
-  <% end %>
-
+    </div>
+  </div>
 <% end %>
 

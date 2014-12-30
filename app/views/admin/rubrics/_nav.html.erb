@@ -1,19 +1,8 @@
-<nav class="drop-nav" data-behavior="dropdown">
-  <a class="drop-nav--toggle" data-behavior="toggle" href="#" style="cursor: pointer;">
-    <% if local_assigns.fetch :subheader, nil %>
-      <%= subheader %>
-    <% else %>
-      Select an Action
-    <% end %>
-  </a>
-  <div class="drop-nav--dropdown" data-behavior="dropdown-options">
-    <ul>
-      <li><%= link_to 'Rubric Overview', admin_rubric_path(rubric) %></li>
-      <li><%= link_to 'Edit Rubric', edit_admin_rubric_path(rubric) %></li>
-      <li><%= link_to 'Clone Rubric', clone_admin_rubric_path(rubric), :method => :post %></li>
-      <li><%= link_to 'Export Data', export_admin_rubric_path(rubric) %></li>
-      <li><%= link_to 'Delete', admin_rubric_path(rubric), :method => :delete, :data => { :modalconfirm => 'This action is not reversible. Are you sure you would like to proceed?'} %></li>
-    </ul>
-  </div>
-</nav>
+<ul>
+  <li><%= link_to 'Rubric Overview', admin_rubric_path(rubric) %></li>
+  <li><%= link_to 'Edit Rubric', edit_admin_rubric_path(rubric) %></li>
+  <li><%= link_to 'Clone Rubric', clone_admin_rubric_path(rubric), :method => :post %></li>
+  <li><%= link_to 'Export Data', export_admin_rubric_path(rubric) %></li>
+  <li><%= link_to 'Delete', admin_rubric_path(rubric), :method => :delete, :data => { :modalconfirm => 'This action is not reversible. Are you sure you would like to proceed?'} %></li>
+</ul>
 

@@ -1,0 +1,34 @@
+
+%condensedHeading {
+  @include font-head;
+  font-weight: $regular;
+  letter-spacing: 0;
+}
+
+%capsHeading {
+  text-transform: uppercase;
+}
+
+%spacedHeading {
+  margin-bottom: 8px;
+}
+
+%doubleSpacedHeading {
+  margin-bottom: 16px;
+}
+
+%extraSpacedHeading {
+  margin-bottom: $headerUnitPadding;
+}
+
+%proto-section-header {
+  margin-right: .25em;
+  display: inline-block;
+  font-weight: $light;
+  font-size: $epsilon;
+  color: $grayDarkest;
+  letter-spacing: 0;
+  @extend %condensedHeading;
+  @extend %capsHeading;
+  @extend %extraSpacedHeading;
+}

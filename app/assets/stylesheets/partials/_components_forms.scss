@@ -1,0 +1,327 @@
+@import "variables";
+@import "mixins";
+@import "patterns";
+
+// Form Patterns
+// --------------------------
+%form-unit{
+  padding-bottom: 2em;
+}
+
+%proto-input {
+//  @include box-sizing(content-box);
+  height: 2.12em;
+  padding: 0px 0px 0px .8em;
+  outline: none;
+  @include font-body;
+  font-size: $eta;
+  color: $grayDark !important;
+  border: 1px solid $grayMedium;
+}
+
+%input-full-width {
+  width: 100%
+}
+
+.drawer-input-label {
+  @extend %label;
+  font-size: $kappa;
+  color: $white;
+  text-transform: none;
+}
+.drawer-input {
+  @extend %proto-input;
+  height: auto;
+  margin-bottom: 1em;
+  padding: .25em .5em;
+  font-size: $iota;
+  width: 100%;
+  margin-top: .4em;
+}
+
+// Forms
+// --------------------------
+
+form.formgrid, div.fake-formgrid {
+  margin-left: -$formPadding;
+  margin-right: -$formPadding;
+  margin-bottom: -2em;
+}
+form.formgrid-tight {
+  margin: 0
+}
+
+.formgrid--messaging {
+  @extend %form-wide-one-whole;
+  @extend %form-unit;
+}
+
+fieldset {
+  border: none;
+  padding: 0;
+}
+
+fieldset + fieldset {
+  margin-top: $verticalSpace;
+}
+
+.formgrid {
+
+  label, .label {
+    @extend %label;
+    display: block;
+    margin-bottom: $verticalSpaceTightest;
+  }
+
+  p {
+    margin-bottom: $verticalSpaceTightest;
+  }
+  .label-tight {
+    margin-bottom: 0;
+  }
+  .label-inline {
+    font-weight: $regular;
+  }
+
+  small {
+    font-size: $kappa;
+    margin-top: $verticalSpaceTightest;
+    display: block;
+  }
+
+  select {
+    @extend %input-full-width;
+    border-radius: 0;
+    display: block;
+    height: 2.4em;
+    color: $grayDark;
+    text-decoration: none;
+    background-color: $white;
+    padding: 0 0 0 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    border-left: 1px solid $grayMedium;
+    border-right: 1px solid $grayMedium;
+  }
+
+  input[type=text], textarea, input[type=password], input[type=number], input[type=email] {
+    @extend %proto-input;
+    @extend %input-full-width;
+  }
+  textarea {
+    resize: none;
+    height: 6em;
+    padding: 1em;
+  }
+
+  &.whole {
+    @extend %form-wide-one-whole;
+    @extend %form-unit;
+  }
+  &.two-thirds {
+    @extend %form-wide-two-thirds;
+    @extend %form-unit;
+  }
+  &.half {
+    @extend %form-wide-one-half;
+    @extend %form-unit;
+  }
+  &.third {
+    @extend %form-wide-one-third;
+    @extend %form-unit;
+  }
+  &.fourth {
+    @extend %form-wide-one-fourth;
+    @extend %form-unit;
+  }
+  &.sixth {
+    @extend %form-wide-one-sixth;
+    @extend %form-unit;
+  }
+  &.twelfth {
+    @extend %form-wide-one-twelfth;
+    @extend %form-unit;
+  }
+
+  &.submit-row {
+    margin-top: $verticalSpaceTightest * 2;
+    margin-bottom: 1em;
+  }
+
+}
+
+.field_with_errors {
+  input[type=text], textarea {
+    border: 1px solid $red !important;
+  }
+}
+
+
+// Misc. Form Related Styles
+// --------------------------
+.file-input-container {
+  display: inline-block;
+  // margin-top: 1rem;
+  position: relative;
+  cursor: pointer;
+  input {
+    @extend %hidden-text;
+    opacity: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    cursor: pointer;
+    &:hover + a {
+      text-decoration: underline;
+    }
+  }
+}
+
+$spacingUnit: $mediumUnitPadding * .75;
+
+.oneline--input {
+  .button-wrapper {
+    float: right;
+    @include respond($vostok - 1) {
+      display: none;
+    }
+  }
+  .button-wrapper-responsive {
+    display: none;
+    margin-top: $spacingUnit;
+    @include respond($vostok - 1) {
+      display: block;
+    }
+  }
+  .input-wrapper {
+    padding-right: $spacingUnit;
+    overflow: hidden;
+    textarea {
+      width: 100%;
+      line-height: $theta;
+      font-size: $theta;
+    }
+  }
+}
+
+select.month, select.day, select.year {
+  width: 32.7%;
+}
+
+select.from, select.to {
+  width: 48%;
+}
+
+.live-search {
+  position: relative;
+  .live-search--results {
+    position: absolute;
+    z-index: 100;
+    background: $white;
+    @include font-body;
+    font-size: $iota;
+    color: $grayDark !important;
+    border: 1px solid $grayMedium;
+    border-top: 0;
+    padding: 1em;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: 200px;
+    .whole & {
+      width: 100%;
+
+    }
+    ul {
+      @extend %unstyled-list;
+      margin-bottom: 0;
+      li {
+        padding: 0 0 .5em 0;
+      }
+      li+li {
+        padding: .5em 0em;
+      }
+    }
+  }
+}
+
+
+.range-picker-container {
+  position: relative;
+  padding-top: 3em;
+  margin-bottom: 2em;
+}
+.range-picker {
+  height: 2em;
+  background-color: $grayLight;
+  border-radius: 0.5em;
+  left: 0;
+  right: 0;
+  position: relative;
+  .ticks {
+    .mark {
+      width: 1px;
+      height: 2em;
+      background: white;
+      position: absolute;
+      text-align: center;
+      span {
+        display: block;
+        position: absolute;
+        margin-left: -50%;
+        top: 4em;
+        font-size: .56em;
+      }
+    }
+  }
+  .dragger {
+    position: absolute;
+    cursor: pointer;
+    width: 1px;
+    height: 4em;
+    background-color: $tealLight;
+    border-radius: 0.5em;
+    top: -2em;
+    z-index: 30;
+    &.dragger-active {
+      z-index: 40;
+    }
+    &.dragger-low .dragger-label {
+      left: 0;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    &.dragger-high .dragger-label {
+      left: -39px;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    &.dragger-locked {
+      opacity: .7;
+      top: -2.3em;
+      z-index: 20;
+      .dragger-label {
+        top: -2px;
+      }
+    }
+
+    .dragger-label {
+      @extend %heading-epsilon;
+      @extend %shaded-inside-bottom;
+      line-height: 1;
+      color: $white !important;
+      width: 40px;
+      height: 2em;
+      font-weight: $semibold;
+      background-color: $tealLight;
+      position: absolute;
+      top: -.5em;
+      left: -39px;
+      text-align: center;
+      line-height: 2em;
+    }
+  }
+}

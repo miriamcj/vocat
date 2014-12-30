@@ -1,18 +1,91 @@
 class SubmissionSerializer < AbstractSubmissionSerializer
 
-  attributes  :id, :name, :thumb, :course_name, :course_name_long, :course_allows_peer_review, :course_allows_self_evaluation,
-              :project_name, :course_id, :project_id, :creator_name, :creator_id, :creator_type, :current_user_is_owner,
-              :current_user_can_evaluate, :course_department, :course_section, :course_number,
-              :evaluations, :current_user_percentage, :current_user_evaluation_published?, :current_user_has_evaluated?,
-              :current_user_can_annotate, :current_user_can_attach, :current_user_can_discuss, :current_user_can_read_evaluations, :video,
-              :has_video?, :path, :peer_score_percentage, :instructor_score_percentage, :current_user_is_instructor,
-              :discussion_posts_count, :serialized_state
+  attributes  :id,
+              :name,
+              :path,
+              :serialized_state,
+              :path,
+              :role,
+              :discussion_posts_count,
+              :new_posts_for_current_user?,
+              :project,
+              :creator,
+              :creator_id,
+              :creator_type,
+              :project_id,
+              :evaluations,
+              :video,
+              :abilities,
+              :current_user_published?,
+              :current_user_percentage,
+              :evaluated_by_peers?,
+              :peer_score_percentage,
+              :evaluated_by_instructor?,
+              :instructor_score_percentage,
+              :has_video?
 
-  # This makes sure that the correct serializer is used for the child association.
+  has_one :project
+  has_one :creator
   has_one :video
+
+  protected
+
+  def new_posts_for_current_user?
+    object.new_posts_for_user?(scope)
+  end
+
+  def abilities
+    {
+        can_own: Ability.new(scope).can?(:own, object),
+        can_evaluate: Ability.new(scope).can?(:evaluate, object),
+        can_attach: Ability.new(scope).can?(:attach, object),
+        can_discuss: Ability.new(scope).can?(:discuss, object),
+        can_annotate:  Ability.new(scope).can?(:annotate, object)
+    }
+  end
+
+
+
+  # We scope the visible evaluations to the user
+  def evaluations
+    evaluations = object.evaluations_visible_to(scope)
+    unless evaluations.nil?
+      ActiveModel::ArraySerializer.new(evaluations, each_serializer: EvaluationSerializer, :scope => scope)
+    else
+      []
+    end
+  end
+
+  def path
+    if object.creator_type == 'Group'
+      path_args = {:course_id => object.course_id, :project_id => object.project_id, :creator_id => object.creator_id}
+      course_group_evaluations_path path_args
+    elsif object.creator_type == 'User'
+      course_user_evaluations_path :course_id => object.course_id, :project_id => object.project_id, :creator_id => object.creator_id
+    end
+  end
 
 	def serialized_state
 		'full'
+  end
+
+  protected
+
+
+  def current_user_is_instructor
+    if object.course.role(scope) == :evaluator then true else false end
+  end
+
+  def current_user_can_read_evaluations
+    current_user_is_owner || current_user_is_instructor || scope.role == :administrator
+  end
+
+  def thumb
+    object.thumb()
+  end
+
+  def url
+    object.url()
   end
 
   # TODO: Revisit this, perhaps once active_model_serializers v9 is more stable.
@@ -33,13 +106,7 @@ class SubmissionSerializer < AbstractSubmissionSerializer
   end
 
 
-  def instructor_score_percentage
-    if scope.role?(:administrator) || scope.role?(:evaluator)
-      object.instructor_score_percentage
-    else
-      0
-    end
-  end
+
 
 
 

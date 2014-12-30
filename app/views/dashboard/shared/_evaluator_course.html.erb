@@ -1,0 +1,33 @@
+<div class="page-section--subsection page-section--subsection-ruled">
+  <div class="subsection-header">
+    <h3 class="heading-tertiary">
+      <%= link_to course, course_user_evaluations_path(course)  %>
+    </h3>
+  </div>
+  <div class="page-section-half col-one">
+    <%= render 'shared/course_synopsis', :course => course %>
+  </div>
+  <div class="page-section-half col-two">
+    <% if course.has_projects? %>
+      <h4 class="heading-quarternary">
+        Recently Updated Submissions
+      </h4>
+      <%= render 'shared/course_recent_submissions', :course => course %>
+      <h4 class="heading-quarternary">
+        Course Projects
+      </h4>
+      <%= render 'shared/course_projects', :course => course %>
+    <% else %>
+      <div class="alert notice">
+        <p>No projects have been created for this course.</p>
+        <p class="small">
+          Setup your first project by clicking the button below.
+        </p>
+        <p class="small">
+          <%= link_to 'Create a new project', new_course_manage_project_path(course), :class => 'primary-button new-button' %>
+        </p>
+      </div>
+    <% end %>
+  </div>
+</div>
+

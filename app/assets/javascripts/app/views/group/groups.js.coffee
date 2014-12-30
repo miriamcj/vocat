@@ -1,16 +1,17 @@
-define [
-  'marionette', 'views/group/groups_item'
-], (
-  Marionette, Item
-) ->
+define (require) ->
 
-  class GroupsView extends Marionette.CollectionView
+  Marionette = require('marionette')
+  Item = require('views/group/groups_item')
+  template = require('hbs!templates/group/groups')
 
-    itemView: Item
-    className: 'matrix--column-header--list'
-    tagName: 'ul'
+  class GroupsView extends Marionette.CompositeView
 
-    itemViewOptions: () ->
+    childView: Item
+    tagName: 'thead'
+    template: template
+    childViewContainer: "tr"
+
+    childViewOptions: () ->
       {
         courseId: @options.courseId
         vent: @vent
@@ -20,4 +21,9 @@ define [
       @options = options || {}
       @vent = Marionette.getOption(@, 'vent')
 
-    onRender: () ->
+    onAddChild: () ->
+      @vent.trigger('recalculate')
+
+    onRemoveChild: () ->
+      @vent.trigger('recalculate')
+

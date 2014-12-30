@@ -1,23 +1,42 @@
-<div class="authentication-tile">
-  <%= image_tag("placeholders/logo-baruch.png", :class => "authentication-tile--image", :alt => "Baruch College") %>
-    <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-      <%= f.text_field :email, :class => "authentication-tile--input", :placeholder => "Email or Username", :autofocus => "autofocus" %>
+<% content_for :content do %>
+<div class="page-content">
+  <div class="authentication-tile">
+    <!--
+    <%= image_tag("placeholders/logo-baruch.png", :class => "authentication-tile--image", :alt => "Baruch College") %>
+    -->
+    <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'formgrid'}) do |f| %>
+      <div class="formgrid whole">
+        <div class="baruch-logo"></div>
+      </div>
+      <div class="formgrid whole">
+        <label class="placeholder-fallback" for="user[email]">Email or Username</label>
+        <%= f.text_field :email, :class => "authentication-tile--input", :placeholder => "Email or Username", :autofocus => "autofocus" %>
+      </div>
+      <div class="formgrid whole">
+        <label class="placeholder-fallback" for="user[password]">Password</label>
+        <%= f.password_field :password, :class => "authentication-tile--input", :placeholder => "Password" %>
+      </div>
+      <div class="formgrid whole submit-row">
+        <%= f.button "Sign in", :class => "primary-button next-button" %>
+      </div>
+      <div class="formgrid whole">
+        <% if devise_mapping.rememberable? -%>
+          <label class="authentication-tile--label" for="user_remember_me">
+            <%= f.check_box :remember_me, :class => "authentication-tile--checkbox" %>
+            <b></b>
+            <span class="authentication-tile--checkbox-text">Remember me on this computer or device.</span>
+          </label>
+        <% end -%>
+      </div>
 
-      <%= f.password_field :password, :class => "authentication-tile--input", :placeholder => "Password" %>
-
-      <!-- <%=  collection_select(:organization, :id, Organization.all, :id, :name, :placeholder => "Organization") %> -->
-
-      <% if devise_mapping.rememberable? -%>
-        <label class="authentication-tile--label" for="user_remember_me">
-          <%= f.check_box :remember_me, :class => "authentication-tile--checkbox" %>
-          <b></b>
-          <span class="authentication-tile--checkbox-text">Remember me</span>
-        </label>
-      <% end -%>
-
-      <%= f.submit "Sign in", :class => "authentication-tile--button" %>
     <% end %>
+  </div>
+  <footer class="authentication-footer">
+    <ul>
+      <%= render "devise/shared/links" %>
+      <li><a href="http://vocat.io">Learn more about Vocat</a></li>
+    </ul>
+  </footer>
 </div>
-<footer class="authentication-footer">
-  <%= render "devise/shared/links" %>
-</footer>
+<% end %>
+<% content_for :body_class do %>bg-dark<% end %>

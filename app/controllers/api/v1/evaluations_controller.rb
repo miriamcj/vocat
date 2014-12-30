@@ -35,5 +35,4 @@ class Api::V1::EvaluationsController < ApiController
     end
   end
 
-
 end

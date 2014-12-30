@@ -1,8 +1,8 @@
 class SubmissionFactory
 
   def course(course)
-    group_project_ids = course.group_projects.pluck(:id)
-    user_project_ids = course.user_projects.pluck(:id)
+    group_project_ids = course.group_projects.pluck(:id) + course.open_projects.pluck(:id)
+    user_project_ids = course.user_projects.pluck(:id) + course.open_projects.pluck(:id)
     user_ids = course.creators.pluck(:id)
     group_ids = course.groups.pluck(:id)
     group_submissions = group_project_ids.product group_ids

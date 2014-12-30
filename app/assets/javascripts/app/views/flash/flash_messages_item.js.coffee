@@ -14,18 +14,19 @@ define [
       "alert alert-#{@model.get('level')}"
 
     triggers:
-      'click [data-behavior="close"]': 'close'
+      'click [data-behavior="destroy"]': 'destroy'
 
     initialize: (options) ->
-      lifetime = @model.get('lifetime')
-      if lifetime? && lifetime != false && lifetime > 1000 then @lifetime = @model.get('lifetime')
+      lifetime = parseInt(@model.get('lifetime'))
+      @lifetime = lifetime if lifetime > 0
 
-    onClose: ->
-      @$el.slideUp({
-        duration: 250
-        done: () =>
-          @model.destroy()
-      })
+    onDestroy: ->
+      @model.destroy()
+#      @$el.slideUp({
+#        duration: 250
+#        done: () =>
+#          @model.destroy()
+#      })
 
     onBeforeRender: () ->
       @$el.hide()
@@ -44,7 +45,8 @@ define [
       else
         @$el.fadeIn()
 
+
       setTimeout( () =>
-        @onClose()
+        @onDestroy()
       , @lifetime
       )

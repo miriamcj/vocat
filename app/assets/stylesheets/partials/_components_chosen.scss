@@ -1,0 +1,187 @@
+@import "variables";
+@import "mixins";
+@import "patterns";
+
+// Does a quick reset on <select>s before they're digested by chosen
+[data-behavior="chosen"] {
+  @include appearance(none);
+  padding: 0 22px;
+}
+
+/* @group Base */
+.chosen-container {
+  @include clearfix(heavy);
+  font-size: $eta;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  zoom: 1;
+  *display: inline;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  .page-header & {
+    font-size: $kappa;
+  }
+}
+.chosen-container .chosen-drop {
+  position: absolute;
+  top: 100%;
+  left: -9999px;
+  z-index: 1010;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  background-color: $white;
+}
+.chosen-container.chosen-with-drop .chosen-drop {
+  left: 0;
+}
+.chosen-container a {
+  cursor: pointer;
+}
+
+/* @end */
+/* @group Single Chosen */
+.chosen-container-single .chosen-single {
+  display: block;
+  height: 2.2em;
+  color: $grayDark;
+  line-height: 2.2em;
+  text-decoration: none;
+  background-color: $white;
+  padding: 0 0 0 $verticalSpaceTightest;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  border: 1px solid $grayMedium;
+
+}
+
+.chosen-container-single .chosen-single span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.chosen-container-single .chosen-single div {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: block;
+  width: $iconSizeMedium;
+  height: 100%;
+}
+.chosen-container-single .chosen-single div b {
+  @include svg(arrow-down-gray-medium);
+  position: relative;
+  display: block;
+  width: 100%;
+  height: $iconSizeMedium;
+  width: $iconSizeMedium;
+  right: $verticalSpaceTightest;
+  top: 50%;
+  margin-top: -$iconSizeMedium * .5;
+}
+.chosen-container-single .chosen-drop {
+  margin-top: -1px;
+  background-clip: padding-box;
+  border: 1px solid $grayMedium;
+  border-top: 0px;
+}
+.chosen-container-single.chosen-container-single-nosearch .chosen-search {
+  position: absolute;
+  left: -9999px;
+}
+
+.chosen-container-single .search-choice-close {
+  position: absolute;
+  display: block;
+  height: $iconSizeMedium;
+  width: $iconSizeMedium;
+  @include svg(circle-ex-gray);
+  right: 2em;
+  top: 0;
+  margin-top: 12px;
+  z-index: 500;
+}
+
+/* @end */
+/* @group Results */
+.chosen-container .chosen-results {
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+  max-height: 400px;
+  -webkit-overflow-scrolling: touch;
+}
+.chosen-container .chosen-results li {
+  display: none;
+  margin: 0 $verticalSpaceTightest;
+  padding: $verticalSpaceTightest 0;
+  list-style: none;
+  line-height: 1;
+  color: $grayDark;
+}
+.chosen-container .chosen-results li.active-result {
+  display: list-item;
+  cursor: pointer;
+}
+.chosen-container .chosen-results li.disabled-result {
+  display: list-item;
+  cursor: default;
+}
+.chosen-container .chosen-results li.highlighted {
+  color: $tealLight;
+}
+.chosen-container .chosen-results li.group-result {
+  display: list-item;
+  color: $grayDark;
+  border-bottom: 1px solid transparentize($grayMedium, 0.25);
+  margin: 0 $verticalSpaceTightest;
+  font-weight: $bold;
+  cursor: default;
+  &:first-child {
+    margin-top: 0;
+  }
+}
+.chosen-container .chosen-results li em {
+  font-style: normal;
+  text-decoration: underline;
+}
+
+.chosen-container-active.chosen-with-drop .chosen-single span {
+  color: $tealLight;
+}
+.chosen-container-active.chosen-with-drop .chosen-single div {
+  border-left: none;
+  background: transparent;
+}
+.chosen-container-active.chosen-with-drop .chosen-single div b {
+  @include svg(arrow-down-gray-medium);
+}
+/* @end */
+
+.chosen-container-multi .chosen-choices li.search-choice .search-choice-close {
+  position: absolute;
+  top: 4px;
+  right: 3px;
+  display: block;
+  width: 12px;
+  height: 12px;
+//  background: url('chosen-sprite.png') -42px 1px no-repeat;
+  font-size: 1px;
+  z-index: 500;
+}
+.chosen-container-multi .chosen-choices li.search-choice .search-choice-close:hover {
+  background-position: -42px -10px;
+}
+.chosen-container-multi .chosen-choices li.search-choice-focus {
+  background: #d4d4d4;
+}
+.chosen-container-multi .chosen-choices li.search-choice-focus .search-choice-close {
+  background-position: -42px -10px;
+}

@@ -12,15 +12,15 @@ define (require) ->
 
   class EnrollmentUserList extends Marionette.CompositeView
 
-    itemViewContainer: "tbody",
-    itemView: ItemView
+    childViewContainer: "tbody",
+    childView: ItemView
 
 #    emptyView: EmptyCoursesView
 
     getTemplate: () =>
       if @collection.searchType() == 'user' then templateUsers else templateCourses
 
-    itemViewOptions: () ->
+    childViewOptions: () ->
       {
         role: @collection.role()
         vent: @vent
@@ -30,17 +30,17 @@ define (require) ->
       studentInput: '[data-behavior="student-input"]'
     }
 
-    appendHtml: (collectionView, itemView, index) ->
-      if collectionView.itemViewContainer
-        childrenContainer = collectionView.$(collectionView.itemViewContainer)
+    appendHtml: (collectionView, childView, index) ->
+      if collectionView.childViewContainer
+        childrenContainer = collectionView.$(collectionView.childViewContainer)
       else
         childrenContainer = collectionView.$el
 
       children = childrenContainer.children()
       if children.size() <= index
-        childrenContainer.append(itemView.el)
+        childrenContainer.append(childView.el)
       else
-        children.eq(index).before(itemView.el)
+        children.eq(index).before(childView.el)
 
     initialize: (options) ->
       @vent = options.vent

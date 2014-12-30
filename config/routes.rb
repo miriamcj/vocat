@@ -1,16 +1,9 @@
 Vocat::Application.routes.draw do
 
-  get "courses/index"
-  get "courses/create"
-  get "courses/new"
-  get "courses/destroy"
-  get "courses/show"
   devise_for :users
   devise_scope :user do
     match '/users/settings' => 'registrations#update_settings', :via => :put
   end
-
-  match 'pages/*page' => 'pages#show', :via => :get
 
   namespace :api do
     namespace :v1 do
@@ -50,7 +43,12 @@ Vocat::Application.routes.draw do
       end
       resources :videos, :only => [:destroy, :create, :show]
       resources :groups, :except => [:new, :edit]
-      resources :projects, :except => [:new, :edit]
+      resources :projects, :except => [:new, :edit] do
+        member do
+          put 'publish_evaluations'
+          put 'unpublish_evaluations'
+        end
+      end
       resources :courses, :only => [:index, :update, :show] do
         resources :enrollments, :only => [:index] do
           collection do
@@ -71,6 +69,8 @@ Vocat::Application.routes.draw do
     end
   end
 
+  resources :course_requests, :only => [:new, :create]
+
   resources :courses do
 
     member do
@@ -78,10 +78,20 @@ Vocat::Application.routes.draw do
     end
 
     scope :module => "courses" do
-      namespace "manage" do
-        resources :projects do
+      namespace "export" do
+        resources :projects, :only => [] do
           member do
-            put 'position'
+            get 'peer_scores'
+            get 'all_scores'
+            get 'evaluator_scores'
+            get 'self_scores'
+          end
+        end
+      end
+      namespace "manage" do
+        resources :projects, :except => [:show] do
+          member do
+            get 'export'
           end
         end
         resources :groups
@@ -90,6 +100,7 @@ Vocat::Application.routes.draw do
             post 'clone'
           end
         end
+        get '/enrollment' => 'courses#enrollment'
         get '/' => 'courses#edit'
         patch '/' => 'courses#update'
         put '/' => 'courses#update'
@@ -98,17 +109,20 @@ Vocat::Application.routes.draw do
 
     get 'groups/evaluations/(/creator/:creator_id)(/project/:project_id)' => 'courses/evaluations#course_map', :as => 'group_evaluations'
     get 'users/evaluations(/creator/:creator_id)(/project/:project_id)' => 'courses/evaluations#course_map', :as => 'user_evaluations'
+
     get 'users/creator/:creator_id/project/:project_id' => 'courses/evaluations#user_creator_project_detail', :as => 'user_creator_project_detail'
     get 'groups/creator/:creator_id/project/:project_id' => 'courses/evaluations#group_creator_project_detail', :as => 'group_creator_project_detail'
     get 'users/project/:project_id' => 'courses/evaluations#user_project_detail', :as => 'user_project_detail'
     get 'groups/project/:project_id' => 'courses/evaluations#user_project_detail', :as => 'groups_project_detail'
-    get 'view/project/:project_id' => 'courses/evaluations#current_user_project', :as => 'current_user_project'
+    get 'users/creator/:creator_id' => 'courses/evaluations#user_creator_detail', :as => 'user_creator_detail'
+    get 'groups/creator/:creator_id' => 'courses/evaluations#group_creator_detail', :as => 'user_group_detail'
   end
 
   namespace :admin do
-    resources :videos do
 
+    resources :videos do
     end
+
     resources :courses do
       member do
         get 'evaluators'
@@ -123,6 +137,14 @@ Vocat::Application.routes.draw do
         end
       end
     end
+
+    resources :course_requests, :only => [:index] do
+      member do
+        put 'approve'
+        put 'deny'
+      end
+    end
+
     resources :users do
       member do
         get 'courses'
@@ -130,6 +152,7 @@ Vocat::Application.routes.draw do
         patch 'update_password'
       end
     end
+
     resources :rubrics, :except => [:create, :update] do
       member do
         post 'clone'
@@ -141,11 +164,13 @@ Vocat::Application.routes.draw do
         end
       end
     end
+
   end
 
   get '/admin' => 'admin/courses#index', :as => 'admin'
 
-  get '/' => 'dashboard#index', :as => 'dashboard'
+#  get '/' => 'dashboard#index', :as => 'dashboard'
+  get '/' => 'root#index', :as => 'root'
   get '/dashboard/evaluator' => 'dashboard#evaluator', :as => 'dashboard_evaluator'
   get '/dashboard/creator' => 'dashboard#creator', :as => 'dashboard_creator'
   get '/dashboard/admin' => 'dashboard#admin', :as => 'dashboard_admin'

@@ -8,7 +8,7 @@ define (require) ->
   PlayerProcessingView = require('views/submission/player/player_processing')
   Poller = require('app/plugins/backbone_poller')
 
-  class PlayerLayout extends Marionette.Layout
+  class PlayerLayout extends Marionette.LayoutView
 
     template: template
 
@@ -31,7 +31,7 @@ define (require) ->
               @model.fetch({
                 url: @model.updateUrl(),
                 success: () =>
-                  @model.trigger('change:has_video')
+                  @model.trigger('change:video')
               })
               @polling == false
               out = false
@@ -47,7 +47,7 @@ define (require) ->
 
     selectView: () ->
       msg = ''
-      if @model.get('has_video') && @model.video?
+      if @model.hasVideo()
         switch @model.video.get('state')
           when 'processed'
             view = PlayerShowView
@@ -62,7 +62,7 @@ define (require) ->
           else
             view = PlayerProcessingView
             msg = 'Unable to Process. Contact Support.'
-      else if @model.get('current_user_can_attach')
+      else if @model.get('abilities').can_attach
         view = PlayerCreateView
         @playerMain.show new PlayerCreateView({vent: @, model: @model})
       else
@@ -72,6 +72,6 @@ define (require) ->
 
     initialize: (options) ->
       @vent = options.vent
-      @listenTo(@model,'change:has_video', (model) =>
+      @listenTo(@model,'change:video', (model) =>
         @selectView()
       )

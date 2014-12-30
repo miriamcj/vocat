@@ -1,15 +1,14 @@
-@import "partials/variables";
-@import "partials/mixins-base";
-@import "partials/mixins-project";
-@import "partials/patterns";
-
+@import "variables";
+@import "mixins";
 
 // Base
 // ----
 
 // Applies a natural box layout model to all the things
-* {
-	@include box-sizing(border-box);
+*,
+*:before,
+*:after {
+  @include box-sizing(border-box);
 }
 
 // Sets text selection background color
@@ -18,122 +17,132 @@
 // Global
 // --------------------------------------------------------
 html {
-	font-size: 62.5%;
-	-webkit-text-size-adjust: 100%;
-	-moz-text-size-adjust: 100%;
-	-ms-text-size-adjust: 100%;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	background-color: #a5a0a0;
+  // 18px
+  font-size: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  // Sadly, this occasionally causes width:auto elements to break to multiple lines in Chrome
+  // It seems that the width of the element is computed prior to kerning
+  // https://code.google.com/p/chromium/issues/detail?id=189755
+  // text-rendering: optimizeLegibility;
 }
 
 body {
-	@include font-body;
-	@include font-size(17);
-	font-weight: $regular;
-	line-height: $baseLineHeight;
-	color: $grayDark;
-	overflow-x: hidden;
+  @include font-body;
+  font-size: 1em;
+  font-weight: 400;
+  line-height: $baseLineHeight;
+  color: $grayDark;
+  background-color: $white;
+  .no-mediaqueries & {
+    min-width: $michigan;
+  }
 }
 
-// <html> classes
-// --------------------------
-.authentication {
-	background-color: $beigeLight;
+.wf-loading body {
+  opacity: 0;
+}
+.wf-active body {
+  opacity: 1;
 }
 
 // Typography
 // --------------------------------------------------------
 // Block-level elements
 // --------------------------
+%proto-heading {
+  line-height: 1;
+  margin: 0;
+}
+
 h1 {
-	@extend %heading;
-	@extend %giga;
+  @extend %proto-heading;
+  font-size: $alpha;
 }
 
 h2 {
-	@extend %heading;
-	@extend %beta;
+  @extend %proto-heading;
+  font-size: $beta;
 }
 
 h3 {
-	@extend %heading;
-	@extend %gamma;
+  @extend %proto-heading;
+  font-size: $gamma;
 }
 
 h4 {
-	@extend %heading;
-	@extend %delta;
+  @extend %proto-heading;
+  font-size: $delta;
 }
 
 h5 {
-	@extend %heading;
-	@extend %epsilon;
+  @extend %proto-heading;
+  font-size: $epsilon;
 }
 
 h6 {
-	@extend %heading;
-	@extend %epsilon;
+  @extend %proto-heading;
+  font-size: $zeta;
 }
 
 p {
-	margin: 0;
-	& + & {
-		margin-top: $verticalSpace;
-	}
+  margin: 0;
+  & + & {
+    margin-top: $verticalSpace;
+  }
 }
 
 ul,
 ol {
-	// Base list styles
+  margin-bottom: $verticalSpace;
+  p + & {
+    margin-top: $verticalSpace;
+  }
+}
+
+blockquote {
+  font-size: $zeta;
+  line-height: 1.524;
+  padding-left: 2em;
+  margin: 0 0 $verticalSpace;
+  p + & {
+    margin-top: $verticalSpace;
+  }
+  @include respond($superior) {
+    font-size: $eta;
+  }
 }
 
 hr {
-    border: 0;
-    border-top: 2px solid $tealLightest;
-    margin: 0 0 $verticalSpace;
+  display: block;
+  border: 0;
+  border-top: 2px solid $grayDark;
+  margin: 0;
+  padding: 0;
 }
 
 // Inline elements
 // --------------------------
 a {
-	// TODO should links transition?
-	// @extend %fade-color;
-	text-decoration: none;
-	color: $orange;
-	&:hover {
-		text-decoration: underline;
-	}
+//  @include transition($mediumTransition opacity $timing);
+  text-decoration: none;
+  color: $tealLight;
+  &:hover {
+    color: $tealDark;
+  }
 }
 
 b {
-	font-weight: $regular;
+  font-weight: $semibold;
 }
 
 strong {
-	font-weight: $bold;
+  font-weight: $bold;
 }
 
-// Editable elements
-// --------------------------
-[contenteditable] {
-	&:hover,
-	&:focus {
-		outline: none;
-	}
-	&:empty {
-		// background-color: $redLight;
-		// This prevents the element from collapsing when empty in firefox
-		&:after {
-			content: '.';
-			color: transparent;
-		}
-	}
-}
 
-// Form elements
+// Tables
 // --------------------------
-select {
-	@extend %bare-focus;
-	margin-bottom: 0.7rem;
+table {
+  width: 100%;
 }

@@ -1,0 +1,30 @@
+<% content_for :heading do %>
+  <% if @user %>
+    <%= link_to 'Back to Users', admin_users_path(), :class => 'header-link back-link' %>
+  <% end %>
+  <% if @user && !@user.new_record? %>
+    <h2 class="heading-primary">
+      <%= @user %>
+    </h2>
+  <% else %>
+    <% if local_assigns.fetch(:header, nil) %>
+    <h3 class="heading-primary">
+      <%= header %>
+    </h3>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% content_for :heading_links do %>
+  <% unless @user.new_record? %>
+    <%= link_to 'Add New User', new_admin_user_path, :class => 'primary-button new-button' %>
+    <div class="dropdown dropdown-button" data-behavior="dropdown">
+      <a class="dropdown--toggle" data-behavior="toggle" href="#">User Actions</a>
+      <div class="dropdown--options" data-behavior="dropdown-options">
+        <%= render 'nav', :user => @user %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+

@@ -1,11 +1,20 @@
-define ['marionette', 'views/rubric/ranges_item'], (Marionette, ItemView) ->
+define (require) ->
 
-  class RangesView extends Marionette.CollectionView
+  Marionette = require('marionette')
+  template = require('hbs!templates/rubric/ranges')
+  ItemView = require('views/rubric/ranges_item')
+  EmptyView = require('views/rubric/ranges_empty')
 
-    itemView: ItemView
-    tagName: 'ul'
-    itemViewOptions: () ->
+  class RangesView extends Marionette.CompositeView
+
+    tagName: 'thead'
+    template: template
+    childViewContainer: "tr"
+    childView: ItemView
+    emptyView: EmptyView
+    childViewOptions: () ->
       {
+        collection: @collection
         vent: @vent
       }
 

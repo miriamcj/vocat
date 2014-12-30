@@ -1,0 +1,498 @@
+@import "variables";
+@import "mixins";
+@import "patterns";
+
+$barHeight: 40px;
+$secondaryBarHeight: 15px;
+$editableBarHeight: 24px;
+$handleWidth: 100px;
+
+
+$shortBarHeight: 30px;
+$titleWidth: 300px;
+
+$largeHandleMultipler: 1.5;
+$largeHandleHeight: $barHeight + ($secondaryBarHeight * $largeHandleMultipler);
+$secondaryHandleHeight: $secondaryBarHeight * 3;
+$tertiaryHandleHeight: $secondaryBarHeight * 2;
+$triangleHeight: 10px;
+
+
+
+ul.evaluation-collections, ul.evaluation-collection--children, ul.evaluation-single--details {
+  margin-bottom: 0;
+  @extend %unstyled-list;
+}
+
+.evaluation-collection:first-child {
+  margin-top: $secondaryBarHeight;
+}
+
+.evaluation-collection:last-child {
+  margin-bottom: $secondaryBarHeight;
+}
+
+.evaluation-collection + .evaluation-collection {
+  margin-top: $secondaryBarHeight * 3;
+}
+
+.evaluation-editable {
+//  margin-top: $secondaryBarHeight * 3;
+}
+
+.evaluation-collection--children {
+  margin-top: $secondaryBarHeight;
+}
+.evaluation-collection--children li + li {
+  margin-top: $secondaryBarHeight;
+}
+
+.evaluation-single--details {
+  margin-top: $secondaryBarHeight;
+  .published-switch {
+    position: absolute;
+  }
+  .score-wrapper {
+    margin-top: 5px;
+    display: inline-block;
+    font-size: $epsilon;
+    overflow: hidden;
+    .score, .slash, .possible {
+      display: block;
+      float: left;
+      font-weight: $semibold;
+      color: $defaultFillColor;
+    }
+    .possible, .score {
+      width: 35px;
+    }
+    .slash {
+      position: relative;
+      top: -2px;
+      @include svg(slash-gray);
+      height: 40px;
+      width: 10px;
+      margin: 0 10px;
+    }
+    .possible {
+      text-align: left;
+    }
+    .score {
+      text-align: right;
+      color: $instructorFillColor;
+    }
+  }
+}
+
+.evaluation-single--details li + li {
+  margin-top: $secondaryBarHeight;
+}
+.evaluation-single--details li:last-child {
+}
+
+ul.evaluations-hidden {
+}
+
+.evaluation-collection--children, .evaluation-single--details {
+  margin-left: $barHeight * .75;
+}
+
+.evaluation-collections li {
+}
+
+.range {
+  cursor: pointer;
+  position: relative;
+}
+
+.range-tertiary {
+  cursor: auto;
+}
+
+.range-group {
+  @extend %unstyled-list;
+  cursor: pointer;
+}
+
+
+.range--track {
+  margin-right: $barHeight * 3;
+  position: relative;
+  background: $defaultColor;
+  height: $barHeight;
+  cursor: pointer;
+  .range-secondary &, .range-tertiary & {
+    height: $secondaryBarHeight;
+  }
+  .range-secondary & {
+    margin-right: ($handleWidth * .75) + ($secondaryBarHeight * $largeHandleMultipler);
+  }
+  .range-tertiary & {
+    margin-right: ($handleWidth * .5) + ($secondaryBarHeight * $largeHandleMultipler);
+  }
+  .evaluation-collection-instructor & {
+    background: $instructorColor;
+  }
+  .evaluation-collection-peer & {
+    background: $peerColor;
+  }
+  .evaluation-collection-self & {
+    background: $selfColor;
+  }
+  .range-tertiary & {
+    background: $defaultColor;
+  }
+}
+
+.range--title {
+  position: absolute;
+  color: $white;
+  z-index: 1;
+  font-size: $zeta;
+  font-weight: $semibold;
+  padding-left: .75em;
+  line-height: $barHeight;
+  height: $barHeight;
+  display: inline-block;
+  .range-expandable & {
+    &::after {
+      content: "";
+      display: inline-block;
+      position: relative;
+      top: -2px;
+      width: 0;
+      height: 0;
+      margin-left: .5em;
+      border-left: .3em solid transparent;
+      border-right: .3em solid transparent;
+      border-top: .4em solid $white;
+    }
+  }
+  .range-expandable-open & {
+    &::after {
+      border-top: 0;
+      border-bottom: .4em solid $white;
+    }
+  }
+  .range-secondary &, .range-tertiary & {
+    font-weight: $regular;
+    font-size: $theta;
+    padding-left: 0;
+    position: static;
+    color: $grayDark;
+    width: auto;
+    height: auto;
+    line-height: 1.5em;
+  }
+  .range-tertiary & {
+    font-size: $iota;
+  }
+  .range-editable & {
+    font-size: $theta;
+  }
+}
+
+.range-secondary .range--title::after {
+  border-top-color: $defaultFillColor;
+  border-bottom-color: $defaultFillColor;
+}
+
+.range--fill {
+  position: absolute;
+  display: inline-block;
+  background: $defaultFillColor;
+  height: $barHeight;
+  .range-secondary &, .range-tertiary & {
+    height: $secondaryBarHeight;
+  }
+  .evaluation-collection-instructor & {
+    background: $instructorFillColor;
+  }
+  .evaluation-collection-peer & {
+    background: $peerFillColor;
+  }
+  .evaluation-collection-self & {
+    background: $selfFillColor;
+  }
+  .range-tertiary & {
+    background: $defaultFillColor;
+  }
+}
+
+$placardWidth: 300px;
+$placardArrowSize: $placardWidth * .05;
+
+.placard {
+  display: block;
+  position: absolute;
+  background: $grayDarker;
+  color: $white;
+  padding: 1em;
+  bottom: $placardArrowSize;
+  width: $placardWidth;
+  left: -$placardWidth * .5;
+  line-height: 1.25em;
+  .placard--content {
+    display: block;
+    font-size: $iota;
+  }
+  .placard--header {
+    display: block;
+    font-size: $eta;
+    color: $tealLight;
+    font-weight: $regular;
+    margin-bottom: .5em;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    bottom: -$placardArrowSize;
+    left: ($placardWidth * .5) - $placardArrowSize;
+    border-left: $placardArrowSize solid transparent;
+    border-right: $placardArrowSize solid transparent;
+    border-top: $placardArrowSize solid $grayDarker;
+  }
+  .range--fill & {
+    right: -$placardWidth * .5;
+    left: auto;
+    bottom: $placardArrowSize + $secondaryBarHeight;
+    z-index: 10;
+  }
+  .range--grabber & {
+    bottom: 35px;
+    left: (-$placardWidth * .5) + 10px;
+  }
+}
+
+
+.range-editable {
+  .grabber-wrapper {
+    position: relative;
+    left: -4px;
+  }
+  .range--grabber {
+    display: block;
+    position: relative;
+    width: 10px;
+    background: $white;
+    border: 5px solid $instructorFillColor;
+    border-radius: 50%;
+    height: $editableBarHeight * 1.25;
+    width: $editableBarHeight * 1.25;
+    z-index: 20;
+    top: ($editableBarHeight * .25 * -1) * .5;
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+  }
+  .range--handle {
+    text-align: center;
+    width: $handleWidth !important;
+    background: none !important;
+    right: -$handleWidth - ($secondaryBarHeight * $largeHandleMultipler ) !important;
+  }
+  .range--fill {
+    position: absolute;
+    height: $editableBarHeight;
+    background: $instructorFillColor;
+  }
+  .range--track-wrapper {
+    position: relative;
+    margin-right: $barHeight * 3;
+    margin-top: $editableBarHeight * .1;
+  }
+  .range--track {
+    margin-right: 0;
+    height: $editableBarHeight;
+    .range--ticks {
+      position: absolute;
+      width: 100%;
+      @extend %unstyled-list;
+      li {
+        &:first-child {
+          visibility: hidden;
+        }
+        &:before {
+          position: absolute;
+          top: 8px;
+          content: '';
+          width: 8px;
+          border-radius: 50%;
+          background: $white;
+          height: 8px;
+        }
+        z-index: 10;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        float: left;
+        height: $editableBarHeight;
+      }
+    }
+  }
+}
+
+.range--handle {
+  right: -$handleWidth - ($secondaryBarHeight * $largeHandleMultipler );
+  position: absolute;
+  width: $handleWidth;
+  top: -($secondaryBarHeight * $largeHandleMultipler) / 2;
+  text-align: center;
+  z-index: 1;
+  background: $defaultFillColor;
+  color: $white;
+  height: $largeHandleHeight;
+  line-height: $largeHandleHeight;
+  font-weight: $semibold;
+  font-size: $delta;
+
+  .range-secondary &, .range-tertiary & {
+    right: -( $handleWidth * .75) - ($secondaryBarHeight * $largeHandleMultipler );
+    font-size: $zeta;
+    height: $secondaryHandleHeight;
+    width: $handleWidth * .75;
+    line-height: $secondaryHandleHeight;
+    top: -$secondaryBarHeight;
+  }
+  .evaluation-collection-instructor & {
+    background: $instructorFillColor;
+  }
+  .evaluation-collection-peer & {
+    background: $peerFillColor;
+  }
+  .evaluation-collection-self & {
+    background: $selfFillColor;
+  }
+  .range-tertiary & {
+    right: -( $handleWidth * .5) - ($secondaryBarHeight * $largeHandleMultipler );
+    height: $tertiaryHandleHeight;
+    line-height: $tertiaryHandleHeight;
+    width: $handleWidth * .5;
+    font-size: $theta;
+    top: -$secondaryBarHeight * .5;
+    background: $defaultFillColor;
+  }
+
+  b {
+    position: absolute;
+    top: ($largeHandleHeight * .5) - $triangleHeight;
+    .range-secondary & {
+      top: ($secondaryHandleHeight * .5) - $triangleHeight;
+    }
+    .range-tertiary & {
+      top: ($tertiaryHandleHeight * .5) - ($triangleHeight * .5);
+      left: -$triangleHeight * .5;
+      font-weight: $regular;
+      height: $triangleHeight * .5;
+      width: $triangleHeight * .5;
+      border-top: $triangleHeight * .5 solid transparent;
+      border-bottom: $triangleHeight * .5 solid transparent;
+      border-right: $triangleHeight * .5 solid $defaultFillColor;
+    }
+    left: -$triangleHeight;
+    font-weight: $regular;
+    height: $triangleHeight;
+    width: $triangleHeight;
+    width: 0;
+    height: 0;
+    border-top: $triangleHeight solid transparent;
+    border-bottom: $triangleHeight solid transparent;
+    border-right: $triangleHeight solid $defaultFillColor;
+    .evaluation-collection-instructor & {
+      border-right-color: $instructorFillColor;
+    }
+    .evaluation-collection-peer & {
+      border-right-color: $peerFillColor;
+    }
+    .evaluation-collection-self & {
+      border-right-color: $selfFillColor;
+    }
+    .range-tertiary & {
+      border-right-color: $defaultFillColor;
+    }
+  }
+}
+
+.range-total {
+  height: $editableBarHeight;
+  margin-top: $barHeight;
+  .range-total--label {
+    text-align: right;
+    font-size: $theta;
+    font-weight: $regular;
+    color: $grayDark;
+    padding-top: 3px;
+  }
+  .range-total--value {
+    .switch {
+      position: absolute;
+      top: 8px;
+    }
+    right: -$handleWidth - ($secondaryBarHeight * $largeHandleMultipler );
+    width: $handleWidth;
+    position: absolute;
+    height: $secondaryHandleHeight;
+    width: $handleWidth * .75;
+    top: -$secondaryBarHeight;
+
+  }
+}
+
+.evaluation-single--utility {
+}
+
+
+.evaluation-empty {
+  border: 2px dashed $grayMediumDarker;
+  padding-left: .75em;
+  padding-right: $barHeight;
+  height: $barHeight;
+  line-height: $barHeight;
+  font-size: $zeta;
+  font-weight: $semibold;
+  color: $grayMediumDarker;
+
+}
+
+.evaluation-create {
+//  margin-top: $secondaryBarHeight * 3;
+  border: 2px dashed $grayMediumDarker;
+  a {
+    width: 100%;
+    span {
+      &:after {
+        content: '';
+        @extend %svg-pencil-gray-on-white;
+        margin-left: 15px;
+        height: 15px;
+        width: 15px;
+        display: inline-block;
+      }
+    }
+    &:hover span {
+      color: $tealLight;
+      &:after {
+        @extend %svg-pencil-teal-on-white;
+        margin-left: 15px;
+        height: 15px;
+        width: 15px;
+      }
+    }
+    text-decoration: underline;
+    font-size: $zeta;
+    font-weight: $semibold;
+    line-height: $barHeight;
+    padding-left: .75em;
+    padding-right: $barHeight;
+    height: $barHeight;
+    display: inline-block;
+    color: $grayMediumDarker;
+  }
+}
+
+// Properly space their evaluationsa and my evaluations
+.their-evaluations .evaluation-collections li.evaluation-collection:last-child {
+  padding-bottom: $secondaryBarHeight * 2;
+}

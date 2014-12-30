@@ -1,63 +1,69 @@
-<% content_for :content_header do %>
-  Rubrics
-<% end %>
-
-<% content_for :content_header_links do %>
-  <%= render 'header_links', hide_all: true %>
-<% end %>
-
-<% content_for :content_intro do %>
-  <form>
-    <fieldset>
-      <div class="input-group">
-        <div class="input-group--fourth">
-          <%= label_tag :name, 'Rubric Name', {:class => 'text-label'} %>
-          <%= text_field_tag(:name, params[:name], {:class => 'text-input'}) %>
-        </div>
-        <div class="input-group--fourth">
-          <%= label_tag :public, 'Is Rubric Public?', {:class => 'text-label'} %>
-          <%= select_tag(:public, options_for_select([['Yes',true],['No',false]], params[:public]), {:include_blank => true, 'data-behavior' => 'chosen'}) %>
-        </div>
-        <div class="input-group--third">
-          <label class="text-label">&nbsp;</label>
-          <%= submit_tag('Filter Rubrics', {:class => 'large-teal-button'}) %>
-          <%= link_to 'reset', admin_rubrics_path, {:class => 'large-teal-button'} %>
-        </div>
+<% content_for :content do %>
+  <div class="page-section">
+    <div class="header-wrapper">
+      <div class="buttons">
+        <%= link_to 'New Rubric', new_admin_rubric_path(), :class => 'primary-button new-button' %>
       </div>
-    </fieldset>
-  </form>
-<% end %>
-
-<% content_for :content_frames do %>
-  <div class="table-wrapper">
-    <%= paginate @rubrics %>
-    <table class="table">
-      <thead>
-      <tr>
-        <th>Name</th>
-        <th>Owner</th>
-        <th>Projects</th>
-        <th>Evaluations</th>
-        <th>Public?</th>
-        <th>Actions?</th>
-      </tr>
-      </thead>
-      <tbody>
-      <% @rubrics.each do |rubric| %>
-        <tr>
-          <th><%= link_to rubric.name, admin_rubric_path(rubric) %></th>
-          <td><%= rubric.owner_name %></td>
-          <td><%= rubric.projects.count %></td>
-          <td><%= rubric.evaluation_count %></td>
-          <td><%= human_boolean rubric.public? %></td>
-          <td><%= render 'nav', :rubric => rubric%></td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-    <%= paginate @rubrics %>
+      <div class="header">
+        <h2>Rubrics</h2>
+      </div>
+    </div>
+    <div class="body">
+      <form class="formgrid">
+        <fieldset>
+          <div class="formgrid fourth">
+            <%= label_tag :name, 'Rubric Name' %>
+            <%= text_field_tag(:name, params[:name]) %>
+          </div>
+          <div class="formgrid fourth">
+            <%= label_tag :public, 'Is Rubric Public?' %>
+            <%= select_tag(:public, options_for_select([['Yes',true],['No',false]], params[:public]), {:include_blank => true, 'data-behavior' => 'chosen'}) %>
+          </div>
+          <div class="formgrid fourth">
+            <label class="text-label">&nbsp;</label>
+            <%= button_tag('Filter Rubrics', {:class => 'primary-button filter-button'}) %>
+          </div>
+        </fieldset>
+      </form>
+    </div>
   </div>
+  <div class="page-section">
 
+    <div class="table-wrapper">
+      <table class="table table-white-head">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Owner</th>
+          <th>Projects</th>
+          <th>Evaluations</th>
+          <th>Public?</th>
+          <th class="column-tight">Actions?</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @rubrics.each do |rubric| %>
+          <tr>
+            <th><%= link_to rubric.name, admin_rubric_path(rubric) %></th>
+            <td><%= rubric.owner_name %></td>
+            <td><%= rubric.projects.count %></td>
+            <td><%= rubric.evaluation_count %></td>
+            <td><%= human_boolean rubric.public? %></td>
+            <td>
+              <div class="dropdown dropdown-button" data-behavior="dropdown">
+                <a class="dropdown--toggle" data-behavior="toggle" href="#">Actions</a>
+                <div class="dropdown--options" data-behavior="dropdown-options">
+                  <%= render 'nav', :rubric => rubric %>
+                </div>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+      <%= paginate @rubrics %>
+    </div>
+  </div>
 <% end %>
 
 

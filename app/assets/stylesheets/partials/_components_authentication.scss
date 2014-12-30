@@ -1,0 +1,82 @@
+@import "variables";
+@import "mixins";
+@import "patterns";
+
+.authentication-footer {
+  margin-top: 2em;
+  ul {
+    @extend %unstyled-list;
+    li {
+      @extend %label;
+      margin-bottom: .5em;
+      text-transform: none;
+    }
+  }
+  a {
+    color: $white;
+    &:hover {
+      color: $tealLight;
+    }
+  }
+}
+
+.authentication-tile {
+  width: 300px;
+  .next-button:hover {
+    background-color: $tealDark;
+    border: 1px solid $tealDark;
+    &:after {
+      @include svg(circle-right-arrow-teal-on-white);
+    }
+  }
+  .post-button:hover {
+    background-color: $tealDark;
+    border: 1px solid $tealDark;
+  }
+
+  .baruch-logo {
+    height: 50px;
+    width: 125px;
+    position: relative;
+    left: -7px;
+    @include svg(baruch-logo);
+    .ie9 & {
+      margin-bottom: 9px;
+    }
+  }
+  .submit-row {
+    margin-top: .25em;
+  }
+  .formgrid {
+    padding-bottom: 1.25em;
+    input[type="text"], input[type="password"] {
+      border: 1px solid $white;
+      color: $white !important;
+      background: $grayDarker;
+      &::-webkit-input-placeholder {
+        color: $grayLight;
+      }
+      &:-moz-placeholder { /* Firefox 18- */
+        color: $grayLight;
+      }
+      &::-moz-placeholder {  /* Firefox 19+ */
+        color: $grayLight;
+      }
+      &:-ms-input-placeholder {
+        color: $grayLight;
+      }
+    }
+    label {
+      text-transform: none;
+      color: $white;
+    }
+    .placeholder-fallback {
+      text-transform: uppercase; //OD
+      display: none;
+      .ie9 & {
+        display: block;
+      }
+    }
+  }
+
+}

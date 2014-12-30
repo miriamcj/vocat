@@ -5,6 +5,7 @@ define (require) ->
   coursesTemplate = require('hbs!templates/admin/enrollment/course_input')
   ItemView = require('views/admin/enrollment/input_item')
   EmptyView = require('views/admin/enrollment/input_empty')
+  ClosesOnUserAction = require('behaviors/closes_on_user_action')
   require('jquery_ui')
   require('vendor/plugins/ajax_chosen')
 
@@ -12,46 +13,76 @@ define (require) ->
 
     emptyView: EmptyView
 
-    itemView: ItemView
+    childView: ItemView
 
-    itemViewContainer: '[data-container="items"]'
+    childViewContainer: '[data-container="items"]'
 
     ui: {
       emptyViewContainer: '[data-container="empty"]'
+      containerWrapper: '[data-behavior="container-wrapper"]'
       termInput: '[data-behavior="search-term"]'
       showBulk: '[data-behavior="show-bulk"]'
     }
 
     triggers: {
-      'keyup [data-behavior="search-term"]': 'keyUp'
+      'keypress [data-behavior="search-term"]': {
+        event: "update"
+        preventDefault: false
+        stopPropagation: false
+      }
+      'keyup [data-behavior="search-term"]': {
+        event: "update"
+        preventDefault: false
+        stopPropagation: false
+      }
+
+      'change [data-behavior="search-term"]': {
+        event: "update"
+        preventDefault: false
+        stopPropagation: false
+      }
+      'blur [data-behavior="search-term"]': {
+        event: "blur"
+        preventDefault: false
+        stopPropagation: false
+      }
+      'focus [data-behavior="search-term"]': 'focus'
       'click [data-behavior="show-bulk"]': 'showBulk'
     }
 
     initialize: (options) ->
       @collectionType = options.collectionType
       @enrollmentCollection = options.enrollmentCollection
-      @listenTo(@, 'itemview:invited', (event) =>
+      @setupListeners()
+
+
+    setupListeners: () ->
+      @listenTo(@, 'childview:clicked', (event) =>
         @ui.termInput.val('')
-        @onKeyUp()
+        @ui.termInput.blur()
+        promise = @onUpdate()
+        promise.then(() =>
+          @close()
+        )
       )
 
-    onItemviewAdd: () ->
-      @ui.termInput.val('')
-      @onKeyUp()
+#    onChildviewAdd: () ->
+#      @ui.termInput.val('')
+#      @onUpdate()
 
     checkCollectionLength: () ->
       if @collection.length > 0
-        @showContainer()
+        @open()
       else
-        @hideContainer()
+        @close()
 
-    buildItemView: (item, ItemViewType, itemViewOptions) ->
-      options = _.extend({model: item}, itemViewOptions)
+    buildChildView: (item, ItemViewType, childViewOptions) ->
+      options = _.extend({model: item}, childViewOptions)
       options.enrollmentCollection = @enrollmentCollection
       options.vent = @options.vent
       options.collectionType = @collectionType
-      itemView = new ItemViewType(options)
-      itemView
+      childView = new ItemViewType(options)
+      childView
 
     getTemplate: () ->
       if @collection.getSearchTerm() == 'email'
@@ -59,30 +90,50 @@ define (require) ->
       else
         coursesTemplate
 
-    hideContainer: () ->
-      @$el.find(@itemViewContainer).hide()
+    close: () ->
+      if @ui.containerWrapper.is(':visible')
+        @ui.containerWrapper.hide()
+        @triggerMethod('closed')
 
-    showContainer: () ->
-      @$el.find(@itemViewContainer).show()
+    open: () ->
+      if !@ui.containerWrapper.is(':visible')
+        @ui.containerWrapper.show()
+        @triggerMethod('opened')
 
     getTerm: () ->
       @ui.termInput.val().trim()
 
-    onSubmit: () ->
-
-    # TODO: Clear input if escape key is pressed.
-    onKeyUp: _.debounce(() ->
+    onFocus: () ->
       term = @getTerm()
       if term.length >= 1
-        @showContainer()
+        @open()
+
+    onBlur: () ->
+      @close()
+      true
+
+    onUpdate: _.debounce(() ->
+      promise = $.Deferred()
+      promise.then(() =>
+        if @ui.termInput.is(":focus")
+          @open()
+      )
+
+      term = @getTerm()
+      if term.length >= 1
         data = {}
         data[@collection.getSearchTerm()] = term
         @trigger('input:changed', {value: term})
-        @collection.fetch({url: "#{@collection.url}/search", data: data})
+        @collection.fetch({url: "#{@collection.url}/search", data: data, success: () =>
+          promise.resolve()
+        })
       else
-        @hideContainer()
         @collection.reset()
+        promise.resolve()
+
+
+      promise
     , 250)
 
-    onRender: () ->
-      @hideContainer()
+    onShow: () ->
+      @ui.containerWrapper.hide()

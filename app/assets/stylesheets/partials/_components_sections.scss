@@ -1,0 +1,183 @@
+@import "variables";
+@import "mixins";
+@import "patterns";
+
+$sectionSpacingUnit: 40px;
+
+%section-spacing {
+  margin-top: $sectionSpacingUnit;
+}
+
+// Page Message Container
+// --------------------------
+.page-message {
+  margin-bottom: $sectionSpacingUnit * 2;
+  padding: $sectionSpacingUnit 0;
+  border-top: 1px solid $grayMediumLighter;
+  border-bottom: 1px solid $grayMediumLighter;
+
+  .header {
+    font-size: $delta;
+    color: $tealDark;
+  }
+  .body {
+    color: $grayDark;
+    margin-top: 1em;
+    line-height: 1.65em;
+  }
+}
+
+// Page Section Container
+// --------------------------
+
+.page-section-spacing-top {
+  @extend %section-spacing;
+}
+
+.page-section-wrapper {
+  position: relative;
+  height: auto;
+  @include clearfix(hard);
+  margin-bottom: $sectionSpacingUnit;
+}
+
+.page-section {
+  @include clearfix(hard);
+  .header-wrapper {
+    position: relative;
+  }
+  .header {
+    .header-link {
+      margin-bottom: 0;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      @extend %proto-section-header;
+      margin: 0;
+      margin-top: .6em;
+      padding: 0;
+      line-height: .8em;
+    }
+    width: 60%;
+    display: inline-block;
+  }
+  .buttons {
+    text-align: right;
+    width: 40%;
+    display: inline-block;
+    position: absolute;
+    top: 3px;
+    right: 0;
+    bottom: 0;
+    .bubble {
+      margin-top: 5px;
+    }
+  }
+  .body {
+    margin-top: $sectionSpacingUnit * .5;
+    @include clearfix;
+    background: $grayLightest;
+    padding: $sectionSpacingUnit * .75;
+  }
+  .body-full-bleed {
+    padding: 0;
+  }
+  .page-section--subsection {
+    @include clearfix;
+    .subsection-header {
+      margin-bottom: $sectionSpacingUnit * .75;
+    }
+  }
+  .page-section--subsection-ruled {
+    border-bottom: 1px solid $grayMediumLighter;
+    padding-bottom: $sectionSpacingUnit * .75;
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  .page-section--subsection + .page-section--subsection {
+    margin-top: $sectionSpacingUnit * .75;
+  }
+}
+
+.page-section-clear {
+  .body {
+    background: none;
+    padding: 0;
+  }
+}
+
+%page-section-column {
+  height: 100%;
+  padding-left: 0;
+  padding-right: 0;
+  &.col-one {
+    padding-right: ($sectionSpacingUnit * .375);
+  }
+  &.col-two {
+    padding-left: ($sectionSpacingUnit * .375);
+  }
+  @include respond($ontario) {
+    padding: 0;
+    margin-top: $sectionSpacingUnit * .75;
+  }
+
+}
+
+.page-section-half {
+  @extend %wide-one-half;
+  @extend %page-section-column;
+}
+
+.page-section-one-third {
+  @extend %wide-one-third;
+  @extend %page-section-column;
+}
+
+.page-section-two-thirds {
+  @extend %wide-two-thirds;
+  @extend %page-section-column;
+}
+
+.page-section + .page-section{
+  @extend %section-spacing;
+}
+
+.col-one + .col-two {
+  margin-top: 0px;
+}
+
+// User Profile Container
+// --------------------------
+.user-profile {
+
+  .user-profile--image {
+    @extend %content-unit;
+    @extend %form-pad;
+    @include unit(2);
+
+    @extend %medium-one-fourth;
+    @extend %narrow-gone;
+    padding-left: 0;
+    img {
+      width: 100%;
+    }
+  }
+  .user-profile--properties {
+    padding: 0;
+    @extend %content-unit;
+    @extend %form-pad;
+    @include unit(10);
+
+
+    @extend %medium-three-fourths;
+    @extend %narrow-whole;
+
+  }
+}
+
+// Submission Section
+// --------------------------
+.submission-section {
+  margin-top: 50px;
+}

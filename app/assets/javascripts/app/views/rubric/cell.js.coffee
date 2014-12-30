@@ -8,8 +8,8 @@ define (require) ->
 
     template: template
 
-    tagName: 'li'
-    className: 'matrix--cell'
+    tagName: 'td'
+    className: 'wrap-cell rubric-cell'
 
     onShow: () ->
       @$el.on( 'click', (event) =>
@@ -18,11 +18,22 @@ define (require) ->
 
     initialize: (options) ->
       @vent = Vocat.vent
-      @listenTo(@model,'change', () =>
-        @render()
-      )
+      @range = @model
+      @field = options.field
+      @rubric = options.rubric
+      @model = @findModel()
+
+      if @model?
+        @listenTo(@model, 'change', () ->
+          @render()
+        )
       @listenTo(@model.rangeModel, 'change:name', @render, @) if @model.rangeModel?
       @listenTo(@model.fieldModel, 'change:name', @render, @) if @model.fieldModel?
+
+    findModel: () ->
+      cells = @rubric.get('cells')
+      model = cells.findWhere({field: @field.get('id'), range: @range.get('id')})
+      model
 
     serializeData: () ->
       data = super()
@@ -31,5 +42,5 @@ define (require) ->
       data
 
     onOpenModal: () ->
-      label = "#{@model.rangeModel.get('name')} #{@model.fieldModel.get('name')} description"
-      @vent.trigger('modal:open', new LongTextInputView({model: @model, inputLabel: label, property: 'description', vent: @vent}))
+      label = "Description: #{@model.rangeModel.get('name')} #{@model.fieldModel.get('name')}"
+      @vent.trigger('modal:open', new LongTextInputView({model: @model, inputLabel: label, saveLabel: 'Update Description', saveClasses: 'update-button', property: 'description', vent: @vent}))

@@ -1,12 +1,12 @@
 <%
 
   def boxen?; ENV['BOXEN_HOME']; end
-  url = ENV["BOXEN_POSTGRESQL_URL"]
-  port = ENV["BOXEN_POSTGRESQL_PORT"]
 
-  prod_user = ENV["RAILS_DB_USER"]
-  prod_pass = ENV["RAILS_DB_PASS"]
-  prod_db = ENV["RAILS_DB_NAME"]
+  url  = ENV["BOXEN_POSTGRESQL_URL"]
+  port = ENV["BOXEN_POSTGRESQL_PORT"]
+  user = ENV["RAILS_DB_USER"]
+  pass = ENV["RAILS_DB_PASS"]
+  db   = ENV["RAILS_DB_NAME"] || 'vocat_development'
 
 %>
 
@@ -16,25 +16,16 @@ common: &common
   encoding: unicode
   pool: 50
   port: <%= port %>
+  user: <%= user %>
+  database: <%= db %>
+  password: <%= pass %>
 
 production:
   <<: *common
-  user: <%= prod_user %>
-  database: <%= prod_db %>
-  password: <%= prod_pass %>
 
 development:
   <<: *common
-  database: vocat_development
-
-staging:
-  adapter: postgresql
-  host: localhost
-  encoding: unicode
-  pool: 5
-  username: vocat
-  password: vocat
-  database: vocat
+  database: <%= db %>
 
 test:
   <<: *common

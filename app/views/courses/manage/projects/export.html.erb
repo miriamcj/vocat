@@ -1,0 +1,82 @@
+<% content_for :content do %>
+	<%= link_to 'Return to Projects List', course_manage_projects_path(@course), :class => 'header-link back-link' %>
+
+	<% body = capture do %>
+		<div class="table-wrapper">
+			<table class="table">
+				<thead>
+				<tr>
+					<th style="width: 20%;">Report Name</th>
+					<th style="width: 30%;">Description</th>
+					<th style="width: 40%;" class="column-tight">Select Format</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<th>Peer Review Scores</th>
+					<td>Download all peer review scores for this project</td>
+					<td>
+						<div class="dropdown dropdown-button" data-behavior="dropdown">
+							<a class="dropdown--toggle" data-behavior="toggle" href="#">Select Format</a>
+							<div class="dropdown--options" data-behavior="dropdown-options">
+								<ul>
+									<li><%= link_to 'CSV', peer_scores_course_export_project_path(@course, @project, :format => 'csv') %></li>
+									<li><%= link_to 'JSON', peer_scores_course_export_project_path(@course, @project, :format => 'json') %></li>
+								</ul>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>Evaluator Scores</th>
+					<td>Download all evaluator scores for this project</td>
+					<td>
+						<div class="dropdown dropdown-button" data-behavior="dropdown">
+							<a class="dropdown--toggle" data-behavior="toggle" href="#">Select Format</a>
+							<div class="dropdown--options" data-behavior="dropdown-options">
+								<ul>
+									<li><%= link_to 'CSV', evaluator_scores_course_export_project_path(@course, @project, :format => 'csv') %></li>
+									<li><%= link_to 'JSON', evaluator_scores_course_export_project_path(@course, @project, :format => 'json') %></li>
+								</ul>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>All Scores</th>
+					<td>Download all scores for this project</td>
+					<td>
+						<div class="dropdown dropdown-button" data-behavior="dropdown">
+							<a class="dropdown--toggle" data-behavior="toggle" href="#">Select Format</a>
+							<div class="dropdown--options" data-behavior="dropdown-options">
+								<ul>
+									<li><%= link_to 'CSV', all_scores_course_export_project_path(@course, @project, :format => 'csv') %></li>
+									<li><%= link_to 'JSON', all_scores_course_export_project_path(@course, @project, :format => 'json') %></li>
+								</ul>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>Self Evaluation Scores</th>
+					<td>Download self evaluation scores for this project</td>
+					<td>
+						<div class="dropdown dropdown-button" data-behavior="dropdown">
+							<a class="dropdown--toggle" data-behavior="toggle" href="#">Select Format</a>
+							<div class="dropdown--options" data-behavior="dropdown-options">
+								<ul>
+									<li><%= link_to 'CSV', self_scores_course_export_project_path(@course, @project, :format => 'csv') %></li>
+									<li><%= link_to 'JSON', self_scores_course_export_project_path(@course, @project, :format => 'json') %></li>
+								</ul>
+							</div>
+						</div>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+	<% end %>
+	<%= render :partial => 'shared/section', :locals => {:header => "Export Project Data: #{@project.name}", :clear => true, :body => body} %>
+
+
+<% end %>

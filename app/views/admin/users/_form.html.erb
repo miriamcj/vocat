@@ -1,66 +1,56 @@
 <fieldset>
-  <div class="input-group">
-    <div class="input-group--third">
-      <%= f.label :first_name, {class: 'text-label'} %>
-      <%= f.text_field :first_name, {class: 'text-input'} %>
-    </div>
-    <div class="input-group--third">
-      <%= f.label :middle_name, {class: 'text-label'} %>
-      <%= f.text_field :middle_name, {class: 'text-input'} %>
-    </div>
-    <div class="input-group--third">
-      <%= f.label :last_name, {class: 'text-label'} %>
-      <%= f.text_field :last_name, {class: 'text-input'} %>
-    </div>
+  <div class="formgrid whole">
+    <%= f.label :email %>
+    <%= f.text_field :email %>
   </div>
-  <div class="input-group">
-    <div class="input-group--half">
-      <%= f.label :email, {class: 'text-label'} %>
-      <%= f.text_field :email, {class: 'text-input'} %>
-    </div>
-    <div class="input-group--half">
-      <%= f.label :org_identity, {class: 'text-label'} %>
-      <%= f.text_field :org_identity, {class: 'text-input'} %>
-    </div>
-  </div>
+
   <% if local_assigns.fetch :show_password, nil %>
-    <div class="input-group">
-      <div class="input-group--half">
-        <%= f.label :password, {class: 'text-label'} %>
-        <%= f.password_field :password, {class: 'text-input'} %>
-      </div>
-      <div class="input-group--half">
-        <%= f.label :password_confirmation, {class: 'text-label'} %>
-        <%= f.password_field :password_confirmation, {class: 'text-input'} %>
-      </div>
+    <div class="formgrid half">
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+    </div>
+    <div class="formgrid half">
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation %>
     </div>
   <% end %>
-  <div class="input-group">
-    <div class="input-group--half">
-      <%= f.label :city, {class: 'text-label'} %>
-      <%= f.text_field :city, {class: 'text-input'} %>
-    </div>
-    <div class="input-group--half">
-      <%= f.label :state, {class: 'text-label'} %>
-      <%= f.text_field :state, {class: 'text-input'} %>
-    </div>
-  </div>
-  <div class="input-group">
-    <div class="input-group--half">
-      <%= f.label :country, {class: 'text-label'} %>
-      <%= f.text_field :country, {class: 'text-input'} %>
-    </div>
-    <div class="input-group--half">
-      <%= f.label :gender, {class: 'text-label'} %>
-      <%= f.text_field :gender, {class: 'text-input'} %>
-    </div>
-  </div>
-  <div class="input-group">
-    <div class="input-group--half">
-      <%= f.label :role, {class: 'text-label'} %>
-      <%= f.select :role, User::ROLES.map { |role| [role.capitalize, role]}, {:include_blank => false}, {'data-behavior' => 'chosen'} %>
-    </div>
+
+  <div class="formgrid whole">
+    <%= f.label :role %>
+    <%= f.select :role, User::ROLES.map { |role| [role.capitalize, role]}, {:include_blank => false}, {'data-behavior' => 'chosen'} %>
   </div>
 
+  <div class="formgrid third">
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name %>
+  </div>
+  <div class="formgrid third">
+    <%= f.label :middle_name %>
+    <%= f.text_field :middle_name %>
+  </div>
+  <div class="formgrid third">
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name %>
+  </div>
+  <div class="formgrid third">
+    <%= f.label :org_identity %>
+    <%= f.text_field :org_identity %>
+  </div>
+  <div class="formgrid third">
+    <%= f.label :gender %>
+    <%= f.text_field :gender %>
+  </div>
 
+  <div class="formgrid third">
+    <%= f.label :city %>
+    <%= f.text_field :city %>
+  </div>
+  <div class="formgrid third">
+    <%= f.label :state %>
+    <%= f.text_field :state %>
+  </div>
+  <div class="formgrid third">
+    <%= f.label :country %>
+    <%= f.text_field :country %>
+  </div>
 </fieldset>

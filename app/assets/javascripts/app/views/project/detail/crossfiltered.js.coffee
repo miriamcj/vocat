@@ -18,9 +18,7 @@ define (require) ->
     ui: {
       filtersClear:   '[data-trigger="filters-clear"]'
       barFilterLabel: '[data-behavior="bar-filter-label"]'
-      pieFilterLabel: '[data-behavior="pie-filter-label"]'
       barFilterLabelWrap: '[data-behavior="bar-filter-label-wrap"]'
-      pieFilterLabelWrap: '[data-behavior="pie-filter-label-wrap"]'
     }
 
 
@@ -121,19 +119,22 @@ define (require) ->
         if @ui["#{key}FilterLabel"] && finalString  != @ui["#{key}FilterLabel"].html()
           @ui["#{key}FilterLabelWrap"].fadeOut 200, () =>
             if partsCount > 0
-              @ui["#{key}FilterLabelWrap"].find('[data-trigger="filters-clear"]').show()
+              @ui.filtersClear.show()
             else
-              @ui["#{key}FilterLabelWrap"].find('[data-trigger="filters-clear"]').hide()
+              @ui.filtersClear.hide()
             @ui["#{key}FilterLabel"].html(finalString )
             @ui["#{key}FilterLabelWrap"].fadeIn(200)
 
 
     createBarChart: (dimension, group) ->
+      w = @$el.find('#bar-chart').parent().width()
+      margin = 20
+
       bc = dc.barChart("#bar-chart",'projectCharts')
-      bc.width(716)
+      bc.width(w)
       bc.height(255)
       bc.transitionDuration(500)
-      bc.margins({top: 10, right: 40, bottom: 20, left: 20})
+      bc.margins({top: margin / 2, right: margin, bottom: margin, left: margin})
       bc.dimension(dimension) # set dimension
       bc.group(group, 'Evaluations') # set group
       bc.elasticY(true)
@@ -156,17 +157,21 @@ define (require) ->
       bc.renderlet (chart) ->
         svg = chart.select('svg')
         if $(svg[0]).find('.background-custom').length == 0
-          chart.select('svg').insert('rect','g').attr('width', 656).attr('height', 225).attr('transform','translate(20,10)').attr('class', 'background-custom')
+          chart.select('svg').insert('rect','g').attr('width', w - (margin * 2)).attr('height', 225).attr('transform','translate(20,10)').attr('class', 'background-custom')
       bc
 
     createPieChart: (id, dimension, group) ->
+
+      radius = 50
+      dim = (radius * 2) + 7
+
       pc = dc.pieChart("#pie-chart-#{id}", 'projectCharts')
-      pc.width(157)
+      pc.width(dim)
       pc.legend(dc.legend().x(0).y(0).itemHeight(13).gap(5))
-      pc.height(157)
+      pc.height(dim)
       pc.transitionDuration(500)
       pc.colorDomain(['#232e2f'])
-      pc.radius(75)
+      pc.radius(radius)
       pc.innerRadius(0)
       pc.minAngleForLabel(0)
       pc.dimension(dimension)

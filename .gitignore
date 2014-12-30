@@ -16,6 +16,7 @@ config/s3.yml
 /tmp
 .vagrant
 .idea
+*.iml
 
 /public/dev-assets
 /build/javascripts

@@ -321,7 +321,8 @@ define (require) ->
       @initializeUi()
 
     onShow: () ->
-      @initializeUi()
+      if _.isObject(@ui.rangePicker)
+        @initializeUi()
 
     initialize: (options) ->
       @vent = options.vent

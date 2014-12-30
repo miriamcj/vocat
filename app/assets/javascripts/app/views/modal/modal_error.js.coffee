@@ -19,7 +19,7 @@ define ['marionette', 'hbs!templates/modal/modal_error'], (Marionette, template)
 
     onClickDismiss: () ->
       @vent.triggerMethod(Marionette.getOption(@, 'dismissEvent'))
-      Vocat.vent.trigger('modal:close')
+      Vocat.vent.trigger('modal:destroy')
 
     serializeData: () ->
       {
@@ -27,7 +27,7 @@ define ['marionette', 'hbs!templates/modal/modal_error'], (Marionette, template)
       dismissLabel: Marionette.getOption(@, 'dismissLabel')
       }
 
-    onClose: () ->
+    onDestroy: () ->
       # Gotta be sure to unbind this event, so that views that have been closed out are no longer triggered.
       # Normally, marionette does this with listenTo, which registers events, but in this case we have to
       # do it differently because we're binding to a global object (window)

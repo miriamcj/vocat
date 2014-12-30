@@ -1,0 +1,44 @@
+@import "variables";
+@import "mixins";
+@import "patterns";
+
+
+// The Grid
+// --------
+// We're working with a 12 column grid, based loosely on:
+// http://csswizardry.com/2013/02/responsive-grid-systems-a-solution/
+
+// Instructions
+//
+// Create a block-level component and @extend a wide unit pattern onto it. Like so:
+// .component {
+//   @extend %wide-one-half;
+// }
+//
+// NB extending a unit pattern onto a component sets right and left padding as well as
+// width. Be careful not to override this.
+//
+// If the component needs to span a different number of columns at a narrower breakpoint,
+// @extend that unit pattern next. Like so:
+// .component {
+//   @extend %wide-one-half;
+//   @extend %medium-one-third;
+// }
+//
+// If the component needs to be shifted to the right, @extend one or more of the shift
+// patterns. Like so:
+// .component {
+//   @extend %wide-one-half;
+//   @extend %medium-one-third;
+//   @extend %wide-shift-one-half;
+//   @extend %medium-shift-none;
+// }
+
+// Group
+// This wraps a row of units
+// On narrow screens, groups can break to multiple rows
+// --------------------------------------------------------
+.group {
+  @include clearfix;
+}
+

@@ -26,6 +26,14 @@ define (require) ->
       @set 'ranges', new RangeCollection(_.toArray(@get('ranges')))
       @set 'cells', new CellCollection( _.toArray(@get('cells')),{})
 
+      @listenTo(@get('fields'),'add remove', (e) ->
+        @trigger('change')
+      )
+
+      @listenTo(@get('ranges'),'add remove', (e) ->
+        @trigger('change')
+      )
+
       @get('fields').bind 'add', (field) =>
         @get('ranges').each((range) =>
           cell = new CellModel({range: range.id, field: field.id})
@@ -86,12 +94,22 @@ define (require) ->
       difference = parseInt(high) - @getLow()
       difference >= @get('ranges').length - 1
 
-
     setLow: (value) ->
       @set('low',parseInt(value))
 
     setHigh: (value) ->
       @set('high',parseInt(value))
+
+    getRangeForScore: (score) ->
+      @get('ranges').find((range) ->
+        s = parseInt(score)
+        s >= range.get('low') && s <= range.get('high')
+      )
+
+    getDescriptionByFieldAndScore: (fieldId, score) ->
+      range = @getRangeForScore(score)
+      desc = @getCellDescription(fieldId, range.id)
+      desc
 
     getCellDescription: (fieldId, rangeId) ->
       cell = @get('cells').findWhere({field: fieldId, range: rangeId})

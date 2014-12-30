@@ -6,7 +6,6 @@ class Project < ActiveRecord::Base
   belongs_to  :course
   belongs_to  :rubric
   has_many    :submissions,     :dependent => :destroy
-  has_many    :submitors,       :through => :course
   has_many    :evaluations,     :through => :submissions
 
   delegate :name,               :to => :rubric, :prefix => true, :allow_nil => true
@@ -23,7 +22,9 @@ class Project < ActiveRecord::Base
 
   validates :course, :name, :description, :presence => true
 
-  scope :unsubmitted_for_user_and_course, -> (creator, course) { joins('LEFT OUTER JOIN submissions ON submissions.project_id = projects.id AND submissions.creator_id = ' + creator.id.to_s).where('submissions.creator_id IS NULL AND course_id IN (?)', course) }
+  default_scope { includes(:course) }
+
+  scope :unsubmitted_for_user_and_course, ->(creator, course) { joins('LEFT OUTER JOIN submissions ON submissions.project_id = projects.id AND submissions.creator_id = ' + creator.id.to_s).where('submissions.creator_id IS NULL AND course_id IN (?)', course) }
 
   def active_model_serializer
     ProjectSerializer
@@ -41,6 +42,14 @@ class Project < ActiveRecord::Base
     evaluations.where(published: true).includes(:submission)
   end
 
+  def publish_evaluations(user)
+    evaluations.where(:evaluator_id => user).update_all(:published => true)
+  end
+
+  def unpublish_evaluations(user)
+    evaluations.where(:evaluator_id => user).update_all(:published => false)
+  end
+
   def evaluation_count_by_user(user)
     Evaluation.joins(:submission).where(:evaluator_id => user, :submissions => {project_id: self}).count
   end
@@ -56,18 +65,39 @@ class Project < ActiveRecord::Base
   # TODO: Not happy with this
   def statistics()
     {
-      video_count: submissions.with_video.count,
+      video_count: video_count,
       possible_submission_count: possible_submissions_count,
       rubric_avg_score: rubric_avg_score,
       rubric_avg_percentage: rubric_avg_percentage
     }
   end
 
+  def video_count
+    submissions.where(:creator_type => 'User').with_video.for_courses(course).count
+  end
+
   def submission_by_user(user)
     submissions.where(:creator_id => user.id).first
   end
 
+  def evaluatable?()
+    !rubric.nil?
+  end
+
+  def evaluatable_by_peers?()
+    course.allows_peer_review?
+  end
+
+  def evaluatable_by_creator?()
+    course.allows_self_evaluation?
+  end
+
+
+  # Deprecated
   def evaluatable()
+    if Rails.env == :development
+      raise "Evaluatable method on Project is deprecated. Please replace with evaluatable?"
+    end
     !rubric.nil?
   end
 

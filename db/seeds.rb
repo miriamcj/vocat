@@ -110,8 +110,8 @@ body_key = the_rubric.add_field({'name' => 'Body', 'description' => 'Relaxation;
 expression_key = the_rubric.add_field({'name' => 'Expression', 'description' => 'Concentration; Focus; Point of View; Pacing'})
 overall_key = the_rubric.add_field({'name' => 'Overall Effect', 'description' => 'Integration of above categories; connection with audience'})
 low_key = the_rubric.add_range({'name' => 'Low', 'low' => 0, 'high' => 2})
-medium_key = the_rubric.add_range({'name' => 'medium', 'low' => 3, 'high' => 4})
-high_key = the_rubric.add_range({'name' => 'high', 'low' => 5, 'high' => 6})
+medium_key = the_rubric.add_range({'name' => 'Medium', 'low' => 3, 'high' => 4})
+high_key = the_rubric.add_range({'name' => 'High', 'low' => 5, 'high' => 6})
 the_rubric.owner = admin
 the_rubric.add_cells([
    {'range' => low_key, 'field' => voice_key, 'description' => 'Vocal projection is weak. Posture is crumpled or slouched: breath is unsupported. Volume is unamplified. One has to strain, or cannot hear speakerubric. Articulation is mushy and difficult to understand.'},
@@ -231,15 +231,15 @@ courses.each_with_index do |course, course_index|
   creators.shuffle!
 
   # Add users to the course
-  if course_index == 0
-    course.evaluators << evaluators[0]
-  elsif course_index == 1
-    course.evaluators << evaluators[0]
-  else
-    course.evaluators << evaluators.sample
+  evaluators.sample(rand(1..3)).each do |user|
+    course.enroll user, :evaluator
   end
-  course.assistants << assistants[0..2]
-  course.creators << creators[0..rand(10..15)]
+  assistants.sample(rand(0..2)).each do |user|
+    course.enroll user, :assistant
+  end
+  creators.sample(rand(10..25)).each do |user|
+    course.enroll user, :creator
+  end
   course.save
 
   # Create some groups

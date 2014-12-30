@@ -31,7 +31,7 @@ class Submission < ActiveRecord::Base
   default_scope { includes(:video, :evaluations, :project) }
 
   scope :with_video, -> { joins(:video) }
-  scope :for_courses, -> (course) { joins(:project)
+  scope :for_courses, ->(course) { joins(:project)
       .where('projects.course_id' => course)
       .where('(creator_id in (?) AND creator_type = \'User\') OR (creator_id in (?) AND creator_type = \'Group\')', course.creators.pluck(:id), course.groups.ids)
       .includes(:video) }
@@ -42,6 +42,16 @@ class Submission < ActiveRecord::Base
 
   def evaluated_by_instructor?()
     instructor_evaluation_count > 0
+  end
+
+  def evaluated_by_peers?()
+    peer_evaluation_count > 0
+  end
+
+  def new_posts_for_user?(user)
+    last_post = discussion_posts.order(:created_at).last
+    return false if last_post.nil?
+    return last_post.created_at > user.last_sign_in_at
   end
 
   def peer_evaluations
@@ -77,9 +87,7 @@ class Submission < ActiveRecord::Base
   end
 
   def instructor_score_percentage
-    total_score = instructor_score_total
-    total_count = instructor_evaluation_count
-    score_percentage(total_score, total_count)
+    Evaluation::Calculator.average_percentage_for_submission(self, Evaluation::EVALUATION_TYPE_EVALUATOR)
   end
 
   def user_evaluation(user)
@@ -106,14 +114,12 @@ class Submission < ActiveRecord::Base
     self.evaluations.created_by(user).count
   end
 
-  def user_score_percentage(user)
-    if evaluated_by_user?(user)
-      user_evaluation(user).total_percentage_rounded
-    end
-  end
-
   def has_video?
     !video.nil?
+  end
+
+  def has_rubric?
+    !rubric.nil?
   end
 
   def evaluations_visible_to(user)

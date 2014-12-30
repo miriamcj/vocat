@@ -1,0 +1,46 @@
+
+// Lists
+// --------------------------
+%unstyled-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+
+// Links
+// --------------------------
+%bare-focus {
+  &:focus {
+    outline: none;
+  }
+}
+
+%bare-active {
+  &:active {
+    color: inherit;
+  }
+}
+
+// Misc
+// --------------------------
+%hidden-text {
+  background-color: transparent;
+  border: 0;
+  overflow: hidden;
+  *text-indent: -9999px;
+  &:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 100%;
+  }
+}
+
+%label {
+  @include font-body;
+  font-weight: $regular;
+  text-transform: uppercase;
+  font-size: $kappa;
+  color: $grayDarker;
+  letter-spacing: 1px;
+}

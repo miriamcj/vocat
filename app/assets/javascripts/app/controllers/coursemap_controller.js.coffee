@@ -44,6 +44,14 @@ define (require) ->
       deferred = @setupCoursemap(courseId)
       $.when(deferred).then(() =>
         @courseMap.triggerMethod('show:users', {})
+        @courseMap.triggerMethod('close:detail', {})
+      )
+
+    groupGrid: (courseId) ->
+      deferred = @setupCoursemap(courseId)
+      $.when(deferred).then(() =>
+        @courseMap.triggerMethod('show:groups', {})
+        @courseMap.triggerMethod('close:detail', {})
       )
 
     userCreatorDetail: (courseId, userId) ->
@@ -70,12 +78,6 @@ define (require) ->
     standaloneUserProjectDetail: (courseId, projectId) ->
       projectDetail = new ProjectDetail({courseId: courseId, collections: @collections, vent: Vocat.vent, projectId: projectId})
       window.Vocat.main.show(projectDetail)
-
-    groupGrid: (courseId) ->
-      deferred = @setupCoursemap(courseId)
-      $.when(deferred).then(() =>
-        @courseMap.triggerMethod('show:groups', {})
-      )
 
     groupCreatorDetail: (courseId, groupId) ->
       deferred = @setupCoursemap(courseId)

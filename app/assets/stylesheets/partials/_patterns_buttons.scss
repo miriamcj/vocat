@@ -1,0 +1,232 @@
+// Button, Link Patterns and prototypes
+//-------------------------------------
+%button-text {
+  @include font-body;
+  font-size: $iota;
+  th & {
+    font-size: .583em; // 14px
+  }
+  font-weight: $regular;
+}
+
+%proto-button {
+  padding: .8em;
+  line-height: 1; // Inputs have line-height: normal, so we need to set this here to equalize input and link button heights.
+  @extend %button-text;
+  @extend %bare-focus;
+  @extend %bare-active;
+  display: inline-block;
+  color: $white;
+  white-space: nowrap;
+  text-decoration: none;
+  &:hover, &:focus {
+    color: $white;
+    text-decoration: none;
+  }
+  @include transition($fastTransition background-color $timing);
+  @include transition($fastTransition border-color $timing);
+
+}
+
+// Psuedoelements don't stick to <input>s, so we
+// need to remove the right padding in those cases
+input%proto-button {
+  @extend %reset-input;
+}
+
+%icon-button {
+  padding-right: 2.6em;
+  position: relative;
+  &:after {
+    content: "";
+    display: block;
+    padding: 0;
+    // Switched to pixels for sharper rendering in IE10, 11
+    height: 21px;
+    width: 21px;
+    position: absolute;
+    top: .50em;
+    right: .55em;
+  }
+}
+
+%icon-button-before {
+  padding-left: 2.6em;
+  position: relative;
+  &:before {
+    content: "";
+    display: block;
+    padding: 0;
+    height: 21px;
+    width: 21px;
+    position: absolute;
+    top: .55em;
+    left: .55em;
+  }
+}
+
+%primary-button {
+  @extend %proto-button;
+  background-color: $primaryButtonColor;
+  border: 1px solid $primaryButtonColor;
+  .notification &, .page-header & {
+    background: none;
+    color: $primaryButtonColor;
+    border: 1px solid $primaryButtonColor;
+  }
+  &:hover, &:focus {
+    background-color: $primaryButtonHoverColor;
+    border: 1px solid $primaryButtonHoverColor;
+    .notification &, .page-header & {
+      background-color: $primaryButtonColor;
+      border: 1px solid $primaryButtonColor;
+      color: $white;
+    }
+    .modal & {
+      background-color: $tealDark;
+      border: 1px solid $tealDark;
+    }
+  }
+  #notifications & {
+  }
+}
+
+%secondary-button {
+  @extend %proto-button;
+  background-color: $secondaryButtonColor;
+  border: 1px solid $secondaryButtonColor;
+  .notification &, .page-header & {
+    background: none;
+    color: $secondaryButtonColor;
+    border: 1px solid $secondaryButtonColor;
+  }
+  &:hover, &:focus {
+    background-color: $secondaryButtonHoverColor;
+    border: 1px solid $secondaryButtonHoverColor;
+    .notification &, .page-header & {
+      background-color: $secondaryButtonColor;
+      border: 1px solid $secondaryButtonColor;
+      color: $white;
+    }
+  }
+}
+
+%disabled-button {
+  @extend %proto-button;
+  background-color: $grayLighter;
+  border: 1px solid $grayLighter;
+  .notifications &, .page-header & {
+    background: none;
+    color: $grayLightest;
+    border: 1px solid $grayLighter;
+  }
+  &:hover, &:focus {
+    background-color: $grayLighter;
+    border: 1px solid $grayLighter;
+    .notifications &, .page-header & {
+      color: $grayLight;
+      background-color: $grayLighter;
+      border: 1px solid $grayLighter;
+    }
+  }
+}
+
+%warning-button {
+  @extend %proto-button;
+  background-color: $warningButtonColor;
+  border: 1px solid $warningButtonColor;
+  .notification &, .modal &, .page-header & {
+    background: none;
+    color: $warningButtonColor;
+    border: 1px solid $warningButtonColor;
+  }
+  &:hover, &:focus {
+    background-color: $warningButtonHoverColor;
+    border: 1px solid $warningButtonHoverColor;
+    .notification &, .modal &, .page-header & {
+      background-color: $warningButtonColor;
+      border: 1px solid $warningButtonColor;
+      color: $white;
+    }
+  }
+}
+
+
+%gentle-warning-button {
+  @extend %proto-button;
+  background: none;
+  color: $warningButtonColor;
+  border: 1px solid $warningButtonColor;
+  &:hover, &:focus {
+    background-color: $warningButtonColor;
+    border: 1px solid $warningButtonColor;
+    color: $white;
+  }
+}
+
+%proto-action-link {
+  @extend %button-text;
+  @extend %bare-focus;
+  @extend %bare-active;
+  text-decoration: none;
+}
+
+%primary-link {
+  @extend %proto-action-link;
+  color: $primaryLinkColor;
+  &:hover {
+    color: $primaryLinkHoverColor;
+  }
+}
+
+%secondary-link {
+  @extend %proto-action-link;
+  color: $secondaryLinkColor;
+  &:hover {
+    color: $secondaryLinkHoverColor;
+  }
+}
+
+
+%icon-link {
+  position: relative;
+  height: 2em;
+  line-height: 2em;
+  display: inline-block;
+  @extend %button-text;
+  th & {
+    margin-top: 10px;
+  }
+}
+
+%icon-link-left {
+  @extend %icon-link;
+  padding-left: 1.75em;
+  &:before {
+    font-size: $iota;
+    content: "";
+    display: block;
+    padding: 0;
+    height: 1.5em;
+    width: 1.5em;
+    top: .4em;
+    position: absolute;
+    left: 0em;
+  }
+}
+
+%icon-link-right {
+  @extend %icon-link;
+  padding-right: 1.75em;
+  &:after {
+    font-size: $iota;
+    content: "";
+    display: block;
+    padding: 0;
+    height: 1.5em;
+    width: 1.5em;
+    top: .4em;
+    position: absolute;
+    right: 0;
+  }
+}

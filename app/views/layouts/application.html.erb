@@ -8,24 +8,16 @@
   <%= render 'layouts/head' %>
 </head>
 
-<body class="<%= yield(:body_class) %> <%= if current_user.role == 'admin' then 'role-admin' end %> <%= if !@selected_course then 'no-course' end %>">
+<body class="<%= yield(:body_class) %>
+             <%= if user_signed_in? && current_user.role == 'admin' then 'role-admin' end %>
+             <%= if !@selected_course || !user_signed_in? then 'no-course' end %>">
+
+  <div class="shield" style="display: none;" data-class="shield"></div>
   <div data-region="modal"></div>
-  <div class="page-banner">
-    <%= link_to image_tag("logo-vocat-dark.png", :class => "page-banner--logo", :alt => "VOCAT"), dashboard_path %>
-  </div>
-  <header class="page-header" data-behavior="sticky-header">
-    <div class="primary-nav">
-      <div class="primary-nav--wrapper">
-        <%= render 'layouts/navigation' %>
-      </div>
-    </div>
-    <%= render 'layouts/shortcut_navigation' %>
-  </header>
-  <div class="container">
-    <div class="page-content">
-      <%= content_for?(:content) ? yield(:content) : yield %>
-    </div>
-  </div> <!-- container -->
+
+
+  <%= content_for?(:content) ? yield(:main) : yield %>
+
   <script type="text/javascript">
   <%= yield(:backbone_bootstrap) %>
   </script>
@@ -41,6 +33,9 @@
     ga('send', 'pageview');
   </script>
   <% end %>
+
+
+  <%= render 'layouts/javascripts' %>
 
 </body>
 </html>

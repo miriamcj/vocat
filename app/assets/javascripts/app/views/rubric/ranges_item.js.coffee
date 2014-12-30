@@ -9,7 +9,10 @@ define (require) ->
 
     template: template
 
-    tagName: 'li'
+    tagName: 'th'
+    attributes: {
+      'data-match-height-source': ''
+    }
 
     ui: {
       lowRange: '[data-behavior="low"]'
@@ -29,7 +32,7 @@ define (require) ->
       Vocat.vent.trigger('modal:open', new ModalConfirmView({
         model: @model,
         vent: @,
-        descriptionLabel: 'Deleting this range will also delete all descriptions associated with this range. Are you sure you want to do this?',
+        descriptionLabel: 'Deleting this range will also delete all descriptions associated with this range.',
         confirmEvent: 'confirm:model:destroy',
         dismissEvent: 'dismiss:model:destroy'
       }))
@@ -38,10 +41,11 @@ define (require) ->
       @openModal()
 
     openModal: () ->
-      Vocat.vent.trigger('modal:open', new ShortTextInputView({model: @model, property: 'name', inputLabel: 'What would you like to call this range?', vent: @vent}))
+      Vocat.vent.trigger('modal:open', new ShortTextInputView({model: @model, property: 'name', saveClasses: 'update-button', saveLabel: 'Update Range Name', inputLabel: 'What would you like to call this range?', vent: @vent}))
 
     onConfirmModelDestroy: () ->
-      @model.destroy()
+      @collection.remove(@model)
+#      @model.destroy()
 
     updateLowRange: () ->
       @ui.lowRange.html(@model.get('low'))

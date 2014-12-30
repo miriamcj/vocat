@@ -11,7 +11,7 @@ define (require) ->
   dc = require('vendor/dc/dc')
   crossfilter = require('vendor/crossfilter/crossfilter')
 
-  class CourseMapDetailProject extends Marionette.Layout
+  class CourseMapDetailProject extends Marionette.LayoutView
 
     loadedScoresSet = null
     template: template
@@ -21,30 +21,38 @@ define (require) ->
       crossfiltered: '[data-region="project-crossfiltered"]'
     }
 
-    triggers: {
-      'change [data-behavior="score-set-select"]': 'change:score:set'
-    }
+    triggers: () ->
+      t = {
+        'change [data-behavior="score-set-select"]': 'change:score:set'
+      }
+      if _.isFunction(@vent.triggerMethod)
+        t['click @ui.close'] = 'close'
+      t
 
     ui: {
+      close: '[data-behavior="detail-close"]'
       scoreSetSelect: '[data-behavior="score-set-select"]'
     }
+
+    onClose: () ->
+      @vent.triggerMethod('close:detail') if _.isFunction(@vent.triggerMethod)
 
     initialize: (options) ->
 
       @options = options || {}
       @vent = Marionette.getOption(@, 'vent')
 
-      if @model
-        # Viewed in coursemap
-        @projectId = @model.id
-      else
-        # Stand alone view
-        @projectId = Marionette.getOption(@, 'projectId')
+      @projectId = Marionette.getOption(@, 'projectId') || @model.id
 
-      # The layout is responsible for loading the data and passing it to its component views when it's been updated.
-      $.when(@scoresLoaded(), @projectLoaded()).then(() =>
+        # The layout is responsible for loading the data and passing it to its component views when it's been updated.
+      $.when(@scoresLoaded(), @projectAndRubricLoaded()).then(() =>
         @updateViews()
+      ).fail((reason) =>
+        @handleLoadFailure(reason)
       )
+
+    handleLoadFailure: (reason) ->
+      Vocat.vent.trigger('exception', reason)
 
     updateViews: () ->
       @render()
@@ -53,6 +61,7 @@ define (require) ->
         @crossfiltered.show new NoScoresView({loadedScoresSet: @loadedScoresSet, vent: @vent})
       else
         @crossfiltered.show new CrossfilteredView({scores: @data.scores, rubric: @rubric, vent: @vent})
+
 
     onChangeScoreSet: () ->
       set = @ui.scoreSetSelect.val()
@@ -65,23 +74,29 @@ define (require) ->
         disable_search_threshold: 1000
       })
 
-    projectLoaded: () ->
-      deferred = $.Deferred()
-      resolve = () =>
-        @rubric = new RubricModel(@model.get('rubric'))
-        deferred.resolve()
-      unless @model?
-        @model = new ProjectModel({id: @projectId})
-        @model.fetch({success: resolve})
-      else
-        resolve()
-      deferred
+    projectAndRubricLoaded: () ->
+      projectLoadPromise = $.Deferred()
+      rubricLoadPromise = $.Deferred()
 
-    serializeData: () ->
-      out = {
-        loadedScoresSet: @loadedScoresSet
-      }
-      out
+      if @model?
+        projectLoadPromise.resolve()
+      else
+        @model = new ProjectModel({id: @projectId})
+        @model.fetch({success: () ->
+          projectLoadPromise.resolve()
+        , error: () =>
+          projectLoadPromise.reject('Unable to load project data. Perhaps this project has been deleted?')
+        })
+
+      projectLoadPromise.then(() =>
+        @rubric = new RubricModel({id: @model.get('rubric_id')})
+        @rubric.fetch({success: () ->
+          rubricLoadPromise.resolve()
+        , error: () =>
+          rubricLoadPromise.reject('Unable to load project rubric. Perhaps the rubric has been deleted?')
+        })
+      )
+      rubricLoadPromise
 
     scoresLoaded: (set = 'my_scores') ->
       @loadedScoresSet = set
@@ -96,3 +111,12 @@ define (require) ->
           deferred.resolve()
       })
       deferred
+
+    serializeData: () ->
+      project = super()
+      out = {
+        loadedScoresSet: @loadedScoresSet
+        project: project
+      }
+      out
+

@@ -1,0 +1,308 @@
+// Unit & shift patterns
+// --------------------------------------------------------
+// This should only be @extended by 'wide' unit patterns below
+%unit {
+  // All units are 100% wide below the narrow breakpoint
+  @extend %narrow-one-whole;
+  @include pad-unit;
+  float: left;
+}
+
+%content-unit {
+  // Form units are inline blocks instead of float so they can be
+  // vertically aligned in the case of long labels or errors
+  @extend %narrow-one-whole;
+  display: inline-block;
+  margin: -2px;
+}
+
+
+
+%content-pad {
+  @include content-pad($contentUnitPadding);
+}
+
+// Forms
+// --------------------------
+// Form Padding
+// Vertically aligned top
+%form-pad {
+  @include content-pad($formPadding);
+  vertical-align: top;
+}
+
+%content-pad {
+  @include content-pad($contentUnitPadding);
+}
+
+// Wide
+// 960 +
+// --------------------------
+// Units
+%wide-one-whole {
+  @extend %unit;
+  @include unit(12);
+}
+
+%wide-three-fourths {
+  @extend %unit;
+  @include unit(9);
+}
+
+%wide-two-thirds {
+  @extend %unit;
+  @include unit(8);
+}
+
+%wide-five-sixths {
+  @extend %unit;
+  @include unit(10);
+}
+
+%wide-one-half {
+  @extend %unit;
+  @include unit(6);
+}
+
+%wide-one-third {
+  @extend %unit;
+  @include unit(4);
+}
+
+%wide-one-fourth {
+  @extend %unit;
+  @include unit(3);
+}
+
+%wide-one-fifth {
+  @extend %unit;
+  @include unit(12/5);
+}
+
+
+%wide-one-sixth {
+  @extend %unit;
+  @include unit(2);
+}
+
+%wide-one-eighth {
+  @extend %unit;
+  @include unit(1.5);
+}
+
+%wide-one-twelfth {
+  @extend %unit;
+  @include unit(1);
+}
+
+
+// Shifts
+%wide-shift-three-fourths {
+  @include shift(9);
+}
+
+%wide-shift-two-thirds {
+  @include shift(8);
+}
+
+%wide-shift-one-half {
+  @include shift(6);
+}
+
+%wide-shift-one-third {
+  @include shift(4);
+}
+
+%wide-shift-one-fourth {
+  @include shift(3);
+}
+
+%wide-shift-none {
+  @include shift(0);
+}
+
+// Hidden
+%wide-gone {
+  display: none;
+}
+
+// Forms
+// Content Units Wide
+// --------------------------
+// Units
+%content-wide-one-whole {
+  @extend %content-unit;
+  @extend %content-pad;
+  @include unit(12);
+}
+
+%content-wide-one-half {
+  @extend %content-unit;
+  @extend %content-pad;
+  @include unit(6);
+}
+
+%content-wide-one-third {
+  @extend %content-unit;
+  @extend %content-pad;
+  @include unit(4);
+}
+
+// Forms Wide
+// Currently only styled for 960 +
+// --------------------------
+%form-wide-one-whole {
+  @extend %content-unit;
+  @extend %form-pad;
+  @include unit(12);
+}
+
+%form-wide-two-thirds {
+  @extend %content-unit;
+  @extend %form-pad;
+  @include unit(8);
+}
+
+%form-wide-one-half {
+  @extend %content-unit;
+  @extend %form-pad;
+  @include unit(6);
+}
+
+%form-wide-one-third {
+  @extend %content-unit;
+  @extend %form-pad;
+  @include unit(4);
+}
+
+%form-wide-one-fourth {
+  @extend %content-unit;
+  @extend %form-pad;
+  @include unit(3);
+}
+
+%form-wide-one-sixth {
+  @extend %content-unit;
+  @extend %form-pad;
+  @include unit(2);
+}
+
+
+// Content
+// Currently only 960 +
+// --------------------------
+// Units
+%content-wide-one-whole {
+  @extend %content-unit;
+  @extend %content-pad;
+  @include unit(12);
+}
+
+%content-wide-one-half {
+  @extend %content-unit;
+  @extend %content-pad;
+  @include unit(6);
+}
+
+// Medium
+// 960 - 768
+// --------------------------
+@include respond($baikal) {
+  // Units
+  %medium-one-whole {
+    @include unit(12);
+  }
+  %medium-three-fourths {
+    @include unit(9);
+  }
+  %medium-two-thirds {
+    @include unit(8);
+  }
+  %medium-seven-twelfths {
+    @include unit(7);
+  }
+  %medium-one-half {
+    @include unit(6);
+  }
+  %medium-five-twelfths {
+    @include unit(5);
+  }
+  %medium-one-third {
+    @include unit(4);
+  }
+  %medium-one-fourth {
+    @include unit(3);
+  }
+  // Shifts
+  %medium-shift-three-fourths {
+    @include shift(9);
+  }
+  %medium-shift-two-thirds {
+    @include shift(8);
+  }
+  %medium-shift-one-half {
+    @include shift(6);
+  }
+  %medium-shift-one-third {
+    @include shift(4);
+  }
+  %medium-shift-one-fourth {
+    @include shift(3);
+  }
+  %medium-shift-none {
+    @include shift(0);
+  }
+  // Hidden
+  %medium-gone {
+    display: none;
+  }
+}
+
+// Narrow
+// 768 -
+// --------------------------
+@include respond($ontario) {
+  // As it stands, units default to one-whole below this breakpoint
+  %narrow-one-whole {
+    @include unit(12);
+    // Therefore, shifts ARE FORBIDDEN
+    @include shift(0);
+  }
+  // But they can be one-half if you really need them to be
+  %narrow-one-half {
+    @include unit(6);
+  }
+
+
+
+  // Hidden
+  %narrow-gone {
+    display: none;
+  }
+}
+
+// Extrawide
+// This is only relevant to the homepage
+// 1200 +
+// --------------------------
+@include respond($superior, min) {
+  // Units
+  %extrawide-one-whole {
+    @include unit(12);
+  }
+  %extrawide-three-fourths {
+    @include unit(9);
+  }
+  %extrawide-two-thirds {
+    @include unit(8);
+  }
+  %extrawide-one-half {
+    @include unit(6);
+  }
+  %extrawide-one-third {
+    @include unit(4);
+  }
+  %extrawide-one-fourth {
+    @include unit(3);
+  }
+}

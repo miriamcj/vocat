@@ -34,7 +34,7 @@ class Courses::Manage::ProjectsController < ApplicationController
     @project = @course.projects.build(project_params)
     if @project.save
       flash[:notice] = 'Project was successfully created.'
-      respond_with @project, location: course_manage_project_path(@course.id, @project.id)
+      respond_with @project, location: course_manage_projects_path(@course.id)
     else
       render :new
     end
@@ -45,13 +45,7 @@ class Courses::Manage::ProjectsController < ApplicationController
     if @project.update_attributes(project_params(@project.type.underscore))
       flash[:notice] = 'Project was successfully updated.'
     end
-    respond_with @project, location: course_manage_project_path(@course, @project)
-  end
-
-  # PATCH courses/:course_id/manage/projects/1/position
-  def position
-    @project.update_attributes(project_params)
-    redirect_to action: :index
+    respond_with @project, location: edit_course_manage_project_path(@course, @project)
   end
 
   # DELETE courses/:course_id/manage/projects/1/
@@ -59,6 +53,10 @@ class Courses::Manage::ProjectsController < ApplicationController
     @project.destroy
     flash[:notice] = 'Successfully deleted project.'
     respond_with @project, location: course_manage_projects_path(@course)
+  end
+
+  def export
+
   end
 
   private

@@ -14,12 +14,11 @@ define (require) ->
 
     requestTranscoding: () ->
 
-    canBeAnnotated: () ->
-      @get('current_user_can_annotate') == true && @get('has_video') == true
-
     destroyVideo: () ->
-      @video.destroy()
-      @set('has_video',false)
+      @video.destroy({success: () =>
+        @set('video', null)
+        @fetch({url: @updateUrl()})
+      })
 
     toJSON: () ->
       json = super()
@@ -29,30 +28,52 @@ define (require) ->
         json.video = null
       json
 
+    getVideoId: () ->
+      if @video? && @video.id?
+        @video.id
+      else
+        null
+
     updateVideo: () ->
       rawVideo = @.get('video')
       if rawVideo?
         @video = new VideoModel(rawVideo)
 
+    hasVideo: () ->
+      @.get('video')?
+
     publishEvaluation: () ->
-      evaluationData = @.get('current_user_evaluation')
+      @set('current_user_published', true)
+      evaluationData = _.findWhere(@get('evaluations'), {current_user_is_evaluator: true})
       evaluation = new EvaluationModel(evaluationData)
       evaluation.save({published: true})
-      @.set('current_user_evaluation_published', true)
 
     unpublishEvaluation: () ->
-      evaluationData = @.get('current_user_evaluation')
+      @set('current_user_published', false)
+      evaluationData = _.findWhere(@get('evaluations'), {current_user_is_evaluator: true})
       evaluation = new EvaluationModel(evaluationData)
       evaluation.save({published: false})
-      @.set('current_user_evaluation_published', false)
+
+    unsetMyEvaluation: () ->
+      @set('current_user_has_evaluated',true)
+      @set('current_user_percentage',0)
+      @set('current_user_evaluation_published',false)
 
     toggleEvaluationPublish: () ->
-      evaluationData = @.get('current_user_evaluation')
-      if evaluationData?
-        if @.get('current_user_evaluation_published') == true
+      promise = $.Deferred()
+      promise.then( () =>
+        if @.get('current_user_published') == true
           @unpublishEvaluation()
-        else
+        else if @.get('current_user_published') == false
           @publishEvaluation()
+      )
+
+      if @get('serialized_state') == 'partial'
+        @fetch({success: () =>
+          promise.resolve()
+        })
+      else
+        promise.resolve()
 
     initialize: () ->
       @listenTo(@, 'change:video', () =>

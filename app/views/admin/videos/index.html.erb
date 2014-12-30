@@ -1,71 +1,64 @@
-<% content_for :content_header do %>
-  Videos
-<% end %>
-
-<% content_for :content_header_links do %>
-<% end %>
-
-<% content_for :content_intro do %>
-  <form>
-    <fieldset>
-      <div class="input-group">
-        <div class="input-group--fourth">
-          <%= label_tag :creator, 'Creator Name or Email', {:class => 'text-label'} %>
-          <%= text_field_tag(:creator, params[:creator], {:class => 'text-input'}) %>
-        </div>
-        <div class="input-group--fourth">
-          <%= label_tag :source, 'Video Type', {:class => 'text-label'} %>
-          <%= select_tag(:source, options_for_select(Video::SOURCES.collect { |source| [source.capitalize, source]}, params[:source]), {:include_blank => true, 'data-behavior' => 'chosen'}) %>
-        </div>
-        <div class="input-group--fourth">
-          <%= label_tag :state, 'Video State', {:class => 'text-label'} %>
-          <%= select_tag(:state, options_for_select(Attachment.state_machine.states.collect{ |state| [state.human_name.capitalize, state.name]}, params[:source]), {:include_blank => true, 'data-behavior' => 'chosen'}) %>
-        </div>
-        <div class="input-group--fourth">
-          <label class="text-label">&nbsp;</label>
-          <%= submit_tag('Filter Videos', {:class => 'large-teal-button'}) %>
-        </div>
+<% content_for :content do %>
+  <div class="page-section">
+    <div class="header-wrapper">
+      <div class="header">
+        <h2>Videos</h2>
       </div>
-    </fieldset>
-  </form>
-<% end %>
-
-<% content_for :content_frames do %>
-  <div class="table-wrapper">
-    <table class="table">
-      <thead>
-      <tr>
-        <th>ID</th>
-        <th>Created</th>
-        <th>Type</th>
-        <th>Creator</th>
-        <th>Course</th>
-        <th>State</th>
-      </tr>
-      </thead>
-      <tbody>
-      <% @videos.each do |video| %>
-        <tr>
-          <th><%= video.id %></th>
-          <td><%= time_ago_in_words video.created_at %> ago</td>
-          <td><%= video.source.capitalize %></td>
-          <td><%= video.creator %></td>
-          <td><%= video.course.format '%d%n %S %y [#%s]' %></td>
-          <td><%= video.state %></td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-    <nav class="pagination-nav">
-      <%= paginate @videos %>
-    </nav>
+    </div>
+    <div class="body">
+      <form class="formgrid">
+        <fieldset>
+          <div class="formgrid">
+            <div class="formgrid fourth">
+              <%= label_tag :creator, 'Creator Name or Email', {:class => 'text-label'} %>
+              <%= text_field_tag(:creator, params[:creator], {:class => 'text-input'}) %>
+            </div>
+            <div class="formgrid fourth">
+              <%= label_tag :source, 'Video Type', {:class => 'text-label'} %>
+              <%= select_tag(:source, options_for_select(Video::SOURCES.collect { |source| [source.capitalize, source]}, params[:source]), {:include_blank => true, 'data-behavior' => 'chosen'}) %>
+            </div>
+            <div class="formgrid fourth">
+              <%= label_tag :state, 'Video State', {:class => 'text-label'} %>
+              <%= select_tag(:state, options_for_select(Attachment.state_machine.states.collect{ |state| [state.human_name.capitalize, state.name]}, params[:source]), {:include_blank => true, 'data-behavior' => 'chosen'}) %>
+            </div>
+            <div class="formgrid fourth">
+              <label class="text-label">&nbsp;</label>
+              <%= button_tag('Filter Videos', {:class => 'primary-button filter-button'}) %>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </div>
   </div>
-
+  <div class="page-section page-section-clear">
+    <div class="table-wrapper">
+      <table class="table table-white-head">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Created</th>
+            <th>Type</th>
+            <th>Creator</th>
+            <th>Course</th>
+            <th>State</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @videos.each do |video| %>
+            <tr>
+              <th><%= link_to video.id, submission_detail_path(video.submission) %></th>
+              <td><%= time_ago_in_words video.created_at %> ago</td>
+              <td><%= video.source.capitalize %></td>
+              <td><%= link_to video.creator, admin_user_path(video.creator) %></td>
+              <td><%= link_to (video.course.format '%d%n %S %y [#%s]'), admin_course_path(video.course) %></td>
+              <td><%= video.state %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <nav class="pagination-only">
+        <%= paginate @videos %>
+      </nav>
+    </div>
+  </div>
 <% end %>
-
-
-
-
-
-
-

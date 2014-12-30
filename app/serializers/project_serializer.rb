@@ -4,19 +4,20 @@ class ProjectSerializer < ActiveModel::Serializer
   include ActionView::Helpers::OutputSafetyHelper
   include ActionView::Helpers::TextHelper
 
-  attributes  :id, :name, :current_user_is_owner, :course_name, :course_name_long,
-              :course_id, :course_department, :course_section, :course_number,
-              :current_user_id, :description, :evaluatable, :type
+  attributes  :id,
+              :name,
+              :description,
+              :listing_order_position,
+              :evaluatable?,
+              :evaluatable_by_peers?,
+              :evaluatable_by_creator?,
+              :type,
+              :rubric_id,
+              :rubric_name,
+              :abilities,
+              :course_id
 
   has_one :rubric
-
-  def evaluatable
-    object.evaluatable
-  end
-
-  def current_user_is_owner
-    Ability.new(scope).can?(:update, object)
-  end
 
   def description
     simple_format(object.description)
@@ -24,6 +25,13 @@ class ProjectSerializer < ActiveModel::Serializer
 
   def current_user_id
     scope.id
+  end
+
+  def abilities
+    {
+        can_update: Ability.new(scope).can?(:update, object),
+        can_destroy: Ability.new(scope).can?(:destroy, object)
+    }
   end
 
 end

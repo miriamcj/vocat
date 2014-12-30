@@ -8,8 +8,8 @@ define ['marionette', 'hbs!templates/course_map/cell', 'models/user', 'models/gr
 
     template: template
 
-    tagName: 'li'
-    className: 'matrix--cell'
+    tagName: 'td'
+    className: 'clickable'
 
     triggers:
       'click': 'detail'
@@ -23,7 +23,7 @@ define ['marionette', 'hbs!templates/course_map/cell', 'models/user', 'models/gr
       @vent.triggerMethod('open:detail:creator:project', args)
 
     onPublishToggle: () ->
-      if @model? then @model.toggleEvaluationPublish()
+      @model.toggleEvaluationPublish()
 
     findModel: () ->
       if @creator instanceof UserModel
@@ -32,8 +32,9 @@ define ['marionette', 'hbs!templates/course_map/cell', 'models/user', 'models/gr
         @creatorType = 'Group'
 
       @model = @submissions.findWhere({creator_type: @creatorType, creator_id: @creator.id, project_id: @project.id})
+
       if @model?
-        @listenTo(@model, 'change', () ->
+        @listenTo(@model, 'change sync', () ->
           @render()
         )
         @render()
@@ -42,10 +43,6 @@ define ['marionette', 'hbs!templates/course_map/cell', 'models/user', 'models/gr
       context = super()
       context.project_evaluatable = @project.evaluatable()
       context.is_active = @isActive()
-      if Vocat.currentUserRole == 'administrator'
-        context.is_admin = true
-      else
-        context.is_admin = false
       context
 
     isActive: () ->
@@ -57,9 +54,9 @@ define ['marionette', 'hbs!templates/course_map/cell', 'models/user', 'models/gr
       @submissions = options.submissions
       @creator = options.creator
       @vent = options.vent
+
       @project = @model
       @findModel()
-
-      @listenTo(@submissions, 'sync', () ->
+      @listenTo(@submissions, 'reset', () ->
         @findModel()
       )

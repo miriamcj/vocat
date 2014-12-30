@@ -1,11 +1,20 @@
-define ['marionette', 'views/rubric/fields_item'], (Marionette, ItemView) ->
+define (require) ->
 
-  class FieldsView extends Marionette.CollectionView
+  Marionette = require('marionette')
+  template = require('hbs!templates/rubric/fields')
+  ItemView = require('views/rubric/fields_item')
+  EmptyView = require('views/rubric/fields_empty')
 
-    itemView: ItemView
-    tagName: 'ul'
-    className: 'matrix--column-header--list'
-    itemViewOptions: () ->
+  class FieldsView extends Marionette.CompositeView
+
+    tagName: 'table'
+    className: 'table matrix matrix-row-headers'
+    template: template
+    childViewContainer: 'tbody'
+    emptyView: EmptyView
+    childView: ItemView
+
+    childViewOptions: () ->
       {
       vent: @vent
       }

@@ -1,0 +1,36 @@
+<div class="cell--container">
+<dl class="cell--media">
+  <dt>Media</dt>
+  <dd>
+    {{#if has_video}}
+    <b class="matrix--check"></b>
+    {{else}}
+    <b></b>
+    {{/if}}
+  </dd>
+</dl>
+<dl class="cell--score">
+  <dt>Score</dt>
+  <dd>
+    {{#if current_user_percentage }}
+      <b class="matrix--scored">
+        {{to_i current_user_percentage}}<small>%</small>
+      </b>
+    {{else}}
+      &mdash; &mdash;
+    {{/if}}
+  </dd>
+</dl>
+<dl class="cell--published">
+  <dt>Published</dt>
+  <dd>
+    {{#if current_user_percentage }}
+      {{#if current_user_published}}
+        <b data-behavior="publish-toggle" class="matrix--checkbox checked"></b>
+      {{else}}
+        <b data-behavior="publish-toggle" class="matrix--checkbox "></b>
+      {{/if}}
+    {{/if}}
+  </dd>
+</dl>
+</div>

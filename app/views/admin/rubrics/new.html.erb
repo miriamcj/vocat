@@ -1,17 +1,6 @@
-<% content_for :content_header do %>
-  Rubrics
-<% end %>
+<%= render :partial => 'heading', :locals => {rubric: @rubric} %>
 
-<% content_for :content_header_links do %>
-  <%= render 'header_links', hide_new: true %>
-<% end %>
-
-<% content_for :content_frames	 do %>
-  <div style="padding-top: 0px;" class="page-content--frame double-space-bottom">
-    <header class="button-header">
-      <h2 class="button-header--title space-bottom">Create a New Rubric</h2>
-    </header>
-  </div>
+<% content_for :content do %>
   <div id="region-main"></div>
 <% end %>
 

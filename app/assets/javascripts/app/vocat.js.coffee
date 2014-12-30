@@ -2,14 +2,34 @@ define (require) ->
 
   Marionette = require('marionette')
   Backbone = require('backbone')
-  HelpPlacardView = require('views/help/placard')
-  GlossaryToggleView = require('views/layout/glossary_toggle')
   ModalLayoutView = require('views/modal/modal_layout')
   ModalConfirmView = require('views/modal/modal_confirm')
-  FlashMessagesView = require('views/flash/flash_messages')
-  FlashMessagesCollection = require('collections/flash_message_collection')
+  DropdownView = require('views/layout/dropdown')
+  FigureCollectionView = require('views/layout/figures_collection')
+  ChosenView = require('views/layout/chosen')
+  HeaderDrawerView = require('views/layout/header_drawer')
+  HeaderDrawerTriggerView = require('views/layout/header_drawer_trigger')
+  NotificationLayoutView = require('views/notification/notification_layout')
+  NotificationExceptionView = require('views/notification/notification_exception')
 
-  window.Vocat = Vocat = new Marionette.Application()
+  window.Vocat = Vocat = new Backbone.Marionette.Application()
+
+  # Attach views to existing dom elements
+  $('[data-behavior="dropdown"]').each( (index, el) ->
+    new DropdownView({el: el, vent: Vocat.vent})
+  )
+#  $('[data-behavior="figures"]').each( (index, el) ->
+#    new FigureCollectionView({el: el, vent: Vocat.vent})
+#  )
+  $('[data-behavior="header-drawer-trigger"]').each( (index, el) ->
+    new HeaderDrawerTriggerView ({el: el, vent: Vocat.vent})
+  )
+  $('[data-behavior="header-drawer"]').each( (index, el) ->
+    new HeaderDrawerView({el: el, vent: Vocat.vent})
+  )
+  $('[data-behavior="chosen"]').each( (index, el) ->
+    new ChosenView({el: el, vent: Vocat.vent})
+  )
 
   Vocat.routes = {
     admin: {
@@ -18,12 +38,17 @@ define (require) ->
       'admin/courses/:course/creators': 'creatorEnrollment'
       'admin/users/:user/courses': 'courseEnrollment'
     }
+    course: {
+      'courses/:course/manage/enrollment': 'creatorEnrollment'
+      'courses/:course/manage/projects': 'courseManageProjects'
+    }
     coursemap: {
       'courses/:course/users/evaluations': 'userGrid'
+      'courses/:course/groups/evaluations': 'groupGrid'
       'courses/:course/users/evaluations/creator/:creator': 'userCreatorDetail'
       'courses/:course/users/evaluations/project/:project': 'userProjectDetail'
+      # TODO: Can the following route be removed? Is it still active?
       'courses/:course/users/evaluations/creator/:creator/project/:project': 'userCreatorProjectDetail'
-      'courses/:course/groups/evaluations': 'groupGrid'
       'courses/:course/groups/evaluations/creator/:creator': 'groupCreatorDetail'
       'courses/:course/groups/evaluations/project/:project': 'groupProjectDetail'
       'courses/:course/groups/evaluations/creator/:creator/project/:project': 'groupCreatorProjectDetail'
@@ -51,14 +76,20 @@ define (require) ->
       'courses/:course/users/creator/:creator/project/:project': 'creatorProjectDetail'
       'courses/:course/groups/creator/:creator/project/:project': 'groupProjectDetail'
       'courses/:course/view/project/:project': 'creatorProjectDetail'
+      'courses/:course/groups/creator/:creator': 'groupDetail'
+      'courses/:course/users/creator/:creator': 'creatorDetail'
     }
   }
 
   Vocat.addRegions {
-    main : '#region-main',
+    main : '#region-main'
     modal : '[data-region="modal"]'
-    globalFlash : '#global-flash'
   }
+
+  if $('[data-region="global-notifications"]').length > 0
+    Vocat.addRegions {
+      notification: '[data-region="global-notifications"]'
+    }
 
   Vocat.addInitializer () ->
 
@@ -95,6 +126,8 @@ define (require) ->
           router.navigate(fragment, { trigger: true });
 
       switch controllerName
+        when 'course' then require ['controllers/course_controller'], (CourseController) ->
+          instantiateRouter(CourseController, 'course')
         when 'admin' then require ['controllers/admin_controller'], (AdminController) ->
           instantiateRouter(AdminController, 'admin')
         when 'coursemap' then require ['controllers/coursemap_controller'], (CourseMapController) ->
@@ -110,10 +143,22 @@ define (require) ->
         when 'submission' then require ['controllers/submission_controller'], (SubmissionController) ->
           instantiateRouter(SubmissionController, 'submission')
 
-  Vocat.on('initialize:before', () ->
+  Vocat.on('before:start', () ->
 
+    # Setup the global notifications view
+    if @.hasOwnProperty('notification')
+      notification = new NotificationLayoutView({vent: Vocat.vent})
+      Vocat.notification.show(notification)
+
+    # Setup the global modal view
     modal = new ModalLayoutView(vent: @)
     Vocat.modal.show(modal)
+
+    # Setup exception handler
+    Vocat.listenTo(Vocat.vent,'exception', (reason) =>
+      Vocat.main.reset()
+      Vocat.vent.trigger('notification:show', new NotificationExceptionView({msg: reason}))
+    )
 
     # Handle confirmation on data-modalconfirm elements
     $('[data-modalconfirm]').each (index, el) ->
@@ -131,58 +176,38 @@ define (require) ->
       )
 
 
-    helpPlacardViews = []
-    $('[data-view="help-placard"]').each( (index, el) ->
-      helpPlacardViews.push new HelpPlacardView({el: el})
-    )
 
-    $('[data-view="glossary-toggle"]').each( (index, el) ->
-      new GlossaryToggleView({el: el})
-    )
+    # Announce some key events on the global channel
+    globalChannel = Backbone.Wreqr.radio.channel('global')
+    $('html').bind('click', (event) ->
+      globalChannel.vent.trigger('user:action', event)
+    );
 
-    # Handle global flash messages
-    flashMessages = new FlashMessagesCollection([], {})
-    dataContainer = $("#bootstrap-globalFlash")
-    if dataContainer.length > 0
-      div = $('<div></div>')
-      div.html dataContainer.text()
-      text = div.text()
-      if text? && !(/^\s*$/).test(text)
-        data = JSON.parse(text)
-        if data['globalFlash']? then flashMessages.reset(data['globalFlash'])
+    # Used to test flash messages.
+#    Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '4000',  msg: 'Test notification message #1.'})
+#    Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '4000',  msg: 'Test notification message #2.'})
+#    setTimeout(() =>
+#      Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '5000',  msg: {'something': 'something', 'something2': 'something2'}})
+#    ,2000)
 
-    Vocat.globalFlashView = new FlashMessagesView({vent: Vocat.vent, collection: flashMessages})
-    if $(Vocat.globalFlash.el).length > 0 then Vocat.globalFlash.show(Vocat.globalFlashView)
 
-  )
 
-  Vocat.on('glossary:enabled:toggle', () =>
-    if Vocat.glossaryEnabled == true
-      Vocat.glossaryEnabled = false
-      Vocat.trigger('glossary:enabled:updated')
-      $.ajax('/users/settings', {
-        type: 'PUT'
-        dataType: 'json'
-        data: {user: {settings: {enable_glossary: false}}}
-      })
-    else
-      Vocat.glossaryEnabled = true
-      Vocat.trigger('glossary:enabled:updated')
-      $.ajax('/users/settings', {
-        type: 'PUT'
-        dataType: 'json'
-        data: {user: {settings: {enable_glossary: true}}}
-      })
+    # Used to test modals.
+    #Vocat.vent.trigger('modal:open', new ModalConfirmView({
+    #  model: @model,
+    #  vent: @,
+    #  headerLabel: 'This is the header',
+    #  descriptionLabel: 'This is a test modal message, buddy. This is a test modal message, buddy. This is a test modal message, buddy. This is a test modal message, buddy.',
+    #  confirmEvent: 'confirm:destroy',
+    #  dismissEvent: 'dismiss:destroy'
+    #}))
 
   )
 
-  # Some global app constants that we hang on the Vocat object rather than passing them around via events.
-  # Another reason for setting these thing at a very high level is that they can potentially be stored in
-  # session data and need to persist across page reloads. We want these variables stored in high-level
-  # location rather than in individual views.
-  Vocat.glossaryEnabled = window.VocatSessionData? && window.VocatSessionData.enable_glossary? && window.VocatSessionData.enable_glossary == true
-  Vocat.currentUserRole = window.VocatUserRole
-  Vocat.S3Bucket = window.VocatS3Bucket
-  Vocat.AWSPublicKey = window.VocatAWSPublicKey
+  # Useful for debugging all application-level events
+  #Vocat.on('all', (e) ->
+  #  console.log "VOCAT heard #{e}"
+  #)
+
   return Vocat
 

@@ -1,0 +1,420 @@
+@import "variables";
+@import "mixins";
+@import "patterns";
+
+
+// NB uses ems so font-size can be set on component
+%bubble-badge {
+  @extend %unstyled-list;
+  font-weight: $regular;
+  font-size: $iota;
+  line-height: 1;
+  color: $white;
+  background-color: $grayMedium;
+  padding: 0.3em 0.7em 0.3em;
+  margin-bottom: 0.7em;
+  position: relative;
+  display: inline-block;
+  &:after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 0.75em solid $grayMedium;
+    border-right: 0.666em solid transparent;
+    position: absolute;
+    left: 0.5em;
+    bottom: -0.7em;
+  }
+}
+
+%bubble-link {
+  @extend %bubble-badge;
+  &:hover, &:focus {
+    &:after {
+    }
+  }
+}
+
+
+
+
+
+// Buttons should be of a type (primary-button or secondary-button)
+// and if they want an icon, they should also have an icon class.
+//-----------------------------------------------------------------
+%button-margin {
+  .primary-button + &, .secondary-button + &, .warning-button + &, .gentle-warning-button + &, .disabled-button + & {
+    margin-left: 10px;
+  }
+}
+
+.primary-button {
+  @extend %primary-button;
+  @extend %button-margin;
+}
+
+.secondary-button {
+  @extend %secondary-button;
+  @extend %button-margin;
+}
+
+.gentle-warning-button {
+  @extend %gentle-warning-button;
+  @extend %button-margin;
+}
+
+.warning-button {
+  @extend %warning-button;
+  @extend %button-margin;
+}
+
+.disabled-button {
+  @extend %disabled-button;
+  @extend %button-margin;
+}
+
+.small-button{
+  padding: .25em;
+}
+
+// A primary button
+.new-button {
+  @extend %icon-button;
+  &:after {
+    @include svg(circle-plus-white);
+    &:hover {
+      @include svg(circle-plus-gray);
+    }
+  }
+}
+
+.update-button, .confirm-button {
+  @extend %icon-button;
+  &:after {
+    @include svg(circle-check-teal-on-white);
+    &:hover {
+      @include svg(circle-check-gray-dark-on-white);
+    }
+  }
+}
+
+// A secondary button
+.cancel-button {
+  @extend %icon-button;
+  &:after {
+    @include svg(ex-gray-on-white);
+    &:hover {
+      @include svg(circle-ex-gray-dark-on-white);
+    }
+  }
+}
+
+.delete-button, .cancel-button {
+  @extend %icon-button;
+  &:after {
+    @include svg(circle-ex-red-on-white);
+    .modal &, .notification & {
+      @include svg(circle-ex-gray-dark-on-red);
+    }
+    &:hover {
+      @include svg(circle-ex-red-dark-on-white);
+      .modal &, .notification & {
+        @include svg(circle-ex-red-dark-on-white);
+      }
+    }
+  }
+}
+.gentle-warning-button.delete-button, .gentle-warning-button.cancel-button {
+  &:after {
+    @include svg(circle-ex-white-on-red);
+    .modal &, .notification & {
+      @include svg(circle-ex-gray-dark-on-red);
+    }
+    &:hover {
+      @include svg(circle-ex-red-dark-on-white);
+      .modal &, .notification & {
+        @include svg(circle-ex-red-dark-on-white);
+      }
+    }
+  }
+}
+
+.show-button {
+  @extend %icon-button;
+  &:after {
+    @include svg(circle-plus-white);
+  }
+}
+
+.post-button {
+  @extend %icon-button;
+  &:after {
+    @include svg(airplane-white);
+  }
+}
+
+.filter-button {
+  @extend %icon-button;
+  &:after {
+    @include svg(filter-white);
+  }
+}
+
+.next-button {
+  @extend %icon-button;
+  &.disabled-button:after {
+    @include svg(circle-right-arrow-gray-light-on-white);
+    &:hover {
+      @include svg(circle-right-arrow-gray-light-on-white);
+    }
+  }
+  &:after {
+    @include svg(circle-right-arrow-teal-on-white);
+    &:hover {
+      @include svg(circle-right-arrow-gray-dark-on-white);
+    }
+  }
+}
+
+.previous-button, .back-button {
+  @extend %icon-button-before;
+  &.disabled-button:before {
+    @include svg(circle-left-arrow-gray-light-on-white);
+    &:hover {
+      @include svg(circle-left-arrow-gray-light-on-white);
+    }
+  }
+  &:before {
+    @include svg(circle-left-arrow-teal-on-white);
+    &:hover {
+      @include svg(circle-left-arrow-gray-dark-on-white);
+    }
+  }
+}
+
+
+// Extended by .attachment-placeholder--button & .attachment-placeholder--message
+%attachment-placeholder--item {
+  margin-top: 30.9%;
+  position: relative;
+  top: -1.7rem;
+}
+
+// Lives inside .attachment-placeholder
+// NB top value must be equal to half the
+// height of %white-video-button, but negative
+// TODO test in browsers; it's almost certainly not going to work in IE7
+.attachment-placeholder--button {
+  @extend %primary-button;
+  @extend %attachment-placeholder--item;
+}
+
+.attachment-placeholder--message {
+  @extend %primary-button;
+  @extend %attachment-placeholder--item;
+}
+
+
+
+// Links
+//-----------------------------------------------------------------
+
+.primary-link {
+  @extend %primary-link;
+}
+
+.secondary-link {
+  @extend %secondary-link;
+}
+
+.header-link {
+  @extend %primary-link;
+  margin-bottom: 10px;
+}
+
+.header-link-inline {
+  display: inline-block;
+}
+
+.back-link {
+  @extend %icon-link-left;
+  &:hover:before {
+    @include svg(circle-left-arrow-gray-dark );
+  }
+  &:before {
+    @include svg(circle-left-arrow-teal);
+  }
+}
+
+.reply-link {
+  @extend %icon-link-right;
+  &:after {
+    @include svg(circle-left-bendy-arrow-teal);
+  }
+}
+
+.delete-link {
+  @extend %icon-link-right;
+  color: $red;
+  &:hover {
+    color: $redDark;
+  }
+//  &:after {
+//    @include svg(circle-ex-white-on-red);
+//    &:hover {
+//      @include svg(circle-ex-white-on-red-dark);
+//    }
+//  }
+}
+
+
+// Bubbles
+//-----------------------------------------------------------------
+
+.bubble {
+  @extend %bubble-badge;
+}
+
+// Badges
+//-----------------------------------------------------------------
+.badge {
+  border: 2px solid $tealLight;
+  padding: .25em;
+  vertical-align: middle;
+  letter-spacing: .15em;
+  font-size: .5em;
+  text-transform: uppercase;
+  color: $tealLight;
+  font-weight: $semibold;
+  .heading-primary & {
+    font-size: .35em;
+  }
+}
+
+
+
+
+// Switches
+//-----------------------------------------------------------------
+
+$switchWidth: 3.5em;
+$switchHeight: 1.6em;
+$handleMargin: .3em;
+$handleWidth: $switchHeight - ($handleMargin * 2);
+
+.switch input.switch-checkbox:empty
+{
+  display: none;
+}
+
+.switch label.switch-label
+{
+  overflow: hidden;
+  width: $switchWidth;
+  height: $switchHeight;
+  position: relative;
+  float: left;
+  height: $switchHeight;
+  margin: 0.2em 0;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+label.switch-label:before,
+label.switch-label:after,
+{
+  position: absolute;
+  display: block;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  content: ' ';
+  width: $switchWidth;
+  background-color: $grayMedium;
+  @include transition($fastTransition, all, $timing);
+  -webkit-transition-duration: $fastTransition;
+  transition-duration: $fastTransition;
+}
+
+.switch label:after {
+  width: $handleWidth;
+  margin: $handleMargin;
+  background-color: #fff;
+}
+
+.switch .switch-inner {
+  position: absolute;
+  height: $switchHeight;
+  width: $switchWidth;
+}
+.switch-text {
+  text-align: left;
+  @include transition($fastTransition, all, $timing);
+  -webkit-transition-duration: $fastTransition;
+  transition-duration: $fastTransition;
+  font-size: $kappa;
+  color: $white;
+  font-weight: $semibold;
+  width: auto;
+  position: absolute;
+  top: $switchHeight * .5 - .25em;
+}
+.switch-active {
+  right: 0;
+  .switch-checked & {
+    margin-right: $handleWidth + ($handleMargin * 4);
+  }
+  margin-right: $handleWidth + ($handleMargin * 4) + ($switchWidth + $handleWidth + $handleMargin) ;
+
+}
+.switch-inactive {
+  .switch-checked & {
+    margin-left: $switchWidth + $handleWidth;
+  }
+  margin-left: $handleWidth + (4 * $handleMargin);
+}
+
+.switch-checked label:before
+{
+  background-color: $tealLight;
+}
+
+.switch-checked label:after
+{
+  margin-left: $switchWidth - $handleWidth - $handleMargin;
+}
+
+
+// Misc
+.up-arrow {
+  &:after {
+    @include svg(arrow-up-white);
+  }
+}
+.down-arrow {
+  &:after {
+    @include svg(arrow-down-white);
+  }
+}
+
+
+.down-arrow, .up-arrow {
+  width: 100%;
+  display: block;
+  height: 20px;
+  position: relative;
+  &:after {
+    position: absolute;
+    right: $headerUnitPadding;
+    content: "";
+    width: $iconSizeMedium;
+    height: $iconSizeMedium;
+    top: 0;
+    left: 50%;
+    margin-left: -$iconSizeMedium * .5;
+  }
+}

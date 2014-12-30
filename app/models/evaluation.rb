@@ -12,8 +12,8 @@ class Evaluation < ActiveRecord::Base
   belongs_to :rubric
 
   scope :published,   -> { where(:published => true) }
-  scope :created_by,  -> (creator) { where(:evaluator_id =>  creator) }
-  scope :of_type,     -> (type) { where(:evaluation_type => type) }
+  scope :created_by,  ->(creator) { where(:evaluator_id =>  creator) }
+  scope :of_type,     ->(type) { where(:evaluation_type => type) }
 
   before_save { |evaluation|
     if evaluator.role?(:creator)
@@ -22,8 +22,6 @@ class Evaluation < ActiveRecord::Base
       evaluation.evaluation_type = EVALUATION_TYPE_EVALUATOR
     end
   }
-
-
 
   delegate :high_score, :to => :rubric, :prefix => true, :allow_nil => true
   delegate :low_score, :to => :rubric, :prefix => true, :allow_nil => true
@@ -44,19 +42,37 @@ class Evaluation < ActiveRecord::Base
     group || user
   end
 
+  def score_detail
+    out = {}
+    if rubric
+      scores.each do |key, score|
+        out[key] = {
+          score: score.to_f,
+          low: rubric.low_possible_for(key),
+          high: rubric.high_possible_for(key),
+          percentage: (score.to_f / rubric.high_possible_for(key)) * 100,
+          name: rubric.field_name_for(key)
+        }
+      end
+    end
+    out
+  end
+
+  def score_ranges
+    ranges = {}
+    rubric.field_keys.each do |key|
+      ranges[key] = {low: rubric.low_score, high: rubric.high_score}
+    end
+    ranges
+  end
+
   def evaluator_role
     role = course.role(evaluator)
     role = :evaluator if role.nil? && evaluator.role?(:administrator)
     if role.nil?
-      :none
+      :other
     else
       role
-    end
-  end
-
-  def ensure_score_hash
-    unless self.scores.is_a?(Hash)
-      self.scores = {}
     end
   end
 
@@ -71,6 +87,11 @@ class Evaluation < ActiveRecord::Base
 
   def self.by_course(course)
     Evaluation.all.joins(:submission => :project).where(:projects => {:course_id => course.id}) unless course.nil?
+  end
+
+  def self.by_course_and_evaluator(course, evaluator)
+    if course.is_a? Numeric then course_id = course else course_id = course.id end
+    Evaluation.all.joins(:submission => :project).where(:evaluator_id => evaluator.id, :projects => {:course_id => course_id})
   end
 
   # TODO: This case statement masquerading as an if statement suggests
@@ -97,6 +118,7 @@ class Evaluation < ActiveRecord::Base
     end
   end
 
+
   # TODO: See previous method
   def evaluation_type_human_readable
     if evaluation_type == EVALUATION_TYPE_CREATOR then 'peer' else 'instructor' end
@@ -112,6 +134,12 @@ class Evaluation < ActiveRecord::Base
 
   def active_model_serializer
     EvaluationSerializer
+  end
+
+  def ensure_score_hash
+    unless self.scores.is_a?(Hash)
+      self.scores = {}
+    end
   end
 
   def scaffold_scores
@@ -131,7 +159,7 @@ class Evaluation < ActiveRecord::Base
     total_percentage.round(0)
   end
 
-    def to_csv_header_row
+  def to_csv_header_row
     ['Vocat ID', 'Evaluator','Section','Course', 'Semester', 'Year', 'Creator', 'Evaluation Type', 'Project Name', 'Percentage', 'Total Score', 'Points Possible']
   end
 

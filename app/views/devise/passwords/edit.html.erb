@@ -1,29 +1,32 @@
-<div class="authentication-tile alt">
-  <h2 class="heading-caps-large">Change your password</h2>
-  <hr>
-  <%= render 'layouts/messages' %>
+<% content_for :content do %>
+  <div class="page-content">
+    <div class="authentication-tile">
 
+      <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :class => 'formgrid', :method => :patch }) do |f| %>
+        <%= devise_error_messages! %>
+        <%= f.hidden_field :reset_password_token %>
+        <div class="formgrid whole">
+          <%= f.label :password, "New password", :class => 'text-label' %>
+          <%= f.password_field :password, :autofocus => true, :class => 'text-input' %>
+        </div>
 
-  <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :patch }) do |f| %>
-    <%= devise_error_messages! %>
-    <%= f.hidden_field :reset_password_token %>
+        <div class="formgrid whole">
+          <%= f.label :password_confirmation, "Confirm new password", :class => 'text-label' %>
+          <%= f.password_field :password_confirmation, :class => 'text-input' %>
+        </div>
 
-    <div class="input-group">
-      <%= f.label :password, "New password", :class => 'text-label' %>
-      <%= f.password_field :password, :autofocus => true, :class => 'text-input' %>
+        <div class="formgrid whole">
+          <%= f.button "Change my password", :class => "primary-button update-button" %>
+        </div>
+      <% end %>
     </div>
-
-    <div class="input-group">
-      <%= f.label :password_confirmation, "Confirm new password", :class => 'text-label' %>
-      <%= f.password_field :password_confirmation, :class => 'text-input' %>
     </div>
-
-    <div class="input-group">
-      <%= f.submit "Change my password", :class => "teal-arrow-button" %>
-    </div>
-  <% end %>
-</div>
-
-<footer class="authentication-footer">
-  <%= render "devise/shared/links" %>
-</footer>
+    <footer class="authentication-footer">
+      <ul>
+        <%= render "devise/shared/links" %>
+        <li><a href="http://vocat.io">Learn more about Vocat</a></li>
+      </ul>
+    </footer>
+  </div>
+<% end %>
+<% content_for :body_class do %>bg-dark<% end %>

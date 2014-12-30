@@ -1,79 +1,116 @@
-<% content_for :content_header do %>
-  Courses
-<% end %>
-
-<% content_for :content_header_links do %>
-  <%= render 'header_links', hide_all: true %>
-<% end %>
-
-<% content_for :content_intro do %>
-  <form>
-    <fieldset>
-      <div class="input-group">
-        <div class="input-group--third">
-          <%= label_tag :department, 'Department', {:class => 'text-label'} %>
-          <%= select_tag(:department, options_for_select(Course.distinct_departments, params[:department]), {:include_blank => true, 'data-behavior' => 'chosen'}) %>
-        </div>
-        <div class="input-group--third">
-          <%= label_tag :semester, 'Semester', {:class => 'text-label'} %>
-          <%= select_tag(:semester, options_from_collection_for_select(Semester.all, 'id', 'name', params[:semester]), {:include_blank => true, 'data-behavior' => 'chosen'}) %>
-        </div>
-        <div class="input-group--third">
-          <%= label_tag :year, 'Year', {:class => 'text-label'} %>
-          <%= select_tag(:year, options_for_select(Course.distinct_years, params[:year]), {:include_blank => true, 'data-behavior' => 'chosen'}) %>
+<% content_for :content do %>
+  <% if @page == 1%>
+    <div class="page-message">
+      <div class="header">
+        Vocat At a Glance
+      </div>
+      <div class="body clearfix">
+        <div data-behavior="figures">
+          <% cache :expire_in => 2.hours do %>
+            <% @stats.each do |stat| %>
+              <figure class="summary-box summary-box-default <%= if stat.has_key?(:class) then stat[:class] end %>">
+                <div class="summary-box--content">
+                  <p class="summary-box--content-wrapper">
+                    <%= number_to_human stat[:value], :format => '<span>%n</span><span class="unit">%u</span>' %>
+                  </p>
+                </div>
+                <figcaption><%= stat[:label] %></figcaption>
+              </figure>
+            <% end %>
+          <% end %>
         </div>
       </div>
-      <div class="input-group">
-        <div class="input-group--third">
-          <%= label_tag :evaluator, 'Instructor', {:class => 'text-label'} %>
-          <%= select_tag(:evaluator, options_from_collection_for_select(User.evaluators, 'id', 'list_name', params[:evaluator]), {:include_blank => true, 'data-behavior' => 'chosen'}) %>
-        </div>
-        <div class="input-group--third">
-          <%= label_tag :section, 'Section', {:class => 'text-label'} %>
-          <%= text_field_tag(:section, params[:section], {:class => 'text-input'}) %>
-        </div>
-        <div class="input-group--third">
-          <label class="text-label">&nbsp;</label>
-          <%= submit_tag('Filter Courses', {:class => 'large-teal-button'}) %>
-        </div>
-      </div>
-    </fieldset>
-  </form>
-<% end %>
+    </div>
 
-<% content_for :content_frames do %>
-  <div class="table-wrapper">
-    <table class="table">
-      <thead>
-      <tr>
-        <th class="">Number</th>
-        <th class="">Name</th>
-        <th class="">Instructor</th>
-        <th class="">Section</th>
-        <th class="">Semester</th>
-        <th class="">Actions</th>
-      </tr>
-      </thead>
-      <tbody>
-      <% @courses.each do |course| %>
-        <tr>
-          <th><%= link_to "#{course.department}#{course.number}", course_user_evaluations_path(course) %></th>
-          <td><%= course.name %></td>
-          <td><%= course.evaluators.pluck(:last_name).join(', ') %></td>
-          <td><%= course.section %></td>
-          <td><%= "#{course.semester} #{course.year}" %></td>
-          <td><%= render 'nav', :course => course %></td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-    <nav class="pagination-nav">
-      <%= paginate @courses %>
-    </nav>
+  <% end %>
+  <div class="page-section">
+    <div class="header-wrapper">
+      <div class="buttons">
+        <%= link_to 'Add New Course', new_admin_course_path, :class => 'primary-button new-button' %>
+      </div>
+      <div class="header">
+        <h2>Courses</h2>
+      </div>
+    </div>
+    <div class="body">
+      <form class="formgrid">
+        <fieldset>
+          <div class="formgrid third">
+            <%= label_tag :department, 'Department', {:class => 'text-label'} %>
+            <%= select_tag(:department, options_for_select(Course.distinct_departments, params[:department]), {:include_blank => true, 'data-behavior' => 'chosen'}) %>
+          </div>
+          <div class="formgrid third">
+            <%= label_tag :semester, 'Semester', {:class => 'text-label'} %>
+            <%= select_tag(:semester, options_from_collection_for_select(Semester.all, 'id', 'name', params[:semester]), {:include_blank => true, 'data-behavior' => 'chosen'}) %>
+          </div>
+          <div class="formgrid third">
+            <%= label_tag :year, 'Year', {:class => 'text-label'} %>
+            <%= select_tag(:year, options_for_select(Course.distinct_years, params[:year]), {:include_blank => true, 'data-behavior' => 'chosen'}) %>
+          </div>
+          <div class="formgrid third">
+            <%= label_tag :evaluator, 'Instructor', {:class => 'text-label'} %>
+            <%= select_tag(:evaluator, options_from_collection_for_select(User.evaluators, 'id', 'list_name', params[:evaluator]), {:include_blank => true, 'data-behavior' => 'chosen'}) %>
+          </div>
+          <div class="formgrid third">
+            <%= label_tag :section, 'Section', {:class => 'text-label'} %>
+            <%= text_field_tag(:section, params[:section], {:class => 'text-input'}) %>
+          </div>
+          <div class="formgrid whole">
+            <label class="text-label">&nbsp;</label>
+            <%= button_tag('Filter Courses', {:class => 'primary-button filter-button'}) %>
+            <%= link_to('Reset Filters', admin_courses_path, {:class => 'gentle-warning-button delete-button'}) %>
+          </div>
+        </fieldset>
+      </form>
+     </div>
   </div>
-
+  <div class="page-section page-section-clear">
+    <div class="table-wrapper">
+      <table class="table table-white-head">
+        <thead>
+        <tr>
+          <th class="">Number</th>
+          <th class="">Name</th>
+          <th class="">Projects</th>
+          <th class="">Instructor</th>
+          <th class="">Section</th>
+          <th class="">Semester</th>
+          <th class="column-tight">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% if @courses.count > 0 %>
+          <% @courses.each do |course| %>
+            <tr>
+              <th><%= link_to "#{course.department}#{course.number}", course_user_evaluations_path(course) %></th>
+              <th><%= link_to course.name, course_user_evaluations_path(course) %></th>
+              <td><%= course.projects.count %></td>
+              <td><%= course.evaluators.pluck(:last_name).join(', ') %></td>
+              <td><%= course.section %></td>
+              <td><%= "#{course.semester} #{course.year}" %></td>
+              <td>
+                <div class="dropdown dropdown-button" data-behavior="dropdown">
+                  <a class="dropdown--toggle" data-behavior="toggle" href="#">Actions</a>
+                  <div class="dropdown--options" data-behavior="dropdown-options">
+                    <%= render 'nav', :course => course %>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        <% else %>
+          <tr>
+            <td colspan="6">No Courses Found</td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+      <nav class="pagination-nav">
+        <%= paginate @courses %>
+      </nav>
+    </div>
+  </div>
 <% end %>
-
 
 
 

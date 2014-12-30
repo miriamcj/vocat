@@ -1,19 +1,8 @@
-<nav class="drop-nav" data-behavior="dropdown">
-  <a class="drop-nav--toggle" data-behavior="toggle" href="#" style="cursor: pointer;">
-    <% if local_assigns.fetch :subheader, nil %>
-      <%= subheader %>
-    <% else %>
-      Select an Action
-    <% end %>
-  </a>
-  <div class="drop-nav--dropdown" data-behavior="dropdown-options">
-    <ul>
-      <li><%= link_to 'User Overview', admin_user_path(user) %></li>
-      <li><%= link_to 'Edit User Properties', edit_admin_user_path(user) %></li>
-      <li><%= link_to 'List Courses', courses_admin_user_path(user) %></li>
-      <li><%= link_to 'Change Password', edit_password_admin_user_path(user) %></li>
-      <li><%= link_to 'Delete', admin_user_path(user), :method => :delete, :data => { :modalconfirm => 'Deleting this user will also delete all associated submissions and evaluations. This action is not reversible. Are you sure you would like to proceed?'} %></li>
-    </ul>
-  </div>
-</nav>
+<ul>
+  <li><%= link_to 'User Overview', admin_user_path(user) %></li>
+  <li><%= link_to 'Edit User Properties', edit_admin_user_path(user) %></li>
+  <li><%= link_to 'User\'s Courses', courses_admin_user_path(user) %></li>
+  <li><%= link_to 'Change Password', edit_password_admin_user_path(user) %></li>
+  <li><%= link_to 'Delete', admin_user_path(user), :method => :delete, :data => { :modalconfirm => 'Deleting this user will also delete all associated submissions and evaluations. This action is not reversible. Are you sure you would like to proceed?'} %></li>
+</ul>
 

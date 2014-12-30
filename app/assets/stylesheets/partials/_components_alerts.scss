@@ -1,0 +1,118 @@
+@import "variables";
+@import "mixins";
+@import "patterns";
+
+$spacingUnit: $mediumUnitPadding * .75;
+
+
+.alert, #error_explanation {
+  margin-bottom: $spacingUnit;
+  .formgrid & {
+    margin-bottom: 0;
+  }
+  background: $yellowLight;
+  padding: $spacingUnit;
+  font-weight: $semibold;
+  small, .small {
+    font-weight: $regular;
+  }
+  ul {
+    padding-left: 0;
+    margin-bottom: 0;
+    li {
+      margin-left: 2em;
+    }
+  }
+  &.alert-error {
+    background: $red;
+    color: $white;
+    .modal & {
+      padding: .25em;
+      font-weight: $semibold;
+      background: none;
+      color: $red;
+    }
+  }
+  .alert--label {
+  }
+  a {
+    color: $primaryLinkColor;
+    &:hover {
+      text-decoration: underline;
+    }
+    &.primary-button, &.secondary-button, &.disabled-botton {
+      color: $white !important;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+    &.warning-button, &.gentle-warning-button {
+      color: $warningButtonColor;
+      &:hover {
+        color: $white;
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+#splash-notification-container {
+  color: $white;
+}
+
+.notification {
+  z-index: 200;
+  position: fixed;
+//  position: relative;
+  width: 100%;
+  top: $headerHeight;
+  background: $grayDarker;
+  opacity: 1;
+  @include transition(all .25s $timing);
+  padding: 0 $spacingUnit;
+  .notification-item {
+    padding-top: $spacingUnit * .75;
+  }
+
+  .notification-item:last-child {
+    padding-bottom: $spacingUnit * .75;
+  }
+//  .notification-item+.notification-item {
+//    padding-top: $spacingUnit;
+//  }
+
+  #global-flash {
+    max-width: $containerWidth;
+    margin: 0 auto;
+  }
+  #global-notify {
+    max-width: $containerWidth;
+    margin: 0 auto;
+  }
+  .alert {
+    background: none;
+    text-transform: none;
+    color: $white;
+    margin-bottom: 0;
+    padding: 0;
+    font-weight: $semibold;
+    ul {
+      @extend %unstyled-list;
+      li {
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+
+// Devise uses it's own error message wrapper.
+#error_explanation {
+  background: $red;
+  color: $white;
+  h2 {
+    font-weight: $regular;
+    font-size: $theta;
+    margin-bottom: 1em;
+  }
+}

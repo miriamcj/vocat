@@ -2,6 +2,7 @@ define (require) ->
 
   Marionette = require('marionette')
   template = require('hbs!templates/admin/enrollment/confirm_invite')
+  GlobalNotification = require('behaviors/global_notification')
 
   class ConfirmInvite extends Marionette.ItemView
 
@@ -18,8 +19,14 @@ define (require) ->
       'click [data-behavior="submit-invite-and-enroll"]': 'submit'
     }
 
+    behaviors: {
+      globalNotification: {
+        behaviorClass: GlobalNotification
+      }
+    }
+
     onCancel: () ->
-      @close()
+      Vocat.vent.trigger('notification:empty')
 
     onSubmit: () ->
       contact_strings = new Array
@@ -37,7 +44,7 @@ define (require) ->
         success: (data, textStatus, jqXHR) =>
           @handleSubmitSuccess(jqXHR.responseJSON)
         error: (jqXHR, textStatus, error) =>
-          @vent.trigger('error:add', {level: 'error', lifetime: 5000, msg: jqXHR.responseJSON.errors})
+          Vocat.vent.trigger('error:add', {level: 'error', lifetime: 5000, msg: jqXHR.responseJSON.errors})
           @ui.button.removeClass('loading')
           @onCancel()
       })
@@ -52,10 +59,12 @@ define (require) ->
           else
             failures.push contact
       )
-      @vent.trigger('error:add', {level: 'notice', lifetime: 10000, msg: _.pluck(successes, 'message')})
-      @vent.trigger('error:add', {level: 'error', lifetime: 10000, msg: _.pluck(failures, 'message')})
+
       @collection.fetch()
       @onCancel()
+
+      Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 10000, msg: _.pluck(successes, 'message')})
+      Vocat.vent.trigger('error:add', {level: 'error', lifetime: 10000, msg: _.pluck(failures, 'message')})
 
     initialize: (options) ->
       @contacts = options.contacts
@@ -63,6 +72,9 @@ define (require) ->
 
     serializeData: () ->
       out = {
+        contact_emails: _.pluck(@contacts, 'email').join(', ')
+        contacts_count: @contacts.length
+        multiple_contacts: @contacts.length > 1
         contacts: @contacts
       }
       out

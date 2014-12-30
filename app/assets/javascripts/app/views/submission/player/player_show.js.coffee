@@ -4,7 +4,7 @@ define (require) ->
   template = require('hbs!templates/submission/player/player_show')
   ModalConfirmView = require('views/modal/modal_confirm')
 
-  class PlayerShow extends Marionette.Layout
+  class PlayerShow extends Marionette.LayoutView
 
     template: template
 
@@ -18,10 +18,11 @@ define (require) ->
     }
 
     onVideoDestroy: () ->
+      @.trigger('confirm:destroy')
       Vocat.vent.trigger('modal:open', new ModalConfirmView({
         model: @model,
         vent: @,
-        descriptionLabel: 'Deleted videos cannot be recovered. Please confirm that you would like to delete this video.',
+        descriptionLabel: 'Deleted videos cannot be recovered.',
         confirmEvent: 'confirm:destroy',
         dismissEvent: 'dismiss:destroy'
       }))
@@ -56,7 +57,6 @@ define (require) ->
 
       w = @ui.playerContainer.outerWidth()
       h = @ui.playerContainer.outerHeight()
-
       options = {
         techOrder: [sourceDetails.key]
         width: w
@@ -66,11 +66,10 @@ define (require) ->
       if @video.get('source') == 'youtube' || @video.get('source') == 'vimeo'
         options.src = @model.video.get('locations').url
 
-
       @player = videojs(domTarget, options, () ->
       )
 
-    onClose: () ->
+    onDestroy: () ->
       @player.dispose()
 
     initializePlayerEvents: () ->
@@ -92,10 +91,10 @@ define (require) ->
 
     serializeData: () ->
       out = @video.toJSON()
-      out.source_details = @model.video.getSourceDetails()
-      out.locations = @model.video.get('locations')
-      out.current_user_can_attach = @model.get('current_user_can_attach')
+      out.source_details = @video.getSourceDetails()
+      out.locations = @video.get('locations')
       out.is_youtube = @video.get('source') == 'youtube'
       out.is_vimeo = @video.get('source') == 'vimeo'
       out.is_attachment = @video.get('source') == 'attachment'
+      out.abilities = @model.get('abilities')
       out

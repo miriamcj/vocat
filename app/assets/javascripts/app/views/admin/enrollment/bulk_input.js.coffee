@@ -6,7 +6,7 @@ define (require) ->
   ConfirmInvite =   require('views/admin/enrollment/confirm_invite')
   template = require('hbs!templates/admin/enrollment/bulk_input')
 
-  class EnrollmentBulkInput extends Marionette.Layout
+  class EnrollmentBulkInput extends Marionette.LayoutView
 
     ui: {
       showSingle: '[data-behavior="show-single"]'
@@ -40,11 +40,11 @@ define (require) ->
           @handleSubmitSuccess(jqXHR.responseJSON)
         error: (jqXHR, textStatus, error) =>
           @ui.submit.removeClass('loading')
-          @vent.trigger('error:add', {level: 'error', lifetime: 5000, msg: jqXHR.responseJSON.errors})
+          Vocat.vent.trigger('error:add', {level: 'error', lifetime: 5000, msg: jqXHR.responseJSON.errors})
       })
 
     showInviteMustConfirm: (contacts) ->
-      @confirmInvite.show(new ConfirmInvite({collection: @collection, contacts: contacts, vent: @vent}))
+      Vocat.vent.trigger('notification:show', new ConfirmInvite({collection: @collection, contacts: contacts, vent: @vent}))
 
     handleSubmitSuccess: (response) ->
       @ui.submit.removeClass('loading')
@@ -62,8 +62,8 @@ define (require) ->
           strings.push contact.string
           failures.push contact
       )
-      @vent.trigger('error:add', {level: 'notice', lifetime: 10000, msg: _.pluck(successes, 'message')})
-      @vent.trigger('error:add', {level: 'error', lifetime: 10000, msg: _.pluck(failures, 'message')})
+      Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 10000, msg: _.pluck(successes, 'message')})
+      Vocat.vent.trigger('error:add', {level: 'error', lifetime: 10000, msg: _.pluck(failures, 'message')})
 
       inputValue = strings.join("\n")
       @ui.bulkInput.val(inputValue)

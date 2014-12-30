@@ -1,35 +1,33 @@
 <%= render 'shared/model_errors', :model => @project %>
 
-<div class="input-group">
-  <%= f.label :name, :required => true, class: 'text-label' %>
-  <%= f.text_field :name, {class: 'text-input'} %>
+<div class="formgrid whole">
+  <%= f.label :name, :required => true %>
+  <%= f.text_field :name %>
 </div>
 
-<div class="input-group">
-  <%= f.label :description, :required => true, class: 'text-label' %>
-  <%= f.text_area :description, {rows: 6, class: 'text-area-input'} %>
+<div class="formgrid whole">
+  <%= f.label :description, :required => true %>
+  <%= f.text_area :description, {rows: 6 } %>
 </div>
 
-<div class="input-group">
-  <div class="input-group--half">
-    <%= f.label :rubric, :class => 'text-label' %>
-    <%= f.select :rubric_id, grouped_options_for_select(
-        {
-            'My Rubrics' => options_from_collection_for_select(current_user.rubrics, :id, :name, @project.rubric_id),
-            'VOCAT Rubrics' => options_from_collection_for_select(Rubric.publicly_visible, :id, :name, @project.rubric_id)
-        }
-    ), {:include_blank => 'No rubric'}, {'data-behavior' => 'chosen'}
-    %>
-  </div>
-  <div class="input-group--half">
-    <%= f.label 'Who can create a submission for this project?', :class => 'text-label' %>
-    <%= f.select :type, [['Groups', 'GroupProject'], ['Students', 'UserProject'], ['Groups and Users', 'OpenProject']], {:selected => @project.type}, {'data-behavior' => 'chosen'} %>
-  </div>
+<div class="formgrid half">
+  <%= f.label :rubric, :class => 'text-label' %>
+  <%= f.select :rubric_id, grouped_options_for_select(
+      {
+          'My Rubrics' => options_from_collection_for_select(current_user.rubrics, :id, :name, @project.rubric_id),
+          'VOCAT Rubrics' => options_from_collection_for_select(Rubric.publicly_visible, :id, :name, @project.rubric_id)
+      }
+  ), {:include_blank => 'No rubric'}, {'data-behavior' => 'chosen'}
+  %>
 </div>
 
-<div class="input-group">
-  <div class="input-group--half">
-    <%= f.label 'Project Due Date', :class => 'text-label' %>
-    <%= f.date_select :due_date, {include_blank: true, with_css_classes: true}, {'data-behavior' => 'chosen'} %>
-  </div>
+<div class="formgrid half">
+  <%= f.label 'Is this a group or individual project?', :class => 'text-label' %>
+  <%= f.select :type, [['Individual', 'UserProject'], ['Group', 'GroupProject'], ['Both', 'OpenProject']], {:selected => @project.type}, {'data-behavior' => 'chosen'} %>
+</div>
+
+<div class="formgrid half date">
+  <%= f.label 'Project Due Date', :class => 'text-label' %>
+  <%= f.date_select :due_date, {include_blank: true, order: [:month, :day, :year], with_css_classes: true}, {'data-behavior' => 'chosen' } %>
+  <small>The project due date is for informational purposes. Students and instructors will still be able to modify submissions past the project due date.</small>
 </div>

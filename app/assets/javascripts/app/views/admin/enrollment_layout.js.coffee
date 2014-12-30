@@ -8,13 +8,15 @@ define (require) ->
   SingleInvite = require('views/admin/enrollment/invite')
   Flash = require('views/flash/flash_messages')
 
-  class CreatorEnrollmentLayout extends Marionette.Layout
+  class CreatorEnrollmentLayout extends Marionette.LayoutView
 
     listType: 'users'
     template: template
+    label: ''
 
     ui: {
       studentInput: '[data-behavior="student-input"]'
+      labelContainer: '[data-behavior="label-container"]'
     }
 
     regions: {
@@ -54,6 +56,12 @@ define (require) ->
     showBulk: () ->
       @showBulkEnrollAndInvite()
 
+    onShow: () ->
+      data = @$el.parent().data()
+      if data.hasOwnProperty('label')
+        @label = data.label
+        @ui.labelContainer.html(@label)
+
     showSingle: () ->
       @showSingleEnroll()
       if @searchType == 'user'
@@ -71,3 +79,8 @@ define (require) ->
       @list.show(@enrollmentList)
       @flash.show(@flashView)
       @showSingle()
+
+    serializeData: () ->
+      {
+        label: @label
+      }

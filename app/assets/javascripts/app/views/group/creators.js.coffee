@@ -1,23 +1,25 @@
-define ['marionette', 'hbs!templates/course_map/creators', 'views/group/creators_item'], (Marionette, template, Item) ->
+define ['marionette', 'hbs!templates/group/creators', 'views/group/creators_item'], (Marionette, template, Item) ->
 
-  class GroupCreatorsView extends Marionette.CollectionView
+  class GroupCreatorsView extends Marionette.CompositeView
 
-    tagName: 'ul'
+    tagName: 'table'
+    className: 'table matrix matrix-row-headers'
 
     template: template
+    childViewContainer: 'tbody'
+    childView: Item
 
-    itemView: Item
 
-    itemViewOptions: () ->
+    childViewOptions: () ->
       {courseId: @options.courseId}
 
-    onItemviewActive: (view) ->
+    onChildviewActive: (view) ->
       @vent.triggerMethod('row:active', {creator: view.model.id})
 
-    onItemviewInactive: (view) ->
+    onChildviewInactive: (view) ->
       @vent.triggerMethod('row:inactive', {creator: view.model.id})
 
-    onItemviewDetail: (view) ->
+    onChildviewDetail: (view) ->
       @vent.triggerMethod('open:detail:creator', {creator: view.model.id})
 
     initialize: (options) ->

@@ -5,7 +5,7 @@ define (require) ->
   iFrameTransport= require('vendor/plugins/iframe_transport')
   FileUpload = require('vendor/plugins/file_upload')
 
-  class PlayerCreate extends Marionette.Layout
+  class PlayerCreate extends Marionette.LayoutView
 
     ui: {
       stage: '[data-ui="stage"]'
@@ -36,7 +36,6 @@ define (require) ->
       'click [data-behavior="submit-vimeo"]': 'submit:vimeo'
     }
 
-
     template: template
 
     initialize: (options) ->
@@ -44,15 +43,18 @@ define (require) ->
       @vent = Marionette.getOption(@, 'vent')
 
     serializeData: () ->
-      {
-        s3Bucket: Vocat.S3Bucket
-        AWSPublicKey: Vocat.AWSPublicKey
+      sd = {
+        s3Bucket: window.VocatS3Bucket
+        AWSPublicKey: window.VocatAWSPublicKey
       }
+      sd
 
     saveModel: (attributes) ->
       @model.save({video_attributes: attributes},{url: @model.updateUrl(), success: () =>
         @hideAllSteps()
-        @model.fetch({url: @model.updateUrl()})
+        @model.fetch({url: @model.updateUrl(), success: () =>
+          @vent.triggerMethod('video:created')
+        })
       })
 
     onSubmitYoutube: () ->
@@ -64,9 +66,10 @@ define (require) ->
           source_id: matches[2]
         }
         @saveModel(attributes)
-        @ui.youTubeWrap.removeClass('error')
+        @ui.youTubeWrap.removeClass('field_with_errors')
       else
-        @ui.youTubeWrap.addClass('error')
+        @ui.youTubeWrap.addClass('field_with_errors')
+        Vocat.vent.trigger('error:add', {level: 'error', msg: 'The Youtube URL you entered is invalid.'})
 
     onSubmitVimeo: () ->
       value = @ui.sourceIdVimeo.val()
@@ -78,9 +81,10 @@ define (require) ->
           source_id: id
         }
         @saveModel(attributes)
-        @ui.vimeoWrap.removeClass('error')
+        @ui.vimeoWrap.removeClass('field_with_errors')
       else
-        @ui.vimeoWrap.addClass('error')
+        @ui.vimeoWrap.addClass('field_with_errors')
+        Vocat.vent.trigger('error:add', {level: 'error', msg: 'The Vimeo URL you entered is invalid.'})
 
     initializeAsyncUploader: () ->
       attachmentId = null
@@ -116,7 +120,8 @@ define (require) ->
             dataType: 'json'
             success: (data) =>
               @model.fetch({url: @model.updateUrl()}, success: () =>
-                @model.trigger('change:has_video')
+                @model.trigger('change:video')
+                @vent.triggerMethod('video:created')
               )
             fail: (data) =>
               @showStep(7)
@@ -138,11 +143,12 @@ define (require) ->
       @$el.find('.player-scene:visible').hide
 
     showStep: (step, fade = true) ->
-      @$el.find('.player-scene:visible').fadeOut(200)
       $el = @ui[ "step#{step}" ]
       if fade
+        @$el.find('.player-scene:visible').fadeOut(200)
         $el.fadeIn({duration: 200, start: () => @centerContent()})
       else
+        @$el.find('.player-scene:visible').hide()
         $el.show()
         setTimeout(
           () => @centerContent()
@@ -166,6 +172,6 @@ define (require) ->
     onShowStep5: () ->
       @showStep(5)
 
-    onCloseCreateUi: () ->
+    onDestroyCreateUi: () ->
       @ui.createIntro.slideDown()
 

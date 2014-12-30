@@ -1,23 +1,17 @@
-<% content_for :content_header do %>
-  Users
-<% end %>
+<%= render :partial => 'heading', :locals => {user: @user, subheader: 'Overview'} %>
 
-<% content_for :content_header_links do %>
-  <%= render 'header_links' %>
-<% end %>
+<% content_for :content do %>
 
-<% content_for :content_frames	 do %>
-
-  <%= render 'header', :subheader => 'Edit User Properties' %>
-
-  <%= render 'shared/model_errors', :model => @user %>
-
-  <%= form_for [:admin, @user] do |f| %>
-    <%= render 'form', :f => f %>
-    <div class="input-group">
-      <%= f.submit 'Update User', :class => 'teal-plus-button' %>
-      <%= link_to 'Back', admin_users_path(), :class => 'gray-ex-button' %>
-    </div>
+  <% body = capture do %>
+    <%= form_for [:admin, @user], :html => {:class => 'formgrid'} do |f| %>
+      <%= render 'shared/model_errors', :model => @user %>
+      <%= render 'form', :f => f %>
+      <div class="formgrid whole">
+        <%= f.button 'Update User', :class => 'primary-button update-button' %>
+        <%= link_to 'Cancel', admin_users_path(), :class => 'warning-button cancel-button' %>
+      </div>
+    <% end %>
   <% end %>
+  <%= render :partial => 'shared/section', :locals => {:header => 'Update User', :body => body} %>
 <% end %>
 

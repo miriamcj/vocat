@@ -1,234 +1,272 @@
-define [
-  'marionette',
-  'hbs!templates/course_map/course_map_layout',
-  'collections/collection_proxy',
-  'views/course_map/projects',
-  'views/course_map/creators',
-  'views/course_map/matrix',
-  'views/course_map/rows',
-  'views/course_map/detail_creator',
-  'views/project/detail',
-  'views/submission/submission_layout',
-  'views/course_map/header',
-  'views/abstract/sliding_grid_layout',
-  'views/modal/modal_error'
-  'models/user',
-  'models/group',
-  '../../../layout/plugins'
-], (Marionette, template, CollectionProxy, CourseMapProjects, CourseMapCreators, CourseMapMatrix, CourseMapRows, CourseMapDetailCreator, CourseMapDetailProject, CourseMapDetailCreatorProject, CourseMapHeader, SlidingGridLayout, ModalErrorView, UserModel, GroupModel) ->
+define (require) ->
 
-  class CourseMapView extends SlidingGridLayout
+  template = require('hbs!templates/course_map/course_map_layout')
+  CollectionProxy = require('collections/collection_proxy')
+  CourseMapProjects = require('views/course_map/projects')
+  CourseMapCreators = require('views/course_map/creators')
+  CourseMapMatrix = require('views/course_map/matrix')
+  CourseMapDetailCreator = require('views/course_map/detail_creator')
+  WarningView = require('views/course_map/warning')
+  CourseMapDetailProject = require('views/project/detail')
+  CourseMapDetailCreatorProject = require('views/submission/submission_layout')
+  AbstractMatrix = require('views/abstract/abstract_matrix')
+  CourseUserSubmissionCollection = require('collections/submission_for_course_user_collection')
+  GroupSubmissionCollection = require('collections/submission_for_group_collection')
 
-    children: {}
+  class CourseMapLayout extends AbstractMatrix
 
-    template: template
+      children: {}
+      minWidth: 170
+      capturedScroll: 0
+      stickyHeader: true
 
-    sliderVisibleColumns: 4
+      template: template
 
-    ui: {
-      courseMapHeader: '.matrix--column-header'
-      header: '[data-region="overlay-header"]'
-      overlay: '[data-behavior="overlay-container"]'
-      sliderLeft: '[data-behavior="matrix-slider-left"]'
-      sliderRight: '[data-behavior="matrix-slider-right"]'
-      groupsInput: '[data-behavior="show-groups"]'
-      usersInput: '[data-behavior="show-users"]'
-    }
+      ui: {
+        detail: '[data-region="detail"]'
+        sliderLeft: '[data-behavior="matrix-slider-left"]'
+        sliderRight: '[data-behavior="matrix-slider-right"]'
+        viewToggle: '[data-behavior="view-toggle"]';
+        hideOnWarning: '[data-behavior="hide-on-warning"]'
+      }
 
-    triggers: {
-      'click [data-behavior="matrix-slider-left"]':   'slider:left'
-      'click [data-behavior="matrix-slider-right"]':  'slider:right'
-    }
+      triggers: {
+        'click [data-behavior="matrix-slider-left"]':   'slider:left'
+        'click [data-behavior="matrix-slider-right"]':  'slider:right'
+        'change @ui.viewToggle': {
+          event: 'view:toggle'
+          preventDefault: false
+          stopPropagation: false
+        }
+      }
 
-    regions: {
-      creators: '[data-region="creators"]'
-      projects: '[data-region="projects"]'
-      matrix: '[data-region="matrix"]'
-      header: '[data-region="overlay-header"]'
-      overlay: '[data-region="overlay"]'
-      globalFlash: '[data-region="flash"]'
-    }
+      regions: {
+        detail: '[data-region="detail"]'
+        creators: '[data-region="creators"]'
+        projects: '[data-region="projects"]'
+        matrix: '[data-region="matrix"]'
+        globalFlash: '[data-region="flash"]'
+        warning: '[data-region="warning"]'
+      }
 
-    onRender: () ->
-      @globalFlash.show(Vocat.globalFlashView)
+      onRender: () ->
+        @sliderPosition = 0
+        @bindUIElements()
 
-      @sliderPosition = 0
-      @updateSliderControls()
+      onShow: () ->
+        @parentOnShow()
 
-      # TODO: Consider whether this is the right spot for this.
-      @header.show(@children.header)
+      initialize: (options) ->
+        @collections = options.collections
+        @courseId = options.courseId
 
-      @bindUIElements()
+      showUserViews: () ->
+        currentCreatorType = @creatorType
+        @creatorType = 'User'
+        userProjectsCollection = CollectionProxy(@collections.project)
+        userProjectsCollection.where((model) -> model.get('type') == 'UserProject' || model.get('type') == 'OpenProject')
 
-      setTimeout () =>
-        @ui.courseMapHeader.stickyHeader()
-      , 500
+        if userProjectsCollection.length == 0
+          return @showEmptyWarning('User', 'Project')
 
-    instantiateChildViews: () ->
-      @children.header = new CourseMapHeader({collections: @collections, courseId: @courseId, vent: @})
+        if @collections.user.length == 0
+          return @showEmptyWarning('User', 'Creator')
 
-    initialize: (options) ->
-      @collections = options.collections
-      @courseId = options.courseId
-      @instantiateChildViews()
-      @listenTo(@overlay, 'show', () -> @onOpenOverlay())
+        @warning.reset()
+        if currentCreatorType != 'User'
+          @creators.show(new CourseMapCreators({collection: @collections.user, courseId: @courseId, vent: @, creatorType: 'User'}))
+          @projects.show(new CourseMapProjects({collection: userProjectsCollection, courseId: @courseId, vent: @}))
+          @matrix.show(new CourseMapMatrix({collection: @collections.user, collections: {project: userProjectsCollection, submission: @collections.submission}, courseId: @courseId, creatorType: 'User', vent: @}))
+          @recalculateMatrix()
 
-    showUserViews: () ->
-      @creatorType = 'User'
-      userProjectsCollection = CollectionProxy(@collections.project)
-      userProjectsCollection.where((model) -> model.get('type') == 'UserProject' || model.get('type') == 'OpenProject')
+      showGroupViews: () ->
+        currentCreatorType = @creatorType
+        @creatorType = 'Group'
+        groupProjectsCollection = CollectionProxy(@collections.project)
+        groupProjectsCollection.where((model) -> model.get('type') == 'GroupProject' || model.get('type') == 'OpenProject')
 
-      @creators.show(new CourseMapCreators({collection: @collections.user, courseId: @courseId, vent: @, creatorType: 'User'}))
-      @projects.show(new CourseMapProjects({collection: userProjectsCollection, courseId: @courseId, vent: @}))
-      @matrix.show(new CourseMapMatrix({collection: @collections.user, collections: {project: userProjectsCollection, submission: @collections.submission}, courseId: @courseId, creatorType: 'User', vent: @}))
-      @children.header.creatorType = @creatorType
-      @sliderRecalculate()
+        if groupProjectsCollection.length == 0
+          return @showEmptyWarning('Group', 'Project')
 
-    showGroupViews: () ->
-      @creatorType = 'Group'
-      groupProjectsCollection = CollectionProxy(@collections.project)
-      groupProjectsCollection.where((model) -> model.get('type') == 'GroupProject' || model.get('type') == 'OpenProject')
+        if @collections.group.length == 0
+          return @showEmptyWarning('Group', 'Creator')
 
-      @creators.show(new CourseMapCreators({collection: @collections.group, courseId: @courseId, vent: @, creatorType: 'Group'}))
-      @projects.show(new CourseMapProjects({collection: groupProjectsCollection, courseId: @courseId, vent: @}))
-      @matrix.show(new CourseMapMatrix({collection: @collections.group, collections: {project: groupProjectsCollection, submission: @collections.submission}, courseId: @courseId, creatorType: 'Group', vent: @}))
-      @children.header.creatorType = @creatorType
-      @sliderRecalculate()
+        @warning.reset()
+        if currentCreatorType != 'Group'
+          @creators.show(new CourseMapCreators({collection: @collections.group, courseId: @courseId, vent: @, creatorType: 'Group'}))
+          @projects.show(new CourseMapProjects({collection: groupProjectsCollection, courseId: @courseId, vent: @}))
+          @matrix.show(new CourseMapMatrix({collection: @collections.group, collections: {project: groupProjectsCollection, submission: @collections.submission}, courseId: @courseId, creatorType: 'Group', vent: @}))
+          @recalculateMatrix()
 
-    setActive: (models) ->
-      @collections.user.setActive(if models.user? then models.user.id else null)
-      @collections.group.setActive(if models.group? then models.group.id else null)
-      @collections.project.setActive(if models.project? then models.project.id else null)
+      showEmptyWarning: (creatorType, warningType) ->
+        @warning.show(new WarningView({creatorType: creatorType, warningType: warningType, courseId: @courseId}))
+        @ui.hideOnWarning.hide()
 
-    onShowGroups: () ->
-      @showGroupViews()
-      @ui.groupsInput.prop('checked', true)
-      @ui.usersInput.prop('checked', false)
-      @triggerMethod('close:overlay')
-      Vocat.router.navigate("courses/#{@courseId}/groups/evaluations")
+      setActive: (models) ->
+        @collections.user.setActive(if models.user? then models.user.id else null)
+        @collections.group.setActive(if models.group? then models.group.id else null)
+        @collections.project.setActive(if models.project? then models.project.id else null)
 
-    onShowUsers: () ->
-      @showUserViews()
-      @ui.groupsInput.prop('checked', false)
-      @ui.usersInput.prop('checked', true)
-      @triggerMethod('close:overlay')
-      Vocat.router.navigate("courses/#{@courseId}/users/evaluations")
-
-    onOpenDetailProject: (args) ->
-      if @creatorType == 'User'
-        @triggerMethod('open:detail:project:users', {project: args.project})
-      else if @creatorType == 'Group'
-        @triggerMethod('open:detail:project:groups', {project: args.project})
-
-    onOpenDetailCreator: (args) ->
-      creator = args.creator
-      if creator.creatorType == 'User'
-        @triggerMethod('open:detail:user', {user: creator})
-      else if creator.creatorType == 'Group'
-        @triggerMethod('open:detail:group', {group: creator})
-
-    onOpenDetailUser: (args) ->
-      @showUserViews()
-      @setActive({user: args.user})
-      Vocat.router.navigate("courses/#{@courseId}/users/evaluations/creator/#{args.user.id}")
-      view = new CourseMapDetailCreator({
-        collection: @collections.submission,
-        projects: @collections.project,
-        courseId: @courseId,
-        vent: @,
-        model: args.user
-      })
-      @overlay.show(view)
-
-    onOpenDetailGroup: (args) ->
-      @showGroupViews()
-      @setActive({group: args.group})
-      Vocat.router.navigate("courses/#{@courseId}/groups/evaluations/creator/#{args.group.id}")
-      view = new CourseMapDetailCreator({collection: @collections.submission, creatorType: 'Group', courseId: @courseId, vent: @, model: args.group})
-      @overlay.show(view)
-
-    onOpenDetailProjectUsers: (args) ->
-      @showUserViews()
-      @setActive({project: args.project})
-      Vocat.router.navigate("courses/#{@courseId}/users/evaluations/project/#{args.project.id}")
-      view = new CourseMapDetailProject({collections: {creators: @collections.user,submissions: @collections.submission}, courseId: @courseId, vent: @, model: args.project})
-      @overlay.show(view)
-
-    onOpenDetailProjectGroups: (args) ->
-      @showGroupViews()
-      @setActive({project: args.project})
-      Vocat.router.navigate("courses/#{@courseId}/groups/evaluations/project/#{args.project.id}")
-      view = new CourseMapDetailProject({collections: {creators: @collections.group, submissions: @collections.submission}, courseId: @courseId, vent: @, model: args.project})
-      @overlay.show(view)
-
-    onOpenDetailCreatorProject: (args) ->
-      if args.creator.creatorType == 'User'
-        @showUserViews()
-        @setActive({project: args.project, user: args.creator})
-        Vocat.router.navigate("courses/#{@courseId}/users/evaluations/creator/#{args.creator.id}/project/#{args.project.id}")
-      else if args.creator.creatorType == 'Group'
+      onShowGroups: () ->
         @showGroupViews()
-        @setActive({project: args.project, group: args.creator})
-        Vocat.router.navigate("courses/#{@courseId}/groups/evaluations/creator/#{args.creator.id}/project/#{args.project.id}")
-      submission = @collections.submission.findWhere({creator_id: args.creator.id, project_id: args.project.id, creator_type: args.creator.creatorType})
-      view = new CourseMapDetailCreatorProject({
-        collections: { submission: @collections.submission },
-        courseId: @courseId,
-        vent: @,
-        creator: args.creator,
-        project: args.project
-        model: submission
-      })
-      @overlay.show(view)
-
-    onColActive: (args) ->
-      # For now, do nothing.
-
-    onColInactive: (args) ->
-      # For now, do nothing.
-
-    scrollToHeader: (noAnimate) ->
-      if noAnimate == true
-        $('html, body').scrollTop(116 + 34)
-      else
-        $('html, body').animate({ scrollTop: 116 + 34 }, 'normal')
-
-    scrollToTop: () ->
-      $('html, body').animate({ scrollTop: 0 }, 'normal')
-
-    onOpenOverlay: () ->
-      viewportHeight = $(window).height()
-      creatorsHeight = @creators.$el.outerHeight()
-      minHeight = if creatorsHeight > viewportHeight then creatorsHeight else viewportHeight
-      @ui.overlay.css({top: '8rem', position: 'absolute', minHeight: minHeight})
-      @$el.find('.matrix').addClass('matrix--overlay-open')
-      if !@ui.overlay.is(':visible')
-        @scrollToHeader(true)
-        @ui.overlay.show()
-      else
-        @scrollToHeader(true)
-      if !@ui.header.is(':visible')
-        @ui.header.show()
-      @$el.find('.matrix--controls a').css(visibility: 'hidden')
-
-    onCloseOverlay: (args) ->
-      @matrix.$el.css({visibility: 'visible'})
-      @setActive({})
-      @$el.find('.matrix').removeClass('matrix--overlay-open')
-
-      @$el.find('.matrix--controls a').css(visibility: 'visible')
-
-      if @creatorType == 'Group'
+        @$el.find('#view-individuals').prop('checked', false)
+        @$el.find('#view-groups').prop('checked', true)
         Vocat.router.navigate("courses/#{@courseId}/groups/evaluations")
-      else if @creatorType == 'User'
+
+      onShowUsers: () ->
+        @showUserViews()
+        @$el.find('#view-individuals').prop('checked', true)
+        @$el.find('#view-groups').prop('checked', false)
         Vocat.router.navigate("courses/#{@courseId}/users/evaluations")
 
-      if @ui.header.is(':visible')
-        @ui.header.fadeOut 250, () =>
+      onViewToggle: () ->
+        val = @$el.find('[data-behavior="view-toggle"]:checked').val()
+        if val == 'individuals'
+          @triggerMethod('show:users')
+        else if val == 'groups'
+          @triggerMethod('show:groups')
 
-      if @ui.overlay.is(':visible')
-        @ui.overlay.fadeOut 250, () =>
-          @overlay.close()
+      onOpenDetailProject: (args) ->
+        if @creatorType == 'User'
+          @triggerMethod('open:detail:project:users', {project: args.project})
+        else if @creatorType == 'Group'
+          @triggerMethod('open:detail:project:groups', {project: args.project})
 
+      onOpenDetailCreator: (args) ->
+        creator = args.creator
+        if creator.creatorType == 'User'
+          @triggerMethod('open:detail:user', {user: creator})
+        else if creator.creatorType == 'Group'
+          @triggerMethod('open:detail:group', {group: creator})
 
+      onOpenDetailUser: (args) ->
+        @showUserViews()
+        @setActive({user: args.user})
+        Vocat.router.navigate("courses/#{@courseId}/users/evaluations/creator/#{args.user.id}")
+        view = new CourseMapDetailCreator({
+          collection: new CourseUserSubmissionCollection(),
+          courseId: @courseId,
+          vent: @,
+          model: args.user
+        })
+        @openDetail(view)
+
+      onOpenDetailGroup: (args) ->
+        @showGroupViews()
+        @setActive({group: args.group})
+        Vocat.router.navigate("courses/#{@courseId}/groups/evaluations/creator/#{args.group.id}")
+        view = new CourseMapDetailCreator({
+          collection: new GroupSubmissionCollection(),
+          courseId: @courseId,
+          vent: @,
+          model: args.group
+        })
+        @openDetail(view)
+
+      onOpenDetailProjectUsers: (args) ->
+        @showUserViews()
+        @setActive({project: args.project})
+        Vocat.router.navigate("courses/#{@courseId}/users/evaluations/project/#{args.project.id}")
+        view = new CourseMapDetailProject({collections: {creators: @collections.user,submissions: @collections.submission}, courseId: @courseId, vent: @, model: args.project})
+        @openDetail(view)
+
+      onOpenDetailProjectGroups: (args) ->
+        @showGroupViews()
+        @setActive({project: args.project})
+        Vocat.router.navigate("courses/#{@courseId}/groups/evaluations/project/#{args.project.id}")
+        view = new CourseMapDetailProject({collections: {creators: @collections.group, submissions: @collections.submission}, courseId: @courseId, vent: @, model: args.project})
+        @openDetail(view)
+
+      onOpenDetailCreatorProject: (args) ->
+        if !_.isObject(args.project)
+          args.project = @collections.project.get(args.project)
+
+        if args.creator.creatorType == 'User'
+          @showUserViews()
+          @setActive({project: args.project, user: args.creator})
+          Vocat.router.navigate("courses/#{@courseId}/users/evaluations/creator/#{args.creator.id}/project/#{args.project.id}")
+        else if args.creator.creatorType == 'Group'
+          @showGroupViews()
+          @setActive({project: args.project, group: args.creator})
+          Vocat.router.navigate("courses/#{@courseId}/groups/evaluations/creator/#{args.creator.id}/project/#{args.project.id}")
+        submission = @collections.submission.findWhere({creator_id: args.creator.id, project_id: args.project.id, creator_type: args.creator.creatorType})
+        view = new CourseMapDetailCreatorProject({
+          collections: { submission: @collections.submission },
+          courseId: @courseId,
+          vent: @,
+          creator: args.creator,
+          project: args.project
+          model: submission
+        })
+        @openDetail(view)
+
+      openDetail: (view) ->
+        @ui.detail.show()
+        @detail.show(view)
+        @captureScroll()
+        window.scrollTo(0,0);
+
+      captureScroll: () ->
+        @capturedScroll = $(window).scrollTop()
+
+      restoreScroll: () ->
+        if @capturedScroll
+          $(window).scrollTop(@capturedScroll)
+          setTimeout(() =>
+            $(window).scrollTop(@capturedScroll)
+          , 100)
+
+      onCloseDetail: (args) ->
+        @ui.detail.hide()
+        @detail.empty()
+        if @creatorType == 'Group'
+          Vocat.router.navigate("courses/#{@courseId}/groups/evaluations")
+        else if @creatorType == 'User'
+          Vocat.router.navigate("courses/#{@courseId}/users/evaluations")
+        @recalculateMatrix()
+        @restoreScroll()
+
+      onEvaluationsPublish: (project) ->
+        endpoint = "#{project.url()}/publish_evaluations"
+        $.ajax(endpoint, {
+          type: 'put'
+          dataType: 'json'
+          data: {}
+          success: (data, textStatus, jqXHR) =>
+            Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 4000, msg: "Your evaluations for #{project.get('name')} submissions have been published"})
+            submissions = @collections.submission.where({project_id: project.id})
+            _.each(submissions, (submission) ->
+              submission.set('current_user_published', true)
+            )
+          error: (jqXHR, textStatus, error) =>
+            Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 4000, msg: "Unable to publish submissions."})
+        })
+
+      onEvaluationsUnpublish: (project) ->
+        endpoint = "#{project.url()}/unpublish_evaluations"
+        $.ajax(endpoint, {
+          type: 'put'
+          dataType: 'json'
+          data: {}
+          success: (data, textStatus, jqXHR) =>
+            Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 4000, msg: "Your evaluations for #{project.get('name')} submissions have been unpublished"})
+            submissions = @collections.submission.where({project_id: project.id})
+            _.each(submissions, (submission) ->
+              submission.set('current_user_published', false)
+            )
+          error: (jqXHR, textStatus, error) =>
+            Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 4000, msg: "Unable to unpublish submissions."})
+        })
+
+      serializeData: () ->
+        out = {
+          creatorType: @creatorType
+        }
+        out
+
+      onColActive: (args) ->
+        # For now, do nothing.
+
+      onColInactive: (args) ->
+        # For now, do nothing.
 

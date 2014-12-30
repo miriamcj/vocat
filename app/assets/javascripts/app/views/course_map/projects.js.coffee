@@ -3,27 +3,42 @@ define (require) ->
   Marionette = require('marionette')
   Item = require('views/course_map/projects_item')
   EmptyView = require('views/course_map/projects_empty')
+  template = require('hbs!templates/course_map/projects')
 
-  class CourseMapProjectsView extends Marionette.CollectionView
+  class CourseMapProjectsView extends Marionette.CompositeView
 
-    itemView: Item
+    childView: Item
     emptyView: EmptyView
-    className: 'matrix--column-header--list'
-    tagName: 'ul'
+    tagName: 'thead'
+    template: template
+    ui: {
+      childContainer: '[data-container="children"]'
+    }
 
-    itemViewOptions: () ->
+
+    attachHtml: (collectionView, childView, index) ->
+      if collectionView.isBuffering
+        collectionView.elBuffer.appendChild(childView.el)
+      else
+        @ui.childContainer.append(childView.el)
+
+    attachBuffer: (collectionView, buffer) ->
+      @ui.childContainer.append(buffer)
+
+    childViewOptions: () ->
       {
         creatorType: @creatorType
+        vent: @vent
         courseId: @options.courseId
       }
 
-    onItemviewActive: (view) ->
+    onChildviewActive: (view) ->
       @vent.triggerMethod('col:active', {project: view.model})
 
-    onItemviewInactive: (view) ->
+    onChildviewInactive: (view) ->
       @vent.triggerMethod('col:inactive', {project: view.model})
 
-    onItemviewDetail: (view) ->
+    onChildviewDetail: (view) ->
       @vent.triggerMethod('open:detail:project', {project: view.model})
 
     initialize: (options) ->
@@ -31,9 +46,11 @@ define (require) ->
       @creatorType = Marionette.getOption(@, 'creatorType')
       @vent = Marionette.getOption(@, 'vent')
 
-    addItemView: (item, ItemView, index) ->
+    addChild: (item, ItemView, index) ->
       if @creatorType == 'User'
         return if item.get('accepts_group_submissions') == true
       if @creatorType == 'Group'
         return if item.get('accepts_group_submissions') == false
       super
+
+    onShow: () ->
