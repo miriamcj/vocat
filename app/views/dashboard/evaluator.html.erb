@@ -1,30 +1,32 @@
 <% content_for :content do %>
 
-  <div class="page-message">
-    <div class="header">
-      Hello <%= current_user.first_name %>,
-    </div>
-    <div class="body">
-      <%= render 'dashboard/messages/evaluator_message' %>
-    </div>
-  </div>
+	<div class="page-message">
+		<div class="header">
+			Hello <%= current_user.first_name %>,
+		</div>
+		<div class="body">
+			<%= render 'dashboard/messages/evaluator_message' %>
+		</div>
+	</div>
 
-  <div class="page-section">
-    <div class="header-wrapper">
-      <div class="buttons">
-        <%= link_to 'Request New Course', new_course_request_path, :class => 'primary-button new-button' %>
-      </div>
-      <div class="header">
-        <h4>Your Courses</h4>
-      </div>
-    </div>
-    <div class="body">
-
-      <% current_user.courses.each do |course| %>
-        <%= render 'dashboard/shared/evaluator_course', :course => course %>
-      <% end %>
-
-    </div>
-  </div>
+	<div class="page-section">
+		<div class="header-wrapper">
+			<div class="buttons">
+				<%= link_to 'Request New Course', new_course_request_path, :class => 'primary-button new-button' %>
+			</div>
+			<div class="header">
+				<h4>Your Courses</h4>
+			</div>
+		</div>
+		<div class="body">
+			<% if current_user.courses.count > 0 %>
+				<% current_user.courses.each do |course| %>
+					<%= render 'dashboard/shared/evaluator_course', :course => course %>
+				<% end %>
+			<% else %>
+				It looks like you don't belong to any courses yet. <%= link_to 'Click here to request your first Vocat course', new_course_request_path %>.
+			<% end %>
+		</div>
+	</div>
 
 <% end %>
