@@ -78,8 +78,22 @@ Vocat::Application.routes.draw do
     end
 
     scope :module => "courses" do
+      namespace "export" do
+        resources :projects, :only => [] do
+          member do
+            get 'peer_scores'
+            get 'all_scores'
+            get 'evaluator_scores'
+            get 'self_scores'
+          end
+        end
+      end
       namespace "manage" do
-        resources :projects, :except => [:show]
+        resources :projects, :except => [:show] do
+          member do
+            get 'export'
+          end
+        end
         resources :groups
         resources :rubrics, :only => [:index, :show, :new, :edit, :destroy] do
           member do
@@ -102,7 +116,6 @@ Vocat::Application.routes.draw do
     get 'groups/project/:project_id' => 'courses/evaluations#user_project_detail', :as => 'groups_project_detail'
     get 'users/creator/:creator_id' => 'courses/evaluations#user_creator_detail', :as => 'user_creator_detail'
     get 'groups/creator/:creator_id' => 'courses/evaluations#group_creator_detail', :as => 'user_group_detail'
-
   end
 
   namespace :admin do

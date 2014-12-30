@@ -27,6 +27,18 @@
 		{{/if_match}}
 
 	</td>
-  <td>
-    <a class="gentle-warning-button delete-button" href="projects/{{id}}" data-behavior="destroy">Delete Project</a>
-  </td>
+	<td>
+		<div class="dropdown dropdown-button" data-behavior="dropdown">
+			<a class="dropdown--toggle" data-behavior="toggle" href="#">Actions</a>
+			<div class="dropdown--options" data-behavior="dropdown-options">
+				<ul>
+					<li>
+						<a href="projects/{{id}}" data-behavior="destroy">Delete Project</a>
+					</li>
+					<li>
+						<a href="projects/{{id}}/export">Export Scores</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</td>

@@ -2,6 +2,7 @@ define (require) ->
 
   marionette = require('marionette')
   template = require('hbs!templates/course/manage/projects/project_row')
+  DropdownView = require('views/layout/dropdown')
   ModalConfirmView = require('views/modal/modal_confirm')
 
   class ProjectRowView extends Marionette.ItemView
@@ -11,6 +12,10 @@ define (require) ->
 
     events: {
       "drop": "onDrop"
+    }
+
+    ui: {
+      "dropdowns": '[data-behavior="dropdown"]'
     }
 
     triggers: {
@@ -39,5 +44,10 @@ define (require) ->
 
     onDrop: (e, i) ->
       @trigger("update-sort",[@model, i]);
+
+    onShow: () ->
+      @ui.dropdowns.each( (index, el) ->
+        new DropdownView({el: el, vent: Vocat.vent, allowAdjustment: false})
+      )
 
     initialize: (options) ->

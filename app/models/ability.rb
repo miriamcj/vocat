@@ -72,6 +72,10 @@ class Ability
       project.course.creators.include?(user)
     end
 
+    can [:export], Project do |project|
+      can?(:administer, project.course)
+    end
+
     can [:publish_evaluations], Project do |project|
       can?(:evaluate, project.course)
     end
