@@ -71,14 +71,6 @@ describe 'Attachment' do
     expect(a.can_be_processed?).to be_true
   end
 
-  it 'creates a variant for each available processor' do
-    ensure_committed_file(1)
-    a = FactoryGirl.create(:attachment, :id => 1, :state => 'committed')
-    available_count = a.available_processors.length
-    a.start_processing
-    expect(a.variants.count).to eq available_count
-  end
-
   it 'destroys its s3 object when it is destroyed and it has been committed' do
     ensure_committed_file(1)
     a = FactoryGirl.create(:attachment, :id => 1, :state => 'committed')

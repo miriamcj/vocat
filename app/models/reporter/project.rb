@@ -8,29 +8,41 @@ class Reporter::Project
       @course = @project.course
       @members = @course.users.pluck(:id, :last_name, :first_name).map { |m| [m[0], "#{m[1]}, #{m[2]}"] }.to_h
       @rubric = @project.rubric
-      @points_possible = @rubric.points_possible
-      @fields = @rubric.fields.map { |field| [field[:id], field[:name]]}.to_h
+      if @rubric
+        rubric_fields = @rubric.fields
+        @points_possible = @rubric.points_possible
+        @fields = rubric_fields.map do |field|
+          [field['id'], field['name']]
+        end.to_h
+      else
+        @points_possible = 0
+        @fields = Hash.new
+      end
   end
 
   def peer_scores()
+    return new_report if @rubric.blank?
     evaluations = Evaluation.joins(:submission => :project).where('projects.id = ? AND evaluator_id IN (?)', @project.id, @course.creators.pluck(:id)).select(
         'scores', 'evaluator_id', 'submission_id', 'submissions.creator_id', 'submissions.creator_type')
     evaluations_report(evaluations, true, false)
   end
 
   def evaluator_scores()
+    return new_report if @rubric.blank?
     evaluations = Evaluation.joins(:submission => :project).where('projects.id = ? AND evaluator_id IN (?)', @project.id, @course.evaluators.pluck(:id)).select(
         'scores', 'evaluator_id', 'submission_id', 'submissions.creator_id', 'submissions.creator_type')
     evaluations_report(evaluations, false, false)
   end
 
   def all_scores()
+    return new_report if @rubric.blank?
     evaluations = Evaluation.joins(:submission => :project).where('projects.id = ?', @project.id).select(
         'scores', 'evaluator_id', 'submission_id', 'submissions.creator_id', 'submissions.creator_type')
     evaluations_report(evaluations, false, false)
   end
 
   def self_scores()
+    return new_report if @rubric.blank?
     evaluations = Evaluation.joins(:submission => :project).where('projects.id = ? AND evaluator_id IN (?)', @project.id, @course.creators.pluck(:id)).select(
         'scores', 'evaluator_id', 'submission_id', 'submissions.creator_id', 'submissions.creator_type')
     evaluations_report(evaluations, false, true)

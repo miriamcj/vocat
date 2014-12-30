@@ -4,12 +4,18 @@ class Course < ActiveRecord::Base
 
   has_many :memberships
   has_many :users, :through => :memberships
+
+  has_many :creators, -> { where '"memberships"."role" = ?', 'creator' }, :through => :memberships, :source => "user"
+  has_many :evaluators, -> { where '"memberships"."role" = ?', 'evaluator' }, :through => :memberships, :source => "user"
+  has_many :assistants, -> { where '"memberships"."role" = ?', 'assistant'  }, :through => :memberships, :source => "user"
+
   has_many :projects, :dependent => :destroy
   has_many :group_projects
   has_many :open_projects
   has_many :user_projects
   has_many :groups, :dependent => :destroy
   has_many :submissions, :through => :projects, :dependent => :destroy
+
 
   delegate :name, :to => :semester, :prefix => true, :allow_nil => true
 
@@ -23,18 +29,6 @@ class Course < ActiveRecord::Base
   after_initialize :ensure_settings
 
   validates :department, :name, :number, :section, :presence => true
-
-  def assistants
-    users.merge(Membership.assistants)
-  end
-
-  def evaluators
-    users.merge(Membership.evaluators)
-  end
-
-  def creators
-    users.merge(Membership.creators)
-  end
 
   # Params is a hash of search values including (:department || :semester || :year) || :section
   def self.search(params)
@@ -133,7 +127,7 @@ class Course < ActiveRecord::Base
     if enrollment_role.nil?
       enrollment_role = user.role
     end
-    membership = memberships.create({:user => user, :role => enrollment_role.to_s})
+    membership = memberships.build({:user => user, :role => enrollment_role.to_s})
     membership.save
   end
 

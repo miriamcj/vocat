@@ -5,13 +5,12 @@ class User < ActiveRecord::Base
   has_many :memberships
   has_many :courses, :through => :memberships
 
-  has_and_belongs_to_many :assistant_courses, :class_name => "::Course", :join_table => "courses_assistants"
-  has_and_belongs_to_many :evaluator_courses, :class_name => "::Course", :join_table => "courses_evaluators"
-  has_and_belongs_to_many :creator_courses, :class_name => "::Course", :join_table => "courses_creators"
+  has_many :creator_courses, -> { where 'role = "creator"' }, :through => :memberships, :source => "course"
+  has_many :evaluator_courses, -> { where 'role = "evaluator"' }, :through => :memberships, :source => "course"
+  has_many :assistant_courses, -> { where 'role = "assistant"' }, :through => :memberships, :source => "course"
+
   has_and_belongs_to_many :groups, :join_table => "groups_creators"
-
   has_many :submissions, :as => :creator, :dependent => :destroy
-
   has_many :course_requests
 
   default_scope { order("last_name ASC") }
@@ -32,24 +31,11 @@ class User < ActiveRecord::Base
 
 
   ROLES = %w(creator evaluator administrator)
-
   DEFAULT_SETTINGS = {
     'enable_glossary' => {value: false, type: 'boolean' }
   }
 
   validates :first_name, :last_name, :role, :presence => true
-
-  def assistant_courses
-    memberships.where({:role => 'assistant'})
-  end
-
-  def evaluator_courses
-    memberships.where({:role => 'evaluator'})
-  end
-
-  def creator_courses
-    memberships.where({:role => 'creator'})
-  end
 
   # Params is a hash of search values including (:department || :semester || :year) || :section
   def self.search(params)
