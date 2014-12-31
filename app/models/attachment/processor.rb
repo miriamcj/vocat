@@ -19,7 +19,7 @@ module Attachment::Processor
   end
 
   def can_process?(attachment)
-    return false unless @handled_formats.include?(attachment.extension)
+    return false unless @handled_formats.include?(attachment.extension.gsub('.',''))
     return true
   end
 

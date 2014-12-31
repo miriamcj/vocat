@@ -282,6 +282,15 @@ $columnWidth: ($container / $columns) - 12;
         }
       }
     }
+    .cell--message {
+      @include font-head;
+      font-weight: $semibold;
+      text-transform: uppercase;
+      text-align: center;
+      color: $grayMediumLighter;
+      font-size: $lambda-minor;
+    }
+
   }
 
   dl {

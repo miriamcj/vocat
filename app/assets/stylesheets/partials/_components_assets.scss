@@ -6,7 +6,12 @@
 // --------------------------------------------------------
 .page-section .page-section--component.asset-upload {
   padding: 0;
-  padding-bottom: 30px;
+  .asset-uploading {
+    padding-bottom: 30px 0;
+    text-align: center;
+    height: 125px;
+    line-height: 125px;
+  }
 }
 
 .asset-done {
@@ -18,7 +23,31 @@
   }
 }
 
-.page-section-one-third {
+.asset-uploading {
+  position: relative;
+}
+
+.progress-bar {
+  height: 1em;
+  width: 50%;
+  position: absolute;
+  left: 25%;
+  top: 25px;
+  background: $grayMedium;
+  .progress-bar--fill {
+    height: 1em;
+    width: 0%;
+    position: absolute;
+    background: $grayDark;
+  }
+}
+
+.asset-upload--column {
+  @extend %wide-one-third;
+  @extend %page-section-column;
+  .asset-upload--two-col & {
+    @extend %wide-one-half;
+  }
   &.asset-upload--file, &.asset-upload--input, &.asset-upload--target {
     height: 125px;
     text-align: center;
@@ -43,7 +72,7 @@
     position: relative;
     .wrapper {
       text-align: center;
-      form a {
+      a {
         display: block;
         position: relative;
         width: 125px;
@@ -80,225 +109,183 @@
         position: absolute;
         top: 50%;
         right: -.6em;
+        .asset-upload--two-col & {
+          content: '';
+        }
       }
     }
   }
 }
 
+$playerColBg: $grayDarker;
+$annotationColBg: $grayDarkest;
+$textColor: $grayLightest;
 
 
-// Annotated media
+// Asset detail interface
 // --------------------------------------------------------
-// NB be sure to wrap annotations box in a <figcaption>
-%annotated-media {
+.asset-detail-layout {
   position: relative;
-  figcaption {
-    width: 45%;
-    padding-left: 1.6rem;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
+  .col-one.page-section-two-thirds {
+    background: $playerColBg;
+    padding-right: 0;
+    &:before {
+      width: 66.666666%;
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      z-index: -1;
+      background-color: $playerColBg;
+    }
+  }
+  .col-two.page-section-one-third {
+    background: $annotationColBg;
+    padding-left: 0;
+    overflow: hidden;
+    &:before {
+      width: 33.333333%;
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      z-index: -1;
+      background-color: $annotationColBg;
+    }
   }
 }
-
-%annotated-media--object {
-  display: block;
-  width: 55%;
-}
-
-
-
-// Attachment
-// --------------------------------------------------------
-// <figure>
-.attachment {
-  @extend %annotated-media;
-  margin-bottom: 1.6rem;
-}
-
-// Lives inside .attachment
-// .box, for now
-.attachment--left {
-  @extend %annotated-media--object;
-  overflow: hidden;
-}
-
-.attachment--left-wide {
-  width: 100%
-}
-
-// <video>
-.attachment--media {
-  display: block;
-  width: 100%;
-  .player-container {
-    height: 290px;
-  }
-}
-
-// Attachment placeholder
-// --------------------------
-// Lives inside .attachment--media & .frame-attachment
-// Only visible when no video has been uploaded
-// Thanks, Dave: http://daverupert.com/2012/04/uncle-daves-ol-padded-box/
-// Also: lower your eyes in deference to THE GOLDEN RATIO.
-%attachment-placeholder {
-  height: 0;
-  text-align: center;
-  background-color: $tealLight;
-  padding-bottom: 61.8%;
-  position: relative;
-}
-
-.attachment-placeholder {
-  @extend %attachment-placeholder;
-}
-
 
 // Annotations
 // --------------------------------------------------------
-
-.page-section .annotations .body {
-  overflow-y: auto;
-  position: relative;
+.annotations-container {
+  max-height: 100%;
+  .annotations-ul {
+    @extend %unstyled-list;
+  }
+  .annotation {
+    font-size: $iota;
+    color: $textColor;
+    padding: 15px;
+    border-left: 4px solid $annotationColBg;
+    &.active {
+    }
+    @include clearfix();
+    .annotation-left {
+      float: left;
+      width: 15%;
+      img {
+        width: 100%;
+      }
+    }
+    .annotation-right {
+      float: right;
+      width: 80%;
+    }
+    .annotation-top {
+      @include clearfix()
+    }
+    &:hover .annotation-utility {
+      display: block;
+    }
+    .annotation-utility {
+      display: block;
+    }
+    .annotation-title {
+      font-weight: $bold;
+    }
+    .annotation-indicators {
+      float: right;
+    }
+  }
+  .annotation + .annotation {
+    border-top: 1px solid $black;
+  }
 }
 
-ul.annotations--list {
-  @extend %unstyled-list;
-  li {
-    div:first-child {
-      padding: $contentUnitPadding;
-    }
-    cursor: pointer;
+
+// Annotator UI
+// --------------------------------------------------------
+$trackHeight: 10px;
+.annotator {
+  padding-top: 20px;
+  width: 100%;
+  min-height: 200px;
+  .timeline-container {
+    margin: 0px 20px 0px 20px;
+    position: relative;
+    height: 40px;
   }
-  li.highlighted {
-    background: $grayMedium;
+  .time {
+    position: absolute;
+    right: 0;
+    width: 15%;
+    font-size: $iota;
     color: $white;
+    text-align: right;
   }
-  li + li {
-    border-top: 1px solid $grayMedium;
-  }
-}
-.annotations-list--title {
-  font-weight: $semibold;
-  .delete-link {
-    float: right;
-    top: -8px;
-    font-weight: $regular;
-  }
-  span {
-    cursor: pointer;
-    font-weight: $regular;
-  }
-}
+  .timeline {
+    width: 83%;
+    height: $trackHeight;
+    position: absolute;
+    left: 0;
+    .track {
+      z-index: 1;
+      position: absolute;
+      width: 100%;
+      height: $trackHeight;
+      background: $grayLight;
+    }
+    .buffered {
+      position: absolute;
+      z-index: 2;
+      height: $trackHeight;
+      background: $grayMedium;
+    }
+    .played {
+      position: absolute;
+      z-index: 3;
+      height: $trackHeight;
+      background: $grayDark;
+    }
+    .track-overlay {
+      position: absolute;
+      width: 100%;
+      z-index: 5;
+      height: $trackHeight;
+      cursor: pointer;
+    }
+    .marks {
+      z-index: 4;
+      @extend %unstyled-list;
+      li {
+        top: $trackHeight;
+        position: absolute;
+        display: block;
+        width: 0;
+        height: 0;
+        margin-left: -$trackHeight;
+        border-left: $trackHeight solid transparent;
+        border-right: $trackHeight solid transparent;
+        border-bottom: $trackHeight solid $defaultFillColor;
+      }
+      li.role-evaluator {
+        border-bottom: $trackHeight solid $instructorFillColor;
+      }
+      li.role-administrator {
+        border-bottom: $trackHeight solid $instructorFillColor;
+      }
+      li.role-creator {
+        border-bottom: $trackHeight solid $peerFillColor;
+      }
+      li.role-self {
+        border-bottom: $trackHeight solid $selfFillColor;
+      }
 
-
-// Player Slider
-// --------------------------------------------------------
-
-$emptyHeight: 200px;
-
-.player-curtain {
-  height: $emptyHeight;
-  text-align: center;
-  overflow: hidden;
-}
-
-.player-stage {
-  width: 100%;
-  height: 100%;
-}
-
-.player-scene {
-  display: table;
-  width: 100%;
-  height: $emptyHeight;
-  .text-input {
-    width: 25rem;
-    display: inline;
-    margin: 0;
-  }
-  .wrap {
-    display: table-cell;
-    vertical-align: middle;
-    p {
-      margin: 0.8rem 0;
     }
   }
-  .choice-button {
-    @extend %primary-button;
-    display: inline-block;
-    cursor: pointer;
-  }
-  .attachment-placeholder--button {
-    margin-top: 0;
-  }
-}
-
-
-// Boxes
-// --------------------------------------------------------
-// An example:
-// <div class="box">
-//   <header>
-//     <h2 class="box--title">Box title</h2>
-//     <a class="box--link" href="">Optional link</a>
-//   </header>
-//   <div class="box--content">
-//     Box content
-//   </div>
-// </div>
-
-.box {
-  @extend %box;
-  aside {
-    margin-bottom: 1.6rem;
-    background-color: #E6DFDE;
-    padding: 1.6rem;
-    p {
-      margin: 0;
-    }
-  }
-}
-
-.box--title {
-  @extend %box--title;
-}
-
-.box--minus-link {
-  @extend %box--minus-link;
-}
-
-.box--content {
-  @extend %box--content;
-}
-
-.box--columns {
-  padding: 0 !important;
-}
-
-.box--top {
-  @extend %clearfix;
 
 }
 
-.box--column {
-  width: 50%;
-  float: left;
-  padding: 1.6rem;
-}
 
-.box--column-single {
-  padding: 0 1.6rem 1.6rem 1.6rem;
-
-}
-
-.box--footer {
-  @extend %clearfix;
-}
-// NB make sure the height of .box is
-// constrained if you want this to work
-.box--scrolly-content {
-  @extend %box--scrolly-content;
-}

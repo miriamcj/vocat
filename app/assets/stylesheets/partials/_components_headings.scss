@@ -86,4 +86,8 @@
   font-size: $theta;
   font-weight: $regular;
   font-color: $grayMedium;
+  margin-bottom: 8px;
+  & + .heading-informational {
+    margin-top: 8px;
+  }
 }

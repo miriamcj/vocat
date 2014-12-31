@@ -2,18 +2,13 @@ class Submission < ActiveRecord::Base
 
   has_one     :course, :through => :project
 
-  # TODO: Remove this relation
-  has_one     :video, :dependent => :destroy
-
-  has_many    :assets
+  has_many    :assets, :dependent => :destroy
   has_many    :evaluations, :dependent => :destroy
   has_many    :discussion_posts, :dependent => :destroy
   belongs_to  :project
   belongs_to  :creator, :polymorphic => true
   belongs_to  :user, -> { where "submissions.creator_type = 'User'" }, foreign_key: 'creator_id'
   belongs_to  :group, -> { where "submissions.creator_type = 'Group'" }, foreign_key: 'creator_id'
-
-  accepts_nested_attributes_for :video
 
   validates_presence_of :project_id, :creator_id, :creator_type
 
@@ -24,25 +19,28 @@ class Submission < ActiveRecord::Base
   delegate :name_long,               :to => :course, :prefix => true
   delegate :allows_peer_review?,     :to => :course, :prefix => true
   delegate :allows_self_evaluation?, :to => :course, :prefix => true
-  delegate :id,                      :to =>  :course, :prefix => true
-
-  delegate :thumb,                   :to => :video, :prefix => false, :allow_nil => true
-
+  delegate :id,                      :to => :course, :prefix => true
   delegate :name,                    :to => :project, :prefix => true
   delegate :rubric,                  :to => :project
   delegate :name,                    :to => :creator, :prefix => true
 
-  default_scope { includes(:video, :evaluations, :project) }
+  default_scope { includes(:assets, :evaluations, :project) }
 
-  scope :with_video, -> { joins(:video) }
+  scope :with_assets, -> { joins(:assets) }
   scope :for_courses, ->(course) { joins(:project)
       .where('projects.course_id' => course)
       .where('(creator_id in (?) AND creator_type = \'User\') OR (creator_id in (?) AND creator_type = \'Group\')', course.creators.pluck(:id), course.groups.ids)
-      .includes(:video) }
+  }
 
   def active_model_serializer
 	  SubmissionSerializer
   end
+
+  def thumb
+    #TODO: return a thumbnail from the first asset that has one.
+    raise NotImplementedError
+  end
+
 
   def evaluated_by_instructor?()
     instructor_evaluation_count > 0
@@ -118,8 +116,8 @@ class Submission < ActiveRecord::Base
     self.evaluations.created_by(user).count
   end
 
-  def has_video?
-    !video.nil?
+  def has_asset?
+    assets.count > 0
   end
 
   def has_rubric?

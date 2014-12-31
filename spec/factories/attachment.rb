@@ -10,7 +10,7 @@ FactoryGirl.define do
     processor_job_id nil
     processor_class nil
     processed_thumb_key nil
-    association :video, factory: :video
+#    association :video, factory: :video
     association :user, factory: :user
   end
 end

@@ -7,11 +7,8 @@ Vocat::Application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :attachments, :only => [:create, :show, :destroy] do
-        member do
-          post 'commit'
-        end
-      end
+      resources :attachments, :only => [:create, :show, :destroy]
+      resources :assets, :except => [:new, :edit, :index]
       resources :enrollments, :only => [:create, :destroy]
       resources :users, :only => [:show] do
         collection do
@@ -28,6 +25,7 @@ Vocat::Application.routes.draw do
         collection do
           get 'for_course'
           get 'for_course_and_user'
+          get 'for_creator_and_project'
           get 'for_user'
           get 'for_group'
           get 'for_project'
@@ -106,10 +104,9 @@ Vocat::Application.routes.draw do
         put '/' => 'courses#update'
       end
     end
-
+    get 'evaluations/assets/:id' => 'courses/evaluations#course_map', :as => 'asset_evaluations'
     get 'groups/evaluations/(/creator/:creator_id)(/project/:project_id)' => 'courses/evaluations#course_map', :as => 'group_evaluations', :defaults => { creator_type: 'group' }
     get 'users/evaluations(/creator/:creator_id)(/project/:project_id)' => 'courses/evaluations#course_map', :as => 'user_evaluations', :defaults => { creator_type: 'user' }
-
     get 'users/creator/:creator_id/project/:project_id' => 'courses/evaluations#user_creator_project_detail', :as => 'user_creator_project_detail'
     get 'groups/creator/:creator_id/project/:project_id' => 'courses/evaluations#group_creator_project_detail', :as => 'group_creator_project_detail'
     get 'users/project/:project_id' => 'courses/evaluations#user_project_detail', :as => 'user_project_detail'
@@ -164,15 +161,17 @@ Vocat::Application.routes.draw do
         end
       end
     end
-
   end
 
   get '/admin' => 'admin/courses#index', :as => 'admin'
-
-#  get '/' => 'dashboard#index', :as => 'dashboard'
   get '/' => 'root#index', :as => 'root'
   get '/dashboard/evaluator' => 'dashboard#evaluator', :as => 'dashboard_evaluator'
   get '/dashboard/creator' => 'dashboard#creator', :as => 'dashboard_creator'
   get '/dashboard/admin' => 'dashboard#admin', :as => 'dashboard_admin'
+
+  require 'sidekiq/web'
+  authenticate :user, lambda { |u| u.role?(:administrator) } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 
 end

@@ -42,7 +42,6 @@ define (require) ->
             @vent.trigger('error:clear')
             @vent.trigger('error:add', {level: 'error', msg: xhr.responseJSON.errors})
         })
-
       )
 
       @vent.triggerMethod('player:broadcast:request', {})

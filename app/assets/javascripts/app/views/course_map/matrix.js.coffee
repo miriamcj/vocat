@@ -14,8 +14,17 @@ define ['marionette', 'views/course_map/row'], (Marionette, Row) ->
         vent: @vent
       }
 
+    setupListeners: () ->
+      @listenTo(@collections.submission, 'sync', () ->
+        @render()
+      )
+
+    onRender: () ->
+      @vent.trigger('redraw')
+
     initialize: (options) ->
       @collections = options.collections
       @courseId = options.courseId
       @vent = options.vent
       @creatorType = options.creatorType
+      @setupListeners()

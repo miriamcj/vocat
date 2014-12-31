@@ -3,19 +3,19 @@
 @import "patterns";
 
 
-.portfolio {
+.portfolio, .asset-collection {
   .alert {
     margin-bottom: 0px;
   }
 }
 
-.portfolio-item {
-  @include clearfix(hard);
-  .portfolio-item--content {
-    a:hover {
-      color: $tealDark !important;
-    }
+.asset-collection-item {
+  position: relative;
+}
 
+.portfolio-item, .asset-collection-item {
+  @include clearfix(hard);
+  .portfolio-item--content, .asset-collection-item--content {
     h3.heading-tertiary {
       @include font-body;
       margin-top: -4px;
@@ -35,7 +35,19 @@
     }
   }
 
-  .portfolio-item--thumb {
+  .asset-collection-item--content {
+    padding-right: 30%;
+    .asset-collection-item--utility {
+      text-align: right;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      margin-bottom: $sectionSpacingUnit * .75;
+      width: 30%;
+    }
+  }
+
+  .portfolio-item--thumb, .asset-thumb {
     @extend %wide-one-sixth;
     @extend %medium-one-fourth;
     @extend %narrow-one-whole;
@@ -58,17 +70,6 @@
           padding: 2em 0;
           margin-left: 12.5%;
         }
-//        &:before {
-//          content: '';
-//          position: absolute;
-//          height: 60px;
-//          width: 60px;
-//          z-index: 2;
-//          top: 10%;
-//          left: 50%;
-//          margin-left: -30px;
-//          @include svg(upload-overlay-teal);
-//        }
       }
     }
 
@@ -96,18 +97,6 @@
           z-index: 1;
           opacity: .5;
         }
-        &:before {
-          content: '';
-          position: absolute;
-          height: 60px;
-          width: 60px;
-          z-index: 2;
-          top: 50%;
-          left: 50%;
-          margin-left: -30px;
-          margin-top: -30px;
-          @include svg(play-overlay-white);
-        }
       }
       img {
         display: block;
@@ -116,12 +105,29 @@
         width: 110%;
       }
     }
+    .thumb-container-video a {
+      &:before {
+        content: '';
+        position: absolute;
+        height: 60px;
+        width: 60px;
+        z-index: 2;
+        top: 50%;
+        left: 50%;
+        margin-left: -30px;
+        margin-top: -30px;
+        @include svg(play-overlay-white);
+      }
+    }
   }
 
   .heading-tertiary {
     font-size: $delta-minor;
     a {
       color: $tealLight;
+      &:hover {
+        color: $grayDark;
+      }
     }
     small {
 

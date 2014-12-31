@@ -55,6 +55,7 @@ module StrongParametersConfiguration
                                        :rubric_id,
                                        :type,
                                        :listing_order_position,
+                                       {:allowed_attachment_families => []},
                                        :due_date
     ).merge({ listing_order_position: params[:listing_order_position]})
   end
@@ -105,12 +106,22 @@ module StrongParametersConfiguration
                                        :smpte_timecode,
                                        :published,
                                        :seconds_timecode,
-                                       :video_id
+                                       :asset_id
     )
   end
 
   def attachment_params
     params.require(:attachment).permit(:media_file_name)
+  end
+
+  def asset_params
+    params.require(:asset).permit(:id,
+                                  :submission_id,
+                                  :listing_order_position,
+                                  :external_source,
+                                  :external_location,
+                                  :attachment_attributes => [:id]
+    )
   end
 
   def video_params

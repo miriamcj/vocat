@@ -4,6 +4,8 @@ define (require) ->
   VideoModel = require('models/video')
   EvaluationModel = require('models/evaluation')
   ProjectModel = require('models/project')
+  UserModel = require('models/user')
+  GroupModel = require('models/group')
   AssetCollection = require('collections/asset_collection')
 
   class SubmissionModel extends Backbone.Model
@@ -87,9 +89,30 @@ define (require) ->
         @projectModel = new ProjectModel(@get('project'))
       @projectModel
 
+    creator: () ->
+      if !@creatorModel?
+        if @get('creator_type') == 'User'
+          @creatorModel = new UserModel(@get('creator'))
+        else if @get('creator_type') == 'Group'
+          @creatorModel = new GroupModel(@get('creator'))
+        else
+          @creatorModel = null
+      @creatorModel
+
     initialize: () ->
+
       @listenTo(@, 'change:video', () =>
         @updateVideo()
       )
       @updateVideo()
-      @assetCollection = new AssetCollection(@get('assets'))
+
+      @listenTo(@, 'sync change', () =>
+        @updateAssetsCollection()
+      )
+      @updateAssetsCollection()
+
+    updateAssetsCollection: () ->
+      if !@assetCollection
+        @assetCollection = new AssetCollection(@get('assets'), {submissionId: @id})
+      else
+        @assetCollection.reset(@get('assets'))

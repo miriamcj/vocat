@@ -22,13 +22,16 @@ define (require) ->
 
     triggers: {
       'click @ui.stopManagingLink': 'hide:new'
-      'click @ui.manageLink': 'show:new'
+      'click @ui.manageLink': 'click:manage'
     }
 
     regions: {
       assets: '[data-region="asset-collection"]'
       newAsset: '[data-region="asset-new"]'
     }
+
+    onClickManage: () ->
+      @onShowNew()
 
     onShowNew: () ->
       @newAsset.show(new NewAssetView({collection: @collection, model: @model.project(), vent: @}))
@@ -60,7 +63,11 @@ define (require) ->
       @ui.stopManagingLink.css(display: 'none')
       @ensureVisibleCollectionView()
       # TODO: Remove this
-      @onShowNew()
+      # @onShowNew()
+
+    navigateToAssetDetail: (assetId) ->
+      url = "courses/#{@courseId}/evaluations/assets/#{assetId}"
+      Vocat.router.navigate(url, true)
 
     setupListeners: () ->
       @listenTo(@, 'hide:new', () =>
@@ -69,8 +76,17 @@ define (require) ->
       @listenTo(@, 'show:new', () =>
         @onShowNew()
       )
+      @listenTo(@, 'asset:detail', (args) =>
+        @navigateToAssetDetail(args.asset)
+      )
+      @listenTo(@collection, 'reset', (e) =>
+        @ensureVisibleCollectionView()
+      )
+
+
 
     # @model is a submission model.
     initialize: (options) ->
       @vent = Marionette.getOption(@, 'vent')
+      @courseId = Marionette.getOption(@, 'courseId')
       @setupListeners()

@@ -31,3 +31,15 @@
   <%= f.date_select :due_date, {include_blank: true, order: [:month, :day, :year], with_css_classes: true}, {'data-behavior' => 'chosen' } %>
   <small>The project due date is for informational purposes. Students and instructors will still be able to modify submissions past the project due date.</small>
 </div>
+
+<div class="formgrid half">
+  <%= f.label 'Limit submission type?', :class => 'text-label' %>
+	<div class="checkbox-wrap">
+	  <%= check_box_tag "#{@project.type.underscore}[allowed_attachment_families][]", 'image', @project.allowed_attachment_families.include?('image') %> Images
+	  &nbsp;&nbsp;
+	  <%= check_box_tag "#{@project.type.underscore}[allowed_attachment_families][]", 'video', @project.allowed_attachment_families.include?('video') %> Videos
+	  &nbsp;&nbsp;
+	  <%= check_box_tag "#{@project.type.underscore}[allowed_attachment_families][]", 'audio', @project.allowed_attachment_families.include?('audio') %> Audio
+	</div>
+	<small>If no options are checked, creators will be able to attach any accepted file type.</small>
+</div>

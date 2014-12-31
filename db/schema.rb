@@ -26,15 +26,19 @@ ActiveRecord::Schema.define(version: 20141231001931) do
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.integer  "video_id"
+    t.integer  "asset_id"
   end
 
   create_table "assets", force: true do |t|
-    t.string  "type"
-    t.string  "name"
-    t.integer "author_id"
-    t.integer "submission_id"
-    t.integer "listing_order"
-    t.string  "external_id"
+    t.string   "type"
+    t.string   "name"
+    t.integer  "author_id"
+    t.integer  "submission_id"
+    t.integer  "listing_order"
+    t.string   "external_location"
+    t.string   "external_source"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "attachment_variants", force: true do |t|
@@ -65,6 +69,7 @@ ActiveRecord::Schema.define(version: 20141231001931) do
     t.string   "processor_class"
     t.string   "processed_thumb_key"
     t.hstore   "processing_data"
+    t.integer  "asset_id"
   end
 
   create_table "course_requests", force: true do |t|
@@ -207,7 +212,7 @@ ActiveRecord::Schema.define(version: 20141231001931) do
     t.integer  "listing_order"
     t.string   "type",                        default: "user"
     t.date     "due_date"
-    t.string   "allowed_attachment_families"
+    t.text     "allowed_attachment_families", default: [],                  array: true
   end
 
   add_index "projects", ["course_id"], name: "index_projects_on_course_id", using: :btree

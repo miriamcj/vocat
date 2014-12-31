@@ -10,7 +10,7 @@ class Courses::Manage::ProjectsController < ApplicationController
 
   # GET courses/:course_id/manage/projects
   def index
-    @projects = @course.projects.rank(:listing_order).page params[:page]
+      @projects = @course.projects.rank(:listing_order).page params[:page]
     respond_with @projects
   end
 
@@ -42,6 +42,7 @@ class Courses::Manage::ProjectsController < ApplicationController
 
   # PATCH courses/:course_id/manage/projects/1/
   def update
+    myvars = project_params(@project.type.underscore)
     if @project.update_attributes(project_params(@project.type.underscore))
       flash[:notice] = 'Project was successfully updated.'
     end

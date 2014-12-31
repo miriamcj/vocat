@@ -18,6 +18,10 @@ define (require) ->
     childViewContainer: '[data-behavior="collection-container"]'
     emptyView: EmptyView
 
+    ui: {
+      collectionContainer: '[data-behavior="collection-container"]'
+    }
+
     triggers: {
       'click [data-behavior="do-render"]': 'forceRender'
     }
@@ -26,9 +30,6 @@ define (require) ->
       @render()
 
     setupListeners: () ->
-      @listenTo(@, 'all', (e) ->
-        console.log e,'event'
-      )
       @listenTo(@, 'childview:update:sort', (rowView, args) ->
         @updateSort(args[0], args[1])
       )
@@ -41,15 +42,15 @@ define (require) ->
     # behavior should be improved and abstracted so that it can be used in this
     # class as well.
     updateSort: (model, position) ->
-      console.log model, position
       adjustedPosition = position
       @collection.remove(model)
       model.set('listing_order_position', adjustedPosition)
       @collection.add(model, {at: position})
       model.save()
 
-    onAddChild: ()->
+    onAddChild: () ->
       @$el.sortable({
+        containment: @ui.collectionContainer
         revert: true
         handle: '[data-behavior="move"]'
         items: '[data-behavior="sortable-item"]'

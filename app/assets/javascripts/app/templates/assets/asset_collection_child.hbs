@@ -1,24 +1,41 @@
-<div class="page-section--subsection page-section--subsection-ruled portfolio-item">
-	<div class="portfolio-item--thumb">
-		<div class="thumb-container">
+<div class="portfolio-item--thumb">
+	{{#if thumbnail }}
+	<div class="thumb-container thumb-container-{{family}}">
+		<a href="#">
+			<img src="{{thumbnail}}">
+		</a>
+	</div>
+	{{else}}
+		<div class="thumb-container-placeholder">
 			<a href="#">
-				<img src="{{thumb}}">
+				<span>{{attachment.state}}</span>
 			</a>
 		</div>
-	</div>
-	<div class="portfolio-item--content">
-		<h3 class="heading-tertiary">
-			<a href="#" data-behavior="">
-        {{name}} {{listing_order_position}}
-      </a>
-		</h3>
-		<a href="#" data-behavior="destroy">Delete</a>
-		<a href="#" data-behavior="move">Move</a>
-		<h5 class="heading-informational">
-			Info about the asset...
-		</h5>
-	</div>
+	{{/if}}
 </div>
+<div class="asset-collection-item--content">
+	<h3 class="heading-tertiary">
+		<a href="#" data-behavior="show">
+			{{#if name}}
+				{{name}}
+			{{else}}
+				{{titlecase family}} Submission
+			{{/if}}
+		</a>
+	</h3>
+	<h5 class="heading-informational">
+		{{file_info}}
+	</h5>
+	<h5 class="heading-informational">
+		Uploaded {{created_at}}
+	</h5>
+	<div class="asset-collection-item--utility">
+		<a href="#" class="secondary-button" data-behavior="move">Move</a>
+		<!-- <a href="#" class="secondary-button" data-behavior="replace">Replace</a> -->
+		<a href="#" class="warning-button delete-button" data-behavior="destroy">Delete</a>
+	</div>
 
+
+</div>
 
 

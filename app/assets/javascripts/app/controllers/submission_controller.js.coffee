@@ -9,6 +9,8 @@ define (require) ->
   ProjectCollection = require('collections/project_collection')
   UserCollection = require('collections/user_collection')
   GroupCollection = require('collections/group_collection')
+  AssetCollection = require('collections/asset_collection')
+  AssetShowLayout = require('views/assets/asset_show_layout')
 
 
   class SubmissionController extends VocatController
@@ -17,6 +19,7 @@ define (require) ->
       user: new UserCollection({})
       group: new GroupCollection({}, {courseId: null})
       project: new ProjectCollection({})
+      asset: new AssetCollection({})
     }
 
     creatorDetail: (course, creator) ->
@@ -43,7 +46,7 @@ define (require) ->
       userModel = @collections.user.first()
       projectModel = @collections.project.first()
       collection = new CourseUserSubmissionCollection()
-      deferred = @deferredCollectionFetching(collection, {course: course, user: creator}, 'Loading submission...')
+      deferred = @deferredCollectionFetching(collection, {course: course, user: creator, project: project}, 'Loading submission...')
       $.when(deferred).then(() =>
         submissionModel = collection.findWhere({creator_type: 'User', creator_id: parseInt(creator), project_id: parseInt(project)})
         view = new SubmissionLayoutView({
@@ -72,5 +75,3 @@ define (require) ->
 
         window.Vocat.main.show(view)
       )
-
-

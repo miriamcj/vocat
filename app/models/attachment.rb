@@ -1,16 +1,23 @@
+require 'action_view'
+include ActionView::Helpers::NumberHelper
+
 class Attachment < ActiveRecord::Base
 
-  belongs_to :video
+  include Storable
+
+  belongs_to :asset
   belongs_to :user
   has_many :variants, dependent: :destroy
 
   ALL_PROCESSORS = [
       Attachment::Processor::Transcoder::Mp4,
-      Attachment::Processor::Transcoder::Webm
+      Attachment::Processor::Transcoder::Webm,
+      Attachment::Processor::ThumbnailGenerator
   ]
 
   after_destroy :destroy_file_object
   after_initialize :check_processing_state
+
   validates_presence_of :media_file_name
 
   state_machine :initial => :uncommitted do
@@ -69,9 +76,20 @@ class Attachment < ActiveRecord::Base
     File.extname(media_file_name).downcase
   end
 
-  def variant_by_format(format)
-    variants.where(:format => format).first
+  def variant_by_format(format, state = nil)
+    if state
+      variants.where(:format => format, :state => state).first
+    else
+      variants.where(:format => format).first
+    end
   end
+
+  def commit_if_attached
+    if uncommitted? && asset
+      commit
+    end
+  end
+
 
   def check_processing_state
     if processing?
@@ -104,10 +122,17 @@ class Attachment < ActiveRecord::Base
   end
 
   def locations
+    formats = []
     locations = variants.with_state(:processed).map do |variant|
+      formats.push variant.format
       [variant.format, variant.public_location]
     end
+    ext = extension.gsub('.','')
+    unless formats.include? ext
+      locations.push [ext, public_location]
+    end
     Hash[locations]
+
   end
 
   def available_processors
@@ -148,8 +173,12 @@ class Attachment < ActiveRecord::Base
     end
   end
 
+  def size
+    number_to_human_size media_file_size
+  end
+
   def thumb
-    variant = variant_by_format(['mp4_thumb', 'webm_thumb'])
+    variant = variant_by_format(['mp4_thumb', 'webm_thumb', 'jpg_thumb'], :processed)
     if variant.nil?
       return nil
     else
@@ -174,43 +203,19 @@ class Attachment < ActiveRecord::Base
     self.save
   end
 
-  def path_segment
-    lower_thousand = (id/1000).floor * 1000
-    upper_thousand = lower_thousand + 1000
-    lower_hundred = (id/100).floor * 100
-    upper_hundred = lower_hundred + 100
-    "#{lower_thousand}_#{upper_thousand}/#{lower_hundred}_#{upper_hundred}"
-  end
+
 
   private
 
-  def bucket
-    Rails.application.config.vocat.aws[:s3_bucket]
-  end
-
-  def destroy_file_object
-    s3 = get_s3_instance
-    object = s3.buckets[bucket].objects[location]
-    object.delete if object.exists?
-  end
-
   def committed_location
     ext = File.extname(media_file_name)
-    "source/attachment/#{path_segment}/#{id}#{ext}"
+    out = "source/attachment/#{path_segment}/#{id}#{ext}"
+    out
   end
 
   def uncommitted_location
     ext = File.extname(media_file_name)
     "temporary/attachment/#{path_segment}/#{id}#{ext}"
-  end
-
-  def get_s3_instance
-    options = {
-        :access_key_id => Rails.application.config.vocat.aws[:key],
-        :secret_access_key => Rails.application.config.vocat.aws[:secret]
-    }
-    s3 = AWS::S3.new(options)
-    s3
   end
 
 end

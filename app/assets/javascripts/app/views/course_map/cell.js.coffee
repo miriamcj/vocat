@@ -16,11 +16,8 @@ define ['marionette', 'hbs!templates/course_map/cell', 'models/user', 'models/gr
       'click [data-behavior="publish-toggle"]': 'publish:toggle'
 
     onDetail: () ->
-      args = {
-        project: @project
-        creator: @creator
-      }
-      @vent.triggerMethod('open:detail:creator:project', args)
+      submissionId = @model.id if @model
+      @vent.trigger('navigate:submission', {project: @project.id, creator: @creator.id})
 
     onPublishToggle: () ->
       @model.toggleEvaluationPublish()
@@ -30,7 +27,6 @@ define ['marionette', 'hbs!templates/course_map/cell', 'models/user', 'models/gr
         @creatorType = 'User'
       else if @creator instanceof GroupModel
         @creatorType = 'Group'
-
       @model = @submissions.findWhere({creator_type: @creatorType, creator_id: @creator.id, project_id: @project.id})
 
       if @model?
@@ -40,23 +36,25 @@ define ['marionette', 'hbs!templates/course_map/cell', 'models/user', 'models/gr
         @render()
 
     serializeData: () ->
-      context = super()
-      context.project_evaluatable = @project.evaluatable()
-      context.is_active = @isActive()
+      if @model?
+        context = super()
+        context.project_evaluatable = @project.evaluatable()
+        context.is_active = @isActive()
+        context.is_loaded = true
+      else
+        context = {
+          is_loaded: false
+        }
       context
 
     isActive: () ->
       if @project.evaluatable() == false then return true
-      if @model.get('current_user_has_evaluated') == true then return true
+      if @model? && @model.get('current_user_has_evaluated') == true then return true
       return false
 
     initialize: (options) ->
+      @vent = options.vent
       @submissions = options.submissions
       @creator = options.creator
-      @vent = options.vent
-
       @project = @model
       @findModel()
-      @listenTo(@submissions, 'reset', () ->
-        @findModel()
-      )
