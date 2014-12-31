@@ -16,7 +16,7 @@ class CourseRequest < ActiveRecord::Base
     course = Course.create do |c|
        copy_attributes.each { |a| c.send(a.to_s + "=", self.send(a)) }
     end
-    course.evaluators = [ evaluator ]
+    course.enroll(evaluator, 'evaluator')
     course.save
     course
   end
