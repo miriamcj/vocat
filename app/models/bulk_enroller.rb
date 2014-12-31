@@ -148,7 +148,7 @@ class BulkEnroller
 
   def enroll_one_contact!(contact, course, role)
     user = get_contact_user(contact)
-    user.enroll(course, role)
+    course.enroll(user, role)
     if user.errors.empty?
       contact[:success] = true
       contact[:message] = "#{user.name} has been enrolled in #{course.to_s}"
