@@ -45,7 +45,11 @@ class Ability
     end
 
     can [:evaluate], Course do |course|
-      course.role(user) == :evaluator || course.role(user) == :assistant || user.role?(:creator) && course.allows_peer_review?
+      course.role(user) == :evaluator || course.role(user) == :assistant || course.role(user) == :creator && course.allows_peer_review?
+    end
+
+    can [:discuss_submissions], Course do |course|
+      course.role(user) == :evaluator || course.role(user) == :assistant || course.role(user) == :creator && course.allows_public_discussion?
     end
 
     can [:show_submissions], Course do |course|
