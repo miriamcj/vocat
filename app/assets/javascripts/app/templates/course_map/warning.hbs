@@ -14,7 +14,7 @@
 		{{/if}}
 
 		{{#if isCreatorTypeUser}}
-			<p>The user evaluations grid is not available because no students have been enrolled in this course.</p>
+			<p>The individual evaluations grid is not available because no students have been enrolled in this course.</p>
 			{{#if canUpdateCourse}}
 			<p class="small">Once you have added at least one student to the course, you will be able to access
 				student submissions.
@@ -29,18 +29,22 @@
 
 
 	{{#if isProjectWarning}}
-		<p>The {{to_lower creatorType}} evaluations grid is not available because no {{to_lower creatorType}} projects have been created
-		for this course.</p>
+		<p>The {{#if_match creatorType "Group"}}group{{/if_match}} {{#if_match creatorType "User"}}individual{{/if_match}}
+		evaluations grid is not available because no {{#if_match creatorType "Group"}}group{{/if_match}}
+		{{#if_match creatorType "User"}}individual{{/if_match}} projects have been created for this course.</p>
 		{{#if canUpdateCourse}}
-		<p class="small">Once you have created at least one group project and one group for the course, you will be able to access
-			{{to_lower creatorType}} submissions.
+		<p class="small">Once you have created at least one {{#if_match creatorType "Group"}}group{{/if_match}}
+		{{#if_match creatorType "User"}}individual{{/if_match}} project, you will be able to access
+		{{#if_match creatorType "Group"}}group{{/if_match}} {{#if_match creatorType "User"}}individual{{/if_match}} submissions.
 		</p>
 		<p class="small">
-      {{#if_match creatorType "Group"}}
-	      <a href="/courses/{{courseId}}/manage/projects/new" class="primary-button new-button">Create a Group Project</a>
-      {{else}}
-	      <a href="/courses/{{courseId}}/manage/projects/new" class="primary-button new-button">Create a Individual Project</a>
-      {{/if_match}}
+			{{#if_match creatorType "Group"}}
+				<a href="/courses/{{courseId}}/manage/projects/new" class="primary-button new-button">Create a Group Project</a>
+				<a href="/courses/{{courseId}}/users/evaluations" class="secondary-button back-button">Show Individual Evaluations</a>
+			{{else}}
+				<a href="/courses/{{courseId}}/manage/projects/new" class="primary-button new-button">Create an Individual Project</a>
+				<a href="/courses/{{courseId}}/groups/evaluations" class="secondary-button back-button">Go To Group Evaluations</a>
+			{{/if_match}}
 		</p>
 		{{/if}}
 	{{/if}}

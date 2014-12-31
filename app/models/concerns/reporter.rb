@@ -5,8 +5,7 @@ module Reporter
   extend ActiveSupport::Concern
 
   def new_report
-    Struct.new('VocatReport', :rows, :headers)
-    Struct::VocatReport.new([], [])
+    OpenStruct.new(:rows => [], :headers => [])
   end
 
   def csv_for(report)

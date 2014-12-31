@@ -5,13 +5,12 @@ class User < ActiveRecord::Base
   has_many :memberships
   has_many :courses, :through => :memberships
 
-  has_and_belongs_to_many :assistant_courses, :class_name => "::Course", :join_table => "courses_assistants"
-  has_and_belongs_to_many :evaluator_courses, :class_name => "::Course", :join_table => "courses_evaluators"
-  has_and_belongs_to_many :creator_courses, :class_name => "::Course", :join_table => "courses_creators"
+  has_many :creator_courses, -> { where '"memberships"."role" = ?', 'creator' }, :through => :memberships, :source => "course"
+  has_many :evaluator_courses, -> { where '"memberships"."role" = ?', 'evaluator' }, :through => :memberships, :source => "course"
+  has_many :assistant_courses, -> { where '"memberships"."role" = ?', 'assistant' }, :through => :memberships, :source => "course"
+
   has_and_belongs_to_many :groups, :join_table => "groups_creators"
-
   has_many :submissions, :as => :creator, :dependent => :destroy
-
   has_many :course_requests
 
   default_scope { order("last_name ASC") }
@@ -30,26 +29,12 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-
   ROLES = %w(creator evaluator administrator)
-
   DEFAULT_SETTINGS = {
     'enable_glossary' => {value: false, type: 'boolean' }
   }
 
   validates :first_name, :last_name, :role, :presence => true
-
-  def assistant_courses
-    memberships.where({:role => 'assistant'})
-  end
-
-  def evaluator_courses
-    memberships.where({:role => 'evaluator'})
-  end
-
-  def creator_courses
-    memberships.where({:role => 'creator'})
-  end
 
   # Params is a hash of search values including (:department || :semester || :year) || :section
   def self.search(params)
@@ -150,6 +135,32 @@ class User < ActiveRecord::Base
       end
     end
     out
+  end
+
+  def update_preference(key, value)
+    preferences = self.preferences.clone || {}
+    preferences[key] = value
+    self.preferences = preferences
+    self.save
+  end
+
+  def get_preference(key)
+    preferences = self.preferences || {}
+    if preferences.has_key? key
+      preferences[key]
+    else
+      nil
+    end
+  end
+
+  def set_default_creator_type_for_course(course, type)
+    key = "course_#{course.id}_creator_type_default"
+    update_preference(key, type)
+  end
+
+  def get_default_creator_type_for_course(course)
+    key = "course_#{course.id}_creator_type_default"
+    get_preference(key)
   end
 
   def to_csv_header_row
