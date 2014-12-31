@@ -49,10 +49,9 @@ class Api::V1::EnrollmentsController < ApiController
     user = User.find params[:user]
     course = Course.find params[:course]
     role = params[:role]
-    user.enroll(course, role)
+    course.enroll(user, role)
     if user.errors.empty?
       respond_with build_enrollment_hash(course, user), :location => nil
-      course.save()
     else
       respond_with :admin, user
     end

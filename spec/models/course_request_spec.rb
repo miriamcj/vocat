@@ -32,6 +32,42 @@ describe CourseRequest do
     cr.save
   end
 
+  context 'when converting to a course' do
+
+    before(:all) do
+      @cr = FactoryGirl.build(:course_request)
+      @course = @cr.to_course
+    end
+
+    it 'the resulting course has the same evaluator as the course request' do
+      expect(@course.evaluators.includes(@cr.evaluator)).to be_true
+    end
+
+    it 'the resulting  course has the same name as the course request' do
+      expect(@course.name).to eq(@cr.name)
+    end
+
+    it 'the resulting course has the same number as the course request' do
+      expect(@course.number).to eq(@cr.number)
+    end
+
+    it 'the resulting course has the same year as the course request' do
+      expect(@course.year).to eq(@cr.year)
+    end
+
+    it 'the resulting course has the same department as the course request' do
+      expect(@course.department).to eq(@cr.department)
+    end
+
+    it 'the resulting course has the same semester as the course request' do
+      expect(@course.semester).to eq(@cr.semester)
+    end
+
+    it 'the resulting course has the same section as the course request' do
+      expect(@course.section).to eq(@cr.section)
+    end
+
+  end
 
 end
 

@@ -101,11 +101,23 @@ define (require) ->
       sd = @get('score_details')
       _.each(sd, (scoreDetail, property) ->
         range = rubric.getRangeForScore(scoreDetail.score)
-        scoreDetail['desc'] = rubric.getCellDescription(property, range.id)
-        scoreDetail['range'] = range.get('name')
-        sd[property] = scoreDetail
+        if range
+          scoreDetail['desc'] = rubric.getCellDescription(property, range.id)
+          scoreDetail['range'] = range.get('name')
+          sd[property] = scoreDetail
       )
       sd
+
+
+    validate: (attrs, options) ->
+      errors = {}
+      if attrs.score_details
+        _.each(attrs.score_details, (score, key) ->
+          if score.score < score.low || score.score > score.high
+            errors['score'] = []
+            errors['score'].push("contains an invalid value for field \"#{score.name}\"--please adjust your score for this field and try again.")
+        )
+      if _.size(errors) > 0 then errors else false
 
     getScoresCollection: () ->
       return @scoreCollection

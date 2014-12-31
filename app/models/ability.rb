@@ -10,7 +10,6 @@ class Ability
 
     user ||= User.new # guest user (not logged in)
 
-
     ######################################################
     ### Users
     ######################################################
@@ -46,7 +45,9 @@ class Ability
     end
 
     can [:evaluate], Course do |course|
-      course.role(user) == :evaluator || course.role(user) == :assistant || user.role?(:creator) && course.allows_peer_review?
+      course.role(user) == :evaluator ||
+          course.role(user) == :assistant ||
+          course.role(user) == :creator && course.allows_peer_review?
     end
 
     can [:show_submissions], Course do |course|
@@ -70,7 +71,11 @@ class Ability
     end
 
     can [:submit], Project do |project|
-      project.course.creators.include?(user)
+      project.course.role(user) == :creator
+    end
+
+    can [:export], Project do |project|
+      can?(:administer, project.course)
     end
 
     can [:publish_evaluations], Project do |project|

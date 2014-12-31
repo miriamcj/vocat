@@ -32,7 +32,11 @@ define (require) ->
         success: (data, textStatus, jqXHR) =>
           @handleSubmitSuccess(jqXHR.responseJSON)
         error: (jqXHR, textStatus, error) =>
-          Vocat.vent.trigger('error:add', {level: 'error', lifetime: 5000, msg: jqXHR.responseJSON.errors})
+          if jqXHR.hasOwnProperty('responseJSON') && jqXHR.responseJSON.hasOwnProperty('errors')
+            error = jqXHR.responseJSON.errors
+          else
+            error = 'The server failed to process the invitation.'
+          Vocat.vent.trigger('error:add', {level: 'error', lifetime: 5000, msg: error})
           @ui.button.removeClass('loading')
           @onCancel()
       })

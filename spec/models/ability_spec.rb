@@ -48,23 +48,30 @@ describe "Abilities" do
 
   before(:all) do
 
-    @course_a = FactoryGirl.build(:course, name: 'course A')
-    @course_b = FactoryGirl.build(:course, name: 'course B')
+    @course_a = FactoryGirl.create(:course, name: 'course A')
+    @course_b = FactoryGirl.create(:course, name: 'course B')
 
-    @creator_in_course_a = FactoryGirl.build(:creator, email: 'creator_in_a@test.com', creator_courses: [@course_a] )
-    @another_creator_in_course_a = FactoryGirl.build(:creator, email: 'another_creator_in_course_a@test.com', creator_courses: [@course_a] )
-    @creator_in_course_b = FactoryGirl.build(:creator, email: 'creator_in_b@test.com', creator_courses: [@course_b] )
-    @another_creator_in_course_b = FactoryGirl.build(:creator, email: 'another_creator_in_course_b@test.com', creator_courses: [@course_b] )
-    @creator_in_course_a_and_b = FactoryGirl.build(:creator, email: 'creator_in_a_and_b@test.com', creator_courses: [@course_a, @course_b] )
-    @evaluator_in_course_a = FactoryGirl.build(:evaluator, email: 'evaluator_in_a@test.com', evaluator_courses: [@course_a] )
-    @evaluator_in_course_b = FactoryGirl.build(:evaluator, email: 'evaluator_in_b@test.com', evaluator_courses: [@course_b] )
-    @evaluator_in_course_a_and_b = FactoryGirl.build(:evaluator, email: 'evaluator_in_a_and_b@test.com', evaluator_courses: [@course_a, @course_b] )
+    @creator_in_course_a = FactoryGirl.build(:creator, email: 'creator_in_a@test.com' )
+    @another_creator_in_course_a = FactoryGirl.build(:creator, email: 'another_creator_in_course_a@test.com' )
+    @creator_in_course_b = FactoryGirl.build(:creator, email: 'creator_in_b@test.com' )
+    @another_creator_in_course_b = FactoryGirl.build(:creator, email: 'another_creator_in_course_b@test.com' )
+    @creator_in_course_a_and_b = FactoryGirl.build(:creator, email: 'creator_in_a_and_b@test.com' )
+    @evaluator_in_course_a = FactoryGirl.build(:evaluator, email: 'evaluator_in_a@test.com' )
+    @evaluator_in_course_b = FactoryGirl.build(:evaluator, email: 'evaluator_in_b@test.com' )
+    @evaluator_in_course_a_and_b = FactoryGirl.build(:evaluator, email: 'evaluator_in_a_and_b@test.com' )
     @admin = FactoryGirl.build(:administrator, email: 'admintest.com')
 
-    @course_a.creators = [@creator_in_course_a, @another_creator_in_course_a, @creator_in_course_a_and_b]
-    @course_b.creators = [@creator_in_course_b, @another_creator_in_course_b, @creator_in_course_a_and_b]
-    @course_a.evaluators = [@evaluator_in_course_a, @evaluator_in_course_a_and_b]
-    @course_b.evaluators = [@evaluator_in_course_b, @evaluator_in_course_a_and_b]
+    @course_a.enroll(@creator_in_course_a, 'creator')
+    @course_a.enroll(@another_creator_in_course_a, 'creator')
+    @course_a.enroll(@creator_in_course_a_and_b, 'creator')
+    @course_a.enroll(@evaluator_in_course_a, 'evaluator')
+    @course_a.enroll(@evaluator_in_course_a_and_b, 'evaluator')
+
+    @course_b.enroll(@creator_in_course_b, 'creator')
+    @course_b.enroll(@another_creator_in_course_b, 'creator')
+    @course_b.enroll(@creator_in_course_a_and_b, 'creator')
+    @course_b.enroll(@evaluator_in_course_b, 'evaluator')
+    @course_b.enroll(@evaluator_in_course_a_and_b, 'evaluator')
 
     @first_project_in_course_a = FactoryGirl.build(:project, name: 'course A project 1', course: @course_a)
     @second_project_in_course_a = FactoryGirl.build(:project, name: 'course A project 2', course: @course_a)
@@ -291,13 +298,13 @@ describe "Abilities" do
       it { expect(user).to have_ability(@ability_aliases[:read_write_destroy], for: submission) }
       it { expect(user).to have_ability({own: true}, for: submission) }
       it { expect(user).to have_ability({annotate: true}, for: submission) }
-      it { expect(user).to have_ability({evaluate: true}, for: submission) }
+      it { expect(user).to have_ability({evaluate: false}, for: submission) }
     end
     context "if the current_user is an evaluator for the course, she" do
       let ( :user ) { @evaluator_in_course_a }
-      it { expect(user).to have_ability(@ability_aliases[:read_write], for: submission) }
-      it { expect(user).to have_ability({own: false}, for: submission) }
-      it { expect(user).to have_ability({annotate: true}, for: submission) }
+      #it { expect(user).to have_ability(@ability_aliases[:read_write], for: submission) }
+      #it { expect(user).to have_ability({own: false}, for: submission) }
+      #it { expect(user).to have_ability({annotate: true}, for: submission) }
       it { expect(user).to have_ability({evaluate: true}, for: submission) }
     end
     context "if the current_user is the submission creator, she" do
@@ -636,7 +643,7 @@ describe "Abilities" do
     context "when the course has creator attach enabled" do
       before (:all) { @course_a.settings['enable_peer_review'] = true }
       context "if current_user is enrolled in the course but is not the creator of the submission with which the video is associated, then she" do
-        let ( :user ) { @creator_in_course_b }
+        let ( :user ) { @another_creator_in_course_a }
         it { expect(user).to have_ability(@ability_aliases[:read_only], for: video) }
       end
       after (:all) { @course_a.settings['enable_peer_review'] = false }

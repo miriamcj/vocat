@@ -2,13 +2,15 @@ class User < ActiveRecord::Base
 
   belongs_to :organization
   has_many :rubrics, :foreign_key => :owner_id
-  has_and_belongs_to_many :assistant_courses, :class_name => "::Course", :join_table => "courses_assistants"
-  has_and_belongs_to_many :evaluator_courses, :class_name => "::Course", :join_table => "courses_evaluators"
-  has_and_belongs_to_many :creator_courses, :class_name => "::Course", :join_table => "courses_creators"
+  has_many :memberships
+  has_many :courses, :through => :memberships
+
+  has_many :creator_courses, -> { where '"memberships"."role" = ?', 'creator' }, :through => :memberships, :source => "course"
+  has_many :evaluator_courses, -> { where '"memberships"."role" = ?', 'evaluator' }, :through => :memberships, :source => "course"
+  has_many :assistant_courses, -> { where '"memberships"."role" = ?', 'assistant' }, :through => :memberships, :source => "course"
+
   has_and_belongs_to_many :groups, :join_table => "groups_creators"
-
   has_many :submissions, :as => :creator, :dependent => :destroy
-
   has_many :course_requests
 
   default_scope { order("last_name ASC") }
@@ -27,9 +29,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-
   ROLES = %w(creator evaluator administrator)
-
   DEFAULT_SETTINGS = {
     'enable_glossary' => {value: false, type: 'boolean' }
   }
@@ -80,6 +80,16 @@ class User < ActiveRecord::Base
     "User"
   end
 
+  def sorted_courses(limit = nil)
+    courses.sorted.limit(limit)
+  end
+
+  def grouped_sorted_courses(limit = nil)
+    sorted_courses(limit).group_by do |course|
+      "#{course.semester} #{course.year}"
+    end
+  end
+
   def has_courses
     if self.courses.count() > 0
       true
@@ -92,14 +102,13 @@ class User < ActiveRecord::Base
     Rubric.public_or_owned_by(self)
   end
 
-  def courses
-    creator_courses + assistant_courses + evaluator_courses
+  def courses_count
+    courses.count
   end
 
   def ability
     @ability ||= Ability.new(self)
   end
-
 
   def update_settings(settings)
     keys_intersection = settings.keys & User::DEFAULT_SETTINGS.keys
@@ -128,22 +137,30 @@ class User < ActiveRecord::Base
     out
   end
 
-  # TODO: Refactor this; Adding itself to the course is not the job of the user.
-  def enroll(course, enrollment_role = nil)
-    if creator_courses.include?(course) || evaluator_courses.include?(course) || assistant_courses.include?(course)
-      errors.add :base, "#{list_name} is already associated with this course."
-      return false
+  def update_preference(key, value)
+    preferences = self.preferences.clone || {}
+    preferences[key] = value
+    self.preferences = preferences
+    self.save
+  end
+
+  def get_preference(key)
+    preferences = self.preferences || {}
+    if preferences.has_key? key
+      preferences[key]
+    else
+      nil
     end
-    if enrollment_role.nil?
-      enrollment_role = role
-    end
-    #if role?(:creator) && enrollment_role.to_s == 'evaluator'
-    #  enrollment_role = 'creator'
-    #end
-    if enrollment_role.eql?('creator') then course.creators << self end
-    if enrollment_role.eql?('evaluator') then course.evaluators << self end
-    if enrollment_role.eql?('administrator') then course.evaluators << self end
-    if enrollment_role.eql?('assistant') then course.assistants << self end
+  end
+
+  def set_default_creator_type_for_course(course, type)
+    key = "course_#{course.id}_creator_type_default"
+    update_preference(key, type)
+  end
+
+  def get_default_creator_type_for_course(course)
+    key = "course_#{course.id}_creator_type_default"
+    get_preference(key)
   end
 
   def to_csv_header_row

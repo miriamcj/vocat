@@ -1,16 +1,9 @@
 Vocat::Application.routes.draw do
 
-  get "courses/index"
-  get "courses/create"
-  get "courses/new"
-  get "courses/destroy"
-  get "courses/show"
   devise_for :users
   devise_scope :user do
     match '/users/settings' => 'registrations#update_settings', :via => :put
   end
-
-  match 'pages/*page' => 'pages#show', :via => :get
 
   namespace :api do
     namespace :v1 do
@@ -85,8 +78,22 @@ Vocat::Application.routes.draw do
     end
 
     scope :module => "courses" do
+      namespace "export" do
+        resources :projects, :only => [] do
+          member do
+            get 'peer_scores'
+            get 'all_scores'
+            get 'evaluator_scores'
+            get 'self_scores'
+          end
+        end
+      end
       namespace "manage" do
-        resources :projects, :except => [:show]
+        resources :projects, :except => [:show] do
+          member do
+            get 'export'
+          end
+        end
         resources :groups
         resources :rubrics, :only => [:index, :show, :new, :edit, :destroy] do
           member do
@@ -100,8 +107,8 @@ Vocat::Application.routes.draw do
       end
     end
 
-    get 'groups/evaluations/(/creator/:creator_id)(/project/:project_id)' => 'courses/evaluations#course_map', :as => 'group_evaluations'
-    get 'users/evaluations(/creator/:creator_id)(/project/:project_id)' => 'courses/evaluations#course_map', :as => 'user_evaluations'
+    get 'groups/evaluations/(/creator/:creator_id)(/project/:project_id)' => 'courses/evaluations#course_map', :as => 'group_evaluations', :defaults => { creator_type: 'group' }
+    get 'users/evaluations(/creator/:creator_id)(/project/:project_id)' => 'courses/evaluations#course_map', :as => 'user_evaluations', :defaults => { creator_type: 'user' }
 
     get 'users/creator/:creator_id/project/:project_id' => 'courses/evaluations#user_creator_project_detail', :as => 'user_creator_project_detail'
     get 'groups/creator/:creator_id/project/:project_id' => 'courses/evaluations#group_creator_project_detail', :as => 'group_creator_project_detail'
@@ -109,7 +116,6 @@ Vocat::Application.routes.draw do
     get 'groups/project/:project_id' => 'courses/evaluations#user_project_detail', :as => 'groups_project_detail'
     get 'users/creator/:creator_id' => 'courses/evaluations#user_creator_detail', :as => 'user_creator_detail'
     get 'groups/creator/:creator_id' => 'courses/evaluations#group_creator_detail', :as => 'user_group_detail'
-
   end
 
   namespace :admin do

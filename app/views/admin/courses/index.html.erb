@@ -6,7 +6,6 @@
       </div>
       <div class="body clearfix">
         <div data-behavior="figures">
-          <% cache :expire_in => 2.hours do %>
             <% @stats.each do |stat| %>
               <figure class="summary-box summary-box-default <%= if stat.has_key?(:class) then stat[:class] end %>">
                 <div class="summary-box--content">
@@ -17,7 +16,6 @@
                 <figcaption><%= stat[:label] %></figcaption>
               </figure>
             <% end %>
-          <% end %>
         </div>
       </div>
     </div>

@@ -11,17 +11,16 @@ describe 'Submission' do
       @submission = FactoryGirl.create(:submission)
       @e1 = FactoryGirl.create(:evaluator)
       @e2 = FactoryGirl.create(:evaluator)
-      @submission.project.course.evaluators << @e1
-      @submission.project.course.evaluators << @e2
+      course = @submission.project.course
+      course.enroll(@e1, 'evaluator')
+      course.enroll(@e2, 'evaluator')
       @r = FactoryGirl.create(:rubric)
-      @eval_unpublished = FactoryGirl.create(:evaluation, :published => false, evaluator: @e1, rubric: @r)
-      @eval_published = FactoryGirl.create(:evaluation, :published => false, evaluator: @e2, rubric: @r)
-      @submission.evaluations << @eval_unpublished
-      @submission.evaluations << @eval_published
+      @eval_unpublished = FactoryGirl.create(:evaluation, :published => false, evaluator: @e1, submission: @submission, rubric: @r)
+      @eval_published = FactoryGirl.create(:evaluation, :published => false, evaluator: @e2, submission: @submission, rubric: @r)
     }
 
-    it 'an unpublished evaluator evaluation is not visible to an evaluator who did not author the evaluation' do
-      expect(@submission.evaluations_visible_to(@e2).include?(@eval_unpublished)).to be_false
+    it 'an unpublished evaluator evaluation is visible to an evaluator who did not author the evaluation' do
+      expect(@submission.evaluations_visible_to(@e2).include?(@eval_unpublished)).to be_true
     end
 
     it 'an unpublished evaluator evaluation is visible to the evaluator who authored the evaluation' do

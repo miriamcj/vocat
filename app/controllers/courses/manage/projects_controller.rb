@@ -55,6 +55,10 @@ class Courses::Manage::ProjectsController < ApplicationController
     respond_with @project, location: course_manage_projects_path(@course)
   end
 
+  def export
+
+  end
+
   private
 
 end

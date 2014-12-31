@@ -25,6 +25,7 @@ gem 'thor', :git => 'https://github.com/erikhuda/thor.git'
 gem 'state_machine'
 gem 'wkhtmltopdf-binary'
 gem 'wicked_pdf'
+gem 'database_cleaner'
 
 # Stuck on this version until https://github.com/ryanb/cancan/issues/861 is released
 gem 'cancan', '= 1.6.9'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141113233523) do
+ActiveRecord::Schema.define(version: 20141231001931) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,29 +99,29 @@ ActiveRecord::Schema.define(version: 20141113233523) do
 
   add_index "courses", ["organization_id"], name: "index_courses_on_organization_id", using: :btree
 
-  create_table "courses_assistants", force: true do |t|
+  create_table "courses_assistants_to_be_deleted", force: true do |t|
     t.integer "user_id"
     t.integer "course_id"
   end
 
-  add_index "courses_assistants", ["course_id"], name: "index_courses_assistants_on_course_id", using: :btree
-  add_index "courses_assistants", ["user_id"], name: "index_courses_assistants_on_user_id", using: :btree
+  add_index "courses_assistants_to_be_deleted", ["course_id"], name: "index_courses_assistants_to_be_deleted_on_course_id", using: :btree
+  add_index "courses_assistants_to_be_deleted", ["user_id"], name: "index_courses_assistants_to_be_deleted_on_user_id", using: :btree
 
-  create_table "courses_creators", force: true do |t|
+  create_table "courses_creators_to_be_deleted", force: true do |t|
     t.integer "user_id"
     t.integer "course_id"
   end
 
-  add_index "courses_creators", ["course_id"], name: "index_courses_creators_on_course_id", using: :btree
-  add_index "courses_creators", ["user_id"], name: "index_courses_creators_on_user_id", using: :btree
+  add_index "courses_creators_to_be_deleted", ["course_id"], name: "index_courses_creators_to_be_deleted_on_course_id", using: :btree
+  add_index "courses_creators_to_be_deleted", ["user_id"], name: "index_courses_creators_to_be_deleted_on_user_id", using: :btree
 
-  create_table "courses_evaluators", force: true do |t|
+  create_table "courses_evaluators_to_be_deleted", force: true do |t|
     t.integer "user_id"
     t.integer "course_id"
   end
 
-  add_index "courses_evaluators", ["course_id"], name: "index_courses_evaluators_on_course_id", using: :btree
-  add_index "courses_evaluators", ["user_id"], name: "index_courses_evaluators_on_user_id", using: :btree
+  add_index "courses_evaluators_to_be_deleted", ["course_id"], name: "index_courses_evaluators_to_be_deleted_on_course_id", using: :btree
+  add_index "courses_evaluators_to_be_deleted", ["user_id"], name: "index_courses_evaluators_to_be_deleted_on_user_id", using: :btree
 
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0
@@ -174,6 +174,14 @@ ActiveRecord::Schema.define(version: 20141113233523) do
   create_table "groups_creators", id: false, force: true do |t|
     t.integer "group_id"
     t.integer "user_id"
+  end
+
+  create_table "memberships", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "course_id"
+    t.string   "role"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "organizations", force: true do |t|
@@ -268,6 +276,7 @@ ActiveRecord::Schema.define(version: 20141113233523) do
     t.string   "state"
     t.string   "country"
     t.boolean  "is_ldap_user"
+    t.hstore   "preferences",            default: {}, null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
