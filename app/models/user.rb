@@ -29,7 +29,6 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-
   ROLES = %w(creator evaluator administrator)
   DEFAULT_SETTINGS = {
     'enable_glossary' => {value: false, type: 'boolean' }
@@ -136,6 +135,32 @@ class User < ActiveRecord::Base
       end
     end
     out
+  end
+
+  def update_preference(key, value)
+    preferences = self.preferences.clone || {}
+    preferences[key] = value
+    self.preferences = preferences
+    self.save
+  end
+
+  def get_preference(key)
+    preferences = self.preferences || {}
+    if preferences.has_key? key
+      preferences[key]
+    else
+      nil
+    end
+  end
+
+  def set_default_creator_type_for_course(course, type)
+    key = "course_#{course.id}_creator_type_default"
+    update_preference(key, type)
+  end
+
+  def get_default_creator_type_for_course(course)
+    key = "course_#{course.id}_creator_type_default"
+    get_preference(key)
   end
 
   def to_csv_header_row
