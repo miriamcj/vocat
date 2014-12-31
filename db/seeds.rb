@@ -326,7 +326,7 @@ evaluator.organization = baruch
 evaluator.role = "evaluator"
 evaluator.save
 course = courses.sample
-course.creators << evaluator
+course.enroll(evaluator, :creator)
 
 course2 = courses.sample
 loop do
@@ -334,4 +334,4 @@ loop do
   course2 = courses.sample
 end
 
-course2.evaluators << evaluator
+course2.enroll(evaluator, :evaluator)
