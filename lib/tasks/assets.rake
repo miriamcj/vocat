@@ -3,7 +3,7 @@ require 'guard'
 namespace :assets do
 
   desc "Builds javascript assets using r.js and kicks off sprockets asset precompilation"
-  task :build => [:precompile] do
+  task :build_js do
 
     # Get the guards
     Guard.setup
