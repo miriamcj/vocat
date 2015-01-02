@@ -96,7 +96,7 @@ ActiveRecord::Schema.define(version: 20141231001931) do
     t.integer  "organization_id"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
-    t.hstore   "settings",        default: {}, null: false
+    t.hstore   "settings",        default: "", null: false
     t.text     "message"
     t.integer  "semester_id"
     t.integer  "year"
@@ -157,7 +157,7 @@ ActiveRecord::Schema.define(version: 20141231001931) do
   create_table "evaluations", force: true do |t|
     t.integer  "submission_id"
     t.integer  "evaluator_id"
-    t.hstore   "scores",           default: {},    null: false
+    t.hstore   "scores",           default: "",    null: false
     t.boolean  "published",        default: false
     t.integer  "rubric_id"
     t.datetime "created_at",                       null: false
@@ -281,7 +281,7 @@ ActiveRecord::Schema.define(version: 20141231001931) do
     t.string   "state"
     t.string   "country"
     t.boolean  "is_ldap_user"
-    t.hstore   "preferences",            default: {}, null: false
+    t.hstore   "preferences",            default: "", null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

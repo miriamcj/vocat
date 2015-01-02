@@ -272,17 +272,18 @@ courses.each_with_index do |course, course_index|
       if rand > 0.3
         submission = project.submissions.create(:name => Faker::Lorem.words(rand(2..5)).map(&:capitalize).join(' '), :creator => course_creators[i] )
 
-        videos = [
-          {source: 'youtube', source_id: 'nKiaBFZPagA'},
-          {source: 'youtube', source_id: 'Yn1ZhiHyJW4'},
-          {source: 'youtube', source_id: 'Yn1ZhiHyJW4'},
-          {source: 'youtube', source_id: 'BivvZkSEZxI'},
-          {source: 'youtube', source_id: 'cptqwfsNjjg'},
-          {source: 'vimeo', source_id: '11556174', thumbnail_url: 'http://b.vimeocdn.com/ts/637/318/63731816_640.jpg'},
-          ]
-
-        video = Video.create(videos.sample)
-        submission.video = video
+        # videos = [
+        #   {source: 'youtube', source_id: 'nKiaBFZPagA'},
+        #   {source: 'youtube', source_id: 'Yn1ZhiHyJW4'},
+        #   {source: 'youtube', source_id: 'Yn1ZhiHyJW4'},
+        #   {source: 'youtube', source_id: 'BivvZkSEZxI'},
+        #   {source: 'youtube', source_id: 'cptqwfsNjjg'},
+        #   {source: 'vimeo', source_id: '11556174', thumbnail_url: 'http://b.vimeocdn.com/ts/637/318/63731816_640.jpg'},
+        #   ]
+        #
+        # video = Video.
+        # video = Video.create(videos.sample)
+        # submission.video = video
 
         submission.save!
 
