@@ -11,6 +11,9 @@
 /db/*.sqlite3
 config/s3.yml
 
+/public/assets
+/public/build
+
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
