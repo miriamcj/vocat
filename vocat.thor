@@ -320,7 +320,7 @@ class Vocat < Thor
       say "  I am assuming this role is setup correctly and am not altering it.", :yellow
       role = response[:role]
     rescue AWS::IAM::Errors::NoSuchEntity
-      response = iam.create_role({:role_name => name, :assume_role_policy_document => role_policy_document})
+      response = iam.create_role({:role_name => @@config[:aws][:iam_et_role], :assume_role_policy_document => role_policy_document})
       role = response[:role]
       say "  I created a new AWS role called #{@@config[:aws][:iam_et_role]}.", :yellow
     end
