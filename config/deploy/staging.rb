@@ -1,4 +1,4 @@
-set :branch, "v3.1"
+set :branch, "v3.1.2"
 set :server_name, "vocat.cic-stg.com"
 set :application, "vocat"
 
