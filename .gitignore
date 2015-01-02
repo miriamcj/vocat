@@ -7,10 +7,6 @@
 # Ignore bundler config
 /.bundle
 
-# Ignore the default SQLite database.
-/db/*.sqlite3
-config/s3.yml
-
 /public/assets
 /public/build
 
@@ -21,10 +17,9 @@ config/s3.yml
 .idea
 *.iml
 
-/public/dev-assets
 /build/javascripts
 node_modules
 npm-debug.log
 
-# Ingnore environment-specific configuration
+# Ignore environment-specific configuration
 /config/environment.yml
