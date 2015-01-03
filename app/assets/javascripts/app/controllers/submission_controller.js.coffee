@@ -10,8 +10,6 @@ define (require) ->
   UserCollection = require('collections/user_collection')
   GroupCollection = require('collections/group_collection')
   AssetCollection = require('collections/asset_collection')
-  AssetShowLayout = require('views/assets/asset_show_layout')
-
 
   class SubmissionController extends VocatController
 
