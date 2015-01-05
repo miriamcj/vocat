@@ -71,8 +71,8 @@ class Reporter::Project
         next if group_member_ids.include?(eid) && exclude_self == true
         next if !group_member_ids.include?(eid) && only_self == true
         out.push group.name
-      elsif evaluation[:creator_type] == 'Creator'
-        out.push "#{@members[cid][:last_name]}, #{@members[cid][:first_name]}"
+      elsif evaluation[:creator_type] == 'User'
+        out.push @members[cid]
       else
         out.push ""
       end
