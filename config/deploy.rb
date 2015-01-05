@@ -43,10 +43,8 @@ namespace :deploy do
     end
   end
 
-
   after :published, :restart
   after 'deploy:normalize_assets', :build_js
   after 'deploy:normalize_assets', :copy_error_pages
-
-
+  
 end
