@@ -24,7 +24,7 @@ class Course < ActiveRecord::Base
   ALLOWED_SETTINGS = [:enable_creator_attach, :enable_self_evaluation, :enable_peer_review, :enable_public_discussion]
   store_accessor :settings, *ALLOWED_SETTINGS
 
-  scope :sorted, -> { includes(:semester).order ('year DESC, semesters.position DESC') }
+  scope :sorted, -> { joins(:semester).order ('year DESC, semesters.position DESC') }
 
   after_initialize :ensure_settings
 

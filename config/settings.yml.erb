@@ -1,0 +1,121 @@
+:development: &1
+  :tracking:
+    :analytics_enabled: false
+  :smtp:
+    :address: email-smtp.us-east-1.amazonaws.com
+    :port: 587
+    :domain: vocat.io
+    :authentication: plain
+    :enable_starttls_auto: true
+  :ldap:
+    :enabled: false
+  :aws:
+    :enabled: true
+    :s3_bucket: vocat.dev
+    :s3_region: us-west-2
+    :et_pipeline: 1420228464462-z8zb3z
+    :iam_et_role: vocat_dev_transcoder
+    :presets:
+      :webm: 1398902274559-yu3i15
+      :mp4: 1398902272496-qw0113
+  :email: &5
+    :default_from: "do-not-reply@vocat.cic-dvl.com"
+    :notification:
+      :course_request_create: 'zach@castironcoding.com'
+
+:test: *1
+
+:production:
+  :tracking:
+    :analytics_enabled: true
+    :analytics_id: UA-47779498-1
+    :analytics_domain: baruch.vocat.io
+  :smtp:
+    :address: email-smtp.us-east-1.amazonaws.com
+    :port: 587
+    :domain: vocat.io
+    :authentication: plain
+    :enable_starttls_auto: true
+  :ldap:
+    :enabled: true
+    :host: extrodc01v.baruch.cuny.edu
+    :encryption: simple_tls
+    :port: 3269
+    :filter_dn: dc=Baruch,dc=local
+    :filter: (mail={email})
+    :org_identity: name
+    :reset_pw_url: https://mypassword.baruch.cuny.edu/
+    :recover_pw_url: https://mypassword.baruch.cuny.edu/
+    :account_management_message: 'Your Vocat account is the same as your Baruch College
+      Active Directory account. Use <a href="https://mypassword.baruch.cuny.edu/">mypassword.baruch.cuny.edu</a>
+      to recover or reset your password.'
+    :instructor_email_domain: baruch.cuny.edu
+    :default_role: creator
+  :aws:
+    :enabled: true
+    :s3_bucket: vocat.prod
+    :s3_region: us-west-2
+    :et_pipeline: 1391143819931-c6mion
+    :iam_et_role: vocat_prod_transcoder
+    :presets:
+      :webm: 1398902274559-yu3i15
+      :mp4: 1398902272496-qw0113
+  :email:
+    :default_from: "do-not-reply@baruch.vocat.io"
+    :notification:
+      :course_request_create: 'notify@baruch.vocat.io'
+
+:demo:
+  :tracking:
+    :analytics_enabled: true
+    :analytics_id: UA-47779498-1
+    :analytics_domain: demo.vocat.io
+  :smtp:
+    :address: email-smtp.us-east-1.amazonaws.com
+    :port: 587
+    :domain: vocat.io
+    :authentication: plain
+    :enable_starttls_auto: true
+  :ldap:
+    :enabled: false
+  :aws:
+    :enabled: true
+    :s3_bucket: vocat.demonstration
+    :s3_region: us-west-2
+    :et_pipeline: 1391144481631-gkjjhu
+    :iam_et_role: vocat_demo_transcoder
+    :presets:
+      :webm: 1398902274559-yu3i15
+      :mp4: 1398902272496-qw0113
+  :email:
+    :default_from: "do-not-reply@demo.vocat.io"
+    :notification:
+      :course_request_create: 'notify@baruch.vocat.io'
+
+:staging:
+  :tracking:
+    :analytics_enabled: true
+    :analytics_id: UA-47779498-1
+    :analytics_domain: demo.vocat.io
+  :smtp:
+    :address: email-smtp.us-east-1.amazonaws.com
+    :port: 587
+    :domain: vocat.io
+    :authentication: plain
+    :enable_starttls_auto: true
+  :ldap:
+    :enabled: false
+  :aws:
+    :enabled: true
+    :s3_bucket: vocat.staging
+    :s3_region: us-west-2
+    :et_pipeline: 1398453860645-tptvkh
+    :iam_et_role: vocat_staging_transcoder
+    :presets:
+      :webm: 1398902274559-yu3i15
+      :mp4: 1398902272496-qw0113
+  :email:
+    :default_from: "do-not-reply@vocat.cic-stg.com"
+    :notification:
+      :course_request_create: 'zach@castironcoding.com'
+

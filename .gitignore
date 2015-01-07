@@ -23,3 +23,4 @@ npm-debug.log
 
 # Ignore environment-specific configuration
 /config/environment.yml
+/config/secrets.yml

@@ -113,10 +113,6 @@ fieldset + fieldset {
     @extend %form-wide-one-sixth;
     @extend %form-unit;
   }
-  &.twelfth {
-    @extend %form-wide-one-twelfth;
-    @extend %form-unit;
-  }
 
   &.submit-row {
     margin-top: $verticalSpaceTightest * 2;
@@ -315,8 +311,6 @@ select.from, select.to {
     }
 
     .dragger-label {
-      @extend %heading-epsilon;
-      @extend %shaded-inside-bottom;
       line-height: 1;
       color: $white !important;
       width: 40px;

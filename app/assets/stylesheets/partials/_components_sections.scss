@@ -112,23 +112,6 @@
   }
 }
 
-%page-section-column {
-  height: 100%;
-  padding-left: 0;
-  padding-right: 0;
-  &.col-one {
-    padding-right: ($sectionSpacingUnit * .375);
-  }
-  &.col-two {
-    padding-left: ($sectionSpacingUnit * .375);
-  }
-  @include respond($ontario) {
-    padding: 0;
-    margin-top: $sectionSpacingUnit * .75;
-  }
-
-}
-
 .page-section-whole {
   @extend %wide-one-whole;
   @extend %page-section-column;
@@ -182,11 +165,7 @@
     @extend %content-unit;
     @extend %form-pad;
     @include unit(10);
-
-
     @extend %medium-three-fourths;
-    @extend %narrow-whole;
-
   }
 }
 

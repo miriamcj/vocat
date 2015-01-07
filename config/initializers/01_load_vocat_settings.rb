@@ -1,7 +1,7 @@
 Vocat::Application.configure do
 
-  # Note: Hashie is a gem dependency
-  vocat_config = YAML.load_file(Rails.root.join('config', 'environment.yml'))[Rails.env.to_sym]
+  settings  = YAML.load(ERB.new(File.read("#{Rails.root}/config/settings.yml.erb")).result)[Rails.env.to_sym]
+  vocat_config = settings.deep_merge(Rails.application.secrets.vocat)
   config.vocat = Hashie::Mash.new(vocat_config)
 
   if !config.vocat.smtp.nil?
