@@ -4,6 +4,12 @@ GIT
   specs:
     thor (0.19.1)
 
+GIT
+  remote: https://github.com/seuros/state_machine.git
+  revision: b5baef856b170f18dc2fdc36def2411c255335b9
+  specs:
+    state_machine (1.2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -251,7 +257,6 @@ GEM
       colorize (>= 0.7.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
-    state_machine (1.2.0)
     thread_safe (0.3.4)
     tilt (1.4.1)
     timers (4.0.1)
@@ -311,7 +316,7 @@ DEPENDENCIES
   sidekiq
   simple_form
   sinatra (>= 1.3.0)
-  state_machine
+  state_machine!
   thor!
   uglifier (>= 1.0.3)
   unicorn
