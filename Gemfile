@@ -44,12 +44,14 @@ gem 'guard-coffeescript'
 gem 'guard-copy'
 
 group :development, :test do
+  gem 'spring-commands-rspec'
   gem 'factory_girl'
   gem 'factory_girl_rails'
   gem 'rspec'
   gem 'rspec-rails'
 end
 
+gem 'spring'
 gem 'compass-rails', '~> 1.1.2'
 gem 'sass-rails',   '~> 5.0.0'
 gem 'coffee-rails', '~> 4.1.0'
