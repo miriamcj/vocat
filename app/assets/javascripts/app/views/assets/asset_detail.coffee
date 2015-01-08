@@ -2,7 +2,9 @@ define (require) ->
 
   Marionette = require('marionette')
   template = require('hbs!templates/assets/asset_detail')
-  PlayerView = require('views/assets/player/player')
+  VideoPlayerView = require('views/assets/player/video_player')
+  ImageDisplayerView = require('views/assets/player/image_displayer')
+  ProcessingWarningView = require('views/assets/player/processing_warning')
   VideoAnnotatorView = require('views/assets/annotator/video_annotator')
   AnnotationsView = require('views/assets/annotations/annotations')
 
@@ -29,11 +31,21 @@ define (require) ->
     adjustColumnHeights: () ->
       @ui.annotationsColumn.css({maxHeight: @ui.playerColumn.outerHeight()})
 
+    selectPlayerView: () ->
+      viewConstructorArguments = {model: @model, vent: @vent}
+      if @model.get('attachment_state') == 'processed'
+        family = @model.get('family')
+        switch family
+          when 'video' then playerView = new VideoPlayerView(viewConstructorArguments)
+          when 'image' then playerView = new ImageDisplayerView(viewConstructorArguments)
+      else
+        playerView = new ProcessingWarningView(viewConstructorArguments)
+      playerView
+
     onShow: () ->
-      playerView = new PlayerView({model: @model, vent: @vent})
       annotationsView = new AnnotationsView({model: @model, vent: @vent})
       annotatorView = @pickAnnotatorView(@model)
-      @player.show(playerView)
+      @player.show(@selectPlayerView())
       @annotator.show(annotatorView) if annotatorView
       @annotations.show(annotationsView)
       @adjustColumnHeights()
@@ -51,3 +63,4 @@ define (require) ->
     initialize: (options) ->
       @courseId = window.VocatCourseId
       @vent = new Backbone.Wreqr.EventAggregator()
+      console.log @model.attributes,'attr'

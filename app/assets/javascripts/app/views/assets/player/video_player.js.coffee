@@ -1,9 +1,9 @@
 define (require) ->
 
   Marionette = require('marionette')
-  template = require('hbs!templates/assets/player/player')
+  template = require('hbs!templates/assets/player/video_player')
 
-  class PlayerView extends Marionette.ItemView
+  class VideoPlayerView extends Marionette.ItemView
 
     template: template
 
@@ -23,6 +23,9 @@ define (require) ->
     setupListeners: () ->
       @listenTo(@vent, 'request:time:update', (data) => @handleTimeUpdateRequest(data))
       @listenTo(@vent, 'request:status', (data) => @handleStatusRequest())
+      @listenTo(@vent, 'request:play', (data) => @handlePlayRequest(data))
+      @listenTo(@vent, 'request:pause', (data) => @handlePauseRequest(data))
+      @listenTo(@vent, 'request:resume', (data) => @handleResumeRequest(data))
 
     setupPlayerEvents: () ->
       @player.on( 'timeupdate', ()=>
@@ -58,6 +61,20 @@ define (require) ->
         duration: @player.duration()
       })
 
+    handleResumeRequest: () ->
+      if @wasPlaying == true
+        @player.play()
+        @wasPlaying = false
+
+    handlePlayRequest: () ->
+      @player.play()
+
+    handlePauseRequest: () ->
+      playing = !@player.paused()
+      if playing == true
+        @wasPlaying = true
+        @player.pause()
+
     handleTimeUpdateRequest: (data) ->
       if data.hasOwnProperty('percent')
         duration = @player.duration()
@@ -82,6 +99,12 @@ define (require) ->
         height: 'auto'
         children: {
           controlBar: {
+            children: {
+              timeDivider: false
+              currentTimeDisplay: false
+              durationDisplay: false
+              remainingTimeDisplay: false
+            }
             progressControl: {
               seekBar: {
                 loadProgressBar: false

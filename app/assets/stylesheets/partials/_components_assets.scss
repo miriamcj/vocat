@@ -129,6 +129,7 @@ $textColor: $grayLightest;
   .col-one.page-section-two-thirds {
     background: $playerColBg;
     padding-right: 0;
+    padding-left: 0;
     &:before {
       width: 66.666666%;
       content: '';
@@ -212,21 +213,29 @@ $trackHeight: 10px;
   padding-top: 20px;
   width: 100%;
   min-height: 200px;
+  .formgrid {
+    padding-left: 6%;
+    padding-right: 6%;
+  }
   .timeline-container {
-    margin: 0px 20px 0px 20px;
     position: relative;
-    height: 40px;
+    margin-top: 2em;
+
+  }
+  .annotation-input {
+    height: 75px;
   }
   .time {
     position: absolute;
     right: 0;
-    width: 15%;
+    top: -2px;
+    width: 8%;
     font-size: $iota;
     color: $white;
     text-align: right;
   }
   .timeline {
-    width: 83%;
+    width: 92%;
     height: $trackHeight;
     position: absolute;
     left: 0;
@@ -243,6 +252,38 @@ $trackHeight: 10px;
       height: $trackHeight;
       background: $grayMedium;
     }
+    .scrubber {
+      position: absolute;
+      width: 1px;
+      height: 10px;
+      background: $grayDark;
+      z-index: 6;
+      span {
+        cursor: pointer;
+        width: 80px;
+        display: inline-block;
+        margin: auto;
+        right: -40px;
+        color: $white;
+        font-size: $iota;
+        top: -$trackHeight * 3.0;
+        text-align: center;
+        position: absolute;
+        &:after {
+          content: '';
+          width: 0;
+          height: 0;
+          position: absolute;
+          bottom: -$trackHeight;
+          right: 40px - $trackHeight;
+          margin-left: -$trackHeight;
+          border-left: $trackHeight solid transparent;
+          border-right: $trackHeight solid transparent;
+          border-top: $trackHeight solid $white;
+        }
+      }
+    }
+
     .played {
       position: absolute;
       z-index: 3;

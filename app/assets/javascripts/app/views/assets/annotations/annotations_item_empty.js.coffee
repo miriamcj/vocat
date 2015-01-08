@@ -7,4 +7,4 @@ define (require) ->
 
     template: template
     tagName: 'li'
-    className: 'annotations--item'
+    className: 'annotation'
