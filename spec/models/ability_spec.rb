@@ -555,7 +555,7 @@ describe "Abilities" do
   context "for Annotations" do
 
     context "when the annotation was created by a creator" do
-      let ( :annotation ) { FactoryGirl.build(:annotation, author: @creator_in_course_a, video: FactoryGirl.build(:video, submission: @submission_for_first_project_in_course_a)) }
+      let ( :annotation ) { FactoryGirl.build(:annotation, author: @creator_in_course_a, asset: FactoryGirl.build(:asset, submission: @submission_for_first_project_in_course_a)) }
       context "if the current_user is an admin, she" do
         let ( :user ) { @admin }
         it { expect(user).to have_ability(@ability_aliases[:read_write_destroy], for: annotation) }
@@ -574,7 +574,7 @@ describe "Abilities" do
       end
     end
     context "when the annotation was created by an evaluator" do
-      let ( :annotation ) { FactoryGirl.build(:annotation, author: @evaluator_in_course_a, video: FactoryGirl.build(:video, submission: @submission_for_first_project_in_course_a)) }
+      let ( :annotation ) { FactoryGirl.build(:annotation, author: @evaluator_in_course_a, asset: FactoryGirl.build(:asset, submission: @submission_for_first_project_in_course_a)) }
       context "if the current_user is an admin, she" do
         let ( :user ) { @admin }
         it { expect(user).to have_ability(@ability_aliases[:read_write_destroy], for: annotation) }
@@ -596,60 +596,60 @@ describe "Abilities" do
   end # END ANNOTATIONS CONTEXT
 
 
-  context "Videos" do
-    let ( :video ) { FactoryGirl.build(:video, submission: @submission_for_first_project_in_course_a) }
-    context "when the course has creator attach disabled" do
-      before (:all) { @course_a.settings['enable_creator_attach'] = false }
-      context "if the current_user is an admin, she" do
-        let ( :user ) { @admin }
-        it { expect(user).to have_ability(@ability_aliases[:read_write_destroy], for: video) }
-      end
-      context "if the current_user is an evaluator in the course, she" do
-        let ( :user ) { @evaluator_in_course_a }
-        it { expect(user).to have_ability(@ability_aliases[:read_write_destroy], for: video) }
-        it { expect(user).to have_ability({new: true}, for: video) }
-        it { expect(user).to have_ability({create: true}, for: video) }
-      end
-      context "if the current_user is the creator for the submission with which the video is associated, she" do
-        let ( :user ) { @creator_in_course_a }
-        it { expect(user).to have_ability(@ability_aliases[:read_only], for: video) }
-      end
-      context "if current_user is enrolled in the course but is not the creator of the submission with which the video is associated, then she" do
-        let ( :user ) { @creator_in_course_b }
-        it { expect(user).to have_ability(@ability_aliases[:forbidden], for: video) }
-      end
-    end
-    context "when the course has creator attach enabled" do
-      before (:all) { @course_a.settings['enable_creator_attach'] = true }
-      context "if the current_user is an admin, she" do
-        let ( :user ) { @admin }
-        it { expect(user).to have_ability(@ability_aliases[:read_write_destroy], for: video) }
-      end
-      context "if the current_user is an evaluator in the course, she" do
-        let ( :user ) { @evaluator_in_course_a }
-        it { expect(user).to have_ability(@ability_aliases[:read_write_destroy], for: video) }
-      end
-      context "if the current_user is the creator for the submission with which the video is associated, she" do
-        let ( :user ) { @creator_in_course_a }
-        it { expect(user).to have_ability(@ability_aliases[:read_write_destroy], for: video) }
-      end
-      context "if current_user is enrolled in the course but is not the creator of the submission with which the video is associated, then she" do
-        let ( :user ) { @creator_in_course_b }
-        it { expect(user).to have_ability(@ability_aliases[:forbidden], for: video) }
-      end
-      after (:all) { @course_a.settings['enable_creator_attach'] = false }
-    end
-
-    context "when the course has creator attach enabled" do
-      before (:all) { @course_a.settings['enable_peer_review'] = true }
-      context "if current_user is enrolled in the course but is not the creator of the submission with which the video is associated, then she" do
-        let ( :user ) { @another_creator_in_course_a }
-        it { expect(user).to have_ability(@ability_aliases[:read_only], for: video) }
-      end
-      after (:all) { @course_a.settings['enable_peer_review'] = false }
-    end
-
-  end # END VIDEOS CONTEXT
+  # context "Videos" do
+  #   let ( :video ) { FactoryGirl.build(:video, submission: @submission_for_first_project_in_course_a) }
+  #   context "when the course has creator attach disabled" do
+  #     before (:all) { @course_a.settings['enable_creator_attach'] = false }
+  #     context "if the current_user is an admin, she" do
+  #       let ( :user ) { @admin }
+  #       it { expect(user).to have_ability(@ability_aliases[:read_write_destroy], for: video) }
+  #     end
+  #     context "if the current_user is an evaluator in the course, she" do
+  #       let ( :user ) { @evaluator_in_course_a }
+  #       it { expect(user).to have_ability(@ability_aliases[:read_write_destroy], for: video) }
+  #       it { expect(user).to have_ability({new: true}, for: video) }
+  #       it { expect(user).to have_ability({create: true}, for: video) }
+  #     end
+  #     context "if the current_user is the creator for the submission with which the video is associated, she" do
+  #       let ( :user ) { @creator_in_course_a }
+  #       it { expect(user).to have_ability(@ability_aliases[:read_only], for: video) }
+  #     end
+  #     context "if current_user is enrolled in the course but is not the creator of the submission with which the video is associated, then she" do
+  #       let ( :user ) { @creator_in_course_b }
+  #       it { expect(user).to have_ability(@ability_aliases[:forbidden], for: video) }
+  #     end
+  #   end
+  #   context "when the course has creator attach enabled" do
+  #     before (:all) { @course_a.settings['enable_creator_attach'] = true }
+  #     context "if the current_user is an admin, she" do
+  #       let ( :user ) { @admin }
+  #       it { expect(user).to have_ability(@ability_aliases[:read_write_destroy], for: video) }
+  #     end
+  #     context "if the current_user is an evaluator in the course, she" do
+  #       let ( :user ) { @evaluator_in_course_a }
+  #       it { expect(user).to have_ability(@ability_aliases[:read_write_destroy], for: video) }
+  #     end
+  #     context "if the current_user is the creator for the submission with which the video is associated, she" do
+  #       let ( :user ) { @creator_in_course_a }
+  #       it { expect(user).to have_ability(@ability_aliases[:read_write_destroy], for: video) }
+  #     end
+  #     context "if current_user is enrolled in the course but is not the creator of the submission with which the video is associated, then she" do
+  #       let ( :user ) { @creator_in_course_b }
+  #       it { expect(user).to have_ability(@ability_aliases[:forbidden], for: video) }
+  #     end
+  #     after (:all) { @course_a.settings['enable_creator_attach'] = false }
+  #   end
+  #
+  #   context "when the course has creator attach enabled" do
+  #     before (:all) { @course_a.settings['enable_peer_review'] = true }
+  #     context "if current_user is enrolled in the course but is not the creator of the submission with which the video is associated, then she" do
+  #       let ( :user ) { @another_creator_in_course_a }
+  #       it { expect(user).to have_ability(@ability_aliases[:read_only], for: video) }
+  #     end
+  #     after (:all) { @course_a.settings['enable_peer_review'] = false }
+  #   end
+  #
+  # end # END VIDEOS CONTEXT
 
   context "for Rubrics" do
     context "when the rubric is an evaluator owned rubric" do

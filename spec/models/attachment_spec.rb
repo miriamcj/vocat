@@ -28,7 +28,7 @@ describe 'Attachment' do
   end
 
   before(:all) do
-    vocat_config = YAML.load_file(Rails.root.join('config', 'environment.yml'))[Rails.env.to_sym]
+    vocat_config = Rails.application.config.vocat
     AWS.config(:access_key_id => vocat_config[:aws][:key], :secret_access_key => vocat_config[:aws][:secret])
     @s3 = AWS::S3.new()
     @bucket = @s3.buckets[vocat_config[:aws][:s3_bucket]]
@@ -40,7 +40,7 @@ describe 'Attachment' do
 
   it 'has a factory that can be processed' do
     a = FactoryGirl.build(:attachment)
-    expect(a.can_be_processed?).to be_true
+    expect(a.can_be_processed?).to be true
   end
 
   it 'generates a correct uncommitted source key when the ID is 1' do
@@ -63,30 +63,30 @@ describe 'Attachment' do
     ensure_uncommitted_file(a.id)
     ensure_absence_of_committed_file(a.id)
     a.commit
-    expect(@bucket.objects[a.location].exists?).to be_true
+    expect(@bucket.objects[a.location].exists?).to be true
   end
 
   it 'reports that it can be processed' do
     a = FactoryGirl.build(:attachment, :id => 1, :state => 'committed')
-    expect(a.can_be_processed?).to be_true
+    expect(a.can_be_processed?).to be true
   end
 
   it 'destroys its s3 object when it is destroyed and it has been committed' do
     ensure_committed_file(1)
     a = FactoryGirl.create(:attachment, :id => 1, :state => 'committed')
     location = a.location
-    expect(@bucket.objects[location].exists?).to be_true
+    expect(@bucket.objects[location].exists?).to be true
     a.destroy
-    expect(@bucket.objects[location].exists?).to be_false
+    expect(@bucket.objects[location].exists?).to be false
   end
 
   it 'destroys its s3 object when it is destroyed and it is uncommitted' do
     ensure_uncommitted_file(1)
     a = FactoryGirl.create(:attachment, :id => 1, :state => 'uncommitted')
     location = a.location
-    expect(@bucket.objects[location].exists?).to be_true
+    expect(@bucket.objects[location].exists?).to be true
     a.destroy
-    expect(@bucket.objects[location].exists?).to be_false
+    expect(@bucket.objects[location].exists?).to be false
   end
 
 

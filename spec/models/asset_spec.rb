@@ -2,8 +2,10 @@ require 'spec_helper'
 
 describe Asset do
 
-  it 'fails validation without a type' do
-    expect(Asset.new).to have(1).error_on(:type)
+  it 'is valid without a type, because it will automatically be assigned one' do
+    a = Asset.create
+    expect(a.valid?).to be true
+    expect(a.errors[:type].size).to eq(0)
   end
 
   it 'has an active model serializer' do

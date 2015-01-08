@@ -20,11 +20,11 @@ describe 'Submission' do
     }
 
     it 'an unpublished evaluator evaluation is visible to an evaluator who did not author the evaluation' do
-      expect(@submission.evaluations_visible_to(@e2).include?(@eval_unpublished)).to be_true
+      expect(@submission.evaluations_visible_to(@e2).include?(@eval_unpublished)).to be true
     end
 
     it 'an unpublished evaluator evaluation is visible to the evaluator who authored the evaluation' do
-      expect(@submission.evaluations_visible_to(@e1).include?(@eval_unpublished)).to be_true
+      expect(@submission.evaluations_visible_to(@e1).include?(@eval_unpublished)).to be true
     end
   end
 

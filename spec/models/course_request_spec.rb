@@ -40,7 +40,7 @@ describe CourseRequest do
     end
 
     it 'the resulting course has the same evaluator as the course request' do
-      expect(@course.evaluators.includes(@cr.evaluator)).to be_true
+      expect(@course.evaluators.includes(@cr.evaluator)).to be true
     end
 
     it 'the resulting  course has the same name as the course request' do

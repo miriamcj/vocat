@@ -11,10 +11,9 @@ describe Attachment::Processor::Transcoder::Mp4 do
   end
 
   before(:all) do
-    vocat_config = YAML.load_file(Rails.root.join('config', 'environment.yml'))[Rails.env.to_sym]
-    AWS.config(:access_key_id => vocat_config[:aws][:key], :secret_access_key => vocat_config[:aws][:secret])
+    AWS.config(:access_key_id => Rails.application.config.vocat.aws[:key], :secret_access_key => Rails.application.config.vocat.aws[:secret])
     @s3 = AWS::S3.new()
-    @bucket = @s3.buckets[vocat_config[:aws][:s3_bucket]]
+    @bucket = @s3.buckets[Rails.application.config.vocat.aws[:s3_bucket]]
     @mp4 = Attachment::Processor::Transcoder::Mp4.new
   end
 
@@ -24,23 +23,23 @@ describe Attachment::Processor::Transcoder::Mp4 do
 
   it 'can process an attachment with a file type that is included among its handled_formats attribute' do
     a = FactoryGirl.build(:attachment, :id => 1)
-    expect(@mp4.can_process? a).to be_true
+    expect(@mp4.can_process? a).to be true
   end
 
   it 'cannot process an attachment with a file type that is not included among its handled_formats attribute' do
     a = FactoryGirl.build(:attachment, :id => 1, :media_file_name => 'file.txt')
-    expect(@mp4.can_process? a).to be_false
+    expect(@mp4.can_process? a).to be false
   end
 
   it 'does not detect an existing variant when no existing variant exists' do
     a = FactoryGirl.build(:attachment, :id => 1)
-    expect(@mp4.existing_variant?(a)).to be_false
+    expect(@mp4.existing_variant?(a)).to be false
   end
 
   it 'detects an existing variant when an existing variant exists' do
     a = FactoryGirl.create(:attachment, :id => 1)
     v = FactoryGirl.create(:attachment_variant, :format => 'mp4', :attachment => a, :processor_name => 'Attachment::Processor::Transcoder::Mp4')
-    expect(@mp4.existing_variant?(a)).to be_true
+    expect(@mp4.existing_variant?(a)).to be true
   end
 
 

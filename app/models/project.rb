@@ -29,8 +29,8 @@ class Project < ActiveRecord::Base
   ATTACHMENT_FAMILIES = %w(audio image video)
 
   def attachment_families_are_valid
-    if allowed_attachment_families
-      allowed_attachment_families.each do |value|
+    if self.allowed_attachment_families
+      self.allowed_attachment_families.each do |value|
         unless Project::ATTACHMENT_FAMILIES.include?(value)
           errors.add(:allowed_attachment_families, "contains an invalid value \"#{value}\"")
         end
