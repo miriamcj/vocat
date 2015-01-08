@@ -2,8 +2,8 @@ source 'https://rubygems.org'
 
 gem 'rails', '~> 4.1.0'
 
-gem 'paper_trail', '>= 3.0.0.beta1'
-gem 'active_model_serializers', '~> 0.7.0'
+gem 'paper_trail', '>= 3.0.6'
+gem 'active_model_serializers', '0.8.3'
 gem 'pg'
 
 #gem 'jquery-rails' # We vendor this directly so it can be included in our require.js pipeline
@@ -34,7 +34,7 @@ gem 'kaminari'
 gem 'faker'
 
 # Deployment
-gem 'capistrano', '~> 3.2.0'
+gem 'capistrano', '~> 3.3.0'
 gem 'capistrano-rails', '~> 1.1.0'
 gem 'capistrano-bundler'
 gem 'capistrano-rbenv', '~> 2.0'
@@ -52,7 +52,7 @@ group :development, :test do
 end
 
 gem 'spring'
-gem 'compass-rails', '~> 1.1.2'
+gem 'compass-rails', '~> 2.0.0'
 gem 'sass-rails',   '~> 5.0.0'
 gem 'coffee-rails', '~> 4.1.0'
-gem 'uglifier', '>= 1.0.3'
+gem 'uglifier', '~> 2.6.0'
