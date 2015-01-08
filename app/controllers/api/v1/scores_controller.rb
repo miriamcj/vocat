@@ -3,7 +3,7 @@ class Api::V1::ScoresController < ApiController
   respond_to :json
   skip_authorization_check
 
-  before_filter :load_project
+  before_action :load_project
 
   # GET /api/v1/scores/my_scores.json?project=:project
   def my_scores

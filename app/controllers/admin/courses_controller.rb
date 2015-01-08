@@ -3,7 +3,7 @@ class Admin::CoursesController < Admin::AdminController
   load_and_authorize_resource :course
   respond_to :html
 
-  before_filter :deselect_course
+  before_action :deselect_course
 
   def deselect_course
     @deselect_course = true

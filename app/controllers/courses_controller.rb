@@ -3,7 +3,7 @@ class CoursesController < ApplicationController
   authorize_resource :course, :except => :dashboard
 
   respond_to :html, :json
-  before_filter :assign_course
+  before_action :assign_course
 
   def portfolio
     @selected_course_role = @selected_course.role(current_user)

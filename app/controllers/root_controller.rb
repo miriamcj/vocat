@@ -1,6 +1,6 @@
 class RootController < ApplicationController
 
-  before_filter :authenticate_user!, :except => [:index]
+  before_action :authenticate_user!, :except => [:index]
   skip_authorization_check
 
   # Essentially a routing method to move the user to the correct

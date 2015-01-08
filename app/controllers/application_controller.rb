@@ -10,12 +10,12 @@ class ApplicationController < ActionController::Base
 
   # Used for testing flash messages
   unless Rails.env.production?
-    before_filter :test_flash_messages
+    before_action :test_flash_messages
   end
 
-  before_filter :authenticate_user!
-  before_filter :get_organization_and_current_course
-  before_filter :inject_global_layout_variables
+  before_action :authenticate_user!
+  before_action :get_organization_and_current_course
+  before_action :inject_global_layout_variables
 
 
   protected

@@ -5,7 +5,7 @@ class Courses::Manage::RubricsController < ApplicationController
   respond_to :html
   respond_to :pdf, :only => :show
 
-  before_filter :disable_layout_messages
+  before_action :disable_layout_messages
 
   def index
     @my_rubrics = Rubric.where(owner: current_user)

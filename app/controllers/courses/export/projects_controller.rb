@@ -4,13 +4,13 @@ class Courses::Export::ProjectsController < ApplicationController
   respond_to :json
   respond_to :csv
 
-  before_filter do
+  before_action do
     if params[:format] && ['json', 'csv'].include?(params[:format].downcase)
       request.format = params[:format].downcase
     end
   end
 
-  before_filter do
+  before_action do
     @project = Project.find(params[:id])
     authorize!(:export, @project)
   end
