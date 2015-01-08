@@ -3,11 +3,11 @@ require 'spec_helper'
 describe 'Rubric' do
 
   it 'has a valid factory' do
-    FactoryGirl.build(:rubric).should be_valid
+    expect(FactoryGirl.build(:rubric)).to be_valid
   end
 
   it 'is invalid without a name' do
-    FactoryGirl.build(:rubric, 'name' => nil).should_not be_valid
+    expect(FactoryGirl.build(:rubric, 'name' => nil)).to_not be_valid
   end
 
   it 'allows a range to be added' do
@@ -27,7 +27,7 @@ describe 'Rubric' do
     cell_options = {'range' => range_key, 'field' => field_key, 'description' => 'Vocal projection is weak. Posture is crumpled or slouched: breath is unsupported. Volume is unamplified. One has to strain, or cannot hear speaker. Articulation is mushy and difficult to understand.'}
     r.add_cell(cell_options)
     cell = r.get_cell(field_key, range_key)
-    cell.should include cell_options
+    expect(cell).to include cell_options
   end
 
   it 'allows multiple cells to be added at once' do
@@ -50,7 +50,7 @@ describe 'Rubric' do
     r.add_cells(cells)
     cells.each do |cell|
       rubric_cell = r.get_cell(cell['field'], cell['range'])
-      rubric_cell.should include cell
+      expect(rubric_cell).to include cell
     end
   end
 

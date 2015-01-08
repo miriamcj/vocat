@@ -12,9 +12,9 @@
              <%= if user_signed_in? && current_user.role == 'admin' then 'role-admin' end %>
              <%= if !@selected_course || !user_signed_in? then 'no-course' end %>">
 
+
   <div class="shield" style="display: none;" data-class="shield"></div>
   <div data-region="modal"></div>
-
 
   <%= content_for?(:content) ? yield(:main) : yield %>
 

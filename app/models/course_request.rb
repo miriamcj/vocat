@@ -40,16 +40,16 @@ class CourseRequest < ActiveRecord::Base
 
   def handle_denied
     save
-    CourseRequestMailer.deny_notify_email(self).deliver
+    CourseRequestMailer.deny_notify_email(self).deliver_later
   end
 
   def handle_approved
     course = to_course
     save
-    CourseRequestMailer.approve_notify_email(self).deliver
+    CourseRequestMailer.approve_notify_email(self).deliver_later
   end
 
   def notify
-    CourseRequestMailer.create_notify_email(self).deliver
+    CourseRequestMailer.create_notify_email(self).deliver_later
   end
 end

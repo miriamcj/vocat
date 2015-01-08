@@ -35,7 +35,7 @@ describe 'Attachment' do
   end
 
   it 'has a valid factory' do
-    FactoryGirl.build(:attachment).should be_valid
+    expect(FactoryGirl.build(:attachment)).to be_valid
   end
 
   it 'has a factory that can be processed' do

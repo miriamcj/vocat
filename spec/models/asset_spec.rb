@@ -23,7 +23,7 @@ describe Asset do
   it 'commits an attachment when it is attached' do
     user = FactoryGirl.create(:user)
     attachment = FactoryGirl.create(:attachment, {user: user})
-    attachment.stub(:commit)
+    allow(attachment).to receive(:commit)
     asset = FactoryGirl.create(:asset, {author: user})
     asset.attach(attachment)
     expect(attachment).to have_received(:commit)

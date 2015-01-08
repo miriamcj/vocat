@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'Course' do
 
   it 'has a valid factory' do
-    FactoryGirl.build(:course).should be_valid
+    expect(FactoryGirl.build(:course)).to be_valid
   end
 
   it "enrolls an evaluator with the correct role" do

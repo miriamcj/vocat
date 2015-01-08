@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.1.0'
+gem 'rails', '~> 4.2.0'
 
 gem 'paper_trail', '>= 3.0.6'
 gem 'active_model_serializers', '0.8.3'
@@ -32,6 +32,7 @@ gem 'sinatra', '>= 1.3.0', :require => nil
 gem 'cancancan'
 gem 'kaminari'
 gem 'faker'
+gem 'responders', '~> 2.0'
 
 # Deployment
 gem 'capistrano', '~> 3.3.0'
@@ -49,6 +50,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'rspec'
   gem 'rspec-rails'
+  gem 'web-console', '~> 2.0'
 end
 
 gem 'spring'

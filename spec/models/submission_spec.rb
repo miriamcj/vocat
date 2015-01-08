@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'Submission' do
 
   it 'has a valid factory' do
-    FactoryGirl.build(:submission).should be_valid
+    expect(FactoryGirl.build(:submission)).to be_valid
   end
 
   context "when getting visible evaluations for a submission" do

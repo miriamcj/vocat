@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'Evaluation' do
 
   it 'has a valid factory' do
-    FactoryGirl.build(:evaluation).should be_valid
+    expect(FactoryGirl.build(:evaluation)).to be_valid
   end
 
   it 'returns score_ranges in the correct format' do
