@@ -10,27 +10,42 @@ define [
 
     initialize: (models, options) ->
       if options.videoId? then @videoId = options.videoId
+      window.debug_collection = @
 
     url: '/api/v1/annotations'
 
     comparator: (annotation) ->
-      annotation.get('seconds_timecode')
+      annotation.get('seconds_timecode') * -1
 
-    setActive: (seconds) ->
+    getCurrentActive: () ->
+      @find((model) -> model.get('active') == true)
+
+    lastActiveModelForSeconds: (seconds) ->
       if @length > 0
         candidates = @filter((annotation) ->
           annotation.get('seconds_timecode') <= seconds
         )
         sortedCandidates = _.sortBy(candidates, (annotation) ->
-          annotation.get('seconds_timecode')
+          annotation.get('seconds_timecode') * -1
         )
-        lastActive = _.last(sortedCandidates)
-        if lastActive
-          lastActiveSeconds = lastActive.get('seconds_timecode')
-          @each((annotation) ->
-            if annotation.get('seconds_timecode') == lastActiveSeconds
-              annotation.set('active', true)
-            else
-              annotation.set('active', false)
-          )
+        firstActive = _.first(sortedCandidates)
+
+    deactivateAllModels: () ->
+      @each((annotation) ->
+        annotation.set('active', false)
+      )
+
+    activateModel: (model) ->
+      @deactivateAllModels()
+      model.set('active', true)
+
+
+    setActive: (seconds) ->
+      currentActive = @getCurrentActive()
+      modelToActivate = @lastActiveModelForSeconds(seconds)
+      if modelToActivate
+        @activateModel(modelToActivate)
+      else
+        @deactivateAllModels()
+        @trigger('models:deactivated')
 

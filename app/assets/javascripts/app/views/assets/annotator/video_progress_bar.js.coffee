@@ -9,6 +9,7 @@ define (require) ->
 
     template: template
     wasPlaying: false
+    seeking: false
 
     ui: {
       played: '[data-behavior="played"]'
@@ -29,11 +30,7 @@ define (require) ->
 
     events: {
       'click @ui.trackOverlay': 'onTrackOverlayClicked'
-      'click @ui.scrubber': 'debugClick'
     }
-
-    debugClick: (e) ->
-      console.log 'heard click'
 
     onTrackOverlayClicked: (e) ->
       trackOffset = @ui.trackOverlay.offset()
@@ -79,6 +76,12 @@ define (require) ->
       @listenTo(@vent, 'announce:status', (data) =>
         @updateTimeDurationUi(data.duration)
       )
+      @listenTo(@vent, 'announce:locked', (data) =>
+        @lockDragger()
+      )
+      @listenTo(@vent, 'announce:unlocked', (data) =>
+        @unlockDragger()
+      )
       @listenTo(@collection, 'add remove', () =>
         @render()
       )
@@ -97,10 +100,18 @@ define (require) ->
       @vent.trigger('request:time:update', {percent: percent})
 
     handleScrubberStartDrag: (event, ui) ->
+      @seeking = true
       @vent.trigger('request:pause', {})
 
     handleScrubberStopDrag: (event, ui) ->
+      @seeking = false
       @vent.trigger('request:resume', {})
+
+    lockDragger: () ->
+      @ui.scrubber.draggable('disable')
+
+    unlockDragger: () ->
+      @ui.scrubber.draggable('enable')
 
     onRender: () ->
       config = {

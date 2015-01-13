@@ -4,14 +4,19 @@
 		{{#if current_user_can_destroy}}
 			<a href="#" class="delete-link" data-behavior="destroy">Delete</a>
 		{{/if}}
+		{{#if current_user_can_edit}}
+			<a href="#" class="edit-link" data-behavior="edit">edit</a>
+		{{/if}}
 	</div>
 </div>
 <div class="annotation-right">
 	<div class="annotation-top">
 		<div class="annotation-title">
-			<span>{{smpte_timecode}}</span>&nbsp;&nbsp;&nbsp;{{author_name}}
+			<span data-behavior="timecode">{{smpte_timecode}}</span>&nbsp;&nbsp;&nbsp;{{author_name}}
 			<div class="annotation-indicators"><!-- annotation type indocator goes here --></div>
 		</div>
 	</div>
-	<p >{{body}}</p>
+	<p>
+	 {{{nltobr body}}}
+	</p>
 </div>

@@ -166,6 +166,7 @@ $textColor: $grayLightest;
     @extend %unstyled-list;
   }
   .annotation {
+    cursor: pointer;
     font-size: $iota;
     color: $textColor;
     padding: 15px;
@@ -244,19 +245,19 @@ $trackHeight: 10px;
       position: absolute;
       width: 100%;
       height: $trackHeight;
-      background: $grayLight;
+      background: $grayDark;
     }
     .buffered {
       position: absolute;
       z-index: 2;
       height: $trackHeight;
-      background: $grayMedium;
+      background: $grayLight;
     }
     .scrubber {
       position: absolute;
       width: 1px;
       height: 10px;
-      background: $grayDark;
+      background: $white;
       z-index: 6;
       span {
         cursor: pointer;
@@ -288,7 +289,7 @@ $trackHeight: 10px;
       position: absolute;
       z-index: 3;
       height: $trackHeight;
-      background: $grayDark;
+      background: $white;
     }
     .track-overlay {
       position: absolute;

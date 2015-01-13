@@ -8,7 +8,7 @@ define (require) ->
   class AnnotationsView extends Marionette.CompositeView
 
     template: template
-
+    scrollLocked: false
     highlighted: null
 
     className: 'annotations'
@@ -50,45 +50,59 @@ define (require) ->
         @scrollToActive()
       )
 
-      # Echo some events from parent down to the item view, whose vent is scoped to this annotations list view.
-      @listenTo(@vent, 'announce:time:update', (data) =>
-        @collection.setActive(data.playedSeconds)
+      @listenTo(@collection, 'models:deactivated', () =>
         @scrollToActive()
       )
 
-    scrollToActive: () ->
-      activeModel = @collection.findWhere({active: true})
-      if activeModel
-        view = @children.findByModel(activeModel)
-        position = view.$el.position()
+      @listenTo(@, 'childview:activated', (view) =>
+        @handleChildViewActivation(view)
+      )
 
-        @ui.annotationsContainer.css({position: 'relative'}).animate({top: "-#{position.top}px"}, 100)
+      @listenTo(@, 'childview:add', (view) =>
+        @handleChildViewAdd(view)
+      )
+
+      @listenTo(@, 'childview:beforeRemove', (view) =>
+        @lockScrolling()
+      )
+
+      @listenTo(@, 'childview:afterRemove', (view) =>
+        @unlockScrolling()
+      )
+
+      # Echo some events from parent down to the item view, whose vent is scoped to this annotations list view.
+      @listenTo(@vent, 'announce:time:update', _.debounce((data) =>
+        @collection.setActive(data.playedSeconds)
+      ), 150, true)
+
+    handleChildViewActivation: (view) ->
+      @scrollToActive()
+
+    lockScrolling: () ->
+      @scrollLocked = true
+
+    unlockScrolling: () ->
+      @scrollLocked = false
+
+    scrollToActive: () ->
+      if @scrollLocked == false
+        activeModel = @collection.findWhere({active: true})
+        if activeModel
+          view = @children.findByModel(activeModel)
+          targetPosition = view.$el.position().top * -1
+          currentPosition = @ui.annotationsContainer.position().top
+          if currentPosition != targetPosition
+            @ui.annotationsContainer.stop()
+            duration = Math.abs((currentPosition - targetPosition) * .5)
+            @ui.annotationsContainer.css({position: 'relative'}).stop().animate({top: "#{targetPosition}px"}, duration, 'linear')
+        else
+          targetPosition = @ui.annotationsContainer.outerHeight() * -1
+          @ui.annotationsContainer.css({position: 'relative', top: "#{targetPosition}px"})
+
 
     # Triggered by child childView; echoed up the event chain to the global event
     onPlayerSeek: (data) ->
       @vent.trigger('player:seek', data)
-
-
-
-#    highlightChild: (data) ->
-#      highlightTime = data.playedSeconds
-#      @lastHighlighted = highlightTime
-#      @children.each (annotation) ->
-#
-#        toHighlight = annotation if annotation.highlightableFor(data.playedSeconds)
-#        if toHighlight?
-#          toHighlight.highlight()
-#        else
-#          toHighlight.dehighlight()
-#
-#      if toHighlight?
-#        toHighlight.highlight()
-#        if lastHighlighted != toHighlight
-#          lastHighlighted.dehighlight() if lastHighlighted?
-#          top = toHighlight.$el.position().top
-#          targetScroll = @ui.scrollParent.scrollTop() + top - @ui.scrollParent.outerHeight() + toHighlight.$el.outerHeight()
-#          @ui.scrollParent.scrollTop(targetScroll)
-#        @highlighted = toHighlight
 
     serializeData: () ->
       {
@@ -108,3 +122,5 @@ define (require) ->
       else
         childrenContainer.children().eq(index).before(childView.el)
 
+    onRenderCollection: () ->
+      @scrollToActive()

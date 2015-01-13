@@ -42,6 +42,14 @@ class Project < ActiveRecord::Base
     ProjectSerializer
   end
 
+  def allowed_attachment_families
+    allowed = read_attribute(:allowed_attachment_families)
+    if allowed.blank? || allowed.length == 0
+      allowed = Project::ATTACHMENT_FAMILIES
+    end
+    allowed
+  end
+
   def allowed_extensions
     Attachment::Inspector::extensions_for allowed_attachment_families
   end

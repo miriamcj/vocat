@@ -2,7 +2,7 @@ rails_env = ENV['RAILS_ENV'] || 'production'
 
 if ENV['BOXEN_SOCKET_DIR']
   socket = "#{ENV['BOXEN_SOCKET_DIR']}/vocat"
-  processes = 3
+  processes = 1
 else
   socket = "#{ENV['UNICORN_SOCKET_PATH']}"
   processes = 6

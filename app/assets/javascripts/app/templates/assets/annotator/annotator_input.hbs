@@ -1,0 +1,17 @@
+<div class="formgrid whole">
+	<textarea class="annotation-input" data-behavior="annotation-input">{{body}}</textarea>
+</div>
+<div class="formgrid half">
+	<button class="primary-button">Oval</button>
+	<button class="primary-button">Draw</button>
+	<button class="primary-button">Erase</button>
+</div>
+<div class="formgrid half" style="text-align: right;" data-region="annotator-input">
+	<button data-behavior="annotation-delete" style="display: none;" class="warning-button delete-button">Delete</button>
+	{{#if id}}
+		<button data-behavior="annotation-update" class="primary-button new-button">Update</button>
+		<button data-behavior="annotation-edit-cancel" class="warning-button cancel-button">Cancel</button>
+	{{else}}
+		<button data-behavior="annotation-create" class="primary-button new-button">Annotate</button>
+	{{/if}}
+</div>

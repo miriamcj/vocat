@@ -82,7 +82,7 @@ input%proto-button {
       border: 1px solid $primaryButtonColor;
       color: $white;
     }
-    .modal & {
+    .modal &, .annotator & {
       background-color: $tealDark;
       border: 1px solid $tealDark;
     }
@@ -103,7 +103,7 @@ input%proto-button {
   &:hover, &:focus {
     background-color: $secondaryButtonHoverColor;
     border: 1px solid $secondaryButtonHoverColor;
-    .notification &, .page-header & {
+    .notification &, .page-header &, .annotator & {
       background-color: $secondaryButtonColor;
       border: 1px solid $secondaryButtonColor;
       color: $white;
@@ -123,7 +123,7 @@ input%proto-button {
   &:hover, &:focus {
     background-color: $grayLighter;
     border: 1px solid $grayLighter;
-    .notifications &, .page-header & {
+    .notifications &, .page-header &, .annotator & {
       color: $grayLight;
       background-color: $grayLighter;
       border: 1px solid $grayLighter;
@@ -143,7 +143,7 @@ input%proto-button {
   &:hover, &:focus {
     background-color: $warningButtonHoverColor;
     border: 1px solid $warningButtonHoverColor;
-    .notification &, .modal &, .page-header & {
+    .notification &, .modal &, .page-header &, .annotator & {
       background-color: $warningButtonColor;
       border: 1px solid $warningButtonColor;
       color: $white;

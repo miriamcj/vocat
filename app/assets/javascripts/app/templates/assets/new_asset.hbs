@@ -1,7 +1,6 @@
 <div class="page-section--component-header strong centered">
 	This Project Accepts {{join project.allowed_attachment_families capitalize=true }} Files
 </div>
-
 	<div class="page-section--component asset-upload">
 		<div class="asset-uploading" data-behavior="asset-uploading-message" style="display: none">
 			<div class="progress-bar">
@@ -9,8 +8,9 @@
 			</div>
 			Uploading...
 		</div>
+
 		<div data-behavior="upload-form-wrapper"
-		     {{#if_include project.allowed_attachment_families "video"}}{{else}}class="asset-upload--two-col"{{/if_include}}>
+			 {{#if_include project.allowed_attachment_families "video"}}{{else}}class="asset-upload--two-col"{{/if_include}}>
 			<form data-behavior="upload-form" accept-charset="UTF-8" action="http://{{s3Bucket}}.s3.amazonaws.com" data-remote="true" enctype="multipart/form-data" id="video-upload" method="post">
 				<input type="hidden" name="AWSAccessKeyId" value="{{AWSPublicKey}}" />
 				<input type="hidden" name="acl" value="private" />

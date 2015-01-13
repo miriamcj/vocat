@@ -6,6 +6,7 @@ define (require) ->
   class VideoPlayerView extends Marionette.ItemView
 
     template: template
+    lock: null
 
     ui: {
       player: '[data-behavior="video-player"]'
@@ -26,38 +27,83 @@ define (require) ->
       @listenTo(@vent, 'request:play', (data) => @handlePlayRequest(data))
       @listenTo(@vent, 'request:pause', (data) => @handlePauseRequest(data))
       @listenTo(@vent, 'request:resume', (data) => @handleResumeRequest(data))
+      @listenTo(@vent, 'request:lock', (data) => @handleLockRequest(data))
+      @listenTo(@vent, 'request:unlock', (data) => @handleUnlockRequest(data))
+
+    isLocked: () ->
+      @lock != null
+
+    unlockPlayer: () ->
+      lock = @lock
+      @lock = null
+      @player.controls(true)
+      @vent.trigger('announce:unlocked', lock)
+
+    # Lock should be {view: aView, seconds: seconds}
+    lockPlayer: (lock) ->
+      @lock = lock
+      @player.controls(false)
+      @vent.trigger('announce:locked', @lock)
+
+    checkIfLocked: () ->
+      if @isLocked() == true
+        @vent.trigger('announce:lock:attempted')
+        @lock.view.trigger('lock:attempted')
+        result = true
+      else
+        result = false
+      console.log result,'check if locked result'
+      result
 
     setupPlayerEvents: () ->
       @player.on( 'timeupdate', ()=>
         @announceTimeUpdate()
       )
       @player.on( 'loadedmetadata', () => @handleStatusRequest())
-      @player.on( 'progress', ()=>
+      @player.on( 'progress', () =>
         @vent.trigger('announce:progress', {bufferedPercent: @getBufferedPercent()})
+      )
+      @player.on( 'play', () =>
+        if @checkIfLocked() == true && _.isFunction(@player.pause)
+          @player.pause()
+          @player.currentTime(@lock.seconds)
       )
 
     announceTimeUpdate: () ->
       @vent.trigger('announce:time:update', {
         playedPercent: @getPlayedPercent(),
-        playedSeconds: @player.currentTime().toFixed(2)
+        playedSeconds: @player.currentTime()
       })
 
     getBufferedPercent: () ->
-      @player.bufferedPercent().toFixed(2)
+      @player.bufferedPercent()
 
     getPlayedPercent: () ->
-      duration = @player.duration()
-      if duration > 0
-        percentage = @player.currentTime().toFixed(2) / duration
+      if @player
+        duration = @player.duration()
+        time = @player.currentTime()
+        if !time
+          time = 0.00
+        else
+        if duration > 0
+          percentage = time / duration
+        else
+          percentage = 0
       else
         percentage = 0
       percentage
+
+    handleUnlockRequest: () ->
+      @unlockPlayer()
+
+    handleLockRequest: (data) ->
+      @lockPlayer(data)
 
     handleStatusRequest: () ->
       @vent.trigger('announce:status', {
         bufferedPercent: @getBufferedPercent()
         playedPercent: @getPlayedPercent()
-        playedSeconds: @player.currentTime().toFixed(2)
+        playedSeconds: @player.currentTime()
         duration: @player.duration()
       })
 
@@ -76,15 +122,21 @@ define (require) ->
         @player.pause()
 
     handleTimeUpdateRequest: (data) ->
-      if data.hasOwnProperty('percent')
+      # Views can put a lock on the player. If the user tries to update the playback time, the player refuses, and
+      # expected the view that holds the lock to do something.
+      if @checkIfLocked() == false
+        if data.hasOwnProperty('percent')
+          duration = @player.duration()
+          seconds = duration * data.percent
+        else
+          seconds = data.seconds
+        seconds = seconds
+        @player.currentTime(seconds)
         duration = @player.duration()
-        seconds = duration * data.percent
-      else
-        seconds = data.seconds
-      @player.currentTime(seconds)
-      setTimeout(() =>
-        @announceTimeUpdate()
-      , 50)
+        @vent.trigger('announce:time:update', {
+          playedPercent: seconds / duration,
+          playedSeconds: seconds
+        })
 
     resizePlayer: (aspectRatio) ->
       width = @ui.playerContainer.outerWidth()

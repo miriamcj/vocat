@@ -29,7 +29,7 @@ define ['marionette', 'hbs!templates/modal/modal_confirm'], (Marionette, templat
         $el.click()
         $el.removeClass('modal-blocked')
       else
-        @vent.triggerMethod(Marionette.getOption(@, 'confirmEvent'))
+        @vent.triggerMethod(Marionette.getOption(@, 'confirmEvent'), @model)
         Vocat.vent.trigger('modal:close')
 
     onClickDismiss: () ->
