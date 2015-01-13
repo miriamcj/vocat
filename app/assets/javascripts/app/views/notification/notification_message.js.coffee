@@ -9,6 +9,7 @@ define [
 
     template: template
     lifetime: 10000
+    isFlash: true
 
     className: () ->
       "alert alert-#{@model.get('level')}"

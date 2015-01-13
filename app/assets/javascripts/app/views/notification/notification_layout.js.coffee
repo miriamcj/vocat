@@ -43,8 +43,14 @@ define (require) ->
       distance = height - marginTop
 
     handleEmptyNotification: () ->
-      if @notificationRegion?
-        @notificationRegion.currentView.trigger('view:expired')
+      @regionManager.removeRegions()
+      $container = $('.container')
+      newMargin = 0
+      $container.animate({marginTop: "#{newMargin}px"}, 0)
+
+#      @notificationRegion.empty()
+#      if @notificationRegion?
+#        @notificationRegion.currentView.trigger('view:expired')
 
     handleIncomingNotification: (view) ->
       if !@notificationRegion?
