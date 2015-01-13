@@ -6,6 +6,7 @@ define (require) ->
 
   class AnnotationItem extends Marionette.ItemView
 
+    assetHasDuration: false
     highlighted: true
     ignoreTime: false
     template: template
@@ -24,10 +25,10 @@ define (require) ->
     }
 
     modelEvents: {
-      "change": "onModelChange"
+      "change:body": "onModelBodyChange"
     },
 
-    onModelChange: () ->
+    onModelBodyChange: () ->
       @render()
 
     setupListeners: () ->
@@ -46,6 +47,7 @@ define (require) ->
     initialize: (options) ->
       @vent = options.vent
       @errorVent = options.errorVent
+      @assetHasDuration = options.assetHasDuration
       @setupListeners()
 
     remove: () ->
@@ -56,11 +58,9 @@ define (require) ->
       )
 
     onSeek: () ->
-      console.log 'seeking'
       @vent.trigger('request:time:update', {seconds: @model.get('seconds_timecode')})
 
     onAnnotationDestroy: () ->
-      console.log 'heard the click event'
       @vent.trigger('request:pause', {})
       Vocat.vent.trigger('modal:open', new ModalConfirmView({
         model: @model,
@@ -69,6 +69,12 @@ define (require) ->
         confirmEvent: 'confirm:destroy',
         dismissEvent: 'dismiss:destroy'
       }))
+
+    serializeData: () ->
+      data = super()
+      data.assetHasDuration = @assetHasDuration
+      console.log data,'d'
+      data
 
     onConfirmDestroy: () ->
       @model.destroy({

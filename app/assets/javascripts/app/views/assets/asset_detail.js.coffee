@@ -5,7 +5,7 @@ define (require) ->
   VideoPlayerView = require('views/assets/player/video_player')
   ImageDisplayerView = require('views/assets/player/image_displayer')
   ProcessingWarningView = require('views/assets/player/processing_warning')
-  VideoAnnotatorView = require('views/assets/annotator/video_annotator')
+  AnnotatorView = require('views/assets/annotator/annotator')
   AnnotationsView = require('views/assets/annotations/annotations')
 
   class AssetShowLayout extends Marionette.LayoutView
@@ -28,8 +28,6 @@ define (require) ->
       annotator: '[data-region="annotator"]'
     }
 
-    adjustColumnHeights: () ->
-      @ui.annotationsColumn.css({maxHeight: @ui.playerColumn.outerHeight()})
 
     selectPlayerView: () ->
       viewConstructorArguments = {model: @model, vent: @vent}
@@ -42,18 +40,27 @@ define (require) ->
         playerView = new ProcessingWarningView(viewConstructorArguments)
       playerView
 
+    pickAnnotationsView: (asset) ->
+      annotationsView = new AnnotationsView({model: asset, vent: @vent})
+
     onShow: () ->
-      annotationsView = new AnnotationsView({model: @model, vent: @vent})
+      annotationsView = @pickAnnotationsView(@model)
       annotatorView = @pickAnnotatorView(@model)
       @player.show(@selectPlayerView())
       @annotator.show(annotatorView) if annotatorView
       @annotations.show(annotationsView)
-      @adjustColumnHeights()
 
     pickAnnotatorView: (asset) ->
       switch asset.get('family')
         when 'video'
-          new VideoAnnotatorView({model: @model, vent: @vent})
+          new AnnotatorView({model: @model, vent: @vent})
+        when 'image'
+          new AnnotatorView({model: @model, vent: @vent})
+
+    serializeData: () ->
+      data = super()
+      data.hasDuration = @model.hasDuration()
+      data
 
     onDetailClose: () ->
       context = @model.get('creator_type').toLowerCase() + 's'
@@ -63,4 +70,3 @@ define (require) ->
     initialize: (options) ->
       @courseId = window.VocatCourseId
       @vent = new Backbone.Wreqr.EventAggregator()
-      console.log @model.attributes,'attr'

@@ -48,13 +48,8 @@ define (require) ->
       newMargin = 0
       $container.animate({marginTop: "#{newMargin}px"}, 0)
 
-#      @notificationRegion.empty()
-#      if @notificationRegion?
-#        @notificationRegion.currentView.trigger('view:expired')
-
     handleIncomingNotification: (view) ->
       if !@notificationRegion?
-#        @regionManager.removeRegions()
         regionId = @makeRegion()
         @notificationRegion = @[regionId]
         @listenTo(@notificationRegion, 'empty', () =>
@@ -64,6 +59,9 @@ define (require) ->
         @notificationRegion.show(view)
 
     handleIncomingMessages: (params) ->
+      console.log params,'p'
+      if params.hasOwnProperty('clear') && params.clear == true
+        @handleEmptyNotification()
       views = @messageViewsFromMessageParams(params)
       _.each(views, (view) =>
         regionId = @makeRegion()

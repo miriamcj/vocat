@@ -120,6 +120,7 @@
 $playerColBg: $grayDarker;
 $annotationColBg: $grayDarkest;
 $textColor: $grayLightest;
+$assetDetailMaxHeight: 700px;
 
 
 // Asset detail interface
@@ -130,6 +131,7 @@ $textColor: $grayLightest;
     background: $playerColBg;
     padding-right: 0;
     padding-left: 0;
+    max-height: $assetDetailMaxHeight;
     &:before {
       width: 66.666666%;
       content: '';
@@ -144,7 +146,10 @@ $textColor: $grayLightest;
   .col-two.page-section-one-third {
     background: $annotationColBg;
     padding-left: 0;
-    overflow: hidden;
+    padding-right: 0;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    max-height: $assetDetailMaxHeight;
     &:before {
       width: 33.333333%;
       content: '';
@@ -155,6 +160,26 @@ $textColor: $grayLightest;
       z-index: -1;
       background-color: $annotationColBg;
     }
+  }
+  .col-two.annotations-column-scrollable {
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+}
+
+.image-displayer {
+  background: $black;
+  position: relative;
+  height: 500px;
+  img {
+    position: absolute;
+    margin: auto;
+    display: block;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    height: 100%;
   }
 }
 
@@ -220,8 +245,8 @@ $trackHeight: 10px;
   }
   .timeline-container {
     position: relative;
-    margin-top: 2em;
-
+    margin-top: 1.5em;
+    margin-bottom: 1em;
   }
   .annotation-input {
     height: 75px;

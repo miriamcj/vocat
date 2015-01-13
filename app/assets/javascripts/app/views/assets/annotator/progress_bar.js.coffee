@@ -2,7 +2,7 @@ define (require) ->
 
   Marionette = require('marionette')
   require('jquery_ui')
-  template = require('hbs!templates/assets/annotator/video_progress_bar')
+  template = require('hbs!templates/assets/annotator/progress_bar')
   childView = require('views/assets/annotator/progress_bar_annotation')
 
   class VideoProgressBarView extends Marionette.CompositeView

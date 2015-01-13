@@ -52,7 +52,6 @@ define (require) ->
         result = true
       else
         result = false
-      console.log result,'check if locked result'
       result
 
     setupPlayerEvents: () ->

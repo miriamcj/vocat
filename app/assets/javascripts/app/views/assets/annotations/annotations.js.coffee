@@ -37,6 +37,7 @@ define (require) ->
       {
         model: model
         vent: @vent
+        assetHasDuration: @model.hasDuration()
         errorVent: @vent
       }
 
@@ -85,6 +86,7 @@ define (require) ->
       @scrollLocked = false
 
     scrollToActive: () ->
+      return unless @model.hasDuration()
       if @scrollLocked == false
         activeModel = @collection.findWhere({active: true})
         if activeModel
@@ -106,6 +108,7 @@ define (require) ->
 
     serializeData: () ->
       {
+        hasDuration: @model.hasDuration()
         count: @collection.length
         countNotOne: @collection.length != 1
       }

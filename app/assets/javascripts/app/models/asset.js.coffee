@@ -23,6 +23,13 @@ define (require) ->
       )
       @updateAnnotationCollection()
 
+    hasDuration: () ->
+      family = @get('family')
+      switch family
+        when 'video' then true
+        when 'image' then false
+        else  false
+
     updateAnnotationCollection: () ->
       if !@annotationCollection
         @annotationCollection = new AnnotationCollection(@get('annotations'), {assetId: @id})

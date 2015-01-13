@@ -1,15 +1,16 @@
 define (require) ->
 
   Marionette = require('marionette')
-  template = require('hbs!templates/assets/annotator/video_annotator')
-  VideoProgressBarView = require('views/assets/annotator/video_progress_bar')
+  template = require('hbs!templates/assets/annotator/annotator')
+  ProgressBarView = require('views/assets/annotator/progress_bar')
   AnnotationInputView = require('views/assets/annotator/annotator_input')
   AnnotationModel = require('models/annotation')
   ModalConfirmView = require('views/modal/modal_confirm')
 
-  class VideoAnnotatorView extends Marionette.LayoutView
+  class AnnotatorView extends Marionette.LayoutView
 
     template: template
+    hideProgressBar: false
 
     regions: {
       progressBar: '[data-behavior="progress-bar"]'
@@ -26,7 +27,8 @@ define (require) ->
 
     handleEditAnnotationRequest: (annotation) ->
       if @annotationInput.currentView.model == annotation
-        Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '3000',  msg: 'You are already editing this annotation'})
+
+        Vocat.vent.trigger('error:add', {level: 'notice', clear: true, lifetime: '3000',  msg: 'You are already editing this annotation'})
       else if @annotationInput.currentView.isDirty()
         Vocat.vent.trigger('modal:open', new ModalConfirmView({
           model: annotation,
@@ -53,5 +55,8 @@ define (require) ->
       @setupListeners()
 
     onShow: () ->
-      @progressBar.show(new VideoProgressBarView({model: @model, vent: @vent, collection: @collection}))
+      if @model.hasDuration()
+        @progressBar.show(new ProgressBarView({model: @model, vent: @vent, collection: @collection}))
+      else
+        console.log $(@progressBar.el).hide()
       @showAnnotationNewInput()

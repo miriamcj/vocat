@@ -1,6 +1,6 @@
 class AnnotationSerializer < ActiveModel::Serializer
   attributes :id, :asset_id, :author_id, :body, :published, :seconds_timecode, :smpte_timecode, :author_name,
-             :current_user_can_destroy, :current_user_can_edit, :gravatar, :author_role
+             :current_user_can_destroy, :current_user_can_edit, :gravatar, :author_role, :created_at
 
   def current_user_can_destroy
     Ability.new(scope).can?(:destroy, object)
@@ -23,6 +23,10 @@ class AnnotationSerializer < ActiveModel::Serializer
   def gravatar
     gravatar_id = Digest::MD5.hexdigest(object.author.email.downcase)
     "http://gravatar.com/avatar/#{gravatar_id}.png?d=mm&s="
+  end
+
+  def created_at
+    object.created_at.strftime("%b %d, %Y at %I:%M%p")
   end
 
 end

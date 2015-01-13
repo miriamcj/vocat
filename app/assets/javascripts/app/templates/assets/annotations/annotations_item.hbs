@@ -12,11 +12,17 @@
 <div class="annotation-right">
 	<div class="annotation-top">
 		<div class="annotation-title">
-			<span data-behavior="timecode">{{smpte_timecode}}</span>&nbsp;&nbsp;&nbsp;{{author_name}}
+			{{#if assetHasDuration}}
+				<span data-behavior="timecode">{{smpte_timecode}}</span><br />
+				{{author_name}}
+			{{else}}
+				<span>{{created_at}}</span><br />
+				{{author_name}}
+			{{/if}}
 			<div class="annotation-indicators"><!-- annotation type indocator goes here --></div>
 		</div>
 	</div>
 	<p>
-	 {{{nltobr body}}}
+	 {{nltobr body}}
 	</p>
 </div>
