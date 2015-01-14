@@ -1,6 +1,6 @@
 class AddDefaultToEvaluationsPublished < ActiveRecord::Migration
   def up
-    Evaluation.update_all({:published => false}, {:published => nil})
+    Evaluation.where({:published => false}).update_all({:published => nil})
     change_column :evaluations, :published, :boolean, :default => false
   end
 
