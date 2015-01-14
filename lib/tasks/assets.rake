@@ -16,7 +16,7 @@ namespace :assets do
     end
 
     csg.run_all
-    cg.run_all
+   cg.run_all
 
     # Execute r.js compression
     Dir.chdir('build') do
