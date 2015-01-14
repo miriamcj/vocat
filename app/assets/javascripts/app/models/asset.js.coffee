@@ -32,7 +32,7 @@ define (require) ->
 
     updateAnnotationCollection: () ->
       if !@annotationCollection
-        @annotationCollection = new AnnotationCollection(@get('annotations'), {assetId: @id})
+        @annotationCollection = new AnnotationCollection(@get('annotations'), {assetId: @id, assetHasDuration: @hasDuration()})
       else
         @annotationCollection.reset(@get('annotations'))
 

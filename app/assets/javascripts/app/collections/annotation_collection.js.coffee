@@ -7,15 +7,18 @@ define [
 
   class AnnotationCollection extends Backbone.Collection
     model: AnnotationModel
+    assetHasDuration: false
 
     initialize: (models, options) ->
-      if options.videoId? then @videoId = options.videoId
-      window.debug_collection = @
+      @assetHasDuration = Marionette.getOption(@, 'assetHasDuration')
 
     url: '/api/v1/annotations'
 
     comparator: (annotation) ->
-      annotation.get('seconds_timecode') * -1
+      if @assetHasDuration
+        annotation.get('seconds_timecode') * -1
+      else
+        annotation.get('created_at_timestamp') * -1
 
     getCurrentActive: () ->
       @find((model) -> model.get('active') == true)

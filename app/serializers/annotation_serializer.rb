@@ -1,6 +1,6 @@
 class AnnotationSerializer < ActiveModel::Serializer
   attributes :id, :asset_id, :author_id, :body, :published, :seconds_timecode, :smpte_timecode, :author_name,
-             :current_user_can_destroy, :current_user_can_edit, :gravatar, :author_role, :created_at
+             :current_user_can_destroy, :current_user_can_edit, :gravatar, :author_role, :created_at, :created_at_timestamp
 
   def current_user_can_destroy
     Ability.new(scope).can?(:destroy, object)
@@ -27,6 +27,10 @@ class AnnotationSerializer < ActiveModel::Serializer
 
   def created_at
     object.created_at.strftime("%b %d, %Y at %I:%M%p")
+  end
+
+  def created_at_timestamp
+    object.created_at.to_i
   end
 
 end

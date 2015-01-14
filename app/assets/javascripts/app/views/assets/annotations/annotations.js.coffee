@@ -42,7 +42,6 @@ define (require) ->
       }
 
     initialize: (options) ->
-      @disableScroll = false
       @vent = Marionette.getOption(@, 'vent')
       @collection = @model.annotations()
 

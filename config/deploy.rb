@@ -6,7 +6,6 @@ set :scm, :git
 set :repo_url, 'git@github.com:castiron/vocat.git'
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 set :linked_files, ["config/secrets.yml"]
-set :linked_files, ["config/environment.yml"]
 set :keep_releases, 5
 
 namespace :deploy do
