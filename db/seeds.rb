@@ -226,9 +226,9 @@ rubrics = [the_rubric, comm_rubric]
 courses.each_with_index do |course, course_index|
 
   # Scramble the users
-  evaluators.shuffle!
-  assistants.shuffle!
-  creators.shuffle!
+  evaluators.to_a.shuffle!
+  assistants.to_a.shuffle!
+  creators.to_a.shuffle!
 
   # Add users to the course
   evaluators.sample(rand(1..3)).each do |user|
@@ -265,7 +265,7 @@ courses.each_with_index do |course, course_index|
     )
 
     course_creators = course.creators
-    course_creators.shuffle!
+    course_creators.to_a.shuffle!
 
     course_creators.length.times do |i|
       # Most creators submit a project
