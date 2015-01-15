@@ -28,4 +28,7 @@ Vocat::Application.configure do
 
   config.eager_load = false
 
+  # See https://github.com/rails/rails/issues/10291
+  config.middleware.insert 0, TurboDevAssets
+
 end

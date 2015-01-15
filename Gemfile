@@ -45,6 +45,7 @@ gem 'guard-coffeescript'
 gem 'guard-copy'
 
 group :development, :test do
+  gem 'turbo_dev_assets'
   gem 'spring-commands-rspec'
   gem 'factory_girl'
   gem 'factory_girl_rails'

@@ -295,6 +295,7 @@ GEM
     tilt (1.4.1)
     timers (4.0.1)
       hitimes
+    turbo_dev_assets (0.0.2)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.6.1)
@@ -360,6 +361,7 @@ DEPENDENCIES
   spring-commands-rspec
   state_machine!
   thor!
+  turbo_dev_assets
   uglifier (~> 2.6.0)
   unicorn
   web-console (~> 2.0)
