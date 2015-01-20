@@ -92,14 +92,11 @@ define (require) ->
     stage: () ->
       @$el.find('[data-behavior="matrix-stage"]')
 
-
     colHeaders: () ->
       @$el.find('[data-behavior="col-headers"]')
 
-
     actor: () ->
       @$el.find('[data-behavior="matrix-actor"]')
-
 
     columnCount: () ->
       bodyCols = @actor().find('tr:first-child td').length
@@ -107,7 +104,6 @@ define (require) ->
       # In some cases, there might not be any body cells, or there might be a single cell
       # with an error message. We'll always go with the greater of the two (body cols vs header cols)
       Math.max(bodyCols, headerCols)
-
 
     setColWidths: (w, tw) ->
 
@@ -146,7 +142,6 @@ define (require) ->
     widthCheckCells: () ->
       @actor().find('tr:first-child th, tr:first-child td')
 
-
     minimumViableColumnWidth: () ->
       columns = @columnCount()
       @setColWidths(@minWidth, @minWidth * columns)
@@ -164,7 +159,6 @@ define (require) ->
         min = @minWidth
       min
 
-
     idealColumnWidth: () ->
       min = @minimumViableColumnWidth()
       max = @maxWidth
@@ -177,16 +171,13 @@ define (require) ->
         min++
       return min
 
-
     visibleColumns: (columnCount) ->
       out = Math.floor(@visibleWidth() / @idealColumnWidth())
       out = 1 if out == 0
       out
 
-
     visibleWidth: () ->
       @stageWidth() - @handleWidth()
-
 
     # This is where most of the magic happens. We resize columns to best fit into the available space, while
     # making sure we show some of the next column for the handle.
@@ -205,7 +196,6 @@ define (require) ->
       else
         []
 
-
     handleWidth: () ->
       if @ui.sliderLeft.is(':visible') then show = true else show = false
       @ui.sliderLeft.show()
@@ -214,24 +204,19 @@ define (require) ->
         @ui.sliderLeft.hide()
       w
 
-
     stageWidth: () ->
       @stage().width()
-
 
     actorWidth: () ->
       _.reduce(@columnWidths(), (memo, num) ->
         memo + num
       , 0)
 
-
     hiddenWidth: () ->
       Math.floor(@actorWidth() - @stageWidth())
 
-
     maxAttainablePosition: () ->
       @columnCount() - @visibleColumns()
-
 
     canSlideForwardFrom: (left = null) ->
       if left == null then left = @currentLeft()

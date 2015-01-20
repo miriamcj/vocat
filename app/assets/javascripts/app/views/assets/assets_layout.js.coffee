@@ -4,10 +4,12 @@ define (require) ->
   template = require('hbs!templates/assets/assets_layout')
   AssetCollectionView = require('views/assets/asset_collection')
   NewAssetView = require('views/assets/new_asset')
+  NewAssetFooterView = require('views/assets/new_asset_footer')
 
   class AssetsLayout extends Marionette.LayoutView
 
     template: template
+    manageVisible: false
 
     ui: {
       newAssetContainer: '[data-behavior="new-asset-container"]'
@@ -22,28 +24,31 @@ define (require) ->
 
     triggers: {
       'click @ui.stopManagingLink': 'hide:new'
-      'click @ui.manageLink': 'click:manage'
+      'click @ui.manageLink': 'show:new'
     }
 
     regions: {
       assets: '[data-region="asset-collection"]'
       newAsset: '[data-region="asset-new"]'
+      newAssetFooter: '[data-region="asset-new-footer"]'
     }
 
-    onClickManage: () ->
-      @onShowNew()
-
     onShowNew: () ->
+      @manageVisible = true
       @newAsset.show(new NewAssetView({collection: @collection, model: @model.project(), vent: @}))
+      @newAssetFooter.show(new NewAssetFooterView({vent: @}))
       @hideEmptyCollectionViewIfNewIsVisible()
       @ui.manageLink.css(display: 'none')
       @ui.stopManagingLink.css(display: 'inline-block')
       @newAsset.$el.fadeIn(200)
+      @newAssetFooter.$el.fadeIn(200)
 
     onHideNew: () ->
+      @manageVisible = false
       @ui.manageLink.show()
       @ui.manageLink.css(display: 'inline-block')
       @ui.stopManagingLink.css(display: 'none')
+      @newAssetFooter.$el.fadeOut(200)
       @newAsset.$el.fadeOut(200, () =>
         @newAsset.empty()
         @ensureVisibleCollectionView()
@@ -63,7 +68,7 @@ define (require) ->
       @ui.stopManagingLink.css(display: 'none')
       @ensureVisibleCollectionView()
       # TODO: Remove this
-      # @onShowNew()
+      @trigger('show:new')
 
     navigateToAssetDetail: (assetId) ->
       url = "courses/#{@courseId}/evaluations/assets/#{assetId}"
@@ -82,7 +87,9 @@ define (require) ->
       @listenTo(@collection, 'reset', (e) =>
         @ensureVisibleCollectionView()
       )
-
+      @listenTo(@, 'request:manage:visibility', (e) =>
+        @trigger('announce:manage:visibility', @manageVisible)
+      )
 
 
     # @model is a submission model.

@@ -40,10 +40,16 @@
     .asset-collection-item--utility {
       text-align: right;
       position: absolute;
-      bottom: 0;
+      top: 0;
       right: 0;
       margin-bottom: $sectionSpacingUnit * .75;
       width: 30%;
+      div+div {
+        margin-top: 15px;
+      }
+      a {
+        display: inline-block;
+      }
     }
   }
 

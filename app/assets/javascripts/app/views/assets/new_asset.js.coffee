@@ -6,6 +6,7 @@ define (require) ->
   AttachmentModel = require('models/attachment')
   iFrameTransport= require('vendor/plugins/iframe_transport')
   FileUpload = require('vendor/plugins/file_upload')
+  ShortTextInputView = require('views/property_editor/short_text_input')
 
   class NewAsset extends Marionette.ItemView
 
@@ -19,6 +20,7 @@ define (require) ->
       fileInputTrigger: '[data-behavior="file-input-trigger"]'
       fileInput: '[data-behavior="file-input"]'
       dropzone: '[data-behavior="dropzone"]'
+      uploadStatus: '[data-behavior="upload-status"]'
       keyInput: 'input[name=key]'
       policyInput: 'input[name=policy]'
       signatureInput: 'input[name=signature]'
@@ -60,7 +62,6 @@ define (require) ->
         }
         asset = new AssetModel(attributes)
         asset.save({}, {success: () =>
-          console.log asset,'a'
           @collection.add(asset)
           Vocat.vent.trigger('error:add', {level: 'notice', msg: 'The YouTube asset has been saved.'})
         })
@@ -96,7 +97,6 @@ define (require) ->
       @vent.trigger('hide:new')
 
     onRender: () ->
-      console.log 'rendered'
       @ui.assetUploadingMessage.hide()
       @initializeAsyncUploader()
 
@@ -116,9 +116,7 @@ define (require) ->
         limitConcurrentUploads: 1
         autoUpload: true
         add: (e, uploadForm) =>
-          console.log uploadForm,'uf'
           file = uploadForm.files[0];
-          console.log file,'ft'
           if @fileTypesRegex().test(file.name)
             @hideForm()
             attachment = new AttachmentModel({})
@@ -129,6 +127,7 @@ define (require) ->
                 @ui.policyInput.val(uploadDocument.policy)
                 @ui.signatureInput.val(uploadDocument.signature)
                 uploadForm.submit()
+                @ui.uploadStatus.html('Uploading...')
               error: () =>
                 Vocat.vent.trigger('error:add', {level: 'error', msg: 'Unable to create new attachment model.'})
                 @resetUploader()
@@ -138,21 +137,38 @@ define (require) ->
             @resetUploader()
         progress: (e, data) =>
           progress = parseInt(data.loaded / data.total * 100, 10)
+          @ui.uploadStatus.html("Uploading approximately #{@toFileSize(data.loaded)} out of #{@toFileSize(data.total)}")
           @ui.progressBar.width("#{progress}%")
         fail: (e, data) =>
           Vocat.vent.trigger('error:add', {level: 'error', msg: 'Unable to upload file to Amazon S3.'})
           @resetUploader()
         done: (e, data) =>
           asset = new AssetModel({attachment_id: attachment.id, submission_id: @collection.submissionId})
+          @ui.uploadStatus.html("Please wait while the new asset is saved to Vocat.")
           asset.save({},{success: () =>
             @collection.add(asset)
-            Vocat.vent.trigger('error:add', {level: 'error', msg: 'The new asset has been saved.'})
+            Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'The new asset has been saved.'})
+            onSave = () =>
+              @model.save({}, {
+                success: () =>
+                  Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'The asset has been updated.'})
+                  @render()
+                , error: () =>
+                  Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Unable to update asset title.'})
+              })
+            Vocat.vent.trigger('modal:open', new ShortTextInputView({model: asset, vent: @vent, onSave: onSave, property: 'name', saveLabel: 'Update asset title', inputLabel: 'What would you like to call this asset?'}))
             @resetUploader()
           , error: () =>
-            Vocat.vent.trigger('error:add', {level: 'error', msg: 'The server was unable to save the asset.'})
+            Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'The server was unable to save the asset.'})
             @resetUploader()
           })
       })
+
+    toFileSize: (bytes) ->
+      sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB']
+      return 'O bytes' if bytes == 0
+      i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)))
+      return (bytes / Math.pow(1024, i)).toFixed(2) + '' + sizes[i]
 
     fileTypesRegex: () ->
       types = @model.get('allowed_extensions')

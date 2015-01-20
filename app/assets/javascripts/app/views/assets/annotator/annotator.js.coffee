@@ -58,5 +58,5 @@ define (require) ->
       if @model.hasDuration()
         @progressBar.show(new ProgressBarView({model: @model, vent: @vent, collection: @collection}))
       else
-        console.log $(@progressBar.el).hide()
+        $(@progressBar.el).hide()
       @showAnnotationNewInput()

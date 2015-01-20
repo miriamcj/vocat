@@ -118,6 +118,7 @@ module StrongParametersConfiguration
     params.require(:asset).permit(:id,
                                   :submission_id,
                                   :listing_order_position,
+                                  :name,
                                   :external_source,
                                   :external_location,
                                   :attachment_attributes => [:id]

@@ -9,7 +9,6 @@ define (require) ->
 
     initialize: (options) ->
       @vent = options.vent
-      console.log @model.attributes
 
     onShow: () ->
       @setupListeners()

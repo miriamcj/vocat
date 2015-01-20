@@ -6,6 +6,7 @@ define (require) ->
   ImageDisplayerView = require('views/assets/player/image_displayer')
   ProcessingWarningView = require('views/assets/player/processing_warning')
   AnnotatorView = require('views/assets/annotator/annotator')
+  AnnotatorCanvasView = require('views/assets/annotator/annotator_canvas')
   AnnotationsView = require('views/assets/annotations/annotations')
 
   class AssetShowLayout extends Marionette.LayoutView
@@ -26,6 +27,7 @@ define (require) ->
       player: '[data-region="player"]'
       annotations: '[data-region="annotations"]'
       annotator: '[data-region="annotator"]'
+      annotatorCanvas: '[data-region="annotator-canvas"]'
     }
 
 
@@ -48,7 +50,17 @@ define (require) ->
       annotatorView = @pickAnnotatorView(@model)
       @player.show(@selectPlayerView())
       @annotator.show(annotatorView) if annotatorView
+      @annotatorCanvas.show(new AnnotatorCanvasView({model: @model, vent: @vent})) if @canDisplayCanvas(@model)
       @annotations.show(annotationsView)
+
+    canDisplayCanvas: (asset) ->
+      switch asset.get('family')
+        when 'video'
+          true
+        when 'image'
+          true
+        else
+          false
 
     pickAnnotatorView: (asset) ->
       switch asset.get('family')

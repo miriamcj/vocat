@@ -35,6 +35,7 @@ define (require) ->
         @annotationCollection = new AnnotationCollection(@get('annotations'), {assetId: @id, assetHasDuration: @hasDuration()})
       else
         @annotationCollection.reset(@get('annotations'))
+        @annotationCollection.assetHasDuration = @hasDuration()
 
     annotations: () ->
       @annotationCollection

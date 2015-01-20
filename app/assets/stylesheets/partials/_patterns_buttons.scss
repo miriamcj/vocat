@@ -69,7 +69,7 @@ input%proto-button {
   @extend %proto-button;
   background-color: $primaryButtonColor;
   border: 1px solid $primaryButtonColor;
-  .notification &, .page-header & {
+  .notification &, .page-header &, .border-buttons & {
     background: none;
     color: $primaryButtonColor;
     border: 1px solid $primaryButtonColor;
@@ -77,7 +77,7 @@ input%proto-button {
   &:hover, &:focus {
     background-color: $primaryButtonHoverColor;
     border: 1px solid $primaryButtonHoverColor;
-    .notification &, .page-header & {
+    .notification &, .page-header &, .border-buttons & {
       background-color: $primaryButtonColor;
       border: 1px solid $primaryButtonColor;
       color: $white;
@@ -107,6 +107,42 @@ input%proto-button {
       background-color: $secondaryButtonColor;
       border: 1px solid $secondaryButtonColor;
       color: $white;
+    }
+  }
+}
+
+%secondary-button-dark {
+  @extend %proto-button;
+  background-color: $secondaryButtonDarkColor;
+  border: 1px solid $secondaryButtonDarkColor;
+  .notification &, .page-header & {
+    background: none;
+    color: $secondaryButtonDarkColor;
+    border: 1px solid $secondaryButtonDarkColor;
+  }
+  &:hover, &:focus {
+    background-color: $secondaryButtonDarkHoverColor;
+    border: 1px solid $secondaryButtonDarkHoverColor;
+    .notification &, .page-header &, .annotator & {
+      background-color: $secondaryButtonDarkColor;
+      border: 1px solid $secondaryButtonDarkColor;
+      color: $white;
+    }
+  }
+}
+
+%tertiary-button {
+  @extend %proto-button;
+  font-weight: $semibold;
+  border: 2px solid $grayMediumLighter;
+  color: $grayMediumLighter;
+  .notification &, .page-header & {
+  }
+  &:hover, &:focus {
+    background-color: $grayMediumLighter;
+    border: 2px solid $grayMediumLighter;
+    color: $white;
+    .notification &, .page-header &, .annotator & {
     }
   }
 }

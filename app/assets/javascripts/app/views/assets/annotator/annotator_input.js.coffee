@@ -11,15 +11,23 @@ define (require) ->
 
     ui:
       annotationInput: '[data-behavior="annotation-input"]'
+      canvasDrawButton: '[data-behavior="annotation-canvas-draw"]'
+      canvasEraseButton: '[data-behavior="annotation-canvas-erase"]'
+      canvasOvalButton: '[data-behavior="annotation-canvas-oval"]'
       annotationCreateButton: '[data-behavior="annotation-create"]'
+      annotationCreateCancelButton: '[data-behavior="annotation-create-cancel"]'
       annotationUpdateButton: '[data-behavior="annotation-update"]'
       annotationEditCancelButton: '[data-behavior="annotation-edit-cancel"]'
       annotationDeleteButton: '[data-behavior="annotation-delete"]'
 
     triggers: {
       'click @ui.annotationCreateButton': 'saveAnnotation'
+      'click @ui.annotationCreateCancelButton': 'cancelEdit'
       'click @ui.annotationUpdateButton': 'saveAnnotation'
       'click @ui.annotationEditCancelButton': 'cancelEdit'
+      'click @ui.canvasDrawButton': 'setCanvasModeDraw'
+      'click @ui.canvasEraseButton': 'setCanvasModeErase'
+      'click @ui.canvasOvalButton': 'setCanvasModeOval'
     }
 
     events:
@@ -27,6 +35,18 @@ define (require) ->
 
     onUserTyping: () ->
       @vent.trigger('request:pause', {})
+
+    onSetCanvasModeDraw: () ->
+      @vent.trigger('annotation:canvas:enable')
+      @vent.trigger('annotation:canvas:setmode', 'draw')
+
+    onSetCanvasModeErase: () ->
+      @vent.trigger('annotation:canvas:enable')
+      @vent.trigger('annotation:canvas:setmode', 'erase')
+
+    onSetCanvasModeOval: () ->
+      @vent.trigger('annotation:canvas:enable')
+      @vent.trigger('annotation:canvas:setmode', 'oval')
 
     onSaveAnnotation: () ->
       @listenToOnce(@vent, 'announce:status', (response) =>
@@ -37,12 +57,13 @@ define (require) ->
           seconds_timecode: seconds_timecode
         }, {
           success: (annotation) => @handleAnnotationSaveSuccess(annotation)
-          error: (annotation) => @handleAnnotationSaveError(annotation, xhr)
+          error: (annotation, xhr) => @handleAnnotationSaveError(annotation, xhr)
         })
       )
       @vent.trigger('request:status', {})
 
     onCancelEdit: () ->
+      @vent.trigger('annotation:canvas:disable')
       @vent.trigger('request:unlock', @)
       @vent.trigger('annotator:refresh')
 
@@ -51,13 +72,14 @@ define (require) ->
       @vent.trigger('request:unlock', @)
       @vent.trigger('request:resume', {})
       @vent.trigger('request:status', {})
+      @vent.trigger('annotation:canvas:disable')
       @vent.trigger('annotator:refresh')
 
     handleLockAttempted: () ->
       Vocat.vent.trigger('error:add', {level: 'info', clear: true, msg: 'Playback is locked because you are currently editing an annotation. To unlock playback, press the cancel button.'})
 
     handleAnnotationSaveError: (annotation, xhr) ->
-      Vocat.vent.trigger('error:add', {level: 'error', msg: xhr.responseJSON.errors})
+      Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: xhr.responseJSON.errors})
 
     setupListeners: () ->
       @listenTo(@, 'lock:attempted', @handleLockAttempted, @)

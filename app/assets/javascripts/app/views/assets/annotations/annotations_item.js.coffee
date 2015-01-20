@@ -73,7 +73,6 @@ define (require) ->
     serializeData: () ->
       data = super()
       data.assetHasDuration = @assetHasDuration
-      console.log data,'d'
       data
 
     onConfirmDestroy: () ->

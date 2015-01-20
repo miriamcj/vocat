@@ -66,6 +66,8 @@ define (require) ->
         if @checkIfLocked() == true && _.isFunction(@player.pause)
           @player.pause()
           @player.currentTime(@lock.seconds)
+        else
+          @vent.trigger('announce:play')
       )
 
     announceTimeUpdate: () ->

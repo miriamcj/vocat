@@ -59,7 +59,6 @@ define (require) ->
         @notificationRegion.show(view)
 
     handleIncomingMessages: (params) ->
-      console.log params,'p'
       if params.hasOwnProperty('clear') && params.clear == true
         @handleEmptyNotification()
       views = @messageViewsFromMessageParams(params)

@@ -38,13 +38,11 @@
 
 
 
-
-
 // Buttons should be of a type (primary-button or secondary-button)
 // and if they want an icon, they should also have an icon class.
 //-----------------------------------------------------------------
 %button-margin {
-  .primary-button + &, .secondary-button + &, .warning-button + &, .gentle-warning-button + &, .disabled-button + & {
+  .primary-button + &, .secondary-button + &, .warning-button + &, .gentle-warning-button + &, .disabled-button + &, .tertiary-button + & {
     margin-left: 10px;
   }
 }
@@ -56,6 +54,16 @@
 
 .secondary-button {
   @extend %secondary-button;
+  @extend %button-margin;
+}
+
+.tertiary-button {
+  @extend %tertiary-button;
+  @extend %button-margin;
+}
+
+.secondary-button-dark {
+  @extend %secondary-button-dark;
   @extend %button-margin;
 }
 
@@ -144,6 +152,26 @@
   @extend %icon-button;
   &:after {
     @include svg(circle-plus-white);
+  }
+}
+
+.edit-button {
+  @extend %icon-button;
+  &:after {
+    @include svg(pencil-gray-on-white);
+    &:hover {
+      @include svg(pencil-white-on-white);
+    }
+  }
+}
+
+.move-button {
+  @extend %icon-button;
+  &:after {
+    @include svg(move-gray);
+    &:hover {
+      @include svg(move-white);
+    }
   }
 }
 
