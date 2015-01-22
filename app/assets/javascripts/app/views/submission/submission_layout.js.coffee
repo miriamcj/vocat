@@ -56,7 +56,7 @@ define (require) ->
         @ui.close.show()
       @discussion.show(new DiscussionView({submission: @model}))
       if @model.get('project').evaluatable
-        @evaluations.show(new EvaluationsView({rubric: @rubric, project: @project, model: @model, courseId: @courseId}))
+        @evaluations.show(new EvaluationsView({rubric: @rubric, vent: @, project: @project, model: @model, courseId: @courseId}))
       @assets.show(new AssetsView({collection: @model.assets(), model: @model, courseId: @courseId}))
 
     initialize: (options) ->

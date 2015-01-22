@@ -52,10 +52,21 @@ define (require) ->
       $(window).resize () =>
         @setSpacerHeight()
 
-      @listenTo(@collection, 'add,remove', (data) =>
-        @updateCount()
-        @scrollToActive()
+      @listenTo(@collection, 'add', (data) =>
+        setTimeout(() =>
+          @setSpacerHeight()
+          @scrollToActive()
+        , 10)
+        @ui.scrollParent.removeClass('annotations-faded')
       )
+
+      @listenTo(@collection, 'remove', (data) =>
+        setTimeout(() =>
+          @setSpacerHeight()
+        , 10)
+        @ui.scrollParent.removeClass('annotations-faded')
+      )
+
 
       @listenTo(@collection, 'model:activated', () =>
         @scrollToActive()
@@ -63,10 +74,6 @@ define (require) ->
 
       @listenTo(@, 'childview:activated', (view) =>
         @handleChildViewActivation(view)
-      )
-
-      @listenTo(@, 'childview:add', (view) =>
-        @handleChildViewAdd(view)
       )
 
       @listenTo(@, 'childview:beforeRemove', (view) =>
@@ -138,13 +145,13 @@ define (require) ->
       height = $(window).height() - 205 - view.$el.height()
       @ui.spacer.outerHeight(height)
 
-    onRender: () ->
-      if @$el
-        @$el.css('visibility', 'hidden')
 
     onRenderCollection: () ->
-      @setSpacerHeight()
       if @model.hasDuration()
+        @setSpacerHeight()
+        if @$el
+          @$el.css('visibility', 'hidden')
+
         setTimeout(() =>
           maxScrollPos = $('body').outerHeight() - $(window).outerHeight() + 500
           $('body').animate({scrollTop: maxScrollPos}, 0, 'swing', () =>
@@ -160,5 +167,6 @@ define (require) ->
       else
         @$el.css('visibility', 'visible')
         @ui.scrollParent.removeClass('annotations-faded')
+
 
 
