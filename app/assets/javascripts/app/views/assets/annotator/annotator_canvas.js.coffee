@@ -49,7 +49,6 @@ define (require) ->
 
     disable: () ->
       @removeTool()
-      console.log 'clearing'
       paper.project.clear()
       @vent.trigger('request:unlock', {view: @})
       @$el.hide()

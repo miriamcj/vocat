@@ -1,6 +1,7 @@
 @import "variables";
 @import "mixins";
 @import "patterns";
+@import "compass";
 
 // Asset create interface
 // --------------------------------------------------------
@@ -20,7 +21,6 @@
     padding-bottom: 30px 0;
     text-align: center;
     height: 125px;
-    line-height: 125px;
   }
   &:after {
     content: '';
@@ -85,9 +85,13 @@ $targetHeight: 95px;
       margin-top: 15px;
       border: 1px solid $tealLight;
       height: 40px;
-      @include clearfix(hard);
+      @include clearfix();
       a {
         height: 38px;
+        &:hover {
+          background-color: $tealDark;
+          border: 1px solid $tealDark;
+        }
       }
       input {
         width: 80%;
@@ -160,6 +164,7 @@ $assetDetailMaxHeight: 700px;
 // --------------------------------------------------------
 .asset-detail-layout {
   position: relative;
+  margin-top: 10px;
   &:before {
     width: 66.666666%;
     content: '';
@@ -168,36 +173,37 @@ $assetDetailMaxHeight: 700px;
     bottom: 0;
     left: 0;
     z-index: -1;
-    background-color: $playerColBg;
   }
   .col-one.page-section-two-thirds {
-    background: $playerColBg;
+    width: 800px;
+    @include respond($baikal) {
+      width: 580px;
+    }
+    position: fixed;
     padding-right: 0;
     padding-left: 0;
     max-height: $assetDetailMaxHeight;
-    position: relative;
   }
   .col-two.page-section-one-third {
-    background: $annotationColBg;
-    padding-left: 0;
+    padding-top: 24px;
+    padding-left: 25px;
     padding-right: 0;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    max-height: $assetDetailMaxHeight;
+    width: 400px;
+    @include respond($baikal) {
+      width: 317px;
+    }
+    float: right;
     &:before {
-      width: 33.333333%;
       content: '';
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      right: 0;
-      z-index: -1;
-      background-color: $annotationColBg;
+      position: fixed;
+      width: 400px;
+      height: 53px;
+      z-index: 10;
+      top: $headerHeight;
+      background: $grayDarkest;
     }
   }
   .col-two.annotations-column-scrollable {
-    overflow-y: scroll;
-    overflow-x: hidden;
   }
 }
 
@@ -233,49 +239,166 @@ $assetDetailMaxHeight: 700px;
 // --------------------------------------------------------
 .annotations-container {
   max-height: 100%;
+  &.annotations-faded {
+    .annotations-ul {
+      opacity: .25;
+    }
+    .annotation-spacer {
+      opacity: 1 !important;
+    }
+  }
   .annotations-ul {
+    opacity: 1;
+    @include transition(1s, opacity, $timing);
     @extend %unstyled-list;
+  }
+  .annotation-spacer {
+    z-index: 5000;
+    opacity: 0;
+    @include transition(1s, opacity, $timing);
+    padding-top: 100px;
+    p {
+      margin: 0 30px;
+      text-align: center;
+      color: $grayLightest;
+    }
   }
   .annotation {
     cursor: pointer;
     font-size: $iota;
     color: $textColor;
-    padding: 15px;
+    padding: 15px 0;
+    position: relative;
     border-left: 4px solid $annotationColBg;
     &.active {
     }
     @include clearfix();
     .annotation-left {
       float: left;
-      width: 15%;
+      width: 60px;
       img {
-        width: 100%;
+        width: 60px;
+        height: 60px;
+        display: block;
       }
     }
     .annotation-right {
       float: right;
-      width: 80%;
+      width: 300px;
+      @include respond($baikal) {
+        width: 217px;
+      }
+
     }
     .annotation-top {
-      @include clearfix()
+      @include clearfix();
+      margin-bottom: 1em;
+    }
+    .annotation-bottom {
+      line-height: 1.25em;
+      max-height: 150px;
+      overflow: hidden;
     }
     &:hover .annotation-utility {
       display: block;
     }
     .annotation-utility {
+      background: blue;
       display: block;
+      a {
+        display: block;
+        float: left;
+        width: 30px;
+        height: 30px;
+        overflow: hidden;
+        background: red;
+        position: relative;
+        &.annotation-delete-link {
+          background: #4C262A;
+          &:hover {
+            background: darken(#4C262A, 10%);
+          }
+          &:after {
+            content: '';
+            position: absolute;
+            top: 9px;
+            left: 9px;
+            width: 12px;
+            height: 12px;
+            @include svg(ex-red);
+          }
+        }
+        &.annotation-edit-link {
+          background: #2A3D3D;
+          &:hover {
+            background: darken(#2A3D3D, 10%);
+          }
+          &:after {
+            content: '';
+            position: absolute;
+            top: 9px;
+            left: 9px;
+            width: 12px;
+            height: 12px;
+            @include svg(pencil-blue);
+          }
+        }
+      }
     }
-    .annotation-title {
+    .annotation-creator {
+      width: 50%;
+      float: left;
       font-weight: $bold;
+      &.role-evaluator {
+        color: $instructorFillColor;
+      }
+      &.role-administrator {
+        color: $defaultFillColor;
+      }
+      &.role-creator {
+        color: $peerFillColor;
+      }
+      &.role-self {
+        color: $selfFillColor;
+      }
+      @include respond($baikal) {
+        width: 100%;
+        float: none;
+      }
     }
-    .annotation-indicators {
+    .annotation-timestamp {
+      width: 50%;
       float: right;
+      text-align: right;
+      color: $grayMedium;
+      font-weight: $regular;
+      @include respond($baikal) {
+        width: 100%;
+        float: none;
+        text-align: left;
+        margin-top: .25em;
+      }
+    }
+    .annotation-fade {
+      position: absolute;
+      bottom: 0;
+      height: 25px;
+      width: 100%;
+      background: -webkit-linear-gradient(rgba(35,31,32,0),$grayDarkest 85%);
+      background: -moz-linear-gradient(rgba(35,31,32,0),$grayDarkest 85%);
+      background: -o-linear-gradient(rgba(35,31,32,0),$grayDarkest 85%);
+      background: linear-gradient(rgba(35,31,32,0),$grayDarkest 85%);
     }
   }
   .annotation + .annotation {
-    border-top: 1px solid $black;
+    border-top: 1px solid $grayDarker;
+  }
+  .annotation-open .annotation-bottom {
+    max-height: none;
   }
 }
+
+
 
 
 // Annotator UI
@@ -285,17 +408,28 @@ $trackHeight: 10px;
   padding-top: 20px;
   width: 100%;
   min-height: 200px;
+
   .formgrid {
-    padding-left: 6%;
-    padding-right: 6%;
+    padding-left: 0;
+    padding-right: 0;
+    &.whole {
+      padding-bottom: 15px;
+    }
+    &.progress-bar-container {
+      padding-bottom: 30px;
+    }
   }
   .timeline-container {
     position: relative;
     margin-top: 1.5em;
     margin-bottom: 1em;
   }
-  .annotation-input {
+  .formgrid textarea.annotation-input {
+    margin-top: 15px;
     height: 75px;
+    border: 2px solid $tealLight;
+    background: $grayDarkest;
+    color: $white !important;
   }
   .time {
     position: absolute;
@@ -322,13 +456,14 @@ $trackHeight: 10px;
       position: absolute;
       z-index: 2;
       height: $trackHeight;
-      background: $grayLight;
+      background: $tealLight;
+      opacity: .3;
     }
     .scrubber {
       position: absolute;
       width: 1px;
       height: 10px;
-      background: $white;
+      background: $tealLight;
       z-index: 6;
       span {
         cursor: pointer;
@@ -336,7 +471,7 @@ $trackHeight: 10px;
         display: inline-block;
         margin: auto;
         right: -40px;
-        color: $white;
+        color: $tealLight;
         font-size: $iota;
         top: -$trackHeight * 3.0;
         text-align: center;
@@ -351,7 +486,7 @@ $trackHeight: 10px;
           margin-left: -$trackHeight;
           border-left: $trackHeight solid transparent;
           border-right: $trackHeight solid transparent;
-          border-top: $trackHeight solid $white;
+          border-top: $trackHeight solid $tealLight;
         }
       }
     }
@@ -360,7 +495,7 @@ $trackHeight: 10px;
       position: absolute;
       z-index: 3;
       height: $trackHeight;
-      background: $white;
+      background: $tealLight;
     }
     .track-overlay {
       position: absolute;
@@ -387,7 +522,7 @@ $trackHeight: 10px;
         border-bottom: $trackHeight solid $instructorFillColor;
       }
       li.role-administrator {
-        border-bottom: $trackHeight solid $instructorFillColor;
+        border-bottom: $trackHeight solid $defaultFillColor;
       }
       li.role-creator {
         border-bottom: $trackHeight solid $peerFillColor;
@@ -415,19 +550,37 @@ $trackHeight: 10px;
 
 .asset-uploading {
   position: relative;
+  text-align: center;
+  .upload-status {
+    @extend %label;
+    display: block;
+    color: $white;
+  }
+  .upload-status-detail {
+    display: block;
+    @extend %label;
+    color: $white;
+  }
 }
 
 .progress-bar {
+  display: inline-block;
   height: 1em;
+  margin-top: 15px;
   width: 50%;
-  position: absolute;
-  left: 25%;
-  top: 25px;
   background: $grayMedium;
+  position: relative;
   .progress-bar--fill {
     height: 1em;
-    width: 0%;
     position: absolute;
     background: $grayDark;
+  }
+}
+
+body.theater {
+  background: $grayDarkest;
+
+  .page-content {
+    margin-top: 15px;
   }
 }

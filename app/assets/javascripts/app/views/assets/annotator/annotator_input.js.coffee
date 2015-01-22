@@ -32,6 +32,16 @@ define (require) ->
 
     events:
       'keypress [data-behavior="annotation-input"]': 'onUserTyping'
+      'keyup [data-behavior="annotation-input"]': 'onUserKeyup'
+
+    onUserKeyup: () ->
+      @updateCancelButtonVisibility()
+
+    updateCancelButtonVisibility: () ->
+      if @ui.annotationInput.val().length > 0
+        @ui.annotationCreateCancelButton.show()
+      else
+        @ui.annotationCreateCancelButton.hide()
 
     onUserTyping: () ->
       @vent.trigger('request:pause', {})
@@ -100,3 +110,4 @@ define (require) ->
         @vent.trigger('request:pause', {})
         @vent.trigger('request:time:update', {seconds: @model.get('seconds_timecode')})
         @vent.trigger('request:lock', {view: @, seconds: @model.get('seconds_timecode')})
+      @updateCancelButtonVisibility()

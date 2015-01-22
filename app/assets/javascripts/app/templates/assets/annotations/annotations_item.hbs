@@ -1,28 +1,30 @@
 <div class="annotation-left">
-	<img src="{{gravatar}}" />
-	<div class="annotation-utility">
+	<img src="{{gravatar}}" /><div class="annotation-utility">
 		{{#if current_user_can_destroy}}
-			<a href="#" class="delete-link" data-behavior="destroy">Delete</a>
+			<a href="#" class="annotation-delete-link" data-behavior="destroy"></a>
 		{{/if}}
 		{{#if current_user_can_edit}}
-			<a href="#" class="edit-link" data-behavior="edit">edit</a>
+			<a href="#" class="annotation-edit-link" data-behavior="edit"></a>
 		{{/if}}
 	</div>
 </div>
 <div class="annotation-right">
 	<div class="annotation-top">
-		<div class="annotation-title">
+		<div class="annotation-creator role-{{author_role}}">
+			{{author_name}}
+		</div>
+		<div class="annotation-timestamp">
 			{{#if assetHasDuration}}
 				<span data-behavior="timecode">{{smpte_timecode}}</span><br />
-				{{author_name}}
 			{{else}}
-				<span>{{created_at}}</span><br />
-				{{author_name}}
+				<span>{{created_at}}</span>
 			{{/if}}
-			<div class="annotation-indicators"><!-- annotation type indocator goes here --></div>
 		</div>
 	</div>
-	<p>
-	 {{nltobr body}}
-	</p>
+	<div class="annotation-bottom" data-behavior="annotation-body">
+		<p>
+			{{nltobr body}}
+		</p>
+	</div>
+	<div class="annotation-fade"></div>
 </div>

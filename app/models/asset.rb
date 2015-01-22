@@ -19,6 +19,10 @@ class Asset < ActiveRecord::Base
   validates_presence_of :type
   before_validation :ensure_type
 
+  def Asset::count_by_course(course)
+    Asset.joins(:submission => :project).where('projects.course_id = ?', course.id).count
+  end
+
   def family
     raise NotImplementedError
   end

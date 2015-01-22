@@ -40,17 +40,17 @@
 
   <figure class="summary-box summary-box-default">
     <div>
-      <span><%= course.video_count %></span>
+      <span><%= course.asset_count %></span>
     </div>
-    <figcaption>Videos</figcaption>
+    <figcaption>Assets</figcaption>
   </figure>
 
   <figure class="summary-box summary-box-default-percentage">
     <div>
-      <b style="height: <%= course.submission_video_percentage() %>%"></b>
-      <span><%= course.submission_video_percentage().round %>%</span>
+      <b style="height: <%= course.submission_asset_percentage() %>%"></b>
+      <span><%= course.submission_asset_percentage().round %>%</span>
     </div>
-    <figcaption>Submissions with Videos</figcaption>
+    <figcaption>Submissions with Assets</figcaption>
   </figure>
 
 </div>

@@ -1,18 +1,17 @@
 <div class="formgrid whole">
-	<textarea class="annotation-input" data-behavior="annotation-input">{{body}}</textarea>
+	<textarea placeholder="Begin typing here ..." class="annotation-input" data-behavior="annotation-input">{{body}}</textarea>
 </div>
-<div class="formgrid half">
-	<button class="primary-button" data-behavior="annotation-canvas-oval">Oval</button>
-	<button class="primary-button" data-behavior="annotation-canvas-draw">Draw</button>
-	<button class="primary-button" data-behavior="annotation-canvas-erase">Erase</button>
-</div>
-<div class="formgrid half" style="text-align: right;" data-region="annotator-input">
-	<button data-behavior="annotation-delete" style="display: none;" class="warning-button delete-button">Delete</button>
+<div class="formgrid third">
 	{{#if id}}
 		<button data-behavior="annotation-update" class="primary-button new-button">Update</button>
 		<button data-behavior="annotation-edit-cancel" class="warning-button cancel-button">Cancel</button>
 	{{else}}
-		<button data-behavior="annotation-create" class="primary-button new-button">Annotate</button>
+		<button data-behavior="annotation-create" class="primary-button new-button">Post</button>
 		<button data-behavior="annotation-create-cancel" class="warning-button cancel-button">Cancel</button>
 	{{/if}}
+</div>
+<div class="formgrid two-thirds border-buttons" style="text-align: right;" data-region="annotator-input">
+	<button class="primary-button oval-button" data-behavior="annotation-canvas-oval">Oval</button>
+	<button class="primary-button draw-button" data-behavior="annotation-canvas-draw">Draw</button>
+	<button class="primary-button erase-button" data-behavior="annotation-canvas-erase">Erase</button>
 </div>

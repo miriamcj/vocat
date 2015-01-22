@@ -11,13 +11,8 @@ class AnnotationSerializer < ActiveModel::Serializer
   end
 
   def author_role
-    if author_id == scope.id
-      'self'
-    else
-      # Ugh.
-      course = object.asset.submission.course
-      course.role(object.author)
-    end
+    course = object.asset.submission.course
+    course.role(object.author)
   end
 
   def gravatar
@@ -26,7 +21,7 @@ class AnnotationSerializer < ActiveModel::Serializer
   end
 
   def created_at
-    object.created_at.strftime("%b %d, %Y at %I:%M%p")
+    object.created_at.strftime("%b %d, %Y %I:%M%p")
   end
 
   def created_at_timestamp

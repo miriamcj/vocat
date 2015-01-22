@@ -52,6 +52,10 @@ define (require) ->
       @annotator.show(annotatorView) if annotatorView
       @annotatorCanvas.show(new AnnotatorCanvasView({model: @model, vent: @vent})) if @canDisplayCanvas(@model)
       @annotations.show(annotationsView)
+      $('body').addClass('theater')
+
+    onDestroy: () ->
+      $('body').removeClass('theater')
 
     canDisplayCanvas: (asset) ->
       switch asset.get('family')

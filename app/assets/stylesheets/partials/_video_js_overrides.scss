@@ -1,3 +1,4 @@
+@import "variables";
 .vjs-progress-control {
   display: none;
 }
@@ -8,4 +9,31 @@
 
 .vjs-control-bar {
   font-size: 16px;
+  color: $grayDarker;
+}
+
+.vjs-default-skin .vjs-volume-control {
+  top: 5px;
+}
+
+.vjs-default-skin .vjs-volume-bar {
+  background-color: #3B817D;
+  height: 3px;
+}
+
+.vjs-default-skin .vjs-volume-level {
+  background: $grayDarker;
+  height: 3px;
+}
+
+.vjs-default-skin .vjs-volume-handle:before {
+  top: -.4em;
+}
+
+.vjs-default-skin .vjs-control:before  {
+  text-shadow: none;
+}
+
+.vjs-default-skin .vjs-control-bar {
+  background-color: $tealLight;
 }

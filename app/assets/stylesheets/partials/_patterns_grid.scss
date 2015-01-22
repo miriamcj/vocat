@@ -181,6 +181,12 @@
   @include unit(3);
 }
 
+%form-wide-three-fourths {
+  @extend %content-unit;
+  @extend %form-pad;
+  @include unit(9);
+}
+
 %form-wide-one-sixth {
   @extend %content-unit;
   @extend %form-pad;

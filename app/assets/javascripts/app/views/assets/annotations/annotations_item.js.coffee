@@ -17,11 +17,13 @@ define (require) ->
       'click @ui.destroy': 'annotation:destroy'
       'click @ui.edit': 'annotation:edit'
       'click @ui.timecode': 'seek'
+      'click @ui.body': 'toggle'
 
     ui: {
       timecode: '[data-behavior="timecode"]'
       destroy: '[data-behavior="destroy"]'
       edit: '[data-behavior="edit"]'
+      body: '[data-behavior="annotation-body"]'
     }
 
     modelEvents: {
@@ -30,6 +32,9 @@ define (require) ->
 
     onModelBodyChange: () ->
       @render()
+
+    onToggle: () ->
+      @$el.toggleClass('annotation-open')
 
     setupListeners: () ->
       @listenTo(@model,'change:active', @handleActiveStateChange)
@@ -78,7 +83,7 @@ define (require) ->
     onConfirmDestroy: () ->
       @model.destroy({
         success: () =>
-          Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '5000',  msg: 'The annotation has been successfully deleted.'})
+          Vocat.vent.trigger('error:add', {level: 'notice', clear: true, lifetime: '5000',  msg: 'The annotation has been successfully deleted.'})
       , error: (xhr) =>
           Vocat.vent.trigger('error:add', {level: 'notice', msg: xhr.responseJSON.errors})
       })

@@ -1,16 +1,6 @@
-<div class="page-content--heading">
-	<a href="#" class="header-link back-link" data-behavior="detail-close">Back to Submission</a>
-	<h2 class="heading-primary">
-		{{#if name}}
-			"{{name}}" {{titlecase family}} Submission
-		{{else}}
-			Untitled {{titlecase family}} Submission
-
-		{{/if}}
-	</h2>
-</div>
-<div class="page-section-wrapper asset-detail-layout">
+<div class="page-section-wrapper asset-detail-layout asset-detail-{{family}}">
 	<div data-behavior="player-column" class="page-section page-section-two-thirds col-one" >
+		<a href="#" class="header-link back-link" data-behavior="detail-close">Back to Submission</a>
 		<div data-region="annotator-canvas">
 		</div>
 		<div class="asset-player" data-region="player">

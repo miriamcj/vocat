@@ -42,20 +42,25 @@ define (require) ->
     # behavior should be improved and abstracted so that it can be used in this
     # class as well.
     updateSort: (model, position) ->
-      adjustedPosition = position
-      @collection.remove(model)
-      model.set('listing_order_position', adjustedPosition)
-      @collection.add(model, {at: position})
-      model.save()
+      if @collection.indexOf(model) != position
+        model.set('listing_order_position', position)
+        @collection.remove(model, {silent: true})
+        view = @children.findByModel(model)
+        view.destroy()
+        @collection.add(model, {at: position})
+        model.save({}, {success: () =>
+          model.fetch()
+        })
 
     onAddChild: () ->
       @$el.sortable({
         containment: @ui.collectionContainer
         revert: true
+#        helper: 'clone'
         handle: '[data-behavior="move"]'
         items: '[data-behavior="sortable-item"]'
         cursor: "move"
         revert: 175
         stop: (event, ui) ->
-          ui.item.trigger('drop', ui.item.index())
+          ui.item.trigger('asset:dropped', ui.item.index())
       })

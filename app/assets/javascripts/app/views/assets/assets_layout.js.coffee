@@ -41,7 +41,11 @@ define (require) ->
       @ui.manageLink.css(display: 'none')
       @ui.stopManagingLink.css(display: 'inline-block')
       @newAsset.$el.fadeIn(200)
-      @newAssetFooter.$el.fadeIn(200)
+      if @collection.length > 0
+        @newAssetFooter.$el.fadeIn(200)
+      else
+        @newAssetFooter.$el.hide()
+
 
     onHideNew: () ->
       @manageVisible = false
@@ -68,7 +72,7 @@ define (require) ->
       @ui.stopManagingLink.css(display: 'none')
       @ensureVisibleCollectionView()
       # TODO: Remove this
-      @trigger('show:new')
+      #@trigger('show:new')
 
     navigateToAssetDetail: (assetId) ->
       url = "courses/#{@courseId}/evaluations/assets/#{assetId}"

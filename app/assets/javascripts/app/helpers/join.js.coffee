@@ -1,6 +1,10 @@
 define 'app/helpers/join', ['handlebars'], (Handlebars) ->
 
   Handlebars.registerHelper "join", (value, options) ->
+
+    # Clone it.
+    value = value.slice(0)
+
     separator = ', '
     lastSeparator = 'and '
     capitalize = options.hash.capitalize || false

@@ -95,6 +95,12 @@
       @include svg(circle-plus-gray);
     }
   }
+  .theater & {
+    color: $grayDarkest;
+    &:after {
+      @include svg(circle-plus-gray-dark);
+    }
+  }
 }
 
 .update-button, .confirm-button {
@@ -161,6 +167,36 @@
     @include svg(pencil-gray-on-white);
     &:hover {
       @include svg(pencil-white-on-white);
+    }
+  }
+}
+
+.oval-button {
+  @extend %icon-button;
+  &:after {
+    @include svg(oval-teal);
+    &:hover {
+      @include svg(oval-gray-dark);
+    }
+  }
+}
+
+.draw-button {
+  @extend %icon-button;
+  &:after {
+    @include svg(pen-teal);
+    &:hover {
+      @include svg(pen-gray-dark);
+    }
+  }
+}
+
+.erase-button {
+  @extend %icon-button;
+  &:after {
+    @include svg(eraser-teal);
+    &:hover {
+      @include svg(eraser-gray-dark);
     }
   }
 }

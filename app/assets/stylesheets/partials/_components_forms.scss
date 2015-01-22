@@ -105,6 +105,10 @@ fieldset + fieldset {
     @extend %form-wide-one-third;
     @extend %form-unit;
   }
+  &.three-fourths {
+    @extend %form-wide-three-fourths;
+    @extend %form-unit;
+  }
   &.fourth {
     @extend %form-wide-one-fourth;
     @extend %form-unit;

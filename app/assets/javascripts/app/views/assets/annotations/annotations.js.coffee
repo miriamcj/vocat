@@ -20,8 +20,6 @@ define (require) ->
       'click @ui.disableEdit': 'edit:disable'
     }
 
-    emptyView: EmptyView
-
     childView: ItemView
 
     childViewContainer: '[data-behavior="annotations-container"]'
@@ -31,6 +29,7 @@ define (require) ->
       annotationsContainer: '[data-behavior="annotations-container"]'
       anchor: '[data-behavior="anchor"]'
       scrollParent: '[data-behavior="scroll-parent"]'
+      spacer: '[data-behavior="spacer"]'
     }
 
     childViewOptions: (model, index) ->
@@ -41,16 +40,24 @@ define (require) ->
         errorVent: @vent
       }
 
+    onBeforeDestroy: () ->
+      $(window).off("resize")
+      $(window).off("scroll")
+      true
+
     initialize: (options) ->
       @vent = Marionette.getOption(@, 'vent')
       @collection = @model.annotations()
+
+      $(window).resize () =>
+        @setSpacerHeight()
 
       @listenTo(@collection, 'add,remove', (data) =>
         @updateCount()
         @scrollToActive()
       )
 
-      @listenTo(@collection, 'models:deactivated', () =>
+      @listenTo(@collection, 'model:activated', () =>
         @scrollToActive()
       )
 
@@ -73,7 +80,7 @@ define (require) ->
       # Echo some events from parent down to the item view, whose vent is scoped to this annotations list view.
       @listenTo(@vent, 'announce:time:update', _.debounce((data) =>
         @collection.setActive(data.playedSeconds)
-      ), 150, true)
+      ), 150, false)
 
     handleChildViewActivation: (view) ->
       @scrollToActive()
@@ -84,22 +91,23 @@ define (require) ->
     unlockScrolling: () ->
       @scrollLocked = false
 
-    scrollToActive: () ->
+    scrollToModel: (speed = 250, model) ->
+      view = @children.findByModel(model)
+      targetPosition = view.$el.position().top - 24
+      $target = $('html,body')
+      $target.stop()
+      $target.animate({scrollTop: targetPosition}, speed, 'swing')
+
+
+    scrollToActive: (speed = 250) ->
       return unless @model.hasDuration()
       if @scrollLocked == false
         activeModel = @collection.findWhere({active: true})
+        if !activeModel
+          activeModel = @collection.last()
         if activeModel
-          view = @children.findByModel(activeModel)
-          targetPosition = view.$el.position().top * -1
-          currentPosition = @ui.annotationsContainer.position().top
-          if currentPosition != targetPosition
-            @ui.annotationsContainer.stop()
-            duration = Math.abs((currentPosition - targetPosition) * .5)
-            @ui.annotationsContainer.css({position: 'relative'}).stop().animate({top: "#{targetPosition}px"}, duration, 'linear')
-        else
-          targetPosition = @ui.annotationsContainer.outerHeight() * -1
-          @ui.annotationsContainer.css({position: 'relative', top: "#{targetPosition}px"})
-
+          @ui.scrollParent.removeClass('annotations-faded')
+          @scrollToModel(speed, activeModel)
 
     # Triggered by child childView; echoed up the event chain to the global event
     onPlayerSeek: (data) ->
@@ -124,5 +132,33 @@ define (require) ->
       else
         childrenContainer.children().eq(index).before(childView.el)
 
+    setSpacerHeight: () ->
+      lastModel = @collection.last()
+      view = @children.findByModel(lastModel)
+      height = $(window).height() - 205 - view.$el.height()
+      @ui.spacer.outerHeight(height)
+
+    onRender: () ->
+      if @$el
+        @$el.css('visibility', 'hidden')
+
     onRenderCollection: () ->
-      @scrollToActive()
+      @setSpacerHeight()
+      if @model.hasDuration()
+        setTimeout(() =>
+          maxScrollPos = $('body').outerHeight() - $(window).outerHeight() + 500
+          $('body').animate({scrollTop: maxScrollPos}, 0, 'swing', () =>
+            @$el.css('visibility', 'visible')
+          )
+        , 250)
+
+        setTimeout(() =>
+          $(window).scroll () =>
+            @ui.scrollParent.removeClass('annotations-faded')
+            $(window).off("scroll")
+        , 2500)
+      else
+        @$el.css('visibility', 'visible')
+        @ui.scrollParent.removeClass('annotations-faded')
+
+

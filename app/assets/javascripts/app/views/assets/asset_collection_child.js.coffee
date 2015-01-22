@@ -15,7 +15,7 @@ define (require) ->
     }
 
     events: {
-      "drop": "onDrop"
+      "asset:dropped": "onDrop"
     }
 
     ui: {
@@ -23,6 +23,7 @@ define (require) ->
       move: '[data-behavior="move"]'
       show: '[data-behavior="show"]'
       rename: '[data-behavior="rename"]'
+      manageUI: '[data-behavior="manage-ui"]'
     }
 
     modelEvents: {
@@ -36,7 +37,10 @@ define (require) ->
     }
 
     onShowModel: () ->
-      @vent.trigger('asset:detail', {asset: @model.id})
+      if @model.get('attachment_state') == 'processed'
+        @vent.trigger('asset:detail', {asset: @model.id})
+      else
+        Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'This asset is still being processed and is not yet available. Check back soon or reload the page to see if processing has completed.'})
 
     onDrop: (e, i) ->
       @trigger("update:sort",[@model, i])
@@ -50,7 +54,7 @@ define (require) ->
           , error: () =>
             Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Unable to update asset title.'})
         })
-      Vocat.vent.trigger('modal:open', new ShortTextInputView({model: @model, vent: @vent, onSave: onSave, property: 'name', saveLabel: 'Update asset title', inputLabel: 'What would you like to call this asset?'}))
+      Vocat.vent.trigger('modal:open', new ShortTextInputView({model: @model, vent: @vent, onSave: onSave, property: 'name', saveLabel: 'Update Title', inputLabel: 'What would you like to call this asset?'}))
 
     onDestroyModel: () ->
       Vocat.vent.trigger('modal:open', new ModalConfirmView({
@@ -80,20 +84,25 @@ define (require) ->
         else
           @hideManageUi()
       )
+      @listenTo(@model.collection, 'add remove', () =>
+        @checkMoveButtonVisibility()
+      )
+
+    checkMoveButtonVisibility: () ->
+      if @model.collection.length > 1
+        @ui.move.show()
+      else
+        @ui.move.hide()
 
     hideManageUi: () ->
-      @ui.destroy.hide()
-      @ui.move.hide()
-      @ui.rename.hide()
+      @ui.manageUI.hide()
 
     showManageUi: () ->
-      @ui.destroy.show()
-      @ui.move.show()
-      @ui.rename.show()
+      @ui.manageUI.show()
 
     requestManageVisibilityState: () ->
       @vent.trigger('request:manage:visibility')
 
     onRender: () ->
       @requestManageVisibilityState()
-
+      @checkMoveButtonVisibility()

@@ -21,16 +21,18 @@ define (require) ->
       fileInput: '[data-behavior="file-input"]'
       dropzone: '[data-behavior="dropzone"]'
       uploadStatus: '[data-behavior="upload-status"]'
+      uploadStatusDetail: '[data-behavior="upload-status-detail"]'
       keyInput: 'input[name=key]'
       policyInput: 'input[name=policy]'
       signatureInput: 'input[name=signature]'
       assetUploadingMessage: '[data-behavior="asset-uploading-message"]'
-      externalVideoForm: '[data-behavior="external-video-form"]'
       externalVideoUrl: '[data-behavior="external-video-url"]'
+      externalVideoSubmit: '[data-behavior="external-video-url-submit"]'
       progressBar: '[data-behavior="progress-bar"]'
     }
 
     triggers: {
+      'click @ui.externalVideoSubmit': 'handle:external:video:submit'
       'click @ui.hideManage': 'hide:new'
       'click @ui.fileInputTrigger': 'show:file:input'
       'submit @ui.externalVideoForm': 'handle:external:video:submit'
@@ -51,6 +53,7 @@ define (require) ->
         @createVimeoAsset(url)
       else
         @createYoutubeAsset(url)
+      @ui.externalVideoUrl.val('')
 
     createYoutubeAsset: (value) ->
       matches = value.match(@regex.youtube)
@@ -128,6 +131,7 @@ define (require) ->
                 @ui.signatureInput.val(uploadDocument.signature)
                 uploadForm.submit()
                 @ui.uploadStatus.html('Uploading...')
+                @ui.uploadStatusDetail.html("")
               error: () =>
                 Vocat.vent.trigger('error:add', {level: 'error', msg: 'Unable to create new attachment model.'})
                 @resetUploader()
@@ -137,19 +141,21 @@ define (require) ->
             @resetUploader()
         progress: (e, data) =>
           progress = parseInt(data.loaded / data.total * 100, 10)
-          @ui.uploadStatus.html("Uploading approximately #{@toFileSize(data.loaded)} out of #{@toFileSize(data.total)}")
+          @ui.uploadStatus.html("Uploading...")
+          @ui.uploadStatusDetail.html("#{@toFileSize(data.loaded)} out of #{@toFileSize(data.total)}")
           @ui.progressBar.width("#{progress}%")
         fail: (e, data) =>
           Vocat.vent.trigger('error:add', {level: 'error', msg: 'Unable to upload file to Amazon S3.'})
           @resetUploader()
         done: (e, data) =>
           asset = new AssetModel({attachment_id: attachment.id, submission_id: @collection.submissionId})
-          @ui.uploadStatus.html("Please wait while the new asset is saved to Vocat.")
+          @ui.uploadStatus.html("Saving asset to Vocat...")
+          @ui.uploadStatusDetail.html("Please wait.")
           asset.save({},{success: () =>
             @collection.add(asset)
             Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'The new asset has been saved.'})
             onSave = () =>
-              @model.save({}, {
+              asset.save({}, {
                 success: () =>
                   Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'The asset has been updated.'})
                   @render()
