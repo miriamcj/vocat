@@ -26,3 +26,4 @@ npm-debug.log
 # Ingnore environment-specific configuration
 /config/environment.yml
 /config/secrets.yml
+public/sample*
