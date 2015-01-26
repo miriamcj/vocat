@@ -32,9 +32,7 @@ define (require) ->
       @vent = options.vent
       @setupListeners()
 
-
     onRender: () ->
-      console.log @model.attributes
       role = @model.get('author_role')
       switch role
         when "administrator"

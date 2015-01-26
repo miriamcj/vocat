@@ -1,4 +1,7 @@
 @import "variables";
+@import "mixins";
+@import "patterns";
+
 .vjs-progress-control {
   display: none;
 }
@@ -36,4 +39,14 @@
 
 .vjs-default-skin .vjs-control-bar {
   background-color: $tealLight;
+}
+
+#vjs-annotation-overlay {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  position: relative;
+  text-align: center;
 }

@@ -2,6 +2,7 @@ define (require) ->
 
   Marionette = require('marionette')
   template = require('hbs!templates/assets/player/video_player')
+  PlayerAnnotations = require('views/assets/player/player_annotations')
 
   class VideoPlayerView extends Marionette.ItemView
 
@@ -22,9 +23,12 @@ define (require) ->
       @setupListeners()
 
     setupListeners: () ->
+      @listenTo(@vent, 'request:annotation:show', (data) => @handleAnnotationShow(data))
+      @listenTo(@vent, 'request:annotation:hide', (data) => @handleAnnotationHide(data))
       @listenTo(@vent, 'request:time:update', (data) => @handleTimeUpdateRequest(data))
       @listenTo(@vent, 'request:status', (data) => @handleStatusRequest())
       @listenTo(@vent, 'request:play', (data) => @handlePlayRequest(data))
+      @listenTo(@vent, 'request:toggle', (data) => @handlePlayToggleRequest(data))
       @listenTo(@vent, 'request:pause', (data) => @handlePauseRequest(data))
       @listenTo(@vent, 'request:resume', (data) => @handleResumeRequest(data))
       @listenTo(@vent, 'request:lock', (data) => @handleLockRequest(data))
@@ -45,10 +49,10 @@ define (require) ->
       @player.controls(false)
       @vent.trigger('announce:locked', @lock)
 
-    checkIfLocked: () ->
+    checkIfLocked: (seconds = null) ->
       if @isLocked() == true
-        @vent.trigger('announce:lock:attempted')
-        @lock.view.trigger('lock:attempted')
+        @vent.trigger('announce:lock:attempted', seconds)
+        @lock.view.trigger('lock:attempted', seconds)
         result = true
       else
         result = false
@@ -108,6 +112,23 @@ define (require) ->
         duration: @player.duration()
       })
 
+    handleAnnotationShow: (data) ->
+      @player.trigger({
+        type: 'annotation:show'
+        annotation: data
+      })
+
+    handleAnnotationHide: (data) ->
+      @player.trigger({
+        type: 'annotation:hide'
+      })
+
+    handlePlaybackToggleRequest: () ->
+      if @player.paused()
+        @handlePlayRequest()
+      else
+        @handlePauseRequest()
+
     handleResumeRequest: () ->
       if @wasPlaying == true
         @player.play()
@@ -123,15 +144,16 @@ define (require) ->
         @player.pause()
 
     handleTimeUpdateRequest: (data) ->
+      if data.hasOwnProperty('percent')
+        duration = @player.duration()
+        seconds = duration * data.percent
+      else
+        seconds = data.seconds
+      seconds = seconds
+
       # Views can put a lock on the player. If the user tries to update the playback time, the player refuses, and
       # expected the view that holds the lock to do something.
-      if @checkIfLocked() == false
-        if data.hasOwnProperty('percent')
-          duration = @player.duration()
-          seconds = duration * data.percent
-        else
-          seconds = data.seconds
-        seconds = seconds
+      if @checkIfLocked(seconds) == false
         @player.currentTime(seconds)
         duration = @player.duration()
         @vent.trigger('announce:time:update', {
@@ -143,6 +165,17 @@ define (require) ->
       width = @ui.playerContainer.outerWidth()
       height = width / 1.77
       @player.width(width).height(height)
+
+    insertAnnotationsStageView: () ->
+      container = document.createElement('div');
+      container.id = 'vjs-annotation-overlay';
+#      $(container).on('click', () =>
+#        @handlePlaybackToggleRequest()
+#      )
+      @stageView = new PlayerAnnotations({model: @model, vent: @vent})
+      @stageView.render()
+      $(container).append(@stageView.el)
+      $(@player.el()).find('.vjs-poster').before(container)
 
     setupPlayer: () ->
       domTarget = @ui.player[0]
@@ -169,7 +202,7 @@ define (require) ->
         }
       }
 
-      @player = videojs(domTarget, options, () ->
-      )
+      @player = videojs(domTarget, options, () -> )
 
+      @insertAnnotationsStageView()
       @resizePlayer()

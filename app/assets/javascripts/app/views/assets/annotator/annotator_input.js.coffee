@@ -3,9 +3,8 @@ define (require) ->
   Marionette = require('marionette')
   template = require('hbs!templates/assets/annotator/annotator_input')
   AnnotationModel = require('models/annotation')
-  ModalConfirmView = require('views/modal/modal_confirm')
 
-  class AnnotatorInputView extends Marionette.LayoutView
+  class AnnotatorInputView extends Marionette.ItemView
 
     template: template
 
@@ -26,7 +25,7 @@ define (require) ->
       'click @ui.annotationUpdateButton': 'saveAnnotation'
       'click @ui.annotationEditCancelButton': 'cancelEdit'
       'click @ui.canvasDrawButton': 'setCanvasModeDraw'
-      'click @ui.canvasEraseButton': 'setCanvasModeErase'
+      'click @ui.canvasEraseButton': 'canvasErase'
       'click @ui.canvasOvalButton': 'setCanvasModeOval'
     }
 
@@ -50,7 +49,7 @@ define (require) ->
       @vent.trigger('annotation:canvas:enable')
       @vent.trigger('annotation:canvas:setmode', 'draw')
 
-    onSetCanvasModeErase: () ->
+    onCanvasErase: () ->
       @vent.trigger('annotation:canvas:enable')
       @vent.trigger('annotation:canvas:setmode', 'erase')
 
@@ -60,15 +59,19 @@ define (require) ->
 
     onSaveAnnotation: () ->
       @listenToOnce(@vent, 'announce:status', (response) =>
-        seconds_timecode = response.playedSeconds;
-        @model.save({
-          body: @ui.annotationInput.val()
-          published: true
-          seconds_timecode: seconds_timecode
-        }, {
-          success: (annotation) => @handleAnnotationSaveSuccess(annotation)
-          error: (annotation, xhr) => @handleAnnotationSaveError(annotation, xhr)
-        })
+        @listenToOnce(@vent, 'announce:canvas', (canvas) =>
+          seconds_timecode = response.playedSeconds;
+          @model.save({
+            canvas: canvas
+            body: @ui.annotationInput.val()
+            published: true
+            seconds_timecode: seconds_timecode
+          }, {
+            success: (annotation) => @handleAnnotationSaveSuccess(annotation)
+            error: (annotation, xhr) => @handleAnnotationSaveError(annotation, xhr)
+          })
+        )
+        @vent.trigger('request:canvas', {})
       )
       @vent.trigger('request:status', {})
 
@@ -93,6 +96,18 @@ define (require) ->
 
     setupListeners: () ->
       @listenTo(@, 'lock:attempted', @handleLockAttempted, @)
+      @listenTo(@vent, 'announce:canvas:tool', @updateToolStates, @)
+
+    updateToolStates: (activeTool) ->
+      @ui.canvasDrawButton.removeClass('active')
+      @ui.canvasEraseButton.removeClass('active')
+      @ui.canvasOvalButton.removeClass('active')
+      if activeTool == 'draw'
+        @ui.canvasDrawButton.addClass('active')
+      if activeTool == 'oval'
+        @ui.canvasOvalButton.addClass('active')
+      if activeTool == 'erase'
+        @ui.canvasEraseButton.addClass('active')
 
     initialize: (options) ->
       @vent = options.vent

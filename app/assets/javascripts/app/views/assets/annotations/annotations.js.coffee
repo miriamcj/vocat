@@ -48,6 +48,7 @@ define (require) ->
     initialize: (options) ->
       @vent = Marionette.getOption(@, 'vent')
       @collection = @model.annotations()
+      window.collection = @collection
 
       $(window).resize () =>
         @setSpacerHeight()
@@ -55,7 +56,7 @@ define (require) ->
       @listenTo(@collection, 'add', (data) =>
         setTimeout(() =>
           @setSpacerHeight()
-          @scrollToActive()
+          @displayActive()
         , 10)
         @ui.scrollParent.removeClass('annotations-faded')
       )
@@ -67,9 +68,8 @@ define (require) ->
         @ui.scrollParent.removeClass('annotations-faded')
       )
 
-
       @listenTo(@collection, 'model:activated', () =>
-        @scrollToActive()
+        @displayActive()
       )
 
       @listenTo(@, 'childview:activated', (view) =>
@@ -85,12 +85,12 @@ define (require) ->
       )
 
       # Echo some events from parent down to the item view, whose vent is scoped to this annotations list view.
-      @listenTo(@vent, 'announce:time:update', _.debounce((data) =>
+      @listenTo(@vent, 'announce:time:update', (data) =>
         @collection.setActive(data.playedSeconds)
-      ), 150, false)
+      )
 
     handleChildViewActivation: (view) ->
-      @scrollToActive()
+      @displayActive()
 
     lockScrolling: () ->
       @scrollLocked = true
@@ -105,14 +105,14 @@ define (require) ->
       $target.stop()
       $target.animate({scrollTop: targetPosition}, speed, 'swing')
 
-
-    scrollToActive: (speed = 250) ->
+    displayActive: (speed = 250) ->
+      activeModel = @collection.findWhere({active: true})
       return unless @model.hasDuration()
       if @scrollLocked == false
-        activeModel = @collection.findWhere({active: true})
         if !activeModel
           activeModel = @collection.last()
         if activeModel
+          @vent.trigger('request:annotation:show', activeModel)
           @ui.scrollParent.removeClass('annotations-faded')
           @scrollToModel(speed, activeModel)
 
@@ -144,7 +144,6 @@ define (require) ->
       view = @children.findByModel(lastModel)
       height = $(window).height() - 205 - view.$el.height()
       @ui.spacer.outerHeight(height)
-
 
     onRenderCollection: () ->
       if @model.hasDuration()

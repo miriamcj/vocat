@@ -3,7 +3,7 @@ define (require) ->
   Marionette = require('marionette')
   template = require('hbs!templates/assets/asset_detail')
   VideoPlayerView = require('views/assets/player/video_player')
-  ImageDisplayerView = require('views/assets/player/image_displayer')
+  ImagePlayerView = require('views/assets/player/image_player')
   ProcessingWarningView = require('views/assets/player/processing_warning')
   AnnotatorView = require('views/assets/annotator/annotator')
   AnnotatorCanvasView = require('views/assets/annotator/annotator_canvas')
@@ -26,10 +26,10 @@ define (require) ->
     regions: {
       player: '[data-region="player"]'
       annotations: '[data-region="annotations"]'
+      annotationsStage: '[data-region="annotations-stage"]'
       annotator: '[data-region="annotator"]'
       annotatorCanvas: '[data-region="annotator-canvas"]'
     }
-
 
     selectPlayerView: () ->
       viewConstructorArguments = {model: @model, vent: @vent}
@@ -37,7 +37,7 @@ define (require) ->
         family = @model.get('family')
         switch family
           when 'video' then playerView = new VideoPlayerView(viewConstructorArguments)
-          when 'image' then playerView = new ImageDisplayerView(viewConstructorArguments)
+          when 'image' then playerView = new ImagePlayerView(viewConstructorArguments)
       else
         playerView = new ProcessingWarningView(viewConstructorArguments)
       playerView

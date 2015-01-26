@@ -15,7 +15,6 @@ define (require) ->
       childContainer: '[data-container="children"]'
     }
 
-
     attachHtml: (collectionView, childView, index) ->
       if collectionView.isBuffering
         collectionView.elBuffer.appendChild(childView.el)

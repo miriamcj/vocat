@@ -227,6 +227,13 @@ $assetDetailMaxHeight: 700px;
     bottom: 0;
     max-height: 100%;
     max-width: 100%;
+    z-index: 0;
+  }
+  #image-displayer-annotation {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
   }
 }
 
@@ -582,5 +589,23 @@ body.theater {
 
   .page-content {
     margin-top: 15px;
+  }
+}
+
+ul.annotations-overlay {
+  @extend %unstyled-list;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  li {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    svg {
+      height: 100%;
+      margin: auto;
+      cursor: pointer;
+    }
+
   }
 }

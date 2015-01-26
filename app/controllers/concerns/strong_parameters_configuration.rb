@@ -103,6 +103,7 @@ module StrongParametersConfiguration
 
   def annotation_params
     params.require(:annotation).permit(:body,
+                                       :canvas,
                                        :smpte_timecode,
                                        :published,
                                        :seconds_timecode,

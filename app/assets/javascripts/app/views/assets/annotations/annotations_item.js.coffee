@@ -14,21 +14,42 @@ define (require) ->
     className: 'annotation'
 
     triggers:
-      'click @ui.destroy': 'annotation:destroy'
-      'click @ui.edit': 'annotation:edit'
-      'click @ui.timecode': 'seek'
-      'click @ui.body': 'toggle'
+      'click @ui.destroy': {
+        event: 'annotation:destroy'
+        stopPropagation: true
+      }
+      'click @ui.edit': {
+        event: 'annotation:edit'
+        stopPropagation: true
+      }
+      'click @ui.seek': {
+        event: 'seek'
+        stopPropagation: false
+      }
+      'click @ui.activate': {
+        event: 'activate'
+        stopPropagation: false
+      }
+      'click @ui.body': {
+        event: 'toggle'
+        stopPropagation: false
+      }
 
     ui: {
-      timecode: '[data-behavior="timecode"]'
+      seek: '[data-behavior="seek"]'
       destroy: '[data-behavior="destroy"]'
       edit: '[data-behavior="edit"]'
       body: '[data-behavior="annotation-body"]'
+      activate: '[data-behavior="activate"]'
     }
 
     modelEvents: {
       "change:body": "onModelBodyChange"
     },
+
+    onActivate: () ->
+      @model.collection.activateModel(@model)
+      @vent.trigger('request:annotation:show', @model)
 
     onModelBodyChange: () ->
       @render()

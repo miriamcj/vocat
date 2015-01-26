@@ -1,5 +1,5 @@
 class AnnotationSerializer < ActiveModel::Serializer
-  attributes :id, :asset_id, :author_id, :body, :published, :seconds_timecode, :smpte_timecode, :author_name,
+  attributes :id, :asset_id, :author_id, :body, :published, :seconds_timecode, :smpte_timecode, :author_name, :canvas,
              :current_user_can_destroy, :current_user_can_edit, :gravatar, :author_role, :created_at, :created_at_timestamp
 
   def current_user_can_destroy

@@ -175,7 +175,7 @@
   @extend %icon-button;
   &:after {
     @include svg(oval-teal);
-    &:hover {
+    &:hover, &.active {
       @include svg(oval-gray-dark);
     }
   }
@@ -185,7 +185,7 @@
   @extend %icon-button;
   &:after {
     @include svg(pen-teal);
-    &:hover {
+    &:hover, &.active {
       @include svg(pen-gray-dark);
     }
   }
@@ -195,7 +195,7 @@
   @extend %icon-button;
   &:after {
     @include svg(eraser-teal);
-    &:hover {
+    &:hover, &.active {
       @include svg(eraser-gray-dark);
     }
   }

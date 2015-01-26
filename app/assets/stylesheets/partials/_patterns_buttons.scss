@@ -74,7 +74,7 @@ input%proto-button {
     color: $primaryButtonColor;
     border: 1px solid $primaryButtonColor;
   }
-  &:hover, &:focus {
+  &:hover, &.active {
     background-color: $primaryButtonHoverColor;
     border: 1px solid $primaryButtonHoverColor;
     .notification &, .page-header &, .border-buttons & {
@@ -100,7 +100,7 @@ input%proto-button {
     color: $secondaryButtonColor;
     border: 1px solid $secondaryButtonColor;
   }
-  &:hover, &:focus {
+  &:hover, &.active {
     background-color: $secondaryButtonHoverColor;
     border: 1px solid $secondaryButtonHoverColor;
     .notification &, .page-header &, .annotator & {
@@ -120,7 +120,7 @@ input%proto-button {
     color: $secondaryButtonDarkColor;
     border: 1px solid $secondaryButtonDarkColor;
   }
-  &:hover, &:focus {
+  &:hover, &.active {
     background-color: $secondaryButtonDarkHoverColor;
     border: 1px solid $secondaryButtonDarkHoverColor;
     .notification &, .page-header &, .annotator & {
@@ -138,7 +138,7 @@ input%proto-button {
   color: $grayMediumLighter;
   .notification &, .page-header & {
   }
-  &:hover, &:focus {
+  &:hover, &.active {
     background-color: $grayMediumLighter;
     border: 2px solid $grayMediumLighter;
     color: $white;
@@ -156,7 +156,7 @@ input%proto-button {
     color: $grayLightest;
     border: 1px solid $grayLighter;
   }
-  &:hover, &:focus {
+  &:hover, &.active {
     background-color: $grayLighter;
     border: 1px solid $grayLighter;
     .notifications &, .page-header &, .annotator & {
@@ -176,7 +176,7 @@ input%proto-button {
     color: $warningButtonColor;
     border: 1px solid $warningButtonColor;
   }
-  &:hover, &:focus {
+  &:hover, &.active {
     background-color: $warningButtonHoverColor;
     border: 1px solid $warningButtonHoverColor;
     .notification &, .modal &, .page-header &, .annotator & {
@@ -193,7 +193,7 @@ input%proto-button {
   background: none;
   color: $warningButtonColor;
   border: 1px solid $warningButtonColor;
-  &:hover, &:focus {
+  &:hover, &.active {
     background-color: $warningButtonColor;
     border: 1px solid $warningButtonColor;
     color: $white;

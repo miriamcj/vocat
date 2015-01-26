@@ -2,6 +2,7 @@
 <%= javascript_include_tag 'vendor/video_js/video' %>
 <%= javascript_include_tag 'vendor/video_js/vjs.youtube' %>
 <%= javascript_include_tag 'vendor/video_js/vjs.vimeo' %>
+<%= javascript_include_tag 'vendor/video_js/vjs.overlay' %>
 
 <% if Rails.env.development? %>
   <%= javascript_include_tag 'vendor/require/require', 'data-main' => '/assets/bootstrap' %>

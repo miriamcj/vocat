@@ -33,14 +33,14 @@ define [
         )
         firstActive = _.first(sortedCandidates)
 
-    deactivateAllModels: (exceptFor = null) ->
+    deactivateAllModels: (exceptForId = null) ->
       @each((annotation) ->
-        if exceptFor && exceptFor.id != annotation.id
+        unless exceptForId == annotation.id
           annotation.set('active', false)
       )
 
     activateModel: (model) ->
-      @deactivateAllModels(model)
+      @deactivateAllModels(model.id)
       currentState = model.get('active')
       if currentState == false || !currentState?
         model.set('active', true)

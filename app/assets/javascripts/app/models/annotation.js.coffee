@@ -31,6 +31,14 @@ define [
     hide: () ->
       if @visible == true then @setVisibility(false)
 
+    getSvg: () ->
+      svg = null
+      canvas = @get('canvas')
+      if canvas?
+        imgData = JSON.parse(canvas)
+        svg = imgData.svg
+        svg
+
     getTimestamp: () ->
       totalSeconds = parseInt(@get('seconds_timecode'))
       totalMinutes = Math.floor(totalSeconds / 60)
