@@ -60,6 +60,7 @@
 
     padding-right: 30px;
     padding-left: 0;
+    margin-bottom: 15px;
 
     .thumb-container-placeholder {
       width: 100%;
@@ -76,26 +77,6 @@
           padding: 2em 0;
           margin-left: 12.5%;
         }
-      }
-    }
-    .thumb-container-audio {
-      width: 160px;
-      height: 90px;
-      background: image-url('png/audio_placeholder.png');
-      background-size: 160px 90px;
-      &:hover:after {
-        opacity: .2;
-      }
-      &:after {
-        @include transition($fastTransition opacity $timing);
-        content: '';
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        bottom: 0;
-        background: #000;
-        z-index: 1;
-        opacity: .4;
       }
     }
     .thumb-container {
@@ -129,7 +110,7 @@
         width: 110%;
       }
     }
-    .thumb-container-video a {
+    .thumb-container-video a, .thumb-container-audio a {
       &:before {
         content: '';
         position: absolute;
