@@ -10,6 +10,8 @@ define (require) ->
     maxWidth: 300
     memoizeHashCount: 0
     position: 0
+    counter: 0
+
     stickyHeader: false
     locks: {
       forward: false
@@ -140,7 +142,7 @@ define (require) ->
       )
 
     widthCheckCells: () ->
-      @actor().find('tr:first-child th, tr:first-child td')
+      @$el.find('[data-behavior="col-headers"] tr:first-child th, [data-behavior="matrix-actor"] tr:first-child td')
 
     minimumViableColumnWidth: () ->
       columns = @columnCount()
@@ -148,8 +150,10 @@ define (require) ->
       cellWidths = []
       @widthCheckCells().each((i, col) ->
         $col = $(col)
-        w = $col.outerWidth()
-        cellWidths.push(w)
+        setWidth = $col.css('width')
+        $col.attr('style','')
+        naturalWidth = $col.outerWidth()
+        cellWidths.push(naturalWidth)
       )
       widestCell = _.max(cellWidths)
 
@@ -182,8 +186,13 @@ define (require) ->
     # This is where most of the magic happens. We resize columns to best fit into the available space, while
     # making sure we show some of the next column for the handle.
     columnWidths: () ->
-      if @minimumViableColumnWidth() > @minWidth
-        @setColWidths(@minimumViableColumnWidth(), @minimumViableColumnWidth() * @visibleColumns())
+      @counter++
+      console.log @counter
+
+      minViableWidth = @minimumViableColumnWidth()
+
+      if minViableWidth > @minWidth
+        @setColWidths(minViableWidth, minViableWidth * @visibleColumns())
 
       if @stageWidth() > 0
         columnWidth = @visibleWidth() / @visibleColumns()
@@ -195,6 +204,13 @@ define (require) ->
         widths
       else
         []
+
+    getColumnWidths: () ->
+      widths = []
+      @colHeaders().find('thead tr th').each((i, el) ->
+        widths[i] = $(el).outerWidth()
+      )
+      widths
 
     handleWidth: () ->
       if @ui.sliderLeft.is(':visible') then show = true else show = false
@@ -242,9 +258,11 @@ define (require) ->
       @ui.sliderLeft.css('left', w)
 
     targetForPosition: (position) ->
-      columnWidth = @columnWidths()[0]
+      hiddenWidth = @hiddenWidth()
+      columnWidths = @getColumnWidths()
+      columnWidth = columnWidths[0]
       target = position * columnWidth * -1
-      if target < @hiddenWidth() * -1 then target = @hiddenWidth() * -1
+      if target < hiddenWidth * -1 then target = hiddenWidth * -1
       target = Math.ceil(target)
       if target > 0 then target = 0
       target
