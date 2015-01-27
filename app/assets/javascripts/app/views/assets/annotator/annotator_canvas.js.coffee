@@ -1,8 +1,8 @@
 define (require) ->
 
   Marionette = require('marionette')
+  paper = require('paper')
   template = require('hbs!templates/assets/annotator/annotator_canvas')
-  paper = require('vendor/paper/paper-full')
   ModalConfirmView = require('views/modal/modal_confirm')
 
   class AnnotatorCanvasView extends Marionette.ItemView

@@ -60,6 +60,7 @@ requirejs.config {
     'waypoints': 'vendor/plugins/waypoints'
     'wavesurfer': 'vendor/wavesurfer/wavesurfer'
     'waypoints_sticky': 'vendor/plugins/waypoints_sticky'
+    'paper': 'vendor/paper/paper-full'
   }
 
   map: {

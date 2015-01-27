@@ -18,7 +18,7 @@
       deps: ['vendor/crossfilter/crossfilter', 'vendor/d3/d3'],
       exports: 'dc'
     },
-    'vendor/paper/paper-full' : {
+    'vendor/paper/paper-full': {
       exports: 'paper'
     },
     'vendor/crossfilter/crossfilter': {
@@ -62,7 +62,8 @@
     'jquery_ui': 'vendor/ui/jquery_ui',
     'waypoints': 'vendor/plugins/waypoints',
     'waypoints_sticky': 'vendor/plugins/waypoints_sticky',
-    'wavesurfer': 'vendor/wavesurfer/wavesurfer'
+    'wavesurfer': 'vendor/wavesurfer/wavesurfer',
+    'paper': 'vendor/paper/paper-full'
   },
   out: '../public/build/bootstrap.js',
   name: 'bootstrap'
