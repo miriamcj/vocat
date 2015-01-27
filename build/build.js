@@ -58,7 +58,8 @@
     'marionette': 'vendor/marionette/marionette_2.2.0',
     'jquery_ui': 'vendor/ui/jquery_ui',
     'waypoints': 'vendor/plugins/waypoints',
-    'waypoints_sticky': 'vendor/plugins/waypoints_sticky'
+    'waypoints_sticky': 'vendor/plugins/waypoints_sticky',
+    'wavesurfer': 'vendor/wavesurfer/wavesurfer'
   },
   out: '../public/build/bootstrap.js',
   name: 'bootstrap'
