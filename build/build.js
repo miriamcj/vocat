@@ -18,6 +18,9 @@
       deps: ['vendor/crossfilter/crossfilter', 'vendor/d3/d3'],
       exports: 'dc'
     },
+    'vendor/paper/paper-full' : {
+      exports: 'paper'
+    },
     'vendor/crossfilter/crossfilter': {
       exports: 'crossfilter'
     },

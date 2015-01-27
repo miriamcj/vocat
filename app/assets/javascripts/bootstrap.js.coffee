@@ -15,13 +15,6 @@ requirejs.config {
       deps: ['vendor/crossfilter/crossfilter', 'vendor/d3/d3'],
       exports: 'dc'
     }
-    'vendor/wavesurfer/vjs.wavesurfer': {
-      deps: ['vendor/wavesurfer/wavesurfer']
-    }
-
-#    'vendor/video_js/vjs.wavesurfer': {
-#      deps: ['vendor/wavesurfer/wavesurfer']
-#    }
     'vendor/paper/paper-full' : {
       exports: 'paper'
     }
