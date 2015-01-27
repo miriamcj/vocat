@@ -47,6 +47,11 @@
   height: 100%;
   width: 100%;
   left: 0;
-  position: relative;
   text-align: center;
+}
+
+.vjs-waveform {
+  &:focus {
+    outline: none;
+  }
 }

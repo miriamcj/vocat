@@ -82,6 +82,7 @@ define (require) ->
 
     handleAnnotationSaveSuccess: (annotation) ->
       @collection.add(annotation, {merge: true})
+      @collection.activateModel(annotation)
       @vent.trigger('request:unlock', @)
       @vent.trigger('request:resume', {})
       @vent.trigger('request:status', {})
@@ -109,6 +110,11 @@ define (require) ->
       if activeTool == 'erase'
         @ui.canvasEraseButton.addClass('active')
 
+    hideVisualAnnotationUi: () ->
+      @ui.canvasEraseButton.hide()
+      @ui.canvasDrawButton.hide()
+      @ui.canvasOvalButton.hide()
+
     initialize: (options) ->
       @vent = options.vent
       @asset = options.asset
@@ -126,3 +132,5 @@ define (require) ->
         @vent.trigger('request:time:update', {seconds: @model.get('seconds_timecode')})
         @vent.trigger('request:lock', {view: @, seconds: @model.get('seconds_timecode')})
       @updateCancelButtonVisibility()
+      if !@asset.allowsVisibleAnnotation()
+        @hideVisualAnnotationUi()

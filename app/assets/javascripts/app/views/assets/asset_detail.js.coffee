@@ -7,6 +7,7 @@ define (require) ->
   ProcessingWarningView = require('views/assets/player/processing_warning')
   AnnotatorView = require('views/assets/annotator/annotator')
   AnnotatorCanvasView = require('views/assets/annotator/annotator_canvas')
+  MockCanvasView = require('views/assets/annotator/mock_canvas')
   AnnotationsView = require('views/assets/annotations/annotations')
 
   class AssetShowLayout extends Marionette.LayoutView
@@ -38,6 +39,7 @@ define (require) ->
         switch family
           when 'video' then playerView = new VideoPlayerView(viewConstructorArguments)
           when 'image' then playerView = new ImagePlayerView(viewConstructorArguments)
+          when 'audio' then playerView = new VideoPlayerView(viewConstructorArguments)
       else
         playerView = new ProcessingWarningView(viewConstructorArguments)
       playerView
@@ -48,30 +50,27 @@ define (require) ->
     onShow: () ->
       annotationsView = @pickAnnotationsView(@model)
       annotatorView = @pickAnnotatorView(@model)
-      @player.show(@selectPlayerView())
+      canvasView = @pickCanvasView(@model)
+      playerView = @selectPlayerView()
+      @player.show(playerView)
       @annotator.show(annotatorView) if annotatorView
-      @annotatorCanvas.show(new AnnotatorCanvasView({model: @model, vent: @vent})) if @canDisplayCanvas(@model)
-      @annotations.show(annotationsView)
+      @annotatorCanvas.show(canvasView) if canvasView
+      @annotations.show(annotationsView) if annotationsView
       $('body').addClass('theater')
 
     onDestroy: () ->
       $('body').removeClass('theater')
 
-    canDisplayCanvas: (asset) ->
-      switch asset.get('family')
-        when 'video'
-          true
-        when 'image'
-          true
-        else
-          false
+    pickCanvasView: (asset) ->
+      canDisplayCanvas = asset.allowsVisibleAnnotation()
+      if canDisplayCanvas == true
+        new AnnotatorCanvasView({model: @model, vent: @vent})
+      else
+        new MockCanvasView({model: @model, vent: @vent})
 
     pickAnnotatorView: (asset) ->
-      switch asset.get('family')
-        when 'video'
-          new AnnotatorView({model: @model, vent: @vent})
-        when 'image'
-          new AnnotatorView({model: @model, vent: @vent})
+      # Stub method - currently all assets can be annotated, but this may change in the future.
+      new AnnotatorView({model: @model, vent: @vent})
 
     serializeData: () ->
       data = super()

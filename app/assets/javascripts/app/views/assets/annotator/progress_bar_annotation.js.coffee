@@ -26,6 +26,7 @@ define (require) ->
         time = @model.get('seconds_timecode')
         percentage = (time / duration) * 100
         @$el.css({left: "#{percentage}%"})
+        @$el.attr({'date-seconds': time})
         @$el.show()
 
     initialize: (options) ->

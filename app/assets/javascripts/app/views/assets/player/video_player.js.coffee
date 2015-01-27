@@ -1,6 +1,8 @@
 define (require) ->
 
   Marionette = require('marionette')
+#  vjsWavesurfer = require('vendor/video_js/vjs.wavesurfer')
+  vjsAudioWave = require('vendor/video_js/vjs.audiowave')
   template = require('hbs!templates/assets/player/video_player')
   PlayerAnnotations = require('views/assets/player/player_annotations')
 
@@ -161,10 +163,14 @@ define (require) ->
           playedSeconds: seconds
         })
 
-    resizePlayer: (aspectRatio) ->
+    getPlayerDimensions: () ->
       width = @ui.playerContainer.outerWidth()
       height = width / 1.77
-      @player.width(width).height(height)
+      {width: width, height: height}
+
+    resizePlayer: (aspectRatio) ->
+      dimensions = @getPlayerDimensions()
+      @player.width(dimensions.width).height(dimensions.height)
 
     insertAnnotationsStageView: () ->
       container = document.createElement('div');
@@ -178,11 +184,14 @@ define (require) ->
       $(@player.el()).find('.vjs-poster').before(container)
 
     setupPlayer: () ->
+      dimensions = @getPlayerDimensions()
       domTarget = @ui.player[0]
       options = {
         techOrder: @model.techOrder()
-        width: 'auto'
-        height: 'auto'
+        width: dimensions.width
+        height: dimensions.height
+        plugins: {
+        }
         children: {
           controlBar: {
             children: {
@@ -201,6 +210,18 @@ define (require) ->
           }
         }
       }
+
+      if @model.get('family') == 'audio'
+        options.plugins = {
+          audiowave: {
+            src: @model.get('locations').mp3,
+            msDisplayMax: 10,
+            waveColor: "grey",
+            progressColor: "black",
+            cursorColor: "black",
+            hideScrollbar: true
+          }
+        }
 
       @player = videojs(domTarget, options, () -> )
 

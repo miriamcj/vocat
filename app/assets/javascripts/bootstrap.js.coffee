@@ -15,6 +15,13 @@ requirejs.config {
       deps: ['vendor/crossfilter/crossfilter', 'vendor/d3/d3'],
       exports: 'dc'
     }
+    'vendor/wavesurfer/vjs.wavesurfer': {
+      deps: ['vendor/wavesurfer/wavesurfer']
+    }
+
+#    'vendor/video_js/vjs.wavesurfer': {
+#      deps: ['vendor/wavesurfer/wavesurfer']
+#    }
     'vendor/paper/paper-full' : {
       exports: 'paper'
     }
@@ -58,6 +65,7 @@ requirejs.config {
     'marionette' : 'vendor/marionette/marionette_2.2.0'
     'jquery_ui': 'vendor/ui/jquery_ui'
     'waypoints': 'vendor/plugins/waypoints'
+    'wavesurfer': 'vendor/wavesurfer/wavesurfer'
     'waypoints_sticky': 'vendor/plugins/waypoints_sticky'
   }
 

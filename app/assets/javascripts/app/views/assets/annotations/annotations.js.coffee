@@ -141,8 +141,12 @@ define (require) ->
 
     setSpacerHeight: () ->
       lastModel = @collection.last()
-      view = @children.findByModel(lastModel)
-      height = $(window).height() - 205 - view.$el.height()
+      if lastModel
+        view = @children.findByModel(lastModel)
+        affordance = view.$el.height()
+      else
+        affordance = 0
+      height = $(window).height() - 205 - affordance
       @ui.spacer.outerHeight(height)
 
     onRenderCollection: () ->

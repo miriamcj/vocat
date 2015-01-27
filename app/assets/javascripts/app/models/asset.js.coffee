@@ -28,6 +28,15 @@ define (require) ->
       switch family
         when 'video' then true
         when 'image' then false
+        when 'audio' then true
+        else  false
+
+    allowsVisibleAnnotation: () ->
+      family = @get('family')
+      switch family
+        when 'video' then true
+        when 'image' then true
+        when 'audio' then false
         else  false
 
     updateAnnotationCollection: () ->

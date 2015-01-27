@@ -1,17 +1,40 @@
 <div data-behavior="show" class="portfolio-item--thumb">
-	{{#if thumbnail }}
-	<div class="thumb-container thumb-container-{{family}}">
-		<a href="#">
-			<img src="{{thumbnail}}">
-		</a>
-	</div>
-	{{else}}
-		<div class="thumb-container-placeholder">
+	{{#if_match family 'video'}}
+		{{#if thumbnail }}
+			<div class="thumb-container thumb-container-video">
+				<a href="#">
+					<img src="{{thumbnail}}">
+				</a>
+			</div>
+		{{else}}
+			<div class="thumb-container-placeholder">
+				<a href="#">
+					<span>{{attachment.state}}</span>
+				</a>
+			</div>
+		{{/if}}
+	{{/if_match}}
+	{{#if_match family 'audio'}}
+		<div class="thumb-container thumb-container-audio">
 			<a href="#">
-				<span>{{attachment.state}}</span>
 			</a>
 		</div>
-	{{/if}}
+	{{/if_match}}
+	{{#if_match family 'image'}}
+		{{#if thumbnail }}
+			<div class="thumb-container thumb-container-image">
+				<a href="#">
+					<img src="{{thumbnail}}">
+				</a>
+			</div>
+		{{else}}
+			<div class="thumb-container-placeholder">
+				<a href="#">
+					<span>{{to_upper attachment.state}}</span>
+				</a>
+			</div>
+		{{/if}}
+	{{/if_match}}
 </div>
 <div class="asset-collection-item--content">
 	<h3 class="heading-tertiary">

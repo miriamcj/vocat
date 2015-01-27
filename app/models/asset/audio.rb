@@ -6,5 +6,8 @@ class Asset::Audio < Asset
     :audio
   end
 
+  def locations
+    attachment.locations
+  end
 
 end
