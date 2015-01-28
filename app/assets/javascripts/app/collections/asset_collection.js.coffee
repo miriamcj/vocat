@@ -17,7 +17,7 @@ define [
     url: '/api/v1/assets'
 
     initialize: (models, options) ->
-      if options.hasOwnProperty('submissionId')
+      if options && options.hasOwnProperty('submissionId')
         @submissionId = options.submissionId
       @setupListeners()
 

@@ -37,10 +37,12 @@ class Submission < ActiveRecord::Base
   end
 
   def thumb
-    #TODO: return a thumbnail from the first asset that has one.
-    raise NotImplementedError
+    first_asset.thumbnail
   end
 
+  def first_asset
+    assets.first
+  end
 
   def evaluated_by_instructor?()
     instructor_evaluation_count > 0

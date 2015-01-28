@@ -73,3 +73,22 @@ define (require) ->
 
         window.Vocat.main.show(view)
       )
+
+    assetDetail: (courseId, assetId) ->
+      @_loadAsset(assetId).done((asset) =>
+        assetDetail = new AssetDetail({
+          courseId: courseId
+          model: asset
+        })
+        window.Vocat.main.show(assetDetail)
+      )
+
+    _loadAsset: (assetId) ->
+      deferred = $.Deferred()
+      asset = new AssetModel({id: assetId})
+      asset.fetch({
+        success: () ->
+          deferred.resolve(asset)
+      })
+      deferred
+

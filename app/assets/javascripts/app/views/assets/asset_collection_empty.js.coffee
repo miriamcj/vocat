@@ -6,6 +6,7 @@ define (require) ->
   class AssetCollectionEmpty extends Marionette.ItemView
 
     template: template
+    abilities: {}
 
     ui: {
       manageLink: '[data-behavior="empty-manage-link"]'
@@ -18,5 +19,9 @@ define (require) ->
     onShowNew: () ->
       @vent.trigger('show:new')
 
+    serializeData: () ->
+      @abilities
+
     initialize: (options) ->
       @vent = Marionette.getOption(@, 'vent')
+      @abilities = Marionette.getOption(@, 'abilities')

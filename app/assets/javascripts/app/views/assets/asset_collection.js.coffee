@@ -12,6 +12,7 @@ define (require) ->
     childViewOptions: () ->
       {
         vent: @vent
+        abilities: @abilities
       }
 
     template: template
@@ -36,6 +37,7 @@ define (require) ->
 
     initialize: (options) ->
       @vent = Marionette.getOption(@, 'vent')
+      @abilities = options.abilities
       @setupListeners()
 
     # TODO: Lots of overlap between this and the sortable table behavior. The

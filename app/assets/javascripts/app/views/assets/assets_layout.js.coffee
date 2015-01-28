@@ -34,17 +34,19 @@ define (require) ->
     }
 
     onShowNew: () ->
-      @manageVisible = true
-      @newAsset.show(new NewAssetView({collection: @collection, model: @model.project(), vent: @}))
-      @newAssetFooter.show(new NewAssetFooterView({vent: @}))
-      @hideEmptyCollectionViewIfNewIsVisible()
-      @ui.manageLink.css(display: 'none')
-      @ui.stopManagingLink.css(display: 'inline-block')
-      @newAsset.$el.fadeIn(200)
-      if @collection.length > 0
-        @newAssetFooter.$el.fadeIn(200)
-      else
-        @newAssetFooter.$el.hide()
+      abilities = @model.get('abilities')
+      if abilities.can_attach
+        @manageVisible = true
+        @newAsset.show(new NewAssetView({collection: @collection, model: @model.project(), vent: @}))
+        @newAssetFooter.show(new NewAssetFooterView({vent: @}))
+        @hideEmptyCollectionViewIfNewIsVisible()
+        @ui.manageLink.css(display: 'none')
+        @ui.stopManagingLink.css(display: 'inline-block')
+        @newAsset.$el.fadeIn(200)
+        if @collection.length > 0
+          @newAssetFooter.$el.fadeIn(200)
+        else
+          @newAssetFooter.$el.hide()
 
 
     onHideNew: () ->
@@ -64,14 +66,18 @@ define (require) ->
 
     ensureVisibleCollectionView: () ->
       if !@assets.currentView?
-        @assets.show(new AssetCollectionView({collection: @collection, vent: @}))
+        @assets.show(new AssetCollectionView({collection: @collection, vent: @, abilities: @model.get('abilities')}))
       unless @assets.$el.is(':visible')
         @newAsset.$el.fadeIn(200)
 
     onRender: () ->
       @ui.stopManagingLink.css(display: 'none')
       @ensureVisibleCollectionView()
-      # TODO: Remove this
+      abilities = @model.get('abilities')
+      if !abilities.can_attach
+        @ui.manageLink.hide()
+
+        # TODO: Remove this
       #@trigger('show:new')
 
     navigateToAssetDetail: (assetId) ->

@@ -10,4 +10,8 @@ class Asset::Audio < Asset
     attachment.locations
   end
 
+  def thumbnail
+    '/static_assets/images/audio_placeholder.png'
+  end
+
 end
