@@ -6,8 +6,11 @@ define (require) ->
 
     template: _.template('')
     tagName: 'li'
-    showTimePadding: .25
+    showTimePadding: 1
+    hideTimePadding: .1
     assetHasDuration: false
+    hidden: false
+    animating: false
 
     initialize: (options) ->
       @vent = options.vent
@@ -22,20 +25,59 @@ define (require) ->
 
     handleActiveChange: () ->
       if @model.get('active') == true
-        @$el.fadeIn(200)
+        @$el.fadeIn(250)
       else
-        @$el.fadeOut(200)
+        @$el.fadeOut(250)
+
+    hideEl: () ->
+      @hidden = true
+      @$el.hide()
+
+    showEl: () ->
+      @hidden = false
+      @$el.show()
+
+    fadeOut: (time) ->
+      if !@animating
+        @$el.stop()
+        @animating = true
+        @$el.fadeOut(time, () =>
+          @state = 'hidden'
+        )
+
+    highlight: () ->
+      @animating = false
+      @$el.stop()
+      @$el.css({opacity: 1})
+      #@$el.toggle('pulsate', {times: 1})
+      @$el.show()
+
+    fadeIn: (time) ->
+      if !@animating
+        @$el.stop()
+        @animating = true
+        @$el.fadeTo(time, .3, () =>
+          @animating = false
+        )
 
     handleTimeUpdate: (data) ->
       playbackTime = data.playedSeconds
-      showTime = @model.get('seconds_timecode')
-      if showTime > playbackTime + @showTimePadding || showTime  < playbackTime - @showTimePadding
-        @$el.fadeOut(200)
-      else
-        @$el.fadeIn(200)
+      annotationTime = @model.get('seconds_timecode')
+
+      showTime = annotationTime - @showTimePadding
+      hideTime = annotationTime + @hideTimePadding
+
+      if playbackTime > hideTime
+        @fadeOut(250)
+      else if playbackTime >= annotationTime - .25 && playbackTime <= hideTime
+        @highlight()
+      else if playbackTime >= showTime
+        @fadeIn(500)
+      else if playbackTime <= showTime - .5
+        @hideEl()
 
     onRender: () ->
       svg = @model.getSvg()
       @$el.html(svg)
       @$el.attr({'data-model-id': @model.id})
-      @$el.hide()
+      @hideEl()

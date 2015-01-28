@@ -79,9 +79,13 @@ define (require) ->
 
     onDetailClose: () ->
       context = @model.get('creator_type').toLowerCase() + 's'
-      url = "courses/#{@courseId}/#{context}/evaluations/creator/#{@model.get('creator_id')}/project/#{@model.get('project_id')}"
+      if @viewContext == 'coursemap'
+        url = "courses/#{@courseId}/#{context}/evaluations/creator/#{@model.get('creator_id')}/project/#{@model.get('project_id')}"
+      else
+        url = "courses/#{@courseId}/#{context}/creator/#{@model.get('creator_id')}/project/#{@model.get('project_id')}"
       Vocat.router.navigate(url, true)
 
     initialize: (options) ->
+      @viewContext = options.context
       @courseId = window.VocatCourseId
       @vent = new Backbone.Wreqr.EventAggregator()

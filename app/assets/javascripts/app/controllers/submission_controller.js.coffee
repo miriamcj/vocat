@@ -10,6 +10,8 @@ define (require) ->
   UserCollection = require('collections/user_collection')
   GroupCollection = require('collections/group_collection')
   AssetCollection = require('collections/asset_collection')
+  AssetModel= require('models/asset')
+  AssetDetail = require('views/assets/asset_detail')
 
   class SubmissionController extends VocatController
 
@@ -52,6 +54,7 @@ define (require) ->
           creator: userModel
           model: submissionModel
           project: projectModel
+          courseMapContext: false
         })
 
         window.Vocat.main.show(view)
@@ -69,6 +72,7 @@ define (require) ->
           creator: groupModel
           model: submissionModel
           project: projectModel
+          courseMapContext: false
         })
 
         window.Vocat.main.show(view)
@@ -79,6 +83,7 @@ define (require) ->
         assetDetail = new AssetDetail({
           courseId: courseId
           model: asset
+          context: 'submission'
         })
         window.Vocat.main.show(assetDetail)
       )

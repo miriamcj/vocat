@@ -67,6 +67,7 @@ define (require) ->
         assetDetail = new AssetDetail({
           courseId: courseId
           model: asset
+          context: 'coursemap'
         })
         window.Vocat.main.show(assetDetail)
       )

@@ -75,7 +75,11 @@ Vocat::Application.routes.draw do
       get 'portfolio'
     end
 
+
     scope :module => "courses" do
+
+      resources :assets, :only => [:show]
+
       namespace "export" do
         resources :projects, :only => [] do
           member do

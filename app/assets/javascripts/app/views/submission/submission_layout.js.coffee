@@ -37,6 +37,7 @@ define (require) ->
         creator: @creator.toJSON()
         creatorType: @model.get('creator_type')
         isGroupProject: @model.get('creator_type') == 'Group'
+        courseMapContext: @courseMapContext
       }
       sd
 
@@ -48,8 +49,12 @@ define (require) ->
 
     onClose: () ->
       context = @model.get('creator_type').toLowerCase() + 's'
-      url = "courses/#{@courseId}/#{context}/evaluations"
-      Vocat.router.navigate(url, true)
+      if @courseMapContext
+        url = "courses/#{@courseId}/#{context}/evaluations"
+        Vocat.router.navigate(url, true)
+      else
+        url = "/courses/#{@courseId}/portfolio"
+        window.location = url
 
     onShow: () ->
       unless @$el.parent().data().hasOwnProperty('hideBackLink')
@@ -57,7 +62,7 @@ define (require) ->
       @discussion.show(new DiscussionView({submission: @model}))
       if @model.get('project').evaluatable
         @evaluations.show(new EvaluationsView({rubric: @rubric, vent: @, project: @project, model: @model, courseId: @courseId}))
-      @assets.show(new AssetsView({collection: @model.assets(), model: @model, courseId: @courseId}))
+      @assets.show(new AssetsView({collection: @model.assets(), model: @model, courseId: @courseId, courseMapContext: @courseMapContext}))
 
     initialize: (options) ->
       @options = options || {}

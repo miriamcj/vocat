@@ -21,7 +21,7 @@ class AnnotationSerializer < ActiveModel::Serializer
   end
 
   def created_at
-    object.created_at.strftime("%b %d, %Y %I:%M%p")
+    object.created_at.strftime("%-m/%d/%y %I:%M%p")
   end
 
   def created_at_timestamp

@@ -81,7 +81,10 @@ define (require) ->
       #@trigger('show:new')
 
     navigateToAssetDetail: (assetId) ->
-      url = "courses/#{@courseId}/evaluations/assets/#{assetId}"
+      if @courseMapContext
+        url = "courses/#{@courseId}/evaluations/assets/#{assetId}"
+      else
+        url = "courses/#{@courseId}/assets/#{assetId}"
       Vocat.router.navigate(url, true)
 
     setupListeners: () ->
@@ -105,5 +108,6 @@ define (require) ->
     # @model is a submission model.
     initialize: (options) ->
       @vent = Marionette.getOption(@, 'vent')
+      @courseMapContext = Marionette.getOption(@, 'courseMapContext')
       @courseId = Marionette.getOption(@, 'courseId')
       @setupListeners()
