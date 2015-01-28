@@ -46,19 +46,19 @@ define (require) ->
     updateSort: (model, position) ->
       if @collection.indexOf(model) != position
         model.set('listing_order_position', position)
-        @collection.remove(model, {silent: true})
+        container = @$el.find(@childViewContainer)
         view = @children.findByModel(model)
-        view.destroy()
-        @collection.add(model, {at: position})
-        model.save({}, {success: () =>
-          model.fetch()
-        })
+        view.$el.detach()
+        if position == 0
+          container.prepend(view.$el)
+        else
+          container.children().eq(position).before(view.$el)
+        model.save({})
 
     onAddChild: () ->
       @$el.sortable({
         containment: @ui.collectionContainer
         revert: true
-#        helper: 'clone'
         handle: '[data-behavior="move"]'
         items: '[data-behavior="sortable-item"]'
         cursor: "move"
