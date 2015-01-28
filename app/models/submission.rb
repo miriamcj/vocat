@@ -117,7 +117,7 @@ class Submission < ActiveRecord::Base
   end
 
   def has_asset?
-    assets.count > 0
+    assets_count > 0
   end
 
   def has_rubric?

@@ -3,7 +3,7 @@ class Asset < ActiveRecord::Base
   include RankedModel
   ranks :listing_order, :with_same => :submission_id, :class_name => 'Asset'
 
-  belongs_to :submission
+  belongs_to :submission, :counter_cache => true
   belongs_to  :author, :class_name => 'User'
   has_many :annotations, :dependent => :destroy
   has_one :attachment, :dependent => :destroy
