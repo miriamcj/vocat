@@ -1,52 +1,55 @@
-  <%= f.fields_for :settings do |settings| %>
-    <div class="formgrid whole">
-      <label class="label-tight">Course Configuration</label>
-    </div>
-    <div class="formgrid fourth">
-      <label class="label-inline" for="course_settings_enable_public_discussion">
-        <%= hidden_field_tag('course[settings][enable_public_discussion]', 0, :id => 'enable_public_discussion_hidden')%>
-        <%= check_box_tag('course[settings][enable_public_discussion]', 1, @course.settings['enable_public_discussion'] == '1')%>
-        <b></b>
-        Enable public discussion
-      </label>
-      <small>
-        When public discussion is enabled, all submissions and discussions will be visible to all students in the course.
-      </small>
-    </div>
+<%= f.fields_for :settings do |settings| %>
+	<div class="formgrid whole">
+		<label class="label-tight">Course Configuration</label>
+	</div>
+	<div class="formgrid fourth">
+		<label class="label-inline" for="course_settings_enable_public_discussion">
+			<%= hidden_field_tag('course[settings][enable_public_discussion]', 0, :id => 'enable_public_discussion_hidden') %>
+			<%= check_box_tag('course[settings][enable_public_discussion]', 1, @course.settings['enable_public_discussion'] == '1') %>
+			<b></b>
+			Enable public discussion
+		</label>
+		<small>
+			When public discussion is enabled, all submissions and discussions will be visible to all students in the
+			course.
+		</small>
+	</div>
 
-    <div class="formgrid fourth">
-      <label class="label-inline" for="course_settings_enable_peer_review">
-        <%= hidden_field_tag('course[settings][enable_peer_review]', 0, :id => 'enable_peer_review_hidden')%>
-        <%= check_box_tag('course[settings][enable_peer_review]', 1, @course.settings['enable_peer_review'] == '1')%>
-        <b></b>
-        Enable peer review
-      </label>
-      <small>
-        If peer review is enabled, students will be able to view all course submission and evaluate them on the rubric attached to each project.
-      </small>
-    </div>
+	<div class="formgrid fourth">
+		<label class="label-inline" for="course_settings_enable_peer_review">
+			<%= hidden_field_tag('course[settings][enable_peer_review]', 0, :id => 'enable_peer_review_hidden') %>
+			<%= check_box_tag('course[settings][enable_peer_review]', 1, @course.settings['enable_peer_review'] == '1') %>
+			<b></b>
+			Enable peer review
+		</label>
+		<small>
+			If peer review is enabled, students will be able to view all course submission and evaluate them on the
+			rubric attached to each project.
+		</small>
+	</div>
 
-    <div class="formgrid fourth">
-      <label class="label-inline" for="course_settings_enable_creator_attach">
-		  <%= hidden_field_tag('course[settings][enable_creator_attach]', 0, :id => 'enable_creator_attach_hidden')%>
-        <%= check_box_tag('course[settings][enable_creator_attach]', 1, @course.settings['enable_creator_attach'] == '1')%>
-        <b></b>
-        Allow creators to upload videos
-      </label>
-      <small>
-        When enabled, students may attach videos to their own project submissions.
-      </small>
-    </div>
+	<div class="formgrid fourth">
+		<label class="label-inline" for="course_settings_enable_creator_attach">
+			<%= hidden_field_tag('course[settings][enable_creator_attach]', 0, :id => 'enable_creator_attach_hidden') %>
+			<%= check_box_tag('course[settings][enable_creator_attach]', 1, @course.settings['enable_creator_attach'] == '1') %>
+			<b></b>
+			Allow creators to upload videos
+		</label>
+		<small>
+			When enabled, students may attach videos to their own project submissions.
+		</small>
+	</div>
 
-    <div class="formgrid fourth">
-      <label class="label-inline" for="course_settings_enable_self_evaluation">
-        <%= hidden_field_tag('course[settings][enable_self_evaluation]', 0, :id => 'enable_self_evaluation_hidden')%>
-        <%= check_box_tag('course[settings][enable_self_evaluation]', 1, @course.settings['enable_self_evaluation'] == '1')%>
-        <b></b>
-        Allow self-evaluation
-      </label>
-      <small>
-        Enabling self-evaluation will give students the ability to evaluate their own project submissions using the rubric attached to each project.
-      </small>
-    </div>
-  <% end %>
+	<div class="formgrid fourth">
+		<label class="label-inline" for="course_settings_enable_self_evaluation">
+			<%= hidden_field_tag('course[settings][enable_self_evaluation]', 0, :id => 'enable_self_evaluation_hidden') %>
+			<%= check_box_tag('course[settings][enable_self_evaluation]', 1, @course.settings['enable_self_evaluation'] == '1') %>
+			<b></b>
+			Allow self-evaluation
+		</label>
+		<small>
+			Enabling self-evaluation will give students the ability to evaluate their own project submissions using the
+			rubric attached to each project.
+		</small>
+	</div>
+<% end %>
