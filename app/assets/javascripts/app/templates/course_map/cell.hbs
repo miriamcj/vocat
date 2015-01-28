@@ -3,7 +3,7 @@
 		<dl class="cell--media">
 	    <dt>Media</dt>
 		  <dd>
-		    {{#if has_video}}
+		    {{#if has_asset}}
 		    <b class="matrix--check"></b>
 		    {{else}}
 		    <b></b>
@@ -14,7 +14,7 @@
 		{{#if_empty current_user_percentage }}
 			{{#if_empty instructor_score_percentage}}
 				<dl class="cell--score">
-					<dt>Score</dt>
+					<dt>Average</dt>
 					<dd>
 						<b class="matrix--scored">&ndash;&ndash;</b>
 					</dd>

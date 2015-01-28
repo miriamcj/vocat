@@ -385,6 +385,13 @@ $assetDetailMaxHeight: 700px;
         margin-top: .25em;
       }
     }
+    .annotation-drawing-indicator {
+      display: inline-block;
+      width: .8em;
+      vertical-align: middle;
+      height: .8em;
+      @include svg(pen-gray-light);
+    }
     .annotation-fade {
       position: absolute;
       bottom: 0;

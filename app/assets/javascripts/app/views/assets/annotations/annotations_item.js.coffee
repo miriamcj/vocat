@@ -99,6 +99,7 @@ define (require) ->
     serializeData: () ->
       data = super()
       data.assetHasDuration = @assetHasDuration
+      data.hasDrawing = @model.hasDrawing()
       data
 
     onConfirmDestroy: () ->

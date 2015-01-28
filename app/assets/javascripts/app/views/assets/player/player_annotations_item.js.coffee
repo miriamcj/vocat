@@ -7,13 +7,24 @@ define (require) ->
     template: _.template('')
     tagName: 'li'
     showTimePadding: .25
+    assetHasDuration: false
 
     initialize: (options) ->
       @vent = options.vent
+      @assetHasDuration = options.assetHasDuration
       @setupListeners()
 
     setupListeners: () ->
-      @listenTo(@vent, 'announce:time:update', @handleTimeUpdate, @)
+      if @assetHasDuration
+        @listenTo(@vent, 'announce:time:update', @handleTimeUpdate, @)
+      else
+        @listenTo(@model, 'change:active', @handleActiveChange, @)
+
+    handleActiveChange: () ->
+      if @model.get('active') == true
+        @$el.fadeIn(200)
+      else
+        @$el.fadeOut(200)
 
     handleTimeUpdate: (data) ->
       playbackTime = data.playedSeconds

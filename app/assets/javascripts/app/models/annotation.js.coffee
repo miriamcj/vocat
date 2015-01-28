@@ -31,6 +31,14 @@ define [
     hide: () ->
       if @visible == true then @setVisibility(false)
 
+    hasDrawing: () ->
+      canvas = @get('canvas')
+      if canvas?
+        data = JSON.parse(canvas)
+        return data.svg != null
+      else
+        return false
+
     getSvg: () ->
       svg = null
       canvas = @get('canvas')

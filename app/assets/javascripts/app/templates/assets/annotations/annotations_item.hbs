@@ -16,6 +16,10 @@
 				{{author_name}}
 			</div>
 			<div class="annotation-timestamp">
+				{{# if hasDrawing}}
+					<span class="annotation-drawing-indicator"></span>
+				{{/if}}
+
 				{{#if assetHasDuration}}
 					<span data-behavior="timecode">{{smpte_timecode}}</span><br />
 				{{else}}
