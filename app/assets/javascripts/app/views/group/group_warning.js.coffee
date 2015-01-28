@@ -15,7 +15,6 @@ define (require) ->
     }
 
     onClickGroupAdd: () ->
-      console.log 'heard'
       @vent.triggerMethod('click:group:add')
 
     initialize: (options) ->

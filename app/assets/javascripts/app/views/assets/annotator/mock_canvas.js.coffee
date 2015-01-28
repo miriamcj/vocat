@@ -15,7 +15,6 @@ define (require) ->
       @listenTo(@vent, 'request:canvas', @announceCanvas, @)
 
     announceCanvas: () ->
-      console.log 'heard it'
       json = null
       svg = null
       @vent.trigger('announce:canvas', JSON.stringify({json: json, svg: svg}))

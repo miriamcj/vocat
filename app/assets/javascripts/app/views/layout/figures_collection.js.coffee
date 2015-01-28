@@ -10,5 +10,4 @@ define (require) ->
         $(figure).outerHeight()
       )
       h = $(tallestFigure).outerHeight()
-      console.log h,'h'
       figures.outerHeight(h)

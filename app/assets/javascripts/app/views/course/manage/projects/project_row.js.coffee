@@ -51,4 +51,3 @@ define (require) ->
       )
 
     initialize: (options) ->
-      console.log @model.attributes

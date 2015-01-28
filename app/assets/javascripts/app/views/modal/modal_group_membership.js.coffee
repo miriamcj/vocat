@@ -29,6 +29,5 @@ define (require) ->
       groupId = options.groupId
       @model = new GroupModel({id: groupId})
       @model.fetch({success: () =>
-        console.log @model.attributes,'attr'
         @render()
       })

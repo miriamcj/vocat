@@ -142,7 +142,6 @@ define (require) ->
 
     _getAdjustedColumnWidth: () ->
       width = @_getColumnWidth()
-      console.log(width,'w')
       space = @_visibleWidth()
       colsAtMin = Math.floor(space / width)
       adjustedWidth = space / colsAtMin
