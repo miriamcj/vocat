@@ -33,6 +33,8 @@ define (require) ->
       @listenTo(@vent, 'annotation:canvas:disable', @disable, @)
       @listenTo(@vent, 'annotation:canvas:setmode', @setMode, @)
       @listenTo(@vent, 'request:canvas', @announceCanvas, @)
+      @listenTo(@vent, 'announce:edit:annotation', @disable, @)
+      @listenTo(@vent, 'annotator:refresh', @disable, @)
       @listenTo(@, 'lock:attempted', @handleLockAttempted, @)
 
     handleLockAttempted: (requestedPlayback) ->
@@ -81,9 +83,12 @@ define (require) ->
       @setMode(null)
       @clearCanvas()
       @vent.trigger('request:unlock', {view: @})
+      @vent.trigger('announce:canvas:disabled', {view: @})
+      @vent.trigger('announce:canvas:clean', {view: @})
       @$el.hide()
 
     enable: () ->
+      @vent.trigger('announce:canvas:enabled', {view: @})
       @vent.trigger('request:annotation:hide')
       @vent.trigger('request:pause', {})
       @vent.trigger('request:lock', {view: @})
@@ -123,6 +128,7 @@ define (require) ->
             @updateCanvas()
         )
         @currentPath = path
+        @vent.trigger('announce:canvas:dirty')
       @tools.oval.onMouseUp = (event) =>
         @currentPath = null
 
@@ -143,6 +149,7 @@ define (require) ->
         @currentPath.add(event.point)
       @tools.draw.onMouseUp = (event) =>
         @currentPath.simplify(20)
+        @vent.trigger('announce:canvas:dirty')
         @currentPath = null
 
     _initNullTool: () ->

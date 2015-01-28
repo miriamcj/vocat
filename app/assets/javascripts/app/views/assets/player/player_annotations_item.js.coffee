@@ -18,10 +18,21 @@ define (require) ->
       @setupListeners()
 
     setupListeners: () ->
+      @listenTo(@model, 'change:canvas', @render, @)
+      @listenTo(@vent, 'announce:canvas:enabled', @handleCanvasEnabled, @)
+      @listenTo(@vent, 'announce:canvas:disabled', @handleCanvasDisabled, @)
       if @assetHasDuration
         @listenTo(@vent, 'announce:time:update', @handleTimeUpdate, @)
+        @listenTo(@vent, 'announce:status', @handleTimeUpdate, @)
       else
         @listenTo(@model, 'change:active', @handleActiveChange, @)
+
+    handleCanvasEnabled: () ->
+      @hideEl()
+
+    handleCanvasDisabled: () ->
+      if @model.get('active') == true
+        @showEl()
 
     handleActiveChange: () ->
       if @model.get('active') == true

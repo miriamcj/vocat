@@ -48,8 +48,11 @@ define (require) ->
     },
 
     onActivate: () ->
-      @model.collection.activateModel(@model)
-      @vent.trigger('request:annotation:show', @model)
+      if @model.get('active')
+        @model.collection.deactivateAllModels()
+      else
+        @model.collection.activateModel(@model)
+        @vent.trigger('request:annotation:show', @model)
 
     onModelBodyChange: () ->
       @render()
@@ -62,13 +65,10 @@ define (require) ->
 
     handleActiveStateChange: () ->
       if @model.get('active') == true
+        @$el.addClass('annotation-active')
         @trigger('activated', @)
-
-    updateHighlightState: () ->
-      if @model.get('active') == true
-        @$el.addClass('active')
       else
-        @$el.removeClass('active')
+        @$el.removeClass('annotation-active')
 
     initialize: (options) ->
       @vent = options.vent
@@ -115,4 +115,4 @@ define (require) ->
       @vent.trigger('request:resume', {})
 
     onAnnotationEdit: () ->
-      @vent.trigger('edit:annotation', @model)
+      @vent.trigger('request:edit:annotation', @model)

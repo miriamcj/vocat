@@ -100,7 +100,7 @@ define (require) ->
 
     scrollToModel: (speed = 250, model) ->
       view = @children.findByModel(model)
-      targetPosition = view.$el.position().top - 24
+      targetPosition = view.$el.position().top - 39
       $target = $('html,body')
       $target.stop()
       $target.animate({scrollTop: targetPosition}, speed, 'swing')

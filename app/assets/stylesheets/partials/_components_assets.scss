@@ -157,7 +157,7 @@ $playerColBg: $grayDarker;
 $annotationColBg: $grayDarkest;
 $textColor: $grayLightest;
 $assetDetailMaxHeight: 700px;
-
+$activeAnnotationBackground: lighten($grayDarkest, 4%);
 
 // Asset detail interface
 // --------------------------------------------------------
@@ -256,6 +256,7 @@ $assetDetailMaxHeight: 700px;
   .annotations-ul {
     opacity: 1;
     @include transition(1s, opacity, $timing);
+    margin-top: 15px;
     @extend %unstyled-list;
   }
   .annotation-spacer {
@@ -275,8 +276,11 @@ $assetDetailMaxHeight: 700px;
     color: $textColor;
     padding: 15px 0;
     position: relative;
-    border-left: 4px solid $annotationColBg;
-    &.active {
+    .annotation-wrapper {
+      @include clearfix();
+    }
+    &.annotation-active {
+      background: $activeAnnotationBackground;
     }
     @include clearfix();
     .annotation-left {
@@ -291,6 +295,7 @@ $assetDetailMaxHeight: 700px;
     .annotation-right {
       float: right;
       width: 300px;
+      padding-right: 15px;
       @include respond($baikal) {
         width: 217px;
       }
@@ -309,7 +314,6 @@ $assetDetailMaxHeight: 700px;
       display: block;
     }
     .annotation-utility {
-      background: blue;
       display: block;
       a {
         display: block;
@@ -317,7 +321,6 @@ $assetDetailMaxHeight: 700px;
         width: 30px;
         height: 30px;
         overflow: hidden;
-        background: red;
         position: relative;
         &.annotation-delete-link {
           background: #4C262A;
@@ -403,7 +406,19 @@ $assetDetailMaxHeight: 700px;
       background: linear-gradient(rgba(35,31,32,0),$grayDarkest 85%);
     }
   }
+  .annotation.annotation-active .annotation-fade {
+    background: -webkit-linear-gradient(rgba(46,41,42,0),$activeAnnotationBackground 85%);
+    background: -moz-linear-gradient(rgba(46,41,42,0),$activeAnnotationBackground 85%);
+    background: -o-linear-gradient(rgba(46,41,42,0),$activeAnnotationBackground 85%);
+    background: linear-gradient(rgba(46,41,42,0),$activeAnnotationBackground 85%);
+  }
   .annotation + .annotation {
+    border-top: 1px solid $grayDarker;
+  }
+  .annotation:last-child {
+    border-bottom: 1px solid $grayDarker;
+  }
+  .annotation:first-child {
     border-top: 1px solid $grayDarker;
   }
   .annotation-open .annotation-bottom {

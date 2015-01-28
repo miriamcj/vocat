@@ -18,7 +18,7 @@ define (require) ->
     }
 
     setupListeners: () ->
-      @listenTo(@vent, 'edit:annotation', (annotation) ->
+      @listenTo(@vent, 'request:edit:annotation', (annotation) ->
         @handleEditAnnotationRequest(annotation)
       )
       @listenTo(@vent, 'annotator:refresh', () ->
@@ -27,13 +27,12 @@ define (require) ->
 
     handleEditAnnotationRequest: (annotation) ->
       if @annotationInput.currentView.model == annotation
-
         Vocat.vent.trigger('error:add', {level: 'notice', clear: true, lifetime: '3000',  msg: 'You are already editing this annotation'})
       else if @annotationInput.currentView.isDirty()
         Vocat.vent.trigger('modal:open', new ModalConfirmView({
           model: annotation,
           vent: @,
-          descriptionLabel: 'It looks like you have unsaved text in the annotator. If you proceed, this text will be lost.',
+          descriptionLabel: 'It looks like you are in the progress of annotating this asset. If you proceed, the annotation canvas and text input will be cleared.',
           confirmEvent: 'confirm:show:edit',
           dismissEvent: 'dismiss:show:edit'
         }))
@@ -47,6 +46,8 @@ define (require) ->
       @annotationInput.show(new AnnotationInputView({asset: @model, model: new AnnotationModel({asset_id: @model.id}), vent: @vent, collection: @collection}))
 
     showAnnotationEditInput: (annotation) ->
+      @vent.trigger('announce:edit:annotation')
+      annotation.collection.activateModel(annotation)
       @annotationInput.show(new AnnotationInputView({asset: @model, model: annotation, vent: @vent, collection: @collection}))
 
     initialize: (options) ->

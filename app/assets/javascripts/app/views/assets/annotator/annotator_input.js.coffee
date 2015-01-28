@@ -7,6 +7,7 @@ define (require) ->
   class AnnotatorInputView extends Marionette.ItemView
 
     template: template
+    canvasIsDirty: false
 
     ui:
       annotationInput: '[data-behavior="annotation-input"]'
@@ -83,6 +84,7 @@ define (require) ->
     handleAnnotationSaveSuccess: (annotation) ->
       @collection.add(annotation, {merge: true})
       @collection.activateModel(annotation)
+      annotation.trigger('change:active')
       @vent.trigger('request:unlock', @)
       @vent.trigger('request:resume', {})
       @vent.trigger('request:status', {})
@@ -98,6 +100,14 @@ define (require) ->
     setupListeners: () ->
       @listenTo(@, 'lock:attempted', @handleLockAttempted, @)
       @listenTo(@vent, 'announce:canvas:tool', @updateToolStates, @)
+      @listenTo(@vent, 'announce:canvas:dirty', @handleCanvasDirty, @)
+      @listenTo(@vent, 'announce:canvas:clean', @handleCanvasClean, @)
+
+    handleCanvasDirty: () ->
+      @canvasIsDirty = true
+
+    handleCanvasClean: () ->
+      @canvasIsDirty = false
 
     updateToolStates: (activeTool) ->
       @ui.canvasDrawButton.removeClass('active')
@@ -122,7 +132,7 @@ define (require) ->
       @setupListeners()
 
     isDirty: () ->
-      @ui.annotationInput.val().length > 0
+      @ui.annotationInput.val().length > 0 or @canvasIsDirty == true
 
     onShow: () ->
       # If we're showing an annotation that is not new, then we're editing and we want to jump to the correct point in the

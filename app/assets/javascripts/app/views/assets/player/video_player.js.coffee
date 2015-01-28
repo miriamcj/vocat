@@ -104,6 +104,7 @@ define (require) ->
       @unlockPlayer()
 
     handleLockRequest: (data) ->
+      console.log data,'data'
       @lockPlayer(data)
 
     handleStatusRequest: () ->
