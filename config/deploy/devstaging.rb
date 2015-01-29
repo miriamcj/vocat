@@ -16,8 +16,8 @@ namespace :deploy do
   desc 'Restart application'
   task :restart_sidekiq do
     on roles(:app), in: :sequence, wait: 5 do
-      execute "sudo stop vocat_sidekiq index=0 || true"
-      execute "sudo start vocat_sidekiq index=0"
+      execute "sudo stop vocat_workers || true"
+      execute "sudo start vocat_workers"
     end
   end
 
