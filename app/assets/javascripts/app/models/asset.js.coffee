@@ -32,6 +32,7 @@ define (require) ->
         else  false
 
     allowsVisibleAnnotation: () ->
+      return false if @get('type') == 'Asset::Vimeo'
       family = @get('family')
       switch family
         when 'video' then true

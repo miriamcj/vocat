@@ -228,5 +228,5 @@ define (require) ->
 
       @player = videojs(domTarget, options, () -> )
 
-      @insertAnnotationsStageView()
+      @insertAnnotationsStageView() if @model.allowsVisibleAnnotation()
       @resizePlayer()
