@@ -7,6 +7,9 @@ class ThumbnailWorker
     if variant.processing?
       attachment = variant.attachment
       input_location = attachment.public_location
+      MiniMagick.configure do |config|
+        config.whiny = false
+      end
       image = MiniMagick::Image.open(input_location)
       image.format "jpeg"
       resize_with_crop(image, 200, 124, :gravity => :north)
