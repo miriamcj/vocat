@@ -210,6 +210,9 @@ define (require) ->
           }
         }
       }
+      if @model.get('type') == 'Asset::Vimeo'
+        locations = @model.get('locations')
+        options.src = locations.url
 
       if @model.get('family') == 'audio'
         options.plugins = {
