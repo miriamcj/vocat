@@ -184,4 +184,3 @@ define (require) ->
         svgEl[0].setAttribute('height', '100%')
         svg = svgEl.prop('outerHTML');
       @vent.trigger('announce:canvas', JSON.stringify({json: json, svg: svg}))
-      @disable()
