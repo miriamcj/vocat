@@ -11,3 +11,16 @@ role :db,  %w{vocat@vocat.cic-dvl.com}
 
 set :deploy_to, "~/#{fetch(:application)}"
 
+namespace :deploy do
+
+  desc 'Restart application'
+  task :restart_sidekiq do
+    on roles(:app), in: :sequence, wait: 5 do
+      execute "sudo stop vocat_sidekiq index=0 || true"
+      execute "sudo start vocat_sidekiq index=0"
+    end
+  end
+
+  after :restart, :restart_sidekiq
+
+end
