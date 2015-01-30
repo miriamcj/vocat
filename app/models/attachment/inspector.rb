@@ -3,13 +3,13 @@ class Attachment::Inspector
   TYPES = {
     :audio => %w[mp3],
     :image => %w[gif jpg jpeg png tif tiff pdf],
-    :video => %w[avi mp4 m4v mov flv wmv webm]
+    :video => %w[avi mp4 m4v mov flv wmv webm ogv]
   }
 
   MIME_TYPES = {
     :audio => %w[audio/mp3],
     :image => %w[image/gif image/jpg image/jpeg image/png image/tiff application/pdf],
-    :video => %w[video/x-msvideo video/mp4 video/x-m4v quicktime/mov video/x-flv video/x-ms-wmv video/webm]
+    :video => %w[video/x-msvideo video/mp4 video/x-m4v quicktime/mov video/x-flv video/x-ms-wmv video/webm, video/ogg]
   }
 
 
