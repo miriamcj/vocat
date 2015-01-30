@@ -194,5 +194,4 @@ define (require) ->
         AWSPublicKey: window.VocatAWSPublicKey
         project: context
       }
-      console.log sd,'sd'
       sd
