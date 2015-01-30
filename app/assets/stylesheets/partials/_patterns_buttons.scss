@@ -134,13 +134,13 @@ input%proto-button {
 %tertiary-button {
   @extend %proto-button;
   font-weight: $semibold;
-  border: 2px solid $grayMediumLighter;
+  border: 1px solid $grayMediumLighter;
   color: $grayMediumLighter;
   .notification &, .page-header & {
   }
   &:hover, &.active {
     background-color: $grayMediumLighter;
-    border: 2px solid $grayMediumLighter;
+    border: 1px solid $grayMediumLighter;
     color: $white;
     .notification &, .page-header &, .annotator & {
     }

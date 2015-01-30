@@ -23,7 +23,8 @@ define (require) ->
       move: '[data-behavior="move"]'
       show: '[data-behavior="show"]'
       rename: '[data-behavior="rename"]'
-      manageUI: '[data-behavior="manage-ui"]'
+      showOnManage: '[data-behavior="show-on-manage"]'
+      hideOnManage: '[data-behavior="hide-on-manage"]'
     }
 
     modelEvents: {
@@ -70,7 +71,13 @@ define (require) ->
         Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'The asset has been deleted.'})
       )
 
+    serializeData: () ->
+      sd = super()
+      sd.annotationCount = @model.get('annotations').length
+      sd
+
     initialize: (options) ->
+      console.log @model.attributes,'attr'
       @vent = Marionette.getOption(@, 'vent')
       @listenTo(@vent, 'show:new', (e) =>
         @showManageUi()
@@ -95,10 +102,12 @@ define (require) ->
         @ui.move.hide()
 
     hideManageUi: () ->
-      @ui.manageUI.hide()
+      @ui.showOnManage.hide()
+      @ui.hideOnManage.show()
 
     showManageUi: () ->
-      @ui.manageUI.show()
+      @ui.showOnManage.show()
+      @ui.hideOnManage.hide()
 
     requestManageVisibilityState: () ->
       @vent.trigger('request:manage:visibility')

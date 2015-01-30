@@ -53,13 +53,22 @@
 	<h5 class="heading-informational">
 		Uploaded {{created_at}}
 	</h5>
-	<div data-behavior="manage-ui" class="asset-collection-item--utility">
-		<div>
+	<div class="asset-collection-item--utility">
+		<ul style="display: inline-block;" class="bubble" data-behavior="hide-on-manage">
+			<li data-behavior="post-count">
+				{{#if_match annotationCount 1}}
+					{{annotationCount}} Annotation
+				{{else}}
+					{{annotationCount}} Annotations
+				{{/if_match}}
+			</li>
+		</ul>
+		<div data-behavior="show-on-manage">
 			<a href="#" style="display: inline-block" class="tertiary-button edit-button" data-behavior="rename">Rename</a>
 			<a href="#" style="display: inline-block" class="tertiary-button move-button" data-behavior="move">Reorder</a>
 		</div>
-		<div>
-			<a href="#" style="display: inline-block" class="warning-button delete-button" data-behavior="destroy">Delete</a>
+		<div data-behavior="show-on-manage">
+			<a href="#" style="display: inline-block" class="gentle-warning-button delete-button" data-behavior="destroy">Delete</a>
 		</div>
 	</div>
 
