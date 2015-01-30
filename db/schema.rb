@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150128141859) do
+ActiveRecord::Schema.define(version: 20150130152459) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,25 +19,25 @@ ActiveRecord::Schema.define(version: 20150128141859) do
 
   create_table "annotations", force: :cascade do |t|
     t.text     "body"
-    t.string   "smpte_timecode",   limit: 255
+    t.string   "smpte_timecode",     limit: 255
     t.boolean  "published"
     t.float    "seconds_timecode"
     t.integer  "author_id"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-    t.integer  "video_id"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.integer  "video_id_to_delete"
     t.integer  "asset_id"
     t.text     "canvas"
   end
 
   create_table "assets", force: :cascade do |t|
-    t.string   "type",              limit: 255
-    t.string   "name",              limit: 255
+    t.string   "type"
+    t.string   "name"
     t.integer  "author_id"
     t.integer  "submission_id"
     t.integer  "listing_order"
-    t.string   "external_location", limit: 255
-    t.string   "external_source",   limit: 255
+    t.string   "external_location"
+    t.string   "external_source"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 20150128141859) do
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
     t.string   "state",               limit: 255
-    t.integer  "video_id"
+    t.integer  "video_id_to_delete"
     t.string   "processor_error",     limit: 255
     t.integer  "user_id"
     t.string   "processed_key",       limit: 255
@@ -301,7 +301,7 @@ ActiveRecord::Schema.define(version: 20150128141859) do
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
-  create_table "videos", force: :cascade do |t|
+  create_table "videos_to_delete", force: :cascade do |t|
     t.string   "name",          limit: 255
     t.string   "url",           limit: 255
     t.string   "source_id",     limit: 255
