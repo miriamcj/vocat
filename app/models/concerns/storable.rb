@@ -64,7 +64,7 @@ module Storable
 
   def s3_upload_signature(key, policy)
     secret = Rails.application.config.vocat.aws[:secret]
-    signature = Base64.encode64(OpenSSL::HMAC.digest(OpenSSL::Digest::Digest.new('sha1'), secret, policy)).gsub("\n","")
+    signature = Base64.encode64(OpenSSL::HMAC.digest(OpenSSL::Digest.new('sha1'), secret, policy)).gsub("\n","")
   end
 
   def s3_upload_document
