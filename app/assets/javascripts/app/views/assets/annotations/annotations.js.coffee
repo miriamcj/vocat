@@ -146,7 +146,8 @@ define (require) ->
         affordance = view.$el.height()
       else
         affordance = 0
-      height = $(window).height() - 205 - affordance
+      #TODO: Remove this magic number
+      height = $(window).height() - 221 - affordance
       @ui.spacer.outerHeight(height)
 
     onRenderCollection: () ->
