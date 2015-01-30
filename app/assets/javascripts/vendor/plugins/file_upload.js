@@ -356,7 +356,6 @@
                     // the formData array and let the postMessage window
                     // create the FormData object out of this array:
                     formData = this._getFormData(options);
-                    console.log(formData,'formData');
                     if (options.blob) {
                         formData.push({
                             name: paramName,
@@ -376,7 +375,6 @@
                     } else {
                         formData = new FormData();
                         $.each(this._getFormData(options), function (index, field) {
-                            console.log(field,'field');
                             formData.append(field.name, field.value);
                         });
                     }
@@ -403,7 +401,6 @@
                 }
                 options.data = formData;
             }
-            console.log(formData, 'formData');
             // Blob reference is not needed anymore, free memory:
             options.blob = null;
         },
