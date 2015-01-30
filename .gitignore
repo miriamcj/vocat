@@ -25,3 +25,6 @@ npm-debug.log
 /config/environment.yml
 /config/secrets.yml
 public/sample*
+
+# Ignore any database dumps sitting around
+*.sql
