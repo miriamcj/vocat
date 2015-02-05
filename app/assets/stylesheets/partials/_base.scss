@@ -34,6 +34,7 @@ body {
   line-height: $baseLineHeight;
   color: $grayDark;
   background-color: $white;
+//  padding-bottom: $headerHeight;
   .no-mediaqueries & {
     min-width: $michigan;
   }
