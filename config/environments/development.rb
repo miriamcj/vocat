@@ -11,7 +11,10 @@ Vocat::Application.configure do
   config.action_controller.perform_caching = false
 
   #config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default_url_options = {:host => 'vocat.dev'}
+
+  vocat_config = YAML.load_file(Rails.root.join('config', 'environment.yml'))[Rails.env.to_sym]
+  config.action_mailer.default_url_options = {:host => vocat_config[:email][:url_domain] || 'vocat.dev'}
+
   config.action_mailer.delivery_method = :sendmail
 
   # Print deprecation notices to the Rails logger
