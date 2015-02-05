@@ -62,6 +62,9 @@ body.bg-dark {
 
 
 footer.page-footer {
+  body.bg-dark & {
+    display: none;
+  }
   min-height: 0px;
   background: $grayDarker;
   color: $grayLighter;
