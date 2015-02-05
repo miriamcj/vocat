@@ -63,8 +63,29 @@ body.bg-dark {
 
 footer.page-footer {
   min-height: 0px;
-  background: red;
+  background: $grayDarker;
+  color: $grayLighter;
   margin-top: $headerHeight;
+  font-size: $kappa;
+  padding: .5em;
+  text-align: center;
+  @include clearfix();
+  .page-footer-inner {
+    padding-top: 2px;
+    margin: auto;
+    position: relative;
+    max-width: $containerWidth;
+  }
+  .page-footer-msg {
+    text-align: left;
+    float: left;
+    width: 70%;
+  }
+  .page-footer-version {
+    width: 25%;
+    float: right;
+    text-align: right;
+  }
 }
 
 // Page header
