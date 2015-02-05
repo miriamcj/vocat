@@ -31,4 +31,12 @@ Vocat::Application.configure do
   # See https://github.com/rails/rails/issues/10291
   config.middleware.insert 0, TurboDevAssets
 
+  # We allow all cors requests in development environment.
+  config.middleware.insert_before Warden::Manager, Rack::Cors do
+    allow do
+      origins '*'
+      resource '*', :headers => :any, :expose => ['Pagination'], :methods => [:get, :put, :patch, :delete, :post, :options]
+    end
+  end
+
 end

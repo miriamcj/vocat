@@ -1,4 +1,4 @@
-class Api::V1::AttachmentsController < ApplicationController
+class Api::V1::AttachmentsController < ApiController
 
   load_and_authorize_resource :attachment
   skip_load_and_authorize_resource :only => :create

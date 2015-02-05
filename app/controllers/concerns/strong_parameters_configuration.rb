@@ -4,22 +4,6 @@ module StrongParametersConfiguration
   included do
     # If we're in a devise controller, whitelist some parameters
     before_action :configure_permitted_parameters, if: :devise_controller?
-
-    # This is a bit of a hack to deal with incompatibilities between CanCan 1.x and Rails 4 strong
-    # parameters protection. Basically, CanCan attempts to access the params directly when it loads
-    # the resource. This work-around (see https://github.com/ryanb/cancan/issues/835#issuecomment-18663815)
-    # looks for a params filtering method named after the resource and assigns the results of that method
-    # to the corresponding entry in params.
-    before_action do
-      if respond_to?('cancan_params_method_override', true)
-        method = 'cancan_params_method_override'
-      else
-        resource = controller_name.singularize.to_sym
-        method = "#{resource}_params"
-      end
-      params[resource] &&= send(method) if respond_to?(method, true)
-    end
-
   end
 
 
@@ -36,6 +20,9 @@ module StrongParametersConfiguration
 
   protected
 
+  def key_params
+    params.require(:user).permit(:email, :password)
+  end
 
   def course_request_params
     params.require(:course_request).permit(:name,

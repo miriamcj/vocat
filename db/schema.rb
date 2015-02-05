@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150130152459) do
+ActiveRecord::Schema.define(version: 20150202231249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -257,6 +257,16 @@ ActiveRecord::Schema.define(version: 20150130152459) do
 
   add_index "submissions", ["creator_id"], name: "index_submissions_on_creator_id", using: :btree
   add_index "submissions", ["project_id"], name: "index_submissions_on_project_id", using: :btree
+
+  create_table "tokens", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "refresh_count", default: 0
+    t.string   "ip_address"
+    t.string   "client"
+    t.datetime "last_seen_at"
+    t.datetime "expires_at"
+    t.string   "token"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

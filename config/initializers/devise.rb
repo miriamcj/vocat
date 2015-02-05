@@ -207,7 +207,7 @@ Devise.setup do |config|
   # should add them to the navigational formats lists.
   #
   # The "*/*" below is required to match Internet Explorer requests.
-  # config.navigational_formats = ["*/*", :html]
+  config.navigational_formats = ["*/*", :html, :json]
 
   # The default HTTP method used to sign out a resource. Default is :delete.
   config.sign_out_via = :delete
@@ -227,10 +227,15 @@ Devise.setup do |config|
   # end
   if Rails.application.config.vocat.ldap && Rails.application.config.vocat.ldap[:enabled]
     config.warden do |manager|
-      manager.strategies.add(:vocat_authenticatable, Devise::Strategies::VocatAuthenticatable)
-      manager.default_strategies(:scope => :user).unshift :vocat_authenticatable
+      manager.strategies.add(:vocat_ldap_authenticatable, Devise::Strategies::VocatLdapAuthenticatable)
+      manager.default_strategies(:scope => :user).unshift :vocat_ldap_authenticatable
     end
   end
+
+  # config.warden do |manager|
+  #   manager.strategies.add(:vocat_token_authenticatable, Warden::VocatTokenAuthenticatable)
+  # end
+
   # ==> Mountable engine configurations
   # When using Devise inside an engine, let's call it `MyEngine`, and this engine
   # is mountable, there are some extra configurations to be taken into account.

@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :groups, :join_table => "groups_creators"
   has_many :submissions, :as => :creator, :dependent => :destroy
   has_many :course_requests
+  has_many :tokens
 
   default_scope { order("last_name ASC") }
   scope :evaluators, -> { where(:role => "evaluator") }
@@ -169,6 +170,14 @@ class User < ActiveRecord::Base
 
   def to_csv
     [id, list_name, last_name, first_name, email, org_identity]
+  end
+
+  def token_for(client, ip_address)
+    token = self.tokens.where(:client => client).first
+    if !token
+      token = Token.create(user: self, client: client, ip_address: ip_address)
+    end
+    return token
   end
 
 end

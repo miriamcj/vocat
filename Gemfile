@@ -35,6 +35,8 @@ gem 'kaminari'
 gem 'faker'
 gem 'responders', '~> 2.0'
 
+gem 'rack-cors', :require => "rack/cors"
+
 # Deployment
 gem 'capistrano', '~> 3.3.0'
 gem 'capistrano-rails', '~> 1.1.0'
@@ -55,7 +57,7 @@ group :development, :test do
   gem 'web-console', '~> 2.0'
 end
 
-gem 'spring'
+#gem 'spring'
 gem 'compass-rails', '~> 2.0.0'
 gem 'sass-rails',   '~> 5.0.0'
 gem 'coffee-rails', '~> 4.1.0'

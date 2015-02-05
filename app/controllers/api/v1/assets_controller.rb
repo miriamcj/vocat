@@ -1,4 +1,4 @@
-class Api::V1::AssetsController < ApplicationController
+class Api::V1::AssetsController < ApiController
 
   load_and_authorize_resource :asset
   respond_to :json

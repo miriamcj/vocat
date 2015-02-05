@@ -1,4 +1,4 @@
-class Api::V1::AnnotationsController < ApplicationController
+class Api::V1::AnnotationsController < ApiController
 
   load_and_authorize_resource :annotation
   respond_to :json

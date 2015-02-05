@@ -1,4 +1,4 @@
-class Api::V1::VideosController < ApplicationController
+class Api::V1::VideosController < ApiController
 
   load_and_authorize_resource :video
   respond_to :json

@@ -81,9 +81,8 @@ module Vocat
     config.assets.version = '1.0'
 
     config.to_prepare do
-#      Devise::RegistrationsController.layout "authentication"
      Devise::SessionsController.layout "splash"
-#      Devise::PasswordsController.layout "authentication"
     end
+
   end
 end

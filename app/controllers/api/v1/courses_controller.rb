@@ -1,9 +1,10 @@
 class Api::V1::CoursesController < ApiController
 
-  load_and_authorize_resource :course
   respond_to :json
+  load_and_authorize_resource :course
+  skip_authorization_check only: [:index]
 
-  # GET /api/vi1/courses
+  # GET /api/v1/courses
   def index
     respond_with current_user.courses
   end
@@ -32,7 +33,6 @@ class Api::V1::CoursesController < ApiController
   def for_user
     user = User.find(params.require(:user))
     respond_with ActiveModel::ArraySerializer.new(user.courses, :scope => user, :each_serializer => CourseSerializer)
-
   end
 
 end

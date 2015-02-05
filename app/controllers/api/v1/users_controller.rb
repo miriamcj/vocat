@@ -1,4 +1,4 @@
-class Api::V1::UsersController < ApplicationController
+class Api::V1::UsersController < ApiController
 
   load_and_authorize_resource :user
   respond_to :json

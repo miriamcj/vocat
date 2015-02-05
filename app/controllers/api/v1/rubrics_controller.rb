@@ -1,4 +1,4 @@
-class Api::V1::RubricsController < ApplicationController
+class Api::V1::RubricsController < ApiController
 
   load_and_authorize_resource :rubric
 	respond_to :json

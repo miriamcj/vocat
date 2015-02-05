@@ -7,6 +7,12 @@ Vocat::Application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+
+      post 'token' => 'token#create'
+      get 'token' => 'token#show'
+      delete 'token' => 'token#destroy'
+      patch 'token' => 'token#renew'
+
       resources :attachments, :only => [:create, :show, :destroy]
       resources :assets, :except => [:new, :edit, :index]
       resources :enrollments, :only => [:create, :destroy]
