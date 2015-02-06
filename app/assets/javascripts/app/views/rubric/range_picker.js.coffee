@@ -169,12 +169,8 @@ define (require) ->
       while missingCount > 0
         bestGuess = @guessNextValue(newValues)
         if bestGuess? then newValues.push bestGuess
-#        missing = @getMissingFromSequence(newValues)
-#        if missing.length > 0 then newValues.push _.max(missing)
         newValues = _.sortBy(newValues, sortIterator)
         missingCount--
-
-#      newValues = _.uniq(newValues)
       newValues
 
 
@@ -320,12 +316,17 @@ define (require) ->
     onRender: () ->
       @initializeUi()
 
+    onVisible: () ->
+      @onShow()
+
     onShow: () ->
       if _.isObject(@ui.rangePicker)
         @initializeUi()
 
     initialize: (options) ->
       @vent = options.vent
+
+      @listenTo(@,'visible', @onVisible, @)
 
       @listenTo(@model,'change:low change:high', () =>
         @render()
