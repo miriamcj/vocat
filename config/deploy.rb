@@ -28,7 +28,7 @@ namespace :deploy do
   desc 'Output revision'
   task :write_revision do
     on roles(:app), in: :sequence, wait: 5 do
-      execute "git describe --always > #{deploy_to}/current/public/revision.txt"
+      execute "cd #{repo_path}; git describe --always --tags > #{deploy_to}/current/public/revision.txt"
     end
   end
 
@@ -43,7 +43,7 @@ namespace :deploy do
 
   after :publishing, :write_revision
   after :published, :restart
-  after :finished, :copy_error_pages
+#  after :finished, :copy_error_pages
 
 
 end
