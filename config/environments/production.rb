@@ -1,4 +1,9 @@
-ENV["APP_BUILD"] = ''
+path = Rails.root.join('public', 'revision.txt')
+if File.exists?(path)
+  ENV["APP_BUILD"] = File.read(path)
+else
+  ENV["APP_BUILD"] = ''
+end
 
 Vocat::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
