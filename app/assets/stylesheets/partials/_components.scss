@@ -65,12 +65,11 @@ footer.page-footer {
   body.bg-dark & {
     display: none;
   }
-//  position: fixed;
+  position: absolute;
   bottom: 0;
   width: 100%;
   min-height: 0px;
   background: $grayDarker;
-  margin-top: $headerHeight;
   color: $grayLighter;
   font-size: $kappa;
   padding: .5em;
@@ -89,8 +88,6 @@ footer.page-footer {
   .page-footer-version {
     width: 25%;
     float: right;
-    font-size: $lambda;
-    padding-top: 3px;
     text-align: right;
   }
 }

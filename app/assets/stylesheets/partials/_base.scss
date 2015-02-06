@@ -21,6 +21,7 @@ html {
   font-size: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100%;
   // Sadly, this occasionally causes width:auto elements to break to multiple lines in Chrome
   // It seems that the width of the element is computed prior to kerning
   // https://code.google.com/p/chromium/issues/detail?id=189755
@@ -29,12 +30,15 @@ html {
 
 body {
   @include font-body;
+  position: relative;
   font-size: 1em;
   font-weight: 400;
   line-height: $baseLineHeight;
   color: $grayDark;
   background-color: $white;
-//  padding-bottom: $headerHeight;
+  padding-bottom: $headerHeight;
+  min-height: 100%;
+  padding-bottom: $headerHeight;
   .no-mediaqueries & {
     min-width: $michigan;
   }
