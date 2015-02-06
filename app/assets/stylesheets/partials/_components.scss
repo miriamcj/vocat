@@ -60,11 +60,36 @@ body.bg-dark {
   float: right;
 }
 
-
 footer.page-footer {
+  z-index: 200;
+  body.bg-dark & {
+    display: none;
+  }
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   min-height: 0px;
-  background: red;
-  margin-top: $headerHeight;
+  background: $grayDarker;
+  color: $grayLighter;
+  font-size: $kappa;
+  padding: .5em;
+  text-align: center;
+  @include clearfix();
+  .page-footer-inner {
+    margin: auto;
+    position: relative;
+    max-width: $containerWidth;
+  }
+  .page-footer-msg {
+    text-align: left;
+    float: left;
+    width: 70%;
+  }
+  .page-footer-version {
+    width: 25%;
+    float: right;
+    text-align: right;
+  }
 }
 
 // Page header
