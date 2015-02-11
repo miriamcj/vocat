@@ -50,8 +50,7 @@ Vocat::Application.configure do
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
-  vocat_config = YAML.load_file(Rails.root.join('config', 'environment.yml'))[Rails.env.to_sym]
-  config.action_mailer.default_url_options = {:host => vocat_config[:email][:url_domain] || 'baruch.vocat.io'}
+
 
   # Enable threaded mode
   # config.threadsafe!
