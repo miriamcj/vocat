@@ -35,8 +35,6 @@ define (require) ->
       'click [data-trigger="save"]': 'handleSaveClick'
       'click [data-trigger="rangeAdd"]': 'handleRangeAdd'
       'click [data-trigger="fieldAdd"]': 'handleFieldAdd'
-
-
     }
 
     triggers: {
@@ -169,6 +167,7 @@ define (require) ->
 
     onShow: () ->
       @parentOnShow()
+      @views.rangePicker.trigger('visible')
       @chosenifySelects()
 
     chosenifySelects: () ->

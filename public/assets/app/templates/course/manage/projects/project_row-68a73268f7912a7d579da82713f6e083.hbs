@@ -1,0 +1,44 @@
+  <td class="row-handle"><span></span></td>
+  <th>
+    <a href="projects/{{id}}">
+    {{#if abilities.can_update}}
+      <a href="projects/{{id}}/edit">{{name}}</a>
+    {{else}}
+      {{name}}
+    {{/if}}
+    </a>
+  </th>
+  <td>
+	  {{#if rubric_name}}
+		  {{rubric_name}}
+    {{else}}
+	    None
+	  {{/if}}
+  </td>
+	<td>
+		{{#if_match type 'UserProject'}}
+			User Project
+		{{/if_match}}
+		{{#if_match type 'GroupProject'}}
+			Group Project
+		{{/if_match}}
+		{{#if_match type 'OpenProject'}}
+			Open Project
+		{{/if_match}}
+
+	</td>
+	<td>
+		<div class="dropdown dropdown-button" data-behavior="dropdown">
+			<a class="dropdown--toggle" data-behavior="toggle" href="#">Actions</a>
+			<div class="dropdown--options" data-behavior="dropdown-options">
+				<ul>
+					<li>
+						<a href="projects/{{id}}" data-behavior="destroy">Delete Project</a>
+					</li>
+					<li>
+						<a href="projects/{{id}}/export">Export Scores</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</td>

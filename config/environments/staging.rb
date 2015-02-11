@@ -1,3 +1,5 @@
+ENV["APP_BUILD"] = ''
+
 Vocat::Application.configure do
 	# Settings specified here will take precedence over those in config/application.rb
 
@@ -50,6 +52,8 @@ Vocat::Application.configure do
 
 	# Disable delivery errors, bad email addresses will be ignored
 	# config.action_mailer.raise_delivery_errors = false
+	vocat_config = YAML.load_file(Rails.root.join('config', 'environment.yml'))[Rails.env.to_sym]
+	config.action_mailer.default_url_options = {:host => vocat_config[:email][:url_domain] || 'demo.vocat.io'}
 
 	# Enable threaded mode
 	# config.threadsafe!

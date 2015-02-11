@@ -1,5 +1,5 @@
-set :branch, "v3.1.2"
-set :server_name, "vocat.cic-dvl.com"
+set :branch, "master"
+set :server_name, "vocat.cic-stg.com"
 set :application, "vocat"
 
 set :stage, :staging

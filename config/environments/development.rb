@@ -1,3 +1,5 @@
+ENV["APP_BUILD"] = `git describe --always` unless defined? APP_BUILD
+
 Vocat::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -11,7 +13,6 @@ Vocat::Application.configure do
   config.action_controller.perform_caching = false
 
   #config.action_mailer.raise_delivery_errors = false
-  
   config.action_mailer.delivery_method = :sendmail
 
   # Print deprecation notices to the Rails logger

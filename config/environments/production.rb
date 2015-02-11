@@ -1,3 +1,10 @@
+path = Rails.root.join('public', 'revision.txt')
+if File.exists?(path)
+  ENV["APP_BUILD"] = File.read(path)
+else
+  ENV["APP_BUILD"] = ''
+end
+
 Vocat::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -50,7 +57,6 @@ Vocat::Application.configure do
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
-
 
   # Enable threaded mode
   # config.threadsafe!

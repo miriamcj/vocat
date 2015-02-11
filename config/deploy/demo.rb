@@ -1,4 +1,4 @@
-set :branch, "v3.1.2"
+set :branch, "master"
 set :server_name, "spock.vocat.io"
 set :application, "demo_vocat"
 
