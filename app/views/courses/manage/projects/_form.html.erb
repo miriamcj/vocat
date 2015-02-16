@@ -31,13 +31,40 @@
 </div>
 
 <div class="formgrid half">
-	<%= f.label 'Limit submission type?', :class => 'text-label' %>
+	<%= f.label 'Media Formats', :class => 'text-label' %>
 	<div class="checkbox-wrap">
-		<%= check_box_tag "#{@project.type.underscore}[allowed_attachment_families][]", 'image', @project.allowed_attachment_families.include?('image') %> Images
-		&nbsp;&nbsp;
-		<%= check_box_tag "#{@project.type.underscore}[allowed_attachment_families][]", 'video', @project.allowed_attachment_families.include?('video') %> Videos
-		&nbsp;&nbsp;
-		<%= check_box_tag "#{@project.type.underscore}[allowed_attachment_families][]", 'audio', @project.allowed_attachment_families.include?('audio') %> Audio
+		<%= hidden_field_tag "#{@project.type.underscore}[allowed_attachment_families][]", [] %>
+		<ul class="checkbox-list">
+			<li>
+				<label>
+					<%= check_box_tag "#{@project.type.underscore}[allowed_attachment_families][]", '', @project.read_attribute(:allowed_attachment_families).length == 0, :data => {:behavior => 'media-any'} %>
+					Allow Any Format
+				</label>
+			</li>
+		</ul>
+		<p class="checkbox-separator">
+			Or allow specific formats:
+		</p>
+		<ul class="checkbox-list checkbox-list-floated">
+			<li>
+				<label>
+					<%= check_box_tag "#{@project.type.underscore}[allowed_attachment_families][]", 'image', @project.read_attribute(:allowed_attachment_families).include?('image'), :data => {:behavior => 'media-specific'} %>
+					Images
+				</label>
+			</li>
+			<li>
+				<label>
+				<%= check_box_tag "#{@project.type.underscore}[allowed_attachment_families][]", 'video', @project.read_attribute(:allowed_attachment_families).include?('video'), :data => {:behavior => 'media-specific'} %>
+					Videos
+				</label>
+			</li>
+			<li>
+				<label>
+				<%= check_box_tag "#{@project.type.underscore}[allowed_attachment_families][]", 'audio', @project.read_attribute(:allowed_attachment_families).include?('audio'), :data => {:behavior => 'media-specific'} %>
+					Audio
+				</label>
+			</li>
+		</ul>
 	</div>
-	<small>If no options are checked, creators will be able to attach any accepted file type.</small>
 </div>
+

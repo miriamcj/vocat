@@ -22,7 +22,6 @@ class Project < ActiveRecord::Base
 
   validates :course, :name, :description, :presence => true
   validate :attachment_families_are_valid
-
   default_scope { includes(:course) }
   scope :unsubmitted_for_user_and_course, ->(creator, course) { joins('LEFT OUTER JOIN submissions ON submissions.project_id = projects.id AND submissions.creator_id = ' + creator.id.to_s).where('submissions.creator_id IS NULL AND course_id IN (?)', course) }
 
@@ -30,6 +29,7 @@ class Project < ActiveRecord::Base
 
   def attachment_families_are_valid
     if self.allowed_attachment_families
+      self.allowed_attachment_families = self.read_attribute(:allowed_attachment_families).uniq
       self.allowed_attachment_families.each do |value|
         unless Project::ATTACHMENT_FAMILIES.include?(value)
           errors.add(:allowed_attachment_families, "contains an invalid value \"#{value}\"")
