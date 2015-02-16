@@ -1,29 +1,28 @@
 <% content_for :content do %>
 
-<%= link_to 'Return to Projects List', course_manage_projects_path(@course), :class => 'header-link back-link' %>
-<div class="page-section page-section-clear">
-  <div class="header-wrapper">
-    <div class="header">
-      <h2>Edit Project</h2>
-    </div>
-  </div>
-  <div class="body">
-    <p class="instructions">
-      Enter the unique name, brief description, and due date for this project and select a rubric in the drop-down menu
-      below. If you wish to evaluate the project with narrative comments only, select “No rubric.” Please be sure to
-      indicate whether this is a group or individual project.
-    </p>
+	<%= link_to 'Return to Projects List', course_manage_projects_path(@course), :class => 'header-link back-link' %>
+	<div class="page-section page-section-clear" data-view="course/manage/projects/project">
+		<div class="header-wrapper">
+			<div class="header">
+				<h2>Edit Project</h2>
+			</div>
+		</div>
+		<div class="body">
+			<p class="instructions">
+				Enter the unique name, brief description, and due date for this project and select a rubric in the drop-down menu
+				below. If you wish to evaluate the project with narrative comments only, select “No rubric.” Please be sure to
+				indicate whether this is a group or individual project.
+			</p>
 
-    <%= simple_form_for(@project, :url => course_manage_project_path(@course, @project), :html => {:class => 'formgrid'}) do |f| %>
-      <%= render 'form', :f => f %>
-      <div class="formgrid whole submit-row">
-        <%= f.button :submit, 'Update project', :class => 'primary-button' %>
-        <%= link_to 'Back', course_manage_projects_path(@course), :class => 'secondary-button' %>
-      </div>
-    <% end %>
-  </div>
-</div>
-
+			<%= form_for @project, :url => course_manage_project_path(@course, @project), :html => {:class => 'formgrid'} do |f| %>
+				<%= render 'form', :f => f %>
+				<div class="formgrid whole submit-row">
+					<%= f.submit 'Update project', :class => 'primary-button' %>
+					<%= link_to 'Back', course_manage_projects_path(@course), :class => 'secondary-button' %>
+				</div>
+			<% end %>
+		</div>
+	</div>
 <% end %>
 
 

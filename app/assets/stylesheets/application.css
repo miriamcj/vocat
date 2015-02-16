@@ -34,6 +34,6 @@
  *= require partials/_dc
  *= require partials/_video_js
  *= require partials/_video_js_overrides
-
+ *= require partials/_pikaday
 */
 

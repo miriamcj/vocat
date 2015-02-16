@@ -28,6 +28,12 @@ define (require) ->
     new ChosenView({el: el, vent: Vocat.vent})
   )
 
+  $('[data-view]').each( (index, el) ->
+    view = $(el).data().view
+    require ["views/#{view}"], (viewModel) ->
+      new viewModel({el: el})
+  )
+
   Vocat.routes = {
     admin: {
       'admin/courses/:course/evaluators': 'evaluatorEnrollment'
