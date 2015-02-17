@@ -53,6 +53,6 @@ namespace :deploy do
   after :publishing, :write_revision
   after :published, :restart
   after 'deploy:normalize_assets', :build_js
-  after 'deploy:normalize_assets', :copy_error_pages
+  #after 'deploy:normalize_assets', :copy_error_pages
   
 end
