@@ -1,16 +1,19 @@
 <%= render :partial => 'heading', :locals => {user: @user, subheader: 'Overview'} %>
 
 <% content_for :content do %>
-  <% body = capture do %>
-    <%= form_for [:admin, @user], :html => {:class => 'formgrid'} do |f| %>
-      <%= render 'shared/model_errors', :model => @user %>
-      <%= render 'form', :f => f, :show_password => true %>
-      <div class="formgrid whole">
-        <%= f.button 'Save User', :class => 'primary-button new-button' %>
-        <%= link_to 'Cancel', admin_users_path(), :class => 'warning-button cancel-button' %>
-      </div>
-    <% end %>
-  <% end %>
-  <%= render :partial => 'shared/section', :locals => {:header => 'Properties', :body => body} %>
+	<% body = capture do %>
+		<p class="instructions">
+			New users will be sent an email with a link that allows the user to set his or her password.
+		</p>
+		<%= form_for [:admin, @user], :html => {:class => 'formgrid'} do |f| %>
+			<%= render 'shared/model_errors', :model => @user %>
+			<%= render 'form', :f => f, :show_password => false %>
+			<div class="formgrid whole">
+				<%= f.button 'Save User', :class => 'primary-button new-button' %>
+				<%= link_to 'Cancel', admin_users_path(), :class => 'warning-button cancel-button' %>
+			</div>
+		<% end %>
+	<% end %>
+	<%= render :partial => 'shared/section', :locals => {:header => 'Properties', :body => body} %>
 <% end %>
 

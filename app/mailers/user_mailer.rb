@@ -1,9 +1,8 @@
 class UserMailer < ActionMailer::Base
-  default from: "do-not-reply@app.vocat.io"
+  default from: Rails.application.config.vocat.email.default_from
 
   def welcome_email(user)
     @user = user
-    @url  = 'http://example.com/login'
 
     # Generate a reset password token
     raw, enc = Devise.token_generator.generate(@user.class, :reset_password_token)
@@ -12,7 +11,7 @@ class UserMailer < ActionMailer::Base
     @user.save(:validate => false)
     @token = raw
 
-    mail(to: @user.email, subject: 'Welcome to VOCAT')
+    mail(to: @user.email, subject: 'Welcome to Vocat')
   end
 
 end
