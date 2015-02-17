@@ -179,14 +179,11 @@ define (require) ->
           }))
       )
 
-
-
     # Announce some key events on the global channel
     globalChannel = Backbone.Wreqr.radio.channel('global')
     $('html').bind('click', (event) ->
       globalChannel.vent.trigger('user:action', event)
     );
-
   )
 
 
