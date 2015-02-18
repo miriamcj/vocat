@@ -16,17 +16,11 @@ class Course < ActiveRecord::Base
   has_many :groups, :dependent => :destroy
   has_many :submissions, :through => :projects, :dependent => :destroy
 
-
   delegate :name, :to => :semester, :prefix => true, :allow_nil => true
 
   accepts_nested_attributes_for :groups
 
-  ALLOWED_SETTINGS = [:enable_creator_attach, :enable_self_evaluation, :enable_peer_review, :enable_public_discussion]
-  store_accessor :settings, *ALLOWED_SETTINGS
-
   scope :sorted, -> { joins(:semester).order ('year DESC, semesters.position DESC') }
-
-  after_initialize :ensure_settings
 
   validates :department, :name, :number, :section, :presence => true
 
@@ -69,6 +63,10 @@ class Course < ActiveRecord::Base
     projects.count > 0
   end
 
+  def has_at_least_one_creator_visible_project?
+    projects.where("settings @> 'enable_peer_review=>1' OR settings @> 'enable_public_discussion=>1'").count > 0
+  end
+
   def submissions_for_creator(creator)
     factory = SubmissionFactory.new
     factory.course_and_creator(self, creator)
@@ -78,27 +76,6 @@ class Course < ActiveRecord::Base
     years = Course.uniq.pluck(:year)
     years.reject! { |y| y.nil? }
     years.sort
-  end
-
-  def allows_public_discussion?
-    get_boolean_setting_value('enable_public_discussion')
-  end
-
-  def allows_peer_review?
-    get_boolean_setting_value('enable_peer_review')
-  end
-
-  def allows_self_evaluation?
-    get_boolean_setting_value('enable_self_evaluation')
-  end
-
-  def allows_creator_attach?
-    get_boolean_setting_value('enable_creator_attach')
-  end
-
-  def ensure_settings()
-    self.settings = {} unless self.settings.kind_of? Hash
-    self.settings = self.settings.with_indifferent_access
   end
 
   def list_name
@@ -210,15 +187,5 @@ class Course < ActiveRecord::Base
   end
 
   private
-
-  def get_boolean_setting_value(key)
-    if settings.has_key?(key)
-      value = settings[key]
-      return true if value == true || value =~ (/^(true|t|yes|y|1)$/i)
-      return false if value == false || value.blank? || value =~ (/^(false|f|no|n|0)$/i)
-    else
-      return false
-    end
-  end
 
 end

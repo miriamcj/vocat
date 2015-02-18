@@ -18,14 +18,21 @@ class Project < ActiveRecord::Base
   delegate :section,            :to => :course, :prefix => true
   delegate :name_long,          :to => :course, :prefix => true
   delegate :id,                 :to => :course, :prefix => true
-  delegate :allows_peer_review, :to => :course
+
+  ALLOWED_SETTINGS = [:enable_creator_attach, :enable_self_evaluation, :enable_peer_review, :enable_public_discussion]
+  BOOLEAN_SETTINGS = [:enable_creator_attach, :enable_self_evaluation, :enable_peer_review, :enable_public_discussion]
+  ATTACHMENT_FAMILIES = %w(audio image video)
+
+  store_accessor :settings, *ALLOWED_SETTINGS
+  after_initialize :ensure_settings
+  before_save :clean_settings
 
   validates :course, :name, :description, :presence => true
   validate :attachment_families_are_valid
+
   default_scope { includes(:course) }
   scope :unsubmitted_for_user_and_course, ->(creator, course) { joins('LEFT OUTER JOIN submissions ON submissions.project_id = projects.id AND submissions.creator_id = ' + creator.id.to_s).where('submissions.creator_id IS NULL AND course_id IN (?)', course) }
 
-  ATTACHMENT_FAMILIES = %w(audio image video)
 
   def attachment_families_are_valid
     if self.allowed_attachment_families
@@ -37,6 +44,25 @@ class Project < ActiveRecord::Base
       end
     end
   end
+
+  def ensure_settings
+    self.settings = {} unless self.settings.kind_of? Hash
+    self.settings = self.settings.with_indifferent_access
+  end
+
+  def clean_settings
+    Project::BOOLEAN_SETTINGS.each do |bool_setting|
+      myvar1 = settings
+      setting_key = bool_setting.to_s
+      value = settings[setting_key].to_s.downcase
+      if value == "1" || value == "true"
+        settings[setting_key] = '1'
+      else
+        settings[setting_key] = '0'
+      end
+    end
+  end
+
 
   def active_model_serializer
     ProjectSerializer
@@ -112,22 +138,6 @@ class Project < ActiveRecord::Base
     !rubric.nil?
   end
 
-  def evaluatable_by_peers?()
-    course.allows_peer_review?
-  end
-
-  def evaluatable_by_creator?()
-    course.allows_self_evaluation?
-  end
-
-  # Deprecated
-  def evaluatable()
-    if Rails.env == :development
-      raise "Evaluatable method on Project is deprecated. Please replace with evaluatable?"
-    end
-    !rubric.nil?
-  end
-
   def to_s()
     self.name
   end
@@ -147,5 +157,35 @@ class Project < ActiveRecord::Base
   def accepts_user_submissions?
     raise NotImplementedError
   end
+
+  def allows_public_discussion?
+    get_boolean_setting_value('enable_public_discussion')
+  end
+
+  def allows_peer_review?
+    get_boolean_setting_value('enable_peer_review')
+  end
+
+  def allows_self_evaluation?
+    get_boolean_setting_value('enable_self_evaluation')
+  end
+
+  def allows_creator_attach?
+    get_boolean_setting_value('enable_creator_attach')
+  end
+
+  private
+
+  def get_boolean_setting_value(key)
+    if settings.has_key?(key)
+      value = settings[key]
+      return true if value == true || value =~ (/^(true|t|yes|y|1)$/i)
+      return false if value == false || value.blank? || value =~ (/^(false|f|no|n|0)$/i)
+    else
+      return false
+    end
+  end
+
+
 
 end

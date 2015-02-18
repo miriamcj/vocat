@@ -58,7 +58,10 @@ module StrongParametersConfiguration
                                        :type,
                                        :listing_order_position,
                                        {:allowed_attachment_families => []},
-                                       :due_date
+                                       :due_date,
+                                       :settings => [
+                                           Project::ALLOWED_SETTINGS
+                                       ]
     ).merge({ listing_order_position: params[:listing_order_position]})
 
   end

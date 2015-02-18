@@ -22,6 +22,14 @@ class ProjectSerializer < ActiveModel::Serializer
 
   has_one :rubric
 
+  def evaluatable_by_peers?
+    object.allows_peer_review?
+  end
+
+  def evaluatable_by_creator?()
+    object.allows_self_evaluation?
+  end
+
   def description
     simple_format(object.description)
   end

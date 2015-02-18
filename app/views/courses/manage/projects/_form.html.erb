@@ -30,7 +30,7 @@
 	<small>The project due date is for informational purposes. Students and instructors will still be able to modify submissions past the project due date.</small>
 </div>
 
-<div class="formgrid half">
+<div class="formgrid whole">
 	<%= f.label 'Media Formats', :class => 'text-label' %>
 	<div class="checkbox-wrap">
 		<%= hidden_field_tag "#{@project.type.underscore}[allowed_attachment_families][]", [] %>
@@ -67,4 +67,59 @@
 		</ul>
 	</div>
 </div>
+<%= f.fields_for :settings do |settings| %>
+	<div class="formgrid whole">
+		<label class="label">Project Configuration</label>
+		<div class="checkbox-wrap">
+			<ul class="checkbox-list">
+				<li>
+					<label class="label-inline" for="<%= @project.type.underscore %>_settings_enable_public_discussion">
+						<%= hidden_field_tag("#{@project.type.underscore}[settings][enable_public_discussion]", 0, :id => 'enable_public_discussion_hidden') %>
+						<%= check_box_tag("#{@project.type.underscore}[settings][enable_public_discussion]", 1, @project.allows_public_discussion?) %>
+						<b></b>
+						Enable public discussion
+					</label>
+					<small>
+						Enabling this will allow all students in the course to one another's assets, annotations, and discussion for this project's submissions.
+					</small>
+				</li>
+				<li>
+					<label class="label-inline" for="<%= @project.type.underscore %>_settings_enable_peer_review">
+						<%= hidden_field_tag("#{@project.type.underscore}[settings][enable_peer_review]", 0, :id => 'enable_peer_review_hidden') %>
+						<%= check_box_tag("#{@project.type.underscore}[settings][enable_peer_review]", 1, @project.allows_peer_review?) %>
+						<b></b>
+						Enable peer review
+					</label>
+					<small>
+						If enabled, students will be able to view submissions for this project, as well as score, annotate, and discuss those submissions.
+					</small>
+				</li>
+				<li>
+					<label class="label-inline" for="<%= @project.type.underscore %>_settings_enable_creator_attach">
+						<%= hidden_field_tag("#{@project.type.underscore}[settings][enable_creator_attach]", 0, :id => 'enable_creator_attach_hidden') %>
+						<%= check_box_tag("#{@project.type.underscore}[settings][enable_creator_attach]", 1, @project.allows_creator_attach?) %>
+						<b></b>
+						Allow creators to upload media
+					</label>
+					<small>
+						When enabled, students and groups will be able to upload media for their submissions to this project. If disabled, only course
+						evaluators will be able to upload media.
+					</small>
+				</li>
+				<li>
+					<label class="label-inline" for="<%= @project.type.underscore %>_settings_enable_self_evaluation">
+						<%= hidden_field_tag("#{@project.type.underscore}[settings][enable_self_evaluation]", 0, :id => 'enable_self_evaluation_hidden') %>
+						<%= check_box_tag("#{@project.type.underscore}[settings][enable_self_evaluation]", 1, @project.allows_self_evaluation?) %>
+						<b></b>
+						Allow self-evaluation
+					</label>
+					<small>
+						Enabling self-evaluation will give students the ability to evaluate their own project submissions using the
+						rubric attached to each project.
+					</small>
+				</li>
+			</ul>
+		</div>
+	</div>
 
+<% end %>

@@ -34,7 +34,7 @@
 
     <% if submission.project.evaluatable? %>
 
-      <% if submission.course_allows_peer_review? %>
+      <% if submission.project_allows_peer_review? %>
         <% if submission.evaluated_by_peers? %>
           <figure class="summary-box summary-box-peer">
             <div>

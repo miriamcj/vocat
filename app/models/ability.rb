@@ -45,13 +45,18 @@ class Ability
     end
 
     can [:evaluate], Course do |course|
-      course.role(user) == :evaluator ||
-          course.role(user) == :assistant ||
-          course.role(user) == :creator && course.allows_peer_review?
+      course.role(user) == :evaluator || course.role(user) == :assistant
     end
 
     can [:show_submissions], Course do |course|
-      course.role(user) == :evaluator || course.role(user) == :assistant || can?(:read_only, course) && (can?(:evaluate, course) || course.allows_public_discussion?)
+      if course.role(user) == :evaluator || course.role(user) == :assistant
+        has_ability = true
+      elsif course.role(user) == :creator && course.has_at_least_one_creator_visible_project?
+        has_ability = true
+      else
+        has_ability = false
+      end
+      has_ability
     end
 
     ######################################################
@@ -60,6 +65,18 @@ class Ability
 
     can [:read_only], Project do |project|
       can?(:read_only, project.course)
+    end
+
+    can [:evaluate], Project do |project|
+      course = project.course
+      course.role(user) == :evaluator ||
+      course.role(user) == :assistant ||
+      course.role(user) == :creator && project.allows_peer_review?
+    end
+
+    can [:show_submissions], Project do |project|
+      course = project.course
+      can?(:show_submissions, course) || project.allows_public_discussion?
     end
 
     can [:read_write_destroy], Project do |project|
@@ -102,7 +119,7 @@ class Ability
 
     can :read_only, Submission do |submission|
       # Enabling public discussion assumes that submissions are visible to users.
-      can?(:evaluate, submission.project.course) || submission.project.course.allows_public_discussion? && can?(:show, submission.project.course)
+      submission.project.allows_peer_review? || submission.project.allows_public_discussion?
     end
 
     can :annotate, Submission do |submission|
@@ -114,10 +131,11 @@ class Ability
       # 1) user can evaluate for the course and is not the creator of the submission
       # 2) submission is a user submission and self evaluation is allowed and evaluator is the creator
       # 3) submission is a group submission and self evaluation is allowed and evaluator is in the group.
-      # 4) submission has a rubric
+      # 4) submission project allows peer review and the user is not the creator of the submission
       results = submission.has_rubric? && can?(:evaluate, submission.project.course ) && submission.creator != user ||
-        submission.creator.is_user? && submission.project.course.allows_self_evaluation? && submission.creator == user ||
-        submission.creator.is_group? && submission.project.course.allows_self_evaluation? && submission.creator.include?(user)
+        submission.creator.is_user? && submission.project.allows_self_evaluation? && submission.creator == user ||
+        submission.creator.is_group? && submission.project.allows_self_evaluation? && submission.creator.include?(user) ||
+        submission.creator != user && submission.project.allows_peer_review?
       results
     end
 
@@ -133,11 +151,13 @@ class Ability
         )
       ) ||
       # CAN if the user is the submission owner and enable_creator_attach is true
-      (can?(:own, submission) && submission.project.course.allows_creator_attach?)
+      (can?(:own, submission) && submission.project.allows_creator_attach?)
     end
 
     can :discuss, Submission do |submission|
-      (submission.project.course.role(user) == :evaluator && can?(:evaluate, submission)) || can?(:own, submission) || (submission.project.course.allows_public_discussion? && can?(:show, submission))
+      (submission.project.course.role(user) == :evaluator && can?(:evaluate, submission)) ||
+      can?(:own, submission) ||
+      (submission.project.allows_public_discussion? && submission.project.course.role(user))
     end
 
     ######################################################
@@ -256,13 +276,6 @@ class Ability
       cannot :create, Rubric
     end
 
-    ######################################################
-    # Admins
-    ######################################################
-    if user.role?(:administrator)
-      can :manage, :all
-      cannot :manage, Evaluation
-    end
 
     ######################################################
     # Course Request
@@ -315,7 +328,6 @@ class Ability
         result = course.role(user) != :creator
         result
       end
-
     end
 
   end
