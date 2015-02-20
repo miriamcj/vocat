@@ -32,6 +32,7 @@
 		<p>The {{#if_match creatorType "Group"}}group{{/if_match}} {{#if_match creatorType "User"}}individual{{/if_match}}
 		evaluations grid is not available because no {{#if_match creatorType "Group"}}group{{/if_match}}
 		{{#if_match creatorType "User"}}individual{{/if_match}} projects have been created for this course.</p>
+
 		{{#if canUpdateCourse}}
 		<p class="small">Once you have created at least one {{#if_match creatorType "Group"}}group{{/if_match}}
 		{{#if_match creatorType "User"}}individual{{/if_match}} project, you will be able to access
@@ -46,6 +47,14 @@
 				<a href="/courses/{{courseId}}/groups/evaluations" class="secondary-button back-button">Go To Group Evaluations</a>
 			{{/if_match}}
 		</p>
+		{{else}}
+			<p class="small">
+				{{#if_match creatorType "Group"}}
+					<a href="/courses/{{courseId}}/users/evaluations" class="secondary-button back-button">Show Individual Evaluations</a>
+				{{else}}
+					<a href="/courses/{{courseId}}/groups/evaluations" class="secondary-button back-button">Go To Group Evaluations</a>
+				{{/if_match}}
+			</p>
 		{{/if}}
 	{{/if}}
 </div>
