@@ -22,7 +22,7 @@ class Api::V1::SubmissionsController < ApiController
     if creator_type == 'User'
       @creator = User.find(params.require(:creator))
       unless @user == current_user
-        authorize! :show_submissions, @course
+        authorize! :show_submissions, @project
       end
     elsif creator_type == 'Group'
       authorize! :show_submissions, @group

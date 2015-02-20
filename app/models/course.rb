@@ -67,6 +67,10 @@ class Course < ActiveRecord::Base
     projects.where("settings @> 'enable_peer_review=>1' OR settings @> 'enable_public_discussion=>1'").count > 0
   end
 
+  def has_at_least_one_peer_review_project?
+    projects.where("settings @> 'enable_peer_review=>1'").count > 0
+  end
+
   def submissions_for_creator(creator)
     factory = SubmissionFactory.new
     factory.course_and_creator(self, creator)

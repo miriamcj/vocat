@@ -76,7 +76,9 @@ class Ability
 
     can [:show_submissions], Project do |project|
       course = project.course
-      can?(:show_submissions, course) || project.allows_public_discussion?
+      course.role(user) == :evaluator ||
+      course.role(user) == :assistant ||
+      (course.role(user) == :creator && (project.allows_public_discussion? || project.allows_peer_review?))
     end
 
     can [:read_write_destroy], Project do |project|

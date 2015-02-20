@@ -28,7 +28,7 @@
     <figcaption>Average Instructor Score</figcaption>
   </figure>
 
-  <% if course.settings['enable_peer_review'] %>
+  <% if course.has_at_least_one_peer_review_project? %>
     <figure class="summary-box summary-box-peer">
       <div>
         <b style="height: <%= course.average_peer_score() %>%"></b>
