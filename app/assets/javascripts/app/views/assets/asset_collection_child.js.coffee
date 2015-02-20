@@ -41,7 +41,7 @@ define (require) ->
       if @model.get('attachment_state') == 'processed'
         @vent.trigger('asset:detail', {asset: @model.id})
       else
-        Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'This asset is still being processed and is not yet available. Check back soon or reload the page to see if processing has completed.'})
+        Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Media is still being processed and is not yet available. Check back soon or reload the page to see if processing has completed.'})
 
     onDrop: (e, i) ->
       @trigger("update:sort",[@model, i])
@@ -50,25 +50,25 @@ define (require) ->
       onSave = () =>
         @model.save({}, {
           success: () =>
-            Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'The asset has been updated.'})
+            Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Media successfully updated.'})
             @render()
           , error: () =>
-            Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Unable to update asset title.'})
+            Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Unable to update media title.'})
         })
-      Vocat.vent.trigger('modal:open', new ShortTextInputView({model: @model, vent: @vent, onSave: onSave, property: 'name', saveLabel: 'Update Title', inputLabel: 'What would you like to call this asset?'}))
+      Vocat.vent.trigger('modal:open', new ShortTextInputView({model: @model, vent: @vent, onSave: onSave, property: 'name', saveLabel: 'Update Title', inputLabel: 'What would you like to call this media?'}))
 
     onDestroyModel: () ->
       Vocat.vent.trigger('modal:open', new ModalConfirmView({
         model: @model,
         vent: @,
-        descriptionLabel: 'Deleted assets cannot be recovered. All annotations for this asset will also be deleted.',
+        descriptionLabel: 'Deleted media cannot be recovered. All annotations for this media will also be deleted.',
         confirmEvent: 'confirm:destroy:model',
         dismissEvent: 'dismiss:destroy:model'
       }))
 
     onConfirmDestroyModel: () ->
       @model.destroy(success: () =>
-        Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'The asset has been deleted.'})
+        Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'The media has been deleted.'})
       )
 
     serializeData: () ->
@@ -77,7 +77,6 @@ define (require) ->
       sd
 
     initialize: (options) ->
-      console.log @model.attributes,'attr'
       @vent = Marionette.getOption(@, 'vent')
       @listenTo(@vent, 'show:new', (e) =>
         @showManageUi()

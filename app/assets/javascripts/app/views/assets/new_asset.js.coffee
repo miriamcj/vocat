@@ -66,7 +66,7 @@ define (require) ->
         asset = new AssetModel(attributes)
         asset.save({}, {success: () =>
           @collection.add(asset)
-          Vocat.vent.trigger('error:add', {level: 'notice', msg: 'The YouTube asset has been saved.'})
+          Vocat.vent.trigger('error:add', {level: 'notice', msg: 'The YouTube video has been saved.'})
         })
       else
         Vocat.vent.trigger('error:add', {level: 'error', msg: 'The Youtube URL you entered is invalid.'})
@@ -84,7 +84,7 @@ define (require) ->
         asset = new AssetModel(attributes)
         asset.save({}, {success: () =>
           @collection.add(asset)
-          Vocat.vent.trigger('error:add', {level: 'notice', msg: 'The Vimeo asset has been saved.'})
+          Vocat.vent.trigger('error:add', {level: 'notice', msg: 'The Vimeo video has been saved.'})
         })
       else
         Vocat.vent.trigger('error:add', {level: 'error', msg: 'The Vimeo URL you entered is invalid.'})
@@ -149,23 +149,23 @@ define (require) ->
           @resetUploader()
         done: (e, data) =>
           asset = new AssetModel({attachment_id: attachment.id, submission_id: @collection.submissionId})
-          @ui.uploadStatus.html("Saving asset to Vocat...")
+          @ui.uploadStatus.html("Saving media to Vocat...")
           @ui.uploadStatusDetail.html("Please wait.")
           asset.save({},{success: () =>
             @collection.add(asset)
-            Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'The new asset has been saved.'})
+            Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Media successfully saved.'})
             onSave = () =>
               asset.save({}, {
                 success: () =>
-                  Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'The asset has been updated.'})
+                  Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Media successfully updated.'})
                   @render()
                 , error: () =>
-                  Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Unable to update asset title.'})
+                  Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Unable to update media title.'})
               })
-            Vocat.vent.trigger('modal:open', new ShortTextInputView({model: asset, vent: @vent, onSave: onSave, property: 'name', saveLabel: 'Update asset title', inputLabel: 'What would you like to call this asset?'}))
+            Vocat.vent.trigger('modal:open', new ShortTextInputView({model: asset, vent: @vent, onSave: onSave, property: 'name', saveLabel: 'Update media title', inputLabel: 'What would you like to call this media?'}))
             @resetUploader()
           , error: () =>
-            Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'The server was unable to save the asset.'})
+            Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'The server was unable to save the media.'})
             @resetUploader()
           })
       })
