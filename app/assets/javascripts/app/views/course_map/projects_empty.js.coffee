@@ -18,5 +18,6 @@ define (require) ->
     serializeData: () ->
       {
         courseId: @courseId
+        isCreator: window.VocatUserRole == 'creator'
       }
 
