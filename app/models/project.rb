@@ -46,13 +46,11 @@ class Project < ActiveRecord::Base
   end
 
   def ensure_settings
-    self.settings = {} unless self.settings.kind_of? Hash
-    self.settings = self.settings.with_indifferent_access
+#    self.settings = {} unless self.settings.kind_of? Hash
   end
 
   def clean_settings
     Project::BOOLEAN_SETTINGS.each do |bool_setting|
-      myvar1 = settings
       setting_key = bool_setting.to_s
       value = settings[setting_key].to_s.downcase
       if value == "1" || value == "true"
