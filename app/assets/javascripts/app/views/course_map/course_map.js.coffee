@@ -85,7 +85,10 @@ define (require) ->
     typeProxiedProjectCollection: () ->
       projectType = "#{@creatorType}Project"
       proxiedCollection = CollectionProxy(@collections.project)
-      proxiedCollection.where((model) -> model.get('type') == projectType || model.get('type') == 'OpenProject')
+      proxiedCollection.where((model) ->
+        abilities = model.get('abilities')
+        abilities.can_show_submissions == true && (model.get('type') == projectType || model.get('type') == 'OpenProject')
+      )
       proxiedCollection
 
     typeProxiedCreatorCollection: () ->
@@ -105,7 +108,14 @@ define (require) ->
       @bindUIElements()
 
     onShow: () ->
-      @showChildViews()
+      if @projectCollection.length == 0
+        @showEmptyWarning(@creatorType, 'Project')
+      else if @creatorCollection.length == 0
+        @showEmptyWarning(@creatorType, 'Creator')
+      else
+        @createChildViews()
+        @setupListeners()
+        @showChildViews()
 
     createChildViews: () ->
       @creatorsView = new CourseMapCreators({collection: @creatorCollection, courseId: @courseId, vent: @, creatorType: @creatorType})
@@ -118,8 +128,10 @@ define (require) ->
       @creatorType = Marionette.getOption(@, 'creatorType')
       @projectCollection = @typeProxiedProjectCollection()
       @creatorCollection = @typeProxiedCreatorCollection()
-      @createChildViews()
-      @setupListeners()
+
+    showEmptyWarning: (creatorType, warningType) ->
+      @warning.show(new WarningView({creatorType: creatorType, warningType: warningType, courseId: @courseId}))
+      @ui.hideOnWarning.hide()
 
     onViewToggle: () ->
       val = @$el.find('[data-behavior="view-toggle"]:checked').val()
@@ -131,5 +143,7 @@ define (require) ->
     serializeData: () ->
       out = {
         creatorType: @creatorType
+        hasGroupProjects: @collections.project.hasGroupProjects()
+        hasUserProjects: @collections.project.hasUserProjects()
       }
       out
