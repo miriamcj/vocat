@@ -18,7 +18,7 @@
         <%= render 'form', :f => f %>
         <div class="formgrid whole submit-row">
           <%= f.button :submit, 'Save Project', :class => 'primary-button' %>
-          <%= link_to 'Back', course_manage_projects_path(@course), :class => 'secondary-button' %>
+          <%= link_to 'List All Course Projects', course_manage_projects_path(@course), :class => 'secondary-button' %>
         </div>
       <% end %>
     </div>
