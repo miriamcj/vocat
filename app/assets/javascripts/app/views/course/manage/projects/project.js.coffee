@@ -29,8 +29,6 @@ define (require) ->
       if checkedCount > 0
         @ui.checkboxMediaAny.prop('checked', false)
       else
-        console.log 'checking it'
-        console.log @ui.checkboxMediaAny.length,'l'
         @ui.checkboxMediaAny.prop('checked', true)
 
     initialize: () ->
