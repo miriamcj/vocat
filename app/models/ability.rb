@@ -98,7 +98,7 @@ class Ability
     end
 
     can [:publish_evaluations], Project do |project|
-      can?(:evaluate, project.course)
+      can?(:evaluate, project)
     end
 
     can [:unpublish_evaluations], Project do |project|

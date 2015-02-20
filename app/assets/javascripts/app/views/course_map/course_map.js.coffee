@@ -133,6 +133,38 @@ define (require) ->
       @warning.show(new WarningView({creatorType: creatorType, warningType: warningType, courseId: @courseId}))
       @ui.hideOnWarning.hide()
 
+    onEvaluationsPublish: (project) ->
+      endpoint = "#{project.url()}/publish_evaluations"
+      $.ajax(endpoint, {
+        type: 'put'
+        dataType: 'json'
+        data: {}
+        success: (data, textStatus, jqXHR) =>
+          Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 4000, msg: "Your evaluations for #{project.get('name')} submissions have been published"})
+          submissions = @collections.submission.where({project_id: project.id})
+          _.each(submissions, (submission) ->
+            submission.set('current_user_published', true)
+          )
+        error: (jqXHR, textStatus, error) =>
+          Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 4000, msg: "Unable to publish submissions."})
+      })
+
+    onEvaluationsUnpublish: (project) ->
+      endpoint = "#{project.url()}/unpublish_evaluations"
+      $.ajax(endpoint, {
+        type: 'put'
+        dataType: 'json'
+        data: {}
+        success: (data, textStatus, jqXHR) =>
+          Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 4000, msg: "Your evaluations for #{project.get('name')} submissions have been unpublished"})
+          submissions = @collections.submission.where({project_id: project.id})
+          _.each(submissions, (submission) ->
+            submission.set('current_user_published', false)
+          )
+        error: (jqXHR, textStatus, error) =>
+          Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 4000, msg: "Unable to unpublish submissions."})
+      })
+
     onViewToggle: () ->
       val = @$el.find('[data-behavior="view-toggle"]:checked').val()
       if val == 'individuals'

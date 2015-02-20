@@ -1,7 +1,7 @@
 class Api::V1::ProjectsController < ApiController
 
 	load_and_authorize_resource :project
-  skip_load_and_authorize_resource :only => [:publish_evaluations, :unpublish_evaluations]
+  skip_authorize_resource :only => [:publish_evaluations, :unpublish_evaluations]
 	respond_to :json
 
 	# GET /api/v1/projects.json?course=:course
@@ -38,7 +38,7 @@ class Api::V1::ProjectsController < ApiController
 		end
   end
 
-  # PUT /api/v1/projects/:id/publish_evaluationspo.json
+  # PUT /api/v1/projects/:id/publish_evaluations.json
   def publish_evaluations
    respond_with @project.publish_evaluations(current_user)
   end
