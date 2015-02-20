@@ -1,51 +1,48 @@
 <div class="cell--container">
 	{{#if is_loaded}}
 		<dl class="cell--media">
-	    <dt>Media</dt>
-		  <dd>
-		    {{#if has_asset}}
-		    <b class="matrix--check"></b>
-		    {{else}}
-		    <b></b>
-		    {{/if}}
+			<dt>Media</dt>
+			<dd>
+				{{#if has_asset}}
+					<b class="matrix--check"></b>
+				{{else}}
+					<b></b>
+				{{/if}}
 		  </dd>
 		</dl>
-
-		{{#if_empty current_user_percentage }}
-			{{#if_empty instructor_score_percentage}}
-				<dl class="cell--score">
-					<dt>Average</dt>
-					<dd>
-						<b class="matrix--scored">&ndash;&ndash;</b>
-					</dd>
-				</dl>
-			{{else}}
-				<dl class="cell--score">
-					<dt>Average</dt>
-					<dd>
-						<b class="matrix--scored">{{to_i instructor_score_percentage}}<small>%</small></b>
-					</dd>
-				</dl>
-			{{/if_empty}}
-		{{else}}
+		{{#if project_evaluatable}}
 		<dl class="cell--score">
 			<dt>Score</dt>
 			<dd>
-				<b class="matrix--scored">{{to_i current_user_percentage}}<small>%</small></b>
+				<b class="matrix--scored">
+					{{#if_empty current_user_percentage}}
+						&ndash;&ndash;
+					{{else}}
+						{{to_i current_user_percentage}}<small>%</small>
+					{{/if_empty}}
+				</b>
 			</dd>
 		</dl>
 		<dl class="cell--published">
-				<dt>Published</dt>
-				<dd>
-		      {{#if current_user_published}}
-			      <b data-behavior="publish-toggle" class="matrix--checkbox checked"></b>
-		      {{else}}
-			      <b data-behavior="publish-toggle" class="matrix--checkbox "></b>
-		      {{/if}}
-	      </dd>
+			<dt>Published</dt>
+			<dd>
+				{{#if_empty current_user_percentage}}
+				{{else}}
+					{{#if current_user_published}}
+						<b data-behavior="publish-toggle" class="matrix--checkbox checked"></b>
+					{{else}}
+						<b data-behavior="publish-toggle" class="matrix--checkbox "></b>
+					{{/if}}
+				{{/if_empty}}
+			</dd>
 		</dl>
-		{{/if_empty}}
+		{{/if}}
+		{{#if_match role 'creator'}}
+			<span class="cell--message cell--message-pinned"></span>
+		{{else}}
+			<span class="cell--message cell--message-pinned">{{to_i instructor_score_percentage}}% Avg. Score</span>
+		{{/if_match}}
 	{{else}}
-		<span class="cell--message">Loading ...</span>
+		<span class="cell--message">Loading...</span>
 	{{/if}}
 </div>

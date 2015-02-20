@@ -37,8 +37,9 @@ define ['marionette', 'hbs!templates/course_map/cell', 'models/user', 'models/gr
 
     serializeData: () ->
       if @model?
+        projectAbilities = @project.get('abilities')
         context = super()
-        context.project_evaluatable = @project.evaluatable()
+        context.project_evaluatable = projectAbilities.can_evaluate
         context.is_active = @isActive()
         context.is_loaded = true
       else

@@ -263,6 +263,8 @@ $columnWidth: ($container / $columns) - 12;
   }
 
   .cell--container {
+    position: relative;
+    padding-bottom: 2em;
     text-align: center;
     @include clearfix(hard);
     &:hover {
@@ -290,9 +292,17 @@ $columnWidth: ($container / $columns) - 12;
       color: $grayMediumLighter;
       font-size: $lambda-minor;
     }
-
+    .cell--message-pinned {
+      text-transform: none;
+      display: block;
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      text-align: center;
+      font-size: .8em;
+      padding-bottom: 1em;
+    }
   }
-
   dl {
     display: block;
     float: left;
@@ -315,6 +325,9 @@ $columnWidth: ($container / $columns) - 12;
       font-weight: $regular;
       color: $grayLighter;
       margin: 0;
+      .matrix--scored-sub {
+        margin-top: 15px;
+      }
       b.matrix--check {
         margin: auto;
         height: .55em;
@@ -327,7 +340,9 @@ $columnWidth: ($container / $columns) - 12;
         font-weight: normal;
         color: $grayMediumDarker;
       }
-
+      .matrix--scored-sub b.matrix--scored {
+        font-size: .5em;
+      }
       b.matrix--checkbox {
         cursor: pointer;
         margin-top: -1px;
