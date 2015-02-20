@@ -66,10 +66,10 @@ summer = Semester.create(:name => 'Summer', position: 4)
 
 # Create the courses
 courses = Array.new
-courses << baruch.courses.create(:semester => winter, :year => year, :name => "Computer Information Systems", :settings => { :enable_peer_review => random_boolean }, :department => "CIS", :number => "3810", :section => random_section, :description => Faker::Lorem.paragraph)
-courses << baruch.courses.create(:semester => spring, :year => year, :name => "Composition I", :settings => { :enable_peer_review => random_boolean }, :department => "ENG", :number => "2100", :section => random_section, :description => Faker::Lorem.paragraph)
-courses << baruch.courses.create(:semester => fall, :year => year, :name => "Composition II: Intro to Literature", :settings => { :enable_peer_review => random_boolean }, :department => "ENG", :number => "2150", :section => random_section, :description => Faker::Lorem.paragraph)
-courses << baruch.courses.create(:semester => summer, :year => year, :name => "Great Works of Literature", :settings => { :enable_peer_review => random_boolean }, :department => "ENG", :number => "2850", :section => random_section, :description => Faker::Lorem.paragraph)
+courses << baruch.courses.create(:semester => winter, :year => year, :name => "Computer Information Systems", :department => "CIS", :number => "3810", :section => random_section, :description => Faker::Lorem.paragraph)
+courses << baruch.courses.create(:semester => spring, :year => year, :name => "Composition I", :department => "ENG", :number => "2100", :section => random_section, :description => Faker::Lorem.paragraph)
+courses << baruch.courses.create(:semester => fall, :year => year, :name => "Composition II: Intro to Literature", :department => "ENG", :number => "2150", :section => random_section, :description => Faker::Lorem.paragraph)
+courses << baruch.courses.create(:semester => summer, :year => year, :name => "Great Works of Literature", :department => "ENG", :number => "2850", :section => random_section, :description => Faker::Lorem.paragraph)
 
 # Create sample users
 evaluators = Array.new
@@ -256,13 +256,20 @@ courses.each_with_index do |course, course_index|
   rand(3..6).times do
 
     rubric = rubrics.sample()
-
-    project = course.projects.create(
-        :name => Faker::Company.bs.split(' ').map(&:capitalize).join(' '),
-        :description => Faker::Lorem.paragraph,
-        :rubric => rubric,
-        :type => 'UserProject'
-    )
+    project = Project.create({
+                                 :course => course,
+                                 :name => Faker::Company.bs.split(' ').map(&:capitalize).join(' '),
+                                 :description => Faker::Lorem.paragraph,
+                                 :rubric => rubric,
+                                 :type => 'UserProject',
+                                 :settings => {
+                                     'enable_peer_review' => random_boolean,
+                                     'enable_self_evaluation' => random_boolean,
+                                     'enable_creator_attach' => random_boolean,
+                                     'enable_public_discussion' => random_boolean
+                                 }
+                             })
+    project.save
 
     course_creators = course.creators
     course_creators.to_a.shuffle!
@@ -287,34 +294,34 @@ courses.each_with_index do |course, course_index|
 
         submission.save!
 
-        # Some submitted projects have been evaluated
-        if rand > 0.2
-          evaluation  = submission.evaluations.create()
-          evaluation.rubric = rubric
-          evaluation.evaluator = evaluators[0]
-          evaluation.published = true
-          rubric.field_keys.each { |key| evaluation.scores[key] = random_score()}
-          evaluation.save()
-
-          evaluation  = submission.evaluations.create()
-          evaluation.rubric = rubric
-          this_key = rand(0..10)
-          evaluation.evaluator = course_creators[this_key]
-          evaluation.published = true
-          rubric.field_keys.each { |key| evaluation.scores[key] = random_score()}
-          evaluation.save()
-
-          new_key = rand(0..10)
-          if new_key != this_key
-            evaluation  = submission.evaluations.create()
-            evaluation.rubric = rubric
-            evaluation.evaluator = course_creators[new_key]
-            evaluation.published = true
-            rubric.field_keys.each { |key| evaluation.scores[key] = random_score()}
-            evaluation.save()
-          end
-
-        end
+        # # Some submitted projects have been evaluated
+        # if rand > 0.2
+        #   evaluation  = submission.evaluations.create()
+        #   evaluation.rubric = rubric
+        #   evaluation.evaluator = evaluators[0]
+        #   evaluation.published = true
+        #   rubric.field_keys.each { |key| evaluation.scores[key] = random_score()}
+        #   evaluation.save()
+        #
+        #   evaluation  = submission.evaluations.create()
+        #   evaluation.rubric = rubric
+        #   this_key = rand(0..10)
+        #   evaluation.evaluator = course_creators[this_key]
+        #   evaluation.published = true
+        #   rubric.field_keys.each { |key| evaluation.scores[key] = random_score()}
+        #   evaluation.save()
+        #
+        #   new_key = rand(0..10)
+        #   if new_key != this_key
+        #     evaluation  = submission.evaluations.create()
+        #     evaluation.rubric = rubric
+        #     evaluation.evaluator = course_creators[new_key]
+        #     evaluation.published = true
+        #     rubric.field_keys.each { |key| evaluation.scores[key] = random_score()}
+        #     evaluation.save()
+        #   end
+        #
+        # end
       end
     end
   end
