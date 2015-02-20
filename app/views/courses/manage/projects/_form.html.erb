@@ -77,10 +77,10 @@
 						<%= hidden_field_tag("#{@project.type.underscore}[settings][enable_public_discussion]", 0, :id => 'enable_public_discussion_hidden') %>
 						<%= check_box_tag("#{@project.type.underscore}[settings][enable_public_discussion]", 1, @project.allows_public_discussion?) %>
 						<b></b>
-						Enable public discussion
+						Submissions are visible to all course members
 					</label>
 					<small>
-						Enabling this will allow all students in the course to one another's assets, annotations, and discussion for this project's submissions.
+						Enabling this will allow all students in the course to view, annotate, and discuss each other's submissions for this project.
 					</small>
 				</li>
 				<li>
