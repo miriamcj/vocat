@@ -6,6 +6,7 @@ define (require) ->
   EvaluationsView = require('views/submission/evaluations/evaluations_layout')
   AssetsView = require('views/assets/assets_layout')
   ModalGroupMembershipView = require('views/modal/modal_group_membership')
+  ProjectModalView = require('views/modal/modal_project_description')
 
   class SubmissionLayout extends Marionette.LayoutView
 
@@ -16,11 +17,14 @@ define (require) ->
     triggers: {
       'click @ui.openGroupModal': 'open:groups:modal'
       'click @ui.close': 'close'
+      'click @ui.showProjectDescriptionModal': 'open:project:modal'
     }
 
     ui: {
       close: '[data-behavior="detail-close"]'
       openGroupModal: '[data-behavior="open-group-modal"]'
+      showProjectDescriptionModal: '[data-behavior="open-project-description"]'
+      showRubric: '[data-behavior="show-rubric"]'
     }
 
     regions: {
@@ -38,6 +42,7 @@ define (require) ->
         creatorType: @model.get('creator_type')
         isGroupProject: @model.get('creator_type') == 'Group'
         courseMapContext: @courseMapContext
+        pastDueDate: @project.pastDue()
       }
       sd
 
@@ -46,6 +51,9 @@ define (require) ->
 
     onOpenGroupsModal: () ->
       Vocat.vent.trigger('modal:open', new ModalGroupMembershipView({groupId: @creator.id}))
+
+    onOpenProjectModal: () ->
+      Vocat.vent.trigger('modal:open', new ProjectModalView({model: @project}))
 
     onClose: () ->
       context = @model.get('creator_type').toLowerCase() + 's'

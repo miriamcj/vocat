@@ -2,6 +2,10 @@
 	{{#if can_attach}}
 		Nothing Yet. <a href="#" data-behavior="empty-manage-link">Add some...</a>
 	{{else}}
-		No media has been uploaded for this submission. Check back soon.
+		{{#if mediaUploadsClosed}}
+			The due date for this project has passed, and media attachments are no longer accepted.
+		{{else}}
+			No media has been uploaded for this submission. Check back soon.
+		{{/if}}
 	{{/if}}
 </div>

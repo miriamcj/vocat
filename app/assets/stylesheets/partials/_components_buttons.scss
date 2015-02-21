@@ -354,6 +354,10 @@
   .heading-primary & {
     font-size: .35em;
   }
+  &.badge-alert {
+    border: 2px solid $red;
+    color: $red;
+  }
 }
 
 

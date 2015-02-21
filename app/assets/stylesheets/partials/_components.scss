@@ -60,6 +60,19 @@ body.bg-dark {
   float: right;
 }
 
+.page-content--heading .heading-utility {
+  margin-top: 1em;
+  font-size: $iota;
+  a + a {
+    margin-left: 1.5em;
+  }
+  a {
+    display: inline-block;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}
+
 footer.page-footer {
   z-index: 200;
   body.bg-dark & {

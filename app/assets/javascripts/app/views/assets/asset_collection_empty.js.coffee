@@ -20,7 +20,9 @@ define (require) ->
       @vent.trigger('show:new')
 
     serializeData: () ->
-      @abilities
+      context = @abilities
+      context.mediaUploadsClosed = @model.pastDue() && @model.get('rejects_past_due_media') && window.VocatUserCourseRole == 'creator'
+      context
 
     initialize: (options) ->
       @vent = Marionette.getOption(@, 'vent')

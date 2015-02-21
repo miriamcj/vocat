@@ -24,10 +24,28 @@
 	<%= f.select :type, [['Individual', 'UserProject'], ['Group', 'GroupProject'], ['Both', 'OpenProject']], {:selected => @project.type}, {'data-behavior' => 'chosen'} %>
 </div>
 
-<div class="formgrid half date">
+<div class="formgrid third date">
 	<%= f.label 'Project Due Date', :class => 'text-label' %>
 	<%= f.text_field :due_date, :value => (@project.due_date.strftime('%a %b %d %Y') if @project.due_date), 'data-behavior' => 'date-picker' %>
-	<small>The project due date is for informational purposes. Students and instructors will still be able to modify submissions past the project due date.</small>
+</div>
+
+<div class="formgrid third date">
+	<%= f.label 'May students attach media to submissions?', :class => 'text-label' %>
+	<%= select_tag "#{@project.type.underscore}[settings][enable_creator_attach]", options_for_select([
+		['Yes', true],
+		['No', false]
+	], @project.allows_creator_attach?), {'data-behavior' => 'chosen'} %>
+	<small>If this is set to "no," only instructors will be able to upload media (video, images, audio, etc).</small>
+</div>
+
+<div class="formgrid third date">
+	<%= f.label 'Accept Media after Project Due Date?', :class => 'text-label' %>
+	<%= select_tag "#{@project.type.underscore}[settings][reject_past_due_media]", options_for_select([
+		['Yes', false],
+		['No', true]
+	], @project.rejects_past_due_media?), {'data-behavior' => 'chosen'} %>
+	<small>This setting is only applicable if "allow creators to upload media" is checked, below. Evaluators may upload
+	media at any time.</small>
 </div>
 
 <div class="formgrid whole">
@@ -92,18 +110,6 @@
 					</label>
 					<small>
 						If enabled, students will be able to view submissions for this project, as well as score, annotate, and discuss those submissions.
-					</small>
-				</li>
-				<li>
-					<label class="label-inline" for="<%= @project.type.underscore %>_settings_enable_creator_attach">
-						<%= hidden_field_tag("#{@project.type.underscore}[settings][enable_creator_attach]", 0, :id => 'enable_creator_attach_hidden') %>
-						<%= check_box_tag("#{@project.type.underscore}[settings][enable_creator_attach]", 1, @project.allows_creator_attach?) %>
-						<b></b>
-						Allow creators to upload media
-					</label>
-					<small>
-						When enabled, students and groups will be able to upload media for their submissions to this project. If disabled, only course
-						evaluators will be able to upload media.
 					</small>
 				</li>
 				<li>

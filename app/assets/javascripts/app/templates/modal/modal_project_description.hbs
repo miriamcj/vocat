@@ -1,0 +1,20 @@
+<h5 class="modal--header">{{name}}</h5>
+
+<h6 class="modal--subheader">Description:</h6>
+{{{description}}}
+
+{{#if due_date}}
+	<h6 class="modal--subheader">Due Date:</h6>
+	<p>
+		{{due_date}}
+	</p>
+{{/if}}
+
+<h6 class="modal--subheader">Allowed File Types:</h6>
+<p>
+	{{{join allowed_extensions}}}
+</p>
+
+<div style="margin-top: 1em;">
+	<a href="#" class="primary-button close-button" data-behavior="dismiss">Close</a>
+</div>

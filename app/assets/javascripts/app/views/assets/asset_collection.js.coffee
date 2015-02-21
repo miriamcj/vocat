@@ -17,7 +17,6 @@ define (require) ->
 
     template: template
     childViewContainer: '[data-behavior="collection-container"]'
-    emptyView: EmptyView
 
     ui: {
       collectionContainer: '[data-behavior="collection-container"]'
@@ -26,6 +25,9 @@ define (require) ->
     triggers: {
       'click [data-behavior="do-render"]': 'forceRender'
     }
+
+    emptyView: EmptyView
+    emptyViewOptions: () -> { model: @project, abilities: @abilities}
 
     onForceRender: () ->
       @render()
@@ -38,6 +40,7 @@ define (require) ->
     initialize: (options) ->
       @vent = Marionette.getOption(@, 'vent')
       @abilities = options.abilities
+      @project = options.project
       @setupListeners()
 
     # TODO: Lots of overlap between this and the sortable table behavior. The

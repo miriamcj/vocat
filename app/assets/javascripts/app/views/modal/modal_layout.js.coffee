@@ -36,6 +36,12 @@ define [
       )
 
     updateContent: (view) ->
+      if view.modalWidth?
+        @modalWidth = view.modalWidth
+      else
+        @modalWidth = '400px'
+      if view.modalMaxWidth?
+        @modalMaxWidth = view.modalMaxWidth
       @content.show(view)
 
     closeModal: () ->
@@ -55,14 +61,18 @@ define [
       @view.trigger('modal:after:show')
 
     centerModal: () ->
+      @$el.outerWidth(@modalWidth)
+      w = @$el.outerWidth()
+      if @modalMaxWidth && w > @modalMaxWidth
+        @$el.outerWidth(@modalMaxWidth)
+        w = @$el.outerWidth()
       @$el.prependTo('body')
       @$el.css({
         zIndex: 4000
-        marginTop: '-150px'
-        marginLeft: -1 * (@$el.find('[data-behavior=modal]').outerWidth() / 2) + 'px'
+        marginLeft: -1 * (w / 2) + 'px'
         position: 'fixed'
         left: '50%'
-        top: '50%'
+        top: '20%'
       })
 
     resizeBackdrop: () ->

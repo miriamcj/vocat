@@ -66,7 +66,7 @@ define (require) ->
 
     ensureVisibleCollectionView: () ->
       if !@assets.currentView?
-        @assets.show(new AssetCollectionView({collection: @collection, vent: @, abilities: @model.get('abilities')}))
+        @assets.show(new AssetCollectionView({collection: @collection, vent: @, project: @model.project(), abilities: @model.get('abilities')}))
       unless @assets.$el.is(':visible')
         @newAsset.$el.fadeIn(200)
 
@@ -103,7 +103,6 @@ define (require) ->
       @listenTo(@, 'request:manage:visibility', (e) =>
         @trigger('announce:manage:visibility', @manageVisible)
       )
-
 
     # @model is a submission model.
     initialize: (options) ->

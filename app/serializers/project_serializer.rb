@@ -12,6 +12,7 @@ class ProjectSerializer < ActiveModel::Serializer
               :evaluatable_by_peers?,
               :evaluatable_by_creator?,
               :allows_public_discussion?,
+              :rejects_past_due_media?,
               :allowed_attachment_families,
               :allowed_extensions,
               :allowed_mime_types,
@@ -19,7 +20,8 @@ class ProjectSerializer < ActiveModel::Serializer
               :rubric_id,
               :rubric_name,
               :abilities,
-              :course_id
+              :course_id,
+              :due_date
 
   has_one :rubric
 

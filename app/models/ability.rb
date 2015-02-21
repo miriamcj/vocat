@@ -153,7 +153,12 @@ class Ability
         )
       ) ||
       # CAN if the user is the submission owner and enable_creator_attach is true
-      (can?(:own, submission) && submission.project.allows_creator_attach?)
+      (
+        can?(:own, submission) &&
+        submission.project.allows_creator_attach? &&
+        !(submission.project.rejects_past_due_media? && submission.project.due_date && submission.project.due_date.past? )
+
+      )
     end
 
     can :discuss, Submission do |submission|
