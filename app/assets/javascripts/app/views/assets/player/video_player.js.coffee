@@ -175,9 +175,6 @@ define (require) ->
     insertAnnotationsStageView: () ->
       container = document.createElement('div');
       container.id = 'vjs-annotation-overlay';
-#      $(container).on('click', () =>
-#        @handlePlaybackToggleRequest()
-#      )
       @stageView = new PlayerAnnotations({model: @model, vent: @vent})
       @stageView.render()
       $(container).append(@stageView.el)
@@ -186,6 +183,7 @@ define (require) ->
     setupPlayer: () ->
       dimensions = @getPlayerDimensions()
       domTarget = @ui.player[0]
+
       options = {
         techOrder: @model.techOrder()
         width: dimensions.width
@@ -215,6 +213,7 @@ define (require) ->
         options.src = locations.url
 
       if @model.get('family') == 'audio'
+        options.children.controlBar.children['fullscreenToggle'] = false
         options.plugins = {
           audiowave: {
             src: @model.get('locations').mp3,
