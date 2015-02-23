@@ -27,7 +27,14 @@ define (require) ->
     }
 
     emptyView: EmptyView
-    emptyViewOptions: () -> { model: @project, abilities: @abilities}
+
+    emptyViewOptions: () ->
+      {
+        model: @project
+        abilities: @abilities
+        vent: @ventgit status
+
+      }
 
     onForceRender: () ->
       @render()
