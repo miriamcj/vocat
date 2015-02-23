@@ -7,11 +7,7 @@
 		<% else %>
 			<div class="thumb-container-placeholder">
 				<a href="<%= submission_detail_path(submission) %>">
-					<% if current_user.can?(:attach, submission) %>
-						<span>Visit Submission Page to Upload Attachment</span>
-					<% else %>
-						<span>No Attachment</span>
-					<% end %>
+					<span>media not yet uploaded</span>
 				</a>
 			</div>
 		<% end %>
@@ -27,8 +23,6 @@
 		<h5 class="heading-informational">
 			<% if submission.has_asset? %>
 				Submitted <%= submission.first_asset.created_at.strftime('%B %e, %Y at %l:%M %p') %>
-			<% else %>
-				No submission has been uploaded for this project.
 			<% end %>
 		</h5>
 
