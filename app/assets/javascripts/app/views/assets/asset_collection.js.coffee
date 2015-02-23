@@ -32,8 +32,7 @@ define (require) ->
       {
         model: @project
         abilities: @abilities
-        vent: @ventgit status
-
+        vent: @vent
       }
 
     onForceRender: () ->
