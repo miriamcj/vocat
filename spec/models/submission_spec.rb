@@ -6,6 +6,14 @@ describe 'Submission' do
     expect(FactoryGirl.build(:submission)).to be_valid
   end
 
+  it 'returns the first sorted asset thumbnail' do
+    s = FactoryGirl.create(:submission)
+    s.assets << FactoryGirl.create(:asset, :submission => s, :listing_order => 1000)
+    s.assets << FactoryGirl.create(:asset, :submission => s, :listing_order => 0)
+    expect(s.first_asset.thumbnail).to eq(s.thumb)
+  end
+
+
   context "when getting visible evaluations for a submission" do
     before (:all) {
       @submission = FactoryGirl.create(:submission)

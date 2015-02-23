@@ -41,7 +41,7 @@ class Submission < ActiveRecord::Base
   end
 
   def first_asset
-    assets.first
+    assets.sorted.first
   end
 
   def evaluated_by_instructor?()
