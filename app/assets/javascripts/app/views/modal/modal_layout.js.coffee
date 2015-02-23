@@ -63,16 +63,19 @@ define [
     centerModal: () ->
       @$el.outerWidth(@modalWidth)
       w = @$el.outerWidth()
+      h = @$el.outerHeight()
       if @modalMaxWidth && w > @modalMaxWidth
         @$el.outerWidth(@modalMaxWidth)
         w = @$el.outerWidth()
+        h = @$el.outerHeight()
       @$el.prependTo('body')
       @$el.css({
         zIndex: 4000
         marginLeft: -1 * (w / 2) + 'px'
+        marginTop: -1 * (h / 2) + 'px'
         position: 'fixed'
         left: '50%'
-        top: '20%'
+        top: '50%'
       })
 
     resizeBackdrop: () ->

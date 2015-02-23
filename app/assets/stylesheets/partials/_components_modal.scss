@@ -53,11 +53,16 @@
 
   .content {
     @include clearfix;
-
   }
 
   .footer {
 
   }
 
+}
+
+.modal-rubric {
+  margin-top: 1em;
+  max-height: 500px;
+  overflow: scroll;
 }

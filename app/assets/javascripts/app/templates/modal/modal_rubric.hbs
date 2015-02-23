@@ -1,0 +1,39 @@
+<h5 class="modal--header">{{name}}</h5>
+<div class="modal-rubric">
+	<table class="table table-rubric">
+		<thead>
+		<tr>
+			<th>Criteria</th>
+			{{#each ranges }}
+				<th>
+					{{name}}
+				</th>
+			{{/each}}
+		</tr>
+		</thead>
+		<tbody>
+		{{#each fields}}
+			<tr>
+				<th>
+					{{name}}
+				</th>
+				{{#each ../ranges}}
+					<td>
+						<p>
+							<strong style="color: #676263">
+								{{low}} to {{high}} points
+							</strong>
+						</p>
+						<p>
+							{{find_rubric_cell_description ../../cells ../this this }}
+						</p>
+					</td>
+				{{/each}}
+			</tr>
+		{{/each}}
+		</tbody>
+	</table>
+</div>
+<div style="margin-top: 1em;">
+	<a href="#" class="primary-button close-button" data-behavior="dismiss">Close</a>
+</div>
