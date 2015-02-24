@@ -98,8 +98,9 @@ define (require) ->
         else
           @hideManageUi()
       )
-      @listenTo(@model.collection, 'add remove', () =>
-        @checkMoveButtonVisibility()
+      @listenTo(@model.collection, 'add remove', (model) =>
+        if model != @model && @model != null
+          @checkMoveButtonVisibility()
       )
 
     checkMoveButtonVisibility: () ->
