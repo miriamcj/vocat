@@ -181,6 +181,26 @@
   }
 }
 
+.up-button {
+  @extend %icon-button;
+  &:after {
+    @include svg(arrow-up-gray-medium);
+    &:hover, &.active {
+      @include svg(arrow-up-white);
+    }
+  }
+}
+
+.down-button {
+  @extend %icon-button;
+  &:after {
+    @include svg(arrow-down-gray-medium);
+    &:hover, &.active {
+      @include svg(arrow-down-white);
+    }
+  }
+}
+
 .draw-button {
   @extend %icon-button;
   &:after {

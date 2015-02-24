@@ -10,8 +10,8 @@ define (require) ->
     template: template
 
     attributes: {
-        'data-behavior': 'sortable-item'
-        'class': 'page-section--subsection page-section--subsection-ruled asset-collection-item'
+      'data-behavior': 'sortable-item'
+      'class': 'page-section--subsection page-section--subsection-ruled asset-collection-item'
     }
 
     events: {
@@ -20,7 +20,8 @@ define (require) ->
 
     ui: {
       destroy: '[data-behavior="destroy"]'
-      move: '[data-behavior="move"]'
+      moveUp: '[data-behavior="move-up"]'
+      moveDown: '[data-behavior="move-down"]'
       show: '[data-behavior="show"]'
       rename: '[data-behavior="rename"]'
       showOnManage: '[data-behavior="show-on-manage"]'
@@ -35,6 +36,8 @@ define (require) ->
       'click @ui.destroy': 'destroyModel'
       'click @ui.show': 'showModel'
       'click @ui.rename': 'renameModel'
+      'click @ui.moveUp': 'moveUp'
+      'click @ui.moveDown': 'moveDown'
     }
 
     onShowModel: () ->
@@ -43,8 +46,13 @@ define (require) ->
       else
         Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Media is still being processed and is not yet available. Check back soon or reload the page to see if processing has completed.'})
 
-    onDrop: (e, i) ->
-      @trigger("update:sort",[@model, i])
+    onMoveUp: () ->
+      @model.collection.moveUp(@model)
+      @model.save()
+
+    onMoveDown: () ->
+      @model.collection.moveDown(@model)
+      @model.save()
 
     onRenameModel: () ->
       onSave = () =>
@@ -95,10 +103,16 @@ define (require) ->
       )
 
     checkMoveButtonVisibility: () ->
-      if @model.collection.length > 1
-        @ui.move.show()
+      if @model && @model.collection.length > 1
+        @ui.moveUp.show()
+        @ui.moveDown.show()
       else
-        @ui.move.hide()
+        @ui.moveUp.hide()
+        @ui.moveDown.hide()
+      if @model && @model.collection.indexOf(@model) == 0
+        @ui.moveUp.hide()
+      if @model && @model.collection.indexOf(@model) == @model.collection.length - 1
+        @ui.moveDown.hide()
 
     hideManageUi: () ->
       @ui.showOnManage.hide()
