@@ -57,3 +57,28 @@
   margin: 0;
   padding: 0;
 }
+
+.processing-indicator {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  margin: .5em auto 1em;
+  .processing-indicator-1, .processing-indicator-2 {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: $tealLight;
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    left: 0;
+    @include animation(processingIndicatorAnimation 2.0s infinite ease-in-out);
+  }
+  .processing-indicator-2 {
+    @include animation-delay(-1.0s);
+  }
+}
+@include keyframes(processingIndicatorAnimation) {
+  0%, 100% { transform: scale(0.0) }
+  50% { transform: scale(1.0) }
+}

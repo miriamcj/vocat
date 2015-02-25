@@ -9,7 +9,11 @@
 		{{else}}
 			<div class="thumb-container-placeholder">
 				<a href="#">
-					<span>{{to_upper attachment.state}}</span>
+					<span class="tight">{{to_upper attachment.state}}</span>
+					<div class="processing-indicator">
+						<div class="processing-indicator-1"></div>
+						<div class="processing-indicator-2"></div>
+					</div>
 				</a>
 			</div>
 		{{/if}}
@@ -31,7 +35,11 @@
 		{{else}}
 			<div class="thumb-container-placeholder">
 				<a href="#">
-					<span>{{to_upper attachment.state}}</span>
+					<span class="tight">{{to_upper attachment.state}}</span>
+					<div class="processing-indicator">
+						<div class="processing-indicator-1"></div>
+						<div class="processing-indicator-2"></div>
+					</div>
 				</a>
 			</div>
 		{{/if}}
@@ -65,11 +73,11 @@
 		</ul>
 		<div data-behavior="show-on-manage">
 			<a href="#" style="display: inline-block" class="tertiary-button edit-button" data-behavior="rename">Rename</a>
-			<a style="display: inline-block; cursor: pointer;" class="tertiary-button down-button" data-behavior="move-down">Down</a>
-			<a style="display: inline-block; cursor: pointer;" class="tertiary-button up-button" data-behavior="move-up">Up</a>
+			<a href="#" style="display: inline-block" class="gentle-warning-button delete-button" data-behavior="destroy">Delete</a>
 		</div>
 		<div data-behavior="show-on-manage">
-			<a href="#" style="display: inline-block" class="gentle-warning-button delete-button" data-behavior="destroy">Delete</a>
+			<a style="display: inline-block; cursor: pointer;" class="tertiary-button down-button" data-behavior="move-down">Down</a>
+			<a style="display: inline-block; cursor: pointer;" class="tertiary-button up-button" data-behavior="move-up">Up</a>
 		</div>
 	</div>
 

@@ -92,6 +92,9 @@ define (require) ->
       @listenTo(@vent, 'hide:new', (e) =>
         @hideManageUi()
       )
+      @listenTo(@model, 'change:attachment_state', () =>
+        @render()
+      )
       @listenTo(@vent, 'announce:manage:visibility', (visible) =>
         if visible == true
           @showManageUi()

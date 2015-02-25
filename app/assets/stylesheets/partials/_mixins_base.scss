@@ -182,25 +182,25 @@
   transition: $duration #{$property} $easing, $transforms;
 }
 
-//// Keyframes
-//// --------------------------------------------------------
-//@mixin keyframes($name) {
-//  @-webkit-keyframes $name {
-//    @content;
-//  }
-//  @-moz-keyframes $name {
-//    @content;
-//  }
-//  @-ms-keyframes $name {
-//    @content;
-//  }
-//  @-o-keyframes $name {
-//    @content;
-//  }
-//  @keyframes $name {
-//    @content;
-//  }
-//}
+// Keyframes
+// --------------------------------------------------------
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+  @-o-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  }
+}
 
 // Animation
 // --------------------------------------------------------
@@ -210,6 +210,14 @@
   -ms-animation: $properties;
   -o-animation: $properties;
   animation: $properties;
+}
+
+@mixin animation-delay($properties) {
+  -webkit-animation-delay: $properties;
+  -moz-animation-delay: $properties;
+  -ms-animation-delay: $properties;
+  -o-animation-delay: $properties;
+  animation-delay: $properties;
 }
 
 // Translate

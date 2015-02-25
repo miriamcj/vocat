@@ -174,6 +174,7 @@ define (require) ->
           @ui.uploadStatusDetail.html("Please wait.")
           asset.save({},{success: () =>
             @collection.add(asset)
+            asset.poll()
             Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Media successfully saved.'})
             onSave = () =>
               asset.save({}, {
