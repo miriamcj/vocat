@@ -22,6 +22,7 @@ define (require) ->
     serializeData: () ->
       context = @abilities
       context.mediaUploadsClosed = @model.pastDue() && @model.get('rejects_past_due_media') && window.VocatUserCourseRole == 'creator'
+      context.allowed_attachment_families = @model.get('allowed_attachment_families')
       context
 
     initialize: (options) ->
