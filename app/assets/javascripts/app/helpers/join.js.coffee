@@ -5,8 +5,9 @@ define 'app/helpers/join', ['handlebars'], (Handlebars) ->
     # Clone it.
     value = value.slice(0)
 
-    separator = ', '
-    lastSeparator = 'and '
+    separator = options.hash.separator || ', '
+    lastSeparator = options.hash.lastSeparator || 'and '
+    leadingIndefiniteArticle = options.hash.leadingIndefiniteArticle || false
     capitalize = options.hash.capitalize || false
 
     if _.isArray(value)
@@ -28,6 +29,15 @@ define 'app/helpers/join', ['handlebars'], (Handlebars) ->
       if length > 2
         out = out + separator + lastSeparator + last
 
+      if leadingIndefiniteArticle == true
+        first = out[0].toLowerCase()
+        if first == 'a' || first == 'e' || first == 'i' || first == 'o' || first == 'u' || first == 'y'
+          article = 'an'
+        else
+          article = 'a'
+        out = "#{article} #{out}"
+
       out
+
     else
       value

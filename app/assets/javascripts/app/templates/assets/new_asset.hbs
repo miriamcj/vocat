@@ -31,7 +31,7 @@
 					</div>
 				</div>
 					<div class="asset-upload--column asset-upload--column-right">
-						<div class="dark-text-input" data-behavior="file-input-trigger"><input disabled="disabled" type="text" placeholder="Select a file from your computer" /><a href="#" class="primary-button new-button">Add</a></div>
+						<div class="dark-text-input" data-behavior="file-input-trigger"><input disabled="disabled" type="text" placeholder="Select {{join project.allowed_attachment_families leadingIndefiniteArticle=true lastSeparator='or ' capitalize=false }} file from your computer" /><a href="#" class="primary-button new-button">Add</a></div>
 						{{#if_include project.allowed_attachment_families 'video'}}
 							<div class="dark-text-input"><input type="text" data-behavior="external-video-url" placeholder="Vimeo / YouTube URL" /><a href="#" data-behavior="external-video-url-submit" class="primary-button new-button">Add</a></div>
 						{{/if_include}}
