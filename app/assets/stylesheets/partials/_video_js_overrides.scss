@@ -55,6 +55,16 @@
   text-align: center;
 }
 
+.vjs-duration-display {
+  &:before {
+    content: 'Duration: '
+  }
+}
+
+.vjs-default-skin .vjs-time-controls {
+  width: 8em;
+}
+
 .vjs-waveform {
   &:focus {
     outline: none;

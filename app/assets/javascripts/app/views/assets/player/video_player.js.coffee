@@ -195,7 +195,7 @@ define (require) ->
             children: {
               timeDivider: false
               currentTimeDisplay: false
-              durationDisplay: false
+              durationDisplay: true
               remainingTimeDisplay: false
             }
             progressControl: {

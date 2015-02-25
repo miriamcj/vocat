@@ -25,9 +25,8 @@ define (require) ->
       @updateAnnotationCollection()
 
     poll: () ->
-      console.log 'starting to poll'
       if @get('attachment_state') == 'processing'
-        wait = Math.pow(2, Math.floor(@polls/5)) * 5000
+        wait = Math.pow(2, Math.floor(@polls/5)) * 10000
         @polls++
         @fetch({success: (model, response, options) =>
           if model.get('attachment_state') == 'processing'
@@ -35,7 +34,6 @@ define (require) ->
               @poll()
             , wait)
         })
-
 
     hasDuration: () ->
       family = @get('family')

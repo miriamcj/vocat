@@ -467,9 +467,10 @@ $trackHeight: 10px;
     font-size: $iota;
     color: $white;
     text-align: right;
+    z-index: 10;
   }
   .timeline {
-    width: 92%;
+    width: 100%;
     height: $trackHeight;
     position: absolute;
     left: 0;

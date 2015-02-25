@@ -18,7 +18,6 @@ define (require) ->
       scrubber: '[data-behavior="scrubber"]'
       trackOverlay: '[data-behavior="track-overlay"]'
       timeElapsed: '[data-behavior="time-elapsed"]'
-      timeDuration: '[data-behavior="time-duration"]'
     }
 
     childViewContainer: '[data-behavior="marks"]'
@@ -52,7 +51,7 @@ define (require) ->
 
     secondsToString: (seconds) ->
       minutes = Math.floor(seconds / 60)
-      seconds = Math.round(seconds - minutes * 60)
+      seconds = Math.floor(seconds - minutes * 60)
       minuteZeroes = 2 - minutes.toString().length + 1
       minutes = Array(+(minuteZeroes > 0 && minuteZeroes)).join("0") + minutes
       secondZeroes = 2 - seconds.toString().length + 1
@@ -62,9 +61,6 @@ define (require) ->
     updateTimeElapsedUi: (playedSeconds, duration) ->
       @ui.timeElapsed.html(@secondsToString(playedSeconds))
 
-    updateTimeDurationUi: (duration) ->
-      @ui.timeDuration.html(@secondsToString(duration))
-
     setupListeners: () ->
       @listenTo(@vent, 'announce:progress', (data) ->
         @updateBufferedPercentUi(data.bufferedPercent)
@@ -72,9 +68,6 @@ define (require) ->
       @listenTo(@vent, 'announce:time:update', (data) =>
         @updatePlayedPercentUi(data.playedPercent)
         @updateTimeElapsedUi(data.playedSeconds)
-      )
-      @listenTo(@vent, 'announce:status', (data) =>
-        @updateTimeDurationUi(data.duration)
       )
       @listenTo(@vent, 'announce:locked', (data) =>
         @lockDragger()
