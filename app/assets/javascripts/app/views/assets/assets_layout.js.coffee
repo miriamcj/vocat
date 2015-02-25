@@ -33,6 +33,14 @@ define (require) ->
       newAssetFooter: '[data-region="asset-new-footer"]'
     }
 
+    preventManageClose: () ->
+      if @manageVisible == true
+        @ui.stopManagingLink.css(display: 'none')
+
+    allowManageClose: () ->
+      if @manageVisible == true
+        @ui.stopManagingLink.css(display: 'inline-block')
+
     onShowNew: () ->
       abilities = @model.get('abilities')
       if abilities.can_attach
@@ -47,7 +55,6 @@ define (require) ->
           @newAssetFooter.$el.fadeIn(200)
         else
           @newAssetFooter.$el.hide()
-
 
     onHideNew: () ->
       @manageVisible = false
@@ -102,6 +109,12 @@ define (require) ->
       )
       @listenTo(@, 'request:manage:visibility', (e) =>
         @trigger('announce:manage:visibility', @manageVisible)
+      )
+      @listenTo(@, 'prevent:manage:close', (e) =>
+        @preventManageClose()
+      )
+      @listenTo(@, 'allow:manage:close', (e) =>
+        @allowManageClose()
       )
 
     # @model is a submission model.

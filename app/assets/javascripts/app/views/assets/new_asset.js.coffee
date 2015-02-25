@@ -123,10 +123,12 @@ define (require) ->
       @initializeAsyncUploader()
 
     hideForm: () ->
+      @vent.trigger('prevent:manage:close')
       @ui.assetUploadingMessage.show()
       @ui.uploadFormWrapper.hide()
 
     showForm: () ->
+      @vent.trigger('allow:manage:close')
       @ui.assetUploadingMessage.hide()
       @ui.uploadFormWrapper.show()
 
