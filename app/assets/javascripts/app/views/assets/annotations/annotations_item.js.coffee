@@ -115,4 +115,4 @@ define (require) ->
       @vent.trigger('request:resume', {})
 
     onAnnotationEdit: () ->
-      @vent.trigger('request:edit:annotation', @model)
+      @vent.trigger('request:annotator:input:edit', @model)

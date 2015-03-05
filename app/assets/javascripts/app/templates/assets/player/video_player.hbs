@@ -1,4 +1,5 @@
 <div data-behavior="player-container" class="player-container">
+		<div class="player-container-message" data-behavior="message"></div>
 		{{#if_match family 'video'}}
 			<video id="video-player" data-behavior="video-player" class="video-js vjs-default-skin" controls preload="auto" >
 				{{#if_match type 'Asset::Youtube'}}
@@ -10,6 +11,10 @@
 				{{#if_match type 'Asset::Video'}}
 					<source src="{{locations.mp4}}" type="video/mp4" />
 					<source src="{{locations.webm}}" type="video/webm" />
+					<!--
+					<source src="/sample_transcoded.mp4" type="video/mp4" />
+					<source src="/sample_transcoded.webm" type="video/webm" />
+					-->
 				{{/if_match}}
 			</video>
 		{{/if_match}}

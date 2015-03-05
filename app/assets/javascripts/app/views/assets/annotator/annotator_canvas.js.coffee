@@ -30,10 +30,10 @@ define (require) ->
 
     setupListeners: () ->
       @listenTo(@vent, 'annotation:canvas:enable', @enable, @)
+      @listenTo(@vent, 'annotation:canvas:load', @loadCanvas, @)
       @listenTo(@vent, 'annotation:canvas:disable', @disable, @)
       @listenTo(@vent, 'annotation:canvas:setmode', @setMode, @)
       @listenTo(@vent, 'request:canvas', @announceCanvas, @)
-      @listenTo(@vent, 'announce:edit:annotation', @disable, @)
       @listenTo(@vent, 'annotator:refresh', @disable, @)
       @listenTo(@, 'lock:attempted', @handleLockAttempted, @)
 
@@ -56,24 +56,23 @@ define (require) ->
       ,10)
 
     setMode: (mode) ->
+      @enable()
+      @eraseEnabled = false
+      paper.project.deselectAll()
       if @mode == mode && mode != null
         @vent.trigger('announce:canvas:tool', null)
         @tools.nullTool.activate()
         @mode = null
-        @disable()
       else
         @mode = mode
         if @mode == 'draw'
           @vent.trigger('announce:canvas:tool', 'draw')
-          @eraseEnabled = false
           @tools.draw.activate()
         else if @mode == 'oval'
           @vent.trigger('announce:canvas:tool', 'oval')
-          @eraseEnabled = false
           @tools.oval.activate()
         else if @mode == 'erase'
-          @eraseEnabled = true
-          @tools.nullTool.activate()
+          @activateEraseTool()
           @vent.trigger('announce:canvas:tool', 'erase')
         else if @mode == null
           @vent.trigger('announce:canvas:tool', null)
@@ -98,6 +97,18 @@ define (require) ->
       paper.project.clear()
       @updateCanvas()
 
+    loadCanvas: (annotation) ->
+      json = annotation.getCanvasJSON()
+      if json
+        paper.project.importJSON(json)
+        paths = paper.project.getItems({class: Path})
+        _.each(paths,(path) =>
+          @addPathEvents(path)
+          path.selected = false
+        )
+        @updateCanvas()
+      @enable()
+
     updateCanvas: () ->
       paper.view.update()
 
@@ -121,15 +132,11 @@ define (require) ->
         else
           path = new paper.Path.Ellipse(new Rectangle(@startPoint, event.point))
         path.strokeColor = new Color(1, 0, 0)
-        path.strokeWidth = 4
-        path.on('click', () =>
-          if @eraseEnabled == true
-            path.remove()
-            @updateCanvas()
-        )
+        path.strokeWidth = 6
         @currentPath = path
-        @vent.trigger('announce:canvas:dirty')
       @tools.oval.onMouseUp = (event) =>
+        @vent.trigger('announce:canvas:dirty')
+        @addPathEvents(@currentPath)
         @currentPath = null
 
     _initDrawTool: () ->
@@ -138,26 +145,111 @@ define (require) ->
         path = new paper.Path()
         @currentPath = path
         path.strokeColor = new Color(1, 0, 0)
-        path.strokeWidth = 4
+        path.strokeWidth = 6
         path.add(event.point)
-        path.on('click', () =>
-          if @eraseEnabled == true
-            path.remove()
-            @updateCanvas()
-        )
       @tools.draw.onMouseDrag = (event) =>
         @currentPath.add(event.point)
       @tools.draw.onMouseUp = (event) =>
         @currentPath.simplify(20)
         @vent.trigger('announce:canvas:dirty')
+        @addPathEvents(@currentPath)
         @currentPath = null
 
     _initNullTool: () ->
       @tools.nullTool = new paper.Tool
+      @tools.nullTool.onKeyDown = (event) =>
+        if event.key == 'delete' || event.key == 'backspace'
+          paths = paper.project.getItems({selected: true, class: Path})
+          if paths.length > 0
+            _.each(paths, (path) =>
+              path.remove()
+            )
+            event.preventDefault()
+            @updateCanvas()
+            return false
+        else
+          return true
 
     _initPaper: () ->
       paper.install(window)
       paper.setup(@ui.canvas[0])
+
+    _addPathEventErase: (path) ->
+      path.on('click', (event) =>
+        if @eraseEnabled == true
+          path.remove()
+          @updateCanvas()
+          return false
+        else
+          return true
+      )
+
+    _addPathEventHoverSelect: (path) ->
+      path.on('mouseenter', () =>
+        if @eraseEnabled == true
+          path.selected = true
+          console.log 'selecting a'
+        return true
+      )
+
+    _addPathEventHoverDeselect: (path) ->
+      path.on('mouseleave', () =>
+        if @eraseEnabled == true
+          path.selected = false
+        return true
+      )
+
+    _addPathEventSelect: (path) ->
+      path.on('mouseup', () =>
+        if @mode == null
+          if path.selected == false
+            _.each(paper.project.getItems({class: Path}),(path) ->
+              path.selected = false
+            )
+            path.selected = true
+            console.log 'selecting b'
+          else
+            if path.vocat_event_mousedrag == false
+              path.selected = false
+            else
+              path.vocat_event_mousedrag = false
+        return true
+      )
+
+    _addPathEventSetOffset: (path) ->
+      path.on('mousedown', (event) =>
+        if @mode == null
+          offset = path.position.subtract(event.point)
+          path.vocat_event_last_mouse_offset = offset
+        return true
+      )
+
+    _addPathEventDrag:(path) ->
+      path.on('mousedrag', (event) =>
+        if @mode == null
+          path.vocat_event_mousedrag = true
+          if path.selected == false
+            _.each(paper.project.getItems({class: Path}),(path) ->
+              path.selected = false
+            )
+            path.selected = true
+            console.log 'selecting c'
+          path.position = event.point.add(path.vocat_event_last_mouse_offset)
+          event.preventDefault()
+        return true
+      )
+
+    addPathEvents: (path) ->
+      @_addPathEventErase(path)
+      @_addPathEventHoverSelect(path)
+      @_addPathEventHoverDeselect(path)
+      @_addPathEventSelect(path)
+      @_addPathEventSetOffset(path)
+      @_addPathEventDrag(path)
+
+    activateEraseTool: () ->
+      @eraseEnabled = true
+      @tools.nullTool.activate()
 
     initializePaper: () ->
       @_initPaper()

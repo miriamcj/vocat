@@ -6,6 +6,9 @@ define (require) ->
   class PlayerAnnotations extends Marionette.CollectionView
 
     template: _.template('')
+    showTimePadding: 1
+    hideTimePadding: .1
+
     tagName: 'ul'
     attributes: {
       class: 'annotations-overlay'
@@ -18,8 +21,9 @@ define (require) ->
         assetHasDuration: @model.hasDuration()
       }
 
+    setupListeners: () ->
+
     initialize: (options) ->
       @collection = @model.annotations()
       @vent = options.vent
-
-    onRender: () ->
+      @setupListeners()

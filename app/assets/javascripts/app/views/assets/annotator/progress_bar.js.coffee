@@ -75,9 +75,9 @@ define (require) ->
       @listenTo(@vent, 'announce:unlocked', (data) =>
         @unlockDragger()
       )
-      @listenTo(@collection, 'add remove', () =>
-        @render()
-      )
+
+    onAddChild: () ->
+      @children.call('updatePosition')
 
     synchronizeWithPlayer: () ->
       @listenToOnce(@vent, 'announce:status', (data) =>
@@ -115,7 +115,6 @@ define (require) ->
         stop: (event, ui) => @handleScrubberStopDrag(event, ui)
       }
       @ui.scrubber.draggable(config)
-
       @synchronizeWithPlayer()
 
     initialize: (options) ->

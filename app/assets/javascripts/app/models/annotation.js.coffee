@@ -39,6 +39,14 @@ define [
       else
         return false
 
+    getCanvasJSON: () ->
+      json = null
+      canvas = @get('canvas')
+      if canvas?
+        imgData = JSON.parse(canvas)
+        json = imgData.json
+        json
+
     getSvg: () ->
       svg = null
       canvas = @get('canvas')

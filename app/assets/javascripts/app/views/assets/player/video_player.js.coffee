@@ -12,9 +12,12 @@ define (require) ->
     lock: null
 
     ui: {
+      message: '[data-behavior="message"]'
       player: '[data-behavior="video-player"]'
       playerContainer: '[data-behavior="player-container"]'
     }
+
+    callbacks: []
 
     initialize: (options) ->
       @vent = options.vent
@@ -35,9 +38,22 @@ define (require) ->
       @listenTo(@vent, 'request:resume', (data) => @handleResumeRequest(data))
       @listenTo(@vent, 'request:lock', (data) => @handleLockRequest(data))
       @listenTo(@vent, 'request:unlock', (data) => @handleUnlockRequest(data))
+      @listenTo(@vent, 'request:message:show', (data) => @handleMessageShow(data))
+      @listenTo(@vent, 'request:message:hide', (data) => @handleMessageHide(data))
+      @listenTo(@vent, 'announce:annotator:input:start', (data) => @handlePauseRequest(data))
+
 
     isLocked: () ->
       @lock != null
+
+    handleMessageShow: (data) ->
+      msg = data.msg
+      @ui.message.html(msg)
+      @ui.message.addClass('open')
+
+    handleMessageHide: (data) ->
+      @ui.message.html('')
+      @ui.message.removeClass('open')
 
     unlockPlayer: () ->
       lock = @lock
@@ -64,7 +80,10 @@ define (require) ->
       @player.on( 'timeupdate', ()=>
         @announceTimeUpdate()
       )
-      @player.on( 'loadedmetadata', () => @handleStatusRequest())
+      @player.on( 'loadedmetadata', () =>
+        @vent.trigger('announce:loaded', @getStatusHash())
+        @handleStatusRequest()
+      )
       @player.on( 'progress', () =>
         @vent.trigger('announce:progress', {bufferedPercent: @getBufferedPercent()})
       )
@@ -76,14 +95,27 @@ define (require) ->
           @vent.trigger('announce:play')
       )
 
-    announceTimeUpdate: () ->
-      @vent.trigger('announce:time:update', {
-        playedPercent: @getPlayedPercent(),
-        playedSeconds: @player.currentTime()
-      })
-
     getBufferedPercent: () ->
       @player.bufferedPercent()
+
+    announceTimeUpdate: _.debounce(
+      () ->
+        time = @player.currentTime()
+        percent = @getPlayedPercent()
+        @vent.trigger('announce:time:update', {
+          playedPercent: percent
+          playedSeconds: time
+        })
+        @processCallbacks(time)
+    , 10, true)
+
+    processCallbacks: (second) ->
+      if @callbacks.length > 0
+        _.each(@callbacks, (callbackDetails, index) =>
+          if callbackDetails.seconds <= Math.ceil(second)
+            callbackDetails.callback.apply(callbackDetails.scope)
+            @callbacks.splice(index, 1)
+        )
 
     getPlayedPercent: () ->
       if @player
@@ -106,13 +138,16 @@ define (require) ->
     handleLockRequest: (data) ->
       @lockPlayer(data)
 
-    handleStatusRequest: () ->
-      @vent.trigger('announce:status', {
+    getStatusHash: () ->
+      {
         bufferedPercent: @getBufferedPercent()
         playedPercent: @getPlayedPercent()
         playedSeconds: @player.currentTime()
         duration: @player.duration()
-      })
+      }
+
+    handleStatusRequest: () ->
+      @vent.trigger('announce:status', @getStatusHash())
 
     handleAnnotationShow: (data) ->
       @player.trigger({
@@ -145,6 +180,13 @@ define (require) ->
         @wasPlaying = true
         @player.pause()
 
+    addTimeBasedCallback: (seconds, callback, callbackScope) ->
+      @callbacks.push {
+        seconds: seconds
+        callback: callback
+        scope: callbackScope
+      }
+
     handleTimeUpdateRequest: (data) ->
       if data.hasOwnProperty('percent')
         duration = @player.duration()
@@ -152,16 +194,22 @@ define (require) ->
       else
         seconds = data.seconds
       seconds = seconds
+      if data.hasOwnProperty('callback') && _.isFunction(data.callback)
+        @addTimeBasedCallback(seconds, data.callback, data.callbackScope)
 
       # Views can put a lock on the player. If the user tries to update the playback time, the player refuses, and
       # expected the view that holds the lock to do something.
       if @checkIfLocked(seconds) == false
         @player.currentTime(seconds)
-        duration = @player.duration()
-        @vent.trigger('announce:time:update', {
-          playedPercent: seconds / duration,
-          playedSeconds: seconds
-        })
+
+
+
+#        duration = @player.duration()
+#
+#        @vent.trigger('announce:time:update', {
+#          playedPercent: seconds / duration,
+#          playedSeconds: seconds
+#        })
 
     getPlayerDimensions: () ->
       width = @ui.playerContainer.outerWidth()
