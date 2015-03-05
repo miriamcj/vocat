@@ -45,49 +45,26 @@ define (require) ->
       $(window).off("scroll")
       true
 
+    unFade: () ->
+      @ui.scrollParent.removeClass('annotations-faded')
+
+    passTimeToCollection: (data) ->
+      @collection.setActive(data.playedSeconds)
+
+    setupListeners: () ->
+      @listenTo(@vent, 'announce:time:update', @unFade, @)
+      @listenTo(@collection, 'model:activated', @displayActive, @)
+      @listenTo(@, 'childview:activated', @handleChildViewActivation, @)
+      @listenTo(@, 'childview:beforeRemove', @lockScrolling, @)
+      @listenTo(@, 'childview:afterRemove', @unlockScrolling, @)
+      @listenTo(@vent, 'announce:time:update', @passTimeToCollection, @)
+
     initialize: (options) ->
       @vent = Marionette.getOption(@, 'vent')
       @collection = @model.annotations()
-      window.collection = @collection
-
       $(window).resize () =>
         @setSpacerHeight()
-
-      @listenTo(@collection, 'add', (data) =>
-        setTimeout(() =>
-          @setSpacerHeight()
-          @displayActive()
-        , 10)
-        @ui.scrollParent.removeClass('annotations-faded')
-      )
-
-      @listenTo(@collection, 'remove', (data) =>
-        setTimeout(() =>
-          @setSpacerHeight()
-        , 10)
-        @ui.scrollParent.removeClass('annotations-faded')
-      )
-
-      @listenTo(@collection, 'model:activated', () =>
-        @displayActive()
-      )
-
-      @listenTo(@, 'childview:activated', (view) =>
-        @handleChildViewActivation(view)
-      )
-
-      @listenTo(@, 'childview:beforeRemove', (view) =>
-        @lockScrolling()
-      )
-
-      @listenTo(@, 'childview:afterRemove', (view) =>
-        @unlockScrolling()
-      )
-
-      # Echo some events from parent down to the item view, whose vent is scoped to this annotations list view.
-      @listenTo(@vent, 'announce:time:update', (data) =>
-        @collection.setActive(data.playedSeconds)
-      )
+      @setupListeners()
 
     handleChildViewActivation: (view) ->
       @displayActive()
@@ -140,14 +117,7 @@ define (require) ->
         childrenContainer.children().eq(index).before(childView.el)
 
     setSpacerHeight: () ->
-      lastModel = @collection.last()
-      if lastModel
-        view = @children.findByModel(lastModel)
-        affordance = view.$el.height()
-      else
-        affordance = 0
-      #TODO: Remove this magic number
-      height = $(window).height() - 221 - affordance
+      height = $(window).height() - $('[data-behavior="player-column"]').outerHeight()
       @ui.spacer.outerHeight(height)
 
     onRenderCollection: () ->
@@ -168,6 +138,7 @@ define (require) ->
             @ui.scrollParent.removeClass('annotations-faded')
             $(window).off("scroll")
         , 2500)
+
       else
         @$el.css('visibility', 'visible')
         @ui.scrollParent.removeClass('annotations-faded')

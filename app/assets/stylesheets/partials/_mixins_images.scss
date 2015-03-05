@@ -333,6 +333,16 @@
   background-repeat: no-repeat;
 }
 
+%svg-select-teal {
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%0D%0A%3C%21--%20Generator%3A%20Adobe%20Illustrator%2018.1.1%2C%20SVG%20Export%20Plug-In%20.%20SVG%20Version%3A%206.00%20Build%200%29%20%20--%3E%0D%0A%3Csvg%20version%3D%221.1%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20xmlns%3Axlink%3D%22http%3A//www.w3.org/1999/xlink%22%20x%3D%220px%22%20y%3D%220px%22%0D%0A%09%20viewBox%3D%220%200%2018.2%2020.9%22%20enable-background%3D%22new%200%200%2018.2%2020.9%22%20xml%3Aspace%3D%22preserve%22%3E%0D%0A%3Cg%3E%0D%0A%09%3Cg%3E%0D%0A%09%09%3Cpath%20fill%3D%22none%22%20stroke%3D%22%2343B5AE%22%20stroke-width%3D%222%22%20stroke-miterlimit%3D%2210%22%20d%3D%22M10%2C11.5c-1.9%2C2.7-4%2C5.5-6%2C8.4%22/%3E%0D%0A%09%09%3Cg%3E%0D%0A%09%09%09%3Cpolygon%20fill%3D%22%2343B5AE%22%20points%3D%2218.2%2C0%200%2C11.5%209.4%2C12.3%2013.2%2C20.9%20%09%09%09%22/%3E%0D%0A%09%09%3C/g%3E%0D%0A%09%3C/g%3E%0D%0A%3C/g%3E%0D%0A%3C/svg%3E%0D%0A');
+  background-repeat: no-repeat;
+}
+
+%svg-select-gray-dark {
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%0D%0A%3C%21--%20Generator%3A%20Adobe%20Illustrator%2018.1.1%2C%20SVG%20Export%20Plug-In%20.%20SVG%20Version%3A%206.00%20Build%200%29%20%20--%3E%0D%0A%3Csvg%20version%3D%221.1%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20xmlns%3Axlink%3D%22http%3A//www.w3.org/1999/xlink%22%20x%3D%220px%22%20y%3D%220px%22%0D%0A%09%20viewBox%3D%220%200%2018.2%2020.9%22%20enable-background%3D%22new%200%200%2018.2%2020.9%22%20xml%3Aspace%3D%22preserve%22%3E%0D%0A%3Cg%3E%0D%0A%09%3Cg%3E%0D%0A%09%09%3Cpath%20fill%3D%22none%22%20stroke%3D%22%23231F20%22%20stroke-width%3D%222%22%20stroke-miterlimit%3D%2210%22%20d%3D%22M10%2C11.5c-1.9%2C2.7-4%2C5.5-6%2C8.4%22/%3E%0D%0A%09%09%3Cg%3E%0D%0A%09%09%09%3Cpolygon%20fill%3D%22%23231F20%22%20points%3D%2218.2%2C0%200%2C11.5%209.4%2C12.3%2013.2%2C20.9%20%09%09%09%22/%3E%0D%0A%09%09%3C/g%3E%0D%0A%09%3C/g%3E%0D%0A%3C/g%3E%0D%0A%3C/svg%3E%0D%0A');
+  background-repeat: no-repeat;
+}
+
 @mixin svg($image) {
   @extend %svg-#{$image};
   background-size: contain;

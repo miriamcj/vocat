@@ -1,5 +1,4 @@
 <div data-behavior="player-container" class="player-container">
-		<div class="player-container-message" data-behavior="message"></div>
 		{{#if_match family 'video'}}
 			<video id="video-player" data-behavior="video-player" class="video-js vjs-default-skin" controls preload="auto" >
 				{{#if_match type 'Asset::Youtube'}}

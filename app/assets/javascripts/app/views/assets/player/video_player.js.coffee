@@ -12,7 +12,6 @@ define (require) ->
     lock: null
 
     ui: {
-      message: '[data-behavior="message"]'
       player: '[data-behavior="video-player"]'
       playerContainer: '[data-behavior="player-container"]'
     }
@@ -38,22 +37,18 @@ define (require) ->
       @listenTo(@vent, 'request:resume', (data) => @handleResumeRequest(data))
       @listenTo(@vent, 'request:lock', (data) => @handleLockRequest(data))
       @listenTo(@vent, 'request:unlock', (data) => @handleUnlockRequest(data))
-      @listenTo(@vent, 'request:message:show', (data) => @handleMessageShow(data))
-      @listenTo(@vent, 'request:message:hide', (data) => @handleMessageHide(data))
       @listenTo(@vent, 'announce:annotator:input:start', (data) => @handlePauseRequest(data))
+      @listenTo(@vent, 'announce:canvas:enabled', (data) => @handleCanvasEnabled())
+      @listenTo(@vent, 'announce:canvas:disabled', (data) => @handleCanvasDisabled())
 
+    handleCanvasEnabled: () ->
+      @player.addClass('canvas-enabled')
+
+    handleCanvasDisabled: () ->
+      @player.removeClass('canvas-enabled')
 
     isLocked: () ->
       @lock != null
-
-    handleMessageShow: (data) ->
-      msg = data.msg
-      @ui.message.html(msg)
-      @ui.message.addClass('open')
-
-    handleMessageHide: (data) ->
-      @ui.message.html('')
-      @ui.message.removeClass('open')
 
     unlockPlayer: () ->
       lock = @lock
@@ -179,6 +174,7 @@ define (require) ->
       if playing == true
         @wasPlaying = true
         @player.pause()
+      @vent.trigger('announce:paused', @getStatusHash())
 
     addTimeBasedCallback: (seconds, callback, callbackScope) ->
       @callbacks.push {

@@ -1,9 +1,12 @@
 <div class="page-section-wrapper asset-detail-layout asset-detail-{{family}}">
 	<div data-behavior="player-column" class="page-section page-section-two-thirds col-one" >
 		<a href="#" class="header-link back-link" data-behavior="detail-close">Back to Submission</a>
-		<div data-region="annotations-stage"></div>
-		<div data-region="annotator-canvas"></div>
-		<div class="asset-player" data-region="player"></div>
+		<div style="position: relative; overflow: hidden;">
+			<div class="player-container-message" style="z-index: 20;" data-behavior="message"></div>
+			<div data-region="annotations-stage"></div>
+			<div data-region="annotator-canvas"></div>
+			<div class="asset-player" data-region="player"></div>
+		</div>
 		<div data-region="annotator"></div>
 	</div>
 

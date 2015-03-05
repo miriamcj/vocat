@@ -37,6 +37,7 @@ define (require) ->
       @listenTo(@vent, 'annotator:refresh', @disable, @)
       @listenTo(@, 'lock:attempted', @handleLockAttempted, @)
 
+
     handleLockAttempted: (requestedPlayback) ->
       @showClearCanvasWarning(requestedPlayback)
 
@@ -56,27 +57,28 @@ define (require) ->
       ,10)
 
     setMode: (mode) ->
-      @enable()
+      @enable() if mode != 'select'
       @eraseEnabled = false
       paper.project.deselectAll()
+      # Default mode is select
       if @mode == mode && mode != null
+        mode = 'select'
+      @mode = mode
+      if @mode == 'draw'
+        @vent.trigger('announce:canvas:tool', 'draw')
+        @tools.draw.activate()
+      else if @mode == 'oval'
+        @vent.trigger('announce:canvas:tool', 'oval')
+        @tools.oval.activate()
+      else if @mode == 'erase'
+        @activateEraseTool()
+        @vent.trigger('announce:canvas:tool', 'erase')
+      else if @mode == 'select'
+        @tools.nullTool.activate()
+        @vent.trigger('announce:canvas:tool', 'select')
+      else if @mode == null
         @vent.trigger('announce:canvas:tool', null)
         @tools.nullTool.activate()
-        @mode = null
-      else
-        @mode = mode
-        if @mode == 'draw'
-          @vent.trigger('announce:canvas:tool', 'draw')
-          @tools.draw.activate()
-        else if @mode == 'oval'
-          @vent.trigger('announce:canvas:tool', 'oval')
-          @tools.oval.activate()
-        else if @mode == 'erase'
-          @activateEraseTool()
-          @vent.trigger('announce:canvas:tool', 'erase')
-        else if @mode == null
-          @vent.trigger('announce:canvas:tool', null)
-          @tools.nullTool.activate()
 
     disable: () ->
       @setMode(null)
@@ -188,7 +190,6 @@ define (require) ->
       path.on('mouseenter', () =>
         if @eraseEnabled == true
           path.selected = true
-          console.log 'selecting a'
         return true
       )
 
@@ -201,13 +202,12 @@ define (require) ->
 
     _addPathEventSelect: (path) ->
       path.on('mouseup', () =>
-        if @mode == null
+        if @mode == 'select'
           if path.selected == false
             _.each(paper.project.getItems({class: Path}),(path) ->
               path.selected = false
             )
             path.selected = true
-            console.log 'selecting b'
           else
             if path.vocat_event_mousedrag == false
               path.selected = false
@@ -218,7 +218,7 @@ define (require) ->
 
     _addPathEventSetOffset: (path) ->
       path.on('mousedown', (event) =>
-        if @mode == null
+        if @mode == 'select'
           offset = path.position.subtract(event.point)
           path.vocat_event_last_mouse_offset = offset
         return true
@@ -226,14 +226,13 @@ define (require) ->
 
     _addPathEventDrag:(path) ->
       path.on('mousedrag', (event) =>
-        if @mode == null
+        if @mode == 'select'
           path.vocat_event_mousedrag = true
           if path.selected == false
             _.each(paper.project.getItems({class: Path}),(path) ->
               path.selected = false
             )
             path.selected = true
-            console.log 'selecting c'
           path.position = event.point.add(path.vocat_event_last_mouse_offset)
           event.preventDefault()
         return true

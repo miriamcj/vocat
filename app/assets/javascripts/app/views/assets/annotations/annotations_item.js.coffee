@@ -45,6 +45,7 @@ define (require) ->
 
     modelEvents: {
       "change:body": "onModelBodyChange"
+      "change:canvas": "onModelCanvasChange"
     },
 
     onActivate: () ->
@@ -55,6 +56,9 @@ define (require) ->
         @vent.trigger('request:annotation:show', @model)
 
     onModelBodyChange: () ->
+      @render()
+
+    onModelCanvasChange: () ->
       @render()
 
     onToggle: () ->
@@ -84,7 +88,9 @@ define (require) ->
       )
 
     onSeek: () ->
-      @vent.trigger('request:time:update', {seconds: @model.get('seconds_timecode')})
+      @vent.trigger('request:time:update', {seconds: @model.get('seconds_timecode'), callback: () =>
+        @model.activate()
+      , callbackScope: @})
 
     onAnnotationDestroy: () ->
       @vent.trigger('request:pause', {})

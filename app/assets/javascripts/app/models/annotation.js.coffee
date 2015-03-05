@@ -66,6 +66,10 @@ define [
       fs = ("0" + seconds).slice(-2);
       "#{fh}:#{fm}:#{fs}"
 
+    activate: () ->
+      if @collection
+        @collection.activateModel(@)
+
     toJSON: () ->
       attributes = _.clone(this.attributes);
       $.each attributes, (key, value) ->

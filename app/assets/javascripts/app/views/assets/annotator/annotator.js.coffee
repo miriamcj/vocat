@@ -17,13 +17,12 @@ define (require) ->
       annotationInput: '[data-region="annotator-input"]'
     }
 
+    ui: {
+    }
+
     setupListeners: () ->
-      @listenTo(@collection, 'destroy', (annotation) ->
-        @handleAnnotationDestruction(annotation)
-      )
-      @listenTo(@vent,'request:annotator:save', (annotation, properties) ->
-        @saveAnnotation(annotation, properties)
-      )
+      @listenTo(@vent,'request:annotator:save', @saveAnnotation, @)
+      @listenTo(@collection,'destroy', @handleAnnotationDestruction, @)
 
     saveAnnotation: (annotation, properties) ->
       @listenToOnce(@vent, 'announce:status', (response) =>
@@ -44,8 +43,8 @@ define (require) ->
 
     handleAnnotationSaveSuccess: (annotation) ->
       @collection.add(annotation, {merge: true})
-      @collection.activateModel(annotation)
-      annotation.trigger('change:active')
+      annotation.activate()
+      @vent.trigger('request:status', {})
 
     handleAnnotationSaveError: (annotation, xhr) ->
       Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: xhr.responseJSON.errors})
@@ -53,30 +52,6 @@ define (require) ->
     handleAnnotationDestruction: (annotation) ->
       if @annotationInput.currentView.model == annotation
         @vent.trigger('request:annotator:input:reset')
-
-#    handleEditAnnotationRequest: (annotation) ->
-#      if @annotationInput.currentView.model == annotation
-#        Vocat.vent.trigger('error:add', {level: 'notice', clear: true, lifetime: '3000',  msg: 'You are already editing this annotation'})
-#      else if @annotationInput.currentView.isDirty()
-#        Vocat.vent.trigger('modal:open', new ModalConfirmView({
-#          model: annotation,
-#          vent: @,
-#          descriptionLabel: 'It looks like you are in the progress of annotating this asset. If you proceed, the annotation canvas and text input will be cleared.',
-#          confirmEvent: 'confirm:show:edit',
-#          dismissEvent: 'dismiss:show:edit'
-#        }))
-#      else
-#        @showAnnotationEditInput(annotation)
-#
-#    onConfirmShowEdit: (annotation) ->
-#      @showAnnotationEditInput(annotation)
-#
-
-#    showAnnotationEditInput: (annotation) ->
-#      annotation.collection.activateModel(annotation)
-#      inputView = new AnnotationInputView({asset: @model, model: annotation, vent: @vent, collection: @collection})
-#      @annotationInput.show(inputView)
-#      inputView.takeFocus()
 
     initialize: (options) ->
       @vent = options.vent

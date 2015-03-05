@@ -88,6 +88,8 @@ define (require) ->
     handleActiveChange: () ->
       if @model.get('active') == true
         @setState(2)
+      else
+        @setState(0)
 
     hideEl: () ->
       @$el.hide()

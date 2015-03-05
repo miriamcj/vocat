@@ -211,6 +211,16 @@
   }
 }
 
+.select-button {
+  @extend %icon-button;
+  &:after {
+    @include svg(select-teal);
+    &:hover, &.active {
+      @include svg(select-gray-dark);
+    }
+  }
+}
+
 .erase-button {
   @extend %icon-button;
   &:after {

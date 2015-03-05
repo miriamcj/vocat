@@ -70,3 +70,14 @@
     outline: none;
   }
 }
+
+.vjs-default-skin.vjs-paused .vjs-big-play-button {
+  display: none;
+}
+.vjs-default-skin.vjs-paused .vjs-control-bar {
+  display: block;
+}
+
+.vjs-default-skin.canvas-enabled .vjs-control-bar {
+  visibility: hidden;
+}

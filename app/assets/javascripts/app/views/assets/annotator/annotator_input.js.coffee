@@ -9,12 +9,14 @@ define (require) ->
     template: template
     canvasIsDirty: false
     inputPointer: null
+    ignoreTimeUpdates: false
 
     ui:
       annotationInput: '[data-behavior="annotation-input"]'
       canvasDrawButton: '[data-behavior="annotation-canvas-draw"]'
       canvasEraseButton: '[data-behavior="annotation-canvas-erase"]'
       canvasOvalButton: '[data-behavior="annotation-canvas-oval"]'
+      canvasSelectButton: '[data-behavior="annotation-canvas-select"]'
       annotationCreateButton: '[data-behavior="annotation-create"]'
       annotationCreateCancelButton: '[data-behavior="annotation-create-cancel"]'
       annotationUpdateButton: '[data-behavior="annotation-update"]'
@@ -29,6 +31,7 @@ define (require) ->
       'click @ui.canvasDrawButton': 'setCanvasModeDraw'
       'click @ui.canvasEraseButton': 'setCanvasModeErase'
       'click @ui.canvasOvalButton': 'setCanvasModeOval'
+      'click @ui.canvasSelectButton': 'setCanvasModeSelect'
     }
 
     events:
@@ -52,19 +55,24 @@ define (require) ->
 
     startAnnotationInput: () ->
       if @inputPointer == null
-        @listenToOnce(@vent, 'announce:status', (response) =>
+        @listenToOnce(@vent, 'announce:paused', (response) =>
+          @ignoreTimeUpdates = true
+          setTimeout(() =>
+            @ignoreTimeUpdates = false
+          ,1000)
           @inputPointer = response.playedSeconds;
-          @updateCancelButtonVisibility()
+          @updateButtonVisibility()
+          @onSetCanvasModeSelect()
           @vent.trigger('request:message:show', {msg: 'Press post to save your annotation.'}) if @model.isNew()
           @vent.trigger('request:message:show', {msg: "Enter your edits and press update to save."}) if !@model.isNew()
-          @vent.trigger('announce:annotator:input:start', {})
           @vent.trigger('annotation:canvas:load', @model)
         )
-        @vent.trigger('request:status', {})
+        @vent.trigger('announce:annotator:input:start', {})
 
     startAnnotationEdit: (annotation) ->
       @vent.trigger('request:time:update', {seconds: annotation.get('seconds_timecode'), callback: () =>
         @model = annotation
+        @model.activate()
         @render()
         @startAnnotationInput()
       , callbackScope: @})
@@ -74,21 +82,26 @@ define (require) ->
         @inputPointer = null
         @vent.trigger('announce:annotator:input:stop', {})
         @vent.trigger('annotation:canvas:disable')
-        @vent.trigger('request:resume', {})
+        @vent.trigger('request:resume')
         @vent.trigger('request:message:hide')
+        @updateButtonVisibility()
         if !@model.isNew() || forceModelReset
           @model = new AnnotationModel({asset_id: @asset.id})
           @render()
 
     handleTimeUpdate: (data) ->
-      if @inputPointer && data.playedSeconds != @inputPointer
+      if @ignoreTimeUpdates == false
         @stopAnnotationInput()
 
-    updateCancelButtonVisibility: () ->
+    updateButtonVisibility: () ->
       if @inputPointer != null
         @ui.annotationCreateCancelButton.show()
+        @ui.canvasSelectButton.show()
+        @ui.canvasEraseButton.show()
       else
         @ui.annotationCreateCancelButton.hide()
+        @ui.canvasSelectButton.hide()
+        @ui.canvasEraseButton.hide()
 
     onUserFocus: (event) ->
       @startAnnotationInput()
@@ -96,17 +109,21 @@ define (require) ->
     onUserTyping: () ->
       @startAnnotationInput()
 
-    onSetCanvasModeDraw: () ->
+    setCanvasMode: (mode) ->
       @startAnnotationInput()
-      @vent.trigger('annotation:canvas:setmode', 'draw')
+      @vent.trigger('annotation:canvas:setmode', mode)
+
+    onSetCanvasModeSelect: () ->
+      @setCanvasMode('select')
+
+    onSetCanvasModeDraw: () ->
+      @setCanvasMode('draw')
 
     onSetCanvasModeErase: () ->
-      @startAnnotationInput()
-      @vent.trigger('annotation:canvas:setmode', 'erase')
+      @setCanvasMode('erase')
 
     onSetCanvasModeOval: () ->
-      @startAnnotationInput()
-      @vent.trigger('annotation:canvas:setmode', 'oval')
+      @setCanvasMode('oval')
 
     onSaveAnnotation: () ->
       body = @ui.annotationInput.val()
@@ -134,12 +151,15 @@ define (require) ->
       @ui.canvasDrawButton.removeClass('active')
       @ui.canvasEraseButton.removeClass('active')
       @ui.canvasOvalButton.removeClass('active')
+      @ui.canvasSelectButton.removeClass('active')
       if activeTool == 'draw'
         @ui.canvasDrawButton.addClass('active')
       if activeTool == 'oval'
         @ui.canvasOvalButton.addClass('active')
       if activeTool == 'erase'
         @ui.canvasEraseButton.addClass('active')
+      if activeTool == 'select'
+        @ui.canvasSelectButton.addClass('active')
 
     hideVisualAnnotationUi: () ->
       @ui.canvasEraseButton.hide()
@@ -150,9 +170,9 @@ define (require) ->
       @ui.annotationInput.val().length > 0 or @canvasIsDirty == true
 
     onRender: () ->
-      @updateCancelButtonVisibility()
+      @updateButtonVisibility()
 
     onShow: () ->
-      @updateCancelButtonVisibility()
+      @updateButtonVisibility()
       if !@asset.allowsVisibleAnnotation()
         @hideVisualAnnotationUi()
