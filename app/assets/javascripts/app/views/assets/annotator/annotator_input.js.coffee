@@ -40,12 +40,14 @@ define (require) ->
 
     setupListeners: () ->
       @listenTo(@, 'lock:attempted', @handleLockAttempted, @)
-      @listenTo(@vent, 'announce:time:update', @handleTimeUpdate, @)
       @listenTo(@vent, 'announce:canvas:tool', @updateToolStates, @)
       @listenTo(@vent, 'announce:canvas:dirty', @handleCanvasDirty, @)
       @listenTo(@vent, 'announce:canvas:clean', @handleCanvasClean, @)
       @listenTo(@vent, 'request:annotator:input:edit', @startAnnotationEdit, @)
-      @listenTo(@vent, 'request:annotator:input:reset', @stopAnnotationInput, @)
+      @listenTo(@vent, 'request:annotator:input:stop', () =>
+        console.log 'heard request:annotator:input:stop'
+        @stopAnnotationInput()
+      )
 
     initialize: (options) ->
       @vent = options.vent
@@ -55,22 +57,21 @@ define (require) ->
 
     startAnnotationInput: () ->
       if @inputPointer == null
-        @listenToOnce(@vent, 'announce:paused', (response) =>
-          @ignoreTimeUpdates = true
-          setTimeout(() =>
-            @ignoreTimeUpdates = false
-          ,1000)
+        @listenToOnce(@vent, 'announce:status', (response) =>
+          console.log 'second done'
           @inputPointer = response.playedSeconds;
           @updateButtonVisibility()
           @onSetCanvasModeSelect()
           @vent.trigger('request:message:show', {msg: 'Press post to save your annotation.'}) if @model.isNew()
           @vent.trigger('request:message:show', {msg: "Enter your edits and press update to save."}) if !@model.isNew()
-          @vent.trigger('annotation:canvas:load', @model)
+          @vent.trigger('request:annotation:canvas:load', @model)
+          @vent.trigger('announce:annotator:input:start', {})
         )
-        @vent.trigger('announce:annotator:input:start', {})
+        @vent.trigger('request:status', {})
 
     startAnnotationEdit: (annotation) ->
       @vent.trigger('request:time:update', {seconds: annotation.get('seconds_timecode'), callback: () =>
+        console.log 'first done'
         @model = annotation
         @model.activate()
         @render()
@@ -78,20 +79,19 @@ define (require) ->
       , callbackScope: @})
 
     stopAnnotationInput: (forceModelReset = false) ->
+
+      #TODO: Improve what happens if we're going from start -> stop -> start. Can we replace instead of state flapping?
+
       if @inputPointer != null
         @inputPointer = null
         @vent.trigger('announce:annotator:input:stop', {})
-        @vent.trigger('annotation:canvas:disable')
+        @vent.trigger('request:annotation:canvas:disable')
         @vent.trigger('request:resume')
         @vent.trigger('request:message:hide')
         @updateButtonVisibility()
         if !@model.isNew() || forceModelReset
           @model = new AnnotationModel({asset_id: @asset.id})
           @render()
-
-    handleTimeUpdate: (data) ->
-      if @ignoreTimeUpdates == false
-        @stopAnnotationInput()
 
     updateButtonVisibility: () ->
       if @inputPointer != null
@@ -111,7 +111,7 @@ define (require) ->
 
     setCanvasMode: (mode) ->
       @startAnnotationInput()
-      @vent.trigger('annotation:canvas:setmode', mode)
+      @vent.trigger('request:annotation:canvas:setmode', mode)
 
     onSetCanvasModeSelect: () ->
       @setCanvasMode('select')

@@ -51,7 +51,7 @@ define (require) ->
 
     handleAnnotationDestruction: (annotation) ->
       if @annotationInput.currentView.model == annotation
-        @vent.trigger('request:annotator:input:reset')
+        @vent.trigger('request:annotator:input:stop')
 
     initialize: (options) ->
       @vent = options.vent

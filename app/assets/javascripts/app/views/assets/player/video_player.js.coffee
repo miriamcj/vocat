@@ -196,16 +196,14 @@ define (require) ->
       # Views can put a lock on the player. If the user tries to update the playback time, the player refuses, and
       # expected the view that holds the lock to do something.
       if @checkIfLocked(seconds) == false
+
+        # Anytime a time update is requested, we will stop the annotation editing
+        # mode. There is a subtle difference here between stopping on request and stopping
+        # on actual time update. It's user intent that we want to capture, not the time update
+        # itself.
+        @vent.trigger('request:annotator:input:stop')
+
         @player.currentTime(seconds)
-
-
-
-#        duration = @player.duration()
-#
-#        @vent.trigger('announce:time:update', {
-#          playedPercent: seconds / duration,
-#          playedSeconds: seconds
-#        })
 
     getPlayerDimensions: () ->
       width = @ui.playerContainer.outerWidth()

@@ -11,6 +11,7 @@ define (require) ->
     mode: null
     currentPath: null
     paths: []
+    dirty: false
     eraseEnabled = false
     tools: {
       draw: null,
@@ -29,26 +30,27 @@ define (require) ->
       @setupListeners()
 
     setupListeners: () ->
-      @listenTo(@vent, 'annotation:canvas:enable', @enable, @)
-      @listenTo(@vent, 'annotation:canvas:load', @loadCanvas, @)
-      @listenTo(@vent, 'annotation:canvas:disable', @disable, @)
-      @listenTo(@vent, 'annotation:canvas:setmode', @setMode, @)
+      @listenTo(@vent, 'request:annotation:canvas:load', @loadCanvas, @)
+      @listenTo(@vent, 'request:annotation:canvas:disable', @disable, @)
+      @listenTo(@vent, 'request:annotation:canvas:setmode', @setMode, @)
       @listenTo(@vent, 'request:canvas', @announceCanvas, @)
-      @listenTo(@vent, 'annotator:refresh', @disable, @)
       @listenTo(@, 'lock:attempted', @handleLockAttempted, @)
-
 
     handleLockAttempted: (requestedPlayback) ->
       @showClearCanvasWarning(requestedPlayback)
 
     showClearCanvasWarning: (requestedPlayback) ->
-      Vocat.vent.trigger('modal:open', new ModalConfirmView({
-        model: requestedPlayback,
-        vent: @,
-        descriptionLabel: 'Changing the playback position will clear your drawing. If that\'s OK, press yes to proceed. If it\'s not OK, press cancel and post your annotation.',
-        confirmEvent: 'confirm:clear:canvas',
-        dismissEvent: 'dismiss:clear:canvas'
-      }))
+      if @dirty == true
+        Vocat.vent.trigger('modal:open', new ModalConfirmView({
+          model: requestedPlayback,
+          vent: @,
+          descriptionLabel: 'Changing the playback position will clear your drawing. If that\'s OK, press yes to proceed. If it\'s not OK, press cancel and post your annotation.',
+          confirmEvent: 'confirm:clear:canvas',
+          dismissEvent: 'dismiss:clear:canvas'
+        }))
+      else
+        @onConfirmClearCanvas(requestedPlayback)
+
 
     onConfirmClearCanvas: (requestedPlayback) ->
       @disable()
@@ -96,6 +98,7 @@ define (require) ->
       @$el.show()
 
     clearCanvas: () ->
+      @dirty = false
       paper.project.clear()
       @updateCanvas()
 
@@ -138,6 +141,7 @@ define (require) ->
         @currentPath = path
       @tools.oval.onMouseUp = (event) =>
         @vent.trigger('announce:canvas:dirty')
+        @dirty = true
         @addPathEvents(@currentPath)
         @currentPath = null
 
@@ -154,6 +158,7 @@ define (require) ->
       @tools.draw.onMouseUp = (event) =>
         @currentPath.simplify(20)
         @vent.trigger('announce:canvas:dirty')
+        @dirty = true
         @addPathEvents(@currentPath)
         @currentPath = null
 
@@ -179,6 +184,7 @@ define (require) ->
     _addPathEventErase: (path) ->
       path.on('click', (event) =>
         if @eraseEnabled == true
+          @dirty = true
           path.remove()
           @updateCanvas()
           return false
@@ -234,6 +240,7 @@ define (require) ->
             )
             path.selected = true
           path.position = event.point.add(path.vocat_event_last_mouse_offset)
+          @dirty = true
           event.preventDefault()
         return true
       )
