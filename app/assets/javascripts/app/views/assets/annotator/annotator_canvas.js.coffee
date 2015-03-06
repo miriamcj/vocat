@@ -93,8 +93,6 @@ define (require) ->
     enable: () ->
       @vent.trigger('announce:canvas:enabled', {view: @})
       @vent.trigger('request:annotation:hide')
-      @vent.trigger('request:pause', {})
-      @vent.trigger('request:lock', {view: @})
       @$el.show()
 
     clearCanvas: () ->
@@ -132,8 +130,25 @@ define (require) ->
       @tools.oval.onMouseDrag = (event) =>
         @currentPath.remove() if @currentPath
         if paper.Key.isDown('shift')
-          distance = @startPoint.getDistance(event.point)
-          path = new paper.Path.Circle(@startPoint, distance);
+          sx = @startPoint.x
+          sy = @startPoint.y
+          ex = event.point.x
+          ey = event.point.y
+          xdiff = Math.abs(ex - sx)
+          ydiff = Math.abs(ey - sy)
+          if xdiff > ydiff
+            diff = xdiff
+          else
+            diff = ydiff
+          if ex > sx
+            ex = sx + diff
+          else
+            ex = sx - diff
+          if ey > sy
+            ey = sy + diff
+          else
+            ey = sy - diff
+          path = new paper.Path.Ellipse(new Rectangle(@startPoint, new Point(ex, ey)))
         else
           path = new paper.Path.Ellipse(new Rectangle(@startPoint, event.point))
         path.strokeColor = new Color(1, 0, 0)

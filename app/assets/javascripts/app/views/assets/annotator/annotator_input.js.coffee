@@ -79,6 +79,7 @@ define (require) ->
     stopAnnotationInput: (forceModelReset = false) ->
       if @inputPointer != null & !@editLock
         @inputPointer = null
+#        @vent.trigger('request:unlock', {view: @})
         @vent.trigger('announce:annotator:input:stop', {})
         @vent.trigger('request:annotation:canvas:disable')
         @vent.trigger('request:resume')
