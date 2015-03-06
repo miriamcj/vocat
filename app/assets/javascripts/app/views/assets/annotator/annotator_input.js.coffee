@@ -8,6 +8,7 @@ define (require) ->
 
     template: template
     canvasIsDirty: false
+    editLock: false
     inputPointer: null
     ignoreTimeUpdates: false
 
@@ -44,10 +45,7 @@ define (require) ->
       @listenTo(@vent, 'announce:canvas:dirty', @handleCanvasDirty, @)
       @listenTo(@vent, 'announce:canvas:clean', @handleCanvasClean, @)
       @listenTo(@vent, 'request:annotator:input:edit', @startAnnotationEdit, @)
-      @listenTo(@vent, 'request:annotator:input:stop', () =>
-        console.log 'heard request:annotator:input:stop'
-        @stopAnnotationInput()
-      )
+      @listenTo(@vent, 'request:annotator:input:stop', @stopAnnotationInput, @)
 
     initialize: (options) ->
       @vent = options.vent
@@ -58,7 +56,6 @@ define (require) ->
     startAnnotationInput: () ->
       if @inputPointer == null
         @listenToOnce(@vent, 'announce:status', (response) =>
-          console.log 'second done'
           @inputPointer = response.playedSeconds;
           @updateButtonVisibility()
           @onSetCanvasModeSelect()
@@ -70,8 +67,9 @@ define (require) ->
         @vent.trigger('request:status', {})
 
     startAnnotationEdit: (annotation) ->
-      @vent.trigger('request:time:update', {seconds: annotation.get('seconds_timecode'), callback: () =>
-        console.log 'first done'
+      @editLock = true
+      @vent.trigger('request:time:update', {silent: true, seconds: annotation.get('seconds_timecode'), callback: () =>
+        @editLock = false
         @model = annotation
         @model.activate()
         @render()
@@ -79,10 +77,7 @@ define (require) ->
       , callbackScope: @})
 
     stopAnnotationInput: (forceModelReset = false) ->
-
-      #TODO: Improve what happens if we're going from start -> stop -> start. Can we replace instead of state flapping?
-
-      if @inputPointer != null
+      if @inputPointer != null & !@editLock
         @inputPointer = null
         @vent.trigger('announce:annotator:input:stop', {})
         @vent.trigger('request:annotation:canvas:disable')
