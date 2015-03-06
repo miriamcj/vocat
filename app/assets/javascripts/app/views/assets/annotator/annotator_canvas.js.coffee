@@ -151,8 +151,11 @@ define (require) ->
           path = new paper.Path.Ellipse(new Rectangle(@startPoint, new Point(ex, ey)))
         else
           path = new paper.Path.Ellipse(new Rectangle(@startPoint, event.point))
-        path.strokeColor = new Color(1, 0, 0)
+        path.strokeColor = @getColor()
         path.strokeWidth = 6
+        path.shadowColor = new Color(0, 0, 0)
+        path.shadowBlur = 18
+        path.shadowOffset = new Point(3, 3)
         @currentPath = path
       @tools.oval.onMouseUp = (event) =>
         @vent.trigger('announce:canvas:dirty')
@@ -163,9 +166,13 @@ define (require) ->
     _initDrawTool: () ->
       @tools.draw = new paper.Tool
       @tools.draw.onMouseDown = (event) =>
-        path = new paper.Path()
+        path = new paper.Path({
+          shadowColor: new Color(0, 0, 0)
+          shadowBlur: 18
+          shadowOffset: new Point(3, 3)
+        })
         @currentPath = path
-        path.strokeColor = new Color(1, 0, 0)
+        path.strokeColor = @getColor()
         path.strokeWidth = 6
         path.add(event.point)
       @tools.draw.onMouseDrag = (event) =>
@@ -277,6 +284,15 @@ define (require) ->
       @_initDrawTool()
       @_initOvalTool()
       @_initNullTool()
+
+    getColor: () ->
+      switch window.VocatUserCourseRole
+        when 'evaluator'
+          new Color(.9607843137, 0.7882352941, 0.1764705882) # Yellow
+        when 'creator'
+          new Color(0.3764705882, 0.6392156863, 0.7490196078) # Blue
+        else
+          new Color(0.9568627451, 0.262745098, 0.3333333333) # Red
 
     announceCanvas: () ->
       if paper.project.isEmpty()
