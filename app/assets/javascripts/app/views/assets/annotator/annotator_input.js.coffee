@@ -91,10 +91,12 @@ define (require) ->
 
     updateButtonVisibility: () ->
       if @inputPointer != null
+        @ui.annotationCreateButton.show()
         @ui.annotationCreateCancelButton.show()
         @ui.canvasSelectButton.show()
         @ui.canvasEraseButton.show()
       else
+        @ui.annotationCreateButton.hide()
         @ui.annotationCreateCancelButton.hide()
         @ui.canvasSelectButton.hide()
         @ui.canvasEraseButton.hide()
