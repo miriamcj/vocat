@@ -133,15 +133,19 @@ define (require) ->
           )
         , 250)
 
-        setTimeout(() =>
-          $(window).scroll () =>
-            @ui.scrollParent.removeClass('annotations-faded')
-            $(window).off("scroll")
-        , 2500)
+        @scrollHandler = () =>
+          @ui.scrollParent.removeClass('annotations-faded')
+          $(window).off("scroll")
 
+        setTimeout(() =>
+          $(window).scroll(@scrollHandler)
+        , 2500)
       else
         @$el.css('visibility', 'visible')
         @ui.scrollParent.removeClass('annotations-faded')
+
+    onDestroy: () ->
+      $(window).off('scroll', @scrollHandler)
 
 
 

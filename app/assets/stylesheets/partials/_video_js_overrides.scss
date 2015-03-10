@@ -111,3 +111,19 @@
   text-shadow: none;
   left: 5px;
 }
+
+.vjs-default-skin .vjs-annotation {
+  display: none;
+  position: absolute;
+  font-size: 12px;
+  line-height: 1.5em;
+  width: 100%;
+  padding: $verticalSpace $verticalSpace * 2;
+  top: 0;
+  font-size: 16px;
+  color: $white;
+  background: rgba(77, 77, 79, .5);
+}
+.vjs-fullscreen .vjs-annotation {
+  display: block;
+}

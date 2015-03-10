@@ -1,7 +1,7 @@
 define (require) ->
 
   Marionette = require('marionette')
-#  vjsWavesurfer = require('vendor/video_js/vjs.wavesurfer')
+  vjsAnnotations = require('vendor/video_js/vjs.annotations')
   vjsAudioWave = require('vendor/video_js/vjs.audiowave')
   template = require('hbs!templates/assets/player/video_player')
   PlayerAnnotations = require('views/assets/player/player_annotations')
@@ -210,6 +210,9 @@ define (require) ->
       height = width / 1.77
       {width: width, height: height}
 
+    onDestroy: () ->
+      @player.dispose()
+
     resizePlayer: (aspectRatio) ->
       dimensions = @getPlayerDimensions()
       @player.width(dimensions.width).height(dimensions.height)
@@ -231,6 +234,10 @@ define (require) ->
         width: dimensions.width
         height: dimensions.height
         plugins: {
+          annotations: {
+            vent: @vent
+            collection: @model.annotations()
+          }
         }
         children: {
           controlBar: {
