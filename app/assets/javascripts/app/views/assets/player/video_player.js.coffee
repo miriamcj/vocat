@@ -235,18 +235,18 @@ define (require) ->
         children: {
           controlBar: {
             children: {
-              timeDivider: false
-              currentTimeDisplay: false
+#              timeDivider: false
+#              currentTimeDisplay: false
               durationDisplay: true
-              remainingTimeDisplay: false
+#              remainingTimeDisplay: false
             }
-            progressControl: {
-              seekBar: {
-                loadProgressBar: false
-                playProgressBar: false
-                seekHandle: false
-              }
-            }
+#            progressControl: {
+#              seekBar: {
+#                loadProgressBar: false
+#                playProgressBar: false
+#                seekHandle: false
+#              }
+#            }
           }
         }
       }

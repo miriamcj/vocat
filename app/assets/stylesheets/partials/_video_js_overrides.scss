@@ -6,6 +6,11 @@
   display: none;
 }
 
+.vjs-fullscreen .vjs-progress-control {
+  display: block;
+}
+
+
 .vjs-quality-button  {
   display: none;
 }
@@ -13,6 +18,13 @@
 .vjs-control-bar {
   font-size: 16px;
   color: $grayDarker;
+}
+
+/* Replacement for focus outline */
+.vjs-default-skin .vjs-control:focus:before,
+.vjs-default-skin .vjs-control:hover:before {
+  text-shadow: none;
+  color: $grayDarkest;
 }
 
 .vjs-default-skin .vjs-volume-control {
@@ -55,14 +67,27 @@
   text-align: center;
 }
 
+.vjs-default-skin .vjs-slider {
+  background: $grayDark;
+  margin-bottom: 10px;
+}
+
+.vjs-default-skin .vjs-load-progress {
+  background: $tealDark;
+}
+
+.vjs-default-skin .vjs-play-progress {
+  background: $tealLightest;
+}
+
 .vjs-duration-display {
-  &:before {
-    content: 'Duration: '
-  }
+//  &:before {
+//    content: 'Duration: '
+//  }
 }
 
 .vjs-default-skin .vjs-time-controls {
-  width: 8em;
+//  width: 8em;
 }
 
 .vjs-waveform {
@@ -80,4 +105,9 @@
 
 .vjs-default-skin.canvas-enabled .vjs-control-bar {
   visibility: hidden;
+}
+
+.vjs-default-skin .vjs-slider-handle:before {
+  text-shadow: none;
+  left: 5px;
 }
