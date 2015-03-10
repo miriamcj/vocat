@@ -31,7 +31,6 @@ define (require) ->
       @listenTo(@vent, 'request:time:update', @handleTimeUpdate, @)
       @listenTo(@vent, 'request:pause', (data) => @handlePauseRequest())
       @listenTo(@vent, 'announce:annotator:input:start', (data) => @handlePauseRequest())
-      @listenTo(@vent, 'all', (e) -> console.log e)
 
     getStatus: () ->
       {

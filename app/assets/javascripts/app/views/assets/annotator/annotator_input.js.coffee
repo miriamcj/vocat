@@ -104,8 +104,12 @@ define (require) ->
     onUserFocus: (event) ->
       @startAnnotationInput()
 
-    onUserTyping: () ->
+    onUserTyping: (event) ->
       @startAnnotationInput()
+      if event.which == 13 && event.shiftKey != true
+        if @ui.annotationInput.val().length > 0
+          @onSaveAnnotation()
+        event.preventDefault()
 
     setCanvasMode: (mode) ->
       @startAnnotationInput()
