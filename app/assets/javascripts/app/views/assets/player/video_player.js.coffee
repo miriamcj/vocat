@@ -206,8 +206,12 @@ define (require) ->
         @player.currentTime(seconds)
 
     getPlayerDimensions: () ->
-      width = @ui.playerContainer.outerWidth()
-      height = width / 1.77
+      if @model.get('family') == 'audio'
+        width = @ui.playerContainer.outerWidth()
+        height = width / 2.5
+      else
+        width = @ui.playerContainer.outerWidth()
+        height = width / 1.77
       {width: width, height: height}
 
     onDestroy: () ->
@@ -242,18 +246,8 @@ define (require) ->
         children: {
           controlBar: {
             children: {
-#              timeDivider: false
-#              currentTimeDisplay: false
               durationDisplay: true
-#              remainingTimeDisplay: false
             }
-#            progressControl: {
-#              seekBar: {
-#                loadProgressBar: false
-#                playProgressBar: false
-#                seekHandle: false
-#              }
-#            }
           }
         }
       }
