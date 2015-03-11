@@ -22,6 +22,9 @@
     text-align: center;
   }
   &:after {
+    .empty-list & {
+      display: none;
+    }
     content: '';
     display: block;
     position: absolute;
@@ -60,6 +63,16 @@
 .assets-container .asset-new-container .page-section--component,
 .assets-container .asset-collection-container .page-section--component {
   margin-top: 0;
+}
+
+.page-section .asset-collection-item {
+  .portfolio-item--thumb {
+    margin-bottom: 0;
+  }
+  &:last-child {
+    padding-bottom: 0;
+  }
+  padding-bottom: 15px;
 }
 
 $targetHeight: 95px;
@@ -157,7 +170,7 @@ $playerColBg: $grayDarker;
 $annotationColBg: $grayDarkest;
 $textColor: $grayLightest;
 $assetDetailMaxHeight: 700px;
-$activeAnnotationBackground: lighten($grayDarkest, 4%);
+$activeAnnotationBackground: lighten($grayDarkest, 10%);
 
 // Asset detail interface
 // --------------------------------------------------------
@@ -175,23 +188,16 @@ $activeAnnotationBackground: lighten($grayDarkest, 4%);
   }
   .col-one.page-section-two-thirds {
     min-height: 20px;
+    padding-right: 0;
     padding-left: 0;
+    background: $playerColBg;
   }
   .fixed-container .col-one {
   }
   .col-two.page-section-one-third {
-    padding-top: 24px;
-    padding-left: 25px;
+    padding-left: 0;
     padding-right: 0;
-    &:before {
-      content: '';
-      position: fixed;
-      width: 400px;
-      height: 53px;
-      z-index: 10;
-      top: $headerHeight;
-      background: $grayDarkest;
-    }
+    background: $annotationColBg;
   }
   .col-two.annotations-column-scrollable {
   }
@@ -235,7 +241,22 @@ $activeAnnotationBackground: lighten($grayDarkest, 4%);
 // Annotations
 // --------------------------------------------------------
 .annotations-container {
+  height: 100%;
   max-height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  &::-webkit-scrollbar {
+    height: 12px;
+    width: 12px;
+    background: $grayDarkest;
+  }
+  &::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 5px;
+    background: $playerColBg;
+  }
+  &::-webkit-scrollbar-corner {
+    background: $grayDarkest;
+  }
   &.annotations-faded {
     .annotations-ul {
       opacity: .25;
@@ -247,8 +268,8 @@ $activeAnnotationBackground: lighten($grayDarkest, 4%);
   .annotations-ul {
     opacity: 1;
     @include transition(1s, opacity, $timing);
-    margin-top: 15px;
     @extend %unstyled-list;
+    margin-bottom: 0;
   }
   .annotation-spacer {
     z-index: 5000;
@@ -265,7 +286,7 @@ $activeAnnotationBackground: lighten($grayDarkest, 4%);
     cursor: pointer;
     font-size: $iota;
     color: $textColor;
-    padding: 15px 0;
+    padding: 0 15px 15px 0;
     position: relative;
     .annotation-wrapper {
       @include clearfix();
@@ -291,6 +312,7 @@ $activeAnnotationBackground: lighten($grayDarkest, 4%);
     .annotation-top {
       @include clearfix();
       margin-bottom: 1em;
+      padding-top: 15px;
     }
     .annotation-bottom {
       line-height: 1.25em;
@@ -405,25 +427,34 @@ $activeAnnotationBackground: lighten($grayDarkest, 4%);
   .annotation + .annotation {
     border-top: 1px solid $grayDarker;
   }
+  .annotation + .annotation.role-creator {
+    border-top: 1px solid $peerFillColor;
+  }
+  .annotation + .annotation.role-administrator {
+    border-top: 1px solid $defaultFillColor;
+  }
+  .annotation + .annotation.role-evaluator {
+    border-top: 1px solid $instructorFillColor;
+  }
+  .annotation + .annotation.role-self{
+    border-top: 1px solid $selfFillColor;
+  }
+
   .annotation:last-child {
     border-bottom: 1px solid $grayDarker;
   }
   .annotation:first-child {
-    border-top: 1px solid $grayDarker;
   }
   .annotation-open .annotation-bottom {
     max-height: none;
   }
 }
 
-
-
-
 // Annotator UI
 // --------------------------------------------------------
 $trackHeight: 10px;
 .annotator {
-  padding-top: 20px;
+  padding: 20px 40px;
   width: 100%;
   min-height: 200px;
 
@@ -445,9 +476,22 @@ $trackHeight: 10px;
   .formgrid textarea.annotation-input {
     margin-top: 15px;
     height: 75px;
-    border: 2px solid $tealLight;
-    background: $grayDarkest;
+    border: 1px solid $grayLight;
+    background: $grayDark;
+    font-size: 1em;
     color: $white !important;
+    &::-webkit-input-placeholder {
+      color: $grayLighter;
+    }
+    &:-moz-placeholder { /* Firefox 18- */
+      color: $grayLighter;
+    }
+    &::-moz-placeholder {  /* Firefox 19+ */
+      color: $grayLighter;
+    }
+    &:-ms-input-placeholder {
+      color: $grayLighter;
+    }
   }
   .annotation-input-buttons-left {
     padding: 0;
@@ -488,20 +532,20 @@ $trackHeight: 10px;
       position: absolute;
       width: 100%;
       height: $trackHeight;
-      background: $grayDark;
+      background: $grayDarkest;
     }
     .buffered {
       position: absolute;
       z-index: 2;
       height: $trackHeight;
-      background: $tealLight;
+      background: $grayDark;
       opacity: .3;
     }
     .scrubber {
       position: absolute;
       width: 1px;
       height: 10px;
-      background: $tealLight;
+      background: $white;
       z-index: 6;
       span {
         cursor: pointer;
@@ -509,7 +553,7 @@ $trackHeight: 10px;
         display: inline-block;
         margin: auto;
         right: -40px;
-        color: $tealLight;
+        color: $white;
         font-size: $iota;
         top: -$trackHeight * 3.0;
         text-align: center;
@@ -524,7 +568,7 @@ $trackHeight: 10px;
           margin-left: -$trackHeight;
           border-left: $trackHeight solid transparent;
           border-right: $trackHeight solid transparent;
-          border-top: $trackHeight solid $tealLight;
+          border-top: $trackHeight solid $white;
         }
       }
     }
@@ -533,7 +577,7 @@ $trackHeight: 10px;
       position: absolute;
       z-index: 3;
       height: $trackHeight;
-      background: $tealLight;
+      background: $white;
     }
     .track-overlay {
       position: absolute;

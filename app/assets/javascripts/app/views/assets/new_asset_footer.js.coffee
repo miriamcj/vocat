@@ -19,10 +19,3 @@ define (require) ->
 
     initialize: (options) ->
       @vent = Marionette.getOption(@, 'vent')
-
-      @listenTo(@, 'prevent:manage:close', (e) =>
-        @preventManageClose()
-      )
-      @listenTo(@, 'allow:manage:close', (e) =>
-        @allowManageClose()
-      )

@@ -50,15 +50,6 @@ class Api::V1::SubmissionsController < ApiController
     respond_with @submissions
   end
 
-  # GET /api/v1/submissions/for_user.json?user=:user
-  def for_user
-#    factory = SubmissionFactory.new
-#    @user = User.find(params.require(:user))
-##    authorize! :read_write, @user
-#    @submissions = @user.submissions.all()
-#    respond_with @submissions
-  end
-
   # GET /api/v1/submissions/for_group.json?group=:group
   def for_group
     factory = SubmissionFactory.new
@@ -83,28 +74,28 @@ class Api::V1::SubmissionsController < ApiController
     respond_with @submission, :root => false
   end
 
-	# POST /api/v1/courses/:course_id/submissions.json
+  # POST /api/v1/courses/:course_id/submissions.json
   def create
     authorize! :create, @submission
-	  if @submission.save
-		  respond_with @submission, :root => false, status: :created, location: api_v1_submission_url(@submission)
-	  else
-		  respond_with @submission, :root => false, status: :unprocessable_entity
-		end
+    if @submission.save
+      respond_with @submission, :root => false, status: :created, location: api_v1_submission_url(@submission)
+    else
+      respond_with @submission, :root => false, status: :unprocessable_entity
+    end
   end
 
   # PUT /api/v1/submissions/:id.json
   def update
     authorize! :update, @submission
-	  @submission.update_attributes!(submission_params)
-	  respond_with(@submission)
+    @submission.update_attributes!(submission_params)
+    respond_with(@submission)
   end
 
   # DELETE /api/v1/submissions/:id
   def destroy
     authorize! :destroy, @submission
-	  @submission.destroy
-	  respond_with(@submission)
+    @submission.destroy
+    respond_with(@submission)
   end
 
   private

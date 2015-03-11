@@ -95,8 +95,8 @@ define (require) ->
       @listenTo(@model, 'change:attachment_state', () =>
         @render()
       )
-      @listenTo(@vent, 'announce:manage:visibility', (visible) =>
-        if visible == true
+      @listenTo(@vent, 'announce:state', (state) =>
+        if state == 'manage'
           @showManageUi()
         else
           @hideManageUi()
@@ -127,7 +127,7 @@ define (require) ->
       @ui.hideOnManage.hide()
 
     requestManageVisibilityState: () ->
-      @vent.trigger('request:manage:visibility')
+      @vent.trigger('request:state')
 
     onRender: () ->
       @requestManageVisibilityState()

@@ -29,7 +29,6 @@ define (require) ->
       annotationsContainer: '[data-behavior="annotations-container"]'
       anchor: '[data-behavior="anchor"]'
       scrollParent: '[data-behavior="scroll-parent"]'
-      spacer: '[data-behavior="spacer"]'
     }
 
     childViewOptions: (model, index) ->
@@ -62,8 +61,6 @@ define (require) ->
     initialize: (options) ->
       @vent = Marionette.getOption(@, 'vent')
       @collection = @model.annotations()
-      $(window).resize () =>
-        @setSpacerHeight()
       @setupListeners()
 
     handleChildViewActivation: (view) ->
@@ -75,12 +72,17 @@ define (require) ->
     unlockScrolling: () ->
       @scrollLocked = false
 
+    isScrolledIntoView: ($el) ->
+      containerHeight = @ui.scrollParent.outerHeight()
+      elTop = $el.position().top
+      elBottom = elTop + $el.outerHeight()
+      elTop > 0 && elBottom <= containerHeight
+
     scrollToModel: (speed = 250, model) ->
       view = @children.findByModel(model)
-      targetPosition = view.$el.position().top - 39
-      $target = $('html,body')
-      $target.stop()
-      $target.animate({scrollTop: targetPosition}, speed, 'swing')
+      unless @isScrolledIntoView(view.$el)
+        targetPosition = view.$el.position().top
+        @ui.scrollParent.animate({scrollTop: @ui.scrollParent.scrollTop() + targetPosition}, speed, 'swing')
 
     displayActive: (speed = 250) ->
       activeModel = @collection.findWhere({active: true})
@@ -116,33 +118,11 @@ define (require) ->
       else
         childrenContainer.children().eq(index).before(childView.el)
 
-    setSpacerHeight: () ->
-      height = $(window).height() - $('[data-behavior="player-column"]').outerHeight()
-      @ui.spacer.outerHeight(height)
+    onShow: () ->
+      @matchAnnotationsHeightToPlayerHeight()
 
-    onRenderCollection: () ->
-      if @model.hasDuration()
-        @setSpacerHeight()
-        if @$el
-          @$el.css('visibility', 'hidden')
-
-        setTimeout(() =>
-          maxScrollPos = $('body').outerHeight() - $(window).outerHeight() + 500
-          $('body').animate({scrollTop: maxScrollPos}, 0, 'swing', () =>
-            @$el.css('visibility', 'visible')
-          )
-        , 250)
-
-        @scrollHandler = () =>
-          @ui.scrollParent.removeClass('annotations-faded')
-          $(window).off("scroll")
-
-        setTimeout(() =>
-          $(window).scroll(@scrollHandler)
-        , 2500)
-      else
-        @$el.css('visibility', 'visible')
-        @ui.scrollParent.removeClass('annotations-faded')
+    matchAnnotationsHeightToPlayerHeight: () ->
+      @ui.scrollParent.outerHeight($('[data-behavior="player-column"]').outerHeight())
 
     onDestroy: () ->
       $(window).off('scroll', @scrollHandler)

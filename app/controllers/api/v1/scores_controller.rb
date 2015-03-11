@@ -34,7 +34,6 @@ class Api::V1::ScoresController < ApiController
   end
 
 
-
   private
 
   def load_project

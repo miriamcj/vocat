@@ -117,7 +117,7 @@
 }
 
 // A secondary button
-.cancel-button {
+.cancel-button, .close-button {
   @extend %icon-button;
   &:after {
     @include svg(ex-gray-on-white);

@@ -1,17 +1,13 @@
 <div class="page-section-wrapper asset-detail-layout asset-detail-{{family}}">
-	<div class="fixed-container"><div class="fixed-container-inner">
-		<div data-behavior="player-column" class="page-section page-section-two-thirds col-one" >
-			<a href="#" class="header-link back-link" data-behavior="detail-close">Back to Submission</a>
-			<div style="position: relative; overflow: hidden;">
-				<div class="player-container-message" style="z-index: 20;" data-behavior="message"></div>
-				<div data-region="annotations-stage"></div>
-				<div data-region="annotator-canvas"></div>
-				<div class="asset-player" data-region="player"></div>
-			</div>
-			<div data-region="annotator"></div>
+	<div data-behavior="player-column" class="page-section page-section-two-thirds col-one" >
+		<div style="position: relative; overflow: hidden;">
+			<div class="player-container-message" style="z-index: 20;" data-behavior="message"></div>
+			<div data-region="annotations-stage"></div>
+			<div data-region="annotator-canvas"></div>
+			<div class="asset-player" data-region="player"></div>
 		</div>
-	</div></div>
-	<div class="page-section page-section-two-thirds col-one" >&nbsp<!-- spacer --></div>
+		<div data-region="annotator"></div>
+	</div>
 	<div data-behavior="annotations-column" class="page-section page-section-one-third col-two {{#unless hasDuration}}annotations-column-scrollable{{/unless}}" data-region="annotations">
 	</div>
 </div>

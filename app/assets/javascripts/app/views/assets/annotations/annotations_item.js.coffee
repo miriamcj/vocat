@@ -124,3 +124,15 @@ define (require) ->
 
     onAnnotationEdit: () ->
       @vent.trigger('request:annotator:input:edit', @model)
+
+    onRender: () ->
+      role = @model.get('author_role')
+      switch role
+        when "administrator"
+          @$el.addClass('role-administrator')
+        when "evaluator"
+          @$el.addClass('role-evaluator')
+        when "creator"
+          @$el.addClass('role-creator')
+        when "self"
+          @$el.addClass('role-self')

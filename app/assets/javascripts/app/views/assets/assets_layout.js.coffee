@@ -5,26 +5,33 @@ define (require) ->
   AssetCollectionView = require('views/assets/asset_collection')
   NewAssetView = require('views/assets/new_asset')
   NewAssetFooterView = require('views/assets/new_asset_footer')
+  AssetModel= require('models/asset')
+  AssetDetail = require('views/assets/asset_detail')
+  ModalConfirmView = require('views/modal/modal_confirm')
 
   class AssetsLayout extends Marionette.LayoutView
 
     template: template
-    manageVisible: false
+    state: 'list'
+    canAttach: false
 
     ui: {
+      detailHeader: '[data-behavior="detail-header"]'
       newAssetContainer: '[data-behavior="new-asset-container"]'
       manageLink: '[data-behavior="manage-link"]'
       stopManagingLink: '[data-behavior="stop-manage-link"]'
+      closeLink: '[data-behavior="close-link"]'
     }
 
-    collectionEvents: {
-      'add': 'ensureVisibleCollectionView'
-      'remove': 'hideEmptyCollectionViewIfNewIsVisible'
-    }
+#    collectionEvents: {
+#      'add': 'ensureVisibleCollectionView'
+#      'remove': 'hideEmptyCollectionViewIfNewIsVisible'
+#    }
 
     triggers: {
-      'click @ui.stopManagingLink': 'hide:new'
-      'click @ui.manageLink': 'show:new'
+      'click @ui.stopManagingLink': 'request:state:list'
+      'click @ui.manageLink': 'request:state:manage'
+      'click @ui.closeLink': 'request:state:list'
     }
 
     regions: {
@@ -33,93 +40,176 @@ define (require) ->
       newAssetFooter: '[data-region="asset-new-footer"]'
     }
 
-    preventManageClose: () ->
-      if @manageVisible == true
-        @ui.stopManagingLink.css(display: 'none')
+    setState: (state, assetId = null) ->
 
-    allowManageClose: () ->
-      if @manageVisible == true
-        @ui.stopManagingLink.css(display: 'inline-block')
+      if @state == 'uploading' && state == 'detail'
+        Vocat.vent.trigger('error:add', {level: 'notice', clear: true, lifetime: '5000',  msg: 'Please wait for your upload to complete before viewing media.'})
+        return
 
-    onShowNew: () ->
-      abilities = @model.get('abilities')
-      if abilities.can_attach
-        @manageVisible = true
-        @newAsset.show(new NewAssetView({collection: @collection, model: @model.project(), vent: @}))
-        @newAssetFooter.show(new NewAssetFooterView({vent: @}))
-        @hideEmptyCollectionViewIfNewIsVisible()
-        @ui.manageLink.css(display: 'none')
-        @ui.stopManagingLink.css(display: 'inline-block')
-        @newAsset.$el.fadeIn(200)
-        if @collection.length > 0
-          @newAssetFooter.$el.fadeIn(200)
-        else
-          @newAssetFooter.$el.hide()
+      @state = state
+      switch state
+        when 'list'
+          @handleStateList()
+        when 'firstAdd'
+          @handleStateFirstAdd()
+        when 'manage'
+          @handleStateManage()
+        when 'detail'
+          @handleStateDetail(assetId)
+        when 'uploading'
+          @handleStateUploading()
+      @trigger('announce:state', @state)
 
-    onHideNew: () ->
-      @manageVisible = false
-      @ui.manageLink.show()
-      @ui.manageLink.css(display: 'inline-block')
-      @ui.stopManagingLink.css(display: 'none')
-      @newAssetFooter.$el.fadeOut(200)
-      @newAsset.$el.fadeOut(200, () =>
-        @newAsset.empty()
-        @ensureVisibleCollectionView()
-      )
+    handleCollectionAddRemove: () ->
+      if @collection.length > 0 && @state == 'firstAdd'
+        @setState('manage')
+      if @collection.length == 0 && @state == 'manage'
+        @setState('firstAdd')
 
-    hideEmptyCollectionViewIfNewIsVisible: () ->
-      if @collection.length == 0 && @newAsset.currentView?
-        @assets.empty()
+    handleStateUploading: () ->
+      @newAssetFooter.empty()
+      @_updateUIStateUploading()
 
-    ensureVisibleCollectionView: () ->
-      if !@assets.currentView?
-        @assets.show(new AssetCollectionView({collection: @collection, vent: @, project: @model.project(), abilities: @model.get('abilities')}))
-      unless @assets.$el.is(':visible')
-        @newAsset.$el.fadeIn(200)
-
-    onRender: () ->
-      @ui.stopManagingLink.css(display: 'none')
-      @ensureVisibleCollectionView()
-      abilities = @model.get('abilities')
-      if !abilities.can_attach
-        @ui.manageLink.hide()
-
-        # TODO: Remove this
-      #@trigger('show:new')
-
-    navigateToAssetDetail: (assetId) ->
-      if @courseMapContext
-        url = "courses/#{@courseId}/evaluations/assets/#{assetId}"
+    handleStateList: () ->
+      if @newAssetFooter.currentView?
+        @newAssetFooter.$el.fadeOut(200)
+      if @newAsset.currentView?
+        @newAsset.$el.fadeOut(200, () =>
+          @newAsset.empty()
+          @assets.show(@_assetCollectionView())
+        )
       else
-        url = "courses/#{@courseId}/assets/#{assetId}"
-      Vocat.router.navigate(url, true)
+        @assets.show(@_assetCollectionView())
+
+      @_updateUIStateList()
+
+    handleStateFirstAdd: () ->
+      @assets.empty()
+      @newAsset.show(@_newAssetView())
+      @newAsset.$el.fadeIn(200)
+      @newAssetFooter.empty()
+      @_updateUIStateFirstAdd()
+
+    handleStateManage: () ->
+      unless @newAsset.currentView?
+        @newAsset.show(@_newAssetView())
+      unless @newAssetFooter.currentView?
+        @newAssetFooter.show(@_newAssetFooterView())
+      @newAsset.$el.fadeIn(200)
+      @newAssetFooter.$el.fadeIn(200)
+      @assets.show(@_assetCollectionView())
+      @_updateUIStateManage()
+
+    handleStateDetail: (assetId) ->
+      asset = new AssetModel({id: assetId})
+      asset.fetch({
+        success: () =>
+          if asset.get('name')
+            label = "/ #{asset.get('name')}"
+          else
+            family = asset.get('family')
+            family = family.charAt(0).toUpperCase() + family.slice(1)
+            label = "/ #{family} media"
+          @ui.detailHeader.html(label)
+          @newAsset.empty()
+          @newAssetFooter.empty()
+          @assets.show(@_assetDetail(asset))
+          @_updateUIStateDetail()
+      })
+
+    onRequestStateUploading: () ->
+      @setState('uploading')
+
+    onRequestStateManage: () ->
+      if @collection.length == 0
+        @setState('firstAdd')
+      else
+        @setState('manage')
+
+    onRequestStateDetail: () ->
+      @setState('detail')
+
+    onRequestStateList: () ->
+      @setState('list')
+
+    renderCollectionView: () ->
+      if @assets.currentView?
+        @assets.currentView.render()
+
+    _updateUIStateList: () ->
+      @ui.detailHeader.hide()
+      @_hideButton(@ui.closeLink)
+      @_hideButton(@ui.stopManagingLink)
+      @_showButton(@ui.manageLink)
+
+    _updateUIStateUploading: () ->
+      @ui.detailHeader.hide()
+      @_hideButton(@ui.closeLink)
+      @_hideButton(@ui.stopManagingLink)
+      @_hideButton(@ui.manageLink)
+
+    _updateUIStateFirstAdd: () ->
+      @ui.detailHeader.hide()
+      @$el.addClass('empty-list')
+      @_hideButton(@ui.closeLink)
+      @_showButton(@ui.stopManagingLink)
+      @_hideButton(@ui.manageLink)
+
+    _updateUIStateManage: () ->
+      @ui.detailHeader.hide()
+      @$el.removeClass('empty-list')
+      @_hideButton(@ui.closeLink)
+      @_showButton(@ui.stopManagingLink)
+      @_hideButton(@ui.manageLink)
+
+    _updateUIStateDetail: () ->
+      @ui.detailHeader.show()
+      @_showButton(@ui.closeLink)
+      @_hideButton(@ui.stopManagingLink)
+      @_hideButton(@ui.manageLink)
+
+    _assetCollectionView: () ->
+      new AssetCollectionView({collection: @collection, vent: @, project: @model.project(), abilities: @model.get('abilities')})
+
+    _newAssetView: () ->
+      new NewAssetView({collection: @collection, model: @model.project(), vent: @})
+
+    _newAssetFooterView: () ->
+      new NewAssetFooterView({vent: @})
+
+    _assetDetail: (asset) ->
+      new AssetDetail({courseId: @courseId, model: asset, context: 'submission'})
+
+    _hideButton: (button) ->
+      button.css(display: 'none')
+
+    _showButton: (button) ->
+      button.css(display: 'inline-block')
 
     setupListeners: () ->
-      @listenTo(@, 'hide:new', () =>
-        @onHideNew()
-      )
-      @listenTo(@, 'show:new', () =>
-        @onShowNew()
-      )
       @listenTo(@, 'asset:detail', (args) =>
-        @navigateToAssetDetail(args.asset)
+        @setState('detail', args.asset)
+      )
+      @listenTo(@, 'request:state', (args) =>
+        @trigger('announce:state', @state)
       )
       @listenTo(@collection, 'reset', (e) =>
-        @ensureVisibleCollectionView()
+        @renderCollectionView()
       )
-      @listenTo(@, 'request:manage:visibility', (e) =>
-        @trigger('announce:manage:visibility', @manageVisible)
+      @listenTo(@collection, 'add remove', (e) =>
+        @handleCollectionAddRemove()
       )
-      @listenTo(@, 'prevent:manage:close', (e) =>
-        @preventManageClose()
-      )
-      @listenTo(@, 'allow:manage:close', (e) =>
-        @allowManageClose()
-      )
+
+    onRender: () ->
+      @setState('list')
 
     # @model is a submission model.
     initialize: (options) ->
-      @vent = Marionette.getOption(@, 'vent')
       @courseMapContext = Marionette.getOption(@, 'courseMapContext')
       @courseId = Marionette.getOption(@, 'courseId')
+      abilities = @model.get('abilities')
+      @canAttach = abilities.can_attach
       @setupListeners()
+
+      # TODO: Remove this
+      @setState('detail', 275)

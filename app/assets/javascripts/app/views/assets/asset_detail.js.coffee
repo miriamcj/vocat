@@ -66,10 +66,6 @@ define (require) ->
       @annotator.show(annotatorView) if annotatorView
       @annotatorCanvas.show(canvasView) if canvasView
       @annotations.show(annotationsView) if annotationsView
-      $('body').addClass('theater')
-
-    onDestroy: () ->
-      $('body').removeClass('theater')
 
     pickCanvasView: (asset) ->
       canDisplayCanvas = asset.allowsVisibleAnnotation()

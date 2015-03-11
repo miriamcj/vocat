@@ -17,7 +17,7 @@ define (require) ->
     }
 
     onShowNew: () ->
-      @vent.trigger('show:new')
+      @vent.triggerMethod('request:state:manage')
 
     serializeData: () ->
       context = @abilities
