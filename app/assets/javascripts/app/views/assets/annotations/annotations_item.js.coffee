@@ -49,6 +49,7 @@ define (require) ->
     },
 
     onActivate: () ->
+      @vent.trigger('request:annotator:input:stop')
       if @model.get('active')
         @model.collection.deactivateAllModels()
       else
@@ -88,6 +89,7 @@ define (require) ->
       )
 
     onSeek: () ->
+      console.log 'seek'
       @vent.trigger('request:time:update', {seconds: @model.get('seconds_timecode'), callback: () =>
         @model.activate()
       , callbackScope: @})
