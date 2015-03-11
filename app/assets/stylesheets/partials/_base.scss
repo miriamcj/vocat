@@ -113,9 +113,6 @@ blockquote {
   p + & {
     margin-top: $verticalSpace;
   }
-  @include respond($superior) {
-    font-size: $eta;
-  }
 }
 
 hr {

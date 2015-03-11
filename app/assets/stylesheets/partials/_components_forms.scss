@@ -225,16 +225,16 @@ $spacingUnit: $mediumUnitPadding * .75;
 .oneline--input {
   .button-wrapper {
     float: right;
-    @include respond($vostok - 1) {
-      display: none;
-    }
+//    @include respond($vostok - 1) {
+//      display: none;
+//    }
   }
   .button-wrapper-responsive {
     display: none;
     margin-top: $spacingUnit;
-    @include respond($vostok - 1) {
-      display: block;
-    }
+//    @include respond($vostok - 1) {
+//      display: block;
+//    }
   }
   .input-wrapper {
     padding-right: $spacingUnit;

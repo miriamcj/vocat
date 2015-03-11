@@ -23,6 +23,7 @@ define (require) ->
       annotationUpdateButton: '[data-behavior="annotation-update"]'
       annotationEditCancelButton: '[data-behavior="annotation-edit-cancel"]'
       annotationDeleteButton: '[data-behavior="annotation-delete"]'
+      annotationButtonsLeft: '[data-behavior="annotation-buttons-left"]'
 
     triggers: {
       'click @ui.annotationCreateButton': 'saveAnnotation'
@@ -91,19 +92,21 @@ define (require) ->
 
     updateButtonVisibility: () ->
       if @inputPointer != null
-        @ui.annotationCreateButton.show()
-        @ui.annotationCreateCancelButton.show()
+        @ui.annotationButtonsLeft.show()
+        @ui.annotationCreateButton.show().removeClass('hidden')
+        @ui.annotationCreateCancelButton.show().removeClass('hidden')
         if @asset.allowsVisibleAnnotation()
-          @ui.canvasSelectButton.show()
-          @ui.canvasEraseButton.show()
+          @ui.canvasSelectButton.show().removeClass('hidden')
+          @ui.canvasEraseButton.show().removeClass('hidden')
       else
-        @ui.annotationCreateButton.hide()
-        @ui.annotationCreateCancelButton.hide()
-        @ui.canvasSelectButton.hide()
-        @ui.canvasEraseButton.hide()
+        @ui.annotationButtonsLeft.hide()
+        @ui.annotationCreateButton.hide().addClass('hidden')
+        @ui.annotationCreateCancelButton.hide().addClass('hidden')
+        @ui.canvasSelectButton.hide().addClass('hidden')
+        @ui.canvasEraseButton.hide().addClass('hidden')
         if !@asset.allowsVisibleAnnotation()
-          @ui.canvasDrawButton.hide()
-          @ui.canvasOvalButton.hide()
+          @ui.canvasDrawButton.hide().addClass('hidden')
+          @ui.canvasOvalButton.hide().addClass('hidden')
 
     onUserFocus: (event) ->
       @startAnnotationInput()
@@ -168,9 +171,9 @@ define (require) ->
         @ui.canvasSelectButton.addClass('active')
 
     hideVisualAnnotationUi: () ->
-      @ui.canvasEraseButton.hide()
-      @ui.canvasDrawButton.hide()
-      @ui.canvasOvalButton.hide()
+      @ui.canvasEraseButton.hide().addClass('hidden')
+      @ui.canvasDrawButton.hide().addClass('hidden')
+      @ui.canvasOvalButton.hide().addClass('hidden')
 
     isDirty: () ->
       @ui.annotationInput.val().length > 0 or @canvasIsDirty == true

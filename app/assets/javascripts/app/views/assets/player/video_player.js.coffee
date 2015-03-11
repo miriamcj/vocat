@@ -40,6 +40,7 @@ define (require) ->
       @listenTo(@vent, 'announce:annotator:input:start', (data) => @handlePauseRequest(data))
       @listenTo(@vent, 'announce:canvas:enabled', (data) => @handleCanvasEnabled())
       @listenTo(@vent, 'announce:canvas:disabled', (data) => @handleCanvasDisabled())
+      $(window).on('resize', @resizePlayer)
 
     handleCanvasEnabled: () ->
       @player.addClass('canvas-enabled')
@@ -216,8 +217,9 @@ define (require) ->
 
     onDestroy: () ->
       @player.dispose()
+      $(window).off('resize', @resizePlayer)
 
-    resizePlayer: (aspectRatio) ->
+    resizePlayer: () =>
       dimensions = @getPlayerDimensions()
       @player.width(dimensions.width).height(dimensions.height)
 

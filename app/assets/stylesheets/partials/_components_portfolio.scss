@@ -23,7 +23,7 @@
 
     @extend %wide-five-sixths;
     @extend %medium-three-fourths;
-    @extend %narrow-one-whole;
+//    @extend %narrow-one-whole;
 
     padding-left: 0;
     padding-right: 0;
@@ -56,7 +56,7 @@
   .portfolio-item--thumb, .asset-thumb {
     @extend %wide-one-sixth;
     @extend %medium-one-fourth;
-    @extend %narrow-one-whole;
+//    @extend %narrow-one-whole;
 
     padding-right: 30px;
     padding-left: 0;

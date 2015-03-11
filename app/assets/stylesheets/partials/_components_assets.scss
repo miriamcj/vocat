@@ -174,24 +174,15 @@ $activeAnnotationBackground: lighten($grayDarkest, 4%);
     z-index: -1;
   }
   .col-one.page-section-two-thirds {
-    width: 800px;
-    @include respond($baikal) {
-      width: 580px;
-    }
-    position: fixed;
-    padding-right: 0;
+    min-height: 20px;
     padding-left: 0;
-    max-height: $assetDetailMaxHeight;
+  }
+  .fixed-container .col-one {
   }
   .col-two.page-section-one-third {
     padding-top: 24px;
     padding-left: 25px;
     padding-right: 0;
-    width: 400px;
-    @include respond($baikal) {
-      width: 317px;
-    }
-    float: right;
     &:before {
       content: '';
       position: fixed;
@@ -285,21 +276,17 @@ $activeAnnotationBackground: lighten($grayDarkest, 4%);
     @include clearfix();
     .annotation-left {
       float: left;
-      width: 60px;
+      width: 20%;
       img {
-        width: 60px;
-        height: 60px;
+        width: 100%;
         display: block;
       }
     }
     .annotation-right {
       float: right;
-      width: 300px;
-      padding-right: 15px;
-      @include respond($baikal) {
-        width: 217px;
-      }
-
+      width: 80%;
+      padding-left: 15px;
+//      padding-right: 15px;
     }
     .annotation-top {
       @include clearfix();
@@ -318,22 +305,31 @@ $activeAnnotationBackground: lighten($grayDarkest, 4%);
       a {
         display: block;
         float: left;
-        width: 30px;
+        width: 50%;
         height: 30px;
+        @include respond($baikal) {
+          width: 100%;
+          float: none;
+        }
         overflow: hidden;
         position: relative;
+        &.annotation-delete-link, &.annotation-edit-link {
+          &:after {
+            content: '';
+            position: absolute;
+            top: 9px;
+            left: 50%;
+            margin-left: -6px;
+            width: 12px;
+            height: 12px;
+          }
+        }
         &.annotation-delete-link {
           background: #4C262A;
           &:hover {
             background: darken(#4C262A, 10%);
           }
           &:after {
-            content: '';
-            position: absolute;
-            top: 9px;
-            left: 9px;
-            width: 12px;
-            height: 12px;
             @include svg(ex-red);
           }
         }
@@ -343,12 +339,6 @@ $activeAnnotationBackground: lighten($grayDarkest, 4%);
             background: darken(#2A3D3D, 10%);
           }
           &:after {
-            content: '';
-            position: absolute;
-            top: 9px;
-            left: 9px;
-            width: 12px;
-            height: 12px;
             @include svg(pencil-blue);
           }
         }
@@ -459,6 +449,25 @@ $trackHeight: 10px;
     background: $grayDarkest;
     color: $white !important;
   }
+  .annotation-input-buttons-left {
+    padding: 0;
+    @include respond($baikal) {
+      float: none;
+      width: 100%;
+    }
+  }
+  .annotation-input-buttons-right {
+    padding: 0;
+    float: right;
+    text-align: right;
+    @include respond($baikal) {
+      float: none;
+      text-align: left;
+      width: 100%;
+      margin-top: 15px;
+    }
+  }
+
   .time {
     position: absolute;
     right: 0;

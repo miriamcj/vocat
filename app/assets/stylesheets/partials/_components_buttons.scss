@@ -45,6 +45,9 @@
   .primary-button + &, .secondary-button + &, .warning-button + &, .gentle-warning-button + &, .disabled-button + &, .tertiary-button + & {
     margin-left: 10px;
   }
+  .hidden + & {
+    margin-left: 0px;
+  }
 }
 
 .primary-button {
