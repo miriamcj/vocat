@@ -211,5 +211,3 @@ define (require) ->
       @canAttach = abilities.can_attach
       @setupListeners()
 
-      # TODO: Remove this
-      @setState('detail', 275)

@@ -50,12 +50,15 @@ define (require) ->
         @updateState(state)
 
     updateVisibility: (data) ->
-      time = data.playedSeconds
-      return @setState(0) if time < @visibilityTriggers['beforeShow']
-      return @setState(4) if time > @visibilityTriggers['afterShow']
-      return @setState(3) if time > @visibilityTriggers['fadeOut']
-      return @setState(2) if time > @visibilityTriggers['highlight']
-      return @setState(1) if time > @visibilityTriggers['fadeIn']
+      if @assetHasDuration
+        time = data.playedSeconds
+        return @setState(0) if time < @visibilityTriggers['beforeShow']
+        return @setState(4) if time > @visibilityTriggers['afterShow']
+        return @setState(3) if time > @visibilityTriggers['fadeOut']
+        return @setState(2) if time > @visibilityTriggers['highlight']
+        return @setState(1) if time > @visibilityTriggers['fadeIn']
+      else
+        @handleActiveChange()
 
     initialize: (options) ->
       @vent = options.vent
@@ -74,8 +77,8 @@ define (require) ->
       @visibilityTriggers['afterShow'] = annotationTime + @fadeOutAfterAnnotationTime + 250
 
     setupListeners: () ->
-      @listenTo(@vent, 'announce:time:update', @updateVisibility, @) if @assetHasDuration
-      @listenTo(@vent, 'announce:status', @updateVisibility, @) if @assetHasDuration
+      @listenTo(@vent, 'announce:time:update', @updateVisibility, @)
+      @listenTo(@vent, 'announce:status', @updateVisibility, @)
       @listenTo(@vent, 'announce:annotator:input:start', @concealAnnotation, @)
 
       @listenTo(@model, 'change:seconds_timecode', @updateVisibilityTriggers, @)

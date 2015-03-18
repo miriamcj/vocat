@@ -101,6 +101,7 @@ define (require) ->
       @updateCanvas()
 
     loadCanvas: (annotation) ->
+      @clearCanvas()
       json = annotation.getCanvasJSON()
       if json
         paper.project.importJSON(json)

@@ -43,7 +43,6 @@ define (require) ->
     handlePauseRequest: () ->
       @vent.trigger('announce:paused', @getStatus())
 
-
     handleStatusRequest: () ->
       @vent.trigger('announce:status', @getStatus())
 

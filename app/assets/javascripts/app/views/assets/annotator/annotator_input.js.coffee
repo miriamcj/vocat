@@ -54,8 +54,8 @@ define (require) ->
       @collection = @asset.annotations()
       @setupListeners()
 
-    startAnnotationInput: () ->
-      if @inputPointer == null
+    startAnnotationInput: (force = false) ->
+      if @inputPointer == null || force == true
         @listenToOnce(@vent, 'announce:status', (response) =>
           @inputPointer = response.playedSeconds;
           @updateButtonVisibility()
@@ -69,12 +69,13 @@ define (require) ->
 
     startAnnotationEdit: (annotation) ->
       @editLock = true
+      force = annotation != @model
       @vent.trigger('request:time:update', {silent: true, seconds: annotation.get('seconds_timecode'), callback: () =>
         @editLock = false
         @model = annotation
         @model.activate()
         @render()
-        @startAnnotationInput()
+        @startAnnotationInput(force)
       , callbackScope: @})
 
     stopAnnotationInput: (forceModelReset = false) ->
@@ -84,6 +85,7 @@ define (require) ->
         @vent.trigger('announce:annotator:input:stop', {})
         @vent.trigger('request:annotation:canvas:disable')
         @vent.trigger('request:resume')
+        @vent.trigger('request:status', {})
         @vent.trigger('request:message:hide')
         @updateButtonVisibility()
         if !@model.isNew() || forceModelReset

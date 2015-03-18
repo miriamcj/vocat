@@ -439,7 +439,6 @@ $activeAnnotationBackground: lighten($grayDarkest, 10%);
   .annotation + .annotation.role-self{
     border-top: 1px solid $selfFillColor;
   }
-
   .annotation:last-child {
     border-bottom: 1px solid $grayDarker;
   }
