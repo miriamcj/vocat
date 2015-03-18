@@ -1,19 +1,22 @@
 <h5 class="modal--header">{{name}}</h5>
+<div style="max-height: 500px; overflow-y: scroll">
+	<h6 class="modal--subheader">Description:</h6>
+	<div class="markdown-content">
+		{{{description}}}
+	</div>
 
-<h6 class="modal--subheader">Description:</h6>
-{{{description}}}
+	{{#if due_date}}
+		<h6 class="modal--subheader">Due Date:</h6>
+		<p>
+			{{due_date}}
+		</p>
+	{{/if}}
 
-{{#if due_date}}
-	<h6 class="modal--subheader">Due Date:</h6>
+	<h6 class="modal--subheader">Allowed File Types:</h6>
 	<p>
-		{{due_date}}
+		{{{join allowed_extensions}}}
 	</p>
-{{/if}}
-
-<h6 class="modal--subheader">Allowed File Types:</h6>
-<p>
-	{{{join allowed_extensions}}}
-</p>
+</div>
 
 <div style="margin-top: 1em;">
 	<a href="#" class="primary-button close-button" data-behavior="dismiss">Close</a>

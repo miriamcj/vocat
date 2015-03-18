@@ -8,7 +8,8 @@ class DiscussionPostSerializer < ActiveModel::Serializer
              :current_user_can_reply, :current_user_can_destroy
 
   def body
-    simple_format(object.body)
+    markdown = Redcarpet::Markdown.new(Renderer::InlineHTML.new({escape_html: true}))
+    markdown.render(object.body)
   end
 
   def month
@@ -34,7 +35,6 @@ class DiscussionPostSerializer < ActiveModel::Serializer
   def current_user_can_destroy
     Ability.new(scope).can?(:destroy, object)
   end
-
 
   def gravatar
     gravatar_id = Digest::MD5.hexdigest(object.author.email.downcase)

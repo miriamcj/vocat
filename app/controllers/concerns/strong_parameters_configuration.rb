@@ -93,9 +93,6 @@ module StrongParametersConfiguration
                                    :groups_attributes => [ :id,
                                                            :name,
                                                            :creator_ids => []
-                                   ],
-                                   :settings => [
-                                       Course::ALLOWED_SETTINGS
                                    ]
     )
   end

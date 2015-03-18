@@ -15,6 +15,11 @@ class AnnotationSerializer < ActiveModel::Serializer
     course.role(object.author)
   end
 
+  def body
+    markdown = Redcarpet::Markdown.new(Renderer::InlineHTML.new({escape_html: true}))
+    markdown.render(object.body)
+  end
+
   def gravatar
     gravatar_id = Digest::MD5.hexdigest(object.author.email.downcase)
     "http://gravatar.com/avatar/#{gravatar_id}.png?d=mm&s="

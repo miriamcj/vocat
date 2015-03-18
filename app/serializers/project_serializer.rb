@@ -38,7 +38,8 @@ class ProjectSerializer < ActiveModel::Serializer
   end
 
   def description
-    simple_format(object.description)
+    markdown = Redcarpet::Markdown.new(Renderer::InlineHTML.new({escape_html: true}))
+    markdown.render(object.description)
   end
 
   def current_user_id
