@@ -1,4 +1,4 @@
-set :branch, "feature/inline-annotations"
+set :branch, "development"
 set :server_name, "vocat.cic-dvl.com"
 set :application, "vocat"
 
