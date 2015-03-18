@@ -56,7 +56,6 @@ define (require) ->
       Vocat.vent.trigger('modal:open', new ModalGroupMembershipView({groupId: @creator.id}))
 
     onOpenProjectModal: () ->
-      console.log @project.attributes
       Vocat.vent.trigger('modal:open', new ProjectModalView({model: @project}))
 
     onOpenRubricModal: () ->
