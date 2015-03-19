@@ -71,11 +71,11 @@ The control icons are from a custom font. Each icon corresponds to a character
   left: 0;
   /* Rotate the square icon to make a diamond */
   /* transform */
-  -webkit-transform: rotate(-45deg);
-  -moz-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  -o-transform: rotate(-45deg);
-  transform: rotate(-45deg);
+//  -webkit-transform: rotate(-45deg);
+//  -moz-transform: rotate(-45deg);
+//  -ms-transform: rotate(-45deg);
+//  -o-transform: rotate(-45deg);
+//  transform: rotate(-45deg);
 }
 /* Control Bar
 --------------------------------------------------------------------------------
@@ -234,19 +234,20 @@ fonts to show/hide properly.
 }
 .vjs-default-skin .vjs-mute-control:before,
 .vjs-default-skin .vjs-volume-menu-button:before {
-  content: "\e006";
+  content: "\e601";
 }
 .vjs-default-skin .vjs-mute-control.vjs-vol-0:before,
 .vjs-default-skin .vjs-volume-menu-button.vjs-vol-0:before {
-  content: "\e003";
+  content: "\e601";
+  opacity: .6;
 }
 .vjs-default-skin .vjs-mute-control.vjs-vol-1:before,
 .vjs-default-skin .vjs-volume-menu-button.vjs-vol-1:before {
-  content: "\e004";
+  content: "\e601";
 }
 .vjs-default-skin .vjs-mute-control.vjs-vol-2:before,
 .vjs-default-skin .vjs-volume-menu-button.vjs-vol-2:before {
-  content: "\e005";
+  content: "\e601";
 }
 .vjs-default-skin .vjs-volume-control {
   width: 5em;
