@@ -38,7 +38,9 @@ define (require) ->
       'courses/:course/users/evaluations/project/:project': 'userProjectDetail'
       'courses/:course/groups/evaluations/project/:project': 'groupProjectDetail'
       'courses/:course/users/evaluations/creator/:creator/project/:project': 'userSubmissionDetail'
+      'courses/:course/users/evaluations/creator/:creator/project/:project/asset/:asset': 'userSubmissionDetailAsset'
       'courses/:course/groups/evaluations/creator/:creator/project/:project': 'groupSubmissionDetail'
+      'courses/:course/groups/evaluations/creator/:creator/project/:project/asset/:asset': 'groupSubmissionDetailAsset'
     }
     group: {
       'courses/:course/manage/groups': 'index'

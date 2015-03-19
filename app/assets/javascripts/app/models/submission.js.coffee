@@ -84,6 +84,20 @@ define (require) ->
     assets: () ->
       @assetCollection
 
+    detailUrl: (courseId = false) ->
+      if !courseId
+        p = @get('project')
+        courseId = p.course_id
+      ct = @get('creator_type')
+      if ct == 'User'
+        creatorTypeSegment = 'users'
+      else
+        creatorTypeSegment = 'groups'
+      cid = @get('creator_id')
+      pid = @get('project_id')
+      url = "/courses/#{courseId}/#{creatorTypeSegment}/evaluations/creator/#{cid}/project/#{pid}"
+      url
+
     project: () ->
       if !@projectModel?
         @projectModel = new ProjectModel(@get('project'))

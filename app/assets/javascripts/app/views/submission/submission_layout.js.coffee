@@ -84,7 +84,7 @@ define (require) ->
       @discussion.show(new DiscussionView({submission: @model}))
       if @model.get('project').evaluatable
         @evaluations.show(new EvaluationsView({rubric: @rubric, vent: @, project: @project, model: @model, courseId: @courseId}))
-      @assets.show(new AssetsView({collection: @model.assets(), model: @model, courseId: @courseId, courseMapContext: @courseMapContext}))
+      @assets.show(new AssetsView({collection: @model.assets(), model: @model, courseId: @courseId, initialAsset: @options.initialAsset, courseMapContext: @courseMapContext}))
 
     initialize: (options) ->
       @options = options || {}
@@ -93,5 +93,6 @@ define (require) ->
       @courseMapContext = Marionette.getOption(@, 'courseMapContext')
       @project = @model.project()
       @creator = @model.creator()
+
 
 

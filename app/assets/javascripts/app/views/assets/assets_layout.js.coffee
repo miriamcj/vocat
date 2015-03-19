@@ -64,10 +64,12 @@ define (require) ->
         @setState('firstAdd')
 
     handleStateUploading: () ->
+      @navigateToSubmissionView()
       @newAssetFooter.empty()
       @_updateUIStateUploading()
 
     handleStateList: () ->
+      @navigateToSubmissionView()
       if @newAssetFooter.currentView?
         @newAssetFooter.$el.fadeOut(200)
       if @newAsset.currentView?
@@ -81,13 +83,18 @@ define (require) ->
       @_updateUIStateList()
 
     handleStateFirstAdd: () ->
+      @navigateToSubmissionView()
       @assets.empty()
       @newAsset.show(@_newAssetView())
       @newAsset.$el.fadeIn(200)
       @newAssetFooter.empty()
       @_updateUIStateFirstAdd()
 
+    navigateToSubmissionView: () ->
+      Vocat.router.navigate("#{@model.detailUrl()}", false)
+
     handleStateManage: () ->
+      @navigateToSubmissionView()
       unless @newAsset.currentView?
         @newAsset.show(@_newAssetView())
       unless @newAssetFooter.currentView?
@@ -99,19 +106,24 @@ define (require) ->
 
     handleStateDetail: (assetId) ->
       asset = new AssetModel({id: assetId})
+      # TODO—do we need to ajax fetch this, if we already have it nested on the submission model?
       asset.fetch({
         success: () =>
-          if asset.get('name')
-            label = "#{asset.get('name')}"
+          if asset.get('submission_id') != @model.id
+            @setState('list')
           else
-            family = asset.get('family')
-            family = family.charAt(0).toUpperCase() + family.slice(1)
-            label = "#{family} media"
-          @ui.detailHeaderContent.html(label)
-          @newAsset.empty()
-          @newAssetFooter.empty()
-          @assets.show(@_assetDetail(asset))
-          @_updateUIStateDetail()
+            if asset.get('name')
+              label = "#{asset.get('name')}"
+            else
+              family = asset.get('family')
+              family = family.charAt(0).toUpperCase() + family.slice(1)
+              label = "#{family} media"
+            @ui.detailHeaderContent.html(label)
+            @newAsset.empty()
+            @newAssetFooter.empty()
+            Vocat.router.navigate("#{@model.detailUrl()}/asset/#{assetId}", false)
+            @assets.show(@_assetDetail(asset))
+            @_updateUIStateDetail()
       })
 
     onRequestStateUploading: () ->
@@ -212,4 +224,5 @@ define (require) ->
       abilities = @model.get('abilities')
       @canAttach = abilities.can_attach
       @setupListeners()
-
+      if options.initialAsset
+        @setState('detail', options.initialAsset)
