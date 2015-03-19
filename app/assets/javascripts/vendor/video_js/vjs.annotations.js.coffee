@@ -1,5 +1,7 @@
 define (require) ->
 
+  template = require('hbs!vendor/video_js/annotations')
+
   VjsAnnotationsPlugin = (options) ->
 
     class VjsAnnotationsPlugin
@@ -33,7 +35,7 @@ define (require) ->
         )
 
       showAnnotation: (annotation) ->
-        @container.html(annotation.get('body'))
+        @container.html(template(annotation.toJSON()))
 
     return new VjsAnnotationsPlugin(options, @)
 

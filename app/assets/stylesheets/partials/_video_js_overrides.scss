@@ -24,7 +24,7 @@
 .vjs-default-skin .vjs-control:focus:before,
 .vjs-default-skin .vjs-control:hover:before {
   text-shadow: none;
-  color: $grayLight;
+//  color: $grayLight;
 }
 
 .vjs-default-skin .vjs-volume-control {
@@ -56,7 +56,7 @@
 
 .vjs-default-skin .vjs-control-bar {
   background-color: $grayDarkest;
-  opacity: .8
+  opacity: .9
 }
 
 #vjs-annotation-overlay {
@@ -81,16 +81,6 @@
   background: $tealLightest;
 }
 
-.vjs-duration-display {
-//  &:before {
-//    content: 'Duration: '
-//  }
-}
-
-.vjs-default-skin .vjs-time-controls {
-//  width: 8em;
-}
-
 .vjs-waveform {
   &:focus {
     outline: none;
@@ -110,7 +100,11 @@
 
 .vjs-default-skin .vjs-slider-handle:before {
   text-shadow: none;
-  left: 5px;
+}
+.vjs-default-skin .vjs-progress-control .vjs-slider-handle:before {
+  left: 3px;
+  font-size: 1.08em;
+  top: -3px;
 }
 
 .vjs-default-skin .vjs-annotation {
@@ -119,7 +113,6 @@
   font-size: 12px;
   line-height: 1.5em;
   width: 100%;
-  padding: $verticalSpace $verticalSpace * 2;
   top: 0;
   font-size: 16px;
   color: $white;
@@ -127,4 +120,11 @@
 }
 .vjs-fullscreen .vjs-annotation {
   display: block;
+}
+
+.vjs-default-skin .vjs-progress-control {
+  font-size: .9em;
+}
+.vjs-default-skin:hover .vjs-progress-control {
+  font-size: .9em;
 }

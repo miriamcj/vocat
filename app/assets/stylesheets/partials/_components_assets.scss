@@ -282,171 +282,191 @@ $activeAnnotationBackground: lighten($grayDarkest, 10%);
       color: $grayLightest;
     }
   }
-  .annotation {
-    cursor: pointer;
-    font-size: $iota;
-    color: $textColor;
-    padding: 0 15px 15px 0;
-    position: relative;
-    .annotation-wrapper {
-      @include clearfix();
-    }
-    &.annotation-active {
-      background: $activeAnnotationBackground;
-    }
+}
+
+.annotation {
+  cursor: pointer;
+  font-size: $iota;
+  color: $textColor;
+  padding: 0 15px 15px 0;
+  position: relative;
+  opacity: 1;
+  .vjs-annotation & {
+    background: $grayDarkest;
+    opacity: .9;
+    padding-bottom: 0;
+  }
+  .annotation-wrapper {
     @include clearfix();
-    .annotation-left {
-      float: left;
-      width: 20%;
-      img {
-        width: 100%;
-        display: block;
-      }
-    }
-    .annotation-right {
-      float: right;
-      width: 80%;
-      padding-left: 15px;
-//      padding-right: 15px;
-    }
-    .annotation-top {
-      @include clearfix();
-      margin-bottom: 1em;
-      padding-top: 15px;
-    }
-    .annotation-bottom {
-      line-height: 1.25em;
-      max-height: 150px;
-      overflow: hidden;
-    }
-    &:hover .annotation-utility {
-      display: block;
-    }
-    .annotation-utility {
-      display: block;
-      a {
-        display: block;
-        float: left;
-        width: 50%;
-        height: 30px;
-        @include respond($baikal) {
-          width: 100%;
-          float: none;
-        }
-        overflow: hidden;
-        position: relative;
-        &.annotation-delete-link, &.annotation-edit-link {
-          &:after {
-            content: '';
-            position: absolute;
-            top: 9px;
-            left: 50%;
-            margin-left: -6px;
-            width: 12px;
-            height: 12px;
-          }
-        }
-        &.annotation-delete-link {
-          background: #4C262A;
-          &:hover {
-            background: darken(#4C262A, 10%);
-          }
-          &:after {
-            @include svg(ex-red);
-          }
-        }
-        &.annotation-edit-link {
-          background: #2A3D3D;
-          &:hover {
-            background: darken(#2A3D3D, 10%);
-          }
-          &:after {
-            @include svg(pencil-blue);
-          }
-        }
-      }
-    }
-    .annotation-creator {
-      width: 50%;
-      float: left;
-      font-weight: $bold;
-      &.role-evaluator {
-        color: $instructorFillColor;
-      }
-      &.role-administrator {
-        color: $defaultFillColor;
-      }
-      &.role-creator {
-        color: $peerFillColor;
-      }
-      &.role-self {
-        color: $selfFillColor;
-      }
-      @include respond($baikal) {
-        width: 100%;
-        float: none;
-      }
-    }
-    .annotation-timestamp {
-      width: 50%;
-      float: right;
-      text-align: right;
-      color: $grayMedium;
-      font-weight: $regular;
-      @include respond($baikal) {
-        width: 100%;
-        float: none;
-        text-align: left;
-        margin-top: .25em;
-      }
-    }
-    .annotation-drawing-indicator {
-      display: inline-block;
-      width: .8em;
-      vertical-align: middle;
-      height: .8em;
-      @include svg(pen-gray-light);
-    }
-    .annotation-fade {
-      position: absolute;
-      bottom: 0;
-      height: 25px;
+  }
+  &.annotation-active {
+    background: $activeAnnotationBackground;
+  }
+  @include clearfix();
+  .annotation-left {
+    float: left;
+    width: 20%;
+    img {
       width: 100%;
-      background: -webkit-linear-gradient(rgba(35,31,32,0),$grayDarkest 85%);
-      background: -moz-linear-gradient(rgba(35,31,32,0),$grayDarkest 85%);
-      background: -o-linear-gradient(rgba(35,31,32,0),$grayDarkest 85%);
-      background: linear-gradient(rgba(35,31,32,0),$grayDarkest 85%);
+      display: block;
+    }
+    .vjs-annotation & {
+      width: 100px;
+      float: none;
     }
   }
-  .annotation.annotation-active .annotation-fade {
-    background: -webkit-linear-gradient(rgba(46,41,42,0),$activeAnnotationBackground 85%);
-    background: -moz-linear-gradient(rgba(46,41,42,0),$activeAnnotationBackground 85%);
-    background: -o-linear-gradient(rgba(46,41,42,0),$activeAnnotationBackground 85%);
-    background: linear-gradient(rgba(46,41,42,0),$activeAnnotationBackground 85%);
+  .annotation-right {
+    float: right;
+    width: 80%;
+    padding-left: 15px;
+    .vjs-annotation & {
+      width: 100%;
+      padding-left: 125px;
+      padding-right: 25px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding-bottom: 15px;
+    }
+
   }
-  .annotation + .annotation {
-    border-top: 1px solid $grayDarker;
+  .annotation-top {
+    @include clearfix();
+    margin-bottom: 1em;
+    padding-top: 15px;
   }
-  .annotation + .annotation.role-creator {
-    border-top: 1px solid $peerFillColor;
+  .annotation-bottom {
+    line-height: 1.25em;
+    max-height: 150px;
+    overflow: hidden;
   }
-  .annotation + .annotation.role-administrator {
-    border-top: 1px solid $defaultFillColor;
+  &:hover .annotation-utility {
+    display: block;
   }
-  .annotation + .annotation.role-evaluator {
-    border-top: 1px solid $instructorFillColor;
+  .annotation-utility {
+    display: block;
+    a {
+      display: block;
+      float: left;
+      width: 50%;
+      height: 30px;
+      @include respond($baikal) {
+        width: 100%;
+        float: none;
+      }
+      overflow: hidden;
+      position: relative;
+      &.annotation-delete-link, &.annotation-edit-link {
+        &:after {
+          content: '';
+          position: absolute;
+          top: 9px;
+          left: 50%;
+          margin-left: -6px;
+          width: 12px;
+          height: 12px;
+        }
+      }
+      &.annotation-delete-link {
+        background: #4C262A;
+        &:hover {
+          background: darken(#4C262A, 10%);
+        }
+        &:after {
+          @include svg(ex-red);
+        }
+      }
+      &.annotation-edit-link {
+        background: #2A3D3D;
+        &:hover {
+          background: darken(#2A3D3D, 10%);
+        }
+        &:after {
+          @include svg(pencil-blue);
+        }
+      }
+    }
   }
-  .annotation + .annotation.role-self{
-    border-top: 1px solid $selfFillColor;
+  .annotation-creator {
+    width: 50%;
+    float: left;
+    font-weight: $bold;
+    &.role-evaluator {
+      color: $instructorFillColor;
+    }
+    &.role-administrator {
+      color: $defaultFillColor;
+    }
+    &.role-creator {
+      color: $peerFillColor;
+    }
+    &.role-self {
+      color: $selfFillColor;
+    }
+    @include respond($baikal) {
+      width: 100%;
+      float: none;
+    }
   }
-  .annotation:last-child {
-    border-bottom: 1px solid $grayDarker;
+  .annotation-timestamp {
+    width: 50%;
+    float: right;
+    text-align: right;
+    color: $grayMedium;
+    font-weight: $regular;
+    @include respond($baikal) {
+      width: 100%;
+      float: none;
+      text-align: left;
+      margin-top: .25em;
+    }
   }
-  .annotation:first-child {
+  .annotation-drawing-indicator {
+    display: inline-block;
+    width: .8em;
+    vertical-align: middle;
+    height: .8em;
+    @include svg(pen-gray-light);
   }
-  .annotation-open .annotation-bottom {
-    max-height: none;
+  .annotation-fade {
+    position: absolute;
+    bottom: 0;
+    height: 25px;
+    width: 100%;
+    background: -webkit-linear-gradient(rgba(35,31,32,0),$grayDarkest 85%);
+    background: -moz-linear-gradient(rgba(35,31,32,0),$grayDarkest 85%);
+    background: -o-linear-gradient(rgba(35,31,32,0),$grayDarkest 85%);
+    background: linear-gradient(rgba(35,31,32,0),$grayDarkest 85%);
   }
+}
+.annotation.annotation-active .annotation-fade {
+  background: -webkit-linear-gradient(rgba(46,41,42,0),$activeAnnotationBackground 85%);
+  background: -moz-linear-gradient(rgba(46,41,42,0),$activeAnnotationBackground 85%);
+  background: -o-linear-gradient(rgba(46,41,42,0),$activeAnnotationBackground 85%);
+  background: linear-gradient(rgba(46,41,42,0),$activeAnnotationBackground 85%);
+}
+.annotation + .annotation {
+  border-top: 1px solid $grayDarker;
+}
+.annotation + .annotation.role-creator {
+  border-top: 1px solid $peerFillColor;
+}
+.annotation + .annotation.role-administrator {
+  border-top: 1px solid $defaultFillColor;
+}
+.annotation + .annotation.role-evaluator {
+  border-top: 1px solid $instructorFillColor;
+}
+.annotation + .annotation.role-self{
+  border-top: 1px solid $selfFillColor;
+}
+.annotation:last-child {
+  border-bottom: 1px solid $grayDarker;
+}
+.annotation:first-child {
+}
+.annotation-open .annotation-bottom {
+  max-height: none;
 }
 
 // Annotator UI
