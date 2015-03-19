@@ -16,17 +16,14 @@ define (require) ->
     canAttach: false
 
     ui: {
+      assetCollectionHeader: '[data-behavior="asset-collection-header"]'
       detailHeader: '[data-behavior="detail-header"]'
+      detailHeaderContent: '[data-behavior="detail-header-content"]'
       newAssetContainer: '[data-behavior="new-asset-container"]'
       manageLink: '[data-behavior="manage-link"]'
       stopManagingLink: '[data-behavior="stop-manage-link"]'
       closeLink: '[data-behavior="close-link"]'
     }
-
-#    collectionEvents: {
-#      'add': 'ensureVisibleCollectionView'
-#      'remove': 'hideEmptyCollectionViewIfNewIsVisible'
-#    }
 
     triggers: {
       'click @ui.stopManagingLink': 'request:state:list'
@@ -105,12 +102,12 @@ define (require) ->
       asset.fetch({
         success: () =>
           if asset.get('name')
-            label = "/ #{asset.get('name')}"
+            label = "#{asset.get('name')}"
           else
             family = asset.get('family')
             family = family.charAt(0).toUpperCase() + family.slice(1)
-            label = "/ #{family} media"
-          @ui.detailHeader.html(label)
+            label = "#{family} media"
+          @ui.detailHeaderContent.html(label)
           @newAsset.empty()
           @newAssetFooter.empty()
           @assets.show(@_assetDetail(asset))
@@ -138,18 +135,21 @@ define (require) ->
 
     _updateUIStateList: () ->
       @ui.detailHeader.hide()
+      @ui.assetCollectionHeader.show()
       @_hideButton(@ui.closeLink)
       @_hideButton(@ui.stopManagingLink)
       @_showButton(@ui.manageLink)
 
     _updateUIStateUploading: () ->
       @ui.detailHeader.hide()
+      @ui.assetCollectionHeader.show()
       @_hideButton(@ui.closeLink)
       @_hideButton(@ui.stopManagingLink)
       @_hideButton(@ui.manageLink)
 
     _updateUIStateFirstAdd: () ->
       @ui.detailHeader.hide()
+      @ui.assetCollectionHeader.show()
       @$el.addClass('empty-list')
       @_hideButton(@ui.closeLink)
       @_showButton(@ui.stopManagingLink)
@@ -157,6 +157,7 @@ define (require) ->
 
     _updateUIStateManage: () ->
       @ui.detailHeader.hide()
+      @ui.assetCollectionHeader.show()
       @$el.removeClass('empty-list')
       @_hideButton(@ui.closeLink)
       @_showButton(@ui.stopManagingLink)
@@ -164,6 +165,7 @@ define (require) ->
 
     _updateUIStateDetail: () ->
       @ui.detailHeader.show()
+      @ui.assetCollectionHeader.hide()
       @_showButton(@ui.closeLink)
       @_hideButton(@ui.stopManagingLink)
       @_hideButton(@ui.manageLink)

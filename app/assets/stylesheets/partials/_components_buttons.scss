@@ -354,6 +354,17 @@
   }
 }
 
+
+.close-link {
+  @extend %icon-link-left;
+  &:hover:before {
+    @include svg(circle-ex-gray-dark);
+  }
+  &:before {
+    @include svg(circle-ex-gray-dark);
+  }
+}
+
 .up-link {
   @extend %icon-link-right;
   margin-left: 1em;
