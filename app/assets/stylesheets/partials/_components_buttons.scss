@@ -60,6 +60,16 @@
   @extend %button-margin;
 }
 
+.outline-button {
+  @extend %primary-button;
+  background: none;
+  color: $primaryButtonColor;
+  text-decoration: none !important;
+  @extend %button-margin;
+  text-transform: uppercase;
+  font-size: $kappa;
+}
+
 .tertiary-button {
   @extend %tertiary-button;
   @extend %button-margin;
@@ -343,6 +353,63 @@
     @include svg(circle-left-arrow-teal);
   }
 }
+
+
+.close-link {
+  @extend %icon-link-left;
+  &:hover:before {
+    @include svg(circle-ex-gray-dark);
+  }
+  &:before {
+    @include svg(circle-ex-gray-dark);
+  }
+}
+
+.up-link {
+  @extend %icon-link-right;
+  margin-left: 1em;
+  padding-right: 1.25em;
+  &:hover:after{
+    @include svg(inline-arrow-up-teal);
+  }
+  &:after {
+    top: .6em;
+    height: 1em;
+    width: 1em;
+    @include svg(inline-arrow-up-teal);
+  }
+}
+
+.down-link {
+  @extend %icon-link-right;
+  margin-left: 1em;
+  padding-right: 1.25em;
+  &:hover:after{
+    @include svg(inline-arrow-down-teal);
+  }
+  &:after {
+    top: .6em;
+    height: 1em;
+    width: 1em;
+    @include svg(inline-arrow-down-teal);
+  }
+}
+
+.down-link.disabled {
+  color: #E0E0E0;
+  cursor: text;
+  &:after, &:hover:after {
+    @include svg(inline-arrow-down-gray-light);
+  }
+}
+.up-link.disabled {
+  color: #E0E0E0;
+  cursor: text;
+  &:after, &:hover:after {
+    @include svg(inline-arrow-up-gray-light);
+  }
+}
+
 
 .reply-link {
   @extend %icon-link-right;

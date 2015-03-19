@@ -128,3 +128,15 @@
 .vjs-default-skin:hover .vjs-progress-control {
   font-size: .9em;
 }
+
+/* Rewind
+--------------------------------------------------------------------------------
+*/
+.vjs-default-skin .vjs-rewind-button {
+  width: 3.8em;
+  cursor: pointer;
+  float: right;
+}
+.vjs-default-skin .vjs-rewind-button:before {
+  content: "\e600";
+}

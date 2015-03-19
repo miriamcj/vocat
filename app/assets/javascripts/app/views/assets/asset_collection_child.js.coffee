@@ -108,15 +108,15 @@ define (require) ->
 
     checkMoveButtonVisibility: () ->
       if @model && @model.collection.length > 1
-        @ui.moveUp.show()
-        @ui.moveDown.show()
+        @ui.moveUp.removeClass('disabled')
+        @ui.moveDown.removeClass('disabled')
       else
         @ui.moveUp.hide()
-        @ui.moveDown.hide()
+        @ui.moveDown.addClass('disabled')
       if @model && @model.collection.indexOf(@model) == 0
-        @ui.moveUp.hide()
+        @ui.moveUp.addClass('disabled')
       if @model && @model.collection.indexOf(@model) == @model.collection.length - 1
-        @ui.moveDown.hide()
+        @ui.moveDown.addClass('disabled')
 
     hideManageUi: () ->
       @ui.showOnManage.hide()

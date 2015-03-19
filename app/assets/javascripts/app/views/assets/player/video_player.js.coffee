@@ -2,6 +2,7 @@ define (require) ->
 
   Marionette = require('marionette')
   vjsAnnotations = require('vendor/video_js/vjs.annotations')
+  vjsAnnotations = require('vendor/video_js/vjs.rewind')
   vjsAudioWave = require('vendor/video_js/vjs.audiowave')
   template = require('hbs!templates/assets/player/video_player')
   PlayerAnnotations = require('views/assets/player/player_annotations')
@@ -244,6 +245,7 @@ define (require) ->
             vent: @vent
             collection: @model.annotations()
           }
+          rewind: {}
         }
         children: {
           controlBar: {
