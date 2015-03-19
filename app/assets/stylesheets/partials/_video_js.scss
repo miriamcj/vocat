@@ -25,11 +25,11 @@ The control icons are from a custom font. Each icon corresponds to a character
 */
 @font-face {
   font-family: 'VideoJS';
-  src: url(image-path('vjs.eot'));
-  src: url(image-path('vjs.eot') + '?#iefix') format('embedded-opentype'),
-    url(image-path('vjs.woff')) format('woff'),
-    url(image-path('vjs.ttf')) format('truetype'),
-    url(image-path('vjs.svg#icomoon')) format('svg');
+  src: url(image-path('vjs_custom.eot'));
+  src: url(image-path('vjs_custom.eot') + '?#iefix') format('embedded-opentype'),
+    url(image-path('vjs_custom.woff')) format('woff'),
+    url(image-path('vjs_custom.ttf')) format('truetype'),
+    url(image-path('vjs_custom.svg#icomoon')) format('svg');
   font-weight: normal;
   font-style: normal;
 }
