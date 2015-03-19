@@ -8,6 +8,7 @@ define (require) ->
   ModalGroupMembershipView = require('views/modal/modal_group_membership')
   ProjectModalView = require('views/modal/modal_project_description')
   RubricModalView = require('views/modal/modal_rubric')
+  MarkdownOverviewModalView = require('views/modal/modal_markdown_overview')
   RubricModel = require('models/rubric')
 
   class SubmissionLayout extends Marionette.LayoutView
@@ -21,6 +22,7 @@ define (require) ->
       'click @ui.close': 'close'
       'click @ui.showProjectDescriptionModal': 'open:project:modal'
       'click @ui.showRubric': 'open:rubric:modal'
+      'click @ui.showMarkdownOverview': 'open:markdown:modal'
     }
 
     ui: {
@@ -28,6 +30,7 @@ define (require) ->
       openGroupModal: '[data-behavior="open-group-modal"]'
       showProjectDescriptionModal: '[data-behavior="open-project-description"]'
       showRubric: '[data-behavior="show-rubric"]'
+      showMarkdownOverview: '[data-behavior="show-markdown-overview"]'
     }
 
     regions: {
@@ -61,6 +64,9 @@ define (require) ->
     onOpenRubricModal: () ->
       rubric = new RubricModel(@project.get('rubric'))
       Vocat.vent.trigger('modal:open', new RubricModalView({model: rubric}))
+
+    onOpenMarkdownModal: () ->
+      Vocat.vent.trigger('modal:open', new MarkdownOverviewModalView())
 
     onClose: () ->
       context = @model.get('creator_type').toLowerCase() + 's'
