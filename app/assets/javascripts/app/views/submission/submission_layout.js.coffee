@@ -43,6 +43,7 @@ define (require) ->
     serializeData: () ->
       sd ={
         project: @project.toJSON()
+        projectEvaluatable: @model.get('project').evaluatable
         courseId: @courseId
         creator: @creator.toJSON()
         creatorType: @model.get('creator_type')

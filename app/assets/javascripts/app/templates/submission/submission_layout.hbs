@@ -22,7 +22,9 @@
 		{{#if project.description}}
 			<a href="#" class="outline-button" data-behavior="open-project-description">Show Project Description</a>
 		{{/if}}
-		<a href="#" class="outline-button" data-behavior="show-rubric">Show Rubric</a>
+		{{#if projectEvaluatable}}
+			<a href="#" class="outline-button" data-behavior="show-rubric">Show Rubric</a>
+		{{/if}}
 	</div>
 </div>
 
