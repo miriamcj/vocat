@@ -24,10 +24,10 @@
  *= require partials/_components_alerts
  *= require partials/_components_utility
  *= require partials/_components_evaluations
- *= require partials/_components_assets
  *= require partials/_components_modal
  *= require partials/_components_figures
  *= require partials/_components_sections
+ *= require partials/_components_assets
  *= require partials/_components_authentication
  *= require partials/_components_charts
  *= require partials/_components_portfolio

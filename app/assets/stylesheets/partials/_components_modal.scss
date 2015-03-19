@@ -47,16 +47,13 @@
     display: block;
   }
 
-  header {
-
-  }
-
   .content {
     @include clearfix;
   }
 
-  .footer {
-
+  .modal-scroll-container {
+    overflow-y: auto;
+    max-height: 500px;
   }
 
 }
@@ -64,5 +61,5 @@
 .modal-rubric {
   margin-top: 1em;
   max-height: 500px;
-  overflow: scroll;
+  overflow: auto;
 }

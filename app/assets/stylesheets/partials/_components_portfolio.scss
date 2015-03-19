@@ -38,12 +38,20 @@
   .asset-collection-item--content {
     padding-right: 30%;
     .asset-collection-item--utility {
+      height: 100%;
       text-align: right;
       position: absolute;
       top: 0;
       right: 0;
-      margin-bottom: $sectionSpacingUnit * .75;
+//      margin-bottom: $sectionSpacingUnit * .75;
       width: 30%;
+      .move-links {
+        padding-bottom: 17px;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+      }
+
       div+div {
         margin-top: 15px;
       }
