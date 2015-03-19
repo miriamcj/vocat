@@ -10,7 +10,8 @@ define (require) ->
     template: template
     scrollLocked: false
     highlighted: null
-
+    emptyView: EmptyView
+    
     className: 'annotations'
 
     triggers: {

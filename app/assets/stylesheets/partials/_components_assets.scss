@@ -282,7 +282,6 @@ $activeAnnotationBackground: $grayLighter;
     }
   }
 }
-
 .annotation {
   cursor: pointer;
   font-size: $iota;
@@ -334,6 +333,11 @@ $activeAnnotationBackground: $grayLighter;
     @include clearfix();
     margin-bottom: 1em;
     padding-top: 15px;
+  }
+  .annotation-message {
+    padding: 30px;
+    font-size: $theta;
+    line-height: 1.5em;
   }
   .annotation-bottom {
     line-height: 1.25em;
