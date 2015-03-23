@@ -12,21 +12,11 @@ define (require) ->
   NotificationLayoutView = require('views/notification/notification_layout')
   NotificationExceptionView = require('views/notification/notification_exception')
 
-  window.Vocat = Vocat = new Backbone.Marionette.Application()
+  Standalone = {
+    project: require('views/course/manage/projects/project')
+  }
 
-  # Attach views to existing dom elements
-  $('[data-behavior="dropdown"]').each( (index, el) ->
-    new DropdownView({el: el, vent: Vocat.vent})
-  )
-  $('[data-behavior="header-drawer-trigger"]').each( (index, el) ->
-    new HeaderDrawerTriggerView ({el: el, vent: Vocat.vent})
-  )
-  $('[data-behavior="header-drawer"]').each( (index, el) ->
-    new HeaderDrawerView({el: el, vent: Vocat.vent})
-  )
-  $('[data-behavior="chosen"]').each( (index, el) ->
-    new ChosenView({el: el, vent: Vocat.vent})
-  )
+  window.Vocat = Vocat = new Backbone.Marionette.Application()
 
   Vocat.routes = {
     admin: {
@@ -48,7 +38,9 @@ define (require) ->
       'courses/:course/users/evaluations/project/:project': 'userProjectDetail'
       'courses/:course/groups/evaluations/project/:project': 'groupProjectDetail'
       'courses/:course/users/evaluations/creator/:creator/project/:project': 'userSubmissionDetail'
+      'courses/:course/users/evaluations/creator/:creator/project/:project/asset/:asset': 'userSubmissionDetailAsset'
       'courses/:course/groups/evaluations/creator/:creator/project/:project': 'groupSubmissionDetail'
+      'courses/:course/groups/evaluations/creator/:creator/project/:project/asset/:asset': 'groupSubmissionDetailAsset'
     }
     group: {
       'courses/:course/manage/groups': 'index'
@@ -84,6 +76,26 @@ define (require) ->
     Vocat.addRegions {
       notification: '[data-region="global-notifications"]'
     }
+
+
+  Vocat.addInitializer () ->
+    # Attach views to existing dom elements
+    $('[data-behavior="dropdown"]').each( (index, el) ->
+      new DropdownView({el: el, vent: Vocat.vent})
+    )
+    $('[data-behavior="header-drawer-trigger"]').each( (index, el) ->
+      new HeaderDrawerTriggerView ({el: el, vent: Vocat.vent})
+    )
+    $('[data-behavior="header-drawer"]').each( (index, el) ->
+      new HeaderDrawerView({el: el, vent: Vocat.vent})
+    )
+    $('[data-behavior="chosen"]').each( (index, el) ->
+      new ChosenView({el: el, vent: Vocat.vent})
+    )
+    $('[data-standalone-view]').each( (index, el) ->
+      viewName = $(el).data().standaloneView
+      new Standalone[viewName]({el: el})
+    )
 
   Vocat.addInitializer () ->
 
@@ -169,39 +181,13 @@ define (require) ->
           }))
       )
 
-
-
     # Announce some key events on the global channel
     globalChannel = Backbone.Wreqr.radio.channel('global')
     $('html').bind('click', (event) ->
       globalChannel.vent.trigger('user:action', event)
     );
-
-    # Used to test flash messages.
-#    Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '4000',  msg: 'Test notification message #1.'})
-#    Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '4000',  msg: 'Test notification message #2.'})
-#    setTimeout(() =>
-#      Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '5000',  msg: {'something': 'something', 'something2': 'something2'}})
-#    ,2000)
-
-
-
-    # Used to test modals.
-    #Vocat.vent.trigger('modal:open', new ModalConfirmView({
-    #  model: @model,
-    #  vent: @,
-    #  headerLabel: 'This is the header',
-    #  descriptionLabel: 'This is a test modal message, buddy. This is a test modal message, buddy. This is a test modal message, buddy. This is a test modal message, buddy.',
-    #  confirmEvent: 'confirm:destroy',
-    #  dismissEvent: 'dismiss:destroy'
-    #}))
-
   )
 
-  # Useful for debugging all application-level events
-  #Vocat.on('all', (e) ->
-  #  console.log "VOCAT heard #{e}"
-  #)
 
   return Vocat
 

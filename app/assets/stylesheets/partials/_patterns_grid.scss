@@ -3,7 +3,7 @@
 // This should only be @extended by 'wide' unit patterns below
 %unit {
   // All units are 100% wide below the narrow breakpoint
-  @extend %narrow-one-whole;
+//  @extend %narrow-one-whole;
   @include pad-unit;
   float: left;
 }
@@ -192,7 +192,6 @@
   @extend %form-pad;
   @include unit(2);
 }
-
 
 // Content
 // Currently only 960 +

@@ -50,8 +50,14 @@ define (require) ->
     groupSubmissionDetail: (courseId, creatorId, projectId) ->
       @_showSubmissionDetail('Group', courseId, creatorId, projectId)
 
+    groupSubmissionDetailAsset: (courseId, creatorId, projectId, assetId) ->
+      @_showSubmissionDetail('Group', courseId, creatorId, projectId, assetId)
+
     userSubmissionDetail: (courseId, creatorId, projectId) ->
       @_showSubmissionDetail('User', courseId, creatorId, projectId)
+
+    userSubmissionDetailAsset: (courseId, creatorId, projectId, assetId) ->
+      @_showSubmissionDetail('User', courseId, creatorId, projectId, assetId)
 
     userCreatorDetail: (courseId, creatorId) ->
       @_showCreatorDetail('User', courseId, creatorId)
@@ -124,7 +130,7 @@ define (require) ->
       })
       return deferred
 
-    _showSubmissionDetail: (creatorType, courseId, creatorId, projectId, courseMapContext = true) ->
+    _showSubmissionDetail: (creatorType, courseId, creatorId, projectId, assetId = null, courseMapContext = true) ->
       deferred = @_loadOneSubmission(creatorType, creatorId, projectId)
       deferred.done((submission) =>
         submissionDetail = new SubmissionDetail({
@@ -133,6 +139,7 @@ define (require) ->
           creator: creatorId
           project: projectId
           model: submission
+          initialAsset: assetId
           courseMapContext: courseMapContext
         })
         window.Vocat.main.show(submissionDetail)

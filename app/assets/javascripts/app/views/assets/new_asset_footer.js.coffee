@@ -7,5 +7,15 @@ define (require) ->
 
     template: template
 
+    ui: {
+      stopManagingLink: '[data-behavior="stop-manage-link"]'
+    }
+
+    preventManageClose: () ->
+      @ui.stopManagingLink.css(display: 'none')
+
+    allowManageClose: () ->
+      @ui.stopManagingLink.css(display: 'inline-block')
+
     initialize: (options) ->
       @vent = Marionette.getOption(@, 'vent')

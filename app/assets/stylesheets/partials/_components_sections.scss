@@ -70,6 +70,22 @@
       margin-top: 5px;
     }
   }
+  .header-closeable {
+    h2 {
+      margin-top: 0;
+    }
+    a.close-link {
+      padding-left: 1.4em;
+      height: 1em;
+      text-transform: none;
+      @extend %condensedHeading;
+      color: $grayDarkest;
+      font-size: $eta;
+      &:before {
+        width: 1em;
+      }
+    }
+  }
   .body, .page-section--component, .page-section--component-header {
     margin-top: $sectionSpacingUnit * .5;
     @include clearfix;

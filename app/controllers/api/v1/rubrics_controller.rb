@@ -1,7 +1,7 @@
 class Api::V1::RubricsController < ApiController
 
   load_and_authorize_resource :rubric
-	respond_to :json
+  respond_to :json
 
   # GET /api/v1/rubrics.json
   def index
@@ -10,12 +10,12 @@ class Api::V1::RubricsController < ApiController
     elsif current_user.role?(:admin)
       @rubrics = Rubric.where(public: true)
     end
-		respond_with @rubrics
+    respond_with @rubrics
   end
 
   # GET /api/v1/rubrics/:rubric.json
   def show
-		respond_with @rubric
+    respond_with @rubric
   end
 
   # POST /api/v1/rubrics.json

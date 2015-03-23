@@ -173,9 +173,6 @@ describe "Abilities" do
 
   context "for Courses" do
     let ( :course ) { @course_a}
-    before (:all) { @course_a.settings['enable_public_discussion'] = false}
-    before (:all) { @course_a.settings['enable_peer_review'] = false }
-
     context "when the current_user is an admin, she" do
       let ( :user ) { @admin }
       it { expect(user).to have_ability(@ability_aliases[:read_write_destroy], for: course) }
@@ -203,40 +200,53 @@ describe "Abilities" do
       it { expect(user).to have_ability({portfolio: false}, for: course) }
       it { expect(user).to have_ability({show_submissions: false}, for: course) }
     end
-
-    context "when the course has peer review enabled" do
-      before (:all) { @course_a.settings['enable_peer_review'] = true }
+    context "when the course has a project with peer review enabled" do
+      before (:all) {
+        @first_project_in_course_a.settings['enable_peer_review'] = '1'
+        @first_project_in_course_a.save
+      }
+      after (:all) {
+        @first_project_in_course_a.settings['enable_peer_review'] = '0'
+        @first_project_in_course_a.save
+      }
       context "if the current_user is an evaluator for the course, she" do
         let ( :user ) { @evaluator_in_course_a }
         it { expect(user).to have_ability({show_submissions: true}, for: course) }
       end
       context "if the current_user is a creator enrolled in the course, she" do
         let ( :user ) { @creator_in_course_a }
-        it { expect(user).to have_ability({show_submissions: true}, for: course) }
+        it {
+          expect(user).to have_ability({show_submissions: true}, for: course)
+        }
       end
       context "if the current_user is a creator not enrolled in the course, she" do
         let ( :user ) { @creator_in_course_b }
         it { expect(user).to have_ability({show_submissions: false}, for: course) }
       end
-      after (:all) { @course_a.settings['enable_peer_review'] = false }
     end
-
-    context "when the course has public discussion enabled" do
-      before (:all) { @course_a.settings['enable_public_discussion'] = true }
+    context "when the course has a project with public discussion enabled" do
+      before (:all) {
+        @first_project_in_course_a.settings['enable_public_discussion'] = '1'
+        @first_project_in_course_a.save
+      }
+      after (:all) {
+        @first_project_in_course_a.settings['enable_public_discussion'] = '0'
+        @first_project_in_course_a.save
+      }
       context "if the current_user is an evaluator for the course, she" do
         let ( :user ) { @evaluator_in_course_a }
         it { expect(user).to have_ability({show_submissions: true}, for: course) }
       end
       context "if the current_user is a creator enrolled in the course, she" do
         let ( :user ) { @creator_in_course_a }
-        it { expect(user).to have_ability({show_submissions: true}, for: course) }
+        it {
+          expect(user).to have_ability({show_submissions: true}, for: course)
+        }
       end
       context "if the current_user is a creator not enrolled in the course, she" do
         let ( :user ) { @creator_in_course_b }
         it { expect(user).to have_ability({show_submissions: false}, for: course) }
       end
-      after (:all) { @course_a.settings['enable_public_discussion'] = false }
-
     end
 
   end # END COURSE CONTEXT
@@ -268,8 +278,6 @@ describe "Abilities" do
   context "for Submissions" do
 
     let ( :submission ) { @submission_for_first_project_in_course_a }
-    before (:all) { @course_a.settings['enable_self_evaluation'] = false }
-
     context "when Submission is a group submission" do
       let ( :submission ) { @group_submission_for_first_project_in_course_a }
       let ( :group ) { @first_group_in_course_a }
@@ -280,6 +288,7 @@ describe "Abilities" do
         it { expect(user).to have_ability(@ability_aliases[:read_write], for: submission) }
         it { expect(user).to have_ability({own: true}, for: submission) }
         it { expect(user).to have_ability({annotate: true}, for: submission) }
+
         it { expect(user).to have_ability({evaluate: false}, for: submission) }
       end
 
@@ -302,9 +311,6 @@ describe "Abilities" do
     end
     context "if the current_user is an evaluator for the course, she" do
       let ( :user ) { @evaluator_in_course_a }
-      #it { expect(user).to have_ability(@ability_aliases[:read_write], for: submission) }
-      #it { expect(user).to have_ability({own: false}, for: submission) }
-      #it { expect(user).to have_ability({annotate: true}, for: submission) }
       it { expect(user).to have_ability({evaluate: true}, for: submission) }
     end
     context "if the current_user is the submission creator, she" do
@@ -331,8 +337,15 @@ describe "Abilities" do
       it { expect(user).to have_ability({evaluate: false}, for: submission) }
     end
 
-    context "when the course has public discussion enabled" do
-      before (:all) { @course_a.settings['enable_public_discussion'] = true }
+    context "when the project has public discussion enabled" do
+      before (:all) {
+        @first_project_in_course_a.settings['enable_public_discussion'] = '1'
+        @first_project_in_course_a.save
+      }
+      after (:all) {
+        @first_project_in_course_a.settings['enable_public_discussion'] = '0'
+        @first_project_in_course_a.save
+      }
       context "if the current_user is an admin, she" do
         let ( :user ) { @admin }
         it { expect(user).to have_ability({discuss: true}, for: submission) }
@@ -355,11 +368,9 @@ describe "Abilities" do
         it { expect(user).to have_ability({show: false}, for: submission.project.course) }
         it { expect(user).to have_ability({discuss: false}, for: submission) }
       end
-      after (:all) { @course_a.settings['enable_public_discussion'] = false }
     end
 
-    context "when the course has public discussion disabled" do
-      before (:all) { @course_a.settings['enable_public_discussion'] = false }
+    context "when the project has public discussion disabled" do
       context "if the current_user is an admin, she" do
         let ( :user ) { @admin }
         it { expect(user).to have_ability({discuss: true}, for: submission) }
@@ -382,8 +393,15 @@ describe "Abilities" do
       end
     end
 
-    context "when the course has creator attach enabled" do
-      before (:all) { @course_a.settings['enable_creator_attach'] = true }
+    context "when the project has creator attach enabled" do
+      before (:all) {
+        @first_project_in_course_a.settings['enable_creator_attach'] = '1'
+        @first_project_in_course_a.save
+      }
+      after (:all) {
+        @first_project_in_course_a.settings['enable_creator_attach'] = '0'
+        @first_project_in_course_a.save
+      }
       context "if the current_user is an admin, she" do
         let ( :user ) { @admin }
         it { expect(user).to have_ability({attach: true}, for: submission) }
@@ -404,11 +422,9 @@ describe "Abilities" do
         let ( :user ) { @creator_in_course_b }
         it { expect(user).to have_ability({attach: false}, for: submission) }
       end
-      after (:all) { @course_a.settings['enable_creator_attach'] = false }
     end
 
-    context "when the course has creator attach disabled" do
-      before (:all) { @course_a.settings['enable_creator_attach'] = false }
+    context "when the project has creator attach disabled" do
       context "if the current_user is an admin, she" do
         let ( :user ) { @admin }
         it { expect(user).to have_ability({attach: true}, for: submission) }
@@ -431,39 +447,59 @@ describe "Abilities" do
       end
     end
 
-    context "when the course has peer review disabled" do
-      before (:all) { @course_a.settings['enable_peer_review'] = false }
-
+    context "when the project has peer review disabled" do
       context "and self evaluation is enabled" do
-        before (:all) { @course_a.settings['enable_self_evaluation'] = true }
+        before (:all) {
+          @first_project_in_course_a.settings['enable_self_evaluation'] = '1'
+          @first_project_in_course_a.save
+        }
+        after (:all) {
+          @first_project_in_course_a.settings['enable_self_evaluation'] = '0'
+          @first_project_in_course_a.save
+        }
         context "if the current_user is the submission creator, she" do
           let ( :user ) { @creator_in_course_a }
           it { expect(user).to have_ability({annotate: true}, for: submission) }
           it { expect(user).to have_ability({evaluate: true}, for: submission) }
         end
-        after (:all) { @course_a.settings['enable_self_evaluation'] = false }
       end
     end
 
-    context "when the course has peer review enabled" do
-      before (:all) { @course_a.settings['enable_peer_review'] = true }
+    context "when the project has peer review enabled" do
+      before (:all) {
+        @first_project_in_course_a.settings['enable_peer_review'] = '1'
+        @first_project_in_course_a.save
+      }
+      after (:all) {
+        @first_project_in_course_a.settings['enable_peer_review'] = '0'
+        @first_project_in_course_a.save
+      }
 
       context "if the current_user is another student in the course, but not the submission's creator, she" do
         let ( :user ) { @another_creator_in_course_a }
-        it { expect(user).to have_ability(@ability_aliases[:read_only], for: submission) }
+        it {
+          expect(user).to have_ability(@ability_aliases[:read_only], for: submission)
+        }
       end
 
       context "and self evaluation is enabled" do
-        before (:all) { @course_a.settings['enable_self_evaluation'] = true }
+        before (:all) {
+          @first_project_in_course_a.settings['enable_self_evaluation'] = '1'
+          @first_project_in_course_a.save
+        }
+        after (:all) {
+          @first_project_in_course_a.settings['enable_self_evaluation'] = '0'
+          @first_project_in_course_a.save
+        }
         context "if the current_user is the submission creator, she" do
           let ( :user ) { @creator_in_course_a }
           it { expect(user).to have_ability({evaluate: true}, for: submission) }
         end
-        after (:all) { @course_a.settings['enable_self_evaluation'] = false }
       end
 
       context "if the current_user is the submission creator, she" do
         let ( :user ) { @creator_in_course_a }
+        it { expect(user).to have_ability({own: true}, for: submission) }
         it { expect(user).to have_ability({annotate: true}, for: submission) }
         it { expect(user).to have_ability({evaluate: false}, for: submission) }
       end
@@ -472,7 +508,6 @@ describe "Abilities" do
         it { expect(user).to have_ability({annotate: true}, for: submission) }
         it { expect(user).to have_ability({evaluate: true}, for: submission) }
       end
-      after (:all) { @course_a.settings['enable_peer_review'] = false }
     end
   end # END SUBMISSION CONTEXT
 
@@ -501,7 +536,6 @@ describe "Abilities" do
   end # END GROUPS CONTEXT
 
   context "for DiscussionPosts" do
-
     context "when the post was created by a creator" do
       let ( :post ) { FactoryGirl.build(:discussion_post, author: @creator_in_course_a, submission: @submission_for_first_project_in_course_a ) }
       context "if the current_user is an admin, she" do
@@ -595,61 +629,71 @@ describe "Abilities" do
 
   end # END ANNOTATIONS CONTEXT
 
+  context "Assets" do
+    let ( :asset ) { FactoryGirl.build(:asset, submission: @submission_for_first_project_in_course_a) }
+    context "when the course has creator attach disabled" do
+      context "if the current_user is an admin, she" do
+        let ( :user ) { @admin }
+        it { expect(user).to have_ability(@ability_aliases[:read_write_destroy], for: asset) }
+      end
+      context "if the current_user is an evaluator in the course, she" do
+        let ( :user ) { @evaluator_in_course_a }
+        it { expect(user).to have_ability(@ability_aliases[:read_write_destroy], for: asset) }
+        it { expect(user).to have_ability({new: true}, for: asset) }
+        it { expect(user).to have_ability({create: true}, for: asset) }
+      end
+      context "if the current_user is the creator for the submission with which the asset is associated, she" do
+        let ( :user ) { @creator_in_course_a }
+        it { expect(user).to have_ability(@ability_aliases[:read_only], for: asset) }
+      end
+      context "if current_user is enrolled in the course but is not the creator of the submission with which the asset is associated, then she" do
+        let ( :user ) { @creator_in_course_b }
+        it { expect(user).to have_ability(@ability_aliases[:forbidden], for: asset) }
+      end
+    end
+    context "when the course has creator attach enabled" do
+      before (:all) {
+        @first_project_in_course_a.settings['enable_creator_attach'] = '1'
+        @first_project_in_course_a.save
+      }
+      after (:all) {
+        @first_project_in_course_a.settings['enable_creator_attach'] = '0'
+        @first_project_in_course_a.save
+      }
+      context "if the current_user is an admin, she" do
+        let ( :user ) { @admin }
+        it { expect(user).to have_ability(@ability_aliases[:read_write_destroy], for: asset) }
+      end
+      context "if the current_user is an evaluator in the course, she" do
+        let ( :user ) { @evaluator_in_course_a }
+        it { expect(user).to have_ability(@ability_aliases[:read_write_destroy], for: asset) }
+      end
+      context "if the current_user is the creator for the submission with which the asset is associated, she" do
+        let ( :user ) { @creator_in_course_a }
+        it { expect(user).to have_ability(@ability_aliases[:read_write_destroy], for: asset) }
+      end
+      context "if current_user is enrolled in the course but is not the creator of the submission with which the asset is associated, then she" do
+        let ( :user ) { @creator_in_course_b }
+        it { expect(user).to have_ability(@ability_aliases[:forbidden], for: asset) }
+      end
+    end
 
-  # context "Videos" do
-  #   let ( :video ) { FactoryGirl.build(:video, submission: @submission_for_first_project_in_course_a) }
-  #   context "when the course has creator attach disabled" do
-  #     before (:all) { @course_a.settings['enable_creator_attach'] = false }
-  #     context "if the current_user is an admin, she" do
-  #       let ( :user ) { @admin }
-  #       it { expect(user).to have_ability(@ability_aliases[:read_write_destroy], for: video) }
-  #     end
-  #     context "if the current_user is an evaluator in the course, she" do
-  #       let ( :user ) { @evaluator_in_course_a }
-  #       it { expect(user).to have_ability(@ability_aliases[:read_write_destroy], for: video) }
-  #       it { expect(user).to have_ability({new: true}, for: video) }
-  #       it { expect(user).to have_ability({create: true}, for: video) }
-  #     end
-  #     context "if the current_user is the creator for the submission with which the video is associated, she" do
-  #       let ( :user ) { @creator_in_course_a }
-  #       it { expect(user).to have_ability(@ability_aliases[:read_only], for: video) }
-  #     end
-  #     context "if current_user is enrolled in the course but is not the creator of the submission with which the video is associated, then she" do
-  #       let ( :user ) { @creator_in_course_b }
-  #       it { expect(user).to have_ability(@ability_aliases[:forbidden], for: video) }
-  #     end
-  #   end
-  #   context "when the course has creator attach enabled" do
-  #     before (:all) { @course_a.settings['enable_creator_attach'] = true }
-  #     context "if the current_user is an admin, she" do
-  #       let ( :user ) { @admin }
-  #       it { expect(user).to have_ability(@ability_aliases[:read_write_destroy], for: video) }
-  #     end
-  #     context "if the current_user is an evaluator in the course, she" do
-  #       let ( :user ) { @evaluator_in_course_a }
-  #       it { expect(user).to have_ability(@ability_aliases[:read_write_destroy], for: video) }
-  #     end
-  #     context "if the current_user is the creator for the submission with which the video is associated, she" do
-  #       let ( :user ) { @creator_in_course_a }
-  #       it { expect(user).to have_ability(@ability_aliases[:read_write_destroy], for: video) }
-  #     end
-  #     context "if current_user is enrolled in the course but is not the creator of the submission with which the video is associated, then she" do
-  #       let ( :user ) { @creator_in_course_b }
-  #       it { expect(user).to have_ability(@ability_aliases[:forbidden], for: video) }
-  #     end
-  #     after (:all) { @course_a.settings['enable_creator_attach'] = false }
-  #   end
-  #
-  #   context "when the course has creator attach enabled" do
-  #     before (:all) { @course_a.settings['enable_peer_review'] = true }
-  #     context "if current_user is enrolled in the course but is not the creator of the submission with which the video is associated, then she" do
-  #       let ( :user ) { @another_creator_in_course_a }
-  #       it { expect(user).to have_ability(@ability_aliases[:read_only], for: video) }
-  #     end
-  #     after (:all) { @course_a.settings['enable_peer_review'] = false }
-  #   end
-  #
-  # end # END VIDEOS CONTEXT
+    context "when the course has peer review enabled" do
+      before (:all) {
+        @first_project_in_course_a.settings['enable_peer_review'] = '1'
+        @first_project_in_course_a.save
+      }
+      after (:all) {
+        @first_project_in_course_a.settings['enable_peer_review'] = '0'
+        @first_project_in_course_a.save
+      }
+      context "if current_user is enrolled in the course but is not the creator of the submission with which the asset is associated, then she" do
+        let ( :user ) { @another_creator_in_course_a }
+        it { expect(user).to have_ability(@ability_aliases[:read_only], for: asset) }
+      end
+    end
+
+  end # END ASSETS CONTEXT
 
   context "for Rubrics" do
     context "when the rubric is an evaluator owned rubric" do
@@ -687,7 +731,6 @@ describe "Abilities" do
   end # END RUBRICS CONTEXT
 
   context "for Evaluations" do
-
     context "when Evaluation is published and belongs to course evaluator" do
       let ( :evaluation ) { FactoryGirl.build(:evaluation, evaluator: @evaluator_in_course_a, published: true, submission: @submission_for_first_project_in_course_a)}
       context "if the current_user is an admin, she" do

@@ -15,11 +15,6 @@
   position: relative;
   background: $grayDarker;
   color: $white;
-  position: fixed;
-  top: 25%;
-  left: 50%;
-  margin-left: -200px;
-  width: 400px;
   padding: $verticalSpace * 3;
   padding-top: $verticalSpace * 3;
   line-height: 1.25em;
@@ -34,6 +29,13 @@
     font-weight: $regular;
     margin-bottom: .5em;
   }
+  .modal--subheader {
+    font-size: $theta;
+    color: $white;
+    font-weight: $semibold;
+    margin-top: 1em;
+    margin-bottom: .25em;
+  }
 
   .modal--close {
     @include svg(white-close-ex);
@@ -45,17 +47,19 @@
     display: block;
   }
 
-  header {
-
-  }
-
   .content {
     @include clearfix;
-
   }
 
-  .footer {
-
+  .modal-scroll-container {
+    overflow-y: auto;
+    max-height: 500px;
   }
 
+}
+
+.modal-rubric {
+  margin-top: 1em;
+  max-height: 500px;
+  overflow: auto;
 }

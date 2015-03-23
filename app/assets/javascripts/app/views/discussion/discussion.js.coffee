@@ -32,9 +32,6 @@ define (require) ->
         @updateCount()
       )
 
-    onShow: () ->
-      #@$el.find('textarea').autosize()
-
     updateCount: () ->
       l = @allPosts.length
       if l == 1

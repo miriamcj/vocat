@@ -9,8 +9,8 @@
     <div class="header">
       Course Message
     </div>
-    <div class="body">
-      <%= @course.message %>
+    <div class="body markdown-content">
+      <%= raw @course.rendered_message %>
     </div>
   </div>
   <% end %>

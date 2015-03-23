@@ -14,12 +14,13 @@ define (require) ->
     onSeek: () ->
       @vent.trigger('request:time:update', {seconds: @model.get('seconds_timecode')})
 
-    setupListeners: () ->
-      @listenTo(@vent, 'announce:status', (data) =>
-        @updatePosition(data.duration)
-      )
-
     updatePosition: (duration) ->
+      @listenToOnce(@vent, 'announce:status', (data) =>
+        @setPosition(data.duration)
+      )
+      @vent.trigger('request:status', {})
+
+    setPosition: (duration) ->
       if duration == 0
         @$el.hide()
       else
@@ -33,7 +34,13 @@ define (require) ->
       @vent = options.vent
       @setupListeners()
 
+    setupListeners: () ->
+      @listenToOnce(@vent, 'announce:loaded', (data) =>
+        @setPosition(data.duration)
+      )
+
     onRender: () ->
+      @updatePosition()
       role = @model.get('author_role')
       switch role
         when "administrator"

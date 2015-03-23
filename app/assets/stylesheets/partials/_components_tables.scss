@@ -9,6 +9,9 @@
 
 // <table>
 .table {
+  .modal & {
+    color: $grayDarkest;
+  }
   width: 100%;
   thead {
     tr {

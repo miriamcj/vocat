@@ -36,6 +36,8 @@ module StrongParametersConfiguration
 
 
   def project_params(type = 'project')
+    params[type.to_sym][:allowed_attachment_families] ||= []
+    params[type.to_sym][:allowed_attachment_families].reject! { |f| f.empty? }
     params.require(type.to_sym).permit(:name,
                                        :description,
                                        :course_id,
@@ -43,8 +45,12 @@ module StrongParametersConfiguration
                                        :type,
                                        :listing_order_position,
                                        {:allowed_attachment_families => []},
-                                       :due_date
+                                       :due_date,
+                                       :settings => [
+                                           Project::ALLOWED_SETTINGS
+                                       ]
     ).merge({ listing_order_position: params[:listing_order_position]})
+
   end
 
   def user_params
@@ -74,9 +80,6 @@ module StrongParametersConfiguration
                                    :groups_attributes => [ :id,
                                                            :name,
                                                            :creator_ids => []
-                                   ],
-                                   :settings => [
-                                       Course::ALLOWED_SETTINGS
                                    ]
     )
   end

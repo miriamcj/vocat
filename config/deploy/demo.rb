@@ -1,13 +1,13 @@
-set :branch, "v3.1.2"
-set :server_name, "spock.vocat.io"
-set :application, "demo_vocat"
+set :branch, "development"
+set :server_name, "uhura.vocat.io"
+set :application, "vocat"
 
 set :stage, :production
 set :rails_env, :production
 
-role :app, %w{demo_vocat@spock.vocat.io}
-role :web, %w{demo_vocat@spock.vocat.io}
-role :db,  %w{demo_vocat@spock.vocat.io}
+role :app, %w{vocat@uhura.vocat.io}
+role :web, %w{vocat@uhura.vocat.io}
+role :db,  %w{vocat@uhura.vocat.io}
 
 set :deploy_to, "~/#{fetch(:application)}"
 

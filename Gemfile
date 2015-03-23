@@ -19,7 +19,6 @@ gem 'daemons'
 gem 'quiet_assets'
 gem 'net-ldap'
 gem 'mime-types'
-#gem 'thor', :git => 'https://github.com/erikhuda/thor.git'
 gem 'thor'
 gem 'state_machine', :git => 'https://github.com/seuros/state_machine.git'
 gem 'wkhtmltopdf-binary'
@@ -27,6 +26,7 @@ gem 'wicked_pdf'
 gem 'database_cleaner'
 gem 'mini_magick'
 
+gem 'redcarpet', '~> 3.2.0'
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', :require => nil
 

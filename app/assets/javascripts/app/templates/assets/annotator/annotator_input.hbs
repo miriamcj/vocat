@@ -1,7 +1,7 @@
 <div class="formgrid whole">
 	<textarea placeholder="Begin typing here ..." class="annotation-input" data-behavior="annotation-input">{{body}}</textarea>
 </div>
-<div class="formgrid third">
+<div data-behavior="annotation-buttons-left" class="formgrid third annotation-input-buttons-left">
 	{{#if id}}
 		<button data-behavior="annotation-update" class="primary-button new-button">Update</button>
 		<button data-behavior="annotation-edit-cancel" class="gentle-warning-button cancel-button">Cancel</button>
@@ -10,8 +10,8 @@
 		<button data-behavior="annotation-create-cancel" class="gentle-warning-button cancel-button">Cancel</button>
 	{{/if}}
 </div>
-<div class="formgrid two-thirds border-buttons" style="text-align: right;" data-region="annotator-input">
+<div class="formgrid two-thirds border-buttons annotation-input-buttons-right" data-region="annotator-input"><button class="primary-button select-button" data-behavior="annotation-canvas-select">Select</button>
+	<button class="primary-button erase-button" data-behavior="annotation-canvas-erase">Erase</button>
 	<button class="primary-button oval-button" data-behavior="annotation-canvas-oval">Oval</button>
 	<button class="primary-button draw-button" data-behavior="annotation-canvas-draw">Draw</button>
-	<button class="primary-button erase-button" data-behavior="annotation-canvas-erase">Erase</button>
 </div>

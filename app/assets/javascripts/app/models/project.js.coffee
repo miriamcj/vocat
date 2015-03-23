@@ -7,5 +7,16 @@ define ['backbone'], (Backbone) ->
     hasRubric: () ->
       _.isObject(@get('rubric'))
 
+    pastDue: () ->
+      due = @get('due_date')
+      if due
+        dueDate = new Date(due)
+        if dueDate < new Date()
+          true
+        else
+          false
+      else
+        false
+
     evaluatable: () ->
       @get('evaluatable')

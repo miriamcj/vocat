@@ -1,7 +1,16 @@
 <div class="strong centered">
 	{{#if can_attach}}
-		Nothing Yet. <a href="#" data-behavior="empty-manage-link">Add some...</a>
+		<p>This project accepts {{join allowed_attachment_families capitalize=false }} media.</p>
+		<p style="font-weight: normal">
+			<a href="#" data-behavior="empty-manage-link">
+				Click here or press the "Manage Media" button to begin adding media to your submission
+			</a>
+		</p>
 	{{else}}
-		No assets have been uploaded for this submission. Check back soon.
+		{{#if mediaUploadsClosed}}
+			The due date for this project has passed, and media attachments are no longer accepted.
+		{{else}}
+			No media has been uploaded for this submission. Check back soon.
+		{{/if}}
 	{{/if}}
 </div>

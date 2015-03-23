@@ -7,6 +7,7 @@ define (require) ->
 
     annotationCollection : null
     urlRoot: "/api/v1/assets"
+    polls: 0
 
     techOrder: () ->
       switch @get('type')
@@ -22,6 +23,17 @@ define (require) ->
         @updateAnnotationCollection()
       )
       @updateAnnotationCollection()
+
+    poll: () ->
+      if @get('attachment_state') == 'processing'
+        wait = Math.pow(2, Math.floor(@polls/5)) * 10000
+        @polls++
+        @fetch({success: (model, response, options) =>
+          if model.get('attachment_state') == 'processing'
+            setTimeout(() =>
+              @poll()
+            , wait)
+        })
 
     hasDuration: () ->
       family = @get('family')

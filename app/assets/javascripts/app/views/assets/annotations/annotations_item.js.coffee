@@ -45,9 +45,11 @@ define (require) ->
 
     modelEvents: {
       "change:body": "onModelBodyChange"
+      "change:canvas": "onModelCanvasChange"
     },
 
     onActivate: () ->
+      @vent.trigger('request:annotator:input:stop')
       if @model.get('active')
         @model.collection.deactivateAllModels()
       else
@@ -55,6 +57,9 @@ define (require) ->
         @vent.trigger('request:annotation:show', @model)
 
     onModelBodyChange: () ->
+      @render()
+
+    onModelCanvasChange: () ->
       @render()
 
     onToggle: () ->
@@ -84,7 +89,10 @@ define (require) ->
       )
 
     onSeek: () ->
-      @vent.trigger('request:time:update', {seconds: @model.get('seconds_timecode')})
+      console.log 'seek'
+      @vent.trigger('request:time:update', {seconds: @model.get('seconds_timecode'), callback: () =>
+        @model.activate()
+      , callbackScope: @})
 
     onAnnotationDestroy: () ->
       @vent.trigger('request:pause', {})
@@ -115,4 +123,16 @@ define (require) ->
       @vent.trigger('request:resume', {})
 
     onAnnotationEdit: () ->
-      @vent.trigger('request:edit:annotation', @model)
+      @vent.trigger('request:annotator:input:edit', @model)
+
+    onRender: () ->
+      role = @model.get('author_role')
+      switch role
+        when "administrator"
+          @$el.addClass('role-administrator')
+        when "evaluator"
+          @$el.addClass('role-evaluator')
+        when "creator"
+          @$el.addClass('role-creator')
+        when "self"
+          @$el.addClass('role-self')

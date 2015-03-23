@@ -1,4 +1,7 @@
-
-<a class="matrix--column-header--link" href="/courses/{{courseId}}/manage/projects/new">
-	<span>Create a new project</span>
-</a>
+{{#unless isCreator}}
+	<a class="matrix--column-header--link" href="/courses/{{courseId}}/manage/projects/new">
+		<span>Create a new project</span>
+	</a>
+{{else}}
+	No projects have been created. Check back soon.
+{{/unless}}

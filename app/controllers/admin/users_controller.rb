@@ -39,7 +39,13 @@ class Admin::UsersController < Admin::AdminController
   # POST /admin/users/1
   def create
     @user.organization = @current_organization
-    flash[:notice] = "Successfully created user." if @user.save
+    password = SecureRandom.hex
+    @user.password = password
+    @user.password_confirmation = password
+    if @user.save
+      flash[:notice] = "Successfully created user."
+      UserMailer.welcome_email(@user).deliver
+    end
     respond_with(:admin, @user)
   end
 

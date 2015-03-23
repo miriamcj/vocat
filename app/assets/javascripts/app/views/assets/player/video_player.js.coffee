@@ -1,7 +1,8 @@
 define (require) ->
 
   Marionette = require('marionette')
-#  vjsWavesurfer = require('vendor/video_js/vjs.wavesurfer')
+  vjsAnnotations = require('vendor/video_js/vjs.annotations')
+  vjsAnnotations = require('vendor/video_js/vjs.rewind')
   vjsAudioWave = require('vendor/video_js/vjs.audiowave')
   template = require('hbs!templates/assets/player/video_player')
   PlayerAnnotations = require('views/assets/player/player_annotations')
@@ -15,6 +16,8 @@ define (require) ->
       player: '[data-behavior="video-player"]'
       playerContainer: '[data-behavior="player-container"]'
     }
+
+    callbacks: []
 
     initialize: (options) ->
       @vent = options.vent
@@ -35,6 +38,16 @@ define (require) ->
       @listenTo(@vent, 'request:resume', (data) => @handleResumeRequest(data))
       @listenTo(@vent, 'request:lock', (data) => @handleLockRequest(data))
       @listenTo(@vent, 'request:unlock', (data) => @handleUnlockRequest(data))
+      @listenTo(@vent, 'announce:annotator:input:start', (data) => @handlePauseRequest(data))
+      @listenTo(@vent, 'announce:canvas:enabled', (data) => @handleCanvasEnabled())
+      @listenTo(@vent, 'announce:canvas:disabled', (data) => @handleCanvasDisabled())
+      $(window).on('resize', @resizePlayer)
+
+    handleCanvasEnabled: () ->
+      @player.addClass('canvas-enabled')
+
+    handleCanvasDisabled: () ->
+      @player.removeClass('canvas-enabled')
 
     isLocked: () ->
       @lock != null
@@ -64,7 +77,10 @@ define (require) ->
       @player.on( 'timeupdate', ()=>
         @announceTimeUpdate()
       )
-      @player.on( 'loadedmetadata', () => @handleStatusRequest())
+      @player.on( 'loadedmetadata', () =>
+        @vent.trigger('announce:loaded', @getStatusHash())
+        @handleStatusRequest()
+      )
       @player.on( 'progress', () =>
         @vent.trigger('announce:progress', {bufferedPercent: @getBufferedPercent()})
       )
@@ -76,14 +92,27 @@ define (require) ->
           @vent.trigger('announce:play')
       )
 
-    announceTimeUpdate: () ->
-      @vent.trigger('announce:time:update', {
-        playedPercent: @getPlayedPercent(),
-        playedSeconds: @player.currentTime()
-      })
-
     getBufferedPercent: () ->
       @player.bufferedPercent()
+
+    announceTimeUpdate: _.debounce(
+      () ->
+        time = @player.currentTime()
+        percent = @getPlayedPercent()
+        @vent.trigger('announce:time:update', {
+          playedPercent: percent
+          playedSeconds: time
+        })
+        @processCallbacks(time)
+    , 10, true)
+
+    processCallbacks: (second) ->
+      if @callbacks.length > 0
+        _.each(@callbacks, (callbackDetails, index) =>
+          if callbackDetails.seconds <= Math.ceil(second)
+            callbackDetails.callback.apply(callbackDetails.scope)
+            @callbacks.splice(index, 1)
+        )
 
     getPlayedPercent: () ->
       if @player
@@ -106,13 +135,16 @@ define (require) ->
     handleLockRequest: (data) ->
       @lockPlayer(data)
 
-    handleStatusRequest: () ->
-      @vent.trigger('announce:status', {
+    getStatusHash: () ->
+      {
         bufferedPercent: @getBufferedPercent()
         playedPercent: @getPlayedPercent()
         playedSeconds: @player.currentTime()
         duration: @player.duration()
-      })
+      }
+
+    handleStatusRequest: () ->
+      @vent.trigger('announce:status', @getStatusHash())
 
     handleAnnotationShow: (data) ->
       @player.trigger({
@@ -144,6 +176,14 @@ define (require) ->
       if playing == true
         @wasPlaying = true
         @player.pause()
+      @vent.trigger('announce:paused', @getStatusHash())
+
+    addTimeBasedCallback: (seconds, callback, callbackScope) ->
+      @callbacks.push {
+        seconds: seconds
+        callback: callback
+        scope: callbackScope
+      }
 
     handleTimeUpdateRequest: (data) ->
       if data.hasOwnProperty('percent')
@@ -152,32 +192,41 @@ define (require) ->
       else
         seconds = data.seconds
       seconds = seconds
+      if data.hasOwnProperty('callback') && _.isFunction(data.callback)
+        @addTimeBasedCallback(seconds, data.callback, data.callbackScope)
 
       # Views can put a lock on the player. If the user tries to update the playback time, the player refuses, and
       # expected the view that holds the lock to do something.
       if @checkIfLocked(seconds) == false
+
+        # Anytime a time update is requested, we will stop the annotation editing
+        # mode. There is a subtle difference here between stopping on request and stopping
+        # on actual time update. It's user intent that we want to capture, not the time update
+        # itself.
+        @vent.trigger('request:annotator:input:stop')
+
         @player.currentTime(seconds)
-        duration = @player.duration()
-        @vent.trigger('announce:time:update', {
-          playedPercent: seconds / duration,
-          playedSeconds: seconds
-        })
 
     getPlayerDimensions: () ->
-      width = @ui.playerContainer.outerWidth()
-      height = width / 1.77
+      if @model.get('family') == 'audio'
+        width = @ui.playerContainer.outerWidth()
+        height = width / 2.5
+      else
+        width = @ui.playerContainer.outerWidth()
+        height = width / 1.77
       {width: width, height: height}
 
-    resizePlayer: (aspectRatio) ->
+    onDestroy: () ->
+      @player.dispose()
+      $(window).off('resize', @resizePlayer)
+
+    resizePlayer: () =>
       dimensions = @getPlayerDimensions()
       @player.width(dimensions.width).height(dimensions.height)
 
     insertAnnotationsStageView: () ->
       container = document.createElement('div');
       container.id = 'vjs-annotation-overlay';
-#      $(container).on('click', () =>
-#        @handlePlaybackToggleRequest()
-#      )
       @stageView = new PlayerAnnotations({model: @model, vent: @vent})
       @stageView.render()
       $(container).append(@stageView.el)
@@ -186,26 +235,22 @@ define (require) ->
     setupPlayer: () ->
       dimensions = @getPlayerDimensions()
       domTarget = @ui.player[0]
+
       options = {
         techOrder: @model.techOrder()
         width: dimensions.width
         height: dimensions.height
         plugins: {
+          annotations: {
+            vent: @vent
+            collection: @model.annotations()
+          }
+          rewind: {}
         }
         children: {
           controlBar: {
             children: {
-              timeDivider: false
-              currentTimeDisplay: false
-              durationDisplay: false
-              remainingTimeDisplay: false
-            }
-            progressControl: {
-              seekBar: {
-                loadProgressBar: false
-                playProgressBar: false
-                seekHandle: false
-              }
+              durationDisplay: true
             }
           }
         }
@@ -215,6 +260,7 @@ define (require) ->
         options.src = locations.url
 
       if @model.get('family') == 'audio'
+        options.children.controlBar.children['fullscreenToggle'] = false
         options.plugins = {
           audiowave: {
             src: @model.get('locations').mp3,

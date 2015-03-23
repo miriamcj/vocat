@@ -39,6 +39,14 @@ define [
       else
         return false
 
+    getCanvasJSON: () ->
+      json = null
+      canvas = @get('canvas')
+      if canvas?
+        imgData = JSON.parse(canvas)
+        json = imgData.json
+        json
+
     getSvg: () ->
       svg = null
       canvas = @get('canvas')
@@ -57,6 +65,10 @@ define [
       fm = ("0" + minutes).slice(-2);
       fs = ("0" + seconds).slice(-2);
       "#{fh}:#{fm}:#{fs}"
+
+    activate: () ->
+      if @collection
+        @collection.activateModel(@)
 
     toJSON: () ->
       attributes = _.clone(this.attributes);

@@ -1,20 +1,31 @@
 <div class="page-content--heading">
-  <a class="header-link back-link" style="display: none;" data-behavior="detail-close" href="/courses/{{courseId}}/{{to_lower creatorType}}s/evaluations">Back to Evaluations</a>
-  <h2 class="heading-primary">
-    {{project.name}}
-	  {{#if isGroupProject }}
-	  <span class="badge">group</span>
-	  {{/if}}
-  </h2>
-  <h2 class="heading-secondary">
-	  {{#if isGroupProject }}
+	<a class="header-link back-link" style="display: none;" data-behavior="detail-close" href="/courses/{{courseId}}/{{to_lower creatorType}}s/evaluations">Back to Evaluations</a>
+	<h2 class="heading-primary">
+		{{project.name}}
+		{{#if isGroupProject }}
+			<span class="badge">group</span>
+		{{/if}}
+		{{#if project.due_date}}
+			<span class="badge">Due {{project.due_date}}</span>
+		{{/if}}
+	</h2>
+	<h2 class="heading-secondary">
+		{{#if isGroupProject }}
 			<a data-behavior="open-group-modal" href="#">
 				{{creator.name}}
 			</a>
-	   {{else}}
-		  {{creator.name}}
-	  {{/if}}
-  </h2>
+		{{else}}
+			{{creator.name}}
+		{{/if}}
+	</h2>
+	<div class="heading-utility">
+		{{#if project.description}}
+			<a href="#" class="outline-button" data-behavior="open-project-description">Show Project Description</a>
+		{{/if}}
+		{{#if projectEvaluatable}}
+			<a href="#" class="outline-button" data-behavior="show-rubric">Show Rubric</a>
+		{{/if}}
+	</div>
 </div>
 
 <div class="submission-section">

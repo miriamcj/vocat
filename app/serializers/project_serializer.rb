@@ -11,6 +11,8 @@ class ProjectSerializer < ActiveModel::Serializer
               :evaluatable?,
               :evaluatable_by_peers?,
               :evaluatable_by_creator?,
+              :allows_public_discussion?,
+              :rejects_past_due_media?,
               :allowed_attachment_families,
               :allowed_extensions,
               :allowed_mime_types,
@@ -18,12 +20,26 @@ class ProjectSerializer < ActiveModel::Serializer
               :rubric_id,
               :rubric_name,
               :abilities,
-              :course_id
+              :course_id,
+              :due_date
 
   has_one :rubric
 
+  def evaluatable_by_peers?
+    object.allows_peer_review?
+  end
+
+  def evaluatable_by_creator?()
+    object.allows_self_evaluation?
+  end
+
+  def allows_public_discussion?()
+    object.allows_public_discussion?
+  end
+
   def description
-    simple_format(object.description)
+    markdown = Redcarpet::Markdown.new(Renderer::InlineHTML.new({escape_html: true}))
+    markdown.render(object.description)
   end
 
   def current_user_id
@@ -33,7 +49,9 @@ class ProjectSerializer < ActiveModel::Serializer
   def abilities
     {
         can_update: Ability.new(scope).can?(:update, object),
-        can_destroy: Ability.new(scope).can?(:destroy, object)
+        can_destroy: Ability.new(scope).can?(:destroy, object),
+        can_evaluate: Ability.new(scope).can?(:evaluate, object),
+        can_show_submissions: Ability.new(scope).can?(:show_submissions, object)
     }
   end
 

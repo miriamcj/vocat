@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :project do
-    type 'User'
+    type 'UserProject'
     association :course, factory: :course
     association :rubric, factory: :rubric
     name "Test Project"

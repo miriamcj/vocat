@@ -11,7 +11,7 @@
 %proto-input {
 //  @include box-sizing(content-box);
   height: 2.12em;
-  padding: 0px 0px 0px .8em;
+  padding: 0px 0px 0px .5em;
   outline: none;
   @include font-body;
   font-size: $eta;
@@ -146,14 +146,47 @@ fieldset + fieldset {
     @extend %proto-input;
     @extend %input-full-width;
   }
+  .checkbox-list+.checkbox-list {
+    margin-top: 1em;
+  }
+  .checkbox-list {
+    @extend %unstyled-list;
+    @include clearfix();
+    padding: 0;
+    margin: 0;
+    small {
+      padding-left: 1.55em;
+    }
+    li+li {
+      margin-top: 1em;
+    }
+    &.checkbox-list-floated {
+      li {
+        @extend %form-wide-one-fourth;
+        padding-left: 0;
+      }
+    }
+  }
+  .checkbox-separator {
+    margin: 1em 0;
+    font-style: italic;
+  }
   .checkbox-wrap {
-    height: 2.6em;
-    padding-top: .75em;
+    @include clearfix();
+    border-top: 1px solid $grayMedium;
+    padding: .5em 0;
+  }
+  .checkbox-list, .checkbox-wrap {
+    label {
+      text-transform: none;
+      font-size: 1em;
+      color: inherit;
+    }
   }
   textarea {
     resize: none;
     height: 6em;
-    padding: 1em;
+    padding: .5em;
   }
 }
 
@@ -192,16 +225,16 @@ $spacingUnit: $mediumUnitPadding * .75;
 .oneline--input {
   .button-wrapper {
     float: right;
-    @include respond($vostok - 1) {
-      display: none;
-    }
+//    @include respond($vostok - 1) {
+//      display: none;
+//    }
   }
   .button-wrapper-responsive {
     display: none;
     margin-top: $spacingUnit;
-    @include respond($vostok - 1) {
-      display: block;
-    }
+//    @include respond($vostok - 1) {
+//      display: block;
+//    }
   }
   .input-wrapper {
     padding-right: $spacingUnit;

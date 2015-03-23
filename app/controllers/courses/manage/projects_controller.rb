@@ -42,7 +42,6 @@ class Courses::Manage::ProjectsController < ApplicationController
 
   # PATCH courses/:course_id/manage/projects/1/
   def update
-    myvars = project_params(@project.type.underscore)
     if @project.update_attributes(project_params(@project.type.underscore))
       flash[:notice] = 'Project was successfully updated.'
     end

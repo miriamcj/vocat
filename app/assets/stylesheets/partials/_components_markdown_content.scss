@@ -1,0 +1,35 @@
+@import "variables";
+
+.markdown-content {
+  margin: $verticalSpace 0;
+
+  h1,h2,h3,h4,h5,h6 {
+    margin: 1em 0;
+  }
+
+  h1 {
+    font-size: $epsilon;
+  }
+  h2 {
+    font-size: $zeta;
+  }
+  h3 {
+    font-size: $eta;
+  }
+  h4 {
+    font-size: $iota;
+  }
+  h5 {
+    font-size: $kappa;
+  }
+  h6 {
+    font-size: $lambda
+  }
+  blockquote {
+    font-size: $theta;
+  }
+  img {
+    max-width: 100%;
+  }
+
+}

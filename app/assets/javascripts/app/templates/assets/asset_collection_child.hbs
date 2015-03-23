@@ -9,7 +9,11 @@
 		{{else}}
 			<div class="thumb-container-placeholder">
 				<a href="#">
-					<span>{{to_upper attachment.state}}</span>
+					<span class="tight">{{to_upper attachment.state}}</span>
+					<div class="processing-indicator">
+						<div class="processing-indicator-1"></div>
+						<div class="processing-indicator-2"></div>
+					</div>
 				</a>
 			</div>
 		{{/if}}
@@ -31,7 +35,11 @@
 		{{else}}
 			<div class="thumb-container-placeholder">
 				<a href="#">
-					<span>{{to_upper attachment.state}}</span>
+					<span class="tight">{{to_upper attachment.state}}</span>
+					<div class="processing-indicator">
+						<div class="processing-indicator-1"></div>
+						<div class="processing-indicator-2"></div>
+					</div>
 				</a>
 			</div>
 		{{/if}}
@@ -43,7 +51,7 @@
 			{{#if name}}
 				{{name}}
 			{{else}}
-				{{titlecase family}} Submission
+				{{titlecase family}} Media
 			{{/if}}
 		</a>
 	</h3>
@@ -65,14 +73,14 @@
 		</ul>
 		<div data-behavior="show-on-manage">
 			<a href="#" style="display: inline-block" class="tertiary-button edit-button" data-behavior="rename">Rename</a>
-			<a href="#" style="display: inline-block" class="tertiary-button move-button" data-behavior="move">Reorder</a>
-		</div>
-		<div data-behavior="show-on-manage">
 			<a href="#" style="display: inline-block" class="gentle-warning-button delete-button" data-behavior="destroy">Delete</a>
 		</div>
+		<div class="move-links" data-behavior="show-on-manage">
+			<Span class="move-label">List Order:</span>
+			<a href="#" style="display: inline-block;" class="down-link disabled" data-behavior="move-down">Move Down</a>
+			<a href="#" style="display: inline-block;" class="up-link disabled" data-behavior="move-up">Move Up</a>
+		</div>
 	</div>
-
-
 </div>
 
 

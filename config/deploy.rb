@@ -25,6 +25,14 @@ namespace :deploy do
     end
   end
 
+  desc 'Output revision'
+  task :write_revision do
+    on roles(:app), in: :sequence, wait: 5 do
+      execute "cd #{repo_path}; git describe --always --tags > #{deploy_to}/current/public/revision.txt"
+    end
+  end
+
+
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
@@ -42,8 +50,9 @@ namespace :deploy do
     end
   end
 
+  after :publishing, :write_revision
   after :published, :restart
   after 'deploy:normalize_assets', :build_js
-  after 'deploy:normalize_assets', :copy_error_pages
+  #after 'deploy:normalize_assets', :copy_error_pages
   
 end

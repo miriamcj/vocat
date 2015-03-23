@@ -15,6 +15,8 @@ class Asset < ActiveRecord::Base
   delegate :creator_id, :to => :submission, :allow_nil => true
   delegate :creator_type, :to => :submission, :allow_nil => true
 
+  scope :sorted, -> { order("listing_order ASC") }
+
   # We don't want any typeless assets being created.
   validates_presence_of :type
   before_validation :ensure_type

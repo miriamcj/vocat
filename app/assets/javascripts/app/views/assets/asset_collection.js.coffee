@@ -17,7 +17,6 @@ define (require) ->
 
     template: template
     childViewContainer: '[data-behavior="collection-container"]'
-    emptyView: EmptyView
 
     ui: {
       collectionContainer: '[data-behavior="collection-container"]'
@@ -27,42 +26,25 @@ define (require) ->
       'click [data-behavior="do-render"]': 'forceRender'
     }
 
+    emptyView: EmptyView
+
+    emptyViewOptions: () ->
+      {
+        model: @project
+        abilities: @abilities
+        vent: @vent
+      }
+
     onForceRender: () ->
       @render()
 
     setupListeners: () ->
-      @listenTo(@, 'childview:update:sort', (rowView, args) ->
-        @updateSort(args[0], args[1])
+      @listenTo(@collection, 'change:listing_order', (e) ->
+        @render()
       )
 
     initialize: (options) ->
       @vent = Marionette.getOption(@, 'vent')
       @abilities = options.abilities
+      @project = options.project
       @setupListeners()
-
-    # TODO: Lots of overlap between this and the sortable table behavior. The
-    # behavior should be improved and abstracted so that it can be used in this
-    # class as well.
-    updateSort: (model, position) ->
-      if @collection.indexOf(model) != position
-        model.set('listing_order_position', position)
-        container = @$el.find(@childViewContainer)
-        view = @children.findByModel(model)
-        view.$el.detach()
-        if position == 0
-          container.prepend(view.$el)
-        else
-          container.children().eq(position).before(view.$el)
-        model.save({})
-
-    onAddChild: () ->
-      @$el.sortable({
-        containment: @ui.collectionContainer
-        revert: true
-        handle: '[data-behavior="move"]'
-        items: '[data-behavior="sortable-item"]'
-        cursor: "move"
-        revert: 175
-        stop: (event, ui) ->
-          ui.item.trigger('asset:dropped', ui.item.index())
-      })

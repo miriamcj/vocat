@@ -17,42 +17,46 @@ define (require) ->
       annotationInput: '[data-region="annotator-input"]'
     }
 
+    ui: {
+    }
+
     setupListeners: () ->
-      @listenTo(@vent, 'request:edit:annotation', (annotation) ->
-        @handleEditAnnotationRequest(annotation)
-      )
-      @listenTo(@vent, 'annotator:refresh', () ->
-        @showAnnotationNewInput()
-      )
+      @listenTo(@vent,'request:annotator:save', @saveAnnotation, @)
+      @listenTo(@collection,'destroy', @handleAnnotationDestruction, @)
 
-    handleEditAnnotationRequest: (annotation) ->
+    saveAnnotation: (annotation, properties) ->
+      @listenToOnce(@vent, 'announce:status', (response) =>
+        @listenToOnce(@vent, 'announce:canvas', (canvas) =>
+          secondsTimecode = response.playedSeconds;
+          properties['canvas'] = canvas
+          properties['published'] = true
+          properties['seconds_timecode'] = secondsTimecode
+          annotation.save(properties, {
+              success: (annotation) => @handleAnnotationSaveSuccess(annotation)
+              error: (annotation, xhr) => @handleAnnotationSaveError(annotation, xhr)
+            }
+          )
+        )
+        @vent.trigger('request:canvas', {})
+      )
+      @vent.trigger('request:status', {})
+
+    handleAnnotationSaveSuccess: (annotation) ->
+      @collection.add(annotation, {merge: true})
+      annotation.activate()
+      @vent.trigger('request:status', {})
+
+    handleAnnotationSaveError: (annotation, xhr) ->
+      Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: xhr.responseJSON.errors})
+
+    handleAnnotationDestruction: (annotation) ->
       if @annotationInput.currentView.model == annotation
-        Vocat.vent.trigger('error:add', {level: 'notice', clear: true, lifetime: '3000',  msg: 'You are already editing this annotation'})
-      else if @annotationInput.currentView.isDirty()
-        Vocat.vent.trigger('modal:open', new ModalConfirmView({
-          model: annotation,
-          vent: @,
-          descriptionLabel: 'It looks like you are in the progress of annotating this asset. If you proceed, the annotation canvas and text input will be cleared.',
-          confirmEvent: 'confirm:show:edit',
-          dismissEvent: 'dismiss:show:edit'
-        }))
-      else
-        @showAnnotationEditInput(annotation)
-
-    onConfirmShowEdit: (annotation) ->
-      @showAnnotationEditInput(annotation)
-
-    showAnnotationNewInput: () ->
-      @annotationInput.show(new AnnotationInputView({asset: @model, model: new AnnotationModel({asset_id: @model.id}), vent: @vent, collection: @collection}))
-
-    showAnnotationEditInput: (annotation) ->
-      @vent.trigger('announce:edit:annotation')
-      annotation.collection.activateModel(annotation)
-      @annotationInput.show(new AnnotationInputView({asset: @model, model: annotation, vent: @vent, collection: @collection}))
+        @vent.trigger('request:annotator:input:stop')
 
     initialize: (options) ->
       @vent = options.vent
       @collection = @model.annotations()
+      window.zd = @collection
       @setupListeners()
 
     onShow: () ->
@@ -60,4 +64,5 @@ define (require) ->
         @progressBar.show(new ProgressBarView({model: @model, vent: @vent, collection: @collection}))
       else
         $(@progressBar.el).hide()
-      @showAnnotationNewInput()
+      @annotatorInputView = new AnnotationInputView({asset: @model, model: new AnnotationModel({asset_id: @model.id}), vent: @vent, collection: @collection})
+      @annotationInput.show(@annotatorInputView)

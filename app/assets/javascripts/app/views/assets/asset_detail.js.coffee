@@ -18,6 +18,7 @@ define (require) ->
       detailClose: '[data-behavior="detail-close"]'
       playerColumn: '[data-behavior="player-column"]'
       annotationsColumn: '[data-behavior="annotations-column"]'
+      message: '[data-behavior="message"]'
     }
 
     triggers: {
@@ -31,6 +32,15 @@ define (require) ->
       annotator: '[data-region="annotator"]'
       annotatorCanvas: '[data-region="annotator-canvas"]'
     }
+
+    handleMessageShow: (data) ->
+      msg = data.msg
+      @ui.message.html(msg)
+      @ui.message.addClass('open')
+
+    handleMessageHide: (data) ->
+      @ui.message.html('')
+      @ui.message.removeClass('open')
 
     selectPlayerView: () ->
       viewConstructorArguments = {model: @model, vent: @vent}
@@ -56,10 +66,6 @@ define (require) ->
       @annotator.show(annotatorView) if annotatorView
       @annotatorCanvas.show(canvasView) if canvasView
       @annotations.show(annotationsView) if annotationsView
-      $('body').addClass('theater')
-
-    onDestroy: () ->
-      $('body').removeClass('theater')
 
     pickCanvasView: (asset) ->
       canDisplayCanvas = asset.allowsVisibleAnnotation()
@@ -89,3 +95,6 @@ define (require) ->
       @viewContext = options.context
       @courseId = window.VocatCourseId
       @vent = new Backbone.Wreqr.EventAggregator()
+      @listenTo(@vent, 'request:message:show', @handleMessageShow, @)
+      @listenTo(@vent, 'request:message:hide', @handleMessageHide, @)
+

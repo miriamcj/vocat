@@ -10,8 +10,8 @@ define (require) ->
     template: template
 
     attributes: {
-        'data-behavior': 'sortable-item'
-        'class': 'page-section--subsection page-section--subsection-ruled asset-collection-item'
+      'data-behavior': 'sortable-item'
+      'class': 'page-section--subsection page-section--subsection-ruled asset-collection-item'
     }
 
     events: {
@@ -20,7 +20,8 @@ define (require) ->
 
     ui: {
       destroy: '[data-behavior="destroy"]'
-      move: '[data-behavior="move"]'
+      moveUp: '[data-behavior="move-up"]'
+      moveDown: '[data-behavior="move-down"]'
       show: '[data-behavior="show"]'
       rename: '[data-behavior="rename"]'
       showOnManage: '[data-behavior="show-on-manage"]'
@@ -35,40 +36,47 @@ define (require) ->
       'click @ui.destroy': 'destroyModel'
       'click @ui.show': 'showModel'
       'click @ui.rename': 'renameModel'
+      'click @ui.moveUp': 'moveUp'
+      'click @ui.moveDown': 'moveDown'
     }
 
     onShowModel: () ->
       if @model.get('attachment_state') == 'processed'
         @vent.trigger('asset:detail', {asset: @model.id})
       else
-        Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'This asset is still being processed and is not yet available. Check back soon or reload the page to see if processing has completed.'})
+        Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Media is still being processed and is not yet available. Check back soon or reload the page to see if processing has completed.'})
 
-    onDrop: (e, i) ->
-      @trigger("update:sort",[@model, i])
+    onMoveUp: () ->
+      @model.collection.moveUp(@model)
+      @model.save()
+
+    onMoveDown: () ->
+      @model.collection.moveDown(@model)
+      @model.save()
 
     onRenameModel: () ->
       onSave = () =>
         @model.save({}, {
           success: () =>
-            Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'The asset has been updated.'})
+            Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Media successfully updated.'})
             @render()
           , error: () =>
-            Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Unable to update asset title.'})
+            Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Unable to update media title.'})
         })
-      Vocat.vent.trigger('modal:open', new ShortTextInputView({model: @model, vent: @vent, onSave: onSave, property: 'name', saveLabel: 'Update Title', inputLabel: 'What would you like to call this asset?'}))
+      Vocat.vent.trigger('modal:open', new ShortTextInputView({model: @model, vent: @vent, onSave: onSave, property: 'name', saveLabel: 'Update Title', inputLabel: 'What would you like to call this media?'}))
 
     onDestroyModel: () ->
       Vocat.vent.trigger('modal:open', new ModalConfirmView({
         model: @model,
         vent: @,
-        descriptionLabel: 'Deleted assets cannot be recovered. All annotations for this asset will also be deleted.',
+        descriptionLabel: 'Deleted media cannot be recovered. All annotations for this media will also be deleted.',
         confirmEvent: 'confirm:destroy:model',
         dismissEvent: 'dismiss:destroy:model'
       }))
 
     onConfirmDestroyModel: () ->
       @model.destroy(success: () =>
-        Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'The asset has been deleted.'})
+        Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'The media has been deleted.'})
       )
 
     serializeData: () ->
@@ -77,7 +85,6 @@ define (require) ->
       sd
 
     initialize: (options) ->
-      console.log @model.attributes,'attr'
       @vent = Marionette.getOption(@, 'vent')
       @listenTo(@vent, 'show:new', (e) =>
         @showManageUi()
@@ -85,21 +92,31 @@ define (require) ->
       @listenTo(@vent, 'hide:new', (e) =>
         @hideManageUi()
       )
-      @listenTo(@vent, 'announce:manage:visibility', (visible) =>
-        if visible == true
+      @listenTo(@model, 'change:attachment_state', () =>
+        @render()
+      )
+      @listenTo(@vent, 'announce:state', (state) =>
+        if state == 'manage'
           @showManageUi()
         else
           @hideManageUi()
       )
-      @listenTo(@model.collection, 'add remove', () =>
-        @checkMoveButtonVisibility()
+      @listenTo(@model.collection, 'add remove', (model) =>
+        if model != @model && @model != null
+          @checkMoveButtonVisibility()
       )
 
     checkMoveButtonVisibility: () ->
-      if @model.collection.length > 1
-        @ui.move.show()
+      if @model && @model.collection.length > 1
+        @ui.moveUp.removeClass('disabled')
+        @ui.moveDown.removeClass('disabled')
       else
-        @ui.move.hide()
+        @ui.moveUp.hide()
+        @ui.moveDown.addClass('disabled')
+      if @model && @model.collection.indexOf(@model) == 0
+        @ui.moveUp.addClass('disabled')
+      if @model && @model.collection.indexOf(@model) == @model.collection.length - 1
+        @ui.moveDown.addClass('disabled')
 
     hideManageUi: () ->
       @ui.showOnManage.hide()
@@ -110,7 +127,7 @@ define (require) ->
       @ui.hideOnManage.hide()
 
     requestManageVisibilityState: () ->
-      @vent.trigger('request:manage:visibility')
+      @vent.trigger('request:state')
 
     onRender: () ->
       @requestManageVisibilityState()

@@ -2,7 +2,7 @@
 <div class="page-section page-section-clear">
 	<div class="header-wrapper">
 		<div class="header">
-			<h1>Evaluations</h1>
+			<h1>Course Overview</h1>
 		</div>
 	</div>
 	<div class="body">
@@ -17,24 +17,28 @@
 					<form class="formgrid formgrid-tight matrix-view-toggle">
 						<div class="formgrid formgrid-whole">
 							<span class="label">Currently Viewing:</span>
-							<label class="label-inline" for="view-individuals">
-								<input {{#if_match creatorType 'User'}}checked="checked"{{/if_match}}
-								type="radio"
-								data-behavior="view-toggle"
-								id="view-individuals"
-								name="view"
-								value="individuals">
-								Individuals
-							</label>
-							<label class="label-inline" for="view-groups">
-								<input {{#if_match creatorType 'Group'}}checked="checked"{{/if_match}}
-								type="radio"
-								data-behavior="view-toggle"
-								id="view-groups"
-								name="view"
-								value="groups">
-								Groups
-							</label>
+							{{#if hasUserProjects}}
+								<label class="label-inline" for="view-individuals">
+									<input {{#if_match creatorType 'User'}}checked="checked"{{/if_match}}
+										   type="radio"
+										   data-behavior="view-toggle"
+										   id="view-individuals"
+										   name="view"
+										   value="individuals">
+									Individuals
+								</label>
+							{{/if}}
+							{{#if hasGroupProjects}}
+								<label class="label-inline" for="view-groups">
+									<input {{#if_match creatorType 'Group'}}checked="checked"{{/if_match}}
+										   type="radio"
+										   data-behavior="view-toggle"
+										   id="view-groups"
+										   name="view"
+										   value="groups">
+									Groups
+								</label>
+							{{/if}}
 						</div>
 					</form>
 				</div>
