@@ -19,5 +19,4 @@ Vocat::Application.configure do
 
   config.action_mailer.default_url_options = {:host => config.vocat.email.url_domain}
 
-
 end

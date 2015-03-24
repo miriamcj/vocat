@@ -8,10 +8,10 @@ Vocat::Application.routes.draw do
   namespace :api do
     namespace :v1 do
 
-      post 'token' => 'token#create'
-      get 'token' => 'token#show'
-      delete 'token' => 'token#destroy'
-      patch 'token' => 'token#renew'
+      post 'token' => 'token#create', :defaults => { :format => 'json' }
+      get 'token' => 'token#show', :defaults => { :format => 'json' }
+      delete 'token' => 'token#destroy', :defaults => { :format => 'json' }
+      patch 'token' => 'token#renew', :defaults => { :format => 'json' }
 
       resources :attachments, :only => [:create, :show, :destroy]
       resources :assets, :except => [:new, :edit, :index]
