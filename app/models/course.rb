@@ -21,7 +21,7 @@ class Course < ActiveRecord::Base
 
   accepts_nested_attributes_for :groups
 
-  ALLOWED_SETTINGS = [:enable_creator_attach, :enable_self_evaluation, :enable_peer_review, :enable_public_discussion]
+  ALLOWED_SETTINGS = [:enable_creator_attach, :enable_self_evaluation, :enable_peer_review, :enable_public_discussion, :anonymous_peer_review]
   store_accessor :settings, *ALLOWED_SETTINGS
 
   scope :sorted, -> { includes(:semester).order ('year DESC, semesters.position DESC') }
@@ -78,6 +78,10 @@ class Course < ActiveRecord::Base
     years = Course.uniq.pluck(:year)
     years.reject! { |y| y.nil? }
     years.sort
+  end
+
+  def has_anonymous_peer_review?
+    get_boolean_setting_value('anonymous_peer_review')
   end
 
   def allows_public_discussion?

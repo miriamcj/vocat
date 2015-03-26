@@ -13,6 +13,24 @@ class EvaluationSerializer < ActiveModel::Serializer
               :current_user_is_evaluator,
               :abilities
 
+
+  def evaluator_name
+    if @options.key?(:anonymous) && options[:anonymous] == true && evaluator_role == 'Peer'
+      'anonymous'
+    else
+      object.evaluator_name
+    end
+  end
+
+  def evaluator_id
+    if @options.key?(:anonymous) && options[:anonymous] == true && evaluator_role == 'Peer'
+      nil
+    else
+      object.evaluator_id
+    end
+  end
+
+
   def abilities
     {
         :can_own => Ability.new(scope).can?(:own, object),

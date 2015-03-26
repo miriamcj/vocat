@@ -49,4 +49,16 @@
         Enabling self-evaluation will give students the ability to evaluate their own project submissions using the rubric attached to each project.
       </small>
     </div>
+
+	  <div class="formgrid fourth">
+		  <label class="label-inline" for="course_settings_anonymous_peer_review">
+			  <%= hidden_field_tag('course[settings][anonymous_peer_review]', 0, :id => 'anonymous_peer_review_hidden')%>
+			  <%= check_box_tag('course[settings][anonymous_peer_review]', 1, @course.settings[:anonymous_peer_review] == '1')%>
+			  <b></b>
+			  Enable Anonymous Peer Review
+		  </label>
+		  <small>
+			  If enabled, students will not be able to see the evaluator name on peer evaluations.
+		  </small>
+	  </div>
   <% end %>
