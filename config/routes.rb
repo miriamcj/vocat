@@ -5,13 +5,13 @@ Vocat::Application.routes.draw do
     match '/users/settings' => 'registrations#update_settings', :via => :put
   end
 
-  namespace :api do
+  namespace :api, :defaults => {:format => 'json'} do
     namespace :v1 do
 
-      post 'token' => 'token#create', :defaults => { :format => 'json' }
-      get 'token' => 'token#show', :defaults => { :format => 'json' }
-      delete 'token' => 'token#destroy', :defaults => { :format => 'json' }
-      patch 'token' => 'token#renew', :defaults => { :format => 'json' }
+      post 'token' => 'token#create'
+      get 'token' => 'token#show'
+      delete 'token' => 'token#destroy'
+      patch 'token' => 'token#renew'
 
       resources :attachments, :only => [:create, :show, :destroy]
       resources :assets, :except => [:new, :edit, :index]
