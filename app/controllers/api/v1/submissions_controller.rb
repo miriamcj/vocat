@@ -59,13 +59,18 @@ class Api::V1::SubmissionsController < ApiController
     respond_with @submissions
   end
 
-  # GET /api/v1/submissions/for_project.json?project=:project
+  # GET /api/v1/submissions/for_project.json?project=:project&brief=false
   def for_project
+    params[:brief] ? brief = true : brief = false
     factory = SubmissionFactory.new
     @project = Project.find(params.require(:project))
     authorize! :show_submissions, @project.course
     @submissions = factory.project(@project)
-    respond_with @submissions
+    if brief
+      respond_with @submissions, :each_serializer => BriefSubmissionSerializer
+    else
+      respond_with @submissions
+    end
   end
 
   # GET /api/v1/submissions/:id.json

@@ -20,6 +20,10 @@ class Group < ActiveRecord::Base
     true
   end
 
+  def list_name
+    name
+  end
+
   def is_user?
     true
   end

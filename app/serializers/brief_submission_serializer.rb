@@ -8,7 +8,12 @@ class BriefSubmissionSerializer < AbstractSubmissionSerializer
               :current_user_percentage,
               :instructor_score_percentage,
               :role,
-              :has_asset?
+              :has_asset?,
+              :list_name
+
+  def list_name
+    object.creator.list_name
+  end
 
   def serialized_state
 	  'partial'

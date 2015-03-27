@@ -53,7 +53,8 @@ class SubmissionFactory
       user_submissions = project_ids.product user_ids
       create_absent_user_submissions(user_submissions)
     end
-    project.submissions
+    project.submissions.sort_by {|submission| submission.creator.list_name }
+
   end
 
   protected
