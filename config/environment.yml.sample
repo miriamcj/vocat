@@ -91,10 +91,11 @@ common: &common
     :default_role: 'creator'
 
   :email:
+    :support_email: "vocat@baruch.cuny.edu"
     :default_from: "do-not-reply@app.vocat.io"
     :notification:
+      :support_email: "vocat@baruch.cuny.edu"
       :course_request_create: 'notify@app.vocat.io'
-
 
 :development:
   <<: *common

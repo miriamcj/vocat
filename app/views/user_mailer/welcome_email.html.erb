@@ -19,7 +19,9 @@
 <p>You have been assigned a temporary password. Your username is your email address. <%= link_to 'Follow this link to go to VOCAT and create your account password', edit_password_url(@user, :reset_password_token => @token) %>.</p>
 <% end %>
 
-<p>If you have trouble logging into VOCAT (and you're sure you're entering the correct ID and password) or encountering another problem or issue, please contact <a href="mailto:vocat@baruch.cuny.edu">vocat@baruch.cuny.edu</a>.</p>
+<% if @support_email %>
+<p>If you have trouble logging into VOCAT (and you're sure you're entering the correct ID and password) or encountering another problem or issue, please contact <a href="mailto:<%= @support_email %>"><%= @support_email %></a>.</p>
+<% end %>
 
 <p>Welcome to VOCAT, and good luck with your studies!</p>
 
