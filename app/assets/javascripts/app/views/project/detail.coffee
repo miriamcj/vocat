@@ -106,6 +106,9 @@ define (require) ->
         data: {
           project: @projectId
         }
+        headers: {
+          Authorization: "Bearer #{window.VocatAccessToken}"
+        }
         success: (data, textStatus, jqXHR) =>
           @data = data
           deferred.resolve()

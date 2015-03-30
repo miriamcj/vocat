@@ -1,10 +1,15 @@
 Vocat::Application.routes.draw do
 
+  # Doorkeeper
+  use_doorkeeper
+
+  # Devise
   devise_for :users
   devise_scope :user do
     match '/users/settings' => 'registrations#update_settings', :via => :put
   end
 
+  # API
   namespace :api, :defaults => {:format => 'json'} do
     namespace :v1 do
 

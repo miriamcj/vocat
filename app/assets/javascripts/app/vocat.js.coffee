@@ -18,6 +18,7 @@ define (require) ->
 
   window.Vocat = Vocat = new Backbone.Marionette.Application()
 
+
   Vocat.routes = {
     admin: {
       'admin/courses/:course/evaluators': 'evaluatorEnrollment'
@@ -151,7 +152,7 @@ define (require) ->
 
   Vocat.on('before:start', () ->
 
-    # Setup the global notifications view
+   # Setup the global notifications view
     if @.hasOwnProperty('notification')
       notification = new NotificationLayoutView({vent: Vocat.vent})
       Vocat.notification.show(notification)

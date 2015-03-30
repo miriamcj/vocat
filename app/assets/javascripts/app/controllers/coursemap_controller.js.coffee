@@ -116,6 +116,9 @@ define (require) ->
           project: projectId
           creator_type: creatorType
         }
+        headers: {
+          Authorization: "Bearer #{window.VocatAccessToken}"
+        }
         success: (data) =>
           if data.length > 0 && data[0].id?
             raw = data[0]

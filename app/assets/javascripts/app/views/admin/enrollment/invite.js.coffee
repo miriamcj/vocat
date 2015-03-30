@@ -29,6 +29,9 @@ define (require) ->
         type: 'POST'
         dataType: 'json'
         data: {contacts: contact_string, invite: true}
+        headers: {
+          Authorization: "Bearer #{window.VocatAccessToken}"
+        }
         success: (data, textStatus, jqXHR) =>
           @handleSubmitSuccess(jqXHR.responseJSON)
         error: (jqXHR, textStatus, error) =>

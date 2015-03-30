@@ -16,9 +16,17 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :get_organization_and_current_course
   before_action :inject_global_layout_variables
-
+  before_action :generate_token
 
   protected
+
+  def generate_token
+    application_id = '64784183e14d221eeaa34c48ab79a6330c35ab20fd3479c8a8f0d4d9f34f365e'
+    if current_user
+      Doorkeeper::AccessToken.where(:application_id => application_id, :resource_owner_id => current_user.id).delete_all
+      @oauth_token = Doorkeeper::AccessToken.create(:application_id => application_id, :resource_owner_id => current_user.id)
+    end
+  end
 
   def page_not_found
     raise ActionController::RoutingError.new('Not Found')
