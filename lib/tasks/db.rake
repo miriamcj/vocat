@@ -15,4 +15,17 @@ namespace :db do
 
   end
 
+  desc "Adds dummy data to the database"
+  task :sample => :environment do
+    generator = Utility::SampleDataGenerator.new
+    generator.fill
+  end
+
+  desc "removes all data from the database"
+  task :purge => :environment do
+    generator = Utility::SampleDataGenerator.new
+    generator.empty
+  end
+
+
 end
