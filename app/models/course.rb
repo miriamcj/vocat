@@ -195,7 +195,6 @@ class Course < ActiveRecord::Base
     markdown.render(message)
   end
 
-
   private
 
 end

@@ -124,6 +124,17 @@
 						rubric attached to each project.
 					</small>
 				</li>
+				<li>
+					<label class="label-inline" for="<%= @project.type.underscore %>_settings_anonymous_peer_review">
+						<%= hidden_field_tag("#{@project.type.underscore}[settings][anonymous_peer_review]", 0, :id => 'enable_anonymous_peer_review_hidden') %>
+						<%= check_box_tag("#{@project.type.underscore}[settings][anonymous_peer_review]", 1, @project.has_anonymous_peer_review?) %>
+						<b></b>
+						Enable Anonymous Peer Review
+					</label>
+					<small>
+						If enabled, students will not be able to see the evaluator name on peer evaluations.
+					</small>
+				</li>
 			</ul>
 		</div>
 	</div>
