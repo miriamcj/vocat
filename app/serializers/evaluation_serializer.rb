@@ -15,7 +15,7 @@ class EvaluationSerializer < ActiveModel::Serializer
 
 
   def evaluator_name
-    if @options.key?(:anonymous) && options[:anonymous] == true && evaluator_role == 'Peer'
+    if @options.key?(:anonymous) && options[:anonymous] == true && Ability.new(scope).cannot?(:administer, object.submission.project.course)
       'anonymous'
     else
       object.evaluator_name
