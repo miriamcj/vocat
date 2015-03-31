@@ -43,13 +43,12 @@ class SubmissionSerializer < AbstractSubmissionSerializer
     }
   end
 
-
-
   # We scope the visible evaluations to the user
   def evaluations
     evaluations = object.evaluations_visible_to(scope)
+    anonymous = object.project.has_anonymous_peer_review?
     unless evaluations.nil?
-      ActiveModel::ArraySerializer.new(evaluations, each_serializer: EvaluationSerializer, :scope => scope)
+      ActiveModel::ArraySerializer.new(evaluations, each_serializer: EvaluationSerializer, :scope => scope, :anonymous => anonymous)
     else
       []
     end
@@ -64,8 +63,8 @@ class SubmissionSerializer < AbstractSubmissionSerializer
     end
   end
 
-	def serialized_state
-		'full'
+  def serialized_state
+    'full'
   end
 
   protected
@@ -103,10 +102,5 @@ class SubmissionSerializer < AbstractSubmissionSerializer
       0
     end
   end
-
-
-
-
-
 
 end

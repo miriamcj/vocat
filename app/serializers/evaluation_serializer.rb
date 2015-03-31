@@ -13,6 +13,24 @@ class EvaluationSerializer < ActiveModel::Serializer
               :current_user_is_evaluator,
               :abilities
 
+
+  def evaluator_name
+    if should_anonymize_evaluation
+      'anonymous'
+    else
+      object.evaluator_name
+    end
+  end
+
+  def evaluator_id
+    if should_anonymize_evaluation
+      nil
+    else
+      object.evaluator_id
+    end
+  end
+
+
   def abilities
     {
         :can_own => Ability.new(scope).can?(:own, object),
@@ -42,6 +60,15 @@ class EvaluationSerializer < ActiveModel::Serializer
       else
         raw.to_s.capitalize
     end
+  end
+
+  private
+
+  def should_anonymize_evaluation
+    @options.key?(:anonymous) &&
+    @options[:anonymous] == true &&
+    Ability.new(scope).cannot?(:administer, object.submission.project.course) &&
+    scope.id != object.evaluator_id
   end
 
 end

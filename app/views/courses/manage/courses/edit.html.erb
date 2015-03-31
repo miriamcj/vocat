@@ -1,32 +1,31 @@
 <% content_for :content	 do %>
-  <%= link_to 'Return to Course Evaluations', course_path(@course), :class => 'header-link back-link' %>
-  <div class="page-section page-section-clear">
-    <div class="header-wrapper">
-      <div class="header">
-        <h2>Course Settings</h2>
-      </div>
-    </div>
-    <div class="body">
-      <%= form_for @course, :url => {action: 'update'}, :html => {:class => 'formgrid'} do |f| %>
-        <fieldset>
-          <div class="formgrid whole">
-            <label>Course Message</label>
-            <%= f.text_area :message, { :rows => 10} %>
-            <small class="input-message">
-              Any message you enter here will be visible to all students when they log into VOCAT and select this course
-              from the list of available courses.
-            </small>
-          </div>
-        </fieldset>
+	<%= link_to 'Return to Course Evaluations', course_path(@course), :class => 'header-link back-link' %>
+	<div class="page-section page-section-clear">
+		<div class="header-wrapper">
+			<div class="header">
+				<h2>Course Settings</h2>
+			</div>
+		</div>
+		<div class="body">
+			<%= form_for @course, :url => {action: 'update'}, :html => {:class => 'formgrid'} do |f| %>
+				<fieldset>
+					<div class="formgrid whole">
+						<label>Course Message</label>
+						<%= f.text_area :message, { :rows => 10} %>
+						<small class="input-message">
+							Any message you enter here will be visible to all students when they log into VOCAT and select this course
+							from the list of available courses.
+						</small>
+					</div>
+				</fieldset>
 
-        <fieldset>
-        <div class="formgrid whole">
-          <%= submit_tag('Save Settings', :class => 'primary-button') %>
-        </div>
-        </fieldset>
-
-      <% end %>
-    </div>
-  </div>
+				<fieldset>
+					<div class="formgrid whole">
+						<%= submit_tag('Save Settings', :class => 'primary-button') %>
+					</div>
+				</fieldset>
+			<% end %>
+		</div>
+	</div>
 <% end %>
 

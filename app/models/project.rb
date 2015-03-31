@@ -19,8 +19,8 @@ class Project < ActiveRecord::Base
   delegate :name_long,          :to => :course, :prefix => true
   delegate :id,                 :to => :course, :prefix => true
 
-  ALLOWED_SETTINGS = [:enable_creator_attach, :enable_self_evaluation, :enable_peer_review, :enable_public_discussion, :reject_past_due_media]
-  BOOLEAN_SETTINGS = [:enable_creator_attach, :enable_self_evaluation, :enable_peer_review, :enable_public_discussion, :reject_past_due_media]
+  ALLOWED_SETTINGS = [:enable_creator_attach, :enable_self_evaluation, :enable_peer_review, :enable_public_discussion, :reject_past_due_media, :anonymous_peer_review]
+  BOOLEAN_SETTINGS = [:enable_creator_attach, :enable_self_evaluation, :enable_peer_review, :enable_public_discussion, :reject_past_due_media, :anonymous_peer_review]
   ATTACHMENT_FAMILIES = %w(audio image video)
 
   store_accessor :settings, *ALLOWED_SETTINGS
@@ -174,6 +174,10 @@ class Project < ActiveRecord::Base
 
   def rejects_past_due_media?
     get_boolean_setting_value('reject_past_due_media')
+  end
+
+  def has_anonymous_peer_review?
+    get_boolean_setting_value('anonymous_peer_review')
   end
 
   private
