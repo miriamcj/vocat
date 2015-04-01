@@ -1,7 +1,6 @@
 Vocat::Application.routes.draw do
 
-  # Doorkeeper
-  use_doorkeeper
+
 
   # Devise
   devise_for :users
@@ -23,6 +22,7 @@ Vocat::Application.routes.draw do
       resources :enrollments, :only => [:create, :destroy]
       resources :users, :only => [:show] do
         collection do
+          get 'me'
           get 'search'
           post 'invite'
         end
@@ -187,6 +187,10 @@ Vocat::Application.routes.draw do
   require 'sidekiq/web'
   authenticate :user, lambda { |u| u.role?(:administrator) } do
     mount Sidekiq::Web => '/sidekiq'
+  end
+
+  authenticate :user, lambda { |u| u.role?(:administrator) } do
+    use_doorkeeper
   end
 
 end

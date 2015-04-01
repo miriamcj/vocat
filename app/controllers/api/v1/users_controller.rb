@@ -1,7 +1,8 @@
 class Api::V1::UsersController < ApiController
 
-  load_and_authorize_resource :user
+  load_and_authorize_resource :user, except: [:me]
   respond_to :json
+  skip_authorization_check only: [:me]
 
   # /api/v1/users/search?email=XXX
   def search
@@ -23,6 +24,11 @@ class Api::V1::UsersController < ApiController
     else
       render :json => { :errors => response[:message] }, :status => :unprocessable_entity
     end
+  end
+
+  # /api/v1/users/me
+  def me
+    respond_with current_user
   end
 
 end
