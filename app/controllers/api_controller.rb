@@ -1,8 +1,7 @@
 class ApiController < ApplicationController
 
-  protect_from_forgery
-  before_action :doorkeeper_authorize!
-  skip_before_action :generate_token
-
+  before_action :doorkeeper_authorize!, :if => lambda { !current_user }
+  before_action :authenticate_user!
+  skip_before_action :authenticate_user!, :if => lambda { request.headers[:Authorization] }
 
 end

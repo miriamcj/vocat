@@ -8,12 +8,12 @@ Semester.find_or_create_by(:name => 'Spring', position: 3)
 puts "Create Summer Semester"
 Semester.find_or_create_by(:name => 'Summer', position: 4)
 
-puts "Create Organization: Baruch College"
-org = Organization.find_or_create_by(:name => "Baruch College")
-
-puts "Create Admin User: admin@vocat.io / testtest123"
-u = User.create(:email => 'admin@vocat.io', :org_identity => rand(11111111..99999999), :password => "testtest123", :first_name => 'Vocat', :last_name => 'Admin')
-u.role = "administrator"
-u.organization = org
-u.save
-
+count = Doorkeeper::Application.where(:name => "Vocat").count
+if count == 0
+  puts "Create oAuth Application for Vocat"
+  application = Doorkeeper::Application.new :name => "Vocat", :redirect_uri => "http://vocat.io"
+  puts application.errors.inspect
+  application.save
+else
+  puts "Found Vocat oAuth Application"
+end

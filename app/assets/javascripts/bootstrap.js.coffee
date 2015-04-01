@@ -50,7 +50,7 @@ requirejs.config {
     'i18nprecompile' : 'vendor/hbs/i18nprecompile'
     'json2' : 'vendor/hbs/json2'
     'handlebars' : 'vendor/handlebars/handlebars'
-    'backbone' : 'vendor/backbone/backbone_patched'
+    'backbone' : 'vendor/backbone/backbone_1.1.2'
     'underscore' : 'vendor/underscore/underscore'
     'backbone.wreqr' : 'vendor/plugins/backbone.wreqr'
     'backbone.eventbinder' : 'vendor/plugins/backbone.eventbinder'

@@ -139,9 +139,6 @@ define (require) ->
         type: 'put'
         dataType: 'json'
         data: {}
-        headers: {
-          Authorization: "Bearer #{window.VocatAccessToken}"
-        }
         success: (data, textStatus, jqXHR) =>
           Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 4000, msg: "Your evaluations for #{project.get('name')} submissions have been published"})
           submissions = @collections.submission.where({project_id: project.id})
@@ -158,9 +155,6 @@ define (require) ->
         type: 'put'
         dataType: 'json'
         data: {}
-        headers: {
-          Authorization: "Bearer #{window.VocatAccessToken}"
-        }
         success: (data, textStatus, jqXHR) =>
           Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 4000, msg: "Your evaluations for #{project.get('name')} submissions have been unpublished"})
           submissions = @collections.submission.where({project_id: project.id})

@@ -7,35 +7,27 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   check_authorization :unless => :devise_controller?
-
-  # Used for testing flash messages
-  unless Rails.env.production?
-    before_action :test_flash_messages
-  end
-
   before_action :authenticate_user!
   before_action :get_organization_and_current_course
   before_action :inject_global_layout_variables
-  before_action :generate_token
+
+  def devise_current_user
+    @current_user ||= warden.authenticate(scope: :user)
+  end
+
+  def current_user
+    if devise_current_user
+      devise_current_user
+    elsif doorkeeper_token && doorkeeper_token.accessible?
+      User.find(doorkeeper_token.resource_owner_id)
+    end
+  end
 
   protected
 
-  def generate_token
-    application_id = '64784183e14d221eeaa34c48ab79a6330c35ab20fd3479c8a8f0d4d9f34f365e'
-    if current_user
-      Doorkeeper::AccessToken.where(:application_id => application_id, :resource_owner_id => current_user.id).delete_all
-      @oauth_token = Doorkeeper::AccessToken.create(:application_id => application_id, :resource_owner_id => current_user.id)
-    end
-  end
 
   def page_not_found
     raise ActionController::RoutingError.new('Not Found')
-  end
-
-  def test_flash_messages
-    if params['test_flash']
-      flash[:notice] = 'This is a test flash message'
-    end
   end
 
   def app_section

@@ -40,9 +40,6 @@ define (require) ->
       $.ajax(endpoint, {
         type: 'POST'
         dataType: 'json'
-        headers: {
-          Authorization: "Bearer #{window.VocatAccessToken}"
-        }
         data: {contacts: contact_string, invite: true}
         success: (data, textStatus, jqXHR) =>
           @handleSubmitSuccess(jqXHR.responseJSON)
