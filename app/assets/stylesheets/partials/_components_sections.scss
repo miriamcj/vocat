@@ -192,3 +192,11 @@
   margin-top: 50px;
   background: $white;
 }
+
+.section-empty-message {
+  //border: 2px dashed $grayMediumDarker;
+  padding-left: .75em;
+  padding-right: 40px;
+  color: $grayMediumDarker;
+  padding: 0px;
+}
