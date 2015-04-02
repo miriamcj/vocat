@@ -63,10 +63,11 @@
 .assets-container .asset-new-container .page-section--component,
 .assets-container .asset-collection-container .page-section--component {
   margin-top: 0;
-  padding-bottom: 10px;
+  padding-bottom: 30px;
 }
 
 .page-section .asset-collection-item {
+  padding-bottom: 20px;
   .portfolio-item--thumb {
     margin-bottom: 0;
   }
@@ -75,9 +76,10 @@
   }
   &+.asset-collection-item {
     margin-top: 20px;
+    &:last-child {
+      padding-bottom: 0;
+    }
   }
-  padding-bottom: 20px;
-
   .move-label {
     @extend %button-text;
   }

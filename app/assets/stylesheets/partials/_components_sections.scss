@@ -113,6 +113,7 @@
     padding-bottom: $sectionSpacingUnit * .75;
     &:last-child {
       border-bottom: none;
+      padding-bottom: 0;
     }
   }
 
