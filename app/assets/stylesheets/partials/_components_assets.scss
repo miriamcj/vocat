@@ -177,8 +177,7 @@ $targetHeight: 95px;
   }
 }
 
-$playerColBg: $grayDarker;
-$annotationColBg: $grayDarkest;
+$playerColBg: $grayLighter;
 $annotationColBg: $grayLightest;
 $textColor: $grayDarkest;
 $assetDetailMaxHeight: 700px;
@@ -336,7 +335,7 @@ $activeAnnotationBackground: $grayLighter;
     margin-bottom: 1em;
     padding-top: 15px;
   }
-  .annotation-message {
+  .annotations-empty-message {
     padding: 30px;
     font-size: $theta;
     line-height: 1.5em;
@@ -374,18 +373,18 @@ $activeAnnotationBackground: $grayLighter;
         }
       }
       &.annotation-delete-link {
-        background: $warningButtonColor;
+        background: $grayLight;
         &:hover {
-          background: darken($warningButtonColor, 10%);
+          background: darken($grayLight, 10%);
         }
         &:after {
           @include svg(ex-white);
         }
       }
       &.annotation-edit-link {
-        background: $primaryButtonColor;
+        background: $grayMediumLighter;
         &:hover {
-          background: darken($primaryButtonColor, 10%);
+          background: darken($grayMediumLighter, 10%);
         }
         &:after {
           @include svg(pencil-white);
@@ -455,24 +454,21 @@ $activeAnnotationBackground: $grayLighter;
   background: linear-gradient(rgba(46,41,42,0),$activeAnnotationBackground 85%);
 }
 
-
-
 .annotation + .annotation {
   border-top: 1px solid $grayMediumLighter;
-
 }
-.annotation + .annotation.role-creator {
-  border-top: 1px solid $grayMediumLighter;
-}
-.annotation + .annotation.role-administrator {
-  border-top: 1px solid $grayMediumLighter;
-}
-.annotation + .annotation.role-evaluator {
-  border-top: 1px solid $grayMediumLighter;
-}
-.annotation + .annotation.role-self{
-  border-top: 1px solid $grayMediumLighter;
-}
+//.annotation + .annotation.role-creator {
+//  border-top: 1px solid $grayMediumLighter;
+//}
+//.annotation + .annotation.role-administrator {
+//  border-top: 1px solid $grayMediumLighter;
+//}
+//.annotation + .annotation.role-evaluator {
+//  border-top: 1px solid $grayMediumLighter;
+//}
+//.annotation + .annotation.role-self{
+//  border-top: 1px solid $grayMediumLighter;
+//}
 //.annotation:last-child {
 //  border-bottom: 1px solid $grayMediumLighter;
 //}
@@ -486,10 +482,13 @@ $activeAnnotationBackground: $grayLighter;
 // --------------------------------------------------------
 $trackHeight: 10px;
 .annotator {
-  padding: 20px 40px;
+  padding: 20px 40px 40px 40px;
   width: 100%;
   min-height: 200px;
-
+  //.border-buttons .primary-button {
+  //  background: $white;
+  //  border: none;
+  //}
   .formgrid {
     padding-left: 0;
     padding-right: 0;
@@ -505,25 +504,40 @@ $trackHeight: 10px;
     margin-top: 1.5em;
     margin-bottom: 1em;
   }
+
+
+  .annotation-message {
+    &.open {
+      visibility: visible;
+    }
+    display: inline-block;
+    visibility: hidden;
+    background: $grayMediumLighter;
+    color: $white;
+    margin-top: 5px;
+    padding: .5em;
+    position: absolute;
+    top: 10px;
+    font-size: $iota;
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-bottom: 10px solid $grayMediumLighter;
+      top: -10px;
+      left: 50px;
+      margin-left: -20px;
+    }
+  }
   .formgrid textarea.annotation-input {
     margin-top: 15px;
-    height: 75px;
-    border: 1px solid $grayLight;
-    background: $grayDark;
+    height: 3em;
     font-size: 1em;
-    color: $white !important;
-    &::-webkit-input-placeholder {
-      color: $grayLighter;
-    }
-    &:-moz-placeholder { /* Firefox 18- */
-      color: $grayLighter;
-    }
-    &::-moz-placeholder {  /* Firefox 19+ */
-      color: $grayLighter;
-    }
-    &:-ms-input-placeholder {
-      color: $grayLighter;
-    }
+    border: none;
   }
   .annotation-input-buttons-left {
     padding: 0;
@@ -564,7 +578,7 @@ $trackHeight: 10px;
       position: absolute;
       width: 100%;
       height: $trackHeight;
-      background: $grayDarkest;
+      background: $grayMediumLighter;
     }
     .buffered {
       position: absolute;
@@ -577,7 +591,7 @@ $trackHeight: 10px;
       position: absolute;
       width: 1px;
       height: 10px;
-      background: $white;
+      background: $grayDarker;
       z-index: 6;
       span {
         cursor: pointer;
@@ -585,7 +599,7 @@ $trackHeight: 10px;
         display: inline-block;
         margin: auto;
         right: -40px;
-        color: $white;
+        color: $grayDarker;
         font-size: $iota;
         top: -$trackHeight * 3.0;
         text-align: center;
@@ -600,7 +614,7 @@ $trackHeight: 10px;
           margin-left: -$trackHeight;
           border-left: $trackHeight solid transparent;
           border-right: $trackHeight solid transparent;
-          border-top: $trackHeight solid $white;
+          border-top: $trackHeight solid $grayDarker;
         }
       }
     }
@@ -609,7 +623,7 @@ $trackHeight: 10px;
       position: absolute;
       z-index: 3;
       height: $trackHeight;
-      background: $white;
+      background: $grayDarker;
     }
     .track-overlay {
       position: absolute;

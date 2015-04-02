@@ -80,7 +80,7 @@ input%proto-button {
     .notification &, .page-header &, .border-buttons & {
       background-color: $primaryButtonColor;
       border: 1px solid $primaryButtonColor;
-      color: $grayDarkest;
+      color: $white;
     }
     .modal &, .annotator & {
       background-color: $tealDark;
