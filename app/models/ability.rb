@@ -110,7 +110,7 @@ class Ability
     end
 
     can :administer, Submission do |submission|
-      can?(:administer, submission.project.course)
+      (user.role?(:administrator))
     end
 
     can :do_reassign, Submission do |submission|
@@ -128,8 +128,7 @@ class Ability
     can :destroy_confirm, Submission do |submission|
       can(:destroy, submission)
     end
-
-
+    
     can :evaluate, Submission do |submission|
       # User can evaluate if:
       # 1) user can evaluate for the course and is not the creator of the submission
