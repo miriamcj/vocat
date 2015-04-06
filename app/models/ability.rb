@@ -109,6 +109,27 @@ class Ability
       can?(:evaluate, submission) || can?(:own, submission)
     end
 
+    can :administer, Submission do |submission|
+      can?(:administer, submission.project.course)
+    end
+
+    can :do_reassign, Submission do |submission|
+      can(:administer, submission)
+    end
+
+    can :reassign, Submission do |submission|
+      can(:administer, submission)
+    end
+
+    can :destroy, Submission do |submission|
+      can(:administer, submission)
+    end
+
+    can :destroy_confirm, Submission do |submission|
+      can(:destroy, submission)
+    end
+
+
     can :evaluate, Submission do |submission|
       # User can evaluate if:
       # 1) user can evaluate for the course and is not the creator of the submission

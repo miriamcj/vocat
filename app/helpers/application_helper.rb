@@ -60,6 +60,19 @@ module ApplicationHelper
     "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}&d=mm"
   end
 
+  def possessive(string)
+    suffix = if string.downcase == 'it'
+      "s"
+    elsif string.downcase == 'who'
+      'se'
+    elsif string.end_with?('s')
+      "'"
+    else
+      "'s"
+    end
+    string + suffix
+  end
+
   def debug_current_layout
     controller.send :_layout
   end

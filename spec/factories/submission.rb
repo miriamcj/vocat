@@ -3,7 +3,7 @@ FactoryGirl.define do
     name 'a test submission'
     published true
     creator_type 'User'
-    association :project, factory: :project
+    association :project, factory: :user_project
     association :creator, factory: :creator
 
     factory :group_submission do

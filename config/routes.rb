@@ -78,6 +78,13 @@ Vocat::Application.routes.draw do
     end
 
     scope :module => "courses" do
+      resources :submissions, :only => [:show, :destroy] do
+        member do
+          get 'destroy_confirm'
+          get 'reassign'
+          post 'do_reassign'
+        end
+      end
       namespace "export" do
         resources :projects, :only => [] do
           member do

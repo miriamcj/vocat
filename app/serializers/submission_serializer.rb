@@ -35,12 +35,14 @@ class SubmissionSerializer < AbstractSubmissionSerializer
   end
 
   def abilities
+    ability = Ability.new(scope)
     {
-        can_own: Ability.new(scope).can?(:own, object),
-        can_evaluate: Ability.new(scope).can?(:evaluate, object),
-        can_attach: Ability.new(scope).can?(:attach, object),
-        can_discuss: Ability.new(scope).can?(:discuss, object),
-        can_annotate:  Ability.new(scope).can?(:annotate, object)
+        can_own: ability.can?(:own, object),
+        can_evaluate: ability.can?(:evaluate, object),
+        can_attach: ability.can?(:attach, object),
+        can_discuss: ability.can?(:discuss, object),
+        can_annotate:  ability.can?(:annotate, object),
+        can_administer: ability.can?(:administer, object)
     }
   end
 

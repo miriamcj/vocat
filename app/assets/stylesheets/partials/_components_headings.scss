@@ -61,6 +61,9 @@
   font-size: $delta;
   font-weight: $regular;
   color: $grayDark;
+  .heading-secondary + & {
+    margin-top: .15em !important;
+  }
   a {
     color: $grayDark;
     &:hover {
