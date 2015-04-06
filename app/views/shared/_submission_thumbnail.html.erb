@@ -1,0 +1,14 @@
+<% if submission.has_asset? %>
+	<div class="thumb-container">
+		<%= link_to image_tag(submission.thumb), submission_detail_path(submission) %>
+	</div>
+<% else %>
+	<div class="thumb-container-placeholder">
+		<a href="<%= submission_detail_path(submission) %>">
+			<span>media not yet uploaded</span>
+		</a>
+	</div>
+<% end %>
+
+
+

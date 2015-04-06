@@ -1,0 +1,60 @@
+
+<% content_for :heading do %>
+	<%= link_to 'Return to Submission', course_submission_path(@course, @submission), :class => 'header-link back-link' %>
+<% end %>
+<% content_for :content do %>
+
+	<div class="page-section submission-reassignment">
+		<div class="header-wrapper">
+			<div class="header">
+				<h2 class="heading-page-section">Reassign Submission</h2>
+			</div>
+		</div>
+		<div class="body">
+
+			<div class="page-section--subsection page-section--subsection-ruled portfolio-item">
+				<div class="portfolio-item--thumb">
+					<%= render 'shared/submission_thumbnail', :submission => @submission %>
+				</div>
+				<div class="portfolio-item--content">
+					<h3 class="heading-secondary">
+						<%= link_to @submission.project, course_submission_path(@course, @submission) %>
+						<% if @submission.creator_type == 'Group' %>
+							<span class="badge">group</span>
+						<% end %>
+					</h3>
+					<h3 class="heading-tertiary">
+						<%= @submission.creator %>
+					</h3>
+
+
+					<h5 class="heading-informational">
+						<% if @submission.has_video? %>
+							Submitted <%= @submission.video.created_at.strftime('%B %e, %Y at %l:%M %p') %>
+						<% else %>
+							No submission has been uploaded for this project.
+						<% end %>
+					</h5>
+
+					<h5 class="heading-informational">
+					</h5>
+
+
+				</div>
+			</div>
+
+			<div class="page-section--subsection page-section--subsection-ruled portfolio-item">
+				<div class="alert alert-warning">
+					<p>Are you sure you want to delete this submission? Doing so will also irrevocably remove all media, evaluations, and discussion posts
+					associated with the submission.</p>
+					<p class="small">
+						<%= link_to 'Yes, delete submission.', course_submission_path(@course, @submission), method: :delete, style: 'color: #FFF', class: 'warning-button delete-button' %>
+					</p>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+<% end %>
+
