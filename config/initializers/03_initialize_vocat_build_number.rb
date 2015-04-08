@@ -1,7 +1,7 @@
 
 build = nil
 if Rails.env.development?
-  output = `git describe --always`
+  output = `git describe --always --tags`
   build = output.strip
 else
   path = Rails.root.join('public', 'revision.txt')
