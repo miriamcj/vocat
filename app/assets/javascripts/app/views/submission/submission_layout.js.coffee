@@ -5,6 +5,7 @@ define (require) ->
   DiscussionView = require('views/discussion/discussion')
   EvaluationsView = require('views/submission/evaluations/evaluations_layout')
   AssetsView = require('views/assets/assets_layout')
+  UtilityView = require('views/submission/utility/utility')
   ModalGroupMembershipView = require('views/modal/modal_group_membership')
   ProjectModalView = require('views/modal/modal_project_description')
   RubricModalView = require('views/modal/modal_rubric')
@@ -38,6 +39,7 @@ define (require) ->
       evaluations: '[data-region="submission-evaluations"]'
       discussion: '[data-region="submission-discussion"]'
       assets: '[data-region="submission-assets"]'
+      utility: '[data-region="submission-utility"]'
     }
 
     serializeData: () ->
@@ -85,6 +87,8 @@ define (require) ->
       if @model.get('project').evaluatable
         @evaluations.show(new EvaluationsView({rubric: @rubric, vent: @, project: @project, model: @model, courseId: @courseId}))
       @assets.show(new AssetsView({collection: @model.assets(), model: @model, courseId: @courseId, initialAsset: @options.initialAsset, courseMapContext: @courseMapContext}))
+      if @model.get('abilities').can_administer
+        @utility.show(new UtilityView({vent: @vent, model: @model, courseId: @courseId}))
 
     initialize: (options) ->
       @options = options || {}

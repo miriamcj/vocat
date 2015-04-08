@@ -25,7 +25,7 @@ class Group < ActiveRecord::Base
   end
 
   def is_user?
-    true
+    false
   end
 
   def include?(user)

@@ -443,52 +443,20 @@ $placardArrowSize: $placardWidth * .05;
 .evaluation-single--utility {
 }
 
-
-.evaluation-empty {
-  border: 2px dashed $grayMediumDarker;
-  padding-left: .75em;
-  padding-right: $barHeight;
-  height: $barHeight;
-  line-height: $barHeight;
-  font-size: $zeta;
-  font-weight: $semibold;
-  color: $grayMediumDarker;
-
-}
-
-.evaluation-create {
-//  margin-top: $secondaryBarHeight * 3;
-  border: 2px dashed $grayMediumDarker;
-  a {
-    width: 100%;
-    span {
-      &:after {
-        content: '';
-        @extend %svg-pencil-gray-on-white;
-        margin-left: 15px;
-        height: 15px;
-        width: 15px;
-        display: inline-block;
-      }
+a.block-pencil-link {
+  width: 100%;
+  span {
+    position: relative;
+    &:before {
+      content: '';
+      position: relative;
+      top: 3px;
+      @extend %svg-pencil-teal-on-white;
+      margin-right: 5px;
+      height: 15px;
+      width: 15px;
+      display: inline-block;
     }
-    &:hover span {
-      color: $tealLight;
-      &:after {
-        @extend %svg-pencil-teal-on-white;
-        margin-left: 15px;
-        height: 15px;
-        width: 15px;
-      }
-    }
-    text-decoration: underline;
-    font-size: $zeta;
-    font-weight: $semibold;
-    line-height: $barHeight;
-    padding-left: .75em;
-    padding-right: $barHeight;
-    height: $barHeight;
-    display: inline-block;
-    color: $grayMediumDarker;
   }
 }
 

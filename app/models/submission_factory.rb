@@ -23,6 +23,20 @@ class SubmissionFactory
     submission_query(user_project_ids, user_ids, group_project_ids, group_ids)
   end
 
+  def one_by_creator_and_project(creator, project)
+    creator_id = creator.id
+    project_id = project.id
+    creator_type = creator.is_group? ? 'Group' : 'User'
+    s = nil
+    if (creator_type == 'Group' && project.course.groups.includes(creator)) || (creator_type == 'User' && project.course.role(creator) == :creator)
+      s = Submission.where(project_id: project_id, creator_id: creator_id, creator_type: creator_type).last
+      if s.nil?
+        s = Submission.create(project_id: project_id, creator_id: creator_id, creator_type: creator_type)
+      end
+    end
+    s
+  end
+
   def creator_and_project(creator, project)
     group_project_ids = []
     user_project_ids = []

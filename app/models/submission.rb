@@ -141,7 +141,30 @@ class Submission < ActiveRecord::Base
         return evaluations.where("evaluator_id = ?", user.id)
       end
     end
- end
+  end
+
+  def reassign_to!(target_creator, type = 'exchange')
+    source_creator = creator
+    factory = SubmissionFactory.new
+    target_submission = factory.one_by_creator_and_project(target_creator, self.project)
+    if target_submission
+      source_submission = self
+      source_submission.creator = target_creator
+      if type == 'exchange'
+        target_submission.creator = source_creator
+        ActiveRecord::Base.transaction do
+          source_submission.save()
+          target_submission.save()
+        end
+      elsif type == 'replace'
+        target_submission.destroy
+        source_submission.save()
+      end
+      target_submission
+    else
+      #TODO: Handle target submission does not exist error
+    end
+  end
 
 
   private

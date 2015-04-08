@@ -24,6 +24,7 @@ define (require) ->
       annotationEditCancelButton: '[data-behavior="annotation-edit-cancel"]'
       annotationDeleteButton: '[data-behavior="annotation-delete"]'
       annotationButtonsLeft: '[data-behavior="annotation-buttons-left"]'
+      message: '[data-behavior="message"]'
 
     triggers: {
       'click @ui.annotationCreateButton': 'saveAnnotation'
@@ -47,6 +48,19 @@ define (require) ->
       @listenTo(@vent, 'announce:canvas:clean', @handleCanvasClean, @)
       @listenTo(@vent, 'request:annotator:input:edit', @startAnnotationEdit, @)
       @listenTo(@vent, 'request:annotator:input:stop', @stopAnnotationInput, @)
+      @listenTo(@vent, 'request:message:show', @handleMessageShow, @)
+      @listenTo(@vent, 'request:message:hide', @handleMessageHide, @)
+
+
+    handleMessageShow: (data) ->
+      console.log data,'d'
+      msg = data.msg
+      @ui.message.html(msg)
+      @ui.message.addClass('open')
+
+    handleMessageHide: (data) ->
+      @ui.message.html('&nbsp;')
+      @ui.message.removeClass('open')
 
     initialize: (options) ->
       @vent = options.vent
@@ -60,8 +74,8 @@ define (require) ->
           @inputPointer = response.playedSeconds;
           @updateButtonVisibility()
           @onSetCanvasModeSelect()
-          @vent.trigger('request:message:show', {msg: 'Press post to save your annotation.'}) if @model.isNew()
-          @vent.trigger('request:message:show', {msg: "Enter your edits and press update to save."}) if !@model.isNew()
+          @vent.trigger('request:message:show', {msg: "Press post to save a new annotation at #{@secondsToString(@inputPointer)}."}) if @model.isNew()
+          @vent.trigger('request:message:show', {msg: "Edit the annotation and press update to save."}) if !@model.isNew()
           @vent.trigger('request:annotation:canvas:load', @model)
           @vent.trigger('announce:annotator:input:start', {})
         )
@@ -77,6 +91,15 @@ define (require) ->
         @render()
         @startAnnotationInput(force)
       , callbackScope: @})
+
+    secondsToString: (seconds) ->
+      minutes = Math.floor(seconds / 60)
+      seconds = (seconds - minutes * 60).toFixed(2)
+      minuteZeroes = 2 - minutes.toString().length + 1
+      minutes = Array(+(minuteZeroes > 0 && minuteZeroes)).join("0") + minutes
+      secondZeroes = 5 - seconds.toString().length + 1
+      seconds = Array(+(secondZeroes > 0 && secondZeroes)).join("0") + seconds
+      "#{minutes}:#{seconds}"
 
     stopAnnotationInput: (forceModelReset = false) ->
       if @inputPointer != null & !@editLock
@@ -104,9 +127,10 @@ define (require) ->
         @ui.annotationButtonsLeft.hide()
         @ui.annotationCreateButton.hide().addClass('hidden')
         @ui.annotationCreateCancelButton.hide().addClass('hidden')
-        @ui.canvasSelectButton.hide().addClass('hidden')
-        @ui.canvasEraseButton.hide().addClass('hidden')
+
         if !@asset.allowsVisibleAnnotation()
+          @ui.canvasSelectButton.hide().addClass('hidden')
+          @ui.canvasEraseButton.hide().addClass('hidden')
           @ui.canvasDrawButton.hide().addClass('hidden')
           @ui.canvasOvalButton.hide().addClass('hidden')
 

@@ -150,7 +150,10 @@ define (require) ->
       @ui.assetCollectionHeader.show()
       @_hideButton(@ui.closeLink)
       @_hideButton(@ui.stopManagingLink)
-      @_showButton(@ui.manageLink)
+      if @canAttach
+        @_showButton(@ui.manageLink)
+      else
+        @_hideButton(@ui.manageLink)
 
     _updateUIStateUploading: () ->
       @ui.detailHeader.hide()

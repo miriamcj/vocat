@@ -36,4 +36,48 @@ describe 'Submission' do
     end
   end
 
+  context "when being reassigned" do
+
+    before (:each) {
+      @course = FactoryGirl.create(:course)
+      @project = FactoryGirl.create(:user_project, course: @course)
+      @c1 = FactoryGirl.create(:creator)
+      @c2 = FactoryGirl.create(:creator)
+      @course.enroll(@c1, 'creator')
+      @course.enroll(@c2, 'creator')
+      @factory = SubmissionFactory.new
+      @s1 = @factory.one_by_creator_and_project(@c1, @project)
+      @s2 = @factory.one_by_creator_and_project(@c2, @project)
+    }
+
+    it 'starts with the correct user' do
+      expect(@s1.creator).to eq @c1
+    end
+
+    it 'can be reassigned from one user to another' do
+      @s1.reassign_to!(@c2)
+      expect(@s1.creator).to be @c2
+    end
+
+    it 'can be reassigned from one user to another and back again' do
+      @s1.reassign_to!(@c2)
+      @s1.reassign_to!(@c1)
+      expect(@s1.creator).to be @c1
+    end
+
+    it 'can result in exchanged submissions' do
+      @s1.reassign_to!(@c2)
+      expect(@factory.one_by_creator_and_project(@c1, @project).id).to be @s2.id
+    end
+
+    it 'can result in replaced submissions' do
+      s2_id = @s2.id
+      @s1.reassign_to!(@c2, 'replace')
+      expect {
+        Submission.find s2_id
+      }.to raise_error(ActiveRecord::RecordNotFound)
+    end
+
+  end
+
 end

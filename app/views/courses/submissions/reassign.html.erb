@@ -1,0 +1,93 @@
+
+<% content_for :heading do %>
+	<%= link_to 'Return to Submission', course_submission_path(@course, @submission), :class => 'header-link back-link' %>
+<% end %>
+<% content_for :content do %>
+
+	<div class="page-section submission-reassignment">
+		<div class="header-wrapper">
+			<div class="header">
+				<h2 class="heading-page-section">Reassign Submission</h2>
+			</div>
+		</div>
+		<div class="body">
+
+			<div class="page-section--subsection page-section--subsection-ruled portfolio-item">
+				<div class="portfolio-item--thumb">
+					<%= render 'shared/submission_thumbnail', :submission => @submission %>
+				</div>
+				<div class="portfolio-item--content">
+					<h3 class="heading-secondary">
+						<%= link_to @submission.project, course_submission_path(@course, @submission) %>
+						<% if @submission.creator_type == 'Group' %>
+							<span class="badge">group</span>
+						<% end %>
+					</h3>
+					<h3 class="heading-tertiary">
+						<%= @submission.creator %>
+					</h3>
+
+
+					<h5 class="heading-informational">
+						<% if @submission.has_video? %>
+							Submitted <%= @submission.video.created_at.strftime('%B %e, %Y at %l:%M %p') %>
+						<% else %>
+							No submission has been uploaded for this project.
+						<% end %>
+					</h5>
+
+					<h5 class="heading-informational">
+					</h5>
+
+
+				</div>
+			</div>
+
+			<div class="page-section--subsection page-section--subsection-ruled portfolio-item">
+				<%= form_tag do_reassign_course_submission_path(@course, @submission), :class => 'formgrid' do %>
+					<div class="formgrid whole">
+						<p>
+							Reassigning a submission will take the submission&mdash;and all media, evaluations, and discussion posts
+							attached to it&mdash;and associate it with the student selected below. This functionality can be useful
+							in cases where media was accidentally uploaded to the wrong user.
+						</p>
+						<p>
+							Pay attention to the reassignment type field. You have the option of exchanging student A's
+							submission with student B. Alternately, you can choose to overwrite student B's submission with
+							student A's submission.
+						</p>
+
+					</div>
+					<div class="formgrid third">
+						<%= label_tag :name, 'Reassign Submission To', {class: 'text-label'} %>
+
+						<% if @submission.creator.is_user? %>
+							<% creators = @course.creators %>
+							<% label = 'student' %>
+						<% else %>
+							<% creators = @course.groups %>
+							<% label = 'group' %>
+						<% end %>
+						<%= select_tag :creator, options_for_select(creators.reject { |c| c == @submission.creator }.collect { |c| [c.name, c.id] }), {'data-behavior' => 'chosen'}%>
+					</div>
+					<div class="formgrid two-thirds">
+						<%= label_tag :reassign_type, 'Reassignment Type', {class: 'text-label'} %>
+						<%
+						   options = [
+								   ["Exchange #{possessive @submission.creator.to_s} submission with selected #{label}'s submission", 'exchange'],
+								   ["Replace selected #{label}'s submission with #{possessive @submission.creator.to_s} submission",'replace']
+						   ]
+						%>
+						<%= select_tag :type, options_for_select(options), {'data-behavior' => 'chosen'}%>
+
+					</div>
+					<div class="formgrid whole submit-row" style="margin-top: 0;">
+						<%= submit_tag 'Reassign Submission', :class => 'primary-button' %>
+					</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+
+<% end %>
+
