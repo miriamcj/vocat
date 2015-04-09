@@ -5,7 +5,7 @@ define (require) ->
 
     class vjs.RewindComponent extends vjs.Button
 
-      constructor: (player, @settings) ->
+      constructor: (player, settings) ->
         super player, settings
         @player = player
 
