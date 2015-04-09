@@ -32,7 +32,6 @@ class Attachment::Inspector
     end
   end
 
-
   protected
 
   def self.extensionToType(extension)

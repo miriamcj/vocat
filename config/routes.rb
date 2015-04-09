@@ -195,8 +195,8 @@ Vocat::Application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
-  authenticate :user, lambda { |u| u.role?(:administrator) } do
-    use_doorkeeper
-  end
+  # authenticate :user, lambda { |u| u.role?(:administrator) } do
+  use_doorkeeper
+  # end
 
 end

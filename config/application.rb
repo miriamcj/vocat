@@ -56,5 +56,7 @@ module Vocat
      Devise::SessionsController.layout "splash"
     end
 
+    config.autoload_paths << Rails.root.join('lib')
+
   end
 end

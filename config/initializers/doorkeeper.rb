@@ -8,8 +8,13 @@ Doorkeeper.configure do
     current_user || warden.authenticate!(:scope => :user)
   end
 
-  resource_owner_from_credentials do
-    warden.authenticate!(:scope => :user)
+  resource_owner_from_credentials do |routes|
+    request.env["warden"].logout
+    request.params[:user] = {:email => request.params[:username], :password => request.params[:password]}
+    request.env["devise.allow_params_authentication"] = true
+    user = request.env["warden"].authenticate!(:scope => :user)
+    request.env["warden"].logout
+    user
   end
 
   access_token_expires_in 5.minutes
@@ -98,3 +103,5 @@ Doorkeeper.configure do
   # set to true if you want this to be allowed
   # wildcard_redirect_uri false
 end
+
+Doorkeeper.configuration.token_grant_types << "password"
