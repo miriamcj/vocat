@@ -149,44 +149,44 @@
 
 ## Vocat v3.2.3 (February 4, 2015)
 
-[BUGFIX Fixes #135] Improve formatting of examples in bulk enrollment instructions
-[BUGFIX] Allows configuratoin of email domain
-[BUGFIX] Fixes domain in default_url_options in production env
-[BUGFIX] Fixes incorrect colcount on admin courses index view
-[CHORE] Adds york deployment target
-[CHORE] Updated deployment targets
+* [BUGFIX Fixes #135] Improve formatting of examples in bulk enrollment instructions
+* [BUGFIX] Allows configuratoin of email domain
+* [BUGFIX] Fixes domain in default_url_options in production env
+* [BUGFIX] Fixes incorrect colcount on admin courses index view
+* [CHORE] Adds york deployment target
+* [CHORE] Updated deployment targets
 
 ## Vocat v3.1.2 (January 6, 2015)
 
-[BUGFIX] Fixes missing creator name on project reporter score export
-[BUGFIX] Fixes problem with thor configure script not capturing IAM role name correctly
-[BUGFIX] Fixes enrollment in seeds.rb
-[BUGFIX FIXES #117] Adjusts coursemap view and drawer nav so that access to coursemap is based on view_submissions course ability rather than evaluate course ability
-[BUGFIX FIXES #131] Previous fix was inadequate because fix was accidentally commented. Derpy.
-[BUGFIX FIXES #131] In some situations, the course map bleeds into the submission overlay.
-[BUGFIX #117] Bug in ability class gave evaluate ability on course to creators not enrolled in the course; fix revealed video permission test shortcoming
-[BUGFIX FIXES #130] Creators see individual projects header in drawer nav even when a course has no individual projects
-[BUGFIX FIXES #128] Creators logging into a course with no projects should be given a explanatory message
-[BUGFIX FIXES #129] Adjusts bulk enroller enroll call from user to course object
-[BUGFIX FIXES #122] Removes caching from stats on admin course index view
-[FEATURE #120] Vocat now remembers whether a user last looked at the group or user coursemap and defaults to that view when a user access the course
-[BUGFIX #120] Improves warning message language when the group or individual evaluation grid is not available
-[BUGFIX CLOSES #126] Instructors without courses should see a message to that effect on their dashboard.
-[BUGFIX FIXES #127] Email in admin/user show view tends to overflow quarter width column
-[BUGFIX] Fixes ambiguous course scope on user model
-[CHORE] Showing love to model specs and adding new specs for Reporter::Project class
-[CHORE] Very minor text changes to course request mailers
-[BUGFIX] Improves course request email language
-[CHORE] Adjusts ruby version for 3.1.2 release and adjusts staging deploy target
-[BUGFIX] Improves course request email language
-[BUGFIX #125] Adds course request submitted date to admin course request index view
-[FEATURE FIXES #123] Allow instructors to export detailed project scores
-[BUGFIX] Cleaning up routes and seeds from prior user/course relationship refactoring
-[BUGFIX FIXES #121] Improve drawer nav and course sorting for users with many courses
-[BUGFIX FIXES #124] Video and evaluations not loading for one group video
-[FEATURE] Adds flash message to dashboards notifying users of upcoming downtime
-[BUGFIX] Fixes invalid search params on rubric model
-[FEATURE] Allows evaluators to see other evaluators unpublished scores
+* [BUGFIX] Fixes missing creator name on project reporter score export
+* [BUGFIX] Fixes problem with thor configure script not capturing IAM role name correctly
+* [BUGFIX] Fixes enrollment in seeds.rb
+* [BUGFIX FIXES #117] Adjusts coursemap view and drawer nav so that access to coursemap is based on view_submissions course ability rather than evaluate course ability
+* [BUGFIX FIXES #131] Previous fix was inadequate because fix was accidentally commented. Derpy.
+* [BUGFIX FIXES #131] In some situations, the course map bleeds into the submission overlay.
+* [BUGFIX #117] Bug in ability class gave evaluate ability on course to creators not enrolled in the course; fix revealed video permission test shortcoming
+* [BUGFIX FIXES #130] Creators see individual projects header in drawer nav even when a course has no individual projects
+* [BUGFIX FIXES #128] Creators logging into a course with no projects should be given a explanatory message
+* [BUGFIX FIXES #129] Adjusts bulk enroller enroll call from user to course object
+* [BUGFIX FIXES #122] Removes caching from stats on admin course index view
+* [FEATURE #120] Vocat now remembers whether a user last looked at the group or user coursemap and defaults to that view when a user access the course
+* [BUGFIX #120] Improves warning message language when the group or individual evaluation grid is not available
+* [BUGFIX CLOSES #126] Instructors without courses should see a message to that effect on their dashboard.
+* [BUGFIX FIXES #127] Email in admin/user show view tends to overflow quarter width column
+* [BUGFIX] Fixes ambiguous course scope on user model
+* [CHORE] Showing love to model specs and adding new specs for Reporter::Project class
+* [CHORE] Very minor text changes to course request mailers
+* [BUGFIX] Improves course request email language
+* [CHORE] Adjusts ruby version for 3.1.2 release and adjusts staging deploy target
+* [BUGFIX] Improves course request email language
+* [BUGFIX #125] Adds course request submitted date to admin course request index view
+* [FEATURE FIXES #123] Allow instructors to export detailed project scores
+* [BUGFIX] Cleaning up routes and seeds from prior user/course relationship refactoring
+* [BUGFIX FIXES #121] Improve drawer nav and course sorting for users with many courses
+* [BUGFIX FIXES #124] Video and evaluations not loading for one group video
+* [FEATURE] Adds flash message to dashboards notifying users of upcoming downtime
+* [BUGFIX] Fixes invalid search params on rubric model
+* [FEATURE] Allows evaluators to see other evaluators unpublished scores
 
 ## Vocat v3.1.1 (December 10, 2014)
 
