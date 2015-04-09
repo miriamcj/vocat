@@ -147,7 +147,7 @@
 * [FEATURE] Ongoing work on new submission upload UI
 * [FEATURE] Initial work on supporting multiple assets per submission
 
-## Vocat v3.2.3 (February 4, 2015)
+## Vocat v3.1.3 (February 4, 2015)
 
 * [BUGFIX Fixes #135] Improve formatting of examples in bulk enrollment instructions
 * [BUGFIX] Allows configuratoin of email domain
