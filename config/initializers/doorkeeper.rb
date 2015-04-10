@@ -17,7 +17,7 @@ Doorkeeper.configure do
     user
   end
 
-  access_token_expires_in 5.minutes
+  access_token_expires_in 15.minutes
 
   use_refresh_token
 
