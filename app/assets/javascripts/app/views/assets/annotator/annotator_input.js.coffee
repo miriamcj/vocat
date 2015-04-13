@@ -53,7 +53,6 @@ define (require) ->
 
 
     handleMessageShow: (data) ->
-      console.log data,'d'
       msg = data.msg
       @ui.message.html(msg)
       @ui.message.addClass('open')

@@ -89,7 +89,6 @@ define (require) ->
       )
 
     onSeek: () ->
-      console.log 'seek'
       @vent.trigger('request:time:update', {seconds: @model.get('seconds_timecode'), callback: () =>
         @model.activate()
       , callbackScope: @})

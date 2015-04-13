@@ -312,5 +312,5 @@ define (require) ->
         svgEl[0].setAttribute('viewBox', "0 0 #{width} #{height}")
         svgEl[0].setAttribute('width', '100%')
         svgEl[0].setAttribute('height', '100%')
-        svg = svgEl.prop('outerHTML');
+        svg = $('<div>').append($(svgEl).clone()).html()
       @vent.trigger('announce:canvas', JSON.stringify({json: json, svg: svg}))

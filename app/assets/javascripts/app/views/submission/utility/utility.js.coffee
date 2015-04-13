@@ -14,5 +14,4 @@ define (require) ->
     serializeData: () ->
       data = super()
       data.courseId = @courseId
-      console.log data,'d'
       data
