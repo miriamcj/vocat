@@ -28,12 +28,12 @@
 						<a class="decorated" data-behavior="file-picker">Drag & Drop Files Here</a>
 					</div>
 				</div>
-					<div class="asset-upload--column asset-upload--column-right">
-						<div class="dark-text-input" data-behavior="file-input-trigger"><input disabled="disabled" type="text" placeholder="Select {{join project.allowed_attachment_families leadingIndefiniteArticle=true lastSeparator='or ' capitalize=false }} file" /><a href="#" class="primary-button new-button">Add</a></div>
-						{{#if_include project.allowed_attachment_families 'video'}}
-							<div class="dark-text-input"><input type="text" data-behavior="external-video-url" placeholder="Vimeo / YouTube URL" /><a href="#" data-behavior="external-video-url-submit" class="primary-button new-button">Add</a></div>
-						{{/if_include}}
-					</div>
+				<div class="asset-upload--column asset-upload--column-right">
+					<div class="dark-text-input" data-behavior="file-input-trigger"><input disabled="disabled" type="text" placeholder="Select {{join project.allowed_attachment_families leadingIndefiniteArticle=true lastSeparator='or ' capitalize=false }} file" /><a href="#" class="primary-button new-button">Add</a></div>
+					{{#if_include project.allowed_attachment_families 'video'}}
+						<div class="dark-text-input"><input type="text" data-behavior="external-video-url" placeholder="Vimeo / YouTube URL" /><a href="#" data-behavior="external-video-url-submit" class="primary-button new-button">Add</a></div>
+					{{/if_include}}
+				</div>
 			</div>
 			<p class="bottom-instructions">
 				Successfully uploaded media appears in the list below along with further editing and management options.
