@@ -73,7 +73,11 @@ define (require) ->
           @inputPointer = response.playedSeconds;
           @updateButtonVisibility()
           @onSetCanvasModeSelect()
-          @vent.trigger('request:message:show', {msg: "Press post to save a new annotation at #{@secondsToString(@inputPointer)}."}) if @model.isNew()
+          if @asset.hasDuration()
+            newMessage = "Press post to save a new annotation at #{@secondsToString(@inputPointer)}."
+          else
+            newMessage = "Press post to save a new annotation."
+          @vent.trigger('request:message:show', {msg: newMessage}) if @model.isNew()
           @vent.trigger('request:message:show', {msg: "Edit the annotation and press update to save."}) if !@model.isNew()
           @vent.trigger('request:annotation:canvas:load', @model)
           @vent.trigger('announce:annotator:input:start', {})
