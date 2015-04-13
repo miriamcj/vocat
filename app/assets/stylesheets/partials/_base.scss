@@ -38,7 +38,7 @@ body {
   background-color: $white;
   padding-bottom: $headerHeight;
   min-height: 100%;
-  padding-bottom: $headerHeight;
+  padding-bottom: $headerHeight * 2.5;
   .no-mediaqueries & {
     min-width: $michigan;
   }
