@@ -140,6 +140,8 @@
       display: block;
       top: 50%;
       position: relative;
+      -webkit-transform: translate(0, -50%);
+      -ms-transform: translate(0, -50%);
       transform: translate(0, -50%);
       width: 100%;
       vertical-align: middle;
