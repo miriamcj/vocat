@@ -29,6 +29,10 @@ class Asset < ActiveRecord::Base
     raise NotImplementedError
   end
 
+  def self.available_types
+    Asset.select(:type).map(&:type).uniq
+  end
+
   # Attaches an existing attachment to the asset and commits the attachment
   def attach(attachment)
     # The attachment owner must be the same as the asset owner.
@@ -45,11 +49,10 @@ class Asset < ActiveRecord::Base
 
   # Params is a hash of search values including (:creator|| :source || :state)
   def self.search(params)
-    # v = Asset.all
-    # v = v.where({external_source: params[:source]}) unless params[:source].blank?
-    # v = v.where("videos.source != 'attachment' OR (videos.source = 'attachment' AND attachments.state = ?)", params[:state]) unless params[:state].blank?
-    # v = v.joins(:submission => :user).where("users.last_name LIKE ? OR users.first_name LIKE ? OR users.email LIKE ?", "%#{params[:creator]}%", "%#{params[:creator]}%", "%#{params[:creator]}%") unless params[:creator].blank?
-    # v
+    v = Asset.all
+    v = v.where({type: params[:type]}) unless params[:type].blank?
+    v = v.joins(:submission => :user).where("users.last_name LIKE ? OR users.first_name LIKE ? OR users.email LIKE ?", "%#{params[:creator]}%", "%#{params[:creator]}%", "%#{params[:creator]}%") unless params[:creator].blank?
+    v
   end
 
   def annotations_count

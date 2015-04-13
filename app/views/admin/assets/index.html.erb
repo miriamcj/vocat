@@ -1,0 +1,62 @@
+<% content_for :content do %>
+	<div class="page-section">
+		<div class="header-wrapper">
+			<div class="header">
+				<h2>Assets</h2>
+			</div>
+		</div>
+		<div class="body">
+			<form class="formgrid">
+				<fieldset>
+					<div class="formgrid">
+						<div class="formgrid fourth">
+							<%= label_tag :creator, 'Creator Name or Email', {:class => 'text-label'} %>
+							<%= text_field_tag(:creator, params[:creator], {:class => 'text-input'}) %>
+						</div>
+						<div class="formgrid fourth">
+							<%= label_tag :type, 'Asset Type', {:class => 'text-label'} %>
+							<%= select_tag(:type, options_for_select(Asset.available_types { |type| [type.capitalize, type]}, params[:type]), {:include_blank => true, 'data-behavior' => 'chosen'}) %>
+						</div>
+						<div class="formgrid fourth">
+							<label class="text-label">&nbsp;</label>
+							<%= button_tag('Filter Videos', {:class => 'primary-button filter-button'}) %>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+	<div class="page-section page-section-clear">
+		<div class="table-wrapper">
+			<table class="table table-white-head">
+				<thead>
+				<tr>
+					<th>Thumbnail</th>
+					<th>ID</th>
+					<th>Created</th>
+					<th>Type</th>
+					<th>Creator</th>
+					<th>Course</th>
+					<th>State</th>
+				</tr>
+				</thead>
+				<tbody>
+				<% @assets.each do |asset| %>
+					<tr>
+						<th><img style="height: 50px;" src="<%= asset.thumbnail %>" /></th>
+						<th><%= link_to asset.id, submission_detail_path(asset.submission) %></th>
+						<td><%= time_ago_in_words asset.created_at %> ago</td>
+						<td><%= asset.type.gsub!('Asset::','').capitalize %></td>
+						<td><%= link_to asset.creator, admin_user_path(asset.creator) %></td>
+						<td><%= link_to (asset.course.format '%d%n %S %y [#%s]'), admin_course_path(asset.course) %></td>
+						<td><%= asset.state %></td>
+					</tr>
+				<% end %>
+				</tbody>
+			</table>
+			<nav class="pagination-only">
+				<%= paginate @assets %>
+			</nav>
+		</div>
+	</div>
+<% end %>
