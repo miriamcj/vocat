@@ -87,7 +87,6 @@ module ApplicationHelper
   end
 
   def current_user_role
-    myvar = current_user
     if current_user.nil?
       return ''
     else
