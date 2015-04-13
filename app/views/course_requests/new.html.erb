@@ -7,7 +7,8 @@
   <% body = capture do %>
     <p class="instructions">
       To request that your course be added to Vocat, please fill out the form below. Your request will be reviewed by
-      Vocat administrators. Once your request has been approved or denied, you will be notified via email.
+      Vocat administrators. Once your request has been approved or denied, you will be notified via email (usually within
+		2 business days).
     </p>
 
     <%= form_for :course_request, url: course_requests_path, html: {class: 'formgrid'} do |f| %>
