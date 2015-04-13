@@ -29,8 +29,8 @@
 
 
 					<h5 class="heading-informational">
-						<% if @submission.has_video? %>
-							Submitted <%= @submission.video.created_at.strftime('%B %e, %Y at %l:%M %p') %>
+						<% if @submission.has_asset? %>
+							Submitted <%= @submission.first_asset.created_at.strftime('%B %e, %Y at %l:%M %p') %>
 						<% else %>
 							No submission has been uploaded for this project.
 						<% end %>
