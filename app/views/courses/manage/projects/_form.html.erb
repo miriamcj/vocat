@@ -13,7 +13,7 @@
 <div class="formgrid half">
 	<%= f.label :rubric, :class => 'text-label' %>
 	<%= f.select :rubric_id, grouped_options_for_select({
-								'My Rubrics' => options_from_collection_for_select(current_user.rubrics, :id, :name, @project.rubric_id),
+								'Instructor Rubrics' => options_from_collection_for_select(@project.course.evaluator_rubrics, :id, :name, @project.rubric_id),
 								'VOCAT Rubrics' => options_from_collection_for_select(Rubric.publicly_visible, :id, :name, @project.rubric_id)
 							}), {:include_blank => 'No rubric'}, {'data-behavior' => 'chosen'}
 	%>

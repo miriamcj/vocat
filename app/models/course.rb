@@ -190,6 +190,10 @@ class Course < ActiveRecord::Base
     self.to_s
   end
 
+  def evaluator_rubrics
+    Rubric.where(:owner => evaluators)
+  end
+
   def rendered_message
     markdown = Redcarpet::Markdown.new(Renderer::InlineHTML.new({escape_html: true}))
     markdown.render(message)
