@@ -25,6 +25,8 @@ gem 'wkhtmltopdf-binary'
 gem 'wicked_pdf'
 gem 'database_cleaner'
 gem 'mini_magick'
+gem 'exception_notification'
+gem 'slack-notifier'
 
 gem 'redcarpet', '~> 3.2.0'
 gem 'sidekiq'
