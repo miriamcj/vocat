@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::Base
 
   include StrongParametersConfiguration
-  include ErrorActions
 
   layout 'content'
   protect_from_forgery
