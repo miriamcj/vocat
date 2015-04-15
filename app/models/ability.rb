@@ -125,7 +125,7 @@ class Ability
     end
 
     can :annotate, Submission do |submission|
-      can?(:evaluate, submission) || can?(:own, submission)
+      can?(:evaluate, submission) || can?(:own, submission) || can?(:read_only, submission)
     end
 
     can :administer, Submission do |submission|
