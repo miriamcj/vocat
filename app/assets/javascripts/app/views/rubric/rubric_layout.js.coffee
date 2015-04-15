@@ -166,12 +166,6 @@ define (require) ->
           @model.fetch({
             success: (model) =>
               @render()
-#              @listenTo(@views.rows,'add:child', () =>
-#                @views.rangePicker.render()
-#              )
-#              @listenTo(@views.rows,'remove:child', () =>
-#                @views.rangePicker.render()
-#              )
           })
         else
           @model = new RubricModel({})
@@ -180,12 +174,9 @@ define (require) ->
         @recalculateMatrix()
       )
 
-
       @listenTo(@model, 'invalid', (model, errors) =>
         @trigger('error:add', {level: 'error', lifetime: 5000, msg: errors})
       )
-
-#      @render()
 
     onShow: () ->
       @parentOnShow()
@@ -214,7 +205,12 @@ define (require) ->
       @rangePicker.show(@views.rangePicker)
       @bindUIElements()
       @recalculateMatrix()
-
+      @listenTo(@views.ranges, 'add:child', (e) =>
+        @recalculateMatrix()
+      )
+      @listenTo(@views.ranges, 'remove:child', (e) =>
+        @recalculateMatrix()
+      )
 
       @ui.highInput.val(@model.getHigh())
       @ui.lowInput.val(@model.getLow())
