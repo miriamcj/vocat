@@ -5,7 +5,7 @@ class Api::V1::DiscussionPostsController < ApiController
 
   # GET /api/v1/discussion_posts.json?submission=:submission
   def index
-    @submission = Submission.find( params.require(:submission))
+    @submission = Submission.find(params.require(:submission))
     authorize! :show, @submission
     @discussion_posts = DiscussionPost.where(submission: @submission)
     respond_with @discussion_posts

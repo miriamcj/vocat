@@ -5,7 +5,7 @@ class Api::V1::UsersController < ApplicationController
 
   # /api/v1/users/search?email=XXX
   def search
-    @users = User.where(["lower(email) LIKE :email", {:email=> "#{params[:email].downcase}%"}])
+    @users = User.where(["lower(email) LIKE :email", {:email => "#{params[:email].downcase}%"}])
     respond_with @users
   end
 
@@ -21,7 +21,7 @@ class Api::V1::UsersController < ApplicationController
     if response[:success] == true
       respond_with response[:user], location: nil
     else
-      render :json => { :errors => response[:message] }, :status => :unprocessable_entity
+      render :json => {:errors => response[:message]}, :status => :unprocessable_entity
     end
   end
 

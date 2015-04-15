@@ -16,8 +16,8 @@ class Admin::CourseRequestsController < Admin::AdminController
     @course_request.approve
 
     flash[:notice] = @course_request.approved? ?
-      "The course request was approved. The instructor has been notified." :
-      "There was a problem making this change."
+        "The course request was approved. The instructor has been notified." :
+        "There was a problem making this change."
 
     redirect_to admin_course_requests_path
   end
@@ -28,8 +28,8 @@ class Admin::CourseRequestsController < Admin::AdminController
     @course_request.deny
 
     flash[:notice] = @course_request.denied? ?
-      "The course request was denied. The instructor has been notified." :
-      "There was a problem making this change."
+        "The course request was denied. The instructor has been notified." :
+        "There was a problem making this change."
     redirect_to admin_course_requests_path
   end
 end

@@ -11,9 +11,9 @@ class RootController < ApplicationController
     elsif current_user.role?(:administrator)
       redirect_to admin_path
     elsif current_user.role?(:evaluator)
-     redirect_to dashboard_evaluator_path
+      redirect_to dashboard_evaluator_path
     elsif current_user.role?(:creator)
-     redirect_to dashboard_creator_path
+      redirect_to dashboard_creator_path
     end
   end
 

@@ -23,7 +23,6 @@ module StrongParametersConfiguration
   end
 
 
-
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:account_update) << :first_name
     devise_parameter_sanitizer.for(:account_update) << :last_name
@@ -62,7 +61,7 @@ module StrongParametersConfiguration
                                        :settings => [
                                            Project::ALLOWED_SETTINGS
                                        ]
-    ).merge({ listing_order_position: params[:listing_order_position]})
+    ).merge({listing_order_position: params[:listing_order_position]})
 
   end
 
@@ -90,9 +89,9 @@ module StrongParametersConfiguration
                                    :semester_id,
                                    :name,
                                    :message,
-                                   :groups_attributes => [ :id,
-                                                           :name,
-                                                           :creator_ids => []
+                                   :groups_attributes => [:id,
+                                                          :name,
+                                                          :creator_ids => []
                                    ]
     )
   end

@@ -5,7 +5,7 @@ class Api::V1::AnnotationsController < ApplicationController
 
   # GET /api/vi1/annotations?video=:video
   def index
-    @video = Video.find( params.require(:video))
+    @video = Video.find(params.require(:video))
     authorize! :show, @video
     @annotations = Annotation.where(video: @video)
     respond_with @annotations
