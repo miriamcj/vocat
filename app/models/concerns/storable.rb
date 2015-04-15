@@ -40,8 +40,8 @@ module Storable
 
   def get_s3_instance
     options = {
-      :access_key_id => Rails.application.config.vocat.aws[:key],
-      :secret_access_key => Rails.application.config.vocat.aws[:secret]
+        :access_key_id => Rails.application.config.vocat.aws[:key],
+        :secret_access_key => Rails.application.config.vocat.aws[:secret]
     }
     s3 = AWS::S3.new(options)
     s3
@@ -50,29 +50,29 @@ module Storable
   # generate the policy document that amazon is expecting.
   def s3_upload_policy_document(key)
     ret = {
-      "expiration" => 15.minutes.from_now.utc.xmlschema,
-      "conditions" =>  [
-        {"bucket" =>  Rails.application.config.vocat.aws[:s3_bucket]},
-        ["starts-with", "$key", key],
-        {"acl" => "private"},
-        {"success_action_status" => "200"},
-        ["content-length-range", 0, 5368709120]
-      ]
+        "expiration" => 15.minutes.from_now.utc.xmlschema,
+        "conditions" => [
+            {"bucket" => Rails.application.config.vocat.aws[:s3_bucket]},
+            ["starts-with", "$key", key],
+            {"acl" => "private"},
+            {"success_action_status" => "200"},
+            ["content-length-range", 0, 5368709120]
+        ]
     }
-    Base64.encode64(ret.to_json).gsub(/\n/,'')
+    Base64.encode64(ret.to_json).gsub(/\n/, '')
   end
 
   def s3_upload_signature(key, policy)
     secret = Rails.application.config.vocat.aws[:secret]
-    signature = Base64.encode64(OpenSSL::HMAC.digest(OpenSSL::Digest.new('sha1'), secret, policy)).gsub("\n","")
+    signature = Base64.encode64(OpenSSL::HMAC.digest(OpenSSL::Digest.new('sha1'), secret, policy)).gsub("\n", "")
   end
 
   def s3_upload_document
     policy = s3_upload_policy_document(location)
     {
-      :policy => policy,
-      :signature => s3_upload_signature(location, policy),
-      :key => location
+        :policy => policy,
+        :signature => s3_upload_signature(location, policy),
+        :key => location
     }
   end
 
@@ -83,7 +83,6 @@ module Storable
     upper_hundred = lower_hundred + 100
     "#{lower_thousand}_#{upper_thousand}/#{lower_hundred}_#{upper_hundred}"
   end
-
 
 
 end

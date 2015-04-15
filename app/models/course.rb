@@ -7,7 +7,7 @@ class Course < ActiveRecord::Base
 
   has_many :creators, -> { where '"memberships"."role" = ?', 'creator' }, :through => :memberships, :source => "user"
   has_many :evaluators, -> { where '"memberships"."role" = ?', 'evaluator' }, :through => :memberships, :source => "user"
-  has_many :assistants, -> { where '"memberships"."role" = ?', 'assistant'  }, :through => :memberships, :source => "user"
+  has_many :assistants, -> { where '"memberships"."role" = ?', 'assistant' }, :through => :memberships, :source => "user"
 
   has_many :projects, :dependent => :destroy
   has_many :group_projects

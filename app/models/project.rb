@@ -3,21 +3,21 @@ class Project < ActiveRecord::Base
   include RankedModel
   ranks :listing_order, :with_same => :course_id
 
-  belongs_to  :course
-  belongs_to  :rubric
-  has_many    :submissions,     :dependent => :destroy
-  has_many    :evaluations,     :through => :submissions
+  belongs_to :course
+  belongs_to :rubric
+  has_many :submissions, :dependent => :destroy
+  has_many :evaluations, :through => :submissions
 
-  delegate :name,               :to => :rubric, :prefix => true, :allow_nil => true
-  delegate :avg_score,          :to => :rubric, :prefix => true, :allow_nil => true
-  delegate :avg_percentage,     :to => :rubric, :prefix => true, :allow_nil => true
+  delegate :name, :to => :rubric, :prefix => true, :allow_nil => true
+  delegate :avg_score, :to => :rubric, :prefix => true, :allow_nil => true
+  delegate :avg_percentage, :to => :rubric, :prefix => true, :allow_nil => true
 
-  delegate :department,         :to => :course, :prefix => true
-  delegate :number,             :to => :course, :prefix => true
-  delegate :name,               :to => :course, :prefix => true
-  delegate :section,            :to => :course, :prefix => true
-  delegate :name_long,          :to => :course, :prefix => true
-  delegate :id,                 :to => :course, :prefix => true
+  delegate :department, :to => :course, :prefix => true
+  delegate :number, :to => :course, :prefix => true
+  delegate :name, :to => :course, :prefix => true
+  delegate :section, :to => :course, :prefix => true
+  delegate :name_long, :to => :course, :prefix => true
+  delegate :id, :to => :course, :prefix => true
 
   ALLOWED_SETTINGS = [:enable_creator_attach, :enable_self_evaluation, :enable_peer_review, :enable_public_discussion, :reject_past_due_media, :anonymous_peer_review]
   BOOLEAN_SETTINGS = [:enable_creator_attach, :enable_self_evaluation, :enable_peer_review, :enable_public_discussion, :reject_past_due_media, :anonymous_peer_review]
@@ -117,10 +117,10 @@ class Project < ActiveRecord::Base
   # TODO: Not happy with this
   def statistics()
     {
-      asset_count: asset_count,
-      possible_submission_count: possible_submissions_count,
-      rubric_avg_score: rubric_avg_score,
-      rubric_avg_percentage: rubric_avg_percentage
+        asset_count: asset_count,
+        possible_submission_count: possible_submissions_count,
+        rubric_avg_score: rubric_avg_score,
+        rubric_avg_percentage: rubric_avg_percentage
     }
   end
 
@@ -191,7 +191,6 @@ class Project < ActiveRecord::Base
       return false
     end
   end
-
 
 
 end

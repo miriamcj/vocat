@@ -13,7 +13,7 @@ class AttachmentSerializer < ActiveModel::Serializer
   end
 
   def extension
-    object.extension.gsub('.','')
+    object.extension.gsub('.', '')
   end
 
   def current_user_can_destroy

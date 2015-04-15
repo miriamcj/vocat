@@ -31,13 +31,17 @@ class Rubric < ActiveRecord::Base
   end
 
   scope :publicly_visible, -> { where(:public => true) }
-  scope :public_or_owned_by, ->(owner) { where('owner_id = ? OR public = true', owner)}
+  scope :public_or_owned_by, ->(owner) { where('owner_id = ? OR public = true', owner) }
 
   # Params is a hash of search values including (:department || :semester || :year) || :section
   def self.search(params)
     r = Rubric.all
-    if params[:name] then r = r.where(["lower(name) LIKE :name", {:name => "#{params[:name].downcase}%"}]) end
-    if params[:public] == true || params[:public] == false then r = r.where(:public => params[:public]) end
+    if params[:name] then
+      r = r.where(["lower(name) LIKE :name", {:name => "#{params[:name].downcase}%"}])
+    end
+    if params[:public] == true || params[:public] == false then
+      r = r.where(:public => params[:public])
+    end
     r
   end
 
@@ -64,17 +68,17 @@ class Rubric < ActiveRecord::Base
 
   def ensure_fields()
     self.fields = [] unless self.fields.kind_of? Array
-    self.fields.map! {|field| field.with_indifferent_access}
+    self.fields.map! { |field| field.with_indifferent_access }
   end
 
   def ensure_ranges()
     self.ranges = [] unless self.ranges.kind_of? Array
-    self.ranges.map! {|range| range.with_indifferent_access}
+    self.ranges.map! { |range| range.with_indifferent_access }
   end
 
   def ensure_cells()
     self.cells = [] unless self.cells.kind_of? Array
-    self.cells.map! {|cell| cell.with_indifferent_access}
+    self.cells.map! { |cell| cell.with_indifferent_access }
 
   end
 
@@ -113,23 +117,23 @@ class Rubric < ActiveRecord::Base
 
   def add_field(hash = {})
     if hash.has_key?('id') || hash['id'].blank?
-	    hash['id'] = hash['name'].parameterize
+      hash['id'] = hash['name'].parameterize
     end
     self.fields.push hash
     hash['id']
   end
 
   def add_range(hash)
-	  if hash.has_key?('id') || hash['id'].blank?
-		  hash['id'] = hash['name'].parameterize
-	  end
-	  self.ranges.push hash
-		hash['id']
+    if hash.has_key?('id') || hash['id'].blank?
+      hash['id'] = hash['name'].parameterize
+    end
+    self.ranges.push hash
+    hash['id']
   end
 
   def add_cell(hash = {})
-	  self.cells.push hash
-	  hash['id']
+    self.cells.push hash
+    hash['id']
   end
 
   def add_cells(cells)
@@ -139,7 +143,7 @@ class Rubric < ActiveRecord::Base
   end
 
   def get_cell(field_key, range_key)
-    self.cells.find{ |r| r['field'] == field_key && r['range'] == range_key}
+    self.cells.find { |r| r['field'] == field_key && r['range'] == range_key }
   end
 
   def range_description_key(range_key, field_key)
@@ -147,21 +151,21 @@ class Rubric < ActiveRecord::Base
   end
 
   def get_low_for_range(range)
-		range = self.ranges.select{ |r| r['id'] == range }
-		if range != nil
-			range.low
-		else
-			nil
-		end
+    range = self.ranges.select { |r| r['id'] == range }
+    if range != nil
+      range.low
+    else
+      nil
+    end
   end
 
   def get_high_for_range(range)
-	  range = self.ranges.select{ |r| r['id'] == range }
-	  if range != nil
-		  range.high
-	  else
-		  nil
-	  end
+    range = self.ranges.select { |r| r['id'] == range }
+    if range != nil
+      range.high
+    else
+      nil
+    end
 
     self.ranges[range]['high']
   end
@@ -175,11 +179,11 @@ class Rubric < ActiveRecord::Base
   end
 
   def range_names
-    self.ranges.collect { |value| value['name']}
+    self.ranges.collect { |value| value['name'] }
   end
 
   def range_names_downcase
-    self.ranges.collect { |value| value['name'].downcase}
+    self.ranges.collect { |value| value['name'].downcase }
   end
 
   def field_names
@@ -187,11 +191,11 @@ class Rubric < ActiveRecord::Base
   end
 
   def field_keys
-	  self.fields.collect { |value| value['id']}
+    self.fields.collect { |value| value['id'] }
   end
 
   def field_name_for(key)
-    f = self.fields.find{ |f| f['id'] == key }
+    f = self.fields.find { |f| f['id'] == key }
     if !f.nil?
       f['name']
     else

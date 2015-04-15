@@ -35,10 +35,10 @@ module Utility
 
       # Create the organizations
       puts 'Create Organization: Baruch College'
-      baruch  = Organization.find_or_create_by(:name => "Baruch College")
+      baruch = Organization.find_or_create_by(:name => "Baruch College")
       org_name = Faker::Company.name
       puts "Create Organization: #{org_name}"
-      other   = Organization.create(:name => org_name)
+      other = Organization.create(:name => org_name)
 
       # Create developer user accounts
       first_names = %w(Peter Zach Clark Casey Gabe Naomi Lucas Joshie Baruch)
@@ -143,7 +143,7 @@ module Utility
       puts "Create Rubric: #{the_rubric.name}"
       the_rubric.save
 
-      comm_rubric =  Rubric.new('name' => "COMM1010 Rubric")
+      comm_rubric = Rubric.new('name' => "COMM1010 Rubric")
       comm_rubric.public = true
       comm_rubric.low = 0
       comm_rubric.high = 6
@@ -270,7 +270,7 @@ module Utility
           puts "Create Group: #{name}"
           group = course.groups.create(:name => name)
           per_group = (course.creators.count / group_count).floor
-          creators_to_add =  course.creators.sample(per_group)
+          creators_to_add = course.creators.sample(per_group)
           puts "Enrolling Creators in Group: #{creators_to_add.length} creators enrolled"
           group.creators << creators_to_add
           group.save
@@ -302,7 +302,7 @@ module Utility
           course_creators.length.times do |i|
             # Most creators submit a project
             if rand > 0.3
-              submission = project.submissions.create(:name => Faker::Lorem.words(rand(2..5)).map(&:capitalize).join(' '), :creator => course_creators[i] )
+              submission = project.submissions.create(:name => Faker::Lorem.words(rand(2..5)).map(&:capitalize).join(' '), :creator => course_creators[i])
               puts "Create Submission: #{course_creators[i].email} for #{project.name}"
               submission.save!
             end
@@ -342,8 +342,12 @@ module Utility
     def random_score
       r = RandomGaussian.new(4.2, 1.0)
       num = r.rand().round()
-      if num <= 1 then num = 1 end
-      if num >= 6 then num = 6 end
+      if num <= 1 then
+        num = 1
+      end
+      if num >= 6 then
+        num = 6
+      end
       num
     end
 

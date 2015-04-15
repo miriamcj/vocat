@@ -11,9 +11,9 @@ class Evaluation < ActiveRecord::Base
   belongs_to :submission
   belongs_to :rubric
 
-  scope :published,   -> { where(:published => true) }
-  scope :created_by,  ->(creator) { where(:evaluator_id =>  creator) }
-  scope :of_type,     ->(type) { where(:evaluation_type => type) }
+  scope :published, -> { where(:published => true) }
+  scope :created_by, ->(creator) { where(:evaluator_id => creator) }
+  scope :of_type, ->(type) { where(:evaluation_type => type) }
 
   before_save { |evaluation|
     if evaluator.role?(:creator)
@@ -31,7 +31,7 @@ class Evaluation < ActiveRecord::Base
   validates :rubric, presence: true
   validates :submission, presence: true
   validates :evaluator, presence: true
-  validates :submission_id, uniqueness: { scope: :evaluator_id, message: "can only exist once per submission/evaluator" }, :on => :create
+  validates :submission_id, uniqueness: {scope: :evaluator_id, message: "can only exist once per submission/evaluator"}, :on => :create
 
   before_save :scaffold_scores
   before_save :update_percentage
@@ -47,11 +47,11 @@ class Evaluation < ActiveRecord::Base
     if rubric
       scores.each do |key, score|
         out[key] = {
-          score: score.to_f,
-          low: rubric.low_possible_for(key),
-          high: rubric.high_possible_for(key),
-          percentage: (score.to_f / rubric.high_possible_for(key)) * 100,
-          name: rubric.field_name_for(key)
+            score: score.to_f,
+            low: rubric.low_possible_for(key),
+            high: rubric.high_possible_for(key),
+            percentage: (score.to_f / rubric.high_possible_for(key)) * 100,
+            name: rubric.field_name_for(key)
         }
       end
     end
@@ -79,7 +79,7 @@ class Evaluation < ActiveRecord::Base
   def update_percentage
     score = self.calculate_total_score
     if score
-      self.total_percentage = (score / ( self.rubric_high_score.to_f * self.field_count ) * 100)
+      self.total_percentage = (score / (self.rubric_high_score.to_f * self.field_count) * 100)
     else
       0
     end
@@ -90,7 +90,11 @@ class Evaluation < ActiveRecord::Base
   end
 
   def self.by_course_and_evaluator(course, evaluator)
-    if course.is_a? Numeric then course_id = course else course_id = course.id end
+    if course.is_a? Numeric then
+      course_id = course
+    else
+      course_id = course.id
+    end
     Evaluation.all.joins(:submission => :project).where(:evaluator_id => evaluator.id, :projects => {:course_id => course_id})
   end
 
@@ -121,7 +125,11 @@ class Evaluation < ActiveRecord::Base
 
   # TODO: See previous method
   def evaluation_type_human_readable
-    if evaluation_type == EVALUATION_TYPE_CREATOR then 'peer' else 'instructor' end
+    if evaluation_type == EVALUATION_TYPE_CREATOR then
+      'peer'
+    else
+      'instructor'
+    end
   end
 
   def update_total
@@ -129,7 +137,7 @@ class Evaluation < ActiveRecord::Base
   end
 
   def calculate_total_score
-    self.scores.values.collect{|s| s.to_i}.reduce(:+)
+    self.scores.values.collect { |s| s.to_i }.reduce(:+)
   end
 
   def active_model_serializer
@@ -160,7 +168,7 @@ class Evaluation < ActiveRecord::Base
   end
 
   def to_csv_header_row
-    ['Vocat ID', 'Evaluator','Section','Course', 'Semester', 'Year', 'Creator', 'Evaluation Type', 'Project Name', 'Percentage', 'Total Score', 'Points Possible']
+    ['Vocat ID', 'Evaluator', 'Section', 'Course', 'Semester', 'Year', 'Creator', 'Evaluation Type', 'Project Name', 'Percentage', 'Total Score', 'Points Possible']
   end
 
   def to_csv

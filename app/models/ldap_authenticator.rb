@@ -94,7 +94,9 @@ class LDAPAuthenticator
     role = default_role
     domain = Mail::Address.new(email.to_s).domain
     match_domain = instructor_email_domain
-    if domain == match_domain then role = 'evaluator' end
+    if domain == match_domain then
+      role = 'evaluator'
+    end
     role
   end
 

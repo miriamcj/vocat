@@ -4,7 +4,7 @@ class Asset < ActiveRecord::Base
   ranks :listing_order, :with_same => :submission_id, :class_name => 'Asset'
 
   belongs_to :submission, :counter_cache => true
-  belongs_to  :author, :class_name => 'User'
+  belongs_to :author, :class_name => 'User'
   has_many :annotations, :dependent => :destroy
   has_one :attachment, :dependent => :destroy
 
@@ -61,7 +61,7 @@ class Asset < ActiveRecord::Base
 
   def file_info
     if attachment
-      "#{attachment.size} #{attachment.extension.gsub('.','').upcase} #{family.capitalize}"
+      "#{attachment.size} #{attachment.extension.gsub('.', '').upcase} #{family.capitalize}"
     end
   end
 
@@ -79,20 +79,20 @@ class Asset < ActiveRecord::Base
 
   protected
 
-    def ensure_type
-      if attachment
-        attachment_type = Attachment::Inspector.attachmentToType(attachment)
-        self.type = "Asset::#{attachment_type.to_s.capitalize}"
-      elsif external_source
-        case external_source
-          when 'youtube'
-            self.type = 'Asset::Youtube'
-          when 'vimeo'
-            self.type = 'Asset::Vimeo'
-        end
-      else
-        self.type = 'Asset::Unknown'
+  def ensure_type
+    if attachment
+      attachment_type = Attachment::Inspector.attachmentToType(attachment)
+      self.type = "Asset::#{attachment_type.to_s.capitalize}"
+    elsif external_source
+      case external_source
+        when 'youtube'
+          self.type = 'Asset::Youtube'
+        when 'vimeo'
+          self.type = 'Asset::Vimeo'
       end
+    else
+      self.type = 'Asset::Unknown'
     end
+  end
 
 end

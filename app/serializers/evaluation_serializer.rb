@@ -1,17 +1,17 @@
 class EvaluationSerializer < ActiveModel::Serializer
-  attributes  :id,
-              :submission_id,
-              :published,
-              :evaluator_id,
-              :evaluator_name,
-              :evaluator_role,
-              :scores,
-              :score_details,
-              :total_percentage,
-              :total_score,
-              :points_possible,
-              :current_user_is_evaluator,
-              :abilities
+  attributes :id,
+             :submission_id,
+             :published,
+             :evaluator_id,
+             :evaluator_name,
+             :evaluator_role,
+             :scores,
+             :score_details,
+             :total_percentage,
+             :total_score,
+             :points_possible,
+             :current_user_is_evaluator,
+             :abilities
 
 
   def evaluator_name
@@ -66,9 +66,9 @@ class EvaluationSerializer < ActiveModel::Serializer
 
   def should_anonymize_evaluation
     @options.key?(:anonymous) &&
-    @options[:anonymous] == true &&
-    Ability.new(scope).cannot?(:administer, object.submission.project.course) &&
-    scope.id != object.evaluator_id
+        @options[:anonymous] == true &&
+        Ability.new(scope).cannot?(:administer, object.submission.project.course) &&
+        scope.id != object.evaluator_id
   end
 
 end

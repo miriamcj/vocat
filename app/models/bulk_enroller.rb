@@ -58,7 +58,7 @@ class BulkEnroller
 
   def parse_comma_delimited_contact(contact_string)
     if contact_string.include? ','
-      parts = contact_string.split(',').collect{|part| part.strip}
+      parts = contact_string.split(',').collect { |part| part.strip }
       contact = contact_hash(contact_string)
       parse_name!(contact, parts[0])
       parse_email!(contact, parts[1])
@@ -70,7 +70,7 @@ class BulkEnroller
 
   def parse_osx_style_contact(contact_string)
     if contact_string.include?('<') && contact_string.include?('>')
-      _,name,email =  /\A\s*(\S+.*\S+)\s*\<([^\>]+)\>/.match(contact_string).to_a
+      _, name, email = /\A\s*(\S+.*\S+)\s*\<([^\>]+)\>/.match(contact_string).to_a
       contact = contact_hash(contact_string)
       parse_name!(contact, name)
       parse_email!(contact, email)

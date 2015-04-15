@@ -4,24 +4,24 @@ class ProjectSerializer < ActiveModel::Serializer
   include ActionView::Helpers::OutputSafetyHelper
   include ActionView::Helpers::TextHelper
 
-  attributes  :id,
-              :name,
-              :description,
-              :listing_order_position,
-              :evaluatable?,
-              :evaluatable_by_peers?,
-              :evaluatable_by_creator?,
-              :allows_public_discussion?,
-              :rejects_past_due_media?,
-              :allowed_attachment_families,
-              :allowed_extensions,
-              :allowed_mime_types,
-              :type,
-              :rubric_id,
-              :rubric_name,
-              :abilities,
-              :course_id,
-              :due_date
+  attributes :id,
+             :name,
+             :description,
+             :listing_order_position,
+             :evaluatable?,
+             :evaluatable_by_peers?,
+             :evaluatable_by_creator?,
+             :allows_public_discussion?,
+             :rejects_past_due_media?,
+             :allowed_attachment_families,
+             :allowed_extensions,
+             :allowed_mime_types,
+             :type,
+             :rubric_id,
+             :rubric_name,
+             :abilities,
+             :course_id,
+             :due_date
 
   has_one :rubric
 
