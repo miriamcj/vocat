@@ -1,7 +1,8 @@
-
 <div data-behavior="{{#if assetHasDuration}}seek{{else}}activate{{/if}}" class="annotation-wrapper">
 	<div class="annotation-left">
-		<img src="{{gravatar}}" /><div class="annotation-utility">
+		<img src="{{gravatar}}"/>
+
+		<div class="annotation-utility">
 			{{#if current_user_can_edit}}
 				<a href="#" class="annotation-edit-link" data-behavior="edit"></a>
 			{{/if}}
@@ -21,7 +22,7 @@
 				{{/if}}
 
 				{{#if assetHasDuration}}
-					<span data-behavior="timecode">{{smpte_timecode}}</span><br />
+					<span data-behavior="timecode">{{smpte_timecode}}</span><br/>
 				{{else}}
 					<span>{{created_at}}</span>
 				{{/if}}

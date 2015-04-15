@@ -1,25 +1,25 @@
 <div data-behavior="player-container" class="player-container">
-		{{#if_match family 'video'}}
-			<video id="video-player" data-behavior="video-player" class="video-js vjs-default-skin" controls preload="auto" >
-				{{#if_match type 'Asset::Youtube'}}
-					<source src="{{locations.url}}" type="video/youtube" />
-				{{/if_match}}
-				{{#if_match type 'Asset::Vimeo'}}
-					<source src="{{locations.url}}" type="video/vimeo" />
-				{{/if_match}}
-				{{#if_match type 'Asset::Video'}}
-					<source src="{{locations.mp4}}" type="video/mp4" />
-					<source src="{{locations.webm}}" type="video/webm" />
-					<!--
-					<source src="/sample_transcoded.mp4" type="video/mp4" />
-					<source src="/sample_transcoded.webm" type="video/webm" />
-					-->
-				{{/if_match}}
-			</video>
-		{{/if_match}}
-		{{#if_match family 'audio'}}
-			<audio id="video-player" data-behavior="video-player" class="video-js vjs-default-skin" controls preload="auto" >
-				<source src="{{locations.mp3}}" type="audio/mp3" />
-			</audio>
-		{{/if_match}}
+	{{#if_match family 'video'}}
+		<video id="video-player" data-behavior="video-player" class="video-js vjs-default-skin" controls preload="auto">
+			{{#if_match type 'Asset::Youtube'}}
+				<source src="{{locations.url}}" type="video/youtube"/>
+			{{/if_match}}
+			{{#if_match type 'Asset::Vimeo'}}
+				<source src="{{locations.url}}" type="video/vimeo"/>
+			{{/if_match}}
+			{{#if_match type 'Asset::Video'}}
+				<source src="{{locations.mp4}}" type="video/mp4"/>
+				<source src="{{locations.webm}}" type="video/webm"/>
+				<!--
+				<source src="/sample_transcoded.mp4" type="video/mp4" />
+				<source src="/sample_transcoded.webm" type="video/webm" />
+				-->
+			{{/if_match}}
+		</video>
+	{{/if_match}}
+	{{#if_match family 'audio'}}
+		<audio id="video-player" data-behavior="video-player" class="video-js vjs-default-skin" controls preload="auto">
+			<source src="{{locations.mp3}}" type="audio/mp3"/>
+		</audio>
+	{{/if_match}}
 </div>

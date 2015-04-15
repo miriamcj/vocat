@@ -1,13 +1,14 @@
 <form class="compact">
-  <div class="input-group">
-    <label class="text-label">
-      {{#if_blank description}}
-        Add Description
-      {{else}}
-        Update Description
-      {{/if_blank}}
-    </label>
-    <textarea class="text-area-input" data-property="description" name="description" rows="3">{{description}}</textarea>
-  </div>
-  <input type="submit" class="teal-plus-button" data-behavior="model-save" value="save" />
+	<div class="input-group">
+		<label class="text-label">
+			{{#if_blank description}}
+				Add Description
+			{{else}}
+				Update Description
+			{{/if_blank}}
+		</label>
+		<textarea class="text-area-input" data-property="description" name="description"
+				  rows="3">{{description}}</textarea>
+	</div>
+	<input type="submit" class="teal-plus-button" data-behavior="model-save" value="save"/>
 </form>

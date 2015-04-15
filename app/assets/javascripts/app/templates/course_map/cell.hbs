@@ -8,34 +8,35 @@
 				{{else}}
 					<b></b>
 				{{/if}}
-		  </dd>
+			</dd>
 		</dl>
 		{{#if project_evaluatable}}
-		<dl class="cell--score">
-			<dt>Score</dt>
-			<dd>
-				<b class="matrix--scored">
+			<dl class="cell--score">
+				<dt>Score</dt>
+				<dd>
+					<b class="matrix--scored">
+						{{#if_empty current_user_percentage}}
+							&ndash;&ndash;
+						{{else}}
+							{{to_i current_user_percentage}}
+							<small>%</small>
+						{{/if_empty}}
+					</b>
+				</dd>
+			</dl>
+			<dl class="cell--published">
+				<dt>Published</dt>
+				<dd>
 					{{#if_empty current_user_percentage}}
-						&ndash;&ndash;
 					{{else}}
-						{{to_i current_user_percentage}}<small>%</small>
+						{{#if current_user_published}}
+							<b data-behavior="publish-toggle" class="matrix--checkbox checked"></b>
+						{{else}}
+							<b data-behavior="publish-toggle" class="matrix--checkbox "></b>
+						{{/if}}
 					{{/if_empty}}
-				</b>
-			</dd>
-		</dl>
-		<dl class="cell--published">
-			<dt>Published</dt>
-			<dd>
-				{{#if_empty current_user_percentage}}
-				{{else}}
-					{{#if current_user_published}}
-						<b data-behavior="publish-toggle" class="matrix--checkbox checked"></b>
-					{{else}}
-						<b data-behavior="publish-toggle" class="matrix--checkbox "></b>
-					{{/if}}
-				{{/if_empty}}
-			</dd>
-		</dl>
+				</dd>
+			</dl>
 		{{/if}}
 		{{#if_match role 'creator'}}
 			<span class="cell--message cell--message-pinned"></span>

@@ -1,18 +1,21 @@
 <h5 class="modal--header">{{name}}</h5>
 <div class="modal-scroll-container">
 	<h6 class="modal--subheader">Description:</h6>
+
 	<div class="markdown-content">
 		{{{description}}}
 	</div>
 
 	{{#if due_date}}
 		<h6 class="modal--subheader">Due Date:</h6>
+
 		<p>
 			{{due_date}}
 		</p>
 	{{/if}}
 
 	<h6 class="modal--subheader">Allowed File Types:</h6>
+
 	<p>
 		{{{join allowed_extensions}}}
 	</p>

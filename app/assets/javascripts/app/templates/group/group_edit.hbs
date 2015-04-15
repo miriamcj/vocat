@@ -1,13 +1,13 @@
 <form class="compact">
-  <div class="input-group">
-    <label class="text-label">
-      {{#if_blank name}}
-        Add Name
-      {{else}}
-        Update Name
-      {{/if_blank}}
-    </label>
-    <input class="text-input" data-property="name" name="name" value="{{name}}" />
-  </div>
-  <input type="submit" class="teal-plus-button" data-behavior="model-save" value="save" />
+	<div class="input-group">
+		<label class="text-label">
+			{{#if_blank name}}
+				Add Name
+			{{else}}
+				Update Name
+			{{/if_blank}}
+		</label>
+		<input class="text-input" data-property="name" name="name" value="{{name}}"/>
+	</div>
+	<input type="submit" class="teal-plus-button" data-behavior="model-save" value="save"/>
 </form>
