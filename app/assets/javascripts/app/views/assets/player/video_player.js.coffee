@@ -88,6 +88,7 @@ define (require) ->
           @player.pause()
           @player.currentTime(@lock.seconds)
         else
+          @handleStatusRequest()
           @vent.trigger('announce:play')
       )
 
@@ -142,8 +143,9 @@ define (require) ->
       duration: @player.duration()
       }
 
+
     handleStatusRequest: () ->
-      @vent.trigger('announce:status', @getStatusHash())
+      @vent.trigger('announce:status', @getStatusHash())z
 
     handleAnnotationShow: (data) ->
       @player.trigger({
@@ -203,8 +205,13 @@ define (require) ->
         # on actual time update. It's user intent that we want to capture, not the time update
         # itself.
         @vent.trigger('request:annotator:input:stop')
-
         @player.currentTime(seconds)
+
+        # Youtube videos don't always announce the correct time after an update, so we delay and then announce again.
+        if @model.get('type') == 'Asset::Youtube'
+          setTimeout(() =>
+            @announceTimeUpdate()
+          ,500)
 
     getPlayerDimensions: () ->
       if @model.get('family') == 'audio'

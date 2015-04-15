@@ -37,6 +37,9 @@ define (require) ->
       @listenToOnce(@vent, 'announce:loaded', (data) =>
         @setPosition(data.duration)
       )
+      @listenTo(@vent, 'announce:status', (data) =>
+        @setPosition(data.duration)
+      )
 
     onRender: () ->
       @updatePosition()
