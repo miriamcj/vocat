@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/modal/modal_group_membership')
   GroupModel = require('models/group')
@@ -28,6 +27,7 @@ define (require) ->
       $(window).on('keyup', @onKeyUp)
       groupId = options.groupId
       @model = new GroupModel({id: groupId})
-      @model.fetch({success: () =>
-        @render()
+      @model.fetch({
+        success: () =>
+          @render()
       })

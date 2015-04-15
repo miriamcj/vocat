@@ -1,5 +1,4 @@
 define (require) ->
-
   template = require('hbs!templates/rubric/rubric_layout')
   RubricModel = require('models/rubric')
   FieldModel = require('models/field')
@@ -38,8 +37,8 @@ define (require) ->
     }
 
     triggers: {
-      'click [data-behavior="matrix-slider-left"]':   'slider:left'
-      'click [data-behavior="matrix-slider-right"]':  'slider:right'
+      'click [data-behavior="matrix-slider-left"]': 'slider:left'
+      'click [data-behavior="matrix-slider-right"]': 'slider:right'
       'click [data-trigger="recalc"]': 'recalculate:matrix'
     }
 
@@ -67,7 +66,10 @@ define (require) ->
         @model.setLow(low)
       else
         @ui.lowInput.val(@model.getLow())
-        @trigger('error:add', {level: 'notice', msg: "Setting the lowest possible score above #{@model.getLow()} would make the total range too small to accomodate this rubric. Before you can increase the lowest possible score, you must remove one or more ranges from your rubric."})
+        @trigger('error:add', {
+          level: 'notice',
+          msg: "Setting the lowest possible score above #{@model.getLow()} would make the total range too small to accomodate this rubric. Before you can increase the lowest possible score, you must remove one or more ranges from your rubric."
+        })
 
     handleHighChange: (event) ->
       high = @ui.highInput.val()
@@ -75,7 +77,10 @@ define (require) ->
         @model.setHigh(high)
       else
         @ui.highInput.val(@model.getHigh())
-        @trigger('error:add', {level: 'notice', msg: "Setting the highest possible score below #{@model.getHigh()} would make the total range too small to accomodate this rubric. Before you can reduce the highest possible score, you must remove one or more ranges from your rubric."})
+        @trigger('error:add', {
+          level: 'notice',
+          msg: "Setting the highest possible score below #{@model.getHigh()} would make the total range too small to accomodate this rubric. Before you can reduce the highest possible score, you must remove one or more ranges from your rubric."
+        })
 
     handleNameChange: (event) ->
       @model.set('name', @ui.nameInput.val())
@@ -88,7 +93,7 @@ define (require) ->
       @model.save({}, {
         success: () =>
           Vocat.vent.trigger('error:add', {level: 'notice', msg: 'Rubric has been saved'})
-      , error: (model, xhr) =>
+        , error: (model, xhr) =>
           if xhr.responseJSON?
             msg = xhr.responseJSON
           else
@@ -100,18 +105,35 @@ define (require) ->
       event.preventDefault()
       if @model.canAddRange()
         range = new RangeModel({})
-        modal = new ShortTextInputView({model: range, property: 'name', saveClasses: 'update-button', saveLabel: 'Update Range', inputLabel: 'What would you like to call this range?', vent: @vent})
+        modal = new ShortTextInputView({
+          model: range,
+          property: 'name',
+          saveClasses: 'update-button',
+          saveLabel: 'Update Range',
+          inputLabel: 'What would you like to call this range?',
+          vent: @vent
+        })
         @listenTo(modal, 'model:updated', (e) ->
           @model.get('ranges').add(range)
         )
         Vocat.vent.trigger('modal:open', modal)
       else
-        @trigger('error:add', {level: 'notice', msg: 'Before you can add another range to this rubric, you must increase the number of available points by changing the highest possible score field, above.'})
+        @trigger('error:add', {
+          level: 'notice',
+          msg: 'Before you can add another range to this rubric, you must increase the number of available points by changing the highest possible score field, above.'
+        })
 
     handleFieldAdd: (event) ->
       event.preventDefault()
       field = new FieldModel({})
-      modal = new ShortTextInputView({model: field, property: 'name', saveClasses: 'update-button', saveLabel: 'Update Field Name', inputLabel: 'What would you like to call this criteria?', vent: @vent})
+      modal = new ShortTextInputView({
+        model: field,
+        property: 'name',
+        saveClasses: 'update-button',
+        saveLabel: 'Update Field Name',
+        inputLabel: 'What would you like to call this criteria?',
+        vent: @vent
+      })
       @listenTo(modal, 'model:updated', (e) ->
         @model.get('fields').add(field)
       )
@@ -154,7 +176,7 @@ define (require) ->
         else
           @model = new RubricModel({})
 
-      @listenTo(@model,'change',(e) =>
+      @listenTo(@model, 'change', (e) =>
         @recalculateMatrix()
       )
 
@@ -175,7 +197,7 @@ define (require) ->
         @ui.publicInput.chosen({
           disable_search_threshold: 1000
         })
-      ,0
+      , 0
 
     onRender: () ->
       @chosenifySelects()

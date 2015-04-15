@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/admin/enrollment/empty_courses')
 
@@ -10,7 +9,7 @@ define (require) ->
 
     serializeData: () ->
       {
-        colspan: 4
+      colspan: 4
       }
 
     onShow: () ->

@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   courseTemplate = require('hbs!templates/admin/enrollment/course_input_item')
   userTemplate = require('hbs!templates/admin/enrollment/user_input_item')
@@ -24,7 +23,7 @@ define (require) ->
 
     onClick: () ->
       enrollment = @enrollmentCollection.newEnrollmentFromSearchModel(@model)
-      enrollment.save({},{
+      enrollment.save({}, {
         error: (model, xhr) =>
           Vocat.vent.trigger('error:add', {level: 'error', lifetime: 5000, msg: xhr.responseJSON.errors})
         success: () =>
@@ -37,9 +36,17 @@ define (require) ->
               article = 'an'
             else
               article = 'a'
-            Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 5000, msg: "#{enrollment.get('user_name')} is now #{article} #{role} in section ##{enrollment.get('section')}."})
+            Vocat.vent.trigger('error:add', {
+              level: 'notice',
+              lifetime: 5000,
+              msg: "#{enrollment.get('user_name')} is now #{article} #{role} in section ##{enrollment.get('section')}."
+            })
           else
-            Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 5000, msg: "#{enrollment.get('user_name')} is now enrolled in section #{enrollment.get('section')}"})
+            Vocat.vent.trigger('error:add', {
+              level: 'notice',
+              lifetime: 5000,
+              msg: "#{enrollment.get('user_name')} is now enrolled in section #{enrollment.get('section')}"
+            })
       })
       @trigger('clicked')
 

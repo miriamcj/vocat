@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/course_map/projects_empty')
 
@@ -17,7 +16,7 @@ define (require) ->
 
     serializeData: () ->
       {
-        courseId: @courseId
-        isCreator: window.VocatUserRole == 'creator'
+      courseId: @courseId
+      isCreator: window.VocatUserRole == 'creator'
       }
 

@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/assets/player/image_displayer')
   PlayerAnnotations = require('views/assets/player/player_annotations')

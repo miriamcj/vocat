@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/rubric/fields_item')
   ModalConfirmView = require('views/modal/modal_confirm')
@@ -24,7 +23,14 @@ define (require) ->
       @openModal()
 
     openModal: () ->
-      Vocat.vent.trigger('modal:open', new ShortTextInputView({model: @model, property: 'name', saveClasses: 'update-button', saveLabel: 'Update Field Name', inputLabel: 'What would you like to call this criteria?', vent: @vent}))
+      Vocat.vent.trigger('modal:open', new ShortTextInputView({
+        model: @model,
+        property: 'name',
+        saveClasses: 'update-button',
+        saveLabel: 'Update Field Name',
+        inputLabel: 'What would you like to call this criteria?',
+        vent: @vent
+      }))
 
     nameKeyPressed: (e) ->
       @onModelNameUpdate()

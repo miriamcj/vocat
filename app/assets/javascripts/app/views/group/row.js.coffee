@@ -1,5 +1,4 @@
 define ['marionette', 'views/group/cell'], (Marionette, ItemView) ->
-
   class Row extends Marionette.CollectionView
 
     tagName: 'tr'
@@ -9,8 +8,8 @@ define ['marionette', 'views/group/cell'], (Marionette, ItemView) ->
 
     childViewOptions: () ->
       {
-        vent: @vent
-        creator: @model
+      vent: @vent
+      creator: @model
       }
 
     initialize: (options) ->

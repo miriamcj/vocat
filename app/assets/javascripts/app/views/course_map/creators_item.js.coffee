@@ -1,5 +1,4 @@
 define ['marionette', 'hbs!templates/course_map/creators_item'], (Marionette, template) ->
-
   class CourseMapCreatorsItem extends Marionette.ItemView
 
     tagName: 'tr'
@@ -9,7 +8,7 @@ define ['marionette', 'hbs!templates/course_map/creators_item'], (Marionette, te
     triggers: {
       'mouseover [data-behavior="creator-name"]': 'active'
       'mouseout [data-behavior="creator-name"]': 'inactive'
-      'click [data-behavior="creator-name"]':   'detail'
+      'click [data-behavior="creator-name"]': 'detail'
     }
 
     attributes: {
@@ -39,11 +38,11 @@ define ['marionette', 'hbs!templates/course_map/creators_item'], (Marionette, te
       if @creatorType == 'Group'
         @$el.addClass('matrix--group-title')
 
-      @listenTo(@vent,'row:active', (data) ->
+      @listenTo(@vent, 'row:active', (data) ->
         if data.creator == @model then @$el.addClass('active')
       )
 
-      @listenTo(@vent,'row:inactive', (data) ->
+      @listenTo(@vent, 'row:inactive', (data) ->
         if data.creator == @model then @$el.removeClass('active')
       )
 

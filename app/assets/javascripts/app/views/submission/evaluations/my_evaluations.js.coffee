@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/submission/evaluations/my_evaluations')
   ScoreSlider = require('views/submission/evaluations/score_slider')
@@ -32,8 +31,8 @@ define (require) ->
 
     childViewOptions: () ->
       {
-        vent: @
-        rubric: @rubric
+      vent: @
+      rubric: @rubric
       }
 
     behaviors: {
@@ -71,9 +70,9 @@ define (require) ->
     onEvaluationToggle: () ->
       state = @model.get('published')
       if state == true
-        @model.set('published',false)
+        @model.set('published', false)
       else
-        @model.set('published',true)
+        @model.set('published', true)
       @vent.triggerMethod('evaluation:dirty')
       @updatePublishedUIState()
 
@@ -97,7 +96,7 @@ define (require) ->
       setTimeout(() =>
         if @ui.notice.length > 0 && _.isFunction(@ui.notice.slideUp)
           @ui.notice.slideUp()
-      ,5000)
+      , 5000)
 
     setupListeners: () ->
       @listenTo(@, 'childview:updated', () =>

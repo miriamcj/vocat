@@ -1,5 +1,4 @@
 define (require) ->
-
   template = require('hbs!templates/rubric/range_picker')
   jqui = require('jquery_ui')
   Marionette= require('marionette')
@@ -30,8 +29,8 @@ define (require) ->
       if _.filter(values, (value) -> value != target).length < (values.length - 1)
         missing = @getAvailableValues(values)
         # First we try to go up
-        nextViableTarget = _.min(_.reject(missing, (value) -> value < target ))
-        previousViableTarget = _.max(_.reject(missing, (value) -> value > target ))
+        nextViableTarget = _.min(_.reject(missing, (value) -> value < target))
+        previousViableTarget = _.max(_.reject(missing, (value) -> value > target))
         nextDistance = @getLeftFromScore(nextViableTarget) - left
         previousDistance = left - @getLeftFromScore(previousViableTarget)
         if nextDistance < previousDistance then target = nextViableTarget else target = previousViableTarget
@@ -220,7 +219,6 @@ define (require) ->
 
     # Updates the ranges collection from the current values
     updateCollection: () ->
-
       if @collection.length > 0
         values = @getValues()
         updates = []
@@ -260,11 +258,10 @@ define (require) ->
 
     # Returns the values from the range collection
     getValuesFromCollection: (collection) ->
-
       if collection.length > 0
         values = collection.pluck('low')
         values = _.sortBy(values, (value) ->
-            parseInt(value)
+          parseInt(value)
         )
         values
       else
@@ -272,7 +269,6 @@ define (require) ->
 
     # Sets up the range picker UI
     initializeUi: () ->
-
       @handles = []
 
       # Setup ticks
@@ -326,9 +322,9 @@ define (require) ->
     initialize: (options) ->
       @vent = options.vent
 
-      @listenTo(@,'visible', @onVisible, @)
+      @listenTo(@, 'visible', @onVisible, @)
 
-      @listenTo(@model,'change:low change:high', () =>
+      @listenTo(@model, 'change:low change:high', () =>
         @render()
       )
 

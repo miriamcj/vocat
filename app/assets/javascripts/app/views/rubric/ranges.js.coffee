@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/rubric/ranges')
   ItemView = require('views/rubric/ranges_item')
@@ -14,8 +13,8 @@ define (require) ->
     emptyView: EmptyView
     childViewOptions: () ->
       {
-        collection: @collection
-        vent: @vent
+      collection: @collection
+      vent: @vent
       }
 
     initialize: (options) ->

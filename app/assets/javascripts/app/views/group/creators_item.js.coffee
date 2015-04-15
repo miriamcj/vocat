@@ -1,5 +1,4 @@
 define ['marionette', 'hbs!templates/course_map/creators_item'], (Marionette, template) ->
-
   class GroupCreatorsItem extends Marionette.ItemView
 
     tagName: 'tr'
@@ -9,7 +8,7 @@ define ['marionette', 'hbs!templates/course_map/creators_item'], (Marionette, te
     triggers: {
       'mouseover a': 'active'
       'mouseout a': 'inactive'
-      'click a':   'detail'
+      'click a': 'detail'
     }
 
     attributes: {

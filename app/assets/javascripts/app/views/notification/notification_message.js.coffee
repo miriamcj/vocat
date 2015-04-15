@@ -1,10 +1,7 @@
 define [
   'marionette',
   'hbs!templates/notification/notification_message',
-],(
-  Marionette, template
-) ->
-
+], (Marionette, template) ->
   class NotificationMessage extends Marionette.ItemView
 
     template: template
@@ -22,7 +19,7 @@ define [
       @lifetime = lifetime if lifetime > 0
 
     onShow: ->
-      setTimeout( () =>
+      setTimeout(() =>
         @trigger('view:expired')
       , @lifetime
       )

@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   ItemView = require('views/assets/player/player_annotations_item')
 
@@ -17,8 +16,8 @@ define (require) ->
 
     childViewOptions: (model, index) ->
       {
-        vent: @vent
-        assetHasDuration: @model.hasDuration()
+      vent: @vent
+      assetHasDuration: @model.hasDuration()
       }
 
     setupListeners: () ->

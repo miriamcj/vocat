@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/assets/assets_layout')
   AssetCollectionView = require('views/assets/asset_collection')
@@ -38,9 +37,13 @@ define (require) ->
     }
 
     setState: (state, assetId = null) ->
-
       if @state == 'uploading' && state == 'detail'
-        Vocat.vent.trigger('error:add', {level: 'notice', clear: true, lifetime: '5000',  msg: 'Please wait for your upload to complete before viewing media.'})
+        Vocat.vent.trigger('error:add', {
+          level: 'notice',
+          clear: true,
+          lifetime: '5000',
+          msg: 'Please wait for your upload to complete before viewing media.'
+        })
         return
 
       @state = state
@@ -186,7 +189,12 @@ define (require) ->
       @_hideButton(@ui.manageLink)
 
     _assetCollectionView: () ->
-      new AssetCollectionView({collection: @collection, vent: @, project: @model.project(), abilities: @model.get('abilities')})
+      new AssetCollectionView({
+        collection: @collection,
+        vent: @,
+        project: @model.project(),
+        abilities: @model.get('abilities')
+      })
 
     _newAssetView: () ->
       new NewAssetView({collection: @collection, model: @model.project(), vent: @})

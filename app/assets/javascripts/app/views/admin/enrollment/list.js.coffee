@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   ItemView = require('views/admin/enrollment/item')
   EmptyCoursesView = require('views/admin/enrollment/empty_courses')
@@ -22,8 +21,8 @@ define (require) ->
 
     childViewOptions: () ->
       {
-        role: @collection.role()
-        vent: @vent
+      role: @collection.role()
+      vent: @vent
       }
 
     ui: {

@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   require('waypoints_sticky')
   require('waypoints')
@@ -24,8 +23,8 @@ define (require) ->
     }
 
     triggers: {
-      'click [data-behavior="matrix-slider-left"]':   'slider:left'
-      'click [data-behavior="matrix-slider-right"]':  'slider:right'
+      'click [data-behavior="matrix-slider-left"]': 'slider:left'
+      'click [data-behavior="matrix-slider-right"]': 'slider:right'
     }
 
     adjustToCurrentPosition: () ->
@@ -34,7 +33,7 @@ define (require) ->
     parentOnShow: () ->
       @recalculateMatrix()
       @_initializeStickyHeader() if @stickyHeader
-      @listenTo(@,'recalculate', _.debounce(() =>
+      @listenTo(@, 'recalculate', _.debounce(() =>
         @recalculateMatrix()
       ), 250, true)
 
@@ -67,7 +66,7 @@ define (require) ->
     onBeforeClose: () ->
       $(window).off("resize")
       true
-      
+
     _getColHeadersTable: () ->
       @$el.find('[data-behavior="col-headers"]')
 

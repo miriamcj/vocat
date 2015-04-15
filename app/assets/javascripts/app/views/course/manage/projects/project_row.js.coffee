@@ -1,5 +1,4 @@
 define (require) ->
-
   marionette = require('marionette')
   template = require('hbs!templates/course/manage/projects/project_row')
   DropdownView = require('views/layout/dropdown')
@@ -26,7 +25,8 @@ define (require) ->
       @model.destroy({
         success: () =>
           Vocat.vent.trigger('error:clear')
-          Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '5000',  msg: 'The project was successfully deleted.'})
+          Vocat.vent.trigger('error:add',
+            {level: 'notice', lifetime: '5000', msg: 'The project was successfully deleted.'})
         , error: () =>
           Vocat.vent.trigger('error:clear')
           Vocat.vent.trigger('error:add', {level: 'notice', msg: xhr.responseJSON.errors})
@@ -43,10 +43,10 @@ define (require) ->
       }))
 
     onDrop: (e, i) ->
-      @trigger("update-sort",[@model, i]);
+      @trigger("update-sort", [@model, i]);
 
     onShow: () ->
-      @ui.dropdowns.each( (index, el) ->
+      @ui.dropdowns.each((index, el) ->
         new DropdownView({el: el, vent: Vocat.vent, allowAdjustment: false})
       )
 

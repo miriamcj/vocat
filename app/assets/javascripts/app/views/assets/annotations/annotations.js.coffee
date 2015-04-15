@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/assets/annotations/annotations')
   ItemView = require('views/assets/annotations/annotations_item')
@@ -11,7 +10,7 @@ define (require) ->
     scrollLocked: false
     highlighted: null
     emptyView: EmptyView
-    
+
     className: 'annotations'
 
     triggers: {
@@ -34,10 +33,10 @@ define (require) ->
 
     childViewOptions: (model, index) ->
       {
-        model: model
-        vent: @vent
-        assetHasDuration: @model.hasDuration()
-        errorVent: @vent
+      model: model
+      vent: @vent
+      assetHasDuration: @model.hasDuration()
+      errorVent: @vent
       }
 
     onBeforeDestroy: () ->
@@ -102,9 +101,9 @@ define (require) ->
 
     serializeData: () ->
       {
-        hasDuration: @model.hasDuration()
-        count: @collection.length
-        countNotOne: @collection.length != 1
+      hasDuration: @model.hasDuration()
+      count: @collection.length
+      countNotOne: @collection.length != 1
       }
 
     # See https://github.com/marionettejs/backbone.marionette/wiki/Adding-support-for-sorted-collections

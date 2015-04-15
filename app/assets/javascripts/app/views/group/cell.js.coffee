@@ -1,5 +1,4 @@
 define ['marionette', 'hbs!templates/group/cell'], (Marionette, template) ->
-
   class Cell extends Marionette.ItemView
 
     template: template
@@ -32,9 +31,9 @@ define ['marionette', 'hbs!templates/group/cell'], (Marionette, template) ->
 
     serializeData: () ->
       {
-        enrolled: @isEnrolled()
-        cid: @cid
-        creatorId: @creator.id
+      enrolled: @isEnrolled()
+      cid: @cid
+      creatorId: @creator.id
       }
 
     isEnrolled: () ->
@@ -46,7 +45,7 @@ define ['marionette', 'hbs!templates/group/cell'], (Marionette, template) ->
       @vent = options.vent
 
     onShow: () ->
-      @listenTo(@model,'change:creator_ids', () =>
+      @listenTo(@model, 'change:creator_ids', () =>
         @updateUiState()
       )
 

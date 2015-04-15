@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/course_map/detail_creator')
   PortfolioSubmissionItem = require('views/portfolio/portfolio_submissions_item')
@@ -18,8 +17,8 @@ define (require) ->
     childViewContainer: '[data-container="submission-summaries"]'
     childViewOptions: () ->
       {
-        standalone: @standalone
-        creator: @model
+      standalone: @standalone
+      creator: @model
       }
 
     triggers: () ->
@@ -58,7 +57,8 @@ define (require) ->
       if @model.creatorType == 'User'
         @collection.fetch({data: {course: @courseId, user: @model.id}})
       else
-        @collection.fetch({data: {group: @model.id}, success: () ->
+        @collection.fetch({
+          data: {group: @model.id}, success: () ->
         })
 
       @listenTo(@collection, 'sync', () =>

@@ -1,6 +1,5 @@
 define ['marionette', 'hbs!templates/course_map/cell', 'models/user', 'models/group', 'models/evaluation',
 ], (Marionette, template, UserModel, GroupModel, EvaluationModel) ->
-
   class Cell extends Marionette.ItemView
 
     # @model = initially, a project model, but set to a submission model in the init function

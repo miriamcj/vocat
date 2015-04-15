@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/property_editor/short_text_input')
 
@@ -62,15 +61,15 @@ define (require) ->
 
     serializeData: () ->
       {
-        value: @model.get(@property)
-        label: Marionette.getOption(@, "inputLabel")
-        saveClasses: Marionette.getOption(@, "saveClasses")
-        saveLabel: Marionette.getOption(@, "saveLabel")
+      value: @model.get(@property)
+      label: Marionette.getOption(@, "inputLabel")
+      saveClasses: Marionette.getOption(@, "saveClasses")
+      saveLabel: Marionette.getOption(@, "saveLabel")
       }
 
     onRender: () ->
       input = @$el.find('[data-property="input"]')
       setTimeout(() ->
         input.focus()
-      ,0)
+      , 0)
 

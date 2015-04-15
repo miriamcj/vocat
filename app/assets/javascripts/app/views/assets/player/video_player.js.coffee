@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   vjsAnnotations = require('vendor/video_js/vjs.annotations')
   vjsAnnotations = require('vendor/video_js/vjs.rewind')
@@ -74,17 +73,17 @@ define (require) ->
       result
 
     setupPlayerEvents: () ->
-      @player.on( 'timeupdate', ()=>
+      @player.on('timeupdate', ()=>
         @announceTimeUpdate()
       )
-      @player.on( 'loadedmetadata', () =>
+      @player.on('loadedmetadata', () =>
         @vent.trigger('announce:loaded', @getStatusHash())
         @handleStatusRequest()
       )
-      @player.on( 'progress', () =>
+      @player.on('progress', () =>
         @vent.trigger('announce:progress', {bufferedPercent: @getBufferedPercent()})
       )
-      @player.on( 'play', () =>
+      @player.on('play', () =>
         if @checkIfLocked() == true && _.isFunction(@player.pause)
           @player.pause()
           @player.currentTime(@lock.seconds)
@@ -137,10 +136,10 @@ define (require) ->
 
     getStatusHash: () ->
       {
-        bufferedPercent: @getBufferedPercent()
-        playedPercent: @getPlayedPercent()
-        playedSeconds: @player.currentTime()
-        duration: @player.duration()
+      bufferedPercent: @getBufferedPercent()
+      playedPercent: @getPlayedPercent()
+      playedSeconds: @player.currentTime()
+      duration: @player.duration()
       }
 
     handleStatusRequest: () ->
@@ -272,7 +271,7 @@ define (require) ->
           }
         }
 
-      @player = videojs(domTarget, options, () -> )
+      @player = videojs(domTarget, options, () ->)
 
       @insertAnnotationsStageView() if @model.allowsVisibleAnnotation()
       @resizePlayer()

@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette =            require('marionette')
   template =              require('hbs!templates/admin/enrollment_layout')
   EnrollmentList =        require('views/admin/enrollment/list')
@@ -68,7 +67,12 @@ define (require) ->
         @showSingleInvite()
 
     showSingleEnroll: () ->
-      enrollmentInput = new EnrollmentInput({collection: @searchCollection, enrollmentCollection: @collection, collectionType: @searchType, vent: @})
+      enrollmentInput = new EnrollmentInput({
+        collection: @searchCollection,
+        enrollmentCollection: @collection,
+        collectionType: @searchType,
+        vent: @
+      })
       @input.show(enrollmentInput)
       @listenTo(enrollmentInput, 'showBulk', (event) =>
         @showBulk()
@@ -82,5 +86,5 @@ define (require) ->
 
     serializeData: () ->
       {
-        label: @label
+      label: @label
       }

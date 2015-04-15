@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/project/detail')
   RubricModel = require('models/rubric')
@@ -44,7 +43,7 @@ define (require) ->
       @creatorType = Marionette.getOption(@, 'creatorType')
       @projectId = Marionette.getOption(@, 'projectId') || @model.id
 
-        # The layout is responsible for loading the data and passing it to its component views when it's been updated.
+      # The layout is responsible for loading the data and passing it to its component views when it's been updated.
       $.when(@scoresLoaded(), @projectAndRubricLoaded()).then(() =>
         @updateViews()
       ).fail((reason) =>
@@ -82,18 +81,20 @@ define (require) ->
         projectLoadPromise.resolve()
       else
         @model = new ProjectModel({id: @projectId})
-        @model.fetch({success: () ->
-          projectLoadPromise.resolve()
-        , error: () =>
-          projectLoadPromise.reject('Unable to load project data. Perhaps this project has been deleted?')
+        @model.fetch({
+          success: () ->
+            projectLoadPromise.resolve()
+          , error: () =>
+            projectLoadPromise.reject('Unable to load project data. Perhaps this project has been deleted?')
         })
 
       projectLoadPromise.then(() =>
         @rubric = new RubricModel({id: @model.get('rubric_id')})
-        @rubric.fetch({success: () ->
-          rubricLoadPromise.resolve()
-        , error: () =>
-          rubricLoadPromise.reject('Unable to load project rubric. Perhaps the rubric has been deleted?')
+        @rubric.fetch({
+          success: () ->
+            rubricLoadPromise.resolve()
+          , error: () =>
+            rubricLoadPromise.reject('Unable to load project rubric. Perhaps the rubric has been deleted?')
         })
       )
       rubricLoadPromise
@@ -101,7 +102,7 @@ define (require) ->
     scoresLoaded: (set = 'my_scores') ->
       @loadedScoresSet = set
       deferred = $.Deferred()
-      $.ajax("/api/v1/scores/#{set}",{
+      $.ajax("/api/v1/scores/#{set}", {
         dataType: 'json'
         data: {
           project: @projectId

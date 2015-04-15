@@ -1,5 +1,4 @@
 define (require) ->
-
   marionette = require('marionette')
   ProjectCollection = require('collections/project_collection')
   template = require('hbs!templates/course/manage/projects/projects')

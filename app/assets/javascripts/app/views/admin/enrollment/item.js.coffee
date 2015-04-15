@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   userItemTemplate = require('hbs!templates/admin/enrollment/list_users_item')
   courseItemTemplate = require('hbs!templates/admin/enrollment/list_courses_item')
@@ -26,7 +25,11 @@ define (require) ->
       @model.destroy({
         wait: true
         success: (model) =>
-          Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 5000, msg: "#{model.get('user_name')} has been removed from section ##{model.get('section')}."})
+          Vocat.vent.trigger('error:add', {
+            level: 'notice',
+            lifetime: 5000,
+            msg: "#{model.get('user_name')} has been removed from section ##{model.get('section')}."
+          })
         error: (model, xhr) =>
           Vocat.vent.trigger('error:add', {level: 'error', lifetime: 5000, msg: xhr.responseJSON.errors})
       })

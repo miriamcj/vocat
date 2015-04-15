@@ -1,5 +1,4 @@
 define ['marionette', 'hbs!templates/modal/modal_error'], (Marionette, template) ->
-
   class ModalErrorView extends Marionette.ItemView
 
     template: template

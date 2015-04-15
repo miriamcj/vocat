@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/discussion/discussion')
   DiscusionPostCollection = require('collections/discussion_post_collection')
@@ -48,7 +47,7 @@ define (require) ->
         @trigger('error:add', {level: 'error', lifetime: 5000, msg: errors})
       )
 
-      post.save({},{
+      post.save({}, {
         success: (post) =>
           @collection.add(post)
           @allPosts.add(post)

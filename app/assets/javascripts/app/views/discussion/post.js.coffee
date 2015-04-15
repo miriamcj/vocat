@@ -1,9 +1,7 @@
 define [
-  'marionette', 'hbs!templates/discussion/post', 'collections/discussion_post_collection', 'models/discussion_post', 'views/abstract/abstract_discussion'
-], (
-  Marionette, template, DiscussionPostCollection, DiscussionPostModel, DiscussionBaseView
-) ->
-
+  'marionette', 'hbs!templates/discussion/post', 'collections/discussion_post_collection', 'models/discussion_post',
+  'views/abstract/abstract_discussion'
+], (Marionette, template, DiscussionPostCollection, DiscussionPostModel, DiscussionBaseView) ->
   class PostView extends DiscussionBaseView
 
     template: template
@@ -17,7 +15,7 @@ define [
       @allPosts = options.allPosts
       @submission = options.submission
       @vent = options.vent
-      @collection = new DiscussionPostCollection([],{})
+      @collection = new DiscussionPostCollection([], {})
       @collection.reset(@allPosts.where({parent_id: @model.id}))
 
     onConfirmDeleteToggle: () ->

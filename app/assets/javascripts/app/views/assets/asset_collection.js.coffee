@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/assets/asset_collection')
   ChildView = require('views/assets/asset_collection_child')
@@ -11,8 +10,8 @@ define (require) ->
 
     childViewOptions: () ->
       {
-        vent: @vent
-        abilities: @abilities
+      vent: @vent
+      abilities: @abilities
       }
 
     template: template
@@ -30,9 +29,9 @@ define (require) ->
 
     emptyViewOptions: () ->
       {
-        model: @project
-        abilities: @abilities
-        vent: @vent
+      model: @project
+      abilities: @abilities
+      vent: @vent
       }
 
     onForceRender: () ->

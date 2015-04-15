@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/submission/submission_layout')
   DiscussionView = require('views/discussion/discussion')
@@ -56,7 +55,7 @@ define (require) ->
       sd
 
     onDomRefresh: () ->
-      window.scrollTo(0,0)
+      window.scrollTo(0, 0)
 
     onOpenGroupsModal: () ->
       Vocat.vent.trigger('modal:open', new ModalGroupMembershipView({groupId: @creator.id}))
@@ -85,8 +84,20 @@ define (require) ->
         @ui.close.show()
       @discussion.show(new DiscussionView({submission: @model}))
       if @model.get('project').evaluatable
-        @evaluations.show(new EvaluationsView({rubric: @rubric, vent: @, project: @project, model: @model, courseId: @courseId}))
-      @assets.show(new AssetsView({collection: @model.assets(), model: @model, courseId: @courseId, initialAsset: @options.initialAsset, courseMapContext: @courseMapContext}))
+        @evaluations.show(new EvaluationsView({
+          rubric: @rubric,
+          vent: @,
+          project: @project,
+          model: @model,
+          courseId: @courseId
+        }))
+      @assets.show(new AssetsView({
+        collection: @model.assets(),
+        model: @model,
+        courseId: @courseId,
+        initialAsset: @options.initialAsset,
+        courseMapContext: @courseMapContext
+      }))
       if @model.get('abilities').can_administer
         @utility.show(new UtilityView({vent: @vent, model: @model, courseId: @courseId}))
 

@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/submission/evaluations/their_evaluations_collection')
   ChildView = require('views/submission/evaluations/their_evaluations_child')
@@ -32,7 +31,7 @@ define (require) ->
 
     serializeData: () ->
       {
-        title: "#{@model.get('evaluator_role')} Evaluations"
-        percentage: @model.averageScore()
-        range_class: 'range-expandable'
+      title: "#{@model.get('evaluator_role')} Evaluations"
+      percentage: @model.averageScore()
+      range_class: 'range-expandable'
       }

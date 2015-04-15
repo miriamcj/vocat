@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/layout/loading')
 
@@ -11,7 +10,7 @@ define (require) ->
 
     serializeData: () ->
       {
-        msg: Marionette.getOption(@, "msg")
+      msg: Marionette.getOption(@, "msg")
       }
 
     initialize: (options) ->

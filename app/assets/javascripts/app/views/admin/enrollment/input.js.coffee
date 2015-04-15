@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   usersTemplate = require('hbs!templates/admin/enrollment/user_input')
   coursesTemplate = require('hbs!templates/admin/enrollment/course_input')
@@ -124,8 +123,9 @@ define (require) ->
         data = {}
         data[@collection.getSearchTerm()] = term
         @trigger('input:changed', {value: term})
-        @collection.fetch({url: "#{@collection.url}/search", data: data, success: () =>
-          promise.resolve()
+        @collection.fetch({
+          url: "#{@collection.url}/search", data: data, success: () =>
+            promise.resolve()
         })
       else
         @collection.reset()

@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/group/save_notify')
   GlobalNotification = require('behaviors/global_notification')
@@ -23,7 +22,7 @@ define (require) ->
     onClickGroupsSave: () ->
       @collection.save()
       Vocat.vent.trigger('notification:empty')
-      Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '3000',  msg: 'Groups have been saved.'})
+      Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '3000', msg: 'Groups have been saved.'})
 
     onClickGroupsRevert: () ->
       @collection.each((group) ->

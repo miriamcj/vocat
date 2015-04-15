@@ -1,10 +1,7 @@
 define [
   'marionette',
   'hbs!templates/flash/flash_messages_item',
-],(
-  Marionette, template
-) ->
-
+], (Marionette, template) ->
   class FlashMessagesItem extends Marionette.ItemView
 
     template: template
@@ -33,7 +30,7 @@ define [
 
     serializeData: () ->
       context = super()
-      if _.isArray(@model.get('msg')) ||  _.isObject(@model.get('msg'))
+      if _.isArray(@model.get('msg')) || _.isObject(@model.get('msg'))
         context.enumerable = true
       else
         context.enumerable = false
@@ -46,7 +43,7 @@ define [
         @$el.fadeIn()
 
 
-      setTimeout( () =>
+      setTimeout(() =>
         @onDestroy()
       , @lifetime
       )

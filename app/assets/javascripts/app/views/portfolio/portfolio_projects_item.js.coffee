@@ -1,5 +1,4 @@
 define ['marionette', 'hbs!templates/portfolio/portfolio_item_project'], (Marionette, ProjectTemplate) ->
-
   class PortfolioItemSubmission extends Marionette.ItemView
 
     template: ProjectTemplate
@@ -19,7 +18,7 @@ define ['marionette', 'hbs!templates/portfolio/portfolio_item_project'], (Marion
     serializeData: () ->
       data = super()
       {
-        project: data
-        showCourse: @showCourse
-        showCreator: @showCreator
+      project: data
+      showCourse: @showCourse
+      showCreator: @showCreator
       }

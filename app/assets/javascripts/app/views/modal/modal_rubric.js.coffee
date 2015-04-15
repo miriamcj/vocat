@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/modal/modal_rubric')
 
@@ -24,6 +23,5 @@ define (require) ->
       $(window).off('keyup', @onKeyUp)
 
     initialize: (options) ->
-
       _.bindAll(@, 'onKeyUp');
       $(window).on('keyup', @onKeyUp)

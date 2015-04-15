@@ -1,5 +1,4 @@
 define ['marionette', 'views/group/row_item'], (Marionette, ItemView) ->
-
   class RowsView extends Marionette.CollectionView
 
     childView: ItemView

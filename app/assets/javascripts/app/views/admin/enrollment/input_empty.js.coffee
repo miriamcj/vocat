@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/admin/enrollment/input_empty')
 
@@ -13,7 +12,7 @@ define (require) ->
 
     serializeData: ->
       {
-        isUserCollection: @collectionType == 'user'
-        isCourseCollection: @collectionType == 'course'
+      isUserCollection: @collectionType == 'user'
+      isCourseCollection: @collectionType == 'course'
       }
 

@@ -1,5 +1,4 @@
 define (require) ->
-
   template = require('hbs!templates/group/warning')
 
   class Warning extends Marionette.ItemView
@@ -8,5 +7,5 @@ define (require) ->
 
     serializeData: () ->
       {
-        courseId: Marionette.getOption(@, 'courseId')
+      courseId: Marionette.getOption(@, 'courseId')
       }
