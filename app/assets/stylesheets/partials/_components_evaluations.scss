@@ -7,7 +7,6 @@ $secondaryBarHeight: 15px;
 $editableBarHeight: 24px;
 $handleWidth: 100px;
 
-
 $shortBarHeight: 30px;
 $titleWidth: 300px;
 
@@ -16,8 +15,6 @@ $largeHandleHeight: $barHeight + ($secondaryBarHeight * $largeHandleMultipler);
 $secondaryHandleHeight: $secondaryBarHeight * 3;
 $tertiaryHandleHeight: $secondaryBarHeight * 2;
 $triangleHeight: 10px;
-
-
 
 ul.evaluation-collections, ul.evaluation-collection--children, ul.evaluation-single--details {
   margin-bottom: 0;
@@ -37,12 +34,13 @@ ul.evaluation-collections, ul.evaluation-collection--children, ul.evaluation-sin
 }
 
 .evaluation-editable {
-//  margin-top: $secondaryBarHeight * 3;
+  //  margin-top: $secondaryBarHeight * 3;
 }
 
 .evaluation-collection--children {
   margin-top: $secondaryBarHeight;
 }
+
 .evaluation-collection--children li + li {
   margin-top: $secondaryBarHeight;
 }
@@ -87,6 +85,7 @@ ul.evaluation-collections, ul.evaluation-collection--children, ul.evaluation-sin
 .evaluation-single--details li + li {
   margin-top: $secondaryBarHeight;
 }
+
 .evaluation-single--details li:last-child {
 }
 
@@ -113,7 +112,6 @@ ul.evaluations-hidden {
   @extend %unstyled-list;
   cursor: pointer;
 }
-
 
 .range--track {
   margin-right: $barHeight * 3;
@@ -266,7 +264,6 @@ $placardArrowSize: $placardWidth * .05;
     left: (-$placardWidth * .5) + 10px;
   }
 }
-
 
 .range-editable {
   .grabber-wrapper {

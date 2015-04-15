@@ -61,8 +61,7 @@
     li + li {
       margin-left: $space;
     }
-  }
-  @else {
+  } @else {
     li + li {
       margin-right: $space;
     }
@@ -84,8 +83,7 @@
     &:after {
       clear: both;
     }
-  }
-  @else {
+  } @else {
     &:after {
       content: " ";
       display: block;
@@ -105,7 +103,8 @@
   visibility: hidden;
   .wf-active &, // Show when fonts become active
   .no-js &, // Show if no javascript
-  .mceContentBody & { // Show if this is the RTE ;)
+  .mceContentBody & {
+    // Show if this is the RTE ;)
     visibility: visible;
   }
 }
@@ -227,8 +226,7 @@
 @mixin translate($x, $y, $z: true) {
   @if $z == true {
     -webkit-transform: translate3d($x, $y, 0);
-  }
-  @else {
+  } @else {
     -webkit-transform: translate($x, $y);
   }
   -moz-transform: translate($x, $y);
@@ -237,12 +235,10 @@
   transform: translate($x, $y);
 }
 
-
 @mixin translateX($x, $z: true) {
   @if $z == true {
     -webkit-transform: translateX($x) translateZ(0);
-  }
-  @else {
+  } @else {
     -webkit-transform: translateX($x);
   }
   -moz-transform: translateX($x);
@@ -254,8 +250,7 @@
 @mixin translateY($y, $z: true) {
   @if $z == true {
     -webkit-transform: translateY($y) translateZ(0);
-  }
-  @else {
+  } @else {
     -webkit-transform: translateY($y);
   }
   -moz-transform: translateY($y);

@@ -35,7 +35,6 @@
   }
 }
 
-
 // User navigation
 // --------------------------
 .page-header--user-nav {
@@ -66,6 +65,7 @@ a.user-nav--toggle {
     padding: 0 0 0 $headerUnitPadding;
   }
 }
+
 .user-nav--options {
   @extend %dropdown-options;
   width: 100%;
@@ -77,9 +77,7 @@ a.user-nav--toggle {
     width: 150px;
   }
 
-
 }
-
 
 // Default Dropdown Styles
 // --------------------------
@@ -89,7 +87,7 @@ a.user-nav--toggle {
 
 .dropdown--toggle {
   .dropdown-inline & {
-	display: inline-block;
+    display: inline-block;
   }
   position: relative;
   padding-right: 1.2em;

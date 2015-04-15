@@ -3,7 +3,7 @@
 // This should only be @extended by 'wide' unit patterns below
 %unit {
   // All units are 100% wide below the narrow breakpoint
-//  @extend %narrow-one-whole;
+  //  @extend %narrow-one-whole;
   @include pad-unit;
   float: left;
 }
@@ -15,8 +15,6 @@
   display: inline-block;
   margin: -2px;
 }
-
-
 
 %content-pad {
   @include content-pad($contentUnitPadding);
@@ -79,7 +77,6 @@
   @include unit(12/5);
 }
 
-
 %wide-one-sixth {
   @extend %unit;
   @include unit(2);
@@ -94,7 +91,6 @@
   @extend %unit;
   @include unit(1);
 }
-
 
 // Shifts
 %wide-shift-three-fourths {
@@ -277,8 +273,6 @@
   %narrow-one-half {
     @include unit(6);
   }
-
-
 
   // Hidden
   %narrow-gone {

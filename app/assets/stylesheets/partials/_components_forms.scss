@@ -4,12 +4,12 @@
 
 // Form Patterns
 // --------------------------
-%form-unit{
+%form-unit {
   padding-bottom: 2em;
 }
 
 %proto-input {
-//  @include box-sizing(content-box);
+  //  @include box-sizing(content-box);
   height: 2.12em;
   padding: 0px 0px 0px .5em;
   outline: none;
@@ -29,6 +29,7 @@
   color: $white;
   text-transform: none;
 }
+
 .drawer-input {
   @extend %proto-input;
   height: auto;
@@ -47,6 +48,7 @@ form.formgrid, div.fake-formgrid {
   margin-right: -$formPadding;
   margin-bottom: -2em;
 }
+
 form.formgrid-tight {
   margin: 0
 }
@@ -146,7 +148,7 @@ fieldset + fieldset {
     @extend %proto-input;
     @extend %input-full-width;
   }
-  .checkbox-list+.checkbox-list {
+  .checkbox-list + .checkbox-list {
     margin-top: 1em;
   }
   .checkbox-list {
@@ -157,7 +159,7 @@ fieldset + fieldset {
     small {
       padding-left: 1.55em;
     }
-    li+li {
+    li + li {
       margin-top: 1em;
     }
     &.checkbox-list-floated {
@@ -196,7 +198,6 @@ fieldset + fieldset {
   }
 }
 
-
 // Misc. Form Related Styles
 // --------------------------
 .file-input-container {
@@ -225,16 +226,16 @@ $spacingUnit: $mediumUnitPadding * .75;
 .oneline--input {
   .button-wrapper {
     float: right;
-//    @include respond($vostok - 1) {
-//      display: none;
-//    }
+    //    @include respond($vostok - 1) {
+    //      display: none;
+    //    }
   }
   .button-wrapper-responsive {
     display: none;
     margin-top: $spacingUnit;
-//    @include respond($vostok - 1) {
-//      display: block;
-//    }
+    //    @include respond($vostok - 1) {
+    //      display: block;
+    //    }
   }
   .input-wrapper {
     padding-right: $spacingUnit;
@@ -280,19 +281,19 @@ select.from, select.to {
       li {
         padding: 0 0 .5em 0;
       }
-      li+li {
+      li + li {
         padding: .5em 0em;
       }
     }
   }
 }
 
-
 .range-picker-container {
   position: relative;
   padding-top: 3em;
   margin-bottom: 2em;
 }
+
 .range-picker {
   height: 2em;
   background-color: $grayLight;

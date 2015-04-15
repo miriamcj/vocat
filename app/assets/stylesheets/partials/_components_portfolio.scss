@@ -2,7 +2,6 @@
 @import "mixins";
 @import "patterns";
 
-
 .portfolio, .asset-collection {
   .alert {
     margin-bottom: 0px;
@@ -23,7 +22,7 @@
 
     @extend %wide-five-sixths;
     @extend %medium-three-fourths;
-//    @extend %narrow-one-whole;
+    //    @extend %narrow-one-whole;
 
     padding-left: 0;
     padding-right: 0;
@@ -43,7 +42,7 @@
       position: absolute;
       top: 0;
       right: 0;
-//      margin-bottom: $sectionSpacingUnit * .75;
+      //      margin-bottom: $sectionSpacingUnit * .75;
       width: 30%;
       .move-links {
         padding-bottom: 17px;
@@ -52,7 +51,7 @@
         right: 0;
       }
 
-      div+div {
+      div + div {
         margin-top: 15px;
       }
       a {
@@ -64,7 +63,7 @@
   .portfolio-item--thumb, .asset-thumb {
     @extend %wide-one-sixth;
     @extend %medium-one-fourth;
-//    @extend %narrow-one-whole;
+    //    @extend %narrow-one-whole;
 
     padding-right: 30px;
     padding-left: 0;

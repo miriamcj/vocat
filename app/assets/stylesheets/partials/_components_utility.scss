@@ -12,7 +12,7 @@
   @extend %unstyled-list;
   li {
     display: inline-block;
-    &+li {
+    & + li {
       margin-left: $narrowUnitPadding;
     }
   }
@@ -78,7 +78,12 @@
     @include animation-delay(-1.0s);
   }
 }
+
 @include keyframes(processingIndicatorAnimation) {
-  0%, 100% { transform: scale(0.0) }
-  50% { transform: scale(1.0) }
+  0%, 100% {
+    transform: scale(0.0)
+  }
+  50% {
+    transform: scale(1.0)
+  }
 }

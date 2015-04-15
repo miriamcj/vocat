@@ -1,4 +1,5 @@
 @import "partials/variables";
+
 //@import "partials_off/mixins";
 //@import "partials_off/patterns";
 
@@ -34,34 +35,34 @@ $tealDarkAlt: $white;
   font-size: 12px;
   cursor: pointer;
   &._0 path, &._10 path {
-	fill: #344546;
+    fill: #344546;
   }
   &._1 path, &._11 path {
-	fill: #3d5152;
+    fill: #3d5152;
   }
   &._2 path, &._12 path {
-	fill: #455c5e;
+    fill: #455c5e;
   }
   &._3 path, &._13 path {
-	fill: #4e686a;
+    fill: #4e686a;
   }
   &._4 path, &._14 path {
-	fill: #577375;
+    fill: #577375;
   }
   &._5 path, &._15 path {
-	fill: #5f7f81;
+    fill: #5f7f81;
   }
   &._6 path, &._16 path {
-	fill: #688a8d;
+    fill: #688a8d;
   }
   &._7 path, &._17 path {
-	fill: #729597;
+    fill: #729597;
   }
   &._8 path, &._18 path {
-	fill: #7e9da0;
+    fill: #7e9da0;
   }
   &._9 path, &._19 path {
-	fill: #8aa6a8;
+    fill: #8aa6a8;
   }
 }
 

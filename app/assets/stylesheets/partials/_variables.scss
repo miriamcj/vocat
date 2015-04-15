@@ -13,7 +13,8 @@ $grayLight: rgb(199, 200, 202);
 $grayMediumLighter: rgb(167, 169, 172);
 $grayMedium: rgb(157, 159, 162);
 $grayMediumDarker: rgb(140, 140, 140);
-$grayDark: rgb(109, 110, 113); // Body copy color
+$grayDark: rgb(109, 110, 113);
+// Body copy color
 $grayDarker: rgb(77, 77, 79);
 $grayDarkest: rgb(35, 31, 32);
 
@@ -59,7 +60,6 @@ $peerColor: lighten($peerFillColor, $lighten);
 
 $selfFillColor: $purple;
 $selfColor: lighten($selfFillColor, $lighten);
-
 
 // Typographic hierarchy
 // --------------------------------------------------------
@@ -125,13 +125,10 @@ $formPadding: 2%;
 $iconSizeSmall: 10px;
 $iconSizeMedium: 14px;
 
-
-
 // $slowTransition: ;
 $mediumTransition: 0.5s;
 $fastTransition: 0.2s;
 $timing: ease;
-
 
 // Font Weights
 // --------------------------------------------------------

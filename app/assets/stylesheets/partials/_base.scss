@@ -47,6 +47,7 @@ body {
 .wf-loading body {
   opacity: 0;
 }
+
 .wf-active body {
   opacity: 1;
 }
@@ -126,7 +127,7 @@ hr {
 // Inline elements
 // --------------------------
 a {
-//  @include transition($mediumTransition opacity $timing);
+  //  @include transition($mediumTransition opacity $timing);
   text-decoration: none;
   color: $tealLight;
   &:hover {
@@ -141,7 +142,6 @@ b {
 strong {
   font-weight: $bold;
 }
-
 
 // Tables
 // --------------------------

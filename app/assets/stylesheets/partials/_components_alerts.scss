@@ -4,7 +4,6 @@
 
 $spacingUnit: $mediumUnitPadding * .75;
 
-
 .alert, #error_explanation {
   margin-bottom: $spacingUnit;
   .formgrid & {
@@ -63,7 +62,7 @@ $spacingUnit: $mediumUnitPadding * .75;
 .notification {
   z-index: 200;
   position: fixed;
-//  position: relative;
+  //  position: relative;
   width: 100%;
   top: $headerHeight;
   background: $grayDarker;
@@ -80,9 +79,9 @@ $spacingUnit: $mediumUnitPadding * .75;
   .notification-item:last-child {
     padding-bottom: $spacingUnit * .75;
   }
-//  .notification-item+.notification-item {
-//    padding-top: $spacingUnit;
-//  }
+  //  .notification-item+.notification-item {
+  //    padding-top: $spacingUnit;
+  //  }
 
   #global-flash {
     max-width: $containerWidth;
@@ -107,7 +106,6 @@ $spacingUnit: $mediumUnitPadding * .75;
     }
   }
 }
-
 
 // Devise uses it's own error message wrapper.
 #error_explanation {
