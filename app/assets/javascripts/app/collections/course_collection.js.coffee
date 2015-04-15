@@ -1,5 +1,5 @@
 define ['backbone', 'models/course'], (Backbone, courseModel) ->
-  class CourseCollection  extends Backbone.Collection
+  class CourseCollection extends Backbone.Collection
 
     model: courseModel
     activeModel: null

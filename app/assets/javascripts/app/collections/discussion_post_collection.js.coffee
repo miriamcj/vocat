@@ -1,5 +1,5 @@
 define ['backbone', 'models/discussion_post'], (Backbone, DiscussionPostModel) ->
-  class DiscussionPostCollection  extends Backbone.Collection
+  class DiscussionPostCollection extends Backbone.Collection
 
     model: DiscussionPostModel
 

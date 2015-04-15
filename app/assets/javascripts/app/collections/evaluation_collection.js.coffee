@@ -1,5 +1,4 @@
 define ['backbone', 'marionette', 'models/evaluation'], (Backbone, Marionette, EvaluationModel) ->
-
   class EvaluationCollection extends Backbone.Collection
 
     model: EvaluationModel

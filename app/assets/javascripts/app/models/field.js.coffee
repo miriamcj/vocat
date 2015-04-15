@@ -1,5 +1,4 @@
 define ['backbone', 'models/rubric_property'], (Backbone, RubricProperty) ->
-
   class FieldModel extends RubricProperty
 
     defaults: {
@@ -9,7 +8,7 @@ define ['backbone', 'models/rubric_property'], (Backbone, RubricProperty) ->
     }
 
     errorStrings: {
-      dupe:		'Duplicate field names are not allowed'
+      dupe: 'Duplicate field names are not allowed'
     }
 
     isNew: () ->

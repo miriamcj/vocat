@@ -1,5 +1,4 @@
 define ['marionette', 'backbone', 'models/submission'], (Marionette, Backbone, SubmissionModel) ->
-
   class SubmissionCollection extends Backbone.Collection
 
     model: SubmissionModel

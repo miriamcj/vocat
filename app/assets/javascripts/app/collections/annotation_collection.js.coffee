@@ -1,10 +1,7 @@
 define [
   'backbone',
   'models/annotation'
-], (
-  Backbone, AnnotationModel
-) ->
-
+], (Backbone, AnnotationModel) ->
   class AnnotationCollection extends Backbone.Collection
     model: AnnotationModel
     assetHasDuration: false

@@ -1,5 +1,4 @@
 define (require) ->
-
   marionette = require('marionette')
   VocatController = require('controllers/vocat_controller')
   EnrollmentCollection = require('collections/enrollment_collection')
@@ -21,7 +20,9 @@ define (require) ->
         Vocat.addRegions({
           creatorEnrollment: '[data-region="creator-enrollment"]'
         })
-        view = new EnrollmentLayout({collection: new EnrollmentCollection([], {scope: {course: courseId, role: 'creator'}})})
+        view = new EnrollmentLayout({
+          collection: new EnrollmentCollection([], {scope: {course: courseId, role: 'creator'}})
+        })
         Vocat.creatorEnrollment.show view
 
 

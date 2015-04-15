@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   LoadingView = require('views/layout/loading')
   ModalErrorView = require('views/modal/modal_error')

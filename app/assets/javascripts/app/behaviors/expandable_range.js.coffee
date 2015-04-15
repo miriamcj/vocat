@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
 
   class ExpandableRange extends Marionette.Behavior

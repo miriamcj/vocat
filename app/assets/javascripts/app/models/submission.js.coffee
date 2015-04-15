@@ -1,5 +1,4 @@
 define (require) ->
-
   Backbone = require('backbone')
   VideoModel = require('models/video')
   EvaluationModel = require('models/evaluation')
@@ -10,7 +9,7 @@ define (require) ->
 
   class SubmissionModel extends Backbone.Model
 
-    assetCollection : null
+    assetCollection: null
 
     urlRoot: () ->
       '/api/v1/submissions'
@@ -21,15 +20,16 @@ define (require) ->
     requestTranscoding: () ->
 
     destroyVideo: () ->
-      @video.destroy({success: () =>
-        @set('video', null)
-        @fetch({url: @updateUrl()})
+      @video.destroy({
+        success: () =>
+          @set('video', null)
+          @fetch({url: @updateUrl()})
       })
 
     toJSON: () ->
       json = super()
       if @video
-        json.video= @video.toJSON()
+        json.video = @video.toJSON()
       else
         json.video = null
       json
@@ -61,13 +61,13 @@ define (require) ->
       evaluation.save({published: false})
 
     unsetMyEvaluation: () ->
-      @set('current_user_has_evaluated',true)
-      @set('current_user_percentage',0)
-      @set('current_user_evaluation_published',false)
+      @set('current_user_has_evaluated', true)
+      @set('current_user_percentage', 0)
+      @set('current_user_evaluation_published', false)
 
     toggleEvaluationPublish: () ->
       promise = $.Deferred()
-      promise.then( () =>
+      promise.then(() =>
         if @.get('current_user_published') == true
           @unpublishEvaluation()
         else if @.get('current_user_published') == false
@@ -75,8 +75,9 @@ define (require) ->
       )
 
       if @get('serialized_state') == 'partial'
-        @fetch({success: () =>
-          promise.resolve()
+        @fetch({
+          success: () =>
+            promise.resolve()
         })
       else
         promise.resolve()
@@ -114,7 +115,6 @@ define (require) ->
       @creatorModel
 
     initialize: () ->
-
       @listenTo(@, 'change:video', () =>
         @updateVideo()
       )

@@ -1,5 +1,4 @@
 define ['backbone'], (Backbone) ->
-
   class RubricProperty extends Backbone.Model
 
     errorStrings: {}
@@ -20,7 +19,7 @@ define ['backbone'], (Backbone) ->
       messages
 
     initialize: () ->
-      if !@get('id')? then @set('id',@cid.replace('c',''))
+      if !@get('id')? then @set('id', @cid.replace('c', ''))
       @errors = new Array
 
     addError: (key) ->

@@ -1,5 +1,4 @@
 define (require) ->
-
   AbstractModel = require('models/abstract_model')
   FieldCollection = require('collections/field_collection')
   RangeCollection = require('collections/range_collection')
@@ -13,7 +12,7 @@ define (require) ->
     courseId: null
 
     urlRoot: () ->
-        '/api/v1/rubrics'
+      '/api/v1/rubrics'
 
     defaults: {
       low: 0
@@ -21,16 +20,15 @@ define (require) ->
     }
 
     initialize: (options) ->
-
       @set 'fields', new FieldCollection(_.toArray(@get('fields')))
       @set 'ranges', new RangeCollection(_.toArray(@get('ranges')))
-      @set 'cells', new CellCollection( _.toArray(@get('cells')),{})
+      @set 'cells', new CellCollection(_.toArray(@get('cells')), {})
 
-      @listenTo(@get('fields'),'add remove', (e) ->
+      @listenTo(@get('fields'), 'add remove', (e) ->
         @trigger('change')
       )
 
-      @listenTo(@get('ranges'),'add remove', (e) ->
+      @listenTo(@get('ranges'), 'add remove', (e) ->
         @trigger('change')
       )
 
@@ -95,10 +93,10 @@ define (require) ->
       difference >= @get('ranges').length - 1
 
     setLow: (value) ->
-      @set('low',parseInt(value))
+      @set('low', parseInt(value))
 
     setHigh: (value) ->
-      @set('high',parseInt(value))
+      @set('high', parseInt(value))
 
     getRangeForScore: (score) ->
       @get('ranges').find((range) ->

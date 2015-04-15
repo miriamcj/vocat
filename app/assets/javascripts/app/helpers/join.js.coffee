@@ -1,5 +1,4 @@
 define 'app/helpers/join', ['handlebars'], (Handlebars) ->
-
   Handlebars.registerHelper "join", (value, options) ->
 
     # Clone it.

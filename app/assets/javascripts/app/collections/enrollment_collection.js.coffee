@@ -1,5 +1,5 @@
-define ['backbone', 'models/enrollment', 'collections/user_collection', 'collections/course_collection'], (Backbone, EnrollmentModel, UserCollection, CourseCollection) ->
-
+define ['backbone', 'models/enrollment', 'collections/user_collection',
+        'collections/course_collection'], (Backbone, EnrollmentModel, UserCollection, CourseCollection) ->
   class EnrollmentCollection extends Backbone.Collection
 
     model: EnrollmentModel

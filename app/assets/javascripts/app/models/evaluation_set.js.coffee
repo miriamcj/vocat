@@ -1,5 +1,4 @@
 define ['backbone'], (Backbone) ->
-
   class EvaluationSetModel extends Backbone.Model
 
     averageScore: () ->

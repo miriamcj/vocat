@@ -1,5 +1,4 @@
 define (require) ->
-
   VocatController = require('controllers/vocat_controller')
   UserCollection = require('collections/user_collection')
   ProjectCollection = require('collections/project_collection')
@@ -102,7 +101,7 @@ define (require) ->
             @submissionsSynced = true
         })
 
-    _loadOneSubmission: (creatorType, creatorId, projectId ) ->
+    _loadOneSubmission: (creatorType, creatorId, projectId) ->
       deferred = $.Deferred()
 
       # We don't deal in submission IDs in VOCAT (although I kind if wish we had), so we're fetching this
@@ -134,7 +133,7 @@ define (require) ->
       deferred = @_loadOneSubmission(creatorType, creatorId, projectId)
       deferred.done((submission) =>
         submissionDetail = new SubmissionDetail({
-          collections: { submission: @collections.submission },
+          collections: {submission: @collections.submission},
           courseId: courseId
           creator: creatorId
           project: projectId
