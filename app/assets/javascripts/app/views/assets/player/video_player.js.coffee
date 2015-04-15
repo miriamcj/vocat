@@ -143,9 +143,8 @@ define (require) ->
       duration: @player.duration()
       }
 
-
     handleStatusRequest: () ->
-      @vent.trigger('announce:status', @getStatusHash())z
+      @vent.trigger('announce:status', @getStatusHash())
 
     handleAnnotationShow: (data) ->
       @player.trigger({
