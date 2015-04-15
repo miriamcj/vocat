@@ -21,11 +21,13 @@ class Courses::Manage::ProjectsController < ApplicationController
 
   # GET courses/:course_id/manage/projects/new
   def new
+    @project_type = 'project'
     respond_with @project
   end
 
   # GET courses/:course_id/manage/projects/1/edit
   def edit
+    @project_type = @project.type
     respond_with @project
   end
 
@@ -42,6 +44,7 @@ class Courses::Manage::ProjectsController < ApplicationController
 
   # PATCH courses/:course_id/manage/projects/1/
   def update
+    @project_type = @project.type
     if @project.update_attributes(project_params(@project.type.underscore))
       flash[:notice] = 'Project was successfully updated.'
     end
