@@ -16,7 +16,7 @@ class ThumbnailWorker
       s3 = variant.get_s3_instance
       s3.buckets[variant.bucket].objects[output_location].write(:file => image.path)
       processor_data = {
-        completed: true
+          completed: true
       }
       variant.processor_data = ActiveSupport::JSON.encode(processor_data)
       variant.finish_processing
@@ -41,7 +41,7 @@ class ThumbnailWorker
       h_result = h
     end
 
-    w_offset, h_offset = crop_offsets_by_gravity(gravity, [w_result, h_result], [ w, h])
+    w_offset, h_offset = crop_offsets_by_gravity(gravity, [w_result, h_result], [w, h])
 
     img.combine_options do |i|
       i.resize(op_resize)
@@ -54,7 +54,7 @@ class ThumbnailWorker
 
   # from http://www.dweebd.com/ruby/resizing-and-cropping-images-to-fixed-dimensions/
 
-  GRAVITY_TYPES = [ :north_west, :north, :north_east, :east, :south_east, :south, :south_west, :west, :center ]
+  GRAVITY_TYPES = [:north_west, :north, :north_east, :east, :south_east, :south, :south_west, :west, :center]
 
   def crop_offsets_by_gravity(gravity, original_dimensions, cropped_dimensions)
     raise(ArgumentError, "Gravity must be one of #{GRAVITY_TYPES.inspect}") unless GRAVITY_TYPES.include?(gravity.to_sym)
@@ -65,18 +65,24 @@ class ThumbnailWorker
     cropped_width, cropped_height = cropped_dimensions
 
     vertical_offset = case gravity
-                        when :north_west, :north, :north_east then 0
-                        when :center, :east, :west then [ ((original_height - cropped_height) / 2.0).to_i, 0 ].max
-                        when :south_west, :south, :south_east then (original_height - cropped_height).to_i
+                        when :north_west, :north, :north_east then
+                          0
+                        when :center, :east, :west then
+                          [((original_height - cropped_height) / 2.0).to_i, 0].max
+                        when :south_west, :south, :south_east then
+                          (original_height - cropped_height).to_i
                       end
 
     horizontal_offset = case gravity
-                          when :north_west, :west, :south_west then 0
-                          when :center, :north, :south then [ ((original_width - cropped_width) / 2.0).to_i, 0 ].max
-                          when :north_east, :east, :south_east then (original_width - cropped_width).to_i
+                          when :north_west, :west, :south_west then
+                            0
+                          when :center, :north, :south then
+                            [((original_width - cropped_width) / 2.0).to_i, 0].max
+                          when :north_east, :east, :south_east then
+                            (original_width - cropped_width).to_i
                         end
 
-    return [ horizontal_offset, vertical_offset ]
+    return [horizontal_offset, vertical_offset]
   end
 
 end
