@@ -13,11 +13,11 @@
 
 <% if @user.is_ldap_user %>
 	<p>You can log into the system with your <%= @user.organization_name %> password (the one you use to check your
-		school email or to log on to a computer in a lab) by <%= link_to 'following this link', new_user_session_url %>
+		school email or to log on to a computer in a lab) by <%= link_to 'following this link', new_user_session_url(:host => @host) %>
 		.</p>
 <% else %>
 	<p>You have been assigned a temporary password. Your username is your email
-		address. <%= link_to 'Follow this link to go to VOCAT and create your account password', edit_password_url(@user, :reset_password_token => @token) %>
+		address. <%= link_to 'Follow this link to go to VOCAT and create your account password', edit_password_url(@user, :host => @host, :reset_password_token => @token) %>
 		.</p>
 <% end %>
 

@@ -9,7 +9,7 @@ You're receiving this email because you're enrolled in one or more classes in wh
 <% else %>
 	You have been assigned a temporary password. Your username is your email address. To set your account password, copy and paste the following URL into your browser URL bar.
 
-	<%= edit_password_url(@user, :reset_password_token => @token) %>
+	<%= edit_password_url(@user, :reset_password_token => @token, :host => @host) %>
 <% end %>
 
 If you have trouble logging into VOCAT (and you're sure you're entering the correct ID and password) or encountering another problem or issue, please contact vocat@baruch.cuny.edu.
