@@ -1,36 +1,36 @@
 <%= simple_form_for([@organization, @course]) do |f| %>
 
-  <!-- Typical text fields -->
-  <%= f.input :name %>
-  <%= f.input :department %>
-  <%= f.input :number, hint: "numbers only please" %>
-  <%= f.input :section %>
+	<!-- Typical text fields -->
+	<%= f.input :name %>
+	<%= f.input :department %>
+	<%= f.input :number, hint: "numbers only please" %>
+	<%= f.input :section %>
 
-  <!-- How to render just the input element -->
-  <label>Description</label>
-  <%= f.input_field :description %>
+	<!-- How to render just the input element -->
+	<label>Description</label>
+	<%= f.input_field :description %>
 
-  <% if current_user.role? :evaluator %>
-    <%= f.association :creators,
-                      :collection => User.where("organization_id = #{@organization.id} AND role != 'admin'"),
-                      :input_html => {:name => "creators[]", :class => "chzn-select input-block-level",
-                                      :data => {:placeholder => "Choose creators..."}}  %>
-  <% end %>
+	<% if current_user.role? :evaluator %>
+		<%= f.association :creators,
+						  :collection => User.where("organization_id = #{@organization.id} AND role != 'admin'"),
+						  :input_html => {:name => "creators[]", :class => "chzn-select input-block-level",
+										  :data => {:placeholder => "Choose creators..."}} %>
+	<% end %>
 
-  <% if current_user.role? :evaluator %>
-    <%= f.association :assistants,
-                      :collection => User.where("organization_id = #{@organization.id} AND role != 'admin'"),
-                      :input_html => {:name => "assistants[]", :class => "chzn-select input-block-level",
-                                      :data => {:placeholder => "Choose assistants..."}}  %>
-  <% end %>
+	<% if current_user.role? :evaluator %>
+		<%= f.association :assistants,
+						  :collection => User.where("organization_id = #{@organization.id} AND role != 'admin'"),
+						  :input_html => {:name => "assistants[]", :class => "chzn-select input-block-level",
+										  :data => {:placeholder => "Choose assistants..."}} %>
+	<% end %>
 
-  <!-- Checkboxes -->
-  <% if current_user.role? :admin %>
-    <%= f.association :evaluators, :as => :check_boxes,
-                      :collection => User.where("organization_id = #{@organization.id} AND role = 'evaluator'"),
-                      :include_blank => false,
-                      :input_html => {:name => "evaluators[]"} %>
-  <% end %>
+	<!-- Checkboxes -->
+	<% if current_user.role? :admin %>
+		<%= f.association :evaluators, :as => :check_boxes,
+						  :collection => User.where("organization_id = #{@organization.id} AND role = 'evaluator'"),
+						  :include_blank => false,
+						  :input_html => {:name => "evaluators[]"} %>
+	<% end %>
 
-  <%= f.button :submit %>
+	<%= f.button :submit %>
 <% end %>

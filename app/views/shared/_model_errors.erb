@@ -1,15 +1,15 @@
 <% unless model.errors.blank? %>
-<div class="formgrid--messaging">
-  <div class="alerts">
-    <div class="alert alert-error">
-      <aside class="alert--label"></aside>
-      <p>Please correct the following errors:</p>
-      <ul>
-        <% model.errors.full_messages.each do |error| %>
-          <li><%= error %></li>
-        <% end %>
-      </ul>
-    </div>
-  </div>
-</div>
+	<div class="formgrid--messaging">
+		<div class="alerts">
+			<div class="alert alert-error">
+				<aside class="alert--label"></aside>
+				<p>Please correct the following errors:</p>
+				<ul>
+					<% model.errors.full_messages.each do |error| %>
+						<li><%= error %></li>
+					<% end %>
+				</ul>
+			</div>
+		</div>
+	</div>
 <% end %>

@@ -1,49 +1,50 @@
 <header class="page-header">
 
-  <div class="page-header--navigation-wrapper">
-    <div class="page-header--navigation">
-      <nav class="page-header--logo-nav">
-        <%= link_to image_tag("png/logo.png", :alt => "VOCAT"), root_path %>
-      </nav>
+	<div class="page-header--navigation-wrapper">
+		<div class="page-header--navigation">
+			<nav class="page-header--logo-nav">
+				<%= link_to image_tag("png/logo.png", :alt => "VOCAT"), root_path %>
+			</nav>
 
-      <% if user_signed_in? %>
-        <nav class="drawer-nav--trigger" data-behavior="header-drawer-trigger">
-          <span></span>
-          <% case @app_section
-             when 'course' %>
+			<% if user_signed_in? %>
+				<nav class="drawer-nav--trigger" data-behavior="header-drawer-trigger">
+					<span></span>
+					<% case @app_section
+						 when 'course' %>
               <span class="course-short">
                 <%= "#{@selected_course.department}#{@selected_course.number}" %>
               </span>
               <span class="course-long">
                 <%= truncate @selected_course.to_s, :length => 60 %>
               </span>
-          <% when 'admin' %> <%= 'Admin' %>
-          <% when 'dashboard' %><%= 'Dashboard' %>
-          <% end %>
-        </nav>
+					<% when 'admin' %> <%= 'Admin' %>
+						<% when 'dashboard' %><%= 'Dashboard' %>
+					<% end %>
+				</nav>
 
-        <nav class="page-header--user-nav user-nav" data-behavior="dropdown">
-          <a class="user-nav--toggle" data-behavior="toggle" href="#">
-            <span><%= current_user.name %></span>
-            <%= image_tag avatar_url(current_user, 60), :alt => current_user.name %>
-          </a>
-          <div class="user-nav--options" data-behavior="dropdown-options">
-            <ul>
-              <li>
-                <%= link_to('Edit Profile', edit_user_registration_path) %>
-              </li>
-              <li>
-                <%= link_to('Log out', destroy_user_session_path, :method=>'delete') %>
-              </li>
-            </ul>
-          </div>
-        </nav>
-      <% end %>
-    </div>
-  </div>
+				<nav class="page-header--user-nav user-nav" data-behavior="dropdown">
+					<a class="user-nav--toggle" data-behavior="toggle" href="#">
+						<span><%= current_user.name %></span>
+						<%= image_tag avatar_url(current_user, 60), :alt => current_user.name %>
+					</a>
 
-  <% if user_signed_in? %>
-  <%= render 'layouts/drawer' %>
-  <% end %>
+					<div class="user-nav--options" data-behavior="dropdown-options">
+						<ul>
+							<li>
+								<%= link_to('Edit Profile', edit_user_registration_path) %>
+							</li>
+							<li>
+								<%= link_to('Log out', destroy_user_session_path, :method => 'delete') %>
+							</li>
+						</ul>
+					</div>
+				</nav>
+			<% end %>
+		</div>
+	</div>
+
+	<% if user_signed_in? %>
+		<%= render 'layouts/drawer' %>
+	<% end %>
 
 </header>

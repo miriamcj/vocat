@@ -1,34 +1,36 @@
-    <div class="formgrid whole">
-      <%= label_tag :name, 'Course Name', {class: 'text-label'} %>
-      <%= text_field :course, :name, {class: 'text-input'} %>
-    </div>
-    <div class="formgrid third">
-      <%= label_tag :department, 'Department', {class: 'text-label'} %>
-      <%= text_field :course, :department, {class: 'text-input'} %>
-    </div>
-    <div class="formgrid third">
-      <%= label_tag :number, 'Number', {class: 'text-label'} %>
-      <%= text_field :course, :number, {class: 'text-input'} %>
-    </div>
-    <div class="formgrid third">
-      <%= label_tag :section, 'Section', {class: 'text-label'} %>
-      <%= text_field :course, :section, {class: 'text-input'} %>
-    </div>
-    <div class="formgrid third">
-      <%= label_tag :year, 'Year', {class: 'text-label'} %>
-      <%= text_field :course, :year, {class: 'text-input'} %>
-    </div>
-    <div class="formgrid third">
-      <%= label_tag :number, 'Semester', {class: 'text-label'} %>
-      <%= select(:course, :semester_id, options_from_collection_for_select(Semester.all, 'id', 'name', @course.semester_id), {:include_blank => true}, {'data-behavior' => 'chosen'}) %>
-    </div>
-    <div class="formgrid whole">
-      <%= label_tag :message, 'Message', {class: 'text-label'} %>
-      <%= text_area :course, :message, {rows: 6, class: 'text-area-input'} %>
-      <small>Any message you enter here will be visible to all students when they log into VOCAT and select this course from the list of available courses.</small>
-    </div>
-    <div class="formgrid whole">
-      <%= label_tag :description, 'Description', {class: 'text-label'} %>
-      <%= text_area :course, :description, {rows: 6, class: 'text-area-input'} %>
-    </div>
+<div class="formgrid whole">
+	<%= label_tag :name, 'Course Name', {class: 'text-label'} %>
+	<%= text_field :course, :name, {class: 'text-input'} %>
+</div>
+<div class="formgrid third">
+	<%= label_tag :department, 'Department', {class: 'text-label'} %>
+	<%= text_field :course, :department, {class: 'text-input'} %>
+</div>
+<div class="formgrid third">
+	<%= label_tag :number, 'Number', {class: 'text-label'} %>
+	<%= text_field :course, :number, {class: 'text-input'} %>
+</div>
+<div class="formgrid third">
+	<%= label_tag :section, 'Section', {class: 'text-label'} %>
+	<%= text_field :course, :section, {class: 'text-input'} %>
+</div>
+<div class="formgrid third">
+	<%= label_tag :year, 'Year', {class: 'text-label'} %>
+	<%= text_field :course, :year, {class: 'text-input'} %>
+</div>
+<div class="formgrid third">
+	<%= label_tag :number, 'Semester', {class: 'text-label'} %>
+	<%= select(:course, :semester_id, options_from_collection_for_select(Semester.all, 'id', 'name', @course.semester_id), {:include_blank => true}, {'data-behavior' => 'chosen'}) %>
+</div>
+<div class="formgrid whole">
+	<%= label_tag :message, 'Message', {class: 'text-label'} %>
+	<%= text_area :course, :message, {rows: 6, class: 'text-area-input'} %>
+	<small>Any message you enter here will be visible to all students when they log into VOCAT and select this course
+		from the list of available courses.
+	</small>
+</div>
+<div class="formgrid whole">
+	<%= label_tag :description, 'Description', {class: 'text-label'} %>
+	<%= text_area :course, :description, {rows: 6, class: 'text-area-input'} %>
+</div>
 

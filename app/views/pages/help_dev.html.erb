@@ -8,195 +8,200 @@
 <!--[if gt IE 8]><!-->
 <html class="no-js"> <!--<![endif]-->
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>VOCAT</title>
-  <meta name="description" content="">
-  <meta name="author" content="">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>VOCAT</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
 
-  <!-- TODO move to correct place -->
-  <script src="//use.typekit.net/dwf7ffn.js" type="text/javascript"></script>
-  <script src="/assets/vendor/modernizr/modernizr-2.6.2.js?body=1" type="text/javascript"></script>
-  <script src="/assets/vendor/popcorn/popcorn.js?body=1" type="text/javascript"></script>
-  <script data-main="/assets/bootstrap" src="/assets/vendor/require/require.js?body=1" type="text/javascript"></script>
+	<!-- TODO move to correct place -->
+	<script src="//use.typekit.net/dwf7ffn.js" type="text/javascript"></script>
+	<script src="/assets/vendor/modernizr/modernizr-2.6.2.js?body=1" type="text/javascript"></script>
+	<script src="/assets/vendor/popcorn/popcorn.js?body=1" type="text/javascript"></script>
+	<script data-main="/assets/bootstrap" src="/assets/vendor/require/require.js?body=1" type="text/javascript"></script>
 
-  <link href="/assets/screen.css?body=1" media="all" rel="stylesheet" type="text/css"/>
-  <link href="/assets/application.css?body=1" media="all" rel="stylesheet" type="text/css"/>
-  <meta content="authenticity_token" name="csrf-param"/>
-  <meta content="DemddD9PdKoPN8rmkW/KnorHg/m1pmEIQjRpIu2zW18=" name="csrf-token"/>
+	<link href="/assets/screen.css?body=1" media="all" rel="stylesheet" type="text/css"/>
+	<link href="/assets/application.css?body=1" media="all" rel="stylesheet" type="text/css"/>
+	<meta content="authenticity_token" name="csrf-param"/>
+	<meta content="DemddD9PdKoPN8rmkW/KnorHg/m1pmEIQjRpIu2zW18=" name="csrf-token"/>
 
 
 </head>
 
 <body class="">
 <div class="page-banner">
-  <!-- TODO wrap this in a link -->
-  <img alt="VOCAT" class="page-banner--logo" src="/assets/logo-vocat-dark.png"/>
+	<!-- TODO wrap this in a link -->
+	<img alt="VOCAT" class="page-banner--logo" src="/assets/logo-vocat-dark.png"/>
 </div>
 <header class="page-header" data-behavior="sticky-header">
-  <div class="primary-nav">
-    <div class="primary-nav--wrapper">
-      <nav class="course-selector" data-behavior="dropdown">
-        <a class="course-selector--toggle" data-behavior="toggle" href="#">
-          CS163: Data Structures
-        </a>
+	<div class="primary-nav">
+		<div class="primary-nav--wrapper">
+			<nav class="course-selector" data-behavior="dropdown">
+				<a class="course-selector--toggle" data-behavior="toggle" href="#">
+					CS163: Data Structures
+				</a>
 
-        <div class="course-selector--dropdown" data-behavior="dropdown-options">
-          <ul>
-            <li><a href="/">All Courses</a></li>
-            <li><a class=active href="/courses/1/portfolio"><strong>CS163 :</strong> Data Structures
-              <small>[Section AI7X4]</small>
-            </a></li>
-            <li><a href="/courses/12/portfolio"><strong>ENG367U :</strong> Native American Women Writers
-              <small>[Section 4VSXN]</small>
-            </a></li>
-          </ul>
-        </div>
-      </nav>
+				<div class="course-selector--dropdown" data-behavior="dropdown-options">
+					<ul>
+						<li><a href="/">All Courses</a></li>
+						<li><a class=active href="/courses/1/portfolio"><strong>CS163 :</strong> Data Structures
+							<small>[Section AI7X4]</small>
+						</a></li>
+						<li><a href="/courses/12/portfolio"><strong>ENG367U :</strong> Native American Women Writers
+							<small>[Section 4VSXN]</small>
+						</a></li>
+					</ul>
+				</div>
+			</nav>
 
-      <nav class="user-selector" data-behavior="dropdown">
-        <div class="primary-nav--avatar">
-          <img alt="Charles Xavier" src="http://gravatar.com/avatar/c935a60b3bc7160a5b8edaa9a8b7a3c3.png?s=48&amp;d=mm"/>
-        </div>
-        <a class="user-selector--toggle" data-behavior="toggle" href="#">Hank Funk</a>
+			<nav class="user-selector" data-behavior="dropdown">
+				<div class="primary-nav--avatar">
+					<img alt="Charles Xavier" src="http://gravatar.com/avatar/c935a60b3bc7160a5b8edaa9a8b7a3c3.png?s=48&amp;d=mm"/>
+				</div>
+				<a class="user-selector--toggle" data-behavior="toggle" href="#">Hank Funk</a>
 
-        <div class="user-selector--dropdown" data-behavior="dropdown-options">
-          <ul>
-            <li>
-              <a href="/users/edit">Hank Funk [creator2@test.com]</a>
-            </li>
-            <li>
-              <a href="/users/sign_out" data-method="delete" rel="nofollow">Log out</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
+				<div class="user-selector--dropdown" data-behavior="dropdown-options">
+					<ul>
+						<li>
+							<a href="/users/edit">Hank Funk [creator2@test.com]</a>
+						</li>
+						<li>
+							<a href="/users/sign_out" data-method="delete" rel="nofollow">Log out</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
 
-      <a class="shortcut-nav--toggle" data-behavior="shortcut-nav-toggle" href="#">Toggle Shortcuts Drawer</a>
+			<a class="shortcut-nav--toggle" data-behavior="shortcut-nav-toggle" href="#">Toggle Shortcuts Drawer</a>
 
-      <nav class="adaptive-nav">
-        <ul class="adaptive-nav--list">
-          <li><a href="/courses/1/portfolio">My Presentations</a></li>
-        </ul>
-      </nav>
+			<nav class="adaptive-nav">
+				<ul class="adaptive-nav--list">
+					<li><a href="/courses/1/portfolio">My Presentations</a></li>
+				</ul>
+			</nav>
 
 
-    </div>
-  </div>
-  <div class="shortcut-nav js-shortcut-nav">
-    <div class="shortcut-nav--wrapper">
-      <div class="shortcut-nav--item">
-        <nav class="assignment-selector" data-class="dropdown-container">
-          <h2 class="shortcut-nav--title">Go to Assignment</h2>
-          <a class="assignment-selector--toggle" data-class="dropdown-toggle" href="#">View All Assignments</a>
+		</div>
+	</div>
+	<div class="shortcut-nav js-shortcut-nav">
+		<div class="shortcut-nav--wrapper">
+			<div class="shortcut-nav--item">
+				<nav class="assignment-selector" data-class="dropdown-container">
+					<h2 class="shortcut-nav--title">Go to Assignment</h2>
+					<a class="assignment-selector--toggle" data-class="dropdown-toggle" href="#">View All
+						Assignments</a>
 
-          <div class="assignment-selector--dropdown" data-class="dropdown">
-            <ul>
-              <li><a href="">Assignment 1</a></li>
-              <li><a href="">Assignment 2</a></li>
-            </ul>
-          </div>
-        </nav>
-      </div>
-      <div class="shortcut-nav--item">
-        <nav class="peer-selector" data-class="dropdown-container">
-          <h2 class="shortcut-nav--title">Provide Peer Feedback</h2>
-          <a class="peer-selector--toggle" data-class="dropdown-toggle" href="#">View All Peers</a>
+					<div class="assignment-selector--dropdown" data-class="dropdown">
+						<ul>
+							<li><a href="">Assignment 1</a></li>
+							<li><a href="">Assignment 2</a></li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+			<div class="shortcut-nav--item">
+				<nav class="peer-selector" data-class="dropdown-container">
+					<h2 class="shortcut-nav--title">Provide Peer Feedback</h2>
+					<a class="peer-selector--toggle" data-class="dropdown-toggle" href="#">View All Peers</a>
 
-          <div class="peer-selector--dropdown" data-class="dropdown">
-            <ul>
-              <li><a href="">Peer 1</a></li>
-              <li><a href="">Peer 2</a></li>
-            </ul>
-          </div>
-        </nav>
-      </div>
-      <div class="shortcut-nav--item">
-        <nav class="help-nav">
-          <h2 class="shortcut-nav--title">Help</h2>
-          <ul class="help-nav--list">
-            <li>
-              <label class="help-nav--label">
-                <input class="help-nav--checkbox" type="checkbox" data-behavior="help-overlay-toggle"><b></b><span class="help-nav--checkbox-text">Activate Help Overlay</span>
-              </label>
-            </li>
-            <li>
-              <a href="">Go to FAQ</a>
-            </li>
-            <li>
-              <a href="">View Tutorial</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </div>
-  </div>
+					<div class="peer-selector--dropdown" data-class="dropdown">
+						<ul>
+							<li><a href="">Peer 1</a></li>
+							<li><a href="">Peer 2</a></li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+			<div class="shortcut-nav--item">
+				<nav class="help-nav">
+					<h2 class="shortcut-nav--title">Help</h2>
+					<ul class="help-nav--list">
+						<li>
+							<label class="help-nav--label">
+								<input class="help-nav--checkbox" type="checkbox" data-behavior="help-overlay-toggle"><b></b><span class="help-nav--checkbox-text">Activate Help Overlay</span>
+							</label>
+						</li>
+						<li>
+							<a href="">Go to FAQ</a>
+						</li>
+						<li>
+							<a href="">View Tutorial</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
 </header>
 <div class="container">
-  <div class="page-content">
+	<div class="page-content">
 
-    <!-- Help overlays -->
-    <!-- These are positioned relative to .page-content -->
-    <!-- See _components.scc for a full explanation of 'placard orientation' (nnw, wsw, etc.) -->
+		<!-- Help overlays -->
+		<!-- These are positioned relative to .page-content -->
+		<!-- See _components.scc for a full explanation of 'placard orientation' (nnw, wsw, etc.) -->
 
-    <!-- This one corresponds to the 'What do these scores mean?' button -->
-    <aside data-view="help-placard" data-key="test:one" class="placard ssw" style="display: none">
-      <label class="placard--checkbox">
-        <input class="checkbox" type="checkbox">
-        <b></b>
-        Glossary Mode
-      </label>
+		<!-- This one corresponds to the 'What do these scores mean?' button -->
+		<aside data-view="help-placard" data-key="test:one" class="placard ssw" style="display: none">
+			<label class="placard--checkbox">
+				<input class="checkbox" type="checkbox">
+				<b></b>
+				Glossary Mode
+			</label>
 
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid quis.</p>
-      <hr>
-      <a class="teal-arrow-button space-bottom" href="#">View complete rubric</a>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid quis.</p>
+			<hr>
+			<a class="teal-arrow-button space-bottom" href="#">View complete rubric</a>
 
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui ipsa libero incidunt.</p>
-    </aside>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui ipsa libero incidunt.</p>
+		</aside>
 
-    <!-- This one corresponds to the 'Evaluator Review' score -->
-    <aside data-view="help-placard" data-key="test:two" class="placard wide nnw" style="display: none">
-      <h2 class="placard--title">Introduction</h2>
+		<!-- This one corresponds to the 'Evaluator Review' score -->
+		<aside data-view="help-placard" data-key="test:two" class="placard wide nnw" style="display: none">
+			<h2 class="placard--title">Introduction</h2>
 
-      <h3 class="placard--subtitle">Relation to Audience</h3>
-      <hr>
-      <h3 class="placard--subtitle"><strong>1 - 2</strong> Poor / Failure</h3>
+			<h3 class="placard--subtitle">Relation to Audience</h3>
+			<hr>
+			<h3 class="placard--subtitle"><strong>1 - 2</strong> Poor / Failure</h3>
 
-      <p>Lacking numeration, no clear taglines, audience has little or no idea what the main supporting points of the
-        thesis, even with great effort listeners are confused about what the speaker is going to say and the order
-        she/he is going to deal with issues.</p>
-      <hr>
-      <h3 class="placard--subtitle"><strong>3 - 4</strong> Good / Average</h3>
+			<p>Lacking numeration, no clear taglines, audience has little or no idea what the main supporting points of
+				the
+				thesis, even with great effort listeners are confused about what the speaker is going to say and the
+				order
+				she/he is going to deal with issues.</p>
+			<hr>
+			<h3 class="placard--subtitle"><strong>3 - 4</strong> Good / Average</h3>
 
-      <p>Main points are numerated, wording might be inconsistent/vague, taglines for points might be compound
-        sentences, lacking elevation with no repetition or alliteration, points are identifiable but not repeatable and
-        require some thought to extract.</p>
-      <hr>
-      <h3 class="placard--subtitle"><strong>5</strong> Excellent</h3>
+			<p>Main points are numerated, wording might be inconsistent/vague, taglines for points might be compound
+				sentences, lacking elevation with no repetition or alliteration, points are identifiable but not
+				repeatable and
+				require some thought to extract.</p>
+			<hr>
+			<h3 class="placard--subtitle"><strong>5</strong> Excellent</h3>
 
-      <p>Main points are numerated, are strong concise statements, not stated as questions, speaker probably used
-        alliteration or repetition, the points previewed are identifiable and repeatable and provide a clear sequence of
-        events to unfold in the speech.</p>
-    </aside>
+			<p>Main points are numerated, are strong concise statements, not stated as questions, speaker probably used
+				alliteration or repetition, the points previewed are identifiable and repeatable and provide a clear
+				sequence of
+				events to unfold in the speech.</p>
+		</aside>
 
-    <!-- This one corresponds to the discussion post count -->
-    <!-- <aside class="placard wnw" style="top: 71.8rem; left: 21.3rem;">
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aut fugiat mollitia.</p>
-    </aside> -->
+		<!-- This one corresponds to the discussion post count -->
+		<!-- <aside class="placard wnw" style="top: 71.8rem; left: 21.3rem;">
+		  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aut fugiat mollitia.</p>
+		</aside> -->
 
-    <!-- This one corresponds to the annotation input -->
-    <aside data-view="help-placard" data-key="test:three"  class="placard ene" style="display: none">
-      <p>Lorem ipsum dolor sit amet, consectetur.</p>
-    </aside>
+		<!-- This one corresponds to the annotation input -->
+		<aside data-view="help-placard" data-key="test:three" class="placard ene" style="display: none">
+			<p>Lorem ipsum dolor sit amet, consectetur.</p>
+		</aside>
 
-    <!-- Help overlays end -->
+		<!-- Help overlays end -->
 
 
-    <div data-view="FlashMessages"><!-- javascript flash messages show up here --></div>
+		<div data-view="FlashMessages"><!-- javascript flash messages show up here --></div>
 
-    <div id="region-main"></div>
+		<div id="region-main"></div>
 
-  </div>
+	</div>
 
 
 </div>

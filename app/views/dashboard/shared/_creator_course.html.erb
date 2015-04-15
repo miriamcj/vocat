@@ -1,20 +1,20 @@
 <% body = capture do %>
-  <div class="portfolio">
+	<div class="portfolio">
 
-    <% if course.has_projects? %>
-      <% course.submissions_for_creator(current_user).each_with_index do |submission, index| %>
-        <%= render 'shared/submission_summary', :submission => submission %>
-      <% end %>
-    <% else %>
-      <div class="alert alert-notice">
-        No projects have been created for this course. Please check back soon.
-      </div>
-    <% end %>
-  </div>
+		<% if course.has_projects? %>
+			<% course.submissions_for_creator(current_user).each_with_index do |submission, index| %>
+				<%= render 'shared/submission_summary', :submission => submission %>
+			<% end %>
+		<% else %>
+			<div class="alert alert-notice">
+				No projects have been created for this course. Please check back soon.
+			</div>
+		<% end %>
+	</div>
 
 
 <% end %>
 <%= render :partial => 'shared/section', :locals => {
-                                           :header => course,
-                                           :body => body} %>
+											   :header => course,
+											   :body => body} %>
 

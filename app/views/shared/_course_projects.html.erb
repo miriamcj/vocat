@@ -1,7 +1,7 @@
 <% if course.projects.length > 0 %>
-  <ul class="large-list unstyled-list">
-    <% course.projects.each do |project| %>
-      <li><%= link_to project, course_user_evaluations_path(course_id: course, project_id: project) %></li>
-    <% end %>
-  </ul>
+	<ul class="large-list unstyled-list">
+		<% course.projects.each do |project| %>
+			<li><%= link_to project, course_user_evaluations_path(course_id: course, project_id: project) %></li>
+		<% end %>
+	</ul>
 <% end %>

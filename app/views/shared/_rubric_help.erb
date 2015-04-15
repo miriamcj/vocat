@@ -1,18 +1,21 @@
 <% rubric.fields.map do |field_key, field_name| %>
 
-<aside data-view="help-placard" data-trigger="rubric:field:<%= field_key %>" class="placard wide" style="display: none; top: 58.8rem; left: 2.6rem;">
+	<aside data-view="help-placard" data-trigger="rubric:field:<%= field_key %>" class="placard wide" style="display: none; top: 58.8rem; left: 2.6rem;">
 
-  <h2 class="placard--title"><%= field_name %></h2>
-  <h3 class="placard--subtitle">Relation to Audience</h3>
-  <hr>
+		<h2 class="placard--title"><%= field_name %></h2>
 
-  <% rubric.ranges.map do |range_key, range_name| %>
-    <h3 class="placard--subtitle"><strong><%= rubric.get_low_for_range(range_key) %> - <%= rubric.get_high_for_range(range_key) %></strong> <%= range_name %></h3>
-    <p>
-      <%= rubric.range_description(range_key, field_key) %>
-    </p>
-    <hr>
-  <% end %>
-</aside>
+		<h3 class="placard--subtitle">Relation to Audience</h3>
+		<hr>
+
+		<% rubric.ranges.map do |range_key, range_name| %>
+			<h3 class="placard--subtitle"><strong><%= rubric.get_low_for_range(range_key) %>
+				- <%= rubric.get_high_for_range(range_key) %></strong> <%= range_name %></h3>
+
+			<p>
+				<%= rubric.range_description(range_key, field_key) %>
+			</p>
+			<hr>
+		<% end %>
+	</aside>
 
 <% end %>

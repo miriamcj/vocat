@@ -1,56 +1,56 @@
 <div class="clearfix">
-  <figure class="summary-box summary-box-creator">
-    <div>
-      <span><%= course.creators.count %></span>
-    </div>
-    <figcaption>Students</figcaption>
-  </figure>
+	<figure class="summary-box summary-box-creator">
+		<div>
+			<span><%= course.creators.count %></span>
+		</div>
+		<figcaption>Students</figcaption>
+	</figure>
 
-  <figure class="summary-box summary-box-creator-light">
-    <div>
-      <span><%= course.discussion_post_count() %></span>
-    </div>
-    <figcaption>Comments</figcaption>
-  </figure>
+	<figure class="summary-box summary-box-creator-light">
+		<div>
+			<span><%= course.discussion_post_count() %></span>
+		</div>
+		<figcaption>Comments</figcaption>
+	</figure>
 
-  <figure class="summary-box summary-box-creator-light">
-    <div>
-      <span><%= course.annotation_count() %></span>
-    </div>
-    <figcaption>Annotations</figcaption>
-  </figure>
+	<figure class="summary-box summary-box-creator-light">
+		<div>
+			<span><%= course.annotation_count() %></span>
+		</div>
+		<figcaption>Annotations</figcaption>
+	</figure>
 
-  <figure class="summary-box summary-box-evaluator">
-    <div>
-      <b style="height: <%= course.average_evaluator_score() %>%"></b>
-      <span><%= course.average_evaluator_score().round %>%</span>
-    </div>
-    <figcaption>Average Instructor Score</figcaption>
-  </figure>
+	<figure class="summary-box summary-box-evaluator">
+		<div>
+			<b style="height: <%= course.average_evaluator_score() %>%"></b>
+			<span><%= course.average_evaluator_score().round %>%</span>
+		</div>
+		<figcaption>Average Instructor Score</figcaption>
+	</figure>
 
-  <% if course.has_at_least_one_peer_review_project? %>
-    <figure class="summary-box summary-box-peer">
-      <div>
-        <b style="height: <%= course.average_peer_score() %>%"></b>
-        <span><%= course.average_peer_score().round %>%</span>
-      </div>
-      <figcaption>Average Peer Score</figcaption>
-    </figure>
-  <% end %>
+	<% if course.has_at_least_one_peer_review_project? %>
+		<figure class="summary-box summary-box-peer">
+			<div>
+				<b style="height: <%= course.average_peer_score() %>%"></b>
+				<span><%= course.average_peer_score().round %>%</span>
+			</div>
+			<figcaption>Average Peer Score</figcaption>
+		</figure>
+	<% end %>
 
-  <figure class="summary-box summary-box-default">
-    <div>
-      <span><%= course.asset_count %></span>
-    </div>
-    <figcaption>Assets</figcaption>
-  </figure>
+	<figure class="summary-box summary-box-default">
+		<div>
+			<span><%= course.asset_count %></span>
+		</div>
+		<figcaption>Assets</figcaption>
+	</figure>
 
-  <figure class="summary-box summary-box-default-percentage">
-    <div>
-      <b style="height: <%= course.submission_asset_percentage() %>%"></b>
-      <span><%= course.submission_asset_percentage().round %>%</span>
-    </div>
-    <figcaption>Submissions with Assets</figcaption>
-  </figure>
+	<figure class="summary-box summary-box-default-percentage">
+		<div>
+			<b style="height: <%= course.submission_asset_percentage() %>%"></b>
+			<span><%= course.submission_asset_percentage().round %>%</span>
+		</div>
+		<figcaption>Submissions with Assets</figcaption>
+	</figure>
 
 </div>

@@ -1,13 +1,13 @@
 <% if @selected_course.role(current_user) == :creator %>
-  <% content_for :heading do %>
-    <%= link_to 'Back to Your Submissions', portfolio_course_path(@selected_course), :class => 'header-link back-link' %>
-  <% end %>
+	<% content_for :heading do %>
+		<%= link_to 'Back to Your Submissions', portfolio_course_path(@selected_course), :class => 'header-link back-link' %>
+	<% end %>
 <% end %>
 
 <% content_for :content do %>
-  <div data-hide-back-link id="region-main"></div>
-  <%= render :partial => 'shared/bootstrap_collection', :locals => {:type => 'Collections', :key => 'group', :data => [@creator] }%>
-  <%= render :partial => 'shared/bootstrap_collection', :locals => {:type => 'Collections', :key => 'project', :data => [@project]}%>
+	<div data-hide-back-link id="region-main"></div>
+	<%= render :partial => 'shared/bootstrap_collection', :locals => {:type => 'Collections', :key => 'group', :data => [@creator]} %>
+	<%= render :partial => 'shared/bootstrap_collection', :locals => {:type => 'Collections', :key => 'project', :data => [@project]} %>
 <% end %>
 
 

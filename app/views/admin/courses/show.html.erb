@@ -2,33 +2,33 @@
 
 <% content_for :content do %>
 
-  <% body = capture do %>
-    <%= render 'shared/course_synopsis', :course => @course %>
-  <% end %>
-  <%= render :partial => 'shared/section', :locals => {:header => 'Overview', :body => body} %>
+	<% body = capture do %>
+		<%= render 'shared/course_synopsis', :course => @course %>
+	<% end %>
+	<%= render :partial => 'shared/section', :locals => {:header => 'Overview', :body => body} %>
 
 
-  <% body = capture do %>
-    <div class="fake-formgrid">
-      <div class="formgrid third">
-        <span class="label">Department and Number</span>
-        <span><%= "#{@course.department}#{@course.number}" %></span>
-      </div>
+	<% body = capture do %>
+		<div class="fake-formgrid">
+			<div class="formgrid third">
+				<span class="label">Department and Number</span>
+				<span><%= "#{@course.department}#{@course.number}" %></span>
+			</div>
 
-      <div class="formgrid third">
-        <span class="label">Section</span>
-        <span><%= @course.section %></span>
-      </div>
+			<div class="formgrid third">
+				<span class="label">Section</span>
+				<span><%= @course.section %></span>
+			</div>
 
-      <div class="formgrid third">
-        <span class="label">Semester, Year</span>
+			<div class="formgrid third">
+				<span class="label">Semester, Year</span>
         <span>
           <%= "#{@course.semester || 'N/A'}, #{@course.year}" %>
         </span>
-      </div>
+			</div>
 
-      <div class="formgrid whole">
-        <span class="label">Course Message</span>
+			<div class="formgrid whole">
+				<span class="label">Course Message</span>
         <span>
           <% if @course.message.blank? %>
             No message has been set for this course.
@@ -36,10 +36,10 @@
             <%= simple_format @course.message %>
           <% end %>
         </span>
-      </div>
+			</div>
 
-      <div class="formgrid whole">
-        <span class="label">Course Description</span>
+			<div class="formgrid whole">
+				<span class="label">Course Description</span>
         <span>
         <% if @course.description.blank? %>
           No description has been added for this course.
@@ -47,11 +47,11 @@
           <%= simple_format @course.description %>
         <% end %>
         </span>
-      </div>
-    </div>
+			</div>
+		</div>
 
-  <% end %>
-  <%= render :partial => 'shared/section', :locals => {:header => 'Properties', :body => body} %>
+	<% end %>
+	<%= render :partial => 'shared/section', :locals => {:header => 'Properties', :body => body} %>
 
 
 <% end %>

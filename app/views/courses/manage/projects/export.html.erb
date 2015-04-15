@@ -18,6 +18,7 @@
 					<td>
 						<div class="dropdown dropdown-button" data-behavior="dropdown">
 							<a class="dropdown--toggle" data-behavior="toggle" href="#">Select Format</a>
+
 							<div class="dropdown--options" data-behavior="dropdown-options">
 								<ul>
 									<li><%= link_to 'CSV', peer_scores_course_export_project_path(@course, @project, :format => 'csv') %></li>
@@ -33,6 +34,7 @@
 					<td>
 						<div class="dropdown dropdown-button" data-behavior="dropdown">
 							<a class="dropdown--toggle" data-behavior="toggle" href="#">Select Format</a>
+
 							<div class="dropdown--options" data-behavior="dropdown-options">
 								<ul>
 									<li><%= link_to 'CSV', evaluator_scores_course_export_project_path(@course, @project, :format => 'csv') %></li>
@@ -48,6 +50,7 @@
 					<td>
 						<div class="dropdown dropdown-button" data-behavior="dropdown">
 							<a class="dropdown--toggle" data-behavior="toggle" href="#">Select Format</a>
+
 							<div class="dropdown--options" data-behavior="dropdown-options">
 								<ul>
 									<li><%= link_to 'CSV', all_scores_course_export_project_path(@course, @project, :format => 'csv') %></li>
@@ -63,6 +66,7 @@
 					<td>
 						<div class="dropdown dropdown-button" data-behavior="dropdown">
 							<a class="dropdown--toggle" data-behavior="toggle" href="#">Select Format</a>
+
 							<div class="dropdown--options" data-behavior="dropdown-options">
 								<ul>
 									<li><%= link_to 'CSV', self_scores_course_export_project_path(@course, @project, :format => 'csv') %></li>

@@ -7,15 +7,15 @@
 
 <div class="formgrid whole">
 	<%= f.label :description, :required => true %>
-	<%= f.text_area :description, {rows: 6 } %>
+	<%= f.text_area :description, {rows: 6} %>
 </div>
 
 <div class="formgrid half">
 	<%= f.label :rubric, :class => 'text-label' %>
 	<%= f.select :rubric_id, grouped_options_for_select({
-								'Instructor Rubrics' => options_from_collection_for_select(@project.course.evaluator_rubrics, :id, :name, @project.rubric_id),
-								'VOCAT Rubrics' => options_from_collection_for_select(Rubric.publicly_visible, :id, :name, @project.rubric_id)
-							}), {:include_blank => 'No rubric'}, {'data-behavior' => 'chosen'}
+																'Instructor Rubrics' => options_from_collection_for_select(@project.course.evaluator_rubrics, :id, :name, @project.rubric_id),
+																'VOCAT Rubrics' => options_from_collection_for_select(Rubric.publicly_visible, :id, :name, @project.rubric_id)
+														}), {:include_blank => 'No rubric'}, {'data-behavior' => 'chosen'}
 	%>
 </div>
 
@@ -32,20 +32,21 @@
 <div class="formgrid third date">
 	<%= f.label 'May students attach media to submissions?', :class => 'text-label' %>
 	<%= select_tag "#{@project.type.underscore}[settings][enable_creator_attach]", options_for_select([
-		['Yes', true],
-		['No', false]
-	], @project.allows_creator_attach?), {'data-behavior' => 'chosen'} %>
+																											  ['Yes', true],
+																											  ['No', false]
+																									  ], @project.allows_creator_attach?), {'data-behavior' => 'chosen'} %>
 	<small>If this is set to "no," only instructors will be able to upload media (video, images, audio, etc).</small>
 </div>
 
 <div class="formgrid third date">
 	<%= f.label 'Accept Media after Project Due Date?', :class => 'text-label' %>
 	<%= select_tag "#{@project.type.underscore}[settings][reject_past_due_media]", options_for_select([
-		['Yes', false],
-		['No', true]
-	], @project.rejects_past_due_media?), {'data-behavior' => 'chosen'} %>
+																											  ['Yes', false],
+																											  ['No', true]
+																									  ], @project.rejects_past_due_media?), {'data-behavior' => 'chosen'} %>
 	<small>This setting is only applicable if "allow creators to upload media" is checked, below. Evaluators may upload
-	media at any time.</small>
+		media at any time.
+	</small>
 </div>
 
 <div class="formgrid whole">
@@ -72,13 +73,13 @@
 			</li>
 			<li>
 				<label>
-				<%= check_box_tag "#{@project.type.underscore}[allowed_attachment_families][]", 'video', @project.read_attribute(:allowed_attachment_families).include?('video'), :data => {:behavior => 'media-specific'} %>
+					<%= check_box_tag "#{@project.type.underscore}[allowed_attachment_families][]", 'video', @project.read_attribute(:allowed_attachment_families).include?('video'), :data => {:behavior => 'media-specific'} %>
 					Videos
 				</label>
 			</li>
 			<li>
 				<label>
-				<%= check_box_tag "#{@project.type.underscore}[allowed_attachment_families][]", 'audio', @project.read_attribute(:allowed_attachment_families).include?('audio'), :data => {:behavior => 'media-specific'} %>
+					<%= check_box_tag "#{@project.type.underscore}[allowed_attachment_families][]", 'audio', @project.read_attribute(:allowed_attachment_families).include?('audio'), :data => {:behavior => 'media-specific'} %>
 					Audio
 				</label>
 			</li>
@@ -88,6 +89,7 @@
 <%= f.fields_for :settings do |settings| %>
 	<div class="formgrid whole">
 		<label class="label">Project Configuration</label>
+
 		<div class="checkbox-wrap">
 			<ul class="checkbox-list">
 				<li>
@@ -98,7 +100,8 @@
 						Submissions are visible to all course members
 					</label>
 					<small>
-						Enabling this will allow all students in the course to view, annotate, and discuss each other's submissions for this project.
+						Enabling this will allow all students in the course to view, annotate, and discuss each other's
+						submissions for this project.
 					</small>
 				</li>
 				<li>
@@ -109,7 +112,8 @@
 						Enable peer review
 					</label>
 					<small>
-						If enabled, students will be able to view submissions for this project, as well as score, annotate, and discuss those submissions.
+						If enabled, students will be able to view submissions for this project, as well as score,
+						annotate, and discuss those submissions.
 					</small>
 				</li>
 				<li>
@@ -120,7 +124,8 @@
 						Allow self-evaluation
 					</label>
 					<small>
-						Enabling self-evaluation will give students the ability to evaluate their own project submissions using the
+						Enabling self-evaluation will give students the ability to evaluate their own project
+						submissions using the
 						rubric attached to each project.
 					</small>
 				</li>

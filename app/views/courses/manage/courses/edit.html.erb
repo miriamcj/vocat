@@ -1,4 +1,4 @@
-<% content_for :content	 do %>
+<% content_for :content do %>
 	<%= link_to 'Return to Course Evaluations', course_path(@course), :class => 'header-link back-link' %>
 	<div class="page-section page-section-clear">
 		<div class="header-wrapper">
@@ -11,9 +11,10 @@
 				<fieldset>
 					<div class="formgrid whole">
 						<label>Course Message</label>
-						<%= f.text_area :message, { :rows => 10} %>
+						<%= f.text_area :message, {:rows => 10} %>
 						<small class="input-message">
-							Any message you enter here will be visible to all students when they log into VOCAT and select this course
+							Any message you enter here will be visible to all students when they log into VOCAT and
+							select this course
 							from the list of available courses.
 						</small>
 					</div>

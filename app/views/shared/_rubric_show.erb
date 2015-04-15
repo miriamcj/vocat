@@ -1,35 +1,36 @@
 <table class="table table-white-head table-rubric">
-  <thead>
-  <tr>
-    <th>Criteria</th>
-    <% @rubric.ranges.each do |range| %>
-      <th>
-        <strong ><%= "#{range[:low]} - #{range[:high]}" %></strong>
-        &nbsp;<%= range[:name] %>
-      </th>
-    <% end %>
-  </tr>
-  </thead>
-  <tbody>
-  <% @rubric.fields.each do |field| %>
-    <tr>
-      <th>
-        <%= field[:name] %>
-      </th>
-      <% @rubric.ranges.each do |range| %>
-        <% cell = @rubric.get_cell(field[:id], range[:id]) %>
-        <td>
-          <% unless cell.nil? %>
-            <p>
-              <strong><%= "#{range[:name]} (#{range[:low]} to #{range[:high]} points)" %></strong>
-            </p>
-            <p>
-              <%= cell[:description] %>
-            </p>
-          <% end %>
-        </td>
-      <% end %>
-    </tr>
-  <% end %>
-  </tbody>
+	<thead>
+	<tr>
+		<th>Criteria</th>
+		<% @rubric.ranges.each do |range| %>
+			<th>
+				<strong><%= "#{range[:low]} - #{range[:high]}" %></strong>
+				&nbsp;<%= range[:name] %>
+			</th>
+		<% end %>
+	</tr>
+	</thead>
+	<tbody>
+	<% @rubric.fields.each do |field| %>
+		<tr>
+			<th>
+				<%= field[:name] %>
+			</th>
+			<% @rubric.ranges.each do |range| %>
+				<% cell = @rubric.get_cell(field[:id], range[:id]) %>
+				<td>
+					<% unless cell.nil? %>
+						<p>
+							<strong><%= "#{range[:name]} (#{range[:low]} to #{range[:high]} points)" %></strong>
+						</p>
+
+						<p>
+							<%= cell[:description] %>
+						</p>
+					<% end %>
+				</td>
+			<% end %>
+		</tr>
+	<% end %>
+	</tbody>
 </table>
