@@ -1,13 +1,13 @@
 set :branch, "master"
-set :server_name, "spock.vocat.io"
-set :application, "baruch_vocat"
+set :server_name, "uhura.vocat.io"
+set :application, "vocat_baruch"
 
 set :stage, :production
 set :rails_env, :production
 
-role :app, %w{baruch_vocat@spock.vocat.io}
-role :web, %w{baruch_vocat@spock.vocat.io}
-role :db,  %w{baruch_vocat@spock.vocat.io}
+role :app, %w{vocat_baruch@54.193.27.3}
+role :web, %w{vocat_baruch@54.193.27.3}
+role :db,  %w{vocat_baruch@54.193.27.3}
 
 set :deploy_to, "~/#{fetch(:application)}"
 
