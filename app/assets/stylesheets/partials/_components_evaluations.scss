@@ -53,7 +53,7 @@ ul.evaluation-collections, ul.evaluation-collection--children, ul.evaluation-sin
   .score-wrapper {
     margin-top: 5px;
     display: inline-block;
-    font-size: $epsilon;
+    font-size: 1.25em;
     overflow: hidden;
     .score, .slash, .possible {
       display: block;
@@ -62,15 +62,15 @@ ul.evaluation-collections, ul.evaluation-collection--children, ul.evaluation-sin
       color: $defaultFillColor;
     }
     .possible, .score {
-      width: 35px;
+      width: 40px;
     }
     .slash {
       position: relative;
-      top: -2px;
+      top: -5px;
       @include svg(slash-gray);
       height: 40px;
       width: 10px;
-      margin: 0 10px;
+      margin: 0 5px;
     }
     .possible {
       text-align: left;
