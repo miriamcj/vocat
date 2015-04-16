@@ -16,6 +16,12 @@
 <div class="portfolio-item--content">
 	<h3 class="heading-tertiary">
 		<a href="{{submission.path}}" data-behavior="open-submission-detail">{{submission.project.name}}</a>
+		{{#if isGroupProject }}
+			<span class="badge">group</span>
+		{{/if}}
+		{{#if project.due_date}}
+			<span class="badge">Due {{project.due_date}}</span>
+		{{/if}}
 	</h3>
 
 	<h5 class="heading-informational">

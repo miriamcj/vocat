@@ -20,19 +20,18 @@ define (require) ->
     }
 
     onOpenSubmission: () ->
-      args = {
-        project: @model.get('project_id')
-        creator: @creator
-      }
-      @vent.triggerMethod('open:detail:creator:project', args)
-
+      typeSegment = "#{@model.get('creator_type').toLowerCase()}s"
+      url = "courses/#{@courseId}/#{typeSegment}/evaluations/creator/#{@model.get('creator_id')}/project/#{@model.get('project_id')}"
+      Vocat.router.navigate(url, true)
 
     setupListeners: () ->
       @listenTo(@model, 'change', () =>
         @render()
       )
 
+
     initialize: (options) ->
+      @courseId = Marionette.getOption(@, 'courseId')
       @standalone = Marionette.getOption(@, 'standalone')
       @vent = Marionette.getOption(@, 'vent')
       @creator = Marionette.getOption(@, 'creator')
@@ -42,6 +41,7 @@ define (require) ->
       data = super()
       out = {
         submission: data
+        isGroupProject: @model.get('creator_type') == 'Group'
       }
       out
 

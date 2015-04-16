@@ -19,6 +19,8 @@ define (require) ->
       {
       standalone: @standalone
       creator: @model
+      vent: @vent
+      courseId: @courseId
       }
 
     triggers: () ->
