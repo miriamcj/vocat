@@ -41,9 +41,9 @@ define (require) ->
       if m?
         Vocat.vent.trigger('notification:empty')
         m.save({}, {
-          success: () =>
+          success: (response) =>
             @trigger('evaluation:save:success')
-            @model.fetch()
+#            @model.fetch()
           error: (response) =>
             Vocat.vent.trigger('error:add', {level: 'error', msg: 'Unable to save evaluation'})
         })

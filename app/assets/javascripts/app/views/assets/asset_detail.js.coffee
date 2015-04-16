@@ -96,4 +96,3 @@ define (require) ->
       @vent = new Backbone.Wreqr.EventAggregator()
       @listenTo(@vent, 'request:message:show', @handleMessageShow, @)
       @listenTo(@vent, 'request:message:hide', @handleMessageHide, @)
-
