@@ -25,10 +25,10 @@ class Api::V1::SubmissionsController < ApiController
         authorize! :show_submissions, @project
       end
     elsif creator_type == 'Group'
-      unless @group.include? current_user
-        authorize! :show_submissions, @group
-      end
       @creator = Group.find(params.require(:creator))
+      unless @creator.include? current_user
+        authorize! :show_submissions, @creator
+      end
     end
     @submissions = factory.creator_and_project(@creator, @project)
     respond_with @submissions
