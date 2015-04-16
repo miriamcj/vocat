@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   paper = require('paper')
   template = require('hbs!templates/assets/annotator/annotator_canvas')
@@ -56,7 +55,7 @@ define (require) ->
       @disable()
       setTimeout(() =>
         @vent.trigger('request:time:update', {seconds: requestedPlayback})
-      ,10)
+      , 10)
 
     setMode: (mode) ->
       @enable() if mode != 'select'
@@ -106,7 +105,7 @@ define (require) ->
       if json
         paper.project.importJSON(json)
         paths = paper.project.getItems({class: Path})
-        _.each(paths,(path) =>
+        _.each(paths, (path) =>
           @addPathEvents(path)
           path.selected = false
         )
@@ -233,7 +232,7 @@ define (require) ->
       path.on('mouseup', () =>
         if @mode == 'select'
           if path.selected == false
-            _.each(paper.project.getItems({class: Path}),(path) ->
+            _.each(paper.project.getItems({class: Path}), (path) ->
               path.selected = false
             )
             path.selected = true
@@ -253,12 +252,12 @@ define (require) ->
         return true
       )
 
-    _addPathEventDrag:(path) ->
+    _addPathEventDrag: (path) ->
       path.on('mousedrag', (event) =>
         if @mode == 'select'
           path.vocat_event_mousedrag = true
           if path.selected == false
-            _.each(paper.project.getItems({class: Path}),(path) ->
+            _.each(paper.project.getItems({class: Path}), (path) ->
               path.selected = false
             )
             path.selected = true
@@ -312,5 +311,5 @@ define (require) ->
         svgEl[0].setAttribute('viewBox', "0 0 #{width} #{height}")
         svgEl[0].setAttribute('width', '100%')
         svgEl[0].setAttribute('height', '100%')
-        svg = svgEl.prop('outerHTML');
+        svg = $('<div>').append($(svgEl).clone()).html()
       @vent.trigger('announce:canvas', JSON.stringify({json: json, svg: svg}))

@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   ItemView = require('views/flash/flash_messages_item')
   FlashMessageCollection = require('collections/flash_message_collection')
@@ -43,16 +42,16 @@ define (require) ->
         if flashMessage.lifetime? then lifetime = flashMessage.lifetime else lifetime = null
         if _.isArray(flashMessage.msg)
           if flashMessage.msg.length > 0
-            @addMessage(level, flashMessage.msg, null, lifetime )
+            @addMessage(level, flashMessage.msg, null, lifetime)
         else if !_.isString(flashMessage.msg) && _.isObject(flashMessage.msg)
           _.each(flashMessage.msg, (text, property) =>
             if property == 'base'
-              @addMessage(level, text, null, lifetime )
+              @addMessage(level, text, null, lifetime)
             else
-              @addMessage(level, "#{property.charAt(0).toUpperCase() + property.slice(1);} #{text}", null, lifetime )
+              @addMessage(level, "#{property.charAt(0).toUpperCase() + property.slice(1);} #{text}", null, lifetime)
           )
         else
-          @addMessage(level, flashMessage.msg, null, lifetime )
+          @addMessage(level, flashMessage.msg, null, lifetime)
       else
         @addMessage(flashMessage.level, flashMessage.msg, flashMessage.property, flashMessage.lifetime)
 

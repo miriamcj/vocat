@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/submission/evaluations/evaluations_layout')
   EvaluationCollection = require('collections/evaluation_collection')
@@ -27,9 +26,10 @@ define (require) ->
 
     onEvaluationDestroy: () ->
       myEvaluation = @evaluations.findWhere({current_user_is_evaluator: true})
-      myEvaluation.destroy({wait: true, success: () =>
-        @showMyEvaluations()
-        Vocat.vent.trigger('notification:empty')
+      myEvaluation.destroy({
+        wait: true, success: () =>
+          @showMyEvaluations()
+          Vocat.vent.trigger('notification:empty')
       })
 
     onEvaluationDirty: () ->
@@ -41,9 +41,9 @@ define (require) ->
       if m?
         Vocat.vent.trigger('notification:empty')
         m.save({}, {
-          success: () =>
+          success: (response) =>
             @trigger('evaluation:save:success')
-            @model.fetch()
+#            @model.fetch()
           error: (response) =>
             Vocat.vent.trigger('error:add', {level: 'error', msg: 'Unable to save evaluation'})
         })
@@ -65,7 +65,10 @@ define (require) ->
           @model.unsetMyEvaluation()
           @showMyEvaluations(true)
         , error: () =>
-          Vocat.vent.trigger('error:add', {level: 'error', msg: 'Unable to create evaluation. Perhaps you do not have permission to evaluate this submission.'})
+          Vocat.vent.trigger('error:add', {
+            level: 'error',
+            msg: 'Unable to create evaluation. Perhaps you do not have permission to evaluate this submission.'
+          })
           @showMyEvaluations()
       })
 

@@ -1,14 +1,14 @@
 <% content_for :main do %>
-  <%= render 'layouts/header' %>
+	<%= render 'layouts/header' %>
 
-  <div class="container">
-    <div class="page-content">
-      <%= render 'layouts/messages_server' %>
-      <%= yield :content %>
-    </div>
-  </div>
+	<div class="container">
+		<div class="page-content">
+			<%= render 'layouts/messages_server' %>
+			<%= yield :content %>
+		</div>
+	</div>
 
-  <%= render 'layouts/footer' %>
+	<%= render 'layouts/footer' %>
 
 <% end %>
 

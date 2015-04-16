@@ -2,25 +2,28 @@
 	<div data-region="confirm-invite"></div>
 	<label>Bulk Add Users (<a href="#" data-behavior="show-single">or add one user at a time</a>)</label>
 	<textarea rows="10" data-behavior="bulk-input"></textarea>
-	<small class="input-message">Enter one user per line. If LDAP is enabled and the user exists in LDAP, only the email address is required. Otherwise, enter both the name and the email address
-		in the format of <em>name, email</em> or <em>name &lt;email&gt;</em>. For example, <em>Jane Doe &lt;jane@vocat.io&gt;</em> and <em>Jane Doe, jane@vocat.io</em> are both acceptable entries.</small>
+	<small class="input-message">Enter one user per line. If LDAP is enabled and the user exists in LDAP, only the email
+		address is required. Otherwise, enter both the name and the email address
+		in the format of <em>name, email</em> or <em>name &lt;email&gt;</em>. For example, <em>Jane Doe &lt;jane@vocat.io&gt;</em>
+		and <em>Jane Doe, jane@vocat.io</em> are both acceptable entries.
+	</small>
 </div>
 <div class="formgrid whole">
 	<a class="primary-button new-button" href="#" data-behavior="submit">Add Users</a>
 </div>
 {{#if response }}
-<div class="formgrid whole">
-	<div class="alert alert-notice">
-		<ul>
-		{{#each responseData.successes}}
-			<li>{{this}}</li>
-		{{/each}}
-		</ul>
-		<ul>
-			{{#each responseData.failures}}
-			<li>{{this}}</li>
-			{{/each}}
-		</ul>
+	<div class="formgrid whole">
+		<div class="alert alert-notice">
+			<ul>
+				{{#each responseData.successes}}
+					<li>{{this}}</li>
+				{{/each}}
+			</ul>
+			<ul>
+				{{#each responseData.failures}}
+					<li>{{this}}</li>
+				{{/each}}
+			</ul>
+		</div>
 	</div>
-</div>
 {{/if}}

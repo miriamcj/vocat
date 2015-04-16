@@ -74,7 +74,7 @@
   &:first-child {
     margin-top: 0;
   }
-  &+.asset-collection-item {
+  & + .asset-collection-item {
     margin-top: 20px;
     &:last-child {
       padding-bottom: 0;
@@ -199,7 +199,7 @@ $activeAnnotationBackground: $grayLighter;
   }
   .col-one.page-section-two-thirds {
     min-height: 20px;
-    padding-right: 0;
+    padding-right: 1px;
     padding-left: 0;
     background: $playerColBg;
   }
@@ -283,6 +283,7 @@ $activeAnnotationBackground: $grayLighter;
     }
   }
 }
+
 .annotation {
   cursor: pointer;
   font-size: $iota;
@@ -441,22 +442,24 @@ $activeAnnotationBackground: $grayLighter;
     bottom: 0;
     height: 25px;
     width: 100%;
-    background: -webkit-linear-gradient(rgba(35,31,32,0),$grayDarkest 85%);
-    background: -moz-linear-gradient(rgba(35,31,32,0),$grayDarkest 85%);
-    background: -o-linear-gradient(rgba(35,31,32,0),$grayDarkest 85%);
-    background: linear-gradient(rgba(35,31,32,0),$grayDarkest 85%);
+    background: -webkit-linear-gradient(rgba(35, 31, 32, 0), $grayDarkest 85%);
+    background: -moz-linear-gradient(rgba(35, 31, 32, 0), $grayDarkest 85%);
+    background: -o-linear-gradient(rgba(35, 31, 32, 0), $grayDarkest 85%);
+    background: linear-gradient(rgba(35, 31, 32, 0), $grayDarkest 85%);
   }
 }
+
 .annotation.annotation-active .annotation-fade {
-  background: -webkit-linear-gradient(rgba(46,41,42,0),$activeAnnotationBackground 85%);
-  background: -moz-linear-gradient(rgba(46,41,42,0),$activeAnnotationBackground 85%);
-  background: -o-linear-gradient(rgba(46,41,42,0),$activeAnnotationBackground 85%);
-  background: linear-gradient(rgba(46,41,42,0),$activeAnnotationBackground 85%);
+  background: -webkit-linear-gradient(rgba(46, 41, 42, 0), $activeAnnotationBackground 85%);
+  background: -moz-linear-gradient(rgba(46, 41, 42, 0), $activeAnnotationBackground 85%);
+  background: -o-linear-gradient(rgba(46, 41, 42, 0), $activeAnnotationBackground 85%);
+  background: linear-gradient(rgba(46, 41, 42, 0), $activeAnnotationBackground 85%);
 }
 
 .annotation + .annotation {
   border-top: 1px solid $grayMediumLighter;
 }
+
 //.annotation + .annotation.role-creator {
 //  border-top: 1px solid $grayMediumLighter;
 //}
@@ -474,6 +477,7 @@ $activeAnnotationBackground: $grayLighter;
 //}
 .annotation:first-child {
 }
+
 .annotation-open .annotation-bottom {
   max-height: none;
 }
@@ -504,7 +508,6 @@ $trackHeight: 10px;
     margin-top: 1.5em;
     margin-bottom: 1em;
   }
-
 
   .annotation-message {
     &.open {
@@ -663,7 +666,6 @@ $trackHeight: 10px;
   }
 
 }
-
 
 // Progress Bar
 // --------------------------------------------------------

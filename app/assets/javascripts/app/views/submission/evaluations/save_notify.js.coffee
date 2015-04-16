@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/submission/evaluations/save_notify')
   GlobalNotification = require('behaviors/global_notification')

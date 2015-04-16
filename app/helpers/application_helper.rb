@@ -46,7 +46,7 @@ module ApplicationHelper
         }
         messages << msg
       end
-      out = { globalFlash: messages }
+      out = {globalFlash: messages}
       out.to_json()
     end
   end
@@ -62,14 +62,14 @@ module ApplicationHelper
 
   def possessive(string)
     suffix = if string.downcase == 'it'
-      "s"
-    elsif string.downcase == 'who'
-      'se'
-    elsif string.end_with?('s')
-      "'"
-    else
-      "'s"
-    end
+               "s"
+             elsif string.downcase == 'who'
+               'se'
+             elsif string.end_with?('s')
+               "'"
+             else
+               "'s"
+             end
     string + suffix
   end
 
@@ -87,7 +87,6 @@ module ApplicationHelper
   end
 
   def current_user_role
-    myvar = current_user
     if current_user.nil?
       return ''
     else

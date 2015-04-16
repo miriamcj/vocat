@@ -1,24 +1,24 @@
 <% content_for :content_header do %>
-  View Rubric: <%= @rubric.name %>
+	View Rubric: <%= @rubric.name %>
 <% end %>
 
 <% content_for :content_header_links do %>
-  <% if @selected_course %>
-    <%= link_to 'Back to List', course_manage_rubrics_path(@selected_course), :class => 'teal-arrow-button' %>
-  <% else %>
-    <%= link_to 'Back to List', rubrics_path(), :class => 'teal-arrow-button' %>
-  <% end %>
+	<% if @selected_course %>
+		<%= link_to 'Back to List', course_manage_rubrics_path(@selected_course), :class => 'teal-arrow-button' %>
+	<% else %>
+		<%= link_to 'Back to List', rubrics_path(), :class => 'teal-arrow-button' %>
+	<% end %>
 <% end %>
 
 <% content_for :content_intro do %>
-  <h2 class="frame--title">Rubric Description</h2>
-  <% if @rubric.description %>
-    <p><%= @rubric.description %></p>
-  <% else %>
-    <p>No description has been entered for this rubric.</p>
-  <% end %>
+	<h2 class="frame--title">Rubric Description</h2>
+	<% if @rubric.description %>
+		<p><%= @rubric.description %></p>
+	<% else %>
+		<p>No description has been entered for this rubric.</p>
+	<% end %>
 <% end %>
 
-<% content_for :content_frames	 do %>
-  <%= render 'shared/rubric_show' %>
+<% content_for :content_frames do %>
+	<%= render 'shared/rubric_show' %>
 <% end %>

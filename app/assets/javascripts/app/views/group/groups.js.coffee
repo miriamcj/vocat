@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   Item = require('views/group/groups_item')
   template = require('hbs!templates/group/groups')
@@ -13,8 +12,8 @@ define (require) ->
 
     childViewOptions: () ->
       {
-        courseId: @options.courseId
-        vent: @vent
+      courseId: @options.courseId
+      vent: @vent
       }
 
     initialize: (options) ->

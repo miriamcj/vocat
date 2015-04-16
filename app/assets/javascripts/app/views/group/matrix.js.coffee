@@ -1,5 +1,4 @@
 define ['marionette', 'views/group/row'], (Marionette, Row) ->
-
   class MatrixView extends Marionette.CollectionView
 
     tagName: 'tbody'

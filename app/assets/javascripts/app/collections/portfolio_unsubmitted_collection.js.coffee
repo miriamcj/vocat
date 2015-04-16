@@ -1,5 +1,4 @@
 define ['backbone', 'models/submission'], (Backbone, ProjectModel) ->
-
   class PortfolioUnsubmittedCollection extends Backbone.Collection
 
     model: ProjectModel

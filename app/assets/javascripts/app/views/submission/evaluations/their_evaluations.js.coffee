@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/submission/evaluations/their_evaluations')
   TheirEvaluationsCollection = require('views/submission/evaluations/their_evaluations_collection')
@@ -14,11 +13,11 @@ define (require) ->
     childView: TheirEvaluationsCollection
     childViewOptions: () ->
       {
-        rubric: @rubric
+      rubric: @rubric
       }
 
     initialize: (options) ->
-      @evaluations= Marionette.getOption(@, 'evaluations')
+      @evaluations = Marionette.getOption(@, 'evaluations')
       @rubric = options.rubric
 
       @collection = new Backbone.Collection

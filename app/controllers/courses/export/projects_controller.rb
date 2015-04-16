@@ -1,4 +1,3 @@
-
 class Courses::Export::ProjectsController < ApplicationController
 
   respond_to :json

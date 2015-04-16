@@ -54,17 +54,17 @@ $columnWidth: ($container / $columns) - 12;
       float: left;
       width: $flexibleColumnWidth;
       z-index: 2;
-//      @include respond($vostok) {
-//        width: $responsiveFlexibleColumnWidth
-//      }
+      //      @include respond($vostok) {
+      //        width: $responsiveFlexibleColumnWidth
+      //      }
 
     }
     .matrix-wrapper--columns {
       float: left;
       width: $flexibleColumnWidth * ($columns - 1);
-//      @include respond($vostok) {
-//        width: ($flexibleColumnWidth * $columns) - $responsiveFlexibleColumnWidth;
-//      }
+      //      @include respond($vostok) {
+      //        width: ($flexibleColumnWidth * $columns) - $responsiveFlexibleColumnWidth;
+      //      }
 
       z-index: 0;
       .matrix-col-headers {
@@ -88,9 +88,9 @@ $columnWidth: ($container / $columns) - 12;
   .matrix-wrapper--left {
     float: left;
     width: $flexibleColumnWidth;
-//    @include respond($vostok) {
-//      width: $responsiveFlexibleColumnWidth
-//    }
+    //    @include respond($vostok) {
+    //      width: $responsiveFlexibleColumnWidth
+    //    }
   }
 
   .matrix-wrapper--body {
@@ -98,9 +98,9 @@ $columnWidth: ($container / $columns) - 12;
     width: $flexibleColumnWidth * ($columns - 1);
     overflow-x: hidden;
     overflow-y: hidden;
-//    @include respond($vostok) {
-//      width: ($flexibleColumnWidth * $columns) - $responsiveFlexibleColumnWidth;
-//    }
+    //    @include respond($vostok) {
+    //      width: ($flexibleColumnWidth * $columns) - $responsiveFlexibleColumnWidth;
+    //    }
     .matrix-body {
       position: relative;
     }
@@ -121,9 +121,9 @@ $columnWidth: ($container / $columns) - 12;
   background: $black;
   width: 60px;
   outline: 0;
-//  @include respond($vostok) {
-//    width: 20px;
-//  }
+  //  @include respond($vostok) {
+  //    width: 20px;
+  //  }
   position: absolute;
   opacity: .6;
   z-index: 199;
@@ -159,16 +159,15 @@ $columnWidth: ($container / $columns) - 12;
   border-collapse: separate;
 }
 
-
 %matrix-heading {
   @include font-head;
   text-align: left;
   font-size: $epsilon;
   padding: 20px;
   position: relative;
-//  @include respond($vostok) {
-//    padding: .5em;
-//  }
+  //  @include respond($vostok) {
+  //    padding: .5em;
+  //  }
   .subheader {
     margin-top: .5em;
     font-size: .667em; // 16px;
@@ -177,7 +176,6 @@ $columnWidth: ($container / $columns) - 12;
   font-weight: $regular;
   letter-spacing: 0;
 }
-
 
 .matrix {
   thead {
@@ -232,10 +230,10 @@ $columnWidth: ($container / $columns) - 12;
       font-size: $theta; // Baseline height for the cell is 16px. Need the same baseline in the row headers
       height: 100px;
       padding: 1.5em;
-//      @include respond($vostok) {
-//        padding: .5em;
-//        height: 100px;
-//      }
+      //      @include respond($vostok) {
+      //        padding: .5em;
+      //        height: 100px;
+      //      }
       &.large {
         @extend %matrix-heading;
       }

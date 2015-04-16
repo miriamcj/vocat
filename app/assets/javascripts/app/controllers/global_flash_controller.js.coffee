@@ -1,9 +1,6 @@
 define [
   'marionette', 'controllers/vocat_controller', 'collections/flash_message_collection', 'views/flash/flash_messages'
-], (
-  Marionette, VocatController, FlashMessageCollection, FlashMessagesView
-) ->
-
+], (Marionette, VocatController, FlashMessageCollection, FlashMessagesView) ->
   class GlobalFlashController extends VocatController
 
     # Server-side flash messages are bootstrapped into the HTML source and picked up by the initialize method in this

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+	<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
 </head>
 <body>
 
@@ -12,33 +12,41 @@
 	presentations, speeches, or video assignments and to interact with your peers and instructors. </p>
 
 <% if @user.is_ldap_user %>
-	<p>You can log into the system with your <%= @user.organization_name %> password (the one you use to check your school email or to log on to a computer in a lab) by <%= link_to 'following this link', new_user_session_url %>.</p>
+	<p>You can log into the system with your <%= @user.organization_name %> password (the one you use to check your
+		school email or to log on to a computer in a lab) by <%= link_to 'following this link', new_user_session_url(:host => @host) %>
+		.</p>
 <% else %>
-	<p>You have been assigned a temporary password. Your username is your email address. <%= link_to 'Follow this link to go to VOCAT and create your account password', edit_password_url(@user, :reset_password_token => @token) %>.</p>
+	<p>You have been assigned a temporary password. Your username is your email
+		address. <%= link_to 'Follow this link to go to VOCAT and create your account password', edit_password_url(@user, :host => @host, :reset_password_token => @token) %>
+		.</p>
 <% end %>
 
 <% if @support_email %>
-<p>If you have trouble logging into VOCAT (and you're sure you're entering the correct ID and password) or encountering another problem or issue, please contact <a href="mailto:<%= @support_email %>"><%= @support_email %></a>.</p>
+	<p>If you have trouble logging into VOCAT (and you're sure you're entering the correct ID and password) or
+		encountering another problem or issue, please contact
+		<a href="mailto:<%= @support_email %>"><%= @support_email %></a>.</p>
 <% end %>
 
 <% if @user.has_courses %>
-<p>
-	You are currently a member of the following Vocat courses:
-</p>
-<ul>
-	<% @user.courses.each do |course| %>
-		<li><%= course.to_s %></li>
-	<% end %>
-</ul>
+	<p>
+		You are currently a member of the following Vocat courses:
+	</p>
+	<ul>
+		<% @user.courses.each do |course| %>
+			<li><%= course.to_s %></li>
+		<% end %>
+	</ul>
 <% end %>
 
-<p>For future reference, you can access Vocat at <a href="http://<%= Rails.application.config.vocat.email.url_domain %>">
-	http://<%= Rails.application.config.vocat.email.url_domain %></a>. Welcome to VOCAT, and good luck with your studies!
+<p>For future reference, you can access Vocat at
+	<a href="http://<%= Rails.application.config.vocat.email.url_domain %>">
+		http://<%= Rails.application.config.vocat.email.url_domain %></a>. Welcome to VOCAT, and good luck with your
+	studies!
 </p>
 
 <p>
-  the VOCAT team<br>
-  <%= @user.organization_name %>
+	the VOCAT team<br>
+	<%= @user.organization_name %>
 </p>
 
 </body>

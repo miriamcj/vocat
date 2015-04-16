@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
 
   ROLES = %w(creator evaluator administrator)
   DEFAULT_SETTINGS = {
-    'enable_glossary' => {value: false, type: 'boolean' }
+      'enable_glossary' => {value: false, type: 'boolean'}
   }
 
   validates :first_name, :last_name, :role, :presence => true
@@ -36,9 +36,15 @@ class User < ActiveRecord::Base
   # Params is a hash of search values including (:department || :semester || :year) || :section
   def self.search(params)
     u = User.all
-    if params[:last_name] then u = u.where(["lower(last_name) LIKE :last_name", {:last_name => "#{params[:last_name].downcase}%"}]) end
-    if params[:email] then u = u.where(["lower(email) LIKE :email", {:email => "#{params[:email].downcase}%"}]) end
-    if params[:role] then u = u.where({role: params[:role]}) unless params[:role].blank? end
+    if params[:last_name] then
+      u = u.where(["lower(last_name) LIKE :last_name", {:last_name => "#{params[:last_name].downcase}%"}])
+    end
+    if params[:email] then
+      u = u.where(["lower(email) LIKE :email", {:email => "#{params[:email].downcase}%"}])
+    end
+    if params[:role] then
+      u = u.where({role: params[:role]}) unless params[:role].blank?
+    end
     u
   end
 
@@ -58,7 +64,7 @@ class User < ActiveRecord::Base
   end
 
   def list_name
-    [last_name, first_name].reject{ |s| s.blank? }.join(', ')
+    [last_name, first_name].reject { |s| s.blank? }.join(', ')
   end
 
   def course_groups(course)

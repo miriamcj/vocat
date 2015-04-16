@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   require('jquery_ui')
   template = require('hbs!templates/assets/annotator/progress_bar')
@@ -24,7 +23,7 @@ define (require) ->
     childView: childView
     childViewOptions: () ->
       {
-        vent: @vent
+      vent: @vent
       }
 
     events: {

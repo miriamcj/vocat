@@ -2,7 +2,6 @@
 @import "mixins";
 @import "patterns";
 
-
 // NB uses ems so font-size can be set on component
 %bubble-badge {
   @extend %unstyled-list;
@@ -35,8 +34,6 @@
     }
   }
 }
-
-
 
 // Buttons should be of a type (primary-button or secondary-button)
 // and if they want an icon, they should also have an icon class.
@@ -95,7 +92,7 @@
   @extend %button-margin;
 }
 
-.small-button{
+.small-button {
   padding: .25em;
 }
 
@@ -152,6 +149,7 @@
     }
   }
 }
+
 .gentle-warning-button.delete-button, .gentle-warning-button.cancel-button {
   &:after {
     @include svg(circle-ex-white-on-red);
@@ -300,7 +298,6 @@
   }
 }
 
-
 // Extended by .attachment-placeholder--button & .attachment-placeholder--message
 %attachment-placeholder--item {
   margin-top: 30.9%;
@@ -321,8 +318,6 @@
   @extend %primary-button;
   @extend %attachment-placeholder--item;
 }
-
-
 
 // Links
 //-----------------------------------------------------------------
@@ -347,13 +342,12 @@
 .back-link {
   @extend %icon-link-left;
   &:hover:before {
-    @include svg(circle-left-arrow-gray-dark );
+    @include svg(circle-left-arrow-gray-dark);
   }
   &:before {
     @include svg(circle-left-arrow-teal);
   }
 }
-
 
 .close-link {
   @extend %icon-link-left;
@@ -369,7 +363,7 @@
   @extend %icon-link-right;
   margin-left: 1em;
   padding-right: 1.25em;
-  &:hover:after{
+  &:hover:after {
     @include svg(inline-arrow-up-teal);
   }
   &:after {
@@ -384,7 +378,7 @@
   @extend %icon-link-right;
   margin-left: 1em;
   padding-right: 1.25em;
-  &:hover:after{
+  &:hover:after {
     @include svg(inline-arrow-down-teal);
   }
   &:after {
@@ -402,6 +396,7 @@
     @include svg(inline-arrow-down-gray-light);
   }
 }
+
 .up-link.disabled {
   color: #E0E0E0;
   cursor: text;
@@ -409,7 +404,6 @@
     @include svg(inline-arrow-up-gray-light);
   }
 }
-
 
 .reply-link {
   @extend %icon-link-right;
@@ -424,14 +418,13 @@
   &:hover {
     color: $redDark;
   }
-//  &:after {
-//    @include svg(circle-ex-white-on-red);
-//    &:hover {
-//      @include svg(circle-ex-white-on-red-dark);
-//    }
-//  }
+  //  &:after {
+  //    @include svg(circle-ex-white-on-red);
+  //    &:hover {
+  //      @include svg(circle-ex-white-on-red-dark);
+  //    }
+  //  }
 }
-
 
 // Bubbles
 //-----------------------------------------------------------------
@@ -460,9 +453,6 @@
   }
 }
 
-
-
-
 // Switches
 //-----------------------------------------------------------------
 
@@ -471,13 +461,11 @@ $switchHeight: 1.6em;
 $handleMargin: .3em;
 $handleWidth: $switchHeight - ($handleMargin * 2);
 
-.switch input.switch-checkbox:empty
-{
+.switch input.switch-checkbox:empty {
   display: none;
 }
 
-.switch label.switch-label
-{
+.switch label.switch-label {
   overflow: hidden;
   width: $switchWidth;
   height: $switchHeight;
@@ -519,6 +507,7 @@ label.switch-label:after,
   height: $switchHeight;
   width: $switchWidth;
 }
+
 .switch-text {
   text-align: left;
   @include transition($fastTransition, all, $timing);
@@ -531,14 +520,16 @@ label.switch-label:after,
   position: absolute;
   top: $switchHeight * .5 - .25em;
 }
+
 .switch-active {
   right: 0;
   .switch-checked & {
     margin-right: $handleWidth + ($handleMargin * 4);
   }
-  margin-right: $handleWidth + ($handleMargin * 4) + ($switchWidth + $handleWidth + $handleMargin) ;
+  margin-right: $handleWidth + ($handleMargin * 4) + ($switchWidth + $handleWidth + $handleMargin);
 
 }
+
 .switch-inactive {
   .switch-checked & {
     margin-left: $switchWidth + $handleWidth;
@@ -546,16 +537,13 @@ label.switch-label:after,
   margin-left: $handleWidth + (4 * $handleMargin);
 }
 
-.switch-checked label:before
-{
+.switch-checked label:before {
   background-color: $tealLight;
 }
 
-.switch-checked label:after
-{
+.switch-checked label:after {
   margin-left: $switchWidth - $handleWidth - $handleMargin;
 }
-
 
 // Misc
 .up-arrow {
@@ -563,12 +551,12 @@ label.switch-label:after,
     @include svg(arrow-up-white);
   }
 }
+
 .down-arrow {
   &:after {
     @include svg(arrow-down-white);
   }
 }
-
 
 .down-arrow, .up-arrow {
   width: 100%;

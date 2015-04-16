@@ -1,5 +1,4 @@
 define ['jquery_rails', 'vendor/plugins/chosen'], ($) ->
-
   Marionette = require('marionette')
 
   class ChosenView extends Marionette.ItemView

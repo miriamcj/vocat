@@ -41,6 +41,14 @@ namespace :deploy do
     end
   end
 
+  desc 'Restart application'
+  task :restart_sidekiq do
+    on roles(:app), in: :sequence, wait: 5 do
+      execute "sudo stop #{fetch(:application)}_workers || true"
+      execute "sudo start #{fetch(:application)}_workers"
+    end
+  end
+
   desc 'Build JS'
   task :build_js do
     on roles(:app) do
@@ -53,6 +61,6 @@ namespace :deploy do
   after :publishing, :write_revision
   after :published, :restart
   after 'deploy:normalize_assets', :build_js
-  #after 'deploy:normalize_assets', :copy_error_pages
-  
+  after :restart, :restart_sidekiq
+
 end

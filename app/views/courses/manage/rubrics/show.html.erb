@@ -1,31 +1,31 @@
 <% content_for :heading do %>
-  <% if @selected_course %>
-    <%=  link_to 'Back to My Rubrics', course_manage_rubrics_path(@selected_course), :class => 'header-link back-link' %>
-  <% else %>
-    <%=  link_to 'My Rubrics', rubrics_path, :class => 'header-link back-link' %>
-  <% end %>
+	<% if @selected_course %>
+		<%= link_to 'Back to My Rubrics', course_manage_rubrics_path(@selected_course), :class => 'header-link back-link' %>
+	<% else %>
+		<%= link_to 'My Rubrics', rubrics_path, :class => 'header-link back-link' %>
+	<% end %>
 <% end %>
 
 <% content_for :heading_links do %>
-  <% if @selected_course %>
-    <%= link_to 'Clone this Rubric', clone_course_manage_rubric_path(@selected_course, @rubric), method: :post, :class => 'primary-button new-button' %>
-  <% else %>
-    <%= link_to 'Clone this Rubric', clone_rubric_path(@rubric), method: :post, :class => 'primary-button new-button' %>
-  <% end %>
-  <% if can? :update, @rubric %>
-    <% if @selected_course %>
-      <%= link_to 'Edit Rubric', edit_course_manage_rubric_path(@selected_course, @rubric), :class => 'primary-button update-button' %>
-    <% else %>
-      <%= link_to 'Edit Rubric', edit_rubric_path(@rubric), :class => 'primary-button update-button' %>
-    <% end %>
-  <% end %>
+	<% if @selected_course %>
+		<%= link_to 'Clone this Rubric', clone_course_manage_rubric_path(@selected_course, @rubric), method: :post, :class => 'primary-button new-button' %>
+	<% else %>
+		<%= link_to 'Clone this Rubric', clone_rubric_path(@rubric), method: :post, :class => 'primary-button new-button' %>
+	<% end %>
+	<% if can? :update, @rubric %>
+		<% if @selected_course %>
+			<%= link_to 'Edit Rubric', edit_course_manage_rubric_path(@selected_course, @rubric), :class => 'primary-button update-button' %>
+		<% else %>
+			<%= link_to 'Edit Rubric', edit_rubric_path(@rubric), :class => 'primary-button update-button' %>
+		<% end %>
+	<% end %>
 <% end %>
 
 <% content_for :content do %>
 
-  <% body = capture do %>
-    <%= render 'shared/rubric_show' %>
-  <% end %>
-  <%= render :partial => 'shared/section', :locals => {:header => @rubric.name, :clear => true, :body => body} %>
+	<% body = capture do %>
+		<%= render 'shared/rubric_show' %>
+	<% end %>
+	<%= render :partial => 'shared/section', :locals => {:header => @rubric.name, :clear => true, :body => body} %>
 
 <% end %>

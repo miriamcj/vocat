@@ -17,7 +17,6 @@ body.bg-dark {
   background: $grayDarker;
 }
 
-
 .fixed-container {
   .fixed-container-inner {
     padding: 0 1.5em 0 1.5em;
@@ -32,7 +31,6 @@ body.bg-dark {
   z-index: 0;
   margin: auto;
 }
-
 
 // High level containers
 // --------------------------
@@ -60,9 +58,8 @@ body.bg-dark {
   max-width: $containerWidth;
   margin-right: auto;
   margin-left: auto;
-  margin-top: $headerHeight *  .85;
+  margin-top: 49px;
 }
-
 
 // Page content header
 // --------------------------

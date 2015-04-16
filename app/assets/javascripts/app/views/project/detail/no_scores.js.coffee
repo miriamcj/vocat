@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/project/detail/no_scores')
 

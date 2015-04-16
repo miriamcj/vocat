@@ -1,53 +1,56 @@
 <%= render :partial => 'heading', :locals => {rubric: @rubric} %>
 
-<% content_for :content	 do %>
+<% content_for :content do %>
 
-  <% body = capture do %>
-    <figure class="summary-box">
-      <div>
-        <b style="height: <%= @rubric.avg_percentage() %>%"></b>
-        <span><%= round @rubric.avg_percentage(), 0 %></span><small>%</small>
-      </div>
-      <figcaption>Average Score</figcaption>
-    </figure>
+	<% body = capture do %>
+		<figure class="summary-box">
+			<div>
+				<b style="height: <%= @rubric.avg_percentage() %>%"></b>
+				<span><%= round @rubric.avg_percentage(), 0 %></span>
+				<small>%</small>
+			</div>
+			<figcaption>Average Score</figcaption>
+		</figure>
 
-    <figure class="summary-box">
-      <div>
-        <b style="height: <%= @rubric.average_total_instructor_percentage() %>%"></b>
-        <span><%= round @rubric.average_total_instructor_percentage(), 0 %></span><small>%</small>
-      </div>
-      <figcaption>Average Peer Score</figcaption>
-    </figure>
+		<figure class="summary-box">
+			<div>
+				<b style="height: <%= @rubric.average_total_instructor_percentage() %>%"></b>
+				<span><%= round @rubric.average_total_instructor_percentage(), 0 %></span>
+				<small>%</small>
+			</div>
+			<figcaption>Average Peer Score</figcaption>
+		</figure>
 
-    <figure class="summary-box">
-      <div>
-        <b style="height: <%= @rubric.average_total_peer_percentage() %>%"></b>
-        <span><%= round @rubric.average_total_peer_percentage(), 0 %></span><small>%</small>
-      </div>
-      <figcaption>Average Instructor Score</figcaption>
-    </figure>
+		<figure class="summary-box">
+			<div>
+				<b style="height: <%= @rubric.average_total_peer_percentage() %>%"></b>
+				<span><%= round @rubric.average_total_peer_percentage(), 0 %></span>
+				<small>%</small>
+			</div>
+			<figcaption>Average Instructor Score</figcaption>
+		</figure>
 
-    <figure class="summary-box">
-      <div>
-        <span><%= @rubric.evaluation_count %></span>
-      </div>
-      <figcaption>Evaluations using this rubric</figcaption>
-    </figure>
+		<figure class="summary-box">
+			<div>
+				<span><%= @rubric.evaluation_count %></span>
+			</div>
+			<figcaption>Evaluations using this rubric</figcaption>
+		</figure>
 
-    <figure class="summary-box">
-      <div>
-        <span><%= @rubric.projects.count %></span>
-      </div>
-      <figcaption>Projects using this rubric</figcaption>
-    </figure>
-  <% end %>
-  <%= render :partial => 'shared/section', :locals => {:header => 'Overview', :body => body} %>
+		<figure class="summary-box">
+			<div>
+				<span><%= @rubric.projects.count %></span>
+			</div>
+			<figcaption>Projects using this rubric</figcaption>
+		</figure>
+	<% end %>
+	<%= render :partial => 'shared/section', :locals => {:header => 'Overview', :body => body} %>
 
-  <div class="page-section">
-    <div class="table-wrapper">
-      <%= render 'shared/rubric_show' %>
-    </div>
-  </div>
+	<div class="page-section">
+		<div class="table-wrapper">
+			<%= render 'shared/rubric_show' %>
+		</div>
+	</div>
 
 
 <% end %>

@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   Row = require('views/rubric/row')
   EmptyView = require('views/rubric/row_empty')
@@ -12,9 +11,9 @@ define (require) ->
 
     childViewOptions: () ->
       {
-        collection: @model.get('ranges')
-        rubric: @model
-        vent: @vent
+      collection: @model.get('ranges')
+      rubric: @model
+      vent: @vent
       }
 
     initialize: (options) ->

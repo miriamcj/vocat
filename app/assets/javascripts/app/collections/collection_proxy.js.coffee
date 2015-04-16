@@ -1,7 +1,5 @@
 define [], () ->
-
   (collection) ->
-
     filtered = new collection.constructor()
     filtered._callbacks = {}
 

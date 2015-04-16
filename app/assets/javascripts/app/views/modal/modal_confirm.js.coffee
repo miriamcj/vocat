@@ -1,5 +1,4 @@
 define ['marionette', 'hbs!templates/modal/modal_confirm'], (Marionette, template) ->
-
   class ModalConfirmView extends Marionette.ItemView
 
     template: template
@@ -38,16 +37,16 @@ define ['marionette', 'hbs!templates/modal/modal_confirm'], (Marionette, templat
 
     serializeData: () ->
       {
-        descriptionLabel: Marionette.getOption(@, 'descriptionLabel')
-        confirmLabel: Marionette.getOption(@, 'confirmLabel')
-        dismissLabel: Marionette.getOption(@, 'dismissLabel')
-        headerLabel: Marionette.getOption(@, 'headerLabel')
+      descriptionLabel: Marionette.getOption(@, 'descriptionLabel')
+      confirmLabel: Marionette.getOption(@, 'confirmLabel')
+      dismissLabel: Marionette.getOption(@, 'dismissLabel')
+      headerLabel: Marionette.getOption(@, 'headerLabel')
       }
 
     onDestroy: () ->
-        # Gotta be sure to unbind this event, so that views that have been closed out are no longer triggered.
-        # Normally, marionette does this with listenTo, which registers events, but in this case we have to
-        # do it differently because we're binding to a global object (window)
+      # Gotta be sure to unbind this event, so that views that have been closed out are no longer triggered.
+      # Normally, marionette does this with listenTo, which registers events, but in this case we have to
+      # do it differently because we're binding to a global object (window)
       $(window).off('keyup', @onKeyUp)
 
     initialize: (options) ->

@@ -50,6 +50,4 @@ class Attachment::Variant < ActiveRecord::Base
   end
 
 
-
-
 end

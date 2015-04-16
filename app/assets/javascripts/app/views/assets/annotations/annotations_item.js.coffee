@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/assets/annotations/annotations_item')
   ModalConfirmView = require('views/modal/modal_confirm')
@@ -66,7 +65,7 @@ define (require) ->
       @$el.toggleClass('annotation-open')
 
     setupListeners: () ->
-      @listenTo(@model,'change:active', @handleActiveStateChange)
+      @listenTo(@model, 'change:active', @handleActiveStateChange)
 
     handleActiveStateChange: () ->
       if @model.get('active') == true
@@ -89,10 +88,11 @@ define (require) ->
       )
 
     onSeek: () ->
-      console.log 'seek'
-      @vent.trigger('request:time:update', {seconds: @model.get('seconds_timecode'), callback: () =>
-        @model.activate()
-      , callbackScope: @})
+      @vent.trigger('request:time:update', {
+        seconds: @model.get('seconds_timecode'), callback: () =>
+          @model.activate()
+        , callbackScope: @
+      })
 
     onAnnotationDestroy: () ->
       @vent.trigger('request:pause', {})
@@ -113,8 +113,9 @@ define (require) ->
     onConfirmDestroy: () ->
       @model.destroy({
         success: () =>
-          Vocat.vent.trigger('error:add', {level: 'notice', clear: true, lifetime: '5000',  msg: 'The annotation has been successfully deleted.'})
-      , error: (xhr) =>
+          Vocat.vent.trigger('error:add',
+            {level: 'notice', clear: true, lifetime: '5000', msg: 'The annotation has been successfully deleted.'})
+        , error: (xhr) =>
           Vocat.vent.trigger('error:add', {level: 'notice', msg: xhr.responseJSON.errors})
       })
       @vent.trigger('request:resume', {})

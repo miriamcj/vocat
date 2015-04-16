@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::Base
 
   include StrongParametersConfiguration
-  include ErrorActions
 
   layout 'content'
   protect_from_forgery
@@ -52,7 +51,7 @@ class ApplicationController < ActionController::Base
     @analytics_domain = Rails.application.config.vocat.tracking[:analytics_domain]
     @S3_bucket = Rails.application.config.vocat.aws[:s3_bucket]
     @aws_public_key = Rails.application.config.vocat.aws[:key]
-    @session_data = { enable_glossary: current_user.nil? ? false : current_user.get_setting_value('enable_glossary') }
+    @session_data = {enable_glossary: current_user.nil? ? false : current_user.get_setting_value('enable_glossary')}
     @app_section = app_section
   end
 

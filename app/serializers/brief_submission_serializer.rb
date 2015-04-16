@@ -16,7 +16,7 @@ class BriefSubmissionSerializer < AbstractSubmissionSerializer
   end
 
   def serialized_state
-	  'partial'
+    'partial'
   end
 
 end

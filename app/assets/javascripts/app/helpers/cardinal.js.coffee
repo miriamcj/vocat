@@ -1,5 +1,4 @@
 define 'app/helpers/cardinal', ['handlebars'], (Handlebars) ->
-
   Handlebars.registerHelper "cardinal", (value, capitalize = false) ->
     out = value
     unless isNaN(value)

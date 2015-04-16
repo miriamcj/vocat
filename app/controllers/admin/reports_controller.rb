@@ -8,11 +8,11 @@ class Admin::ReportsController < Admin::AdminController
   end
 
   load_and_authorize_resource :course, :parent => false, if: lambda {
-    action_name.start_with?('course_')
-  }
+                                       action_name.start_with?('course_')
+                                     }
   load_and_authorize_resource :rubric, :parent => false, if: lambda {
-    action_name.start_with?('rubric_')
-  }
+                                       action_name.start_with?('rubric_')
+                                     }
   respond_to :json
   respond_to :csv
   respond_to :text

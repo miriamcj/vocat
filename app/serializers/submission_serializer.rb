@@ -1,27 +1,27 @@
 class SubmissionSerializer < AbstractSubmissionSerializer
 
-  attributes  :id,
-              :name,
-              :path,
-              :serialized_state,
-              :path,
-              :role,
-              :discussion_posts_count,
-              :new_posts_for_current_user?,
-              :project,
-              :creator,
-              :creator_id,
-              :creator_type,
-              :project_id,
-              :evaluations,
-              :abilities,
-              :current_user_published?,
-              :current_user_percentage,
-              :evaluated_by_peers?,
-              :peer_score_percentage,
-              :evaluated_by_instructor?,
-              :instructor_score_percentage,
-              :has_asset?
+  attributes :id,
+             :name,
+             :path,
+             :serialized_state,
+             :path,
+             :role,
+             :discussion_posts_count,
+             :new_posts_for_current_user?,
+             :project,
+             :creator,
+             :creator_id,
+             :creator_type,
+             :project_id,
+             :evaluations,
+             :abilities,
+             :current_user_published?,
+             :current_user_percentage,
+             :evaluated_by_peers?,
+             :peer_score_percentage,
+             :evaluated_by_instructor?,
+             :instructor_score_percentage,
+             :has_asset?
 
   has_one :project
   has_one :creator
@@ -40,7 +40,7 @@ class SubmissionSerializer < AbstractSubmissionSerializer
         can_evaluate: ability.can?(:evaluate, object),
         can_attach: ability.can?(:attach, object),
         can_discuss: ability.can?(:discuss, object),
-        can_annotate:  ability.can?(:annotate, object),
+        can_annotate: ability.can?(:annotate, object),
         can_administer: ability.can?(:administer, object)
     }
   end
@@ -73,7 +73,11 @@ class SubmissionSerializer < AbstractSubmissionSerializer
 
 
   def current_user_is_instructor
-    if object.course.role(scope) == :evaluator then true else false end
+    if object.course.role(scope) == :evaluator then
+      true
+    else
+      false
+    end
   end
 
   def current_user_can_read_evaluations

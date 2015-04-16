@@ -9,16 +9,16 @@ define ['backbone'], (Backbone) ->
       switch @get('source')
         when 'youtube'
           {
-            mime: 'video/youtube'
-            key: 'youtube'
+          mime: 'video/youtube'
+          key: 'youtube'
           }
         when 'vimeo'
           {
-            mime: 'video/vimeo'
-            key: 'vimeo'
+          mime: 'video/vimeo'
+          key: 'vimeo'
           }
         when 'attachment'
           {
-            mime: 'video/mp4'
-            key: 'html5'
+          mime: 'video/mp4'
+          key: 'html5'
           }

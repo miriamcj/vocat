@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   ClosesOnUserAction = require('behaviors/closes_on_user_action')
 
@@ -34,7 +33,7 @@ define (require) ->
       @triggerMethod('closed')
 
     setupListeners: () ->
-      @ui.courseSelect.on('change',() =>
+      @ui.courseSelect.on('change', () =>
         val = @ui.courseSelect.val()
         window.location.assign(val)
       )

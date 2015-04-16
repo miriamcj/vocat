@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/admin/enrollment/confirm_invite')
   GlobalNotification = require('behaviors/global_notification')
@@ -54,10 +53,10 @@ define (require) ->
       successes = []
       failures = []
       _.each(response, (contact) =>
-          if contact.success == true
-            successes.push contact
-          else
-            failures.push contact
+        if contact.success == true
+          successes.push contact
+        else
+          failures.push contact
       )
 
       @collection.fetch()

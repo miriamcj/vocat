@@ -1,8 +1,6 @@
 define [
   'backbone'
-], (
-  Backbone
-) ->
+], (Backbone) ->
   class AnnotationModel extends Backbone.Model
 
     urlRoot: '/api/v1/annotations'

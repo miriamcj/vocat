@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/group/group_layout')
   AbstractMatrix = require('views/abstract/abstract_matrix')
@@ -29,10 +28,10 @@ define (require) ->
     }
 
     triggers: {
-      'click [data-trigger="add"]':   'click:group:add'
-      'click [data-trigger="assign"]':   'click:group:assign'
-      'click [data-behavior="matrix-slider-left"]':   'slider:left'
-      'click [data-behavior="matrix-slider-right"]':  'slider:right'
+      'click [data-trigger="add"]': 'click:group:add'
+      'click [data-trigger="assign"]': 'click:group:assign'
+      'click [data-behavior="matrix-slider-left"]': 'slider:left'
+      'click [data-behavior="matrix-slider-right"]': 'slider:right'
     }
 
     ui: {
@@ -63,12 +62,12 @@ define (require) ->
       if groupCount > 0
         perGroup = Math.floor(creatorCount / groupCount)
         remainder = creatorCount % groupCount
-        @collections.group.each( (group) ->
+        @collections.group.each((group) ->
           take = perGroup
           if remainder > 0
             take++
             remainder--
-          group.set('creator_ids',creatorIds.splice(0,take))
+          group.set('creator_ids', creatorIds.splice(0, take))
         )
         @onDirty()
 
@@ -90,7 +89,12 @@ define (require) ->
       else
         @creators.show(new CreatorsView({collection: @collections.creator, courseId: @courseId, vent: @}))
         @groups.show(new GroupsView({collection: @collections.group, courseId: @courseId, vent: @}))
-        @matrix.show(new GroupMatrixView({collection: @collections.creator, collections: @collections, courseId: @courseId, vent: @}))
+        @matrix.show(new GroupMatrixView({
+          collection: @collections.creator,
+          collections: @collections,
+          courseId: @courseId,
+          vent: @
+        }))
         @warningVisible = false
 
     onShow: () ->

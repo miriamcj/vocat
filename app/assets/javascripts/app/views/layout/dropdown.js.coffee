@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   ClosesOnUserAction = require('behaviors/closes_on_user_action')
 

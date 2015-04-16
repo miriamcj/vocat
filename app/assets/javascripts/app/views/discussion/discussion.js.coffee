@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/discussion/discussion')
   DiscussionPostCollection = require('collections/discussion_post_collection')
@@ -18,17 +17,17 @@ define (require) ->
       @initializeFlash()
       @vent = options.vent
       @submission = options.submission
-      @collection = new DiscussionPostCollection([],{})
-      @allPosts = new DiscussionPostCollection([],{})
+      @collection = new DiscussionPostCollection([], {})
+      @allPosts = new DiscussionPostCollection([], {})
       @allPosts.fetch({
-          data: {submission: @submission.id}
-          success: () =>
-            @collection.reset(@allPosts.where({parent_id: null}))
-        })
+        data: {submission: @submission.id}
+        success: () =>
+          @collection.reset(@allPosts.where({parent_id: null}))
+      })
 
       @updateCount()
 
-      @listenTo(@allPosts,'add sync remove', (post) =>
+      @listenTo(@allPosts, 'add sync remove', (post) =>
         @updateCount()
       )
 

@@ -1,4 +1,3 @@
-
 <% content_for :heading do %>
 	<%= link_to 'Return to Submission', course_submission_path(@course, @submission), :class => 'header-link back-link' %>
 <% end %>
@@ -23,14 +22,15 @@
 							<span class="badge">group</span>
 						<% end %>
 					</h3>
+
 					<h3 class="heading-tertiary">
 						<%= @submission.creator %>
 					</h3>
 
 
 					<h5 class="heading-informational">
-						<% if @submission.has_video? %>
-							Submitted <%= @submission.video.created_at.strftime('%B %e, %Y at %l:%M %p') %>
+						<% if @submission.has_asset? %>
+							Submitted <%= @submission.first_asset.created_at.strftime('%B %e, %Y at %l:%M %p') %>
 						<% else %>
 							No submission has been uploaded for this project.
 						<% end %>
@@ -47,13 +47,17 @@
 				<%= form_tag do_reassign_course_submission_path(@course, @submission), :class => 'formgrid' do %>
 					<div class="formgrid whole">
 						<p>
-							Reassigning a submission will take the submission&mdash;and all media, evaluations, and discussion posts
-							attached to it&mdash;and associate it with the student selected below. This functionality can be useful
+							Reassigning a submission will take the submission&mdash;and all media, evaluations, and
+							discussion posts
+							attached to it&mdash;and associate it with the student selected below. This functionality
+							can be useful
 							in cases where media was accidentally uploaded to the wrong user.
 						</p>
+
 						<p>
 							Pay attention to the reassignment type field. You have the option of exchanging student A's
-							submission with student B. Alternately, you can choose to overwrite student B's submission with
+							submission with student B. Alternately, you can choose to overwrite student B's submission
+							with
 							student A's submission.
 						</p>
 
@@ -68,17 +72,17 @@
 							<% creators = @course.groups %>
 							<% label = 'group' %>
 						<% end %>
-						<%= select_tag :creator, options_for_select(creators.reject { |c| c == @submission.creator }.collect { |c| [c.name, c.id] }), {'data-behavior' => 'chosen'}%>
+						<%= select_tag :creator, options_for_select(creators.reject { |c| c == @submission.creator }.collect { |c| [c.name, c.id] }), {'data-behavior' => 'chosen'} %>
 					</div>
 					<div class="formgrid two-thirds">
 						<%= label_tag :reassign_type, 'Reassignment Type', {class: 'text-label'} %>
 						<%
 						   options = [
 								   ["Exchange #{possessive @submission.creator.to_s} submission with selected #{label}'s submission", 'exchange'],
-								   ["Replace selected #{label}'s submission with #{possessive @submission.creator.to_s} submission",'replace']
+								   ["Replace selected #{label}'s submission with #{possessive @submission.creator.to_s} submission", 'replace']
 						   ]
 						%>
-						<%= select_tag :type, options_for_select(options), {'data-behavior' => 'chosen'}%>
+						<%= select_tag :type, options_for_select(options), {'data-behavior' => 'chosen'} %>
 
 					</div>
 					<div class="formgrid whole submit-row" style="margin-top: 0;">

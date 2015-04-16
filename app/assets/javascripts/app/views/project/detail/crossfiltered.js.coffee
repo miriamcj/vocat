@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/project/detail/crossfiltered')
 
@@ -16,7 +15,7 @@ define (require) ->
     }
 
     ui: {
-      filtersClear:   '[data-trigger="filters-clear"]'
+      filtersClear: '[data-trigger="filters-clear"]'
       barFilterLabel: '[data-behavior="bar-filter-label"]'
       barFilterLabelWrap: '[data-behavior="bar-filter-label-wrap"]'
     }
@@ -40,7 +39,7 @@ define (require) ->
       scores = crossfilter(@scores)
 
       # Make the bar chart
-      totalDimension = scores.dimension( (d) =>
+      totalDimension = scores.dimension((d) =>
         total = 0
         @rubric.get('fields').each((field) =>
           total = total + parseInt(d[field.get('id')])
@@ -96,7 +95,6 @@ define (require) ->
 
       # You gots to fade it out, before you fadez it in.
       _.each ['bar', 'pie'], (key) =>
-
         parts = _.clone(filterStringParts)
 
         if key == 'pie' && bcFilter?
@@ -116,13 +114,13 @@ define (require) ->
           filterString = "for all project submissions."
         finalString = "#{strings[key]} #{filterString}"
 
-        if @ui["#{key}FilterLabel"] && finalString  != @ui["#{key}FilterLabel"].html()
+        if @ui["#{key}FilterLabel"] && finalString != @ui["#{key}FilterLabel"].html()
           @ui["#{key}FilterLabelWrap"].fadeOut 200, () =>
             if partsCount > 0
               @ui.filtersClear.show()
             else
               @ui.filtersClear.hide()
-            @ui["#{key}FilterLabel"].html(finalString )
+            @ui["#{key}FilterLabel"].html(finalString)
             @ui["#{key}FilterLabelWrap"].fadeIn(200)
 
 
@@ -130,7 +128,7 @@ define (require) ->
       w = @$el.find('#bar-chart').parent().width()
       margin = 20
 
-      bc = dc.barChart("#bar-chart",'projectCharts')
+      bc = dc.barChart("#bar-chart", 'projectCharts')
       bc.width(w)
       bc.height(255)
       bc.transitionDuration(500)
@@ -144,12 +142,12 @@ define (require) ->
       bc.centerBar(true)
       bc.renderHorizontalGridLines(true)
       bc.renderVerticalGridLines(true)
-      bc.yAxis().ticks(6).tickFormat( (v) -> if Math.floor(v) != v then return else return v)
-      bc.xAxis().tickFormat( (v) -> "#{v}%" )
+      bc.yAxis().ticks(6).tickFormat((v) -> if Math.floor(v) != v then return else return v)
+      bc.xAxis().tickFormat((v) -> "#{v}%")
 
       bc.vocat_id = 'total'
       bc.on('filtered', (chart, filter) =>
-        dc.events.trigger( () =>
+        dc.events.trigger(() =>
           @updateFilters()
         )
       )
@@ -157,11 +155,11 @@ define (require) ->
       bc.renderlet (chart) ->
         svg = chart.select('svg')
         if $(svg[0]).find('.background-custom').length == 0
-          chart.select('svg').insert('rect','g').attr('width', w - (margin * 2)).attr('height', 225).attr('transform','translate(20,10)').attr('class', 'background-custom')
+          chart.select('svg').insert('rect', 'g').attr('width', w - (margin * 2)).attr('height', 225).attr('transform',
+            'translate(20,10)').attr('class', 'background-custom')
       bc
 
     createPieChart: (id, dimension, group) ->
-
       radius = 50
       dim = (radius * 2) + 7
 
@@ -186,6 +184,6 @@ define (require) ->
 
     serializeData: () ->
       {
-        fields: @rubric.get('fields').toJSON() if @rubric?
+      fields: @rubric.get('fields').toJSON() if @rubric?
       }
 

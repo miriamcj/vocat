@@ -1,3 +1,14 @@
+<%= javascript_include_tag 'vendor/modernizr/modernizr-2.6.2' %>
+<%= javascript_include_tag 'vendor/video_js/video' %>
+<%= javascript_include_tag 'vendor/video_js/vjs.youtube' %>
+<%= javascript_include_tag 'vendor/video_js/vjs.vimeo' %>
+
+<% if Rails.env.development? %>
+	<%= javascript_include_tag 'vendor/require/require', 'data-main' => '/assets/bootstrap.js?buster=0405160852' %>
+<% else %>
+	<%= javascript_include_tag 'vendor/require/require', 'data-main' => '/build/bootstrap.js?buster=0405160852' %>
+<% end %>
+
 <script type="text/javascript">
 	window.VocatSessionData = JSON.parse('<%= raw @session_data.to_json %>');
 	window.VocatUserRole = '<%= current_user_role %>';
@@ -6,22 +17,10 @@
 	window.VocatCourseId = <%= @selected_course.id %>;
 	window.VocatUserCourseRole = '<%= @selected_course.role(current_user) %>';
 	window.VocatUserCourseAdministrator = <%= current_user.can?(:administer, @selected_course) %>
-	<% else %>
-	window.VocatUserCourseRole = null;
+			<% else %>
+			window.VocatUserCourseRole = null;
 	<% end %>
 	window.VocatS3Bucket = '<%= @S3_bucket %>';
 	window.VocatAWSPublicKey = '<%= @aws_public_key %>';
 </script>
-
-
-<%= javascript_include_tag 'vendor/modernizr/modernizr-2.6.2' %>
-<%= javascript_include_tag 'vendor/video_js/video' %>
-<%= javascript_include_tag 'vendor/video_js/vjs.youtube' %>
-<%= javascript_include_tag 'vendor/video_js/vjs.vimeo' %>
-
-<% if Rails.env.development? %>
-  <%= javascript_include_tag 'vendor/require/require', 'data-main' => '/assets/bootstrap' %>
-<% else %>
-  <%= javascript_include_tag 'vendor/require/require', 'data-main' => '/build/bootstrap' %>
-<% end %>
 

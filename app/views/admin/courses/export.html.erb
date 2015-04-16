@@ -1,55 +1,57 @@
 <%= render :partial => 'heading', :locals => {course: @course} %>
 
-<% content_for :content	 do %>
+<% content_for :content do %>
 
-  <% body = capture do %>
-    <div class="table-wrapper">
-      <table class="table">
-        <thead>
-        <tr>
-          <th>Report Name</th>
-          <th>Description</th>
-          <th class="column-tight">Select Format</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <th>Roster</th>
-          <td>Download a list of all students in the course</td>
-          <td>
-            <div class="dropdown dropdown-button" data-behavior="dropdown">
-              <a class="dropdown--toggle" data-behavior="toggle" href="#">Select Format</a>
-              <div class="dropdown--options" data-behavior="dropdown-options">
-                <ul>
-                  <li><%= link_to 'CSV', course_roster_admin_reports_path(@course, :format => 'csv') %></li>
-                  <li><%= link_to 'JSON', course_roster_admin_reports_path(@course, :format => 'json') %></li>
-                  <li><%= link_to 'Text', course_roster_admin_reports_path(@course, :format => 'text') %></li>
-                </ul>
-              </div>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th>Scores</th>
-          <td>Includes total score for all course submissions</td>
-          <td>
-            <div class="dropdown dropdown-button" data-behavior="dropdown">
-              <a class="dropdown--toggle" data-behavior="toggle" href="#">Select Format</a>
-              <div class="dropdown--options" data-behavior="dropdown-options">
-                <ul>
-                  <li><%= link_to 'CSV', course_scores_admin_reports_path(@course, :format => 'csv') %></li>
-                  <li><%= link_to 'JSON', course_scores_admin_reports_path(@course, :format => 'json') %></li>
-                </ul>
-              </div>
-            </div>
+	<% body = capture do %>
+		<div class="table-wrapper">
+			<table class="table">
+				<thead>
+				<tr>
+					<th>Report Name</th>
+					<th>Description</th>
+					<th class="column-tight">Select Format</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<th>Roster</th>
+					<td>Download a list of all students in the course</td>
+					<td>
+						<div class="dropdown dropdown-button" data-behavior="dropdown">
+							<a class="dropdown--toggle" data-behavior="toggle" href="#">Select Format</a>
 
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-  <% end %>
-  <%= render :partial => 'shared/section', :locals => {:header => 'Export Course Data', :clear => true, :body => body} %>
+							<div class="dropdown--options" data-behavior="dropdown-options">
+								<ul>
+									<li><%= link_to 'CSV', course_roster_admin_reports_path(@course, :format => 'csv') %></li>
+									<li><%= link_to 'JSON', course_roster_admin_reports_path(@course, :format => 'json') %></li>
+									<li><%= link_to 'Text', course_roster_admin_reports_path(@course, :format => 'text') %></li>
+								</ul>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>Scores</th>
+					<td>Includes total score for all course submissions</td>
+					<td>
+						<div class="dropdown dropdown-button" data-behavior="dropdown">
+							<a class="dropdown--toggle" data-behavior="toggle" href="#">Select Format</a>
+
+							<div class="dropdown--options" data-behavior="dropdown-options">
+								<ul>
+									<li><%= link_to 'CSV', course_scores_admin_reports_path(@course, :format => 'csv') %></li>
+									<li><%= link_to 'JSON', course_scores_admin_reports_path(@course, :format => 'json') %></li>
+								</ul>
+							</div>
+						</div>
+
+					</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+	<% end %>
+	<%= render :partial => 'shared/section', :locals => {:header => 'Export Course Data', :clear => true, :body => body} %>
 
 
 

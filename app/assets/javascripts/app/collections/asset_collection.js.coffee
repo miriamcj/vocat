@@ -1,10 +1,7 @@
 define [
   'backbone',
   'models/asset'
-], (
-  Backbone, AssetModel
-) ->
-
+], (Backbone, AssetModel) ->
   class AssetCollection extends Backbone.Collection
 
     submissionId: null
@@ -78,7 +75,7 @@ define [
       @listenTo(@, 'add', (model) =>
         model.set('submission_id', @submissionId)
       )
-      @listenTo(@,'sort',(e) ->
+      @listenTo(@, 'sort', (e) ->
         @each((model, index) ->
           model.set('listing_order_position', index)
         )

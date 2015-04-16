@@ -1,5 +1,4 @@
 define ['backbone'], (Backbone) ->
-
   class Group extends Backbone.Model
 
     creatorType: 'Group'

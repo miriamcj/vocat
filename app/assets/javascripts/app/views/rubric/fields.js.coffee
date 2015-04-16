@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/rubric/fields')
   ItemView = require('views/rubric/fields_item')

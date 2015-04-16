@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/assets/annotator/progress_bar_annotation')
 
@@ -36,6 +35,9 @@ define (require) ->
 
     setupListeners: () ->
       @listenToOnce(@vent, 'announce:loaded', (data) =>
+        @setPosition(data.duration)
+      )
+      @listenTo(@vent, 'announce:status', (data) =>
         @setPosition(data.duration)
       )
 

@@ -100,10 +100,10 @@ class SubmissionFactory
     new_submissions = all_group_submissions - existing_group_submissions
     new_submissions.each do |ids|
       submission =Submission.create({
-           :project_id => ids[0],
-           :creator_id => ids[1],
-           :creator_type => 'Group'
-       })
+                                        :project_id => ids[0],
+                                        :creator_id => ids[1],
+                                        :creator_type => 'Group'
+                                    })
     end
   end
 
@@ -112,10 +112,10 @@ class SubmissionFactory
     new_submissions = all_user_submissions - existing_user_submissions
     new_submissions.each do |ids|
       submission = Submission.create({
-          :project_id => ids[0],
-          :creator_id => ids[1],
-          :creator_type => 'User'
-      })
+                                         :project_id => ids[0],
+                                         :creator_id => ids[1],
+                                         :creator_type => 'User'
+                                     })
     end
   end
 

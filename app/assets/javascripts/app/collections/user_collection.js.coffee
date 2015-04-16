@@ -1,5 +1,5 @@
 define ['backbone', 'models/user'], (Backbone, UserModel) ->
-  class UserCollection  extends Backbone.Collection
+  class UserCollection extends Backbone.Collection
 
     model: UserModel
 

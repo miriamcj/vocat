@@ -187,7 +187,6 @@ input%proto-button {
   }
 }
 
-
 %gentle-warning-button {
   @extend %proto-button;
   background: none;
@@ -222,7 +221,6 @@ input%proto-button {
     color: $secondaryLinkHoverColor;
   }
 }
-
 
 %icon-link {
   position: relative;

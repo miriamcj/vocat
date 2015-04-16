@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   Item = require('views/course_map/projects_item')
   EmptyView = require('views/course_map/projects_empty')
@@ -26,9 +25,9 @@ define (require) ->
 
     childViewOptions: () ->
       {
-        creatorType: @creatorType
-        vent: @vent
-        courseId: @options.courseId
+      creatorType: @creatorType
+      vent: @vent
+      courseId: @options.courseId
       }
 
     onChildviewActive: (view) ->

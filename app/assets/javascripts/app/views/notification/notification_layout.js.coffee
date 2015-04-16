@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/notification/notification_layout')
   NotificationMessage = require('views/notification/notification_message')
@@ -77,13 +76,13 @@ define (require) ->
       $regionEl = $('<div style="display: none;" class="notification-item" id="' + regionId + '"></div>')
       @$el.append($regionEl)
       region = @addRegion(regionId, {selector: "##{regionId}", regionClass: NotificationRegion})
-      @listenTo(@[regionId],'region:expired', () =>
+      @listenTo(@[regionId], 'region:expired', () =>
         @regionManager.removeRegion(regionId)
       )
-      @regionManager.listenTo(@[regionId],'transition:start', (height, timing) =>
+      @regionManager.listenTo(@[regionId], 'transition:start', (height, timing) =>
         @regionManager.trigger('transition:start', height, timing)
       )
-      @regionManager.listenTo(@[regionId],'transition:complete', (height, timing) =>
+      @regionManager.listenTo(@[regionId], 'transition:complete', (height, timing) =>
         @regionManager.trigger('transition:complete', height, timing)
       )
       regionId

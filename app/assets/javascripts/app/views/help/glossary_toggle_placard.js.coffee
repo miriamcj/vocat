@@ -1,9 +1,6 @@
 define [
   'backbone', 'views/help/placard', 'hbs!templates/help/glossary_toggle_placard'
-],(
-  Backbone, Placard, template
-) ->
-
+], (Backbone, Placard, template) ->
   class GlossaryTogglePlacard extends Placard
 
     events: {

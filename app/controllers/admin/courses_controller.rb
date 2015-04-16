@@ -12,11 +12,11 @@ class Admin::CoursesController < Admin::AdminController
   # GET /admin/courses
   def index
     search = {
-      :department => params[:department],
-      :semester => params[:semester],
-      :year => params[:year],
-      :section => params[:section],
-      :evaluator => params[:evaluator]
+        :department => params[:department],
+        :semester => params[:semester],
+        :year => params[:year],
+        :section => params[:section],
+        :evaluator => params[:evaluator]
     }
     @courses = Course.search(search).page params[:page]
     @page = params[:page] || 1

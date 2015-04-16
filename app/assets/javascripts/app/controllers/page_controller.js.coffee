@@ -1,9 +1,7 @@
 define [
-  'marionette', 'controllers/vocat_controller', 'views/page/help_test', 'models/cell', 'views/property_editor/long_text_input'
-], (
-  Marionette, VocatController, HelpTestView, CellModel, LongTextInputView
-) ->
-
+  'marionette', 'controllers/vocat_controller', 'views/page/help_test', 'models/cell',
+  'views/property_editor/long_text_input'
+], (Marionette, VocatController, HelpTestView, CellModel, LongTextInputView) ->
   class PageController extends VocatController
 
     initialize: () ->

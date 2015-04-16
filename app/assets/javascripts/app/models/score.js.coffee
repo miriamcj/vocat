@@ -1,5 +1,4 @@
 define ['backbone'], (Backbone) ->
-
   class ScoreModel extends Backbone.Model
 
     getTicks: () ->
@@ -15,7 +14,7 @@ define ['backbone'], (Backbone) ->
         factors = []
         i = 10
         until i <= 3
-          m = possible%i
+          m = possible % i
           factors.push i if m == 0 && (possible / i < 10)
           i--
         tickCount = _.max(factors)

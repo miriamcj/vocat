@@ -1,9 +1,6 @@
 define [
   'backbone', 'views/help/placard', 'hbs!templates/help/rubric_field_placard'
-],(
-  Backbone, Placard, template
-) ->
-
+], (Backbone, Placard, template) ->
   class RubricFieldPlacard extends Placard
 
     template: template
@@ -27,7 +24,7 @@ define [
     showScoreDescription: (score) ->
       showEl = null
       elements = @$el.find('[data-low]')
-      elements.each( (index, el) =>
+      elements.each((index, el) =>
         $el = $(el)
         data = $el.data()
         if parseInt(data.low) <= score && parseInt(data.high) >= score

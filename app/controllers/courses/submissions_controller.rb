@@ -45,5 +45,4 @@ class Courses::SubmissionsController < ApplicationController
   end
 
 
-
 end

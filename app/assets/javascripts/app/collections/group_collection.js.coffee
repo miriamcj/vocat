@@ -29,7 +29,7 @@ define ['backbone', 'models/group'], (Backbone, GroupModel) ->
       }
       url = "/api/v1/courses/#{@courseId}"
       response = Backbone.sync('update', @, url: url, contentType: 'application/json', data: JSON.stringify(data))
-      response.done( (models) =>
+      response.done((models) =>
         @.trigger('sync')
         @each (model) ->
           model.trigger('sync')

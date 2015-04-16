@@ -1,9 +1,6 @@
 define [
   'backbone',
-],(
-  Backbone
-) ->
-
+], (Backbone) ->
   class Placard extends Backbone.View
 
     orientations: ['nnw', 'nne', 'ene', 'ese', 'sse', 'ssw', 'wsw', 'wnw']
@@ -39,7 +36,6 @@ define [
       )
 
       @listenTo(Vocat.vent, 'help:show', (data) =>
-
         if @options.showTest? && typeof @options.showTest == 'function'
           showTestResults = @options.showTest()
         else
@@ -91,19 +87,19 @@ define [
         switch orientation
           when 'nnw'
             myOffsetLeft = (targetOffsetLeft - containerOffsetLeft)
-            myOffsetTop  += targetHeight
+            myOffsetTop += targetHeight
             if targetWidth < 65 then myOffsetLeft -= (65 - (targetWidth / 2))
           when 'nne'
             myOffsetLeft = (targetOffsetLeft - containerOffsetLeft) - myWidth + targetWidth - 45
-            myOffsetTop  += targetHeight
+            myOffsetTop += targetHeight
             if targetWidth < 65 then myOffsetLeft += (65 - (targetWidth / 2))
           when 'ene'
             myOffsetLeft = (targetOffsetLeft - containerOffsetLeft) - myWidth - 60
-            myOffsetTop  += 5
+            myOffsetTop += 5
             if targetHeight < 45 then myOffsetTop -= (45 - (targetHeight / 2) - 5)
           when 'ese'
             myOffsetLeft = (targetOffsetLeft - containerOffsetLeft) - myWidth - 62
-            myOffsetTop  -= myHeight - targetHeight - 5
+            myOffsetTop -= myHeight - targetHeight - 5
             if targetHeight < 45 then myOffsetTop += (45 - (targetHeight / 2) - 5)
           when 'sse'
             myOffsetLeft = (targetOffsetLeft - containerOffsetLeft) - myWidth + targetWidth - 45
@@ -115,11 +111,11 @@ define [
             if targetWidth < 65 then myOffsetLeft -= (65 - (targetWidth / 2))
           when 'wsw'
             myOffsetLeft = (targetOffsetLeft - containerOffsetLeft) + targetWidth
-            myOffsetTop  -= myHeight - targetHeight - 5
+            myOffsetTop -= myHeight - targetHeight - 5
             if targetHeight < 45 then myOffsetTop += (45 - (targetHeight / 2) - 5)
           when 'wnw'
             myOffsetLeft = (targetOffsetLeft - containerOffsetLeft) + targetWidth
-            myOffsetTop  += 5
+            myOffsetTop += 5
             if targetHeight < 45 then myOffsetTop -= (45 - (targetHeight / 2) - 5)
 
       newPosition = {

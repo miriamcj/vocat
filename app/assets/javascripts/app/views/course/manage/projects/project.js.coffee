@@ -1,5 +1,4 @@
 define (require) ->
-
   marionette = require('marionette')
   Pikaday = require('vendor/plugins/pikaday')
 

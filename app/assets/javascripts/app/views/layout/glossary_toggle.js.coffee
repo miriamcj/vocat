@@ -1,9 +1,6 @@
 define [
   'backbone'
-],(
-  Backbone
-) ->
-
+], (Backbone) ->
   class GlossaryToggleView extends Backbone.View
 
     initialize: () ->

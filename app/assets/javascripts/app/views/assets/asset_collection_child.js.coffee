@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/assets/asset_collection_child')
   ModalConfirmView = require('views/modal/modal_confirm')
@@ -44,7 +43,11 @@ define (require) ->
       if @model.get('attachment_state') == 'processed'
         @vent.trigger('asset:detail', {asset: @model.id})
       else
-        Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Media is still being processed and is not yet available. Check back soon or reload the page to see if processing has completed.'})
+        Vocat.vent.trigger('error:add', {
+          level: 'error',
+          clear: true,
+          msg: 'Media is still being processed and is not yet available. Check back soon or reload the page to see if processing has completed.'
+        })
 
     onMoveUp: () ->
       @model.collection.moveUp(@model)
@@ -63,7 +66,14 @@ define (require) ->
           , error: () =>
             Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Unable to update media title.'})
         })
-      Vocat.vent.trigger('modal:open', new ShortTextInputView({model: @model, vent: @vent, onSave: onSave, property: 'name', saveLabel: 'Update Title', inputLabel: 'What would you like to call this media?'}))
+      Vocat.vent.trigger('modal:open', new ShortTextInputView({
+        model: @model,
+        vent: @vent,
+        onSave: onSave,
+        property: 'name',
+        saveLabel: 'Update Title',
+        inputLabel: 'What would you like to call this media?'
+      }))
 
     onDestroyModel: () ->
       Vocat.vent.trigger('modal:open', new ModalConfirmView({

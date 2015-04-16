@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/assets/annotator/annotator_input')
   AnnotationModel = require('models/annotation')
@@ -53,7 +52,6 @@ define (require) ->
 
 
     handleMessageShow: (data) ->
-      console.log data,'d'
       msg = data.msg
       @ui.message.html(msg)
       @ui.message.addClass('open')
@@ -74,8 +72,13 @@ define (require) ->
           @inputPointer = response.playedSeconds;
           @updateButtonVisibility()
           @onSetCanvasModeSelect()
-          @vent.trigger('request:message:show', {msg: "Press post to save a new annotation at #{@secondsToString(@inputPointer)}."}) if @model.isNew()
-          @vent.trigger('request:message:show', {msg: "Edit the annotation and press update to save."}) if !@model.isNew()
+          if @asset.hasDuration()
+            newMessage = "Press post to save a new annotation at #{@secondsToString(@inputPointer)}."
+          else
+            newMessage = "Press post to save a new annotation."
+          @vent.trigger('request:message:show', {msg: newMessage}) if @model.isNew()
+          @vent.trigger('request:message:show',
+            {msg: "Edit the annotation and press update to save."}) if !@model.isNew()
           @vent.trigger('request:annotation:canvas:load', @model)
           @vent.trigger('announce:annotator:input:start', {})
         )
@@ -84,13 +87,15 @@ define (require) ->
     startAnnotationEdit: (annotation) ->
       @editLock = true
       force = annotation != @model
-      @vent.trigger('request:time:update', {silent: true, seconds: annotation.get('seconds_timecode'), callback: () =>
-        @editLock = false
-        @model = annotation
-        @model.activate()
-        @render()
-        @startAnnotationInput(force)
-      , callbackScope: @})
+      @vent.trigger('request:time:update', {
+        silent: true, seconds: annotation.get('seconds_timecode'), callback: () =>
+          @editLock = false
+          @model = annotation
+          @model.activate()
+          @render()
+          @startAnnotationInput(force)
+        , callbackScope: @
+      })
 
     secondsToString: (seconds) ->
       minutes = Math.floor(seconds / 60)
@@ -104,7 +109,7 @@ define (require) ->
     stopAnnotationInput: (forceModelReset = false) ->
       if @inputPointer != null & !@editLock
         @inputPointer = null
-#        @vent.trigger('request:unlock', {view: @})
+        #        @vent.trigger('request:unlock', {view: @})
         @vent.trigger('announce:annotator:input:stop', {})
         @vent.trigger('request:annotation:canvas:disable')
         @vent.trigger('request:resume')
@@ -171,7 +176,11 @@ define (require) ->
       @stopAnnotationInput(forceModelReset)
 
     handleLockAttempted: () ->
-      Vocat.vent.trigger('error:add', {level: 'info', clear: true, msg: 'Playback is locked because you are currently editing an annotation. To unlock playback, press the cancel button.'})
+      Vocat.vent.trigger('error:add', {
+        level: 'info',
+        clear: true,
+        msg: 'Playback is locked because you are currently editing an annotation. To unlock playback, press the cancel button.'
+      })
 
     takeFocus: () ->
       @ui.annotationInput.focus()

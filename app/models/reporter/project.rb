@@ -3,21 +3,21 @@ class Reporter::Project
   include Reporter
 
   def initialize (project, format)
-      @project = project
-      @format = format
-      @course = @project.course
-      @members = @course.users.pluck(:id, :last_name, :first_name).map { |m| [m[0], "#{m[1]}, #{m[2]}"] }.to_h
-      @rubric = @project.rubric
-      if @rubric
-        rubric_fields = @rubric.fields
-        @points_possible = @rubric.points_possible
-        @fields = rubric_fields.map do |field|
-          [field['id'], field['name']]
-        end.to_h
-      else
-        @points_possible = 0
-        @fields = Hash.new
-      end
+    @project = project
+    @format = format
+    @course = @project.course
+    @members = @course.users.pluck(:id, :last_name, :first_name).map { |m| [m[0], "#{m[1]}, #{m[2]}"] }.to_h
+    @rubric = @project.rubric
+    if @rubric
+      rubric_fields = @rubric.fields
+      @points_possible = @rubric.points_possible
+      @fields = rubric_fields.map do |field|
+        [field['id'], field['name']]
+      end.to_h
+    else
+      @points_possible = 0
+      @fields = Hash.new
+    end
   end
 
   def peer_scores()
@@ -62,7 +62,7 @@ class Reporter::Project
       next if cid == eid && exclude_self == true
       next if cid != eid && only_self == true
 
-      scores = evaluation[:scores].values.map { |s| s.to_f}
+      scores = evaluation[:scores].values.map { |s| s.to_f }
 
       # 1. Creator Name
       if evaluation[:creator_type] == 'Group'

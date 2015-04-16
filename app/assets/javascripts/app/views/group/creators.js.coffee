@@ -1,5 +1,4 @@
 define ['marionette', 'hbs!templates/group/creators', 'views/group/creators_item'], (Marionette, template, Item) ->
-
   class GroupCreatorsView extends Marionette.CompositeView
 
     tagName: 'table'

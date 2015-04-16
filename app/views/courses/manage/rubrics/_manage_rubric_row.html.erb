@@ -1,65 +1,66 @@
 <tr>
-  <th>
-    <% if @selected_course %>
-      <%= link_to rubric.name, course_manage_rubric_path(@selected_course, rubric), :class => 'table--heading' %>
-    <% else %>
-      <%= link_to rubric.name, rubric_path(rubric), :class => 'table--heading' %>
-    <% end %>
-  </th>
-  <td>
-    <% if show_projects == true %>
-    <%= rubric.projects.map(&:name).join(", ") %>
-    <% else %>
-    <%= rubric.description %>
-    <% end %>
-  </td>
-  <td>
-    <div class="dropdown dropdown-button" data-behavior="dropdown">
-      <a class="dropdown--toggle" data-behavior="toggle" href="#">Actions</a>
-      <div class="dropdown--options" data-behavior="dropdown-options">
-        <ul>
-          <% if @selected_course %>
-            <li>
-              <%= link_to 'View Rubric', course_manage_rubric_path(@selected_course, rubric)%>
-            </li>
-          <% else %>
-            <li>
-              <%= link_to 'View Rubric', rubric_path(rubric)%>
-            </li>
-          <% end %>
-          <% if can? :update, rubric %>
-            <% if @selected_course %>
-              <li>
-                <%= link_to 'Edit Rubric', edit_course_manage_rubric_path(@selected_course, rubric)%>
-              </li>
-            <% else %>
-              <li>
-                <%= link_to 'Edit Rubric', edit_rubric_path(rubric)%>
-              </li>
-            <% end %>
-          <% end %>
-          <% if @selected_course %>
-            <li>
-              <%= link_to 'Clone Rubric', clone_course_manage_rubric_path(@selected_course, rubric), method: :post %>
-            </li>
-          <% else %>
-            <li>
-              <%= link_to 'Clone Rubric', clone_rubric_path(rubric), method: :post%>
-            </li>
-          <% end %>
-          <% if can? :destroy, rubric %>
-            <% if @selected_course %>
-              <li>
-                <%= link_to 'Delete Rubric', course_manage_rubric_path(@selected_course, rubric), method: :delete, data: { confirm: 'Are you sure?' }%>
-              </li>
-            <% else %>
-              <li>
-                <%= link_to 'Delete Rubric', rubric_path(rubric), method: :delete, :data => { :modalconfirm => 'This action is not reversible. Are you sure you would like to proceed?'} %>
-              </li>
-            <% end %>
-          <% end %>
-        </ul>
-      </div>
-    </div>
-  </td>
+	<th>
+		<% if @selected_course %>
+			<%= link_to rubric.name, course_manage_rubric_path(@selected_course, rubric), :class => 'table--heading' %>
+		<% else %>
+			<%= link_to rubric.name, rubric_path(rubric), :class => 'table--heading' %>
+		<% end %>
+	</th>
+	<td>
+		<% if show_projects == true %>
+			<%= rubric.projects.map(&:name).join(", ") %>
+		<% else %>
+			<%= rubric.description %>
+		<% end %>
+	</td>
+	<td>
+		<div class="dropdown dropdown-button" data-behavior="dropdown">
+			<a class="dropdown--toggle" data-behavior="toggle" href="#">Actions</a>
+
+			<div class="dropdown--options" data-behavior="dropdown-options">
+				<ul>
+					<% if @selected_course %>
+						<li>
+							<%= link_to 'View Rubric', course_manage_rubric_path(@selected_course, rubric) %>
+						</li>
+					<% else %>
+						<li>
+							<%= link_to 'View Rubric', rubric_path(rubric) %>
+						</li>
+					<% end %>
+					<% if can? :update, rubric %>
+						<% if @selected_course %>
+							<li>
+								<%= link_to 'Edit Rubric', edit_course_manage_rubric_path(@selected_course, rubric) %>
+							</li>
+						<% else %>
+							<li>
+								<%= link_to 'Edit Rubric', edit_rubric_path(rubric) %>
+							</li>
+						<% end %>
+					<% end %>
+					<% if @selected_course %>
+						<li>
+							<%= link_to 'Clone Rubric', clone_course_manage_rubric_path(@selected_course, rubric), method: :post %>
+						</li>
+					<% else %>
+						<li>
+							<%= link_to 'Clone Rubric', clone_rubric_path(rubric), method: :post %>
+						</li>
+					<% end %>
+					<% if can? :destroy, rubric %>
+						<% if @selected_course %>
+							<li>
+								<%= link_to 'Delete Rubric', course_manage_rubric_path(@selected_course, rubric), method: :delete, data: {confirm: 'Are you sure?'} %>
+							</li>
+						<% else %>
+							<li>
+								<%= link_to 'Delete Rubric', rubric_path(rubric), method: :delete, :data => {:modalconfirm => 'This action is not reversible. Are you sure you would like to proceed?'} %>
+							</li>
+						<% end %>
+					<% end %>
+				</ul>
+			</div>
+		</div>
+	</td>
 </tr>

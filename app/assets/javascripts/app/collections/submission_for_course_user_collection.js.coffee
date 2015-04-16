@@ -1,5 +1,4 @@
 define (require) ->
-
   SubmissionCollection = require('collections/submission_collection')
 
   class SubmissionForCourseUserCollection extends SubmissionCollection

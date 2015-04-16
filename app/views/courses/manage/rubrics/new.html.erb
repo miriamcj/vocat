@@ -1,16 +1,16 @@
 <% content_for :heading do %>
-  <% if @selected_course %>
-    <%=  link_to 'Back to My Rubrics', course_manage_rubrics_path(@selected_course), :class => 'header-link back-link' %>
-  <% else %>
-    <%=  link_to 'My Rubrics', rubrics_path, :class => 'header-link back-link' %>
-  <% end %>
+	<% if @selected_course %>
+		<%= link_to 'Back to My Rubrics', course_manage_rubrics_path(@selected_course), :class => 'header-link back-link' %>
+	<% else %>
+		<%= link_to 'My Rubrics', rubrics_path, :class => 'header-link back-link' %>
+	<% end %>
 <% end %>
 
 <% content_for :content do %>
-  <% body = capture do %>
-    <div id="region-main"></div>
-  <% end %>
-  <%= render :partial => 'shared/section', :locals => {:header => nil, :clear => true, :body => body} %>
+	<% body = capture do %>
+		<div id="region-main"></div>
+	<% end %>
+	<%= render :partial => 'shared/section', :locals => {:header => nil, :clear => true, :body => body} %>
 <% end %>
 
 

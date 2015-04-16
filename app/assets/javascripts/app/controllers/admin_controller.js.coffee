@@ -1,9 +1,6 @@
 define [
   'marionette', 'controllers/vocat_controller', 'collections/enrollment_collection', 'views/admin/enrollment_layout'
-], (
-  Marionette, VocatController, EnrollmentCollection, EnrollmentLayout
-) ->
-
+], (Marionette, VocatController, EnrollmentCollection, EnrollmentLayout) ->
   class AdminController extends VocatController
 
     collections: {
@@ -14,7 +11,9 @@ define [
         Vocat.addRegions({
           evaluatorEnrollment: '[data-region="evaluator-enrollment"]'
         })
-        view = new EnrollmentLayout({collection: new EnrollmentCollection([], {scope: {course: courseId, role: 'evaluator'}})})
+        view = new EnrollmentLayout({
+          collection: new EnrollmentCollection([], {scope: {course: courseId, role: 'evaluator'}})
+        })
         Vocat.evaluatorEnrollment.show view
 
     assistantEnrollment: (courseId) ->
@@ -22,7 +21,9 @@ define [
         Vocat.addRegions({
           assistantEnrollment: '[data-region="assistant-enrollment"]'
         })
-        view = new EnrollmentLayout({collection: new EnrollmentCollection([], {scope: {course: courseId, role: 'assistant'}})})
+        view = new EnrollmentLayout({
+          collection: new EnrollmentCollection([], {scope: {course: courseId, role: 'assistant'}})
+        })
         Vocat.assistantEnrollment.show view
 
     creatorEnrollment: (courseId) ->
@@ -30,7 +31,9 @@ define [
         Vocat.addRegions({
           creatorEnrollment: '[data-region="creator-enrollment"]'
         })
-        view = new EnrollmentLayout({collection: new EnrollmentCollection([], {scope: {course: courseId, role: 'creator'}})})
+        view = new EnrollmentLayout({
+          collection: new EnrollmentCollection([], {scope: {course: courseId, role: 'creator'}})
+        })
         Vocat.creatorEnrollment.show view
 
     courseEnrollment: (userId) ->

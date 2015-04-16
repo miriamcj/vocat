@@ -1,7 +1,6 @@
 define [
   'marionette', 'hbs!templates/modal/modal_layout'
 ], (Marionette, template) ->
-
   class ModalLayout extends Marionette.LayoutView
 
     template: template

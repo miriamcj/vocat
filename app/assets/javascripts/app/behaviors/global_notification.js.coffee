@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
 
   class GlobalNotification extends Marionette.Behavior

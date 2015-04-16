@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   vjsAnnotations = require('vendor/video_js/vjs.annotations')
   vjsAnnotations = require('vendor/video_js/vjs.rewind')
@@ -74,21 +73,22 @@ define (require) ->
       result
 
     setupPlayerEvents: () ->
-      @player.on( 'timeupdate', ()=>
+      @player.on('timeupdate', ()=>
         @announceTimeUpdate()
       )
-      @player.on( 'loadedmetadata', () =>
+      @player.on('loadedmetadata', () =>
         @vent.trigger('announce:loaded', @getStatusHash())
         @handleStatusRequest()
       )
-      @player.on( 'progress', () =>
+      @player.on('progress', () =>
         @vent.trigger('announce:progress', {bufferedPercent: @getBufferedPercent()})
       )
-      @player.on( 'play', () =>
+      @player.on('play', () =>
         if @checkIfLocked() == true && _.isFunction(@player.pause)
           @player.pause()
           @player.currentTime(@lock.seconds)
         else
+          @handleStatusRequest()
           @vent.trigger('announce:play')
       )
 
@@ -137,10 +137,10 @@ define (require) ->
 
     getStatusHash: () ->
       {
-        bufferedPercent: @getBufferedPercent()
-        playedPercent: @getPlayedPercent()
-        playedSeconds: @player.currentTime()
-        duration: @player.duration()
+      bufferedPercent: @getBufferedPercent()
+      playedPercent: @getPlayedPercent()
+      playedSeconds: @player.currentTime()
+      duration: @player.duration()
       }
 
     handleStatusRequest: () ->
@@ -204,8 +204,13 @@ define (require) ->
         # on actual time update. It's user intent that we want to capture, not the time update
         # itself.
         @vent.trigger('request:annotator:input:stop')
-
         @player.currentTime(seconds)
+
+        # Youtube videos don't always announce the correct time after an update, so we delay and then announce again.
+        if @model.get('type') == 'Asset::Youtube'
+          setTimeout(() =>
+            @announceTimeUpdate()
+          ,500)
 
     getPlayerDimensions: () ->
       if @model.get('family') == 'audio'
@@ -272,7 +277,7 @@ define (require) ->
           }
         }
 
-      @player = videojs(domTarget, options, () -> )
+      @player = videojs(domTarget, options, () ->)
 
       @insertAnnotationsStageView() if @model.allowsVisibleAnnotation()
       @resizePlayer()

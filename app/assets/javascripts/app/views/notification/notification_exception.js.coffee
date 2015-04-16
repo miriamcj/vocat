@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/notification/notification_exception')
   GlobalNotification = require('behaviors/global_notification')
@@ -16,7 +15,7 @@ define (require) ->
 
     serializeData: () ->
       {
-        msg: @msg
+      msg: @msg
       }
 
     initialize: (options) ->

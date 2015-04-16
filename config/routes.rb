@@ -138,7 +138,7 @@ Vocat::Application.routes.draw do
 
   namespace :admin do
 
-    resources :videos do
+    resources :assets do
     end
 
     resources :courses do

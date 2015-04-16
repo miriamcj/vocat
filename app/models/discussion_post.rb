@@ -1,11 +1,11 @@
 class DiscussionPost < ActiveRecord::Base
 
-  belongs_to  :author, :class_name => 'User'
-  belongs_to  :parent, :class_name => 'DiscussionPost'
-  belongs_to  :submission, :counter_cache => true
-  has_many    :children, :class_name => 'DiscussionPost', :foreign_key => 'parent_id', :dependent => :destroy
+  belongs_to :author, :class_name => 'User'
+  belongs_to :parent, :class_name => 'DiscussionPost'
+  belongs_to :submission, :counter_cache => true
+  has_many :children, :class_name => 'DiscussionPost', :foreign_key => 'parent_id', :dependent => :destroy
 
-  delegate    :name, :to => :author, :prefix => true
+  delegate :name, :to => :author, :prefix => true
 
   scope :by_course, ->(course) {
     joins(:submission => :project).where(:projects => {:course_id => course.id}) unless course.nil?

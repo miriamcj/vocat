@@ -16,8 +16,8 @@
 						</div>
 					</li>
 					<% if current_user.course_groups(@selected_course).count > 0 && @selected_course.group_projects.count > 0 %>
-					<li class="c">
-						<div class="drawer-nav--column">
+						<li class="c">
+							<div class="drawer-nav--column">
 								<h4>Group Projects</h4>
 								<ul>
 									<% current_user.course_groups(@selected_course).each do |group| %>
@@ -28,11 +28,11 @@
 										<% end %>
 									<% end %>
 								</ul>
-						</div>
-					</li>
+							</div>
+						</li>
 					<% end %>
 				<% end %>
-			  	<% if current_user.can?(:show_submissions, @selected_course) %>
+				<% if current_user.can?(:show_submissions, @selected_course) %>
 					<li class="a">
 						<div class="drawer-nav--column">
 							<% if @selected_course.role(current_user) == :creator %>
@@ -41,107 +41,112 @@
 								<h4>Evaluate</h4>
 							<% end %>
 							<ul>
-								<li><%=  link_to 'Individual Work', course_user_evaluations_path(@selected_course) %></li>
-								<li><%=  link_to 'Group Work', course_group_evaluations_path(@selected_course) %></li>
+								<li><%= link_to 'Individual Work', course_user_evaluations_path(@selected_course) %></li>
+								<li><%= link_to 'Group Work', course_group_evaluations_path(@selected_course) %></li>
 							</ul>
 						</div>
 					</li>
 				<% end %>
 				<% if current_user.can?(:administer, @selected_course) %>
-				<li>
-					<div class="drawer-nav--column">
-						<h4>Setup Your Course</h4>
-						<ul>
-							<li><%=  link_to 'Projects', course_manage_projects_path(@selected_course) %></li>
-							<li><%=  link_to 'Groups', course_manage_groups_path(@selected_course) %></li>
-							<li><%=  link_to 'Enrollment', course_manage_enrollment_path(@selected_course) %></li>
-							<li><%=  link_to 'Settings', course_manage_path(@selected_course) %></li>
-						</ul>
-					</div>
-				</li>
+					<li>
+						<div class="drawer-nav--column">
+							<h4>Setup Your Course</h4>
+							<ul>
+								<li><%= link_to 'Projects', course_manage_projects_path(@selected_course) %></li>
+								<li><%= link_to 'Groups', course_manage_groups_path(@selected_course) %></li>
+								<li><%= link_to 'Enrollment', course_manage_enrollment_path(@selected_course) %></li>
+								<li><%= link_to 'Settings', course_manage_path(@selected_course) %></li>
+							</ul>
+						</div>
+					</li>
 				<% end %>
 			<% end %>
 			<% if current_user %>
-			<li>
-				<div  class="drawer-nav--column drawer-nav--course-column" >
-					<h4>Your Courses</h4>
-					<div class="drawer-course-list">
-						<ul data-behavior="drawer-courses">
-							<% if current_user.courses_count == 0 %>
-								<li>You are not currently enrolled any VOCAT courses.</li>
+				<li>
+					<div class="drawer-nav--column drawer-nav--course-column">
+						<h4>Your Courses</h4>
+
+						<div class="drawer-course-list">
+							<ul data-behavior="drawer-courses">
+								<% if current_user.courses_count == 0 %>
+									<li>You are not currently enrolled any VOCAT courses.</li>
 
 
-							<% elsif current_user.courses_count < 5 %>
-								<% current_user.sorted_courses().each do |course| %>
-								<li>
-									<a href="<%= user_course_url(current_user, course) %>">
-										<%= "#{course.department} #{course.number}" %><br />
-										<%= "#{course.name}" %><br />
-										<small><%= "#{course.semester} #{course.year}, Section #{course.section}" %></small>
-									</a>
-								</li>
+								<% elsif current_user.courses_count < 5 %>
+									<% current_user.sorted_courses().each do |course| %>
+										<li>
+											<a href="<%= user_course_url(current_user, course) %>">
+												<%= "#{course.department} #{course.number}" %><br/>
+												<%= "#{course.name}" %><br/>
+												<small><%= "#{course.semester} #{course.year}, Section #{course.section}" %></small>
+											</a>
+										</li>
+									<% end %>
+								<% else %>
+									<li style="margin-bottom: 3em; ">
+										<select style="width: 100%;" data-class="course-select" data-behavior="chosen">
+											<% current_user.grouped_sorted_courses().each do |semester, courses| %>
+												<optgroup label="<%= semester %>">
+													<% courses.each do |course| %>
+														<option
+														<% if course == @selected_course %>selected="selected"
+														<% end %>value="<%= user_course_url(current_user, course) %>">
+															<%= "#{course.department} #{course.number} Section #{course.section}" %>
+														</option>
+													<% end %>
+												</optgroup>
+											<% end %>
+										</select>
+										<small style="display: block; margin-top: .5em; line-height: 1.25em;">
+											You are associated
+											with <%= pluralize current_user.courses_count, 'VOCAT course', 'VOCAT courses' %>
+											.
+										</small>
+									</li>
 								<% end %>
-							<% else %>
-								<li style="margin-bottom: 3em; ">
-									<select style="width: 100%;" data-class="course-select" data-behavior="chosen">
-										<% current_user.grouped_sorted_courses().each do |semester, courses| %>
-											<optgroup label="<%= semester %>">
-												<% courses.each do |course| %>
-													<option <% if course == @selected_course %>selected="selected"<% end %>value="<%= user_course_url(current_user, course) %>">
-														<%= "#{course.department} #{course.number} Section #{course.section}" %>
-													</option>
-												<% end %>
-											</optgroup>
-										<% end %>
-									</select>
-									<small style="display: block; margin-top: .5em; line-height: 1.25em;">
-										You are associated with <%= pluralize current_user.courses_count, 'VOCAT course', 'VOCAT courses' %>.
-									</small>
-								</li>
-							<% end %>
-						</ul>
+							</ul>
+						</div>
 					</div>
-				</div>
-			</li>
+				</li>
 			<% end %>
 
 			<% if current_user.role? :administrator %>
-			<li>
-				<div class="drawer-nav--column">
-					<h4>Administer VOCAT</h4>
-					<ul>
-						<li><%= link_to 'Courses', admin_courses_path %></li>
-						<li><%= link_to 'Course Requests', admin_course_requests_path %></li>
-						<li><%= link_to 'Users', admin_users_path %></li>
-						<li><%= link_to 'Videos', admin_videos_path %></li>
-					</ul>
-				</div>
-			</li>
+				<li>
+					<div class="drawer-nav--column">
+						<h4>Administer VOCAT</h4>
+						<ul>
+							<li><%= link_to 'Courses', admin_courses_path %></li>
+							<li><%= link_to 'Course Requests', admin_course_requests_path %></li>
+							<li><%= link_to 'Users', admin_users_path %></li>
+							<li><%= link_to 'Assets', admin_assets_path %></li>
+						</ul>
+					</div>
+				</li>
 			<% end %>
 
 			<% if current_user.can?(:create, Rubric) %>
-			<li>
-				<div class="drawer-nav--column">
-					<h4>Rubrics</h4>
-					<ul>
-						<% if @app_section == 'course' %>
-							<li><%=  link_to 'Create a New Rubric', new_course_manage_rubric_path(@selected_course) %></li>
-						<% else %>
-							<li><%=  link_to 'Create a New Rubric', new_rubric_path %></li>
-						<% end %>
+				<li>
+					<div class="drawer-nav--column">
+						<h4>Rubrics</h4>
+						<ul>
+							<% if @app_section == 'course' %>
+								<li><%= link_to 'Create a New Rubric', new_course_manage_rubric_path(@selected_course) %></li>
+							<% else %>
+								<li><%= link_to 'Create a New Rubric', new_rubric_path %></li>
+							<% end %>
 
-						<% if @app_section == 'course' %>
-							<li><%=  link_to 'My Rubrics', course_manage_rubrics_path(@selected_course) %></li>
-						<% else %>
-							<li><%=  link_to 'My Rubrics', rubrics_path %></li>
-						<% end %>
+							<% if @app_section == 'course' %>
+								<li><%= link_to 'My Rubrics', course_manage_rubrics_path(@selected_course) %></li>
+							<% else %>
+								<li><%= link_to 'My Rubrics', rubrics_path %></li>
+							<% end %>
 
-						<% if current_user.role? :administrator %>
-							<li><%= link_to 'System Rubrics', admin_rubrics_path %></li>
-						<% end %>
-					</ul>
-				</div>
-			</li>
+							<% if current_user.role? :administrator %>
+								<li><%= link_to 'System Rubrics', admin_rubrics_path %></li>
+							<% end %>
+						</ul>
+					</div>
+				</li>
 			<% end %>
 		</ul>
 	</div>

@@ -6,12 +6,12 @@ class UserMailer < ActionMailer::Base
 
     # Generate a reset password token
     raw, enc = Devise.token_generator.generate(@user.class, :reset_password_token)
-    @user.reset_password_token   = enc
+    @user.reset_password_token = enc
     @user.reset_password_sent_at = Time.now.utc
     @user.save(:validate => false)
     @support_email = Rails.application.config.vocat.email.notification.support_email
     @token = raw
-
+    @host = Rails.application.config.vocat.email.url_domain
     mail(to: @user.email, subject: 'Welcome to Vocat')
   end
 

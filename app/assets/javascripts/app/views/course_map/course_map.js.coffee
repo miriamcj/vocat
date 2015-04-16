@@ -1,5 +1,4 @@
 define (require) ->
-
   template = require('hbs!templates/course_map/course_map_layout')
   Backbone = require('backbone')
   CollectionProxy = require('collections/collection_proxy')
@@ -32,8 +31,8 @@ define (require) ->
     }
 
     triggers: {
-      'click [data-behavior="matrix-slider-left"]':   'slider:left'
-      'click [data-behavior="matrix-slider-right"]':  'slider:right'
+      'click [data-behavior="matrix-slider-left"]': 'slider:left'
+      'click [data-behavior="matrix-slider-right"]': 'slider:right'
       'change @ui.viewToggle': {
         event: 'view:toggle'
         preventDefault: false
@@ -118,9 +117,20 @@ define (require) ->
         @showChildViews()
 
     createChildViews: () ->
-      @creatorsView = new CourseMapCreators({collection: @creatorCollection, courseId: @courseId, vent: @, creatorType: @creatorType})
+      @creatorsView = new CourseMapCreators({
+        collection: @creatorCollection,
+        courseId: @courseId,
+        vent: @,
+        creatorType: @creatorType
+      })
       @projectsView = new CourseMapProjects({collection: @projectCollection, courseId: @courseId, vent: @})
-      @matrixView = new CourseMapMatrix({collection: @creatorCollection, collections: {project: @projectCollection, submission: @collections.submission}, courseId: @courseId, creatorType: @creatorType, vent: @})
+      @matrixView = new CourseMapMatrix({
+        collection: @creatorCollection,
+        collections: {project: @projectCollection, submission: @collections.submission},
+        courseId: @courseId,
+        creatorType: @creatorType,
+        vent: @
+      })
 
     initialize: (options) ->
       @collections = Marionette.getOption(@, 'collections')
@@ -140,7 +150,11 @@ define (require) ->
         dataType: 'json'
         data: {}
         success: (data, textStatus, jqXHR) =>
-          Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 4000, msg: "Your evaluations for #{project.get('name')} submissions have been published"})
+          Vocat.vent.trigger('error:add', {
+            level: 'notice',
+            lifetime: 4000,
+            msg: "Your evaluations for #{project.get('name')} submissions have been published"
+          })
           submissions = @collections.submission.where({project_id: project.id})
           _.each(submissions, (submission) ->
             submission.set('current_user_published', true)
@@ -156,7 +170,11 @@ define (require) ->
         dataType: 'json'
         data: {}
         success: (data, textStatus, jqXHR) =>
-          Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 4000, msg: "Your evaluations for #{project.get('name')} submissions have been unpublished"})
+          Vocat.vent.trigger('error:add', {
+            level: 'notice',
+            lifetime: 4000,
+            msg: "Your evaluations for #{project.get('name')} submissions have been unpublished"
+          })
           submissions = @collections.submission.where({project_id: project.id})
           _.each(submissions, (submission) ->
             submission.set('current_user_published', false)

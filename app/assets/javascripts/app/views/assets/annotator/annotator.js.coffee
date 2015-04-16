@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/assets/annotator/annotator')
   ProgressBarView = require('views/assets/annotator/progress_bar')
@@ -21,8 +20,8 @@ define (require) ->
     }
 
     setupListeners: () ->
-      @listenTo(@vent,'request:annotator:save', @saveAnnotation, @)
-      @listenTo(@collection,'destroy', @handleAnnotationDestruction, @)
+      @listenTo(@vent, 'request:annotator:save', @saveAnnotation, @)
+      @listenTo(@collection, 'destroy', @handleAnnotationDestruction, @)
 
     saveAnnotation: (annotation, properties) ->
       @listenToOnce(@vent, 'announce:status', (response) =>
@@ -64,5 +63,10 @@ define (require) ->
         @progressBar.show(new ProgressBarView({model: @model, vent: @vent, collection: @collection}))
       else
         $(@progressBar.el).hide()
-      @annotatorInputView = new AnnotationInputView({asset: @model, model: new AnnotationModel({asset_id: @model.id}), vent: @vent, collection: @collection})
+      @annotatorInputView = new AnnotationInputView({
+        asset: @model,
+        model: new AnnotationModel({asset_id: @model.id}),
+        vent: @vent,
+        collection: @collection
+      })
       @annotationInput.show(@annotatorInputView)

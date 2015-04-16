@@ -1,13 +1,13 @@
 <% if course.recent_submissions(course.projects.count).length > 0 %>
-  <ul class="large-list unstyled-list">
-    <% course.recent_submissions(course.projects.count).each do |submission| %>
-      <li>
-        <% if submission.creator_type == 'Group' %>
-          <%= link_to "#{submission.creator_name} - #{submission.project_name}", course_group_evaluations_path(course_id: course, creator_id: submission.creator, project_id: submission.project) %>
-        <% else %>
-          <%= link_to "#{submission.creator_name} - #{submission.project_name}", course_user_evaluations_path(course_id: course, creator_id: submission.creator, project_id: submission.project) %>
-        <% end %>
-      </li>
-    <% end %>
-  </ul>
+	<ul class="large-list unstyled-list">
+		<% course.recent_submissions(course.projects.count).each do |submission| %>
+			<li>
+				<% if submission.creator_type == 'Group' %>
+					<%= link_to "#{submission.creator_name} - #{submission.project_name}", course_group_evaluations_path(course_id: course, creator_id: submission.creator, project_id: submission.project) %>
+				<% else %>
+					<%= link_to "#{submission.creator_name} - #{submission.project_name}", course_user_evaluations_path(course_id: course, creator_id: submission.creator, project_id: submission.project) %>
+				<% end %>
+			</li>
+		<% end %>
+	</ul>
 <% end %>

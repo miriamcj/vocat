@@ -1,5 +1,4 @@
 define ['backbone'], (Backbone) ->
-
   class DiscussionPostModel extends Backbone.Model
 
     urlRoot: '/api/v1/discussion_posts'
@@ -11,7 +10,6 @@ define ['backbone'], (Backbone) ->
         false
 
     validate: (attrs, options) ->
-
       errors = {}
 
       if !attrs.body || attrs.body.length < 1

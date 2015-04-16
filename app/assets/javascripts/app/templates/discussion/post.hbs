@@ -1,6 +1,6 @@
 <div class="discussion-list--item">
 	<div class="discussion-list--avatar ">
-		<img src="{{gravatar}}" alt="" />
+		<img src="{{gravatar}}" alt=""/>
 	</div>
 	<div class="discussion-list--body">
 		<header class="discussion-list--header">
@@ -17,7 +17,8 @@
 
 				<li>
 					{{#if parent_id}}
-						<a class="reply-link primary-link" data-behavior="toggle-reply" data-post="{{parent_id}}" href="#">Reply</a>
+						<a class="reply-link primary-link" data-behavior="toggle-reply" data-post="{{parent_id}}"
+						   href="#">Reply</a>
 					{{else}}
 						<a class="reply-link primary-link" data-behavior="toggle-reply" data-post="{{id}}" href="#">Reply</a>
 					{{/if}}
@@ -30,14 +31,16 @@
 				{{/if}}
 			</ul>
 
-			<div class="alert alert-warning" data-behavior="delete-confirm" style="display: none;" >
+			<div class="alert alert-warning" data-behavior="delete-confirm" style="display: none;">
 				<aside class="alert--label" data-behavior="alert-label"></aside>
 				<p>
 					Are you sure?
 				</p>
+
 				<p>
 					<a data-behavior="delete" data-post="{{id}}" href="#">Yes. Delete this post. </a>
 				</p>
+
 				<p>
 					<a class="alert--close" data-behavior="toggle-delete-confirm" href="#">On second thought, no.</a>
 				</p>
@@ -51,7 +54,8 @@
 		</div>
 
 		<div class="rule"></div>
-	</div> <!-- /discussion-list--body -->
+	</div>
+	<!-- /discussion-list--body -->
 </div> <!-- /discussion-list--item -->
 
 

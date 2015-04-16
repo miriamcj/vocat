@@ -1,39 +1,39 @@
 class Submission < ActiveRecord::Base
 
-  has_one     :course, :through => :project
+  has_one :course, :through => :project
 
-  has_many    :assets, :dependent => :destroy
-  has_many    :evaluations, :dependent => :destroy
-  has_many    :discussion_posts, :dependent => :destroy
-  belongs_to  :project
-  belongs_to  :creator, :polymorphic => true
-  belongs_to  :user, -> { where "submissions.creator_type = 'User'" }, foreign_key: 'creator_id'
-  belongs_to  :group, -> { where "submissions.creator_type = 'Group'" }, foreign_key: 'creator_id'
+  has_many :assets, :dependent => :destroy
+  has_many :evaluations, :dependent => :destroy
+  has_many :discussion_posts, :dependent => :destroy
+  belongs_to :project
+  belongs_to :creator, :polymorphic => true
+  belongs_to :user, -> { where "submissions.creator_type = 'User'" }, foreign_key: 'creator_id'
+  belongs_to :group, -> { where "submissions.creator_type = 'Group'" }, foreign_key: 'creator_id'
 
   validates_presence_of :project_id, :creator_id, :creator_type
 
-  delegate :department,              :to => :course, :prefix => true
-  delegate :number,                  :to => :course, :prefix => true
-  delegate :name,                    :to => :course, :prefix => true
-  delegate :section,                 :to => :course, :prefix => true
-  delegate :name_long,               :to => :course, :prefix => true
-  delegate :allows_peer_review?,     :to => :project, :prefix => true
+  delegate :department, :to => :course, :prefix => true
+  delegate :number, :to => :course, :prefix => true
+  delegate :name, :to => :course, :prefix => true
+  delegate :section, :to => :course, :prefix => true
+  delegate :name_long, :to => :course, :prefix => true
+  delegate :allows_peer_review?, :to => :project, :prefix => true
   delegate :allows_self_evaluation?, :to => :project, :prefix => true
-  delegate :id,                      :to => :course, :prefix => true
-  delegate :name,                    :to => :project, :prefix => true
-  delegate :rubric,                  :to => :project
-  delegate :name,                    :to => :creator, :prefix => true
+  delegate :id, :to => :course, :prefix => true
+  delegate :name, :to => :project, :prefix => true
+  delegate :rubric, :to => :project
+  delegate :name, :to => :creator, :prefix => true
 
   default_scope { includes(:assets, :evaluations, :project) }
 
   scope :with_assets, -> { joins(:assets) }
   scope :for_courses, ->(course) { joins(:project)
-      .where('projects.course_id' => course)
-      .where('(creator_id in (?) AND creator_type = \'User\') OR (creator_id in (?) AND creator_type = \'Group\')', course.creators.pluck(:id), course.groups.ids)
+                                       .where('projects.course_id' => course)
+                                       .where('(creator_id in (?) AND creator_type = \'User\') OR (creator_id in (?) AND creator_type = \'Group\')', course.creators.pluck(:id), course.groups.ids)
   }
 
   def active_model_serializer
-	  SubmissionSerializer
+    SubmissionSerializer
   end
 
   def thumb
@@ -59,7 +59,7 @@ class Submission < ActiveRecord::Base
   end
 
   def peer_evaluations
-		self.evaluations.published.created_by(self.course.creators.to_a)
+    self.evaluations.published.created_by(self.course.creators.to_a)
   end
 
   def peer_score_total
@@ -83,7 +83,7 @@ class Submission < ActiveRecord::Base
 
   def instructor_score_total
     evaluations = self.instructor_evaluations
-	  score_total(evaluations)
+    score_total(evaluations)
   end
 
   def instructor_evaluation_count
@@ -178,11 +178,11 @@ class Submission < ActiveRecord::Base
   end
 
   def score_percentage(total_score, total_count)
-	  if total_score >= 0 && total_count > 0
-		  (total_score.to_f / total_count).to_i()
-	  else
-		  0
-	  end
+    if total_score >= 0 && total_count > 0
+      (total_score.to_f / total_count).to_i()
+    else
+      0
+    end
   end
 
 

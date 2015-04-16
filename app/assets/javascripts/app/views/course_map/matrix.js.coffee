@@ -1,5 +1,4 @@
 define ['marionette', 'views/course_map/row'], (Marionette, Row) ->
-
   class MatrixView extends Marionette.CollectionView
 
     tagName: 'tbody'
@@ -7,11 +6,11 @@ define ['marionette', 'views/course_map/row'], (Marionette, Row) ->
 
     childViewOptions: () ->
       {
-        creatorType: @creatorType,
-        collection: @collections.project,
-        collections: @collections,
-        courseId: @courseId,
-        vent: @vent
+      creatorType: @creatorType,
+      collection: @collections.project,
+      collections: @collections,
+      courseId: @courseId,
+      vent: @vent
       }
 
     setupListeners: () ->

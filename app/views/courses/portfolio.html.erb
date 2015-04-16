@@ -1,40 +1,40 @@
 <% content_for :heading do %>
-  <%= link_to 'Back to Dashboard', dashboard_creator_path, :class => "header-link back-link" %>
+	<%= link_to 'Back to Dashboard', dashboard_creator_path, :class => "header-link back-link" %>
 <% end %>
 
 <% content_for :content do %>
 
-  <% unless @course.message.blank? %>
-  <div class="page-message">
-    <div class="header">
-      Course Message
-    </div>
-    <div class="body markdown-content">
-      <%= raw @course.rendered_message %>
-    </div>
-  </div>
-  <% end %>
+	<% unless @course.message.blank? %>
+		<div class="page-message">
+			<div class="header">
+				Course Message
+			</div>
+			<div class="body markdown-content">
+				<%= raw @course.rendered_message %>
+			</div>
+		</div>
+	<% end %>
 
-  <% body = capture do %>
-    <div class="portfolio">
+	<% body = capture do %>
+		<div class="portfolio">
 
-      <% if @course.submissions_for_creator(current_user).count > 0 %>
-        <% @course.submissions_for_creator(current_user).each_with_index do |submission, index| %>
-          <%= render 'shared/submission_summary', :submission => submission %>
-        <% end %>
-      <% else %>
-        <div class="alert alert-notice">
-          Your instructor has not created any projects for this course. Please check back soon.
-        </div>
-      <% end %>
-    </div>
-  <% end %>
-  <%= render :partial => 'shared/section',
-             :locals => {
-                 :header => "Your #{@course.department}#{@course.number} Submissions",
-                 :body => body
-             }
-  %>
+			<% if @course.submissions_for_creator(current_user).count > 0 %>
+				<% @course.submissions_for_creator(current_user).each_with_index do |submission, index| %>
+					<%= render 'shared/submission_summary', :submission => submission %>
+				<% end %>
+			<% else %>
+				<div class="alert alert-notice">
+					Your instructor has not created any projects for this course. Please check back soon.
+				</div>
+			<% end %>
+		</div>
+	<% end %>
+	<%= render :partial => 'shared/section',
+			   :locals => {
+					   :header => "Your #{@course.department}#{@course.number} Submissions",
+					   :body => body
+			   }
+	%>
 
 
 

@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
 
   class NotificationRegion extends Marionette.Region

@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/rubric/cell')
   LongTextInputView = require('views/property_editor/long_text_input')
@@ -12,7 +11,7 @@ define (require) ->
     className: 'wrap-cell rubric-cell'
 
     onShow: () ->
-      @$el.on( 'click', (event) =>
+      @$el.on('click', (event) =>
         @triggerMethod('open:modal')
       )
 
@@ -43,4 +42,11 @@ define (require) ->
 
     onOpenModal: () ->
       label = "Description: #{@model.rangeModel.get('name')} #{@model.fieldModel.get('name')}"
-      @vent.trigger('modal:open', new LongTextInputView({model: @model, inputLabel: label, saveLabel: 'Update Description', saveClasses: 'update-button', property: 'description', vent: @vent}))
+      @vent.trigger('modal:open', new LongTextInputView({
+        model: @model,
+        inputLabel: label,
+        saveLabel: 'Update Description',
+        saveClasses: 'update-button',
+        property: 'description',
+        vent: @vent
+      }))

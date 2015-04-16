@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/group/groups_item')
   ModalConfirmView = require('views/modal/modal_confirm')
@@ -25,15 +24,23 @@ define (require) ->
       onSave = () =>
         # Tell the parent layout that its dirty and needs to save.
         @vent.triggerMethod('dirty')
-      Vocat.vent.trigger('modal:open', new ShortTextInputView({model: @model, vent: @vent, onSave: onSave, property: 'name', saveLabel: 'Update group name', inputLabel: 'What would you like to call this group?'}))
+      Vocat.vent.trigger('modal:open', new ShortTextInputView({
+        model: @model,
+        vent: @vent,
+        onSave: onSave,
+        property: 'name',
+        saveLabel: 'Update group name',
+        inputLabel: 'What would you like to call this group?'
+      }))
 
 
     onConfirmDestroy: () ->
       @model.destroy({
         success: () =>
           Vocat.vent.trigger('error:clear')
-          Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '3000',  msg: 'The group was successfully deleted.'})
-      , error: () =>
+          Vocat.vent.trigger('error:add',
+            {level: 'notice', lifetime: '3000', msg: 'The group was successfully deleted.'})
+        , error: () =>
           Vocat.vent.trigger('error:clear')
           Vocat.vent.trigger('error:add', {level: 'notice', msg: xhr.responseJSON.errors})
       })

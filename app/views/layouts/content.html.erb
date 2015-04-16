@@ -1,20 +1,20 @@
 <% content_for :main do %>
-  <%= render 'layouts/header' %>
-  <%= render 'layouts/messages_backbone' %>
+	<%= render 'layouts/header' %>
+	<%= render 'layouts/messages_backbone' %>
 
-  <div class="container">
-    <div class="page-content">
-      <% if content_for?(:heading) || content_for?(:heading_links) %>
-      <div class="page-content--heading">
-        <div class="page-content--heading-buttons"><%= yield :heading_links %></div>
-        <%= yield :heading %>
-      </div>
-      <% end %>
-      <%= yield :content %>
-    </div>
-  </div>
+	<div class="container">
+		<div class="page-content">
+			<% if content_for?(:heading) || content_for?(:heading_links) %>
+				<div class="page-content--heading">
+					<div class="page-content--heading-buttons"><%= yield :heading_links %></div>
+					<%= yield :heading %>
+				</div>
+			<% end %>
+			<%= yield :content %>
+		</div>
+	</div>
 
-  <%= render 'layouts/footer' %>
+	<%= render 'layouts/footer' %>
 
 <% end %>
 

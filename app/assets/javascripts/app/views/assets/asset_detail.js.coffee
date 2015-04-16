@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/assets/asset_detail')
   VideoPlayerView = require('views/assets/player/video_player')
@@ -97,4 +96,3 @@ define (require) ->
       @vent = new Backbone.Wreqr.EventAggregator()
       @listenTo(@vent, 'request:message:show', @handleMessageShow, @)
       @listenTo(@vent, 'request:message:hide', @handleMessageHide, @)
-

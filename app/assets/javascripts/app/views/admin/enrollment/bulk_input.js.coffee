@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   require('jquery_ui')
   require('vendor/plugins/ajax_chosen')
@@ -44,7 +43,8 @@ define (require) ->
       })
 
     showInviteMustConfirm: (contacts) ->
-      Vocat.vent.trigger('notification:show', new ConfirmInvite({collection: @collection, contacts: contacts, vent: @vent}))
+      Vocat.vent.trigger('notification:show',
+        new ConfirmInvite({collection: @collection, contacts: contacts, vent: @vent}))
 
     handleSubmitSuccess: (response) ->
       @ui.submit.removeClass('loading')

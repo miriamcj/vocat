@@ -1,5 +1,4 @@
 define (require) ->
-
   Bacbone = require('backbone')
   ScoreCollection = require('collections/score_collection')
 
@@ -13,7 +12,7 @@ define (require) ->
       @_snapshotAttributes = _.clone @attributes
       @_snapshotAttributes.score_details = {}
       _.each(@attributes.score_details, (element, index) =>
-         @_snapshotAttributes.score_details[index] = _.clone(element)
+        @_snapshotAttributes.score_details[index] = _.clone(element)
       )
       @_snapshotAttributes.scores = _.clone @attributes.scores
 
@@ -54,7 +53,7 @@ define (require) ->
       @scoreCollection = new ScoreCollection()
       @updateScoresCollection()
 
-      @listenTo(@,'sync', (e) =>
+      @listenTo(@, 'sync', (e) =>
         @updateScoresCollection()
         @takeSnapshot()
       )

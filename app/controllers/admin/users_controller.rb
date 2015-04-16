@@ -7,9 +7,9 @@ class Admin::UsersController < Admin::AdminController
   # GET /admin/users
   def index
     search = {
-      :last_name => params[:last_name],
-      :email => params[:email],
-      :role => params[:role]
+        :last_name => params[:last_name],
+        :email => params[:email],
+        :role => params[:role]
     }
     @users = User.search(search).page(params[:page])
   end
@@ -70,8 +70,6 @@ class Admin::UsersController < Admin::AdminController
       render :edit_password
     end
   end
-
-
 
 
   # GET /admin/users/1/courses

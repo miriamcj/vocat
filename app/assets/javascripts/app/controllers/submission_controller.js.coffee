@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   VocatController = require('controllers/vocat_controller')
   CreatorDetailView = require('views/course_map/detail_creator')
@@ -46,9 +45,14 @@ define (require) ->
       userModel = @collections.user.first()
       projectModel = @collections.project.first()
       collection = new CourseUserSubmissionCollection()
-      deferred = @deferredCollectionFetching(collection, {course: course, user: creator, project: project}, 'Loading submission...')
+      deferred = @deferredCollectionFetching(collection, {course: course, user: creator, project: project},
+        'Loading submission...')
       $.when(deferred).then(() =>
-        submissionModel = collection.findWhere({creator_type: 'User', creator_id: parseInt(creator), project_id: parseInt(project)})
+        submissionModel = collection.findWhere({
+          creator_type: 'User',
+          creator_id: parseInt(creator),
+          project_id: parseInt(project)
+        })
         view = new SubmissionLayoutView({
           courseId: course
           creator: userModel
@@ -66,7 +70,11 @@ define (require) ->
       collection = new GroupSubmissionCollection()
       deferred = @deferredCollectionFetching(collection, {course: course, group: creator}, 'Loading submission...')
       $.when(deferred).then(() =>
-        submissionModel = collection.findWhere({creator_type: 'Group', creator_id: parseInt(creator), project_id: parseInt(project)})
+        submissionModel = collection.findWhere({
+          creator_type: 'Group',
+          creator_id: parseInt(creator),
+          project_id: parseInt(project)
+        })
         view = new SubmissionLayoutView({
           courseId: course
           creator: groupModel

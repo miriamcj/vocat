@@ -1,5 +1,4 @@
 define ['backbone'], (Backbone) ->
-
   class AbstractModel extends Backbone.Model
 
     toPositiveInt: (string) ->

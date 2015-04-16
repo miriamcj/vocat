@@ -114,21 +114,21 @@ module Attachment::Processor::Transcoder
 
     # Send the transcoding job to S3
     job = et.create_job(
-      :pipeline_id => Rails.application.config.vocat.aws[:et_pipeline],
-      :input => {
-        :key => input_location,
-        :frame_rate => 'auto',
-        :resolution => 'auto',
-        :aspect_ratio => 'auto',
-        :interlaced => 'auto',
-        :container => 'auto'
-      },
-      :output => {
-        :key => output_location,
-        :thumbnail_pattern => thumb_pattern,
-        :rotate => 'auto',
-        :preset_id => get_preset_id
-      })
+        :pipeline_id => Rails.application.config.vocat.aws[:et_pipeline],
+        :input => {
+            :key => input_location,
+            :frame_rate => 'auto',
+            :resolution => 'auto',
+            :aspect_ratio => 'auto',
+            :interlaced => 'auto',
+            :container => 'auto'
+        },
+        :output => {
+            :key => output_location,
+            :thumbnail_pattern => thumb_pattern,
+            :rotate => 'auto',
+            :preset_id => get_preset_id
+        })
 
     processor_data = {
         job_id: job.data[:job][:id],
@@ -138,8 +138,6 @@ module Attachment::Processor::Transcoder
     variant.processor_data = ActiveSupport::JSON.encode(processor_data)
     variant
   end
-
-
 
 
 end

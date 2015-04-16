@@ -1,5 +1,4 @@
 define 'app/helpers/each_property', ['handlebars'], (Handlebars) ->
-
   Handlebars.registerHelper "each_property", (context, options) ->
     rubric = options.hash.rubric
     if options.hash.high?

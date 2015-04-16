@@ -2,9 +2,7 @@
 @import "mixins";
 @import "patterns";
 
-
 $spacingUnit: $mediumUnitPadding * .75;
-
 
 // Discussion list
 // --------------------------
@@ -65,7 +63,7 @@ $spacingUnit: $mediumUnitPadding * .75;
 }
 
 .discussion-list--link {
-//  @extend %heading-epsilon;
-//  @extend %bent-arrow-link;
+  //  @extend %heading-epsilon;
+  //  @extend %bent-arrow-link;
 }
 

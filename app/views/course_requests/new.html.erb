@@ -1,50 +1,53 @@
 <% content_for :heading do %>
-  <%= link_to 'Back to Your Dashboard', dashboard_evaluator_path, :class => 'header-link back-link' %>
+	<%= link_to 'Back to Your Dashboard', dashboard_evaluator_path, :class => 'header-link back-link' %>
 <% end %>
 
 
 <% content_for :content do %>
-  <% body = capture do %>
-    <p class="instructions">
-      To request that your course be added to Vocat, please fill out the form below. Your request will be reviewed by
-      Vocat administrators. Once your request has been approved or denied, you will be notified via email.
-    </p>
+	<% body = capture do %>
+		<p class="instructions">
+			To request that your course be added to Vocat, please fill out the form below. Your request will be reviewed
+			by
+			Vocat administrators. Once your request has been approved or denied, you will be notified via email (usually
+			within
+			2 business days).
+		</p>
 
-    <%= form_for :course_request, url: course_requests_path, html: {class: 'formgrid'} do |f| %>
-      <%= render 'shared/model_errors', :model => @course_request %>
-      <fieldset>
-        <div class="formgrid third">
-          <%= label_tag :name, 'Course Name' %>
-          <%= f.text_field :name %>
-        </div>
-        <div class="formgrid third">
-          <%= label_tag :department, 'Department' %>
-          <%= f.text_field :department %>
-        </div>
-        <div class="formgrid third">
-          <%= label_tag :number, 'Number' %>
-          <%= f.text_field :number %>
-        </div>
-        <div class="formgrid third">
-          <%= label_tag :section, 'Section' %>
-          <%= f.text_field :section %>
-        </div>
-        <div class="formgrid third">
-          <%= label_tag :year, 'Year' %>
-          <%= f.select(:year, options_for_select(@years, @course_request.year), {:include_blank => true}, {'data-behavior' => 'chosen'}) %>
-        </div>
-        <div class="formgrid third">
-          <%= label_tag :semester_id, 'Semester' %>
-          <%= f.select(:semester_id, options_from_collection_for_select(Semester.all, 'id', 'name', @course_request.semester_id), {:include_blank => true}, {'data-behavior' => 'chosen'}) %>
-        </div>
-        <div class="formgrid whole submit">
-          <label class="text-label">&nbsp;</label>
-          <%= f.button('Request Course', {:class => 'primary-button new-button'}) %>
-          <%= link_to 'Back to Your Dashboard', dashboard_evaluator_path, :class => 'gentle-warning-button cancel-button' %>
-        </div>
-      </fieldset>
-    <% end %>
-  <% end %>
-  <%= render :partial => 'shared/section', :locals => {:header => 'Request a New Course', :clear => true, :body => body} %>
+		<%= form_for :course_request, url: course_requests_path, html: {class: 'formgrid'} do |f| %>
+			<%= render 'shared/model_errors', :model => @course_request %>
+			<fieldset>
+				<div class="formgrid third">
+					<%= label_tag :name, 'Course Name' %>
+					<%= f.text_field :name %>
+				</div>
+				<div class="formgrid third">
+					<%= label_tag :department, 'Department' %>
+					<%= f.text_field :department %>
+				</div>
+				<div class="formgrid third">
+					<%= label_tag :number, 'Number' %>
+					<%= f.text_field :number %>
+				</div>
+				<div class="formgrid third">
+					<%= label_tag :section, 'Section' %>
+					<%= f.text_field :section %>
+				</div>
+				<div class="formgrid third">
+					<%= label_tag :year, 'Year' %>
+					<%= f.select(:year, options_for_select(@years, @course_request.year), {:include_blank => true}, {'data-behavior' => 'chosen'}) %>
+				</div>
+				<div class="formgrid third">
+					<%= label_tag :semester_id, 'Semester' %>
+					<%= f.select(:semester_id, options_from_collection_for_select(Semester.all, 'id', 'name', @course_request.semester_id), {:include_blank => true}, {'data-behavior' => 'chosen'}) %>
+				</div>
+				<div class="formgrid whole submit">
+					<label class="text-label">&nbsp;</label>
+					<%= f.button('Request Course', {:class => 'primary-button new-button'}) %>
+					<%= link_to 'Back to Your Dashboard', dashboard_evaluator_path, :class => 'gentle-warning-button cancel-button' %>
+				</div>
+			</fieldset>
+		<% end %>
+	<% end %>
+	<%= render :partial => 'shared/section', :locals => {:header => 'Request a New Course', :clear => true, :body => body} %>
 <% end %>
 

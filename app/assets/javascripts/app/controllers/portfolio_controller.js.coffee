@@ -1,9 +1,8 @@
 define [
-  'marionette', 'controllers/vocat_controller', 'views/portfolio/portfolio', 'views/portfolio/portfolio_projects', 'views/portfolio/portfolio_submissions', 'collections/submission_collection', 'collections/portfolio_unsubmitted_collection'
-], (
-  Marionette, VocatController, PortfolioView, PortfolioProjectsView, PortfolioSubmissionsView, SubmissionCollection, PortfolioUnsubmittedCollection
-) ->
-
+  'marionette', 'controllers/vocat_controller', 'views/portfolio/portfolio', 'views/portfolio/portfolio_projects',
+  'views/portfolio/portfolio_submissions', 'collections/submission_collection',
+  'collections/portfolio_unsubmitted_collection'
+], (Marionette, VocatController, PortfolioView, PortfolioProjectsView, PortfolioSubmissionsView, SubmissionCollection, PortfolioUnsubmittedCollection) ->
   class PortfolioController extends VocatController
 
     collections: {

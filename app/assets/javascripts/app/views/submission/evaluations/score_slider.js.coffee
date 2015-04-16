@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   require('jquery_ui')
   template = require('hbs!templates/submission/evaluations/score_slider')
@@ -92,7 +91,7 @@ define (require) ->
       grabberOffset = (@ui.grabber.outerWidth() * .5) - 4 # 4px is half the width of one tick
       startCoord = offset.left - grabberOffset
       endCoord = offset.left + @ui.track.outerWidth() - grabberOffset
-      boundary = [startCoord , 0, endCoord, 0]
+      boundary = [startCoord, 0, endCoord, 0]
 
     updateScore: (score) ->
       @ui.score.html(score)

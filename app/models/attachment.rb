@@ -127,7 +127,7 @@ class Attachment < ActiveRecord::Base
       formats.push variant.format
       [variant.format, variant.public_location]
     end
-    ext = extension.gsub('.','')
+    ext = extension.gsub('.', '')
     unless formats.include? ext
       locations.push [ext, public_location]
     end
@@ -202,7 +202,6 @@ class Attachment < ActiveRecord::Base
     self.media_updated_at = Time.now
     self.save
   end
-
 
 
   private

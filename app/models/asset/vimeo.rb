@@ -13,7 +13,7 @@ class Asset::Vimeo < Asset
 
   def locations
     {
-      'url' => "http://vimeo.com/#{external_location}"
+        'url' => "http://vimeo.com/#{external_location}"
     }
   end
 

@@ -10,6 +10,7 @@
 			<div class="thumb-container-placeholder">
 				<a href="#">
 					<span class="tight">{{to_upper attachment.state}}</span>
+
 					<div class="processing-indicator">
 						<div class="processing-indicator-1"></div>
 						<div class="processing-indicator-2"></div>
@@ -21,7 +22,7 @@
 	{{#if_match family 'audio'}}
 		<div class="thumb-container thumb-container-audio">
 			<a href="#">
-				<img src="/static_assets/images/audio_placeholder.png" />
+				<img src="/static_assets/images/audio_placeholder.png"/>
 			</a>
 		</div>
 	{{/if_match}}
@@ -36,6 +37,7 @@
 			<div class="thumb-container-placeholder">
 				<a href="#">
 					<span class="tight">{{to_upper attachment.state}}</span>
+
 					<div class="processing-indicator">
 						<div class="processing-indicator-1"></div>
 						<div class="processing-indicator-2"></div>
@@ -61,6 +63,7 @@
 	<h5 class="heading-informational">
 		Uploaded {{created_at}}
 	</h5>
+
 	<div class="asset-collection-item--utility">
 		<ul style="display: inline-block;" class="bubble" data-behavior="hide-on-manage">
 			<li data-behavior="post-count">
@@ -72,12 +75,15 @@
 			</li>
 		</ul>
 		<div data-behavior="show-on-manage">
-			<a href="#" style="display: inline-block" class="tertiary-button edit-button" data-behavior="rename">Rename</a>
-			<a href="#" style="display: inline-block" class="gentle-warning-button delete-button" data-behavior="destroy">Delete</a>
+			<a href="#" style="display: inline-block" class="tertiary-button edit-button"
+			   data-behavior="rename">Rename</a>
+			<a href="#" style="display: inline-block" class="gentle-warning-button delete-button"
+			   data-behavior="destroy">Delete</a>
 		</div>
 		<div class="move-links" data-behavior="show-on-manage">
 			<Span class="move-label">List Order:</span>
-			<a href="#" style="display: inline-block;" class="down-link disabled" data-behavior="move-down">Move Down</a>
+			<a href="#" style="display: inline-block;" class="down-link disabled" data-behavior="move-down">Move
+				Down</a>
 			<a href="#" style="display: inline-block;" class="up-link disabled" data-behavior="move-up">Move Up</a>
 		</div>
 	</div>

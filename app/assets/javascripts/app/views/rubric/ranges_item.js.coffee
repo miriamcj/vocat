@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/rubric/ranges_item')
   ModalConfirmView = require('views/modal/modal_confirm')
@@ -41,7 +40,14 @@ define (require) ->
       @openModal()
 
     openModal: () ->
-      Vocat.vent.trigger('modal:open', new ShortTextInputView({model: @model, property: 'name', saveClasses: 'update-button', saveLabel: 'Update Range Name', inputLabel: 'What would you like to call this range?', vent: @vent}))
+      Vocat.vent.trigger('modal:open', new ShortTextInputView({
+        model: @model,
+        property: 'name',
+        saveClasses: 'update-button',
+        saveLabel: 'Update Range Name',
+        inputLabel: 'What would you like to call this range?',
+        vent: @vent
+      }))
 
     onConfirmModelDestroy: () ->
       @collection.remove(@model)

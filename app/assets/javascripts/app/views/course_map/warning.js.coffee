@@ -1,5 +1,4 @@
 define (require) ->
-
   template = require('hbs!templates/course_map/warning')
 
   class Warning extends Marionette.ItemView
@@ -7,7 +6,6 @@ define (require) ->
     template: template
 
     serializeData: () ->
-
       out = {
         isCreatorWarning: Marionette.getOption(@, 'warningType') == 'Creator'
         isProjectWarning: Marionette.getOption(@, 'warningType') == 'Project'

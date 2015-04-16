@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/course_map/projects_item')
   DropdownView = require('views/layout/dropdown')
@@ -24,7 +23,7 @@ define (require) ->
     triggers: {
       'mouseover @ui.projectTitle': 'active'
       'mouseout @ui.projectTitle': 'inactive'
-      'click @ui.projectTitle':   'detail'
+      'click @ui.projectTitle': 'detail'
       'click @ui.publishAll': 'click:publish'
       'click @ui.unpublishAll': 'click:unpublish'
     }
@@ -47,7 +46,7 @@ define (require) ->
       @vent = options.vent
 
     onShow: () ->
-      @ui.dropdowns.each( (index, el) ->
+      @ui.dropdowns.each((index, el) ->
         new DropdownView({el: el, vent: Vocat.vent, allowAdjustment: false})
       )
 

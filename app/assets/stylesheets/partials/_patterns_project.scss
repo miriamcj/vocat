@@ -1,11 +1,9 @@
-
 // Lists
 // --------------------------
 %unstyled-list {
   list-style-type: none;
   padding-left: 0;
 }
-
 
 // Links
 // --------------------------
@@ -45,7 +43,6 @@
   letter-spacing: 1px;
 }
 
-
 %page-section-column {
   height: 100%;
   padding-left: 0;
@@ -56,9 +53,9 @@
   &.col-two {
     padding-left: ($sectionSpacingUnit * .375);
   }
-//  @include respond($ontario) {
-//    padding: 0;
-//    margin-top: $sectionSpacingUnit * .75;
-//  }
+  //  @include respond($ontario) {
+  //    padding: 0;
+  //    margin-top: $sectionSpacingUnit * .75;
+  //  }
 
 }

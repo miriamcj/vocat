@@ -1,9 +1,6 @@
 define [
   'marionette', 'controllers/vocat_controller', 'views/rubric/rubric_layout'
-], (
-  Marionette, VocatController, RubricLayoutView
-) ->
-
+], (Marionette, VocatController, RubricLayoutView) ->
   class RubricController extends VocatController
 
     new: (courseId) ->

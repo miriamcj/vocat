@@ -7,7 +7,7 @@
     remote:        data-remote
 -%>
 <% if current_page.last? %>
-  <span class="disabled-button next-button">Next</span>
+	<span class="disabled-button next-button">Next</span>
 <% else %>
-  <%= link_to 'Next', url, {:rel => 'prev', :class => 'primary-button next-button', :remote => remote} %>
+	<%= link_to 'Next', url, {:rel => 'prev', :class => 'primary-button next-button', :remote => remote} %>
 <% end %>

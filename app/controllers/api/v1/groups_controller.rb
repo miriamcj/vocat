@@ -25,7 +25,7 @@ class Api::V1::GroupsController < ApiController
 
   # GET /api/v1/groups/1.json
   def show
-		respond_with(@group)
+    respond_with(@group)
   end
 
   # POST /api/v1/groups.json

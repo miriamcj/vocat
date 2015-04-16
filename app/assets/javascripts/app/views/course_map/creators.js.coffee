@@ -3,7 +3,6 @@ define [
   'hbs!templates/course_map/creators',
   'views/course_map/creators_item
 '], (Marionette, template, Item) ->
-
   class CourseMapCreatorsView extends Marionette.CompositeView
 
     tagName: 'table'
@@ -17,8 +16,8 @@ define [
     }
 
     triggers: {
-      'click [data-behavior="show-groups"]':  'show:groups'
-      'click [data-behavior="show-users"]':  'show:users'
+      'click [data-behavior="show-groups"]': 'show:groups'
+      'click [data-behavior="show-users"]': 'show:users'
     }
 
     onShowGroups: () ->

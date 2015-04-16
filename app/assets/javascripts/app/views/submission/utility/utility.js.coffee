@@ -1,5 +1,4 @@
 define (require) ->
-
   Marionette = require('marionette')
   template = require('hbs!templates/submission/utility/utility')
 
@@ -14,5 +13,4 @@ define (require) ->
     serializeData: () ->
       data = super()
       data.courseId = @courseId
-      console.log data,'d'
       data

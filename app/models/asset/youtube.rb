@@ -10,7 +10,7 @@ class Asset::Youtube < Asset
 
   def locations
     {
-      'url' => "http://www.youtube.com/watch?v=#{external_location}"
+        'url' => "http://www.youtube.com/watch?v=#{external_location}"
     }
   end
 

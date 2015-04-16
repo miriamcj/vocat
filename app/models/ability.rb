@@ -27,7 +27,7 @@ class Ability
     ######################################################
 
     can [:read_only], Course do |course|
-      res =  course.role(user)
+      res = course.role(user)
       true if res
     end
 
@@ -70,15 +70,15 @@ class Ability
     can [:evaluate], Project do |project|
       course = project.course
       course.role(user) == :evaluator ||
-      course.role(user) == :assistant ||
-      course.role(user) == :creator && project.allows_peer_review?
+          course.role(user) == :assistant ||
+          course.role(user) == :creator && project.allows_peer_review?
     end
 
     can [:show_submissions], Project do |project|
       course = project.course
       course.role(user) == :evaluator ||
-      course.role(user) == :assistant ||
-      (course.role(user) == :creator && (project.allows_public_discussion? || project.allows_peer_review?))
+          course.role(user) == :assistant ||
+          (course.role(user) == :creator && (project.allows_public_discussion? || project.allows_peer_review?))
     end
 
     can [:read_write_destroy], Project do |project|
@@ -125,7 +125,7 @@ class Ability
     end
 
     can :annotate, Submission do |submission|
-      can?(:evaluate, submission) || can?(:own, submission)
+      can?(:evaluate, submission) || can?(:own, submission) || can?(:read_only, submission)
     end
 
     can :administer, Submission do |submission|
@@ -147,44 +147,44 @@ class Ability
     can :destroy_confirm, Submission do |submission|
       can(:destroy, submission)
     end
-    
+
     can :evaluate, Submission do |submission|
       # User can evaluate if:
       # 1) user can evaluate for the course and is not the creator of the submission
       # 2) submission is a user submission and self evaluation is allowed and evaluator is the creator
       # 3) submission is a group submission and self evaluation is allowed and evaluator is in the group.
       # 4) submission project allows peer review and the user is not the creator of the submission
-      results = submission.has_rubric? && can?(:evaluate, submission.project.course ) && submission.creator != user ||
-        submission.creator.is_user? && submission.project.allows_self_evaluation? && submission.creator == user ||
-        submission.creator.is_group? && submission.project.allows_self_evaluation? && submission.creator.include?(user) ||
-        submission.creator != user && submission.project.allows_peer_review?
+      results = submission.has_rubric? && can?(:evaluate, submission.project.course) && submission.creator != user ||
+          submission.creator.is_user? && submission.project.allows_self_evaluation? && submission.creator == user ||
+          submission.creator.is_group? && submission.project.allows_self_evaluation? && submission.creator.include?(user) ||
+          submission.creator != user && submission.project.allows_peer_review?
       results
     end
 
     can :attach, Submission do |submission|
       # CAN if the user is an administrator
       (user.role?(:administrator)) ||
-      # CAN if the user is not the submission owner, and is an evaluator or assistant for the course
-      (
-        !can?(:own, submission) &&
-        (
-          submission.project.course.role(user) == :assistant ||
-          submission.project.course.role(user) == :evaluator
-        )
-      ) ||
-      # CAN if the user is the submission owner and enable_creator_attach is true
-      (
-        can?(:own, submission) &&
-        submission.project.allows_creator_attach? &&
-        !(submission.project.rejects_past_due_media? && submission.project.due_date && submission.project.due_date.past? )
+          # CAN if the user is not the submission owner, and is an evaluator or assistant for the course
+          (
+          !can?(:own, submission) &&
+              (
+              submission.project.course.role(user) == :assistant ||
+                  submission.project.course.role(user) == :evaluator
+              )
+          ) ||
+          # CAN if the user is the submission owner and enable_creator_attach is true
+          (
+          can?(:own, submission) &&
+              submission.project.allows_creator_attach? &&
+              !(submission.project.rejects_past_due_media? && submission.project.due_date && submission.project.due_date.past?)
 
-      )
+          )
     end
 
     can :discuss, Submission do |submission|
       (submission.project.course.role(user) == :evaluator && can?(:evaluate, submission)) ||
-      can?(:own, submission) ||
-      (submission.project.allows_public_discussion? && submission.project.course.role(user))
+          can?(:own, submission) ||
+          (submission.project.allows_public_discussion? && submission.project.course.role(user))
     end
 
     ######################################################

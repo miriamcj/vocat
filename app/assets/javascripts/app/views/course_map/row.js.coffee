@@ -1,5 +1,4 @@
 define ['marionette', 'views/course_map/cell'], (Marionette, ItemView) ->
-
   class Row extends Marionette.CollectionView
 
     # @model = a user model or a group model (in other words, a creator)
@@ -22,9 +21,9 @@ define ['marionette', 'views/course_map/cell'], (Marionette, ItemView) ->
 
     childViewOptions: () ->
       {
-        vent: @vent
-        creator: @model
-        submissions: @submissions
+      vent: @vent
+      creator: @model
+      submissions: @submissions
       }
 
     initialize: (options) ->
@@ -35,11 +34,11 @@ define ['marionette', 'views/course_map/cell'], (Marionette, ItemView) ->
       if @creatorType == 'Group'
         @$el.addClass('matrix--group-row')
 
-      @listenTo(@vent,'row:active', (data) ->
+      @listenTo(@vent, 'row:active', (data) ->
         if data.creator == @model then @$el.addClass('active')
       )
 
-      @listenTo(@vent,'row:inactive', (data) ->
+      @listenTo(@vent, 'row:inactive', (data) ->
         if data.creator == @model then @$el.removeClass('active')
       )
 
