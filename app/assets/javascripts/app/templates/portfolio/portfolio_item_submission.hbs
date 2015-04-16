@@ -1,8 +1,8 @@
 <div class="portfolio-item--thumb">
-	{{#if submission.has_video}}
+	{{#if submission.has_asset}}
 		<div class="thumb-container">
 			<a href="{{submission.path}}" data-behavior="open-submission-detail">
-				<img src="{{submission.video.thumb}}"/>
+				<img src="{{submission.assets.0.thumbnail}}"/>
 			</a>
 		</div>
 	{{else}}
@@ -82,10 +82,10 @@
 		</figcaption>
 	</figure>
 
-	{{#if submission.has_video}}
-		<figure class="summary-box {{#if submission.video.annotations_count}}summary-box-creator{{else}}summary-box-empty{{/if}}">
+	{{#if submission.has_asset}}
+		<figure class="summary-box {{#if submission.assets.0.annotations_count}}summary-box-creator{{else}}summary-box-empty{{/if}}">
 			<div>
-				<span>{{submission.video.annotations_count}}</span>
+				<span>{{submission.assets.0.annotations_count}}</span>
 			</div>
 			<figcaption>Annotations</figcaption>
 		</figure>
