@@ -5,9 +5,9 @@ set :application, "vocat_baruch"
 set :stage, :production
 set :rails_env, :production
 
-role :app, %w{vocat_baruch@54.193.27.3}
-role :web, %w{vocat_baruch@54.193.27.3}
-role :db,  %w{vocat_baruch@54.193.27.3}
-
 set :deploy_to, "~/#{fetch(:application)}"
+
+role :app, ["#{fetch(:application)}@#{fetch(:server_name)}"]
+role :web, ["#{fetch(:application)}@#{fetch(:server_name)}"]
+role :db, ["#{fetch(:application)}@#{fetch(:server_name)}"]
 
