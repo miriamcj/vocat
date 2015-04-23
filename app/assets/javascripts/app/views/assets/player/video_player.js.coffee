@@ -268,7 +268,7 @@ define (require) ->
         options.children.controlBar.children['fullscreenToggle'] = false
         options.plugins = {
           audiowave: {
-            src: @model.get('locations').mp3,
+            src: @model.get('locations').mp3 || @model.get('locations').mp4,
             msDisplayMax: 10,
             waveColor: "grey",
             progressColor: "black",

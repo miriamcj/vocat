@@ -19,7 +19,12 @@
 	{{/if_match}}
 	{{#if_match family 'audio'}}
 		<audio id="video-player" data-behavior="video-player" class="video-js vjs-default-skin" controls preload="auto">
-			<source src="{{locations.mp3}}" type="audio/mp3"/>
+			{{#if locations.mp3}}
+				<source src="{{locations.mp3}}" type="audio/mp3"/>
+			{{/if}}
+			{{#if locations.mp4}}
+				<source src="{{locations.mp4}}" type="audio/mp4"/>
+			{{/if}}
 		</audio>
 	{{/if_match}}
 </div>

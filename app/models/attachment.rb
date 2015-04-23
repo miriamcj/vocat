@@ -10,9 +10,11 @@ class Attachment < ActiveRecord::Base
   has_many :variants, dependent: :destroy
 
   ALL_PROCESSORS = [
+      Attachment::Processor::Transcoder::Mp3,
       Attachment::Processor::Transcoder::Mp4,
       Attachment::Processor::Transcoder::Webm,
-      Attachment::Processor::ThumbnailGenerator
+      Attachment::Processor::ThumbnailGenerator,
+      Attachment::Processor::MobileImageGenerator
   ]
 
   after_destroy :destroy_file_object

@@ -6,6 +6,10 @@ module Attachment::Processor::Transcoder
     transcode(variant)
   end
 
+  def can_generate_thumbnail?()
+    true
+  end
+
   def processing_finished?(variant)
     AWS.config(credentials)
     et = AWS::ElasticTranscoder::Client.new({:region => Rails.application.config.vocat.aws[:s3_region]})
@@ -99,7 +103,7 @@ module Attachment::Processor::Transcoder
       processor_data = {
           'thumb_location' => thumb_location
       }
-      create_thumb_variant(processor_data, variant.attachment_id)
+      create_thumb_variant(processor_data, variant.attachment_id) if can_generate_thumbnail?
       variant.save
       return variant
     end
@@ -113,6 +117,15 @@ module Attachment::Processor::Transcoder
     end
 
     # Send the transcoding job to S3
+    output = {
+        :key => output_location,
+        :rotate => 'auto',
+        :preset_id => get_preset_id
+    }
+    if can_generate_thumbnail?
+      output[:thumbnail_pattern] = thumb_pattern
+    end
+
     job = et.create_job(
         :pipeline_id => Rails.application.config.vocat.aws[:et_pipeline],
         :input => {
@@ -123,16 +136,11 @@ module Attachment::Processor::Transcoder
             :interlaced => 'auto',
             :container => 'auto'
         },
-        :output => {
-            :key => output_location,
-            :thumbnail_pattern => thumb_pattern,
-            :rotate => 'auto',
-            :preset_id => get_preset_id
-        })
-
+        :output => output
+    )
     processor_data = {
         job_id: job.data[:job][:id],
-        thumb_location: thumb_location
+        thumb_location: thumb_location || nil
     }
     variant.location = output_location
     variant.processor_data = ActiveSupport::JSON.encode(processor_data)
