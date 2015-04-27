@@ -1,17 +1,5 @@
 <div data-behavior="{{#if assetHasDuration}}seek{{else}}activate{{/if}}" class="annotation-wrapper">
 	<div class="annotation-left">
-		<img src="{{gravatar}}"/>
-
-		<div class="annotation-utility">
-			{{#if current_user_can_edit}}
-				<a href="#" class="annotation-edit-link" data-behavior="edit"></a>
-			{{/if}}
-			{{#if current_user_can_destroy}}
-				<a href="#" class="annotation-delete-link" data-behavior="destroy"></a>
-			{{/if}}
-		</div>
-	</div>
-	<div class="annotation-right">
 		<div class="annotation-top">
 			<div class="annotation-creator role-{{author_role}}">
 				{{author_name}}
@@ -30,6 +18,19 @@
 		</div>
 		<div class="annotation-bottom markdown-content" data-behavior="annotation-body">
 			{{{body}}}
+		</div>
+
+	</div>
+	<div class="annotation-right">
+		<img src="{{gravatar}}"/>
+
+		<div class="annotation-utility">
+			{{#if current_user_can_edit}}
+				<a href="#" class="annotation-edit-link" data-behavior="edit"></a>
+			{{/if}}
+			{{#if current_user_can_destroy}}
+				<a href="#" class="annotation-delete-link" data-behavior="destroy"></a>
+			{{/if}}
 		</div>
 	</div>
 </div>
