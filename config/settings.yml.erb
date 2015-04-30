@@ -1,4 +1,7 @@
 :development: &1
+  :redis:
+    :db_number: 12
+    :namespace: 'vocat_development'
   :tracking:
     :analytics_enabled: false
   :smtp:
@@ -27,6 +30,9 @@
 :test: *1
 
 :production:
+  :redis:
+    :db_number: 11
+    :namespace: 'vocat_production'
   :tracking:
     :analytics_enabled: true
     :analytics_id: UA-47779498-1
@@ -68,6 +74,9 @@
       :course_request_create: 'notify@baruch.vocat.io'
 
 :demo:
+  :redis:
+    :db_number: 10
+    :namespace: 'vocat_demo'
   :tracking:
     :analytics_enabled: true
     :analytics_id: UA-47779498-1
@@ -96,6 +105,9 @@
       :course_request_create: 'notify@baruch.vocat.io'
 
 :staging:
+  :redis:
+    :db_number: 9
+    :namespace: 'vocat_staging'
   :tracking:
     :analytics_enabled: true
     :analytics_id: UA-47779498-1

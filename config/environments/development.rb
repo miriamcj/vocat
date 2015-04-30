@@ -30,4 +30,14 @@ Vocat::Application.configure do
   # See https://github.com/rails/rails/issues/10291
   config.middleware.insert 0, TurboDevAssets
 
+
+  config.middleware.use ExceptionNotification::Rack,
+                        :slack => {
+                            :webhook_url => "https://hooks.slack.com/services/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",
+                            :channel => "#vocat-public",
+                            :additional_parameters => {
+                                :mrkdwn => true
+                            }
+                        }
+
 end
