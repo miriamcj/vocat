@@ -32,12 +32,11 @@ gem 'annotate', '~> 2.6.6'
 gem 'redcarpet', '~> 3.2.0'
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', :require => nil
-
+gem 'apipie-rails', :git => 'https://github.com/Apipie/apipie-rails.git'
 gem 'cancancan'
 gem 'kaminari'
 gem 'faker'
 gem 'responders', '~> 2.0'
-
 gem 'rack-cors', :require => "rack/cors"
 
 # Deployment

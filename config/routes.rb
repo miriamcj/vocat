@@ -2,6 +2,7 @@ Vocat::Application.routes.draw do
 
 
 
+  apipie
   # Devise
   devise_for :users
   devise_scope :user do

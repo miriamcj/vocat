@@ -1,4 +1,11 @@
 GIT
+  remote: https://github.com/Apipie/apipie-rails.git
+  revision: f697ec2a887cd73c00c846eceb2ce63a050ccb20
+  specs:
+    apipie-rails (0.3.4)
+      json
+
+GIT
   remote: https://github.com/seuros/state_machine.git
   revision: b5baef856b170f18dc2fdc36def2411c255335b9
   specs:
@@ -331,6 +338,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (= 0.8.3)
   annotate (~> 2.6.6)
+  apipie-rails!
   aws-sdk (~> 1.32.0)
   cancancan
   capistrano (~> 3.3.0)
