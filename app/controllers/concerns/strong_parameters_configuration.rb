@@ -1,4 +1,4 @@
-module StrongParametersConfiguration
+module Concerns::StrongParametersConfiguration
   extend ActiveSupport::Concern
 
   included do
