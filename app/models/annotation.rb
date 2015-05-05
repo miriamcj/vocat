@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: annotations
+#
+#  id               :integer          not null, primary key
+#  body             :text
+#  smpte_timecode   :string(255)
+#  published        :boolean
+#  seconds_timecode :float
+#  author_id        :integer
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  asset_id         :integer
+#  canvas           :text
+#
+
 class Annotation < ActiveRecord::Base
 
   belongs_to :asset

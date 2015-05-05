@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: discussion_posts
+#
+#  id            :integer          not null, primary key
+#  published     :boolean
+#  author_id     :integer
+#  parent_id     :integer
+#  body          :text
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  submission_id :integer
+#
+
 class DiscussionPostSerializer < ActiveModel::Serializer
 
   # See https://github.com/rails/rails/pull/13152

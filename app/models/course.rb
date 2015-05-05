@@ -1,3 +1,21 @@
+# == Schema Information
+#
+# Table name: courses
+#
+#  id              :integer          not null, primary key
+#  name            :string(255)
+#  department      :string(255)
+#  number          :string(255)
+#  section         :string(255)
+#  description     :text
+#  organization_id :integer
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  message         :text
+#  semester_id     :integer
+#  year            :integer
+#
+
 class Course < ActiveRecord::Base
   belongs_to :organization
   belongs_to :semester

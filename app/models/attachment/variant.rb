@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: attachment_variants
+#
+#  id              :integer          not null, primary key
+#  attachment_id   :integer
+#  location        :string(255)
+#  format          :string(255)
+#  state           :string(255)
+#  processor_name  :string(255)
+#  processor_data  :text
+#  processor_error :string(255)
+#  created_at      :datetime
+#  updated_at      :datetime
+#
+
 class Attachment::Variant < ActiveRecord::Base
 
   include Storable

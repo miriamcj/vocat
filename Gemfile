@@ -28,7 +28,7 @@ gem 'database_cleaner'
 gem 'mini_magick'
 gem 'exception_notification'
 gem 'slack-notifier'
-
+gem 'annotate', '~> 2.6.6'
 gem 'redcarpet', '~> 3.2.0'
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', :require => nil

@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: evaluations
+#
+#  id               :integer          not null, primary key
+#  submission_id    :integer
+#  evaluator_id     :integer
+#  scores           :hstore           default({}), not null
+#  published        :boolean          default(FALSE)
+#  rubric_id        :integer
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  total_percentage :decimal(, )      default(0.0)
+#  total_score      :decimal(, )      default(0.0)
+#  evaluation_type  :integer
+#
+
 class EvaluationSerializer < ActiveModel::Serializer
   attributes :id,
              :submission_id,

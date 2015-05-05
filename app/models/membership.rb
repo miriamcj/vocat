@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: memberships
+#
+#  id         :integer          not null, primary key
+#  user_id    :integer
+#  course_id  :integer
+#  role       :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class Membership < ActiveRecord::Base
 
   belongs_to :course

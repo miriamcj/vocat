@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: submissions
+#
+#  id                     :integer          not null, primary key
+#  name                   :string(255)
+#  summary                :text
+#  project_id             :integer
+#  creator_id             :integer
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  published              :boolean
+#  discussion_posts_count :integer          default(0)
+#  creator_type           :string(255)      default("User")
+#  assets_count           :integer          default(0)
+#
+
 require 'spec_helper'
 
 describe SubmissionSerializer do

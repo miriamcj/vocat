@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: annotations
+#
+#  id               :integer          not null, primary key
+#  body             :text
+#  smpte_timecode   :string(255)
+#  published        :boolean
+#  seconds_timecode :float
+#  author_id        :integer
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  asset_id         :integer
+#  canvas           :text
+#
+
 class AnnotationSerializer < ActiveModel::Serializer
   attributes :id, :asset_id, :author_id, :body, :published, :seconds_timecode, :smpte_timecode, :author_name, :canvas,
              :current_user_can_destroy, :current_user_can_edit, :gravatar, :author_role, :created_at, :created_at_timestamp,

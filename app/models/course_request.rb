@@ -1,3 +1,22 @@
+# == Schema Information
+#
+# Table name: course_requests
+#
+#  id           :integer          not null, primary key
+#  name         :string(255)
+#  department   :string(255)
+#  section      :string(255)
+#  number       :string(255)
+#  year         :integer
+#  semester_id  :integer
+#  evaluator_id :integer
+#  state        :string(255)
+#  admin_id     :integer
+#  course_id    :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+
 class CourseRequest < ActiveRecord::Base
 
   belongs_to :evaluator, :class_name => 'User'

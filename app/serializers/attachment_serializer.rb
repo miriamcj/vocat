@@ -1,3 +1,25 @@
+# == Schema Information
+#
+# Table name: attachments
+#
+#  id                  :integer          not null, primary key
+#  media_file_name     :string(255)
+#  media_content_type  :string(255)
+#  media_file_size     :integer
+#  media_updated_at    :datetime
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  state               :string(255)
+#  processor_error     :string(255)
+#  user_id             :integer
+#  processed_key       :string(255)
+#  processor_job_id    :string(255)
+#  processor_class     :string(255)
+#  processed_thumb_key :string(255)
+#  processing_data     :hstore
+#  asset_id            :integer
+#
+
 require 'action_view'
 include ActionView::Helpers::NumberHelper
 
