@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
 
-  include StrongParametersConfiguration
+  include Concerns::StrongParametersConfiguration
 
   layout 'content'
   protect_from_forgery
