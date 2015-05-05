@@ -66,7 +66,7 @@ class Asset < ActiveRecord::Base
   end
 
   def thumbnail
-    attachment.thumb
+    attachment.thumb if attachment
   end
 
   def locations

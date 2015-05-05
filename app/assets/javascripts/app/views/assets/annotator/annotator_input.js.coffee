@@ -73,7 +73,7 @@ define (require) ->
           @updateButtonVisibility()
           @onSetCanvasModeSelect()
           if @asset.hasDuration()
-            newMessage = "Press post to save a new annotation at #{@secondsToString(@inputPointer)}."
+            newMessage = "Select post to add this annotation at #{@secondsToString(@inputPointer)}."
           else
             newMessage = "Press post to save a new annotation."
           @vent.trigger('request:message:show', {msg: newMessage}) if @model.isNew()

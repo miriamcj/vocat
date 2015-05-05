@@ -38,4 +38,13 @@ Vocat::Application.configure do
     end
   end
 
+  config.middleware.use ExceptionNotification::Rack,
+                        :slack => {
+                            :webhook_url => "https://hooks.slack.com/services/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",
+                            :channel => "#vocat-public",
+                            :additional_parameters => {
+                                :mrkdwn => true
+                            }
+                        }
+
 end

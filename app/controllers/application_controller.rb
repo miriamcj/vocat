@@ -23,8 +23,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  protected
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to main_app.root_url, :alert => exception.message
+  end
 
+  protected
 
   def page_not_found
     raise ActionController::RoutingError.new('Not Found')
@@ -60,7 +63,6 @@ class ApplicationController < ActionController::Base
   end
 
   def get_organization_and_current_course
-
     if params[:controller].downcase.starts_with?('course')
       course_id = params[:course_id]
       if course_id

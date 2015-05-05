@@ -288,7 +288,7 @@ $activeAnnotationBackground: $grayLighter;
   cursor: pointer;
   font-size: $iota;
   color: $textColor;
-  padding: 0 15px 15px 0;
+  padding: 0 0 15px 0;
   position: relative;
   opacity: 1;
   .vjs-annotation & {
@@ -306,20 +306,9 @@ $activeAnnotationBackground: $grayLighter;
   @include clearfix();
   .annotation-left {
     float: left;
-    width: 20%;
-    img {
-      width: 100%;
-      display: block;
-    }
-    .vjs-annotation & {
-      width: 100px;
-      float: none;
-    }
-  }
-  .annotation-right {
-    float: right;
-    width: 80%;
-    padding-left: 15px;
+    width: 85%;
+    padding: 0 15px;
+
     .vjs-annotation & {
       width: 100%;
       padding-left: 125px;
@@ -328,6 +317,18 @@ $activeAnnotationBackground: $grayLighter;
       top: 0;
       left: 0;
       padding-bottom: 15px;
+    }
+  }
+  .annotation-right {
+    float: right;
+    width: 15%;
+    .vjs-annotation & {
+      width: 100px;
+      float: none;
+    }
+    img {
+      width: 100%;
+      display: block;
     }
 
   }
@@ -376,7 +377,7 @@ $activeAnnotationBackground: $grayLighter;
       &.annotation-delete-link {
         background: $grayLight;
         &:hover {
-          background: darken($grayLight, 10%);
+          background: $warningButtonColor;
         }
         &:after {
           @include svg(ex-white);
@@ -385,7 +386,7 @@ $activeAnnotationBackground: $grayLighter;
       &.annotation-edit-link {
         background: $grayMediumLighter;
         &:hover {
-          background: darken($grayMediumLighter, 10%);
+          background: $primaryButtonColor;
         }
         &:after {
           @include svg(pencil-white);
@@ -486,7 +487,7 @@ $activeAnnotationBackground: $grayLighter;
 // --------------------------------------------------------
 $trackHeight: 10px;
 .annotator {
-  padding: 20px 40px 40px 40px;
+  padding: 25px 25px 0px 25px;
   width: 100%;
   min-height: 200px;
   //.border-buttons .primary-button {
@@ -515,13 +516,13 @@ $trackHeight: 10px;
     }
     display: inline-block;
     visibility: hidden;
-    background: $grayMediumLighter;
+    background: $grayDark;
     color: $white;
     margin-top: 5px;
-    padding: .5em;
+    padding: .75em;
     position: absolute;
     top: 10px;
-    font-size: $iota;
+    font-size: $theta;
     &:before {
       content: '';
       display: block;
@@ -530,7 +531,7 @@ $trackHeight: 10px;
       height: 0;
       border-left: 10px solid transparent;
       border-right: 10px solid transparent;
-      border-bottom: 10px solid $grayMediumLighter;
+      border-bottom: 10px solid $grayDark;
       top: -10px;
       left: 50px;
       margin-left: -20px;
@@ -603,7 +604,7 @@ $trackHeight: 10px;
         margin: auto;
         right: -40px;
         color: $grayDarker;
-        font-size: $iota;
+        font-size: $kappa;
         top: -$trackHeight * 3.0;
         text-align: center;
         position: absolute;

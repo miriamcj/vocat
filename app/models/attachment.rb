@@ -19,6 +19,7 @@ class Attachment < ActiveRecord::Base
 
   after_destroy :destroy_file_object
   after_initialize :check_processing_state
+  after_commit :check_if_processing_is_needed, :on => [:create, :update]
 
   validates_presence_of :media_file_name
 
@@ -65,13 +66,20 @@ class Attachment < ActiveRecord::Base
       attachment.start_processors
     end
 
-    after_transition any => :committed do |attachment|
-      if attachment.can_be_processed?
-        attachment.start_processing
-      else
-        attachment.complete_processing
-      end
+    # after_transition any => :committed do |attachment|
+    #   if attachment.can_be_processed?
+    #     attachment.start_processing
+    #   else
+    #     attachment.complete_processing
+    #   end
+    # end
+  end
+
+  def check_if_processing_is_needed
+    if committed? && can_be_processed?
+      start_processing
     end
+
   end
 
   def extension()
@@ -105,6 +113,11 @@ class Attachment < ActiveRecord::Base
           processing_complete = false unless variant.processing_complete?
           processing_error = true unless !variant.has_processing_error?
         end
+      end
+
+      if !can_be_processed?
+        processing_complete = true
+        processing_error = false
       end
 
       #If all processing is done, then we complete the attachment's processing
