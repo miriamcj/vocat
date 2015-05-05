@@ -17,7 +17,11 @@ Doorkeeper.configure do
     user
   end
 
-  access_token_expires_in 15.minutes
+  if Rails.env.development?
+    access_token_expires_in 60.minutes
+  else
+    access_token_expires_in 15.minutes
+  end
 
   use_refresh_token
 
