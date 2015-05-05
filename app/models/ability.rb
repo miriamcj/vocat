@@ -121,7 +121,7 @@ class Ability
 
     can :read_only, Submission do |submission|
       # Enabling public discussion assumes that submissions are visible to users.
-      submission.project.allows_peer_review? || submission.project.allows_public_discussion?
+      submission.project.course.role(user) && (submission.project.allows_peer_review? || submission.project.allows_public_discussion?)
     end
 
     can :annotate, Submission do |submission|
