@@ -88,6 +88,7 @@ module Concerns::StrongParametersConfiguration
   end
 
   def group_params
+    params[:group][:creator_ids] = params[:creator_ids]
     params.require(:group).permit(:name,
                                   :course_id,
                                   :creator_ids => []

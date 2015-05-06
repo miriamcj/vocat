@@ -5,9 +5,7 @@ class ApplicationController < ActionController::Base
   layout 'content'
   protect_from_forgery
 
-#  check_authorization :unless => :devise_controller?
   skip_authorization_check
-#  before_action :authenticate_user!
   before_action :get_organization_and_current_course
   before_action :inject_global_layout_variables
 

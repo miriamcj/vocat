@@ -5,25 +5,19 @@ class Api::V1::EnrollmentsController < ApiController
   load_and_authorize_resource :course
   respond_to :json
 
-  # def_param_group :discussion_post do
-  #   param :submission_id, Fixnum, :desc => "The ID of the submission being discussed", :required => true, :action_aware => true
-  #   param :parent_id, Fixnum, :desc => "If the post is a reply to another post, this is the ID of the parent post."
-  #   param :body, Fixnum, :desc => "The body of the post, can be Markdown which will be converted to HTML when the post is rendered", :required => true, :action_aware => true
-  # end
-  #
-  # resource_description do
-  #   description <<-EOS
-  #     Discussion Posts appear on submission detail views. A post can be threaded, and can have another discussion posts as
-  #     its parent. As with annotations, the author_id value of a discussion post is set to the user who creates the post.
-  #     The API does not currently provide a mechanism for creating discussion posts that belong to other users.
-  #   EOS
-  # end
-
+  resource_description do
+    description <<-EOS
+      Enrollments are a psuedo-resource that represents a user's membership in a given course. In general, course enrollment
+      can be managed by course evaluators, course assistants, and Vocat administrators. Bulk enrollment is possible using
+      the bulk enrollment endpoint. During bulk enrollment, users who are not currently known to Vocat may be invited via
+      email.
+    EOS
+  end
 
   # GET /api/v1/courses/1/enrollments
   # GET /api/v1/users/1/enrollments
-  api :GET, '/courses/:course_id/enrollments?role=:role', "Returns users enrolled in a given course"
-  api :GET, '/users/:user_id/enrollments', "Returns courses in which a given user is enrolled"
+  api :GET, '/courses/:course_id/enrollments?role=:role', "returns users enrolled in a given course"
+  api :GET, '/users/:user_id/enrollments', "returns courses in which a given user is enrolled"
   description "Only admins and evaluator users may see what courses a user is enrolled in. Any user who is enrolled in a course may view which other users are enrolled in that course."
   param :course_id, Fixnum, "The course's ID"
   param :user_id, Fixnum, "The user's ID"
@@ -128,7 +122,7 @@ class Api::V1::EnrollmentsController < ApiController
   end
 
   # DELETE /api/v1/enrollments/u1c1
-  api :DELETE, '/enrollments/:enrollment_key', "Removes a user from a course"
+  api :DELETE, '/enrollments/:enrollment_key', "removes a user from a course"
   param :enrollment_key, String, :required => true, :desc => "The enrollment key is a string that takes the format of uXcY where X is the ID of the user to be de-enrolled, and Y is the ID of the course from which to de-enroll the user. If, for example, you wanted to remove User #10 from Course #234, the enrollment key would be u10c234"
   description "Only course evaluators/assistants and Vocat administrators may remove users from courses."
   error :code => 422, :desc => "Unable to remove the user from the course"
@@ -147,7 +141,7 @@ class Api::V1::EnrollmentsController < ApiController
     end
   end
 
-  api :POST, '/enrollments', "Enrolls a single user in a single course"
+  api :POST, '/enrollments', "enrolls a single user in a single course"
   param :course, Fixnum, :desc => "The course's ID", :required => true
   param :user, Fixnum, :desc => "The user's ID", :required => true
   param :role, ["evaluator", "assistant", "creator"], :desc => "The course role that will be assigned to the user", :required => true
@@ -191,7 +185,7 @@ class Api::V1::EnrollmentsController < ApiController
   end
 
   # POST /api/v1/enrollments/bulk
-  api :POST, '/courses/:course_id/enrollments/bulk', "Bulk enrolls multiple users in a course"
+  api :POST, '/courses/:course_id/enrollments/bulk', "bulk enrolls multiple users in a course"
   param :course_id, Fixnum, :desc => "The course's ID", :required => true
   param :role, ["evaluator", "assistant", "creator"], :desc => "The course role that will be assigned to the user", :required => true
   param :invite, [true, false], :desc => "Whether or not to invite users who do not exist in Vocat. If false, users who do not exist will not be invited."

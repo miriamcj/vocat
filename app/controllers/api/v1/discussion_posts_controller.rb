@@ -17,7 +17,7 @@ class Api::V1::DiscussionPostsController < ApiController
     EOS
   end
 
-  api :GET, '/discussion_posts?submission=:submission', "Returns all discussion posts for a given submission"
+  api :GET, '/discussion_posts?submission=:submission', "returns all discussion posts for a given submission"
   description "<em>Nota Bene</em>: the posts are returned in a flat array. It is the responsibility of the client application to structure the posts into a parent/child hierarchy based on the parent_id."
   param :submission, Fixnum, :desc => "The ID of the submission to query for discussion posts"
   example <<-EOF
@@ -90,7 +90,7 @@ class Api::V1::DiscussionPostsController < ApiController
   end
 
 
-  api :POST, '/discussion_posts', "Creates a discussion post for a submission"
+  api :POST, '/discussion_posts', "creates a discussion post for a submission"
   param_group :discussion_post
   example <<-EOF
     Sample Request:
@@ -134,7 +134,7 @@ class Api::V1::DiscussionPostsController < ApiController
 
 
 
-  api :PATCH, '/discussion_posts/:id', "Creates a discussion post for a submission"
+  api :PATCH, '/discussion_posts/:id', "creates a discussion post for a submission"
   param :id, Fixnum, :desc => "The ID of the discussion post to be updated"
   param_group :discussion_post
   example <<-EOF
@@ -151,7 +151,7 @@ class Api::V1::DiscussionPostsController < ApiController
   end
 
 
-  api :DELETE, '/discussion_posts/:id', "Deletes a single discussion post"
+  api :DELETE, '/discussion_posts/:id', "deletes a single discussion post"
   param :id, Fixnum, :desc => "The ID of the discussion post to be deleted"
   def destroy
     @discussion_post.destroy
