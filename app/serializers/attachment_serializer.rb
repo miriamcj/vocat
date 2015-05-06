@@ -36,7 +36,7 @@ class AttachmentSerializer < ActiveModel::Serializer
 
   def s3_upload_document
     if object.committed?
-      null
+      nil
     else
       object.s3_upload_document
     end
