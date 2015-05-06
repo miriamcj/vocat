@@ -19,7 +19,7 @@ class Api::V1::EvaluationsController < ApiController
   end
 
 
-  # GET /api/v1/evaluations.json?submission=:submission
+
   api :GET, '/evaluations?submission=:submission', "returns all visible evaluations for a given submission"
   description "This endpoint returns only those evaluations that are visible to the authenticated user. Furthermore, the authenticated user must have read access to the submission. Evaluators can see all evaluations for submissions within their courses. Creators can see all published evaluations on submissions they own. Peers can only see their own evaluations. Note that the exact fields returned in the response are dependent on what rubric is being used for the submission project."
   param :submission_id, Fixnum, :desc => "The submission's ID", :required => true

@@ -75,10 +75,14 @@ class Api::V1::CoursesController < ApiController
     respond_with current_user.courses
   end
 
+
+
   def search
     @course = Course.where(["lower(section) LIKE :section", {:section => "#{params[:section].downcase}%"}])
     respond_with @course
   end
+
+
 
   api :GET, '/courses/:id', 'returns one course by ID'
   error :code => 403, :desc => "The user is not authorized to view this course, perhaps because he/she is not enrolled in it."
@@ -102,6 +106,8 @@ class Api::V1::CoursesController < ApiController
   def show
     respond_with @course
   end
+
+
 
   api :PATCH, '/courses/:id', 'updates a course'
   error :code => 403, :desc => "The user is not authorized to update the course. Only admins and course evaluators/assistants may update courses."

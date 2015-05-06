@@ -14,8 +14,7 @@ class Api::V1::EnrollmentsController < ApiController
     EOS
   end
 
-  # GET /api/v1/courses/1/enrollments
-  # GET /api/v1/users/1/enrollments
+
   api :GET, '/courses/:course_id/enrollments?role=:role', "returns users enrolled in a given course"
   api :GET, '/users/:user_id/enrollments', "returns courses in which a given user is enrolled"
   description "Only admins and evaluator users may see what courses a user is enrolled in. Any user who is enrolled in a course may view which other users are enrolled in that course."
@@ -121,7 +120,8 @@ class Api::V1::EnrollmentsController < ApiController
     respond_with enrollments
   end
 
-  # DELETE /api/v1/enrollments/u1c1
+
+
   api :DELETE, '/enrollments/:enrollment_key', "removes a user from a course"
   param :enrollment_key, String, :required => true, :desc => "The enrollment key is a string that takes the format of uXcY where X is the ID of the user to be de-enrolled, and Y is the ID of the course from which to de-enroll the user. If, for example, you wanted to remove User #10 from Course #234, the enrollment key would be u10c234"
   description "Only course evaluators/assistants and Vocat administrators may remove users from courses."
@@ -140,6 +140,8 @@ class Api::V1::EnrollmentsController < ApiController
       respond_with build_enrollment_hash(course, user)
     end
   end
+
+
 
   api :POST, '/enrollments', "enrolls a single user in a single course"
   param :course, Fixnum, :desc => "The course's ID", :required => true
@@ -184,7 +186,8 @@ class Api::V1::EnrollmentsController < ApiController
     end
   end
 
-  # POST /api/v1/enrollments/bulk
+
+
   api :POST, '/courses/:course_id/enrollments/bulk', "bulk enrolls multiple users in a course"
   param :course_id, Fixnum, :desc => "The course's ID", :required => true
   param :role, ["evaluator", "assistant", "creator"], :desc => "The course role that will be assigned to the user", :required => true

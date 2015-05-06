@@ -23,64 +23,62 @@ class Api::V1::DiscussionPostsController < ApiController
   example <<-EOF
     Sample Response:
 
-[
-   {
-      "id":1816,
-      "author_id":4470,
-      "author_name":"Ressie Crona",
-      "body":"\u003cp\u003eThis is the body of the post. \u003cem\u003eMarkdown\u003c/em\u003e is \u003cem\u003esupported\u003c/em\u003e\u003c/p\u003e",
-      "body_raw":"This is the body of the post. _Markdown_ is *supported*",
-      "published":null,
-      "parent_id":null,
-      "gravatar":"http://gravatar.com/avatar/4c3fe1bdae8ec9e5db97d02aa4cf1cda.png?d=mm\u0026s=",
-      "created_at":"2015-05-06T13:44:21.755-04:00",
-      "month":"May",
-      "day":"06",
-      "year":"2015",
-      "time":"01:44 PM",
-      "current_user_can_reply":true,
-      "current_user_can_destroy":true,
-      "submission_id":7394
-   },
-   {
-      "id":1817,
-      "author_id":4470,
-      "author_name":"Ressie Crona",
-      "body":"\u003cp\u003eThis is the body of the post. \u003cem\u003eMarkdown\u003c/em\u003e is \u003cem\u003esupported\u003c/em\u003e\u003c/p\u003e",
-      "body_raw":"This is the body of the post. _Markdown_ is *supported*",
-      "published":null,
-      "parent_id":null,
-      "gravatar":"http://gravatar.com/avatar/4c3fe1bdae8ec9e5db97d02aa4cf1cda.png?d=mm\u0026s=",
-      "created_at":"2015-05-06T13:46:23.515-04:00",
-      "month":"May",
-      "day":"06",
-      "year":"2015",
-      "time":"01:46 PM",
-      "current_user_can_reply":true,
-      "current_user_can_destroy":true,
-      "submission_id":7394
-   },
-   {
-      "id":1818,
-      "author_id":4470,
-      "author_name":"Ressie Crona",
-      "body":"\u003cp\u003eThis is the body of the post. \u003cem\u003eMarkdown\u003c/em\u003e is \u003cem\u003esupported\u003c/em\u003e\u003c/p\u003e",
-      "body_raw":"This is the body of the post. _Markdown_ is *supported*",
-      "published":null,
-      "parent_id":null,
-      "gravatar":"http://gravatar.com/avatar/4c3fe1bdae8ec9e5db97d02aa4cf1cda.png?d=mm\u0026s=",
-      "created_at":"2015-05-06T13:47:05.047-04:00",
-      "month":"May",
-      "day":"06",
-      "year":"2015",
-      "time":"01:47 PM",
-      "current_user_can_reply":true,
-      "current_user_can_destroy":true,
-      "submission_id":7394
-   }
-]
-
-
+    [
+       {
+          "id":1816,
+          "author_id":4470,
+          "author_name":"Ressie Crona",
+          "body":"\u003cp\u003eThis is the body of the post. \u003cem\u003eMarkdown\u003c/em\u003e is \u003cem\u003esupported\u003c/em\u003e\u003c/p\u003e",
+          "body_raw":"This is the body of the post. _Markdown_ is *supported*",
+          "published":null,
+          "parent_id":null,
+          "gravatar":"http://gravatar.com/avatar/4c3fe1bdae8ec9e5db97d02aa4cf1cda.png?d=mm\u0026s=",
+          "created_at":"2015-05-06T13:44:21.755-04:00",
+          "month":"May",
+          "day":"06",
+          "year":"2015",
+          "time":"01:44 PM",
+          "current_user_can_reply":true,
+          "current_user_can_destroy":true,
+          "submission_id":7394
+       },
+       {
+          "id":1817,
+          "author_id":4470,
+          "author_name":"Ressie Crona",
+          "body":"\u003cp\u003eThis is the body of the post. \u003cem\u003eMarkdown\u003c/em\u003e is \u003cem\u003esupported\u003c/em\u003e\u003c/p\u003e",
+          "body_raw":"This is the body of the post. _Markdown_ is *supported*",
+          "published":null,
+          "parent_id":null,
+          "gravatar":"http://gravatar.com/avatar/4c3fe1bdae8ec9e5db97d02aa4cf1cda.png?d=mm\u0026s=",
+          "created_at":"2015-05-06T13:46:23.515-04:00",
+          "month":"May",
+          "day":"06",
+          "year":"2015",
+          "time":"01:46 PM",
+          "current_user_can_reply":true,
+          "current_user_can_destroy":true,
+          "submission_id":7394
+       },
+       {
+          "id":1818,
+          "author_id":4470,
+          "author_name":"Ressie Crona",
+          "body":"\u003cp\u003eThis is the body of the post. \u003cem\u003eMarkdown\u003c/em\u003e is \u003cem\u003esupported\u003c/em\u003e\u003c/p\u003e",
+          "body_raw":"This is the body of the post. _Markdown_ is *supported*",
+          "published":null,
+          "parent_id":null,
+          "gravatar":"http://gravatar.com/avatar/4c3fe1bdae8ec9e5db97d02aa4cf1cda.png?d=mm\u0026s=",
+          "created_at":"2015-05-06T13:47:05.047-04:00",
+          "month":"May",
+          "day":"06",
+          "year":"2015",
+          "time":"01:47 PM",
+          "current_user_can_reply":true,
+          "current_user_can_destroy":true,
+          "submission_id":7394
+       }
+    ]
   EOF
   def index
     @submission = Submission.find(params.require(:submission))
@@ -149,6 +147,7 @@ class Api::V1::DiscussionPostsController < ApiController
     @discussion_post.update_attributes(discussion_post_params)
     respond_with @discussion_post, status: :updated, location: api_v1_discussion_post_url(@discussion_post.id)
   end
+
 
 
   api :DELETE, '/discussion_posts/:id', "deletes a single discussion post"
