@@ -182,7 +182,7 @@ class Api::V1::ProjectsController < ApiController
               "id":"visual-aids-attire"
             }
           ],
-          "rnges":[
+          "ranges":[
             {
               "name":"Poor/Failure",
               "low":0,
@@ -202,7 +202,7 @@ class Api::V1::ProjectsController < ApiController
               "id":"excellent"
             }
           ],
-          "clls":[
+          "cells":[
             {
               "range":"poor-failure",
               "field":"attention",
@@ -598,7 +598,7 @@ class Api::V1::ProjectsController < ApiController
 
 
 
-  api :DELETE, '/projects/:id', "deleted a project"
+  api :DELETE, '/projects/:id', "deletes a project"
   param :id, Fixnum, :desc => "The project ID"
   error :code => 404, :desc => "The project could not be found."
   def destroy

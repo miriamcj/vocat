@@ -99,7 +99,6 @@ class Rubric < ActiveRecord::Base
   def ensure_cells()
     self.cells = [] unless self.cells.kind_of? Array
     self.cells.map! { |cell| cell.with_indifferent_access }
-
   end
 
   def clone()
