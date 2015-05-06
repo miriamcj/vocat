@@ -76,8 +76,9 @@ class Attachment < ActiveRecord::Base
   def check_if_processing_is_needed
     if committed? && can_be_processed?
       start_processing
+    elsif committed? && !can_be_processed?
+      complete_processing
     end
-
   end
 
   def extension()
