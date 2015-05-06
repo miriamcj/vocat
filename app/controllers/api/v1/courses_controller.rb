@@ -6,10 +6,10 @@ class Api::V1::CoursesController < ApiController
 
   def_param_group :course do
     param :id, Fixnum, :desc => "The course ID"
-    param :department, String, :desc => "The department offering the course (for example, \"ENG\")", :required => true
-    param :number, String, :desc => "The course number", :required => true
-    param :name, String, :desc => "The human readable course name", :required => true
-    param :section, String, :desc => "The course section number", :required => true
+    param :department, String, :desc => "The department offering the course (for example, \"ENG\")", :required => true, :action_aware => true
+    param :number, String, :desc => "The course number", :required => true, :action_aware => true
+    param :name, String, :desc => "The human readable course name", :required => true, :action_aware => true
+    param :section, String, :desc => "The course section number", :required => true, :action_aware => true
     param :year, Fixnum, :desc => "The year in which the course takes place"
     param :description, String, :desc => "A fulltext description of the course"
     param :semester_id, Fixnum, :desc => "The ID of the semester in which the course takes place"
@@ -21,13 +21,14 @@ class Api::V1::CoursesController < ApiController
     description <<-EOS
       Courses are containers for projects, and memberships. A course has many members, and members can be of the type
       creator, evaluator, or assistant. Courses also have group projects, user projects, and open projects. Courses also
-      may contain one or more groups. The courses API is still relatively underdeveloped. It is not currently possible to
-      create memberships through courses, although this is on the roadmap and may be developed as the need arises.
+      may contain one or more groups. The courses API is still relatively immature. It is not currently possible to
+      create memberships through courses, although this is on the roadmap and may be developed as the need arises. Course
+      creation typically happens via the creation of course request objects, which are not currently exposed via the API.
     EOS
   end
 
 
-  api :GET, '/courses', 'returns all courses that in which the current user is a member'
+  api :GET, '/courses', 'returns all courses in which the current user is a member'
   example <<-EOS
     Sample Response:
 

@@ -18,6 +18,10 @@ class Ability
       user == a_user
     end
 
+    can [:read_only], User do |a_user|
+      user.role?(:evaluator) || user.role?(:administrator)
+    end
+
     can [:search], User do |a_user|
       user.role?(:evaluator)
     end

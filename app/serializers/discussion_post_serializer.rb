@@ -18,12 +18,16 @@ class DiscussionPostSerializer < ActiveModel::Serializer
   include ActionView::Helpers::OutputSafetyHelper
   include ActionView::Helpers::TextHelper
 
-  attributes :id, :author_id, :author_name, :body, :published, :parent_id, :gravatar, :created_at, :month, :day, :year, :time,
-             :current_user_can_reply, :current_user_can_destroy
+  attributes :id, :author_id, :author_name, :body, :body_raw, :published, :parent_id, :gravatar, :created_at, :month, :day, :year, :time,
+             :current_user_can_reply, :current_user_can_destroy, :submission_id
 
   def body
     markdown = Redcarpet::Markdown.new(Renderer::InlineHTML.new({escape_html: true}))
     markdown.render(object.body)
+  end
+
+  def body_raw
+    object.body
   end
 
   def month
