@@ -4,12 +4,12 @@ class Api::V1::AnnotationsController < ApiController
   respond_to :json
 
   def_param_group :annotation do
-    param :body, String, :required => true
-    param :canvas, String
-    param :smpte_timecode, String
-    param :published, [true, false]
-    param :seconds_timecode, Fixnum
-    param :asset_id, Fixnum
+    param :body, String, :required => true, :desc => "The body of the annotation; support markdown text"
+    param :canvas, String, :desc => "A JSON string that includes the json and svg representation of any drawings included in the annotation"
+    param :smpte_timecode, String, :desc => "A SMPTE formatted timecode (HH:MM:SS) pointing at the playback time that the annotation relates to"
+    param :published, [true, false], :desc => "Whether or not the annotation is published [not currently used]"
+    param :seconds_timecode, Float, :desc => "The seconds at which the annotation occurs, to multiple decimal places"
+    param :asset_id, Fixnum, :desc => "The ID of the asset that has been annotated"
   end
 
   resource_description do
@@ -163,6 +163,20 @@ class Api::V1::AnnotationsController < ApiController
   error :code => 404, :desc => "The annotation does not exist."
   error :code => 403, :desc => "The user is not authorized to update the annotation."
   error :code => 400, :desc => "A required annotation parameter is missing."
+  example <<-EOS
+    Sample Request:
+
+    {
+      "id" : 1,
+      "body": "Another updated annotation...",
+      "canvas": "{\"json\":null,\"svg\":null}",
+      "published": true,
+      "seconds_timecode": 11.143548,
+      "smpte_timecode": "00:00:11",
+      "asset_id": 4542
+    }
+  EOS
+
   def update
     @annotation.update_attributes(annotation_params)
     respond_with @annotation, status: :created, location: api_v1_annotation_url(@annotation.id)
