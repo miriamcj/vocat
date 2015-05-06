@@ -5,7 +5,7 @@ class Api::V1::AttachmentsController < ApiController
   respond_to :json
 
   def_param_group :attachment do
-    param :media_file_name, String, :desc => "The name of the file being uploaded"
+    param :media_file_name, String, :desc => "The name of the file being uploaded. This field is not currently used in Vocat."
   end
 
   resource_description do
@@ -13,10 +13,11 @@ class Api::V1::AttachmentsController < ApiController
       Attachments represent the actual files that are attached to assets. There is a one-to-one relationship between
       assets and attachments. Typically, an attachment file is uploaded directly from the client to Vocat's storage
       backend, which will usually be S3. The attachment object is created prior to the upload starting. When the upload,
-      which is generally an asynchronous upload, is complete, the attachment object is updated to store the location of
+      which is generally an asynchronous upload, has completed, the attachment object is updated to store the location of
       the uploaded file resource. At the end of the process, the attachment is attached to an asset object.
     EOS
   end
+
 
 
   api :POST, '/attachments', 'creates a new attachment'
@@ -54,6 +55,8 @@ class Api::V1::AttachmentsController < ApiController
     respond_with @attachment, location: api_v1_attachment_url(@attachment.id)
   end
 
+
+
   api :GET, '/attachments/:id', 'shows a single attachment'
   param :id, :number, :desc => 'The ID of the attachment to be shown'
   error :code => 403, :desc => "The user is not authorized to view this attachment."
@@ -78,6 +81,8 @@ class Api::V1::AttachmentsController < ApiController
   def show
     respond_with @attachment
   end
+
+
 
   api :DELETE, '/attachments/:id', 'deletes an attachment'
   param :id, :number, :desc => 'The ID of the attachment to be deleted'
