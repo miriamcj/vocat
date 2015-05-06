@@ -128,6 +128,9 @@ class Attachment < ActiveRecord::Base
         end
         self.save
       end
+    elsif committed? && !can_be_processed?
+      complete_processing
+      self.save
     end
   end
 
