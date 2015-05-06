@@ -1,0 +1,78 @@
+@import "../../partials/variables";
+@import "../../partials/mixins";
+@import "../../partials/patterns";
+@import "../../partials/mixins_project";
+
+html {
+  // 18px
+  font-size: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+  // Sadly, this occasionally causes width:auto elements to break to multiple lines in Chrome
+  // It seems that the width of the element is computed prior to kerning
+  // https://code.google.com/p/chromium/issues/detail?id=189755
+  // text-rendering: optimizeLegibility;
+}
+
+body {
+  @include font-body;
+  position: relative;
+  font-size: 1em;
+  font-weight: 400;
+  line-height: $baseLineHeight;
+  color: $grayDark;
+  background-color: $white;
+  padding-bottom: $headerHeight;
+  min-height: 100%;
+  padding-bottom: $headerHeight * 2.5;
+  .no-mediaqueries & {
+    min-width: $michigan;
+  }
+}
+
+a {
+  color: $primaryLinkColor;
+  &:hover {
+    color: $primaryLinkHoverColor;
+    text-decoration: none;
+  }
+}
+
+h1 {
+  @extend %condensedHeading;
+  @extend %spacedHeading;
+  font-size: $gamma;
+  color: $grayDark;
+  font-weight: $bold;
+}
+
+h2 {
+  @extend %condensedHeading;
+  @extend %spacedHeading;
+  font-size: $delta;
+  color: $grayDark;
+}
+
+h3 {
+  @extend %spacedHeading;
+  font-size: $zeta;
+  font-weight: $semibold;
+}
+
+.method-detail-section {
+  padding-bottom: .5em;
+  margin-bottom: 1em;
+}
+
+.method-detail-list {
+  @extend %unstyled-list;
+  margin-left: 8px;
+  li {
+    margin-bottom: .5em;
+  }
+}
+
+//pre.prettyprint {
+//  margin-bottom: 0;
+//}
