@@ -4,18 +4,20 @@ class Api::V1::AnnotationsController < ApiController
   respond_to :json
 
   def_param_group :annotation do
-    param :body, String, :required => true, :desc => "The body of the annotation; support markdown text"
+    param :body, String, :required => true, :action_aware => true, :desc => "The body of the annotation; support markdown text"
     param :canvas, String, :desc => "A JSON string that includes the json and svg representation of any drawings included in the annotation"
     param :smpte_timecode, String, :desc => "A SMPTE formatted timecode (HH:MM:SS) pointing at the playback time that the annotation relates to"
     param :published, [true, false], :desc => "Whether or not the annotation is published [not currently used]"
-    param :seconds_timecode, Float, :desc => "The seconds at which the annotation occurs, to multiple decimal places"
-    param :asset_id, Fixnum, :desc => "The ID of the asset that has been annotated"
+    param :seconds_timecode, Float, :required => true, :action_aware => true, :desc => "The value of this parameter should be the seconds at which the annotation occurs, to multiple decimal places. If the annotated asset does not have duration, this should be set to 0.0."
+    param :asset_id, Fixnum, :required => true, :action_aware => true, :desc => "The ID of the asset that has been annotated"
   end
 
   resource_description do
     description <<-EOS
       Annotations are the comments that users record about a specific media object. If the media being annotated has
       duration (video or audio media), then the annotation will typically be tied to a specific timestamp on the media.
+      The ID of the user who creates the annotation will be assigned to the parameter author_id property. The API does
+      not currently allow the creation of annotations authored by other users.
     EOS
   end
 
@@ -76,7 +78,7 @@ class Api::V1::AnnotationsController < ApiController
 
 
   api :GET, '/annotations/:id', 'shows a single annotation'
-  param :id, :number, :desc => 'The ID of the annotation to be deleted'
+  param :id, :number, :desc => 'The ID of the annotation to be shown'
   error :code => 404, :desc => "The annotation does not exist."
   error :code => 403, :desc => "The user is not authorized to view the annotation."
   example <<-EOS
@@ -108,7 +110,7 @@ class Api::V1::AnnotationsController < ApiController
 
 
   api :POST, '/annotations', 'creates a new annotation'
-  param_group :annotation
+  param_group :annotation, :as => :create
   error :code => 403, :desc => "The user is not authorized to annotate the asset to which the annotation belongs."
   error :code => 400, :desc => "A required annotation parameter is missing."
   example <<-EOS
@@ -145,7 +147,6 @@ class Api::V1::AnnotationsController < ApiController
         "body_raw": "Another annotation..."
     }
   EOS
-
   def create
     @annotation.author = current_user
     if @annotation.save
@@ -159,7 +160,7 @@ class Api::V1::AnnotationsController < ApiController
 
   api :PATCH, '/annotations/:id', 'updates an annotation'
   param :id, :number, :desc => 'The ID of the annotation to be updated'
-  param_group :annotation
+  param_group :annotation, :as => :update
   error :code => 404, :desc => "The annotation does not exist."
   error :code => 403, :desc => "The user is not authorized to update the annotation."
   error :code => 400, :desc => "A required annotation parameter is missing."
@@ -176,7 +177,6 @@ class Api::V1::AnnotationsController < ApiController
       "asset_id": 4542
     }
   EOS
-
   def update
     @annotation.update_attributes(annotation_params)
     respond_with @annotation, status: :created, location: api_v1_annotation_url(@annotation.id)
@@ -184,7 +184,7 @@ class Api::V1::AnnotationsController < ApiController
 
 
 
-  api :DELETE, '/annotations/:id', 'delete a single annotation'
+  api :DELETE, '/annotations/:id', 'deletes a single annotation'
   param :id, :number, :desc => 'The ID of the annotation to be deleted'
   error :code => 404, :desc => "The annotation does not exist."
   error :code => 403, :desc => "The user is not authorized to delete the annotation."
