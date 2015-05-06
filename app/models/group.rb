@@ -14,6 +14,17 @@ class Group < ActiveRecord::Base
   belongs_to :course
   has_many :submissions, :as => :creator, :dependent => :destroy
   has_and_belongs_to_many :creators, :class_name => "User", :join_table => "groups_creators"
+  validate :all_creators_must_belong_to_group_course
+  validates_presence_of :name
+
+  def all_creators_must_belong_to_group_course
+    creator_ids = course.creators.pluck :id
+    creators.each do |creator|
+      if !creator_ids.include? creator.id
+        errors.add(:creators, "#{creator.name} is not enrolled in the group's course")
+      end
+    end
+  end
 
   def active_model_serializer
     GroupSerializer
