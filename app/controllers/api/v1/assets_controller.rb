@@ -4,8 +4,8 @@ class Api::V1::AssetsController < ApiController
   respond_to :json
 
   def_param_group :asset do
-    param :id, Fixnum
-    param :submission_id, Fixnum, :desc => "The ID of the submission with which this asset is associated", :required => true
+    param :id, Fixnum, :desc => "The asset ID"
+    param :submission_id, Fixnum, :desc => "The ID of the submission with which this asset is associated", :required => true, :action_aware => true
     param :listing_order_position, Fixnum, :desc => "The position of this asset among other assets associated with the same submission"
     param :name, String, :desc => "The name of the asset"
     param :external_source, ["youtube", "vimeo"], :desc => "If the asset references an external asset, the external_source should specify what service hosts the asset"
