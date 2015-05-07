@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>API documentation</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link type='text/css' rel='stylesheet' href='../../apipie/stylesheets/bundled/bootstrap.min.css'/>
+<link type='text/css' rel='stylesheet' href='../../apipie/stylesheets/bundled/prettify.css'/>
+<link type='text/css' rel='stylesheet' href='../../apipie/stylesheets/bundled/bootstrap-responsive.min.css'/>
+	<link type='text/css' rel='stylesheet' href='../../apipie/stylesheets/application.css'/>
+	<link rel="stylesheet" media="all" href="/assets/apipie/partials/_components.css?body=1" />
+<link rel="stylesheet" media="all" href="/assets/apipie/apipie.css?body=1" />
+
+	<!-- IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<script type="text/javascript" src="//use.typekit.net/ytz4hur.js"></script>
+	<script type="text/javascript">try {
+		Typekit.load();
+	} catch (e) {
+	}</script>
+
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div id='container'>
+			<ul class='breadcrumb'>
+  <li>
+    <a href='../../apipie/1.0.html'>Vocat API 1.0</a>
+    <span class='divider'>/</span>
+  </li>
+  <li class='active'>
+    Users
+    
+  </li>
+  
+</ul>
+
+<div class='page-header'>
+  <h1>
+    Users
+    <br>
+    <small></small>
+  </h1>
+</div>
+
+
+
+
+
+
+<div class='accordion' id='accordion'>
+
+    <hr>
+    <div class='pull-right small'>
+      <a href='../../apipie/1.0/users/show.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-show'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            GET /api/v1/users/:id
+          </a>
+          <br>
+          <small>shows a user</small>
+        </h2>
+    </div>
+
+
+    <div id='description-show' class='collapse accordion-body'>
+      
+
+
+	<div class="method-detail-section">
+		<h3>Examples</h3>
+			<pre class="prettyprint">Sample Response:
+
+{
+  &quot;id&quot;: 4470,
+  &quot;email&quot;: &quot;evaluator1@test.com&quot;,
+  &quot;name&quot;: &quot;Ressie Crona&quot;,
+  &quot;gravatar&quot;: &quot;http://gravatar.com/avatar/4c3fe1bdae8ec9e5db97d02aa4cf1cda.png?d=mm&amp;s=&quot;,
+  &quot;first_name&quot;: &quot;Ressie&quot;,
+  &quot;last_sign_in_at&quot;: &quot;2015-05-06T17:51:54.327-04:00&quot;,
+  &quot;org_identity&quot;: &quot;30683835&quot;,
+  &quot;list_name&quot;: &quot;Crona, Ressie&quot;
+}
+</pre>
+	</div>
+
+
+
+
+	<div class="method-detail-section">
+		<h3>Request Parameters</h3>
+		<table class='table'>
+			<thead>
+			<tr>
+				<th>Param name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>id </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The ID of the user to be shown</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../../apipie/1.0/users/me.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-me'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            GET /api/v1/users/me
+          </a>
+          <br>
+          <small>shows the current authenticated user</small>
+        </h2>
+    </div>
+
+
+    <div id='description-me' class='collapse accordion-body'>
+      
+
+
+	<div class="method-detail-section">
+		<h3>Examples</h3>
+			<pre class="prettyprint">Sample Response:
+
+{
+  &quot;id&quot;: 4470,
+  &quot;email&quot;: &quot;evaluator1@test.com&quot;,
+  &quot;name&quot;: &quot;Ressie Crona&quot;,
+  &quot;gravatar&quot;: &quot;http://gravatar.com/avatar/4c3fe1bdae8ec9e5db97d02aa4cf1cda.png?d=mm&amp;s=&quot;,
+  &quot;first_name&quot;: &quot;Ressie&quot;,
+  &quot;last_sign_in_at&quot;: &quot;2015-05-06T17:51:54.327-04:00&quot;,
+  &quot;org_identity&quot;: &quot;30683835&quot;,
+  &quot;list_name&quot;: &quot;Crona, Ressie&quot;
+}
+</pre>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Errors</h3>
+		<ul class="method-detail-list">
+				<li>
+					<strong>401</strong>: Your API token has likely expired.
+					<br>
+				</li>
+		</ul>
+	</div>
+
+
+
+
+
+    </div>
+</div>
+
+
+			
+		</div>
+	</div>
+	<hr>
+	<footer>Copyright 2015 Baruch College, City University of New York</footer>
+</div>
+<script type='text/javascript' src='../../apipie/javascripts/bundled/jquery-1.7.2.js'></script>
+<script type='text/javascript' src='../../apipie/javascripts/bundled/bootstrap-collapse.js'></script>
+<script type='text/javascript' src='../../apipie/javascripts/bundled/prettify.js'></script>
+<script type='text/javascript' src='../../apipie/javascripts/apipie.js'></script>
+</body>
+</html>

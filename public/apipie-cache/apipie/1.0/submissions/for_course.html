@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>API documentation</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link type='text/css' rel='stylesheet' href='../../../apipie/stylesheets/bundled/bootstrap.min.css'/>
+<link type='text/css' rel='stylesheet' href='../../../apipie/stylesheets/bundled/prettify.css'/>
+<link type='text/css' rel='stylesheet' href='../../../apipie/stylesheets/bundled/bootstrap-responsive.min.css'/>
+	<link type='text/css' rel='stylesheet' href='../../../apipie/stylesheets/application.css'/>
+	<link rel="stylesheet" media="all" href="/assets/apipie/partials/_components.css?body=1" />
+<link rel="stylesheet" media="all" href="/assets/apipie/apipie.css?body=1" />
+
+	<!-- IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<script type="text/javascript" src="//use.typekit.net/ytz4hur.js"></script>
+	<script type="text/javascript">try {
+		Typekit.load();
+	} catch (e) {
+	}</script>
+
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div id='container'>
+			<ul class='breadcrumb'>
+  <li>
+    <a href='../../../apipie/1.0.html'>Vocat API 1.0</a>
+    <span class='divider'>/</span>
+  </li>
+  <li>
+    <a href='../../../apipie/1.0/submissions.html'>
+      Submissions
+      
+    </a>
+    <span class='divider'>/</span>
+  </li>
+  <li class='active'>for_course</li>
+  
+
+</ul>
+
+  <div class='page-header'>
+    <h1>
+      GET /api/v1/submission/for_course?course=:course
+      <br>
+      <small>returns summaries of all submissions for the given course</small>
+    </h1>
+  </div>
+
+<div>
+
+  
+
+
+	<div class="method-detail-section">
+		<h2>Examples</h2>
+			<pre class="prettyprint">Sample Response:
+
+[
+  {
+    &quot;id&quot;: 7395,
+    &quot;creator_id&quot;: 4483,
+    &quot;project_id&quot;: 466,
+    &quot;creator_type&quot;: &quot;User&quot;,
+    &quot;serialized_state&quot;: &quot;partial&quot;,
+    &quot;current_user_published&quot;: null,
+    &quot;current_user_percentage&quot;: null,
+    &quot;instructor_score_percentage&quot;: &quot;68.8888888888889&quot;,
+    &quot;role&quot;: &quot;administrator&quot;,
+    &quot;has_asset&quot;: true,
+    &quot;list_name&quot;: &quot;Blick, Betty&quot;
+  },
+  {
+    &quot;id&quot;: 7398,
+    &quot;creator_id&quot;: 4519,
+    &quot;project_id&quot;: 466,
+    &quot;creator_type&quot;: &quot;User&quot;,
+    &quot;serialized_state&quot;: &quot;partial&quot;,
+    &quot;current_user_published&quot;: null,
+    &quot;current_user_percentage&quot;: null,
+    &quot;instructor_score_percentage&quot;: null,
+    &quot;role&quot;: &quot;administrator&quot;,
+    &quot;has_asset&quot;: false,
+    &quot;list_name&quot;: &quot;Reinger, Ebony&quot;
+  },
+  [...]
+]
+</pre>
+	</div>
+
+
+
+
+	<div class="method-detail-section">
+		<h3>Request Parameters</h3>
+		<table class='table'>
+			<thead>
+			<tr>
+				<th>Param name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>course </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The course ID</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+</div>
+
+
+			
+		</div>
+	</div>
+	<hr>
+	<footer>Copyright 2015 Baruch College, City University of New York</footer>
+</div>
+<script type='text/javascript' src='../../../apipie/javascripts/bundled/jquery-1.7.2.js'></script>
+<script type='text/javascript' src='../../../apipie/javascripts/bundled/bootstrap-collapse.js'></script>
+<script type='text/javascript' src='../../../apipie/javascripts/bundled/prettify.js'></script>
+<script type='text/javascript' src='../../../apipie/javascripts/apipie.js'></script>
+</body>
+</html>

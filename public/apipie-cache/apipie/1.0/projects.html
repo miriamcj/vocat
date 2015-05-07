@@ -1,0 +1,1863 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>API documentation</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link type='text/css' rel='stylesheet' href='../../apipie/stylesheets/bundled/bootstrap.min.css'/>
+<link type='text/css' rel='stylesheet' href='../../apipie/stylesheets/bundled/prettify.css'/>
+<link type='text/css' rel='stylesheet' href='../../apipie/stylesheets/bundled/bootstrap-responsive.min.css'/>
+	<link type='text/css' rel='stylesheet' href='../../apipie/stylesheets/application.css'/>
+	<link rel="stylesheet" media="all" href="/assets/apipie/partials/_components.css?body=1" />
+<link rel="stylesheet" media="all" href="/assets/apipie/apipie.css?body=1" />
+
+	<!-- IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<script type="text/javascript" src="//use.typekit.net/ytz4hur.js"></script>
+	<script type="text/javascript">try {
+		Typekit.load();
+	} catch (e) {
+	}</script>
+
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div id='container'>
+			<ul class='breadcrumb'>
+  <li>
+    <a href='../../apipie/1.0.html'>Vocat API 1.0</a>
+    <span class='divider'>/</span>
+  </li>
+  <li class='active'>
+    Projects
+    
+  </li>
+  
+</ul>
+
+<div class='page-header'>
+  <h1>
+    Projects
+    <br>
+    <small></small>
+  </h1>
+</div>
+
+  <div>
+<p>Projects belong to courses. Course creators and groups have submissions for
+projects. Projects are generally managed by course evaluators and
+assistants.</p>
+</div>
+
+
+
+
+
+<div class='accordion' id='accordion'>
+
+    <hr>
+    <div class='pull-right small'>
+      <a href='../../apipie/1.0/projects/index.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-index'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            GET /api/v1/projects?course=:course
+          </a>
+          <br>
+          <small>returns all projects for the given course</small>
+        </h2>
+    </div>
+
+
+    <div id='description-index' class='collapse accordion-body'>
+      
+
+
+	<div class="method-detail-section">
+		<h3>Examples</h3>
+			<pre class="prettyprint">Sample Response:
+[
+  {
+    &quot;id&quot;:466,
+    &quot;name&quot;:&quot;Final Business Vocalization&quot;,
+    &quot;description&quot;:&quot;&lt;p&gt;Sed et aut reiciendis. Totam ducimus quibusdam similique. Sunt et et esse voluptatem nam.&lt;/p&gt;&quot;,
+    &quot;listing_order_position&quot;:null,
+    &quot;evaluatable&quot;:true,
+    &quot;evaluatable_by_peers&quot;:false,
+    &quot;evaluatable_by_creator&quot;:false,
+    &quot;allows_public_discussion&quot;:false,
+    &quot;rejects_past_due_media&quot;:false,
+    &quot;allowed_attachment_families&quot;:[
+      &quot;audio&quot;,
+      &quot;image&quot;,
+      &quot;video&quot;
+    ],
+    &quot;allowed_extensions&quot;:[
+      &quot;mp3,&quot;,
+      &quot;wav&quot;,
+      &quot;gif&quot;,
+      &quot;jpg&quot;,
+      &quot;jpeg&quot;,
+      &quot;png&quot;,
+      &quot;tif&quot;,
+      &quot;tiff&quot;,
+      &quot;avi&quot;,
+      &quot;mp4&quot;,
+      &quot;m4v&quot;,
+      &quot;mov&quot;,
+      &quot;flv&quot;,
+      &quot;wmv&quot;,
+      &quot;webm&quot;,
+      &quot;ogv&quot;,
+      &quot;mkv&quot;
+    ],
+    &quot;allowed_mime_types&quot;:[
+      &quot;audio/mp3,&quot;,
+      &quot;audio/wav&quot;,
+      &quot;image/gif&quot;,
+      &quot;image/jpg&quot;,
+      &quot;image/jpeg&quot;,
+      &quot;image/png&quot;,
+      &quot;image/tiff&quot;,
+      &quot;video/x-msvideo&quot;,
+      &quot;video/mp4&quot;,
+      &quot;video/x-m4v&quot;,
+      &quot;quicktime/mov&quot;,
+      &quot;video/x-flv&quot;,
+      &quot;video/x-ms-wmv&quot;,
+      &quot;video/webm,&quot;,
+      &quot;video/ogg,&quot;,
+      &quot;video/divx&quot;
+    ],
+    &quot;type&quot;:&quot;UserProject&quot;,
+    &quot;rubric_id&quot;:51,
+    &quot;rubric_name&quot;:&quot;COMM1010 Rubric&quot;,
+    &quot;abilities&quot;:{
+      &quot;can_update&quot;:true,
+      &quot;can_destroy&quot;:true,
+      &quot;can_evaluate&quot;:true,
+      &quot;can_show_submissions&quot;:true
+    },
+    &quot;course_id&quot;:234,
+    &quot;due_date&quot;:null,
+    &quot;rubric&quot;:{
+      &quot;id&quot;:51,
+      &quot;name&quot;:&quot;COMM1010 Rubric&quot;,
+      &quot;fields&quot;:[
+        {
+          &quot;name&quot;:&quot;Attention&quot;,
+          &quot;description&quot;:&quot;Attention Step&quot;,
+          &quot;id&quot;:&quot;attention&quot;
+        },
+        {
+          &quot;name&quot;:&quot;Relation to Audience&quot;,
+          &quot;description&quot;:&quot;Relation to Audience&quot;,
+          &quot;id&quot;:&quot;relation-to-audience&quot;
+        },
+        {
+          &quot;name&quot;:&quot;Specific purpose/thesis&quot;,
+          &quot;description&quot;:&quot;Specific purpose/thesis&quot;,
+          &quot;id&quot;:&quot;specific-purpose-thesis&quot;
+        },
+        {
+          &quot;name&quot;:&quot;Preview&quot;,
+          &quot;description&quot;:&quot;Preview&quot;,
+          &quot;id&quot;:&quot;preview&quot;
+        },
+        {
+          &quot;name&quot;:&quot;Logical Organization Pattern&quot;,
+          &quot;description&quot;:&quot;Logical Organization Pattern&quot;,
+          &quot;id&quot;:&quot;logical-organization-pattern&quot;
+        },
+        {
+          &quot;name&quot;:&quot;Supporting Material&quot;,
+          &quot;description&quot;:&quot;Supporting Material&quot;,
+          &quot;id&quot;:&quot;supporting-material&quot;
+        },
+        {
+          &quot;name&quot;:&quot;Citations&quot;,
+          &quot;description&quot;:&quot;Citations&quot;,
+          &quot;id&quot;:&quot;citations&quot;
+        },
+        {
+          &quot;name&quot;:&quot;Transitions&quot;,
+          &quot;description&quot;:&quot;Transitions&quot;,
+          &quot;id&quot;:&quot;transitions&quot;
+        },
+        {
+          &quot;name&quot;:&quot;Review&quot;,
+          &quot;description&quot;:&quot;Review&quot;,
+          &quot;id&quot;:&quot;review&quot;
+        },
+        {
+          &quot;name&quot;:&quot;Introduction Tieback&quot;,
+          &quot;description&quot;:&quot;Introduction Tieback&quot;,
+          &quot;id&quot;:&quot;introduction-tieback&quot;
+        },
+        {
+          &quot;name&quot;:&quot;Rate&quot;,
+          &quot;description&quot;:&quot;Rate&quot;,
+          &quot;id&quot;:&quot;rate&quot;
+        },
+        {
+          &quot;name&quot;:&quot;Level&quot;,
+          &quot;description&quot;:&quot;Level&quot;,
+          &quot;id&quot;:&quot;level&quot;
+        },
+        {
+          &quot;name&quot;:&quot;Eye Contact&quot;,
+          &quot;description&quot;:&quot;Eye Contact&quot;,
+          &quot;id&quot;:&quot;eye-contact&quot;
+        },
+        {
+          &quot;name&quot;:&quot;Movement&quot;,
+          &quot;description&quot;:&quot;Movement&quot;,
+          &quot;id&quot;:&quot;movement&quot;
+        },
+        {
+          &quot;name&quot;:&quot;Visual Aids / Attire&quot;,
+          &quot;description&quot;:&quot;Visual Aids / Attire&quot;,
+          &quot;id&quot;:&quot;visual-aids-attire&quot;
+        }
+      ],
+      &quot;ranges&quot;:[
+        {
+          &quot;name&quot;:&quot;Poor/Failure&quot;,
+          &quot;low&quot;:0,
+          &quot;high&quot;:2,
+          &quot;id&quot;:&quot;poor-failure&quot;
+        },
+        {
+          &quot;name&quot;:&quot;Good/Average&quot;,
+          &quot;low&quot;:3,
+          &quot;high&quot;:4,
+          &quot;id&quot;:&quot;good-average&quot;
+        },
+        {
+          &quot;name&quot;:&quot;Excellent&quot;,
+          &quot;low&quot;:5,
+          &quot;high&quot;:6,
+          &quot;id&quot;:&quot;excellent&quot;
+        }
+      ],
+      &quot;cells&quot;:[
+        {
+          &quot;range&quot;:&quot;poor-failure&quot;,
+          &quot;field&quot;:&quot;attention&quot;,
+          &quot;description&quot;:&quot;Doesn&#39;t gain attention, speaker picked weak/inappropriate devices, theme is unclear [...]&quot;
+        },
+        {
+          &quot;range&quot;:&quot;good-average&quot;,
+          &quot;field&quot;:&quot;attention&quot;,
+          &quot;description&quot;:&quot;Gains some attention, speaker could have picked stronger devices, theme is present but [...]&quot;
+        },
+        {
+          &quot;range&quot;:&quot;excellent&quot;,
+          &quot;field&quot;:&quot;attention&quot;,
+          &quot;description&quot;:&quot;Strongly gains audiences attention with appropriate devices, establishes clear theme [...]&quot;
+        },
+        {
+          &quot;range&quot;:&quot;poor-failure&quot;,
+          &quot;field&quot;:&quot;relation-to-audience&quot;,
+          &quot;description&quot;:&quot;Provides little or no rationale for why the speech has value to a &quot;specific&quot; or &quot;general&quot; audience&quot;
+        },
+        {
+          &quot;range&quot;:&quot;good-average&quot;,
+          &quot;field&quot;:&quot;relation-to-audience&quot;,
+          &quot;description&quot;:&quot;Hints at why the speech is important, addresses the reason why a &quot;general&quot; audience should listen&quot;
+        },
+        {
+          &quot;range&quot;:&quot;excellent&quot;,
+          &quot;field&quot;:&quot;relation-to-audience&quot;,
+          &quot;description&quot;:&quot;Provided a terse, but strong rationale for why the speech is important and why his/her &quot;specific&quot; audience should listen&quot;
+        },
+        {
+          &quot;range&quot;:&quot;poor-failure&quot;,
+          &quot;field&quot;:&quot;specific-purpose-thesis&quot;,
+          &quot;description&quot;:&quot;No clear thesis is provided, the audience at the start of the speech has little or no idea [...]&quot;
+        },
+        [..]
+      ],
+      &quot;low&quot;:0,
+      &quot;high&quot;:6,
+      &quot;points_possible&quot;:90,
+      &quot;description&quot;:null,
+      &quot;public&quot;:true
+    }
+  }
+]
+</pre>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Errors</h3>
+		<ul class="method-detail-list">
+				<li>
+					<strong>404</strong>: The course was not found.
+					<br>
+				</li>
+				<li>
+					<strong>403</strong>: The current user does not have read access for the given course.
+					<br>
+				</li>
+		</ul>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Request Parameters</h3>
+		<table class='table'>
+			<thead>
+			<tr>
+				<th>Param name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>course </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The course ID</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../../apipie/1.0/projects/show.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-show'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            GET /api/v1/projects/:id
+          </a>
+          <br>
+          <small>shows a single project</small>
+        </h2>
+    </div>
+
+
+    <div id='description-show' class='collapse accordion-body'>
+      
+
+
+	<div class="method-detail-section">
+		<h3>Examples</h3>
+			<pre class="prettyprint">Sample Response:
+
+{
+  &quot;id&quot;:466,
+  &quot;name&quot;:&quot;Final Business Vocalization&quot;,
+  &quot;description&quot;:&quot;&lt;p&gt;Sed et aut reiciendis. Totam ducimus quibusdam similique. Sunt et et esse voluptatem nam.&lt;/p&gt;&quot;,
+  &quot;listing_order_position&quot;:null,
+  &quot;evaluatable&quot;:true,
+  &quot;evaluatable_by_peers&quot;:false,
+  &quot;evaluatable_by_creator&quot;:false,
+  &quot;allows_public_discussion&quot;:false,
+  &quot;rejects_past_due_media&quot;:false,
+  &quot;allowed_attachment_families&quot;:[
+    &quot;audio&quot;,
+    &quot;image&quot;,
+    &quot;video&quot;
+  ],
+  &quot;allowed_extensions&quot;:[
+    &quot;mp3,&quot;,
+    &quot;wav&quot;,
+    &quot;gif&quot;,
+    &quot;jpg&quot;,
+    &quot;jpeg&quot;,
+    &quot;png&quot;,
+    &quot;tif&quot;,
+    &quot;tiff&quot;,
+    &quot;avi&quot;,
+    &quot;mp4&quot;,
+    &quot;m4v&quot;,
+    &quot;mov&quot;,
+    &quot;flv&quot;,
+    &quot;wmv&quot;,
+    &quot;webm&quot;,
+    &quot;ogv&quot;,
+    &quot;mkv&quot;
+  ],
+  &quot;allowed_mime_types&quot;:[
+    &quot;audio/mp3,&quot;,
+    &quot;audio/wav&quot;,
+    &quot;image/gif&quot;,
+    &quot;image/jpg&quot;,
+    &quot;image/jpeg&quot;,
+    &quot;image/png&quot;,
+    &quot;image/tiff&quot;,
+    &quot;video/x-msvideo&quot;,
+    &quot;video/mp4&quot;,
+    &quot;video/x-m4v&quot;,
+    &quot;quicktime/mov&quot;,
+    &quot;video/x-flv&quot;,
+    &quot;video/x-ms-wmv&quot;,
+    &quot;video/webm,&quot;,
+    &quot;video/ogg,&quot;,
+    &quot;video/divx&quot;
+  ],
+  &quot;type&quot;:&quot;UserProject&quot;,
+  &quot;rubric_id&quot;:51,
+  &quot;rubric_name&quot;:&quot;COMM1010 Rubric&quot;,
+  &quot;abilities&quot;:{
+    &quot;can_update&quot;:true,
+    &quot;can_destroy&quot;:true,
+    &quot;can_evaluate&quot;:true,
+    &quot;can_show_submissions&quot;:true
+  },
+  &quot;course_id&quot;:234,
+  &quot;due_date&quot;:null,
+  &quot;rubric&quot;:{
+    &quot;id&quot;:51,
+    &quot;name&quot;:&quot;COMM1010 Rubric&quot;,
+    &quot;fields&quot;:[
+      {
+        &quot;name&quot;:&quot;Attention&quot;,
+        &quot;description&quot;:&quot;Attention Step&quot;,
+        &quot;id&quot;:&quot;attention&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Relation to Audience&quot;,
+        &quot;description&quot;:&quot;Relation to Audience&quot;,
+        &quot;id&quot;:&quot;relation-to-audience&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Specific purpose/thesis&quot;,
+        &quot;description&quot;:&quot;Specific purpose/thesis&quot;,
+        &quot;id&quot;:&quot;specific-purpose-thesis&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Preview&quot;,
+        &quot;description&quot;:&quot;Preview&quot;,
+        &quot;id&quot;:&quot;preview&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Logical Organization Pattern&quot;,
+        &quot;description&quot;:&quot;Logical Organization Pattern&quot;,
+        &quot;id&quot;:&quot;logical-organization-pattern&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Supporting Material&quot;,
+        &quot;description&quot;:&quot;Supporting Material&quot;,
+        &quot;id&quot;:&quot;supporting-material&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Citations&quot;,
+        &quot;description&quot;:&quot;Citations&quot;,
+        &quot;id&quot;:&quot;citations&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Transitions&quot;,
+        &quot;description&quot;:&quot;Transitions&quot;,
+        &quot;id&quot;:&quot;transitions&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Review&quot;,
+        &quot;description&quot;:&quot;Review&quot;,
+        &quot;id&quot;:&quot;review&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Introduction Tieback&quot;,
+        &quot;description&quot;:&quot;Introduction Tieback&quot;,
+        &quot;id&quot;:&quot;introduction-tieback&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Rate&quot;,
+        &quot;description&quot;:&quot;Rate&quot;,
+        &quot;id&quot;:&quot;rate&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Level&quot;,
+        &quot;description&quot;:&quot;Level&quot;,
+        &quot;id&quot;:&quot;level&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Eye Contact&quot;,
+        &quot;description&quot;:&quot;Eye Contact&quot;,
+        &quot;id&quot;:&quot;eye-contact&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Movement&quot;,
+        &quot;description&quot;:&quot;Movement&quot;,
+        &quot;id&quot;:&quot;movement&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Visual Aids / Attire&quot;,
+        &quot;description&quot;:&quot;Visual Aids / Attire&quot;,
+        &quot;id&quot;:&quot;visual-aids-attire&quot;
+      }
+    ],
+    &quot;rnges&quot;:[
+      {
+        &quot;name&quot;:&quot;Poor/Failure&quot;,
+        &quot;low&quot;:0,
+        &quot;high&quot;:2,
+        &quot;id&quot;:&quot;poor-failure&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Good/Average&quot;,
+        &quot;low&quot;:3,
+        &quot;high&quot;:4,
+        &quot;id&quot;:&quot;good-average&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Excellent&quot;,
+        &quot;low&quot;:5,
+        &quot;high&quot;:6,
+        &quot;id&quot;:&quot;excellent&quot;
+      }
+    ],
+    &quot;clls&quot;:[
+      {
+        &quot;range&quot;:&quot;poor-failure&quot;,
+        &quot;field&quot;:&quot;attention&quot;,
+        &quot;description&quot;:&quot;Doesn&#39;t gain attention, speaker picked weak/inappropriate devices, theme is unclear [...]&quot;
+      },
+      {
+        &quot;range&quot;:&quot;good-average&quot;,
+        &quot;field&quot;:&quot;attention&quot;,
+        &quot;description&quot;:&quot;Gains some attention, speaker could have picked stronger devices, theme is present but [...]&quot;
+      },
+      {
+        &quot;range&quot;:&quot;excellent&quot;,
+        &quot;field&quot;:&quot;attention&quot;,
+        &quot;description&quot;:&quot;Strongly gains audiences attention with appropriate devices, establishes clear theme [...]&quot;
+      },
+      {
+        &quot;range&quot;:&quot;poor-failure&quot;,
+        &quot;field&quot;:&quot;relation-to-audience&quot;,
+        &quot;description&quot;:&quot;Provides little or no rationale for why the speech has value to a &quot;specific&quot; or &quot;general&quot; audience&quot;
+      },
+      {
+        &quot;range&quot;:&quot;good-average&quot;,
+        &quot;field&quot;:&quot;relation-to-audience&quot;,
+        &quot;description&quot;:&quot;Hints at why the speech is important, addresses the reason why a &quot;general&quot; audience should listen&quot;
+      },
+      {
+        &quot;range&quot;:&quot;excellent&quot;,
+        &quot;field&quot;:&quot;relation-to-audience&quot;,
+        &quot;description&quot;:&quot;Provided a terse, but strong rationale for why the speech is important and why his/her &quot;specific&quot; audience should listen&quot;
+      },
+      {
+        &quot;range&quot;:&quot;poor-failure&quot;,
+        &quot;field&quot;:&quot;specific-purpose-thesis&quot;,
+        &quot;description&quot;:&quot;No clear thesis is provided, the audience at the start of the speech has little or no idea [...]&quot;
+      },
+      [..]
+    ],
+    &quot;low&quot;:0,
+    &quot;high&quot;:6,
+    &quot;points_possible&quot;:90,
+    &quot;description&quot;:null,
+    &quot;public&quot;:true
+  }
+}
+</pre>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Errors</h3>
+		<ul class="method-detail-list">
+				<li>
+					<strong>404</strong>: The project was not found.
+					<br>
+				</li>
+				<li>
+					<strong>403</strong>: The current user does not have read access to this project.
+					<br>
+				</li>
+		</ul>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Request Parameters</h3>
+		<table class='table'>
+			<thead>
+			<tr>
+				<th>Param name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>id </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The project ID</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../../apipie/1.0/projects/create.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-create'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            POST /api/v1/projects
+          </a>
+          <br>
+          <small>creates a new project</small>
+        </h2>
+    </div>
+
+
+    <div id='description-create' class='collapse accordion-body'>
+      
+
+
+	<div class="method-detail-section">
+		<h3>Examples</h3>
+			<pre class="prettyprint">Sample Request:
+
+{
+  &quot;project&quot;: {
+     &quot;name&quot;: &quot;Test Project&quot;,
+     &quot;description&quot;: &quot;Project description...&quot;,
+     &quot;course_id&quot;: 234,
+     &quot;type&quot;: &quot;UserProject&quot;,
+     &quot;rubric_id&quot;: null,
+     &quot;allowed_attachment_families&quot;: [&quot;image&quot;, &quot;audio&quot;],
+     &quot;due_date&quot;: &quot;2015-04-23T18:25:43.511Z&quot;,
+     &quot;settings&quot;: {
+        &quot;enable_creator_attach&quot;: true,
+        &quot;enable_self_evaluation&quot;: false,
+        &quot;enable_peer_review&quot;: true,
+        &quot;enable_public_discussion&quot;: true,
+        &quot;reject_past_due_media&quot;: false,
+        &quot;anonymous_peer_review&quot;: true
+     }
+  }
+}
+</pre>
+			<pre class="prettyprint">    Sample Response:
+
+    {
+      &quot;id&quot;: 486,
+      &quot;name&quot;: &quot;Test Project&quot;,
+      &quot;description&quot;: &quot;&lt;p&gt;Project description...&lt;/p&gt;
+&quot;,
+      &quot;listing_order_position&quot;: &quot;last&quot;,
+      &quot;evaluatable&quot;: false,
+      &quot;evaluatable_by_peers&quot;: true,
+      &quot;evaluatable_by_creator&quot;: false,
+      &quot;allows_public_discussion&quot;: true,
+      &quot;rejects_past_due_media&quot;: false,
+      &quot;allowed_attachment_families&quot;: [
+        &quot;image&quot;,
+        &quot;audio&quot;
+      ],
+      &quot;allowed_extensions&quot;: [
+        &quot;gif&quot;,
+        &quot;jpg&quot;,
+        &quot;jpeg&quot;,
+        &quot;png&quot;,
+        &quot;tif&quot;,
+        &quot;tiff&quot;,
+        &quot;mp3,&quot;,
+        &quot;wav&quot;
+      ],
+      &quot;allowed_mime_types&quot;: [
+        &quot;image/gif&quot;,
+        &quot;image/jpg&quot;,
+        &quot;image/jpeg&quot;,
+        &quot;image/png&quot;,
+        &quot;image/tiff&quot;,
+        &quot;audio/mp3,&quot;,
+        &quot;audio/wav&quot;
+      ],
+      &quot;type&quot;: &quot;UserProject&quot;,
+      &quot;rubric_id&quot;: null,
+      &quot;rubric_name&quot;: null,
+      &quot;abilities&quot;: {
+        &quot;can_update&quot;: true,
+        &quot;can_destroy&quot;: true,
+        &quot;can_evaluate&quot;: true,
+        &quot;can_show_submissions&quot;: true
+      },
+      &quot;course_id&quot;: 234,
+      &quot;due_date&quot;: &quot;2015-04-23&quot;,
+      &quot;rubric&quot;: null
+   }
+</pre>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Errors</h3>
+		<ul class="method-detail-list">
+				<li>
+					<strong>422</strong>: There was an error creating the project.
+					<br>
+				</li>
+		</ul>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Request Parameters</h3>
+		<table class='table'>
+			<thead>
+			<tr>
+				<th>Param name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>project </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The key here can be project, user_project, or group_project</p>
+
+        <br>
+        Value: 
+<p>Must be a Hash</p>
+
+
+
+    </td>
+
+  </tr>
+
+    <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>project[type] </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The type of Project</p>
+
+        <br>
+        Value: 
+<p>Must be one of: UserProject, GroupProject, OpenProject.</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>project[name] </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The name of the project</p>
+
+        <br>
+        Value: 
+<p>Must be String</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>project[description] </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Some information about the project</p>
+
+        <br>
+        Value: 
+<p>Must be String</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>project[course_id] </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The ID of the course to which the project belongs</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>project[rubric_id] </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>If the project uses a scoring rubric, the ID of the rubric</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>project[listing_order_position] </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The order of the project within the course</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>project[allowed_attachment_families] </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The kinds of attachments that are accepted for this project; if an empty
+array, all types are accepted</p>
+
+        <br>
+        Value: 
+<p>Must be one of: audio, image, video.</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>project[due_date] </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The date after which no more assets may be attached to the project</p>
+
+        <br>
+        Value: 
+<p>Must be DateTime</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>project[settings] </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Project settings</p>
+
+        <br>
+        Value: 
+<p>Must be a Hash</p>
+
+
+
+    </td>
+
+  </tr>
+
+    <tr style='background-color:rgb(245,245,245);'>
+    <td>
+      <strong>project[settings][enable_creator_attach] </strong><br>
+      <small>
+        optional
+        , nil allowed
+      </small>
+    </td>
+    <td>
+      
+<p>Whether or not the project allows creators to attach media</p>
+
+        <br>
+        Value: 
+<p>Must be one of: true, false.</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(245,245,245);'>
+    <td>
+      <strong>project[settings][enable_self_evaluation] </strong><br>
+      <small>
+        optional
+        , nil allowed
+      </small>
+    </td>
+    <td>
+      
+<p>Whether or not the project allows self evaluation</p>
+
+        <br>
+        Value: 
+<p>Must be one of: true, false.</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(245,245,245);'>
+    <td>
+      <strong>project[settings][enable_peer_review] </strong><br>
+      <small>
+        optional
+        , nil allowed
+      </small>
+    </td>
+    <td>
+      
+<p>Whether or not the project allows peer review</p>
+
+        <br>
+        Value: 
+<p>Must be one of: true, false.</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(245,245,245);'>
+    <td>
+      <strong>project[settings][enable_public_discussion] </strong><br>
+      <small>
+        optional
+        , nil allowed
+      </small>
+    </td>
+    <td>
+      
+<p>Whether or not the project allows public discusion</p>
+
+        <br>
+        Value: 
+<p>Must be one of: true, false.</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(245,245,245);'>
+    <td>
+      <strong>project[settings][reject_past_due_media] </strong><br>
+      <small>
+        optional
+        , nil allowed
+      </small>
+    </td>
+    <td>
+      
+<p>Whether or not the project should reject media after due date</p>
+
+        <br>
+        Value: 
+<p>Must be one of: true, false.</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(245,245,245);'>
+    <td>
+      <strong>project[settings][anonymous_peer_review] </strong><br>
+      <small>
+        optional
+        , nil allowed
+      </small>
+    </td>
+    <td>
+      
+<p>Whetehr or not peer reviews are anonymous</p>
+
+        <br>
+        Value: 
+<p>Must be one of: true, false.</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../../apipie/1.0/projects/update.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-update'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            PATCH /api/v1/projects/:id
+          </a>
+          <br>
+          <small>updates a project</small>
+        </h2>
+    </div>
+
+
+    <div id='description-update' class='collapse accordion-body'>
+      
+
+
+	<div class="method-detail-section">
+		<h3>Examples</h3>
+			<pre class="prettyprint">Sample Request:
+
+{
+  &quot;project&quot;: {
+    &quot;name&quot;: &quot;Test Project&quot;,
+    &quot;description&quot;: &quot;Project description...&quot;,
+    &quot;course_id&quot;: 234,
+    &quot;type&quot;: &quot;UserProject&quot;,
+    &quot;rubric_id&quot;: null,
+    &quot;allowed_attachment_families&quot;: [&quot;image&quot;, &quot;audio&quot;],
+    &quot;due_date&quot;: &quot;2015-04-23T18:25:43.511Z&quot;,
+    &quot;settings&quot;: {
+      &quot;enable_creator_attach&quot;: true,
+      &quot;enable_self_evaluation&quot;: false,
+      &quot;enable_peer_review&quot;: true,
+      &quot;enable_public_discussion&quot;: true,
+      &quot;reject_past_due_media&quot;: false,
+      &quot;anonymous_peer_review&quot;: true
+    }
+  }
+}
+</pre>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Errors</h3>
+		<ul class="method-detail-list">
+				<li>
+					<strong>404</strong>: The project could not be found.
+					<br>
+				</li>
+				<li>
+					<strong>422</strong>: There was an error updating the project.
+					<br>
+				</li>
+		</ul>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Request Parameters</h3>
+		<table class='table'>
+			<thead>
+			<tr>
+				<th>Param name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>id </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The project ID</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>project </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The key here can be project, user_project, or group_project</p>
+
+        <br>
+        Value: 
+<p>Must be a Hash</p>
+
+
+
+    </td>
+
+  </tr>
+
+    <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>project[type] </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The type of Project</p>
+
+        <br>
+        Value: 
+<p>Must be one of: UserProject, GroupProject, OpenProject.</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>project[name] </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The name of the project</p>
+
+        <br>
+        Value: 
+<p>Must be String</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>project[description] </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Some information about the project</p>
+
+        <br>
+        Value: 
+<p>Must be String</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>project[course_id] </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The ID of the course to which the project belongs</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>project[rubric_id] </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>If the project uses a scoring rubric, the ID of the rubric</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>project[listing_order_position] </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The order of the project within the course</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>project[allowed_attachment_families] </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The kinds of attachments that are accepted for this project; if an empty
+array, all types are accepted</p>
+
+        <br>
+        Value: 
+<p>Must be one of: audio, image, video.</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>project[due_date] </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The date after which no more assets may be attached to the project</p>
+
+        <br>
+        Value: 
+<p>Must be DateTime</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(250,250,250);'>
+    <td>
+      <strong>project[settings] </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Project settings</p>
+
+        <br>
+        Value: 
+<p>Must be a Hash</p>
+
+
+
+    </td>
+
+  </tr>
+
+    <tr style='background-color:rgb(245,245,245);'>
+    <td>
+      <strong>project[settings][enable_creator_attach] </strong><br>
+      <small>
+        optional
+        , nil allowed
+      </small>
+    </td>
+    <td>
+      
+<p>Whether or not the project allows creators to attach media</p>
+
+        <br>
+        Value: 
+<p>Must be one of: true, false.</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(245,245,245);'>
+    <td>
+      <strong>project[settings][enable_self_evaluation] </strong><br>
+      <small>
+        optional
+        , nil allowed
+      </small>
+    </td>
+    <td>
+      
+<p>Whether or not the project allows self evaluation</p>
+
+        <br>
+        Value: 
+<p>Must be one of: true, false.</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(245,245,245);'>
+    <td>
+      <strong>project[settings][enable_peer_review] </strong><br>
+      <small>
+        optional
+        , nil allowed
+      </small>
+    </td>
+    <td>
+      
+<p>Whether or not the project allows peer review</p>
+
+        <br>
+        Value: 
+<p>Must be one of: true, false.</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(245,245,245);'>
+    <td>
+      <strong>project[settings][enable_public_discussion] </strong><br>
+      <small>
+        optional
+        , nil allowed
+      </small>
+    </td>
+    <td>
+      
+<p>Whether or not the project allows public discusion</p>
+
+        <br>
+        Value: 
+<p>Must be one of: true, false.</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(245,245,245);'>
+    <td>
+      <strong>project[settings][reject_past_due_media] </strong><br>
+      <small>
+        optional
+        , nil allowed
+      </small>
+    </td>
+    <td>
+      
+<p>Whether or not the project should reject media after due date</p>
+
+        <br>
+        Value: 
+<p>Must be one of: true, false.</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(245,245,245);'>
+    <td>
+      <strong>project[settings][anonymous_peer_review] </strong><br>
+      <small>
+        optional
+        , nil allowed
+      </small>
+    </td>
+    <td>
+      
+<p>Whetehr or not peer reviews are anonymous</p>
+
+        <br>
+        Value: 
+<p>Must be one of: true, false.</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../../apipie/1.0/projects/destroy.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-destroy'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            DELETE /api/v1/projects/:id
+          </a>
+          <br>
+          <small>deletes a project</small>
+        </h2>
+    </div>
+
+
+    <div id='description-destroy' class='collapse accordion-body'>
+      
+
+
+
+
+	<div class="method-detail-section">
+		<h3>Errors</h3>
+		<ul class="method-detail-list">
+				<li>
+					<strong>404</strong>: The project could not be found.
+					<br>
+				</li>
+		</ul>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Request Parameters</h3>
+		<table class='table'>
+			<thead>
+			<tr>
+				<th>Param name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>id </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The project ID</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../../apipie/1.0/projects/publish_evaluations.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-publish_evaluations'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            PATCH /api/v1/projects/:id/publish_evaluations
+          </a>
+          <br>
+          <small>publishes all of the current user's evaluations for the project</small>
+        </h2>
+    </div>
+
+
+    <div id='description-publish_evaluations' class='collapse accordion-body'>
+      
+
+
+
+
+	<div class="method-detail-section">
+		<h3>Errors</h3>
+		<ul class="method-detail-list">
+				<li>
+					<strong>404</strong>: The project could not be found.
+					<br>
+				</li>
+		</ul>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Request Parameters</h3>
+		<table class='table'>
+			<thead>
+			<tr>
+				<th>Param name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>id </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The project ID</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../../apipie/1.0/projects/unpublish_evaluations.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-unpublish_evaluations'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            PATCH /api/v1/projects/:id/unpublish_evaluations
+          </a>
+          <br>
+          <small>unpublishes all of the current user's evaluations for the project</small>
+        </h2>
+    </div>
+
+
+    <div id='description-unpublish_evaluations' class='collapse accordion-body'>
+      
+
+
+
+
+	<div class="method-detail-section">
+		<h3>Errors</h3>
+		<ul class="method-detail-list">
+				<li>
+					<strong>404</strong>: The project could not be found.
+					<br>
+				</li>
+		</ul>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Request Parameters</h3>
+		<table class='table'>
+			<thead>
+			<tr>
+				<th>Param name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>id </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The project ID</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+    </div>
+</div>
+
+
+			
+		</div>
+	</div>
+	<hr>
+	<footer>Copyright 2015 Baruch College, City University of New York</footer>
+</div>
+<script type='text/javascript' src='../../apipie/javascripts/bundled/jquery-1.7.2.js'></script>
+<script type='text/javascript' src='../../apipie/javascripts/bundled/bootstrap-collapse.js'></script>
+<script type='text/javascript' src='../../apipie/javascripts/bundled/prettify.js'></script>
+<script type='text/javascript' src='../../apipie/javascripts/apipie.js'></script>
+</body>
+</html>

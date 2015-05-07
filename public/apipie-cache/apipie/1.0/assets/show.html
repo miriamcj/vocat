@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>API documentation</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link type='text/css' rel='stylesheet' href='../../../apipie/stylesheets/bundled/bootstrap.min.css'/>
+<link type='text/css' rel='stylesheet' href='../../../apipie/stylesheets/bundled/prettify.css'/>
+<link type='text/css' rel='stylesheet' href='../../../apipie/stylesheets/bundled/bootstrap-responsive.min.css'/>
+	<link type='text/css' rel='stylesheet' href='../../../apipie/stylesheets/application.css'/>
+	<link rel="stylesheet" media="all" href="/assets/apipie/partials/_components.css?body=1" />
+<link rel="stylesheet" media="all" href="/assets/apipie/apipie.css?body=1" />
+
+	<!-- IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<script type="text/javascript" src="//use.typekit.net/ytz4hur.js"></script>
+	<script type="text/javascript">try {
+		Typekit.load();
+	} catch (e) {
+	}</script>
+
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div id='container'>
+			<ul class='breadcrumb'>
+  <li>
+    <a href='../../../apipie/1.0.html'>Vocat API 1.0</a>
+    <span class='divider'>/</span>
+  </li>
+  <li>
+    <a href='../../../apipie/1.0/assets.html'>
+      Assets
+      
+    </a>
+    <span class='divider'>/</span>
+  </li>
+  <li class='active'>show</li>
+  
+
+</ul>
+
+  <div class='page-header'>
+    <h1>
+      GET /api/v1/assets/:id
+      <br>
+      <small>shows a single asset and its associated attachment, and annotations</small>
+    </h1>
+  </div>
+
+<div>
+
+  
+
+
+	<div class="method-detail-section">
+		<h2>Examples</h2>
+			<pre class="prettyprint">Sample Response:
+
+{
+    &quot;id&quot;: 4542,
+    &quot;family&quot;: &quot;video&quot;,
+    &quot;type&quot;: &quot;Asset::Video&quot;,
+    &quot;name&quot;: &quot;Dogs!&quot;,
+    &quot;created_at&quot;: &quot;May 05 2015&quot;,
+    &quot;attachment_state&quot;: &quot;processed&quot;,
+    &quot;thumbnail&quot;: &quot;https://s3.amazonaws.com/vocat.dev/...&quot;,
+    &quot;locations&quot;: {
+        &quot;mp4&quot;: &quot;https://s3.amazonaws.com/vocat.dev/processed/attachment/%3D&amp;response-content-type=video%2Fmp4&quot;,
+        &quot;mp4_thumb&quot;: &quot;https://s3.amazonaws.com/vocat.dev/processed/%3D&amp;response-content-type=image%2Fpng&quot;,
+        &quot;webm&quot;: &quot;https://s3.amazonaws.com/vocat.dev/processed/attachment/%3D&amp;response-content-type=video%2Fwebm&quot;,
+        &quot;webm_thumb&quot;: &quot;https://s3.amazonaws.com/vocat.dev/processed/%3D&amp;response-content-type=image%2Fpng&quot;,
+        &quot;mov&quot;: &quot;https://s3.amazonaws.com/vocat.dev/processed/%3D&amp;response-content-type=video%mov&quot;,
+    },
+    &quot;file_info&quot;: &quot;3.3 MB MOV Video&quot;,
+    &quot;listing_order&quot;: 0,
+    &quot;submission_id&quot;: 7395,
+    &quot;creator_type&quot;: &quot;User&quot;,
+    &quot;project_id&quot;: 466,
+    &quot;creator_id&quot;: 4483,
+    &quot;annotations_count&quot;: 1,
+    &quot;attachment&quot;: {
+        &quot;id&quot;: 4869,
+        &quot;current_user_can_destroy&quot;: false,
+        &quot;state&quot;: &quot;processed&quot;,
+        &quot;s3_upload_document&quot;: {
+            &quot;policy&quot;: &quot;eyJleHBpcmF0aW9uIjoiMjAxNS0wNS0wNVQyMjo1NTo0MlTM2ODcwOTEyMF1dfQ==&quot;,
+            &quot;signature&quot;: &quot;/LxvJJVHapg4Lv61aGGog=&quot;,
+            &quot;key&quot;: &quot;source/attachment/4000_5000/4800_4900/4869.mov&quot;
+        },
+        &quot;size&quot;: &quot;3.3 MB&quot;,
+        &quot;extension&quot;: &quot;mov&quot;,
+        &quot;bucket&quot;: &quot;vocat.dev&quot;,
+        &quot;bucket_public_key&quot;: &quot;AKIAJYR4RB6VUYLA&quot;
+    },
+    &quot;annotations&quot;: [
+        {
+            &quot;id&quot;: 11678,
+            &quot;asset_id&quot;: 4542,
+            &quot;author_id&quot;: 4470,
+            &quot;body&quot;: &quot;&lt;p&gt;Another annotation...updated&lt;/p&gt;&quot;,
+            &quot;published&quot;: true,
+            &quot;seconds_timecode&quot;: 11.143548,
+            &quot;smpte_timecode&quot;: &quot;00:00:11&quot;,
+            &quot;author_name&quot;: &quot;Ressie Crona&quot;,
+            &quot;canvas&quot;: &quot;{&quot;json&quot;:null,&quot;svg&quot;:null}&quot;,
+            &quot;current_user_can_destroy&quot;: true,
+            &quot;current_user_can_edit&quot;: true,
+            &quot;gravatar&quot;: &quot;http://gravatar.com/avatar/4c3fe1bdae8ec9e5db97d02aa4cf1cda.png?d=mm&amp;s=&quot;,
+            &quot;author_role&quot;: &quot;evaluator&quot;,
+            &quot;created_at&quot;: &quot;5/05/15 03:12PM&quot;,
+            &quot;created_at_timestamp&quot;: 1430853139,
+            &quot;body_raw&quot;: &quot;Another annotation...updated&quot;
+        }
+    ]
+}
+</pre>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h2>Errors</h2>
+		<ul class="method-detail-list">
+				<li>
+					<strong>403</strong>: The user is not authorized to view this asset.
+					<br>
+				</li>
+		</ul>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Request Parameters</h3>
+		<table class='table'>
+			<thead>
+			<tr>
+				<th>Param name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>id </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The ID of the asset to show</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+</div>
+
+
+			
+		</div>
+	</div>
+	<hr>
+	<footer>Copyright 2015 Baruch College, City University of New York</footer>
+</div>
+<script type='text/javascript' src='../../../apipie/javascripts/bundled/jquery-1.7.2.js'></script>
+<script type='text/javascript' src='../../../apipie/javascripts/bundled/bootstrap-collapse.js'></script>
+<script type='text/javascript' src='../../../apipie/javascripts/bundled/prettify.js'></script>
+<script type='text/javascript' src='../../../apipie/javascripts/apipie.js'></script>
+</body>
+</html>

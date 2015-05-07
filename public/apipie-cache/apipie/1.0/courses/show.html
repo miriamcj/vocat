@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>API documentation</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link type='text/css' rel='stylesheet' href='../../../apipie/stylesheets/bundled/bootstrap.min.css'/>
+<link type='text/css' rel='stylesheet' href='../../../apipie/stylesheets/bundled/prettify.css'/>
+<link type='text/css' rel='stylesheet' href='../../../apipie/stylesheets/bundled/bootstrap-responsive.min.css'/>
+	<link type='text/css' rel='stylesheet' href='../../../apipie/stylesheets/application.css'/>
+	<link rel="stylesheet" media="all" href="/assets/apipie/partials/_components.css?body=1" />
+<link rel="stylesheet" media="all" href="/assets/apipie/apipie.css?body=1" />
+
+	<!-- IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<script type="text/javascript" src="//use.typekit.net/ytz4hur.js"></script>
+	<script type="text/javascript">try {
+		Typekit.load();
+	} catch (e) {
+	}</script>
+
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div id='container'>
+			<ul class='breadcrumb'>
+  <li>
+    <a href='../../../apipie/1.0.html'>Vocat API 1.0</a>
+    <span class='divider'>/</span>
+  </li>
+  <li>
+    <a href='../../../apipie/1.0/courses.html'>
+      Courses
+      
+    </a>
+    <span class='divider'>/</span>
+  </li>
+  <li class='active'>show</li>
+  
+
+</ul>
+
+  <div class='page-header'>
+    <h1>
+      GET /api/v1/courses/:id
+      <br>
+      <small>returns one course by ID</small>
+    </h1>
+  </div>
+
+<div>
+
+  
+
+
+	<div class="method-detail-section">
+		<h2>Examples</h2>
+			<pre class="prettyprint">Sample Response:
+
+{
+    &quot;id&quot;: 234,
+    &quot;department&quot;: &quot;CIS&quot;,
+    &quot;description&quot;: &quot;Consequuntur est consequatur laborum est ea enim. Libero consequatur accusantium vero voluptas tempore.&quot;,
+    &quot;name&quot;: &quot;Computer Information Systems&quot;,
+    &quot;number&quot;: &quot;3810&quot;,
+    &quot;section&quot;: &quot;X07SO&quot;,
+    &quot;organization_id&quot;: 1,
+    &quot;role&quot;: &quot;evaluator&quot;,
+    &quot;semester_name&quot;: &quot;Winter&quot;,
+    &quot;year&quot;: 2015
+}
+</pre>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h2>Errors</h2>
+		<ul class="method-detail-list">
+				<li>
+					<strong>403</strong>: The user is not authorized to view this course, perhaps because he/she is not enrolled in it.
+					<br>
+				</li>
+		</ul>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Request Parameters</h3>
+		<table class='table'>
+			<thead>
+			<tr>
+				<th>Param name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>id </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The ID of the course to be returned</p>
+
+        <br>
+        Value: 
+<p>Must be a number.</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+</div>
+
+
+			
+		</div>
+	</div>
+	<hr>
+	<footer>Copyright 2015 Baruch College, City University of New York</footer>
+</div>
+<script type='text/javascript' src='../../../apipie/javascripts/bundled/jquery-1.7.2.js'></script>
+<script type='text/javascript' src='../../../apipie/javascripts/bundled/bootstrap-collapse.js'></script>
+<script type='text/javascript' src='../../../apipie/javascripts/bundled/prettify.js'></script>
+<script type='text/javascript' src='../../../apipie/javascripts/apipie.js'></script>
+</body>
+</html>

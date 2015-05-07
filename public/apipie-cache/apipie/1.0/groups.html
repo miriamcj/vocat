@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>API documentation</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link type='text/css' rel='stylesheet' href='../../apipie/stylesheets/bundled/bootstrap.min.css'/>
+<link type='text/css' rel='stylesheet' href='../../apipie/stylesheets/bundled/prettify.css'/>
+<link type='text/css' rel='stylesheet' href='../../apipie/stylesheets/bundled/bootstrap-responsive.min.css'/>
+	<link type='text/css' rel='stylesheet' href='../../apipie/stylesheets/application.css'/>
+	<link rel="stylesheet" media="all" href="/assets/apipie/partials/_components.css?body=1" />
+<link rel="stylesheet" media="all" href="/assets/apipie/apipie.css?body=1" />
+
+	<!-- IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<script type="text/javascript" src="//use.typekit.net/ytz4hur.js"></script>
+	<script type="text/javascript">try {
+		Typekit.load();
+	} catch (e) {
+	}</script>
+
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div id='container'>
+			<ul class='breadcrumb'>
+  <li>
+    <a href='../../apipie/1.0.html'>Vocat API 1.0</a>
+    <span class='divider'>/</span>
+  </li>
+  <li class='active'>
+    Groups
+    
+  </li>
+  
+</ul>
+
+<div class='page-header'>
+  <h1>
+    Groups
+    <br>
+    <small></small>
+  </h1>
+</div>
+
+  <div>
+<p>Groups are collections of students that are tied to a course. Groups may
+create submissions for group projects and/or open projects.</p>
+</div>
+
+
+
+
+
+<div class='accordion' id='accordion'>
+
+    <hr>
+    <div class='pull-right small'>
+      <a href='../../apipie/1.0/groups/index.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-index'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            GET /api/v1/groups?course=:course
+          </a>
+          <br>
+          <small>returns all groups for the given course</small>
+        </h2>
+    </div>
+
+
+    <div id='description-index' class='collapse accordion-body'>
+      
+
+
+	<div class="method-detail-section">
+		<h3>Examples</h3>
+			<pre class="prettyprint">Sample Response:
+
+[
+   {
+      &quot;id&quot;:810,
+      &quot;name&quot;:&quot;Group #1&quot;,
+      &quot;creator_ids&quot;:[
+         4483,
+         4474,
+         4520
+      ],
+      &quot;course_id&quot;:234,
+      &quot;first_name&quot;:&quot;Group #1&quot;,
+      &quot;members&quot;:[
+         &quot;Betty Blick&quot;,
+         &quot;Shawn Jones&quot;,
+         &quot;Dewitt Ruecker&quot;
+      ]
+   },
+   {
+      &quot;id&quot;:811,
+      &quot;name&quot;:&quot;Group #2&quot;,
+      &quot;creator_ids&quot;:[
+         4474,
+         4520,
+         4522
+      ],
+      &quot;course_id&quot;:234,
+      &quot;first_name&quot;:&quot;Group #2&quot;,
+      &quot;members&quot;:[
+         &quot;Shawn Jones&quot;,
+         &quot;Dewitt Ruecker&quot;,
+         &quot;Bradly Stamm&quot;
+      ]
+   },
+   {
+      &quot;id&quot;:812,
+      &quot;name&quot;:&quot;Group #3&quot;,
+      &quot;creator_ids&quot;:[
+         4514,
+         4486,
+         4516
+      ],
+      &quot;course_id&quot;:234,
+      &quot;first_name&quot;:&quot;Group #3&quot;,
+      &quot;members&quot;:[
+         &quot;Heidi Konopelski&quot;,
+         &quot;Petra Luettgen&quot;,
+         &quot;Issac Murphy&quot;
+      ]
+   },
+   {
+      &quot;id&quot;:813,
+      &quot;name&quot;:&quot;Group #4&quot;,
+      &quot;creator_ids&quot;:[
+         4499,
+         4474,
+         4516
+      ],
+      &quot;course_id&quot;:234,
+      &quot;first_name&quot;:&quot;Group #4&quot;,
+      &quot;members&quot;:[
+         &quot;Claude Erdman&quot;,
+         &quot;Shawn Jones&quot;,
+         &quot;Issac Murphy&quot;
+      ]
+   }
+]
+</pre>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Errors</h3>
+		<ul class="method-detail-list">
+				<li>
+					<strong>404</strong>: The course was not found.
+					<br>
+				</li>
+				<li>
+					<strong>403</strong>: The current user does not have read access for the given course.
+					<br>
+				</li>
+		</ul>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Request Parameters</h3>
+		<table class='table'>
+			<thead>
+			<tr>
+				<th>Param name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>course </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The course ID</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../../apipie/1.0/groups/show.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-show'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            GET /api/v1/groups/:id
+          </a>
+          <br>
+          <small>shows a single group</small>
+        </h2>
+    </div>
+
+
+    <div id='description-show' class='collapse accordion-body'>
+      
+
+
+	<div class="method-detail-section">
+		<h3>Examples</h3>
+			<pre class="prettyprint">Sample Response:
+
+{
+    &quot;id&quot;: 810,
+    &quot;name&quot;: &quot;Group #1&quot;,
+    &quot;creator_ids&quot;: [
+        4483,
+        4474,
+        4520
+    ],
+    &quot;course_id&quot;: 234,
+    &quot;first_name&quot;: &quot;Group #1&quot;,
+    &quot;members&quot;: [
+        &quot;Betty Blick&quot;,
+        &quot;Shawn Jones&quot;,
+        &quot;Dewitt Ruecker&quot;
+    ]
+}
+</pre>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Errors</h3>
+		<ul class="method-detail-list">
+				<li>
+					<strong>404</strong>: The group was not found.
+					<br>
+				</li>
+				<li>
+					<strong>403</strong>: The current user does not have read access for the given course.
+					<br>
+				</li>
+		</ul>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Request Parameters</h3>
+		<table class='table'>
+			<thead>
+			<tr>
+				<th>Param name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>id </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The group ID</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../../apipie/1.0/groups/create.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-create'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            POST /api/v1/groups
+          </a>
+          <br>
+          <small>creates a new group within a course</small>
+        </h2>
+    </div>
+
+
+    <div id='description-create' class='collapse accordion-body'>
+      
+
+
+	<div class="method-detail-section">
+		<h3>Examples</h3>
+			<pre class="prettyprint">Sample Request:
+{
+  &quot;course_id&quot;: 234,
+  &quot;name&quot;: &quot;Test Group 1&quot;,
+  &quot;creator_ids&quot;: [4499, 4506, 4503]
+}
+</pre>
+			<pre class="prettyprint">Sample Response:
+
+{
+    &quot;id&quot;: 830,
+    &quot;name&quot;: &quot;Test Group 1&quot;,
+    &quot;creator_ids&quot;: [
+        4499,
+        4506,
+        4503
+    ],
+    &quot;course_id&quot;: 234,
+    &quot;first_name&quot;: &quot;Test Group 1&quot;,
+    &quot;members&quot;: [
+        &quot;Claude Erdman&quot;,
+        &quot;Nigel Gulgowski&quot;,
+        &quot;Wilhelmine Hackett&quot;
+    ]
+}
+</pre>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Errors</h3>
+		<ul class="method-detail-list">
+				<li>
+					<strong>403</strong>: The current user is not allowed to create groups in this course.
+					<br>
+				</li>
+				<li>
+					<strong>404</strong>: A Group or User was not found.
+					<br>
+				</li>
+				<li>
+					<strong>422</strong>: There was an error creating the group. Perhaps not all creators in the group are enrolled in the course?
+					<br>
+				</li>
+		</ul>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Request Parameters</h3>
+		<table class='table'>
+			<thead>
+			<tr>
+				<th>Param name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>id </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The group&#39;s ID</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>name </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The name of the group</p>
+
+        <br>
+        Value: 
+<p>Must be String</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>course_id </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The ID of the course to which the group belongs</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>creator_ids </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>An array containing the IDs of the users who belong to this group.</p>
+
+        <br>
+        Value: 
+<p>Must be an array of any type</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../../apipie/1.0/groups/update.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-update'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            PATCH /api/v1/groups/:id
+          </a>
+          <br>
+          <small>updates a group</small>
+        </h2>
+    </div>
+
+
+    <div id='description-update' class='collapse accordion-body'>
+      
+
+
+	<div class="method-detail-section">
+		<h3>Examples</h3>
+			<pre class="prettyprint">Sample Request:
+{
+  &quot;course_id&quot;: 234,
+  &quot;name&quot;: &quot;Test Group 1&quot;,
+  &quot;creator_ids&quot;: [4499, 4506, 4503]
+}
+</pre>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Errors</h3>
+		<ul class="method-detail-list">
+				<li>
+					<strong>403</strong>: The current user is not allowed to modify this group.
+					<br>
+				</li>
+				<li>
+					<strong>404</strong>: A Group or User was not found.
+					<br>
+				</li>
+				<li>
+					<strong>422</strong>: There was an error updating the group. Perhaps not all creators in the group are enrolled in the course?
+					<br>
+				</li>
+		</ul>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Request Parameters</h3>
+		<table class='table'>
+			<thead>
+			<tr>
+				<th>Param name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>id </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The group&#39;s ID</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>name </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The name of the group</p>
+
+        <br>
+        Value: 
+<p>Must be String</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>course_id </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The ID of the course to which the group belongs</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>creator_ids </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>An array containing the IDs of the users who belong to this group.</p>
+
+        <br>
+        Value: 
+<p>Must be an array of any type</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../../apipie/1.0/groups/destroy.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-destroy'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            DELETE /api/v1/groups/:id
+          </a>
+          <br>
+          <small>deletes a group</small>
+        </h2>
+    </div>
+
+
+    <div id='description-destroy' class='collapse accordion-body'>
+      
+
+
+
+
+	<div class="method-detail-section">
+		<h3>Errors</h3>
+		<ul class="method-detail-list">
+				<li>
+					<strong>403</strong>: The current user is not allowed to delete this group.
+					<br>
+				</li>
+				<li>
+					<strong>404</strong>: The group was not found.
+					<br>
+				</li>
+		</ul>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Request Parameters</h3>
+		<table class='table'>
+			<thead>
+			<tr>
+				<th>Param name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>id </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The ID of the group to be deleted</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+    </div>
+</div>
+
+
+			
+		</div>
+	</div>
+	<hr>
+	<footer>Copyright 2015 Baruch College, City University of New York</footer>
+</div>
+<script type='text/javascript' src='../../apipie/javascripts/bundled/jquery-1.7.2.js'></script>
+<script type='text/javascript' src='../../apipie/javascripts/bundled/bootstrap-collapse.js'></script>
+<script type='text/javascript' src='../../apipie/javascripts/bundled/prettify.js'></script>
+<script type='text/javascript' src='../../apipie/javascripts/apipie.js'></script>
+</body>
+</html>

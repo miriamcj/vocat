@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>API documentation</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link type='text/css' rel='stylesheet' href='../../apipie/stylesheets/bundled/bootstrap.min.css'/>
+<link type='text/css' rel='stylesheet' href='../../apipie/stylesheets/bundled/prettify.css'/>
+<link type='text/css' rel='stylesheet' href='../../apipie/stylesheets/bundled/bootstrap-responsive.min.css'/>
+	<link type='text/css' rel='stylesheet' href='../../apipie/stylesheets/application.css'/>
+	<link rel="stylesheet" media="all" href="/assets/apipie/partials/_components.css?body=1" />
+<link rel="stylesheet" media="all" href="/assets/apipie/apipie.css?body=1" />
+
+	<!-- IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<script type="text/javascript" src="//use.typekit.net/ytz4hur.js"></script>
+	<script type="text/javascript">try {
+		Typekit.load();
+	} catch (e) {
+	}</script>
+
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div id='container'>
+			<ul class='breadcrumb'>
+  <li>
+    <a href='../../apipie/1.0.html'>Vocat API 1.0</a>
+    <span class='divider'>/</span>
+  </li>
+  <li class='active'>
+    Attachments
+    
+  </li>
+  
+</ul>
+
+<div class='page-header'>
+  <h1>
+    Attachments
+    <br>
+    <small></small>
+  </h1>
+</div>
+
+  <div>
+<p>Attachments represent the actual files that are attached to assets. There
+is a one-to-one relationship between assets and attachments. Typically, an
+attachment file is uploaded directly from the client to Vocat&#39;s storage
+backend, which will usually be S3. The attachment object is created prior
+to the upload starting. When the upload, which is generally an asynchronous
+upload, has completed, the attachment object is updated to store the
+location of the uploaded file resource. At the end of the process, the
+attachment is attached to an asset object.</p>
+</div>
+
+
+
+
+
+<div class='accordion' id='accordion'>
+
+    <hr>
+    <div class='pull-right small'>
+      <a href='../../apipie/1.0/attachments/create.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-create'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            POST /api/v1/attachments
+          </a>
+          <br>
+          <small>creates a new attachment</small>
+        </h2>
+    </div>
+
+
+    <div id='description-create' class='collapse accordion-body'>
+      
+
+
+	<div class="method-detail-section">
+		<h3>Examples</h3>
+			<pre class="prettyprint">Sample Request:
+
+{
+    &quot;media_file_name&quot;: &quot;A sample attachment&quot;
+}
+</pre>
+			<pre class="prettyprint">Sample Response:
+
+{
+    &quot;id&quot;: 4870,
+    &quot;current_user_can_destroy&quot;: false,
+    &quot;state&quot;: &quot;uncommitted&quot;,
+    &quot;s3_upload_document&quot;: {
+        &quot;policy&quot;: &quot;eyJleHBpcmF0aW9uIjoiMjAxNS0wNS0wNVQyMzozMDo0OFoiLCJjb25kaXRpb25zIjpbeyJiyYW5nZSIsMCw1MzY4NzA5MTIwXV19&quot;,
+        &quot;signature&quot;: &quot;jG3QXpO/882xIhik=&quot;,
+        &quot;key&quot;: &quot;temporary/attachment/4000_5000/4800_4900/4870&quot;
+    },
+    &quot;size&quot;: null,
+    &quot;extension&quot;: &quot;&quot;,
+    &quot;bucket&quot;: &quot;vocat.dev&quot;,
+    &quot;bucket_public_key&quot;: &quot;AKAIfAJGYGRh4ARE4VUYLA&quot;
+}
+</pre>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Errors</h3>
+		<ul class="method-detail-list">
+				<li>
+					<strong>403</strong>: The user is not authorized to create an attachment.
+					<br>
+				</li>
+				<li>
+					<strong>400</strong>: A required attachment parameter is missing.
+					<br>
+				</li>
+		</ul>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Request Parameters</h3>
+		<table class='table'>
+			<thead>
+			<tr>
+				<th>Param name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>media_file_name </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The name of the file being uploaded. This field is not currently used in
+Vocat.</p>
+
+        <br>
+        Value: 
+<p>Must be String</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../../apipie/1.0/attachments/show.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-show'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            GET /api/v1/attachments/:id
+          </a>
+          <br>
+          <small>shows a single attachment</small>
+        </h2>
+    </div>
+
+
+    <div id='description-show' class='collapse accordion-body'>
+      
+
+
+	<div class="method-detail-section">
+		<h3>Examples</h3>
+			<pre class="prettyprint">Sample Response:
+
+{
+    &quot;id&quot;: 4871,
+    &quot;current_user_can_destroy&quot;: false,
+    &quot;state&quot;: &quot;uncommitted&quot;,
+    &quot;s3_upload_document&quot;: {
+        &quot;policy&quot;: &quot;hdC5kZXYifSxbInN0YXJ0cy13aXRoIiwiJGtleSIsInRlbXBvcmFyeS9hdHRhY2htZW50LzQwMDBfNTAYW5nZSIsMCw1MzY4NzA5MTIwXV19&quot;,
+        &quot;signature&quot;: &quot;5EngUjS7BhDG7AwRwI=&quot;,
+        &quot;key&quot;: &quot;temporary/attachment/4000_5000/4800_4900/4871&quot;
+    },
+    &quot;size&quot;: null,
+    &quot;extension&quot;: &quot;&quot;,
+    &quot;bucket&quot;: &quot;vocat.dev&quot;,
+    &quot;bucket_public_key&quot;: &quot;AKAIfAJGYGRh4ARE4VUYLA&quot;
+}
+</pre>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Errors</h3>
+		<ul class="method-detail-list">
+				<li>
+					<strong>403</strong>: The user is not authorized to view this attachment.
+					<br>
+				</li>
+		</ul>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Request Parameters</h3>
+		<table class='table'>
+			<thead>
+			<tr>
+				<th>Param name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>id </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The ID of the attachment to be shown</p>
+
+        <br>
+        Value: 
+<p>Must be a number.</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../../apipie/1.0/attachments/destroy.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-destroy'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            DELETE /api/v1/attachments/:id
+          </a>
+          <br>
+          <small>deletes an attachment</small>
+        </h2>
+    </div>
+
+
+    <div id='description-destroy' class='collapse accordion-body'>
+      
+
+
+
+
+	<div class="method-detail-section">
+		<h3>Errors</h3>
+		<ul class="method-detail-list">
+				<li>
+					<strong>404</strong>: The attachment does not exist.
+					<br>
+				</li>
+				<li>
+					<strong>403</strong>: The user is not authorized to delete the attachment.
+					<br>
+				</li>
+		</ul>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Request Parameters</h3>
+		<table class='table'>
+			<thead>
+			<tr>
+				<th>Param name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>id </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The ID of the attachment to be deleted</p>
+
+        <br>
+        Value: 
+<p>Must be a number.</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+    </div>
+</div>
+
+
+			
+		</div>
+	</div>
+	<hr>
+	<footer>Copyright 2015 Baruch College, City University of New York</footer>
+</div>
+<script type='text/javascript' src='../../apipie/javascripts/bundled/jquery-1.7.2.js'></script>
+<script type='text/javascript' src='../../apipie/javascripts/bundled/bootstrap-collapse.js'></script>
+<script type='text/javascript' src='../../apipie/javascripts/bundled/prettify.js'></script>
+<script type='text/javascript' src='../../apipie/javascripts/apipie.js'></script>
+</body>
+</html>

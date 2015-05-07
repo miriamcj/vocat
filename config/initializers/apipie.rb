@@ -10,4 +10,5 @@ Apipie.configure do |config|
   config.validate                = :explicitly
   config.copyright               = "Copyright #{Time.now.year} Baruch College, City University of New York"
   config.api_controllers_matcher = "#{Rails.root}/app/controllers/api/v1/*.rb"
+  config.use_cache = Rails.env.production?
 end
