@@ -6,7 +6,7 @@ class Api::V1::EvaluationsController < ApiController
   def_param_group :evaluation do
     param :id, Fixnum, :desc => "The evaluation ID"
     param :submission_id, Fixnum, :desc => "The evaluated submission's ID", :required => true, :action_aware => true
-    param :published, [true, false], :desc => "Whether the evaluation is published. Unpublished evaluatinos are not visible to students.", :required => true, :action_aware => true
+    param :published, [true, false], :desc => "Whether the evaluation is published. Unpublished evaluations are not visible to students.", :required => true, :action_aware => true
     param :scores, Hash, :desc => "The keys in this hash depend on what rubric is being used. The keys should align with the rubric criteria short names, and values should be integers.", :required => true, :action_aware => true
   end
 
