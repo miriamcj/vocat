@@ -377,32 +377,39 @@ class Vocat < Thor
   end
 
   def save_yaml
-    path = "#{File.dirname(__FILE__)}/config/environment.yml"
-    say "  Updating yaml at #{path}", :yellow
-    File.open(path, 'a+') do |f|
-      f.truncate(0)
-      @@global_config[environment] = @@config
-      f.write @@global_config.to_yaml
-    end
+#    path = "#{File.dirname(__FILE__)}/config/settings.yml.erb"
+    say "  Config Output", :yellow
+#    File.open(path, 'a+') do |f|
+#      f.truncate(0)
+#      @@global_config[environment] = @@config
+#      f.write @@global_config.to_yaml
+#    end
+    puts @@config[:aws].to_yaml
   end
 
   def load_yaml
     if @@global_config == nil
 
+      if File.exist?("#{File.dirname(__FILE__)}/config/settings.yml.erb")
+        settings = YAML.load_file("#{File.dirname(__FILE__)}/config/settings.yml.erb")
+        secrets = YAML.load_file("#{File.dirname(__FILE__)}/config/secrets.yml")
+        environments = settings.keys
+        secrets.each do |key, value|
+          symbol_key = key.to_sym
+          if environments.include? symbol_key
+            settings[symbol_key] = settings[symbol_key].deep_merge(value['vocat'])
+          end
+        end
 
-
-      if File.exist?("#{File.dirname(__FILE__)}/config/environment.yml")
-        results = YAML.load_file("#{File.dirname(__FILE__)}/config/environment.yml")
+        results =settings.deep_merge(secrets)
       else
         results = {
-            :development => config_defaults,
-            :production => config_defaults,
-            :testing => config_defaults
+            :development => default_config,
+            :production => default_config,
+            :testing => default_config
         }
       end
       @@global_config = results
-
-
       @@config = default_config.deep_merge(results[environment])
     end
   end
