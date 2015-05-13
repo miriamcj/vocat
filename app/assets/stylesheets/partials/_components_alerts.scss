@@ -6,6 +6,7 @@ $spacingUnit: $mediumUnitPadding * .75;
 
 .alert, #error_explanation {
   margin-bottom: $spacingUnit;
+  line-height: 1.25em;
   .formgrid & {
     margin-bottom: 0;
   }
@@ -23,8 +24,12 @@ $spacingUnit: $mediumUnitPadding * .75;
     }
   }
   &.alert-error {
-    background: $red;
-    color: $white;
+    .error-code {
+      font-family: courier;
+      font-size: .9em;
+    }
+    background: lighten($red,30%);
+    //color: $white;
     .modal & {
       padding: .25em;
       font-weight: $semibold;

@@ -1,0 +1,9 @@
+<div class="alert alert-error">
+	<p>Vocat has experienced a client-side error.</p>
+
+	<p class="small">{{errorDetails.description}}</p>
+	{{#if errorDetails.code}}
+		<p class="small">If you would like to report this error to your Vocat support team, please include this error code:</p>
+		<p class="small error-code">{{errorDetails.code}}</p>
+	{{/if}}
+</div>

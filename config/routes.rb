@@ -7,6 +7,7 @@ Vocat::Application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      match '/configuration' => 'configuration#index', :via => :get
       resources :attachments, :only => [:create, :show, :destroy]
       resources :assets, :except => [:new, :edit, :index]
       resources :enrollments, :only => [:create, :destroy]

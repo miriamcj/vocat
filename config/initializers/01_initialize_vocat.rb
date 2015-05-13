@@ -4,6 +4,7 @@ Vocat::Application.configure do
   vocat_config = settings.deep_merge(Rails.application.secrets.vocat)
   config.vocat = Hashie::Mash.new(vocat_config)
 
+  # SETUP EMAIL CONFIG
   if !config.vocat.smtp.nil?
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
@@ -16,8 +17,18 @@ Vocat::Application.configure do
         enable_starttls_auto: config.vocat.smtp[:enable_starttls_auto]
     }
   end
-
   config.action_mailer.default_url_options = {:host => config.vocat.email.url_domain}
 
+  # SETUP NOTIFICATION CONFIG
+  if config.vocat.notification.slack.enabled && !config.vocat.notification.slack.webhook_url.nil? && !config.vocat.notification.slack.channel.nil?
+    config.middleware.use ExceptionNotification::Rack,
+                          :slack => {
+                              :webhook_url => config.vocat.notification.slack.webhook_url,
+                              :channel => config.vocat.notification.slack.channel,
+                              :additional_parameters => {
+                                  :mrkdwn => true
+                              }
+                          }
+  end
 
 end

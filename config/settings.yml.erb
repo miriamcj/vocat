@@ -26,6 +26,11 @@
     :default_from: "do-not-reply@vocat.io"
     :notification:
       :course_request_create: 'zach@castironcoding.com'
+  :notification:
+    :slack:
+      :enabled: false
+      :webhook_url: 'https://hooks.slack.com/services/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'
+      :channel: '#vocat-public'
 
 :test: *1
 
@@ -72,6 +77,12 @@
     :url_domain: "baruch.vocat.io"
     :notification:
       :course_request_create: 'notify@baruch.vocat.io'
+  :notification:
+    :slack:
+      :enabled: true
+      :webhook_url: 'https://hooks.slack.com/services/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'
+      :channel: '#vocat-public'
+
 
 :demo:
   :redis:
@@ -103,6 +114,11 @@
     :url_domain: "demo.vocat.io"
     :notification:
       :course_request_create: 'notify@baruch.vocat.io'
+  :notification:
+    :slack:
+      :enabled: true
+      :webhook_url: 'https://hooks.slack.com/services/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'
+      :channel: '#vocat-public'
 
 :staging:
   :redis:
@@ -134,4 +150,9 @@
     :default_from: "do-not-reply@vocat.io"
     :notification:
       :course_request_create: 'zach@castironcoding.com'
+  :notification:
+    :slack:
+      :enabled: true
+      :webhook_url: 'https://hooks.slack.com/services/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'
+      :channel: '#vocat-public'
 
