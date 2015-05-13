@@ -4,9 +4,9 @@
 <%= javascript_include_tag 'vendor/video_js/vjs.vimeo' %>
 
 <% if Rails.env.development? %>
-	<%= javascript_include_tag 'vendor/require/require', 'data-main' => '/assets/bootstrap.js?buster=0405160852' %>
+	<%= javascript_include_tag 'vendor/require/require', 'data-main' => "/assets/bootstrap.js?buster=#{Rails.configuration.vocat_build_number}" %>
 <% else %>
-	<%= javascript_include_tag 'vendor/require/require', 'data-main' => '/build/bootstrap.js?buster=0405160852' %>
+	<%= javascript_include_tag 'vendor/require/require', 'data-main' => "/build/bootstrap.js?buster=#{Rails.configuration.vocat_build_number}" %>
 <% end %>
 
 <script type="text/javascript">
