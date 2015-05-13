@@ -21,7 +21,7 @@ Vocat::Application.configure do
 
   # SETUP NOTIFICATION CONFIG
   if config.vocat.notification.slack.enabled && !config.vocat.notification.slack.webhook_url.nil? && !config.vocat.notification.slack.channel.nil?
-    config.middleware.use ExceptionNotification::Rack,
+    Rails.configuration.middleware.use ExceptionNotification::Rack,
                           :slack => {
                               :webhook_url => config.vocat.notification.slack.webhook_url,
                               :channel => config.vocat.notification.slack.channel,
