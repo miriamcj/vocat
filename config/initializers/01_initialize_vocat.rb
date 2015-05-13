@@ -19,16 +19,5 @@ Vocat::Application.configure do
   end
   config.action_mailer.default_url_options = {:host => config.vocat.email.url_domain}
 
-  # SETUP NOTIFICATION CONFIG
-  if config.vocat.notification.slack.enabled && !config.vocat.notification.slack.webhook_url.nil? && !config.vocat.notification.slack.channel.nil?
-    Rails.configuration.middleware.use ExceptionNotification::Rack,
-                          :slack => {
-                              :webhook_url => config.vocat.notification.slack.webhook_url,
-                              :channel => config.vocat.notification.slack.channel,
-                              :additional_parameters => {
-                                  :mrkdwn => true
-                              }
-                          }
-  end
 
 end

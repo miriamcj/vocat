@@ -58,5 +58,20 @@ module Vocat
      Devise::SessionsController.layout "splash"
     end
 
+    # SETUP NOTIFICATION CONFIG
+    settings  = YAML.load(ERB.new(File.read("#{Rails.root}/config/settings.yml.erb")).result)[Rails.env.to_sym]
+    vocat_config = settings.deep_merge(Rails.application.secrets.vocat)
+    vocat_config = Hashie::Mash.new(vocat_config)
+    if vocat_config.notification.slack.enabled && !vocat_config.notification.slack.webhook_url.nil? && !vocat_config.notification.slack.channel.nil?
+      config.middleware.use ExceptionNotification::Rack,
+                                         :slack => {
+                                             :webhook_url => vocat_config.notification.slack.webhook_url,
+                                             :channel => vocat_config.notification.slack.channel,
+                                             :additional_parameters => {
+                                                 :mrkdwn => true
+                                             }
+                                         }
+    end
+
   end
 end
