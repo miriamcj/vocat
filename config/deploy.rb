@@ -7,6 +7,7 @@ set :repo_url, 'git@github.com:castiron/vocat.git'
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 set :linked_files, ["config/secrets.yml"]
 set :keep_releases, 5
+set :bundle_binstubs, -> { shared_path.join('bin') }
 
 namespace :deploy do
 

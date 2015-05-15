@@ -1,6 +1,6 @@
 :development: &1
   :redis:
-    :db_number: 12
+    :db_number: 1
     :namespace: 'vocat_development'
   :tracking:
     :analytics_enabled: false
@@ -31,6 +31,8 @@
       :enabled: true
       :webhook_url: 'https://hooks.slack.com/services/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'
       :channel: '#vocat-public'
+  :is_demo: false
+
 
 :test: *1
 
@@ -82,77 +84,5 @@
       :enabled: true
       :webhook_url: 'https://hooks.slack.com/services/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'
       :channel: '#vocat-public'
-
-
-:demo:
-  :redis:
-    :db_number: 10
-    :namespace: 'vocat_demo'
-  :tracking:
-    :analytics_enabled: true
-    :analytics_id: UA-47779498-1
-    :analytics_domain: demo.vocat.io
-  :smtp:
-    :address: email-smtp.us-east-1.amazonaws.com
-    :port: 587
-    :domain: vocat.io
-    :authentication: plain
-    :enable_starttls_auto: true
-  :ldap:
-    :enabled: false
-  :aws:
-    :enabled: true
-    :s3_bucket: vocat.demonstration
-    :s3_region: us-west-2
-    :et_pipeline: 1391144481631-gkjjhu
-    :iam_et_role: vocat_demo_transcoder
-    :presets:
-      :webm: 1398902274559-yu3i15
-      :mp4: 1398902272496-qw0113
-  :email:
-    :default_from: "do-not-reply@vocat.io"
-    :url_domain: "demo.vocat.io"
-    :notification:
-      :course_request_create: 'notify@baruch.vocat.io'
-  :notification:
-    :slack:
-      :enabled: true
-      :webhook_url: 'https://hooks.slack.com/services/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'
-      :channel: '#vocat-public'
-
-:staging:
-  :redis:
-    :db_number: 9
-    :namespace: 'vocat_staging'
-  :tracking:
-    :analytics_enabled: true
-    :analytics_id: UA-47779498-1
-    :analytics_domain: demo.vocat.io
-  :smtp:
-    :address: email-smtp.us-east-1.amazonaws.com
-    :port: 587
-    :domain: vocat.io
-    :authentication: plain
-    :enable_starttls_auto: true
-  :ldap:
-    :enabled: false
-  :aws:
-    :enabled: true
-    :s3_bucket: vocat.staging
-    :s3_region: us-west-2
-    :et_pipeline: 1398453860645-tptvkh
-    :iam_et_role: vocat_staging_transcoder
-    :presets:
-      :webm: 1398902274559-yu3i15
-      :mp4: 1398902272496-qw0113
-  :email:
-    :url_domain: "vocat.cic-stg.com"
-    :default_from: "do-not-reply@vocat.io"
-    :notification:
-      :course_request_create: 'zach@castironcoding.com'
-  :notification:
-    :slack:
-      :enabled: true
-      :webhook_url: 'https://hooks.slack.com/services/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'
-      :channel: '#vocat-public'
+  :is_demo: false
 
