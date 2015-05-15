@@ -4,4 +4,7 @@
 	{{else}}
 		{{name}}
 	{{/if}}
+	{{#if isGroup}}
+		<a data-behavior="open-group-modal" class="secondary-link" href="#">View Members</a>
+	{{/if}}
 </th>
