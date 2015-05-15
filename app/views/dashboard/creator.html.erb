@@ -30,12 +30,13 @@
 					<tbody>
 					<% if current_user.courses.count > 0 %>
 						<% current_user.courses.each do |course| %>
+							<% url = course.role(current_user) == :creator ? portfolio_course_path(course) : course_path(course) %>
 							<tr>
-								<th><%= link_to "#{course.department}#{course.number}", portfolio_course_path(course) %></th>
-								<td><%= link_to course.name, portfolio_course_path(course) %></td>
-								<td><%= link_to course.evaluators.pluck(:last_name).join(', '), portfolio_course_path(course) %></td>
-								<td><%= link_to course.section, portfolio_course_path(course) %></td>
-								<td><%= link_to "#{course.semester} #{course.year}", portfolio_course_path(course) %></td>
+								<th><%= link_to "#{course.department}#{course.number}", url %></th>
+								<td><%= link_to course.name, url %></td>
+								<td><%= link_to course.evaluators.pluck(:last_name).join(', '), url %></td>
+								<td><%= link_to course.section, url %></td>
+								<td><%= link_to "#{course.semester} #{course.year}", url %></td>
 							</tr>
 						<% end %>
 					<% else %>
