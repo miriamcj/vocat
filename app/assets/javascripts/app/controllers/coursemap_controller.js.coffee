@@ -12,6 +12,7 @@ define (require) ->
   SubmissionDetail = require('views/submission/submission_layout')
   CreatorDetail = require('views/course_map/detail_creator')
   ProjectDetail = require('views/project/detail')
+  ApplicationErrorView = require('views/error/application_error')
   AssetModel = require('models/asset')
 
   class CourseMapController extends VocatController
@@ -104,6 +105,8 @@ define (require) ->
     _loadOneSubmission: (creatorType, creatorId, projectId) ->
       deferred = $.Deferred()
 
+      deferred.fail(@_handleSubmissionLoadError)
+
       # We don't deal in submission IDs in VOCAT (although I kind if wish we had), so we're fetching this
       # model outside of the usual collection/model framework. At some point, we may want to move this fetching
       # logic into a JS factory class or the submission model itself.
@@ -123,11 +126,27 @@ define (require) ->
             submission = @collections.submission.get(id)
             deferred.resolve(submission)
           else
-            deferred.reject()
-        error: () =>
-          deferred.reject()
+            deferred.reject(creatorType, creatorId, projectId, null)
+        error: (response) =>
+          status = null
+          if response? && response.status??
+            status = response.status
+          deferred.reject(creatorType, creatorId, projectId, status)
       })
       return deferred
+
+    _handleSubmissionLoadError: (creatorType, creatorId, projectId, status) ->
+      if status
+        statusMsg = "When Vocat tried to load this submission, the server replied with a #{status} error."
+      else
+        statusMsg = "When Vocat tried to load this submission, the server did not return a valid submission."
+      window.Vocat.main.show(new ApplicationErrorView({
+        errorDetails: {
+          description: "#{statusMsg} This means that the submission data is likely corrupted and needs to be repaired. \
+            This error has been logged and reported to the vocat development team."
+          code: "SUBMISSION-LOAD-FAILURE: CT#{creatorType}UID#{creatorId}PID#{projectId}"
+        }
+      }))
 
     _showSubmissionDetail: (creatorType, courseId, creatorId, projectId, assetId = null, courseMapContext = true) ->
       deferred = @_loadOneSubmission(creatorType, creatorId, projectId)
@@ -143,6 +162,7 @@ define (require) ->
         })
         window.Vocat.main.show(submissionDetail)
       )
+
 
     _showCreatorDetail: (creatorType, courseId, creatorId, courseMapContext = true) ->
       if creatorType == 'User'

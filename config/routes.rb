@@ -13,6 +13,8 @@ Vocat::Application.routes.draw do
   namespace :api, :defaults => {:format => 'json'} do
     namespace :v1 do
 
+      match '/configuration' => 'configuration#index', :via => :get
+
       post 'token' => 'token#create'
       get 'token' => 'token#show'
       delete 'token' => 'token#destroy'

@@ -4,6 +4,7 @@ Vocat::Application.configure do
   vocat_config = settings.deep_merge(Rails.application.secrets.vocat)
   config.vocat = Hashie::Mash.new(vocat_config)
 
+  # SETUP EMAIL CONFIG
   if !config.vocat.smtp.nil?
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
@@ -16,7 +17,6 @@ Vocat::Application.configure do
         enable_starttls_auto: config.vocat.smtp[:enable_starttls_auto]
     }
   end
-
   config.action_mailer.default_url_options = {:host => config.vocat.email.url_domain}
 
 end

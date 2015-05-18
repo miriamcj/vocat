@@ -19,7 +19,7 @@ module Vocat
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     config.time_zone = 'Eastern Time (US & Canada)'
-    
+
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
@@ -60,6 +60,22 @@ module Vocat
     end
 
     config.autoload_paths << Rails.root.join('lib')
+
+    # SETUP NOTIFICATION CONFIG
+    settings  = YAML.load(ERB.new(File.read("#{Rails.root}/config/settings.yml.erb")).result)[Rails.env.to_sym]
+    vocat_config = settings.deep_merge(Rails.application.secrets.vocat)
+    vocat_config = Hashie::Mash.new(vocat_config)
+    if vocat_config.notification.slack.enabled && !vocat_config.notification.slack.webhook_url.nil? && !vocat_config.notification.slack.channel.nil?
+      config.middleware.use ExceptionNotification::Rack,
+                                         :slack => {
+                                             :webhook_url => vocat_config.notification.slack.webhook_url,
+                                             :channel => vocat_config.notification.slack.channel,
+                                             :additional_parameters => {
+                                                 :mrkdwn => true
+                                             }
+                                         }
+    end
+
 
   end
 end

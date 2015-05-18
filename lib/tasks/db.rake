@@ -1,18 +1,15 @@
 namespace :db do
   desc "Truncate all tables"
   task :truncate => :environment do
-    conn = ActiveRecord::Base.connection
-    postgres = "SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname='public'"
-    tables = conn.execute(postgres).map { |r| r['tablename'] }
-    tables.delete "schema_migrations"
-    tables.each { |t| conn.execute("TRUNCATE \"#{t}\"") }
+    generator = Utility::SampleDataGenerator.new
+    generator.truncate
   end
 
-  desc "Truncate all tables and reseed"
-  task :reseed => :environment do
+  desc "Reload all demo data"
+  task :demo_refresh => :environment do
     Rake::Task['db:truncate'].invoke
     Rake::Task['db:seed'].invoke
-
+    Rake::Task['db:sample'].invoke
   end
 
   desc "Adds dummy data to the database"
@@ -26,6 +23,5 @@ namespace :db do
     generator = Utility::SampleDataGenerator.new
     generator.empty
   end
-
 
 end

@@ -3,30 +3,43 @@ module Utility
   class SampleDataGenerator
 
     def empty
-      unless Rails.env.production?
-        Annotation.delete_all
-        Asset.delete_all
-        Attachment::Variant.delete_all
-        Attachment.delete_all
-        CourseRequest.delete_all
-        Course.delete_all
-        Submission.delete_all
-        DiscussionPost.delete_all
-        Evaluation.delete_all
-        Group.delete_all
-        Membership.delete_all
-        Organization.delete_all
-        Project.delete_all
-        Rubric.delete_all
-        Submission.delete_all
-        User.delete_all
-      else
-        raise 'Unable to remove data in production environment'
+      check_safety
+      Annotation.delete_all
+      Asset.delete_all
+      Attachment::Variant.delete_all
+      Attachment.delete_all
+      CourseRequest.delete_all
+      Course.delete_all
+      Submission.delete_all
+      DiscussionPost.delete_all
+      Evaluation.delete_all
+      Group.delete_all
+      Membership.delete_all
+      Organization.delete_all
+      Project.delete_all
+      Rubric.delete_all
+      Submission.delete_all
+      User.delete_all
+    end
+
+    def truncate
+      check_safety
+      conn = ActiveRecord::Base.connection
+      postgres = "SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname='public'"
+      tables = conn.execute(postgres).map { |r| r['tablename'] }
+      tables.delete "schema_migrations"
+      tables.each { |t| conn.execute("TRUNCATE \"#{t}\"") }
+    end
+
+    def check_safety
+      unless Rails.env.development? || !Rails.env.development? &&  Rails.application.config.vocat.is_demo == true
+        Raise "Safety is ON in the Sample Data Generator. If you really want to do this, set the is_demo setting to true in your vocat settings."
       end
     end
 
     def fill
 
+      check_safety
       puts 'Emptying database'
       empty
 
@@ -329,6 +342,7 @@ module Utility
 
     end
 
+    protected
 
     # Create sample sections
     def random_section

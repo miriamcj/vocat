@@ -159,6 +159,14 @@ $columnWidth: ($container / $columns) - 12;
   border-collapse: separate;
 }
 
+.matrix-row-headers, th {
+  .secondary-link {
+    display: block;
+    font-size: $kappa;
+    margin-top: .5em;
+  }
+}
+
 %matrix-heading {
   @include font-head;
   text-align: left;

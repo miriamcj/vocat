@@ -1,11 +1,20 @@
-define ['marionette', 'hbs!templates/course_map/creators_item'], (Marionette, template) ->
+define (require) ->
+  Marionette = require('marionette')
+  template = require('hbs!templates/course_map/creators_item')
+  ModalGroupMembershipView = require('views/modal/modal_group_membership')
+
   class CourseMapCreatorsItem extends Marionette.ItemView
 
     tagName: 'tr'
 
     template: template
 
+    ui: {
+      openGroupModal: '[data-behavior="open-group-modal"]'
+    }
+
     triggers: {
+      'click @ui.openGroupModal': 'open:groups:modal'
       'mouseover [data-behavior="creator-name"]': 'active'
       'mouseout [data-behavior="creator-name"]': 'inactive'
       'click [data-behavior="creator-name"]': 'detail'
@@ -26,6 +35,9 @@ define ['marionette', 'hbs!templates/course_map/creators_item'], (Marionette, te
       data.courseId = @options.courseId
       data.userCanAdministerCourse = window.VocatUserCourseAdministrator
       data
+
+    onOpenGroupsModal: () ->
+      Vocat.vent.trigger('modal:open', new ModalGroupMembershipView({groupId: @model.id}))
 
     onDetail: () ->
       @vent.triggerMethod('navigate:creator', {creator: @model.id})
