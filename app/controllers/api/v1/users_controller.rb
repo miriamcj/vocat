@@ -4,7 +4,23 @@ class Api::V1::UsersController < ApiController
   respond_to :json
   skip_authorization_check only: [:me]
 
-  # /api/v1/users/search?email=XXX
+  api :GET, '/users/search/?email=:email', "Finds users by email address. Under normal circumstances, should return an arry with 1 or 0 items."
+  param :email, String, :desc => "The user's email address"
+  example <<-EOF
+    Sample Response:
+    [
+      {
+        "id": 4470,
+        "email": "evaluator1@test.com",
+        "name": "Ressie Crona",
+        "gravatar": "http://gravatar.com/avatar/4c3fe1bdae8ec9e5db97d02aa4cf1cda.png?d=mm&s=",
+        "first_name": "Ressie",
+        "last_sign_in_at": "2015-05-06T17:51:54.327-04:00",
+        "org_identity": "30683835",
+        "list_name": "Crona, Ressie"
+      }
+    ]
+  EOF
   def search
     @users = User.where(["lower(email) LIKE :email", {:email => "#{params[:email].downcase}%"}])
     respond_with @users
