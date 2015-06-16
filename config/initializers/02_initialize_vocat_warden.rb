@@ -19,4 +19,4 @@ module Devise
   end
 end
 
-Warden::Strategies.add(:vocat_authenticatable, Devise::Strategies::VocatAuthenticatable)
+Warden::Strategies.add(:vocat_authenticatable, Devise::Strategies::VocatLdapAuthenticatable)
