@@ -3,7 +3,7 @@ require 'devise/strategies/authenticatable'
 
 module Devise
   module Strategies
-    class VocatAuthenticatable < Authenticatable
+    class VocatLdapAuthenticatable < Authenticatable
 
       def authenticate!
         ldap = LDAPAuthenticator.new
