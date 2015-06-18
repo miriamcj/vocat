@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>API documentation</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link type='text/css' rel='stylesheet' href='../../apidoc/stylesheets/bundled/bootstrap.min.css'/>
+<link type='text/css' rel='stylesheet' href='../../apidoc/stylesheets/bundled/prettify.css'/>
+<link type='text/css' rel='stylesheet' href='../../apidoc/stylesheets/bundled/bootstrap-responsive.min.css'/>
+	<link type='text/css' rel='stylesheet' href='../../apidoc/stylesheets/application.css'/>
+	<link rel="stylesheet" media="all" href="/assets/apipie/apipie.css?body=1" />
+
+	<!-- IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<script type="text/javascript" src="//use.typekit.net/ytz4hur.js"></script>
+	<script type="text/javascript">try {
+		Typekit.load();
+	} catch (e) {
+	}</script>
+
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div id='container'>
+			<ul class='breadcrumb'>
+  <li>
+    <a href='../../apidoc.html'>Vocat API 1.0</a>
+    <span class='divider'>/</span>
+  </li>
+  <li>
+    <a href='../../apidoc/groups.html'>
+      Groups
+      
+    </a>
+    <span class='divider'>/</span>
+  </li>
+  <li class='active'>index</li>
+  
+
+</ul>
+
+  <div class='page-header'>
+    <h1>
+      GET /api/v1/groups?course=:course
+      <br>
+      <small>returns all groups for the given course</small>
+    </h1>
+  </div>
+
+<div>
+
+  
+
+
+	<div class="method-detail-section">
+		<h2>Examples</h2>
+			<pre class="prettyprint">Sample Response:
+
+[
+   {
+      &quot;id&quot;:810,
+      &quot;name&quot;:&quot;Group #1&quot;,
+      &quot;creator_ids&quot;:[
+         4483,
+         4474,
+         4520
+      ],
+      &quot;course_id&quot;:234,
+      &quot;first_name&quot;:&quot;Group #1&quot;,
+      &quot;members&quot;:[
+         &quot;Betty Blick&quot;,
+         &quot;Shawn Jones&quot;,
+         &quot;Dewitt Ruecker&quot;
+      ]
+   },
+   {
+      &quot;id&quot;:811,
+      &quot;name&quot;:&quot;Group #2&quot;,
+      &quot;creator_ids&quot;:[
+         4474,
+         4520,
+         4522
+      ],
+      &quot;course_id&quot;:234,
+      &quot;first_name&quot;:&quot;Group #2&quot;,
+      &quot;members&quot;:[
+         &quot;Shawn Jones&quot;,
+         &quot;Dewitt Ruecker&quot;,
+         &quot;Bradly Stamm&quot;
+      ]
+   },
+   {
+      &quot;id&quot;:812,
+      &quot;name&quot;:&quot;Group #3&quot;,
+      &quot;creator_ids&quot;:[
+         4514,
+         4486,
+         4516
+      ],
+      &quot;course_id&quot;:234,
+      &quot;first_name&quot;:&quot;Group #3&quot;,
+      &quot;members&quot;:[
+         &quot;Heidi Konopelski&quot;,
+         &quot;Petra Luettgen&quot;,
+         &quot;Issac Murphy&quot;
+      ]
+   },
+   {
+      &quot;id&quot;:813,
+      &quot;name&quot;:&quot;Group #4&quot;,
+      &quot;creator_ids&quot;:[
+         4499,
+         4474,
+         4516
+      ],
+      &quot;course_id&quot;:234,
+      &quot;first_name&quot;:&quot;Group #4&quot;,
+      &quot;members&quot;:[
+         &quot;Claude Erdman&quot;,
+         &quot;Shawn Jones&quot;,
+         &quot;Issac Murphy&quot;
+      ]
+   }
+]
+</pre>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h2>Errors</h2>
+		<ul class="method-detail-list">
+				<li>
+					<strong>404</strong>: The course was not found.
+					<br>
+				</li>
+				<li>
+					<strong>403</strong>: The current user does not have read access for the given course.
+					<br>
+				</li>
+		</ul>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Request Parameters</h3>
+		<table class='table'>
+			<thead>
+			<tr>
+				<th>Param name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>course </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The course ID</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+</div>
+
+
+			
+		</div>
+	</div>
+	<hr>
+	<footer>Copyright 2015 Baruch College, City University of New York</footer>
+</div>
+<script type='text/javascript' src='../../apidoc/javascripts/bundled/jquery-1.7.2.js'></script>
+<script type='text/javascript' src='../../apidoc/javascripts/bundled/bootstrap-collapse.js'></script>
+<script type='text/javascript' src='../../apidoc/javascripts/bundled/prettify.js'></script>
+<script type='text/javascript' src='../../apidoc/javascripts/apipie.js'></script>
+</body>
+</html>

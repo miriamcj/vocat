@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>API documentation</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link type='text/css' rel='stylesheet' href='../apidoc/stylesheets/bundled/bootstrap.min.css'/>
+<link type='text/css' rel='stylesheet' href='../apidoc/stylesheets/bundled/prettify.css'/>
+<link type='text/css' rel='stylesheet' href='../apidoc/stylesheets/bundled/bootstrap-responsive.min.css'/>
+	<link type='text/css' rel='stylesheet' href='../apidoc/stylesheets/application.css'/>
+	<link rel="stylesheet" media="all" href="/assets/apipie/apipie.css?body=1" />
+
+	<!-- IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<script type="text/javascript" src="//use.typekit.net/ytz4hur.js"></script>
+	<script type="text/javascript">try {
+		Typekit.load();
+	} catch (e) {
+	}</script>
+
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div id='container'>
+			<ul class='breadcrumb'>
+  <li>
+    <a href='../apidoc.html'>Vocat API 1.0</a>
+    <span class='divider'>/</span>
+  </li>
+  <li class='active'>
+    Scores
+    
+  </li>
+  
+</ul>
+
+<div class='page-header'>
+  <h1>
+    Scores
+    <br>
+    <small></small>
+  </h1>
+</div>
+
+  <div>
+<p>Scores is a pseudo resource that is used to access aggregate scoring data.
+This is a read-only resource, then, for all user types.</p>
+</div>
+
+
+
+
+
+<div class='accordion' id='accordion'>
+
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/scores/my_scores.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-my_scores'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            GET /api/v1/scores/my_scores?project=:project
+          </a>
+          <br>
+          <small>returns the current user's scores for a given project</small>
+        </h2>
+    </div>
+
+
+    <div id='description-my_scores' class='collapse accordion-body'>
+      
+
+
+	<div class="method-detail-section">
+		<h3>Examples</h3>
+			<pre class="prettyprint">Sample Response:
+
+{
+    &quot;summary&quot;: {
+        &quot;project&quot;: {
+            &quot;asset_count&quot;: 0,
+            &quot;possible_submission_count&quot;: 13,
+            &quot;rubric_avg_score&quot;: &quot;62.0&quot;,
+            &quot;rubric_avg_percentage&quot;: &quot;68.8888888888889&quot;
+        },
+        &quot;score&quot;: {
+            &quot;average_score&quot;: 0,
+            &quot;average_percentage&quot;: 0,
+            &quot;count&quot;: 0
+        }
+    },
+    &quot;scores&quot;: []
+}
+</pre>
+	</div>
+
+
+
+
+	<div class="method-detail-section">
+		<h3>Request Parameters</h3>
+		<table class='table'>
+			<thead>
+			<tr>
+				<th>Param name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>project </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The project ID</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/scores/all_scores.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-all_scores'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            GET /api/v1/scores/all_scores?project=:project
+          </a>
+          <br>
+          <small>returns scores for a given project</small>
+        </h2>
+    </div>
+
+
+    <div id='description-all_scores' class='collapse accordion-body'>
+      
+<p>The user must be able to administer the project&#39;s course to access this
+endpoint</p>
+
+
+
+	<div class="method-detail-section">
+		<h3>Examples</h3>
+			<pre class="prettyprint">Sample Response:
+
+{
+    &quot;summary&quot;: {
+        &quot;project&quot;: {
+            &quot;asset_count&quot;: 0,
+            &quot;possible_submission_count&quot;: 13,
+            &quot;rubric_avg_score&quot;: &quot;62.0&quot;,
+            &quot;rubric_avg_percentage&quot;: &quot;68.8888888888889&quot;
+        },
+        &quot;score&quot;: {
+            &quot;average_score&quot;: &quot;62.0&quot;,
+            &quot;average_percentage&quot;: &quot;68.8888888888889&quot;,
+            &quot;count&quot;: 1
+        }
+    },
+    &quot;scores&quot;: [
+        {
+            &quot;creator_type&quot;: &quot;User&quot;,
+            &quot;rate&quot;: &quot;5&quot;,
+            &quot;level&quot;: &quot;5&quot;,
+            &quot;review&quot;: &quot;5&quot;,
+            &quot;preview&quot;: &quot;3&quot;,
+            &quot;movement&quot;: &quot;5&quot;,
+            &quot;attention&quot;: &quot;2&quot;,
+            &quot;citations&quot;: &quot;4&quot;,
+            &quot;eye-contact&quot;: &quot;3&quot;,
+            &quot;transitions&quot;: &quot;5&quot;,
+            &quot;visual-aids-attire&quot;: &quot;5&quot;,
+            &quot;supporting-material&quot;: &quot;5&quot;,
+            &quot;introduction-tieback&quot;: &quot;5&quot;,
+            &quot;relation-to-audience&quot;: &quot;4&quot;,
+            &quot;specific-purpose-thesis&quot;: &quot;1&quot;,
+            &quot;logical-organization-pattern&quot;: &quot;5&quot;
+        }
+    ]
+}
+</pre>
+	</div>
+
+
+
+
+	<div class="method-detail-section">
+		<h3>Request Parameters</h3>
+		<table class='table'>
+			<thead>
+			<tr>
+				<th>Param name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>project </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The project ID</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/scores/peer_scores.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-peer_scores'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            GET /api/v1/scores/peer_scores?project=:project
+          </a>
+          <br>
+          <small>returns peer evaluation scores for a given project</small>
+        </h2>
+    </div>
+
+
+    <div id='description-peer_scores' class='collapse accordion-body'>
+      
+<p>The user must be able to administer the project&#39;s course to access this
+endpoint</p>
+
+
+
+	<div class="method-detail-section">
+		<h3>Examples</h3>
+			<pre class="prettyprint">Sample Response:
+
+{
+    &quot;summary&quot;: {
+        &quot;project&quot;: {
+            &quot;asset_count&quot;: 0,
+            &quot;possible_submission_count&quot;: 13,
+            &quot;rubric_avg_score&quot;: &quot;62.0&quot;,
+            &quot;rubric_avg_percentage&quot;: &quot;68.8888888888889&quot;
+        },
+        &quot;score&quot;: {
+            &quot;average_score&quot;: &quot;62.0&quot;,
+            &quot;average_percentage&quot;: &quot;68.8888888888889&quot;,
+            &quot;count&quot;: 1
+        }
+    },
+    &quot;scores&quot;: [
+        {
+            &quot;creator_type&quot;: &quot;User&quot;,
+            &quot;rate&quot;: &quot;5&quot;,
+            &quot;level&quot;: &quot;5&quot;,
+            &quot;review&quot;: &quot;5&quot;,
+            &quot;preview&quot;: &quot;3&quot;,
+            &quot;movement&quot;: &quot;5&quot;,
+            &quot;attention&quot;: &quot;2&quot;,
+            &quot;citations&quot;: &quot;4&quot;,
+            &quot;eye-contact&quot;: &quot;3&quot;,
+            &quot;transitions&quot;: &quot;5&quot;,
+            &quot;visual-aids-attire&quot;: &quot;5&quot;,
+            &quot;supporting-material&quot;: &quot;5&quot;,
+            &quot;introduction-tieback&quot;: &quot;5&quot;,
+            &quot;relation-to-audience&quot;: &quot;4&quot;,
+            &quot;specific-purpose-thesis&quot;: &quot;1&quot;,
+            &quot;logical-organization-pattern&quot;: &quot;5&quot;
+        }
+    ]
+}
+</pre>
+	</div>
+
+
+
+
+	<div class="method-detail-section">
+		<h3>Request Parameters</h3>
+		<table class='table'>
+			<thead>
+			<tr>
+				<th>Param name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>project </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The project ID</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/scores/evaluator_scores.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-evaluator_scores'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            GET /api/v1/scores/evaluator_scores?project=:project
+          </a>
+          <br>
+          <small>returns evaluator scores for a given project</small>
+        </h2>
+    </div>
+
+
+    <div id='description-evaluator_scores' class='collapse accordion-body'>
+      
+<p>The user must be able to administer the project&#39;s course to access this
+endpoint</p>
+
+
+
+	<div class="method-detail-section">
+		<h3>Examples</h3>
+			<pre class="prettyprint">Sample Response:
+
+{
+    &quot;summary&quot;: {
+        &quot;project&quot;: {
+            &quot;asset_count&quot;: 0,
+            &quot;possible_submission_count&quot;: 13,
+            &quot;rubric_avg_score&quot;: &quot;62.0&quot;,
+            &quot;rubric_avg_percentage&quot;: &quot;68.8888888888889&quot;
+        },
+        &quot;score&quot;: {
+            &quot;average_score&quot;: &quot;62.0&quot;,
+            &quot;average_percentage&quot;: &quot;68.8888888888889&quot;,
+            &quot;count&quot;: 1
+        }
+    },
+    &quot;scores&quot;: [
+        {
+            &quot;creator_type&quot;: &quot;User&quot;,
+            &quot;rate&quot;: &quot;5&quot;,
+            &quot;level&quot;: &quot;5&quot;,
+            &quot;review&quot;: &quot;5&quot;,
+            &quot;preview&quot;: &quot;3&quot;,
+            &quot;movement&quot;: &quot;5&quot;,
+            &quot;attention&quot;: &quot;2&quot;,
+            &quot;citations&quot;: &quot;4&quot;,
+            &quot;eye-contact&quot;: &quot;3&quot;,
+            &quot;transitions&quot;: &quot;5&quot;,
+            &quot;visual-aids-attire&quot;: &quot;5&quot;,
+            &quot;supporting-material&quot;: &quot;5&quot;,
+            &quot;introduction-tieback&quot;: &quot;5&quot;,
+            &quot;relation-to-audience&quot;: &quot;4&quot;,
+            &quot;specific-purpose-thesis&quot;: &quot;1&quot;,
+            &quot;logical-organization-pattern&quot;: &quot;5&quot;
+        }
+    ]
+}
+</pre>
+	</div>
+
+
+
+
+	<div class="method-detail-section">
+		<h3>Request Parameters</h3>
+		<table class='table'>
+			<thead>
+			<tr>
+				<th>Param name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>project </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The project ID</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+    </div>
+</div>
+
+
+			
+		</div>
+	</div>
+	<hr>
+	<footer>Copyright 2015 Baruch College, City University of New York</footer>
+</div>
+<script type='text/javascript' src='../apidoc/javascripts/bundled/jquery-1.7.2.js'></script>
+<script type='text/javascript' src='../apidoc/javascripts/bundled/bootstrap-collapse.js'></script>
+<script type='text/javascript' src='../apidoc/javascripts/bundled/prettify.js'></script>
+<script type='text/javascript' src='../apidoc/javascripts/apipie.js'></script>
+</body>
+</html>

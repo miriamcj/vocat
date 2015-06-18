@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>API documentation</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link type='text/css' rel='stylesheet' href='../apidoc/stylesheets/bundled/bootstrap.min.css'/>
+<link type='text/css' rel='stylesheet' href='../apidoc/stylesheets/bundled/prettify.css'/>
+<link type='text/css' rel='stylesheet' href='../apidoc/stylesheets/bundled/bootstrap-responsive.min.css'/>
+	<link type='text/css' rel='stylesheet' href='../apidoc/stylesheets/application.css'/>
+	<link rel="stylesheet" media="all" href="/assets/apipie/apipie.css?body=1" />
+
+	<!-- IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<script type="text/javascript" src="//use.typekit.net/ytz4hur.js"></script>
+	<script type="text/javascript">try {
+		Typekit.load();
+	} catch (e) {
+	}</script>
+
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div id='container'>
+			<ul class='breadcrumb'>
+  <li>
+    <a href='../apidoc.html'>Vocat API 1.0</a>
+    <span class='divider'>/</span>
+  </li>
+  <li class='active'>
+    Submissions
+    
+  </li>
+  
+</ul>
+
+<div class='page-header'>
+  <h1>
+    Submissions
+    <br>
+    <small></small>
+  </h1>
+</div>
+
+  <div>
+<p>Submissions tie together the media, discussion posts, and evaluations that
+are created in response to a student&#39;s work on a project. Submissions
+are created automatically, on the fly by Vocat. Vocat will always return a
+one submission for every group and student that can submit for a given
+project. The existence of a submission, then, should not be taken to mean
+that a student has taken action on a project. For performance reasons, when
+the API renders collections of submissions, it uses a brief serializer that
+does not include all submission details. To access the full details of a
+submission, API clients should request the single submission.</p>
+</div>
+
+
+
+
+
+<div class='accordion' id='accordion'>
+
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/submissions/for_course.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-for_course'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            GET /api/v1/submission/for_course?course=:course
+          </a>
+          <br>
+          <small>returns summaries of all submissions for the given course</small>
+        </h2>
+    </div>
+
+
+    <div id='description-for_course' class='collapse accordion-body'>
+      
+
+
+	<div class="method-detail-section">
+		<h3>Examples</h3>
+			<pre class="prettyprint">Sample Response:
+
+[
+  {
+    &quot;id&quot;: 7395,
+    &quot;creator_id&quot;: 4483,
+    &quot;project_id&quot;: 466,
+    &quot;creator_type&quot;: &quot;User&quot;,
+    &quot;serialized_state&quot;: &quot;partial&quot;,
+    &quot;current_user_published&quot;: null,
+    &quot;current_user_percentage&quot;: null,
+    &quot;instructor_score_percentage&quot;: &quot;68.8888888888889&quot;,
+    &quot;role&quot;: &quot;administrator&quot;,
+    &quot;has_asset&quot;: true,
+    &quot;list_name&quot;: &quot;Blick, Betty&quot;
+  },
+  {
+    &quot;id&quot;: 7398,
+    &quot;creator_id&quot;: 4519,
+    &quot;project_id&quot;: 466,
+    &quot;creator_type&quot;: &quot;User&quot;,
+    &quot;serialized_state&quot;: &quot;partial&quot;,
+    &quot;current_user_published&quot;: null,
+    &quot;current_user_percentage&quot;: null,
+    &quot;instructor_score_percentage&quot;: null,
+    &quot;role&quot;: &quot;administrator&quot;,
+    &quot;has_asset&quot;: false,
+    &quot;list_name&quot;: &quot;Reinger, Ebony&quot;
+  },
+  [...]
+]
+</pre>
+	</div>
+
+
+
+
+	<div class="method-detail-section">
+		<h3>Request Parameters</h3>
+		<table class='table'>
+			<thead>
+			<tr>
+				<th>Param name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>course </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The course ID</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/submissions/for_creator_and_project.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-for_creator_and_project'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            GET /api/v1/submission/for_creator_and_project?creator=:creator&amp;project=:project&amp;creator_type=:creator_type
+          </a>
+          <br>
+          <small>returns detailed submissions for the given creator and project</small>
+        </h2>
+    </div>
+
+
+    <div id='description-for_creator_and_project' class='collapse accordion-body'>
+      
+<p>The following example is truncated, as the serialized submission also
+includes the project, the rubric, all evaluations, and all assets
+associated with the submission. To see what fields are exposed on these
+resources, please consult the related API doc pages.</p>
+
+
+
+	<div class="method-detail-section">
+		<h3>Examples</h3>
+			<pre class="prettyprint">Sample Response:
+
+[
+  {
+    &quot;id&quot;:7395,
+    &quot;name&quot;:null,
+    &quot;path&quot;:&quot;/courses/234/users/evaluations/creator/4483/project/466&quot;,
+    &quot;serialized_state&quot;:&quot;full&quot;,
+    &quot;role&quot;:&quot;administrator&quot;,
+    &quot;discussion_posts_count&quot;:1,
+    &quot;new_posts_for_current_user&quot;:false,
+    &quot;project&quot;:{[SEE PROJECT RESOURCE]},
+    &quot;creator&quot;:{
+      &quot;id&quot;:4483,
+      &quot;email&quot;:&quot;creator10@test.com&quot;,
+      &quot;name&quot;:&quot;Betty Blick&quot;,
+      &quot;gravatar&quot;:&quot;http://gravatar.com/avatar/8a4e59d9970b880e602cd29d77fc2fd7.png?d=mm&amp;s=&quot;,
+      &quot;first_name&quot;:&quot;Betty&quot;,
+      &quot;last_sign_in_at&quot;:null,
+      &quot;org_identity&quot;:&quot;95661757&quot;,
+      &quot;list_name&quot;:&quot;Blick, Betty&quot;
+    },
+    &quot;creator_id&quot;:4483,
+    &quot;creator_type&quot;:&quot;User&quot;,
+    &quot;project_id&quot;:466,
+    &quot;evaluations&quot;:[
+      {[SEE EVALUATION RESOURCE]}
+    ],
+    &quot;abilities&quot;:{
+      &quot;can_own&quot;:true,
+      &quot;can_evaluate&quot;:false,
+      &quot;can_attach&quot;:true,
+      &quot;can_discuss&quot;:true,
+      &quot;can_annotate&quot;:true,
+      &quot;can_administer&quot;:true
+    },
+    &quot;current_user_published&quot;:null,
+    &quot;current_user_percentage&quot;:null,
+    &quot;evaluated_by_peers&quot;:false,
+    &quot;peer_score_percentage&quot;:0,
+    &quot;evaluated_by_instructor&quot;:true,
+    &quot;instructor_score_percentage&quot;:&quot;68.8888888888889&quot;,
+    &quot;has_asset&quot;:true,
+    &quot;assets&quot;:[
+      {[SEE ASSET RESOURCE]}
+    ]
+  }
+]
+</pre>
+	</div>
+
+
+
+
+	<div class="method-detail-section">
+		<h3>Request Parameters</h3>
+		<table class='table'>
+			<thead>
+			<tr>
+				<th>Param name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>creator </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The group or course ID</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>project </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The project ID</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>creator_type </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>A string telling Vocat whether to return a user or group creator</p>
+
+        <br>
+        Value: 
+<p>Must be one of: User, Group.</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/submissions/for_course_and_user.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-for_course_and_user'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            GET /api/v1/submission/for_course_and_user?course=:course&amp;project=:project&amp;user=:user
+          </a>
+          <br>
+          <small>returns detailed submissions for the given user, course, and project (optional)</small>
+        </h2>
+    </div>
+
+
+    <div id='description-for_course_and_user' class='collapse accordion-body'>
+      
+<p>For a sample of the response, see the for_creator_and_project endpoint,
+above.</p>
+
+
+
+
+
+
+
+	<div class="method-detail-section">
+		<h3>Request Parameters</h3>
+		<table class='table'>
+			<thead>
+			<tr>
+				<th>Param name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>user </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The user ID</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>project </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The project ID</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>course </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The course ID</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/submissions/for_group.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-for_group'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            GET /api/v1/submission/for_group?group=:group
+          </a>
+          <br>
+          <small>returns detailed submissions for the given group</small>
+        </h2>
+    </div>
+
+
+    <div id='description-for_group' class='collapse accordion-body'>
+      
+<p>For a sample of the response, see the for_creator_and_project endpoint,
+above.</p>
+
+
+
+
+
+
+
+	<div class="method-detail-section">
+		<h3>Request Parameters</h3>
+		<table class='table'>
+			<thead>
+			<tr>
+				<th>Param name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>group </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The group ID</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/submissions/for_project.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-for_project'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            GET /api/v1/submission/for_project?project=:project
+          </a>
+          <br>
+          <small>returns brief submissions the given project</small>
+        </h2>
+    </div>
+
+
+    <div id='description-for_project' class='collapse accordion-body'>
+      
+<p>For a sample of the response, see the for_creator_and_project endpoint,
+above.</p>
+
+
+
+
+
+
+
+	<div class="method-detail-section">
+		<h3>Request Parameters</h3>
+		<table class='table'>
+			<thead>
+			<tr>
+				<th>Param name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>project </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The project ID</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/submissions/show.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-show'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            GET /api/v1/submission/:id
+          </a>
+          <br>
+          <small>shows a single submission</small>
+        </h2>
+    </div>
+
+
+    <div id='description-show' class='collapse accordion-body'>
+      
+<p>For a sample of the response, see the for_creator_and_project endpoint,
+above.</p>
+
+
+
+
+
+
+
+	<div class="method-detail-section">
+		<h3>Request Parameters</h3>
+		<table class='table'>
+			<thead>
+			<tr>
+				<th>Param name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>id </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The submission ID</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/submissions/create.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-create'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            POST /api/v1/course/:course_id/submissions
+          </a>
+            <code>DEPRECATED</code>
+          <br>
+          <small>creates a submission</small>
+        </h2>
+    </div>
+
+
+    <div id='description-create' class='collapse accordion-body'>
+      
+
+
+
+
+
+
+
+
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/submissions/update.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-update'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            PATCH /api/v1/submissions/:id
+          </a>
+            <code>DEPRECATED</code>
+          <br>
+          <small>updates a submission</small>
+        </h2>
+    </div>
+
+
+    <div id='description-update' class='collapse accordion-body'>
+      
+
+
+
+
+
+
+
+
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/submissions/destroy.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-destroy'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            DELETE /api/v1/submissions/:id
+          </a>
+          <br>
+          <small>deletes a submission and all attached media, annotations, discussion posts, and evaluations.</small>
+        </h2>
+    </div>
+
+
+    <div id='description-destroy' class='collapse accordion-body'>
+      
+
+
+
+
+	<div class="method-detail-section">
+		<h3>Errors</h3>
+		<ul class="method-detail-list">
+				<li>
+					<strong>404</strong>: The submission could not be found.
+					<br>
+				</li>
+		</ul>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Request Parameters</h3>
+		<table class='table'>
+			<thead>
+			<tr>
+				<th>Param name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>id </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The submission ID</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+    </div>
+</div>
+
+
+			
+		</div>
+	</div>
+	<hr>
+	<footer>Copyright 2015 Baruch College, City University of New York</footer>
+</div>
+<script type='text/javascript' src='../apidoc/javascripts/bundled/jquery-1.7.2.js'></script>
+<script type='text/javascript' src='../apidoc/javascripts/bundled/bootstrap-collapse.js'></script>
+<script type='text/javascript' src='../apidoc/javascripts/bundled/prettify.js'></script>
+<script type='text/javascript' src='../apidoc/javascripts/apipie.js'></script>
+</body>
+</html>
