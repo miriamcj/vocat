@@ -1,0 +1,17 @@
+<div class="formgrid whole">
+	<%= label_tag :name, 'Name', {class: 'text-label'} %>
+	<%= text_field :organization, :name, {class: 'text-input'} %>
+</div>
+<div class="formgrid third">
+	<%= label_tag :subdomain, 'Subdomain', {class: 'text-label'} %>
+	<%= text_field :organization, :subdomain, {class: 'text-input'} %>
+	<small>Value must be unique within this Vocat installation.</small>
+</div>
+<div class="formgrid third date">
+	<%= f.label 'Organization Status', :class => 'text-label' %>
+	<%= select_tag @organization.active, options_for_select([
+		['Active', true],
+		['Inactive', false]
+	], @organization.active), {'data-behavior' => 'chosen'} %>
+	<small>Users belonging to inactive organizations will not be able to login to Vocat.</small>
+</div>

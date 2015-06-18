@@ -144,6 +144,10 @@ Vocat::Application.routes.draw do
     resources :assets do
     end
 
+    resources :organizations do
+    end
+
+
     resources :courses do
       member do
         get 'evaluators'

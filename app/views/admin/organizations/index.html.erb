@@ -1,0 +1,41 @@
+<% content_for :content do %>
+
+	<div class="page-section">
+		<div class="header-wrapper">
+			<div class="buttons">
+				<%= link_to 'Add New Organization', new_admin_organization_path, :class => 'primary-button new-button' %>
+			</div>
+			<div class="header">
+				<h2>Organizations</h2>
+			</div>
+		</div>
+	</div>
+
+	<div class="page-section page-section-clear">
+		<div class="table-wrapper">
+			<table class="table table-white-head">
+				<thead>
+				<tr>
+					<th class="">Name</th>
+					<th class="">Subdomain</th>
+					<th class="column-tight">Actions</th>
+				</tr>
+				</thead>
+				<tbody>
+				<% @organizations.each do |organization| %>
+				<tr>
+					<td><%= link_to organization.name, edit_admin_organization_path(organization)%></td>
+					<td><%= organization.subdomain %></td>
+					<td></td>
+				</tr>
+				<% end %>
+				</tbody>
+			</table>
+			<nav class="pagination-nav">
+				<%= paginate @organizations %>
+			</nav>
+		</div>
+	</div>
+<!--
+-->
+<% end %>
