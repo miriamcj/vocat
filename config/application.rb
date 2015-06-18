@@ -43,7 +43,7 @@ module Vocat
       'vendor/video_js/vjs.youtube.js',
       'vendor/video_js/vjs.vimeo.js',
       'vendor/rem_unit_polyfill/rem.min.js',
-      'apipie/apipie.scss',
+      'apipie/apipie.css',
       '404.html',
       '500.html',
       '422.html'
