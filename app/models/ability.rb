@@ -11,6 +11,15 @@ class Ability
     user ||= User.new # guest user (not logged in)
 
     ######################################################
+    ### Organizations
+
+    ######################################################
+
+    can [:read_write_destroy], Organization do |organization|
+      user.role?(:superadministrator)
+    end
+
+    ######################################################
     ### Users
     ######################################################
 

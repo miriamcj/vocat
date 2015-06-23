@@ -15,6 +15,10 @@
 #  semester_id     :integer
 #  year            :integer
 #
+# Indexes
+#
+#  index_courses_on_organization_id  (organization_id)
+#
 
 class Course < ActiveRecord::Base
   belongs_to :organization

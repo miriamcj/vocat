@@ -16,6 +16,11 @@
 #  allowed_attachment_families :text             default([]), is an Array
 #  settings                    :hstore           default({}), not null
 #
+# Indexes
+#
+#  index_projects_on_course_id        (course_id)
+#  index_projects_on_project_type_id  (project_type_id)
+#
 
 class UserProject < Project
 

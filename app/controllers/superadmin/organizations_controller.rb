@@ -1,4 +1,4 @@
-class Admin::OrganizationsController < Admin::AdminController
+class Superadmin::OrganizationsController < Superadmin::SuperadminController
 
   load_and_authorize_resource :organization
   respond_to :html
@@ -19,11 +19,12 @@ class Admin::OrganizationsController < Admin::AdminController
 
   # GET /admin/organizations/1/edit
   def edit
+    @organization = Organization.find(params[:id])
   end
 
   # POST /admin/organizations
   def create
-    @admin_organization = Organization.new(admin_organization_params)
+    @admin_organization = Organization.new(organization_params)
 
     if @admin_organization.save
       redirect_to @admin_organization, notice: 'Organization was successfully created.'
@@ -34,8 +35,8 @@ class Admin::OrganizationsController < Admin::AdminController
 
   # PATCH/PUT /admin/organizations/1
   def update
-    if @admin_organization.update(admin_organization_params)
-      redirect_to @admin_organization, notice: 'Organization was successfully updated.'
+    if @organization.update(organization_params)
+      redirect_to superadmin_organization_path(@organization), notice: 'Organization was successfully updated.'
     else
       render :edit
     end

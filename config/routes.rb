@@ -9,7 +9,9 @@ Vocat::Application.routes.draw do
     match '/users/settings' => 'registrations#update_settings', :via => :put
   end
 
-  # API
+
+
+
   namespace :api, :defaults => {:format => 'json'} do
     namespace :v1 do
 
@@ -139,15 +141,12 @@ Vocat::Application.routes.draw do
     get 'groups/creator/:creator_id' => 'courses/evaluations#group_creator_detail', :as => 'user_group_detail'
   end
 
+  namespace :superadmin do
+    resources :organizations
+  end
+
   namespace :admin do
-
-    resources :assets do
-    end
-
-    resources :organizations do
-    end
-
-
+    resources :assets
     resources :courses do
       member do
         get 'evaluators'
@@ -162,14 +161,12 @@ Vocat::Application.routes.draw do
         end
       end
     end
-
     resources :course_requests, :only => [:index] do
       member do
         put 'approve'
         put 'deny'
       end
     end
-
     resources :users do
       member do
         get 'courses'
@@ -177,7 +174,6 @@ Vocat::Application.routes.draw do
         patch 'update_password'
       end
     end
-
     resources :rubrics, :except => [:create, :update] do
       member do
         post 'clone'
@@ -190,6 +186,8 @@ Vocat::Application.routes.draw do
       end
     end
   end
+
+
 
   get '/admin' => 'admin/courses#index', :as => 'admin'
   get '/' => 'root#index', :as => 'root'

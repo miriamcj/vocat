@@ -175,6 +175,12 @@ module Concerns::StrongParametersConfiguration
     end
   end
 
+  def organization_params
+    params.require(:organization).permit(:name,
+                                      :subdomain
+    )
+  end
+
   def rubric_params
     if current_user.role?('administrator')
       admin_rubric_params

@@ -3,7 +3,7 @@
 	<div class="page-section">
 		<div class="header-wrapper">
 			<div class="buttons">
-				<%= link_to 'Add New Organization', new_admin_organization_path, :class => 'primary-button new-button' %>
+				<%= link_to 'Add New Organization', new_superadmin_organization_path, :class => 'primary-button new-button' %>
 			</div>
 			<div class="header">
 				<h2>Organizations</h2>
@@ -24,7 +24,7 @@
 				<tbody>
 				<% @organizations.each do |organization| %>
 				<tr>
-					<td><%= link_to organization.name, edit_admin_organization_path(organization)%></td>
+					<td><%= link_to organization.name, edit_superadmin_organization_path(organization)%></td>
 					<td><%= organization.subdomain %></td>
 					<td></td>
 				</tr>

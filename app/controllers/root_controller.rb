@@ -10,6 +10,8 @@ class RootController < ApplicationController
       redirect_to new_user_session_path
     elsif current_user.role?(:administrator)
       redirect_to admin_path
+    elsif current_user.role?(:superadministrator)
+      redirect_to superadmin_organizations_path
     elsif current_user.role?(:evaluator)
       redirect_to dashboard_evaluator_path
     elsif current_user.role?(:creator)

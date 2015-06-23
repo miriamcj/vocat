@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   skip_authorization_check
-  before_action :get_organization_and_current_course
+  before_action :initialize_org_and_course
   before_action :inject_global_layout_variables
 
   def devise_current_user
@@ -59,6 +59,14 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(user)
     '/'
   end
+
+  def initialize_org_and_course
+    domain = request.domain
+    subdomain = request.subdomain
+    org = Organization.find_by_subdomain(subdomain)
+    Rails.logger.info org
+  end
+
 
   def get_organization_and_current_course
     if params[:controller].downcase.starts_with?('course')

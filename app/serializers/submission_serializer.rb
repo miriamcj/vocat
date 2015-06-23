@@ -14,6 +14,11 @@
 #  creator_type           :string(255)      default("User")
 #  assets_count           :integer          default(0)
 #
+# Indexes
+#
+#  index_submissions_on_creator_id  (creator_id)
+#  index_submissions_on_project_id  (project_id)
+#
 
 class SubmissionSerializer < AbstractSubmissionSerializer
 

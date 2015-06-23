@@ -1,0 +1,27 @@
+<%= render :partial => 'heading', :locals => {organization: @organization, subheader: 'Overview'} %>
+
+<% content_for :content do %>
+
+	<% body = capture do %>
+		<div class="fake-formgrid">
+			<div class="formgrid third">
+				<span class="label">Name</span>
+				<span><%= @organization.name %></span>
+			</div>
+			<div class="formgrid third">
+				<span class="label">Subdomain</span>
+				<span><%= @organization.subdomain %></span>
+			</div>
+			<div class="formgrid third">
+				<span class="label">Active?</span>
+			<span>
+				<%= @organization.active %>
+			</span>
+			</div>
+		</div>
+
+	<% end %>
+	<%= render :partial => 'shared/section', :locals => {:header => 'Properties', :body => body} %>
+
+<% end %>
+

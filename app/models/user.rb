@@ -29,6 +29,12 @@
 #  is_ldap_user           :boolean
 #  preferences            :hstore           default({}), not null
 #
+# Indexes
+#
+#  index_users_on_email                 (email) UNIQUE
+#  index_users_on_organization_id       (organization_id)
+#  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#
 
 class User < ActiveRecord::Base
 
@@ -58,7 +64,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  ROLES = %w(creator evaluator administrator)
+  ROLES = %w(creator evaluator administrator, superadministrator)
   DEFAULT_SETTINGS = {
       'enable_glossary' => {value: false, type: 'boolean'}
   }
