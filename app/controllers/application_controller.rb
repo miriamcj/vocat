@@ -64,11 +64,7 @@ class ApplicationController < ActionController::Base
     domain = request.domain
     subdomain = request.subdomain
     org = Organization.find_by_subdomain(subdomain)
-    Rails.logger.info org
-  end
-
-
-  def get_organization_and_current_course
+    @current_organization = org
     if params[:controller].downcase.starts_with?('course')
       course_id = params[:course_id]
       if course_id
@@ -86,10 +82,7 @@ class ApplicationController < ActionController::Base
         end
       end
     end
-
-    if current_user
-      @current_organization = current_user.organization
-    end
   end
+
 
 end

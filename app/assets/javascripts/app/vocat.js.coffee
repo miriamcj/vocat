@@ -7,6 +7,7 @@ define (require) ->
   DropdownView = require('views/layout/dropdown')
   FigureCollectionView = require('views/layout/figures_collection')
   ChosenView = require('views/layout/chosen')
+  FileInputView = require('views/layout/file_input')
   HeaderDrawerView = require('views/layout/header_drawer')
   HeaderDrawerTriggerView = require('views/layout/header_drawer_trigger')
   NotificationLayoutView = require('views/notification/notification_layout')
@@ -92,6 +93,9 @@ define (require) ->
     )
     $('[data-behavior="chosen"]').each( (index, el) ->
       new ChosenView({el: el, vent: Vocat.vent})
+    )
+    $('[data-behavior="file-input"]').each( (index, el) ->
+      new FileInputView({el: el, vent: Vocat.vent})
     )
     $('[data-standalone-view]').each( (index, el) ->
       viewName = $(el).data().standaloneView

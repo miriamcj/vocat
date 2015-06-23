@@ -1,12 +1,15 @@
 <% content_for :content do %>
 	<div class="page-content">
 		<div class="authentication-tile">
-			<!--
-    <%= image_tag("placeholders/logo-baruch.png", :class => "authentication-tile--image", :alt => "Baruch College") %>
-    -->
 			<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'formgrid'}) do |f| %>
 				<div class="formgrid whole">
+					<% if @current_organization %>
+					<div class="org-logo">
+						<img src="/uploads/<%= @current_organization.logo %>" />
+					</div>
+					<% else %>
 					<div class="baruch-logo"></div>
+					<% end %>
 				</div>
 				<div class="formgrid whole">
 					<label class="placeholder-fallback" for="user[email]">Email or Username</label>

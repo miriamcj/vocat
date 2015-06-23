@@ -354,7 +354,7 @@ class Ability
     ######################################################
     # Admins
     ######################################################
-    if user.role?(:administrator)
+    if user.role?(:administrator) || user.role?(:superadministrator)
       can :manage, :all
       cannot [:new, :edit, :create, :update, :destroy], Evaluation do |evaluation|
         result = evaluation.submission.project.course.role(user) != :evaluator

@@ -24,10 +24,10 @@ class Superadmin::OrganizationsController < Superadmin::SuperadminController
 
   # POST /admin/organizations
   def create
-    @admin_organization = Organization.new(organization_params)
-
-    if @admin_organization.save
-      redirect_to @admin_organization, notice: 'Organization was successfully created.'
+    @organization = Organization.new(organization_params)
+    handle_logo_upload(@organization)
+    if @organization.save
+      redirect_to superadmin_organization_path(@organization), notice: 'Organization was successfully created.'
     else
       render :new
     end
@@ -35,6 +35,7 @@ class Superadmin::OrganizationsController < Superadmin::SuperadminController
 
   # PATCH/PUT /admin/organizations/1
   def update
+    handle_logo_upload(@organization)
     if @organization.update(organization_params)
       redirect_to superadmin_organization_path(@organization), notice: 'Organization was successfully updated.'
     else
@@ -48,14 +49,21 @@ class Superadmin::OrganizationsController < Superadmin::SuperadminController
     redirect_to admin_organizations_url, notice: 'Organization was successfully destroyed.'
   end
 
-  # private
-  #   # Use callbacks to share common setup or constraints between actions.
-  #   def set_admin_organization
-  #     @admin_organization = Organization.find(params[:id])
-  #   end
-  #
-  #   # Only allow a trusted parameter "white list" through.
-  #   def admin_organization_params
-  #     params[:admin_organization]
-  #   end
+  private
+
+
+  def handle_logo_upload(organization)
+    uploaded_io = params[:organization][:logo]
+    ext = File.extname(uploaded_io.original_filename)
+    filename = "org_logo_#{organization.id}#{ext}"
+    organization.logo = filename
+    if uploaded_io
+      File.open(Rails.root.join('public', 'uploads', filename), 'wb') do |file|
+        file.write(uploaded_io.read)
+      end
+
+    end
+  end
+
+
 end

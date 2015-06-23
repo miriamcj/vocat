@@ -33,7 +33,18 @@
     background-color: $tealDark;
     border: 1px solid $tealDark;
   }
+  .org-logo {
+    max-width: 125px;
+    position: relative;
+    left: 0px;
+    img {
+      max-width: 125px;
+    }
+    .ie9 & {
+      margin-bottom: 9px;
+    }
 
+  }
   .baruch-logo {
     height: 50px;
     width: 125px;

@@ -363,3 +363,37 @@ select.from, select.to {
     }
   }
 }
+
+.file-input:first-child {
+  margin-top: 0;
+}
+.file-input {
+  border: 1px solid $grayMedium !important;
+  height: 38px;
+  @include clearfix();
+  a {
+    height: 36px;
+    &:hover {
+      background-color: $tealDark;
+      border: 1px solid $tealDark;
+    }
+  }
+  input {
+    width: 70% !important;
+    border: 0 !important;
+    background-color: $white;
+    color: $white;
+    font-weight: $regular;
+    height: 36px !important;
+    padding-left: .6em;
+    display: block;
+    float: left;
+    &:focus {
+      outline: none;
+      outline-width: 0;
+    }
+  }
+  a {
+    float: right;
+  }
+}
