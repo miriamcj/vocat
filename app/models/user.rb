@@ -31,9 +31,9 @@
 #
 # Indexes
 #
-#  index_users_on_email                 (email) UNIQUE
-#  index_users_on_organization_id       (organization_id)
-#  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#  index_users_on_email_and_organization_id  (email,organization_id) UNIQUE
+#  index_users_on_organization_id            (organization_id)
+#  index_users_on_reset_password_token       (reset_password_token) UNIQUE
 #
 
 class User < ActiveRecord::Base
@@ -62,7 +62,7 @@ class User < ActiveRecord::Base
   delegate :name, :to => :organization, :prefix => true, :allow_nil => true
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, request_keys: { subdomain: false }
 
   ROLES = %w(creator evaluator administrator, superadministrator)
   DEFAULT_SETTINGS = {
@@ -70,6 +70,21 @@ class User < ActiveRecord::Base
   }
 
   validates :first_name, :last_name, :role, :presence => true
+  validates_presence_of   :email
+  validates_uniqueness_of :email, allow_blank: true, if: :email_changed?, :scope => :organization_id
+  validates_format_of     :email, with: /\A[^@\s]+@([^@\s]+\.)+[^@\W]+\z/, allow_blank: true, if: :email_changed?
+  validates_presence_of     :password
+  validates_confirmation_of :password
+  validates_length_of       :password, within: (7..72), allow_blank: true
+
+  def self.find_for_authentication(warden_conditions)
+    joins(:organization).where(
+        'users.email = ? AND (organizations.subdomain = ? OR users.role = ?)',
+        warden_conditions[:email],
+        warden_conditions[:subdomain],
+        'superadministrator'
+    ).first
+  end
 
   # Params is a hash of search values including (:department || :semester || :year) || :section
   def self.search(params)

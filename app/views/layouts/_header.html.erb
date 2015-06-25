@@ -1,50 +1,221 @@
 <header class="page-header">
-
-	<div class="page-header--navigation-wrapper">
-		<div class="page-header--navigation">
-			<nav class="page-header--logo-nav">
-				<%= link_to image_tag("png/logo.png", :alt => "VOCAT"), root_path %>
-			</nav>
-
-			<% if user_signed_in? %>
-				<nav class="drawer-nav--trigger" data-behavior="header-drawer-trigger">
-					<span></span>
-					<% case @app_section
-						 when 'course' %>
-              <span class="course-short">
-                <%= "#{@selected_course.department}#{@selected_course.number}" %>
-              </span>
-              <span class="course-long">
-                <%= truncate @selected_course.to_s, :length => 60 %>
-              </span>
-					<% when 'admin' %> <%= 'Admin' %>
-						<% when 'dashboard' %><%= 'Dashboard' %>
-					<% end %>
+	<div style="position: relative">
+		<div class="page-header--navigation-wrapper">
+			<div class="page-header--navigation">
+				<nav class="page-header--logo-nav">
+					<%= link_to image_tag("png/logo.png", :alt => "VOCAT"), root_path %>
 				</nav>
 
-				<nav class="page-header--user-nav user-nav" data-behavior="dropdown">
-					<a class="user-nav--toggle" data-behavior="toggle" href="#">
-						<span><%= current_user.name %></span>
-						<%= image_tag avatar_url(current_user, 60), :alt => current_user.name %>
-					</a>
-
-					<div class="user-nav--options" data-behavior="dropdown-options">
-						<ul>
-							<li>
-								<%= link_to('Edit Profile', edit_user_registration_path) %>
-							</li>
-							<li>
-								<%= link_to('Log out', destroy_user_session_path, :method => 'delete') %>
-							</li>
-						</ul>
+				<% if user_signed_in? %>
+					<div class="nav-trigger-wrapper">
+						<nav <% if @app_section == 'dashboard' %>style="display: none"<% end %> class="drawer-nav--trigger drawer-nav--trigger-dark" data-drawer-target="context" data-behavior="header-drawer-trigger">
+							<span>Menu</span>
+						</nav>
+						<nav class="drawer-nav--trigger" data-drawer-target="section" data-behavior="header-drawer-trigger">
+							<span></span>
+							<% case @app_section
+								 when 'course' %>
+									<span class="course-short">
+										<%= "#{@selected_course.department}#{@selected_course.number}" %>
+									</span>
+									<span class="course-long">
+										<%= truncate @selected_course.to_s, :length => 60 %>
+									</span>
+								<% when 'admin' %><%= "Admin Interface" %>
+								<% when 'dashboard' %><%= 'Your Courses' %>
+							<% end %>
+						</nav>
 					</div>
-				</nav>
-			<% end %>
+
+
+					<nav class="page-header--user-nav user-nav" data-behavior="dropdown">
+						<a class="user-nav--toggle" data-behavior="toggle" href="#">
+							<span><%= current_user.name %></span>
+							<%= image_tag avatar_url(current_user, 60), :alt => current_user.name %>
+						</a>
+
+						<div class="user-nav--options" data-behavior="dropdown-options">
+							<ul>
+								<li>
+									<%= link_to('Edit Profile', edit_user_registration_path) %>
+								</li>
+								<li>
+									<%= link_to('Log out', destroy_user_session_path, :method => 'delete') %>
+								</li>
+							</ul>
+						</div>
+					</nav>
+				<% end %>
+			</div>
 		</div>
+
+		<% if user_signed_in? %>
+			<div data-drawer-target="context" data-behavior="header-drawer" class="page-header--drawer context-drawer">
+				<div class="drawer--contents">
+					<ul class="drawer-nav">
+						<% case @app_section
+							 when 'course' %>
+							<% if current_user.can?(:portfolio, @selected_course) %>
+								<li>
+									<ul>
+										<li>
+											<%= link_to "View Your Course Portfolio", portfolio_course_path(@selected_course), :class => 'primary-button' %>
+										</li>
+									</ul>
+								</li>
+							<% end %>
+							<% if current_user.can?(:portfolio, @selected_course) && @selected_course.user_projects.count > 0 %>
+								<li class="b">
+									<div class="drawer-nav--column">
+										<h4>Individual Projects</h4>
+										<ul>
+											<% @selected_course.user_projects.each do |project| %>
+												<li>
+													<%= link_to project, course_user_creator_project_detail_path(@selected_course, current_user, project) %>
+												</li>
+											<% end %>
+										</ul>
+									</div>
+								</li>
+								<% if current_user.course_groups(@selected_course).count > 0 && @selected_course.group_projects.count > 0 %>
+									<li class="c">
+										<div class="drawer-nav--column">
+											<h4>Group Projects</h4>
+											<ul>
+												<% current_user.course_groups(@selected_course).each do |group| %>
+													<% @selected_course.group_projects.each do |project| %>
+														<li>
+															<%= link_to "#{group} - #{project}", course_group_creator_project_detail_path(@selected_course, group, project) %>
+														</li>
+													<% end %>
+												<% end %>
+											</ul>
+										</div>
+									</li>
+								<% end %>
+							<% end %>
+							<% if current_user.can?(:show_submissions, @selected_course) %>
+								<li class="a">
+									<div class="drawer-nav--column">
+										<% if @selected_course.role(current_user) == :creator %>
+											<h4>Peer Review</h4>
+										<% else %>
+											<h4>Evaluate</h4>
+										<% end %>
+										<ul>
+											<li><%= link_to 'Individual Work', course_user_evaluations_path(@selected_course) %></li>
+											<li><%= link_to 'Group Work', course_group_evaluations_path(@selected_course) %></li>
+										</ul>
+									</div>
+								</li>
+							<% end %>
+							<% if current_user.can?(:administer, @selected_course) %>
+								<li>
+									<div class="drawer-nav--column">
+										<h4>Setup Your Course</h4>
+										<ul>
+											<li><%= link_to 'Projects', course_manage_projects_path(@selected_course) %></li>
+											<li><%= link_to 'Groups', course_manage_groups_path(@selected_course) %></li>
+											<li><%= link_to 'Enrollment', course_manage_enrollment_path(@selected_course) %></li>
+											<li><%= link_to 'Settings', course_manage_path(@selected_course) %></li>
+										</ul>
+									</div>
+								</li>
+							<% end %>
+							<% when 'admin' %>
+							<li>
+								<div class="drawer-nav--column">
+									<ul>
+										<li><%= link_to 'All Courses', admin_courses_path %></li>
+										<li><%= link_to 'Course Requests', admin_course_requests_path %></li>
+										<li><%= link_to 'Manage Users', admin_users_path %></li>
+										<li><%= link_to 'Assets', admin_assets_path %></li>
+										<li><%= link_to 'Rubrics', admin_rubrics_path %></li>
+
+									</ul>
+								</div>
+							</li>
+							<% when 'dashboard' %>
+						<% end %>
+					</ul>
+				</div>
+			</div>
+
+
+			<div data-drawer-target="section" data-behavior="header-drawer" class="page-header--drawer section-drawer">
+				<div class="drawer--contents">
+					<ul class="drawer-nav">
+						<% if current_user.role?(:administrator) || current_user.role?(:superadministrator) && @app_section != 'admin'%>
+							<li>
+								<a class="primary-button" href="<%= admin_path %>">Go to Admin Interface</a>
+							</li>
+						<% end %>
+						<% if current_user.role?(:evaluator) && @app_section != 'dashboard' %>
+							<li>
+								<a class="primary-button" href="<%= dashboard_evaluator_path %>">Return To Dashboard</a>
+							</li>
+						<% end %>
+						<% if current_user.role?(:creator) && @app_section != 'dashboard' %>
+							<li>
+								<a class="primary-button" href="<%= dashboard_creator_path %>">Return To Dashboard</a>
+							</li>
+						<% end %>
+
+						<% if current_user %>
+							<li>
+								<div class="drawer-nav--column drawer-nav--course-column">
+									<h4>Your Courses</h4>
+									<div class="drawer-course-list">
+										<ul data-behavior="drawer-courses">
+											<% if current_user.courses_count == 0 %>
+												<li>You are not currently enrolled any VOCAT courses.</li>
+
+
+											<% elsif current_user.courses_count < 5 %>
+												<% current_user.sorted_courses().each do |course| %>
+													<li>
+														<a href="<%= user_course_url(current_user, course) %>">
+															<%= "#{course.department} #{course.number}" %><br/>
+															<%= "#{course.name}" %><br/>
+															<small><%= "#{course.semester} #{course.year}, Section #{course.section}" %></small>
+														</a>
+													</li>
+												<% end %>
+											<% else %>
+												<li style="margin-bottom: 3em; ">
+													<select style="width: 100%;" data-class="course-select" data-behavior="chosen">
+														<% current_user.grouped_sorted_courses().each do |semester, courses| %>
+															<optgroup label="<%= semester %>">
+																<% courses.each do |course| %>
+																	<option
+																	<% if course == @selected_course %>selected="selected"
+																	<% end %>value="<%= user_course_url(current_user, course) %>">
+																		<%= "#{course.department} #{course.number} Section #{course.section}" %>
+																	</option>
+																<% end %>
+															</optgroup>
+														<% end %>
+													</select>
+													<small style="display: block; margin-top: .5em; line-height: 1.25em;">
+														You are associated
+														with <%= pluralize current_user.courses_count, 'VOCAT course', 'VOCAT courses' %>
+														.
+													</small>
+												</li>
+											<% end %>
+										</ul>
+									</div>
+								</div>
+							</li>
+						<% end %>
+					</ul>
+				</div>
+			</div>
+
+		<% end %>
 	</div>
 
-	<% if user_signed_in? %>
-		<%= render 'layouts/drawer' %>
-	<% end %>
+
+
 
 </header>

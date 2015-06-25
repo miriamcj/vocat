@@ -128,7 +128,6 @@ footer.page-footer {
   // Since IE8 doesn't remove the nav menu responsively, give it a min-width to stop
   // it from resizing
   min-width: $minContainerWidth - $headerUnitWidth;
-
   height: $headerHeight;
   position: fixed;
   top: 0;
@@ -140,7 +139,7 @@ footer.page-footer {
 }
 
 .page-header--navigation-wrapper {
-  height: $headerHeight;
+  height: $headerHeightUnit;
   z-index: 400;
   background-color: $primaryButtonColor;
   padding: 0 1.5em;
@@ -166,14 +165,23 @@ footer.page-footer {
   position: absolute;
   width: $headerUnitWidth + $headerUnitPadding;
   margin-right: 30px;
-  height: $headerHeight;
+  height: $headerHeightUnit;
   img {
     position: absolute;
-    top: $headerHeight / 2 - 9;
+    top: $headerHeightUnit / 2 - 9;
     width: $headerUnitWidth;
     vertical-align: middle;
     display: block;
   }
+}
+
+.page-header--navbar-wrapper {
+  height: $headerHeightUnit * .5;
+  z-index: 250;
+  background-color: $grayDark;
+  padding: 0 1.5em;
+  position: relative;
+  margin: auto;
 }
 
 .page-shield {
@@ -198,7 +206,7 @@ footer.page-footer {
   width: 100%;
   opacity: .5;
   @include transition(all .25s $timing);
-  .drawer-open & {
+  &.drawer-open {
     opacity: 1;
     @include translateY(100%);
   }
@@ -210,14 +218,11 @@ footer.page-footer {
     text-transform: uppercase;
   }
 }
-
 .drawer-nav {
   @extend %unstyled-list;
   li {
     margin-bottom: $headerUnitPadding * 2;
-    @extend %wide-one-fourth;
-    @extend %medium-one-fourth;
-    @extend %narrow-one-half;
+    width: 300px;
     .drawer-nav--column {
       h4 {
         padding-bottom: .5em;
@@ -260,16 +265,25 @@ footer.page-footer {
   }
 }
 
-.drawer-nav--trigger {
-  font-size: $eta;
+
+.nav-trigger-wrapper {
   position: absolute;
   left: $headerUnitWidth + $headerUnitPadding;
-  height: $headerHeight;
+  height: $headerHeightUnit;
+}
+
+.drawer-nav--trigger {
+  position: relative;
+  float: left;
+  font-size: $eta;
   cursor: pointer;
-  line-height: $headerHeight;
+  line-height: $headerHeightUnit;
   padding: 0 ($iconSizeMedium * 4) 0 $headerUnitPadding;
   background: $tealDark;
   @include transition($fastTransition background $timing);
+  &.drawer-nav--trigger-dark {
+    background: $tealDarkest;
+  }
   .course-short {
     display: inline;
     @include respond($ontario, 'min') {
@@ -281,7 +295,7 @@ footer.page-footer {
       display: none;
     }
   }
-  &:hover, .drawer-open & {
+  &:hover, &.drawer-open {
     background: $grayDarker;
   }
   & span::after {
@@ -291,6 +305,6 @@ footer.page-footer {
     content: "";
     width: $iconSizeMedium;
     height: $iconSizeMedium;
-    top: $headerHeight / 2 - ($iconSizeMedium / 2);
+    top: $headerHeightUnit / 2 - ($iconSizeMedium / 2);
   }
 }

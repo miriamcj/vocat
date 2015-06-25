@@ -31,9 +31,9 @@
 #
 # Indexes
 #
-#  index_users_on_email                 (email) UNIQUE
-#  index_users_on_organization_id       (organization_id)
-#  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#  index_users_on_email_and_organization_id  (email,organization_id) UNIQUE
+#  index_users_on_organization_id            (organization_id)
+#  index_users_on_reset_password_token       (reset_password_token) UNIQUE
 #
 
 class UserSerializer < ActiveModel::Serializer

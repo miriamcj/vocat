@@ -141,9 +141,15 @@ Vocat::Application.routes.draw do
     get 'groups/creator/:creator_id' => 'courses/evaluations#group_creator_detail', :as => 'user_group_detail'
   end
 
-  namespace :superadmin do
-    resources :organizations
+  constraints subdomain: 'manage' do
+    scope :module => :manage do
+      get '/' => 'manage#index', :as => 'manage_root'
+      resources :organizations
+    end
   end
+
+
+
 
   namespace :admin do
     resources :assets

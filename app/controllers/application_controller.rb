@@ -63,6 +63,7 @@ class ApplicationController < ActionController::Base
   def initialize_org_and_course
     domain = request.domain
     subdomain = request.subdomain
+    myvar = request
     org = Organization.find_by_subdomain(subdomain)
     @current_organization = org
     if params[:controller].downcase.starts_with?('course')

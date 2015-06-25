@@ -17,19 +17,18 @@ define (require) ->
       courseSelect: '[data-class="course-select"]'
     }
 
-
     toggle: () ->
-      if $('body').hasClass('drawer-open')
+      if @$el.hasClass('drawer-open')
         @close()
       else
         @open()
 
     open: () ->
-      $('body').addClass('drawer-open')
+      $("[data-drawer-target=\"#{@drawerTarget}\"]").addClass('drawer-open')
       @triggerMethod('opened')
 
     close: () ->
-      $('body').removeClass('drawer-open')
+      $("[data-drawer-target=\"#{@drawerTarget}\"]").removeClass('drawer-open')
       @triggerMethod('closed')
 
     setupListeners: () ->
@@ -38,11 +37,21 @@ define (require) ->
         window.location.assign(val)
       )
 
+    setSpacing: () ->
+      trigger = $("[data-drawer-target=\"#{@drawerTarget}\"][data-behavior=\"header-drawer-trigger\"]")
+      left = trigger.offset().left
+      myLeft = @$el.find('.drawer--contents').offset().left
+      @$el.find('.drawer--contents').css({paddingLeft: left - myLeft + 21})
+      console.log left,'left'
+      console.log myLeft,'myleft'
+
+
     initialize: (options) ->
       @vent = options.vent
       @globalChannel = Backbone.Wreqr.radio.channel('global')
-
-      @listenTo(@globalChannel.vent, 'drawer:toggle', () =>
+      @drawerTarget = @$el.data().drawerTarget
+      @setSpacing()
+      @listenTo(@globalChannel.vent, "drawer:#{@drawerTarget}:toggle", () =>
         @toggle()
       )
       @bindUIElements()

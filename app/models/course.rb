@@ -54,6 +54,7 @@ class Course < ActiveRecord::Base
     c = c.where("lower(section) LIKE ?", "#{params[:section].downcase}%") unless params[:section].blank?
     c = c.joins(:semester).where(:semesters => {id: params[:semester]}) unless params[:semester].blank?
     c = c.joins(:memberships => :user).where(:users => {id: params[:evaluator]}) unless params[:evaluator].blank?
+    c = c.where({organization: params[:organization]}) unless params[:organization].blank?
     c.sorted
   end
 

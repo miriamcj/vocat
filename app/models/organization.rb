@@ -17,6 +17,7 @@ class Organization < ActiveRecord::Base
   validates_uniqueness_of :subdomain, :case_sensitive => false
   before_validation :downcase_subdomain
   has_many :courses
+  has_many :users
 
   def to_s
     name

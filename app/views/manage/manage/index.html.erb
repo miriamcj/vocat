@@ -1,0 +1,34 @@
+<% content_for :content do %>
+
+	<div class="page-section">
+		<div class="header-wrapper">
+			<div class="buttons">
+			</div>
+			<div class="header">
+				<h2>Manage Vocat</h2>
+			</div>
+		</div>
+	</div>
+
+	<div class="page-message">
+		<div class="body clearfix">
+			<div data-behavior="figures">
+				<% @stats.each do |stat| %>
+					<figure class="summary-box summary-box-default <%= if stat.has_key?(:class) then
+																		 stat[:class]
+																	   end %>">
+						<div class="summary-box--content">
+							<p class="summary-box--content-wrapper">
+								<span><%= number_to_human stat[:value], :format => '%n' %></span>
+								<span class="unit"><%= number_to_human stat[:value], :format => '%u' %></span>
+							</p>
+						</div>
+						<figcaption><%= stat[:label] %></figcaption>
+					</figure>
+				<% end %>
+			</div>
+		</div>
+	</div>
+
+
+<% end %>
