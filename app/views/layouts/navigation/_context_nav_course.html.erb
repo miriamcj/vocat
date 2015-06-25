@@ -1,3 +1,12 @@
+<% if current_user.can?(:portfolio, @selected_course) %>
+	<li>
+		<ul>
+			<li>
+				<%= link_to "View Your Course Portfolio", portfolio_course_path(@selected_course), :class => 'primary-button' %>
+			</li>
+		</ul>
+	</li>
+<% end %>
 <% if current_user.can?(:portfolio, @selected_course) && @selected_course.user_projects.count > 0 %>
 	<li class="b">
 		<div class="drawer-nav--column">

@@ -1,0 +1,14 @@
+<nav class="drawer-nav--trigger" data-drawer-target="section" data-behavior="header-drawer-trigger">
+	<span></span>
+	<% case @app_section
+		 when 'course' %>
+									<span class="course-short">
+										<%= "#{@selected_course.department}#{@selected_course.number}" %>
+									</span>
+									<span class="course-long">
+										<%= truncate @selected_course.to_s, :length => 60 %>
+									</span>
+		<% when 'admin' %><%= "Admin Interface" %>
+		<% when 'dashboard' %><%= 'Your Courses' %>
+	<% end %>
+</nav>

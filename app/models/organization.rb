@@ -23,10 +23,15 @@ class Organization < ActiveRecord::Base
     name
   end
 
+  def self.find_one_by_subdomain(subdomain)
+    Organization.where(:subdomain => subdomain).first
+  end
+
   protected
 
   def downcase_subdomain
     self.subdomain.downcase! if attribute_present?("subdomain")
   end
+
 
 end

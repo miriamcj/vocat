@@ -6,7 +6,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   skip_authorization_check
-  before_action :initialize_org_and_course
+  before_action :validate_subdomain
+  before_action :initialize_organization
+  before_action :initialize_course
   before_action :inject_global_layout_variables
 
   def devise_current_user
@@ -31,11 +33,17 @@ class ApplicationController < ActionController::Base
     raise ActionController::RoutingError.new('Not Found')
   end
 
+  def request_subdomain
+    request.subdomain.downcase
+  end
+
   def app_section
-    if @selected_course
+    if @current_organization && @selected_course
       section = 'course'
-    elsif params[:controller].downcase.starts_with?('admin')
+    elsif @current_organization && params[:controller].downcase.starts_with?('admin')
       section = 'admin'
+    elsif request_subdomain == 'manage'
+      section = 'manage'
     else
       section = 'dashboard'
     end
@@ -60,30 +68,27 @@ class ApplicationController < ActionController::Base
     '/'
   end
 
-  def initialize_org_and_course
-    domain = request.domain
-    subdomain = request.subdomain
-    myvar = request
-    org = Organization.find_by_subdomain(subdomain)
-    @current_organization = org
-    if params[:controller].downcase.starts_with?('course')
-      course_id = params[:course_id]
-      if course_id
-        @selected_course = Course.find(course_id)
+  def validate_subdomain
+    return true if request_subdomain.blank? || request_subdomain == 'manage'
+    return true if Organization.find_one_by_subdomain(request_subdomain)
+    page_not_found
+  end
 
-        if @selected_course
-          authorize!(:show, @selected_course)
-          session[:course_id] = @selected_course.id
-        end
+  def initialize_organization
+    @current_organization = Organization.find_one_by_subdomain(request_subdomain)
+  end
 
-        if @selected_course && current_user
-          @selected_course_role = @selected_course.role(current_user)
-        else
-          @selected_course_role = nil
-        end
-      end
+  def initialize_course
+    @selected_course = nil
+    @selected_course_role = nil
+    if params[:controller].downcase.starts_with?('course') && params[:course_id] && current_user
+      @selected_course = Course.find(params[:course_id])
+      @selected_course_role = @selected_course.role(current_user)
+      authorize!(:show, @selected_course)
+      session[:course_id] = @selected_course.id
     end
   end
+
 
 
 end

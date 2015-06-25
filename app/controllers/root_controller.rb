@@ -1,8 +1,12 @@
 class RootController < ApplicationController
 
-  before_action :authenticate_user!, :except => [:index]
+  before_action :authenticate_user!, :except => [:index, :select]
   skip_authorization_check
   layout 'splash'
+
+  def select
+    @organizations = Organization.where(:active => true)
+  end
 
   # Essentially a routing method to move the user to the correct
   # starting point based on the user's role.
