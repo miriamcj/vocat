@@ -39,11 +39,10 @@ define (require) ->
 
     setSpacing: () ->
       trigger = $("[data-drawer-target=\"#{@drawerTarget}\"][data-behavior=\"header-drawer-trigger\"]")
-      left = trigger.offset().left
-      myLeft = @$el.find('.drawer--contents').offset().left
-      @$el.find('.drawer--contents').css({paddingLeft: left - myLeft + 21})
-      console.log left,'left'
-      console.log myLeft,'myleft'
+      if trigger.length > 0
+        left = trigger.offset().left
+        myLeft = @$el.find('.drawer--contents').offset().left
+        @$el.find('.drawer--contents').css({paddingLeft: left - myLeft + 21})
 
 
     initialize: (options) ->

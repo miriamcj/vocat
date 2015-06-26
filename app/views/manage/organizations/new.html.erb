@@ -3,13 +3,14 @@
 
 <% content_for :content do %>
 	<% body = capture do %>
-		<%= form_for [:superadmin, @organization], :html => {:class => 'formgrid'} do |f| %>
+		<%= form_for [@organization], :html => {:multipart => true, :class => 'formgrid'} do |f| %>
 			<fieldset>
 				<%= render 'shared/model_errors', :model => @organization %>
 				<%= render 'form', :f => f %>
+
 				<div class="formgrid whole">
 					<%= f.button 'Save Organization', :class => 'primary-button update-button' %>
-					<%= link_to 'Cancel', superadmin_organizations_path, :class => 'warning-button cancel-button' %>
+					<%= link_to 'Cancel', organizations_path, :class => 'warning-button cancel-button' %>
 				</div>
 			</fieldset>
 		<% end %>

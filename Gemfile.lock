@@ -306,6 +306,9 @@ GEM
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     thor (0.19.1)
+    thor-rails (0.0.1)
+      rails
+      thor
     thread_safe (0.3.5)
     tilt (1.4.1)
     timers (4.0.1)
@@ -382,6 +385,7 @@ DEPENDENCIES
   spring-commands-rspec
   state_machine!
   thor
+  thor-rails
   turbo_dev_assets
   uglifier (~> 2.6.0)
   unicorn

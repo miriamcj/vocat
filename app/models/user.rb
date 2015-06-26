@@ -55,6 +55,7 @@ class User < ActiveRecord::Base
   scope :evaluators, -> { where(:role => "evaluator") }
   scope :creators, -> { where(:role => "creator") }
   scope :administrators, -> { where(:role => "administrator") }
+  scope :in_org, ->(org) { where(:organization => org)}
 
   serialize :settings, Hash
 
@@ -64,7 +65,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, request_keys: { subdomain: false }
 
-  ROLES = %w(creator evaluator administrator, superadministrator)
+  ROLES = %w(creator evaluator administrator superadministrator)
   DEFAULT_SETTINGS = {
       'enable_glossary' => {value: false, type: 'boolean'}
   }
@@ -78,7 +79,7 @@ class User < ActiveRecord::Base
   validates_length_of       :password, within: (7..72), allow_blank: true
 
   def self.find_for_authentication(warden_conditions)
-    joins(:organization).where(
+    joins('LEFT JOIN organizations ON users.organization_id = organizations.id').where(
         'users.email = ? AND (organizations.subdomain = ? OR users.role = ?)',
         warden_conditions[:email],
         warden_conditions[:subdomain],

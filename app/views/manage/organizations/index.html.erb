@@ -3,7 +3,7 @@
 	<div class="page-section">
 		<div class="header-wrapper">
 			<div class="buttons">
-				<%= link_to 'Add New Organization', new_superadmin_organization_path, :class => 'primary-button new-button' %>
+				<%= link_to 'Add New Organization', new_organization_path, :class => 'primary-button new-button' %>
 			</div>
 			<div class="header">
 				<h2>Organizations</h2>
@@ -17,16 +17,31 @@
 				<thead>
 				<tr>
 					<th class="">Name</th>
+					<th class="">Active</th>
 					<th class="">Subdomain</th>
+					<th class="">Courses</th>
+					<th class="">Users</th>
 					<th class="column-tight">Actions</th>
 				</tr>
 				</thead>
 				<tbody>
 				<% @organizations.each do |organization| %>
 				<tr>
-					<td><%= link_to organization.name, edit_superadmin_organization_path(organization)%></td>
+					<td><%= link_to organization.name, "http://#{organization.domain}" %></td>
+					<td><%= human_boolean organization.active %></td>
 					<td><%= organization.subdomain %></td>
-					<td></td>
+					<td><%= organization.courses.count %></td>
+					<td><%= organization.users.count %></td>
+					<td>
+						<div class="dropdown dropdown-button" data-behavior="dropdown">
+							<a class="dropdown--toggle" data-behavior="toggle" href="#">Actions</a>
+
+							<div class="dropdown--options" data-behavior="dropdown-options">
+								<%= render 'nav', :organization => organization %>
+							</div>
+						</div>
+
+					</td>
 				</tr>
 				<% end %>
 				</tbody>

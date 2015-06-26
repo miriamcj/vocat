@@ -2,15 +2,19 @@
 	<div class="page-content">
 		<div class="authentication-tile">
 			<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'formgrid'}) do |f| %>
-				<div class="formgrid whole">
-					<% if @current_organization %>
-					<div class="org-logo">
-						<img src="/uploads/<%= @current_organization.logo %>" />
+				<% if @current_organization && @current_organization.logo %>
+					<div class="formgrid whole">
+						<div class="org-logo">
+							<img src="/uploads/<%= @current_organization.logo %>" />
+						</div>
 					</div>
-					<% else %>
-					<div class="baruch-logo"></div>
-					<% end %>
-				</div>
+				<% end %>
+				<% if @app_section == 'manage' %>
+					<div class="formgrid whole">
+						<h1 class="heading-tertiary">Login to Manage Vocat</h1>
+					</div>
+				<% end %>
+
 				<div class="formgrid whole">
 					<label class="placeholder-fallback" for="user[email]">Email or Username</label>
 					<%= f.text_field :email, :class => "authentication-tile--input", :placeholder => "Email or Username", :autofocus => "autofocus" %>

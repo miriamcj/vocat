@@ -11,7 +11,7 @@ class Admin::UsersController < Admin::AdminController
         :email => params[:email],
         :role => params[:role]
     }
-    @users = User.search(search).page(params[:page])
+    @users = User.search(search).in_org(@current_organization).page(params[:page])
   end
 
   # GET /admin/users/1

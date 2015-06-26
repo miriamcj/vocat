@@ -1,4 +1,6 @@
-class Superadmin::OrganizationsController < Superadmin::SuperadminController
+class Manage::OrganizationsController < ApplicationController
+
+  include Concerns::ManageConcerns
 
   load_and_authorize_resource :organization
   respond_to :html
@@ -27,7 +29,7 @@ class Superadmin::OrganizationsController < Superadmin::SuperadminController
     @organization = Organization.new(organization_params)
     handle_logo_upload(@organization)
     if @organization.save
-      redirect_to superadmin_organization_path(@organization), notice: 'Organization was successfully created.'
+      redirect_to organization_path(@organization), notice: 'Organization was successfully created.'
     else
       render :new
     end
@@ -37,7 +39,7 @@ class Superadmin::OrganizationsController < Superadmin::SuperadminController
   def update
     handle_logo_upload(@organization)
     if @organization.update(organization_params)
-      redirect_to superadmin_organization_path(@organization), notice: 'Organization was successfully updated.'
+      redirect_to organization_path(@organization), notice: 'Organization was successfully updated.'
     else
       render :edit
     end
@@ -46,22 +48,24 @@ class Superadmin::OrganizationsController < Superadmin::SuperadminController
   # DELETE /admin/organizations/1
   def destroy
     @admin_organization.destroy
-    redirect_to admin_organizations_url, notice: 'Organization was successfully destroyed.'
+    redirect_to organizations_url, notice: 'Organization was successfully destroyed.'
   end
 
   private
 
 
   def handle_logo_upload(organization)
-    uploaded_io = params[:organization][:logo]
-    ext = File.extname(uploaded_io.original_filename)
-    filename = "org_logo_#{organization.id}#{ext}"
-    organization.logo = filename
-    if uploaded_io
-      File.open(Rails.root.join('public', 'uploads', filename), 'wb') do |file|
-        file.write(uploaded_io.read)
-      end
+    if params[:organization][:logo]
+      uploaded_io = params[:organization][:logo]
+      ext = File.extname(uploaded_io.original_filename)
+      filename = "org_logo_#{organization.id}#{ext}"
+      organization.logo = filename
+      if uploaded_io
+        File.open(Rails.root.join('public', 'uploads', filename), 'wb') do |file|
+          file.write(uploaded_io.read)
+        end
 
+      end
     end
   end
 

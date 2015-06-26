@@ -24,9 +24,11 @@ require 'securerandom'
 class Rubric < ActiveRecord::Base
 
   belongs_to :owner, :class_name => "User"
+  belongs_to :organization
   has_many :projects, :dependent => :nullify
   has_many :courses, :through => :projects
   has_many :evaluations, :dependent => :destroy
+
 
   delegate :name, :to => :owner, :prefix => true, :allow_nil => true
 

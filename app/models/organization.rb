@@ -23,8 +23,12 @@ class Organization < ActiveRecord::Base
     name
   end
 
+  def domain
+    [subdomain, Rails.application.config.vocat.domain].join('.')
+  end
+
   def self.find_one_by_subdomain(subdomain)
-    Organization.where(:subdomain => subdomain).first
+    Organization.where(:active => true, :subdomain => subdomain).first
   end
 
   protected

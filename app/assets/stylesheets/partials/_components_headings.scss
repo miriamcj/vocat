@@ -60,6 +60,9 @@
   font-size: $delta;
   font-weight: $regular;
   color: $grayDark;
+  .bg-dark & {
+    color: $white;
+  }
   .heading-secondary + & {
     margin-top: .15em !important;
   }

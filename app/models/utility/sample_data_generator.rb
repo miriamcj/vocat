@@ -40,95 +40,188 @@ module Utility
     def fill
 
       check_safety
+
       puts 'Emptying database'
       empty
 
       # Set the random seed so we get a predictable outcome
       srand 1234
 
-      # Create the organizations
-      puts 'Create Organization: Baruch College'
-      baruch = Organization.find_or_create_by(:name => "Baruch College")
-      org_name = Faker::Company.name
-      puts "Create Organization: #{org_name}"
-      other = Organization.create(:name => org_name)
+      superadmin = create_user(email: "superadmin@test.com", password: 'testtest123', first_name: 'Charles', last_name: 'Xavier', role: 'superadministrator')
 
-      # Create developer user accounts
-      first_names = %w(Peter Zach Clark Casey Gabe Naomi Lucas Joshie Baruch)
-      last_names = %w(Soots Davis Burns Williams Blair Rubin Thurston Simmons Admin)
-      admin = nil
-      first_names.each_with_index do |first_name, index|
-        email = "#{first_name}@castironcoding.com"
-        puts "Creating user: #{email}"
-        u = User.create(:email => email, :org_identity => rand(11111111..99999999), :password => "testtest123", :first_name => first_name, :last_name => last_names[index])
-        u.role = "administrator"
-        u.organization = baruch
-        u.save
-        admin = u
+      orgs = []
+      orgs.push create_org({:name => 'Baruch College', :subdomain => 'baruch'})
+      orgs.push create_org({:name => 'Hunter College', :subdomain => 'hunter'})
+      orgs.push create_org({:name => 'York College', :subdomain => 'york'})
+
+      orgs.each do |org|
+
+        # Make an admin
+        admins = []
+        admins.push create_user(organization: org, email: "admin@#{org.subdomain}.test.com", password: 'testtest123', first_name: 'Charles', last_name: 'Xavier', role: 'administrator')
+
+        rubrics = [
+            create_theater_rubric(org, admins.last),
+            create_comm_rubric(org, admins.last)
+        ]
+        creators = []
+        evaluators = []
+        assistants = []
+        courses = []
+        groups = []
+        projects = []
+        semesters = get_semesters
+
+
+        # Make some evaluators
+        5.times do |i|
+          evaluators.push create_user(organization: org, email: "evaluator#{i}@#{org.subdomain}.test.com", password: 'testtest123', first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, role: 'evaluator')
+        end
+
+        # Make some creators
+        rand(30..50).times do |i|
+          creators.push create_user(organization: org, email: "creator#{i}@#{org.subdomain}.test.com", password: 'testtest123', first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, role: 'creator')
+        end
+
+        # Make some assistants
+        3.times do |i|
+          assistants.push create_user(organization: org, email: "assistant#{i}@#{org.subdomain}.test.com", password: 'testtest123', first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, role: 'creator')
+        end
+
+        # Make some courses
+        semesters.each do |semester|
+          rand(0..15).times do
+            course = create_course(semester, org)
+
+              evaluators.sample(rand(1..3)).each do |user|
+                puts "Enroll Evaluator: #{user.email} in #{course.department}#{course.number}"
+                course.enroll user, :evaluator
+              end
+
+              creators.sample(rand(5..25)).each do |user|
+                puts "Enroll Creator: #{user.email} in #{course.department}#{course.number}"
+                course.enroll user, :creator
+              end
+
+              assistants.sample(rand(0..2)).each do |user|
+                puts "Enroll Assistant: #{user.email} in #{course.department}#{course.number}"
+                course.enroll user, :assistant
+              end
+
+              group_creators = course.creators.all.to_a
+              group_count = rand(0..6)
+              per_group = 0
+              per_group = (group_creators.count / group_count).floor if group_count > 0
+              group_count.times do |i|
+                grab = group_creators.sample(per_group)
+                group_creators = group_creators - grab
+                name = "Group ##{i + 1}"
+                puts "Create Group: #{name}"
+                group = course.groups.create(:name => name)
+                puts "Enrolling Creators in Group: #{grab.length} creators enrolled"
+                group.creators << grab
+                groups.push group
+              end
+
+            rand(3..8).times do
+              project = create_project(course, rubrics)
+              projects.push project
+
+            end
+
+            courses.push course
+          end
+        end
+
       end
 
-      time = Time.new
-      year = time.year
+    end
 
-      # Create the courses
+    protected
 
-      fall = Semester.where({position: 1}).first
-      puts "Found Fall Semester: ID #{fall.id}"
-      winter = Semester.where({position: 2}).first
-      puts "Found Winter Semester: ID #{winter.id}"
-      spring = Semester.where({position: 3}).first
-      puts "Found Spring  Semester: ID #{spring.id}"
-      summer = Semester.where({position: 4}).first
-      puts "Found Summer Semester: ID #{summer.id}"
 
-      courses = Array.new
-      puts "Create Course: CIS3810"
-      courses << baruch.courses.create(:semester => winter, :year => year, :name => "Computer Information Systems", :department => "CIS", :number => "3810", :section => random_section, :description => Faker::Lorem.paragraph)
-      puts "Create Course: ENG2100"
-      courses << baruch.courses.create(:semester => spring, :year => year, :name => "Composition I", :department => "ENG", :number => "2100", :section => random_section, :description => Faker::Lorem.paragraph)
-      puts "Create Course: ENG2150"
-      courses << baruch.courses.create(:semester => fall, :year => year, :name => "Composition II: Intro to Literature", :department => "ENG", :number => "2150", :section => random_section, :description => Faker::Lorem.paragraph)
-      puts "Create Course: ENG2850"
-      courses << baruch.courses.create(:semester => summer, :year => year, :name => "Great Works of Literature", :department => "ENG", :number => "2850", :section => random_section, :description => Faker::Lorem.paragraph)
+    def random_boolean
+      [true, false].sample
+    end
 
-      # Create sample users
-      evaluators = Array.new
-      assistants = Array.new
-      creators = Array.new
+    def create_org(**attributes)
+      attributes[:active] = true
+      puts "Create Organization: #{attributes[:name]}"
+      Organization.create(attributes)
+    end
 
-      2.times do |i|
-        email = "evaluator#{i + 1}@test.com"
-        puts "Create User: #{email}"
-        u = User.new(:email => email, :org_identity => rand(11111111..99999999), :password => "testtest123", :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name)
-        u.organization = baruch
-        u.role = "evaluator"
-        u.save
-        evaluators << u
+    def create_user(**attributes)
+      if attributes[:organization]
+        puts "Creating #{attributes[:organization].name} user: #{attributes[:email]}"
+      else
+        puts "Creating ORGLESS user: #{attributes[:email]}"
       end
+      User.create(attributes)
+    end
 
-      2.times do |i|
-        email = "assistant#{i + 1}@test.com"
-        puts "Create User: #{email}"
-        u = User.new(:email => email, :org_identity => rand(11111111..99999999), :password => "testtest123", :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name)
-        u.organization = baruch
-        u.role = "creator"
-        u.save
-        assistants << u
-      end
+    # Create sample sections
+    def random_section
+      rand(36**5).to_s(36).upcase
+    end
 
-      50.times do |i|
-        email = "creator#{i + 1}@test.com"
-        puts "Create User: #{email}"
-        u = User.new(:email => email, :org_identity => rand(11111111..99999999), :password => "testtest123", :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name)
-        u.role = "creator"
-        u.organization = baruch
-        u.save
-        creators << u
-      end
+    def create_course(semester, org)
+      courses = [
+          ['Special Topics in Jewish Studies', 'JWS', '3950'],
+          ['Feature Article Writing ', 'JRN', '3060H'],
+          ['Latin America and the Caribbean: Cultures and Societies ', 'LAC', '4902'],
+          ['Fundamentals of Business Law ', 'LAW', '1101'],
+          ['Information and Society ', 'LIB', '3040'],
+          ['Entrepreneurship Management', 'MGT', '3960'],
+          ['Media Planning', 'MKT', '4120'],
+          ['Computer Ethics', 'PHI', '3270'],
+          ['Applied Probability', 'STA', '9715'],
+          ['Deferred Compensation ', 'TAX', '9873'],
+          ['Writing I', 'ENG', '2100'],
+          ['Topics in Literature', 'ENG', '3950'],
+          ['Energy Conservation', 'ENV', '3002'],
+          ['Intensive Intermediate Italian I', 'ITAL', '3001'],
+          ['Law of Real Estate Transactions and Land Use Regulations', 'LAW', '9790'],
+          ['Topics in Information Studies', 'LIB', '3010'],
+      ]
+      time = Time.now
+      year = rand(time.year - 2..time.year + 1)
+      course = courses.sample()
+      c = org.courses.create(:semester => semester, :year => year, :name => course[0], :department => course[1], :number => course[2], :section => random_section, :description => Faker::Lorem.paragraph)
+      puts "Creating #{org} course: #{c}"
+      c
+    end
 
-      # Create a rubric
+    def create_project(course, rubrics)
+      rubric = rubrics.sample()
+      project = Project.create({
+                                   :course => course,
+                                   :name => Faker::Company.bs.split(' ').map(&:capitalize).join(' '),
+                                   :description => Faker::Lorem.paragraph,
+                                   :rubric => rubric,
+                                   :type => ['UserProject', 'GroupProject', 'OpenProject'].sample(),
+                                   :settings => {
+                                       'enable_peer_review' => random_boolean,
+                                       'enable_self_evaluation' => random_boolean,
+                                       'enable_creator_attach' => random_boolean,
+                                       'enable_public_discussion' => random_boolean
+                                   }
+                               })
+      puts "Create Project: #{project.name} in #{course.department}#{course.number}"
+      project.save
+      puts rubric
+    end
+
+
+    def get_semesters
+      puts "Getting semester records"
+      Semester.all.to_a
+    end
+
+    def create_theater_rubric(org, owner)
       the_rubric = Rubric.new('name' => "Theater Rubric")
+      the_rubric.organization = org
       the_rubric.low = 0
+      the_rubric.owner = owner
       the_rubric.high = 6
       the_rubric.public = true
       voice_key = the_rubric.add_field({'name' => 'Voice', 'description' => 'Breathing; Centering; Projection'})
@@ -138,7 +231,6 @@ module Utility
       low_key = the_rubric.add_range({'name' => 'Low', 'low' => 0, 'high' => 2})
       medium_key = the_rubric.add_range({'name' => 'Medium', 'low' => 3, 'high' => 4})
       high_key = the_rubric.add_range({'name' => 'High', 'low' => 5, 'high' => 6})
-      the_rubric.owner = admin
       the_rubric.add_cells([
                                {'range' => low_key, 'field' => voice_key, 'description' => 'Vocal projection is weak. Posture is crumpled or slouched: breath is unsupported. Volume is unamplified. One has to strain, or cannot hear speakerubric. Articulation is mushy and difficult to understand.'},
                                {'range' => low_key, 'field' => body_key, 'description' => 'Body is rigidly tense, or nervous tension in constant movement, shuffling, or fidgeting. Speaker avoids eye contact and physically "hides" from audience. Gestures and non-verbal communication are excessive or restricted and unrelated to narrative.'},
@@ -155,12 +247,16 @@ module Utility
                            ])
       puts "Create Rubric: #{the_rubric.name}"
       the_rubric.save
+      the_rubric
+    end
 
+    def create_comm_rubric(org, owner)
       comm_rubric = Rubric.new('name' => "COMM1010 Rubric")
+      comm_rubric.organization = org
       comm_rubric.public = true
+      comm_rubric.owner = owner
       comm_rubric.low = 0
       comm_rubric.high = 6
-      comm_rubric.owner = admin
       attention_key = comm_rubric.add_field({'name' => 'Attention', 'description' => 'Attention Step'})
       introduction_key = comm_rubric.add_field({'name' => 'Relation to Audience', 'description' => 'Relation to Audience'})
       thesis_key = comm_rubric.add_field({'name' => 'Specific purpose/thesis', 'description' => 'Specific purpose/thesis'})
@@ -241,116 +337,13 @@ module Utility
                                 {'range' => comm_medium_key, 'field' => visual_key, 'description' => 'Visual aids have some guideline issues, could add more to the content of the speech, print of the Visual aids is off, Minor handling issues, Attire could be more fitting to the goals and content of the speech'},
                                 {'range' => comm_high_key, 'field' => visual_key, 'description' => 'Visual aids clear and follow guidelines, Visual aids are handled well, attire is appropriate and fits the goals and content of the speech'},
                             ])
-      comm_rubric.save
-      puts "Create Rubric: #{comm_rubric.name}"
-
-      rubrics = [the_rubric, comm_rubric]
-
-      # Each course gets 1 evaluator, 2 assistants, 15 to 30 creators, and 2 to 10 projects
-      #
-      # SQL for finding number of courses per creator:
-      # select user_id, email, count(*) from courses_creators inner join users on users.id=courses_creators.user_id group by user_id;
-      #
-      courses.each_with_index do |course, course_index|
-
-        # Scramble the users
-        puts "Shuffling Evaluators"
-        evaluators.to_a.shuffle!
-        puts "Shuffling Assistants"
-        assistants.to_a.shuffle!
-        puts "Shuffling Creators"
-        creators.to_a.shuffle!
-
-        # Add users to the course
-        evaluators.sample(rand(1..3)).each do |user|
-          puts "Enroll User: #{user.email} in #{course.department}#{course.number}"
-          course.enroll user, :evaluator
-        end
-        assistants.sample(rand(0..2)).each do |user|
-          puts "Enroll User: #{user.email} in #{course.department}#{course.number}"
-          course.enroll user, :assistant
-        end
-        creators.sample(rand(10..25)).each do |user|
-          puts "Enroll User: #{user.email} in #{course.department}#{course.number}"
-          course.enroll user, :creator
-        end
-        course.save
-
-        # Create some groups
-        group_count = rand(1..5)
-        group_count.times do |x|
-          name = "Group ##{x + 1}"
-          puts "Create Group: #{name}"
-          group = course.groups.create(:name => name)
-          per_group = (course.creators.count / group_count).floor
-          creators_to_add = course.creators.sample(per_group)
-          puts "Enrolling Creators in Group: #{creators_to_add.length} creators enrolled"
-          group.creators << creators_to_add
-          group.save
-        end
-
-        # Create projects in various states of completeness
-        rand(3..6).times do
-
-          rubric = rubrics.sample()
-          project = Project.create({
-                                       :course => course,
-                                       :name => Faker::Company.bs.split(' ').map(&:capitalize).join(' '),
-                                       :description => Faker::Lorem.paragraph,
-                                       :rubric => rubric,
-                                       :type => 'UserProject',
-                                       :settings => {
-                                           'enable_peer_review' => random_boolean,
-                                           'enable_self_evaluation' => random_boolean,
-                                           'enable_creator_attach' => random_boolean,
-                                           'enable_public_discussion' => random_boolean
-                                       }
-                                   })
-          puts "Create Project: #{project.name} in #{course.department}#{course.number}"
-          project.save
-
-          course_creators = course.creators
-          course_creators.to_a.shuffle!
-
-          course_creators.length.times do |i|
-            # Most creators submit a project
-            if rand > 0.3
-              submission = project.submissions.create(:name => Faker::Lorem.words(rand(2..5)).map(&:capitalize).join(' '), :creator => course_creators[i])
-              puts "Create Submission: #{course_creators[i].email} for #{project.name}"
-              submission.save!
-            end
-          end
-        end
-
+      if comm_rubric.save
+        puts "Create Rubric: #{comm_rubric.name}"
+      else
+        puts comm_rubric.errors.full_messages
+        abort('Failed to save rubric')
       end
-
-      # Create an evaluator that is both a creator for a course and an evaluator for a course
-      evaluator = User.new(:email => "assistant_evaluator@test.com", :password => "testtest123", :first_name => Faker::Name.first_name, :last_name => Faker::Name.last_name)
-      evaluator.organization = baruch
-      evaluator.role = "evaluator"
-      evaluator.save
-      course = courses.sample
-      course.enroll(evaluator, :creator)
-
-      course2 = courses.sample
-      loop do
-        break unless course == course2
-        course2 = courses.sample
-      end
-
-      course2.enroll(evaluator, :evaluator)
-
-    end
-
-    protected
-
-    # Create sample sections
-    def random_section
-      rand(36**5).to_s(36).upcase
-    end
-
-    def random_boolean
-      [true, false].sample
+      comm_rubric
     end
 
     def random_score

@@ -15,9 +15,9 @@
 </div>
 <div class="formgrid third">
 	<%= f.label 'Organization Status', :class => 'text-label' %>
-	<%= select_tag @organization.active, options_for_select([
-																	['Active', true],
-																	['Inactive', false]
-															], @organization.active), {'data-behavior' => 'chosen'} %>
+	<%= f.select :active, options_for_select([
+												   ['Active', true],
+												   ['Inactive', false]
+										   ], @organization.active), {:include_blank => false}, {'data-behavior' => 'chosen'} %>
 	<small>Users belonging to inactive organizations will not be able to login to Vocat.</small>
 </div>

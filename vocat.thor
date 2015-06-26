@@ -5,8 +5,11 @@ require "socket"
 require "yaml"
 require "securerandom"
 require "active_support"
+require "thor/rails"
 
 class Vocat < Thor
+
+  include Thor::Rails
 
   package_name "Vocat"
 
@@ -20,8 +23,28 @@ class Vocat < Thor
   YELLOW  = "\e[33m"
   CYAN    = "\e[36m"
 
-  desc "configure", "Configure VOCAT"
+  desc "create_superadmin", "Creates a super admin user"
+  def create_superadmin
+    email = ask("Enter the user's email address:")
+    first_name = ask("Enter the first name: ")
+    last_name = ask("Enter the last name:")
+    password = ask("What is your password?:", :echo => false)
+    say("\n")
+    password_confirmation = ask("Confirm your password?:", :echo => false)
+    user = ::User.new(email: email, first_name: first_name, last_name: last_name, password: password, password_confirmation: password_confirmation, role: 'superadministrator')
+    if user.save
+      say "\nSuccess! You did it!"
+    else
+      say "\nCriminy. Something went wrong!"
+      user.errors.full_messages.each do |message|
+        say message
+      end
+    end
+  end
 
+
+
+  desc "configure", "Configure VOCAT"
   def configure
     say "\nWelcome to the VOCAT configuration tool. Today, we will be updating the #{CYAN}#{environment}#{YELLOW} settings in your config/environment.yml file\n", :yellow
     invoke "configure_aws"

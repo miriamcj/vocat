@@ -1,21 +1,24 @@
 class Manage::ManageController < ApplicationController
 
-  before_action :require_superadmin
+  include Concerns::ManageConcerns
+
 
   def index
     @stats = [
         {
-            :label => 'Organizations',
+            :label => 'Active Organizations',
             :value => Organization.where(:active => true).count
+        },
+        {
+            :label => 'Inactive Organizations',
+            :value => Organization.where(:active => false).count
         }
+
     ]
   end
 
   private
 
-  def require_superadmin
-    redirect_to new_user_session_path unless current_user && current_user.role?('superadministrator')
-  end
 
 
 

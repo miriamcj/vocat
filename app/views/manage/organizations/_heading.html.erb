@@ -1,6 +1,6 @@
 <% content_for :heading do %>
 	<% if @course %>
-		<%= link_to 'Back to Organizations', superadmin_organizations_path(), :class => 'header-link back-link' %>
+		<%= link_to 'Back to Organizations', organizations_path(), :class => 'header-link back-link' %>
 	<% end %>
 	<% if @organization && !@organization.new_record? %>
 		<h2 class="heading-primary">
@@ -17,7 +17,7 @@
 
 <% content_for :heading_links do %>
 	<% if @organization && !@organization.new_record? %>
-		<%= link_to 'Add New Organization', new_superadmin_organization_path, :class => 'primary-button new-button' %>
+		<%= link_to 'Add New Organization', new_organization_path, :class => 'primary-button new-button' %>
 		<div class="dropdown dropdown-button" data-behavior="dropdown">
 			<a class="dropdown--toggle" data-behavior="toggle" href="#">Organization Actions</a>
 			<div class="dropdown--options" data-behavior="dropdown-options">

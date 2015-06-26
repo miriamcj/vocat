@@ -9,10 +9,12 @@
 	</div>
 	<div class="page-section-half col-two">
 		<% if course.has_projects? %>
+			<% if course.recent_submissions(course.projects.count).length > 0 %>
 			<h4 class="heading-quarternary">
 				Recently Updated Submissions
 			</h4>
 			<%= render 'shared/course_recent_submissions', :course => course %>
+			<% end %>
 			<h4 class="heading-quarternary">
 				Course Projects
 			</h4>

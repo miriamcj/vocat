@@ -177,7 +177,8 @@ module Concerns::StrongParametersConfiguration
 
   def organization_params
     params.require(:organization).permit(:name,
-                                      :subdomain
+                                         :subdomain,
+                                         :active
     )
   end
 

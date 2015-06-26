@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   skip_authorization_check
   before_action :validate_subdomain
   before_action :initialize_organization
+  before_action :initialize_management_domain
   before_action :initialize_course
   before_action :inject_global_layout_variables
 
@@ -72,6 +73,10 @@ class ApplicationController < ActionController::Base
     return true if request_subdomain.blank? || request_subdomain == 'manage'
     return true if Organization.find_one_by_subdomain(request_subdomain)
     page_not_found
+  end
+
+  def initialize_management_domain
+    @manage_domain = "manage.#{Rails.application.config.vocat.domain}"
   end
 
   def initialize_organization

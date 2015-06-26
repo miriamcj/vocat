@@ -1,11 +1,11 @@
 <header class="page-header">
 	<div style="position: relative">
-		<% if user_signed_in? %>
-			<div class="page-header--navigation-wrapper">
-				<div class="page-header--navigation">
-					<nav class="page-header--logo-nav">
-						<%= link_to image_tag("png/logo.png", :alt => "VOCAT"), root_path %>
-					</nav>
+		<div class="page-header--navigation-wrapper">
+			<div class="page-header--navigation">
+				<nav class="page-header--logo-nav">
+					<%= link_to image_tag("png/logo.png", :alt => "VOCAT"), root_path %>
+				</nav>
+				<% if user_signed_in? %>
 
 					<div class="nav-trigger-wrapper">
 						<% if @app_section == 'manage' %>
@@ -29,8 +29,11 @@
 
 					<%= render 'layouts/navigation/user_nav' %>
 
-				</div>
+				<% end %>
+
 			</div>
+		</div>
+			<% if user_signed_in? %>
 
 			<div data-drawer-target="context" data-behavior="header-drawer" class="page-header--drawer context-drawer">
 				<div class="drawer--contents">
@@ -42,6 +45,11 @@
 						<% if @app_section == 'admin' %>
 							<%= render 'layouts/navigation/context_nav_admin' %>
 						<% end %>
+
+						<% if @app_section == 'manage' %>
+							<%= render 'layouts/navigation/context_nav_manage' %>
+						<% end %>
+
 					</ul>
 				</div>
 			</div>
@@ -56,8 +64,8 @@
 				</div>
 			</div>
 
-		<% end %>
+					<% end %>
 
+		</div>
 	</div>
-
 </header>
