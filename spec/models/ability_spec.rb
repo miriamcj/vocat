@@ -151,7 +151,7 @@ describe "Abilities" do
     end
     context "when the current_user is an evaluator for a course the user is enrolled in, she" do
       let ( :user ) { @evaluator_in_course_a }
-      it { expect(user).to have_ability(@ability_aliases[:forbidden], for: target_user) }
+      it { expect(user).to have_ability({:index=>true, :show=>true, :edit=>false, :new=>false, :create=>false, :update=>false, :destroy=>false}, for: target_user) }
     end
     context "when the current_user is an evaluator" do
       let ( :user ) { @evaluator_in_course_a }
@@ -477,6 +477,10 @@ describe "Abilities" do
 
       context "if the current_user is another student in the course, but not the submission's creator, she" do
         let ( :user ) { @another_creator_in_course_a }
+        it {
+          expect(user).to have_ability({:destroy => false}, for: submission)
+        }
+
         it {
           expect(user).to have_ability(@ability_aliases[:read_only], for: submission)
         }

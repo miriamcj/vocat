@@ -146,19 +146,19 @@ class Ability
     end
 
     can :do_reassign, Submission do |submission|
-      can(:administer, submission)
+      can?(:administer, submission)
     end
 
     can :reassign, Submission do |submission|
-      can(:administer, submission)
+      can?(:administer, submission)
     end
 
     can :destroy, Submission do |submission|
-      can(:administer, submission)
+      can?(:administer, submission)
     end
 
     can :destroy_confirm, Submission do |submission|
-      can(:destroy, submission)
+      can?(:destroy, submission)
     end
 
     can :evaluate, Submission do |submission|
