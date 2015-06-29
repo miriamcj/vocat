@@ -15,6 +15,7 @@ define (require) ->
 
     ui: {
       courseSelect: '[data-class="course-select"]'
+      recentCourseSelect: '[data-class="recent-course-select"]'
     }
 
     toggle: () ->
@@ -34,6 +35,10 @@ define (require) ->
     setupListeners: () ->
       @ui.courseSelect.on('change', () =>
         val = @ui.courseSelect.val()
+        window.location.assign(val)
+      )
+      @ui.recentCourseSelect.on('change', () =>
+        val = @ui.recentCourseSelect.val()
         window.location.assign(val)
       )
 

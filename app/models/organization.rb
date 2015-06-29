@@ -39,6 +39,12 @@ class Organization < ActiveRecord::Base
     Organization.where(:active => true, :subdomain => subdomain).first
   end
 
+  def recent_grouped_sorted_courses(limit = nil)
+    courses.where('courses.year >= ?', Time.now.year).sorted.limit(limit).group_by do |course|
+      "#{course.semester} #{course.year}"
+    end
+  end
+
   protected
 
   def downcase_subdomain

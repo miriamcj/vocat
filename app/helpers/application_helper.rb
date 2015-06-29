@@ -79,7 +79,7 @@ module ApplicationHelper
 
   def user_course_url(user, course)
     role = course.role(user)
-    if role == :evaluator || role == :assistant
+    if role == :evaluator || role == :assistant || role == :administrator
       url_for course_path(course)
     else
       url_for portfolio_course_path(course)
