@@ -6,6 +6,8 @@ define (require) ->
 
     adjusted: false
     allowAdjustment: true
+    originalBodyPadding: null
+
 
     triggers: {
       'click @ui.trigger': 'click:trigger'
@@ -29,8 +31,8 @@ define (require) ->
         @open()
 
     adjustPosition: () ->
+      dd = @$el.find('[data-behavior="dropdown-options"]')
       if @adjusted == false && @getOption('allowAdjustment') == true
-        dd = @$el.find('[data-behavior="dropdown-options"]')
         if dd.offset().left < 0
           dd.css({left: 0})
           dd.css({right: 'auto'})
@@ -39,7 +41,23 @@ define (require) ->
           dd.css({left: 'auto'})
         @adjusted = true
 
+    checkBodyPadding: () ->
+      dd = @$el.find('[data-behavior="dropdown-options"]')
+      height = dd.outerHeight()
+      requiredHeight = @$el.offset().top + height + @$el.outerHeight()
+      documentHeight = $(document).height()
+      if requiredHeight > documentHeight
+        @originalBodyPadding = parseInt($('body').css('padding-bottom').replace('px',''))
+        newPadding = parseInt(requiredHeight) - parseInt(documentHeight) + @originalBodyPadding + 60
+        $('body').css({paddingBottom: newPadding})
+
+    restoreBodyPadding: () ->
+      if @originalBodyPadding != null
+        $('body').css({paddingBottom: @originalBodyPadding})
+        @originalBodyPadding = null
+
     open: () ->
+      @checkBodyPadding()
       @$el.addClass('open')
       @adjustPosition()
       @triggerMethod('opened')
@@ -47,6 +65,7 @@ define (require) ->
     close: () ->
       @$el.removeClass('open')
       @triggerMethod('closed')
+      @restoreBodyPadding()
 
     initialize: (options) ->
       @vent = options.vent

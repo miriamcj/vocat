@@ -104,7 +104,8 @@ class User < ActiveRecord::Base
 
   def role?(base_role)
     unless User::ROLES.include? role.to_s
-      raise "The role #{role.to_s} doesn't exist."
+      Rails.logger.info  "The role #{role.to_s} doesn't exist. User.role? was passed a base role of '#{base_role}' for user '#{self.id}' with email '#{self.email}"
+      return false
     end
     base_role.to_s == role.to_s
   end

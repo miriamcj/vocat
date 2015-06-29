@@ -1,0 +1,7133 @@
+  <h4><a href='#annotations'>Annotations</a></h4>
+  <ul>
+      <li><a href='#annotations-index'>index</a></li>
+      <li><a href='#annotations-show'>show</a></li>
+      <li><a href='#annotations-create'>create</a></li>
+      <li><a href='#annotations-update'>update</a></li>
+      <li><a href='#annotations-destroy'>destroy</a></li>
+  </ul>
+  <h4><a href='#assets'>Assets</a></h4>
+  <ul>
+      <li><a href='#assets-show'>show</a></li>
+      <li><a href='#assets-create'>create</a></li>
+      <li><a href='#assets-update'>update</a></li>
+      <li><a href='#assets-destroy'>destroy</a></li>
+  </ul>
+  <h4><a href='#attachments'>Attachments</a></h4>
+  <ul>
+      <li><a href='#attachments-create'>create</a></li>
+      <li><a href='#attachments-show'>show</a></li>
+      <li><a href='#attachments-destroy'>destroy</a></li>
+  </ul>
+  <h4><a href='#courses'>Courses</a></h4>
+  <ul>
+      <li><a href='#courses-index'>index</a></li>
+      <li><a href='#courses-show'>show</a></li>
+      <li><a href='#courses-update'>update</a></li>
+  </ul>
+  <h4><a href='#discussion_posts'>Discussion posts</a></h4>
+  <ul>
+      <li><a href='#discussion_posts-index'>index</a></li>
+      <li><a href='#discussion_posts-create'>create</a></li>
+      <li><a href='#discussion_posts-update'>update</a></li>
+      <li><a href='#discussion_posts-destroy'>destroy</a></li>
+  </ul>
+  <h4><a href='#enrollments'>Enrollments</a></h4>
+  <ul>
+      <li><a href='#enrollments-index'>index</a></li>
+      <li><a href='#enrollments-destroy'>destroy</a></li>
+      <li><a href='#enrollments-create'>create</a></li>
+      <li><a href='#enrollments-bulk'>bulk</a></li>
+  </ul>
+  <h4><a href='#evaluations'>Evaluations</a></h4>
+  <ul>
+      <li><a href='#evaluations-index'>index</a></li>
+      <li><a href='#evaluations-create'>create</a></li>
+      <li><a href='#evaluations-update'>update</a></li>
+      <li><a href='#evaluations-destroy'>destroy</a></li>
+  </ul>
+  <h4><a href='#groups'>Groups</a></h4>
+  <ul>
+      <li><a href='#groups-index'>index</a></li>
+      <li><a href='#groups-show'>show</a></li>
+      <li><a href='#groups-create'>create</a></li>
+      <li><a href='#groups-update'>update</a></li>
+      <li><a href='#groups-destroy'>destroy</a></li>
+  </ul>
+  <h4><a href='#projects'>Projects</a></h4>
+  <ul>
+      <li><a href='#projects-index'>index</a></li>
+      <li><a href='#projects-show'>show</a></li>
+      <li><a href='#projects-create'>create</a></li>
+      <li><a href='#projects-update'>update</a></li>
+      <li><a href='#projects-destroy'>destroy</a></li>
+      <li><a href='#projects-publish_evaluations'>publish_evaluations</a></li>
+      <li><a href='#projects-unpublish_evaluations'>unpublish_evaluations</a></li>
+  </ul>
+  <h4><a href='#rubrics'>Rubrics</a></h4>
+  <ul>
+      <li><a href='#rubrics-index'>index</a></li>
+      <li><a href='#rubrics-show'>show</a></li>
+      <li><a href='#rubrics-create'>create</a></li>
+      <li><a href='#rubrics-update'>update</a></li>
+      <li><a href='#rubrics-destroy'>destroy</a></li>
+  </ul>
+  <h4><a href='#scores'>Scores</a></h4>
+  <ul>
+      <li><a href='#scores-my_scores'>my_scores</a></li>
+      <li><a href='#scores-all_scores'>all_scores</a></li>
+      <li><a href='#scores-peer_scores'>peer_scores</a></li>
+      <li><a href='#scores-evaluator_scores'>evaluator_scores</a></li>
+  </ul>
+  <h4><a href='#submissions'>Submissions</a></h4>
+  <ul>
+      <li><a href='#submissions-for_course'>for_course</a></li>
+      <li><a href='#submissions-for_creator_and_project'>for_creator_and_project</a></li>
+      <li><a href='#submissions-for_course_and_user'>for_course_and_user</a></li>
+      <li><a href='#submissions-for_group'>for_group</a></li>
+      <li><a href='#submissions-for_project'>for_project</a></li>
+      <li><a href='#submissions-show'>show</a></li>
+      <li><a href='#submissions-create'>create</a></li>
+      <li><a href='#submissions-update'>update</a></li>
+      <li><a href='#submissions-destroy'>destroy</a></li>
+  </ul>
+  <h4><a href='#users'>Users</a></h4>
+  <ul>
+      <li><a href='#users-search'>search</a></li>
+      <li><a href='#users-show'>show</a></li>
+      <li><a href='#users-me'>me</a></li>
+  </ul>
+
+
+
+  <hr/>
+
+  <div>
+    <h2 id="annotations">
+      <a href='#annotations'>Annotations</a><br>
+      <small></small>
+    </h2>
+  </div>
+
+    <div>
+<p>Annotations are the comments that users record about a specific media
+object. If the media being annotated has duration (video or audio media),
+then the annotation will typically be tied to a specific timestamp on the
+media. The ID of the user who creates the annotation will be assigned to
+the parameter author_id property. The API does not currently allow the
+creation of annotations authored by other users.</p>
+</div>
+
+  <div>
+
+      <hr/>
+
+      <h3 id="annotations-index">
+      <a href='#annotations'>Annotations</a> / <a href='#annotations-index'>index</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/v1/annotations?asset=:asset
+            <br>
+            <small>returns all annotations for an asset</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Response:
+
+[
+    {
+        &quot;id&quot;: 11677,
+        &quot;asset_id&quot;: 4542,
+        &quot;author_id&quot;: 4470,
+        &quot;body&quot;: &quot;&lt;p&gt;Annotation text...&lt;/p&gt;&quot;,
+        &quot;published&quot;: true,
+        &quot;seconds_timecode&quot;: 5.200322,
+        &quot;smpte_timecode&quot;: &quot;00:00:05&quot;,
+        &quot;author_name&quot;: &quot;Ressie Crona&quot;,
+        &quot;canvas&quot;: &quot;{&quot;json&quot;:null,&quot;svg&quot;:null}&quot;,
+        &quot;current_user_can_destroy&quot;: true,
+        &quot;current_user_can_edit&quot;: true,
+        &quot;gravatar&quot;: &quot;http://gravatar.com/avatar/4c3fe1bdae8ec9e5db97d02aa4cf1cda.png?d=mm&amp;s=&quot;,
+        &quot;author_role&quot;: &quot;evaluator&quot;,
+        &quot;created_at&quot;: &quot;5/05/15 03:07PM&quot;,
+        &quot;created_at_timestamp&quot;: 1430852856,
+        &quot;body_raw&quot;: &quot;Annotation text...&quot;
+    },
+    {
+        &quot;id&quot;: 11678,
+        &quot;asset_id&quot;: 4542,
+        &quot;author_id&quot;: 4470,
+        &quot;body&quot;: &quot;&lt;p&gt;Another annotation...&lt;/p&gt;&quot;,
+        &quot;published&quot;: true,
+        &quot;seconds_timecode&quot;: 11.143548,
+        &quot;smpte_timecode&quot;: &quot;00:00:11&quot;,
+        &quot;author_name&quot;: &quot;Ressie Crona&quot;,
+        &quot;canvas&quot;: &quot;{&quot;json&quot;:null,&quot;svg&quot;:null}&quot;,
+        &quot;current_user_can_destroy&quot;: true,
+        &quot;current_user_can_edit&quot;: true,
+        &quot;gravatar&quot;: &quot;http://gravatar.com/avatar/4c3fe1bdae8ec9e5db97d02aa4cf1cda.png?d=mm&amp;s=&quot;,
+        &quot;author_role&quot;: &quot;evaluator&quot;,
+        &quot;created_at&quot;: &quot;5/05/15 03:12PM&quot;,
+        &quot;created_at_timestamp&quot;: 1430853139,
+        &quot;body_raw&quot;: &quot;Another annotation...&quot;
+    }
+]
+</pre>
+
+          <h4>Errors</h4>
+            403
+            The user is not authorized to view this asset.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>asset </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be a number.</p>
+ ]
+      </small>
+      
+<p>The annotated asset ID</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="annotations-show">
+      <a href='#annotations'>Annotations</a> / <a href='#annotations-show'>show</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/v1/annotations/:id
+            <br>
+            <small>shows a single annotation</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Response:
+
+{
+  &quot;id&quot;: 11678,
+  &quot;asset_id&quot;: 4542,
+  &quot;author_id&quot;: 4470,
+  &quot;body&quot;: &quot;&lt;p&gt;Another annotation...&lt;/p&gt;&quot;,
+  &quot;published&quot;: true,
+  &quot;seconds_timecode&quot;: 11.143548,
+  &quot;smpte_timecode&quot;: &quot;00:00:11&quot;,
+  &quot;author_name&quot;: &quot;Ressie Crona&quot;,
+  &quot;canvas&quot;: &quot;{&quot;json&quot;:null,&quot;svg&quot;:null}&quot;,
+  &quot;current_user_can_destroy&quot;: true,
+  &quot;current_user_can_edit&quot;: true,
+  &quot;gravatar&quot;: &quot;http://gravatar.com/avatar/4c3fe1bdae8ec9e5db97d02aa4cf1cda.png?d=mm&amp;s=&quot;,
+  &quot;author_role&quot;: &quot;evaluator&quot;,
+  &quot;created_at&quot;: &quot;5/05/15 03:12PM&quot;,
+  &quot;created_at_timestamp&quot;: 1430853139,
+  &quot;body_raw&quot;: &quot;Another annotation...&quot;
+}
+</pre>
+
+          <h4>Errors</h4>
+            404
+            The annotation does not exist.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            403
+            The user is not authorized to view the annotation.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be a number.</p>
+ ]
+      </small>
+      
+<p>The ID of the annotation to be shown</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="annotations-create">
+      <a href='#annotations'>Annotations</a> / <a href='#annotations-create'>create</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /api/v1/annotations
+            <br>
+            <small>creates a new annotation</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Request:
+
+{
+  &quot;body&quot;: &quot;Another annotation...&quot;,
+  &quot;canvas&quot;: &quot;{&quot;json&quot;:null,&quot;svg&quot;:null}&quot;,
+  &quot;published&quot;: true,
+  &quot;seconds_timecode&quot;: 11.143548,
+  &quot;smpte_timecode&quot;: &quot;00:00:11&quot;,
+  &quot;asset_id&quot;: 4542
+}
+</pre>
+            <pre class="wiki">Sample Response:
+
+{
+    &quot;id&quot;: 11680,
+    &quot;asset_id&quot;: 4542,
+    &quot;author_id&quot;: 4470,
+    &quot;body&quot;: &quot;&lt;p&gt;Another annotation...&lt;/p&gt;&quot;,
+    &quot;published&quot;: true,
+    &quot;seconds_timecode&quot;: 11.143548,
+    &quot;smpte_timecode&quot;: &quot;00:00:11&quot;,
+    &quot;author_name&quot;: &quot;Ressie Crona&quot;,
+    &quot;canvas&quot;: &quot;{&quot;json&quot;:null,&quot;svg&quot;:null}&quot;,
+    &quot;current_user_can_destroy&quot;: true,
+    &quot;current_user_can_edit&quot;: true,
+    &quot;gravatar&quot;: &quot;http://gravatar.com/avatar/4c3fe1bdae8ec9e5db97d02aa4cf1cda.png?d=mm&amp;s=&quot;,
+    &quot;author_role&quot;: &quot;evaluator&quot;,
+    &quot;created_at&quot;: &quot;5/05/15 07:49PM&quot;,
+    &quot;created_at_timestamp&quot;: 1430869781,
+    &quot;body_raw&quot;: &quot;Another annotation...&quot;
+}
+</pre>
+
+          <h4>Errors</h4>
+            403
+            The user is not authorized to annotate the asset to which the annotation belongs.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            400
+            A required annotation parameter is missing.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>body </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>The body of the annotation; support markdown text</p>
+
+    </li>
+    
+    <li>
+      <strong>canvas </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>A JSON string that includes the json and svg representation of any drawings
+included in the annotation</p>
+
+    </li>
+    
+    <li>
+      <strong>smpte_timecode </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>A SMPTE formatted timecode (HH:MM:SS) pointing at the playback time that
+the annotation relates to</p>
+
+    </li>
+    
+    <li>
+      <strong>published </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be one of: true, false.</p>
+ ]
+      </small>
+      
+<p>Whether or not the annotation is published [not currently used]</p>
+
+    </li>
+    
+    <li>
+      <strong>seconds_timecode </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be Float</p>
+ ]
+      </small>
+      
+<p>The value of this parameter should be the seconds at which the annotation
+occurs, to multiple decimal places. If the annotated asset does not have
+duration, this should be set to 0.0.</p>
+
+    </li>
+    
+    <li>
+      <strong>asset_id </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The ID of the asset that has been annotated</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="annotations-update">
+      <a href='#annotations'>Annotations</a> / <a href='#annotations-update'>update</a>
+      </h3>
+
+      <div>
+          <h4>
+              PATCH /api/v1/annotations/:id
+            <br>
+            <small>updates an annotation</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Request:
+
+{
+  &quot;id&quot; : 1,
+  &quot;body&quot;: &quot;Another updated annotation...&quot;,
+  &quot;canvas&quot;: &quot;{&quot;json&quot;:null,&quot;svg&quot;:null}&quot;,
+  &quot;published&quot;: true,
+  &quot;seconds_timecode&quot;: 11.143548,
+  &quot;smpte_timecode&quot;: &quot;00:00:11&quot;,
+  &quot;asset_id&quot;: 4542
+}
+</pre>
+
+          <h4>Errors</h4>
+            404
+            The annotation does not exist.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            403
+            The user is not authorized to update the annotation.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            400
+            A required annotation parameter is missing.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be a number.</p>
+ ]
+      </small>
+      
+<p>The ID of the annotation to be updated</p>
+
+    </li>
+    
+    <li>
+      <strong>body </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>The body of the annotation; support markdown text</p>
+
+    </li>
+    
+    <li>
+      <strong>canvas </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>A JSON string that includes the json and svg representation of any drawings
+included in the annotation</p>
+
+    </li>
+    
+    <li>
+      <strong>smpte_timecode </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>A SMPTE formatted timecode (HH:MM:SS) pointing at the playback time that
+the annotation relates to</p>
+
+    </li>
+    
+    <li>
+      <strong>published </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be one of: true, false.</p>
+ ]
+      </small>
+      
+<p>Whether or not the annotation is published [not currently used]</p>
+
+    </li>
+    
+    <li>
+      <strong>seconds_timecode </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Float</p>
+ ]
+      </small>
+      
+<p>The value of this parameter should be the seconds at which the annotation
+occurs, to multiple decimal places. If the annotated asset does not have
+duration, this should be set to 0.0.</p>
+
+    </li>
+    
+    <li>
+      <strong>asset_id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The ID of the asset that has been annotated</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="annotations-destroy">
+      <a href='#annotations'>Annotations</a> / <a href='#annotations-destroy'>destroy</a>
+      </h3>
+
+      <div>
+          <h4>
+              DELETE /api/v1/annotations/:id
+            <br>
+            <small>deletes a single annotation</small>
+          </h4>
+      </div>
+
+      <div>
+        
+
+          <h4>Errors</h4>
+            404
+            The annotation does not exist.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            403
+            The user is not authorized to delete the annotation.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be a number.</p>
+ ]
+      </small>
+      
+<p>The ID of the annotation to be deleted</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+  </div>
+
+  <hr/>
+
+  <div>
+    <h2 id="assets">
+      <a href='#assets'>Assets</a><br>
+      <small></small>
+    </h2>
+  </div>
+
+    <div>
+<p>Assets are any type of media that can be attached to submissions. Vocat
+currently understands multiple asset types including audio, image, video,
+vimeo, and youtube assets. Media that Vocat cannot understand is given an
+asset type of unknown.</p>
+</div>
+
+  <div>
+
+      <hr/>
+
+      <h3 id="assets-show">
+      <a href='#assets'>Assets</a> / <a href='#assets-show'>show</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/v1/assets/:id
+            <br>
+            <small>shows a single asset and its associated attachment, and annotations</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Response:
+
+{
+    &quot;id&quot;: 4542,
+    &quot;family&quot;: &quot;video&quot;,
+    &quot;type&quot;: &quot;Asset::Video&quot;,
+    &quot;name&quot;: &quot;Dogs!&quot;,
+    &quot;created_at&quot;: &quot;May 05 2015&quot;,
+    &quot;attachment_state&quot;: &quot;processed&quot;,
+    &quot;thumbnail&quot;: &quot;https://s3.amazonaws.com/vocat.dev/...&quot;,
+    &quot;locations&quot;: {
+        &quot;mp4&quot;: &quot;https://s3.amazonaws.com/vocat.dev/processed/attachment/%3D&amp;response-content-type=video%2Fmp4&quot;,
+        &quot;mp4_thumb&quot;: &quot;https://s3.amazonaws.com/vocat.dev/processed/%3D&amp;response-content-type=image%2Fpng&quot;,
+        &quot;webm&quot;: &quot;https://s3.amazonaws.com/vocat.dev/processed/attachment/%3D&amp;response-content-type=video%2Fwebm&quot;,
+        &quot;webm_thumb&quot;: &quot;https://s3.amazonaws.com/vocat.dev/processed/%3D&amp;response-content-type=image%2Fpng&quot;,
+        &quot;mov&quot;: &quot;https://s3.amazonaws.com/vocat.dev/processed/%3D&amp;response-content-type=video%mov&quot;,
+    },
+    &quot;file_info&quot;: &quot;3.3 MB MOV Video&quot;,
+    &quot;listing_order&quot;: 0,
+    &quot;submission_id&quot;: 7395,
+    &quot;creator_type&quot;: &quot;User&quot;,
+    &quot;project_id&quot;: 466,
+    &quot;creator_id&quot;: 4483,
+    &quot;annotations_count&quot;: 1,
+    &quot;attachment&quot;: {
+        &quot;id&quot;: 4869,
+        &quot;current_user_can_destroy&quot;: false,
+        &quot;state&quot;: &quot;processed&quot;,
+        &quot;s3_upload_document&quot;: {
+            &quot;policy&quot;: &quot;eyJleHBpcmF0aW9uIjoiMjAxNS0wNS0wNVQyMjo1NTo0MlTM2ODcwOTEyMF1dfQ==&quot;,
+            &quot;signature&quot;: &quot;/LxvJJVHapg4Lv61aGGog=&quot;,
+            &quot;key&quot;: &quot;source/attachment/4000_5000/4800_4900/4869.mov&quot;
+        },
+        &quot;size&quot;: &quot;3.3 MB&quot;,
+        &quot;extension&quot;: &quot;mov&quot;,
+        &quot;bucket&quot;: &quot;vocat.dev&quot;,
+        &quot;bucket_public_key&quot;: &quot;AKIAJYR4RB6VUYLA&quot;
+    },
+    &quot;annotations&quot;: [
+        {
+            &quot;id&quot;: 11678,
+            &quot;asset_id&quot;: 4542,
+            &quot;author_id&quot;: 4470,
+            &quot;body&quot;: &quot;&lt;p&gt;Another annotation...updated&lt;/p&gt;&quot;,
+            &quot;published&quot;: true,
+            &quot;seconds_timecode&quot;: 11.143548,
+            &quot;smpte_timecode&quot;: &quot;00:00:11&quot;,
+            &quot;author_name&quot;: &quot;Ressie Crona&quot;,
+            &quot;canvas&quot;: &quot;{&quot;json&quot;:null,&quot;svg&quot;:null}&quot;,
+            &quot;current_user_can_destroy&quot;: true,
+            &quot;current_user_can_edit&quot;: true,
+            &quot;gravatar&quot;: &quot;http://gravatar.com/avatar/4c3fe1bdae8ec9e5db97d02aa4cf1cda.png?d=mm&amp;s=&quot;,
+            &quot;author_role&quot;: &quot;evaluator&quot;,
+            &quot;created_at&quot;: &quot;5/05/15 03:12PM&quot;,
+            &quot;created_at_timestamp&quot;: 1430853139,
+            &quot;body_raw&quot;: &quot;Another annotation...updated&quot;
+        }
+    ]
+}
+</pre>
+
+          <h4>Errors</h4>
+            403
+            The user is not authorized to view this asset.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The ID of the asset to show</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="assets-create">
+      <a href='#assets'>Assets</a> / <a href='#assets-create'>create</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /api/v1/assets
+            <br>
+            <small>creates a new asset</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Request:
+
+{
+    &quot;name&quot;: &quot;A sample asset&quot;,
+    &quot;listing_order&quot;: 0,
+    &quot;submission_id&quot;: 7395,
+    &quot;external_source&quot;: &quot;youtube&quot;,
+    &quot;external_location&quot;: &quot;PiqepG5GDZI&quot;
+}
+</pre>
+            <pre class="wiki">Sample Response:
+
+{
+    &quot;id&quot;: 4544,
+    &quot;family&quot;: &quot;video&quot;,
+    &quot;type&quot;: &quot;Asset::Youtube&quot;,
+    &quot;name&quot;: &quot;A sample asset&quot;,
+    &quot;created_at&quot;: &quot;May 05 2015&quot;,
+    &quot;attachment_state&quot;: &quot;processed&quot;,
+    &quot;thumbnail&quot;: &quot;http://img.youtube.com/vi/PiqepG5GDZI/mqdefault.jpg&quot;,
+    &quot;locations&quot;: {
+        &quot;url&quot;: &quot;http://www.youtube.com/watch?v=PiqepG5GDZI&quot;
+    },
+    &quot;file_info&quot;: &quot;Youtube Video&quot;,
+    &quot;listing_order&quot;: 4194304,
+    &quot;submission_id&quot;: 7395,
+    &quot;creator_type&quot;: &quot;User&quot;,
+    &quot;project_id&quot;: 466,
+    &quot;creator_id&quot;: 4483,
+    &quot;annotations_count&quot;: 0,
+    &quot;attachment&quot;: null,
+    &quot;annotations&quot;: []
+}
+</pre>
+
+          <h4>Errors</h4>
+            403
+            The user is not authorized to attach an asset to this submission.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            400
+            A required asset parameter is missing.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The asset ID</p>
+
+    </li>
+    
+    <li>
+      <strong>submission_id </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The ID of the submission with which this asset is associated</p>
+
+    </li>
+    
+    <li>
+      <strong>listing_order_position </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The position of this asset among other assets associated with the same
+submission</p>
+
+    </li>
+    
+    <li>
+      <strong>name </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>The name of the asset</p>
+
+    </li>
+    
+    <li>
+      <strong>external_source </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be one of: youtube, vimeo.</p>
+ ]
+      </small>
+      
+<p>If the asset references an external asset, the external_source should
+specify what service hosts the asset</p>
+
+    </li>
+    
+    <li>
+      <strong>external_location </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>The identifier of the asset at an exteranl source. For example, if the
+asset is a YouTube video, this would be the YouTube ID</p>
+
+    </li>
+    
+    <li>
+      <strong>attachment_attributes </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be a Hash</p>
+ ]
+      </small>
+      
+<p>Attachment attributes</p>
+
+    </li>
+    <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The ID of an attachment object that should be attached to this asset</p>
+
+    </li>
+    
+</ul>
+
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="assets-update">
+      <a href='#assets'>Assets</a> / <a href='#assets-update'>update</a>
+      </h3>
+
+      <div>
+          <h4>
+              PATCH /api/v1/assets/:id
+            <br>
+            <small>updates an asset</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Request:
+
+{
+    &quot;name&quot;: &quot;A sample asset&quot;,
+    &quot;listing_order&quot;: 0,
+    &quot;submission_id&quot;: 7395,
+    &quot;external_source&quot;: &quot;youtube&quot;,
+    &quot;external_location&quot;: &quot;PiqepG5GDZI&quot;
+}
+</pre>
+
+          <h4>Errors</h4>
+            403
+            The user is not authorized to update this asset.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            400
+            A required asset parameter is missing.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The asset ID</p>
+
+    </li>
+    
+    <li>
+      <strong>submission_id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The ID of the submission with which this asset is associated</p>
+
+    </li>
+    
+    <li>
+      <strong>listing_order_position </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The position of this asset among other assets associated with the same
+submission</p>
+
+    </li>
+    
+    <li>
+      <strong>name </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>The name of the asset</p>
+
+    </li>
+    
+    <li>
+      <strong>external_source </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be one of: youtube, vimeo.</p>
+ ]
+      </small>
+      
+<p>If the asset references an external asset, the external_source should
+specify what service hosts the asset</p>
+
+    </li>
+    
+    <li>
+      <strong>external_location </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>The identifier of the asset at an exteranl source. For example, if the
+asset is a YouTube video, this would be the YouTube ID</p>
+
+    </li>
+    
+    <li>
+      <strong>attachment_attributes </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be a Hash</p>
+ ]
+      </small>
+      
+<p>Attachment attributes</p>
+
+    </li>
+    <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The ID of an attachment object that should be attached to this asset</p>
+
+    </li>
+    
+</ul>
+
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="assets-destroy">
+      <a href='#assets'>Assets</a> / <a href='#assets-destroy'>destroy</a>
+      </h3>
+
+      <div>
+          <h4>
+              DELETE /api/v1/assets/:id
+            <br>
+            <small>deletes an asset</small>
+          </h4>
+      </div>
+
+      <div>
+        
+
+          <h4>Errors</h4>
+            404
+            The asset does not exist.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            403
+            The user is not authorized to delete the asset.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be a number.</p>
+ ]
+      </small>
+      
+<p>The ID of the asset to be deleted</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+  </div>
+
+  <hr/>
+
+  <div>
+    <h2 id="attachments">
+      <a href='#attachments'>Attachments</a><br>
+      <small></small>
+    </h2>
+  </div>
+
+    <div>
+<p>Attachments represent the actual files that are attached to assets. There
+is a one-to-one relationship between assets and attachments. Typically, an
+attachment file is uploaded directly from the client to Vocat&#39;s storage
+backend, which will usually be S3. The attachment object is created prior
+to the upload starting. When the upload, which is generally an asynchronous
+upload, has completed, the attachment object is updated to store the
+location of the uploaded file resource. At the end of the process, the
+attachment is attached to an asset object.</p>
+</div>
+
+  <div>
+
+      <hr/>
+
+      <h3 id="attachments-create">
+      <a href='#attachments'>Attachments</a> / <a href='#attachments-create'>create</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /api/v1/attachments
+            <br>
+            <small>creates a new attachment</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Request:
+
+{
+    &quot;media_file_name&quot;: &quot;A sample attachment&quot;
+}
+</pre>
+            <pre class="wiki">Sample Response:
+
+{
+    &quot;id&quot;: 4870,
+    &quot;current_user_can_destroy&quot;: false,
+    &quot;state&quot;: &quot;uncommitted&quot;,
+    &quot;s3_upload_document&quot;: {
+        &quot;policy&quot;: &quot;eyJleHBpcmF0aW9uIjoiMjAxNS0wNS0wNVQyMzozMDo0OFoiLCJjb25kaXRpb25zIjpbeyJiyYW5nZSIsMCw1MzY4NzA5MTIwXV19&quot;,
+        &quot;signature&quot;: &quot;jG3QXpO/882xIhik=&quot;,
+        &quot;key&quot;: &quot;temporary/attachment/4000_5000/4800_4900/4870&quot;
+    },
+    &quot;size&quot;: null,
+    &quot;extension&quot;: &quot;&quot;,
+    &quot;bucket&quot;: &quot;vocat.dev&quot;,
+    &quot;bucket_public_key&quot;: &quot;AKAIfAJGYGRh4ARE4VUYLA&quot;
+}
+</pre>
+
+          <h4>Errors</h4>
+            403
+            The user is not authorized to create an attachment.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            400
+            A required attachment parameter is missing.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>media_file_name </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>The name of the file being uploaded. This field is not currently used in
+Vocat.</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="attachments-show">
+      <a href='#attachments'>Attachments</a> / <a href='#attachments-show'>show</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/v1/attachments/:id
+            <br>
+            <small>shows a single attachment</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Response:
+
+{
+    &quot;id&quot;: 4871,
+    &quot;current_user_can_destroy&quot;: false,
+    &quot;state&quot;: &quot;uncommitted&quot;,
+    &quot;s3_upload_document&quot;: {
+        &quot;policy&quot;: &quot;hdC5kZXYifSxbInN0YXJ0cy13aXRoIiwiJGtleSIsInRlbXBvcmFyeS9hdHRhY2htZW50LzQwMDBfNTAYW5nZSIsMCw1MzY4NzA5MTIwXV19&quot;,
+        &quot;signature&quot;: &quot;5EngUjS7BhDG7AwRwI=&quot;,
+        &quot;key&quot;: &quot;temporary/attachment/4000_5000/4800_4900/4871&quot;
+    },
+    &quot;size&quot;: null,
+    &quot;extension&quot;: &quot;&quot;,
+    &quot;bucket&quot;: &quot;vocat.dev&quot;,
+    &quot;bucket_public_key&quot;: &quot;AKAIfAJGYGRh4ARE4VUYLA&quot;
+}
+</pre>
+
+          <h4>Errors</h4>
+            403
+            The user is not authorized to view this attachment.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be a number.</p>
+ ]
+      </small>
+      
+<p>The ID of the attachment to be shown</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="attachments-destroy">
+      <a href='#attachments'>Attachments</a> / <a href='#attachments-destroy'>destroy</a>
+      </h3>
+
+      <div>
+          <h4>
+              DELETE /api/v1/attachments/:id
+            <br>
+            <small>deletes an attachment</small>
+          </h4>
+      </div>
+
+      <div>
+        
+
+          <h4>Errors</h4>
+            404
+            The attachment does not exist.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            403
+            The user is not authorized to delete the attachment.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be a number.</p>
+ ]
+      </small>
+      
+<p>The ID of the attachment to be deleted</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+  </div>
+
+  <hr/>
+
+  <div>
+    <h2 id="courses">
+      <a href='#courses'>Courses</a><br>
+      <small></small>
+    </h2>
+  </div>
+
+    <div>
+<p>Courses are containers for projects, and memberships. A course has many
+members, and members can be of the type creator, evaluator, or assistant.
+Courses also have group projects, user projects, and open projects. Courses
+also may contain one or more groups. The courses API is still relatively
+immature. It is not currently possible to create memberships through
+courses, although this is on the roadmap and may be developed as the need
+arises. Course creation typically happens via the creation of course
+request objects, which are not currently exposed via the API.</p>
+</div>
+
+  <div>
+
+      <hr/>
+
+      <h3 id="courses-index">
+      <a href='#courses'>Courses</a> / <a href='#courses-index'>index</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/v1/courses
+            <br>
+            <small>returns all courses in which the current user is a member</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Response:
+
+[
+   {
+      &quot;id&quot;:234,
+      &quot;department&quot;:&quot;CIS&quot;,
+      &quot;description&quot;:&quot;Consequuntur est consequatur laborum est ea enim. Temporibus. Libero consequatur accusantium vero voluptas tempore.&quot;,
+      &quot;name&quot;:&quot;Computer Information Systems&quot;,
+      &quot;number&quot;:&quot;3810&quot;,
+      &quot;section&quot;:&quot;X07SO&quot;,
+      &quot;organization_id&quot;:1,
+      &quot;role&quot;:&quot;evaluator&quot;,
+      &quot;semester_name&quot;:&quot;Winter&quot;,
+      &quot;year&quot;:2015
+   },
+   {
+      &quot;id&quot;:235,
+      &quot;department&quot;:&quot;ENG&quot;,
+      &quot;description&quot;:&quot;Rerum esse cupiditate. Deleniti animi exercitationem officiis beatae excepturi. Repudiandae ratione aut quos qui quam esse dignissimos.&quot;,
+      &quot;name&quot;:&quot;Composition I&quot;,
+      &quot;number&quot;:&quot;2100&quot;,
+      &quot;section&quot;:&quot;ACCMR&quot;,
+      &quot;organization_id&quot;:1,
+      &quot;role&quot;:&quot;evaluator&quot;,
+      &quot;semester_name&quot;:&quot;Spring&quot;,
+      &quot;year&quot;:2015
+   },
+   {
+      &quot;id&quot;:237,
+      &quot;department&quot;:&quot;ENG&quot;,
+      &quot;description&quot;:&quot;Enim perferendis placeat quas. Quia praesentium quis non. Repellendus voluptates delectus non magnam ex.&quot;,
+      &quot;name&quot;:&quot;Great Works of Literature&quot;,
+      &quot;number&quot;:&quot;2850&quot;,
+      &quot;section&quot;:&quot;8ISRX&quot;,
+      &quot;organization_id&quot;:1,
+      &quot;role&quot;:&quot;evaluator&quot;,
+      &quot;semester_name&quot;:&quot;Summer&quot;,
+      &quot;year&quot;:2015
+   }
+]
+</pre>
+
+
+      </div>
+      <hr/>
+
+      <h3 id="courses-show">
+      <a href='#courses'>Courses</a> / <a href='#courses-show'>show</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/v1/courses/:id
+            <br>
+            <small>returns one course by ID</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Response:
+
+{
+    &quot;id&quot;: 234,
+    &quot;department&quot;: &quot;CIS&quot;,
+    &quot;description&quot;: &quot;Consequuntur est consequatur laborum est ea enim. Libero consequatur accusantium vero voluptas tempore.&quot;,
+    &quot;name&quot;: &quot;Computer Information Systems&quot;,
+    &quot;number&quot;: &quot;3810&quot;,
+    &quot;section&quot;: &quot;X07SO&quot;,
+    &quot;organization_id&quot;: 1,
+    &quot;role&quot;: &quot;evaluator&quot;,
+    &quot;semester_name&quot;: &quot;Winter&quot;,
+    &quot;year&quot;: 2015
+}
+</pre>
+
+          <h4>Errors</h4>
+            403
+            The user is not authorized to view this course, perhaps because he/she is not enrolled in it.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be a number.</p>
+ ]
+      </small>
+      
+<p>The ID of the course to be returned</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="courses-update">
+      <a href='#courses'>Courses</a> / <a href='#courses-update'>update</a>
+      </h3>
+
+      <div>
+          <h4>
+              PATCH /api/v1/courses/:id
+            <br>
+            <small>updates a course</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Request:
+
+{
+  &quot;id&quot;: 234,
+  &quot;department&quot;: &quot;CIS&quot;,
+  &quot;description&quot;: &quot;Updated description....&quot;,
+  &quot;name&quot;: &quot;Updated Course Name&quot;,
+  &quot;number&quot;: &quot;3810&quot;,
+  &quot;section&quot;: &quot;X07SO&quot;,
+  &quot;organization_id&quot;: 1,
+  &quot;role&quot;: &quot;evaluator&quot;,
+  &quot;semester_name&quot;: &quot;Winter&quot;,
+  &quot;year&quot;: 2015
+}
+</pre>
+
+          <h4>Errors</h4>
+            403
+            The user is not authorized to update the course. Only admins and course evaluators/assistants may update courses.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The course ID</p>
+
+    </li>
+    
+    <li>
+      <strong>department </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>The department offering the course (for example, “ENG”)</p>
+
+    </li>
+    
+    <li>
+      <strong>number </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>The course number</p>
+
+    </li>
+    
+    <li>
+      <strong>name </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>The human readable course name</p>
+
+    </li>
+    
+    <li>
+      <strong>section </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>The course section number</p>
+
+    </li>
+    
+    <li>
+      <strong>year </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The year in which the course takes place</p>
+
+    </li>
+    
+    <li>
+      <strong>description </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>A fulltext description of the course</p>
+
+    </li>
+    
+    <li>
+      <strong>semester_id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The ID of the semester in which the course takes place</p>
+
+    </li>
+    
+    <li>
+      <strong>message </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>A course message, visible to students in the course</p>
+
+    </li>
+    
+    <li>
+      <strong>groups_attribute </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be an array of any type</p>
+ ]
+      </small>
+      
+<p>An array of course groups; each item in the array is a hash with a name
+attribute (string) and a creator_ids attrtibute (fixnums)</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+  </div>
+
+  <hr/>
+
+  <div>
+    <h2 id="discussion_posts">
+      <a href='#discussion_posts'>Discussion posts</a><br>
+      <small></small>
+    </h2>
+  </div>
+
+    <div>
+<p>Discussion Posts appear on submission detail views. A post can be threaded,
+and can have another discussion posts as its parent. As with annotations,
+the author_id value of a discussion post is set to the user who creates the
+post. The API does not currently provide a mechanism for creating
+discussion posts that belong to other users.</p>
+</div>
+
+  <div>
+
+      <hr/>
+
+      <h3 id="discussion_posts-index">
+      <a href='#discussion_posts'>Discussion posts</a> / <a href='#discussion_posts-index'>index</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/v1/discussion_posts?submission=:submission
+            <br>
+            <small>returns all discussion posts for a given submission</small>
+          </h4>
+      </div>
+
+      <div>
+        
+<p><em>Nota Bene</em>: the posts are returned in a flat array. It is the
+responsibility of the client application to structure the posts into a
+parent/child hierarchy based on the parent_id.</p>
+
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Response:
+
+[
+   {
+      &quot;id&quot;:1816,
+      &quot;author_id&quot;:4470,
+      &quot;author_name&quot;:&quot;Ressie Crona&quot;,
+      &quot;body&quot;:&quot;&lt;p&gt;This is the body of the post. &lt;em&gt;Markdown&lt;/em&gt; is &lt;em&gt;supported&lt;/em&gt;&lt;/p&gt;&quot;,
+      &quot;body_raw&quot;:&quot;This is the body of the post. _Markdown_ is *supported*&quot;,
+      &quot;published&quot;:null,
+      &quot;parent_id&quot;:null,
+      &quot;gravatar&quot;:&quot;http://gravatar.com/avatar/4c3fe1bdae8ec9e5db97d02aa4cf1cda.png?d=mm&amp;s=&quot;,
+      &quot;created_at&quot;:&quot;2015-05-06T13:44:21.755-04:00&quot;,
+      &quot;month&quot;:&quot;May&quot;,
+      &quot;day&quot;:&quot;06&quot;,
+      &quot;year&quot;:&quot;2015&quot;,
+      &quot;time&quot;:&quot;01:44 PM&quot;,
+      &quot;current_user_can_reply&quot;:true,
+      &quot;current_user_can_destroy&quot;:true,
+      &quot;submission_id&quot;:7394
+   },
+   {
+      &quot;id&quot;:1817,
+      &quot;author_id&quot;:4470,
+      &quot;author_name&quot;:&quot;Ressie Crona&quot;,
+      &quot;body&quot;:&quot;&lt;p&gt;This is the body of the post. &lt;em&gt;Markdown&lt;/em&gt; is &lt;em&gt;supported&lt;/em&gt;&lt;/p&gt;&quot;,
+      &quot;body_raw&quot;:&quot;This is the body of the post. _Markdown_ is *supported*&quot;,
+      &quot;published&quot;:null,
+      &quot;parent_id&quot;:null,
+      &quot;gravatar&quot;:&quot;http://gravatar.com/avatar/4c3fe1bdae8ec9e5db97d02aa4cf1cda.png?d=mm&amp;s=&quot;,
+      &quot;created_at&quot;:&quot;2015-05-06T13:46:23.515-04:00&quot;,
+      &quot;month&quot;:&quot;May&quot;,
+      &quot;day&quot;:&quot;06&quot;,
+      &quot;year&quot;:&quot;2015&quot;,
+      &quot;time&quot;:&quot;01:46 PM&quot;,
+      &quot;current_user_can_reply&quot;:true,
+      &quot;current_user_can_destroy&quot;:true,
+      &quot;submission_id&quot;:7394
+   },
+   {
+      &quot;id&quot;:1818,
+      &quot;author_id&quot;:4470,
+      &quot;author_name&quot;:&quot;Ressie Crona&quot;,
+      &quot;body&quot;:&quot;&lt;p&gt;This is the body of the post. &lt;em&gt;Markdown&lt;/em&gt; is &lt;em&gt;supported&lt;/em&gt;&lt;/p&gt;&quot;,
+      &quot;body_raw&quot;:&quot;This is the body of the post. _Markdown_ is *supported*&quot;,
+      &quot;published&quot;:null,
+      &quot;parent_id&quot;:null,
+      &quot;gravatar&quot;:&quot;http://gravatar.com/avatar/4c3fe1bdae8ec9e5db97d02aa4cf1cda.png?d=mm&amp;s=&quot;,
+      &quot;created_at&quot;:&quot;2015-05-06T13:47:05.047-04:00&quot;,
+      &quot;month&quot;:&quot;May&quot;,
+      &quot;day&quot;:&quot;06&quot;,
+      &quot;year&quot;:&quot;2015&quot;,
+      &quot;time&quot;:&quot;01:47 PM&quot;,
+      &quot;current_user_can_reply&quot;:true,
+      &quot;current_user_can_destroy&quot;:true,
+      &quot;submission_id&quot;:7394
+   }
+]
+</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>submission </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The ID of the submission to query for discussion posts</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="discussion_posts-create">
+      <a href='#discussion_posts'>Discussion posts</a> / <a href='#discussion_posts-create'>create</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /api/v1/discussion_posts
+            <br>
+            <small>creates a discussion post for a submission</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Request:
+
+{
+    &quot;submission_id&quot;: &quot;7394&quot;,
+    &quot;body&quot;: &quot;This is the body of the post. _Markdown_ is *supported*&quot;,
+    &quot;parent_id&quot;: null
+}
+</pre>
+            <pre class="wiki">Sample Response:
+
+{
+    &quot;id&quot;: 1817,
+    &quot;author_id&quot;: 4470,
+    &quot;author_name&quot;: &quot;Ressie Crona&quot;,
+    &quot;body&quot;: &quot;&lt;p&gt;This is the body of the post. &lt;em&gt;Markdown&lt;/em&gt; is &lt;em&gt;supported&lt;/em&gt;&lt;/p&gt;&quot;,
+    &quot;body_raw&quot;: &quot;This is the body of the post. _Markdown_ is *supported*&quot;,
+    &quot;published&quot;: null,
+    &quot;parent_id&quot;: null,
+    &quot;gravatar&quot;: &quot;http://gravatar.com/avatar/4c3fe1bdae8ec9e5db97d02aa4cf1cda.png?d=mm&amp;s=&quot;,
+    &quot;created_at&quot;: &quot;2015-05-06T13:46:23.515-04:00&quot;,
+    &quot;month&quot;: &quot;May&quot;,
+    &quot;day&quot;: &quot;06&quot;,
+    &quot;year&quot;: &quot;2015&quot;,
+    &quot;time&quot;: &quot;01:46 PM&quot;,
+    &quot;current_user_can_reply&quot;: true,
+    &quot;current_user_can_destroy&quot;: true,
+    &quot;submission_id&quot;: 7394
+}
+</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>submission_id </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The ID of the submission being discussed</p>
+
+    </li>
+    
+    <li>
+      <strong>parent_id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>If the post is a reply to another post, this is the ID of the parent post.</p>
+
+    </li>
+    
+    <li>
+      <strong>body </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The body of the post, can be Markdown which will be converted to HTML when
+the post is rendered</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="discussion_posts-update">
+      <a href='#discussion_posts'>Discussion posts</a> / <a href='#discussion_posts-update'>update</a>
+      </h3>
+
+      <div>
+          <h4>
+              PATCH /api/v1/discussion_posts/:id
+            <br>
+            <small>creates a discussion post for a submission</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Request:
+
+{
+    &quot;id&quot;: &quot;1816&quot;,
+    &quot;body&quot;: &quot;This is the UPDATED body of the post. _Markdown_ is *supported*&quot;
+}
+</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The ID of the discussion post to be updated</p>
+
+    </li>
+    
+    <li>
+      <strong>submission_id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The ID of the submission being discussed</p>
+
+    </li>
+    
+    <li>
+      <strong>parent_id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>If the post is a reply to another post, this is the ID of the parent post.</p>
+
+    </li>
+    
+    <li>
+      <strong>body </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The body of the post, can be Markdown which will be converted to HTML when
+the post is rendered</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="discussion_posts-destroy">
+      <a href='#discussion_posts'>Discussion posts</a> / <a href='#discussion_posts-destroy'>destroy</a>
+      </h3>
+
+      <div>
+          <h4>
+              DELETE /api/v1/discussion_posts/:id
+            <br>
+            <small>deletes a single discussion post</small>
+          </h4>
+      </div>
+
+      <div>
+        
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The ID of the discussion post to be deleted</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+  </div>
+
+  <hr/>
+
+  <div>
+    <h2 id="enrollments">
+      <a href='#enrollments'>Enrollments</a><br>
+      <small></small>
+    </h2>
+  </div>
+
+    <div>
+<p>Enrollments are a psuedo-resource that represents a user&#39;s membership
+in a given course. In general, course enrollment can be managed by course
+evaluators, course assistants, and Vocat administrators. Bulk enrollment is
+possible using the bulk enrollment endpoint. During bulk enrollment, users
+who are not currently known to Vocat may be invited via email.</p>
+</div>
+
+  <div>
+
+      <hr/>
+
+      <h3 id="enrollments-index">
+      <a href='#enrollments'>Enrollments</a> / <a href='#enrollments-index'>index</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/v1/courses/:course_id/enrollments?role=:role
+            <br>
+            <small>returns users enrolled in a given course</small>
+          </h4>
+          <h4>
+              GET /api/v1/users/:user_id/enrollments
+            <br>
+            <small>returns courses in which a given user is enrolled</small>
+          </h4>
+      </div>
+
+      <div>
+        
+<p>Only admins and evaluator users may see what courses a user is enrolled in.
+Any user who is enrolled in a course may view which other users are
+enrolled in that course.</p>
+
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Response
+
+  [
+     {
+        &quot;id&quot;:&quot;u4473c234&quot;,
+        &quot;user&quot;:4473,
+        &quot;email&quot;:&quot;assistant2@test.com&quot;,
+        &quot;last_sign_in_at&quot;:&quot;never&quot;,
+        &quot;role&quot;:&quot;assistant&quot;,
+        &quot;course&quot;:234,
+        &quot;user_name&quot;:&quot;Bauch, Irma&quot;,
+        &quot;course_name&quot;:&quot;[X07SO] CIS3810: Updated Course Name, Winter 2015&quot;,
+        &quot;section&quot;:&quot;X07SO&quot;
+     },
+     {
+        &quot;id&quot;:&quot;u4483c234&quot;,
+        &quot;user&quot;:4483,
+        &quot;email&quot;:&quot;creator10@test.com&quot;,
+        &quot;last_sign_in_at&quot;:&quot;never&quot;,
+        &quot;role&quot;:&quot;creator&quot;,
+        &quot;course&quot;:234,
+        &quot;user_name&quot;:&quot;Blick, Betty&quot;,
+        &quot;course_name&quot;:&quot;[X07SO] CIS3810: Updated Course Name, Winter 2015&quot;,
+        &quot;section&quot;:&quot;X07SO&quot;
+     },
+     {
+        &quot;id&quot;:&quot;u4470c234&quot;,
+        &quot;user&quot;:4470,
+        &quot;email&quot;:&quot;evaluator1@test.com&quot;,
+        &quot;last_sign_in_at&quot;:&quot;05/05/2015&quot;,
+        &quot;role&quot;:&quot;evaluator&quot;,
+        &quot;course&quot;:234,
+        &quot;user_name&quot;:&quot;Crona, Ressie&quot;,
+        &quot;course_name&quot;:&quot;[X07SO] CIS3810: Updated Course Name, Winter 2015&quot;,
+        &quot;section&quot;:&quot;X07SO&quot;
+     },
+     {
+        &quot;id&quot;:&quot;u4499c234&quot;,
+        &quot;user&quot;:4499,
+        &quot;email&quot;:&quot;creator26@test.com&quot;,
+        &quot;last_sign_in_at&quot;:&quot;never&quot;,
+        &quot;role&quot;:&quot;creator&quot;,
+        &quot;course&quot;:234,
+        &quot;user_name&quot;:&quot;Erdman, Claude&quot;,
+        &quot;course_name&quot;:&quot;[X07SO] CIS3810: Updated Course Name, Winter 2015&quot;,
+        &quot;section&quot;:&quot;X07SO&quot;
+     },
+     {
+        &quot;id&quot;:&quot;u4521c234&quot;,
+        &quot;user&quot;:4521,
+        &quot;email&quot;:&quot;creator48@test.com&quot;,
+        &quot;last_sign_in_at&quot;:&quot;never&quot;,
+        &quot;role&quot;:&quot;creator&quot;,
+        &quot;course&quot;:234,
+        &quot;user_name&quot;:&quot;Franecki, Harley&quot;,
+        &quot;course_name&quot;:&quot;[X07SO] CIS3810: Updated Course Name, Winter 2015&quot;,
+        &quot;section&quot;:&quot;X07SO&quot;
+     },
+     {
+        &quot;id&quot;:&quot;u4506c234&quot;,
+        &quot;user&quot;:4506,
+        &quot;email&quot;:&quot;creator33@test.com&quot;,
+        &quot;last_sign_in_at&quot;:&quot;never&quot;,
+        &quot;role&quot;:&quot;creator&quot;,
+        &quot;course&quot;:234,
+        &quot;user_name&quot;:&quot;Gulgowski, Nigel&quot;,
+        &quot;course_name&quot;:&quot;[X07SO] CIS3810: Updated Course Name, Winter 2015&quot;,
+        &quot;section&quot;:&quot;X07SO&quot;
+     }
+  ]
+</pre>
+
+          <h4>Errors</h4>
+            404
+            The requested course or user does not exist.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            403
+            The user is not authorized to view enrollments for this course or user.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>course_id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The course&#39;s ID</p>
+
+    </li>
+    
+    <li>
+      <strong>user_id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The user&#39;s ID</p>
+
+    </li>
+    
+    <li>
+      <strong>role </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be one of: evaluator, creator, assistant.</p>
+ ]
+      </small>
+      
+<p>Filter enrollments by course role; only available when getting enrollments
+by course. If this is unset, all enrollments for the course will be
+returned.</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="enrollments-destroy">
+      <a href='#enrollments'>Enrollments</a> / <a href='#enrollments-destroy'>destroy</a>
+      </h3>
+
+      <div>
+          <h4>
+              DELETE /api/v1/enrollments/:enrollment_key
+            <br>
+            <small>removes a user from a course</small>
+          </h4>
+      </div>
+
+      <div>
+        
+<p>Only course evaluators/assistants and Vocat administrators may remove users
+from courses.</p>
+
+
+          <h4>Errors</h4>
+            422
+            Unable to remove the user from the course
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            403
+            Authenticated user is not authorized to mange enrollment for this course.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>enrollment_key </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>The enrollment key is a string that takes the format of uXcY where X is the
+ID of the user to be de-enrolled, and Y is the ID of the course from which
+to de-enroll the user. If, for example, you wanted to remove User #10 from
+Course #234, the enrollment key would be u10c234</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="enrollments-create">
+      <a href='#enrollments'>Enrollments</a> / <a href='#enrollments-create'>create</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /api/v1/enrollments
+            <br>
+            <small>enrolls a single user in a single course</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Request:
+
+{
+    &quot;course&quot;: 234,
+    &quot;user&quot;: 4472,
+    &quot;role&quot;: &quot;evaluator&quot;
+}
+</pre>
+            <pre class="wiki">Sample Response:
+
+{
+    &quot;id&quot;: &quot;u4472c235&quot;,
+    &quot;user&quot;: 4472,
+    &quot;email&quot;: &quot;assistant1@test.com&quot;,
+    &quot;last_sign_in_at&quot;: &quot;never&quot;,
+    &quot;role&quot;: &quot;evaluator&quot;,
+    &quot;course&quot;: 235,
+    &quot;user_name&quot;: &quot;Gusikowski, Toni&quot;,
+    &quot;course_name&quot;: &quot;[ACCMR] ENG2100: Composition I, Spring 2015&quot;,
+    &quot;section&quot;: &quot;ACCMR&quot;
+}
+</pre>
+
+          <h4>Errors</h4>
+            403
+            Authenticated user is not authorized to mange enrollment for this course.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            422
+            Unable to add the user to the course, perhaps because the user is already enrolled
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>course </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The course&#39;s ID</p>
+
+    </li>
+    
+    <li>
+      <strong>user </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The user&#39;s ID</p>
+
+    </li>
+    
+    <li>
+      <strong>role </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be one of: evaluator, assistant, creator.</p>
+ ]
+      </small>
+      
+<p>The course role that will be assigned to the user</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="enrollments-bulk">
+      <a href='#enrollments'>Enrollments</a> / <a href='#enrollments-bulk'>bulk</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /api/v1/courses/:course_id/enrollments/bulk
+            <br>
+            <small>bulk enrolls multiple users in a course</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Request:
+
+{
+    &quot;user&quot;: 4472,
+    &quot;role&quot;: &quot;creator&quot;,
+    &quot;invite&quot;: true,
+    &quot;contacts&quot;: &quot;Jimbo Baggins, jim@castironcoding.com\nBoomBoom Robinson, boomboom@vocat.io&quot;
+}
+</pre>
+            <pre class="wiki">Sample Response:
+
+[
+   {
+      &quot;email&quot;:&quot;jim@castironcoding.com&quot;,
+      &quot;first_name&quot;:&quot;Jimbo&quot;,
+      &quot;last_name&quot;:&quot;Baggins&quot;,
+      &quot;action&quot;:&quot;invite&quot;,
+      &quot;success&quot;:true,
+      &quot;reason&quot;:null,
+      &quot;message&quot;:&quot;Jimbo Baggins has been enrolled in ENG2100: Composition I, Section ACCMR&quot;,
+      &quot;string&quot;:&quot;Jimbo Baggins, jim@castironcoding.com&quot;
+   },
+   {
+      &quot;email&quot;:&quot;boomboom@vocat.io&quot;,
+      &quot;first_name&quot;:&quot;BoomBoom&quot;,
+      &quot;last_name&quot;:&quot;Robinson&quot;,
+      &quot;action&quot;:&quot;invite&quot;,
+      &quot;success&quot;:true,
+      &quot;reason&quot;:null,
+      &quot;message&quot;:&quot;BoomBoom Robinson has been enrolled in ENG2100: Composition I, Section ACCMR&quot;,
+      &quot;string&quot;:&quot;BoomBoom Robinson, boomboom@vocat.io&quot;
+   }
+]
+</pre>
+
+          <h4>Errors</h4>
+            403
+            Authenticated user is not authorized to mange enrollment for this course.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>course_id </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The course&#39;s ID</p>
+
+    </li>
+    
+    <li>
+      <strong>role </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be one of: evaluator, assistant, creator.</p>
+ ]
+      </small>
+      
+<p>The course role that will be assigned to the user</p>
+
+    </li>
+    
+    <li>
+      <strong>invite </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be one of: true, false.</p>
+ ]
+      </small>
+      
+<p>Whether or not to invite users who do not exist in Vocat. If false, users
+who do not exist will not be invited.</p>
+
+    </li>
+    
+    <li>
+      <strong>contacts </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>Each line of the string represents a single user to enroll in the course.
+Each line can be formatted as “FirstName LastName, Email” or “FirstName
+LastName &lt;email&gt;”</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+  </div>
+
+  <hr/>
+
+  <div>
+    <h2 id="evaluations">
+      <a href='#evaluations'>Evaluations</a><br>
+      <small></small>
+    </h2>
+  </div>
+
+    <div>
+<p>Evaluations are created by users for submissions. There can only be one
+evaluation for each submission/evaluator combination. An evaluation is
+owned by the user who creates it. The actual score fields in evaluations
+are dependent on what rubric is used, and these values are accordingly
+stored in a flexible HSTORE field type.</p>
+</div>
+
+  <div>
+
+      <hr/>
+
+      <h3 id="evaluations-index">
+      <a href='#evaluations'>Evaluations</a> / <a href='#evaluations-index'>index</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/v1/evaluations?submission=:submission
+            <br>
+            <small>returns all visible evaluations for a given submission</small>
+          </h4>
+      </div>
+
+      <div>
+        
+<p>This endpoint returns only those evaluations that are visible to the
+authenticated user. Furthermore, the authenticated user must have read
+access to the submission. Evaluators can see all evaluations for
+submissions within their courses. Creators can see all published
+evaluations on submissions they own. Peers can only see their own
+evaluations. Note that the exact fields returned in the response are
+dependent on what rubric is being used for the submission project.</p>
+
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Response:
+
+[
+   {
+      &quot;id&quot;:1625,
+      &quot;submission_id&quot;:7395,
+      &quot;published&quot;:true,
+      &quot;evaluator_id&quot;:4470,
+      &quot;evaluator_name&quot;:&quot;Ressie Crona&quot;,
+      &quot;evaluator_role&quot;:&quot;Instructor&quot;,
+      &quot;scores&quot;:{
+         &quot;rate&quot;:&quot;5&quot;,
+         &quot;level&quot;:&quot;5&quot;,
+         &quot;review&quot;:&quot;5&quot;,
+         &quot;preview&quot;:&quot;3&quot;,
+         &quot;movement&quot;:&quot;5&quot;,
+         &quot;attention&quot;:&quot;2&quot;,
+         &quot;citations&quot;:&quot;4&quot;,
+         &quot;eye-contact&quot;:&quot;3&quot;,
+         &quot;transitions&quot;:&quot;5&quot;,
+         &quot;visual-aids-attire&quot;:&quot;5&quot;,
+         &quot;supporting-material&quot;:&quot;5&quot;,
+         &quot;introduction-tieback&quot;:&quot;5&quot;,
+         &quot;relation-to-audience&quot;:&quot;4&quot;,
+         &quot;specific-purpose-thesis&quot;:&quot;1&quot;,
+         &quot;logical-organization-pattern&quot;:&quot;5&quot;
+      },
+      &quot;score_details&quot;:{
+         &quot;rate&quot;:{
+            &quot;score&quot;:5.0,
+            &quot;low&quot;:0,
+            &quot;high&quot;:6,
+            &quot;percentage&quot;:83.33333333333334,
+            &quot;name&quot;:&quot;Rate&quot;
+         },
+         &quot;level&quot;:{
+            &quot;score&quot;:5.0,
+            &quot;low&quot;:0,
+            &quot;high&quot;:6,
+            &quot;percentage&quot;:83.33333333333334,
+            &quot;name&quot;:&quot;Level&quot;
+         },
+         &quot;review&quot;:{
+            &quot;score&quot;:5.0,
+            &quot;low&quot;:0,
+            &quot;high&quot;:6,
+            &quot;percentage&quot;:83.33333333333334,
+            &quot;name&quot;:&quot;Review&quot;
+         },
+         &quot;preview&quot;:{
+            &quot;score&quot;:3.0,
+            &quot;low&quot;:0,
+            &quot;high&quot;:6,
+            &quot;percentage&quot;:50.0,
+            &quot;name&quot;:&quot;Preview&quot;
+         },
+         &quot;movement&quot;:{
+            &quot;score&quot;:5.0,
+            &quot;low&quot;:0,
+            &quot;high&quot;:6,
+            &quot;percentage&quot;:83.33333333333334,
+            &quot;name&quot;:&quot;Movement&quot;
+         },
+         &quot;attention&quot;:{
+            &quot;score&quot;:2.0,
+            &quot;low&quot;:0,
+            &quot;high&quot;:6,
+            &quot;percentage&quot;:33.33333333333333,
+            &quot;name&quot;:&quot;Attention&quot;
+         },
+         &quot;citations&quot;:{
+            &quot;score&quot;:4.0,
+            &quot;low&quot;:0,
+            &quot;high&quot;:6,
+            &quot;percentage&quot;:66.66666666666666,
+            &quot;name&quot;:&quot;Citations&quot;
+         },
+         &quot;eye-contact&quot;:{
+            &quot;score&quot;:3.0,
+            &quot;low&quot;:0,
+            &quot;high&quot;:6,
+            &quot;percentage&quot;:50.0,
+            &quot;name&quot;:&quot;Eye Contact&quot;
+         },
+         &quot;transitions&quot;:{
+            &quot;score&quot;:5.0,
+            &quot;low&quot;:0,
+            &quot;high&quot;:6,
+            &quot;percentage&quot;:83.33333333333334,
+            &quot;name&quot;:&quot;Transitions&quot;
+         },
+         &quot;visual-aids-attire&quot;:{
+            &quot;score&quot;:5.0,
+            &quot;low&quot;:0,
+            &quot;high&quot;:6,
+            &quot;percentage&quot;:83.33333333333334,
+            &quot;name&quot;:&quot;Visual Aids / Attire&quot;
+         },
+         &quot;supporting-material&quot;:{
+            &quot;score&quot;:5.0,
+            &quot;low&quot;:0,
+            &quot;high&quot;:6,
+            &quot;percentage&quot;:83.33333333333334,
+            &quot;name&quot;:&quot;Supporting Material&quot;
+         },
+         &quot;introduction-tieback&quot;:{
+            &quot;score&quot;:5.0,
+            &quot;low&quot;:0,
+            &quot;high&quot;:6,
+            &quot;percentage&quot;:83.33333333333334,
+            &quot;name&quot;:&quot;Introduction Tieback&quot;
+         },
+         &quot;relation-to-audience&quot;:{
+            &quot;score&quot;:4.0,
+            &quot;low&quot;:0,
+            &quot;high&quot;:6,
+            &quot;percentage&quot;:66.66666666666666,
+            &quot;name&quot;:&quot;Relation to Audience&quot;
+         },
+         &quot;specific-purpose-thesis&quot;:{
+            &quot;score&quot;:1.0,
+            &quot;low&quot;:0,
+            &quot;high&quot;:6,
+            &quot;percentage&quot;:16.666666666666664,
+            &quot;name&quot;:&quot;Specific purpose/thesis&quot;
+         },
+         &quot;logical-organization-pattern&quot;:{
+            &quot;score&quot;:5.0,
+            &quot;low&quot;:0,
+            &quot;high&quot;:6,
+            &quot;percentage&quot;:83.33333333333334,
+            &quot;name&quot;:&quot;Logical Organization Pattern&quot;
+         }
+      },
+      &quot;total_percentage&quot;:&quot;68.8888888888889&quot;,
+      &quot;total_score&quot;:&quot;62.0&quot;,
+      &quot;points_possible&quot;:90,
+      &quot;current_user_is_evaluator&quot;:true,
+      &quot;abilities&quot;:{
+         &quot;can_own&quot;:true
+      }
+   }
+]
+</pre>
+
+          <h4>Errors</h4>
+            404
+            The submission was not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            403
+            The current user does not have read access to this submission.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>submission_id </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The submission&#39;s ID</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="evaluations-create">
+      <a href='#evaluations'>Evaluations</a> / <a href='#evaluations-create'>create</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /api/v1/evaluations
+            <br>
+            <small>creates an evaluation</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Request:
+
+{
+  &quot;submission_id&quot;:7395,
+  &quot;published&quot;:true,
+  &quot;scores&quot;:{
+     &quot;rate&quot;:&quot;5&quot;,
+     &quot;level&quot;:&quot;5&quot;,
+     &quot;review&quot;:&quot;5&quot;,
+     &quot;preview&quot;:&quot;3&quot;,
+     &quot;movement&quot;:&quot;5&quot;,
+     &quot;attention&quot;:&quot;2&quot;,
+     &quot;citations&quot;:&quot;4&quot;,
+     &quot;eye-contact&quot;:&quot;3&quot;,
+     &quot;transitions&quot;:&quot;5&quot;,
+     &quot;visual-aids-attire&quot;:&quot;5&quot;,
+     &quot;supporting-material&quot;:&quot;5&quot;,
+     &quot;introduction-tieback&quot;:&quot;5&quot;,
+     &quot;relation-to-audience&quot;:&quot;4&quot;,
+     &quot;specific-purpose-thesis&quot;:&quot;1&quot;,
+     &quot;logical-organization-pattern&quot;:&quot;5&quot;
+  }
+}
+</pre>
+            <pre class="wiki">Sample Response:
+
+{
+    &quot;id&quot;: 1626,
+    &quot;submission_id&quot;: 7395,
+    &quot;published&quot;: true,
+    &quot;evaluator_id&quot;: 4470,
+    &quot;evaluator_name&quot;: &quot;Ressie Crona&quot;,
+    &quot;evaluator_role&quot;: &quot;Instructor&quot;,
+    &quot;scores&quot;: {
+        &quot;rate&quot;: &quot;5&quot;,
+        &quot;level&quot;: &quot;5&quot;,
+        &quot;review&quot;: &quot;5&quot;,
+        &quot;preview&quot;: &quot;3&quot;,
+        &quot;movement&quot;: &quot;5&quot;,
+        &quot;attention&quot;: &quot;2&quot;,
+        &quot;citations&quot;: &quot;4&quot;,
+        &quot;eye-contact&quot;: &quot;3&quot;,
+        &quot;transitions&quot;: &quot;5&quot;,
+        &quot;visual-aids-attire&quot;: &quot;5&quot;,
+        &quot;supporting-material&quot;: &quot;5&quot;,
+        &quot;introduction-tieback&quot;: &quot;5&quot;,
+        &quot;relation-to-audience&quot;: &quot;4&quot;,
+        &quot;specific-purpose-thesis&quot;: &quot;1&quot;,
+        &quot;logical-organization-pattern&quot;: &quot;5&quot;
+    },
+    &quot;score_details&quot;: {
+        &quot;rate&quot;: {
+            &quot;score&quot;: 5,
+            &quot;low&quot;: 0,
+            &quot;high&quot;: 6,
+            &quot;percentage&quot;: 83.33333333333334,
+            &quot;name&quot;: &quot;Rate&quot;
+        },
+        &quot;level&quot;: {
+            &quot;score&quot;: 5,
+            &quot;low&quot;: 0,
+            &quot;high&quot;: 6,
+            &quot;percentage&quot;: 83.33333333333334,
+            &quot;name&quot;: &quot;Level&quot;
+        },
+        &quot;review&quot;: {
+            &quot;score&quot;: 5,
+            &quot;low&quot;: 0,
+            &quot;high&quot;: 6,
+            &quot;percentage&quot;: 83.33333333333334,
+            &quot;name&quot;: &quot;Review&quot;
+        },
+        &quot;preview&quot;: {
+            &quot;score&quot;: 3,
+            &quot;low&quot;: 0,
+            &quot;high&quot;: 6,
+            &quot;percentage&quot;: 50,
+            &quot;name&quot;: &quot;Preview&quot;
+        },
+        &quot;movement&quot;: {
+            &quot;score&quot;: 5,
+            &quot;low&quot;: 0,
+            &quot;high&quot;: 6,
+            &quot;percentage&quot;: 83.33333333333334,
+            &quot;name&quot;: &quot;Movement&quot;
+        },
+        &quot;attention&quot;: {
+            &quot;score&quot;: 2,
+            &quot;low&quot;: 0,
+            &quot;high&quot;: 6,
+            &quot;percentage&quot;: 33.33333333333333,
+            &quot;name&quot;: &quot;Attention&quot;
+        },
+        &quot;citations&quot;: {
+            &quot;score&quot;: 4,
+            &quot;low&quot;: 0,
+            &quot;high&quot;: 6,
+            &quot;percentage&quot;: 66.66666666666666,
+            &quot;name&quot;: &quot;Citations&quot;
+        },
+        &quot;eye-contact&quot;: {
+            &quot;score&quot;: 3,
+            &quot;low&quot;: 0,
+            &quot;high&quot;: 6,
+            &quot;percentage&quot;: 50,
+            &quot;name&quot;: &quot;Eye Contact&quot;
+        },
+        &quot;transitions&quot;: {
+            &quot;score&quot;: 5,
+            &quot;low&quot;: 0,
+            &quot;high&quot;: 6,
+            &quot;percentage&quot;: 83.33333333333334,
+            &quot;name&quot;: &quot;Transitions&quot;
+        },
+        &quot;visual-aids-attire&quot;: {
+            &quot;score&quot;: 5,
+            &quot;low&quot;: 0,
+            &quot;high&quot;: 6,
+            &quot;percentage&quot;: 83.33333333333334,
+            &quot;name&quot;: &quot;Visual Aids / Attire&quot;
+        },
+        &quot;supporting-material&quot;: {
+            &quot;score&quot;: 5,
+            &quot;low&quot;: 0,
+            &quot;high&quot;: 6,
+            &quot;percentage&quot;: 83.33333333333334,
+            &quot;name&quot;: &quot;Supporting Material&quot;
+        },
+        &quot;introduction-tieback&quot;: {
+            &quot;score&quot;: 5,
+            &quot;low&quot;: 0,
+            &quot;high&quot;: 6,
+            &quot;percentage&quot;: 83.33333333333334,
+            &quot;name&quot;: &quot;Introduction Tieback&quot;
+        },
+        &quot;relation-to-audience&quot;: {
+            &quot;score&quot;: 4,
+            &quot;low&quot;: 0,
+            &quot;high&quot;: 6,
+            &quot;percentage&quot;: 66.66666666666666,
+            &quot;name&quot;: &quot;Relation to Audience&quot;
+        },
+        &quot;specific-purpose-thesis&quot;: {
+            &quot;score&quot;: 1,
+            &quot;low&quot;: 0,
+            &quot;high&quot;: 6,
+            &quot;percentage&quot;: 16.666666666666664,
+            &quot;name&quot;: &quot;Specific purpose/thesis&quot;
+        },
+        &quot;logical-organization-pattern&quot;: {
+            &quot;score&quot;: 5,
+            &quot;low&quot;: 0,
+            &quot;high&quot;: 6,
+            &quot;percentage&quot;: 83.33333333333334,
+            &quot;name&quot;: &quot;Logical Organization Pattern&quot;
+        }
+    },
+    &quot;total_percentage&quot;: &quot;68.8888888888889&quot;,
+    &quot;total_score&quot;: &quot;62.0&quot;,
+    &quot;points_possible&quot;: 90,
+    &quot;current_user_is_evaluator&quot;: true,
+    &quot;abilities&quot;: {
+        &quot;can_own&quot;: true
+    }
+}
+</pre>
+
+          <h4>Errors</h4>
+            403
+            The current user does not have permission to evaluate this submission.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            402
+            Only one evaluation can exist per submission/evaluator.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The evaluation ID</p>
+
+    </li>
+    
+    <li>
+      <strong>submission_id </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The evaluated submission&#39;s ID</p>
+
+    </li>
+    
+    <li>
+      <strong>published </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be one of: true, false.</p>
+ ]
+      </small>
+      
+<p>Whether the evaluation is published. Unpublished evaluations are not
+visible to students.</p>
+
+    </li>
+    
+    <li>
+      <strong>scores </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be Hash</p>
+ ]
+      </small>
+      
+<p>The keys in this hash depend on what rubric is being used. The keys should
+align with the rubric criteria short names, and values should be integers.</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="evaluations-update">
+      <a href='#evaluations'>Evaluations</a> / <a href='#evaluations-update'>update</a>
+      </h3>
+
+      <div>
+          <h4>
+              PATCH /api/v1/evaluations/:id
+            <br>
+            <small>updates an evaluation</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Request:
+
+{
+  &quot;scores&quot;:{
+     &quot;rate&quot;:&quot;1&quot;,
+     &quot;level&quot;:&quot;5&quot;,
+     &quot;review&quot;:&quot;5&quot;,
+     &quot;preview&quot;:&quot;5&quot;,
+     &quot;movement&quot;:&quot;5&quot;,
+     &quot;attention&quot;:&quot;2&quot;,
+     &quot;citations&quot;:&quot;4&quot;,
+     &quot;eye-contact&quot;:&quot;1&quot;,
+     &quot;transitions&quot;:&quot;5&quot;,
+     &quot;visual-aids-attire&quot;:&quot;5&quot;,
+     &quot;supporting-material&quot;:&quot;5&quot;,
+     &quot;introduction-tieback&quot;:&quot;5&quot;,
+     &quot;relation-to-audience&quot;:&quot;4&quot;,
+     &quot;specific-purpose-thesis&quot;:&quot;1&quot;,
+     &quot;logical-organization-pattern&quot;:&quot;5&quot;
+  }
+}
+</pre>
+
+          <h4>Errors</h4>
+            404
+            The evaluation was not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            403
+            The current user does not have write access to this evaluation.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The evaluation ID</p>
+
+    </li>
+    
+    <li>
+      <strong>submission_id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The evaluated submission&#39;s ID</p>
+
+    </li>
+    
+    <li>
+      <strong>published </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be one of: true, false.</p>
+ ]
+      </small>
+      
+<p>Whether the evaluation is published. Unpublished evaluations are not
+visible to students.</p>
+
+    </li>
+    
+    <li>
+      <strong>scores </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Hash</p>
+ ]
+      </small>
+      
+<p>The keys in this hash depend on what rubric is being used. The keys should
+align with the rubric criteria short names, and values should be integers.</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="evaluations-destroy">
+      <a href='#evaluations'>Evaluations</a> / <a href='#evaluations-destroy'>destroy</a>
+      </h3>
+
+      <div>
+          <h4>
+              DELETE /api/v1/evaluations/:id
+            <br>
+            <small>deletes an evaluation</small>
+          </h4>
+      </div>
+
+      <div>
+        
+
+          <h4>Errors</h4>
+            404
+            The evaluation was not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            403
+            The current user does not have write access to this evaluation.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The ID of the evaluation to delete</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+  </div>
+
+  <hr/>
+
+  <div>
+    <h2 id="groups">
+      <a href='#groups'>Groups</a><br>
+      <small></small>
+    </h2>
+  </div>
+
+    <div>
+<p>Groups are collections of students that are tied to a course. Groups may
+create submissions for group projects and/or open projects.</p>
+</div>
+
+  <div>
+
+      <hr/>
+
+      <h3 id="groups-index">
+      <a href='#groups'>Groups</a> / <a href='#groups-index'>index</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/v1/groups?course=:course
+            <br>
+            <small>returns all groups for the given course</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Response:
+
+[
+   {
+      &quot;id&quot;:810,
+      &quot;name&quot;:&quot;Group #1&quot;,
+      &quot;creator_ids&quot;:[
+         4483,
+         4474,
+         4520
+      ],
+      &quot;course_id&quot;:234,
+      &quot;first_name&quot;:&quot;Group #1&quot;,
+      &quot;members&quot;:[
+         &quot;Betty Blick&quot;,
+         &quot;Shawn Jones&quot;,
+         &quot;Dewitt Ruecker&quot;
+      ]
+   },
+   {
+      &quot;id&quot;:811,
+      &quot;name&quot;:&quot;Group #2&quot;,
+      &quot;creator_ids&quot;:[
+         4474,
+         4520,
+         4522
+      ],
+      &quot;course_id&quot;:234,
+      &quot;first_name&quot;:&quot;Group #2&quot;,
+      &quot;members&quot;:[
+         &quot;Shawn Jones&quot;,
+         &quot;Dewitt Ruecker&quot;,
+         &quot;Bradly Stamm&quot;
+      ]
+   },
+   {
+      &quot;id&quot;:812,
+      &quot;name&quot;:&quot;Group #3&quot;,
+      &quot;creator_ids&quot;:[
+         4514,
+         4486,
+         4516
+      ],
+      &quot;course_id&quot;:234,
+      &quot;first_name&quot;:&quot;Group #3&quot;,
+      &quot;members&quot;:[
+         &quot;Heidi Konopelski&quot;,
+         &quot;Petra Luettgen&quot;,
+         &quot;Issac Murphy&quot;
+      ]
+   },
+   {
+      &quot;id&quot;:813,
+      &quot;name&quot;:&quot;Group #4&quot;,
+      &quot;creator_ids&quot;:[
+         4499,
+         4474,
+         4516
+      ],
+      &quot;course_id&quot;:234,
+      &quot;first_name&quot;:&quot;Group #4&quot;,
+      &quot;members&quot;:[
+         &quot;Claude Erdman&quot;,
+         &quot;Shawn Jones&quot;,
+         &quot;Issac Murphy&quot;
+      ]
+   }
+]
+</pre>
+
+          <h4>Errors</h4>
+            404
+            The course was not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            403
+            The current user does not have read access for the given course.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>course </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The course ID</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="groups-show">
+      <a href='#groups'>Groups</a> / <a href='#groups-show'>show</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/v1/groups/:id
+            <br>
+            <small>shows a single group</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Response:
+
+{
+    &quot;id&quot;: 810,
+    &quot;name&quot;: &quot;Group #1&quot;,
+    &quot;creator_ids&quot;: [
+        4483,
+        4474,
+        4520
+    ],
+    &quot;course_id&quot;: 234,
+    &quot;first_name&quot;: &quot;Group #1&quot;,
+    &quot;members&quot;: [
+        &quot;Betty Blick&quot;,
+        &quot;Shawn Jones&quot;,
+        &quot;Dewitt Ruecker&quot;
+    ]
+}
+</pre>
+
+          <h4>Errors</h4>
+            404
+            The group was not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            403
+            The current user does not have read access for the given course.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The group ID</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="groups-create">
+      <a href='#groups'>Groups</a> / <a href='#groups-create'>create</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /api/v1/groups
+            <br>
+            <small>creates a new group within a course</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Request:
+{
+  &quot;course_id&quot;: 234,
+  &quot;name&quot;: &quot;Test Group 1&quot;,
+  &quot;creator_ids&quot;: [4499, 4506, 4503]
+}
+</pre>
+            <pre class="wiki">Sample Response:
+
+{
+    &quot;id&quot;: 830,
+    &quot;name&quot;: &quot;Test Group 1&quot;,
+    &quot;creator_ids&quot;: [
+        4499,
+        4506,
+        4503
+    ],
+    &quot;course_id&quot;: 234,
+    &quot;first_name&quot;: &quot;Test Group 1&quot;,
+    &quot;members&quot;: [
+        &quot;Claude Erdman&quot;,
+        &quot;Nigel Gulgowski&quot;,
+        &quot;Wilhelmine Hackett&quot;
+    ]
+}
+</pre>
+
+          <h4>Errors</h4>
+            403
+            The current user is not allowed to create groups in this course.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            404
+            A Group or User was not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            422
+            There was an error creating the group. Perhaps not all creators in the group are enrolled in the course?
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The group&#39;s ID</p>
+
+    </li>
+    
+    <li>
+      <strong>name </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>The name of the group</p>
+
+    </li>
+    
+    <li>
+      <strong>course_id </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The ID of the course to which the group belongs</p>
+
+    </li>
+    
+    <li>
+      <strong>creator_ids </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be an array of any type</p>
+ ]
+      </small>
+      
+<p>An array containing the IDs of the users who belong to this group.</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="groups-update">
+      <a href='#groups'>Groups</a> / <a href='#groups-update'>update</a>
+      </h3>
+
+      <div>
+          <h4>
+              PATCH /api/v1/groups/:id
+            <br>
+            <small>updates a group</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Request:
+{
+  &quot;course_id&quot;: 234,
+  &quot;name&quot;: &quot;Test Group 1&quot;,
+  &quot;creator_ids&quot;: [4499, 4506, 4503]
+}
+</pre>
+
+          <h4>Errors</h4>
+            403
+            The current user is not allowed to modify this group.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            404
+            A Group or User was not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            422
+            There was an error updating the group. Perhaps not all creators in the group are enrolled in the course?
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The group&#39;s ID</p>
+
+    </li>
+    
+    <li>
+      <strong>name </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>The name of the group</p>
+
+    </li>
+    
+    <li>
+      <strong>course_id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The ID of the course to which the group belongs</p>
+
+    </li>
+    
+    <li>
+      <strong>creator_ids </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be an array of any type</p>
+ ]
+      </small>
+      
+<p>An array containing the IDs of the users who belong to this group.</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="groups-destroy">
+      <a href='#groups'>Groups</a> / <a href='#groups-destroy'>destroy</a>
+      </h3>
+
+      <div>
+          <h4>
+              DELETE /api/v1/groups/:id
+            <br>
+            <small>deletes a group</small>
+          </h4>
+      </div>
+
+      <div>
+        
+
+          <h4>Errors</h4>
+            403
+            The current user is not allowed to delete this group.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            404
+            The group was not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The ID of the group to be deleted</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+  </div>
+
+  <hr/>
+
+  <div>
+    <h2 id="projects">
+      <a href='#projects'>Projects</a><br>
+      <small></small>
+    </h2>
+  </div>
+
+    <div>
+<p>Projects belong to courses. Course creators and groups have submissions for
+projects. Projects are generally managed by course evaluators and
+assistants.</p>
+</div>
+
+  <div>
+
+      <hr/>
+
+      <h3 id="projects-index">
+      <a href='#projects'>Projects</a> / <a href='#projects-index'>index</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/v1/projects?course=:course
+            <br>
+            <small>returns all projects for the given course</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Response:
+[
+  {
+    &quot;id&quot;:466,
+    &quot;name&quot;:&quot;Final Business Vocalization&quot;,
+    &quot;description&quot;:&quot;&lt;p&gt;Sed et aut reiciendis. Totam ducimus quibusdam similique. Sunt et et esse voluptatem nam.&lt;/p&gt;&quot;,
+    &quot;listing_order_position&quot;:null,
+    &quot;evaluatable&quot;:true,
+    &quot;evaluatable_by_peers&quot;:false,
+    &quot;evaluatable_by_creator&quot;:false,
+    &quot;allows_public_discussion&quot;:false,
+    &quot;rejects_past_due_media&quot;:false,
+    &quot;allowed_attachment_families&quot;:[
+      &quot;audio&quot;,
+      &quot;image&quot;,
+      &quot;video&quot;
+    ],
+    &quot;allowed_extensions&quot;:[
+      &quot;mp3,&quot;,
+      &quot;wav&quot;,
+      &quot;gif&quot;,
+      &quot;jpg&quot;,
+      &quot;jpeg&quot;,
+      &quot;png&quot;,
+      &quot;tif&quot;,
+      &quot;tiff&quot;,
+      &quot;avi&quot;,
+      &quot;mp4&quot;,
+      &quot;m4v&quot;,
+      &quot;mov&quot;,
+      &quot;flv&quot;,
+      &quot;wmv&quot;,
+      &quot;webm&quot;,
+      &quot;ogv&quot;,
+      &quot;mkv&quot;
+    ],
+    &quot;allowed_mime_types&quot;:[
+      &quot;audio/mp3,&quot;,
+      &quot;audio/wav&quot;,
+      &quot;image/gif&quot;,
+      &quot;image/jpg&quot;,
+      &quot;image/jpeg&quot;,
+      &quot;image/png&quot;,
+      &quot;image/tiff&quot;,
+      &quot;video/x-msvideo&quot;,
+      &quot;video/mp4&quot;,
+      &quot;video/x-m4v&quot;,
+      &quot;quicktime/mov&quot;,
+      &quot;video/x-flv&quot;,
+      &quot;video/x-ms-wmv&quot;,
+      &quot;video/webm,&quot;,
+      &quot;video/ogg,&quot;,
+      &quot;video/divx&quot;
+    ],
+    &quot;type&quot;:&quot;UserProject&quot;,
+    &quot;rubric_id&quot;:51,
+    &quot;rubric_name&quot;:&quot;COMM1010 Rubric&quot;,
+    &quot;abilities&quot;:{
+      &quot;can_update&quot;:true,
+      &quot;can_destroy&quot;:true,
+      &quot;can_evaluate&quot;:true,
+      &quot;can_show_submissions&quot;:true
+    },
+    &quot;course_id&quot;:234,
+    &quot;due_date&quot;:null,
+    &quot;rubric&quot;:{
+      &quot;id&quot;:51,
+      &quot;name&quot;:&quot;COMM1010 Rubric&quot;,
+      &quot;fields&quot;:[
+        {
+          &quot;name&quot;:&quot;Attention&quot;,
+          &quot;description&quot;:&quot;Attention Step&quot;,
+          &quot;id&quot;:&quot;attention&quot;
+        },
+        {
+          &quot;name&quot;:&quot;Relation to Audience&quot;,
+          &quot;description&quot;:&quot;Relation to Audience&quot;,
+          &quot;id&quot;:&quot;relation-to-audience&quot;
+        },
+        {
+          &quot;name&quot;:&quot;Specific purpose/thesis&quot;,
+          &quot;description&quot;:&quot;Specific purpose/thesis&quot;,
+          &quot;id&quot;:&quot;specific-purpose-thesis&quot;
+        },
+        {
+          &quot;name&quot;:&quot;Preview&quot;,
+          &quot;description&quot;:&quot;Preview&quot;,
+          &quot;id&quot;:&quot;preview&quot;
+        },
+        {
+          &quot;name&quot;:&quot;Logical Organization Pattern&quot;,
+          &quot;description&quot;:&quot;Logical Organization Pattern&quot;,
+          &quot;id&quot;:&quot;logical-organization-pattern&quot;
+        },
+        {
+          &quot;name&quot;:&quot;Supporting Material&quot;,
+          &quot;description&quot;:&quot;Supporting Material&quot;,
+          &quot;id&quot;:&quot;supporting-material&quot;
+        },
+        {
+          &quot;name&quot;:&quot;Citations&quot;,
+          &quot;description&quot;:&quot;Citations&quot;,
+          &quot;id&quot;:&quot;citations&quot;
+        },
+        {
+          &quot;name&quot;:&quot;Transitions&quot;,
+          &quot;description&quot;:&quot;Transitions&quot;,
+          &quot;id&quot;:&quot;transitions&quot;
+        },
+        {
+          &quot;name&quot;:&quot;Review&quot;,
+          &quot;description&quot;:&quot;Review&quot;,
+          &quot;id&quot;:&quot;review&quot;
+        },
+        {
+          &quot;name&quot;:&quot;Introduction Tieback&quot;,
+          &quot;description&quot;:&quot;Introduction Tieback&quot;,
+          &quot;id&quot;:&quot;introduction-tieback&quot;
+        },
+        {
+          &quot;name&quot;:&quot;Rate&quot;,
+          &quot;description&quot;:&quot;Rate&quot;,
+          &quot;id&quot;:&quot;rate&quot;
+        },
+        {
+          &quot;name&quot;:&quot;Level&quot;,
+          &quot;description&quot;:&quot;Level&quot;,
+          &quot;id&quot;:&quot;level&quot;
+        },
+        {
+          &quot;name&quot;:&quot;Eye Contact&quot;,
+          &quot;description&quot;:&quot;Eye Contact&quot;,
+          &quot;id&quot;:&quot;eye-contact&quot;
+        },
+        {
+          &quot;name&quot;:&quot;Movement&quot;,
+          &quot;description&quot;:&quot;Movement&quot;,
+          &quot;id&quot;:&quot;movement&quot;
+        },
+        {
+          &quot;name&quot;:&quot;Visual Aids / Attire&quot;,
+          &quot;description&quot;:&quot;Visual Aids / Attire&quot;,
+          &quot;id&quot;:&quot;visual-aids-attire&quot;
+        }
+      ],
+      &quot;ranges&quot;:[
+        {
+          &quot;name&quot;:&quot;Poor/Failure&quot;,
+          &quot;low&quot;:0,
+          &quot;high&quot;:2,
+          &quot;id&quot;:&quot;poor-failure&quot;
+        },
+        {
+          &quot;name&quot;:&quot;Good/Average&quot;,
+          &quot;low&quot;:3,
+          &quot;high&quot;:4,
+          &quot;id&quot;:&quot;good-average&quot;
+        },
+        {
+          &quot;name&quot;:&quot;Excellent&quot;,
+          &quot;low&quot;:5,
+          &quot;high&quot;:6,
+          &quot;id&quot;:&quot;excellent&quot;
+        }
+      ],
+      &quot;cells&quot;:[
+        {
+          &quot;range&quot;:&quot;poor-failure&quot;,
+          &quot;field&quot;:&quot;attention&quot;,
+          &quot;description&quot;:&quot;Doesn&#39;t gain attention, speaker picked weak/inappropriate devices, theme is unclear [...]&quot;
+        },
+        {
+          &quot;range&quot;:&quot;good-average&quot;,
+          &quot;field&quot;:&quot;attention&quot;,
+          &quot;description&quot;:&quot;Gains some attention, speaker could have picked stronger devices, theme is present but [...]&quot;
+        },
+        {
+          &quot;range&quot;:&quot;excellent&quot;,
+          &quot;field&quot;:&quot;attention&quot;,
+          &quot;description&quot;:&quot;Strongly gains audiences attention with appropriate devices, establishes clear theme [...]&quot;
+        },
+        {
+          &quot;range&quot;:&quot;poor-failure&quot;,
+          &quot;field&quot;:&quot;relation-to-audience&quot;,
+          &quot;description&quot;:&quot;Provides little or no rationale for why the speech has value to a &quot;specific&quot; or &quot;general&quot; audience&quot;
+        },
+        {
+          &quot;range&quot;:&quot;good-average&quot;,
+          &quot;field&quot;:&quot;relation-to-audience&quot;,
+          &quot;description&quot;:&quot;Hints at why the speech is important, addresses the reason why a &quot;general&quot; audience should listen&quot;
+        },
+        {
+          &quot;range&quot;:&quot;excellent&quot;,
+          &quot;field&quot;:&quot;relation-to-audience&quot;,
+          &quot;description&quot;:&quot;Provided a terse, but strong rationale for why the speech is important and why his/her &quot;specific&quot; audience should listen&quot;
+        },
+        {
+          &quot;range&quot;:&quot;poor-failure&quot;,
+          &quot;field&quot;:&quot;specific-purpose-thesis&quot;,
+          &quot;description&quot;:&quot;No clear thesis is provided, the audience at the start of the speech has little or no idea [...]&quot;
+        },
+        [..]
+      ],
+      &quot;low&quot;:0,
+      &quot;high&quot;:6,
+      &quot;points_possible&quot;:90,
+      &quot;description&quot;:null,
+      &quot;public&quot;:true
+    }
+  }
+]
+</pre>
+
+          <h4>Errors</h4>
+            404
+            The course was not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            403
+            The current user does not have read access for the given course.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>course </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The course ID</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="projects-show">
+      <a href='#projects'>Projects</a> / <a href='#projects-show'>show</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/v1/projects/:id
+            <br>
+            <small>shows a single project</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Response:
+
+{
+  &quot;id&quot;:466,
+  &quot;name&quot;:&quot;Final Business Vocalization&quot;,
+  &quot;description&quot;:&quot;&lt;p&gt;Sed et aut reiciendis. Totam ducimus quibusdam similique. Sunt et et esse voluptatem nam.&lt;/p&gt;&quot;,
+  &quot;listing_order_position&quot;:null,
+  &quot;evaluatable&quot;:true,
+  &quot;evaluatable_by_peers&quot;:false,
+  &quot;evaluatable_by_creator&quot;:false,
+  &quot;allows_public_discussion&quot;:false,
+  &quot;rejects_past_due_media&quot;:false,
+  &quot;allowed_attachment_families&quot;:[
+    &quot;audio&quot;,
+    &quot;image&quot;,
+    &quot;video&quot;
+  ],
+  &quot;allowed_extensions&quot;:[
+    &quot;mp3,&quot;,
+    &quot;wav&quot;,
+    &quot;gif&quot;,
+    &quot;jpg&quot;,
+    &quot;jpeg&quot;,
+    &quot;png&quot;,
+    &quot;tif&quot;,
+    &quot;tiff&quot;,
+    &quot;avi&quot;,
+    &quot;mp4&quot;,
+    &quot;m4v&quot;,
+    &quot;mov&quot;,
+    &quot;flv&quot;,
+    &quot;wmv&quot;,
+    &quot;webm&quot;,
+    &quot;ogv&quot;,
+    &quot;mkv&quot;
+  ],
+  &quot;allowed_mime_types&quot;:[
+    &quot;audio/mp3,&quot;,
+    &quot;audio/wav&quot;,
+    &quot;image/gif&quot;,
+    &quot;image/jpg&quot;,
+    &quot;image/jpeg&quot;,
+    &quot;image/png&quot;,
+    &quot;image/tiff&quot;,
+    &quot;video/x-msvideo&quot;,
+    &quot;video/mp4&quot;,
+    &quot;video/x-m4v&quot;,
+    &quot;quicktime/mov&quot;,
+    &quot;video/x-flv&quot;,
+    &quot;video/x-ms-wmv&quot;,
+    &quot;video/webm,&quot;,
+    &quot;video/ogg,&quot;,
+    &quot;video/divx&quot;
+  ],
+  &quot;type&quot;:&quot;UserProject&quot;,
+  &quot;rubric_id&quot;:51,
+  &quot;rubric_name&quot;:&quot;COMM1010 Rubric&quot;,
+  &quot;abilities&quot;:{
+    &quot;can_update&quot;:true,
+    &quot;can_destroy&quot;:true,
+    &quot;can_evaluate&quot;:true,
+    &quot;can_show_submissions&quot;:true
+  },
+  &quot;course_id&quot;:234,
+  &quot;due_date&quot;:null,
+  &quot;rubric&quot;:{
+    &quot;id&quot;:51,
+    &quot;name&quot;:&quot;COMM1010 Rubric&quot;,
+    &quot;fields&quot;:[
+      {
+        &quot;name&quot;:&quot;Attention&quot;,
+        &quot;description&quot;:&quot;Attention Step&quot;,
+        &quot;id&quot;:&quot;attention&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Relation to Audience&quot;,
+        &quot;description&quot;:&quot;Relation to Audience&quot;,
+        &quot;id&quot;:&quot;relation-to-audience&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Specific purpose/thesis&quot;,
+        &quot;description&quot;:&quot;Specific purpose/thesis&quot;,
+        &quot;id&quot;:&quot;specific-purpose-thesis&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Preview&quot;,
+        &quot;description&quot;:&quot;Preview&quot;,
+        &quot;id&quot;:&quot;preview&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Logical Organization Pattern&quot;,
+        &quot;description&quot;:&quot;Logical Organization Pattern&quot;,
+        &quot;id&quot;:&quot;logical-organization-pattern&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Supporting Material&quot;,
+        &quot;description&quot;:&quot;Supporting Material&quot;,
+        &quot;id&quot;:&quot;supporting-material&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Citations&quot;,
+        &quot;description&quot;:&quot;Citations&quot;,
+        &quot;id&quot;:&quot;citations&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Transitions&quot;,
+        &quot;description&quot;:&quot;Transitions&quot;,
+        &quot;id&quot;:&quot;transitions&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Review&quot;,
+        &quot;description&quot;:&quot;Review&quot;,
+        &quot;id&quot;:&quot;review&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Introduction Tieback&quot;,
+        &quot;description&quot;:&quot;Introduction Tieback&quot;,
+        &quot;id&quot;:&quot;introduction-tieback&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Rate&quot;,
+        &quot;description&quot;:&quot;Rate&quot;,
+        &quot;id&quot;:&quot;rate&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Level&quot;,
+        &quot;description&quot;:&quot;Level&quot;,
+        &quot;id&quot;:&quot;level&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Eye Contact&quot;,
+        &quot;description&quot;:&quot;Eye Contact&quot;,
+        &quot;id&quot;:&quot;eye-contact&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Movement&quot;,
+        &quot;description&quot;:&quot;Movement&quot;,
+        &quot;id&quot;:&quot;movement&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Visual Aids / Attire&quot;,
+        &quot;description&quot;:&quot;Visual Aids / Attire&quot;,
+        &quot;id&quot;:&quot;visual-aids-attire&quot;
+      }
+    ],
+    &quot;rnges&quot;:[
+      {
+        &quot;name&quot;:&quot;Poor/Failure&quot;,
+        &quot;low&quot;:0,
+        &quot;high&quot;:2,
+        &quot;id&quot;:&quot;poor-failure&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Good/Average&quot;,
+        &quot;low&quot;:3,
+        &quot;high&quot;:4,
+        &quot;id&quot;:&quot;good-average&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Excellent&quot;,
+        &quot;low&quot;:5,
+        &quot;high&quot;:6,
+        &quot;id&quot;:&quot;excellent&quot;
+      }
+    ],
+    &quot;clls&quot;:[
+      {
+        &quot;range&quot;:&quot;poor-failure&quot;,
+        &quot;field&quot;:&quot;attention&quot;,
+        &quot;description&quot;:&quot;Doesn&#39;t gain attention, speaker picked weak/inappropriate devices, theme is unclear [...]&quot;
+      },
+      {
+        &quot;range&quot;:&quot;good-average&quot;,
+        &quot;field&quot;:&quot;attention&quot;,
+        &quot;description&quot;:&quot;Gains some attention, speaker could have picked stronger devices, theme is present but [...]&quot;
+      },
+      {
+        &quot;range&quot;:&quot;excellent&quot;,
+        &quot;field&quot;:&quot;attention&quot;,
+        &quot;description&quot;:&quot;Strongly gains audiences attention with appropriate devices, establishes clear theme [...]&quot;
+      },
+      {
+        &quot;range&quot;:&quot;poor-failure&quot;,
+        &quot;field&quot;:&quot;relation-to-audience&quot;,
+        &quot;description&quot;:&quot;Provides little or no rationale for why the speech has value to a &quot;specific&quot; or &quot;general&quot; audience&quot;
+      },
+      {
+        &quot;range&quot;:&quot;good-average&quot;,
+        &quot;field&quot;:&quot;relation-to-audience&quot;,
+        &quot;description&quot;:&quot;Hints at why the speech is important, addresses the reason why a &quot;general&quot; audience should listen&quot;
+      },
+      {
+        &quot;range&quot;:&quot;excellent&quot;,
+        &quot;field&quot;:&quot;relation-to-audience&quot;,
+        &quot;description&quot;:&quot;Provided a terse, but strong rationale for why the speech is important and why his/her &quot;specific&quot; audience should listen&quot;
+      },
+      {
+        &quot;range&quot;:&quot;poor-failure&quot;,
+        &quot;field&quot;:&quot;specific-purpose-thesis&quot;,
+        &quot;description&quot;:&quot;No clear thesis is provided, the audience at the start of the speech has little or no idea [...]&quot;
+      },
+      [..]
+    ],
+    &quot;low&quot;:0,
+    &quot;high&quot;:6,
+    &quot;points_possible&quot;:90,
+    &quot;description&quot;:null,
+    &quot;public&quot;:true
+  }
+}
+</pre>
+
+          <h4>Errors</h4>
+            404
+            The project was not found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            403
+            The current user does not have read access to this project.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The project ID</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="projects-create">
+      <a href='#projects'>Projects</a> / <a href='#projects-create'>create</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /api/v1/projects
+            <br>
+            <small>creates a new project</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Request:
+
+{
+  &quot;project&quot;: {
+     &quot;name&quot;: &quot;Test Project&quot;,
+     &quot;description&quot;: &quot;Project description...&quot;,
+     &quot;course_id&quot;: 234,
+     &quot;type&quot;: &quot;UserProject&quot;,
+     &quot;rubric_id&quot;: null,
+     &quot;allowed_attachment_families&quot;: [&quot;image&quot;, &quot;audio&quot;],
+     &quot;due_date&quot;: &quot;2015-04-23T18:25:43.511Z&quot;,
+     &quot;settings&quot;: {
+        &quot;enable_creator_attach&quot;: true,
+        &quot;enable_self_evaluation&quot;: false,
+        &quot;enable_peer_review&quot;: true,
+        &quot;enable_public_discussion&quot;: true,
+        &quot;reject_past_due_media&quot;: false,
+        &quot;anonymous_peer_review&quot;: true
+     }
+  }
+}
+</pre>
+            <pre class="wiki">    Sample Response:
+
+    {
+      &quot;id&quot;: 486,
+      &quot;name&quot;: &quot;Test Project&quot;,
+      &quot;description&quot;: &quot;&lt;p&gt;Project description...&lt;/p&gt;
+&quot;,
+      &quot;listing_order_position&quot;: &quot;last&quot;,
+      &quot;evaluatable&quot;: false,
+      &quot;evaluatable_by_peers&quot;: true,
+      &quot;evaluatable_by_creator&quot;: false,
+      &quot;allows_public_discussion&quot;: true,
+      &quot;rejects_past_due_media&quot;: false,
+      &quot;allowed_attachment_families&quot;: [
+        &quot;image&quot;,
+        &quot;audio&quot;
+      ],
+      &quot;allowed_extensions&quot;: [
+        &quot;gif&quot;,
+        &quot;jpg&quot;,
+        &quot;jpeg&quot;,
+        &quot;png&quot;,
+        &quot;tif&quot;,
+        &quot;tiff&quot;,
+        &quot;mp3,&quot;,
+        &quot;wav&quot;
+      ],
+      &quot;allowed_mime_types&quot;: [
+        &quot;image/gif&quot;,
+        &quot;image/jpg&quot;,
+        &quot;image/jpeg&quot;,
+        &quot;image/png&quot;,
+        &quot;image/tiff&quot;,
+        &quot;audio/mp3,&quot;,
+        &quot;audio/wav&quot;
+      ],
+      &quot;type&quot;: &quot;UserProject&quot;,
+      &quot;rubric_id&quot;: null,
+      &quot;rubric_name&quot;: null,
+      &quot;abilities&quot;: {
+        &quot;can_update&quot;: true,
+        &quot;can_destroy&quot;: true,
+        &quot;can_evaluate&quot;: true,
+        &quot;can_show_submissions&quot;: true
+      },
+      &quot;course_id&quot;: 234,
+      &quot;due_date&quot;: &quot;2015-04-23&quot;,
+      &quot;rubric&quot;: null
+   }
+</pre>
+
+          <h4>Errors</h4>
+            422
+            There was an error creating the project.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>project </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be a Hash</p>
+ ]
+      </small>
+      
+<p>The key here can be project, user_project, or group_project</p>
+
+    </li>
+    <ul>
+    <li>
+      <strong>type </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be one of: UserProject, GroupProject, OpenProject.</p>
+ ]
+      </small>
+      
+<p>The type of Project</p>
+
+    </li>
+    
+    <li>
+      <strong>name </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>The name of the project</p>
+
+    </li>
+    
+    <li>
+      <strong>description </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>Some information about the project</p>
+
+    </li>
+    
+    <li>
+      <strong>course_id </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The ID of the course to which the project belongs</p>
+
+    </li>
+    
+    <li>
+      <strong>rubric_id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>If the project uses a scoring rubric, the ID of the rubric</p>
+
+    </li>
+    
+    <li>
+      <strong>listing_order_position </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The order of the project within the course</p>
+
+    </li>
+    
+    <li>
+      <strong>allowed_attachment_families </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be one of: audio, image, video.</p>
+ ]
+      </small>
+      
+<p>The kinds of attachments that are accepted for this project; if an empty
+array, all types are accepted</p>
+
+    </li>
+    
+    <li>
+      <strong>due_date </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be DateTime</p>
+ ]
+      </small>
+      
+<p>The date after which no more assets may be attached to the project</p>
+
+    </li>
+    
+    <li>
+      <strong>settings </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be a Hash</p>
+ ]
+      </small>
+      
+<p>Project settings</p>
+
+    </li>
+    <ul>
+    <li>
+      <strong>enable_creator_attach </strong>:
+      <small>
+        optional
+        , nil allowed
+          [ 
+<p>Must be one of: true, false.</p>
+ ]
+      </small>
+      
+<p>Whether or not the project allows creators to attach media</p>
+
+    </li>
+    
+    <li>
+      <strong>enable_self_evaluation </strong>:
+      <small>
+        optional
+        , nil allowed
+          [ 
+<p>Must be one of: true, false.</p>
+ ]
+      </small>
+      
+<p>Whether or not the project allows self evaluation</p>
+
+    </li>
+    
+    <li>
+      <strong>enable_peer_review </strong>:
+      <small>
+        optional
+        , nil allowed
+          [ 
+<p>Must be one of: true, false.</p>
+ ]
+      </small>
+      
+<p>Whether or not the project allows peer review</p>
+
+    </li>
+    
+    <li>
+      <strong>enable_public_discussion </strong>:
+      <small>
+        optional
+        , nil allowed
+          [ 
+<p>Must be one of: true, false.</p>
+ ]
+      </small>
+      
+<p>Whether or not the project allows public discusion</p>
+
+    </li>
+    
+    <li>
+      <strong>reject_past_due_media </strong>:
+      <small>
+        optional
+        , nil allowed
+          [ 
+<p>Must be one of: true, false.</p>
+ ]
+      </small>
+      
+<p>Whether or not the project should reject media after due date</p>
+
+    </li>
+    
+    <li>
+      <strong>anonymous_peer_review </strong>:
+      <small>
+        optional
+        , nil allowed
+          [ 
+<p>Must be one of: true, false.</p>
+ ]
+      </small>
+      
+<p>Whetehr or not peer reviews are anonymous</p>
+
+    </li>
+    
+</ul>
+
+</ul>
+
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="projects-update">
+      <a href='#projects'>Projects</a> / <a href='#projects-update'>update</a>
+      </h3>
+
+      <div>
+          <h4>
+              PATCH /api/v1/projects/:id
+            <br>
+            <small>updates a project</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Request:
+
+{
+  &quot;project&quot;: {
+    &quot;name&quot;: &quot;Test Project&quot;,
+    &quot;description&quot;: &quot;Project description...&quot;,
+    &quot;course_id&quot;: 234,
+    &quot;type&quot;: &quot;UserProject&quot;,
+    &quot;rubric_id&quot;: null,
+    &quot;allowed_attachment_families&quot;: [&quot;image&quot;, &quot;audio&quot;],
+    &quot;due_date&quot;: &quot;2015-04-23T18:25:43.511Z&quot;,
+    &quot;settings&quot;: {
+      &quot;enable_creator_attach&quot;: true,
+      &quot;enable_self_evaluation&quot;: false,
+      &quot;enable_peer_review&quot;: true,
+      &quot;enable_public_discussion&quot;: true,
+      &quot;reject_past_due_media&quot;: false,
+      &quot;anonymous_peer_review&quot;: true
+    }
+  }
+}
+</pre>
+
+          <h4>Errors</h4>
+            404
+            The project could not be found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+            422
+            There was an error updating the project.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The project ID</p>
+
+    </li>
+    
+    <li>
+      <strong>project </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be a Hash</p>
+ ]
+      </small>
+      
+<p>The key here can be project, user_project, or group_project</p>
+
+    </li>
+    <ul>
+    <li>
+      <strong>type </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be one of: UserProject, GroupProject, OpenProject.</p>
+ ]
+      </small>
+      
+<p>The type of Project</p>
+
+    </li>
+    
+    <li>
+      <strong>name </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>The name of the project</p>
+
+    </li>
+    
+    <li>
+      <strong>description </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>Some information about the project</p>
+
+    </li>
+    
+    <li>
+      <strong>course_id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The ID of the course to which the project belongs</p>
+
+    </li>
+    
+    <li>
+      <strong>rubric_id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>If the project uses a scoring rubric, the ID of the rubric</p>
+
+    </li>
+    
+    <li>
+      <strong>listing_order_position </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The order of the project within the course</p>
+
+    </li>
+    
+    <li>
+      <strong>allowed_attachment_families </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be one of: audio, image, video.</p>
+ ]
+      </small>
+      
+<p>The kinds of attachments that are accepted for this project; if an empty
+array, all types are accepted</p>
+
+    </li>
+    
+    <li>
+      <strong>due_date </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be DateTime</p>
+ ]
+      </small>
+      
+<p>The date after which no more assets may be attached to the project</p>
+
+    </li>
+    
+    <li>
+      <strong>settings </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be a Hash</p>
+ ]
+      </small>
+      
+<p>Project settings</p>
+
+    </li>
+    <ul>
+    <li>
+      <strong>enable_creator_attach </strong>:
+      <small>
+        optional
+        , nil allowed
+          [ 
+<p>Must be one of: true, false.</p>
+ ]
+      </small>
+      
+<p>Whether or not the project allows creators to attach media</p>
+
+    </li>
+    
+    <li>
+      <strong>enable_self_evaluation </strong>:
+      <small>
+        optional
+        , nil allowed
+          [ 
+<p>Must be one of: true, false.</p>
+ ]
+      </small>
+      
+<p>Whether or not the project allows self evaluation</p>
+
+    </li>
+    
+    <li>
+      <strong>enable_peer_review </strong>:
+      <small>
+        optional
+        , nil allowed
+          [ 
+<p>Must be one of: true, false.</p>
+ ]
+      </small>
+      
+<p>Whether or not the project allows peer review</p>
+
+    </li>
+    
+    <li>
+      <strong>enable_public_discussion </strong>:
+      <small>
+        optional
+        , nil allowed
+          [ 
+<p>Must be one of: true, false.</p>
+ ]
+      </small>
+      
+<p>Whether or not the project allows public discusion</p>
+
+    </li>
+    
+    <li>
+      <strong>reject_past_due_media </strong>:
+      <small>
+        optional
+        , nil allowed
+          [ 
+<p>Must be one of: true, false.</p>
+ ]
+      </small>
+      
+<p>Whether or not the project should reject media after due date</p>
+
+    </li>
+    
+    <li>
+      <strong>anonymous_peer_review </strong>:
+      <small>
+        optional
+        , nil allowed
+          [ 
+<p>Must be one of: true, false.</p>
+ ]
+      </small>
+      
+<p>Whetehr or not peer reviews are anonymous</p>
+
+    </li>
+    
+</ul>
+
+</ul>
+
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="projects-destroy">
+      <a href='#projects'>Projects</a> / <a href='#projects-destroy'>destroy</a>
+      </h3>
+
+      <div>
+          <h4>
+              DELETE /api/v1/projects/:id
+            <br>
+            <small>deletes a project</small>
+          </h4>
+      </div>
+
+      <div>
+        
+
+          <h4>Errors</h4>
+            404
+            The project could not be found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The project ID</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="projects-publish_evaluations">
+      <a href='#projects'>Projects</a> / <a href='#projects-publish_evaluations'>publish_evaluations</a>
+      </h3>
+
+      <div>
+          <h4>
+              PATCH /api/v1/projects/:id/publish_evaluations
+            <br>
+            <small>publishes all of the current user's evaluations for the project</small>
+          </h4>
+      </div>
+
+      <div>
+        
+
+          <h4>Errors</h4>
+            404
+            The project could not be found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The project ID</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="projects-unpublish_evaluations">
+      <a href='#projects'>Projects</a> / <a href='#projects-unpublish_evaluations'>unpublish_evaluations</a>
+      </h3>
+
+      <div>
+          <h4>
+              PATCH /api/v1/projects/:id/unpublish_evaluations
+            <br>
+            <small>unpublishes all of the current user's evaluations for the project</small>
+          </h4>
+      </div>
+
+      <div>
+        
+
+          <h4>Errors</h4>
+            404
+            The project could not be found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The project ID</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+  </div>
+
+  <hr/>
+
+  <div>
+    <h2 id="rubrics">
+      <a href='#rubrics'>Rubrics</a><br>
+      <small></small>
+    </h2>
+  </div>
+
+    <div>
+<p>Rubrics are composed of ranges and criteria. Each range/criteria
+intersection is a cell. A cell may have a description. Ranges have high and
+low values, as well as names. For a project to be evaluated, it must have a
+rubric. Evaluations are closely tied to the rubric, as the rubric defines
+the criteria on which the submissino is to be evaluated. Rubrics can be
+owned by individual users, or they can be public rubrics which are
+available to any user in Vocat.</p>
+
+<p>This API is still relatively unstable and subject to change. Tread
+carefully and contact the Vocat development team prior to relying heavily
+on this API.</p>
+</div>
+
+  <div>
+
+      <hr/>
+
+      <h3 id="rubrics-index">
+      <a href='#rubrics'>Rubrics</a> / <a href='#rubrics-index'>index</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/v1/rubrics
+            <br>
+            <small>returns the current user's rubrics</small>
+          </h4>
+      </div>
+
+      <div>
+        
+<p>If the current user is an administrator, this endpoint will return all
+public rubrics in the installation. If the user is an evaluator, the
+endpoint returns that users rubrics. Creator users will receive an access
+denied response.</p>
+
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Response:
+
+[
+  {
+    &quot;id&quot;:51,
+    &quot;name&quot;:&quot;COMM1010 Rubric&quot;,
+    &quot;fields&quot;:[
+      {
+        &quot;name&quot;:&quot;Attention&quot;,
+        &quot;description&quot;:&quot;Attention Step&quot;,
+        &quot;id&quot;:&quot;attention&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Relation to Audience&quot;,
+        &quot;description&quot;:&quot;Relation to Audience&quot;,
+        &quot;id&quot;:&quot;relation-to-audience&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Specific purpose/thesis&quot;,
+        &quot;description&quot;:&quot;Specific purpose/thesis&quot;,
+        &quot;id&quot;:&quot;specific-purpose-thesis&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Preview&quot;,
+        &quot;description&quot;:&quot;Preview&quot;,
+        &quot;id&quot;:&quot;preview&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Logical Organization Pattern&quot;,
+        &quot;description&quot;:&quot;Logical Organization Pattern&quot;,
+        &quot;id&quot;:&quot;logical-organization-pattern&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Supporting Material&quot;,
+        &quot;description&quot;:&quot;Supporting Material&quot;,
+        &quot;id&quot;:&quot;supporting-material&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Citations&quot;,
+        &quot;description&quot;:&quot;Citations&quot;,
+        &quot;id&quot;:&quot;citations&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Transitions&quot;,
+        &quot;description&quot;:&quot;Transitions&quot;,
+        &quot;id&quot;:&quot;transitions&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Review&quot;,
+        &quot;description&quot;:&quot;Review&quot;,
+        &quot;id&quot;:&quot;review&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Introduction Tieback&quot;,
+        &quot;description&quot;:&quot;Introduction Tieback&quot;,
+        &quot;id&quot;:&quot;introduction-tieback&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Rate&quot;,
+        &quot;description&quot;:&quot;Rate&quot;,
+        &quot;id&quot;:&quot;rate&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Level&quot;,
+        &quot;description&quot;:&quot;Level&quot;,
+        &quot;id&quot;:&quot;level&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Eye Contact&quot;,
+        &quot;description&quot;:&quot;Eye Contact&quot;,
+        &quot;id&quot;:&quot;eye-contact&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Movement&quot;,
+        &quot;description&quot;:&quot;Movement&quot;,
+        &quot;id&quot;:&quot;movement&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Visual Aids / Attire&quot;,
+        &quot;description&quot;:&quot;Visual Aids / Attire&quot;,
+        &quot;id&quot;:&quot;visual-aids-attire&quot;
+      }
+    ],
+    &quot;ranges&quot;:[
+      {
+        &quot;name&quot;:&quot;Poor/Failure&quot;,
+        &quot;low&quot;:0,
+        &quot;high&quot;:2,
+        &quot;id&quot;:&quot;poor-failure&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Good/Average&quot;,
+        &quot;low&quot;:3,
+        &quot;high&quot;:4,
+        &quot;id&quot;:&quot;good-average&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Excellent&quot;,
+        &quot;low&quot;:5,
+        &quot;high&quot;:6,
+        &quot;id&quot;:&quot;excellent&quot;
+      }
+    ],
+    &quot;cells&quot;:[
+      {
+        &quot;range&quot;:&quot;poor-failure&quot;,
+        &quot;field&quot;:&quot;attention&quot;,
+        &quot;description&quot;:&quot;Doesn&#39;t gain attention, speaker picked weak/inappropriate devices, theme is unclear [...]&quot;
+      },
+      {
+        &quot;range&quot;:&quot;good-average&quot;,
+        &quot;field&quot;:&quot;attention&quot;,
+        &quot;description&quot;:&quot;Gains some attention, speaker could have picked stronger devices, theme is present but [...]&quot;
+      },
+      {
+        &quot;range&quot;:&quot;excellent&quot;,
+        &quot;field&quot;:&quot;attention&quot;,
+        &quot;description&quot;:&quot;Strongly gains audiences attention with appropriate devices, establishes clear theme [...]&quot;
+      },
+      {
+        &quot;range&quot;:&quot;poor-failure&quot;,
+        &quot;field&quot;:&quot;relation-to-audience&quot;,
+        &quot;description&quot;:&quot;Provides little or no rationale for why the speech has value to a &quot;specific&quot; or &quot;general&quot; audience&quot;
+      },
+      {
+        &quot;range&quot;:&quot;good-average&quot;,
+        &quot;field&quot;:&quot;relation-to-audience&quot;,
+        &quot;description&quot;:&quot;Hints at why the speech is important, addresses the reason why a &quot;general&quot; audience should listen&quot;
+      },
+      {
+        &quot;range&quot;:&quot;excellent&quot;,
+        &quot;field&quot;:&quot;relation-to-audience&quot;,
+        &quot;description&quot;:&quot;Provided a terse, but strong rationale for why the speech is important and why his/her &quot;specific&quot; audience should listen&quot;
+      },
+      {
+        &quot;range&quot;:&quot;poor-failure&quot;,
+        &quot;field&quot;:&quot;specific-purpose-thesis&quot;,
+        &quot;description&quot;:&quot;No clear thesis is provided, the audience at the start of the speech has little or no idea [...]&quot;
+      },
+      [..]
+    ],
+    &quot;low&quot;:0,
+    &quot;high&quot;:6,
+    &quot;points_possible&quot;:90,
+    &quot;description&quot;:null,
+    &quot;public&quot;:true
+  }
+]
+</pre>
+
+          <h4>Errors</h4>
+            403
+            The current user is not an administrator or an evaluator.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+      </div>
+      <hr/>
+
+      <h3 id="rubrics-show">
+      <a href='#rubrics'>Rubrics</a> / <a href='#rubrics-show'>show</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/v1/rubrics/:id
+            <br>
+            <small>shows one rubric</small>
+          </h4>
+      </div>
+
+      <div>
+        
+<p><em>Nota bene:</em>: All rubrics in Vocat are effectively public to all
+users with accounts in Vocat. Vocat does not check to make sure a student
+is in a course using a rubric before returning it.</p>
+
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Response:
+
+{
+  &quot;id&quot;:51,
+  &quot;name&quot;:&quot;COMM1010 Rubric&quot;,
+  &quot;fields&quot;:[
+    {
+      &quot;name&quot;:&quot;Attention&quot;,
+      &quot;description&quot;:&quot;Attention Step&quot;,
+      &quot;id&quot;:&quot;attention&quot;
+    },
+    {
+      &quot;name&quot;:&quot;Relation to Audience&quot;,
+      &quot;description&quot;:&quot;Relation to Audience&quot;,
+      &quot;id&quot;:&quot;relation-to-audience&quot;
+    },
+    {
+      &quot;name&quot;:&quot;Specific purpose/thesis&quot;,
+      &quot;description&quot;:&quot;Specific purpose/thesis&quot;,
+      &quot;id&quot;:&quot;specific-purpose-thesis&quot;
+    },
+    {
+      &quot;name&quot;:&quot;Preview&quot;,
+      &quot;description&quot;:&quot;Preview&quot;,
+      &quot;id&quot;:&quot;preview&quot;
+    },
+    {
+      &quot;name&quot;:&quot;Logical Organization Pattern&quot;,
+      &quot;description&quot;:&quot;Logical Organization Pattern&quot;,
+      &quot;id&quot;:&quot;logical-organization-pattern&quot;
+    },
+    {
+      &quot;name&quot;:&quot;Supporting Material&quot;,
+      &quot;description&quot;:&quot;Supporting Material&quot;,
+      &quot;id&quot;:&quot;supporting-material&quot;
+    },
+    {
+      &quot;name&quot;:&quot;Citations&quot;,
+      &quot;description&quot;:&quot;Citations&quot;,
+      &quot;id&quot;:&quot;citations&quot;
+    },
+    {
+      &quot;name&quot;:&quot;Transitions&quot;,
+      &quot;description&quot;:&quot;Transitions&quot;,
+      &quot;id&quot;:&quot;transitions&quot;
+    },
+    {
+      &quot;name&quot;:&quot;Review&quot;,
+      &quot;description&quot;:&quot;Review&quot;,
+      &quot;id&quot;:&quot;review&quot;
+    },
+    {
+      &quot;name&quot;:&quot;Introduction Tieback&quot;,
+      &quot;description&quot;:&quot;Introduction Tieback&quot;,
+      &quot;id&quot;:&quot;introduction-tieback&quot;
+    },
+    {
+      &quot;name&quot;:&quot;Rate&quot;,
+      &quot;description&quot;:&quot;Rate&quot;,
+      &quot;id&quot;:&quot;rate&quot;
+    },
+    {
+      &quot;name&quot;:&quot;Level&quot;,
+      &quot;description&quot;:&quot;Level&quot;,
+      &quot;id&quot;:&quot;level&quot;
+    },
+    {
+      &quot;name&quot;:&quot;Eye Contact&quot;,
+      &quot;description&quot;:&quot;Eye Contact&quot;,
+      &quot;id&quot;:&quot;eye-contact&quot;
+    },
+    {
+      &quot;name&quot;:&quot;Movement&quot;,
+      &quot;description&quot;:&quot;Movement&quot;,
+      &quot;id&quot;:&quot;movement&quot;
+    },
+    {
+      &quot;name&quot;:&quot;Visual Aids / Attire&quot;,
+      &quot;description&quot;:&quot;Visual Aids / Attire&quot;,
+      &quot;id&quot;:&quot;visual-aids-attire&quot;
+    }
+  ],
+  &quot;ranges&quot;:[
+    {
+      &quot;name&quot;:&quot;Poor/Failure&quot;,
+      &quot;low&quot;:0,
+      &quot;high&quot;:2,
+      &quot;id&quot;:&quot;poor-failure&quot;
+    },
+    {
+      &quot;name&quot;:&quot;Good/Average&quot;,
+      &quot;low&quot;:3,
+      &quot;high&quot;:4,
+      &quot;id&quot;:&quot;good-average&quot;
+    },
+    {
+      &quot;name&quot;:&quot;Excellent&quot;,
+      &quot;low&quot;:5,
+      &quot;high&quot;:6,
+      &quot;id&quot;:&quot;excellent&quot;
+    }
+  ],
+  &quot;cells&quot;:[
+    {
+      &quot;range&quot;:&quot;poor-failure&quot;,
+      &quot;field&quot;:&quot;attention&quot;,
+      &quot;description&quot;:&quot;Doesn&#39;t gain attention, speaker picked weak/inappropriate devices, theme is unclear [...]&quot;
+    },
+    {
+      &quot;range&quot;:&quot;good-average&quot;,
+      &quot;field&quot;:&quot;attention&quot;,
+      &quot;description&quot;:&quot;Gains some attention, speaker could have picked stronger devices, theme is present but [...]&quot;
+    },
+    {
+      &quot;range&quot;:&quot;excellent&quot;,
+      &quot;field&quot;:&quot;attention&quot;,
+      &quot;description&quot;:&quot;Strongly gains audiences attention with appropriate devices, establishes clear theme [...]&quot;
+    },
+    {
+      &quot;range&quot;:&quot;poor-failure&quot;,
+      &quot;field&quot;:&quot;relation-to-audience&quot;,
+      &quot;description&quot;:&quot;Provides little or no rationale for why the speech has value to a &quot;specific&quot; or &quot;general&quot; audience&quot;
+    },
+    {
+      &quot;range&quot;:&quot;good-average&quot;,
+      &quot;field&quot;:&quot;relation-to-audience&quot;,
+      &quot;description&quot;:&quot;Hints at why the speech is important, addresses the reason why a &quot;general&quot; audience should listen&quot;
+    },
+    {
+      &quot;range&quot;:&quot;excellent&quot;,
+      &quot;field&quot;:&quot;relation-to-audience&quot;,
+      &quot;description&quot;:&quot;Provided a terse, but strong rationale for why the speech is important and why his/her &quot;specific&quot; audience should listen&quot;
+    },
+    {
+      &quot;range&quot;:&quot;poor-failure&quot;,
+      &quot;field&quot;:&quot;specific-purpose-thesis&quot;,
+      &quot;description&quot;:&quot;No clear thesis is provided, the audience at the start of the speech has little or no idea [...]&quot;
+    },
+    [..]
+  ],
+  &quot;low&quot;:0,
+  &quot;high&quot;:6,
+  &quot;points_possible&quot;:90,
+  &quot;description&quot;:false,
+  &quot;public&quot;:true
+}
+</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The ID of the rubric to be shown</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="rubrics-create">
+      <a href='#rubrics'>Rubrics</a> / <a href='#rubrics-create'>create</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /api/v1/rubric
+            <br>
+            <small>creates a new rubric</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Request:
+  {
+      &quot;name&quot;: &quot;My Rubric&quot;,
+      &quot;description&quot;: &quot;Desc...&quot;,
+      &quot;low&quot;: 0,
+      &quot;high&quot;: 10,
+      &quot;ranges&quot;: [
+          {
+              &quot;id&quot;: &quot;low&quot;,
+              &quot;name&quot;: &quot;Low&quot;,
+              &quot;low&quot;: 0,
+              &quot;high&quot;: 5
+          },
+          {
+              &quot;id&quot;: &quot;high&quot;,
+              &quot;name&quot;: &quot;High&quot;,
+              &quot;low&quot;: 6,
+              &quot;high&quot;: 10
+          }
+      ],
+      &quot;fields&quot;: [
+          {
+              &quot;name&quot;: &quot;Voice&quot;,
+              &quot;id&quot;: &quot;voice&quot;,
+              &quot;description&quot;: &quot;Voice Description&quot;
+          },
+          {
+              &quot;name&quot;: &quot;Body&quot;,
+              &quot;id&quot;: &quot;body&quot;,
+              &quot;description&quot;: &quot;Body Description&quot;
+          }
+      ],
+      &quot;cells&quot;: [
+          {
+              &quot;range&quot;: &quot;low&quot;,
+              &quot;field&quot;: &quot;voice&quot;,
+              &quot;description&quot;: &quot;low voice&quot;
+          },
+          {
+              &quot;range&quot;: &quot;low&quot;,
+              &quot;field&quot;: &quot;body&quot;,
+              &quot;description&quot;: &quot;low body&quot;
+          },
+          {
+              &quot;range&quot;: &quot;high&quot;,
+              &quot;field&quot;: &quot;voice&quot;,
+              &quot;description&quot;: &quot;high voice&quot;
+          },
+          {
+              &quot;range&quot;: &quot;high&quot;,
+              &quot;field&quot;: &quot;body&quot;,
+              &quot;description&quot;: &quot;high body&quot;
+          }
+      ]
+  }
+</pre>
+            <pre class="wiki">Sample Response:
+  {
+      &quot;id&quot;: 59,
+      &quot;name&quot;: &quot;My Rubric&quot;,
+      &quot;fields&quot;: [
+          {
+              &quot;name&quot;: &quot;Voice&quot;,
+              &quot;id&quot;: &quot;voice&quot;,
+              &quot;description&quot;: &quot;Voice Description&quot;
+          },
+          {
+              &quot;name&quot;: &quot;Body&quot;,
+              &quot;id&quot;: &quot;body&quot;,
+              &quot;description&quot;: &quot;Body Description&quot;
+          }
+      ],
+      &quot;ranges&quot;: [
+          {
+              &quot;id&quot;: &quot;low&quot;,
+              &quot;name&quot;: &quot;Low&quot;,
+              &quot;low&quot;: 0,
+              &quot;high&quot;: 5
+          },
+          {
+              &quot;id&quot;: &quot;high&quot;,
+              &quot;name&quot;: &quot;High&quot;,
+              &quot;low&quot;: 6,
+              &quot;high&quot;: 10
+          }
+      ],
+      &quot;cells&quot;: [
+          {
+              &quot;range&quot;: &quot;low&quot;,
+              &quot;field&quot;: &quot;voice&quot;,
+              &quot;description&quot;: &quot;low voice&quot;
+          },
+          {
+              &quot;range&quot;: &quot;low&quot;,
+              &quot;field&quot;: &quot;body&quot;,
+              &quot;description&quot;: &quot;low body&quot;
+          },
+          {
+              &quot;range&quot;: &quot;high&quot;,
+              &quot;field&quot;: &quot;voice&quot;,
+              &quot;description&quot;: &quot;high voice&quot;
+          },
+          {
+              &quot;range&quot;: &quot;high&quot;,
+              &quot;field&quot;: &quot;body&quot;,
+              &quot;description&quot;: &quot;high body&quot;
+          }
+      ],
+      &quot;low&quot;: 0,
+      &quot;high&quot;: 10,
+      &quot;points_possible&quot;: 20,
+      &quot;description&quot;: &quot;Desc...&quot;,
+      &quot;public&quot;: null
+  }
+</pre>
+
+          <h4>Errors</h4>
+            422
+            There was an error creating the rubric.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>name </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>The name of the rubric</p>
+
+    </li>
+    
+    <li>
+      <strong>description </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>Some information about the rubric</p>
+
+    </li>
+    
+    <li>
+      <strong>low </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The lowest possible scoe</p>
+
+    </li>
+    
+    <li>
+      <strong>public </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be one of: true, false.</p>
+ ]
+      </small>
+      
+<p>Is the rubric publicly available?</p>
+
+    </li>
+    
+    <li>
+      <strong>ranges </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be an Array of nested elements</p>
+ ]
+      </small>
+      
+<p>An array of the rubric&#39;s ranges</p>
+
+    </li>
+    <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        optional
+        , nil allowed
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>A short alphanumeric ID for this range</p>
+
+    </li>
+    
+    <li>
+      <strong>low </strong>:
+      <small>
+        optional
+        , nil allowed
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The lowest score that falls within this range</p>
+
+    </li>
+    
+    <li>
+      <strong>high </strong>:
+      <small>
+        optional
+        , nil allowed
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The highest score that falls within this range</p>
+
+    </li>
+    
+</ul>
+
+    <li>
+      <strong>fields </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be an Array of nested elements</p>
+ ]
+      </small>
+      
+<p>An array of the rubric&#39;s fields</p>
+
+    </li>
+    <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        optional
+        , nil allowed
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>A short alphanumeric ID for this field (criteria)</p>
+
+    </li>
+    
+    <li>
+      <strong>name </strong>:
+      <small>
+        optional
+        , nil allowed
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>The name of the field</p>
+
+    </li>
+    
+    <li>
+      <strong>description </strong>:
+      <small>
+        optional
+        , nil allowed
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>A brief description of the field</p>
+
+    </li>
+    
+</ul>
+
+    <li>
+      <strong>cells </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be an Array of nested elements</p>
+ ]
+      </small>
+      
+<p>An array of the rubric&#39;s cells</p>
+
+    </li>
+    <ul>
+    <li>
+      <strong>range </strong>:
+      <small>
+        optional
+        , nil allowed
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>References a range ID</p>
+
+    </li>
+    
+    <li>
+      <strong>field </strong>:
+      <small>
+        optional
+        , nil allowed
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>References a field ID</p>
+
+    </li>
+    
+    <li>
+      <strong>description </strong>:
+      <small>
+        optional
+        , nil allowed
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>The cell description</p>
+
+    </li>
+    
+</ul>
+
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="rubrics-update">
+      <a href='#rubrics'>Rubrics</a> / <a href='#rubrics-update'>update</a>
+      </h3>
+
+      <div>
+          <h4>
+              PATCH /api/v1/rubric/:id
+            <br>
+            <small>creates a new rubric</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Request:
+  {
+      &quot;name&quot;: &quot;My Rubric&quot;,
+      &quot;description&quot;: &quot;Desc...&quot;,
+      &quot;low&quot;: 0,
+      &quot;high&quot;: 10,
+      &quot;ranges&quot;: [
+          {
+              &quot;id&quot;: &quot;low&quot;,
+              &quot;name&quot;: &quot;Low&quot;,
+              &quot;low&quot;: 0,
+              &quot;high&quot;: 5
+          },
+          {
+              &quot;id&quot;: &quot;high&quot;,
+              &quot;name&quot;: &quot;High&quot;,
+              &quot;low&quot;: 6,
+              &quot;high&quot;: 10
+          }
+      ],
+      &quot;fields&quot;: [
+          {
+              &quot;name&quot;: &quot;Voice&quot;,
+              &quot;id&quot;: &quot;voice&quot;,
+              &quot;description&quot;: &quot;Voice Description&quot;
+          },
+          {
+              &quot;name&quot;: &quot;Body&quot;,
+              &quot;id&quot;: &quot;body&quot;,
+              &quot;description&quot;: &quot;Body Description&quot;
+          }
+      ],
+      &quot;cells&quot;: [
+          {
+              &quot;range&quot;: &quot;low&quot;,
+              &quot;field&quot;: &quot;voice&quot;,
+              &quot;description&quot;: &quot;low voice&quot;
+          },
+          {
+              &quot;range&quot;: &quot;low&quot;,
+              &quot;field&quot;: &quot;body&quot;,
+              &quot;description&quot;: &quot;low body&quot;
+          },
+          {
+              &quot;range&quot;: &quot;high&quot;,
+              &quot;field&quot;: &quot;voice&quot;,
+              &quot;description&quot;: &quot;high voice&quot;
+          },
+          {
+              &quot;range&quot;: &quot;high&quot;,
+              &quot;field&quot;: &quot;body&quot;,
+              &quot;description&quot;: &quot;high body&quot;
+          }
+      ]
+  }
+</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The rubric&#39;s ID</p>
+
+    </li>
+    
+    <li>
+      <strong>name </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>The name of the rubric</p>
+
+    </li>
+    
+    <li>
+      <strong>description </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>Some information about the rubric</p>
+
+    </li>
+    
+    <li>
+      <strong>low </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The lowest possible scoe</p>
+
+    </li>
+    
+    <li>
+      <strong>public </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be one of: true, false.</p>
+ ]
+      </small>
+      
+<p>Is the rubric publicly available?</p>
+
+    </li>
+    
+    <li>
+      <strong>ranges </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be an Array of nested elements</p>
+ ]
+      </small>
+      
+<p>An array of the rubric&#39;s ranges</p>
+
+    </li>
+    <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        optional
+        , nil allowed
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>A short alphanumeric ID for this range</p>
+
+    </li>
+    
+    <li>
+      <strong>low </strong>:
+      <small>
+        optional
+        , nil allowed
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The lowest score that falls within this range</p>
+
+    </li>
+    
+    <li>
+      <strong>high </strong>:
+      <small>
+        optional
+        , nil allowed
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The highest score that falls within this range</p>
+
+    </li>
+    
+</ul>
+
+    <li>
+      <strong>fields </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be an Array of nested elements</p>
+ ]
+      </small>
+      
+<p>An array of the rubric&#39;s fields</p>
+
+    </li>
+    <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        optional
+        , nil allowed
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>A short alphanumeric ID for this field (criteria)</p>
+
+    </li>
+    
+    <li>
+      <strong>name </strong>:
+      <small>
+        optional
+        , nil allowed
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>The name of the field</p>
+
+    </li>
+    
+    <li>
+      <strong>description </strong>:
+      <small>
+        optional
+        , nil allowed
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>A brief description of the field</p>
+
+    </li>
+    
+</ul>
+
+    <li>
+      <strong>cells </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be an Array of nested elements</p>
+ ]
+      </small>
+      
+<p>An array of the rubric&#39;s cells</p>
+
+    </li>
+    <ul>
+    <li>
+      <strong>range </strong>:
+      <small>
+        optional
+        , nil allowed
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>References a range ID</p>
+
+    </li>
+    
+    <li>
+      <strong>field </strong>:
+      <small>
+        optional
+        , nil allowed
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>References a field ID</p>
+
+    </li>
+    
+    <li>
+      <strong>description </strong>:
+      <small>
+        optional
+        , nil allowed
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>The cell description</p>
+
+    </li>
+    
+</ul>
+
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="rubrics-destroy">
+      <a href='#rubrics'>Rubrics</a> / <a href='#rubrics-destroy'>destroy</a>
+      </h3>
+
+      <div>
+          <h4>
+              DELETE /api/v1/rubrics/:id
+            <br>
+            <small>deletes a rubric</small>
+          </h4>
+      </div>
+
+      <div>
+        
+
+          <h4>Errors</h4>
+            404
+            The rubric could not be found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The rubric ID</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+  </div>
+
+  <hr/>
+
+  <div>
+    <h2 id="scores">
+      <a href='#scores'>Scores</a><br>
+      <small></small>
+    </h2>
+  </div>
+
+    <div>
+<p>Scores is a pseudo resource that is used to access aggregate scoring data.
+This is a read-only resource, then, for all user types.</p>
+</div>
+
+  <div>
+
+      <hr/>
+
+      <h3 id="scores-my_scores">
+      <a href='#scores'>Scores</a> / <a href='#scores-my_scores'>my_scores</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/v1/scores/my_scores?project=:project
+            <br>
+            <small>returns the current user's scores for a given project</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Response:
+
+{
+    &quot;summary&quot;: {
+        &quot;project&quot;: {
+            &quot;asset_count&quot;: 0,
+            &quot;possible_submission_count&quot;: 13,
+            &quot;rubric_avg_score&quot;: &quot;62.0&quot;,
+            &quot;rubric_avg_percentage&quot;: &quot;68.8888888888889&quot;
+        },
+        &quot;score&quot;: {
+            &quot;average_score&quot;: 0,
+            &quot;average_percentage&quot;: 0,
+            &quot;count&quot;: 0
+        }
+    },
+    &quot;scores&quot;: []
+}
+</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>project </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The project ID</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="scores-all_scores">
+      <a href='#scores'>Scores</a> / <a href='#scores-all_scores'>all_scores</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/v1/scores/all_scores?project=:project
+            <br>
+            <small>returns scores for a given project</small>
+          </h4>
+      </div>
+
+      <div>
+        
+<p>The user must be able to administer the project&#39;s course to access this
+endpoint</p>
+
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Response:
+
+{
+    &quot;summary&quot;: {
+        &quot;project&quot;: {
+            &quot;asset_count&quot;: 0,
+            &quot;possible_submission_count&quot;: 13,
+            &quot;rubric_avg_score&quot;: &quot;62.0&quot;,
+            &quot;rubric_avg_percentage&quot;: &quot;68.8888888888889&quot;
+        },
+        &quot;score&quot;: {
+            &quot;average_score&quot;: &quot;62.0&quot;,
+            &quot;average_percentage&quot;: &quot;68.8888888888889&quot;,
+            &quot;count&quot;: 1
+        }
+    },
+    &quot;scores&quot;: [
+        {
+            &quot;creator_type&quot;: &quot;User&quot;,
+            &quot;rate&quot;: &quot;5&quot;,
+            &quot;level&quot;: &quot;5&quot;,
+            &quot;review&quot;: &quot;5&quot;,
+            &quot;preview&quot;: &quot;3&quot;,
+            &quot;movement&quot;: &quot;5&quot;,
+            &quot;attention&quot;: &quot;2&quot;,
+            &quot;citations&quot;: &quot;4&quot;,
+            &quot;eye-contact&quot;: &quot;3&quot;,
+            &quot;transitions&quot;: &quot;5&quot;,
+            &quot;visual-aids-attire&quot;: &quot;5&quot;,
+            &quot;supporting-material&quot;: &quot;5&quot;,
+            &quot;introduction-tieback&quot;: &quot;5&quot;,
+            &quot;relation-to-audience&quot;: &quot;4&quot;,
+            &quot;specific-purpose-thesis&quot;: &quot;1&quot;,
+            &quot;logical-organization-pattern&quot;: &quot;5&quot;
+        }
+    ]
+}
+</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>project </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The project ID</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="scores-peer_scores">
+      <a href='#scores'>Scores</a> / <a href='#scores-peer_scores'>peer_scores</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/v1/scores/peer_scores?project=:project
+            <br>
+            <small>returns peer evaluation scores for a given project</small>
+          </h4>
+      </div>
+
+      <div>
+        
+<p>The user must be able to administer the project&#39;s course to access this
+endpoint</p>
+
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Response:
+
+{
+    &quot;summary&quot;: {
+        &quot;project&quot;: {
+            &quot;asset_count&quot;: 0,
+            &quot;possible_submission_count&quot;: 13,
+            &quot;rubric_avg_score&quot;: &quot;62.0&quot;,
+            &quot;rubric_avg_percentage&quot;: &quot;68.8888888888889&quot;
+        },
+        &quot;score&quot;: {
+            &quot;average_score&quot;: &quot;62.0&quot;,
+            &quot;average_percentage&quot;: &quot;68.8888888888889&quot;,
+            &quot;count&quot;: 1
+        }
+    },
+    &quot;scores&quot;: [
+        {
+            &quot;creator_type&quot;: &quot;User&quot;,
+            &quot;rate&quot;: &quot;5&quot;,
+            &quot;level&quot;: &quot;5&quot;,
+            &quot;review&quot;: &quot;5&quot;,
+            &quot;preview&quot;: &quot;3&quot;,
+            &quot;movement&quot;: &quot;5&quot;,
+            &quot;attention&quot;: &quot;2&quot;,
+            &quot;citations&quot;: &quot;4&quot;,
+            &quot;eye-contact&quot;: &quot;3&quot;,
+            &quot;transitions&quot;: &quot;5&quot;,
+            &quot;visual-aids-attire&quot;: &quot;5&quot;,
+            &quot;supporting-material&quot;: &quot;5&quot;,
+            &quot;introduction-tieback&quot;: &quot;5&quot;,
+            &quot;relation-to-audience&quot;: &quot;4&quot;,
+            &quot;specific-purpose-thesis&quot;: &quot;1&quot;,
+            &quot;logical-organization-pattern&quot;: &quot;5&quot;
+        }
+    ]
+}
+</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>project </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The project ID</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="scores-evaluator_scores">
+      <a href='#scores'>Scores</a> / <a href='#scores-evaluator_scores'>evaluator_scores</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/v1/scores/evaluator_scores?project=:project
+            <br>
+            <small>returns evaluator scores for a given project</small>
+          </h4>
+      </div>
+
+      <div>
+        
+<p>The user must be able to administer the project&#39;s course to access this
+endpoint</p>
+
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Response:
+
+{
+    &quot;summary&quot;: {
+        &quot;project&quot;: {
+            &quot;asset_count&quot;: 0,
+            &quot;possible_submission_count&quot;: 13,
+            &quot;rubric_avg_score&quot;: &quot;62.0&quot;,
+            &quot;rubric_avg_percentage&quot;: &quot;68.8888888888889&quot;
+        },
+        &quot;score&quot;: {
+            &quot;average_score&quot;: &quot;62.0&quot;,
+            &quot;average_percentage&quot;: &quot;68.8888888888889&quot;,
+            &quot;count&quot;: 1
+        }
+    },
+    &quot;scores&quot;: [
+        {
+            &quot;creator_type&quot;: &quot;User&quot;,
+            &quot;rate&quot;: &quot;5&quot;,
+            &quot;level&quot;: &quot;5&quot;,
+            &quot;review&quot;: &quot;5&quot;,
+            &quot;preview&quot;: &quot;3&quot;,
+            &quot;movement&quot;: &quot;5&quot;,
+            &quot;attention&quot;: &quot;2&quot;,
+            &quot;citations&quot;: &quot;4&quot;,
+            &quot;eye-contact&quot;: &quot;3&quot;,
+            &quot;transitions&quot;: &quot;5&quot;,
+            &quot;visual-aids-attire&quot;: &quot;5&quot;,
+            &quot;supporting-material&quot;: &quot;5&quot;,
+            &quot;introduction-tieback&quot;: &quot;5&quot;,
+            &quot;relation-to-audience&quot;: &quot;4&quot;,
+            &quot;specific-purpose-thesis&quot;: &quot;1&quot;,
+            &quot;logical-organization-pattern&quot;: &quot;5&quot;
+        }
+    ]
+}
+</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>project </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The project ID</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+  </div>
+
+  <hr/>
+
+  <div>
+    <h2 id="submissions">
+      <a href='#submissions'>Submissions</a><br>
+      <small></small>
+    </h2>
+  </div>
+
+    <div>
+<p>Submissions tie together the media, discussion posts, and evaluations that
+are created in response to a student&#39;s work on a project. Submissions
+are created automatically, on the fly by Vocat. Vocat will always return a
+one submission for every group and student that can submit for a given
+project. The existence of a submission, then, should not be taken to mean
+that a student has taken action on a project. For performance reasons, when
+the API renders collections of submissions, it uses a brief serializer that
+does not include all submission details. To access the full details of a
+submission, API clients should request the single submission.</p>
+</div>
+
+  <div>
+
+      <hr/>
+
+      <h3 id="submissions-for_course">
+      <a href='#submissions'>Submissions</a> / <a href='#submissions-for_course'>for_course</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/v1/submission/for_course?course=:course
+            <br>
+            <small>returns summaries of all submissions for the given course</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Response:
+
+[
+  {
+    &quot;id&quot;: 7395,
+    &quot;creator_id&quot;: 4483,
+    &quot;project_id&quot;: 466,
+    &quot;creator_type&quot;: &quot;User&quot;,
+    &quot;serialized_state&quot;: &quot;partial&quot;,
+    &quot;current_user_published&quot;: null,
+    &quot;current_user_percentage&quot;: null,
+    &quot;instructor_score_percentage&quot;: &quot;68.8888888888889&quot;,
+    &quot;role&quot;: &quot;administrator&quot;,
+    &quot;has_asset&quot;: true,
+    &quot;list_name&quot;: &quot;Blick, Betty&quot;
+  },
+  {
+    &quot;id&quot;: 7398,
+    &quot;creator_id&quot;: 4519,
+    &quot;project_id&quot;: 466,
+    &quot;creator_type&quot;: &quot;User&quot;,
+    &quot;serialized_state&quot;: &quot;partial&quot;,
+    &quot;current_user_published&quot;: null,
+    &quot;current_user_percentage&quot;: null,
+    &quot;instructor_score_percentage&quot;: null,
+    &quot;role&quot;: &quot;administrator&quot;,
+    &quot;has_asset&quot;: false,
+    &quot;list_name&quot;: &quot;Reinger, Ebony&quot;
+  },
+  [...]
+]
+</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>course </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The course ID</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="submissions-for_creator_and_project">
+      <a href='#submissions'>Submissions</a> / <a href='#submissions-for_creator_and_project'>for_creator_and_project</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/v1/submission/for_creator_and_project?creator=:creator&amp;project=:project&amp;creator_type=:creator_type
+            <br>
+            <small>returns detailed submissions for the given creator and project</small>
+          </h4>
+      </div>
+
+      <div>
+        
+<p>The following example is truncated, as the serialized submission also
+includes the project, the rubric, all evaluations, and all assets
+associated with the submission. To see what fields are exposed on these
+resources, please consult the related API doc pages.</p>
+
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Response:
+
+[
+  {
+    &quot;id&quot;:7395,
+    &quot;name&quot;:null,
+    &quot;path&quot;:&quot;/courses/234/users/evaluations/creator/4483/project/466&quot;,
+    &quot;serialized_state&quot;:&quot;full&quot;,
+    &quot;role&quot;:&quot;administrator&quot;,
+    &quot;discussion_posts_count&quot;:1,
+    &quot;new_posts_for_current_user&quot;:false,
+    &quot;project&quot;:{[SEE PROJECT RESOURCE]},
+    &quot;creator&quot;:{
+      &quot;id&quot;:4483,
+      &quot;email&quot;:&quot;creator10@test.com&quot;,
+      &quot;name&quot;:&quot;Betty Blick&quot;,
+      &quot;gravatar&quot;:&quot;http://gravatar.com/avatar/8a4e59d9970b880e602cd29d77fc2fd7.png?d=mm&amp;s=&quot;,
+      &quot;first_name&quot;:&quot;Betty&quot;,
+      &quot;last_sign_in_at&quot;:null,
+      &quot;org_identity&quot;:&quot;95661757&quot;,
+      &quot;list_name&quot;:&quot;Blick, Betty&quot;
+    },
+    &quot;creator_id&quot;:4483,
+    &quot;creator_type&quot;:&quot;User&quot;,
+    &quot;project_id&quot;:466,
+    &quot;evaluations&quot;:[
+      {[SEE EVALUATION RESOURCE]}
+    ],
+    &quot;abilities&quot;:{
+      &quot;can_own&quot;:true,
+      &quot;can_evaluate&quot;:false,
+      &quot;can_attach&quot;:true,
+      &quot;can_discuss&quot;:true,
+      &quot;can_annotate&quot;:true,
+      &quot;can_administer&quot;:true
+    },
+    &quot;current_user_published&quot;:null,
+    &quot;current_user_percentage&quot;:null,
+    &quot;evaluated_by_peers&quot;:false,
+    &quot;peer_score_percentage&quot;:0,
+    &quot;evaluated_by_instructor&quot;:true,
+    &quot;instructor_score_percentage&quot;:&quot;68.8888888888889&quot;,
+    &quot;has_asset&quot;:true,
+    &quot;assets&quot;:[
+      {[SEE ASSET RESOURCE]}
+    ]
+  }
+]
+</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>creator </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The group or course ID</p>
+
+    </li>
+    
+    <li>
+      <strong>project </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The project ID</p>
+
+    </li>
+    
+    <li>
+      <strong>creator_type </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be one of: User, Group.</p>
+ ]
+      </small>
+      
+<p>A string telling Vocat whether to return a user or group creator</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="submissions-for_course_and_user">
+      <a href='#submissions'>Submissions</a> / <a href='#submissions-for_course_and_user'>for_course_and_user</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/v1/submission/for_course_and_user?course=:course&amp;project=:project&amp;user=:user
+            <br>
+            <small>returns detailed submissions for the given user, course, and project (optional)</small>
+          </h4>
+      </div>
+
+      <div>
+        
+<p>For a sample of the response, see the for_creator_and_project endpoint,
+above.</p>
+
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>user </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The user ID</p>
+
+    </li>
+    
+    <li>
+      <strong>project </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The project ID</p>
+
+    </li>
+    
+    <li>
+      <strong>course </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The course ID</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="submissions-for_group">
+      <a href='#submissions'>Submissions</a> / <a href='#submissions-for_group'>for_group</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/v1/submission/for_group?group=:group
+            <br>
+            <small>returns detailed submissions for the given group</small>
+          </h4>
+      </div>
+
+      <div>
+        
+<p>For a sample of the response, see the for_creator_and_project endpoint,
+above.</p>
+
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>group </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The group ID</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="submissions-for_project">
+      <a href='#submissions'>Submissions</a> / <a href='#submissions-for_project'>for_project</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/v1/submission/for_project?project=:project
+            <br>
+            <small>returns brief submissions the given project</small>
+          </h4>
+      </div>
+
+      <div>
+        
+<p>For a sample of the response, see the for_creator_and_project endpoint,
+above.</p>
+
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>project </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The project ID</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="submissions-show">
+      <a href='#submissions'>Submissions</a> / <a href='#submissions-show'>show</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/v1/submission/:id
+            <br>
+            <small>shows a single submission</small>
+          </h4>
+      </div>
+
+      <div>
+        
+<p>For a sample of the response, see the for_creator_and_project endpoint,
+above.</p>
+
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The submission ID</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="submissions-create">
+      <a href='#submissions'>Submissions</a> / <a href='#submissions-create'>create</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /api/v1/course/:course_id/submissions
+            <br>
+            <small>creates a submission</small>
+          </h4>
+      </div>
+
+      <div>
+        
+
+
+      </div>
+      <hr/>
+
+      <h3 id="submissions-update">
+      <a href='#submissions'>Submissions</a> / <a href='#submissions-update'>update</a>
+      </h3>
+
+      <div>
+          <h4>
+              PATCH /api/v1/submissions/:id
+            <br>
+            <small>updates a submission</small>
+          </h4>
+      </div>
+
+      <div>
+        
+
+
+      </div>
+      <hr/>
+
+      <h3 id="submissions-destroy">
+      <a href='#submissions'>Submissions</a> / <a href='#submissions-destroy'>destroy</a>
+      </h3>
+
+      <div>
+          <h4>
+              DELETE /api/v1/submissions/:id
+            <br>
+            <small>deletes a submission and all attached media, annotations, discussion posts, and evaluations.</small>
+          </h4>
+      </div>
+
+      <div>
+        
+
+          <h4>Errors</h4>
+            404
+            The submission could not be found.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The submission ID</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+  </div>
+
+  <hr/>
+
+  <div>
+    <h2 id="users">
+      <a href='#users'>Users</a><br>
+      <small></small>
+    </h2>
+  </div>
+
+
+  <div>
+
+      <hr/>
+
+      <h3 id="users-search">
+      <a href='#users'>Users</a> / <a href='#users-search'>search</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/v1/users/search/?email=:email
+            <br>
+            <small>Finds users by email address. Under normal circumstances, should return an arry with 1 or 0 items.</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Response:
+[
+  {
+    &quot;id&quot;: 4470,
+    &quot;email&quot;: &quot;evaluator1@test.com&quot;,
+    &quot;name&quot;: &quot;Ressie Crona&quot;,
+    &quot;gravatar&quot;: &quot;http://gravatar.com/avatar/4c3fe1bdae8ec9e5db97d02aa4cf1cda.png?d=mm&amp;s=&quot;,
+    &quot;first_name&quot;: &quot;Ressie&quot;,
+    &quot;last_sign_in_at&quot;: &quot;2015-05-06T17:51:54.327-04:00&quot;,
+    &quot;org_identity&quot;: &quot;30683835&quot;,
+    &quot;list_name&quot;: &quot;Crona, Ressie&quot;
+  }
+]
+</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>email </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>The user&#39;s email address</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="users-show">
+      <a href='#users'>Users</a> / <a href='#users-show'>show</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/v1/users/:id
+            <br>
+            <small>shows a user</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Response:
+
+{
+  &quot;id&quot;: 4470,
+  &quot;email&quot;: &quot;evaluator1@test.com&quot;,
+  &quot;name&quot;: &quot;Ressie Crona&quot;,
+  &quot;gravatar&quot;: &quot;http://gravatar.com/avatar/4c3fe1bdae8ec9e5db97d02aa4cf1cda.png?d=mm&amp;s=&quot;,
+  &quot;first_name&quot;: &quot;Ressie&quot;,
+  &quot;last_sign_in_at&quot;: &quot;2015-05-06T17:51:54.327-04:00&quot;,
+  &quot;org_identity&quot;: &quot;30683835&quot;,
+  &quot;list_name&quot;: &quot;Crona, Ressie&quot;
+}
+</pre>
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Fixnum</p>
+ ]
+      </small>
+      
+<p>The ID of the user to be shown</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="users-me">
+      <a href='#users'>Users</a> / <a href='#users-me'>me</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/v1/users/me
+            <br>
+            <small>shows the current authenticated user</small>
+          </h4>
+      </div>
+
+      <div>
+        
+          <h4>Examples</h4>
+            <pre class="wiki">Sample Response:
+
+{
+  &quot;id&quot;: 4470,
+  &quot;email&quot;: &quot;evaluator1@test.com&quot;,
+  &quot;name&quot;: &quot;Ressie Crona&quot;,
+  &quot;gravatar&quot;: &quot;http://gravatar.com/avatar/4c3fe1bdae8ec9e5db97d02aa4cf1cda.png?d=mm&amp;s=&quot;,
+  &quot;first_name&quot;: &quot;Ressie&quot;,
+  &quot;last_sign_in_at&quot;: &quot;2015-05-06T17:51:54.327-04:00&quot;,
+  &quot;org_identity&quot;: &quot;30683835&quot;,
+  &quot;list_name&quot;: &quot;Crona, Ressie&quot;
+}
+</pre>
+
+          <h4>Errors</h4>
+            401
+            Your API token has likely expired.
+            <pre class="prettyprint lang-yaml">--- 
+...
+</pre>
+
+            <br>
+
+      </div>
+  </div>
