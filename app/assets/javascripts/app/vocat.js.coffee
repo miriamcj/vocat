@@ -7,6 +7,7 @@ define (require) ->
   DropdownView = require('views/layout/dropdown')
   FigureCollectionView = require('views/layout/figures_collection')
   ChosenView = require('views/layout/chosen')
+  JumpNavView = require('views/layout/jump_nav')
   FileInputView = require('views/layout/file_input')
   HeaderDrawerView = require('views/layout/header_drawer')
   HeaderDrawerTriggerView = require('views/layout/header_drawer_trigger')
@@ -93,6 +94,9 @@ define (require) ->
     )
     $('[data-behavior="chosen"]').each( (index, el) ->
       new ChosenView({el: el, vent: Vocat.vent})
+    )
+    $('[data-behavior="jump-nav"]').each( (index, el) ->
+      new JumpNavView({el: el, vent: Vocat.vent})
     )
     $('[data-behavior="file-input"]').each( (index, el) ->
       new FileInputView({el: el, vent: Vocat.vent})

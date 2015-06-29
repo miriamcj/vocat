@@ -11,18 +11,16 @@
 			<% else %>
 				<div class="formgrid whole">
 					<label>Welcome to Vocat. Please select your college from the list below.</label>
-					<select data-behavior="chosen"></select>
+					<select data-placeholder="Select College" data-behavior="jump-nav">
+						<option></option>
+						<%= options_from_collection_for_select(@organizations, :url, :name) %>
+					</select>
 				</div>
-				<footer class="authentication-footer">
-					<ul>
-						<li><a href="http://vocat.io">Learn more about Vocat</a></li>
-					</ul>
-				</footer>
-
 			<% end %>
 		</div>
 		</form>
 	</div>
 <% end %>
+
 <% content_for :body_class do %>bg-dark
 <% end %>

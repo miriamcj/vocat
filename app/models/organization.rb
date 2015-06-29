@@ -23,6 +23,14 @@ class Organization < ActiveRecord::Base
     name
   end
 
+  def url
+    if Rails.application.config.vocat.enforce_ssl
+      "https://#{domain}"
+    else
+      "http://#{domain}"
+    end
+  end
+
   def domain
     [subdomain, Rails.application.config.vocat.domain].join('.')
   end

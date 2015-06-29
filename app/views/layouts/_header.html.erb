@@ -1,3 +1,5 @@
+<% hide_nav = false if local_assigns[:hide_nav].nil? %>
+
 <header class="page-header">
 	<div style="position: relative">
 		<div class="page-header--navigation-wrapper">
@@ -5,7 +7,7 @@
 				<nav class="page-header--logo-nav">
 					<%= link_to image_tag("png/logo.png", :alt => "VOCAT"), root_path %>
 				</nav>
-				<% if user_signed_in? %>
+				<% if user_signed_in? && !hide_nav %>
 
 					<div class="nav-trigger-wrapper">
 						<% if @app_section == 'manage' %>
