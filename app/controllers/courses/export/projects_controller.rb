@@ -11,6 +11,7 @@ class Courses::Export::ProjectsController < ApplicationController
 
   before_action do
     @project = Project.find(params[:id])
+    org_validate_project
     authorize!(:export, @project)
   end
 

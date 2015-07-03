@@ -1,6 +1,7 @@
 class Admin::RubricsController < Admin::AdminController
 
   load_and_authorize_resource :rubric
+  before_filter :org_validate_rubric
   respond_to :html
 
   # GET /admin/rubrics
@@ -9,7 +10,7 @@ class Admin::RubricsController < Admin::AdminController
         :name => params[:name],
         :public => params[:public],
     }
-    @rubrics = Rubric.search(search).page params[:page]
+    @rubrics = @current_organization.rubrics.search(search).page params[:page]
   end
 
   # GET /admin/rubrics/new

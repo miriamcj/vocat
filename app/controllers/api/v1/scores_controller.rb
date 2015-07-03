@@ -4,6 +4,7 @@ class Api::V1::ScoresController < ApiController
   skip_authorization_check
 
   before_action :load_project
+  before_filter :org_validate_project
 
   resource_description do
     description <<-EOS

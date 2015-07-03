@@ -32,6 +32,14 @@ class Asset < ActiveRecord::Base
   delegate :creator_type, :to => :submission, :allow_nil => true
 
   scope :sorted, -> { order("listing_order ASC") }
+  scope :in_organization, ->(organization) {
+    joins(:submission => {:project => {:course => :organization}}).where('organizations.id = ?', organization.id)
+  }
+  scope :created_this_month, ->() {
+    where("assets.created_at > ? AND assets.created_at < ?", Time.now.beginning_of_month, Time.now.end_of_month)
+  }
+
+
 
   # We don't want any typeless assets being created.
   validates_presence_of :type
@@ -68,6 +76,7 @@ class Asset < ActiveRecord::Base
     v = Asset.all
     v = v.where({type: params[:type]}) unless params[:type].blank?
     v = v.joins(:submission => :user).where("users.last_name LIKE ? OR users.first_name LIKE ? OR users.email LIKE ?", "%#{params[:creator]}%", "%#{params[:creator]}%", "%#{params[:creator]}%") unless params[:creator].blank?
+    v = v.joins(:submission => {:project => {:course => :organization}}).where('organizations.id = ?', params[:organization].id) unless params[:organization].blank?
     v
   end
 
@@ -91,6 +100,14 @@ class Asset < ActiveRecord::Base
 
   def state
     attachment.state
+  end
+
+  def processed?
+    attachment.state == 'processed'
+  end
+
+  def total_storage
+    attachment.variants.pluck(:file_size).sum + attachment.media_file_size
   end
 
   protected

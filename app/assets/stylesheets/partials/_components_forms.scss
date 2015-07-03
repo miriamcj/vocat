@@ -169,11 +169,17 @@ fieldset + fieldset {
       }
     }
   }
+  .form-hrule {
+    @include clearfix();
+    font-weight: bold;
+    border-bottom: 1px solid $grayMedium;
+    padding: .5em 0;
+  }
   .checkbox-separator {
     margin: 1em 0;
     font-style: italic;
   }
-  .checkbox-wrap {
+  .checkbox-wrap,  {
     @include clearfix();
     border-top: 1px solid $grayMedium;
     padding: .5em 0;

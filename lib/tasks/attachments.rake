@@ -1,5 +1,16 @@
 namespace :attachments do
 
+  desc "update_metadata"
+  task :update_metadata => :environment do |task, args|
+
+    Attachment.all.each do |attachment|
+      attachment.variants.each do |variant|
+        puts "Updating variant #{variant.id} file_size to #{variant.file_size}" if variant.update_content_length
+        puts "Updating variant #{variant.id} with {duration: #{variant.duration}, width: #{variant.width}, height: #{variant.height}}" if variant.update_job_metadata
+      end
+    end
+  end
+
   desc "clean"
   task :clean, [:confirm] => :environment do |task, args|
 

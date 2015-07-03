@@ -3,6 +3,9 @@ class Api::V1::EnrollmentsController < ApiController
   include ActionView::Helpers::DateHelper
   load_and_authorize_resource :user
   load_and_authorize_resource :course
+  before_filter :org_validate_user
+  before_filter :org_validate_course
+
   respond_to :json
 
   resource_description do
@@ -130,14 +133,16 @@ class Api::V1::EnrollmentsController < ApiController
   def destroy
     id = params[:id]
     matches = /\Au(\d+)c(\d+)\Z/.match(id)
-    user = User.find matches[1]
-    course = Course.find matches[2]
-    authorize! :administer, course
-    course.disenroll(user)
-    if course.errors
-      respond_with :admin, course
+    @user = User.find matches[1]
+    @course = Course.find matches[2]
+    org_validate_user
+    org_validate_course
+    authorize! :administer, @course
+    @course.disenroll(@user)
+    if @course.errors
+      respond_with :admin, @course
     else
-      respond_with build_enrollment_hash(course, user)
+      respond_with build_enrollment_hash(@course, @user)
     end
   end
 
@@ -174,15 +179,17 @@ class Api::V1::EnrollmentsController < ApiController
     }
   EOF
   def create
-    user = User.find params[:user]
-    course = Course.find params[:course]
+    @user = User.find params[:user]
+    @course = Course.find params[:course]
+    org_validate_user
+    org_validate_course
     role = params[:role]
-    authorize! :administer, course
-    course.enroll(user, role)
-    if user.errors.empty?
-      respond_with build_enrollment_hash(course, user), :location => nil
+    authorize! :administer, @course
+    @course.enroll(@user, role)
+    if @user.errors.empty?
+      respond_with build_enrollment_hash(@course, @user), :location => nil
     else
-      respond_with :admin, user
+      respond_with :admin, @user
     end
   end
 
@@ -231,7 +238,8 @@ class Api::V1::EnrollmentsController < ApiController
     ]
   EOF
   def bulk
-    course = Course.find params[:course_id]
+    @course = Course.find params[:course_id]
+    org_validate_course
     role = params[:role]
     if params[:invite] == 'true' || params[:invite] == true
       invite = true
@@ -240,7 +248,7 @@ class Api::V1::EnrollmentsController < ApiController
     end
     contacts = params[:contacts]
     enroller = BulkEnroller.new
-    respond_with enroller.enroll(contacts, course, role, invite), :location => nil
+    respond_with enroller.enroll(contacts, @course, role, invite), :location => nil
   end
 
   protected

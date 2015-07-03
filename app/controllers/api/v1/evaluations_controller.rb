@@ -1,6 +1,7 @@
 class Api::V1::EvaluationsController < ApiController
 
   load_and_authorize_resource :evaluation
+  before_filter :org_validate_evaluation
   respond_to :json
 
   def_param_group :evaluation do
@@ -172,6 +173,7 @@ class Api::V1::EvaluationsController < ApiController
   EOF
   def index
     @submission = Submission.find(params.require(:submission))
+    org_validate_submission
     authorize! :show, @submission
     @evaluations = @submission.evaluations_visible_to(current_user)
     respond_with @evaluations

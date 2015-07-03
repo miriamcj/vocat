@@ -12,11 +12,23 @@
 #  processor_error :string(255)
 #  created_at      :datetime
 #  updated_at      :datetime
+#  file_size       :integer
+#  duration        :decimal(, )
+#  width           :integer
+#  height          :integer
+#  metadata_saved  :boolean          default(FALSE)
 #
 
 class Attachment::Variant < ActiveRecord::Base
 
   include Storable
+
+  scope :in_organization, ->(organization) {
+    joins(:attachment => {:asset => {:submission => {:project => {:course => :organization}}}}).where('organizations.id = ?', organization.id)
+  }
+  scope :created_this_month, ->() {
+    where("attachment_variants.created_at > ? AND attachment_variants.created_at < ?", Time.now.beginning_of_month, Time.now.end_of_month)
+  }
 
   belongs_to :attachment
   after_destroy :destroy_file_object
@@ -52,6 +64,19 @@ class Attachment::Variant < ActiveRecord::Base
     !processor_error.blank?
   end
 
+  def job_id
+    if processor_data.blank?
+      return nil
+    else
+      data = JSON.parse(processor_data)
+      if data.has_key?('job_id')
+        return data['job_id']
+      else
+        return nil
+      end
+    end
+  end
+
   def processing_complete?
     return true if processed?
     return true if unprocessed? && has_processing_error?
@@ -63,6 +88,50 @@ class Attachment::Variant < ActiveRecord::Base
 
   def check_processing_state
     processor.processing_finished?(self)
+  end
+
+  def update_content_length
+    if state == 'processed' && file_size.blank?
+      credentials = {
+          :access_key_id => Rails.application.config.vocat.aws[:key],
+          :secret_access_key => Rails.application.config.vocat.aws[:secret]
+      }
+      AWS.config(credentials)
+      s3 = AWS::S3.new()
+      bucket = s3.buckets[Rails.application.config.vocat.aws[:s3_bucket]]
+      s3_obj = bucket.objects[location]
+      if s3_obj.exists?
+        self.file_size = s3_obj.content_length
+        self.save
+        return true
+      end
+    end
+    return false
+  end
+
+  def update_job_metadata
+    if !self.metadata_saved
+      credentials = {
+          :access_key_id => Rails.application.config.vocat.aws[:key],
+          :secret_access_key => Rails.application.config.vocat.aws[:secret]
+      }
+      AWS.config(credentials)
+      et = AWS::ElasticTranscoder::Client.new({:region => Rails.application.config.vocat.aws[:s3_region]})
+      job_id = self.job_id
+      if !job_id.blank?
+        et_job = et.read_job({id: job_id})
+        output = et_job[:job][:output]
+        if output
+          self.duration = output[:duration]
+          self.width = output[:width]
+          self.height = output[:height]
+          self.metadata_saved = true
+          self.save
+          return true
+        end
+      end
+    end
+    return false
   end
 
 

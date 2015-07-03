@@ -2,13 +2,30 @@
 #
 # Table name: organizations
 #
-#  id         :integer          not null, primary key
-#  name       :string(255)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  subdomain  :string
-#  active     :boolean
-#  logo       :string
+#  id                                :integer          not null, primary key
+#  name                              :string(255)
+#  created_at                        :datetime         not null
+#  updated_at                        :datetime         not null
+#  subdomain                         :string
+#  active                            :boolean
+#  logo                              :string
+#  ldap_enabled                      :boolean          default(FALSE)
+#  ldap_host                         :string
+#  ldap_encryption                   :string           default("simple_tls")
+#  ldap_port                         :integer          default(3269)
+#  ldap_filter_dn                    :string
+#  ldap_filter                       :string           default("(mail={email})")
+#  ldap_bind_dn                      :string
+#  ldap_bind_cn                      :string
+#  ldap_bind_password                :string
+#  ldap_org_identity                 :string           default("name")
+#  ldap_reset_pw_url                 :string
+#  ldap_recover_pw_url               :string
+#  ldap_message                      :text
+#  ldap_evaluator_email_domain       :string
+#  ldap_default_role                 :string           default("creator")
+#  email_default_from                :string
+#  email_notification_course_request :string
 #
 
 class Organization < ActiveRecord::Base
@@ -18,6 +35,7 @@ class Organization < ActiveRecord::Base
   before_validation :downcase_subdomain
   has_many :courses
   has_many :users
+  has_many :rubrics
 
   def to_s
     name

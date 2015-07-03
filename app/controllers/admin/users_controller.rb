@@ -1,6 +1,7 @@
 class Admin::UsersController < Admin::AdminController
 
   load_and_authorize_resource :user
+  before_filter :org_validate_user
   respond_to :html
   layout 'content'
 
@@ -11,7 +12,7 @@ class Admin::UsersController < Admin::AdminController
         :email => params[:email],
         :role => params[:role]
     }
-    @users = User.search(search).in_org(@current_organization).page(params[:page])
+    @users = @current_organization.users.search(search).page(params[:page])
   end
 
   # GET /admin/users/1

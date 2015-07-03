@@ -16,6 +16,7 @@ define (require) ->
 
   Standalone = {
     project: require('views/course/manage/projects/project')
+    manage_organization: require('views/manage/organizations/organization')
   }
 
   window.Vocat = Vocat = new Backbone.Marionette.Application()

@@ -59,4 +59,12 @@ define (require) ->
         @toggle()
       )
       @bindUIElements()
+
+      options = {
+        disable_search_threshold: 1000,
+        allow_single_deselect: false,
+        placeholder_text_single: 'Jump to a different course'
+      }
+      @ui.courseSelect.chosen(options)
+
       @setupListeners()

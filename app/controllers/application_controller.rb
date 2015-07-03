@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
 
   include Concerns::StrongParametersConfiguration
+  include Concerns::OrganizationValidator
 
   layout 'content'
   protect_from_forgery

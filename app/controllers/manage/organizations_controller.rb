@@ -7,6 +7,8 @@ class Manage::OrganizationsController < ApplicationController
 
   # GET /admin/organizations
   def index
+    @page = params[:page] || 1
+    @stats = Statistics::manage_org_stats()
     @organizations = Organization.all.page(params[:page])
   end
 
@@ -39,7 +41,7 @@ class Manage::OrganizationsController < ApplicationController
   def update
     handle_logo_upload(@organization)
     if @organization.update(organization_params)
-      redirect_to organization_path(@organization), notice: 'Organization was successfully updated.'
+      redirect_to edit_organization_path(@organization), notice: 'Organization was successfully updated.'
     else
       render :edit
     end

@@ -2,6 +2,7 @@ class Api::V1::CoursesController < ApiController
 
   respond_to :json
   load_and_authorize_resource :course
+  before_filter :org_validate_course
   skip_authorization_check only: [:index, :search]
 
   def_param_group :course do
@@ -78,7 +79,7 @@ class Api::V1::CoursesController < ApiController
 
 
   def search
-    @course = Course.where(["lower(section) LIKE :section", {:section => "#{params[:section].downcase}%"}])
+    @course = Course.where(["lower(section) LIKE :section", {:section => "#{params[:section].downcase}%"}]).where(:organization => @current_organization)
     respond_with @course
   end
 
@@ -139,7 +140,7 @@ class Api::V1::CoursesController < ApiController
 
   # GET /api/v1/courses/for_user.json?user=:user
   def for_user
-    user = User.find(params.require(:user))
+    user = @current_organization.users.find(params.require(:user))
     respond_with ActiveModel::ArraySerializer.new(user.courses, :scope => user, :each_serializer => CourseSerializer)
   end
 

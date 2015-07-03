@@ -39,6 +39,13 @@ class Attachment < ActiveRecord::Base
       Attachment::Processor::MobileImageGenerator
   ]
 
+  scope :in_organization, ->(organization) {
+    joins(:asset => {:submission => {:project => {:course => :organization}}}).where('organizations.id = ?', organization.id)
+  }
+  scope :created_this_month, ->() {
+    where("attachments.created_at > ? AND attachments.created_at < ?", Time.now.beginning_of_month, Time.now.end_of_month)
+  }
+
   after_destroy :destroy_file_object
   after_initialize :check_processing_state
   after_commit :check_if_processing_is_needed, :on => [:create, :update]

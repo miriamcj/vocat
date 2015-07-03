@@ -2,10 +2,11 @@ class Courses::Manage::CoursesController < ApplicationController
 
   layout 'content'
   load_and_authorize_resource :course, :parent => true
+  before_filter :org_validate_course
   respond_to :html
 
   def edit
-    @course = Course.find params[:course_id]
+    @course = @current_organization.courses.find params[:course_id]
   end
 
   def update

@@ -205,7 +205,7 @@ class Course < ActiveRecord::Base
     if membership
       return membership.role.to_sym()
     end
-    return :administrator if user.role? :administrator
+    return :administrator if user.role? :administrator && user.organization == organization
     return nil
   end
 

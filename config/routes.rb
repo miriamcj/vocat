@@ -3,7 +3,7 @@ Vocat::Application.routes.draw do
 
   constraints subdomain: 'manage' do
     scope :module => :manage do
-      get '/' => 'manage#index', :as => 'manage_root'
+      get '/' => 'organizations#index', :as => 'manage_root'
       resources :organizations
     end
   end

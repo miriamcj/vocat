@@ -148,6 +148,7 @@ class BulkEnroller
 
   def enroll_one_contact!(contact, course, role)
     user = get_contact_user(contact)
+    Raise "User and course must share an organization" if user.organization != course.organization
     course.enroll(user, role)
     if user.errors.empty?
       contact[:success] = true

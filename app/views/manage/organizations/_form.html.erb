@@ -21,3 +21,70 @@
 										   ], @organization.active), {:include_blank => false}, {'data-behavior' => 'chosen'} %>
 	<small>Users belonging to inactive organizations will not be able to login to Vocat.</small>
 </div>
+<div class="formgrid whole">
+	<label class="text-label form-hrule" >LDAP Settings</label>
+</div>
+<div class="formgrid whole">
+	<%= f.label 'Enable LDAP Logins', :class => 'text-label' %>
+	<%= f.select :ldap_enabled, options_for_select([
+													 ['Yes', true],
+													 ['No', false]
+											 ], @organization.ldap_enabled), {:include_blank => false}, {'data-behavior' => 'chosen', 'data-class' => 'ldap-enabled'} %>
+</div>
+<fieldset data-class="ldap-fields">
+	<div class="formgrid third">
+		<%= f.label 'LDAP Host', :class => 'text-label' %>
+		<%= text_field :organization, :ldap_host, {class: 'text-input'} %>
+		<small>For example: ldap.baruch.cuny.edu</small>
+	</div>
+
+	<div class="formgrid third">
+		<%= f.label 'LDAP Encryption Method', :class => 'text-label' %>
+		<%= f.select :ldap_encryption, options_for_select([
+															   ['Simple TLS', 'simple_tls'],
+															   ['Start TLS', 'start_tls']
+													   ], @organization.ldap_encryption), {:include_blank => false}, {'data-behavior' => 'chosen', 'data-class' => 'ldap-enabled'} %>
+		<small>Simple TLS is supported. Start TLS is experimental.</small>
+	</div>
+	<div class="formgrid third">
+		<%= f.label 'LDAP Port', :class => 'text-label' %>
+		<%= text_field :organization, :ldap_port, {class: 'text-input'} %>
+		<small>For example: 3269</small>
+	</div>
+	<div class="formgrid half">
+		<%= f.label 'LDAP Filter DN', :class => 'text-label' %>
+		<%= text_field :organization, :ldap_filter_dn, {class: 'text-input'} %>
+		<small>For example: dc=Baruch,dc=local</small>
+	</div>
+	<div class="formgrid half">
+		<%= f.label 'LDAP Filter', :class => 'text-label' %>
+		<%= text_field :organization, :ldap_filter, {class: 'text-input'} %>
+		<small>For example: (mail={email})</small>
+	</div>
+	<div class="formgrid whole">
+		<%= f.label 'LDAP Reset Password URL', :class => 'text-label' %>
+		<%= text_field :organization, :ldap_reset_pw_url, {class: 'text-input'} %>
+		<small>The URL of your organization's reset password page</small>
+	</div>
+	<div class="formgrid whole">
+		<%= f.label 'LDAP Recover Password Instructions URL', :class => 'text-label' %>
+		<%= text_field :organization, :ldap_recover_pw_url, {class: 'text-input'} %>
+		<small>The URL of your organization's page with instructions to recover a lost password</small>
+	</div>
+	<div class="formgrid whole">
+		<%= f.label 'LDAP Instructions', :class => 'text-label' %>
+		<%= text_field :organization, :ldap_message, {class: 'text-input'} %>
+		<small>A short string explaining to users how to login to Vocat, generally references their organization login.</small>
+	</div>
+	<div class="formgrid half">
+		<%= f.label 'LDAP Organization Identity', :class => 'text-label' %>
+		<%= text_field :organization, :ldap_org_identity, {class: 'text-input'} %>
+		<small>The LDAP attribute to use for tracking identity. For example: name</small>
+	</div>
+
+	<div class="formgrid half">
+		<%= f.label 'LDAP Evaluator Email Domain', :class => 'text-label' %>
+		<%= text_field :organization, :ldap_evaluator_email_domain, {class: 'text-input'} %>
+		<small>LDAP users with emails on this domain will automatically be imported as evaluator users</small>
+	</div>
+</fieldset>

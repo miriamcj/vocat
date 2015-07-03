@@ -1,6 +1,7 @@
 class CourseRequestsController < ApplicationController
 
   load_and_authorize_resource :course_request
+  before_filter :org_validate_course_request
   respond_to :html
 
 
