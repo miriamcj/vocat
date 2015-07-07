@@ -67,7 +67,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(user)
-    '/dashboard/creator'
+    root_path
   end
 
   def validate_subdomain

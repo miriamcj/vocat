@@ -60,6 +60,10 @@ module Utility
         admins = []
         admins.push create_user(organization: org, email: "admin@#{org.subdomain}.test.com", password: 'testtest123', first_name: 'Charles', last_name: 'Xavier', role: 'administrator')
 
+        admins.push create_user(organization: org, email: "admin@baruch.test.com", password: 'testtest123', first_name: 'Charles', last_name: 'Xavier', role: 'administrator')
+
+
+
         rubrics = [
             create_theater_rubric(org, admins.last),
             create_comm_rubric(org, admins.last)

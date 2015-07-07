@@ -227,13 +227,14 @@ Devise.setup do |config|
   #   manager.default_strategies(:scope => :user).unshift :some_external_strategy
   # end
 
-  config.warden do |manager|
-    manager.failure_app = CustomSignInFailure
-  end
+  # config.warden do |manager|
+  #   manager.failure_app = CustomSignInFailure
+  # end
 
   config.warden do |manager|
     manager.strategies.add(:vocat_ldap_authenticatable, Devise::Strategies::VocatLdapAuthenticatable)
     manager.default_strategies(:scope => :user).unshift :vocat_ldap_authenticatable
+    manager.default_strategies(:scope => :user).pop
   end
 
 end
