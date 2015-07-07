@@ -367,6 +367,11 @@ class Ability
       user.role?(:evaluator) || user.role?(:administrator)
     end
 
+    can :manage, CourseRequest do |course_request|
+      user.role?(:administrator) && user.organization == course_request.organization
+    end
+
+
     ######################################################
     # Evaluations
     ######################################################

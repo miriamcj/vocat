@@ -1,6 +1,6 @@
 class Admin::RubricsController < Admin::AdminController
 
-  load_and_authorize_resource :rubric
+  load_and_authorize_resource :rubric, :through => :the_current_organization
   before_filter :org_validate_rubric
   respond_to :html
 

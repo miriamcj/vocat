@@ -1,7 +1,8 @@
 class Admin::UsersController < Admin::AdminController
 
-  load_and_authorize_resource :user
+  load_and_authorize_resource :user, :through => :the_current_organization
   before_filter :org_validate_user
+
   respond_to :html
   layout 'content'
 

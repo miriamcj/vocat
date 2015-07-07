@@ -25,6 +25,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def the_current_organization
+    @current_organization
+  end
+
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to main_app.root_url, :alert => exception.message
   end

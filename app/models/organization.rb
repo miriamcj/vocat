@@ -36,6 +36,7 @@ class Organization < ActiveRecord::Base
   has_many :courses
   has_many :users
   has_many :rubrics
+  has_many :course_requests
 
   def to_s
     name

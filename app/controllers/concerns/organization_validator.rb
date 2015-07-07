@@ -24,11 +24,16 @@ module Concerns::OrganizationValidator
   end
 
   def org_validate_user
+    @user.organization = @current_organization if @user.organization.blank? unless @user.blank?
     fail_organization_validation if @user.organization != @current_organization unless @user.blank?
   end
 
+  def org_new_user
+    @user = @current_organization.users.build()
+  end
+
   def org_validate_course_request
-    fail_organization_validation if @course_request.user.organization != @current_organization unless @course_request.blank?
+    fail_organization_validation if @course_request.evaluator.organization != @current_organization unless @course_request.blank?
   end
 
   def org_validate_evaluation
