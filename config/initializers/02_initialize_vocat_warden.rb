@@ -6,12 +6,9 @@ module Devise
     class VocatLdapAuthenticatable < Authenticatable
 
       def authenticate!
-        keys = request_keys
-#        Rails.logger.info keys.inspect
-#        if Rails.application.config.vocat.ldap && Rails.application.config.vocat.ldap[:enabled]
-#        fail(:invalid)
         ldap = LDAPAuthenticator.new
-        resource = ldap.authenticate(authentication_hash.merge(password: password))
+        credentials = authentication_hash.merge(password: password)
+        resource = ldap.authenticate(credentials)
         if resource && validate(resource)
           success!(resource)
         else

@@ -2,15 +2,9 @@ require 'securerandom'
 
 class LDAPAuthenticator
 
-  attr_accessor :conn, :bound
+  attr_accessor :conn, :bound, :org
 
   def initialize
-    self.conn = ldap_conn = Net::LDAP.new
-    self.conn.host = host
-    self.conn.port = port
-    self.conn.auth bind_cn, bind_pass
-    self.conn.encryption encryption
-    self.bound = false
   end
 
   def bind
@@ -24,13 +18,29 @@ class LDAPAuthenticator
     end
   end
 
+  def create_ldap_connection
+    self.conn = ldap_conn = Net::LDAP.new
+    self.conn.host = host
+    self.conn.port = port
+    self.conn.auth bind_cn, bind_password
+    self.conn.encryption encryption
+    self.bound = false
+  end
+
   def authenticate(authentication_hash)
-    lookup = authentication_hash[:email]
-    result = self.conn.bind_as(
+    @org = Organization.find_one_by_subdomain(authentication_hash[:subdomain])
+    return false if !@org.ldap_enabled
+    create_ldap_connection
+    bind_hash = {
         :base => filter_dn,
-        :filter => filter(lookup),
+        :filter => filter(authentication_hash[:email]),
         :password => authentication_hash[:password]
-    )
+    }
+    bind_hash = {
+        :username => authentication_hash[:email],
+        :password => authentication_hash[:password]
+    }
+    result = self.conn.bind_as(bind_hash)
     if result == false
       false
     else
@@ -70,9 +80,7 @@ class LDAPAuthenticator
                            :first_name => fix_case(ldap_user.givenName.first),
                            :last_name => fix_case(ldap_user.sn.first),
                            :role => pick_role(ldap_user.mail.first),
-                           # TODO: Decide on a better way to handle organizations in VOCAT
-                           # In a nutshell, this is some BULLSHIT.
-                           :organization => Organization.first,
+                           :organization => @org,
                            :org_identity => ldap_user.send(:name).first,
                            :is_ldap_user => true
                        })
@@ -112,11 +120,11 @@ class LDAPAuthenticator
   end
 
   def config_value(value)
-    config = Rails.application.config.vocat.ldap
-    if config.has_key?(value)
-      config[value]
+    Rails.logger.info "### Looking for LDAP config #{value}"
+    if @org.respond_to?("ldap_#{value}")
+      @org.send("ldap_#{value}")
     else
-      error = "Missing required LDAP configuration: #{value}. Set it in config/environment.yml"
+      error = "Missing required LDAP configuration: #{value}. Please double check Organization LDAP configuration"
       raise error
     end
   end
@@ -149,8 +157,8 @@ class LDAPAuthenticator
     config_value 'bind_cn'
   end
 
-  def bind_pass
-    config_value 'bind_pass'
+  def bind_password
+    config_value 'bind_password'
   end
 
   def base_dn

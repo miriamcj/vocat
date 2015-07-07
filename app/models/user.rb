@@ -79,6 +79,7 @@ class User < ActiveRecord::Base
   validates_length_of       :password, within: (7..72), allow_blank: true
 
   def self.find_for_authentication(warden_conditions)
+    my_var = warden_conditions
     joins('LEFT JOIN organizations ON users.organization_id = organizations.id').where(
         'users.email = ? AND (organizations.subdomain = ? OR users.role = ?)',
         warden_conditions[:email],
