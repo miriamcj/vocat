@@ -50,7 +50,7 @@ class Api::V1::UsersController < ApiController
 
   # /api/v1/users/invite?email=XXX
   def invite
-    inviter = Inviter.new
+    inviter = Inviter.new(@current_organization)
     response = inviter.invite(params[:email], nil, nil)
     if response[:success] == true
       respond_with response[:user], location: nil

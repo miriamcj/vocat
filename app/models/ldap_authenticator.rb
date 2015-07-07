@@ -4,7 +4,8 @@ class LDAPAuthenticator
 
   attr_accessor :conn, :bound, :org
 
-  def initialize
+  def initialize(org)
+    @org = org
   end
 
   def bind
@@ -28,7 +29,6 @@ class LDAPAuthenticator
   end
 
   def authenticate(authentication_hash)
-    @org = Organization.find_one_by_subdomain(authentication_hash[:subdomain])
     return false if !@org.ldap_enabled
     create_ldap_connection
     bind_hash = {
@@ -55,6 +55,7 @@ class LDAPAuthenticator
   end
 
   def create_vocat_user_from_ldap_email!(email)
+    create_ldap_connection
     ldap_user = query(email)
     if ldap_user
       create_vocat_user_from_ldap_user!(ldap_user)

@@ -97,3 +97,17 @@
 		<small>LDAP users with emails on this domain will automatically be imported as evaluator users</small>
 	</div>
 </fieldset>
+
+<div class="formgrid whole">
+	<label class="text-label form-hrule" >Email Settings</label>
+</div>
+<div class="formgrid half">
+	<%= f.label 'From Email Address', :class => 'text-label' %>
+	<%= text_field :organization, :email_default_from, {class: 'text-input'} %>
+	<small>Messages sent by Vocat will appear to be from this email address.</small>
+</div>
+<div class="formgrid half">
+	<%= f.label 'Course Request Recipient Email Address', :class => 'text-label' %>
+	<%= text_field :organization, :email_notification_course_request, {class: 'text-input'} %>
+	<small>This email address will be notified when a new course request is created.</small>
+</div>

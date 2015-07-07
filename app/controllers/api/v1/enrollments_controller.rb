@@ -247,7 +247,7 @@ class Api::V1::EnrollmentsController < ApiController
       invite = false
     end
     contacts = params[:contacts]
-    enroller = BulkEnroller.new
+    enroller = BulkEnroller.new(@current_organization)
     respond_with enroller.enroll(contacts, @course, role, invite), :location => nil
   end
 
