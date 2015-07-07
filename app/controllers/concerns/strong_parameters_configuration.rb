@@ -185,6 +185,8 @@ module Concerns::StrongParametersConfiguration
                                          :ldap_port,
                                          :ldap_filter_dn,
                                          :ldap_filter,
+                                         :ldap_bind_cn,
+                                         :ldap_bind_password,
                                          :ldap_org_identity,
                                          :ldap_reset_pw_url,
                                          :ldap_recover_pw_url,

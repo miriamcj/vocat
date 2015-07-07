@@ -36,10 +36,6 @@ class LDAPAuthenticator
         :filter => filter(authentication_hash[:email]),
         :password => authentication_hash[:password]
     }
-    bind_hash = {
-        :username => authentication_hash[:email],
-        :password => authentication_hash[:password]
-    }
     result = self.conn.bind_as(bind_hash)
     if result == false
       false
@@ -101,7 +97,7 @@ class LDAPAuthenticator
   def pick_role(email)
     role = default_role
     domain = Mail::Address.new(email.to_s).domain
-    match_domain = instructor_email_domain
+    match_domain = evaluator_email_domain
     if domain == match_domain then
       role = 'evaluator'
     end
@@ -120,7 +116,6 @@ class LDAPAuthenticator
   end
 
   def config_value(value)
-    Rails.logger.info "### Looking for LDAP config #{value}"
     if @org.respond_to?("ldap_#{value}")
       @org.send("ldap_#{value}")
     else
@@ -129,8 +124,8 @@ class LDAPAuthenticator
     end
   end
 
-  def instructor_email_domain
-    config_value('instructor_email_domain')
+  def evaluator_email_domain
+    config_value('evaluator_email_domain')
   end
 
   def default_role

@@ -40,7 +40,9 @@ class Manage::OrganizationsController < ApplicationController
   # PATCH/PUT /admin/organizations/1
   def update
     handle_logo_upload(@organization)
-    if @organization.update(organization_params)
+    org_params = organization_params
+    org_params = org_params.except(:ldap_bind_password) if org_params[:ldap_bind_password].blank?
+    if @organization.update(org_params)
       redirect_to edit_organization_path(@organization), notice: 'Organization was successfully updated.'
     else
       render :edit

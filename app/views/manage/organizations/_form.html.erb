@@ -61,6 +61,15 @@
 		<%= text_field :organization, :ldap_filter, {class: 'text-input'} %>
 		<small>For example: (mail={email})</small>
 	</div>
+	<div class="formgrid half">
+		<%= f.label 'LDAP Bind CN', :class => 'text-label' %>
+		<%= text_field :organization, :ldap_bind_cn, {class: 'text-input'} %>
+		<small>For example: cn=bind_user,ou=externalBindAccounts,dc=YourCollege,dc=local</small>
+	</div>
+	<div class="formgrid half">
+		<%= f.label 'LDAP Bind Password', :class => 'text-label' %>
+		<%= password_field :organization, :ldap_bind_password, {class: 'text-input'} %>
+	</div>
 	<div class="formgrid whole">
 		<%= f.label 'LDAP Reset Password URL', :class => 'text-label' %>
 		<%= text_field :organization, :ldap_reset_pw_url, {class: 'text-input'} %>
