@@ -1,6 +1,6 @@
 class Courses::Manage::RubricsController < ApplicationController
 
-  load_and_authorize_resource :rubric
+  load_and_authorize_resource :rubric, :through => :the_current_organization
   before_filter :org_validate_rubric
   skip_authorize_resource :rubric, :only => [:edit, :clone]
   respond_to :html
