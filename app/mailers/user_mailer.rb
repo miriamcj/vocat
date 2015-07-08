@@ -1,7 +1,6 @@
 class UserMailer < ActionMailer::Base
-  default from: Rails.application.config.vocat.email.default_from
 
-  def welcome_email(user, from)
+  def welcome_email(user)
     @user = user
 
     # Generate a reset password token
@@ -9,10 +8,17 @@ class UserMailer < ActionMailer::Base
     @user.reset_password_token = enc
     @user.reset_password_sent_at = Time.now.utc
     @user.save(:validate => false)
+    @organization = @user.organization
     @support_email = Rails.application.config.vocat.email.notification.support_email
     @token = raw
     @host = Rails.application.config.vocat.email.url_domain
-    mail(to: @user.email, from: from, subject: 'Welcome to Vocat')
+    mail(to: @user.email, from: from(@organization), subject: 'Welcome to Vocat')
+  end
+
+  protected
+
+  def from(organization)
+    organization.email_default_from || Rails.application.config.vocat.email.default_from
   end
 
 end

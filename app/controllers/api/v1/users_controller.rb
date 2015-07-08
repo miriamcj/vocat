@@ -32,7 +32,6 @@ class Api::V1::UsersController < ApiController
   param :id, Fixnum, :desc => "The ID of the user to be shown"
   example <<-EOF
     Sample Response:
-
     {
       "id": 4470,
       "email": "evaluator1@test.com",
