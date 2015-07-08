@@ -17,7 +17,7 @@ class Statistics
     storage_value = Attachment.in_organization(organization).created_this_month.sum(:media_file_size) + Attachment::Variant.in_organization(organization).created_this_month.sum(:file_size)
     transcoded_value = Attachment::Variant.in_organization(organization).created_this_month.sum(:duration)
     out = [
-      {:label => "New Asset Size", :value => storage_value, :is_file_size => true },
+      {:label => "New Storage This Month", :value => storage_value, :is_file_size => true },
       {:label => "Assets Created", :value => Asset.created_this_month.count },
       {:label => "Minutes Transcoded", :value => transcoded_value }
     ]

@@ -6,7 +6,9 @@
 			<div class="summary-box--content">
 				<p class="summary-box--content-wrapper">
 					<% if stat.has_key?(:is_file_size) && stat[:is_file_size] == true %>
-						<span><%= number_to_human_size stat[:value], :format => '%n' %></span>
+						<% size, unit = size_and_unit_from_number(stat[:value]) %>
+						<span><%= size %></span>
+						<span class="unit"><%= unit%></span>
 					<% elsif stat.has_key?(:unit) %>
 						<span><%= stat[:value] %></span>
 						<span class="unit"><%= stat[:unit] %></span>

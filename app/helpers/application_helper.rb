@@ -94,4 +94,22 @@ module ApplicationHelper
     end
   end
 
+  def size_and_unit_from_number(value)
+    value = value.to_f
+    conv={
+        1024=>'B',
+        1024*1024=>'KB',
+        1024*1024*1024=>'MB',
+        1024*1024*1024*1024=>'GB',
+        1024*1024*1024*1024*1024=>'TB',
+        1024*1024*1024*1024*1024*1024=>'PB',
+        1024*1024*1024*1024*1024*1024*1024=>'EB'
+    }
+    conv.keys.sort.each { |mult|
+      next if value >= mult
+      suffix = conv[mult]
+      return [ (value / (mult / 1024)).round(2), suffix ]
+    }
+  end
+
 end
