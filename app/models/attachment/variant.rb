@@ -27,7 +27,16 @@ class Attachment::Variant < ActiveRecord::Base
     joins(:attachment => {:asset => {:submission => {:project => {:course => :organization}}}}).where('organizations.id = ?', organization.id)
   }
   scope :created_this_month, ->() {
-    where("attachment_variants.created_at > ? AND attachment_variants.created_at < ?", Time.now.beginning_of_month, Time.now.end_of_month)
+    where("attachment_variants.created_at >= ? AND attachment_variants.created_at <= ?", Time.now.beginning_of_month, Time.now.end_of_month)
+  }
+  scope :created_in_month, ->(month, year) {
+    start_date = Time.new(year, month, 1)
+    end_date = start_date.end_of_month
+    where("attachment_variants.created_at >= ? AND attachment_variants.created_at <= ?", start_date, end_date)
+  }
+  scope :created_before, ->(month, year) {
+    end_date = Time.new(year, month, 1).end_of_month
+    where("attachment_variants.created_at < ?", end_date)
   }
 
   belongs_to :attachment

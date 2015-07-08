@@ -1,8 +1,7 @@
 <div data-behavior="figures">
 	<% stats.each do |stat| %>
-		<figure class="summary-box summary-box-default <%= if stat.has_key?(:class) then
-															 stat[:class]
-														   end %>">
+
+		<figure class="summary-box <%= if stat.has_key?(:class) then stat[:class] else 'summary-box-default ' end %>">
 			<div class="summary-box--content">
 				<p class="summary-box--content-wrapper">
 					<% if stat.has_key?(:is_file_size) && stat[:is_file_size] == true %>

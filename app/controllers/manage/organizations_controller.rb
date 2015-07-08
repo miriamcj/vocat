@@ -14,6 +14,7 @@ class Manage::OrganizationsController < ApplicationController
 
   # GET /admin/organizations/1
   def show
+    @stats = Statistics::single_organization_stats(@organization)
   end
 
   # GET /admin/organizations/new

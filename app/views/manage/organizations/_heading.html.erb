@@ -1,8 +1,10 @@
 <% content_for :heading do %>
-	<% if @course %>
+
+	<% if @organization %>
 		<%= link_to 'Back to Organizations', organizations_path(), :class => 'header-link back-link' %>
 	<% end %>
 	<% if @organization && !@organization.new_record? %>
+
 		<h2 class="heading-primary">
 			<%= @organization.name %>
 		</h2>

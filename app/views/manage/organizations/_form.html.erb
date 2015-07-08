@@ -11,7 +11,12 @@
 	<%= f.label 'Logo', :class => 'text-label' %>
 	<%= file_field :organization, :logo, {style: 'display: none', data: {behavior: 'file-input-field'}} %>
 	<div class="file-input" data-behavior="file-input-trigger"><input disabled="disabled" data-behavior="file-input-mask" type="text" placeholder="Select Logo File"><a href="#" class="primary-button new-button">Select</a></div>
-	<small></small>
+	<% if @organization.logo %>
+	<small>
+		Current Logo:<br />
+		<img style="background-color: rgb(157, 159, 162); padding: 10px; margin-top: 10px; max-height: 75px;" src="/uploads/<%= @organization.logo %>" />
+	</small>
+	<% end %>
 </div>
 <div class="formgrid third">
 	<%= f.label 'Organization Status', :class => 'text-label' %>

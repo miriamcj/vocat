@@ -24,6 +24,16 @@ class Statistics
     out
   end
 
+  def self.single_organization_stats(organization)
+    out = [
+        {:label => "Creators", :value => User.creators.in_org(organization).count, :class => 'summary-box-creator' },
+        {:label => "Evaluators", :value => User.evaluators.in_org(organization).count, :class => 'summary-box-evaluator' },
+        {:label => "Courses", :value => Course.in_org(organization).count },
+        {:label => "Assets", :value => Asset.in_organization(organization).count }
+    ]
+    out
+  end
+
   def self.manage_org_stats()
     out = [
         {
