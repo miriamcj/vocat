@@ -23,7 +23,7 @@ class Api::V1::UsersController < ApiController
     ]
   EOF
   def search
-    @users = User.where(["lower(email) LIKE :email", {:email => "#{params[:email].downcase}%"}])
+    @users = User.in_org(@current_organization).where(["lower(email) LIKE :email", {:email => "#{params[:email].downcase}%"}])
     respond_with @users
   end
 
