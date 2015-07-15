@@ -22,7 +22,7 @@ class Admin::CoursesController < Admin::AdminController
     }
     @courses = @current_organization.courses.search(search).page params[:page]
     @page = params[:page] || 1
-    @stats = Statistics::admin_stats(@current_organization)
+    @stats = Statistics::admin_stats(@current_organization, search)
     @course_request_count = CourseRequest.with_state(:pending).count
   end
 

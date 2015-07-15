@@ -18,6 +18,10 @@ class Membership < ActiveRecord::Base
   scope :assistants, -> { where({:role => 'assistant'}) }
   scope :evaluators, -> { where({:role => 'evaluator'}) }
   scope :creators, -> { where({:role => 'creator'}) }
+  scope :in_courses,  -> (courses) {
+    where('course_id IN(?)', courses.pluck(:id))
+  }
+
 
   validates_presence_of :role
   validates_presence_of :course

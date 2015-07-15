@@ -169,7 +169,7 @@ class Course < ActiveRecord::Base
     out
   end
 
-  def count_cretors
+  def count_creators
     creators.count
   end
 

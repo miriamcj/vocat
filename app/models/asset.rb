@@ -35,6 +35,9 @@ class Asset < ActiveRecord::Base
   scope :in_organization, ->(organization) {
     joins(:submission => {:project => {:course => :organization}}).where('organizations.id = ?', organization.id)
   }
+  scope :in_courses,  -> (courses) {
+    joins(:submission => {:project => :course}).where('courses.id IN(?)', courses.pluck(:id))
+  }
   scope :created_this_month, ->() {
     where("assets.created_at > ? AND assets.created_at < ?", Time.now.beginning_of_month, Time.now.end_of_month)
   }

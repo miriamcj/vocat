@@ -1,15 +1,22 @@
 class Statistics
 
-  def self.admin_stats(organization)
-    out = [
-        {:label => "Logins Within Last 30 Days", :value => organization.users.where('last_sign_in_at >= ?', 1.week.ago).count},
-        {:label => "Courses", :value => organization.courses.count},
-        {:label => "Users", :value => organization.users.count},
-        # TODO: These queries need to account for organization.
-        {:label => "Assets", :value => Asset.count},
-        {:label => "Annotations", :value => Annotation.count},
-        {:label => "Discussion Posts", :value => DiscussionPost.count},
-    ]
+  def self.admin_stats(organization, search = {})
+    out = []
+    if search.length < 0
+      out.push({:label => "Logins Within Last 30 Days", :value => organization.users.where('last_sign_in_at >= ?', 1.week.ago).count})
+      out.push({:label => "Users", :value => organization.users.count})
+      # TODO: These queries need to account for organization.
+      out.push({:label => "Assets", :value => Asset.in_organization(organization).count})
+      out.push({:label => "Annotations", :value => Annotation.in_organization(organization).count})
+      out.push({:label => "Discussion Posts", :value => DiscussionPost.count})
+    else
+      courses = organization.courses.search(search)
+      out.push({:label => "Creators", :value => Membership.in_courses(courses).creators.count})
+      out.push({:label => "Assets", :value => Asset.in_courses(courses).count})
+      out.push({:label => "Annotations", :value => Annotation.in_courses(courses).count})
+      out.push({:label => "Discussion Posts", :value => DiscussionPost.in_courses(courses).count})
+    end
+    out.push({:label => "Courses", :value => organization.courses.search(search).count})
     out
   end
 

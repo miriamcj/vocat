@@ -24,6 +24,9 @@ class DiscussionPost < ActiveRecord::Base
   scope :by_course, ->(course) {
     joins(:submission => :project).where(:projects => {:course_id => course.id}) unless course.nil?
   }
+  scope :in_courses,  -> (courses) {
+    joins(:submission => {:project => :course}).where('courses.id IN(?)', courses.pluck(:id))
+  }
 
   def active_model_serializer
     DiscussionPostSerializer

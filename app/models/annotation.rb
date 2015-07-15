@@ -21,8 +21,14 @@ class Annotation < ActiveRecord::Base
 
   default_scope { order('seconds_timecode ASC') }
 
+  scope :in_organization, ->(organization) {
+    joins(:asset => {:submission => {:project => {:course => :organization}}}).where('organizations.id = ?', organization.id)
+  }
   scope :by_course, ->(course) {
     joins(:asset => {:submission => :project}).where(:projects => {:course_id => course.id}) unless course.nil?
+  }
+  scope :in_courses,  -> (courses) {
+    joins(:asset => {:submission => :project}).where('projects.course_id IN(?)', courses.pluck(:id))
   }
 
   delegate :name, :to => :author, :prefix => true
