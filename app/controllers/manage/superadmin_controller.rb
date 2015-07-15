@@ -1,4 +1,4 @@
-class Superadmin::SuperadminController < ApplicationController
+class Manage::SuperadminController < ApplicationController
 
   before_action :require_superadmin
 
