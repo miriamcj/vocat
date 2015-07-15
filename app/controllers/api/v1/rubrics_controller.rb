@@ -1,8 +1,8 @@
 class Api::V1::RubricsController < ApiController
 
   load_and_authorize_resource :rubric
+  before_filter :org_validate_rubric
   respond_to :json
-
 
   def_param_group :rubric do
     param :name, String, :desc => "The name of the rubric", :required => true, :action_aware => true
@@ -193,9 +193,9 @@ class Api::V1::RubricsController < ApiController
   EOF
   def index
     if current_user.role?(:evaluator)
-      @rubrics = Rubric.where(owner: current_user)
-    elsif current_user.role?(:administrator)
-      @rubrics = Rubric.where(public: true)
+      @rubrics = @current_organization.rubrics.where(owner: current_user)
+    elsif current_user.role?(:administrator) || current_user.role?(:superadministrator)
+      @rubrics = @current_organization.rubrics.where(public: true)
     else
       raise CanCan::AccessDenied
     end

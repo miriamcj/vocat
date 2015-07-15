@@ -1,0 +1,71 @@
+<%= render :partial => 'heading', :locals => {organization: @organization, subheader: 'Overview'} %>
+
+<% content_for :content do %>
+
+	<% body = capture do %>
+		<%= render "shared/stats", :stats => @stats %>
+	<% end %>
+	<%= render :partial => 'shared/section', :locals => {:header => 'Overview', :body => body} %>
+
+
+	<% body = capture do %>
+		<div class="fake-formgrid">
+			<div class="formgrid third">
+				<span class="label">Name</span>
+				<span><%= @organization.name %></span>
+			</div>
+			<div class="formgrid third">
+				<span class="label">Subdomain</span>
+				<span><%= @organization.subdomain %></span>
+			</div>
+			<div class="formgrid third">
+				<span class="label">Active?</span>
+				<span><%= human_boolean @organization.active %></span>
+			</div>
+			<div class="formgrid third">
+				<span class="label">LDAP Enabled?</span>
+				<span><%= human_boolean @organization.ldap_enabled%></span>
+			</div>
+			<div class="formgrid third">
+				<span class="label">From Email Address</span>
+				<span><%= @organization.email_default_from%></span>
+			</div>
+			<div class="formgrid third">
+				<span class="label">Course Request Recipient</span>
+				<span><%= @organization.email_notification_course_request%></span>
+			</div>
+
+		</div>
+	<% end %>
+	<%= render :partial => 'shared/section', :locals => {:header => 'Properties', :body => body} %>
+	<div class="page-section page-section-clear">
+		<div class="table-wrapper">
+			<table class="table table-white-head">
+				<thead>
+				<tr>
+					<th class="">Month</th>
+					<th class="">Uploaded</th>
+					<th class="">Processed</th>
+					<th class="">Stored this Month</th>
+					<th class="">Stored to Date</th>
+					<th class="">Transcoding</th>
+				</tr>
+				</thead>
+				<tbody>
+				<% @organization.usage.each do |usage| %>
+					<tr>
+						<td><%= "#{usage[:month]}/#{usage[:year]}" %></td>
+						<td><%= number_to_human_size(usage[:uploaded]) %></td>
+						<td><%= number_to_human_size(usage[:processed]) %></td>
+						<td><%= number_to_human_size(usage[:stored_this_month]) %></td>
+						<td><%= number_to_human_size(usage[:stored_to_date]) %></td>
+						<td><%= pluralize(usage[:minutes], 'minute') %></td>
+					</tr>
+				<% end %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+<% end %>
+

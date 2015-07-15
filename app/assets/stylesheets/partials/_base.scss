@@ -36,9 +36,8 @@ body {
   line-height: $baseLineHeight;
   color: $grayDark;
   background-color: $white;
-  padding-bottom: $headerHeight;
   min-height: 100%;
-  padding-bottom: $headerHeight * 2.5;
+  padding-bottom: $headerHeight;
   .no-mediaqueries & {
     min-width: $michigan;
   }

@@ -6,15 +6,18 @@ module Devise
     class VocatLdapAuthenticatable < Authenticatable
 
       def authenticate!
-        ldap = LDAPAuthenticator.new
-        resource = ldap.authenticate(authentication_hash.merge(password: password))
-        if resource && validate(resource)
+        org = Organization.find_one_by_subdomain(authentication_hash[:subdomain])
+        ldap = LDAPAuthenticator.new(org)
+        credentials = authentication_hash.merge(password: password)
+        ldap_resource = ldap.authenticate(credentials)
+        resource = User.find(ldap_resource.id)
+        if validate(resource)
+          remember_me(resource)
+          resource.after_database_authentication
           success!(resource)
-        else
-          fail(:invalid)
         end
+        fail(:not_found_in_database) unless resource
       end
-
     end
   end
 end

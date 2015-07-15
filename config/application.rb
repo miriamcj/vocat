@@ -76,6 +76,5 @@ module Vocat
                                          }
     end
 
-
   end
 end

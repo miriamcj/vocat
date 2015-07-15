@@ -1,6 +1,6 @@
 class BulkEnroller
 
-  attr_accessor :inviter
+  attr_accessor :inviter, :organization
 
   # Enrolls all emails in course with role
   # Contacts is a string of emails/names that can be split on newlines
@@ -16,8 +16,9 @@ class BulkEnroller
     results
   end
 
-  def initialize
-    self.inviter = Inviter.new
+  def initialize(organization)
+    @organization = organization
+    self.inviter = Inviter.new(organization)
   end
 
   private
@@ -148,6 +149,7 @@ class BulkEnroller
 
   def enroll_one_contact!(contact, course, role)
     user = get_contact_user(contact)
+    Raise "User and course must share an organization" if user.organization != course.organization
     course.enroll(user, role)
     if user.errors.empty?
       contact[:success] = true

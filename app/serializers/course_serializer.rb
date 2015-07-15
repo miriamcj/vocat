@@ -15,6 +15,10 @@
 #  semester_id     :integer
 #  year            :integer
 #
+# Indexes
+#
+#  index_courses_on_organization_id  (organization_id)
+#
 
 class CourseSerializer < ActiveModel::Serializer
   attributes :id, :department, :description, :name, :number, :section, :organization_id, :role, :semester_name, :year

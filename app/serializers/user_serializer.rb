@@ -29,6 +29,12 @@
 #  is_ldap_user           :boolean
 #  preferences            :hstore           default({}), not null
 #
+# Indexes
+#
+#  index_users_on_email_and_organization_id  (email,organization_id) UNIQUE
+#  index_users_on_organization_id            (organization_id)
+#  index_users_on_reset_password_token       (reset_password_token) UNIQUE
+#
 
 class UserSerializer < ActiveModel::Serializer
   attributes :id, :email, :name, :gravatar, :first_name, :last_sign_in_at, :org_identity, :list_name

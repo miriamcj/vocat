@@ -1,0 +1,6 @@
+<ul>
+	<li><%= link_to 'View Organization', organization_path(organization) %></li>
+	<li><%= link_to 'Edit Organization', edit_organization_path(organization) %></li>
+	<li><%= link_to 'Login to Organization',  "http://#{organization.domain}" %></li>
+	<li><%= link_to 'Delete Organization', organization_path(organization), :method => :delete, :data => {:modalconfirm => 'Deleting this organization will also delete all associated courses, users, submissions, projects, and evaluations. This action is not reversible. Are you sure you would like to proceed?'} %></li>
+</ul>

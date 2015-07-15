@@ -11,6 +11,14 @@ class Ability
     user ||= User.new # guest user (not logged in)
 
     ######################################################
+    ### Organizations
+    ######################################################
+
+    can [:read_write_destroy], Organization do |organization|
+      user.role?(:superadministrator)
+    end
+
+    ######################################################
     ### Users
     ######################################################
 
@@ -19,11 +27,15 @@ class Ability
     end
 
     can [:read_only], User do |a_user|
-      user.role?(:evaluator) || user.role?(:administrator)
+      (user.role?(:evaluator) || user.role?(:administrator)) && a_user.organization == user.organization
     end
 
     can [:search], User do |a_user|
       user.role?(:evaluator)
+    end
+
+    can [:manage], User do |a_user|
+      (user.organization == a_user.organization && user.role?(:administrator)) || user.role?(:superadministrator)
     end
 
     ######################################################
@@ -31,8 +43,8 @@ class Ability
     ######################################################
 
     can [:read_only], Course do |course|
-      res = course.role(user)
-      true if res
+      role = course.role(user)
+      true if role && role != :administrator
     end
 
     can [:portfolio], Course do |course|
@@ -61,6 +73,14 @@ class Ability
         has_ability = false
       end
       has_ability
+    end
+
+    can [:manage], Course do |course|
+      (course.organization == user.organization && user.role?(:administrator)) || user.role?(:superadministrator)
+    end
+
+    cannot [:portfolio], Course do |course|
+      course.role(user) != :creator
     end
 
     ######################################################
@@ -109,6 +129,9 @@ class Ability
       can?(:publish_evaluations, project)
     end
 
+    can [:manage], Project do |project|
+      can?(:manage, project.course)
+    end
 
     ######################################################
     ### Submissions
@@ -132,24 +155,28 @@ class Ability
       can?(:evaluate, submission) || can?(:own, submission) || can?(:read_only, submission)
     end
 
+    can [:manage], Submission do |submission|
+      can?(:manage, submission.project)
+    end
+
     can :administer, Submission do |submission|
-      (user.role?(:administrator))
+      can?(:manage, submission)
     end
 
     can :do_reassign, Submission do |submission|
-      can(:administer, submission)
+      can?(:manage, submission)
     end
 
     can :reassign, Submission do |submission|
-      can(:administer, submission)
+      can?(:manage, submission)
     end
 
     can :destroy, Submission do |submission|
-      can(:administer, submission)
+      can?(:manage, submission)
     end
 
     can :destroy_confirm, Submission do |submission|
-      can(:destroy, submission)
+      can?(:destroy, submission)
     end
 
     can :evaluate, Submission do |submission|
@@ -167,7 +194,7 @@ class Ability
 
     can :attach, Submission do |submission|
       # CAN if the user is an administrator
-      (user.role?(:administrator)) ||
+      (can?(:manage, submission.project)) ||
           # CAN if the user is not the submission owner, and is an evaluator or assistant for the course
           (
           !can?(:own, submission) &&
@@ -191,6 +218,11 @@ class Ability
           (submission.project.allows_public_discussion? && submission.project.course.role(user))
     end
 
+    cannot [:evaluate], Submission do |submission|
+      can?(:manage, submission) && submission.project.course.role(user) != :evaluator
+    end
+
+
     ######################################################
     ### Groups
     ######################################################
@@ -208,6 +240,10 @@ class Ability
 
     can [:show_submissions], Group do |group|
       can?(:show_submissions, group.course) || can?(:belong_to, group)
+    end
+
+    can [:manage], Group do |group|
+      can?(:manage, group.course)
     end
 
 
@@ -236,6 +272,10 @@ class Ability
       can?(:discuss, discussionPost.submission)
     end
 
+    can [:manage], DiscussionPost do |discussionPost|
+      can?(:manage, discussionPost.submission)
+    end
+
 
     ######################################################
     # Annotations
@@ -253,6 +293,10 @@ class Ability
       annotation.author == user || annotation.asset.submission.project.course.role(user) == :evaluator
     end
 
+    can :manage, Annotation do |annotation|
+      can?(:manage, annotation.asset.submission)
+    end
+
     ######################################################
     # Assets
     ######################################################
@@ -263,6 +307,10 @@ class Ability
 
     can :read_write_destroy, Asset do |asset|
       can?(:attach, asset.submission)
+    end
+
+    can :manage, Asset do |asset|
+      can?(:manage, asset.submission)
     end
 
     ######################################################
@@ -290,7 +338,7 @@ class Ability
 
     # For now, assume that all rubrics are public
     can :read_only, Rubric do |rubric|
-      true
+      user.organization == rubric.organization
     end
 
     can :read_write_destroy, Rubric do |rubric|
@@ -298,14 +346,17 @@ class Ability
     end
 
     can :new, Rubric do |rubric|
-      user.role?(:evaluator)
+      user.role?(:evaluator) && user.organization == rubric.organization
     end
 
-    if user.role?(:evaluator) || user.role?(:administrator)
-      can :create, Rubric
-    else
-      cannot :create, Rubric
+    can :create, Rubric do |rubric|
+      (user.role?(:evaluator) || user.role?(:administrator)) && user.organization == rubric.organization
     end
+
+    can :manage, Rubric do |rubric|
+      (user.role?(:administrator) && rubric.organization == user.organization) || user.role?(:superadministrator)
+    end
+
 
 
     ######################################################
@@ -315,6 +366,11 @@ class Ability
     can :create, CourseRequest do |course_request|
       user.role?(:evaluator) || user.role?(:administrator)
     end
+
+    can :manage, CourseRequest do |course_request|
+      user.role?(:administrator) && user.organization == course_request.organization
+    end
+
 
     ######################################################
     # Evaluations
@@ -341,25 +397,18 @@ class Ability
       evaluation.evaluator == user
     end
 
+    can [:manage], Evaluation do |evaluation|
+      can?(:manage, evaluation.submission)
+    end
+
+    cannot [:new, :edit, :create, :update, :destroy], Evaluation do |evaluation|
+      can?(:manage, evaluation) && evaluation.submission.project.course.role(user) != :evaluator
+    end
 
     ######################################################
-    # Admins
+    # Superadministrators
     ######################################################
-    if user.role?(:administrator)
-      can :manage, :all
-      cannot [:new, :edit, :create, :update, :destroy], Evaluation do |evaluation|
-        result = evaluation.submission.project.course.role(user) != :evaluator
-        result
-      end
-      cannot [:evaluate], Submission do |submission|
-        result = submission.project.course.role(user) != :evaluator
-        result
-      end
-      cannot [:portfolio], Course do |course|
-        result = course.role(user) != :creator
-        result
-      end
-    end
+    can?(:manage, :all) if user.role?(:superadministrator)
 
   end
 end

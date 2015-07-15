@@ -29,6 +29,12 @@
 #  is_ldap_user           :boolean
 #  preferences            :hstore           default({}), not null
 #
+# Indexes
+#
+#  index_users_on_email_and_organization_id  (email,organization_id) UNIQUE
+#  index_users_on_organization_id            (organization_id)
+#  index_users_on_reset_password_token       (reset_password_token) UNIQUE
+#
 
 class User < ActiveRecord::Base
 
@@ -49,6 +55,7 @@ class User < ActiveRecord::Base
   scope :evaluators, -> { where(:role => "evaluator") }
   scope :creators, -> { where(:role => "creator") }
   scope :administrators, -> { where(:role => "administrator") }
+  scope :in_org, ->(org) { where(:organization => org)}
 
   serialize :settings, Hash
 
@@ -56,14 +63,29 @@ class User < ActiveRecord::Base
   delegate :name, :to => :organization, :prefix => true, :allow_nil => true
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, request_keys: { subdomain: false }
 
-  ROLES = %w(creator evaluator administrator)
+  ROLES = %w(creator evaluator administrator superadministrator)
   DEFAULT_SETTINGS = {
       'enable_glossary' => {value: false, type: 'boolean'}
   }
 
   validates :first_name, :last_name, :role, :presence => true
+  validates_presence_of   :email
+  validates_uniqueness_of :email, allow_blank: true, if: :email_changed?, :scope => :organization_id
+  validates_format_of     :email, with: /\A[^@\s]+@([^@\s]+\.)+[^@\W]+\z/, allow_blank: true, if: :email_changed?
+  validates_presence_of     :password
+  validates_confirmation_of :password
+  validates_length_of       :password, within: (7..72), allow_blank: true
+
+  def self.find_for_authentication(warden_conditions)
+    joins('LEFT JOIN organizations ON users.organization_id = organizations.id').where(
+        'users.email = ? AND (organizations.subdomain = ? OR users.role = ?)',
+        warden_conditions[:email],
+        warden_conditions[:subdomain],
+        'superadministrator'
+    ).first
+  end
 
   # Params is a hash of search values including (:department || :semester || :year) || :section
   def self.search(params)
@@ -82,7 +104,8 @@ class User < ActiveRecord::Base
 
   def role?(base_role)
     unless User::ROLES.include? role.to_s
-      raise "The role #{role.to_s} doesn't exist."
+      Rails.logger.info  "The role #{role.to_s} doesn't exist. User.role? was passed a base role of '#{base_role}' for user '#{self.id}' with email '#{self.email}"
+      return false
     end
     base_role.to_s == role.to_s
   end

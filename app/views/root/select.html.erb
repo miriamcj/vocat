@@ -1,0 +1,26 @@
+<% content_for :content do %>
+	<div class="page-content">
+		<form>
+		<div class="authentication-tile">
+			<% if @organizations.count == 0 %>
+				<div class="formgrid whole">
+					<label>No organizations have been created. Proceed to the management interface
+					to create the first org.</label>
+					<a style="margin-top: 1em;" class="outline-button" href="<%= "http://#{@manage_domain}" %>" >Go To Management Interface</a>
+				</div>
+			<% else %>
+				<div class="formgrid whole">
+					<label>Welcome to Vocat. Please select your college from the list below.</label>
+					<select data-placeholder="Select College" data-behavior="jump-nav">
+						<option></option>
+						<%= options_from_collection_for_select(@organizations, :url, :name) %>
+					</select>
+				</div>
+			<% end %>
+		</div>
+		</form>
+	</div>
+<% end %>
+
+<% content_for :body_class do %>bg-dark
+<% end %>

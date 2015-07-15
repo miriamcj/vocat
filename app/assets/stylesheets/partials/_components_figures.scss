@@ -26,11 +26,17 @@
   padding: 0 1em 1.5em 1em;
   color: $white;
   padding-left: 0;
+  &.summary-box-creator.summary-box-zero div:after {
+    border-top-color: $tealLight;
+  }
   &.summary-box-creator div {
     background: $tealLight;
     &:after {
       border-top-color: $tealLight;
     }
+  }
+  &.summary-box-creator-light.summary-box-zero div:after {
+    border-top-color: $tealLightest;
   }
   &.summary-box-creator-light div {
     background: $tealLightest;
@@ -50,6 +56,10 @@
       border-top-color: $grayLight;
     }
   }
+  &.summary-box-default-percentage.summary-box-zero div:after {
+    border-top-color: $defaultColor;
+  }
+
   &.summary-box-default-percentage div {
     background: $defaultColor;
     &:after {
@@ -59,6 +69,9 @@
       background: $defaultFillColor;
     }
   }
+  &.summary-box-evaluator.summary-box-zero div:after {
+    border-top-color: $instructorColor;
+  }
   &.summary-box-evaluator div {
     background: $instructorColor;
     b {
@@ -67,6 +80,9 @@
     &:after {
       border-top-color: $instructorFillColor;
     }
+  }
+  &.summary-box-peer.summary-box-zero div:after {
+    border-top-color: $peerColor;
   }
   &.summary-box-peer div {
     background: $peerColor;

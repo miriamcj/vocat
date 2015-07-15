@@ -2,19 +2,20 @@
 #
 # Table name: course_requests
 #
-#  id           :integer          not null, primary key
-#  name         :string(255)
-#  department   :string(255)
-#  section      :string(255)
-#  number       :string(255)
-#  year         :integer
-#  semester_id  :integer
-#  evaluator_id :integer
-#  state        :string(255)
-#  admin_id     :integer
-#  course_id    :integer
-#  created_at   :datetime
-#  updated_at   :datetime
+#  id              :integer          not null, primary key
+#  name            :string(255)
+#  department      :string(255)
+#  section         :string(255)
+#  number          :string(255)
+#  year            :integer
+#  semester_id     :integer
+#  evaluator_id    :integer
+#  state           :string(255)
+#  admin_id        :integer
+#  course_id       :integer
+#  created_at      :datetime
+#  updated_at      :datetime
+#  organization_id :integer
 #
 
 class CourseRequest < ActiveRecord::Base
@@ -23,6 +24,7 @@ class CourseRequest < ActiveRecord::Base
   belongs_to :admin, :class_name => 'User'
   belongs_to :course
   belongs_to :semester
+  belongs_to :organization
 
   delegate :name, :email, to: :evaluator, prefix: true
 

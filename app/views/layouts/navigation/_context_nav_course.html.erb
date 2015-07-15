@@ -1,0 +1,67 @@
+<% if current_user.can?(:portfolio, @selected_course) %>
+	<li>
+		<ul>
+			<li>
+				<%= link_to "View Your Course Portfolio", portfolio_course_path(@selected_course), :class => 'primary-button' %>
+			</li>
+		</ul>
+	</li>
+<% end %>
+<% if current_user.can?(:portfolio, @selected_course) && @selected_course.user_projects.count > 0 %>
+	<li class="b">
+		<div class="drawer-nav--column">
+			<h4>Individual Projects</h4>
+			<ul>
+				<% @selected_course.user_projects.each do |project| %>
+					<li>
+						<%= link_to project, course_user_creator_project_detail_path(@selected_course, current_user, project) %>
+					</li>
+				<% end %>
+			</ul>
+		</div>
+	</li>
+	<% if current_user.course_groups(@selected_course).count > 0 && @selected_course.group_projects.count > 0 %>
+		<li class="c">
+			<div class="drawer-nav--column">
+				<h4>Group Projects</h4>
+				<ul>
+					<% current_user.course_groups(@selected_course).each do |group| %>
+						<% @selected_course.group_projects.each do |project| %>
+							<li>
+								<%= link_to "#{group} - #{project}", course_group_creator_project_detail_path(@selected_course, group, project) %>
+							</li>
+						<% end %>
+					<% end %>
+				</ul>
+			</div>
+		</li>
+	<% end %>
+<% end %>
+<% if current_user.can?(:show_submissions, @selected_course) %>
+	<li class="a">
+		<div class="drawer-nav--column">
+			<% if @selected_course.role(current_user) == :creator %>
+				<h4>Peer Review</h4>
+			<% else %>
+				<h4>Evaluate</h4>
+			<% end %>
+			<ul>
+				<li><%= link_to 'Individual Work', course_user_evaluations_path(@selected_course) %></li>
+				<li><%= link_to 'Group Work', course_group_evaluations_path(@selected_course) %></li>
+			</ul>
+		</div>
+	</li>
+<% end %>
+<% if current_user.can?(:administer, @selected_course) %>
+	<li>
+		<div class="drawer-nav--column">
+			<h4>Setup Your Course</h4>
+			<ul>
+				<li><%= link_to 'Projects', course_manage_projects_path(@selected_course) %></li>
+				<li><%= link_to 'Groups', course_manage_groups_path(@selected_course) %></li>
+				<li><%= link_to 'Enrollment', course_manage_enrollment_path(@selected_course) %></li>
+				<li><%= link_to 'Settings', course_manage_path(@selected_course) %></li>
+			</ul>
+		</div>
+	</li>
+<% end %>

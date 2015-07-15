@@ -4,6 +4,7 @@ class Courses::Manage::ProjectsController < ApplicationController
 
   load_and_authorize_resource :course
   load_and_authorize_resource :project, :through => :course
+  before_filter :org_validate_course
   respond_to :html
 
   before_action :disable_layout_messages
@@ -34,6 +35,7 @@ class Courses::Manage::ProjectsController < ApplicationController
   # POST courses/:course_id/manage/projects
   def create
     @project = @course.projects.build(project_params)
+    @project_type = @project.type
     if @project.save
       flash[:notice] = 'Project was successfully created.'
       respond_with @project, location: course_manage_projects_path(@course.id)

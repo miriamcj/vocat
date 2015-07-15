@@ -7,8 +7,7 @@
 <link type='text/css' rel='stylesheet' href='../../apipie/stylesheets/bundled/prettify.css'/>
 <link type='text/css' rel='stylesheet' href='../../apipie/stylesheets/bundled/bootstrap-responsive.min.css'/>
 	<link type='text/css' rel='stylesheet' href='../../apipie/stylesheets/application.css'/>
-	<link rel="stylesheet" media="all" href="/assets/apipie/partials/_components.css?body=1" />
-<link rel="stylesheet" media="all" href="/assets/apipie/apipie.css?body=1" />
+	<link rel="stylesheet" media="all" href="/apipie-assets/apipie.css" />
 
 	<!-- IE6-8 support of HTML5 elements -->
 	<!--[if lt IE 9]>
@@ -53,6 +52,90 @@
 
 <div class='accordion' id='accordion'>
 
+    <hr>
+    <div class='pull-right small'>
+      <a href='../../apipie/1.0/users/search.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-search'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            GET /api/v1/users/search/?email=:email
+          </a>
+          <br>
+          <small>Finds users by email address. Under normal circumstances, should return an arry with 1 or 0 items.</small>
+        </h2>
+    </div>
+
+
+    <div id='description-search' class='collapse accordion-body'>
+      
+
+
+	<div class="method-detail-section">
+		<h3>Examples</h3>
+			<pre class="prettyprint">Sample Response:
+[
+  {
+    &quot;id&quot;: 4470,
+    &quot;email&quot;: &quot;evaluator1@test.com&quot;,
+    &quot;name&quot;: &quot;Ressie Crona&quot;,
+    &quot;gravatar&quot;: &quot;http://gravatar.com/avatar/4c3fe1bdae8ec9e5db97d02aa4cf1cda.png?d=mm&amp;s=&quot;,
+    &quot;first_name&quot;: &quot;Ressie&quot;,
+    &quot;last_sign_in_at&quot;: &quot;2015-05-06T17:51:54.327-04:00&quot;,
+    &quot;org_identity&quot;: &quot;30683835&quot;,
+    &quot;list_name&quot;: &quot;Crona, Ressie&quot;
+  }
+]
+</pre>
+	</div>
+
+
+
+
+	<div class="method-detail-section">
+		<h3>Request Parameters</h3>
+		<table class='table'>
+			<thead>
+			<tr>
+				<th>Param name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>email </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The user&#39;s email address</p>
+
+        <br>
+        Value: 
+<p>Must be String</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+    </div>
     <hr>
     <div class='pull-right small'>
       <a href='../../apipie/1.0/users/show.html'> >>> </a>

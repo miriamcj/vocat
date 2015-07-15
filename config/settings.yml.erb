@@ -1,4 +1,5 @@
 :development: &1
+  :domain: vocat.dev
   :redis:
     :db_number: 1
     :namespace: 'vocat_development'
@@ -10,21 +11,21 @@
     :domain: vocat.dev
     :authentication: plain
     :enable_starttls_auto: true
-  :ldap:
-    :enabled: true
-    :host: extrodc01v.baruch.cuny.edu
-    :encryption: simple_tls
-    :port: 3269
-    :filter_dn: dc=Baruch,dc=local
-    :filter: (mail={email})
-    :org_identity: name
-    :reset_pw_url: https://mypassword.baruch.cuny.edu/
-    :recover_pw_url: https://mypassword.baruch.cuny.edu/
-    :account_management_message: 'Your Vocat account is the same as your Baruch College
-      Active Directory account. Use <a href="https://mypassword.baruch.cuny.edu/">mypassword.baruch.cuny.edu</a>
-      to recover or reset your password.'
-    :instructor_email_domain: baruch.cuny.edu
-    :default_role: creator
+#  :ldap:
+#    :enabled: true
+#    :host: extrodc01v.baruch.cuny.edu
+#    :encryption: simple_tls
+#    :port: 3269
+#    :filter_dn: dc=Baruch,dc=local
+#    :filter: (mail={email})
+#    :org_identity: name
+#    :reset_pw_url: https://mypassword.baruch.cuny.edu/
+#    :recover_pw_url: https://mypassword.baruch.cuny.edu/
+#    :account_management_message: 'Your Vocat account is the same as your Baruch College
+#      Active Directory account. Use <a href="https://mypassword.baruch.cuny.edu/">mypassword.baruch.cuny.edu</a>
+#      to recover or reset your password.'
+#    :instructor_email_domain: baruch.cuny.edu
+#    :default_role: creator
   :aws:
     :enabled: true
     :s3_bucket: vocat.dev
@@ -51,6 +52,7 @@
 :test: *1
 
 :production:
+  :domain: vocat.io
   :redis:
     :db_number: 11
     :namespace: 'vocat_production'

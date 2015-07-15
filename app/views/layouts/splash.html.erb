@@ -1,5 +1,5 @@
 <% content_for :main do %>
-	<%= render 'layouts/header' %>
+	<%= render 'layouts/header', hide_nav: true%>
 
 	<div class="container">
 		<div class="page-content">
@@ -11,6 +11,5 @@
 	<%= render 'layouts/footer' %>
 
 <% end %>
-
 
 <%= render :template => 'layouts/application' %>

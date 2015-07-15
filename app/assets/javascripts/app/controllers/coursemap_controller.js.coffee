@@ -119,8 +119,11 @@ define (require) ->
           creator_type: creatorType
         }
         success: (data) =>
-          if data.length > 0 && data[0].id?
-            raw = data[0]
+          if data.length > 0
+            raw = _.find(data, (s) ->
+              # It's possible to get two submissions back for an open project, so we need to grab the correct one.
+              parseInt(s.creator.id) == parseInt(creatorId) && s.creator_type == creatorType
+            )
             id = raw.id
             @collections.submission.add(raw, {merge: true})
             submission = @collections.submission.get(id)

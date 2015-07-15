@@ -21,6 +21,7 @@ $grayDarkest: rgb(35, 31, 32);
 $tealLightest: #A1DAD6;
 $tealLight: #43B5AE;
 $tealDark: #009C92;
+$tealDarkest: darken($tealDark, 10%);
 
 $lighten: 20%;
 
@@ -97,7 +98,8 @@ $lambda-minor: 0.688em;
 $containerWidth: 1200px;
 $minContainerWidth: 318px;
 $minContainerWidth: 768px;
-$headerHeight: 60px;
+$headerHeightUnit: 60px;
+$headerHeight: $headerHeightUnit * 1;
 $headerUnitWidth: 82px;
 $navWidth: 240px;
 $tabWidth: 100 / 6 * 1%;

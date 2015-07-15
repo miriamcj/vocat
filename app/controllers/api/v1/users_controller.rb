@@ -1,6 +1,7 @@
 class Api::V1::UsersController < ApiController
 
   load_and_authorize_resource :user, except: [:me]
+  before_filter :org_validate_user
   respond_to :json
   skip_authorization_check only: [:me]
 
@@ -22,7 +23,7 @@ class Api::V1::UsersController < ApiController
     ]
   EOF
   def search
-    @users = User.where(["lower(email) LIKE :email", {:email => "#{params[:email].downcase}%"}])
+    @users = User.in_org(@current_organization).where(["lower(email) LIKE :email", {:email => "#{params[:email].downcase}%"}])
     respond_with @users
   end
 
@@ -31,7 +32,6 @@ class Api::V1::UsersController < ApiController
   param :id, Fixnum, :desc => "The ID of the user to be shown"
   example <<-EOF
     Sample Response:
-
     {
       "id": 4470,
       "email": "evaluator1@test.com",
@@ -49,7 +49,7 @@ class Api::V1::UsersController < ApiController
 
   # /api/v1/users/invite?email=XXX
   def invite
-    inviter = Inviter.new
+    inviter = Inviter.new(@current_organization)
     response = inviter.invite(params[:email], nil, nil)
     if response[:success] == true
       respond_with response[:user], location: nil

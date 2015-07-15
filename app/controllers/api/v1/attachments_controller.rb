@@ -1,6 +1,7 @@
 class Api::V1::AttachmentsController < ApiController
 
   load_and_authorize_resource :attachment
+  before_filter :org_validate_asset
   skip_load_and_authorize_resource :only => :create
   respond_to :json
 
@@ -89,6 +90,8 @@ class Api::V1::AttachmentsController < ApiController
   error :code => 404, :desc => "The attachment does not exist."
   error :code => 403, :desc => "The user is not authorized to delete the attachment."
   def destroy
+    @attachment.destroy
+    respond_with(@attachment)
   end
 
 end

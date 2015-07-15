@@ -1,0 +1,18 @@
+<%= render :partial => 'heading', :locals => {organization: @organization} %>
+
+<% content_for :content do %>
+	<% body = capture do %>
+		<%= form_for [@organization], :html => {:multipart => true, :class => 'formgrid', :data => {'standalone-view' => 'manage_organization'} } do |f| %>
+			<fieldset>
+				<%= render 'shared/model_errors', :model => @organization %>
+				<%= render 'form', :f => f %>
+				<div class="formgrid whole">
+					<%= f.button 'Update Organization', :class => 'primary-button update-button' %>
+					<%= link_to 'Cancel', organization_path, :class => 'warning-button cancel-button' %>
+				</div>
+			</fieldset>
+		<% end %>
+	<% end %>
+	<%= render :partial => 'shared/section', :locals => {:header => 'Edit Organization Properties', :body => body} %>
+<% end %>
+

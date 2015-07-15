@@ -5,6 +5,11 @@ class Courses::EvaluationsController < ApplicationController
   load_and_authorize_resource :project
   load_resource :user
   load_resource :group
+  before_filter :org_validate_course
+  before_filter :org_validate_project
+  before_filter :org_validate_user
+  before_filter :org_validate_group
+
   respond_to :html
 
   def course_map

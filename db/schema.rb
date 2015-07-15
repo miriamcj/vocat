@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150505180815) do
+ActiveRecord::Schema.define(version: 20150707231000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,11 @@ ActiveRecord::Schema.define(version: 20150505180815) do
     t.string   "processor_error", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "file_size"
+    t.decimal  "duration"
+    t.integer  "width"
+    t.integer  "height"
+    t.boolean  "metadata_saved",              default: false
   end
 
   create_table "attachments", force: :cascade do |t|
@@ -72,18 +77,19 @@ ActiveRecord::Schema.define(version: 20150505180815) do
   end
 
   create_table "course_requests", force: :cascade do |t|
-    t.string   "name",         limit: 255
-    t.string   "department",   limit: 255
-    t.string   "section",      limit: 255
-    t.string   "number",       limit: 255
+    t.string   "name",            limit: 255
+    t.string   "department",      limit: 255
+    t.string   "section",         limit: 255
+    t.string   "number",          limit: 255
     t.integer  "year"
     t.integer  "semester_id"
     t.integer  "evaluator_id"
-    t.string   "state",        limit: 255
+    t.string   "state",           limit: 255
     t.integer  "admin_id"
     t.integer  "course_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "organization_id"
   end
 
   create_table "courses", force: :cascade do |t|
@@ -203,9 +209,29 @@ ActiveRecord::Schema.define(version: 20150505180815) do
   add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree
 
   create_table "organizations", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "name",                              limit: 255
+    t.datetime "created_at",                                                               null: false
+    t.datetime "updated_at",                                                               null: false
+    t.string   "subdomain"
+    t.boolean  "active"
+    t.string   "logo"
+    t.boolean  "ldap_enabled",                                  default: false
+    t.string   "ldap_host"
+    t.string   "ldap_encryption",                               default: "simple_tls"
+    t.integer  "ldap_port",                                     default: 3269
+    t.string   "ldap_filter_dn"
+    t.string   "ldap_filter",                                   default: "(mail={email})"
+    t.string   "ldap_bind_dn"
+    t.string   "ldap_bind_cn"
+    t.string   "ldap_bind_password"
+    t.string   "ldap_org_identity",                             default: "name"
+    t.string   "ldap_reset_pw_url"
+    t.string   "ldap_recover_pw_url"
+    t.text     "ldap_message"
+    t.string   "ldap_evaluator_email_domain"
+    t.string   "ldap_default_role",                             default: "creator"
+    t.string   "email_default_from"
+    t.string   "email_notification_course_request"
   end
 
   create_table "project_types", force: :cascade do |t|
@@ -309,7 +335,7 @@ ActiveRecord::Schema.define(version: 20150505180815) do
     t.hstore   "preferences",                        default: {}, null: false
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["email", "organization_id"], name: "index_users_on_email_and_organization_id", unique: true, using: :btree
   add_index "users", ["organization_id"], name: "index_users_on_organization_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 

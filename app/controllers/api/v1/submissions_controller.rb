@@ -3,6 +3,7 @@ class Api::V1::SubmissionsController < ApiController
   respond_to :json
   skip_authorization_check # Authorization is more complex on this controller, so we do it in each individual action
   load_resource :submission
+  before_filter :org_validate_submission
 
   resource_description do
     description <<-EOS
@@ -53,6 +54,7 @@ class Api::V1::SubmissionsController < ApiController
   def for_course
     factory = SubmissionFactory.new
     @course = Course.find(params.require(:course))
+    org_validate_course
     authorize! :show_submissions, @course
     @submissions = factory.course(@course)
     respond_with @submissions, :each_serializer => BriefSubmissionSerializer
@@ -120,6 +122,8 @@ class Api::V1::SubmissionsController < ApiController
     creator_type = params.require(:creator_type)
     @project = Project.find(params.require(:project))
     @course = @project.course
+    org_validate_project
+    org_validate_course
     if creator_type == 'User'
       @creator = User.find(params.require(:creator))
       unless @creator == current_user
@@ -146,6 +150,8 @@ class Api::V1::SubmissionsController < ApiController
     factory = SubmissionFactory.new
     @course = Course.find(params.require(:course))
     @user = User.find(params.require(:user))
+    org_validate_course
+    org_validate_user
     unless @user == current_user
       authorize! :show_submissions, @course
     end
@@ -166,6 +172,7 @@ class Api::V1::SubmissionsController < ApiController
   def for_group
     factory = SubmissionFactory.new
     @group = Group.find(params.require(:group))
+    org_validate_group
     authorize! :show_submissions, @group
     @submissions = factory.course_and_creator(@group.course, @group)
     respond_with @submissions
@@ -180,6 +187,7 @@ class Api::V1::SubmissionsController < ApiController
     params[:brief] ? brief = true : brief = false
     factory = SubmissionFactory.new
     @project = Project.find(params.require(:project))
+    org_validate_project
     authorize! :show_submissions, @project.course
     @submissions = factory.project(@project)
     if brief

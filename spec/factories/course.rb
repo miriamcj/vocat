@@ -5,5 +5,6 @@ FactoryGirl.define do
     number "163"
     section "AI7X4"
     description "Qui quia fuga quo. Soluta ratione quis deleniti. Fu..."
+    association :organization, factory: :organization
   end
 end

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>API documentation</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link type='text/css' rel='stylesheet' href='../../apidoc/stylesheets/bundled/bootstrap.min.css'/>
+<link type='text/css' rel='stylesheet' href='../../apidoc/stylesheets/bundled/prettify.css'/>
+<link type='text/css' rel='stylesheet' href='../../apidoc/stylesheets/bundled/bootstrap-responsive.min.css'/>
+	<link type='text/css' rel='stylesheet' href='../../apidoc/stylesheets/application.css'/>
+	<link rel="stylesheet" media="all" href="/assets/apipie/apipie.css?body=1" />
+
+	<!-- IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<script type="text/javascript" src="//use.typekit.net/ytz4hur.js"></script>
+	<script type="text/javascript">try {
+		Typekit.load();
+	} catch (e) {
+	}</script>
+
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div id='container'>
+			<ul class='breadcrumb'>
+  <li>
+    <a href='../../apidoc.html'>Vocat API 1.0</a>
+    <span class='divider'>/</span>
+  </li>
+  <li>
+    <a href='../../apidoc/projects.html'>
+      Projects
+      
+    </a>
+    <span class='divider'>/</span>
+  </li>
+  <li class='active'>show</li>
+  
+
+</ul>
+
+  <div class='page-header'>
+    <h1>
+      GET /api/v1/projects/:id
+      <br>
+      <small>shows a single project</small>
+    </h1>
+  </div>
+
+<div>
+
+  
+
+
+	<div class="method-detail-section">
+		<h2>Examples</h2>
+			<pre class="prettyprint">Sample Response:
+
+{
+  &quot;id&quot;:466,
+  &quot;name&quot;:&quot;Final Business Vocalization&quot;,
+  &quot;description&quot;:&quot;&lt;p&gt;Sed et aut reiciendis. Totam ducimus quibusdam similique. Sunt et et esse voluptatem nam.&lt;/p&gt;&quot;,
+  &quot;listing_order_position&quot;:null,
+  &quot;evaluatable&quot;:true,
+  &quot;evaluatable_by_peers&quot;:false,
+  &quot;evaluatable_by_creator&quot;:false,
+  &quot;allows_public_discussion&quot;:false,
+  &quot;rejects_past_due_media&quot;:false,
+  &quot;allowed_attachment_families&quot;:[
+    &quot;audio&quot;,
+    &quot;image&quot;,
+    &quot;video&quot;
+  ],
+  &quot;allowed_extensions&quot;:[
+    &quot;mp3,&quot;,
+    &quot;wav&quot;,
+    &quot;gif&quot;,
+    &quot;jpg&quot;,
+    &quot;jpeg&quot;,
+    &quot;png&quot;,
+    &quot;tif&quot;,
+    &quot;tiff&quot;,
+    &quot;avi&quot;,
+    &quot;mp4&quot;,
+    &quot;m4v&quot;,
+    &quot;mov&quot;,
+    &quot;flv&quot;,
+    &quot;wmv&quot;,
+    &quot;webm&quot;,
+    &quot;ogv&quot;,
+    &quot;mkv&quot;
+  ],
+  &quot;allowed_mime_types&quot;:[
+    &quot;audio/mp3,&quot;,
+    &quot;audio/wav&quot;,
+    &quot;image/gif&quot;,
+    &quot;image/jpg&quot;,
+    &quot;image/jpeg&quot;,
+    &quot;image/png&quot;,
+    &quot;image/tiff&quot;,
+    &quot;video/x-msvideo&quot;,
+    &quot;video/mp4&quot;,
+    &quot;video/x-m4v&quot;,
+    &quot;quicktime/mov&quot;,
+    &quot;video/x-flv&quot;,
+    &quot;video/x-ms-wmv&quot;,
+    &quot;video/webm,&quot;,
+    &quot;video/ogg,&quot;,
+    &quot;video/divx&quot;
+  ],
+  &quot;type&quot;:&quot;UserProject&quot;,
+  &quot;rubric_id&quot;:51,
+  &quot;rubric_name&quot;:&quot;COMM1010 Rubric&quot;,
+  &quot;abilities&quot;:{
+    &quot;can_update&quot;:true,
+    &quot;can_destroy&quot;:true,
+    &quot;can_evaluate&quot;:true,
+    &quot;can_show_submissions&quot;:true
+  },
+  &quot;course_id&quot;:234,
+  &quot;due_date&quot;:null,
+  &quot;rubric&quot;:{
+    &quot;id&quot;:51,
+    &quot;name&quot;:&quot;COMM1010 Rubric&quot;,
+    &quot;fields&quot;:[
+      {
+        &quot;name&quot;:&quot;Attention&quot;,
+        &quot;description&quot;:&quot;Attention Step&quot;,
+        &quot;id&quot;:&quot;attention&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Relation to Audience&quot;,
+        &quot;description&quot;:&quot;Relation to Audience&quot;,
+        &quot;id&quot;:&quot;relation-to-audience&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Specific purpose/thesis&quot;,
+        &quot;description&quot;:&quot;Specific purpose/thesis&quot;,
+        &quot;id&quot;:&quot;specific-purpose-thesis&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Preview&quot;,
+        &quot;description&quot;:&quot;Preview&quot;,
+        &quot;id&quot;:&quot;preview&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Logical Organization Pattern&quot;,
+        &quot;description&quot;:&quot;Logical Organization Pattern&quot;,
+        &quot;id&quot;:&quot;logical-organization-pattern&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Supporting Material&quot;,
+        &quot;description&quot;:&quot;Supporting Material&quot;,
+        &quot;id&quot;:&quot;supporting-material&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Citations&quot;,
+        &quot;description&quot;:&quot;Citations&quot;,
+        &quot;id&quot;:&quot;citations&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Transitions&quot;,
+        &quot;description&quot;:&quot;Transitions&quot;,
+        &quot;id&quot;:&quot;transitions&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Review&quot;,
+        &quot;description&quot;:&quot;Review&quot;,
+        &quot;id&quot;:&quot;review&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Introduction Tieback&quot;,
+        &quot;description&quot;:&quot;Introduction Tieback&quot;,
+        &quot;id&quot;:&quot;introduction-tieback&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Rate&quot;,
+        &quot;description&quot;:&quot;Rate&quot;,
+        &quot;id&quot;:&quot;rate&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Level&quot;,
+        &quot;description&quot;:&quot;Level&quot;,
+        &quot;id&quot;:&quot;level&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Eye Contact&quot;,
+        &quot;description&quot;:&quot;Eye Contact&quot;,
+        &quot;id&quot;:&quot;eye-contact&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Movement&quot;,
+        &quot;description&quot;:&quot;Movement&quot;,
+        &quot;id&quot;:&quot;movement&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Visual Aids / Attire&quot;,
+        &quot;description&quot;:&quot;Visual Aids / Attire&quot;,
+        &quot;id&quot;:&quot;visual-aids-attire&quot;
+      }
+    ],
+    &quot;rnges&quot;:[
+      {
+        &quot;name&quot;:&quot;Poor/Failure&quot;,
+        &quot;low&quot;:0,
+        &quot;high&quot;:2,
+        &quot;id&quot;:&quot;poor-failure&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Good/Average&quot;,
+        &quot;low&quot;:3,
+        &quot;high&quot;:4,
+        &quot;id&quot;:&quot;good-average&quot;
+      },
+      {
+        &quot;name&quot;:&quot;Excellent&quot;,
+        &quot;low&quot;:5,
+        &quot;high&quot;:6,
+        &quot;id&quot;:&quot;excellent&quot;
+      }
+    ],
+    &quot;clls&quot;:[
+      {
+        &quot;range&quot;:&quot;poor-failure&quot;,
+        &quot;field&quot;:&quot;attention&quot;,
+        &quot;description&quot;:&quot;Doesn&#39;t gain attention, speaker picked weak/inappropriate devices, theme is unclear [...]&quot;
+      },
+      {
+        &quot;range&quot;:&quot;good-average&quot;,
+        &quot;field&quot;:&quot;attention&quot;,
+        &quot;description&quot;:&quot;Gains some attention, speaker could have picked stronger devices, theme is present but [...]&quot;
+      },
+      {
+        &quot;range&quot;:&quot;excellent&quot;,
+        &quot;field&quot;:&quot;attention&quot;,
+        &quot;description&quot;:&quot;Strongly gains audiences attention with appropriate devices, establishes clear theme [...]&quot;
+      },
+      {
+        &quot;range&quot;:&quot;poor-failure&quot;,
+        &quot;field&quot;:&quot;relation-to-audience&quot;,
+        &quot;description&quot;:&quot;Provides little or no rationale for why the speech has value to a &quot;specific&quot; or &quot;general&quot; audience&quot;
+      },
+      {
+        &quot;range&quot;:&quot;good-average&quot;,
+        &quot;field&quot;:&quot;relation-to-audience&quot;,
+        &quot;description&quot;:&quot;Hints at why the speech is important, addresses the reason why a &quot;general&quot; audience should listen&quot;
+      },
+      {
+        &quot;range&quot;:&quot;excellent&quot;,
+        &quot;field&quot;:&quot;relation-to-audience&quot;,
+        &quot;description&quot;:&quot;Provided a terse, but strong rationale for why the speech is important and why his/her &quot;specific&quot; audience should listen&quot;
+      },
+      {
+        &quot;range&quot;:&quot;poor-failure&quot;,
+        &quot;field&quot;:&quot;specific-purpose-thesis&quot;,
+        &quot;description&quot;:&quot;No clear thesis is provided, the audience at the start of the speech has little or no idea [...]&quot;
+      },
+      [..]
+    ],
+    &quot;low&quot;:0,
+    &quot;high&quot;:6,
+    &quot;points_possible&quot;:90,
+    &quot;description&quot;:null,
+    &quot;public&quot;:true
+  }
+}
+</pre>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h2>Errors</h2>
+		<ul class="method-detail-list">
+				<li>
+					<strong>404</strong>: The project was not found.
+					<br>
+				</li>
+				<li>
+					<strong>403</strong>: The current user does not have read access to this project.
+					<br>
+				</li>
+		</ul>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Request Parameters</h3>
+		<table class='table'>
+			<thead>
+			<tr>
+				<th>Param name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>id </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The project ID</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+</div>
+
+
+			
+		</div>
+	</div>
+	<hr>
+	<footer>Copyright 2015 Baruch College, City University of New York</footer>
+</div>
+<script type='text/javascript' src='../../apidoc/javascripts/bundled/jquery-1.7.2.js'></script>
+<script type='text/javascript' src='../../apidoc/javascripts/bundled/bootstrap-collapse.js'></script>
+<script type='text/javascript' src='../../apidoc/javascripts/bundled/prettify.js'></script>
+<script type='text/javascript' src='../../apidoc/javascripts/apipie.js'></script>
+</body>
+</html>

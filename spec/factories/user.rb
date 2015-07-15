@@ -3,6 +3,7 @@ FactoryGirl.define do
     first_name 'John'
     last_name  'Doe'
     password 'password'
+    association :organization, factory: :organization
     role 'creator'
     sequence :email do |n|
       "person#{Time.now.to_i}#{n}@example.com"

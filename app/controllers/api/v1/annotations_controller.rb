@@ -1,6 +1,7 @@
 class Api::V1::AnnotationsController < ApiController
 
   load_and_authorize_resource :annotation
+  before_filter :org_validate_annotation
   respond_to :json
 
   def_param_group :annotation do
@@ -69,9 +70,10 @@ class Api::V1::AnnotationsController < ApiController
     ]
   EOS
   def index
-    asset = Asset.find(params.require(:asset))
-    authorize! :show, asset
-    @annotations = Annotation.where(asset: asset)
+    @asset = Asset.find(params.require(:asset))
+    org_validate_asset
+    authorize! :show, @asset
+    @annotations = Annotation.where(asset: @asset)
     respond_with @annotations
   end
 

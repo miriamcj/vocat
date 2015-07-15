@@ -2,15 +2,10 @@ require 'securerandom'
 
 class LDAPAuthenticator
 
-  attr_accessor :conn, :bound
+  attr_accessor :conn, :bound, :org
 
-  def initialize
-    self.conn = ldap_conn = Net::LDAP.new
-    self.conn.host = host
-    self.conn.port = port
-    self.conn.auth bind_cn, bind_pass
-    self.conn.encryption encryption
-    self.bound = false
+  def initialize(org)
+    @org = org
   end
 
   def bind
@@ -24,13 +19,24 @@ class LDAPAuthenticator
     end
   end
 
+  def create_ldap_connection
+    self.conn = ldap_conn = Net::LDAP.new
+    self.conn.host = host
+    self.conn.port = port
+    self.conn.auth bind_cn, bind_password
+    self.conn.encryption encryption
+    self.bound = false
+  end
+
   def authenticate(authentication_hash)
-    lookup = authentication_hash[:email]
-    result = self.conn.bind_as(
+    return false if !@org.ldap_enabled
+    create_ldap_connection
+    bind_hash = {
         :base => filter_dn,
-        :filter => filter(lookup),
+        :filter => filter(authentication_hash[:email]),
         :password => authentication_hash[:password]
-    )
+    }
+    result = self.conn.bind_as(bind_hash)
     if result == false
       false
     else
@@ -49,6 +55,7 @@ class LDAPAuthenticator
   end
 
   def create_vocat_user_from_ldap_email!(email)
+    create_ldap_connection
     ldap_user = query(email)
     if ldap_user
       create_vocat_user_from_ldap_user!(ldap_user)
@@ -70,9 +77,7 @@ class LDAPAuthenticator
                            :first_name => fix_case(ldap_user.givenName.first),
                            :last_name => fix_case(ldap_user.sn.first),
                            :role => pick_role(ldap_user.mail.first),
-                           # TODO: Decide on a better way to handle organizations in VOCAT
-                           # In a nutshell, this is some BULLSHIT.
-                           :organization => Organization.first,
+                           :organization => @org,
                            :org_identity => ldap_user.send(:name).first,
                            :is_ldap_user => true
                        })
@@ -93,7 +98,7 @@ class LDAPAuthenticator
   def pick_role(email)
     role = default_role
     domain = Mail::Address.new(email.to_s).domain
-    match_domain = instructor_email_domain
+    match_domain = evaluator_email_domain
     if domain == match_domain then
       role = 'evaluator'
     end
@@ -112,17 +117,16 @@ class LDAPAuthenticator
   end
 
   def config_value(value)
-    config = Rails.application.config.vocat.ldap
-    if config.has_key?(value)
-      config[value]
+    if @org.respond_to?("ldap_#{value}")
+      @org.send("ldap_#{value}")
     else
-      error = "Missing required LDAP configuration: #{value}. Set it in config/environment.yml"
+      error = "Missing required LDAP configuration: #{value}. Please double check Organization LDAP configuration"
       raise error
     end
   end
 
-  def instructor_email_domain
-    config_value('instructor_email_domain')
+  def evaluator_email_domain
+    config_value('evaluator_email_domain')
   end
 
   def default_role
@@ -149,8 +153,8 @@ class LDAPAuthenticator
     config_value 'bind_cn'
   end
 
-  def bind_pass
-    config_value 'bind_pass'
+  def bind_password
+    config_value 'bind_password'
   end
 
   def base_dn

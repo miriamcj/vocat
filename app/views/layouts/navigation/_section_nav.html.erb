@@ -1,0 +1,84 @@
+<% if current_user %>
+	<li>
+		<div class="drawer-nav--column drawer-nav--course-column">
+			<% if (current_user.role?(:administrator) || current_user.role?(:superadministrator)) %>
+			<h4>Recent and Upcoming Courses</h4>
+			<div class="drawer-course-list">
+				<ul data-behavior="admin-courses">
+					<li style="margin-bottom: 3em; ">
+						<select style="width: 100%" data-class="recent-course-select" data-behavior="chosen" >
+							<% @current_organization.recent_grouped_sorted_courses().each do |semester, courses| %>
+								<optgroup label="<%= semester %>">
+									<% courses.each do |course| %>
+										<option
+										<% if course == @selected_course %>selected="selected"
+										<% end %>value="<%= user_course_url(current_user, course) %>">
+											<%= "#{course.department} #{course.number} Section #{course.section}" %>
+										</option>
+									<% end %>
+								</optgroup>
+							<% end %>
+						</select>
+					</li>
+				</ul>
+			</div>
+			<% end %>
+
+			<h4>Your Courses</h4>
+			<div class="drawer-course-list">
+				<ul data-behavior="drawer-courses">
+					<% if current_user.courses_count == 0 %>
+						<li>You are not currently enrolled any VOCAT courses.</li>
+
+
+					<% elsif current_user.courses_count < 5 %>
+						<% current_user.sorted_courses().each do |course| %>
+							<li>
+								<a href="<%= user_course_url(current_user, course) %>">
+									<%= "#{course.department} #{course.number}" %><br/>
+									<%= "#{course.name}" %><br/>
+									<small><%= "#{course.semester} #{course.year}, Section #{course.section}" %></small>
+								</a>
+							</li>
+						<% end %>
+					<% else %>
+						<li style="margin-bottom: 3em; ">
+							<select style="width: 100%;" data-class="course-select">
+								<option></option>
+								<% current_user.grouped_sorted_courses().each do |semester, courses| %>
+									<optgroup label="<%= semester %>">
+										<% courses.each do |course| %>
+											<option value="<%= user_course_url(current_user, course) %>">
+												<%= "#{course.department} #{course.number} Section #{course.section}" %>
+											</option>
+										<% end %>
+									</optgroup>
+								<% end %>
+							</select>
+							<small style="display: block; margin-top: .5em; line-height: 1.25em;">
+								You are associated
+								with <%= pluralize current_user.courses_count, 'VOCAT course', 'VOCAT courses' %>
+								.
+							</small>
+						</li>
+					<% end %>
+				</ul>
+			</div>
+		</div>
+	</li>
+<% end %>
+<% if (current_user.role?(:administrator) || current_user.role?(:superadministrator)) && @app_section != 'admin'%>
+	<li>
+		<a class="primary-button" href="<%= admin_path %>">Return to Admin Interface</a>
+	</li>
+<% end %>
+<% if current_user.role?(:evaluator) && @app_section != 'dashboard' %>
+	<li>
+		<a class="primary-button" href="<%= dashboard_evaluator_path %>">Return To Dashboard</a>
+	</li>
+<% end %>
+<% if current_user.role?(:creator) && @app_section != 'dashboard' %>
+	<li>
+		<a class="primary-button" href="<%= dashboard_creator_path %>">Return To Dashboard</a>
+	</li>
+<% end %>

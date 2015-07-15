@@ -33,6 +33,7 @@ Devise.setup do |config|
   # if you set :request_keys to [:subdomain], :subdomain will be used on authentication.
   # The same considerations mentioned for authentication_keys also apply to request_keys.
   # config.request_keys = []
+  config.request_keys = [ :subdomain ]
 
   # Configure which authentication keys should be case-insensitive.
   # These keys will be downcased upon creating or modifying a user and when used
@@ -226,32 +227,14 @@ Devise.setup do |config|
   #   manager.default_strategies(:scope => :user).unshift :some_external_strategy
   # end
 
-  config.warden do |manager|
-    manager.failure_app = CustomSignInFailure
-  end
-
-  if Rails.application.config.vocat.ldap && Rails.application.config.vocat.ldap[:enabled]
-    config.warden do |manager|
-      manager.strategies.add(:vocat_ldap_authenticatable, Devise::Strategies::VocatLdapAuthenticatable)
-      manager.default_strategies(:scope => :user).unshift :vocat_ldap_authenticatable
-    end
-  end
-
   # config.warden do |manager|
-  #   manager.strategies.add(:vocat_token_authenticatable, Warden::VocatTokenAuthenticatable)
+  #   manager.failure_app = CustomSignInFailure
   # end
 
-  # ==> Mountable engine configurations
-  # When using Devise inside an engine, let's call it `MyEngine`, and this engine
-  # is mountable, there are some extra configurations to be taken into account.
-  # The following options are available, assuming the engine is mounted as:
-  #
-  #     mount MyEngine, at: "/my_engine"
-  #
-  # The router that invoked `devise_for`, in the example above, would be:
-  # config.router_name = :my_engine
-  #
-  # When using omniauth, Devise cannot automatically set Omniauth path,
-  # so you need to do it manually. For the users scope, it would be:
-  # config.omniauth_path_prefix = "/my_engine/users/auth"
+  config.warden do |manager|
+    manager.strategies.add(:vocat_ldap_authenticatable, Devise::Strategies::VocatLdapAuthenticatable)
+    manager.default_strategies(:scope => :user).unshift :vocat_ldap_authenticatable
+    # manager.default_strategies(:scope => :user).pop
+  end
+
 end

@@ -1,6 +1,7 @@
 class Admin::CourseRequestsController < Admin::AdminController
 
-  load_and_authorize_resource :course_request
+  load_and_authorize_resource :course_request, :through => :the_current_organization
+  before_filter :org_validate_course_request
   respond_to :html
 
   layout 'content'

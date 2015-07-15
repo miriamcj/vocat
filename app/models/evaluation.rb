@@ -14,6 +14,10 @@
 #  total_score      :decimal(, )      default(0.0)
 #  evaluation_type  :integer
 #
+# Indexes
+#
+#  index_evaluations_on_scores  (scores)
+#
 
 class Evaluation < ActiveRecord::Base
 

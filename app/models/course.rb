@@ -15,6 +15,10 @@
 #  semester_id     :integer
 #  year            :integer
 #
+# Indexes
+#
+#  index_courses_on_organization_id  (organization_id)
+#
 
 class Course < ActiveRecord::Base
   belongs_to :organization
@@ -39,6 +43,7 @@ class Course < ActiveRecord::Base
   accepts_nested_attributes_for :groups
 
   scope :sorted, -> { joins(:semester).order ('year DESC, semesters.position DESC') }
+  scope :in_org, ->(org) { where(:organization => org)}
 
   validates :department, :name, :number, :section, :presence => true
 
@@ -50,6 +55,7 @@ class Course < ActiveRecord::Base
     c = c.where("lower(section) LIKE ?", "#{params[:section].downcase}%") unless params[:section].blank?
     c = c.joins(:semester).where(:semesters => {id: params[:semester]}) unless params[:semester].blank?
     c = c.joins(:memberships => :user).where(:users => {id: params[:evaluator]}) unless params[:evaluator].blank?
+    c = c.where({organization: params[:organization]}) unless params[:organization].blank?
     c.sorted
   end
 
@@ -200,7 +206,7 @@ class Course < ActiveRecord::Base
     if membership
       return membership.role.to_sym()
     end
-    return :administrator if user.role? :administrator
+    return :administrator if user.role?(:administrator) && user.organization == organization
     return nil
   end
 

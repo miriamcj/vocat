@@ -2,6 +2,8 @@ require 'securerandom'
 
 class Inviter
 
+  attr_accessor :organization
+
   def response_hash
     {
         success: nil,
@@ -10,6 +12,10 @@ class Inviter
         message: nil
     }
 
+  end
+
+  def initialize(organization)
+    @organization = organization
   end
 
   def invite(email, first_name, last_name)
@@ -36,8 +42,8 @@ class Inviter
   private
 
   def attempt_create_from_ldap!(email, response)
-    if Rails.application.config.vocat.ldap.enabled
-      ldap = LDAPAuthenticator.new
+    if @organization.ldap_enabled
+      ldap = LDAPAuthenticator.new(@organization)
       user = ldap.create_vocat_user_from_ldap_email!(email)
       if user
         success!(response, user)
@@ -68,7 +74,12 @@ class Inviter
     user.save
     if user.errors.blank?
       success!(response, user)
-      UserMailer.welcome_email(user).deliver
+      begin
+        UserMailer.welcome_email(user, @organization.email_default_from).deliver
+      rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy, Net::SMTPSyntaxError, Net::SMTPFatalError, Net::SMTPUnknownError => e
+        failure!(response, :mail_send_failure, "The user was invited to Vocat, but Vocat was unable to notify the user via email")
+        return false
+      end
       return true
     else
       failure!(response, :db_create_failure, "Unable to invite \"#{user.email}\": #{user.errors.full_messages().join('; ').downcase}")

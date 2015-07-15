@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>API documentation</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link type='text/css' rel='stylesheet' href='./apidoc/stylesheets/bundled/bootstrap.min.css'/>
+<link type='text/css' rel='stylesheet' href='./apidoc/stylesheets/bundled/prettify.css'/>
+<link type='text/css' rel='stylesheet' href='./apidoc/stylesheets/bundled/bootstrap-responsive.min.css'/>
+	<link type='text/css' rel='stylesheet' href='./apidoc/stylesheets/application.css'/>
+	<link rel="stylesheet" media="all" href="/assets/apipie/apipie.css?body=1" />
+
+	<!-- IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<script type="text/javascript" src="//use.typekit.net/ytz4hur.js"></script>
+	<script type="text/javascript">try {
+		Typekit.load();
+	} catch (e) {
+	}</script>
+
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div id='container'>
+			<ul class='breadcrumb'>
+  <li class='active'><a href='./apidoc.html'>Vocat API 1.0</a></li>
+  
+</ul>
+
+<div>
+<p>Vocat is a teaching and learning platform that facilitates qualitative and
+quantitative assessment of a range of media. Built as a collaboration
+between the Center for Teaching and Learning at Baruch College, City
+University of New York and Cast Iron Coding of Portland, Oregon, the tool
+is in active development.</p>
+</div>
+
+<h1 class='page-header'>Resources</h1>
+
+  <h2>
+    <a href='./apidoc/annotations.html'>
+      Annotations
+    </a><br>
+    <small></small>
+  </h2>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Resource</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+          <tr>
+            <td>
+              <a href='./apidoc/annotations/index.html'>GET /api/v1/annotations?asset=:asset</a>
+            </td>
+            <td width='60%'>returns all annotations for an asset</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/annotations/show.html'>GET /api/v1/annotations/:id</a>
+            </td>
+            <td width='60%'>shows a single annotation</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/annotations/create.html'>POST /api/v1/annotations</a>
+            </td>
+            <td width='60%'>creates a new annotation</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/annotations/update.html'>PATCH /api/v1/annotations/:id</a>
+            </td>
+            <td width='60%'>updates an annotation</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/annotations/destroy.html'>DELETE /api/v1/annotations/:id</a>
+            </td>
+            <td width='60%'>deletes a single annotation</td>
+          </tr>
+    </tbody>
+  </table>
+  <h2>
+    <a href='./apidoc/assets.html'>
+      Assets
+    </a><br>
+    <small></small>
+  </h2>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Resource</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+          <tr>
+            <td>
+              <a href='./apidoc/assets/show.html'>GET /api/v1/assets/:id</a>
+            </td>
+            <td width='60%'>shows a single asset and its associated attachment, and annotations</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/assets/create.html'>POST /api/v1/assets</a>
+            </td>
+            <td width='60%'>creates a new asset</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/assets/update.html'>PATCH /api/v1/assets/:id</a>
+            </td>
+            <td width='60%'>updates an asset</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/assets/destroy.html'>DELETE /api/v1/assets/:id</a>
+            </td>
+            <td width='60%'>deletes an asset</td>
+          </tr>
+    </tbody>
+  </table>
+  <h2>
+    <a href='./apidoc/attachments.html'>
+      Attachments
+    </a><br>
+    <small></small>
+  </h2>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Resource</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+          <tr>
+            <td>
+              <a href='./apidoc/attachments/create.html'>POST /api/v1/attachments</a>
+            </td>
+            <td width='60%'>creates a new attachment</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/attachments/show.html'>GET /api/v1/attachments/:id</a>
+            </td>
+            <td width='60%'>shows a single attachment</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/attachments/destroy.html'>DELETE /api/v1/attachments/:id</a>
+            </td>
+            <td width='60%'>deletes an attachment</td>
+          </tr>
+    </tbody>
+  </table>
+  <h2>
+    <a href='./apidoc/courses.html'>
+      Courses
+    </a><br>
+    <small></small>
+  </h2>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Resource</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+          <tr>
+            <td>
+              <a href='./apidoc/courses/index.html'>GET /api/v1/courses</a>
+            </td>
+            <td width='60%'>returns all courses in which the current user is a member</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/courses/show.html'>GET /api/v1/courses/:id</a>
+            </td>
+            <td width='60%'>returns one course by ID</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/courses/update.html'>PATCH /api/v1/courses/:id</a>
+            </td>
+            <td width='60%'>updates a course</td>
+          </tr>
+    </tbody>
+  </table>
+  <h2>
+    <a href='./apidoc/discussion_posts.html'>
+      Discussion posts
+    </a><br>
+    <small></small>
+  </h2>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Resource</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+          <tr>
+            <td>
+              <a href='./apidoc/discussion_posts/index.html'>GET /api/v1/discussion_posts?submission=:submission</a>
+            </td>
+            <td width='60%'>returns all discussion posts for a given submission</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/discussion_posts/create.html'>POST /api/v1/discussion_posts</a>
+            </td>
+            <td width='60%'>creates a discussion post for a submission</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/discussion_posts/update.html'>PATCH /api/v1/discussion_posts/:id</a>
+            </td>
+            <td width='60%'>creates a discussion post for a submission</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/discussion_posts/destroy.html'>DELETE /api/v1/discussion_posts/:id</a>
+            </td>
+            <td width='60%'>deletes a single discussion post</td>
+          </tr>
+    </tbody>
+  </table>
+  <h2>
+    <a href='./apidoc/enrollments.html'>
+      Enrollments
+    </a><br>
+    <small></small>
+  </h2>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Resource</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+          <tr>
+            <td>
+              <a href='./apidoc/enrollments/index.html'>GET /api/v1/courses/:course_id/enrollments?role=:role</a>
+            </td>
+            <td width='60%'>returns users enrolled in a given course</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/enrollments/index.html'>GET /api/v1/users/:user_id/enrollments</a>
+            </td>
+            <td width='60%'>returns courses in which a given user is enrolled</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/enrollments/destroy.html'>DELETE /api/v1/enrollments/:enrollment_key</a>
+            </td>
+            <td width='60%'>removes a user from a course</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/enrollments/create.html'>POST /api/v1/enrollments</a>
+            </td>
+            <td width='60%'>enrolls a single user in a single course</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/enrollments/bulk.html'>POST /api/v1/courses/:course_id/enrollments/bulk</a>
+            </td>
+            <td width='60%'>bulk enrolls multiple users in a course</td>
+          </tr>
+    </tbody>
+  </table>
+  <h2>
+    <a href='./apidoc/evaluations.html'>
+      Evaluations
+    </a><br>
+    <small></small>
+  </h2>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Resource</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+          <tr>
+            <td>
+              <a href='./apidoc/evaluations/index.html'>GET /api/v1/evaluations?submission=:submission</a>
+            </td>
+            <td width='60%'>returns all visible evaluations for a given submission</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/evaluations/create.html'>POST /api/v1/evaluations</a>
+            </td>
+            <td width='60%'>creates an evaluation</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/evaluations/update.html'>PATCH /api/v1/evaluations/:id</a>
+            </td>
+            <td width='60%'>updates an evaluation</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/evaluations/destroy.html'>DELETE /api/v1/evaluations/:id</a>
+            </td>
+            <td width='60%'>deletes an evaluation</td>
+          </tr>
+    </tbody>
+  </table>
+  <h2>
+    <a href='./apidoc/groups.html'>
+      Groups
+    </a><br>
+    <small></small>
+  </h2>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Resource</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+          <tr>
+            <td>
+              <a href='./apidoc/groups/index.html'>GET /api/v1/groups?course=:course</a>
+            </td>
+            <td width='60%'>returns all groups for the given course</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/groups/show.html'>GET /api/v1/groups/:id</a>
+            </td>
+            <td width='60%'>shows a single group</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/groups/create.html'>POST /api/v1/groups</a>
+            </td>
+            <td width='60%'>creates a new group within a course</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/groups/update.html'>PATCH /api/v1/groups/:id</a>
+            </td>
+            <td width='60%'>updates a group</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/groups/destroy.html'>DELETE /api/v1/groups/:id</a>
+            </td>
+            <td width='60%'>deletes a group</td>
+          </tr>
+    </tbody>
+  </table>
+  <h2>
+    <a href='./apidoc/projects.html'>
+      Projects
+    </a><br>
+    <small></small>
+  </h2>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Resource</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+          <tr>
+            <td>
+              <a href='./apidoc/projects/index.html'>GET /api/v1/projects?course=:course</a>
+            </td>
+            <td width='60%'>returns all projects for the given course</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/projects/show.html'>GET /api/v1/projects/:id</a>
+            </td>
+            <td width='60%'>shows a single project</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/projects/create.html'>POST /api/v1/projects</a>
+            </td>
+            <td width='60%'>creates a new project</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/projects/update.html'>PATCH /api/v1/projects/:id</a>
+            </td>
+            <td width='60%'>updates a project</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/projects/destroy.html'>DELETE /api/v1/projects/:id</a>
+            </td>
+            <td width='60%'>deletes a project</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/projects/publish_evaluations.html'>PATCH /api/v1/projects/:id/publish_evaluations</a>
+            </td>
+            <td width='60%'>publishes all of the current user&#39;s evaluations for the project</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/projects/unpublish_evaluations.html'>PATCH /api/v1/projects/:id/unpublish_evaluations</a>
+            </td>
+            <td width='60%'>unpublishes all of the current user&#39;s evaluations for the project</td>
+          </tr>
+    </tbody>
+  </table>
+  <h2>
+    <a href='./apidoc/rubrics.html'>
+      Rubrics
+    </a><br>
+    <small></small>
+  </h2>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Resource</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+          <tr>
+            <td>
+              <a href='./apidoc/rubrics/index.html'>GET /api/v1/rubrics</a>
+            </td>
+            <td width='60%'>returns the current user&#39;s rubrics</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/rubrics/show.html'>GET /api/v1/rubrics/:id</a>
+            </td>
+            <td width='60%'>shows one rubric</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/rubrics/create.html'>POST /api/v1/rubric</a>
+            </td>
+            <td width='60%'>creates a new rubric</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/rubrics/update.html'>PATCH /api/v1/rubric/:id</a>
+            </td>
+            <td width='60%'>creates a new rubric</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/rubrics/destroy.html'>DELETE /api/v1/rubrics/:id</a>
+            </td>
+            <td width='60%'>deletes a rubric</td>
+          </tr>
+    </tbody>
+  </table>
+  <h2>
+    <a href='./apidoc/scores.html'>
+      Scores
+    </a><br>
+    <small></small>
+  </h2>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Resource</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+          <tr>
+            <td>
+              <a href='./apidoc/scores/my_scores.html'>GET /api/v1/scores/my_scores?project=:project</a>
+            </td>
+            <td width='60%'>returns the current user&#39;s scores for a given project</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/scores/all_scores.html'>GET /api/v1/scores/all_scores?project=:project</a>
+            </td>
+            <td width='60%'>returns scores for a given project</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/scores/peer_scores.html'>GET /api/v1/scores/peer_scores?project=:project</a>
+            </td>
+            <td width='60%'>returns peer evaluation scores for a given project</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/scores/evaluator_scores.html'>GET /api/v1/scores/evaluator_scores?project=:project</a>
+            </td>
+            <td width='60%'>returns evaluator scores for a given project</td>
+          </tr>
+    </tbody>
+  </table>
+  <h2>
+    <a href='./apidoc/submissions.html'>
+      Submissions
+    </a><br>
+    <small></small>
+  </h2>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Resource</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+          <tr>
+            <td>
+              <a href='./apidoc/submissions/for_course.html'>GET /api/v1/submission/for_course?course=:course</a>
+            </td>
+            <td width='60%'>returns summaries of all submissions for the given course</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/submissions/for_creator_and_project.html'>GET /api/v1/submission/for_creator_and_project?creator=:creator&amp;project=:project&amp;creator_type=:creator_type</a>
+            </td>
+            <td width='60%'>returns detailed submissions for the given creator and project</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/submissions/for_course_and_user.html'>GET /api/v1/submission/for_course_and_user?course=:course&amp;project=:project&amp;user=:user</a>
+            </td>
+            <td width='60%'>returns detailed submissions for the given user, course, and project (optional)</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/submissions/for_group.html'>GET /api/v1/submission/for_group?group=:group</a>
+            </td>
+            <td width='60%'>returns detailed submissions for the given group</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/submissions/for_project.html'>GET /api/v1/submission/for_project?project=:project</a>
+            </td>
+            <td width='60%'>returns brief submissions the given project</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/submissions/show.html'>GET /api/v1/submission/:id</a>
+            </td>
+            <td width='60%'>shows a single submission</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/submissions/create.html'>POST /api/v1/course/:course_id/submissions</a>
+                <code>DEPRECATED</code>
+            </td>
+            <td width='60%'>creates a submission</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/submissions/update.html'>PATCH /api/v1/submissions/:id</a>
+                <code>DEPRECATED</code>
+            </td>
+            <td width='60%'>updates a submission</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/submissions/destroy.html'>DELETE /api/v1/submissions/:id</a>
+            </td>
+            <td width='60%'>deletes a submission and all attached media, annotations, discussion posts, and evaluations.</td>
+          </tr>
+    </tbody>
+  </table>
+  <h2>
+    <a href='./apidoc/users.html'>
+      Users
+    </a><br>
+    <small></small>
+  </h2>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Resource</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+          <tr>
+            <td>
+              <a href='./apidoc/users/search.html'>GET /api/v1/users/search/?email=:email</a>
+            </td>
+            <td width='60%'>Finds users by email address. Under normal circumstances, should return an arry with 1 or 0 items.</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/users/show.html'>GET /api/v1/users/:id</a>
+            </td>
+            <td width='60%'>shows a user</td>
+          </tr>
+          <tr>
+            <td>
+              <a href='./apidoc/users/me.html'>GET /api/v1/users/me</a>
+            </td>
+            <td width='60%'>shows the current authenticated user</td>
+          </tr>
+    </tbody>
+  </table>
+
+
+			
+		</div>
+	</div>
+	<hr>
+	<footer>Copyright 2015 Baruch College, City University of New York</footer>
+</div>
+<script type='text/javascript' src='./apidoc/javascripts/bundled/jquery-1.7.2.js'></script>
+<script type='text/javascript' src='./apidoc/javascripts/bundled/bootstrap-collapse.js'></script>
+<script type='text/javascript' src='./apidoc/javascripts/bundled/prettify.js'></script>
+<script type='text/javascript' src='./apidoc/javascripts/apipie.js'></script>
+</body>
+</html>

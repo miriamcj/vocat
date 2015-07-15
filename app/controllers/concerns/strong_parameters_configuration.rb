@@ -175,6 +175,29 @@ module Concerns::StrongParametersConfiguration
     end
   end
 
+  def organization_params
+    params.require(:organization).permit(:name,
+                                         :subdomain,
+                                         :active,
+                                         :ldap_enabled,
+                                         :ldap_host,
+                                         :ldap_encryption,
+                                         :ldap_port,
+                                         :ldap_filter_dn,
+                                         :ldap_filter,
+                                         :ldap_bind_cn,
+                                         :ldap_bind_password,
+                                         :ldap_org_identity,
+                                         :ldap_reset_pw_url,
+                                         :ldap_recover_pw_url,
+                                         :ldap_message,
+                                         :ldap_evaluator_email_domain,
+                                         :ldap_default_role,
+                                         :email_default_from,
+                                         :email_notification_course_request
+    )
+  end
+
   def rubric_params
     if current_user.role?('administrator')
       admin_rubric_params

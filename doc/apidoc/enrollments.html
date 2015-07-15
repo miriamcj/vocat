@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>API documentation</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link type='text/css' rel='stylesheet' href='../apidoc/stylesheets/bundled/bootstrap.min.css'/>
+<link type='text/css' rel='stylesheet' href='../apidoc/stylesheets/bundled/prettify.css'/>
+<link type='text/css' rel='stylesheet' href='../apidoc/stylesheets/bundled/bootstrap-responsive.min.css'/>
+	<link type='text/css' rel='stylesheet' href='../apidoc/stylesheets/application.css'/>
+	<link rel="stylesheet" media="all" href="/assets/apipie/apipie.css?body=1" />
+
+	<!-- IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<script type="text/javascript" src="//use.typekit.net/ytz4hur.js"></script>
+	<script type="text/javascript">try {
+		Typekit.load();
+	} catch (e) {
+	}</script>
+
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div id='container'>
+			<ul class='breadcrumb'>
+  <li>
+    <a href='../apidoc.html'>Vocat API 1.0</a>
+    <span class='divider'>/</span>
+  </li>
+  <li class='active'>
+    Enrollments
+    
+  </li>
+  
+</ul>
+
+<div class='page-header'>
+  <h1>
+    Enrollments
+    <br>
+    <small></small>
+  </h1>
+</div>
+
+  <div>
+<p>Enrollments are a psuedo-resource that represents a user&#39;s membership
+in a given course. In general, course enrollment can be managed by course
+evaluators, course assistants, and Vocat administrators. Bulk enrollment is
+possible using the bulk enrollment endpoint. During bulk enrollment, users
+who are not currently known to Vocat may be invited via email.</p>
+</div>
+
+
+
+
+
+<div class='accordion' id='accordion'>
+
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/enrollments/index.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-index'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            GET /api/v1/courses/:course_id/enrollments?role=:role
+          </a>
+          <br>
+          <small>returns users enrolled in a given course</small>
+        </h2>
+        <h2>
+          <a href='#description-index'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            GET /api/v1/users/:user_id/enrollments
+          </a>
+          <br>
+          <small>returns courses in which a given user is enrolled</small>
+        </h2>
+    </div>
+
+
+    <div id='description-index' class='collapse accordion-body'>
+      
+<p>Only admins and evaluator users may see what courses a user is enrolled in.
+Any user who is enrolled in a course may view which other users are
+enrolled in that course.</p>
+
+
+
+	<div class="method-detail-section">
+		<h3>Examples</h3>
+			<pre class="prettyprint">Sample Response
+
+  [
+     {
+        &quot;id&quot;:&quot;u4473c234&quot;,
+        &quot;user&quot;:4473,
+        &quot;email&quot;:&quot;assistant2@test.com&quot;,
+        &quot;last_sign_in_at&quot;:&quot;never&quot;,
+        &quot;role&quot;:&quot;assistant&quot;,
+        &quot;course&quot;:234,
+        &quot;user_name&quot;:&quot;Bauch, Irma&quot;,
+        &quot;course_name&quot;:&quot;[X07SO] CIS3810: Updated Course Name, Winter 2015&quot;,
+        &quot;section&quot;:&quot;X07SO&quot;
+     },
+     {
+        &quot;id&quot;:&quot;u4483c234&quot;,
+        &quot;user&quot;:4483,
+        &quot;email&quot;:&quot;creator10@test.com&quot;,
+        &quot;last_sign_in_at&quot;:&quot;never&quot;,
+        &quot;role&quot;:&quot;creator&quot;,
+        &quot;course&quot;:234,
+        &quot;user_name&quot;:&quot;Blick, Betty&quot;,
+        &quot;course_name&quot;:&quot;[X07SO] CIS3810: Updated Course Name, Winter 2015&quot;,
+        &quot;section&quot;:&quot;X07SO&quot;
+     },
+     {
+        &quot;id&quot;:&quot;u4470c234&quot;,
+        &quot;user&quot;:4470,
+        &quot;email&quot;:&quot;evaluator1@test.com&quot;,
+        &quot;last_sign_in_at&quot;:&quot;05/05/2015&quot;,
+        &quot;role&quot;:&quot;evaluator&quot;,
+        &quot;course&quot;:234,
+        &quot;user_name&quot;:&quot;Crona, Ressie&quot;,
+        &quot;course_name&quot;:&quot;[X07SO] CIS3810: Updated Course Name, Winter 2015&quot;,
+        &quot;section&quot;:&quot;X07SO&quot;
+     },
+     {
+        &quot;id&quot;:&quot;u4499c234&quot;,
+        &quot;user&quot;:4499,
+        &quot;email&quot;:&quot;creator26@test.com&quot;,
+        &quot;last_sign_in_at&quot;:&quot;never&quot;,
+        &quot;role&quot;:&quot;creator&quot;,
+        &quot;course&quot;:234,
+        &quot;user_name&quot;:&quot;Erdman, Claude&quot;,
+        &quot;course_name&quot;:&quot;[X07SO] CIS3810: Updated Course Name, Winter 2015&quot;,
+        &quot;section&quot;:&quot;X07SO&quot;
+     },
+     {
+        &quot;id&quot;:&quot;u4521c234&quot;,
+        &quot;user&quot;:4521,
+        &quot;email&quot;:&quot;creator48@test.com&quot;,
+        &quot;last_sign_in_at&quot;:&quot;never&quot;,
+        &quot;role&quot;:&quot;creator&quot;,
+        &quot;course&quot;:234,
+        &quot;user_name&quot;:&quot;Franecki, Harley&quot;,
+        &quot;course_name&quot;:&quot;[X07SO] CIS3810: Updated Course Name, Winter 2015&quot;,
+        &quot;section&quot;:&quot;X07SO&quot;
+     },
+     {
+        &quot;id&quot;:&quot;u4506c234&quot;,
+        &quot;user&quot;:4506,
+        &quot;email&quot;:&quot;creator33@test.com&quot;,
+        &quot;last_sign_in_at&quot;:&quot;never&quot;,
+        &quot;role&quot;:&quot;creator&quot;,
+        &quot;course&quot;:234,
+        &quot;user_name&quot;:&quot;Gulgowski, Nigel&quot;,
+        &quot;course_name&quot;:&quot;[X07SO] CIS3810: Updated Course Name, Winter 2015&quot;,
+        &quot;section&quot;:&quot;X07SO&quot;
+     }
+  ]
+</pre>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Errors</h3>
+		<ul class="method-detail-list">
+				<li>
+					<strong>404</strong>: The requested course or user does not exist.
+					<br>
+				</li>
+				<li>
+					<strong>403</strong>: The user is not authorized to view enrollments for this course or user.
+					<br>
+				</li>
+		</ul>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Request Parameters</h3>
+		<table class='table'>
+			<thead>
+			<tr>
+				<th>Param name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>course_id </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The course&#39;s ID</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>user_id </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The user&#39;s ID</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>role </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Filter enrollments by course role; only available when getting enrollments
+by course. If this is unset, all enrollments for the course will be
+returned.</p>
+
+        <br>
+        Value: 
+<p>Must be one of: evaluator, creator, assistant.</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/enrollments/destroy.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-destroy'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            DELETE /api/v1/enrollments/:enrollment_key
+          </a>
+          <br>
+          <small>removes a user from a course</small>
+        </h2>
+    </div>
+
+
+    <div id='description-destroy' class='collapse accordion-body'>
+      
+<p>Only course evaluators/assistants and Vocat administrators may remove users
+from courses.</p>
+
+
+
+
+
+	<div class="method-detail-section">
+		<h3>Errors</h3>
+		<ul class="method-detail-list">
+				<li>
+					<strong>422</strong>: Unable to remove the user from the course
+					<br>
+				</li>
+				<li>
+					<strong>403</strong>: Authenticated user is not authorized to mange enrollment for this course.
+					<br>
+				</li>
+		</ul>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Request Parameters</h3>
+		<table class='table'>
+			<thead>
+			<tr>
+				<th>Param name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>enrollment_key </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The enrollment key is a string that takes the format of uXcY where X is the
+ID of the user to be de-enrolled, and Y is the ID of the course from which
+to de-enroll the user. If, for example, you wanted to remove User #10 from
+Course #234, the enrollment key would be u10c234</p>
+
+        <br>
+        Value: 
+<p>Must be String</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/enrollments/create.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-create'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            POST /api/v1/enrollments
+          </a>
+          <br>
+          <small>enrolls a single user in a single course</small>
+        </h2>
+    </div>
+
+
+    <div id='description-create' class='collapse accordion-body'>
+      
+
+
+	<div class="method-detail-section">
+		<h3>Examples</h3>
+			<pre class="prettyprint">Sample Request:
+
+{
+    &quot;course&quot;: 234,
+    &quot;user&quot;: 4472,
+    &quot;role&quot;: &quot;evaluator&quot;
+}
+</pre>
+			<pre class="prettyprint">Sample Response:
+
+{
+    &quot;id&quot;: &quot;u4472c235&quot;,
+    &quot;user&quot;: 4472,
+    &quot;email&quot;: &quot;assistant1@test.com&quot;,
+    &quot;last_sign_in_at&quot;: &quot;never&quot;,
+    &quot;role&quot;: &quot;evaluator&quot;,
+    &quot;course&quot;: 235,
+    &quot;user_name&quot;: &quot;Gusikowski, Toni&quot;,
+    &quot;course_name&quot;: &quot;[ACCMR] ENG2100: Composition I, Spring 2015&quot;,
+    &quot;section&quot;: &quot;ACCMR&quot;
+}
+</pre>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Errors</h3>
+		<ul class="method-detail-list">
+				<li>
+					<strong>403</strong>: Authenticated user is not authorized to mange enrollment for this course.
+					<br>
+				</li>
+				<li>
+					<strong>422</strong>: Unable to add the user to the course, perhaps because the user is already enrolled
+					<br>
+				</li>
+		</ul>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Request Parameters</h3>
+		<table class='table'>
+			<thead>
+			<tr>
+				<th>Param name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>course </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The course&#39;s ID</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>user </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The user&#39;s ID</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>role </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The course role that will be assigned to the user</p>
+
+        <br>
+        Value: 
+<p>Must be one of: evaluator, assistant, creator.</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/enrollments/bulk.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-bulk'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            POST /api/v1/courses/:course_id/enrollments/bulk
+          </a>
+          <br>
+          <small>bulk enrolls multiple users in a course</small>
+        </h2>
+    </div>
+
+
+    <div id='description-bulk' class='collapse accordion-body'>
+      
+
+
+	<div class="method-detail-section">
+		<h3>Examples</h3>
+			<pre class="prettyprint">Sample Request:
+
+{
+    &quot;user&quot;: 4472,
+    &quot;role&quot;: &quot;creator&quot;,
+    &quot;invite&quot;: true,
+    &quot;contacts&quot;: &quot;Jimbo Baggins, jim@castironcoding.com\nBoomBoom Robinson, boomboom@vocat.io&quot;
+}
+</pre>
+			<pre class="prettyprint">Sample Response:
+
+[
+   {
+      &quot;email&quot;:&quot;jim@castironcoding.com&quot;,
+      &quot;first_name&quot;:&quot;Jimbo&quot;,
+      &quot;last_name&quot;:&quot;Baggins&quot;,
+      &quot;action&quot;:&quot;invite&quot;,
+      &quot;success&quot;:true,
+      &quot;reason&quot;:null,
+      &quot;message&quot;:&quot;Jimbo Baggins has been enrolled in ENG2100: Composition I, Section ACCMR&quot;,
+      &quot;string&quot;:&quot;Jimbo Baggins, jim@castironcoding.com&quot;
+   },
+   {
+      &quot;email&quot;:&quot;boomboom@vocat.io&quot;,
+      &quot;first_name&quot;:&quot;BoomBoom&quot;,
+      &quot;last_name&quot;:&quot;Robinson&quot;,
+      &quot;action&quot;:&quot;invite&quot;,
+      &quot;success&quot;:true,
+      &quot;reason&quot;:null,
+      &quot;message&quot;:&quot;BoomBoom Robinson has been enrolled in ENG2100: Composition I, Section ACCMR&quot;,
+      &quot;string&quot;:&quot;BoomBoom Robinson, boomboom@vocat.io&quot;
+   }
+]
+</pre>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Errors</h3>
+		<ul class="method-detail-list">
+				<li>
+					<strong>403</strong>: Authenticated user is not authorized to mange enrollment for this course.
+					<br>
+				</li>
+		</ul>
+	</div>
+
+
+	<div class="method-detail-section">
+		<h3>Request Parameters</h3>
+		<table class='table'>
+			<thead>
+			<tr>
+				<th>Param name</th>
+				<th>Description</th>
+			</tr>
+			</thead>
+			<tbody>
+			  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>course_id </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The course&#39;s ID</p>
+
+        <br>
+        Value: 
+<p>Must be Fixnum</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>role </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>The course role that will be assigned to the user</p>
+
+        <br>
+        Value: 
+<p>Must be one of: evaluator, assistant, creator.</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>invite </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Whether or not to invite users who do not exist in Vocat. If false, users
+who do not exist will not be invited.</p>
+
+        <br>
+        Value: 
+<p>Must be one of: true, false.</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>contacts </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      
+<p>Each line of the string represents a single user to enroll in the course.
+Each line can be formatted as “FirstName LastName, Email” or “FirstName
+LastName &lt;email&gt;”</p>
+
+        <br>
+        Value: 
+<p>Must be String</p>
+
+
+
+    </td>
+
+  </tr>
+
+  
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+    </div>
+</div>
+
+
+			
+		</div>
+	</div>
+	<hr>
+	<footer>Copyright 2015 Baruch College, City University of New York</footer>
+</div>
+<script type='text/javascript' src='../apidoc/javascripts/bundled/jquery-1.7.2.js'></script>
+<script type='text/javascript' src='../apidoc/javascripts/bundled/bootstrap-collapse.js'></script>
+<script type='text/javascript' src='../apidoc/javascripts/bundled/prettify.js'></script>
+<script type='text/javascript' src='../apidoc/javascripts/apipie.js'></script>
+</body>
+</html>

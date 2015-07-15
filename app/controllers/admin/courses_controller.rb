@@ -1,6 +1,7 @@
 class Admin::CoursesController < Admin::AdminController
 
-  load_and_authorize_resource :course
+  load_and_authorize_resource :course, :through => :the_current_organization
+  before_filter :org_validate_course
   respond_to :html
 
   before_action :deselect_course
@@ -16,11 +17,12 @@ class Admin::CoursesController < Admin::AdminController
         :semester => params[:semester],
         :year => params[:year],
         :section => params[:section],
-        :evaluator => params[:evaluator]
+        :evaluator => params[:evaluator],
+        :organization => @current_organization
     }
-    @courses = Course.search(search).page params[:page]
+    @courses = @current_organization.courses.search(search).page params[:page]
     @page = params[:page] || 1
-    @stats = Statistics::admin_stats
+    @stats = Statistics::admin_stats(@current_organization)
     @course_request_count = CourseRequest.with_state(:pending).count
   end
 
