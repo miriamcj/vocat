@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   layout 'content'
   protect_from_forgery
 
-  skip_authorization_check
+#  skip_authorization_check
   before_action :validate_subdomain
   before_action :initialize_organization
   before_action :initialize_management_domain

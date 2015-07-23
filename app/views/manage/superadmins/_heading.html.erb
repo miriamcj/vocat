@@ -1,0 +1,32 @@
+<% content_for :heading do %>
+
+	<% if @user %>
+		<%= link_to 'Back to Vocat Admins', superadmins_path(), :class => 'header-link back-link' %>
+	<% end %>
+	<% if @user && !@user.new_record? %>
+
+		<h2 class="heading-primary">
+			<%= @user.name %>
+		</h2>
+	<% else %>
+		<% if local_assigns.fetch(:header, nil) %>
+			<h3 class="heading-primary">
+				<%= header %>
+			</h3>
+		<% end %>
+	<% end %>
+<% end %>
+
+<% content_for :heading_links do %>
+	<% if @user && !@user.new_record? %>
+		<%= link_to 'Add New Vocat Admin', new_superadmin_path, :class => 'primary-button new-button' %>
+		<div class="dropdown dropdown-button" data-behavior="dropdown">
+			<a class="dropdown--toggle" data-behavior="toggle" href="#">Vocat Admin Actions</a>
+			<div class="dropdown--options" data-behavior="dropdown-options">
+				<%= render 'nav', :user => @user%>
+			</div>
+		</div>
+	<% end %>
+<% end %>
+
+

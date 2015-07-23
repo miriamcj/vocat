@@ -5,29 +5,30 @@ class Manage::OrganizationsController < ApplicationController
   load_and_authorize_resource :organization
   respond_to :html
 
-  # GET /admin/organizations
+  # GET manage.domain.com/organizations
   def index
+    myvar = params
     @page = params[:page] || 1
     @stats = Statistics::manage_org_stats()
     @organizations = Organization.all.page(params[:page])
   end
 
-  # GET /admin/organizations/1
+  # GET manage.domain.com/organizations/1
   def show
     @stats = Statistics::single_organization_stats(@organization)
   end
 
-  # GET /admin/organizations/new
+  # GET manage.domain.com/organizations/new
   def new
     @organization = Organization.new
   end
 
-  # GET /admin/organizations/1/edit
+  # GET manage.domain.com/organizations/1/edit
   def edit
     @organization = Organization.find(params[:id])
   end
 
-  # POST /admin/organizations
+  # POST manage.domain.com/organizations
   def create
     @organization = Organization.new(organization_params)
     handle_logo_upload(@organization)
@@ -38,7 +39,7 @@ class Manage::OrganizationsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /admin/organizations/1
+  # PATCH/PUT manage.domain.com/organizations/1
   def update
     handle_logo_upload(@organization)
     org_params = organization_params
@@ -50,7 +51,7 @@ class Manage::OrganizationsController < ApplicationController
     end
   end
 
-  # DELETE /admin/organizations/1
+  # DELETE manage.domain.com/organizations/1
   def destroy
     @admin_organization.destroy
     redirect_to organizations_url, notice: 'Organization was successfully destroyed.'

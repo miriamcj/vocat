@@ -1,0 +1,87 @@
+<div class="user-profile">
+	<div class="user-profile--image">
+		<%= image_tag avatar_url(@user, 400), :alt => @user.name %>
+	</div>
+	<div class="user-profile--properties">
+		<div class="fake-formgrid">
+			<div class="formgrid whole">
+				<span class="label">Email</span>
+						<span>
+							<a href="mailto:<%= @user.email %>">
+								<%= @user.email %>
+							</a>
+						</span>
+			</div>
+			<div class="formgrid fourth">
+				<span class="label">Last Login</span>
+						<span>
+						  <% unless @user.last_sign_in_at.nil? %>
+							<%= distance_of_time_in_words_to_now(@user.last_sign_in_at()) %> ago
+						  <% else %>
+							Never logged in
+						  <% end %>
+						</span>
+			</div>
+			<div class="formgrid fourth">
+				<span class="label">Organization</span>
+						<span>
+						  <%= @user.organization_name %>
+						</span>
+			</div>
+			<div class="formgrid fourth">
+				<span class="label">Organization Identity</span>
+						<span>
+						  <%= @user.org_identity %>
+						</span>
+			</div>
+			<div class="formgrid fourth">
+				<span class="label">Role</span>
+						<span>
+						  <%= @user.role.capitalize %>
+						</span>
+			</div>
+			<div class="formgrid fourth">
+				<span class="label">City</span>
+						<span>
+						  <%= @user.city || 'none' %>
+						</span>
+			</div>
+			<div class="formgrid fourth">
+				<span class="label">State</span>
+						<span>
+						  <%= @user.state || 'none' %>
+						</span>
+			</div>
+			<div class="formgrid fourth">
+				<span class="label">Country</span>
+						<span>
+						  <%= @user.country || 'none' %>
+						</span>
+			</div>
+			<div class="formgrid fourth">
+				<span class="label">Total Logins</span>
+						<span>
+						  <%= @user.sign_in_count %>
+						</span>
+			</div>
+			<div class="formgrid fourth">
+				<span class="label">Creator Courses</span>
+						<span>
+						  <%= @user.creator_courses.count %>
+						</span>
+			</div>
+			<div class="formgrid fourth">
+				<span class="label">Evaluator Courses</span>
+						<span>
+						  <%= @user.evaluator_courses.count %>
+						</span>
+			</div>
+			<div class="formgrid fourth">
+				<span class="label">Groups</span>
+						<span>
+						  <%= @user.groups.count %>
+						</span>
+			</div>
+		</div>
+	</div>
+</div>

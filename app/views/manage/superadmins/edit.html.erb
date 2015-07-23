@@ -1,0 +1,17 @@
+<%= render :partial => 'heading', :locals => {user: @user, subheader: 'Overview'} %>
+
+<% content_for :content do %>
+
+	<% body = capture do %>
+		<%= form_for @user, as: :superadmin, :namespace => :superadmin, :url => superadmin_path, :html => {:class => 'formgrid'} do |f| %>
+			<%= render 'shared/model_errors', :model => @user %>
+			<%= render 'form', :f => f %>
+			<div class="formgrid whole">
+				<%= f.button 'Update User', :class => 'primary-button update-button' %>
+				<%= link_to 'Cancel', superadmins_path(), :class => 'warning-button cancel-button' %>
+			</div>
+		<% end %>
+	<% end %>
+	<%= render :partial => 'shared/section', :locals => {:header => 'Update User', :body => body} %>
+<% end %>
+

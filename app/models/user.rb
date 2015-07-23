@@ -55,6 +55,7 @@ class User < ActiveRecord::Base
   scope :evaluators, -> { where(:role => "evaluator") }
   scope :creators, -> { where(:role => "creator") }
   scope :administrators, -> { where(:role => "administrator") }
+  scope :superadministrators, -> { where(:role => "superadministrator") }
   scope :in_org, ->(org) { where(:organization => org)}
 
   serialize :settings, Hash
@@ -66,6 +67,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, request_keys: { subdomain: false }
 
   ROLES = %w(creator evaluator administrator superadministrator)
+  ORG_ROLES = %w(creator evaluator administrator)
+
   DEFAULT_SETTINGS = {
       'enable_glossary' => {value: false, type: 'boolean'}
   }
@@ -74,9 +77,11 @@ class User < ActiveRecord::Base
   validates_presence_of   :email
   validates_uniqueness_of :email, allow_blank: true, if: :email_changed?, :scope => :organization_id
   validates_format_of     :email, with: /\A[^@\s]+@([^@\s]+\.)+[^@\W]+\z/, allow_blank: true, if: :email_changed?
-  validates_presence_of     :password
-  validates_confirmation_of :password
+  validates_presence_of     :password, if: Proc.new{|obj| obj.new_record? }
+  validates_confirmation_of :password, if: Proc.new{|obj| obj.new_record? }
   validates_length_of       :password, within: (7..72), allow_blank: true
+  validates_exclusion_of :role, :in => %w[superadministrator], message: 'cannot be "superadministrator" if the user belongs to an organization', if: :in_org?
+  validates_presence_of :organization_id, unless: :is_superadministrator?
 
   def self.find_for_authentication(warden_conditions)
     joins('LEFT JOIN organizations ON users.organization_id = organizations.id').where(
@@ -126,8 +131,16 @@ class User < ActiveRecord::Base
     groups.where(:course => course)
   end
 
+  def in_org?
+    !self.organization_id.nil?
+  end
+
   def is_group?
     false
+  end
+
+  def is_superadministrator?
+    role == 'superadministrator'
   end
 
   def is_user?

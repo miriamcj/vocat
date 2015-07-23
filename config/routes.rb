@@ -5,6 +5,12 @@ Vocat::Application.routes.draw do
     scope :module => :manage do
       get '/' => 'organizations#index', :as => 'manage_root'
       resources :organizations
+      resources :superadmins do
+        member do
+          get 'edit_password'
+          patch 'update_password'
+        end
+      end
     end
   end
 

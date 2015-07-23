@@ -1,0 +1,72 @@
+<% content_for :content do %>
+	<div class="page-section">
+		<div class="header-wrapper">
+			<div class="buttons">
+				<%= link_to 'Add New Vocat Admin', new_superadmin_path, class: 'primary-button new-button' %>
+			</div>
+			<div class="header">
+				<h2>Vocat Admins</h2>
+			</div>
+		</div>
+		<div class="body">
+			<form class="formgrid">
+				<fieldset>
+					<div class="formgrid fourth">
+						<%= label_tag :email, 'Email' %>
+						<%= text_field_tag(:email, params[:email]) %>
+					</div>
+					<div class="formgrid fourth">
+						<%= label_tag :last_name, 'Last Name' %>
+						<%= text_field_tag(:last_name, params[:last_name]) %>
+					</div>
+					<div class="formgrid fourth">
+						<label>&nbsp;</label>
+						<%= button_tag('Filter Users', {:class => 'primary-button filter-button'}) %>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+	<div class="page-section page-section-clear">
+		<div class="table-wrapper">
+			<table class="table table-white-head">
+				<thead>
+				<tr>
+					<th>Name</th>
+					<th>Email</th>
+					<th>Role</th>
+					<th>Last Login</th>
+					<th>Actions</th>
+				</tr>
+				</thead>
+				<tbody>
+				<% @users.each do |user| %>
+					<tr>
+						<th><%= link_to user.list_name, superadmin_path(user) %></th>
+						<td><%= user.email %></td>
+						<td><%= user.role.capitalize %></td>
+						<td>
+							<% if user.last_sign_in_at %>
+								<%= distance_of_time_in_words_to_now(user.last_sign_in_at()) %> ago
+							<% else %>
+								Never
+							<% end %>
+						</td>
+						<td>
+							<div class="dropdown dropdown-button" data-behavior="dropdown">
+								<a class="dropdown--toggle" data-behavior="toggle" href="#">Actions</a>
+
+								<div class="dropdown--options" data-behavior="dropdown-options">
+									<%= render 'nav', :user => user %>
+								</div>
+							</div>
+						</td>
+					</tr>
+				<% end %>
+				</tbody>
+			</table>
+			<%= paginate @users %>
+		</div>
+	</div>
+<% end %>
+

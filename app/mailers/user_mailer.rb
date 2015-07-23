@@ -18,7 +18,11 @@ class UserMailer < ActionMailer::Base
   protected
 
   def from(organization)
-    organization.email_default_from || Rails.application.config.vocat.email.default_from
+    if organization
+      organization.email_default_from || Rails.application.config.vocat.email.default_from
+    else
+      Rails.application.config.vocat.email.default_from
+    end
   end
 
 end

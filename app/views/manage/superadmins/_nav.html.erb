@@ -1,0 +1,7 @@
+<ul>
+	<li><%= link_to 'User Overview', superadmin_path(user) %></li>
+	<li><%= link_to 'Edit User Properties', edit_superadmin_path(user) %></li>
+	<li><%= link_to 'Change Password', edit_password_superadmin_path(user) %></li>
+	<li><%= link_to 'Delete', superadmin_path(user), :method => :delete, :data => {:modalconfirm => 'Deleting this user will also delete all associated submissions and evaluations. This action is not reversible. Are you sure you would like to proceed?'} %></li>
+</ul>
+
