@@ -29,11 +29,12 @@
 #
 
 class Organization < ActiveRecord::Base
-  validates_presence_of :subdomain
+  validates_presence_of :subdomain, :email_default_from, :name
   validates_format_of :subdomain, :with => /[A-Za-z0-9-]+/, :message => 'The subdomain can only contain alphanumeric characters and dashes.', :allow_blank => true
   validates_uniqueness_of :subdomain, :case_sensitive => false
   validates :subdomain, exclusion: { in: %w(manage), message: "Subdomain %{value} is reserved." }
   before_validation :downcase_subdomain
+
   has_many :courses
   has_many :users
   has_many :rubrics
