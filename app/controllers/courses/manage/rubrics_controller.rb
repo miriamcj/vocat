@@ -9,8 +9,8 @@ class Courses::Manage::RubricsController < ApplicationController
   before_action :disable_layout_messages
 
   def index
-    @my_rubrics = Rubric.where(owner: current_user)
-    @system_rubrics = Rubric.where(public: true)
+    @my_rubrics = Rubric.in_org(the_current_organization).where(owner: current_user)
+    @system_rubrics = Rubric.in_org(the_current_organization).where(public: true)
     respond_with @my_rubrics, @system_rubrics
   end
 
