@@ -4,7 +4,7 @@
 #
 #  id               :integer          not null, primary key
 #  body             :text
-#  smpte_timecode   :string(255)
+#  smpte_timecode   :string
 #  published        :boolean
 #  seconds_timecode :float
 #  author_id        :integer

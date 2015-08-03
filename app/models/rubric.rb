@@ -3,7 +3,7 @@
 # Table name: rubrics
 #
 #  id              :integer          not null, primary key
-#  name            :string(255)
+#  name            :string
 #  public          :boolean
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null

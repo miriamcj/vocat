@@ -3,7 +3,7 @@
 # Table name: submissions
 #
 #  id                     :integer          not null, primary key
-#  name                   :string(255)
+#  name                   :string
 #  summary                :text
 #  project_id             :integer
 #  creator_id             :integer
@@ -11,7 +11,7 @@
 #  updated_at             :datetime         not null
 #  published              :boolean
 #  discussion_posts_count :integer          default(0)
-#  creator_type           :string(255)      default("User")
+#  creator_type           :string           default("User")
 #  assets_count           :integer          default(0)
 #
 # Indexes

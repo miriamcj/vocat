@@ -5,7 +5,7 @@
 #  id         :integer          not null, primary key
 #  user_id    :integer
 #  course_id  :integer
-#  role       :string(255)
+#  role       :string
 #  created_at :datetime
 #  updated_at :datetime
 #

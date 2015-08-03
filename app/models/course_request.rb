@@ -3,14 +3,14 @@
 # Table name: course_requests
 #
 #  id              :integer          not null, primary key
-#  name            :string(255)
-#  department      :string(255)
-#  section         :string(255)
-#  number          :string(255)
+#  name            :string
+#  department      :string
+#  section         :string
+#  number          :string
 #  year            :integer
 #  semester_id     :integer
 #  evaluator_id    :integer
-#  state           :string(255)
+#  state           :string
 #  admin_id        :integer
 #  course_id       :integer
 #  created_at      :datetime

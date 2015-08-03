@@ -4,12 +4,12 @@
 #
 #  id              :integer          not null, primary key
 #  attachment_id   :integer
-#  location        :string(255)
-#  format          :string(255)
-#  state           :string(255)
-#  processor_name  :string(255)
+#  location        :string
+#  format          :string
+#  state           :string
+#  processor_name  :string
 #  processor_data  :text
-#  processor_error :string(255)
+#  processor_error :string
 #  created_at      :datetime
 #  updated_at      :datetime
 #  file_size       :integer

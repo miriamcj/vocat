@@ -3,7 +3,7 @@
 # Table name: projects
 #
 #  id                          :integer          not null, primary key
-#  name                        :string(255)
+#  name                        :string
 #  description                 :text
 #  course_id                   :integer
 #  project_type_id             :integer
@@ -11,7 +11,7 @@
 #  updated_at                  :datetime         not null
 #  rubric_id                   :integer
 #  listing_order               :integer
-#  type                        :string(255)      default("user")
+#  type                        :string           default("user")
 #  due_date                    :date
 #  allowed_attachment_families :text             default([]), is an Array
 #  settings                    :hstore           default({}), not null
