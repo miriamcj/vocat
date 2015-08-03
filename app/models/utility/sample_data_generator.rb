@@ -50,9 +50,9 @@ module Utility
       superadmin = create_user(email: "superadmin@test.com", password: 'testtest123', first_name: 'Charles', last_name: 'Xavier', role: 'superadministrator')
 
       orgs = []
-      orgs.push create_org({:name => 'Baruch College', :subdomain => 'baruch'})
-      orgs.push create_org({:name => 'Hunter College', :subdomain => 'hunter'})
-      orgs.push create_org({:name => 'York College', :subdomain => 'york'})
+      orgs.push create_org({:name => 'Baruch College', :subdomain => 'baruch', :email_default_from => 'vocat+baruch@castironcoding.com'})
+      orgs.push create_org({:name => 'Hunter College', :subdomain => 'hunter', :email_default_from => 'vocat+hunter@castironcoding.com'})
+      orgs.push create_org({:name => 'York College', :subdomain => 'york', :email_default_from => 'vocat+york@castironcoding.com'})
 
       orgs.each do |org|
 
@@ -191,8 +191,6 @@ module Utility
       year = rand(time.year - 2..time.year + 1)
       course = courses.sample()
       c = org.courses.create(:semester => semester, :year => year, :name => course[0], :department => course[1], :number => course[2], :section => random_section, :description => Faker::Lorem.paragraph)
-      puts "Creating #{org} course: #{c}"
-      c
     end
 
     def create_project(course, rubrics)
