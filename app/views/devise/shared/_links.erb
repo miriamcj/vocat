@@ -1,4 +1,4 @@
-<% if Rails.application.config.vocat.ldap.enabled %>
+<% if @current_organization && @current_organization.ldap_enabled %>
 	<%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
 		<li><%= link_to "Forgot your LDAP/Active Directory password?", Rails.application.config.vocat.ldap.recover_pw_url %>
 	<% end -%></li>
