@@ -1,0 +1,55 @@
+<td class="student-name">
+    <span>
+        {{creator.name}}
+    </span>
+</td>
+<td class="media-submission-list">
+    {{#if assets}}
+        {{#each assets}}
+            <div class="media-submission" data-region="media-submission" data-id="{{this.id}}">
+                <div class="media-attributes">
+                    <img src="{{this.thumbnail}}"/>
+                    <div>
+                        <p>{{this.name}}</p>
+                        <span>Uploaded {{this.short_created_at}}</span>
+                    </div>
+                </div>
+                <div class="media-counts">
+                    <i class="posts-count"></i>
+                    <span >{{../discussion_posts_count}}</span>
+                    <i class="annotation-count"></i>
+                    <span>{{this.annotations_count}}</span>
+                </div>
+            </div>
+        {{/each}}
+    {{else}}
+        No media uploaded
+    {{/if}}
+</td>
+<td class="score-percent">
+    <span>
+        {{#if current_user_percentage}}
+            {{current_user_percentage}}%
+        {{else}}
+            &mdash;
+        {{/if}}
+    </span>
+</td>
+<td class="score-percent gray">
+    <span>
+        {{#if peer_score_percentage}}
+            {{peer_score_percentage}}%
+        {{else}}
+            &mdash;
+        {{/if}}
+    </span>
+</td>
+<td class="score-percent gray">
+    <span>
+        {{#if self_evaluation_percentage}}
+            {{self_evaluation_percentage}}%
+        {{else}}
+            &mdash;
+        {{/if}}
+    </span>
+</td>

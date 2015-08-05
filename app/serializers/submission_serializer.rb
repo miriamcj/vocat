@@ -51,84 +51,8 @@ class SubmissionSerializer < AbstractSubmissionSerializer
 
   protected
 
-  def new_posts_for_current_user?
-    object.new_posts_for_user?(scope)
-  end
-
-  def abilities
-    ability = Ability.new(scope)
-    {
-        can_own: ability.can?(:own, object),
-        can_evaluate: ability.can?(:evaluate, object),
-        can_attach: ability.can?(:attach, object),
-        can_discuss: ability.can?(:discuss, object),
-        can_annotate: ability.can?(:annotate, object),
-        can_administer: ability.can?(:administer, object)
-    }
-  end
-
-  # We scope the visible evaluations to the user
-  def evaluations
-    evaluations = object.evaluations_visible_to(scope)
-    anonymous = object.project.has_anonymous_peer_review?
-    unless evaluations.nil?
-      ActiveModel::ArraySerializer.new(evaluations, each_serializer: EvaluationSerializer, :scope => scope, :anonymous => anonymous)
-    else
-      []
-    end
-  end
-
-  def path
-    if object.creator_type == 'Group'
-      path_args = {:course_id => object.course_id, :project_id => object.project_id, :creator_id => object.creator_id}
-      course_group_evaluations_path path_args
-    elsif object.creator_type == 'User'
-      course_user_evaluations_path :course_id => object.course_id, :project_id => object.project_id, :creator_id => object.creator_id
-    end
-  end
-
   def serialized_state
     'full'
-  end
-
-  protected
-
-
-  def current_user_is_instructor
-    if object.course.role(scope) == :evaluator then
-      true
-    else
-      false
-    end
-  end
-
-  def current_user_can_read_evaluations
-    current_user_is_owner || current_user_is_instructor || scope.role == :administrator
-  end
-
-  def thumb
-    object.thumb()
-  end
-
-  def url
-    object.url()
-  end
-
-  # TODO: Revisit this, perhaps once active_model_serializers v9 is more stable.
-  def evaluated_by_instructor?
-    if scope.role?(:administrator) || scope.role?(:evaluator)
-      object.evaluated_by_instructor?
-    else
-      false
-    end
-  end
-
-  def peer_score_percentage
-    if scope.role?(:administrator) || scope.role?(:evaluator)
-      object.peer_score_percentage
-    else
-      0
-    end
   end
 
 end

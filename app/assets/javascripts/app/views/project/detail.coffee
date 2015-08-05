@@ -1,123 +1,89 @@
 define (require) ->
   Marionette = require('marionette')
   template = require('hbs!templates/project/detail')
+  ProjectScoreOverviewView = require('views/project/detail/project_score_overview')
+  ProjectSubmissionListView = require('views/project/detail/project_submission_list')
+  ProjectStatisticsModel = require('models/project_statistics')
+  SubmissionCollection = require('collections/submission_for_project_collection')
+  CollectionProxy = require('collections/collection_proxy')
   RubricModel = require('models/rubric')
-  ProjectModel = require('models/project')
-  SummaryView = require('views/project/detail/summary')
-  CrossfilteredView = require('views/project/detail/crossfiltered')
-  NoScoresView = require('views/project/detail/no_scores')
-  d3 = require('vendor/d3/d3')
-  dc = require('vendor/dc/dc')
-  crossfilter = require('vendor/crossfilter/crossfilter')
+  RubricModalView = require('views/modal/modal_rubric')
 
   class ProjectDetail extends Marionette.LayoutView
 
-    loadedScoresSet = null
     template: template
 
     regions: {
-      summary: '[data-region="project-summary"]'
-      crossfiltered: '[data-region="project-crossfiltered"]'
+      projectScoreOverview: '[data-region="project-score-overview"]'
+      projectStudentSubmissionList: '[data-region="project-student-submission-list"]'
+      projectGroupSubmissionList: '[data-region="project-group-submission-list"]'
     }
 
     triggers: {
-      'change [data-behavior="score-set-select"]': 'change:score:set'
-      'click @ui.close': 'close'
+      'click @ui.showRubric': 'open:rubric:modal'
     }
 
     ui: {
-      close: '[data-behavior="detail-close"]'
-      scoreSetSelect: '[data-behavior="score-set-select"]'
+      showRubric: '[data-behavior="show-rubric"]'
     }
-
-    onClose: () ->
-      segment = ''
-      if @creatorType == 'User' then segment = 'users'
-      if @creatorType == 'Group' then segment = 'groups'
-      url = "courses/#{@model.get('course_id')}/#{segment}/evaluations"
-      Vocat.router.navigate(url, true)
 
     initialize: (options) ->
       @options = options || {}
       @vent = Marionette.getOption(@, 'vent')
       @creatorType = Marionette.getOption(@, 'creatorType')
+      @projectType = @model.get('type')
       @projectId = Marionette.getOption(@, 'projectId') || @model.id
-
-      # The layout is responsible for loading the data and passing it to its component views when it's been updated.
-      $.when(@scoresLoaded(), @projectAndRubricLoaded()).then(() =>
-        @updateViews()
-      ).fail((reason) =>
-        @handleLoadFailure(reason)
-      )
-
-    handleLoadFailure: (reason) ->
-      Vocat.vent.trigger('exception', reason)
-
-    updateViews: () ->
-      @render()
-      @summary.show new SummaryView({summary: @data.summary, vent: @vent})
-      if @data.scores.length == 0
-        @crossfiltered.show new NoScoresView({loadedScoresSet: @loadedScoresSet, vent: @vent})
-      else
-        @crossfiltered.show new CrossfilteredView({scores: @data.scores, rubric: @rubric, vent: @vent})
-
-
-    onChangeScoreSet: () ->
-      set = @ui.scoreSetSelect.val()
-      $.when(@scoresLoaded(set)).then(() =>
-        @updateViews()
-      )
-
-    onRender: () ->
-      @ui.scoreSetSelect.chosen({
-        disable_search_threshold: 1000
+      @projectStatisticsModel = new ProjectStatisticsModel({id: @projectId})
+      @projectStatisticsModel.fetch({reset: true})
+      @collection = new SubmissionCollection([])
+      @collection.fetch({
+        reset: true
+        data: {project: @projectId, statistics: true}
       })
+      @filterLists()
 
-    projectAndRubricLoaded: () ->
-      projectLoadPromise = $.Deferred()
-      rubricLoadPromise = $.Deferred()
-
-      if @model?
-        projectLoadPromise.resolve()
-      else
-        @model = new ProjectModel({id: @projectId})
-        @model.fetch({
-          success: () ->
-            projectLoadPromise.resolve()
-          , error: () =>
-            projectLoadPromise.reject('Unable to load project data. Perhaps this project has been deleted?')
-        })
-
-      projectLoadPromise.then(() =>
-        @rubric = new RubricModel({id: @model.get('rubric_id')})
-        @rubric.fetch({
-          success: () ->
-            rubricLoadPromise.resolve()
-          , error: () =>
-            rubricLoadPromise.reject('Unable to load project rubric. Perhaps the rubric has been deleted?')
-        })
+    filterLists: () ->
+      @groupSubmissions = new CollectionProxy(@collection)
+      @groupSubmissions.where((model) ->
+        model.get('creator_type') == 'Group'
       )
-      rubricLoadPromise
+      @studentSubmissions = new CollectionProxy(@collection)
+      @studentSubmissions.where((model) ->
+        model.get('creator_type') == 'User'
+      )
 
-    scoresLoaded: (set = 'my_scores') ->
-      @loadedScoresSet = set
-      deferred = $.Deferred()
-      $.ajax("/api/v1/scores/#{set}", {
-        dataType: 'json'
-        data: {
-          project: @projectId
-        }
-        success: (data, textStatus, jqXHR) =>
-          @data = data
-          deferred.resolve()
-      })
-      deferred
+    renderTables: (type) ->
+      if @projectType == 'UserProject'
+        @projectStudentSubmissionList.show(new ProjectSubmissionListView({projectId: @model.id, collection: @studentSubmissions, vent: @}))
+      else if @projectType == 'GroupProject'
+        @projectGroupSubmissionList.show(new ProjectSubmissionListView({projectId: @model.id, collection: @groupSubmissions, vent: @}))
+      else
+        @projectStudentSubmissionList.show(new ProjectSubmissionListView({projectId: @model.id, collection: @studentSubmissions, vent: @}))
+        @projectGroupSubmissionList.show(new ProjectSubmissionListView({projectId: @model.id, collection: @groupSubmissions, vent: @}))
+
+    onOpenRubricModal: () ->
+      rubric = new RubricModel(@model.get('rubric'))
+      Vocat.vent.trigger('modal:open', new RubricModalView({model: rubric}))
 
     serializeData: () ->
-      project = super()
-      out = {
-        loadedScoresSet: @loadedScoresSet
-        project: project
+      {
+        project: @model.toJSON()
       }
-      out
 
+    onShow: () ->
+      @setupListeners()
+
+    onRender: () ->
+      @projectId = Marionette.getOption(@, 'projectId')
+      @projectScoreOverview.show(new ProjectScoreOverviewView({model: @projectStatisticsModel}))
+      @renderTables()
+
+    setupListeners: () ->
+      @listenTo(@, 'navigate:asset', (args) ->
+        console.log(args)
+        @navigateToAsset(args.asset, args.course)
+      )
+
+    navigateToAsset: (assetId, courseId) ->
+      url = "courses/#{courseId}/assets/#{assetId}"
+      Vocat.router.navigate(url, true)

@@ -192,10 +192,14 @@ $columnWidth: ($container / $columns) - 12;
 }
 
 .matrix {
+  border-collapse: separate;
   thead {
     th {
       @extend %matrix-heading;
       position: relative;
+      background-color: $grayLightest;
+      border-top: 0;
+      border-bottom: 1px solid $grayLight;
 
       .dropdown--bump {
         height: 40px;
@@ -282,6 +286,12 @@ $columnWidth: ($container / $columns) - 12;
       height: 100px;
       padding: 10px;
       vertical-align: middle;
+    }
+    tr td:last-child {
+      border-right: 1px solid $grayLight;
+    }
+    tr:last-child td, tr:last-child th {
+      border-bottom: 1px solid $grayLight;
     }
     td.clickable:hover {
       background-color: $grayLighter;

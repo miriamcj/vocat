@@ -1,0 +1,92 @@
+<div class="page-section">
+    <div class="heading-label" style="color: rgb(77, 77, 79);">Scoring Info:
+        <div class="score-view-toggle">
+            <input checked="checked"
+                   type="radio"
+                   data-behavior="view-toggle"
+                   id="view-project-scores"
+                   name="view"
+                   value="project-scores">
+            <label class="label-inline " for="view-project-scores"><span style="color: rgb(109, 110, 113);">Project Scores</span></label>
+        </div>
+        <div class="score-view-toggle">
+            <input
+                    type="radio"
+                    data-behavior="view-toggle"
+                    id="view-rubric-scores"
+                    name="view"
+                    value="rubric-scores">
+            <label class="label-inline" for="view-rubric-scores"><span style="color: rgb(109, 110, 113);">Rubric Scores</span></label>
+        </div>
+    </div>
+    <div class="donut-chart-container">
+        <figure class="summary-box-stacked donut-summary-box">
+            <div class="score-compare-circle-container">
+                <div class="donut-chart chartOne">
+                    <div class="slice slice-one"></div>
+                    <div class="slice slice-two"></div>
+                    <div class="chart-center">
+                        <span class="percent-score instructor-score"></span>
+                    </div>
+                </div>
+            </div>
+            <figcaption>Instructor Score</figcaption>
+        </figure>
+        <figure class="summary-box-stacked donut-summary-box">
+            <div class="score-compare-circle-container">
+                <div class="donut-chart chartTwo">
+                    <div class="slice slice-one"></div>
+                    <div class="slice slice-two"></div>
+                    <div class="chart-center">
+                        <span class="percent-score peer-score"></span>
+                    </div>
+                </div>
+            </div>
+            <figcaption>Average Peer Score</figcaption>
+        </figure>
+        <figure class="summary-box-stacked donut-summary-box">
+            <div class="score-compare-circle-container">
+                <div class="donut-chart chartThree">
+                    <div class="slice slice-one"></div>
+                    <div class="slice slice-two"></div>
+                    <div class="chart-center">
+                        <span class="percent-score self-score"></span>
+                    </div>
+                </div>
+            </div>
+            <figcaption>Average Self-Evaluation Score</figcaption>
+        </figure>
+    </div>
+
+    <div class="heading-label" style="color: rgb(77, 77, 79);">Media Info:</div>
+    <div class="media-statistics" style="margin-top: 1em;">
+        <figure class="summary-box">
+            <div>
+                <i class="comments-icon"></i>
+                <span>{{comments_count}}</span>
+            </div>
+            <figcaption>Comments</figcaption>
+        </figure>
+        <figure class="summary-box">
+            <div>
+                <i class="annotations-icon"></i>
+                <span>{{annotation_count}}</span>
+            </div>
+            <figcaption>Annotations</figcaption>
+        </figure>
+        <figure class="summary-box">
+            <div>
+                <i class="media-icon"></i>
+                <span>{{media_count}}</span>
+            </div>
+            <figcaption>Media Submissions</figcaption>
+        </figure>
+        <figure class="summary-box">
+            <div>
+                <i class="video-icon"></i>
+                <span>{{video_submissions_count}}</span>
+            </div>
+            <figcaption>Submissions with videos</figcaption>
+        </figure>
+    </div>
+</div>

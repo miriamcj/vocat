@@ -30,6 +30,9 @@ class Annotation < ActiveRecord::Base
   scope :in_courses,  -> (courses) {
     joins(:asset => {:submission => :project}).where('projects.course_id IN(?)', courses.pluck(:id))
   }
+  scope :by_project, ->(project) {
+    joins(:asset => :submission).where(submissions: { project_id: project.id })
+  }
 
   delegate :name, :to => :author, :prefix => true
 

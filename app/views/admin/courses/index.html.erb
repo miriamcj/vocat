@@ -8,16 +8,14 @@
 			<div class="body clearfix">
 				<div data-behavior="figures">
 					<% @stats.each do |stat| %>
-						<figure class="summary-box summary-box-default <%= if stat.has_key?(:class) then
+						<figure class="summary-box <%= if stat.has_key?(:class) then
 																			 stat[:class]
 																		   end %>">
-							<div class="summary-box--content">
-								<p class="summary-box--content-wrapper">
-									<span><%= number_to_human stat[:value], :format => '%n' %></span>
-									<span class="unit"><%= number_to_human stat[:value], :format => '%u' %></span>
-								</p>
+							<div class="gray-box no-icon">
+                <span><%= number_to_human stat[:value], :format => '%n' %></span>
+                <span class="unit"><%= number_to_human stat[:value], :format => '%u' %></span>
 							</div>
-							<figcaption><%= stat[:label] %></figcaption>
+							<figcaption class="no-padding"><%= stat[:label] %></figcaption>
 						</figure>
 					<% end %>
 				</div>

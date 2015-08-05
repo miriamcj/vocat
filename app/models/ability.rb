@@ -121,6 +121,19 @@ class Ability
       can?(:administer, project.course)
     end
 
+    can [:statistics], Project do |project|
+      can?(:evaluate, project)
+    end
+
+    can [:compare_scores], Project do |project|
+      can?(:evaluate, project)
+    end
+
+    can [:project_submissions], Project do |project|
+      can?(:evaluate, project)
+    end
+
+
     can [:publish_evaluations], Project do |project|
       can?(:evaluate, project)
     end

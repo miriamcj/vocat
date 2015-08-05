@@ -20,68 +20,64 @@
 		<% if submission.project.evaluatable? %>
 
 			<% if submission.project_allows_peer_review? %>
-				<% if submission.evaluated_by_peers? %>
-					<figure class="summary-box summary-box-peer">
+					<figure class="summary-box">
 						<div>
-							<b style="height: <%=  (submission.peer_score_percentage || 0).to_int %>%"></b>
-							<span><%= (submission.peer_score_percentage || 0).to_int %>%</span>
+              <i class=""></i> <!-- needs icon -->
+              <% if submission.evaluated_by_peers? %>
+							  <span><%= (submission.peer_score_percentage || 0).to_int %>%</span>
+              <% else %>
+                <span class="smaller-font">Awaiting<br/>Scores</span>
+              <% end %>
 						</div>
 						<figcaption>Average<br>Peer<br>Score</figcaption>
 					</figure>
-				<% else %>
-					<figure class="summary-box summary-box-empty">
-						<div>
-							<span class="empty">Awaiting<br/>Scores</span>
-						</div>
-						<figcaption>Average<br>Peer<br>Score</figcaption>
-					</figure>
-				<% end %>
 			<% end %>
 
-			<% if submission.project.evaluatable? %>
-				<% if submission.evaluated_by_instructor? %>
-					<figure class="summary-box summary-box-evaluator">
-						<div>
-							<b style="height: <%=  (submission.instructor_score_percentage || 0).to_int %>%"></b>
-							<span><%= (submission.instructor_score_percentage || 0).to_int %>%</span>
-						</div>
-						<figcaption>Average<br>Instructor<br>Score</figcaption>
-					</figure>
-				<% else %>
-					<figure class="summary-box summary-box-empty">
-						<div>
-							<span class="empty">Awaiting<br/>Scores</span>
-						</div>
-						<figcaption>Average<br>Instructor<br>Score</figcaption>
-					</figure>
-				<% end %>
-			<% end %>
-		<% end %>
+      <figure class="summary-box">
+        <div>
+          <i class=""></i> <!-- needs icon -->
+          <% if submission.evaluated_by_instructor? %>
+            <span><%= (submission.instructor_score_percentage || 0).to_int %>%</span>
+          <% else %>
+            <span class="smaller-font">Awaiting<br/>Score</span>
+          <% end %>
+        </div>
+        <figcaption>Average Instructor Score</figcaption>
+      </figure>
 
-		<figure class="summary-box
-      <%= submission.discussion_posts_count > 0 ? 'summary-box-creator' : 'summary-box-empty' %>
-      ">
+      <% if submission.project_allows_self_evaluation? %>
+        <figure class="summary-box">
+          <div>
+            <i class="""></i> <!-- needs icon -->
+            <% if submission.user_score_total(current_user) %>
+              <span><%= (submission.user_score_total(current_user) || 0).to_int %>%</span>
+            <% else %>
+              <span class="smaller-font">Awaiting<br/>Scores</span>
+            <% end %>
+          </div>
+          <figcaption>Self Evaluation Score</figcaption>
+        </figure>
+      <% end %>
+
+    <% end %>
+
+		<figure class="summary-box">
 			<div>
+        <i class="comments-icon"></i>
 				<span><%= submission.discussion_posts_count() %></span>
 			</div>
-			<figcaption>
-				Comments<br>
-				<% if submission.new_posts_for_user?(current_user) %>
-					<span class="badge">New</span>
-				<% end %>
-
-			</figcaption>
+			<figcaption>Comments</figcaption>
 		</figure>
 
 		<% if submission.has_asset? %>
-			<figure class="summary-box
-      <%= submission.first_asset.annotations.count() > 0 ? 'summary-box-creator' : 'summary-box-empty' %>
-      ">
+			<figure class="summary-box">
 				<div>
+          <i class="annotations-icon"></i>
 					<span><%= submission.first_asset.annotations.count() %></span>
 				</div>
 				<figcaption>Annotations</figcaption>
 			</figure>
 		<% end %>
+
 	</div>
 </div>

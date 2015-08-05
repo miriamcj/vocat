@@ -436,14 +436,15 @@
 // Badges
 //-----------------------------------------------------------------
 .badge {
-  border: 2px solid $tealLight;
-  padding: .25em;
+  border: 1px solid red;
+  padding: 10px 20px;
   vertical-align: middle;
-  letter-spacing: .15em;
-  font-size: .5em;
+  letter-spacing: .1em;
+  font-size: 0.875em;
   text-transform: uppercase;
-  color: $tealLight;
-  font-weight: $semibold;
+  color: red;
+  font-weight: $regular;
+  margin-right: 10px;
   .heading-primary & {
     font-size: .35em;
   }
@@ -566,4 +567,9 @@ label.switch-label:after,
     left: 50%;
     margin-left: -$iconSizeMedium * .5;
   }
+}
+
+.score-view-toggle {
+  display: inline-block;
+  margin-left: 20px;
 }

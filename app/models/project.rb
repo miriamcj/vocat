@@ -31,6 +31,8 @@ class Project < ActiveRecord::Base
   belongs_to :rubric
   has_many :submissions, :dependent => :destroy
   has_many :evaluations, :through => :submissions
+  has_many :discussion_posts, :through => :submissions
+  has_many :assets, :through => :submissions
 
   delegate :name, :to => :rubric, :prefix => true, :allow_nil => true
   delegate :avg_score, :to => :rubric, :prefix => true, :allow_nil => true
@@ -57,6 +59,33 @@ class Project < ActiveRecord::Base
   default_scope { includes(:course) }
   scope :unsubmitted_for_user_and_course, ->(creator, course) { joins('LEFT OUTER JOIN submissions ON submissions.project_id = projects.id AND submissions.creator_id = ' + creator.id.to_s).where('submissions.creator_id IS NULL AND course_id IN (?)', course) }
 
+  def average_peer_score
+    self.evaluations.of_type('1').average('total_percentage')
+  end
+
+  def average_instructor_score
+    self.evaluations.of_type('2').average('total_percentage')
+  end
+
+  def average_self_score
+    self.evaluations.self_evaluations.average('total_percentage')
+  end
+
+  def discussion_posts_count
+    self.discussion_posts.count
+  end
+
+  def annotations_count
+    Annotation.by_project(self).count
+  end
+
+  def assets_count
+    self.assets.count
+  end
+
+  def video_assets_count
+    self.submissions.with_video_assets.count
+  end
 
   def attachment_families_are_valid
     if self.allowed_attachment_families
@@ -141,15 +170,14 @@ class Project < ActiveRecord::Base
   # TODO: Not happy with this
   def statistics()
     {
-        asset_count: asset_count,
+        assets_count: assets_count,
+        video_assets_count: video_assets_count,
+        discussion_posts_count: discussion_posts_count,
+        annotations_count: annotations_count,
         possible_submission_count: possible_submissions_count,
         rubric_avg_score: rubric_avg_score,
         rubric_avg_percentage: rubric_avg_percentage
     }
-  end
-
-  def asset_count
-    submissions.where(:creator_type => 'User').with_assets.for_courses(course).count
   end
 
   def submission_by_user(user)

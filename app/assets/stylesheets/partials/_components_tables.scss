@@ -17,8 +17,9 @@
     tr {
     }
     th {
-      border-bottom: 1px solid $grayLight;
-      background-color: $grayLightest;
+      background-color: $white;
+      border-top: 1px solid $grayLight;
+      border-bottom: 0;
       @extend %label;
       color: $grayMediumDarker;
     }
@@ -27,12 +28,23 @@
     tr {
       th, td {
         vertical-align: middle;
-        background-color: $white;
+        background-color: $grayLightest;
+        &.media-submission-list:hover {
+          background-color: $grayLight;
+          cursor: pointer;
+        }
       }
       &:nth-child(even) {
         th, td {
-          background-color: $grayLightest;
+          background-color: $white;
+          &.media-submission-list:hover {
+            background-color: $grayLight;
+            cursor: pointer;
+          }
         }
+      }
+      &:last-child {
+        border-bottom: 1px solid $grayLight;
       }
     }
   }
@@ -51,6 +63,9 @@
     border-right: 1px solid $grayLight;
     vertical-align: middle;
     padding: 1em;
+    &:last-child {
+      border-right: 0;
+    }
     &.centered {
       vertical-align: middle;
       text-align: center;
@@ -63,13 +78,15 @@
 }
 
 .table-white-head {
-  border-bottom: 1px solid $grayLight;
 
   thead {
     tr {
       th {
         border-top: 1px solid $grayLight;
         background-color: $white;
+        &:last-child {
+          border-right: 0;
+        }
       }
     }
   }
@@ -83,14 +100,23 @@
           background-color: $white;
         }
       }
+      td:last-child {
+        border-right: 0;
+      }
     }
   }
 }
 
 .table-sortable {
   table-layout: fixed;
+  thead th:not(.row-handle):last-child {
+    border-right: 0;
+  }
   tr {
     width: 100%;
+    td:last-child {
+      border-right: 0;
+    }
   }
 }
 
@@ -163,4 +189,115 @@ a.table--heading {
     }
   }
 
+}
+
+// Media submissions cells
+// --------------------------
+.project-details-table {
+  tr {
+    height: 88px;
+  }
+  td {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
+.project-details-thead th:last-child {
+  border-right: 0;
+}
+table tbody.project-details-tbody tr td {
+  &.student-name {
+    vertical-align: top;
+    padding: 24px 16px;
+  }
+  &.score-percent {
+    vertical-align: top;
+  }
+}
+.media-submission {
+  font-size: 15px;
+  .media-counts {
+    font-size: 13px;
+  }
+}
+.score-percent {
+  font-size: $zeta;
+  &.gray {
+    color: $grayMedium;
+  }
+}
+.submissions-list {
+  margin-bottom: 45px;
+}
+.media-submission {
+  display: table;
+  width: 100%;
+  img {
+    margin-right: 10px;
+    max-width: 57px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  > div {
+    display: table-cell;
+    vertical-align: middle;
+  }
+}
+.project-name-header::before {
+  @include svg('project-teal');
+  display: inline-block;
+  vertical-align: bottom;
+  margin-right: 10px;
+  width: 25px;
+  height: 25px;
+  content: '';
+}
+.project-overview .section-header::before {
+  @include svg('project-charts-teal');
+  display: inline-block;
+  vertical-align: bottom;
+  margin-right: 10px;
+  width: 25px;
+  height: 25px;
+  content: '';
+}
+.media-submission:not(:last-child) {
+  margin-bottom: 25px;
+}
+.media-attributes {
+  > div {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  p {
+    color: $grayDarker;
+    font-weight: 400;
+  }
+  span {
+    font-size: $lambda-minor;
+    text-transform: uppercase;
+    color: $grayMediumDarker;
+  }
+}
+.media-counts {
+  text-align: right;
+}
+.annotation-count {
+  margin-left: 30px;
+  @include svg('annotation-teal');
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 8px;
+  margin-bottom: 4px;
+  width: 28px;
+  height: 28px;
+}
+.posts-count {
+  @include svg('comment-teal');
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 8px;
+  margin-bottom: 2px;
+  width: 25px;
+  height: 25px;
 }

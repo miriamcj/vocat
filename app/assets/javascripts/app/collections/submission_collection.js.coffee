@@ -1,4 +1,8 @@
-define ['marionette', 'backbone', 'models/submission'], (Marionette, Backbone, SubmissionModel) ->
+define (require) ->
+  Marionette = require('marionette')
+  Backbone = require('backbone')
+  SubmissionModel = require('models/submission')
+
   class SubmissionCollection extends Backbone.Collection
 
     model: SubmissionModel

@@ -96,3 +96,8 @@
     margin-top: 8px;
   }
 }
+
+.heading-label {
+  @extend %label;
+  color: $grayMediumDarker;
+}

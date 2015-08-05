@@ -2,30 +2,98 @@
 @import "mixins";
 @import "patterns";
 
+.score-compare-container {
+  padding: 0;
+  li {
+    display: block;
+    width: 20%;
+    float: left;
+    .score-compare-field-label {
+      border-top: 1px solid $grayMedium;
+      padding-top: .5em;
+      height: 4em;
+      overflow: hidden;
+    }
+    .score-compare-content {
+      margin: 20px;
+    }
+    .score-compare-circle-container {
+      text-align: left;
+      padding: 1em 0 1em 0;
+    }
+    .score-compare-circle {
+      display: inline-block;
+      border-radius: 50%;
+      width: 130px;
+      height: 130px;
+      background-color: lightblue;
+    }
+    .summary-box-stacked div span {
+      font-size: 1.5em;
+    }
+  }
+
+}
+
+
+.summary-box, .summary-box-stacked {
+  figcaption {
+    @extend %label;
+    width: 100%;
+    color: $grayDark;
+    text-align: center;
+    padding: .5em 1em 0em 1em;
+    min-height: 2.5em;
+    line-height: 1.25em;
+    &.no-padding {
+      padding: .5em 0 0;
+    }
+  }
+}
+
+.summary-box-stacked {
+  margin-bottom: 1em;
+  figcaption {
+    line-height: 1.25em;
+    min-height: 0;
+    text-align: left;
+    padding-bottom: .25em;
+  }
+  span {
+    @extend %condensedHeading;
+    font-weight: $thin;
+    position: relative;
+    top: 50%;
+    z-index: 10;
+    color: $grayDarkest;
+    font-size: $gamma-major;
+  }
+}
+
 .summary-box {
   @extend %wide-one-fourth;
   @extend %medium-one-third;
   @extend %narrow-one-half;
+  width: 127px;
+  &:not(last-child) {
+    margin-right: 30px;
+  }
   .page-message & {
-    @extend %wide-one-sixth;
     @extend %medium-one-fourth;
     @extend %narrow-one-half;
     padding-left: 0;
-    padding-right: 24px;
     padding-bottom: 0;
   }
   .portfolio-item & {
-    @extend %wide-one-fifth;
     @extend %medium-one-fourth;
     @extend %narrow-one-half;
     padding-left: 0;
-    padding-right: 24px;
     margin-top: 16px;
   }
   position: relative;
-  padding: 0 1em 1.5em 1em;
+  padding: 0;
   color: $white;
-  padding-left: 0;
+  text-align: center;
   &.summary-box-creator.summary-box-zero div:after {
     border-top-color: $tealLight;
   }
@@ -94,34 +162,29 @@
     }
   }
   div {
-    background: $tealLightest;
+    background: $white;
     padding: 1em 0;
     text-align: center;
     position: relative;
-    margin-bottom: 12px;
-
-    &:after {
-      content: '';
-      position: absolute;
-      z-index: 10;
-      display: block;
-      bottom: -12px;
-      left: 50%;
-      margin-left: -8px;
-      width: 10;
-      height: 10;
-      border-top: 12px solid $tealLightest;
-      border-left: 8px solid transparent;
-      border-right: 8px solid transparent;
-
+    height: 115px;
+    width: 127px;
+    &.no-icon > span {
+      top: 40%;
     }
+    span.smaller-font {
+      font-size: $zeta;
+    }
+    &.gray-box {
+    background-color: $grayLightest;
+  }
     span {
       @extend %condensedHeading;
-      font-weight: $semibold;
+      font-weight: $thin;
       position: relative;
       top: 50%;
       z-index: 10;
-      font-size: $gamma-major;
+      font-size: 42px;
+      color: $grayDarkest;
     }
     span.empty {
       display: block;
@@ -131,7 +194,6 @@
       margin: 6px 0;
     }
     span.unit {
-      display: block;
       font-size: $zeta;
     }
     small {
@@ -168,15 +230,6 @@
       top: 0;
     }
   }
-  figcaption {
-    @extend %label;
-    width: 100%;
-    color: $grayDark;
-    text-align: center;
-    padding: .5em 1em 0em 1em;
-    min-height: 2.5em;
-    line-height: 1.25em;
-  }
   span.badge {
     display: inline-block;
     text-align: center;
@@ -186,4 +239,37 @@
     font-weight: $regular;
     padding: 2px 5px;
   }
+}
+
+.comments-icon {
+  @include svg('comment-gray');
+  width: 30px;
+  height: 30px;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 15px;
+}
+.annotations-icon {
+  @include svg('annotation-gray');
+  width: 30px;
+  height: 30px;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 15px;
+}
+.media-icon {
+  @include svg('upload-media');
+  width: 40px;
+  height: 40px;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 6px;
+}
+.video-icon {
+  @include svg('upload-video');
+  width: 40px;
+  height: 40px;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 5px;
 }

@@ -72,6 +72,9 @@
     content: '';
   }
   .header {
+    .project-name-header {
+      font-size: $delta-minor;
+    }
     .header-link {
       margin-bottom: 0;
     }
@@ -472,91 +475,4 @@
       }
     }
   }
-}
-
-// Media submissions cells
-// --------------------------
-.project-details-table {
-  tr {
-    height: 88px;
-  }
-  td {
-    padding-left: 30px;
-    padding-right: 30px;
-  }
-}
-.submissions-list {
-  margin-bottom: 45px;
-}
-.media-submission {
-  display: table;
-  width: 100%;
-  img {
-    margin-right: 10px;
-    max-width: 100px;
-    display: inline-block;
-    vertical-align: middle;
-  }
-  > div {
-    display: table-cell;
-    vertical-align: middle;
-  }
-}
-.project-name-header::before {
-  @include svg('project-teal');
-  display: inline-block;
-  vertical-align: bottom;
-  margin-right: 10px;
-  width: 25px;
-  height: 25px;
-  content: '';
-}
-.project-overview .section-header::before {
-  @include svg('project-charts-teal');
-  display: inline-block;
-  vertical-align: bottom;
-  margin-right: 10px;
-  width: 25px;
-  height: 25px;
-  content: '';
-}
-.media-submission:not(:last-child) {
-  margin-bottom: 25px;
-}
-.media-attributes {
-  > div {
-    display: inline-block;
-    vertical-align: middle;
-  }
-  p {
-    color: $grayDarker;
-    font-weight: 400;
-  }
-  span {
-    font-size: $lambda-minor;
-    text-transform: uppercase;
-    color: $grayMediumDarker;
-  }
-}
-.media-counts {
-  text-align: right;
-}
-.annotation-count {
-  margin-left: 30px;
-  @include svg('annotation-teal');
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 8px;
-  margin-bottom: 2px;
-  width: 28px;
-  height: 28px;
-}
-.posts-count {
-  @include svg('comment-teal');
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 8px;
-  margin-bottom: 2px;
-  width: 25px;
-  height: 25px;
 }

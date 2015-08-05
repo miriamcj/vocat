@@ -1,54 +1,74 @@
-<div class="page-content--heading">
-	<a class="header-link back-link" data-behavior="detail-close"
-	   href="/courses/{{project.course_id}}/users/evaluations">Back to Evaluations</a>
-
-	<h2 class="heading-primary">
-		{{project.name}}
-	</h2>
-</div>
-
-<div class="page-section">
+<div class="page-section project-overview">
 	<div class="header-wrapper">
-		<div class="header">
-			<h2>Project Overview</h2>
-		</div>
-	</div>
-	<div class="body">
-		<div data-region="project-summary">
-		</div>
-	</div>
-</div>
-
-
-<div class="page-section">
-	<div class="header-wrapper">
-		<div class="header">
-			<h2>Interactive Evaluation Data</h2>
-		</div>
-	</div>
-	<div class="body">
-		<form class="formgrid page-section--subsection">
-			<div class="formgrid whole">
-				<span class="chart-label">Select the type of evaluations that you would like to visualize.</span>
-				<select data-behavior="score-set-select" style="width: 375px;">
-					<option {{#if_match loadedScoresSet 'my_scores'}}selected="selected"{{/if_match}} value="my_scores">
-						my evaluations
-					</option>
-					<option {{#if_match loadedScoresSet 'evaluator_scores'}}selected="selected"{{/if_match}}
-							value="evaluator_scores">instructor evaluations
-					</option>
-					<option {{#if_match loadedScoresSet 'peer_scores'}}selected="selected"{{/if_match}}
-							value="peer_scores">peer evaluations
-					</option>
-					<option {{#if_match loadedScoresSet 'all_scores'}}selected="selected"{{/if_match}}
-							value="all_scores">all evaluations
-					</option>
-				</select>
-			</div>
-		</form>
-		<div class="page-section--subsection" data-region="project-crossfiltered">
-		</div>
+        <div class="header">
+            <p style="color: rgb(140, 140, 140);">PROJECT</p>
+            <h1 class="project-name-header" style="font-weight: 400; margin-bottom: 10px; text-transform: none;">{{project.name}}</h1>
+            {{{project.description}}}
+            <div class="heading-utility" style="margin-top: 1em; margin-bottom: 3em;">
+                {{#if project.due_date}}
+                    <span class="badge">Due {{project.due_date}}</span>
+                {{/if}}
+                {{#if project.rubric_id}}
+                    <a href="#" class="button primary-button" data-behavior="show-rubric">Show Rubric</a>
+                {{/if}}
+                <a href="{{url}}/courses/{{project.course_id}}/manage/projects/{{project.id}}/edit" class="button primary-button">Edit Project Settings</a>
+            </div>
+        </div>
+    </div>
+    <div class="header">
+        <h2 class="section-header" style="margin-bottom: 10px;">PROJECT OVERVIEW</h2>
+    </div>
+	<div class="body" style="margin-top: ">
+		<div class="page-section--subsection" data-region="project-score-overview"></div>
 	</div>
 </div>
 
+<div class="page-section page-section-clear">
+    {{#if_match project.type 'OpenProject'}}
+        <div class="submissions-list">
+            <div class="header-wrapper">
+                <div class="header student-submissions-list">
+                    <h2>Students</h2>
+                </div>
+            </div>
+            <div class="body">
+                <div data-region="project-student-submission-list"></div>
+            </div>
+        </div>
+        <div class="submissions-list">
+            <div class="header-wrapper">
+                <div class="header group-submissions-list">
+                    <h2>Groups</h2>
+                </div>
+            </div>
+            <div class="body">
+                <div data-region="project-group-submission-list"></div>
+            </div>
+        </div>
+    {{/if_match}}
+    {{#if_match project.type 'UserProject'}}
+        <div class="submissions-list">
+            <div class="header-wrapper">
+                <div class="header student-submissions-list">
+                    <h2>Students</h2>
+                </div>
+            </div>
+            <div class="body">
+                <div data-region="project-student-submission-list"></div>
+            </div>
+        </div>
+    {{/if_match}}
+    {{#if_match project.type 'GroupProject'}}
+        <div class="submissions-list">
+            <div class="header-wrapper">
+                <div class="header group-submissions-list">
+                    <h2>Groups</h2>
+                </div>
+            </div>
+            <div class="body">
+                <div data-region="project-group-submission-list"></div>
+            </div>
+        </div>
+    {{/if_match}}
+</div>
 
