@@ -78,6 +78,9 @@ Vocat::Application.routes.draw do
           member do
             put 'publish_evaluations'
             put 'unpublish_evaluations'
+            get 'statistics'
+            get 'compare_scores'
+            get 'project_submissions'
           end
         end
         resources :courses, :only => [:index, :update, :show] do

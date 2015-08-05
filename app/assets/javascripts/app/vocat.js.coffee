@@ -53,6 +53,9 @@ define (require) ->
       'pages/help_dev': 'helpDev'
       'pages/modal_dev': 'modalDev'
     }
+    project: {
+      'courses/:course/users/project/:project': 'userProjectDetail'
+    }
     rubric: {
       'courses/:course/manage/rubrics/new': 'new'
       'admin/rubrics/new': 'new'
@@ -144,6 +147,8 @@ define (require) ->
       switch controllerName
         when 'course' then require ['controllers/course_controller'], (CourseController) ->
           instantiateRouter(CourseController, 'course')
+        when 'project' then require ['controllers/project_controller'], (ProjectController) ->
+          instantiateRouter(ProjectController, 'project')
         when 'admin' then require ['controllers/admin_controller'], (AdminController) ->
           instantiateRouter(AdminController, 'admin')
         when 'coursemap' then require ['controllers/coursemap_controller'], (CourseMapController) ->

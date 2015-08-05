@@ -2,6 +2,80 @@
 @import "mixins";
 @import "patterns";
 
+.score-compare-container {
+  padding: 0;
+  li {
+    display: block;
+    width: 20%;
+    float: left;
+    .score-compare-field-label {
+      border-top: 1px solid $grayMedium;
+      padding-top: .5em;
+      height: 4em;
+      overflow: hidden;
+    }
+    .score-compare-content {
+      margin: 20px;
+    }
+    .score-compare-circle-container {
+      text-align: left;
+      padding: 1em 0 1em 0;
+    }
+    .score-compare-circle {
+      display: inline-block;
+      border-radius: 50%;
+      width: 130px;
+      height: 130px;
+      background-color: lightblue;
+    }
+    .summary-box-stacked div span {
+      font-size: 1.5em;
+    }
+  }
+
+}
+
+
+.summary-box, .summary-box-stacked {
+  figcaption {
+    @extend %label;
+    width: 100%;
+    color: $grayDark;
+    text-align: center;
+    padding: .5em 1em 0em 1em;
+    min-height: 2.5em;
+    line-height: 1.25em;
+  }
+  &.summary-box-peer {
+    color: $peerFillColor;
+  }
+  &.summary-box-evaluator{
+    color: $instructorFillColor;
+  }
+  &.summary-box-self{
+    color: $selfFillColor;
+  }
+}
+
+.summary-box-stacked {
+  margin-bottom: 1em;
+  figcaption {
+    line-height: 1.25em;
+    min-height: 0;
+    text-align: left;
+    padding-left: 0;
+    padding-bottom: .25em;
+  }
+  span {
+    @extend %condensedHeading;
+    font-weight: $semibold;
+    position: relative;
+    top: 50%;
+    z-index: 10;
+    font-size: $gamma-major;
+  }
+}
+
 .summary-box {
   @extend %wide-one-fourth;
   @extend %medium-one-third;
@@ -167,15 +241,6 @@
       line-height: .85em;
       top: 0;
     }
-  }
-  figcaption {
-    @extend %label;
-    width: 100%;
-    color: $grayDark;
-    text-align: center;
-    padding: .5em 1em 0em 1em;
-    min-height: 2.5em;
-    line-height: 1.25em;
   }
   span.badge {
     display: inline-block;

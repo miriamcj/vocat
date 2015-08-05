@@ -249,6 +249,10 @@ class Rubric < ActiveRecord::Base
     self.name
   end
 
+  def avg_field_scores
+    Evaluation.each_field_average(evaluations)
+  end
+
   private
 
   def get_cell_key(field, range)

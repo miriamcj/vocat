@@ -1,0 +1,29 @@
+<div class="score-compare-content">
+	<div class="heading-label score-compare-field-label">{{model.criteria_label}}
+	</div>
+	<div class="score-compare-circle-container">
+		<div class="donut-chart">
+			<div class="slice slice-one"></div>
+			<div class="slice slice-two"></div>
+			<div class="chart-center">
+				<span></span>
+			</div>
+		</div>
+	</div>
+	<div class="summary-box-stacked">
+		<figcaption>
+			{{score_compare_label model.left_key}}:
+		</figcaption>
+		<div>
+			<span>{{to_per model.left}}%</span>
+		</div>
+	</div>
+	<div class="summary-box-stacked">
+		<figcaption>
+			{{score_compare_label model.right_key}}:
+		</figcaption>
+		<div>
+			<span>{{to_per model.right}}%</span>
+		</div>
+	</div>
+</div>

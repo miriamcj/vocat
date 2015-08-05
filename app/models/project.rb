@@ -130,6 +130,10 @@ class Project < ActiveRecord::Base
     Evaluation.joins(:submission).where(:evaluator_id => user, :submissions => {project_id: self}).count
   end
 
+  def selfie_evaluations
+    Evaluation.joins(:submission).where('submissions.creator_id = evaluations.evaluator_id AND submissions.creator_type = User')
+  end
+
   def avg_score()
     Evaluation.includes(:project).where(projects: {id: self}).average('total_score') || 0
   end
@@ -138,7 +142,7 @@ class Project < ActiveRecord::Base
     Evaluation.includes(:project).where(projects: {id: self}).average('total_percentage') || 0
   end
 
-  # TODO: Not happy with this
+  # this might best be inside statistics.rb or perhaps a new 'ProjectStatistics' model
   def statistics()
     {
         asset_count: asset_count,
@@ -147,6 +151,17 @@ class Project < ActiveRecord::Base
         rubric_avg_percentage: rubric_avg_percentage
     }
   end
+
+  # Type could be Evaluation::EVALUATION_TYPE_CREATOR or Evaluation::EVALUATION_TYPE_EVALUATOR
+  def avg_field_scores(eval_type = nil, user = nil)
+    return {} unless evaluatable? # do we have a rubric?
+    evaluations = published_evaluations
+    evaluations = evaluations.of_type(eval_type) if eval_type
+    evaluations = published_evaluations_by_evaluator(user) if user
+    Evaluation.each_field_average(evaluations)
+  end
+
+
 
   def asset_count
     submissions.where(:creator_type => 'User').with_assets.for_courses(course).count

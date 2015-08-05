@@ -1,0 +1,24 @@
+<div class="heading-label">Scoring Overview:</div>
+<div class="page-section-half col-one">
+	<div style="margin-top: 25px; border-radius: 50%; width: 300px; height: 300px; background: lightblue;">&nbsp;</div>
+</div>
+<div class="page-section-half col-two">
+	<figure class="summary-box-stacked summary-box-evaluator">
+		<figcaption>My Average Score</figcaption>
+		<div>
+			<span>{{to_per current_user_average}}%</span>
+		</div>
+	</figure>
+	<figure class="summary-box-stacked summary-box-peer">
+		<figcaption>Average Peer Score</figcaption>
+		<div>
+			<span>{{to_per peer_average}}%</span>
+		</div>
+	</figure>
+	<figure class="summary-box-stacked summary-box-self">
+		<figcaption>Average Self-Evaluation Score</figcaption>
+		<div>
+			<span>{{to_per self_evaluation_average}}%</span>
+		</div>
+	</figure>
+</div>

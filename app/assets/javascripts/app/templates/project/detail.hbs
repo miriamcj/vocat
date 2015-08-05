@@ -1,54 +1,52 @@
 <div class="page-content--heading">
 	<a class="header-link back-link" data-behavior="detail-close"
 	   href="/courses/{{project.course_id}}/users/evaluations">Back to Evaluations</a>
-
-	<h2 class="heading-primary">
-		{{project.name}}
-	</h2>
 </div>
 
 <div class="page-section">
 	<div class="header-wrapper">
 		<div class="header">
-			<h2>Project Overview</h2>
+			<h2>Project Details</h2>
 		</div>
 	</div>
 	<div class="body">
-		<div data-region="project-summary">
-		</div>
-	</div>
-</div>
-
-
-<div class="page-section">
-	<div class="header-wrapper">
-		<div class="header">
-			<h2>Interactive Evaluation Data</h2>
-		</div>
-	</div>
-	<div class="body">
-		<form class="formgrid page-section--subsection">
-			<div class="formgrid whole">
-				<span class="chart-label">Select the type of evaluations that you would like to visualize.</span>
-				<select data-behavior="score-set-select" style="width: 375px;">
-					<option {{#if_match loadedScoresSet 'my_scores'}}selected="selected"{{/if_match}} value="my_scores">
-						my evaluations
-					</option>
-					<option {{#if_match loadedScoresSet 'evaluator_scores'}}selected="selected"{{/if_match}}
-							value="evaluator_scores">instructor evaluations
-					</option>
-					<option {{#if_match loadedScoresSet 'peer_scores'}}selected="selected"{{/if_match}}
-							value="peer_scores">peer evaluations
-					</option>
-					<option {{#if_match loadedScoresSet 'all_scores'}}selected="selected"{{/if_match}}
-							value="all_scores">all evaluations
-					</option>
-				</select>
+		<div class="page-section--subsection page-section--subsection-ruled">
+			<div class="subsection-header">
+				<h1 class="heading-primary">{{project.name}}</h1>
 			</div>
-		</form>
-		<div class="page-section--subsection" data-region="project-crossfiltered">
+			<div>
+				{{{project.description}}}
+				<div class="heading-utility" style="margin-top: 1em">
+					{{#if project.due_date}}
+						<span class="badge">Due {{project.due_date}}</span>
+					{{/if}}
+					<a href="#" class="button primary-button" data-behavior="show-rubric">Show Rubric</a>
+					<a href="#" class="button primary-button" data-behavior="show-rubric">Edit Project Settings</a>
+				</div>
+			</div>
 		</div>
+		<div class="page-section--subsection page-section--subsection-ruled" data-region="project-score-overview">
+
+		</div>
+
+		<div class="page-section--subsection page-section--subsection-ruled" data-region="project-media-overview">
+
+		</div>
+		<div class="page-section--subsection page-section--subsection-ruled" data-region="project-compare-scores">
+
+		</div>
+
 	</div>
 </div>
 
+<div class="page-section page-section-clear">
+	<div class="header-wrapper">
+		<div class="header">
+			<h2>Students</h2>
+		</div>
+	</div>
+	<div class="body">
+		<div data-region="project-submission-list"></div>
+    </div>
+</div>
 

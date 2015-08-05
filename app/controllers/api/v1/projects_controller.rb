@@ -626,4 +626,78 @@ class Api::V1::ProjectsController < ApiController
     respond_with @project.unpublish_evaluations(current_user)
   end
 
+  api :GET, '/projects/:id/statistics', "returns statistical information for the project"
+  param :id, Fixnum, :desc => "The project ID"
+  error :code => 404, :desc => "The project could not be found."
+  def statistics
+    # TODO: Return real data here.
+
+    @user = current_user
+    if @user.submissions.length > 0
+      current_user_average = @user.update_percentage
+    else
+      current_user_average = 0.2
+      self_evaluation_average = 0.12
+    end
+
+    def my_score_average
+      if @user.submissions?
+        # my_score_total and my_score_average should be aggregated so it doesn't need to be recalculated each time page loads. Function not written yet.
+        average = 0.2 #(@user.my_score_total/@user.submissions.length)
+      else
+        average = 0.1
+      end
+      average
+    end
+
+    response = {
+        current_user_average: current_user_average,
+        peer_average: 0.91,
+        self_evaluation_average: self_evaluation_average,
+        media_count: 124,
+        annotation_count: 105,
+        average_annotation_per_media: 0.84
+    }
+    respond_with response
+  end
+
+
+  api :GET, '/projects/:id/compare_scores', "returns score comparisons"
+  param :id, Fixnum, :desc => "The project ID"
+  error :code => 404, :desc => "The project could not be found."
+  def compare_scores
+    left_response = get_fields(params[:left])
+    right_response = get_fields(params[:right])
+    high_score = Rubric.last.high
+    response = []
+    left_response.each_key do |field|
+      response.push({
+                        criteria_label: field,
+                        left_key: params[:left],
+                        right_key: params[:right],
+                        left: (left_response[field]/high_score),
+                        right: (right_response[field]/high_score)
+                    })
+    end
+    respond_with response
+  end
+
+  def get_fields (comparison_param)
+    case comparison_param
+      when 'my-scores'
+        @project.avg_field_scores(nil, @user)
+      when 'peer-scores'
+        @project.avg_field_scores(Evaluation::EVALUATION_TYPE_CREATOR, nil)
+      when 'instructor-scores'
+        @project.avg_field_scores(Evaluation::EVALUATION_TYPE_EVALUATOR, nil)
+      when 'rubric-scores'
+        Rubric.last.avg_field_scores
+      else
+        Rubric.last.avg_field_scores # TODO: this fallthrough shouldn't ever be used, but right now it's catching the 'self evaluation' case
+    end
+
+
+
+  end
+
 end

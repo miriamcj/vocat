@@ -21,8 +21,8 @@
 
 class Evaluation < ActiveRecord::Base
 
-  EVALUATION_TYPE_CREATOR = 1
-  EVALUATION_TYPE_EVALUATOR = 2
+  EVALUATION_TYPE_CREATOR = 1     #  peer
+  EVALUATION_TYPE_EVALUATOR = 2   # instructor
 
   belongs_to :evaluator, :class_name => 'User'
   has_one :user, :through => :submission, :source => :creator, :source_type => 'User'
@@ -184,9 +184,22 @@ class Evaluation < ActiveRecord::Base
     self.scores.count
   end
 
+  def self.each_field_average (evaluations)
+    scores = evaluations.pluck(:scores)
+    count = scores.count.to_f
+    fields = evaluations.last.rubric.fields
+    deets = {}
+    fields.each do |field|
+      id = field["id"]
+      deets[id] = scores.map { |e| e[id].to_i }.sum / count
+    end
+    return deets;
+  end
+
   def total_percentage_rounded
     total_percentage.round(0)
   end
+
 
   def to_csv_header_row
     ['Vocat ID', 'Evaluator', 'Section', 'Course', 'Semester', 'Year', 'Creator', 'Evaluation Type', 'Project Name', 'Percentage', 'Total Score', 'Points Possible']
@@ -195,5 +208,6 @@ class Evaluation < ActiveRecord::Base
   def to_csv
     [id, evaluator_name, course.section, "#{course.department}#{course.number}", course.semester, course.year, creator.name, evaluation_type_human_readable, project.name, total_percentage_rounded, total_score, points_possible]
   end
+
 
 end
