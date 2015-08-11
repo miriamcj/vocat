@@ -10,13 +10,15 @@ module Devise
         ldap = LDAPAuthenticator.new(org)
         credentials = authentication_hash.merge(password: password)
         ldap_resource = ldap.authenticate(credentials)
-        resource = User.find(ldap_resource.id)
-        if validate(resource)
-          remember_me(resource)
-          resource.after_database_authentication
-          success!(resource)
+        if ldap_resource
+          resource = User.find(ldap_resource.id)
+          if validate(resource)
+            remember_me(resource)
+            resource.after_database_authentication
+            success!(resource)
+          end
+          fail(:not_found_in_database) unless resource
         end
-        fail(:not_found_in_database) unless resource
       end
     end
   end
