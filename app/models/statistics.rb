@@ -2,7 +2,7 @@ class Statistics
 
   def self.admin_stats(organization, search = {})
     out = []
-    if search.length < 0
+    if search.except(:organization).values.delete_if {|val| val.nil? }.length == 0
       out.push({:label => "Logins Within Last 30 Days", :value => organization.users.where('last_sign_in_at >= ?', 1.week.ago).count})
       out.push({:label => "Users", :value => organization.users.count})
       # TODO: These queries need to account for organization.
