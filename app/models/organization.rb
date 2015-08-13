@@ -57,9 +57,13 @@ class Organization < ActiveRecord::Base
   end
 
   def self.find_one_by_subdomain(subdomain)
-    subdomain = subdomain.split('.').first.downcase
     Organization.where(:active => true, :subdomain => subdomain).first
   end
+
+  def self.count_by_subdomain(subdomain)
+    Organization.where(:active => true, :subdomain => subdomain).count
+  end
+
 
   def recent_grouped_sorted_courses(limit = nil)
     courses.where('courses.year >= ?', Time.now.year).sorted.limit(limit).group_by do |course|

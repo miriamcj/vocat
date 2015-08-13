@@ -1,7 +1,7 @@
+require 'subdomain_resolver'
+
 Vocat::Application.routes.draw do
-
-
-  constraints lambda{ |request| SubdomainConstraint.is_manage?(request.subdomain) } do
+  constraints lambda { |request| SubdomainResolver.is_manage?(request) } do
     scope :module => :manage do
       get '/' => 'organizations#index', :as => 'manage_root'
       resources :organizations
@@ -14,12 +14,12 @@ Vocat::Application.routes.draw do
     end
   end
 
-  constraints subdomain: '' do
+  constraints lambda { |request| SubdomainResolver.is_blank?(request) } do
     apipie
     get '/' => 'root#select', :as => 'select_org'
   end
 
-  constraints lambda{ |request| request.subdomain.present? } do
+  constraints lambda{ |request| SubdomainResolver.is_manage?(request) || SubdomainResolver.is_org?(request) } do
     # Allow login on any subdomain
     devise_for :users
     devise_scope :user do
@@ -28,7 +28,7 @@ Vocat::Application.routes.draw do
     use_doorkeeper
   end
 
-  constraints lambda{ |request| !SubdomainConstraint.is_manage?(request.subdomain) } do
+  constraints lambda{ |request| SubdomainResolver.is_org?(request) } do
 
     namespace :api, :defaults => {:format => 'json'} do
       namespace :v1 do

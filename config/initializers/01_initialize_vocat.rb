@@ -3,6 +3,7 @@ Vocat::Application.configure do
   settings  = YAML.load(ERB.new(File.read("#{Rails.root}/config/settings.yml.erb")).result)[Rails.env.to_sym]
   vocat_config = settings.deep_merge(Rails.application.secrets.vocat)
   config.vocat = Hashie::Mash.new(vocat_config)
+  config.vocat['tld_length'] = config.vocat.domain.split('.').length - 1 || 1
 
   # SETUP EMAIL CONFIG
   if !config.vocat.smtp.nil?
@@ -18,5 +19,4 @@ Vocat::Application.configure do
     }
   end
   config.action_mailer.default_url_options = {:host => config.vocat.email.url_domain}
-
 end

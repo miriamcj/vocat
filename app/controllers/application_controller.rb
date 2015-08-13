@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
   end
 
   def request_subdomain
-    request.subdomain.split('.').first.downcase
+    request.subdomain(Rails.application.config.vocat.tld_length)
   end
 
   def app_section
@@ -85,7 +85,8 @@ class ApplicationController < ActionController::Base
   end
 
   def initialize_organization
-    @current_organization = Organization.find_one_by_subdomain(request_subdomain)
+    @current_organization = Organization.find_one_by_subdomain(request_subdomain) if !request_subdomain.blank?
+    nil
   end
 
   def initialize_course
