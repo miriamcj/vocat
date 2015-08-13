@@ -57,6 +57,7 @@ class Organization < ActiveRecord::Base
   end
 
   def self.find_one_by_subdomain(subdomain)
+    subdomain = subdomain.split('.').first.downcase
     Organization.where(:active => true, :subdomain => subdomain).first
   end
 
