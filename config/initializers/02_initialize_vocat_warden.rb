@@ -6,7 +6,7 @@ module Devise
     class VocatLdapAuthenticatable < Authenticatable
 
       def authenticate!
-        org = Organization.find_one_by_subdomain(authentication_hash[:subdomain])
+        org = Organization.find_one_by_subdomain(authentication_hash[:subdomain].split('.').first)
         ldap = LDAPAuthenticator.new(org)
         credentials = authentication_hash.merge(password: password)
         ldap_resource = ldap.authenticate(credentials)
