@@ -59,6 +59,7 @@ module Utility
         # Make an admin
         admins = []
         admins.push create_user(organization: org, email: "admin@#{org.subdomain}.vocat.io", password: 'vocat123', first_name: 'Charles', last_name: 'Xavier', role: 'administrator')
+        admins.push create_user(organization: org, email: "another_admin@#{org.subdomain}.vocat.io", password: 'vocat123', first_name: 'Charles', last_name: 'Xavier', role: 'administrator')
 
         rubrics = [
             create_theater_rubric(org, admins.last),
@@ -151,12 +152,17 @@ module Utility
     end
 
     def create_user(**attributes)
-      if attributes[:organization]
-        puts "Creating #{attributes[:organization].name} user: #{attributes[:email]}"
+      u = User.new(attributes)
+      if u.save
+        if attributes[:organization]
+          puts "Creating #{attributes[:organization].name} user: #{attributes[:email]}"
+        else
+          puts "Creating ORGLESS user: #{attributes[:email]}"
+        end
       else
-        puts "Creating ORGLESS user: #{attributes[:email]}"
+        puts u.errors.full_messages
       end
-      User.create(attributes)
+      u
     end
 
     # Create sample sections
@@ -244,7 +250,12 @@ module Utility
                                {'range' => high_key, 'field' => overall_key, 'description' => 'Speaker engages audience and is compelling to watch and listen to. Ideas are clear, concise, and communicated in a creative, memorable way.'},
                            ])
       puts "Create Rubric: #{the_rubric.name}"
-      the_rubric.save
+      if the_rubric.save
+        puts "Create Rubric: #{the_rubric.name}"
+      else
+        puts the_rubric.errors.full_messages
+        abort('Failed to save rubric')
+      end
       the_rubric
     end
 
