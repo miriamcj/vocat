@@ -66,20 +66,14 @@ class Inviter
                            :first_name => first_name,
                            :last_name => last_name,
                            :role => :creator,
-                           # TODO: Decide on a better way to handle organizations in VOCAT
-                           :organization => Organization.first,
+                           :organization => @organization,
                            :org_identity => nil,
                            :is_ldap_user => false
                        })
     user.save
     if user.errors.blank?
       success!(response, user)
-      begin
-        UserMailer.welcome_email(user, @organization.email_default_from).deliver
-      rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy, Net::SMTPSyntaxError, Net::SMTPFatalError, Net::SMTPUnknownError => e
-        failure!(response, :mail_send_failure, "The user was invited to Vocat, but Vocat was unable to notify the user via email")
-        return false
-      end
+      UserMailer.welcome_email(user).deliver_later
       return true
     else
       failure!(response, :db_create_failure, "Unable to invite \"#{user.email}\": #{user.errors.full_messages().join('; ').downcase}")
