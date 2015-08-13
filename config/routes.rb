@@ -1,7 +1,7 @@
 Vocat::Application.routes.draw do
 
 
-  constraints subdomain: 'manage' do
+  constraints lambda{ |request| SubdomainConstraint.is_manage?(request.subdomain) } do
     scope :module => :manage do
       get '/' => 'organizations#index', :as => 'manage_root'
       resources :organizations
@@ -28,7 +28,7 @@ Vocat::Application.routes.draw do
     use_doorkeeper
   end
 
-  constraints :subdomain => /^(?!manage)(\w+)/ do
+  constraints lambda{ |request| !SubdomainConstraint.is_manage?(request.subdomain) } do
 
     namespace :api, :defaults => {:format => 'json'} do
       namespace :v1 do

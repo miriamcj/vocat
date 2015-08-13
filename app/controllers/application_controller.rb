@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
   end
 
   def request_subdomain
-    request.subdomain.downcase
+    request.subdomain.split('.').first.downcase
   end
 
   def app_section

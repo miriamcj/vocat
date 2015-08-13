@@ -1,4 +1,4 @@
-set :branch, "master"
+set :branch, "development"
 set :server_name, "uhura.vocat.io"
 set :application, "vocat_demo"
 
