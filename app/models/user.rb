@@ -87,7 +87,7 @@ class User < ActiveRecord::Base
     joins('LEFT JOIN organizations ON users.organization_id = organizations.id').where(
         'users.email = ? AND (organizations.subdomain = ? OR users.role = ?)',
         warden_conditions[:email],
-        warden_conditions[:subdomain],
+        warden_conditions[:subdomain].split('.').first.downcase,
         'superadministrator'
     ).first
   end
