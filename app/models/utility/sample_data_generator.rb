@@ -47,22 +47,18 @@ module Utility
       # Set the random seed so we get a predictable outcome
       srand 1234
 
-      superadmin = create_user(email: "superadmin@test.com", password: 'testtest123', first_name: 'Charles', last_name: 'Xavier', role: 'superadministrator')
+      superadmin = create_user(email: "superadmin@vocat.io", password: 'vocat', first_name: 'Charles', last_name: 'Xavier', role: 'superadministrator')
 
       orgs = []
-      orgs.push create_org({:name => 'Baruch College', :subdomain => 'baruch', :email_default_from => 'vocat+baruch@castironcoding.com'})
-      orgs.push create_org({:name => 'Hunter College', :subdomain => 'hunter', :email_default_from => 'vocat+hunter@castironcoding.com'})
-      orgs.push create_org({:name => 'York College', :subdomain => 'york', :email_default_from => 'vocat+york@castironcoding.com'})
+      orgs.push create_org({:name => 'Greendale Community College', :subdomain => 'greendale', :email_default_from => 'greendale-vocat-demo@vocat.io'})
+      orgs.push create_org({:name => 'Starfleet Academy', :subdomain => 'starfleet', :email_default_from => 'starfleet-vocat-demo@vocat.io'})
+      orgs.push create_org({:name => 'Gotham University', :subdomain => 'gotham', :email_default_from => 'gotham-vocat-demo@vocat.io'})
 
       orgs.each do |org|
 
         # Make an admin
         admins = []
-        admins.push create_user(organization: org, email: "admin@#{org.subdomain}.test.com", password: 'testtest123', first_name: 'Charles', last_name: 'Xavier', role: 'administrator')
-
-        admins.push create_user(organization: org, email: "admin@baruch.test.com", password: 'testtest123', first_name: 'Charles', last_name: 'Xavier', role: 'administrator')
-
-
+        admins.push create_user(organization: org, email: "admin@#{org.subdomain}.vocat.io", password: 'vocat', first_name: 'Charles', last_name: 'Xavier', role: 'administrator')
 
         rubrics = [
             create_theater_rubric(org, admins.last),
@@ -79,17 +75,17 @@ module Utility
 
         # Make some evaluators
         5.times do |i|
-          evaluators.push create_user(organization: org, email: "evaluator#{i}@#{org.subdomain}.test.com", password: 'testtest123', first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, role: 'evaluator')
+          evaluators.push create_user(organization: org, email: "evaluator#{i}@#{org.subdomain}.vocat.io", password: 'vocat', first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, role: 'evaluator')
         end
 
         # Make some creators
         rand(30..50).times do |i|
-          creators.push create_user(organization: org, email: "creator#{i}@#{org.subdomain}.test.com", password: 'testtest123', first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, role: 'creator')
+          creators.push create_user(organization: org, email: "creator#{i}@#{org.subdomain}.vocat.io", password: 'vocat', first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, role: 'creator')
         end
 
         # Make some assistants
         3.times do |i|
-          assistants.push create_user(organization: org, email: "assistant#{i}@#{org.subdomain}.test.com", password: 'testtest123', first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, role: 'creator')
+          assistants.push create_user(organization: org, email: "assistant#{i}@#{org.subdomain}.vocat.io", password: 'vocat', first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, role: 'creator')
         end
 
         # Make some courses
