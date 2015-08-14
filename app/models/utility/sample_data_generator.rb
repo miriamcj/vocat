@@ -47,7 +47,7 @@ module Utility
       # Set the random seed so we get a predictable outcome
       srand 1234
 
-      superadmin = create_user(email: "superadmin@vocat.io", password: 'vocat123', first_name: 'Charles', last_name: 'Xavier', role: 'superadministrator')
+      superadmin = create_user(email: "superadmin@vocat.io", password: 'cuny4life', first_name: 'Charles', last_name: 'Xavier', role: 'superadministrator')
 
       orgs = []
       orgs.push create_org({:name => 'Greendale Community College', :subdomain => 'greendale', :email_default_from => 'greendale-vocat-demo@vocat.io'})
