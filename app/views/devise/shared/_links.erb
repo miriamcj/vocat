@@ -4,7 +4,7 @@
 	<% end -%></li>
 <% end %>
 
-<%- if devise_mapping.recoverable? && controller_name != 'passwords' && !@current_organization.ldap_enabled %>
+<%- if devise_mapping.recoverable? && controller_name != 'passwords' && (!@current_organization || !@current_organization.ldap_enabled) %>
 	<li><%= link_to "Forgot your Vocat password?", new_password_path(resource_name) %>
 <% end -%></li>
 
