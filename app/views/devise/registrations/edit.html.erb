@@ -2,8 +2,7 @@
 	<% body = capture do %>
 		<%= devise_error_messages! %>
 		<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:method => :patch, :class => 'formgrid'}) do |f| %>
-
-			<% if Rails.application.config.vocat.ldap.enabled %>
+			<% if @current_organization && @current_organization.ldap_enabled %>
 				<div class="formgrid whole">
 					<%= raw Rails.application.config.vocat.ldap.account_management_message %>
 				</div>
@@ -24,7 +23,7 @@
 				<%= f.text_field :gender, {class: 'text-input'} %>
 			</div>
 
-			<% if Rails.application.config.vocat.ldap.enabled == false || resource.org_identity.blank? %>
+			<% if !@current_organization.ldap_enabled || resource.org_identity.blank? %>
 				<div class="formgrid half">
 					<%= f.label :email, :class => 'text-label' %>
 					<%= f.email_field :email, :class => 'text-input' %>
@@ -41,7 +40,7 @@
 				<small class="input-message">We need your current password to confirm your changes</small>
 			</div>
 
-			<% if Rails.application.config.vocat.ldap.enabled == false || resource.org_identity.blank? %>
+			<% if !@current_organization.ldap_enabled || resource.org_identity.blank? %>
 				<div class="formgrid half">
 					<%= f.label 'New Password', :class => 'text-label' %>
 					<%= f.password_field :password, :autocomplete => "off", :class => 'text-input' %>
