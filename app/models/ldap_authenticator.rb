@@ -36,7 +36,11 @@ class LDAPAuthenticator
         :filter => filter(authentication_hash[:email]),
         :password => authentication_hash[:password]
     }
-    result = self.conn.bind_as(bind_hash)
+    begin
+      result = self.conn.bind_as(bind_hash)
+    rescue Net::LDAP::Error
+      return false
+    end
     if result == false
       false
     else
