@@ -3,7 +3,7 @@ namespace :attachments do
   desc "update_metadata"
   task :update_metadata => :environment do |task, args|
 
-    Attachment.all.each do |attachment|
+    Attachment.find_each(batch_size: 200) do |attachment|
       attachment.variants.each do |variant|
         puts "Updating variant #{variant.id} file_size to #{variant.file_size}" if variant.update_content_length
         puts "Updating variant #{variant.id} with {duration: #{variant.duration}, width: #{variant.width}, height: #{variant.height}}" if variant.update_job_metadata
@@ -82,12 +82,6 @@ namespace :attachments do
         attachment.start_processing
       end
     end
-  end
-
-  desc "Truncate all tables and reseed"
-  task :reseed => :environment do
-    Rake::Task['db:truncate'].invoke
-    Rake::Task['db:seed'].invoke
   end
 
 end
