@@ -116,3 +116,8 @@
 	<%= text_field :organization, :email_notification_course_request, {class: 'text-input'} %>
 	<small>This email address will be notified when a new course request is created.</small>
 </div>
+<div class="formgrid half">
+	<%= f.label 'Support Email Address', :class => 'text-label' %>
+	<%= text_field :organization, :support_email, {class: 'text-input'} %>
+	<small>This email address will be listed throughout Vocat as the address to contact with support requests.</small>
+</div>

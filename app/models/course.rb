@@ -11,7 +11,6 @@
 #  organization_id :integer
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  settings        :hstore           default({}), not null
 #  message         :text
 #  semester_id     :integer
 #  year            :integer

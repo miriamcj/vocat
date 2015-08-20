@@ -194,7 +194,8 @@ module Concerns::StrongParametersConfiguration
                                          :ldap_evaluator_email_domain,
                                          :ldap_default_role,
                                          :email_default_from,
-                                         :email_notification_course_request
+                                         :email_notification_course_request,
+                                         :support_email
     )
   end
 
