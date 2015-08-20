@@ -15,7 +15,6 @@ Vocat::Application.routes.draw do
   end
 
   constraints lambda { |request| SubdomainResolver.is_blank?(request) } do
-    apipie
     get '/' => 'root#select', :as => 'select_org'
   end
 
@@ -209,6 +208,7 @@ Vocat::Application.routes.draw do
 
   end
 
+  apipie
   require 'sidekiq/web'
   authenticate :user, lambda { |u| u.role?(:administrator) } do
     mount Sidekiq::Web => '/sidekiq'
