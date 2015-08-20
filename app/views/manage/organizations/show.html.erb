@@ -59,7 +59,7 @@
 						<td><%= number_to_human_size(usage[:processed]) %></td>
 						<td><%= number_to_human_size(usage[:stored_this_month]) %></td>
 						<td><%= number_to_human_size(usage[:stored_to_date]) %></td>
-						<td><%= pluralize(usage[:minutes], 'minute') %></td>
+						<td><%= number_with_delimiter(usage[:minutes].round) %> Minutes</td>
 					</tr>
 				<% end %>
 				</tbody>

@@ -80,7 +80,8 @@ class Organization < ActiveRecord::Base
       processed = Attachment::Variant.in_organization(self).created_in_month(month, year).sum(:file_size)
       stored_to_date = Attachment.in_organization(self).created_before(month, year).sum(:media_file_size) + Attachment::Variant.in_organization(self).created_before(month, year).sum(:file_size)
       stored_this_month = uploaded + processed
-      minutes = Attachment::Variant.in_organization(self).created_in_month(month, year).sum(:duration)
+      minutes = (Attachment::Variant.in_organization(self).created_in_month(month, year).sum(:duration)) / 60
+      seconds = (Attachment::Variant.in_organization(self).created_in_month(month, year).sum(:duration))
       usages.push({:month => month, :year => year, :uploaded => uploaded, :processed => processed, :stored_this_month => stored_this_month, :stored_to_date => stored_to_date, :minutes => minutes})
     end
     usages.reverse
