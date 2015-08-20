@@ -102,15 +102,23 @@ class Asset < ActiveRecord::Base
   end
 
   def state
-    attachment.state
+    if attachment
+      attachment.state
+    else
+      'processed'
+    end
   end
 
   def processed?
-    attachment.state == 'processed'
+    attachment && attachment.state == 'processed'
   end
 
   def total_storage
-    attachment.variants.pluck(:file_size).sum + attachment.media_file_size
+    if attachment
+      attachment.variants.pluck(:file_size).sum + attachment.media_file_size
+    else
+      0
+    end
   end
 
   protected
