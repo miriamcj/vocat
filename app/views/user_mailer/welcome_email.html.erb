@@ -39,8 +39,8 @@
 <% end %>
 
 <p>For future reference, you can access Vocat at
-	<a href="http://<%= Rails.application.config.vocat.email.url_domain %>">
-		http://<%= Rails.application.config.vocat.email.url_domain %></a>. Welcome to VOCAT, and good luck with your
+	<a href="<%= @organization.url %>">
+		<%= @organization.domain %></a>. Welcome to VOCAT, and good luck with your
 	studies!
 </p>
 

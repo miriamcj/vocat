@@ -22,7 +22,7 @@ If you have trouble logging into VOCAT (and you're sure you're entering the corr
 	<% end %>
 <% end %>
 
-For future reference, you can access Vocat at http://<%= Rails.application.config.vocat.email.url_domain %>. Welcome to VOCAT, and good luck with your studies!
+For future reference, you can access Vocat at <%= @organization.url %>. Welcome to VOCAT, and good luck with your studies!
 
 the Vocat Team
 <%= @user.organization_name %>

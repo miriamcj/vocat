@@ -11,7 +11,7 @@ class UserMailer < ActionMailer::Base
     @organization = @user.organization
     @support_email = Rails.application.config.vocat.email.notification.support_email
     @token = raw
-    @host = Rails.application.config.vocat.email.url_domain
+    @host = @user.organization.domain
     mail(to: @user.email, from: from(@organization), subject: 'Welcome to Vocat')
   end
 
