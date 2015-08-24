@@ -141,7 +141,9 @@ module Utility
               submissions = create_project_submissions(project)
               create_evaluations(course.evaluators, submissions)
               create_evaluations(course.creators, submissions)
-              assets = create_assets(submissions)
+              assets1 = create_assets(submissions)
+              assets2 = create_assets(submissions)
+              assets = assets1 + assets2
               annotations = create_annotations(assets, course)
               projects.push project
 
@@ -207,7 +209,7 @@ module Utility
     def create_assets(submissions)
       assets = []
       submissions.each do |submission|
-        if rand() > 0.25
+        if rand() > 0.50
           youtube = get_youtube
           if submission.creator_type == 'User'
             author = submission.creator
