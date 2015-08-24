@@ -2,6 +2,18 @@ module Utility
 
   class SampleDataGenerator
 
+    SEED = 1234
+    CREATORS = 30..50
+    EVALUATORS = 10
+    ASSISTANTS = 3
+    COURSES = 0..5
+    EVALUATORS_PER_COURSE = 1..3
+    CREATORS_PER_COURSE = 10..25
+    ASSISTANTS_PER_COURSE = 1..2
+    GROUPS_PER_COURSE = 0..4
+    PROJECTS_PER_COURSE = 1..4
+    ANNOTATIONS_PER_ASSET = 0..5
+
     def empty
       check_safety
       Annotation.delete_all
@@ -41,25 +53,25 @@ module Utility
 
       check_safety
 
-      puts 'Emptying database'
+      puts '[CHORE] Emptying database'
       empty
 
       # Set the random seed so we get a predictable outcome
-      srand 1234
+      srand Utility::SampleDataGenerator::SEED
 
       superadmin = create_user(email: "superadmin@vocat.io", password: 'cuny4life', first_name: 'Charles', last_name: 'Xavier', role: 'superadministrator')
 
       orgs = []
       orgs.push create_org({:name => 'Greendale Community College', :subdomain => 'greendale', :email_default_from => 'greendale-vocat-demo@vocat.io'})
-      orgs.push create_org({:name => 'Starfleet Academy', :subdomain => 'starfleet', :email_default_from => 'starfleet-vocat-demo@vocat.io'})
-      orgs.push create_org({:name => 'Gotham University', :subdomain => 'gotham', :email_default_from => 'gotham-vocat-demo@vocat.io'})
+      # orgs.push create_org({:name => 'Starfleet Academy', :subdomain => 'starfleet', :email_default_from => 'starfleet-vocat-demo@vocat.io'})
+      # orgs.push create_org({:name => 'Gotham University', :subdomain => 'gotham', :email_default_from => 'gotham-vocat-demo@vocat.io'})
 
       orgs.each do |org|
 
         # Make an admin
         admins = []
-        admins.push create_user(organization: org, email: "admin@#{org.subdomain}.vocat.io", password: 'vocat123', first_name: 'Charles', last_name: 'Xavier', role: 'administrator')
-        admins.push create_user(organization: org, email: "another_admin@#{org.subdomain}.vocat.io", password: 'vocat123', first_name: 'Charles', last_name: 'Xavier', role: 'administrator')
+        admins.push create_user(organization: org, email: "admin@#{org.subdomain}.edu", password: 'vocat123', first_name: 'Charles', last_name: 'Xavier', role: 'administrator')
+        admins.push create_user(organization: org, email: "another_admin@#{org.subdomain}.edu", password: 'vocat123', first_name: 'Charles', last_name: 'Xavier', role: 'administrator')
 
         rubrics = [
             create_theater_rubric(org, admins.last),
@@ -75,57 +87,62 @@ module Utility
 
 
         # Make some evaluators
-        5.times do |i|
-          evaluators.push create_user(organization: org, email: "evaluator#{i}@#{org.subdomain}.vocat.io", password: 'vocat123', first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, role: 'evaluator')
+        Utility::SampleDataGenerator::EVALUATORS.times do |i|
+          evaluators.push create_user(organization: org, email: "evaluator#{i}@#{org.subdomain}.edu", password: 'vocat123', first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, role: 'evaluator')
         end
 
         # Make some creators
-        rand(30..50).times do |i|
-          creators.push create_user(organization: org, email: "creator#{i}@#{org.subdomain}.vocat.io", password: 'vocat123', first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, role: 'creator')
+        rand(Utility::SampleDataGenerator::CREATORS).times do |i|
+          creators.push create_user(organization: org, email: "creator#{i}@#{org.subdomain}.edu", password: 'vocat123', first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, role: 'creator')
         end
 
         # Make some assistants
-        3.times do |i|
-          assistants.push create_user(organization: org, email: "assistant#{i}@#{org.subdomain}.vocat.io", password: 'vocat123', first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, role: 'creator')
+        Utility::SampleDataGenerator::ASSISTANTS.times do |i|
+          assistants.push create_user(organization: org, email: "assistant#{i}@#{org.subdomain}.edu", password: 'vocat123', first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, role: 'creator')
         end
 
         # Make some courses
         semesters.each do |semester|
-          rand(0..15).times do
+          rand(Utility::SampleDataGenerator::COURSES).times do
             course = create_course(semester, org)
 
-              evaluators.sample(rand(1..3)).each do |user|
-                puts "Enroll Evaluator: #{user.email} in #{course.department}#{course.number}"
+              evaluators.sample(rand(Utility::SampleDataGenerator::EVALUATORS_PER_COURSE)).each do |user|
+                puts "[ENROLL] EVALUATOR: #{user.email} in #{course.department}#{course.number}"
                 course.enroll user, :evaluator
               end
 
-              creators.sample(rand(5..25)).each do |user|
-                puts "Enroll Creator: #{user.email} in #{course.department}#{course.number}"
+              creators.sample(rand(Utility::SampleDataGenerator::CREATORS_PER_COURSE)).each do |user|
+                puts "[ENROLL] CREATOR: #{user.email} in #{course.department}#{course.number}"
                 course.enroll user, :creator
               end
 
-              assistants.sample(rand(0..2)).each do |user|
-                puts "Enroll Assistant: #{user.email} in #{course.department}#{course.number}"
+              assistants.sample(rand(Utility::SampleDataGenerator::ASSISTANTS_PER_COURSE)).each do |user|
+                puts "[ENROLL] ASSISTANT: #{user.email} in #{course.department}#{course.number}"
                 course.enroll user, :assistant
               end
 
               group_creators = course.creators.all.to_a
-              group_count = rand(0..6)
+              group_count = rand(Utility::SampleDataGenerator::GROUPS_PER_COURSE)
               per_group = 0
               per_group = (group_creators.count / group_count).floor if group_count > 0
               group_count.times do |i|
                 grab = group_creators.sample(per_group)
                 group_creators = group_creators - grab
                 name = "Group ##{i + 1}"
-                puts "Create Group: #{name}"
+                puts "[CREATE] GROUP: #{name}"
                 group = course.groups.create(:name => name)
-                puts "Enrolling Creators in Group: #{grab.length} creators enrolled"
+                puts "[ENROLL] CREATORS in GROUP: #{grab.length} creators enrolled"
                 group.creators << grab
                 groups.push group
               end
 
-            rand(3..8).times do
+            rand(Utility::SampleDataGenerator::PROJECTS_PER_COURSE).times do
               project = create_project(course, rubrics)
+              submissions = create_project_submissions(project)
+              create_evaluations(course.evaluators, submissions)
+              create_evaluations(course.creators, submissions)
+              assets = create_assets(submissions)
+              annotations = create_annotations(assets, course)
               projects.push project
 
             end
@@ -141,13 +158,82 @@ module Utility
     protected
 
 
+    def create_annotations(assets, course)
+      bodies = [
+        'I thought this part was just OK',
+        'Reall lackluster performance',
+        'Colors are visually striking',
+        'Special effects leave something to be desired',
+        'I\'m just not buying it!',
+        'Very inspiring moment',
+        'Too dark to tell what\'s happening'
+      ]
+      annotations = []
+      assets.each do |asset|
+        rand(Utility::SampleDataGenerator::ANNOTATIONS_PER_ASSET).times do
+          author_id = course.users.pluck(:id).sample
+          youtube = get_youtube(asset[:external_location])
+          duration = youtube[:duration]
+          annotation = asset.annotations.new(:author_id => author_id, :body => bodies.sample, :published => true, seconds_timecode: rand(0..duration))
+          if annotation.save
+            puts "[CREATE] ANNOTATION for SUBMISSION ##{asset.submission_id}"
+            annotations.push annotation
+          else
+            puts annotation.errors.full_messages
+            abort('Failed to save annotation')
+          end
+        end
+      end
+      annotations
+    end
+
+    def get_youtube(id = nil)
+      youtubes = [
+          {name: 'Singing in the Rain', id: '36QiuRc_3I8', duration: 230},
+          {name: 'A New Hope', id: '1g3_CFmnU7k', duration: 160},
+          {name: 'Escape from New York', id: 'ckvDo2JHB7o', duration: 85},
+          {name: 'Wrath of Kahn', id: 'UJTi7KJPx_E', duration: 130},
+          {name: 'The Prisoner', id: 'tra3Zi5ZWa0', duration: 180},
+          {name: 'Being There', id: 'oOOghKacg40', duration: 166}
+      ]
+      if !id
+        return youtubes.sample
+      else
+        youtubes.select {|youtube| youtube[:id] == id }.first()
+      end
+    end
+
+
+    def create_assets(submissions)
+      assets = []
+      submissions.each do |submission|
+        if rand() > 0.25
+          youtube = get_youtube
+          if submission.creator_type == 'User'
+            author = submission.creator
+          else
+            author = submission.creator.creators.first
+          end
+          asset = submission.assets.new(:name => youtube[:name], :type => 'Asset::Youtube', :author => author, :external_location => youtube[:id], :external_source => 'Youtube')
+          if asset.save
+            puts "[CREATE] ASSET #{asset.name} for #{submission.creator} / #{submission.project}"
+            assets.push asset
+          else
+            puts asset.errors.full_messages
+            abort('Failed to save asset')
+          end
+        end
+      end
+      assets
+    end
+
     def random_boolean
       [true, false].sample
     end
 
     def create_org(**attributes)
       attributes[:active] = true
-      puts "Create Organization: #{attributes[:name]}"
+      puts "[CREATE] ORGANIZATION: #{attributes[:name]}"
       Organization.create(attributes)
     end
 
@@ -155,9 +241,9 @@ module Utility
       u = User.new(attributes)
       if u.save
         if attributes[:organization]
-          puts "Creating #{attributes[:organization].name} user: #{attributes[:email]}"
+          puts "[CREATE] USER in #{attributes[:organization].name}: #{attributes[:email]}"
         else
-          puts "Creating ORGLESS user: #{attributes[:email]}"
+          puts "[CREATE] USER: #{attributes[:email]}"
         end
       else
         puts u.errors.full_messages
@@ -210,14 +296,41 @@ module Utility
                                        'enable_public_discussion' => random_boolean
                                    }
                                })
-      puts "Create Project: #{project.name} in #{course.department}#{course.number}"
+      puts "[CREATE] PROJECT: #{project.name} in #{course.department}#{course.number}"
       project.save
-      puts rubric
+      project
+    end
+
+    def create_evaluations(users, submissions)
+      users.each do |user|
+        submissions.each do |submission|
+          if rand() > 0.25
+            evaluation = submission.evaluations.new({:submission => submission, :evaluator => user, :published => true, :rubric => submission.rubric})
+            evaluation.rubric.field_keys.each do |key|
+              low = (evaluation.rubric.high - evaluation.rubric.low) * 0.65 + evaluation.rubric.low
+              evaluation.scores[key] = rand(low..evaluation.rubric.high).to_i
+            end
+            if evaluation.save
+              puts "[CREATE] EVALUATION of #{submission.creator} / #{submission.project} by #{user}"
+            else
+              puts evaluation.errors.full_messages
+              abort('Failed to save evaluation')
+            end
+          else
+            puts "[SKIP] EVALUATION of #{submission.creator} / #{submission.project} by #{user}"
+          end
+        end
+      end
     end
 
 
+    def create_project_submissions(project)
+      submissions = SubmissionFactory.new.project(project)
+      puts "[CREATE] SUBMISSIONS:  #{submissions.count} for #{project}"
+      submissions
+    end
+
     def get_semesters
-      puts "Getting semester records"
       Semester.all.to_a
     end
 
@@ -249,9 +362,8 @@ module Utility
                                {'range' => high_key, 'field' => expression_key, 'description' => 'Concentration is sustained throughout. The speaker is focused and clear about what he/she wants to say. There is a point of view and speaker appears to have an emotional/intellectual connection to their narrative.'},
                                {'range' => high_key, 'field' => overall_key, 'description' => 'Speaker engages audience and is compelling to watch and listen to. Ideas are clear, concise, and communicated in a creative, memorable way.'},
                            ])
-      puts "Create Rubric: #{the_rubric.name}"
       if the_rubric.save
-        puts "Create Rubric: #{the_rubric.name}"
+        puts "[CREATE] RUBRIC: #{the_rubric.name}"
       else
         puts the_rubric.errors.full_messages
         abort('Failed to save rubric')
@@ -347,7 +459,7 @@ module Utility
                                 {'range' => comm_high_key, 'field' => visual_key, 'description' => 'Visual aids clear and follow guidelines, Visual aids are handled well, attire is appropriate and fits the goals and content of the speech'},
                             ])
       if comm_rubric.save
-        puts "Create Rubric: #{comm_rubric.name}"
+        puts "[CREATE] RUBRIC: #{comm_rubric.name}"
       else
         puts comm_rubric.errors.full_messages
         abort('Failed to save rubric')
