@@ -364,11 +364,11 @@ class Ability
     ######################################################
 
     can :create, CourseRequest do |course_request|
-      user.role?(:evaluator) || user.role?(:administrator)
+      user.role?(:evaluator) || user.role?(:administrator) || user.role?(:superadministrator)
     end
 
     can :manage, CourseRequest do |course_request|
-      user.role?(:administrator) && user.organization == course_request.organization
+      (user.role?(:administrator) && user.organization == course_request.organization) || user.role?(:superadministrator)
     end
 
 
