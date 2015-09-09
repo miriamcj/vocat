@@ -1,5 +1,5 @@
 set :branch, "master"
-set :sewrver_name, "uhura.vocat.io"
+set :server_name, "uhura.vocat.io"
 set :application, "vocat_baruch"
 
 set :stage, :production
