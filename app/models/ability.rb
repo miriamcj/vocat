@@ -213,7 +213,7 @@ class Ability
     end
 
     can :discuss, Submission do |submission|
-      (submission.project.course.role(user) == :evaluator && can?(:evaluate, submission)) ||
+      (submission.project.course.role(user) == :evaluator) ||
           can?(:own, submission) ||
           (submission.project.allows_public_discussion? && submission.project.course.role(user))
     end
