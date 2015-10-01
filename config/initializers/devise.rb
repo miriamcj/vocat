@@ -9,7 +9,7 @@ Devise.setup do |config|
   config.secret_key = 'b2b70bf6d8201689a5ed659f6003c2fac75c515799e8e3e13d7ff4d9d5edf481f4a8b5820a9bf1b7a7d9d45b12d196d6b14f2b3d2c8af71a71ac4782260a6260'
 
   # Configure the class responsible to send e-mails.
-  # config.mailer = "Devise::Mailer"
+  config.mailer = "VocatDeviseMailer"
 
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
