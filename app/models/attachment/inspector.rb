@@ -1,7 +1,7 @@
 class Attachment::Inspector
 
   TYPES = {
-      :audio => %w[mp3, wav],
+      :audio => %w[mp3 wav],
       :image => %w[gif jpg jpeg png tif tiff],
       :video => %w[avi mp4 m4v mov flv wmv webm ogv mkv]
   }
