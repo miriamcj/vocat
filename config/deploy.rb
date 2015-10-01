@@ -4,7 +4,7 @@ lock '3.3.5'
 set :application, 'vocat'
 set :scm, :git
 set :repo_url, 'git@github.com:castiron/vocat.git'
-set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads}
 set :linked_files, ["config/secrets.yml"]
 set :keep_releases, 5
 set :bundle_binstubs, -> { shared_path.join('bin') }

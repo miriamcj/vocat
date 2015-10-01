@@ -26,6 +26,7 @@
 #  ldap_default_role                 :string           default("creator")
 #  email_default_from                :string
 #  email_notification_course_request :string
+#  support_email                     :string
 #
 
 class Organization < ActiveRecord::Base

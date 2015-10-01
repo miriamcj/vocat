@@ -9,9 +9,9 @@ class UserMailer < ActionMailer::Base
     @user.reset_password_sent_at = Time.now.utc
     @user.save(:validate => false)
     @organization = @user.organization
-    @support_email = Rails.application.config.vocat.email.notification.support_email
+    @support_email = @organization.support_email
     @token = raw
-    @host = Rails.application.config.vocat.email.url_domain
+    @host = @organization.domain
     mail(to: @user.email, from: from(@organization), subject: 'Welcome to Vocat')
   end
 

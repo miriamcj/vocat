@@ -213,7 +213,7 @@ class Ability
     end
 
     can :discuss, Submission do |submission|
-      (submission.project.course.role(user) == :evaluator && can?(:evaluate, submission)) ||
+      (submission.project.course.role(user) == :evaluator) ||
           can?(:own, submission) ||
           (submission.project.allows_public_discussion? && submission.project.course.role(user))
     end
@@ -364,11 +364,11 @@ class Ability
     ######################################################
 
     can :create, CourseRequest do |course_request|
-      user.role?(:evaluator) || user.role?(:administrator)
+      user.role?(:evaluator) || user.role?(:administrator) || user.role?(:superadministrator)
     end
 
     can :manage, CourseRequest do |course_request|
-      user.role?(:administrator) && user.organization == course_request.organization
+      (user.role?(:administrator) && user.organization == course_request.organization) || user.role?(:superadministrator)
     end
 
 

@@ -8,7 +8,7 @@ class Statistics
       # TODO: These queries need to account for organization.
       out.push({:label => "Assets", :value => Asset.in_organization(organization).count})
       out.push({:label => "Annotations", :value => Annotation.in_organization(organization).count})
-      out.push({:label => "Discussion Posts", :value => DiscussionPost.count})
+      out.push({:label => "Discussion Posts", :value => DiscussionPost.in_organization(organization).count})
     else
       courses = organization.courses.search(search)
       out.push({:label => "Creators", :value => Membership.in_courses(courses).creators.count})

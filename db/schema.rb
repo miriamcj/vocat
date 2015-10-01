@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150707231000) do
+ActiveRecord::Schema.define(version: 20150820174652) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -232,6 +232,7 @@ ActiveRecord::Schema.define(version: 20150707231000) do
     t.string   "ldap_default_role",                 default: "creator"
     t.string   "email_default_from"
     t.string   "email_notification_course_request"
+    t.string   "support_email"
   end
 
   create_table "project_types", force: :cascade do |t|
