@@ -153,7 +153,7 @@ define (require) ->
 
     serializeData: () ->
       results = super()
-      results.current_user_is_admin = (window.VocatUserRole == 'administrator')
+      results.current_user_is_admin = (window.VocatUserRole == 'administrator' || window.VocatUserRole == 'superadministrator')
       results
 
     initialize: (options) ->
