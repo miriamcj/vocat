@@ -39,7 +39,7 @@
 				<fieldset>
 					<div class="formgrid third">
 						<%= label_tag :department, 'Department', {:class => 'text-label'} %>
-						<%= select_tag(:department, options_for_select(Course.distinct_departments, params[:department]), {:include_blank => true, 'data-behavior' => 'chosen'}) %>
+						<%= select_tag(:department, options_for_select(Course.distinct_departments(@current_organization), params[:department]), {:include_blank => true, 'data-behavior' => 'chosen'}) %>
 					</div>
 					<div class="formgrid third">
 						<%= label_tag :semester, 'Semester', {:class => 'text-label'} %>
@@ -47,11 +47,11 @@
 					</div>
 					<div class="formgrid third">
 						<%= label_tag :year, 'Year', {:class => 'text-label'} %>
-						<%= select_tag(:year, options_for_select(Course.distinct_years, params[:year]), {:include_blank => true, 'data-behavior' => 'chosen'}) %>
+						<%= select_tag(:year, options_for_select(Course.distinct_years(@current_organization), params[:year]), {:include_blank => true, 'data-behavior' => 'chosen'}) %>
 					</div>
 					<div class="formgrid third">
 						<%= label_tag :evaluator, 'Instructor', {:class => 'text-label'} %>
-						<%= select_tag(:evaluator, options_from_collection_for_select(User.evaluators, 'id', 'list_name', params[:evaluator]), {:include_blank => true, 'data-behavior' => 'chosen'}) %>
+						<%= select_tag(:evaluator, options_from_collection_for_select(User.in_org(@current_organization).evaluators, 'id', 'list_name', params[:evaluator]), {:include_blank => true, 'data-behavior' => 'chosen'}) %>
 					</div>
 					<div class="formgrid third">
 						<%= label_tag :section, 'Section', {:class => 'text-label'} %>

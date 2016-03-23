@@ -59,7 +59,8 @@ class Course < ActiveRecord::Base
     c.sorted
   end
 
-  def self.distinct_departments
+  def self.distinct_departments(org = nil)
+    return Course.in_org(org).uniq.pluck(:department).sort unless org.nil?
     Course.uniq.pluck(:department).sort
   end
 
@@ -100,8 +101,12 @@ class Course < ActiveRecord::Base
     factory.course_and_creator(self, creator)
   end
 
-  def self.distinct_years
-    years = Course.uniq.pluck(:year)
+  def self.distinct_years(org = nil)
+    if org.nil?
+      years = Course.uniq.pluck(:year)
+    else
+      years = Course.in_org(org).uniq.pluck(:year)
+    end
     years.reject! { |y| y.nil? }
     years.sort
   end
