@@ -200,7 +200,7 @@ module Concerns::StrongParametersConfiguration
   end
 
   def rubric_params
-    if current_user.role?('administrator')
+    if current_user.role?('administrator') || current_user.role?('superadministrator')
       admin_rubric_params
     else
       non_admin_rubric_params
