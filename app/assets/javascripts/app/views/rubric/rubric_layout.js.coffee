@@ -153,10 +153,7 @@ define (require) ->
 
     serializeData: () ->
       results = super()
-      if Vocat.currentUserRole == 'administrator'
-        results.current_user_is_admin = true
-      else
-        results.current_user_is_admin = false
+      results.current_user_is_admin = (window.VocatUserRole == 'administrator')
       results
 
     initialize: (options) ->
