@@ -1,8 +1,6 @@
 Vocat::Application.configure do
 
-  settings  = YAML.load(ERB.new(File.read("#{Rails.root}/config/settings.yml.erb")).result)[Rails.env.to_sym]
-  vocat_config = settings.deep_merge(Rails.application.secrets.vocat)
-  config.vocat = Hashie::Mash.new(vocat_config)
+  config.vocat = Hashie::Mash.new(Rails.application.secrets)
   config.vocat['tld_length'] = config.vocat.domain.split('.').length - 1 || 1
 
   # SETUP EMAIL CONFIG

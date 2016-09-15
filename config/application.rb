@@ -62,9 +62,7 @@ module Vocat
     config.autoload_paths << Rails.root.join('lib')
 
     # SETUP NOTIFICATION CONFIG
-    settings  = YAML.load(ERB.new(File.read("#{Rails.root}/config/settings.yml.erb")).result)[Rails.env.to_sym]
-    vocat_config = settings.deep_merge(Rails.application.secrets.vocat)
-    vocat_config = Hashie::Mash.new(vocat_config)
+    vocat_config = Hashie::Mash.new(Rails.application.secrets)
     if vocat_config.notification.slack.enabled && !vocat_config.notification.slack.webhook_url.nil? && !vocat_config.notification.slack.channel.nil?
       config.middleware.use ExceptionNotification::Rack,
                                          :slack => {

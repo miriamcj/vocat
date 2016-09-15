@@ -39,6 +39,7 @@ gem 'kaminari'
 gem 'faker'
 gem 'responders', '~> 2.0'
 gem 'rack-cors', :require => "rack/cors"
+gem 'dotenv-rails'
 
 # Deployment
 gem 'capistrano', '~> 3.3.0'
