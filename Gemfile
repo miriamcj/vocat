@@ -11,7 +11,7 @@ gem 'jquery-fileupload-rails'
 
 gem 'simple_form'
 gem 'hashie'
-gem 'unicorn'
+gem 'puma'
 gem 'devise'
 gem 'doorkeeper'
 gem 'aws-sdk', '~> 1.32.0'
