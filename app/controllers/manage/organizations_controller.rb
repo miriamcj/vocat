@@ -53,7 +53,7 @@ class Manage::OrganizationsController < ApplicationController
 
   # DELETE manage.domain.com/organizations/1
   def destroy
-    @admin_organization.destroy
+    @organization.destroy
     redirect_to organizations_url, notice: 'Organization was successfully destroyed.'
   end
 
