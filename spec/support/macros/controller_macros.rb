@@ -6,6 +6,13 @@ module ControllerMacros
     end
   end
 
+  def login_superadmin
+    before(:each) do
+      @request.env["devise.mapping"] = Devise.mappings[:superadmin]
+      sign_in FactoryGirl.create(:superadministrator) # Using factory girl as an example
+    end
+  end
+
   def login_user
     before(:each) do
       @request.env["devise.mapping"] = Devise.mappings[:user]

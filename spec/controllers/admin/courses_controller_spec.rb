@@ -28,7 +28,7 @@ RSpec.describe Admin::CoursesController, type: :controller do
   describe "GET #index" do
     it "assigns all org courses as @courses" do
       course = Course.create! valid_attributes
-      get :index, {}, valid_session
+      get :index, {department: course.department, section: course.section}, valid_session
       expect(assigns(:courses).to_a).to eq([course])
     end
   end
