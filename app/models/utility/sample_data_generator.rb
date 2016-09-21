@@ -108,7 +108,7 @@ module Utility
 
               evaluators.sample(rand(Utility::SampleDataGenerator::EVALUATORS_PER_COURSE)).each do |user|
                 puts "[ENROLL] EVALUATOR: #{user.email} in #{course.department}#{course.number}"
-                course.enroll user, :evaluator
+                course.enroll user, :evaluatorsirir
               end
 
               creators.sample(rand(Utility::SampleDataGenerator::CREATORS_PER_COURSE)).each do |user|

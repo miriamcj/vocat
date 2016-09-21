@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
   before_action :initialize_management_domain
   before_action :initialize_course
   before_action :inject_global_layout_variables
+  before_action :set_paper_trail_whodunnit
 
   def devise_current_user
     @current_user ||= warden.authenticate(scope: :user)

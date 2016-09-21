@@ -9,7 +9,8 @@ describe Asset do
   end
 
   it 'has an active model serializer' do
-    expect(Asset.active_model_serializer.new(Asset.new)).to be_kind_of ActiveModel::Serializer
+    a = Asset.create
+    expect(a.active_model_serializer.new(Asset.new)).to be_kind_of ActiveModel::Serializer
   end
 
   it 'has a valid factory' do
