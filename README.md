@@ -7,32 +7,27 @@ Developed by the Bernard L. Schwartz Communication Institute at Baruch College, 
 
 The newest version features qualitative and quantitative feedback options, video annotation, improved discussions, support for cloud processing and storage of video, improved groups, and APIs for integration with other tools and services. LTI support for integration with most LMSs is coming soon.
 
-## Infrastructure
-- Vocat relies on postgres, which can generally be installed via yum or apt-get
-- You will need Postgres' hstore module. On RHEL, you start by installing the pg contrib package: yum install postgresql92-contrib.x86_64
+## Setting up a Development Environment
 
-## Seeds
+TODO: Discuss setting up how to install dependencies, start the server, etc.
 
-### Users
-- Passwords are the same for everyone: 'testtest123'
-- There are 2 evaluators: i.e. `evaluator1@test.com`
-- There are 2 assistants: i.e. `assistant1@test.com`
-- There are 50 students: i.e. `student37@test.com`
-- The idea was to create an even distribution of users to courses. 
+### Load Sample Data
 
-### Organizations
-- There are two. Baruch and something else. 
-- Only Baruch has any associated data. Always use Baruch.
+As you work on VOCAT, it's helpful to have a good set of sample data. VOCAT includes a rake task that will truncate existing tables and load fake users and course data.
 
-### Courses
-- There are a handful of courses with somewhat realistic names.
+To load sample data, execute `rake development:load`. This Will create the following models:
 
-### Projects
-- Each course has 2 to 10 projects.
-- Each project has 3 to 5 submissions.
+#### Organizations
+- http://greendale.vocat.dev/
+- http://starfleet.vocat.dev/
+- http://gotham.vocat.dev/
 
-### Project Types
-- There is only one type: `presentation`
+#### Users (replace "greendale" with the appropriate subdomain)
+- superadmin@vocat.io / cuny4life
+- admin@greendale.edu / vocat1223
+- evaluator1@greendale.edu / vocat123 (there are more evaluators; just change the number)
+- creator1@greendale.edu / vocat123 (there are more creators; just change the number)
+- assistant1@greendale.edu / vocat123 (there are more assistants; just change the number)
 
 ## Open Source Libraries Distributed with VOCAT
 

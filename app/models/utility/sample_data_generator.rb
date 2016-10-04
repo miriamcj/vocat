@@ -63,8 +63,8 @@ module Utility
 
       orgs = []
       orgs.push create_org({:name => 'Greendale Community College', :subdomain => 'greendale', :email_default_from => 'greendale-vocat-demo@vocat.io'})
-      # orgs.push create_org({:name => 'Starfleet Academy', :subdomain => 'starfleet', :email_default_from => 'starfleet-vocat-demo@vocat.io'})
-      # orgs.push create_org({:name => 'Gotham University', :subdomain => 'gotham', :email_default_from => 'gotham-vocat-demo@vocat.io'})
+      orgs.push create_org({:name => 'Starfleet Academy', :subdomain => 'starfleet', :email_default_from => 'starfleet-vocat-demo@vocat.io'})
+      orgs.push create_org({:name => 'Gotham University', :subdomain => 'gotham', :email_default_from => 'gotham-vocat-demo@vocat.io'})
 
       orgs.each do |org|
 

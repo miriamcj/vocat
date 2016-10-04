@@ -1,4 +1,4 @@
-namespace :db do
+namespace :development do
   desc "Truncate all tables"
   task :truncate => :environment do
     generator = Utility::SampleDataGenerator.new
@@ -6,10 +6,10 @@ namespace :db do
   end
 
   desc "Reload all demo data"
-  task :demo_refresh => :environment do
-    Rake::Task['db:truncate'].invoke
+  task :load => :environment do
+    Rake::Task['development:truncate'].invoke
     Rake::Task['db:seed'].invoke
-    Rake::Task['db:sample'].invoke
+    Rake::Task['development:sample'].invoke
   end
 
   desc "Adds dummy data to the database"
