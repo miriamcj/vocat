@@ -1,10 +1,18 @@
 <footer class="page-footer">
-	<div class="page-footer-inner">
-		<span class="page-footer-msg">Vocat is brought to you by <a target="_blank" href="http://ctl.baruch.cuny.edu/">
-			The Center for Teaching and Learning</a> at <a href="http://baruch.cuny.edu" target="_blank">Baruch
-			College</a>. Learn more at <a href="http://vocat.io" target="_blank">vocat.io</a>.</span>
-		<% if Rails.configuration.vocat_build_number %>
-			<span class="page-footer-version">Build <%= Rails.configuration.vocat_build_number %></span>
-		<% end %>
-	</div>
+  <div class="page-footer-inner">
+    <div class="vocat-logo">
+      <%= image_tag("png/logo.png", :alt => "VOCAT") %> | <a href="http://www.york.edu">York College</a>
+    </div>
+    <div class="page-footer-colophon">
+      <div class="page-footer-msg">
+        <span>VOCAT is brought to you by <a href="http://baruch.cuny.edu" target="_blank">Baruch College</a>. Learn more at <a href="http://vocat.io" target="_blank">vocat.io</a>.</span>
+        <% if Rails.configuration.vocat_build_number %>
+          <span class="page-footer-version">Build <%= Rails.configuration.vocat_build_number %></span>
+        <% end %>
+      </div>
+      <div class="baruch-logo">
+        <a href="www.baruch.cuny.edu"><%= image_tag("png/baruch-logo.png", :alt => "Baruch College") %></a>
+      </div>
+    </div>
+  </div>
 </footer>

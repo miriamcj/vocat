@@ -186,6 +186,13 @@ class Course < ActiveRecord::Base
     Evaluation.average_score_by_course_and_type(self, :evaluator)
   end
 
+  def has_unreviewed_work?(user)
+    submissions.each do |submission|
+      return true if submission.unreviewed_by_user?(user)
+    end
+    return false
+  end
+
   def average_peer_score
     Evaluation.average_score_by_course_and_type(self, :creator)
   end

@@ -1,4 +1,7 @@
 <% content_for :content do %>
+  <div class="login-title">
+    <%= image_tag("png/logo.png", :alt => "VOCAT", style: 'max-width: 100px;') %> <span>|</span> <a href="http://www.york.edu">York College</a>
+  </div>
 	<div class="page-content">
 		<div class="authentication-tile">
 			<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'formgrid'}) do |f| %>
@@ -38,12 +41,23 @@
 
 			<% end %>
 		</div>
-		<footer class="authentication-footer">
-			<ul>
-				<%= render "devise/shared/links" %>
-				<li><a href="http://vocat.io">Learn more about Vocat</a></li>
-			</ul>
-		</footer>
+		<div class="authentication-footer">
+			<div class="help-links">
+        <a href="http://vocat.io">Get help using VOCAT</a> | <%= render "devise/shared/links" %>
+			</div>
+		</div>
+    <footer class="login-page-footer">
+      <div>
+        <a href="www.baruch.cuny.edu"><%= image_tag("png/baruch-logo.png", :alt => "Baruch College", class: 'baruch-logo') %></a>
+      </div>
+      <div class="">
+        <span class="page-footer-msg">VOCAT is brought to you by <a href="http://baruch.cuny.edu" target="_blank">Baruch
+        College</a>. Learn more at <a href="http://vocat.io" target="_blank">vocat.io</a>.</span>
+        <% if Rails.configuration.vocat_build_number %>
+            <span class="page-footer-version">Build <%= Rails.configuration.vocat_build_number %></span>
+        <% end %>
+      </div>
+    </footer>
 	</div>
 <% end %>
 <% content_for :body_class do %>bg-dark

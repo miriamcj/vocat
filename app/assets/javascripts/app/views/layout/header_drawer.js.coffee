@@ -26,10 +26,12 @@ define (require) ->
 
     open: () ->
       $("[data-drawer-target=\"#{@drawerTarget}\"]").addClass('drawer-open')
+      $("[data-drawer-target=\"#{@drawerTarget}\"] a").addClass('active')
       @triggerMethod('opened')
 
     close: () ->
       $("[data-drawer-target=\"#{@drawerTarget}\"]").removeClass('drawer-open')
+      $("[data-drawer-target=\"#{@drawerTarget}\"] a").removeClass('active')
       @triggerMethod('closed')
 
     setupListeners: () ->

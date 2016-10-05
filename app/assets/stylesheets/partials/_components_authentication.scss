@@ -13,13 +13,38 @@
     }
   }
   a {
-    color: $white;
+    color: $grayMediumDarker;
+    text-decoration: underline;
     &:hover {
       color: $tealLight;
     }
   }
 }
-
+footer.login-page-footer {
+  position: fixed;
+  bottom: 50px;
+  color: $grayMediumDarker;
+  a {
+    color: $grayLight;
+    &:hover {
+      color: $tealLight;
+    }
+  }
+  .baruch-logo {
+    max-width: 200px;
+    margin-bottom: 20px;
+  }
+}
+.login-title {
+  span, a {
+    font-size: $delta;
+    color: $grayLight;
+    font-weight: $semibold;
+  }
+  a:hover {
+    color: $tealLight;
+  }
+}
 .authentication-tile {
   width: 300px;
   .next-button:hover {
@@ -32,28 +57,6 @@
   .post-button:hover {
     background-color: $tealDark;
     border: 1px solid $tealDark;
-  }
-  .org-logo {
-    max-width: 125px;
-    position: relative;
-    left: 0px;
-    img {
-      max-width: 125px;
-    }
-    .ie9 & {
-      margin-bottom: 9px;
-    }
-
-  }
-  .baruch-logo {
-    height: 50px;
-    width: 125px;
-    position: relative;
-    left: -7px;
-    @include svg(baruch-logo);
-    .ie9 & {
-      margin-bottom: 9px;
-    }
   }
   .submit-row {
     margin-top: .25em;
@@ -78,6 +81,9 @@
       &:-ms-input-placeholder {
         color: $grayLight;
       }
+      &:focus {
+        background: #414141;
+      }
     }
     label {
       text-transform: none;
@@ -91,5 +97,4 @@
       }
     }
   }
-
 }

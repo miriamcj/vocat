@@ -1,14 +1,5 @@
 <% content_for :content do %>
 
-	<div class="page-message">
-		<div class="header">
-			Hello <%= current_user.first_name %>,
-		</div>
-		<div class="body">
-			<%= render 'dashboard/messages/evaluator_message' %>
-		</div>
-	</div>
-
 	<div class="page-section">
 		<div class="header-wrapper">
 			<div class="buttons">
@@ -16,12 +7,13 @@
 			</div>
 			<div class="header">
 				<h4>Your Courses</h4>
+        <p class="subtitle">Your courses and activity at a glance.</p>
 			</div>
 		</div>
-		<div class="body">
+		<div class="body secondary">
 			<% if current_user.courses.count > 0 %>
 				<% current_user.courses.each do |course| %>
-					<%= render 'dashboard/shared/evaluator_course', :course => course %>
+					<%= render 'shared/course_synopsis', :course => course %>
 				<% end %>
 			<% else %>
 				It looks like you don't belong to any courses

@@ -4,9 +4,6 @@
 	<div style="position: relative">
 		<div class="page-header--navigation-wrapper">
 			<div class="page-header--navigation">
-				<nav class="page-header--logo-nav">
-					<%= link_to image_tag("png/logo.png", :alt => "VOCAT"), root_path %>
-				</nav>
 				<% if user_signed_in? && !hide_nav %>
 
 					<div class="nav-trigger-wrapper">
@@ -20,7 +17,6 @@
 						<% end %>
 
 						<% if @app_section == 'course' %>
-							<%= render 'layouts/navigation/context_nav_trigger' %>
 							<%= render 'layouts/navigation/section_nav_trigger' %>
 						<% end %>
 
@@ -28,6 +24,7 @@
 							<%= render 'layouts/navigation/section_nav_trigger' %>
 						<% end %>
 					</div>
+
 
 					<%= render 'layouts/navigation/user_nav' %>
 

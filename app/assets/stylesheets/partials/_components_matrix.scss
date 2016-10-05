@@ -164,6 +164,9 @@ $columnWidth: ($container / $columns) - 12;
     display: block;
     font-size: $kappa;
     margin-top: .5em;
+    &:hover {
+      color: $tealLight;
+    }
   }
 }
 
@@ -273,23 +276,6 @@ $columnWidth: ($container / $columns) - 12;
     padding-bottom: 2em;
     text-align: center;
     @include clearfix(hard);
-    &:hover {
-      dl, dl dt, dl dd, dl dd {
-        color: $tealDark;
-      }
-      dl dd b.matrix--check {
-        @include svg(check-teal);
-      }
-      dl dd b.matrix--scored {
-        color: $tealDark;
-      }
-      dl dd b.matrix--checkbox {
-        @include svg(checkbox-unchecked-teal);
-        &.checked {
-          @include svg(checkbox-checked-teal);
-        }
-      }
-    }
     .cell--message {
       @include font-head;
       font-weight: $semibold;
@@ -301,7 +287,6 @@ $columnWidth: ($container / $columns) - 12;
     .cell--message-pinned {
       text-transform: none;
       display: block;
-      width: 100%;
       position: absolute;
       bottom: 0;
       text-align: center;
@@ -312,7 +297,7 @@ $columnWidth: ($container / $columns) - 12;
   dl {
     display: block;
     float: left;
-    width: 33%;
+    width: 50%;
     vertical-align: top;
     dt {
       margin-bottom: 20%;
@@ -321,7 +306,7 @@ $columnWidth: ($container / $columns) - 12;
       text-transform: uppercase;
       text-align: center;
       color: $grayMediumLighter;
-      font-size: $lambda-minor;
+      font-size: .8em;
     }
     dd {
       @include font-matrix;

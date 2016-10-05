@@ -37,7 +37,6 @@ body {
   color: $grayDark;
   background-color: $white;
   min-height: 100%;
-  padding-bottom: $headerHeight;
   .no-mediaqueries & {
     min-width: $michigan;
   }
@@ -128,9 +127,9 @@ hr {
 a {
   //  @include transition($mediumTransition opacity $timing);
   text-decoration: none;
-  color: $tealLight;
+  color: $grayDarker;
   &:hover {
-    color: $tealDark;
+    color: $tealLight;
   }
 }
 

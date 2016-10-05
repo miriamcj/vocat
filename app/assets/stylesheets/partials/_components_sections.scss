@@ -54,6 +54,11 @@
       margin-top: .6em;
       padding: 0;
       line-height: .8em;
+      color: $grayDark;
+    }
+    p.subtitle {
+      margin-top: 10px;
+      color: $grayMedium;
     }
     width: 60%;
     display: inline-block;
@@ -91,6 +96,13 @@
     @include clearfix;
     background: $grayLightest;
     padding: $sectionSpacingUnit * .75;
+
+    &.secondary {
+      background-color: transparent;
+      padding-right: 0;
+      padding-left: 0;
+      padding-top: 0;
+    }
   }
   .page-section--component-header {
     background: $grayLight;
@@ -208,5 +220,109 @@
     padding-bottom: 0;
   }
   .page-section--subsection {
+  }
+}
+
+// Course Synopsis Panes
+// --------------------------
+
+.course-synopsis-pane {
+  background-color: #f6f6f6;
+  width: 100%;
+
+  .info-container .stats {
+    display: inline-block;
+  }
+  .submission-links div, .synopsis-footer div {
+    display: inline-block;
+    margin-right: 15px;
+  }
+
+  &.subheader {
+    z-index: 150;
+
+    .padded-container {
+      & > div {
+        max-width: 1200px;
+        margin: auto;
+      }
+    }
+
+    .info-container > a:hover, .info-container .dropdown--toggle:hover {
+      border-bottom: 1px solid $tealLight;
+    }
+    
+    .active {
+      color: $tealLight;
+      border-bottom: 1px solid $tealLight;
+    }
+  }
+
+  .padded-container {
+    padding: 20px 35px;
+  }
+
+  .heading-container {
+    margin-bottom: 20px;
+  }
+  a.alt {
+    color: $tealLight;
+    &:hover {
+      color: #4d4d4d;
+    }
+  }
+
+  a:hover > div, a:hover span {
+    color: $tealLight;
+  }
+
+  .info-container {
+    > a {
+      display: inline-block;
+      margin-right: 35px;
+    }
+  }
+  .dropdown--options {
+    padding: 1em;
+    min-width: 160px;
+    top: 37px;
+    right: -11px !important; // maybe a better way to do this.  position gets assigned in app/assets/javascripts/app/views/layout/dropdowns.js.coffee
+  }
+  .dropdown--toggle {
+    display: inline;
+    &:after {
+      top: 3px;
+      right: -20px;
+      width: 12px;
+      height: 12px;
+    }
+  }
+  .open .dropdown--toggle span {
+    color: $tealLight;
+    border-bottom: 1px solid $tealLight;
+  }
+  .course-id {
+    @extend %section-header-condensed;
+    color: #4d4d4d;
+  }
+
+  .course-details {
+    @extend %section-header-condensed;
+    color: $grayMedium;
+  }
+
+  .synopsis-footer {
+    width: 100%;
+    background-color: #ececec;
+    padding: 20px 35px;
+    height: 56px;
+    div {
+      color: $grayMediumDarker;
+    }
+
+    span {
+      font-weight: 600;
+      color: #4d4d4d;
+    }
   }
 }

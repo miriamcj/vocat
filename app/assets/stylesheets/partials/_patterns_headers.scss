@@ -32,3 +32,10 @@
   @extend %capsHeading;
   @extend %extraSpacedHeading;
 }
+
+%section-header-condensed {
+  display: inline-block;
+  font-size: $epsilon;
+  margin-right: 15px;
+  @extend %condensedHeading;
+}

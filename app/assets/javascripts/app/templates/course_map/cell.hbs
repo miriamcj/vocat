@@ -3,46 +3,51 @@
 		<dl class="cell--media">
 			<dt>Media</dt>
 			<dd>
-				{{#if has_asset}}
-					<b class="matrix--check"></b>
-				{{else}}
-					<b></b>
-				{{/if}}
+                {{#if has_asset}} <!-- does the submission have any assets? -->
+                    <b class="matrix--checkbox checked"></b>
+                {{else}}
+                    <b class="matrix--checkbox "></b>
+                {{/if}}
 			</dd>
 		</dl>
-		{{#if project_evaluatable}}
-			<dl class="cell--score">
-				<dt>Score</dt>
-				<dd>
-					<b class="matrix--scored">
-						{{#if_empty current_user_percentage}}
-							&ndash;&ndash;
-						{{else}}
-							{{to_i current_user_percentage}}
-							<small>%</small>
-						{{/if_empty}}
-					</b>
-				</dd>
-			</dl>
+		{{#if can_be_evaluated }} <!-- can the submission be evaluated? (does the project have a rubric?) -->
 			<dl class="cell--published">
 				<dt>Published</dt>
-				<dd>
-					{{#if_empty current_user_percentage}}
-					{{else}}
-						{{#if current_user_published}}
-							<b data-behavior="publish-toggle" class="matrix--checkbox checked"></b>
-						{{else}}
-							<b data-behavior="publish-toggle" class="matrix--checkbox "></b>
-						{{/if}}
-					{{/if_empty}}
-				</dd>
-			</dl>
+                    {{#if current_user_published}} <!-- has the current user evaluated the submission? -->
+                        <dd>
+                            <b data-behavior="publish-toggle" class="matrix--checkbox checked"></b>
+                        </dd>
+                    </dl>
+                    <span class="cell--message cell--message-pinned" style="left: 8px;">SCORE: <span style="color: #414141">{{ to_i current_user_percentage }}%</span></span>
+                    {{else}}
+                        <dd>
+                            <b data-behavior="publish-toggle" class="matrix--checkbox"></b>
+                        </dd>
+                    </dl>
+                    <span class="cell--message cell--message-pinned" style="left: 8px;">SCORE: <span style="color: #414141">&mdash;</span></span>
+                    {{/if}}
+            {{#if instructor_score_percentage }} <!-- is there an instructor average score? -->
+                <span class="cell--message cell--message-pinned" style="right: 8px;">AVERAGE: <span style="color: #414141">{{to_i instructor_score_percentage}}%</span></span>
+            {{ else }}
+                <span class="cell--message cell--message-pinned" style="right: 8px;">AVERAGE: <span style="color: #414141">&mdash;</span></span>
+            {{/if}}
+        {{ else }}
+            <dl class="cell--published">
+                <dt>Feedback</dt>
+                <dd>
+                    {{#if user_left_feedback}} <!-- has the current user has annotated or made a discussion post on the submission? -->
+                        <b class="matrix--checkbox checked"></b>
+                    {{else}}
+                        <b class="matrix--checkbox "></b>
+                    {{/if}}
+                </dd>
+            </dl>
+            {{#if discussion_posts_count }}  <!-- are there discussion posts on the submission? -->
+                <span class="cell--message cell--message-pinned" style="width: 100%">COMMENTS: <span style="color: #414141">{{ to_i discussion_posts_count }}</span></span>
+            {{ else }}
+                <span class="cell--message cell--message-pinned" style="width: 100%">COMMENTS: <span style="color: #414141">&mdash;</span></span>
+            {{/if}}
 		{{/if}}
-		{{#if_match role 'creator'}}
-			<span class="cell--message cell--message-pinned"></span>
-		{{else}}
-			<span class="cell--message cell--message-pinned">{{to_i instructor_score_percentage}}% Avg. Score</span>
-		{{/if_match}}
 	{{else}}
 		<span class="cell--message">Loading...</span>
 	{{/if}}

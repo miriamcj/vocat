@@ -1,20 +1,21 @@
-<% if @app_section == 'course' %>
-	<nav class="drawer-nav--trigger" data-drawer-target="section" data-behavior="header-drawer-trigger">
-		<span></span>
-		<span class="course-short">
-			<%= "#{@selected_course.department}#{@selected_course.number}" %>
-		</span>
-		<span class="course-long">
-			<%= truncate @selected_course.to_s, :length => 60 %>
-		</span>
-	</nav>
-<% end %>
-<% if @app_section == 'dashboard' %>
-	<nav class="drawer-nav--trigger" data-drawer-target="section" data-behavior="header-drawer-trigger">
-		<span></span>
-		Dashboard
-	</nav>
-<% end %>
+
+<nav class="drawer-nav--trigger">
+    <%= link_to "DASHBOARD", root_path, class: "#{'active-sticky' if @app_section == 'dashboard'}" %>
+</nav>
+
+<nav class="drawer-nav--trigger" data-drawer-target="section" data-behavior="header-drawer-trigger">
+  <span></span>
+  <a href="#" class="<%= 'active-sticky' if @app_section == 'course' %>">COURSES</a>
+</nav>
+
+<nav class="drawer-nav--trigger">
+  <%= link_to "SEARCH", "#" %>
+</nav>
+
+<nav class="drawer-nav--trigger">
+  <%= link_to "HELP", "#" %>
+</nav>
+
 <% if @app_section == 'admin' %>
 	<nav class="drawer-nav--trigger" data-drawer-target="section" data-behavior="header-drawer-trigger">
 		<span></span>

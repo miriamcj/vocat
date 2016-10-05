@@ -27,6 +27,7 @@ class Submission < ActiveRecord::Base
   has_many :assets, :dependent => :destroy
   has_many :evaluations, :dependent => :destroy
   has_many :discussion_posts, :dependent => :destroy
+  has_many :annotations, through: :assets
   belongs_to :project
   belongs_to :creator, :polymorphic => true
   belongs_to :user, -> { where "submissions.creator_type = 'User'" }, foreign_key: 'creator_id'
@@ -138,6 +139,20 @@ class Submission < ActiveRecord::Base
 
   def user_evaluation_count(user)
     self.evaluations.created_by(user).count
+  end
+
+  def unreviewed_by_user?(user)
+    return true unless self.evaluated_by_user?(user) || self.user_left_feedback?(user)
+  end
+
+  def user_left_feedback?(user)
+    annotations = self.annotations.where(author_id: user.id).count
+    discussion_posts = self.discussion_posts.where(author_id: user.id).count
+    if annotations > 0 || discussion_posts > 0
+      true
+    else
+      false
+    end
   end
 
   def has_asset?

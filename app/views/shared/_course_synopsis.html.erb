@@ -1,56 +1,51 @@
-<div class="clearfix">
-	<figure class="summary-box summary-box-creator">
-		<div>
-			<span><%= course.creators.count %></span>
-		</div>
-		<figcaption>Students</figcaption>
-	</figure>
+<div class="page-section--subsection course-synopsis-pane">
+  <div class="padded-container">
+    <div class="heading-container">
+      <%= link_to course_path(course) do %>
+        <div class="course-id">
+          <%= course.department + ' ' + course.number %>
+        </div>
+        <div class="course-details">
+          <%= course.name %>
+        </div>
+        <div class="course-details">
+          Section <%= course.section %>
+        </div>
+      <% end %>
+    </div>
 
-	<figure class="summary-box summary-box-creator-light">
-		<div>
-			<span><%= course.discussion_post_count() %></span>
-		</div>
-		<figcaption>Comments</figcaption>
-	</figure>
+    <div class="submission-links info-container">
+      <div>
+        <%= link_to 'STUDENT WORK', course_user_evaluations_path(course) %>
+      </div>
+      <div>
+        <%= link_to 'GROUP WORK', course_group_evaluations_path(course) %>
+      </div>
+    </div>
+  </div>
 
-	<figure class="summary-box summary-box-creator-light">
-		<div>
-			<span><%= course.annotation_count() %></span>
-		</div>
-		<figcaption>Annotations</figcaption>
-	</figure>
-
-	<figure class="summary-box summary-box-evaluator <%= 'summary-box-zero' if course.average_evaluator_score() == 0 %>">
-		<div>
-			<b style="height: <%= course.average_evaluator_score() %>%"></b>
-			<span><%= course.average_evaluator_score().round %>%</span>
-		</div>
-		<figcaption>Average Instructor Score</figcaption>
-	</figure>
-
-	<% if course.has_at_least_one_peer_review_project? %>
-		<figure class="summary-box summary-box-peer <%= 'summary-box-zero' if course.average_peer_score() == 0 %>">
-			<div>
-				<b style="height: <%= course.average_peer_score() %>%"></b>
-				<span><%= course.average_peer_score().round %>%</span>
-			</div>
-			<figcaption>Average Peer Score</figcaption>
-		</figure>
-	<% end %>
-
-	<figure class="summary-box summary-box-default">
-		<div>
-			<span><%= course.asset_count %></span>
-		</div>
-		<figcaption>Assets</figcaption>
-	</figure>
-
-	<figure class="summary-box summary-box-default-percentage <%= 'summary-box-zero' if course.submission_asset_percentage() == 0 %>">
-		<div>
-			<b style="height: <%= course.submission_asset_percentage() %>%"></b>
-			<span><%= course.submission_asset_percentage().round %>%</span>
-		</div>
-		<figcaption>Submissions with Assets</figcaption>
-	</figure>
-
+  <div class="clearfix synopsis-footer info-container">
+    <% if course.has_unreviewed_work?(current_user) %>
+      <div>
+        <%= link_to 'New work is awaiting your review.', course_path(course), class: 'alt' %>
+      </div>
+    <% end %>
+    <div style="position: absolute; right: 0px;">
+      <%= link_to course_manage_projects_path(course) do %>
+          <div class="stats">
+            PROJECTS: <span><%= course.projects.count %></span>
+          </div>
+      <% end %>
+      <%= link_to course_manage_enrollment_path(course) do %>
+          <div class="stats">
+            STUDENTS: <span><%= course.creators.count %></span>
+          </div>
+      <% end %>
+      <%= link_to course_manage_groups_path(course) do %>
+          <div class="stats">
+            GROUPS: <span><%= course.groups.count %></span>
+          </div>
+      <% end %>
+    </div>
+  </div>
 </div>

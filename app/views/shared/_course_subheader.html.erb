@@ -1,0 +1,43 @@
+<div class="page-section--subsection course-synopsis-pane subheader">
+  <div class="padded-container">
+    <div>
+      <div class="heading-container">
+        <div class="course-id">
+          <%= course.department + ' ' + course.number %>
+        </div>
+        <div class="course-details">
+          <%= course.name %>
+        </div>
+        <div class="course-details">
+          Section <%= course.section %>
+        </div>
+      </div>
+
+      <div>
+        <div class="info-container">
+            <%= link_to "STUDENT WORK", course_user_evaluations_path(course), class: (@type == 'user' ? "active" : "") %>
+            <%= link_to 'GROUP WORK', course_group_evaluations_path(course), class: (@type == 'group' ? "active" : "") %>
+          <div style="display: inline;">
+            <% if current_user.can?(:administer, @selected_course) %>
+                <div class="dropdown dropdown-inline" data-behavior="dropdown">
+                  <a class="dropdown--toggle" data-behavior="toggle" href="#">
+                    <span>SETUP COURSE</span>
+                  </a>
+
+                  <div class="dropdown--options" data-behavior="dropdown-options">
+                    <ul>
+                      <li><%= link_to 'Projects', course_manage_projects_path(@selected_course) %></li>
+                      <li><%= link_to 'Groups', course_manage_groups_path(@selected_course) %></li>
+                      <li><%= link_to 'Enrollment', course_manage_enrollment_path(@selected_course) %></li>
+                      <li><%= link_to 'Settings', course_manage_path(@selected_course) %></li>
+                      <li><%= link_to 'Rubrics', course_manage_rubrics_path(@selected_course) %></li>
+                    </ul>
+                  </div>
+                </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

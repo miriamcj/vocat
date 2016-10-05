@@ -45,13 +45,15 @@
 
 a.user-nav--toggle {
   @include transition($fastTransition background $timing);
-  color: $white;
+  color: $grayDarker;
   height: $headerHeight;
   display: block;
   font-size: $theta;
+  line-height: 60px;
   &:hover, .open & {
     color: $white;
-    background: $grayDarker;
+    background: $tealLight;
+    text-decoration: none;
   }
   span {
     @include respond($baikal) {
@@ -64,6 +66,12 @@ a.user-nav--toggle {
     position: relative;
     padding: 0 0 0 $headerUnitPadding;
   }
+  img {
+    vertical-align: middle;
+    max-height: 43px;
+    border-radius: 50%;
+    border: 3px solid $tealLight;
+  }
 }
 
 .user-nav--options {
@@ -71,6 +79,7 @@ a.user-nav--toggle {
   width: 100%;
   top: $headerHeight;
   right: 1px;
+
   @include respond($baikal) {
     right: 0;
     left: auto;

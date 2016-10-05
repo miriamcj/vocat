@@ -13,9 +13,9 @@ class Courses::EvaluationsController < ApplicationController
   respond_to :html
 
   def course_map
-    type = params[:creator_type]
+    @type = params[:creator_type]
     authorize! :show_submissions, @course
-    current_user.set_default_creator_type_for_course(@selected_course, type)
+    current_user.set_default_creator_type_for_course(@selected_course, @type)
     @projects = Project.rank(:listing_order).where(course: @course)
     @users = @course.creators
     @groups = @course.groups

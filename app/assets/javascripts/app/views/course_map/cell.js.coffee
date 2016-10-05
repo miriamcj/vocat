@@ -38,7 +38,8 @@ define ['marionette', 'hbs!templates/course_map/cell', 'models/user', 'models/gr
       if @model?
         projectAbilities = @project.get('abilities')
         context = super()
-        context.project_evaluatable = projectAbilities.can_evaluate
+        context.user_can_evaluate = projectAbilities.can_evaluate
+        context.can_be_evaluated = @project.evaluatable()
         context.is_active = @isActive()
         context.is_loaded = true
       else

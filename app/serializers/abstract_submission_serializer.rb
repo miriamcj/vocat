@@ -28,7 +28,7 @@ class AbstractSubmissionSerializer < ActiveModel::Serializer
     if scope.role?(:administrator) || scope.role?(:evaluator)
       object.instructor_score_percentage
     else
-      0
+      nil
     end
   end
 

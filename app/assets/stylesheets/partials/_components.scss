@@ -40,8 +40,9 @@ body.bg-dark {
   padding-top: $headerHeight;
   position: relative;
   z-index: 100;
-  padding: $headerHeight 1.5em 0 1.5em;
   margin: auto;
+  padding-bottom: $headerHeight;
+  min-height: calc(100vh - 337px)
   //overflow-x: hidden;
 
   //$baikal: 960px;
@@ -90,33 +91,60 @@ footer.page-footer {
   body.bg-dark & {
     display: none;
   }
-  position: absolute;
-  bottom: 0;
   width: 100%;
   min-height: 0px;
   background: $grayDarker;
-  color: $grayLighter;
-  font-size: $kappa;
-  padding: .5em;
-  text-align: center;
+  color: $grayDark;
+  padding: 35px;
+  text-align: left;
   @include clearfix();
+
+  a {
+    color: $grayMedium;
+
+    &:hover {
+      color: $tealLight;
+    }
+  }
   .page-footer-inner {
     margin: auto;
-    position: relative;
     max-width: $containerWidth;
+    padding: 12px 0;
   }
-  .page-footer-msg {
-    text-align: left;
-    float: left;
-    width: 70%;
+
+  .vocat-logo {
+    font-size: $delta;
+    font-weight: 600;
+    margin-bottom: 15px;
+    img {
+      height: 22px;
+    }
   }
-  .page-footer-version {
-    width: 25%;
-    float: right;
+  .page-footer-colophon {
+    display: table;
+    width: 100%;
+    margin-top: 40px;
+  }
+  .baruch-logo {
+    display: table-cell;
     text-align: right;
+    vertical-align: bottom;
+    padding-left: 30px;
+    img {
+      max-width: 100px;
+    }
   }
 }
-
+.page-footer-msg {
+  font-size: $theta;
+  display: table-cell;
+  vertical-align: bottom;
+}
+.page-footer-version {
+  margin-top: 12px;
+  font-size: $theta;
+  display: block;
+}
 // Page header
 // This lives outside container so that its position remains
 // fixed when .primary-nav is open. As a result, we have to
@@ -135,13 +163,17 @@ footer.page-footer {
   left: 0;
   z-index: 300;
   box-shadow: 0 1px 0 0 transparentize($black, 0.97);
-  color: $white;
+  color: $grayDarker;
+
+  & > div {
+    border-bottom: 1px solid #cecece;
+  }
 }
 
 .page-header--navigation-wrapper {
   height: $headerHeightUnit;
   z-index: 400;
-  background-color: $primaryButtonColor;
+  background-color: $white;
   padding: 0 1.5em;
   position: relative;
   margin: auto;
@@ -154,7 +186,6 @@ footer.page-footer {
   max-width: $containerWidth;
   a {
     &:hover {
-      text-decoration: underline;
       color: $tealLight;
     }
   }
@@ -268,7 +299,6 @@ footer.page-footer {
 
 .nav-trigger-wrapper {
   position: absolute;
-  left: $headerUnitWidth + $headerUnitPadding;
   height: $headerHeightUnit;
 }
 
@@ -276,13 +306,12 @@ footer.page-footer {
   position: relative;
   float: left;
   font-size: $eta;
-  cursor: pointer;
   line-height: $headerHeightUnit;
-  padding: 0 ($iconSizeMedium * 4) 0 $headerUnitPadding;
-  background: $tealDark;
+  padding: 0 ($iconSizeMedium * 4) 0 0;
+  background: $white;
   @include transition($fastTransition background $timing);
   &.drawer-nav--trigger-dark {
-    background: $tealDarkest;
+    background: $white;
   }
   .course-short {
     display: inline;
@@ -295,8 +324,12 @@ footer.page-footer {
       display: none;
     }
   }
-  &:hover, &.drawer-open {
-    background: $grayDarker;
+  a:hover {
+    color: $tealLight;
+  }
+  a.active, a.active-sticky {
+    color: $tealLight;
+    border-bottom: 1px solid $tealLight;
   }
   & span::after {
     position: absolute;

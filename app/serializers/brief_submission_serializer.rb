@@ -9,7 +9,9 @@ class BriefSubmissionSerializer < AbstractSubmissionSerializer
               :instructor_score_percentage,
               :role,
               :has_asset?,
-              :list_name
+              :list_name,
+              :discussion_posts_count,
+              :user_left_feedback?
 
   def list_name
     object.creator.list_name
@@ -17,6 +19,18 @@ class BriefSubmissionSerializer < AbstractSubmissionSerializer
 
   def serialized_state
     'partial'
+  end
+
+  def user_left_feedback?
+    object.user_left_feedback?(scope)
+  end
+
+  def discussion_posts_count
+    if object.discussion_posts_count > 0
+      return object.discussion_posts_count
+    else
+      nil
+    end
   end
 
 end
