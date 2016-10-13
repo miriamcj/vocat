@@ -6,7 +6,7 @@ define (require) ->
   class AbstractMatrix extends Marionette.LayoutView
 
     minWidth: 200
-    maxWidth: 800
+    maxWidth: 300
     memoizeHashCount: 0
     position: 0
     counter: 0
@@ -123,7 +123,7 @@ define (require) ->
         $cell.attr({style: "max-width: #{@maxWidth}px"})
         w = $cell.outerWidth()
         $cell.attr({style: style})
-        maxWidth = w if w > maxWidth
+        maxWidth = w unless w > maxWidth
       )
       maxWidth
 

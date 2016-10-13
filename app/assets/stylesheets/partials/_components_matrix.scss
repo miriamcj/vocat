@@ -118,21 +118,21 @@ $columnWidth: ($container / $columns) - 12;
 %matrix-nav-button {
   height: 100%;
   border: none;
-  background: $black;
-  width: 60px;
+  background: $grayLighter;
+  width: 75px;
   outline: 0;
   //  @include respond($vostok) {
   //    width: 20px;
   //  }
   position: absolute;
-  opacity: .6;
+  opacity: .8;
   z-index: 199;
   &::after {
     content: '';
     position: absolute;
     top: 50%;
     margin-top: 1.25em;
-    left: .75em;
+    left: 1.1em;
     height: 2.5em;
     width: 2.5em;
   }
