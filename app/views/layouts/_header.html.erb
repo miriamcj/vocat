@@ -7,22 +7,11 @@
 				<% if user_signed_in? && !hide_nav %>
 
 					<div class="nav-trigger-wrapper">
-						<% if @app_section == 'manage' %>
-							<%= render 'layouts/navigation/context_nav_trigger' %>
-						<% end %>
-
 						<% if @app_section == 'admin' %>
-							<%= render 'layouts/navigation/context_nav_trigger' %>
-							<%= render 'layouts/navigation/section_nav_trigger' %>
+              <%= render 'layouts/navigation/context_nav_trigger' %>
 						<% end %>
 
-						<% if @app_section == 'course' %>
-							<%= render 'layouts/navigation/section_nav_trigger' %>
-						<% end %>
-
-						<% if @app_section == 'dashboard' %>
-							<%= render 'layouts/navigation/section_nav_trigger' %>
-						<% end %>
+            <%= render 'layouts/navigation/section_nav_trigger' %>
 					</div>
 
 
