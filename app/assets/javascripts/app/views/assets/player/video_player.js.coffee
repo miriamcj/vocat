@@ -16,6 +16,11 @@ define (require) ->
       playerContainer: '[data-behavior="player-container"]'
     }
 
+    events: {
+      'click .vjs-control-bar .vjs-play-control': 'shiftFocusToInput'
+      'click .vjs-control-bar .vjs-rewind-button': 'shiftFocusToInput'
+    }
+
     callbacks: []
 
     initialize: (options) ->
@@ -47,6 +52,9 @@ define (require) ->
 
     handleCanvasDisabled: () ->
       @player.removeClass('canvas-enabled')
+
+    shiftFocusToInput: () ->
+      $('.annotation-input').focus()
 
     isLocked: () ->
       @lock != null

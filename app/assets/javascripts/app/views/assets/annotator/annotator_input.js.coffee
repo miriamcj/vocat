@@ -38,7 +38,6 @@ define (require) ->
 
     events:
       'keypress [data-behavior="annotation-input"]': 'onUserTyping'
-      'focus [data-behavior="annotation-input"]': 'onUserFocus'
 
     setupListeners: () ->
       @listenTo(@, 'lock:attempted', @handleLockAttempted, @)
@@ -138,9 +137,6 @@ define (require) ->
           @ui.canvasEraseButton.hide().addClass('hidden')
           @ui.canvasDrawButton.hide().addClass('hidden')
           @ui.canvasOvalButton.hide().addClass('hidden')
-
-    onUserFocus: (event) ->
-      @startAnnotationInput()
 
     onUserTyping: (event) ->
       @startAnnotationInput()
