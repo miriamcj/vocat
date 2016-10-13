@@ -1,6 +1,6 @@
 
 <nav class="drawer-nav--trigger">
-    <%= link_to "DASHBOARD", root_path, class: "#{'active-sticky' if @app_section == 'dashboard'}" %>
+    <%= link_to "DASHBOARD", root_path, class: "#{'active-sticky' if @app_section == 'dashboard' || @app_section == 'admin'}" %>
 </nav>
 
 <nav class="drawer-nav--trigger" data-drawer-target="section" data-behavior="header-drawer-trigger">
