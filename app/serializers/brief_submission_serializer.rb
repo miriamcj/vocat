@@ -10,8 +10,8 @@ class BriefSubmissionSerializer < AbstractSubmissionSerializer
               :role,
               :has_asset?,
               :list_name,
-              :discussion_posts_count,
-              :user_left_feedback?
+              :user_left_feedback?,
+              :comments_count
 
   def list_name
     object.creator.list_name
@@ -25,9 +25,9 @@ class BriefSubmissionSerializer < AbstractSubmissionSerializer
     object.user_left_feedback?(scope)
   end
 
-  def discussion_posts_count
-    if object.discussion_posts_count > 0
-      return object.discussion_posts_count
+  def comments_count
+    if object.discussion_posts_count > 0 || object.annotations_count > 0
+      return object.discussion_posts_count + object.annotations_count
     else
       nil
     end

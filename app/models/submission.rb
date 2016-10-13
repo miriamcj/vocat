@@ -141,6 +141,10 @@ class Submission < ActiveRecord::Base
     self.evaluations.created_by(user).count
   end
 
+  def annotations_count
+    self.annotations.count
+  end
+
   def unreviewed_by_user?(user)
     return true unless self.evaluated_by_user?(user) || self.user_left_feedback?(user)
   end

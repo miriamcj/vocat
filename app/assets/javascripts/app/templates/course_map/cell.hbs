@@ -42,8 +42,8 @@
                     {{/if}}
                 </dd>
             </dl>
-            {{#if discussion_posts_count }}  <!-- are there discussion posts on the submission? -->
-                <span class="cell--message cell--message-pinned" style="width: 100%">COMMENTS: <span style="color: #414141">{{ to_i discussion_posts_count }}</span></span>
+            {{#if comments_count }}  <!-- are there discussion posts on the submission? -->
+                <span class="cell--message cell--message-pinned" style="width: 100%">COMMENTS: <span style="color: #414141">{{ to_i comments_count }}</span></span>
             {{ else }}
                 <span class="cell--message cell--message-pinned" style="width: 100%">COMMENTS: <span style="color: #414141">&mdash;</span></span>
             {{/if}}
