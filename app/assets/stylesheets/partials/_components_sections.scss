@@ -248,6 +248,10 @@
       }
     }
 
+    .info-container > a {
+      border-bottom: 1px solid transparent;
+    }
+
     .info-container > a:hover, .info-container .dropdown--toggle:hover {
       border-bottom: 1px solid $tealLight;
     }
