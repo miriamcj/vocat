@@ -47,38 +47,46 @@ a.user-nav--toggle {
   @include transition($fastTransition background $timing);
   color: $grayDarker;
   height: $headerHeight;
-  display: block;
+  display: inline-block;
   font-size: $theta;
   line-height: 60px;
-  &:hover, .open & {
-    color: $white;
-    background: $tealLight;
-    text-decoration: none;
-  }
   span {
     @include respond($baikal) {
       display: none !important;
     }
-    display: block;
-    float: left;
-    margin-right: $headerUnitPadding;
-    line-height: 60px;
     position: relative;
-    padding: 0 0 0 $headerUnitPadding;
+    padding: 5px 15px;
+    &:hover, .open & {
+      color: $white;
+      background: $tealLight;
+      text-decoration: none;
+    }
+  }
+}
+.user-nav {
+  .profile-container {
+    height: 60px;
+    > div {
+      line-height: 60px;
+      display: inline-block;
+      vertical-align: top;
+    }
   }
   img {
-    vertical-align: middle;
-    max-height: 43px;
-    border-radius: 50%;
-    border: 3px solid $tealLight;
-  }
+     vertical-align: middle;
+     max-height: 43px;
+     margin-left: 5px;
+     border-radius: 50%;
+     border: 3px solid $tealLight;
+ }
 }
 
 .user-nav--options {
   @extend %dropdown-options;
-  width: 100%;
-  top: $headerHeight;
-  right: 1px;
+  width: calc(100% - 52px);
+  right: 52px !important;
+  padding: 15px;
+  top: 45px;
 
   @include respond($baikal) {
     right: 0;
