@@ -1,17 +1,15 @@
+<li>
+	<%= link_to "DASHBOARD", root_path, class: "#{'active-sticky' if @app_section == 'dashboard' || @app_section == 'admin'}" %>
+</li>
 
-<nav class="drawer-nav--trigger">
-    <%= link_to "DASHBOARD", root_path, class: "#{'active-sticky' if @app_section == 'dashboard' || @app_section == 'admin'}" %>
-</nav>
-
-<nav class="drawer-nav--trigger" data-drawer-target="section" data-behavior="header-drawer-trigger">
-  <span></span>
+<li class="drawer-nav--trigger" data-drawer-target="section" data-behavior="header-drawer-trigger">
   <a href="#" class="<%= 'active-sticky' if @app_section == 'course' %>">COURSES</a>
-</nav>
+</li>
 
-<nav class="drawer-nav--trigger">
-  <%= link_to "SEARCH", "#" %>
-</nav>
+<li>
+	<%= link_to "SEARCH", "#" %>
+</li>
 
-<nav class="drawer-nav--trigger">
-  <%= link_to "HELP", "http://docs.vocat.io/", target: "_blank" %>
-</nav>
+<li>
+	<%=	link_to "HELP", "http://docs.vocat.io/", target: "_blank" %>
+</li>
