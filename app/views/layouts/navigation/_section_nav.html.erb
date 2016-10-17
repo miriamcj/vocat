@@ -7,6 +7,7 @@
 				<ul data-behavior="admin-courses">
 					<li style="margin-bottom: 3em; ">
 						<select style="width: 100%" data-class="recent-course-select" data-behavior="chosen" >
+              <option></option> <!-- required to include default text-->
 							<% @current_organization.recent_grouped_sorted_courses().each do |semester, courses| %>
 								<optgroup label="<%= semester %>">
 									<% courses.each do |course| %>

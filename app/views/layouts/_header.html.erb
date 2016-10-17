@@ -7,7 +7,7 @@
 				<% if user_signed_in? && !hide_nav %>
 
 					<div class="nav-trigger-wrapper">
-						<% if @app_section == 'admin' %>
+						<% if @app_section == 'admin' || (current_user.role?(:administrator) || current_user.role?(:superadministrator)) %>
               <%= render 'layouts/navigation/context_nav_trigger' %>
 						<% end %>
 
@@ -26,11 +26,8 @@
 			<div data-drawer-target="context" data-behavior="header-drawer" class="page-header--drawer context-drawer">
 				<div class="drawer--contents">
 					<ul class="drawer-nav">
-						<% if @app_section == 'course' %>
-							<%= render 'layouts/navigation/context_nav_course' %>
-						<% end %>
 
-						<% if @app_section == 'admin' %>
+						<% if @app_section == 'admin' || (current_user.role?(:administrator) || current_user.role?(:superadministrator)) %>
 							<%= render 'layouts/navigation/context_nav_admin' %>
 						<% end %>
 

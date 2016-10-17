@@ -10,7 +10,7 @@ define ['jquery_rails', 'vendor/plugins/chosen'], ($) ->
       msg = 'Day' if @$el.hasClass('day')
       options = {
         disable_search_threshold: 1000,
-        allow_single_deselect: true,
+        allow_single_deselect: false,
         placeholder_text_single: msg
       }
       @$el.chosen(options)
