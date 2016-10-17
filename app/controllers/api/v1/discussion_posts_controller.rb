@@ -127,6 +127,7 @@ class Api::V1::DiscussionPostsController < ApiController
     @discussion_post.author_id = current_user.id
     if @discussion_post.save
       respond_with @discussion_post, status: :created, location: api_v1_discussion_post_url(@discussion_post.id)
+      log_event(:create, @discussion_post)
     else
       respond_with @discussion_post, status: :unprocessable_entity
     end
@@ -148,6 +149,7 @@ class Api::V1::DiscussionPostsController < ApiController
   def update
     @discussion_post.update_attributes(discussion_post_params)
     respond_with @discussion_post, status: :updated, location: api_v1_discussion_post_url(@discussion_post.id)
+    log_event(:update, @discussion_post)
   end
 
 
@@ -157,6 +159,7 @@ class Api::V1::DiscussionPostsController < ApiController
   def destroy
     @discussion_post.destroy
     respond_with(@discussion_post)
+    log_event(:destroy, @discussion_post)
   end
 
 

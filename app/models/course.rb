@@ -37,6 +37,7 @@ class Course < ActiveRecord::Base
   has_many :user_projects
   has_many :groups, :dependent => :destroy
   has_many :submissions, :through => :projects, :dependent => :destroy
+  has_many :course_events, as: :loggable
 
   delegate :name, :to => :semester, :prefix => true, :allow_nil => true
 
@@ -184,13 +185,6 @@ class Course < ActiveRecord::Base
 
   def average_evaluator_score
     Evaluation.average_score_by_course_and_type(self, :evaluator)
-  end
-
-  def has_unreviewed_work?(user)
-    submissions.each do |submission|
-      return true if submission.unreviewed_by_user?(user)
-    end
-    return false
   end
 
   def average_peer_score

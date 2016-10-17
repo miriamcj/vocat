@@ -25,6 +25,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def log_event(event, loggable)
+    if loggable.instance_of?(DiscussionPost)
+      CourseEvent.create(event_type: event, loggable: loggable, user_id: current_user.id, course_id: loggable.submission.course.id)
+    elsif loggable.instance_of?(Annotation)
+      CourseEvent.create(event_type: event, loggable: loggable, user_id: current_user.id, course_id: loggable.asset.submission.course.id)
+    else
+      CourseEvent.create(event_type: event, loggable: loggable, user_id: current_user.id, course_id: loggable.course.id)
+    end
+  end
+
   def the_current_organization
     @current_organization
   end

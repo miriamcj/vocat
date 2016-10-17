@@ -145,10 +145,6 @@ class Submission < ActiveRecord::Base
     self.annotations.count
   end
 
-  def unreviewed_by_user?(user)
-    return true unless self.evaluated_by_user?(user) || self.user_left_feedback?(user)
-  end
-
   def user_left_feedback?(user)
     annotations = self.annotations.where(author_id: user.id).count
     discussion_posts = self.discussion_posts.where(author_id: user.id).count

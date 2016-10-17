@@ -358,6 +358,7 @@ class Api::V1::EvaluationsController < ApiController
 
     if @evaluation.save
       respond_with @evaluation, :root => false, status: :created, location: api_v1_evaluation_url(@evaluation.id)
+      log_event(:create, @evaluation)
     else
       respond_with @evaluation, :root => false, status: :unprocessable_entity
     end
@@ -396,6 +397,7 @@ class Api::V1::EvaluationsController < ApiController
   def update
     @evaluation.update_attributes(evaluation_params)
     respond_with(@evaluation)
+    log_event(:update, @evaluation)
   end
 
 
@@ -407,6 +409,7 @@ class Api::V1::EvaluationsController < ApiController
   def destroy
     @evaluation.destroy
     respond_with(@evaluation)
+    log_event(:destroy, @evaluation)
   end
 
 

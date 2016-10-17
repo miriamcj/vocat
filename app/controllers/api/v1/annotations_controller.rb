@@ -153,6 +153,7 @@ class Api::V1::AnnotationsController < ApiController
     @annotation.author = current_user
     if @annotation.save
       respond_with @annotation, status: :created, location: api_v1_annotation_url(@annotation.id)
+      log_event(:create, @annotation)
     else
       respond_with @annotation, status: :unprocessable_entity
     end
@@ -182,6 +183,7 @@ class Api::V1::AnnotationsController < ApiController
   def update
     @annotation.update_attributes(annotation_params)
     respond_with @annotation, status: :created, location: api_v1_annotation_url(@annotation.id)
+    log_event(:update, @annotation)
   end
 
 
@@ -193,6 +195,7 @@ class Api::V1::AnnotationsController < ApiController
   def destroy
     @annotation.destroy
     respond_with(@annotation)
+    log_event(:destroy, @annotation)
   end
 
 

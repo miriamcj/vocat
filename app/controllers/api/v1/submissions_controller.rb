@@ -211,6 +211,7 @@ class Api::V1::SubmissionsController < ApiController
     authorize! :create, @submission
     if @submission.save
       respond_with @submission, :root => false, status: :created, location: api_v1_submission_url(@submission)
+      log_event(:create, @submission)
     else
       respond_with @submission, :root => false, status: :unprocessable_entity
     end
@@ -221,6 +222,7 @@ class Api::V1::SubmissionsController < ApiController
     authorize! :update, @submission
     @submission.update_attributes!(submission_params)
     respond_with(@submission)
+    log_event(:update, @submission)
   end
 
 
@@ -231,6 +233,7 @@ class Api::V1::SubmissionsController < ApiController
     authorize! :destroy, @submission
     @submission.destroy
     respond_with(@submission)
+    log_event(:destroy, @submission)
   end
 
   private

@@ -142,6 +142,7 @@ class Api::V1::AssetsController < ApiController
       # Due to STI, we need to completely reload the asset so it's given the correct class.
       @asset = Asset.find @asset.id
       respond_with @asset, location: api_v1_asset_url(@asset)
+      log_event(:create, @asset)
     else
       respond_with @asset, status: :unprocessable_entity, location: nil
     end
@@ -169,6 +170,7 @@ class Api::V1::AssetsController < ApiController
     update_params[:listing_order_position] = params[:listing_order_position]
     @asset.update_attributes(update_params)
     respond_with(@asset)
+    log_event(:update, @asset)
   end
 
 
@@ -180,6 +182,7 @@ class Api::V1::AssetsController < ApiController
   def destroy
     @asset.destroy
     respond_with(@asset)
+    log_event(:destroy, @asset)
   end
 
 end

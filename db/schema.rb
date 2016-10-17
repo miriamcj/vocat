@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150820174652) do
+ActiveRecord::Schema.define(version: 20161017190605) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,18 @@ ActiveRecord::Schema.define(version: 20150820174652) do
     t.hstore   "processing_data"
     t.integer  "asset_id"
   end
+
+  create_table "course_events", force: :cascade do |t|
+    t.string   "event_type"
+    t.integer  "user_id"
+    t.integer  "course_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "loggable_id"
+    t.string   "loggable_type"
+  end
+
+  add_index "course_events", ["loggable_type", "loggable_id"], name: "index_course_events_on_loggable_type_and_loggable_id", using: :btree
 
   create_table "course_requests", force: :cascade do |t|
     t.string   "name"
