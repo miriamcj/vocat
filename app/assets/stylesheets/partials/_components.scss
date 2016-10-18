@@ -304,6 +304,10 @@ footer.page-footer {
   > ul {
     @extend %unstyled-list;
 
+    > li.drawer-nav--trigger {
+      padding: 0 ($iconSizeMedium * 4 + 15) 0 0;
+    }
+
     > li {
       float: left;
       line-height: $headerHeightUnit;
