@@ -20,6 +20,8 @@ class CourseEvent < ActiveRecord::Base
 
   belongs_to :loggable, polymorphic: true
 
+  scope :non_destructive, -> { where("event_type = ? OR event_type = ?", 'create', 'update') }
+
   validates :user_id, :loggable_id, :loggable_type, :course_id, :event_type, presence: true
 
 end

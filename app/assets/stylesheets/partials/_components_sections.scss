@@ -378,8 +378,19 @@
     height: 56px;
     div {
       color: $grayMediumDarker;
+      .new-work-link:before {
+        @include svg('pip-teal');
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 10px;
+        width: 12px;
+        height: 12px;
+        content: '';
+        &:hover {
+          @include svg('pip-gray');
+        }
+      }
     }
-
     span {
       font-weight: 600;
       color: #4d4d4d;

@@ -215,4 +215,8 @@ module Concerns::StrongParametersConfiguration
     params.require(:submission).permit!
   end
 
+  def visit_params
+    params.require(:visit).permit(:visitable_id, :visitable_type, :visitable_course_id)
+  end
+
 end

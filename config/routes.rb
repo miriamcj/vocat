@@ -91,6 +91,7 @@ Vocat::Application.routes.draw do
             get 'search'
           end
         end
+        resources :visits, :only => [:create]
       end
     end
 

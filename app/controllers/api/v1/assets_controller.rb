@@ -92,6 +92,8 @@ class Api::V1::AssetsController < ApiController
   EOS
   def show
     respond_with(@asset)
+    latest_visit = Visit.find_or_initialize_by(user_id: current_user.id, visitable: @asset, visitable_course_id: @asset.submission.course.id)
+    latest_visit.new_record? ? latest_visit.save : latest_visit.touch
   end
 
   api :POST, '/assets', 'creates a new asset'

@@ -11,6 +11,7 @@
 #  organization_id :integer
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  settings        :hstore           default({}), not null
 #  message         :text
 #  semester_id     :integer
 #  year            :integer
@@ -38,6 +39,7 @@ class Course < ActiveRecord::Base
   has_many :groups, :dependent => :destroy
   has_many :submissions, :through => :projects, :dependent => :destroy
   has_many :course_events, as: :loggable
+  has_many :visits, as: :visitable
 
   delegate :name, :to => :semester, :prefix => true, :allow_nil => true
 
