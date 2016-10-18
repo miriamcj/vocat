@@ -326,6 +326,23 @@ footer.page-footer {
   }
 }
 
+.profile-container {
+  span:after {
+    @include svg(arrow-down-gray-dark);
+    position: absolute;
+    top: .75em;
+    right: 5px;
+    display: block;
+    width: 12px;
+    height: 6px;
+    vertical-align: middle;
+    content: '';
+    &:hover {
+      @include svg(arrow-down-white); // needs new white down arrow
+    }
+  }
+}
+
 .drawer-nav--trigger {
   position: relative;
 
@@ -343,6 +360,15 @@ footer.page-footer {
     height: 6px;
     vertical-align: middle;
     content: '';
+    &:hover {
+      @include svg(arrow-down-teal);
+    }
+  }
+
+  &.drawer-open {
+    a:after {
+      @include svg(arrow-down-teal);
+    }
   }
 
   &.drawer-nav--trigger-dark {

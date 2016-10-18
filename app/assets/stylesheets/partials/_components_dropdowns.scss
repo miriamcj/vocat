@@ -55,7 +55,7 @@ a.user-nav--toggle {
       display: none !important;
     }
     position: relative;
-    padding: 5px 15px;
+    padding: 5px 22px 5px 10px;
     &:hover, .open & {
       color: $white;
       background: $tealLight;
@@ -113,11 +113,15 @@ a.user-nav--toggle {
     @include svg(arrow-down-gray-dark);
     display: block;
     padding: 0;
+    margin-right: 5px;
     height: $iconSizeMedium;
     width: $iconSizeMedium;
     position: absolute;
     right: 0;
     top: .2em;
+    &:hover {
+      @include svg(arrow-down-teal);
+    }
   }
 }
 
@@ -166,7 +170,7 @@ a.user-nav--toggle {
     .dropdown--options {
       font-size: .583em;
       left: 0;
-      margin-left: -.6em;
+      margin-left: -.5em;
       right: auto;
       padding: 1em;
       min-width: 160px;

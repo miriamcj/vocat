@@ -44,6 +44,15 @@
   .header-wrapper {
     position: relative;
   }
+  .header-courses h4:before {
+    @include svg('courses-teal');
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 12px;
+    width: 30px;
+    height: 30px;
+    content: '';
+  }
   .header {
     .header-link {
       margin-bottom: 0;
@@ -57,7 +66,7 @@
       color: $grayDark;
     }
     p.subtitle {
-      margin-top: 10px;
+      margin-top: 5px;
       color: $grayMedium;
     }
     width: 60%;
@@ -299,11 +308,19 @@
       right: -20px;
       width: 12px;
       height: 12px;
+      &:hover {
+        @include svg(arrow-down-teal);
+      }
     }
   }
-  .open .dropdown--toggle span {
-    color: $tealLight;
-    border-bottom: 1px solid $tealLight;
+  .open .dropdown--toggle {
+    span {
+      color: $tealLight;
+      border-bottom: 1px solid $tealLight;
+    }
+    &:after {
+      @include svg(arrow-down-teal);
+    }
   }
   .course-id {
     @extend %section-header-condensed;
