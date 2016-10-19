@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 20.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
-	<!ENTITY st0 "fill:#E1E1E1;">
+	<!ENTITY st0 "fill:#FFFFFF;">
 ]>
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="10.57715px" height="8.87158px" viewBox="0 0 10.57715 8.87158" style="enable-background:new 0 0 10.57715 8.87158;"
+	 width="9.87988px" height="8.03223px" viewBox="0 0 9.87988 8.03223" style="enable-background:new 0 0 9.87988 8.03223;"
 	 xml:space="preserve">
-<polygon style="&st0;" points="4.17871,8.87158 0,4.55469 0.71875,3.85938 4.09473,7.34619 9.78613,0 10.57715,0.6123 "/>
-<polygon style="&st0;" points="4.17871,8.87158 0,4.55469 0.71875,3.85938 4.09473,7.34619 9.78613,0 10.57715,0.6123 "/>
+<g>
+	<polygon style="&st0;" points="3.9541,8.03223 0,4.49219 1.00098,3.375 3.7998,5.88184 8.72949,0 9.87988,0.96387 	"/>
+</g>
 </svg>
