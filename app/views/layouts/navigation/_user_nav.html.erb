@@ -2,10 +2,10 @@
   <div class="profile-container">
     <a class="user-nav--toggle" data-behavior="toggle" href="#">
       <span><%= current_user.name %></span>
+      <div>
+        <%= image_tag avatar_url(current_user, 60), :alt => current_user.name %>
+      </div>
     </a>
-    <div>
-      <%= image_tag avatar_url(current_user, 60), :alt => current_user.name %>
-    </div>
   </div>
 
     <div class="user-nav--options" data-behavior="dropdown-options">

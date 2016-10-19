@@ -41,6 +41,8 @@ body.bg-dark {
   position: relative;
   z-index: 100;
   margin: auto;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
   padding-bottom: $headerHeight;
   min-height: calc(100vh - 337px)
   //overflow-x: hidden;
@@ -184,7 +186,7 @@ footer.page-footer {
   margin: auto;
   position: relative;
   max-width: $containerWidth;
-  a {
+  a:not(.user-nav--toggle) {
     &:hover {
       color: $tealLight;
     }
@@ -329,7 +331,9 @@ footer.page-footer {
     }
   }
 }
-
+.open .profile-container span:after {
+  @include svg(arrow-down-white); // #iconrefresh
+}
 .profile-container {
   span:after {
     @include svg(arrow-down-gray-dark);
@@ -342,7 +346,7 @@ footer.page-footer {
     vertical-align: middle;
     content: '';
     &:hover {
-      @include svg(arrow-down-white); // needs new white down arrow
+      @include svg(arrow-down-white); // #iconrefresh
     }
   }
 }

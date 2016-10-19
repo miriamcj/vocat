@@ -43,6 +43,24 @@
   @include clearfix(hard);
   .header-wrapper {
     position: relative;
+    .matrix-header-student:before {
+      @include svg('person-teal');
+      display: inline-block;
+      vertical-align: bottom;
+      margin-right: 12px;
+      width: 22px;
+      height: 22px;
+      content: '';
+    }
+    .matrix-header-group:before {
+      @include svg('people-teal');
+      display: inline-block;
+      vertical-align: bottom;
+      margin-right: 12px;
+      width: 32px;
+      height: 32px;
+      content: '';
+    }
   }
   .header-courses h4:before {
     @include svg('courses-teal');
@@ -238,9 +256,20 @@
 .course-synopsis-pane {
   background-color: #f6f6f6;
   width: 100%;
-
   .info-container .stats {
     display: inline-block;
+  }
+  .submission-links a:after {
+      @include svg('arrow-right-gray-dark');
+      display: inline-block;
+      vertical-align: bottom;
+      margin-left: 10px;
+      width: 20px;
+      height: 20px;
+      content: '';
+    &:hover {
+      @include svg('arrow-right-teal');
+    }
   }
   .submission-links div, .synopsis-footer div {
     display: inline-block;
@@ -249,6 +278,7 @@
 
   &.subheader {
     z-index: 150;
+    margin-top: $headerHeight;
 
     .padded-container {
       & > div {
@@ -272,11 +302,20 @@
   }
 
   .padded-container {
-    padding: 20px 35px;
+    padding: 25px 35px;
   }
 
   .heading-container {
-    margin-bottom: 20px;
+    margin-bottom: 18px;
+    span:after {
+      @include svg('course-teal');
+      display: inline-block;
+      vertical-align: bottom;
+      margin-right: 15px;
+      width: 27px;
+      height: 27px;
+      content: '';
+    }
   }
   a.alt {
     color: $tealLight;
@@ -298,8 +337,8 @@
   .dropdown--options {
     padding: 1em;
     min-width: 160px;
-    top: 37px;
-    right: -11px !important; // maybe a better way to do this.  position gets assigned in app/assets/javascripts/app/views/layout/dropdowns.js.coffee
+    top: 42px;
+    right: -9px !important; // maybe a better way to do this.  position gets assigned in app/assets/javascripts/app/views/layout/dropdowns.js.coffee
   }
   .dropdown--toggle {
     display: inline;

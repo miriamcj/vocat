@@ -2,10 +2,10 @@
 	<%= render 'layouts/header' %>
 	<%= render 'layouts/messages_backbone' %>
 
+  <% if @app_section == 'course' %>
+      <%= render 'shared/course_subheader', course: @selected_course %>
+  <% end %>
 	<div class="container">
-    <% if @app_section == 'course' %>
-        <%= render 'shared/course_subheader', course: @selected_course %>
-    <% end %>
 		<div class="page-content">
 			<% if content_for?(:heading) || content_for?(:heading_links) %>
 				<div class="page-content--heading">
