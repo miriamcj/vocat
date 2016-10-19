@@ -2,10 +2,8 @@
 <div class="page-section page-section-clear">
 	<div class="header-wrapper">
 		<div class="header">
-            <h1>
-                {{#if_match creatorType 'User'}}STUDENT WORK{{/if_match}}
-                {{#if_match creatorType 'Group'}}GROUP WORK{{/if_match}}
-            </h1>
+            {{#if_match creatorType 'User'}}<h1 class="matrix-header-student">STUDENT WORK</h1>{{/if_match}}
+            {{#if_match creatorType 'Group'}}<h1 class="matrix-header-group">GROUP WORK</h1>{{/if_match}}
 		</div>
 	</div>
 	<div class="body">

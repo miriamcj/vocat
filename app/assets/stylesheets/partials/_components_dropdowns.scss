@@ -50,6 +50,9 @@ a.user-nav--toggle {
   display: inline-block;
   font-size: $theta;
   line-height: 60px;
+  div {
+    display: inline-block;
+  }
   span {
     @include respond($baikal) {
       display: none !important;
@@ -78,7 +81,7 @@ a.user-nav--toggle {
      margin-left: 5px;
      border-radius: 50%;
      border: 3px solid $tealLight;
- }
+  }
 }
 
 .user-nav--options {
