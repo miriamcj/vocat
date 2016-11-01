@@ -20,6 +20,8 @@ class Courses::EvaluationsController < ApplicationController
     @users = @course.creators
     @groups = @course.groups
     @submissions = Submission.where(project: @projects)
+    latest_visit = Visit.find_or_initialize_by(user_id: current_user.id, visitable: @course, visitable_course_id: @course.id)
+    latest_visit.new_record? ? latest_visit.save : latest_visit.touch
   end
 
   def user_project_detail

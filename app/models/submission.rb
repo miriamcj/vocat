@@ -28,6 +28,7 @@ class Submission < ActiveRecord::Base
   has_many :evaluations, :dependent => :destroy
   has_many :discussion_posts, :dependent => :destroy
   has_many :annotations, through: :assets
+  has_many :visits, as: :visitable
   belongs_to :project
   belongs_to :creator, :polymorphic => true
   belongs_to :user, -> { where "submissions.creator_type = 'User'" }, foreign_key: 'creator_id'

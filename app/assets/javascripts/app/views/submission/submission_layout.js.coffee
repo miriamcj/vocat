@@ -10,6 +10,7 @@ define (require) ->
   RubricModalView = require('views/modal/modal_rubric')
   MarkdownOverviewModalView = require('views/modal/modal_markdown_overview')
   RubricModel = require('models/rubric')
+  VisitCollection = require('collections/visit_collection')
 
   class SubmissionLayout extends Marionette.LayoutView
 
@@ -109,5 +110,7 @@ define (require) ->
       @project = @model.project()
       @creator = @model.creator()
 
-
-
+      visitCollection = new VisitCollection;
+      @visit = new visitCollection.model({visitable_type: "Submission", visitable_id: @model.id, visitable_course_id: @courseId})
+      visitCollection.add(@visit)
+      @visit.save()

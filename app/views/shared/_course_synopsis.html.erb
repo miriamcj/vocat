@@ -26,6 +26,11 @@
   </div>
 
   <div class="clearfix synopsis-footer info-container">
+    <% if current_user.has_unreviewed_work?(course.id) %>
+        <div>
+          <%= link_to 'New work is awaiting your review.', course_path(course), class: 'alt new-work-link' %>
+        </div>
+    <% end %>
     <div style="position: absolute; right: 0px;">
       <%= link_to course_manage_projects_path(course) do %>
           <div class="stats">

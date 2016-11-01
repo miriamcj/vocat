@@ -22,6 +22,7 @@ class Asset < ActiveRecord::Base
   belongs_to :submission, :counter_cache => true
   belongs_to :author, :class_name => 'User'
   has_many :annotations, :dependent => :destroy
+  has_many :visits, as: :visitable
   has_one :attachment, :dependent => :destroy
 
   delegate :processing_error, :to => :attachment, :prefix => false, :allow_nil => true
