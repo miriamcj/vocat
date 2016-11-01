@@ -1,8 +1,8 @@
 <nav class="page-header--user-nav user-nav" data-behavior="dropdown">
   <div class="profile-container">
     <a class="user-nav--toggle" data-behavior="toggle" href="#">
-      <span><%= current_user.name %></span>
-      <div>
+      <span class="user-nav--name"><%= current_user.name %></span>
+      <div class="user-nav--icon">
         <%= image_tag avatar_url(current_user, 60), :alt => current_user.name %>
       </div>
     </a>

@@ -337,25 +337,6 @@ footer.page-footer {
     }
   }
 }
-.open .profile-container span:after {
-  @include svg(arrow-down-white); // #iconrefresh
-}
-.profile-container {
-  span:after {
-    @include svg(arrow-down-gray-dark);
-    position: absolute;
-    top: .75em;
-    right: 5px;
-    display: block;
-    width: 12px;
-    height: 6px;
-    vertical-align: middle;
-    content: '';
-    &:hover {
-      @include svg(arrow-down-white); // #iconrefresh
-    }
-  }
-}
 
 .drawer-nav--trigger {
   position: relative;
