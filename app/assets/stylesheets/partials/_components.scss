@@ -132,8 +132,14 @@ footer.page-footer {
     text-align: right;
     vertical-align: bottom;
     padding-left: 30px;
-    img {
-      max-width: 100px;
+    a {
+      display: inline-block;
+      width: 200px;
+      height: 40px;
+      @include svg(baruch-logo_horizontal-gray);
+      &:hover {
+        @include svg(baruch-logo_horizontal-teal);
+      }
     }
   }
 }

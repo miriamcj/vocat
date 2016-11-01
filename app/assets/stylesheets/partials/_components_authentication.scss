@@ -30,9 +30,17 @@ footer.login-page-footer {
       color: $tealLight;
     }
   }
-  .baruch-logo {
-    max-width: 200px;
+  .logo-link {
+    display: inline-block;
     margin-bottom: 20px;
+  }
+  .baruch-logo {
+    @include svg(baruch-logo_horizontal-gray);
+    width: 200px;
+    height: 40px;
+    &:hover {
+      @include svg(baruch-logo_horizontal-teal);
+    }
   }
 }
 .login-title {
