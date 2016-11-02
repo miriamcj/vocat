@@ -43,24 +43,24 @@
   @include clearfix(hard);
   .header-wrapper {
     position: relative;
-    .matrix-header-student:before {
-      @include svg('person-teal');
-      display: inline-block;
-      vertical-align: bottom;
-      margin-right: 12px;
-      width: 22px;
-      height: 22px;
-      content: '';
-    }
-    .matrix-header-group:before {
-      @include svg('people-teal');
-      display: inline-block;
-      vertical-align: bottom;
-      margin-right: 12px;
-      width: 32px;
-      height: 32px;
-      content: '';
-    }
+    //.matrix-header-student:before {
+    //  @include svg('person-teal');
+    //  display: inline-block;
+    //  vertical-align: bottom;
+    //  margin-right: 12px;
+    //  width: 22px;
+    //  height: 22px;
+    //  content: '';
+    //}
+    //.matrix-header-group:before {
+    //  @include svg('people-teal');
+    //  display: inline-block;
+    //  vertical-align: bottom;
+    //  margin-right: 12px;
+    //  width: 32px;
+    //  height: 32px;
+    //  content: '';
+    //}
   }
   .header {
     .header-link {
@@ -68,14 +68,31 @@
     }
 
     .header-icon {
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 12px;
+
       &.courses {
         @include svg('courses-teal');
-        display: inline-block;
-        vertical-align: middle;
         margin-top: -6px; // NP
-        margin-right: 12px;
         width: 26px;
         height: 22px;
+        content: '';
+      }
+
+      &.person {
+        @include svg('person-teal');
+        margin-top: -5px;
+        width: 16px;
+        height: 18px;
+        content: '';
+      }
+
+      &.people {
+        @include svg('people-teal');
+        margin-top: -5px;
+        width: 26px;
+        height: 18px;
         content: '';
       }
     }
