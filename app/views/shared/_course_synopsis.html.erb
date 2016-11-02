@@ -1,7 +1,7 @@
 <div class="page-section--subsection course-synopsis-pane">
   <div class="padded-container">
     <div class="heading-container">
-      <span></span>
+      <i class="header-icon"></i>
       <%= link_to course_path(course) do %>
         <div class="course-id">
           <%= course.department + ' ' + course.number %>
@@ -16,37 +16,33 @@
     </div>
 
     <div class="submission-links info-container">
-      <div>
-        <%= link_to 'STUDENT WORK', course_user_evaluations_path(course) %>
-      </div>
-      <div>
-        <%= link_to 'GROUP WORK', course_group_evaluations_path(course) %>
-      </div>
+		<%= link_to 'STUDENT WORK', course_user_evaluations_path(course) %>
+		<%= link_to 'GROUP WORK', course_group_evaluations_path(course) %>
     </div>
   </div>
 
   <div class="clearfix synopsis-footer info-container">
-    <% if current_user.has_unreviewed_work?(course.id) %>
-        <div>
-          <%= link_to 'New work is awaiting your review.', course_path(course), class: 'alt new-work-link' %>
-        </div>
-    <% end %>
-    <div style="position: absolute; right: 0px;">
-      <%= link_to course_manage_projects_path(course) do %>
-          <div class="stats">
-            PROJECTS: <span><%= course.projects.count %></span>
-          </div>
-      <% end %>
-      <%= link_to course_manage_enrollment_path(course) do %>
-          <div class="stats">
-            STUDENTS: <span><%= course.creators.count %></span>
-          </div>
-      <% end %>
-      <%= link_to course_manage_groups_path(course) do %>
-          <div class="stats">
-            GROUPS: <span><%= course.groups.count %></span>
-          </div>
-      <% end %>
-    </div>
+	  <ul class="stats-list">
+		  <li>
+			  <%= link_to course_manage_projects_path(course) do %>
+				PROJECTS: <span><%= course.projects.count %></span>
+			  <% end %>
+		  </li>
+		  <li>
+			  <%= link_to course_manage_enrollment_path(course) do %>
+				STUDENTS: <span><%= course.creators.count %></span>
+			  <% end %>
+		  </li>
+		  <li>
+			  <%= link_to course_manage_groups_path(course) do %>
+				GROUPS: <span><%= course.groups.count %></span>
+			  <% end %>
+		  </li>
+	  </ul>
+	<% if current_user.has_unreviewed_work?(course.id) %>
+		<div>
+		  <%= link_to 'New work is awaiting your review.', course_path(course), class: 'alt new-work-link' %>
+		</div>
+	<% end %>
   </div>
 </div>

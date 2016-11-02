@@ -62,19 +62,24 @@
       content: '';
     }
   }
-  .header-courses h4:before {
-    @include svg('courses-teal');
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 12px;
-    width: 30px;
-    height: 30px;
-    content: '';
-  }
   .header {
     .header-link {
       margin-bottom: 0;
     }
+
+    .header-icon {
+      &.courses {
+        @include svg('courses-teal');
+        display: inline-block;
+        vertical-align: middle;
+        margin-top: -6px; // NP
+        margin-right: 12px;
+        width: 26px;
+        height: 22px;
+        content: '';
+      }
+    }
+
     h1, h2, h3, h4, h5, h6 {
       @extend %proto-section-header;
       margin: 0;
@@ -83,8 +88,9 @@
       line-height: .8em;
       color: $grayDark;
     }
+
     p.subtitle {
-      margin-top: 5px;
+      margin-top: 8px;
       color: $grayMedium;
     }
     width: 60%;
@@ -259,19 +265,28 @@
   .info-container .stats {
     display: inline-block;
   }
-  .submission-links a:after {
+
+  .submission-links > a {
+    @extend %utility-label;
+    &:hover {
+      &:after {
+        @include svg('arrow-right-teal');
+      }
+    }
+    &:after {
       @include svg('arrow-right-gray-dark');
       display: inline-block;
-      vertical-align: bottom;
+      width: 15px;
+      height: 13px;
+      margin-top: -2px;
       margin-left: 10px;
-      width: 20px;
-      height: 20px;
+      vertical-align: middle;
+      background-position: 50% 50%;
       content: '';
-    &:hover {
-      @include svg('arrow-right-teal');
     }
   }
-  .submission-links div, .synopsis-footer div {
+
+  .synopsis-footer div {
     display: inline-block;
     margin-right: 15px;
   }
@@ -302,21 +317,23 @@
   }
 
   .padded-container {
-    padding: 25px 35px;
+    padding: 28px 29px 24px;
   }
 
   .heading-container {
-    margin-bottom: 18px;
-    span:after {
+    margin-bottom: 14px;
+
+    .header-icon {
       @include svg('course-teal');
       display: inline-block;
-      vertical-align: bottom;
+      vertical-align: middle;
+      margin-top: -6px; // NP
       margin-right: 15px;
-      width: 27px;
-      height: 27px;
-      content: '';
+      width: 20px;
+      height: 16px;
     }
   }
+
   a.alt {
     color: $tealLight;
     &:hover {
@@ -331,7 +348,7 @@
   .info-container {
     > a {
       display: inline-block;
-      margin-right: 35px;
+      margin-right: 29px;
     }
   }
   .dropdown--options {
@@ -372,10 +389,10 @@
   }
 
   .synopsis-footer {
+    @include clearfix();
     width: 100%;
     background-color: #ececec;
     padding: 20px 35px;
-    height: 56px;
     div {
       color: $grayMediumDarker;
       .new-work-link:before {
@@ -391,9 +408,28 @@
         }
       }
     }
-    span {
-      font-weight: 600;
-      color: #4d4d4d;
+    // <ul>
+    .stats-list {
+      @extend %unstyled-list;
+      float: right;
+      margin-bottom: 0;
+      li {
+        @extend %utility-label;
+        display: inline-block;
+        margin-left: 1em;
+        a {
+          color: $grayMediumLighter;
+          &:hover {
+            color: $tealLight;
+            span {
+              color: $tealLight;
+            }
+          }
+        }
+        span {
+          color: #4d4d4d;
+        }
+      }
     }
   }
 }

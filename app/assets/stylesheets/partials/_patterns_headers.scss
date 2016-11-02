@@ -25,7 +25,7 @@
   margin-right: .25em;
   display: inline-block;
   font-weight: $light;
-  font-size: $epsilon;
+  font-size: $zeta;
   color: $grayDarkest;
   letter-spacing: 0;
   @extend %condensedHeading;
@@ -35,7 +35,7 @@
 
 %section-header-condensed {
   display: inline-block;
-  font-size: $epsilon;
+  font-size: $zeta;
   margin-right: 15px;
   @extend %condensedHeading;
 }

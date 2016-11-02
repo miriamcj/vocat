@@ -6,7 +6,7 @@
 #  submission_id    :integer
 #  evaluator_id     :integer
 #  scores           :hstore           default({}), not null
-#  published        :boolean
+#  published        :boolean          default(FALSE)
 #  rubric_id        :integer
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
