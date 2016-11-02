@@ -2,7 +2,7 @@
   <div class="padded-container">
     <div>
       <div class="heading-container">
-        <span></span>
+        <i class="header-icon course"></i>
         <div class="course-id">
           <%= course.department + ' ' + course.number %>
         </div>
@@ -22,7 +22,7 @@
             <% if current_user.can?(:administer, @selected_course) %>
                 <div class="dropdown dropdown-inline" data-behavior="dropdown">
                   <a class="dropdown--toggle" data-behavior="toggle" href="#">
-                    <span>SETUP COURSE</span>
+                    <span>Setup Course</span>
                   </a>
 
                   <div class="dropdown--options" data-behavior="dropdown-options">

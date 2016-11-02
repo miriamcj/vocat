@@ -192,6 +192,17 @@ $columnWidth: ($container / $columns) - 12;
   thead {
     th {
       @extend %matrix-heading;
+      position: relative;
+
+      .dropdown--bump {
+        height: 40px;
+      }
+
+      .dropdown {
+        position: absolute;
+        bottom: 12px;
+        left: 20px;
+      }
     }
   }
 
