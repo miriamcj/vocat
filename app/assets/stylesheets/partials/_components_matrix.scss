@@ -311,13 +311,12 @@ $columnWidth: ($container / $columns) - 12;
     width: 50%;
     vertical-align: top;
     dt {
-      margin-bottom: 20%;
-      @include font-head;
-      font-weight: $semibold;
+      @extend %utility-label;
+      font-size: $lambda-minor;
+      margin-bottom: 9px;
       text-transform: uppercase;
       text-align: center;
       color: $grayMediumLighter;
-      font-size: .8em;
     }
     dd {
       @include font-matrix;
@@ -347,12 +346,29 @@ $columnWidth: ($container / $columns) - 12;
       }
       b.matrix--checkbox {
         cursor: pointer;
-        margin-top: -1px;
-        height: .70em;
-        @include svg(checkbox-unchecked-gray);
+        margin: 0 auto;
+        height: 22px;
+        width: 22px;
+        background-color: $grayLight;
+        border-radius: 100%;
         display: block;
+
+        &:after {
+          // Check
+          @include svg(check-white);
+          display: none;
+          width: 10px;
+          height: 8px;
+          content: '';
+          vertical-align: middle;
+          margin-top: -2px;
+        }
+
         &.checked {
-          @include svg(checkbox-checked-gray);
+          background-color: $grayMediumLighter;
+          &:after {
+            display: inline-block;
+          }
         }
       }
     }
