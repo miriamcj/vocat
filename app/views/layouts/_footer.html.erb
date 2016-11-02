@@ -1,15 +1,17 @@
 <footer class="page-footer">
   <div class="page-footer-inner">
-    <div class="vocat-logo">
-      <%= image_tag("png/logo.png", :alt => "VOCAT") %> | <a href="http://www.york.edu">York College</a>
+    <div class="page-footer--logo">
+		<%= image_tag("png/logo-gray.png", :alt => "VOCAT") %>
+	  	<div class="separator"></div>
+		<a class="institution" target="_blank" href="http://www.york.edu">York College</a>
     </div>
     <div class="page-footer-colophon">
-      <div class="page-footer-msg">
+      <p class="page-footer-msg">
         <span>VOCAT is brought to you by <a href="http://baruch.cuny.edu" target="_blank">Baruch College</a>. Learn more at <a href="http://vocat.io" target="_blank">vocat.io</a>.</span>
         <% if Rails.configuration.vocat_build_number %>
           <span class="page-footer-version">Build <%= Rails.configuration.vocat_build_number %></span>
         <% end %>
-      </div>
+      </p>
         <div class="baruch-logo">
           <a href="http://www.baruch.cuny.edu"></a>
         </div>

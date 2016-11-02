@@ -114,14 +114,25 @@ footer.page-footer {
     padding: 12px 0;
   }
 
-  .vocat-logo {
-    font-size: $delta;
+  .page-footer--logo {
+    font-size: $delta-minor;
     font-weight: 600;
     margin-bottom: 15px;
     img {
-      height: 22px;
+      height: 20px;
+      width: auto;
+    }
+
+    .separator {
+      display: inline-block;
+      vertical-align: middle;
+      margin: -7px 14px 0;
+      width: 1px;
+      height: 25px;
+      background-color: $grayMedium;
     }
   }
+
   .page-footer-colophon {
     display: table;
     width: 100%;
@@ -134,8 +145,8 @@ footer.page-footer {
     padding-left: 30px;
     a {
       display: inline-block;
-      width: 200px;
-      height: 40px;
+      width: 180px;
+      height: 24px;
       @include svg(baruch-logo_horizontal-gray);
       &:hover {
         @include svg(baruch-logo_horizontal-teal);
@@ -150,7 +161,7 @@ footer.page-footer {
 }
 .page-footer-version {
   margin-top: 12px;
-  font-size: $theta;
+  font-size: $kappa;
   display: block;
 }
 // Page header
