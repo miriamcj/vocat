@@ -96,6 +96,19 @@
   @include clearfix;
 }
 
+// Screenreader text
+// For hidding text visually, but keeping it selectable by screen-readers
+// --------------------------------------------------------
+@mixin screen-reader-text {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
 // Kill ye FOUT -
 // Depends on Typekit's webfontloader adding the .wf-active class...
 // --------------------------------------------------------
