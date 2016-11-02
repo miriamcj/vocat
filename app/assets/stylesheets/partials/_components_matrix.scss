@@ -288,9 +288,7 @@ $columnWidth: ($container / $columns) - 12;
     text-align: center;
     @include clearfix(hard);
     .cell--message {
-      @include font-head;
-      font-weight: $semibold;
-      text-transform: uppercase;
+      @extend %utility-label;
       text-align: center;
       color: $grayMediumLighter;
       font-size: $lambda-minor;
@@ -301,7 +299,6 @@ $columnWidth: ($container / $columns) - 12;
       position: absolute;
       bottom: 0;
       text-align: center;
-      font-size: .8em;
       padding-bottom: 1em;
     }
   }
@@ -310,6 +307,9 @@ $columnWidth: ($container / $columns) - 12;
     float: left;
     width: 50%;
     vertical-align: top;
+    text-align: center;
+    margin-bottom: 2px;
+
     dt {
       @extend %utility-label;
       font-size: $lambda-minor;
@@ -326,6 +326,16 @@ $columnWidth: ($container / $columns) - 12;
       font-weight: $regular;
       color: $grayLighter;
       margin: 0;
+
+      &.switch {
+        display: inline-block;
+        margin: 0 auto;
+
+        .switch-label {
+          margin: 0;
+        }
+      }
+
       .matrix--scored-sub {
         margin-top: 15px;
       }

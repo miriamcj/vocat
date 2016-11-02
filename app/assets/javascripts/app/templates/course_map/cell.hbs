@@ -13,19 +13,21 @@
 		{{#if can_be_evaluated }} <!-- can the submission be evaluated? (does the project have a rubric?) -->
 			<dl class="cell--published">
 				<dt>Published</dt>
-                    {{#if current_user_published}} <!-- has the current user evaluated the submission? -->
-                        <dd>
-                            <b data-behavior="publish-toggle" class="matrix--checkbox checked"></b>
-                        </dd>
-                    </dl>
-                    <span class="cell--message cell--message-pinned" style="left: 8px;">SCORE: <span style="color: #414141">{{ to_i current_user_percentage }}%</span></span>
-                    {{else}}
-                        <dd>
-                            <b data-behavior="publish-toggle" class="matrix--checkbox"></b>
-                        </dd>
-                    </dl>
-                    <span class="cell--message cell--message-pinned" style="left: 8px;">SCORE: <span style="color: #414141">&mdash;</span></span>
-                    {{/if}}
+                <dd class="switch {{#if current_user_published}}switch-checked{{/if}}" data-behavior="publish-toggle">
+                    <input id="checkbox-{{cid}}" {{#if current_user_published}}checked="checked"{{/if}} class="switch-checkbox" type="checkbox">
+                    <label for="checkbox-{{cid}}" class="switch-label">
+                        <span class="switch-inner">
+                          <span class="switch-text switch-active">Yes</span>
+                          <span class="switch-text switch-inactive">No</span>
+                        </span>
+                    </label>
+                </dd>
+            </dl>
+            {{#if current_user_published}} <!-- has the current user evaluated the submission? -->
+                <span class="cell--message cell--message-pinned" style="left: 8px;">SCORE: <span style="color: #414141">{{ to_i current_user_percentage }}%</span></span>
+            {{else}}
+                <span class="cell--message cell--message-pinned" style="left: 8px;">SCORE: <span style="color: #414141">&mdash;</span></span>
+            {{/if}}
             {{#if instructor_score_percentage }} <!-- is there an instructor average score? -->
                 <span class="cell--message cell--message-pinned" style="right: 8px;">AVERAGE: <span style="color: #414141">{{to_i instructor_score_percentage}}%</span></span>
             {{ else }}
