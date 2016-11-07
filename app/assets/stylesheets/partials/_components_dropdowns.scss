@@ -256,3 +256,8 @@
   border: 1px solid $primaryButtonHoverColor;
   color: $white !important;
 }
+
+// hide deselect on admin courses list
+.drawer-course-list .chosen-container-single .chosen-single abbr {
+  display: none;
+}
