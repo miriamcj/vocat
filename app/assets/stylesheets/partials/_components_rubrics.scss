@@ -1,0 +1,131 @@
+@import "variables";
+@import "mixins";
+@import "patterns";
+
+// all throwaway styles, just to help visualize for now
+.rubric-builder {
+  padding-right: 115px;
+  padding-bottom: 55px;
+  background-color: whitesmoke;
+  position: relative;
+  .add-buttons > div {
+    display: inline-block;
+    font-size: 40px;
+  }
+  .range-add-snap {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 115px;
+    height: 75px;
+    text-align: right;
+    padding: 5px 15px;
+    background-color: $tealLightest;
+    color: $tealLight;
+    &:hover {
+      background-color: $tealLight;
+      color: $tealDark;
+    }
+  }
+  .criteria-add-snap {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 200px;
+    height: 55px;
+    padding: 5px 15px;
+    background-color: $grayLighter;
+    &:hover {
+      background-color: $grayLight;
+    }
+  }
+}
+.criteria-wrapper, .body-wrapper {
+  display: inline-block;
+  vertical-align: top;
+}
+.ranges-column {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 3px;
+}
+.range-columns {
+  display: inline-block;
+}
+.cell, .criteria-item, .spacer, .range-header, .spacer, .criteria-add-button, .range-add-button {
+  height: 75px;
+  width: 200px;
+  text-align: center;
+}
+.range-header {
+  background-color: $tealLight;
+}
+.cell {
+  background-color: $tealLightest;
+}
+.cell, .criteria-item {
+  margin-bottom: 3px;
+}
+.range-header, .criteria-item {
+  position: relative;
+  &:hover {
+    .cell-control {
+      visibility: visible;
+    }
+  }
+}
+.range-add {
+  display: inline-block;
+}
+.cell-name, .criteria-item, .range-header {
+  font-weight: 600;
+}
+.add-buttons {
+  //display: none;
+}
+.table-wrapper {
+  white-space: nowrap;
+}
+.cell-control {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  visibility: hidden;
+  &:hover {
+    background-color: whitesmoke;
+  }
+  &.move-left, &.move-up {
+    left: 0;
+  }
+  &.move-right, &.move-down {
+    left: 0;
+    top: 25px;
+  }
+  &.edit {
+    right: 0;
+  }
+  &.destroy {
+    right: 0;
+    top: 25px;
+  }
+}
+.range-header {
+  background-color: $tealLight;
+  .cell-control {
+    color: whitesmoke;
+    background-color: $tealDark;
+    &:hover {
+      background-color: $tealDarkest;
+    }
+  }
+}
+.criteria-item {
+  background-color: $grayMedium;
+  .cell-control {
+    color: whitesmoke;
+    background-color: $grayDark;
+    &:hover {
+      background-color: $grayDarker;
+    }
+  }
+}

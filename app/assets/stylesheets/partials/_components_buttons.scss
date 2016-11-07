@@ -122,6 +122,13 @@
     }
   }
 }
+.customize-button {
+  @extend %icon-button;
+  &:after {
+    @include svg(sliders-white)
+  }
+}
+
 
 // A secondary button
 .cancel-button, .close-button {
@@ -572,4 +579,7 @@ label.switch-label:after,
 .score-view-toggle {
   display: inline-block;
   margin-left: 20px;
+}
+.rubric-buttons {
+  margin-top: 40px;
 }

@@ -122,14 +122,6 @@ footer.page-footer {
       width: auto;
     }
 
-    .separator {
-      display: inline-block;
-      vertical-align: middle;
-      margin: -7px 14px 0;
-      width: 1px;
-      height: 25px;
-      background-color: $grayMedium;
-    }
   }
 
   .page-footer-colophon {
@@ -152,6 +144,14 @@ footer.page-footer {
       }
     }
   }
+}
+.separator {
+  display: inline-block;
+  vertical-align: middle;
+  margin: -7px 14px 0;
+  width: 1px;
+  height: 25px;
+  background-color: $grayMedium;
 }
 .page-footer-msg {
   font-size: $theta;

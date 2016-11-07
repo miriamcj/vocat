@@ -294,82 +294,6 @@ select.from, select.to {
   }
 }
 
-.range-picker-container {
-  position: relative;
-  padding-top: 3em;
-  margin-bottom: 2em;
-}
-
-.range-picker {
-  height: 2em;
-  background-color: $grayLight;
-  border-radius: 0.5em;
-  left: 0;
-  right: 0;
-  position: relative;
-  .ticks {
-    .mark {
-      width: 1px;
-      height: 2em;
-      background: white;
-      position: absolute;
-      text-align: center;
-      span {
-        display: block;
-        position: absolute;
-        margin-left: -50%;
-        top: 4em;
-        font-size: .56em;
-      }
-    }
-  }
-  .dragger {
-    position: absolute;
-    cursor: pointer;
-    width: 1px;
-    height: 4em;
-    background-color: $tealLight;
-    border-radius: 0.5em;
-    top: -2em;
-    z-index: 30;
-    &.dragger-active {
-      z-index: 40;
-    }
-    &.dragger-low .dragger-label {
-      left: 0;
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-    }
-    &.dragger-high .dragger-label {
-      left: -39px;
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
-    }
-    &.dragger-locked {
-      opacity: .7;
-      top: -2.3em;
-      z-index: 20;
-      .dragger-label {
-        top: -2px;
-      }
-    }
-
-    .dragger-label {
-      line-height: 1;
-      color: $white !important;
-      width: 40px;
-      height: 2em;
-      font-weight: $semibold;
-      background-color: $tealLight;
-      position: absolute;
-      top: -.5em;
-      left: -39px;
-      text-align: center;
-      line-height: 2em;
-    }
-  }
-}
-
 .file-input:first-child {
   margin-top: 0;
 }
@@ -401,5 +325,18 @@ select.from, select.to {
   }
   a {
     float: right;
+  }
+}
+
+// new rubric forms
+.new-rubric-form {
+  input[type="text"] {
+    border: 1px solid $grayMedium;
+    width: 70%;
+  }
+  .rubric-name {
+    margin-bottom: 20px;
+    font-size: 24px;
+    padding-bottom: 0;
   }
 }

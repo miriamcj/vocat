@@ -16,7 +16,7 @@ define (require) ->
 
     defaults: {
       low: 0
-      high: 100
+      high: 1
     }
 
     initialize: (options) ->
@@ -64,7 +64,7 @@ define (require) ->
       values.push @getHigh()
       values.join(' ')
 
-    canAddRange: () ->
+    availableRanges: () ->
       maxRanges = @get('high') - @get('low') + 1
       rangeCount = @get('ranges').length
       rangeCount + 1 <= maxRanges
