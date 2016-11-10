@@ -1,6 +1,6 @@
 <% content_for :content do %>
   <div class="login-title">
-    <%= image_tag("png/logo.png", :alt => "VOCAT", style: 'max-width: 100px;') %> <span>|</span> <a href="http://www.york.edu">York College</a>
+    <%= image_tag("png/logo.png", :alt => "VOCAT", style: 'max-width: 100px;') %> <span>&nbsp|&nbsp<%= @current_organization.name %></span>
   </div>
 	<div class="page-content">
 		<div class="authentication-tile">
