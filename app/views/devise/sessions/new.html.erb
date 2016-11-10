@@ -1,6 +1,6 @@
 <% content_for :content do %>
   <div class="login-title">
-    <%= image_tag("png/logo.png", :alt => "VOCAT", style: 'max-width: 100px;') %> <span>&nbsp|&nbsp<%= @current_organization.name %></span>
+    <%= image_tag("png/logo.png", :alt => "VOCAT", style: 'max-width: 100px;') %><span>&nbsp;|&nbsp;<%= @current_organization.name %></span>
   </div>
 	<div class="page-content">
 		<div class="authentication-tile">
@@ -43,7 +43,7 @@
 		</div>
 		<div class="authentication-footer">
 			<div class="help-links">
-        <a href="http://vocat.io">Get help using VOCAT</a> | <%= render "devise/shared/links" %>
+        <a href="http://vocat.io" style="margin-right: 15px">Get help using VOCAT</a>|<%= render "devise/shared/links" %>
 			</div>
 		</div>
     <footer class="login-page-footer">
