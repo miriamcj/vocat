@@ -45,6 +45,7 @@ class Course < ActiveRecord::Base
   accepts_nested_attributes_for :groups
 
   scope :sorted, -> { joins(:semester).order ('year DESC, semesters.position DESC') }
+  scope :current_and_upcoming, -> { where('courses.year >= ?', Time.now.year) }
   scope :in_org, ->(org) { where(:organization => org)}
 
   validates :department, :name, :number, :section, :presence => true

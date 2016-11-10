@@ -117,6 +117,12 @@ class User < ActiveRecord::Base
     base_role.to_s == role.to_s
   end
 
+  def sorted_grouped_upcoming_courses
+    self.courses.current_and_upcoming.order('year ASC').group_by do |course|
+      "#{course.semester} #{course.year}"
+    end
+  end
+
   def to_s
     name
   end
