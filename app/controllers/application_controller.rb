@@ -110,6 +110,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def set_type_manage
+    @type = 'manage'
+  end
 
 
 end

@@ -7,7 +7,7 @@ class Courses::Manage::ProjectsController < ApplicationController
   before_filter :org_validate_course
   respond_to :html
 
-  before_action :disable_layout_messages
+  before_action :disable_layout_messages, :set_type_manage
 
   # GET courses/:course_id/manage/projects
   def index

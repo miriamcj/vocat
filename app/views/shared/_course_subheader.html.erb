@@ -21,7 +21,7 @@
           <div style="display: inline;">
             <% if current_user.can?(:administer, @selected_course) %>
                 <div class="dropdown dropdown-inline" data-behavior="dropdown">
-                  <a class="dropdown--toggle" data-behavior="toggle" href="#">
+                  <a class="dropdown--toggle <%= 'active' if @type == 'manage'%>" data-behavior="toggle" href="#">
                     <span>Setup Course</span>
                   </a>
 

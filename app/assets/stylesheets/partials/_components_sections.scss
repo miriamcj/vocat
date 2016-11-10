@@ -322,7 +322,7 @@
       }
     }
 
-    .info-container > a {
+    .info-container > a, .dropdown--toggle.active {
       border-bottom: 1px solid transparent;
 
       &.active {
