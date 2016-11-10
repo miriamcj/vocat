@@ -23,7 +23,7 @@
                     </label>
                 </dd>
             </dl>
-            {{#if current_user_published}} <!-- has the current user evaluated the submission? -->
+            {{#if current_user_percentage}} <!-- has the current user evaluated the submission? -->
                 <span class="cell--message cell--message-pinned" style="left: 8px;">SCORE: <span style="color: #414141">{{ to_i current_user_percentage }}%</span></span>
             {{else}}
                 <span class="cell--message cell--message-pinned" style="left: 8px;">SCORE: <span style="color: #414141">&mdash;</span></span>

@@ -14,7 +14,7 @@ class AbstractSubmissionSerializer < ActiveModel::Serializer
     evaluations = current_user_evaluations
     e = evaluations.find { |e| e[0] == object.id }
     if !e.nil?
-      e[1]
+      e[1].round
     else
       nil
     end
