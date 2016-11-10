@@ -8,14 +8,9 @@
 
 					<nav class="section-nav">
 						<ul>
-							<% if @app_section == 'admin' || (current_user.role?(:administrator) || current_user.role?(:superadministrator)) %>
-								<%= render 'layouts/navigation/context_nav_trigger' %>
-							<% end %>
-
 							<%= render 'layouts/navigation/section_nav_trigger' %>
 						</ul>
 					</nav>
-
 
 					<%= render 'layouts/navigation/user_nav' %>
 
@@ -28,10 +23,6 @@
 			<div data-drawer-target="context" data-behavior="header-drawer" class="page-header--drawer context-drawer">
 				<div class="drawer--contents">
 					<ul class="drawer-nav">
-
-						<% if @app_section == 'admin' || (current_user.role?(:administrator) || current_user.role?(:superadministrator)) %>
-							<%= render 'layouts/navigation/context_nav_admin' %>
-						<% end %>
 
 						<% if @app_section == 'manage' %>
 							<%= render 'layouts/navigation/context_nav_manage' %>

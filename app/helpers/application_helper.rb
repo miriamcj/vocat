@@ -96,7 +96,7 @@ module ApplicationHelper
   end
 
   def evaluator_or_admin?
-    current_user_role == 'admin' || current_user_role == 'evaluator' ? true : false
+    current_user_role == 'administrator' || current_user_role == 'evaluator' ? true : false
   end
 
   def size_and_unit_from_number(value)

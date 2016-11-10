@@ -2,7 +2,9 @@
 	<%= render 'layouts/header' %>
 	<%= render 'layouts/messages_backbone' %>
 
-  <% if @selected_course %>
+  <% if params[:controller].include?('admin') %>
+    <%= render 'shared/admin_subheader' %>
+  <% elsif @selected_course %>
       <%= render 'shared/course_subheader', course: @selected_course %>
   <% end %>
 	<div class="container">
