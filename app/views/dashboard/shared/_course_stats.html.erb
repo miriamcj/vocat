@@ -1,0 +1,25 @@
+<% if evaluator_or_admin? %>
+  <ul class="stats-list">
+    <li>
+      <%= link_to course_manage_projects_path(course) do %>
+          PROJECTS: <span><%= course.projects.count %></span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to course_manage_enrollment_path(course) do %>
+          STUDENTS: <span><%= course.creators.count %></span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to course_manage_groups_path(course) do %>
+          GROUPS: <span><%= course.groups.count %></span>
+      <% end %>
+    </li>
+  </ul>
+<% else %>
+    <ul class="stats-list">
+      <li>
+        PROJECTS: <span><%= course.projects.count %></span>
+      </li>
+    </ul>
+<% end %>
