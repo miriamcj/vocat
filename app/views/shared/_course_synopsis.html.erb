@@ -2,47 +2,24 @@
   <div class="padded-container">
     <div class="heading-container">
       <i class="header-icon"></i>
-      <%= link_to course_path(course) do %>
-        <div class="course-id">
-          <%= course.department + ' ' + course.number %>
-        </div>
-        <div class="course-details">
-          <%= course.name %>
-        </div>
-        <div class="course-details">
-          Section <%= course.section %>
-        </div>
-      <% end %>
+        <%= render 'dashboard/shared/course_header', course: course %>
     </div>
 
-    <div class="submission-links info-container">
-		<%= link_to 'STUDENT WORK', course_user_evaluations_path(course) %>
-		<%= link_to 'GROUP WORK', course_group_evaluations_path(course) %>
-    </div>
+    <% if current_user.can?(:show_submissions, course) %>
+      <%= render 'dashboard/shared/submission_links', course: course %>
+    <% end %>
   </div>
 
   <div class="clearfix synopsis-footer info-container">
-	  <ul class="stats-list">
-		  <li>
-			  <%= link_to course_manage_projects_path(course) do %>
-				PROJECTS: <span><%= course.projects.count %></span>
-			  <% end %>
-		  </li>
-		  <li>
-			  <%= link_to course_manage_enrollment_path(course) do %>
-				STUDENTS: <span><%= course.creators.count %></span>
-			  <% end %>
-		  </li>
-		  <li>
-			  <%= link_to course_manage_groups_path(course) do %>
-				GROUPS: <span><%= course.groups.count %></span>
-			  <% end %>
-		  </li>
-	  </ul>
-	<% if current_user.has_unreviewed_work?(course.id) %>
-		<div>
-		  <%= link_to 'New work is awaiting your review.', course_path(course), class: 'alt new-work-link' %>
-		</div>
-	<% end %>
+    <%= render 'dashboard/shared/course_stats', course: course %>
+    <% if current_user.has_unreviewed_work?(course.id) && current_user.can?(:show_submissions, course) %>
+      <div>
+        <% if evaluator_or_admin? %>
+          <%= link_to 'New work is awaiting your review.', course_path(course), class: 'alt new-work-link' %>
+        <% else %>
+          <%= link_to 'Peer work is awaiting your review.', course_path(course), class: 'alt new-work-link' %>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </div>
