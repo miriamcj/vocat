@@ -1,14 +1,14 @@
 <% content_for :content do %>
 
-	<div class="page-section page-section-clear">
-		<div class="header-wrapper">
-			<div class="header">
-				<i class="header-icon courses"></i><h2 class="heading-page-section">Your Courses</h2>
-				<%= render 'dashboard/messages/creator_message' %>
-			</div>
-		</div>
-		<div class="body">
-			<%= render 'dashboard/shared/course_list' %>
-		</div>
-	</div>
+    <div class="page-section">
+      <div class="header-wrapper">
+        <div class="header">
+          <i class="header-icon courses"></i><h2 class="heading-page-section">Your Courses</h2>
+          <%= render 'dashboard/messages/creator_message' %>
+        </div>
+      </div>
+      <%= render 'dashboard/shared/course_list' %>
+      <%= link_to 'All Courses', courses_path, class: 'all-courses-link' %>
+    </div>
+
 <% end %>

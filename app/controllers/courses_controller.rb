@@ -6,6 +6,10 @@ class CoursesController < ApplicationController
   respond_to :html, :json
   before_action :assign_course
 
+  def index
+    @courses = current_user.grouped_sorted_courses
+  end
+
   def portfolio
     @selected_course_role = @selected_course.role(current_user)
   end

@@ -42,6 +42,7 @@
 								</a>
 							</li>
 						<% end %>
+              <li><a href="<%= courses_path %>">All Courses</a></li>
 					<% else %>
 						<li style="margin-bottom: 3em; ">
 							<select style="width: 100%;" data-class="course-select">
@@ -54,6 +55,9 @@
 											</option>
 										<% end %>
 									</optgroup>
+                  <optgroup label="">
+                    <option value="<%= courses_path %>">All Courses</option>
+                  </optgroup>
 								<% end %>
 							</select>
 							<small style="display: block; margin-top: .5em; line-height: 1.25em;">

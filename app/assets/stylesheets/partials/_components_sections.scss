@@ -284,6 +284,27 @@
   line-height: .8em;
   color: $grayDark;
 }
+.all-courses-link {
+  @extend %utility-label
+}
+.submission-links > a, .all-courses-link {
+  &:after {
+    @include svg('arrow-right-gray-dark');
+    display: inline-block;
+    width: 15px;
+    height: 13px;
+    margin-top: -2px;
+    margin-left: 10px;
+    vertical-align: middle;
+    background-position: 50% 50%;
+    content: '';
+  }
+  &:hover {
+    &:after {
+      @include svg('arrow-right-teal');
+    }
+  }
+}
 .course-synopsis-pane {
   background-color: #f6f6f6;
   width: 100%;
@@ -293,25 +314,6 @@
 
   .info-container > a, .info-container .dropdown--toggle {
     @extend %utility-label;
-  }
-
-  .submission-links > a {
-    &:after {
-      @include svg('arrow-right-gray-dark');
-      display: inline-block;
-      width: 15px;
-      height: 13px;
-      margin-top: -2px;
-      margin-left: 10px;
-      vertical-align: middle;
-      background-position: 50% 50%;
-      content: '';
-    }
-    &:hover {
-      &:after {
-        @include svg('arrow-right-teal');
-      }
-    }
   }
 
   .synopsis-footer div {

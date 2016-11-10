@@ -2,7 +2,7 @@
 	<%= render 'layouts/header' %>
 	<%= render 'layouts/messages_backbone' %>
 
-  <% if @app_section == 'course' %>
+  <% if @selected_course %>
       <%= render 'shared/course_subheader', course: @selected_course %>
   <% end %>
 	<div class="container">
