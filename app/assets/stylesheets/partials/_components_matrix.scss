@@ -159,7 +159,9 @@ $columnWidth: ($container / $columns) - 12;
   border-left: 1px solid $grayLight;
   border-collapse: separate;
 }
-
+.matrix-row-headers th {
+  border-right: 0;
+}
 .matrix-row-headers, th {
   .secondary-link {
     display: block;
