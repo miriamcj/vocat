@@ -42,9 +42,6 @@
     text-align: left;
     padding: 1em;
     border-right: 1px solid $grayLight;
-    &:last-child {
-      border-right: 0;
-    }
     small {
       font-weight: $regular;
       font-size: $iota;
@@ -54,9 +51,6 @@
     border-right: 1px solid $grayLight;
     vertical-align: middle;
     padding: 1em;
-    &:last-child {
-      border-right: 0;
-    }
     &.centered {
       vertical-align: middle;
       text-align: center;

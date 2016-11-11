@@ -24,6 +24,7 @@ $columnWidth: ($container / $columns) - 12;
 .matrix-wrapper {
   overflow-x: hidden;
   position: relative;
+  background-color: whitesmoke;
   @include clearfix(heavy);
 
   .matrix-wrapper--top {
