@@ -3,6 +3,7 @@
     <%= image_tag("png/logo.png", :alt => "VOCAT", style: 'max-width: 100px;') %><span>&nbsp;|&nbsp;<%= @current_organization.name %></span>
   </div>
 	<div class="page-content">
+		<%= render 'layouts/messages_server' %>
 		<div class="authentication-tile">
 			<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'formgrid'}) do |f| %>
 				<% if @current_organization && @current_organization.logo %>

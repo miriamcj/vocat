@@ -61,7 +61,16 @@ $spacingUnit: $mediumUnitPadding * .75;
 }
 
 #splash-notification-container {
-  color: $white;
+  width: 40%;
+  margin-bottom: 25px;
+  .alert {
+    padding: 0;
+    color: #f14f4b;
+    background: transparent;
+  }
+  .notice {
+    color: $greenLight;
+  }
 }
 
 .notification {
