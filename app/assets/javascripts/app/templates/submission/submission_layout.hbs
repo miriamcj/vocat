@@ -2,10 +2,10 @@
 	<a class="header-link back-link" style="display: none;" data-behavior="detail-close"
 	   href="/courses/{{courseId}}/{{to_lower creatorType}}s/evaluations">Back to Evaluations</a>
 
-	<h2 class="heading-primary">
+	<h2 class="heading-primary header">
 		{{project.name}}
 		{{#if isGroupProject }}
-			<span class="badge">group</span>
+            <i class="header-icon people"></i>
 		{{/if}}
 		{{#if project.due_date}}
 			<span class="badge">Due {{project.due_date}}</span>

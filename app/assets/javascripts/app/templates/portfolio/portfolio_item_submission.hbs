@@ -14,10 +14,10 @@
 	{{/if}}
 </div>
 <div class="portfolio-item--content">
-	<h3 class="heading-tertiary">
+	<h3 class="heading-tertiary header">
 		<a href="{{submission.path}}" data-behavior="open-submission-detail">{{submission.project.name}}</a>
 		{{#if isGroupProject }}
-			<span class="badge">group</span>
+            <i class="header-icon people"></i>
 		{{/if}}
 		{{#if project.due_date}}
 			<span class="badge">Due {{project.due_date}}</span>

@@ -43,58 +43,37 @@
   @include clearfix(hard);
   .header-wrapper {
     position: relative;
-    //.matrix-header-student:before {
-    //  @include svg('person-teal');
-    //  display: inline-block;
-    //  vertical-align: bottom;
-    //  margin-right: 12px;
-    //  width: 22px;
-    //  height: 22px;
-    //  content: '';
-    //}
-    //.matrix-header-group:before {
-    //  @include svg('people-teal');
-    //  display: inline-block;
-    //  vertical-align: bottom;
-    //  margin-right: 12px;
-    //  width: 32px;
-    //  height: 32px;
-    //  content: '';
-    //}
+    .matrix-header-student:before, .student-submissions-list:before {
+      @include svg('person-teal');
+      display: inline-block;
+      vertical-align: bottom;
+      margin-right: 12px;
+      width: 22px;
+      height: 22px;
+      content: '';
+    }
+    .matrix-header-group:before, .group-submissions-list:before {
+      @include svg('people-teal');
+      display: inline-block;
+      vertical-align: bottom;
+      margin-right: 12px;
+      width: 32px;
+      height: 32px;
+      content: '';
+    }
+  }
+  .header-courses h4:before {
+    @include svg('courses-teal');
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 12px;
+    width: 30px;
+    height: 30px;
+    content: '';
   }
   .header {
     .header-link {
       margin-bottom: 0;
-    }
-
-    .header-icon {
-      display: inline-block;
-      vertical-align: middle;
-      margin-right: 12px;
-
-      &.courses {
-        @include svg('courses-teal');
-        margin-top: -6px; // NP
-        width: 26px;
-        height: 22px;
-        content: '';
-      }
-
-      &.person {
-        @include svg('person-teal');
-        margin-top: -5px;
-        width: 16px;
-        height: 18px;
-        content: '';
-      }
-
-      &.people {
-        @include svg('people-teal');
-        margin-top: -5px;
-        width: 26px;
-        height: 18px;
-        content: '';
-      }
     }
 
     h1, h2, h3, h4, h5, h6 {
@@ -183,7 +162,38 @@
     margin-top: $sectionSpacingUnit * .75;
   }
 }
+.header {
 
+  .header-icon {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 12px;
+
+    &.courses {
+      @include svg('courses-teal');
+      margin-top: -6px; // NP
+      width: 26px;
+      height: 22px;
+      content: '';
+    }
+
+    &.person {
+      @include svg('person-teal');
+      margin-top: -5px;
+      width: 16px;
+      height: 18px;
+      content: '';
+    }
+
+    &.people {
+      @include svg('people-teal');
+      margin-top: -5px;
+      width: 26px;
+      height: 18px;
+      content: '';
+    }
+  }
+}
 .page-section-clear {
   .body {
     background: none;
@@ -462,4 +472,91 @@
       }
     }
   }
+}
+
+// Media submissions cells
+// --------------------------
+.project-details-table {
+  tr {
+    height: 88px;
+  }
+  td {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
+.submissions-list {
+  margin-bottom: 45px;
+}
+.media-submission {
+  display: table;
+  width: 100%;
+  img {
+    margin-right: 10px;
+    max-width: 100px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  > div {
+    display: table-cell;
+    vertical-align: middle;
+  }
+}
+.project-name-header::before {
+  @include svg('project-teal');
+  display: inline-block;
+  vertical-align: bottom;
+  margin-right: 10px;
+  width: 25px;
+  height: 25px;
+  content: '';
+}
+.project-overview .section-header::before {
+  @include svg('project-charts-teal');
+  display: inline-block;
+  vertical-align: bottom;
+  margin-right: 10px;
+  width: 25px;
+  height: 25px;
+  content: '';
+}
+.media-submission:not(:last-child) {
+  margin-bottom: 25px;
+}
+.media-attributes {
+  > div {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  p {
+    color: $grayDarker;
+    font-weight: 400;
+  }
+  span {
+    font-size: $lambda-minor;
+    text-transform: uppercase;
+    color: $grayMediumDarker;
+  }
+}
+.media-counts {
+  text-align: right;
+}
+.annotation-count {
+  margin-left: 30px;
+  @include svg('annotation-teal');
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 8px;
+  margin-bottom: 2px;
+  width: 28px;
+  height: 28px;
+}
+.posts-count {
+  @include svg('comment-teal');
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 8px;
+  margin-bottom: 2px;
+  width: 25px;
+  height: 25px;
 }
