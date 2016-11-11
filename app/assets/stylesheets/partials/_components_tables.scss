@@ -29,15 +29,9 @@
         vertical-align: middle;
         background-color: $white;
       }
-      td:hover {
-        background-color: $grayLighter;
-      }
       &:nth-child(even) {
         th, td {
           background-color: $grayLightest;
-        }
-        td:hover {
-          background-color: $grayLighter;
         }
       }
     }

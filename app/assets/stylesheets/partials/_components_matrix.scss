@@ -280,6 +280,9 @@ $columnWidth: ($container / $columns) - 12;
       padding: 10px;
       vertical-align: middle;
     }
+    td.clickable:hover {
+      background-color: $grayLighter;
+    }
   }
 
   .cell--container {
