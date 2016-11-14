@@ -15,8 +15,6 @@
                     </div>
                 </div>
                 <div class="media-counts">
-                    <i class="posts-count"></i>
-                    <span >{{../discussion_posts_count}}</span>
                     <i class="annotation-count"></i>
                     <span>{{this.annotations_count}}</span>
                 </div>
@@ -26,7 +24,10 @@
         No media uploaded
     {{/if}}
 </td>
-<td class="score-percent">
+<td class="number-cell narrow-cell">
+    <span>{{discussion_posts_count}}</span>
+</td>
+<td class="number-cell">
     <span>
         {{#if current_user_percentage}}
             {{current_user_percentage}}%
@@ -35,7 +36,7 @@
         {{/if}}
     </span>
 </td>
-<td class="score-percent gray">
+<td class="number-cell gray">
     <span>
         {{#if peer_score_percentage}}
             {{peer_score_percentage}}%
@@ -44,7 +45,7 @@
         {{/if}}
     </span>
 </td>
-<td class="score-percent gray">
+<td class="number-cell gray">
     <span>
         {{#if self_evaluation_percentage}}
             {{self_evaluation_percentage}}%

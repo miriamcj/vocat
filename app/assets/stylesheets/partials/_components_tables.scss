@@ -210,8 +210,17 @@ table tbody.project-details-tbody tr td {
     vertical-align: top;
     padding: 24px 16px;
   }
-  &.score-percent {
+  &.number-cell {
     vertical-align: top;
+  }
+  &.comments-count {
+    vertical-align: top;
+    text-align: center;
+    padding-top: 5px;
+  }
+  &.narrow-cell {
+    width: 40px;
+    text-align: center;
   }
 }
 .media-submission {
@@ -220,7 +229,7 @@ table tbody.project-details-tbody tr td {
     font-size: 13px;
   }
 }
-.score-percent {
+.number-cell {
   font-size: $zeta;
   &.gray {
     color: $grayMedium;
