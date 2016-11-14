@@ -626,4 +626,31 @@ class Api::V1::ProjectsController < ApiController
     respond_with @project.unpublish_evaluations(current_user)
   end
 
+  api :GET, '/projects/:id/statistics', "returns statistical information for the project"
+  param :id, Fixnum, :desc => "The project ID"
+  error :code => 404, :desc => "The project could not be found."
+  def statistics
+    response = {
+        type: @project.type,
+        media_count: @project.assets_count,
+        annotation_count: @project.annotations_count,
+        comments_count: @project.discussion_posts_count,
+        video_submissions_count: @project.video_assets_count,
+        instructor_average: @project.average_instructor_score.to_f / 100,
+        peer_average: @project.average_peer_score.to_f / 100,
+        self_evaluation_average: @project.average_self_score.to_f / 100,
+        rubric_id: nil
+    }
+
+    if @project.rubric_id
+      response.merge!({
+        rubric_instructor_average: @project.rubric.average_total_instructor_percentage.to_f / 100,
+        rubric_peer_average: @project.rubric.average_total_peer_percentage.to_f / 100,
+        rubric_self_eval_average: @project.rubric.avg_self_eval_percentage.to_f / 100,
+        rubric_id: @project.rubric_id
+      })
+    end
+    respond_with response
+  end
+
 end

@@ -2,9 +2,6 @@ define (require) ->
   Marionette = require('marionette')
   template = require('hbs!templates/course_map/detail_creator')
   PortfolioSubmissionItem = require('views/portfolio/portfolio_submissions_item')
-  CollectionProxy = require('collections/collection_proxy')
-  SubmissionCourseUserCollection = require('collections/submission_for_course_user_collection')
-  SubmissionGroupCollection = require('collections/submission_for_group_collection')
   ModalGroupMembershipView = require('views/modal/modal_group_membership')
 
   class CourseMapDetailCreator extends Marionette.CompositeView

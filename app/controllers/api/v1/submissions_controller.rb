@@ -190,8 +190,10 @@ class Api::V1::SubmissionsController < ApiController
     org_validate_project
     authorize! :show_submissions, @project.course
     @submissions = factory.project(@project)
-    if brief
+    if params[:brief]
       respond_with @submissions, :each_serializer => BriefSubmissionSerializer
+    elsif params[:statistics]
+      respond_with @submissions, :each_serializer => SubmissionStatisticsSerializer
     else
       respond_with @submissions
     end

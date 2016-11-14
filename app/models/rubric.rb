@@ -117,23 +117,27 @@ class Rubric < ActiveRecord::Base
     RubricSerializer
   end
 
-  def avg_score()
+  def avg_score
     Evaluation.includes(:project).where(projects: {rubric_id: self}).average('total_score')
   end
 
-  def avg_percentage()
+  def avg_percentage
     Evaluation.includes(:project).where(projects: {rubric_id: self}).average('total_percentage')
   end
 
-  def average_total_peer_percentage()
+  def avg_self_eval_percentage
+    Evaluation.self_evaluations.where(rubric_id: self.id).average('total_percentage')
+  end
+
+  def average_total_peer_percentage
     Evaluation.includes(:project, :evaluator).where(projects: {rubric_id: self}).where(users: {role: 'creator'}).average('total_percentage')
   end
 
-  def average_total_instructor_percentage()
+  def average_total_instructor_percentage
     Evaluation.includes(:project, :evaluator).where(projects: {rubric_id: self}).where(users: {role: 'evaluator'}).average('total_percentage')
   end
 
-  def evaluation_count()
+  def evaluation_count
     Evaluation.includes(:project, :evaluator).where(projects: {rubric_id: self}).where(published: true).count()
   end
 
@@ -247,6 +251,10 @@ class Rubric < ActiveRecord::Base
 
   def to_s
     self.name
+  end
+
+  def avg_field_scores
+    Evaluation.each_field_average(evaluations)
   end
 
   private

@@ -2,6 +2,124 @@
 @import "mixins";
 @import "patterns";
 
+// Donut chart
+// --------------------------------------------------------
+//
+
+$color: $instructorFillColor;
+$base: $instructorColor;
+$center: $grayLightest;
+$perc: 65;
+$size: 165px;
+$width: 8px;
+$color2: $color;
+$base2: $base;
+$deg: ($perc/100*360)+deg;
+$deg1: 90deg;
+$deg2: $deg;
+@if $perc < 50 {
+  $base: $color;
+  $color: $base2;
+  $color2: $base2;
+  $deg1: ($perc/100*360+90)+deg;
+  $deg2: 0deg;
+}
+
+.donut-chart-container {
+  margin-top: 40px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.donut-summary-box {
+  display: inline-block;
+  margin-left: 40px;
+  margin-right: 15px;
+  vertical-align: top;
+  text-align: center;
+  max-width: 165px;
+  figcaption {
+    text-align: center;
+  }
+}
+.donut-chart {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  width: $size;
+  height: $size;
+  background: $base;
+  border-radius: 50%;
+  .slice {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .slice {
+    transition: transform 0.8s ease-in-out;
+    &.slice-one {
+      clip: rect(0 $size $size/2 0);
+      -webkit-transform: rotate($deg1);
+      transform: rotate($deg1);
+      background: $color;
+      border-radius: 50%;
+    }
+
+    &.slice-two {
+      clip: rect(0 $size/2 $size 0);
+      -webkit-transform: rotate($deg2);
+      transform: rotate($deg2);
+      background: $color2;
+      border-radius: 50%;
+    }
+  }
+  .chart-center {
+    top: $width;
+    left: $width;
+    width: $size - ($width * 2);
+    height: $size - ($width * 2);
+    background: $center;
+    position: absolute;
+    border-radius: 50%;
+    text-align: center;
+    span {
+      line-height: $size - ($size * 2);
+      position: relative;
+      top: 50%;
+    }
+    .instructor-score:before {
+      @include svg('person-check-orange');
+      position: absolute;
+      bottom: 60px;
+      left: 22px;
+      width: 35px;
+      height: 35px;
+      content: '';
+    }
+    .peer-score:before {
+      @include svg('people-check-purple');
+      position: absolute;
+      bottom: 60px;
+      left: 22px;
+      width: 35px;
+      height: 35px;
+      content: '';
+    }
+    .self-score:before {
+      @include svg('person-check-green');
+      position: absolute;
+      bottom: 60px;
+      left: 22px;
+      width: 35px;
+      height: 35px;
+      content: '';
+    }
+  }
+}
+
+
 // Pie chart
 // --------------------------------------------------------
 // <figure>

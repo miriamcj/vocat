@@ -185,7 +185,6 @@ class Api::V1::ScoresController < ApiController
     respond_with build_response, :root => false
   end
 
-
   private
 
   def load_project

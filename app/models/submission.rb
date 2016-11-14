@@ -33,6 +33,7 @@ class Submission < ActiveRecord::Base
   belongs_to :creator, :polymorphic => true
   belongs_to :user, -> { where "submissions.creator_type = 'User'" }, foreign_key: 'creator_id'
   belongs_to :group, -> { where "submissions.creator_type = 'Group'" }, foreign_key: 'creator_id'
+  has_many :annotations, through: :assets
 
   validates_presence_of :project_id, :creator_id, :creator_type
 
@@ -51,6 +52,7 @@ class Submission < ActiveRecord::Base
   default_scope { includes(:assets, :evaluations, :project) }
 
   scope :with_assets, -> { joins(:assets) }
+  scope :with_video_assets, -> { joins(:assets).where("assets.type = ? OR assets.type = ? OR assets.type = ?", "#{Asset::Vimeo}", "#{Asset::Youtube}", "#{Asset::Video}") }
   scope :for_courses, ->(course) { joins(:project)
                                        .where('projects.course_id' => course)
                                        .where('(creator_id in (?) AND creator_type = \'User\') OR (creator_id in (?) AND creator_type = \'Group\')', course.creators.pluck(:id), course.groups.ids)
