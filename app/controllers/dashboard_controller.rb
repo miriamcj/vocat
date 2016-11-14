@@ -4,11 +4,9 @@ class DashboardController < ApplicationController
   before_action :authenticate_user!
 
   def evaluator
-    @dashboard = true
   end
 
   def creator
-    @dashboard = true
   end
 
 end
