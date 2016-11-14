@@ -2,11 +2,16 @@
 
 <% content_for :content do %>
 
-	<% body = capture do %>
-		<%= render 'shared/course_synopsis', :course => @course %>
-	<% end %>
-	<%= render :partial => 'shared/section', :locals => {:header => 'Overview', :body => body} %>
-
+  <div class="page-section">
+    <div class="header-wrapper">
+      <div class="header">
+        <h2 class="heading-page-section">Overview</h2>
+      </div>
+    </div>
+    <div class="body secondary">
+      <%= render 'shared/course_synopsis', :course => @course %>
+    </div>
+  </div>
 
 	<% body = capture do %>
 		<div class="fake-formgrid">
