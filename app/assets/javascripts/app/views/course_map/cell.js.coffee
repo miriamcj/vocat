@@ -19,7 +19,10 @@ define ['marionette', 'hbs!templates/course_map/cell', 'models/user', 'models/gr
       @vent.trigger('navigate:submission', {project: @project.id, creator: @creator.id})
 
     onPublishToggle: () ->
-      @model.toggleEvaluationPublish()
+      if @model.get('current_user_percentage')
+        @model.toggleEvaluationPublish()
+      else
+        @onDetail()
 
     findModel: () ->
       if @creator instanceof UserModel
