@@ -7,16 +7,15 @@ define (require) ->
 
     tagName: "tr",
     template: template
+    attributes: {
+      'data-region': 'submission-row'
+    }
 
     triggers: {
-      'click @ui.mediaItem': 'mediaLinkClicked'
+      'click': 'rowClick'
     }
 
-    ui: {
-      mediaItem: '[data-region="media-submission"]'
-    }
-
-    onMediaLinkClicked: () ->
+    onRowClick: () ->
       typeSegment = "#{@model.get('creator_type').toLowerCase()}s"
       url = "courses/#{@model.get('course_id')}/#{typeSegment}/evaluations/creator/#{@model.get('creator_id')}/project/#{@model.get('project_id')}"
       Vocat.router.navigate(url, true)

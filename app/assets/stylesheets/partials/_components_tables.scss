@@ -29,18 +29,10 @@
       th, td {
         vertical-align: middle;
         background-color: $grayLightest;
-        &.media-submission-list:hover {
-          background-color: $grayLight;
-          cursor: pointer;
-        }
       }
       &:nth-child(even) {
         th, td {
           background-color: $white;
-          &.media-submission-list:hover {
-            background-color: $grayLight;
-            cursor: pointer;
-          }
         }
       }
       &:last-child {
@@ -194,12 +186,11 @@ a.table--heading {
 // Media submissions cells
 // --------------------------
 .project-details-table {
-  tr {
-    height: 88px;
-  }
-  td {
-    padding-left: 30px;
-    padding-right: 30px;
+  tbody tr:hover {
+    th, td {
+      background-color: $grayLighter;
+      cursor: pointer;
+    }
   }
 }
 .project-details-thead th:last-child {

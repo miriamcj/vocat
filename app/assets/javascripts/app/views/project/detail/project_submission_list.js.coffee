@@ -6,7 +6,7 @@ define (require) ->
   class ProjectSubmissionListView extends Marionette.CompositeView
 
     tagName: "table"
-    className: "table"
+    className: "table project-details-table"
     template: template
     childView: ProjectSubmissionRowView
     childViewContainer: "tbody"
