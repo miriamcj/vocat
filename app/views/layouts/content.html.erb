@@ -8,7 +8,7 @@
       <%= render 'shared/course_subheader', course: @selected_course %>
   <% end %>
 	<div class="container">
-		<div class="page-content">
+		<div class="page-content" style="<%= 'margin-top: 60px;' if @dashboard %>">
 			<% if content_for?(:heading) || content_for?(:heading_links) %>
 				<div class="page-content--heading">
 					<div class="page-content--heading-buttons"><%= yield :heading_links %></div>
