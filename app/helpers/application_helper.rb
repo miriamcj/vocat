@@ -117,4 +117,24 @@ module ApplicationHelper
     }
   end
 
+  def sortable_header(params, column, sorting = nil)
+    sorting = sorting || column.downcase
+    current_sorting = params[:sorting]
+    current_direction = params[:direction]
+    next_direction = case current_direction
+                       when "ASC" then "DESC"
+                       when "DESC" then "ASC"
+                       else "ASC"
+                     end
+    classname = "sort-none"
+    if current_sorting == sorting
+      classname = case current_direction
+                    when "ASC" then "sort-ascending"
+                    when "DESC" then "sort-descending"
+                    else "sort-none"
+                  end
+    end
+    link_to(column, { page: params[:page], sorting: sorting, direction: next_direction }, class: classname)
+  end
+
 end

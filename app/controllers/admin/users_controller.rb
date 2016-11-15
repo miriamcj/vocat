@@ -13,7 +13,11 @@ class Admin::UsersController < Admin::AdminController
         :email => params[:email],
         :role => params[:role]
     }
-    @users = @current_organization.users.search(search).page(params[:page])
+    @users = User.unscoped
+                 .in_org(@current_organization)
+                 .search(search)
+                 .with_sort(params[:sorting] || "users.last_name", params[:direction] || "ASC")
+                 .page(params[:page])
   end
 
   # GET /admin/users/1

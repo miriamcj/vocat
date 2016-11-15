@@ -36,11 +36,17 @@
 			<table class="table table-white-head">
 				<thead>
 				<tr>
-					<th>Name</th>
+					<th class="sortable_header">
+            <%= sortable_header(params, "Name", "users.last_name") %>
+          </th>
 					<th>Org. ID</th>
 					<th>Email</th>
-					<th>Role</th>
-					<th>Last Login</th>
+					<th class="sortable_header">
+            <%= sortable_header(params, "Role", "users.role") %>
+          </th>
+					<th class="sortable_header">
+            <%= sortable_header(params, "Last Login", "users.last_sign_in_at") %>
+          </th>
 					<th>Actions</th>
 				</tr>
 				</thead>

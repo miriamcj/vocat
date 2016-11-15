@@ -301,3 +301,33 @@ table tbody.project-details-tbody tr td {
   width: 25px;
   height: 25px;
 }
+
+.sort-descending {
+  color: $tealLight;
+  &::after {
+    @include svg('arrow-down-teal');
+    display: inline-block;
+    position: relative;
+    bottom: 1px;
+    left: 2px;
+    width: 12px;
+    height: 6px;
+    vertical-align: middle;
+    content: '';
+  }
+}
+
+.sort-ascending {
+  color: $tealLight;
+  &::after {
+    @include svg('arrow-up-teal');
+    display: inline-block;
+    position: relative;
+    bottom: 1px;
+    left: 2px;
+    width: 12px;
+    height: 6px;
+    vertical-align: middle;
+    content: '';
+  }
+}

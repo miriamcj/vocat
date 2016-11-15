@@ -259,4 +259,12 @@ class User < ActiveRecord::Base
     [id, list_name, last_name, first_name, email, org_identity]
   end
 
+  def self.with_sort(sorting = "users.last_name", direction = "ASC")
+    allowed_sorting = %w(users.last_name users.role users.last_sign_in_at)
+    allowed_direction = %w(ASC DESC)
+    s = allowed_sorting.include?(sorting) ? sorting : "users.last_name"
+    d = allowed_direction.include?(direction) ? direction : "ASC"
+    order("#{s} #{d} NULLS LAST, users.last_name ASC")
+  end
+
 end
