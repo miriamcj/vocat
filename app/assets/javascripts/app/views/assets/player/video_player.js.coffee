@@ -17,8 +17,6 @@ define (require) ->
     }
 
     events: {
-      'click .vjs-control-bar .vjs-play-control': 'shiftFocusToInput'
-      'click .vjs-control-bar .vjs-rewind-button': 'shiftFocusToInput'
     }
 
     callbacks: []
@@ -98,6 +96,7 @@ define (require) ->
         else
           @handleStatusRequest()
           @vent.trigger('announce:play')
+          @shiftFocusToInput()
       )
 
     getBufferedPercent: () ->
