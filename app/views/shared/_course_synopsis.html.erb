@@ -12,7 +12,7 @@
 
   <div class="clearfix synopsis-footer info-container">
     <%= render 'dashboard/shared/course_stats', course: course %>
-    <% if current_user.has_unreviewed_work?(course.id) && current_user.can?(:show_submissions, course) %>
+    <% if current_user.has_unreviewed_work?(course.id, current_user) && current_user.can?(:show_submissions, course) %>
       <div>
         <% if evaluator_or_admin? %>
           <%= link_to 'New work is awaiting your review.', course_path(course), class: 'alt new-work-link' %>
