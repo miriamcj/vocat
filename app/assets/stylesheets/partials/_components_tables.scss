@@ -301,6 +301,9 @@ table tbody.project-details-tbody tr td {
   width: 25px;
   height: 25px;
 }
+.sortable-header {
+  white-space: nowrap;
+}
 
 .sort-descending {
   color: $tealLight;

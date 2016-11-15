@@ -59,7 +59,7 @@ class Course < ActiveRecord::Base
     c = c.joins(:semester).where(:semesters => {id: params[:semester]}) unless params[:semester].blank?
     c = c.joins(:memberships => :user).where(:users => {id: params[:evaluator]}) unless params[:evaluator].blank?
     c = c.where({organization: params[:organization]}) unless params[:organization].blank?
-    c.sorted
+    c
   end
 
   def self.distinct_departments(org = nil)
@@ -229,6 +229,23 @@ class Course < ActiveRecord::Base
   def rendered_message
     markdown = Redcarpet::Markdown.new(Renderer::InlineHTML.new({escape_html: true}))
     markdown.render(message)
+  end
+
+  def self.with_sort(sorting = "courses.name", direction = "ASC")
+    allowed_sorting = %w(courses.name courses.section number semester project)
+    allowed_direction = %w(ASC DESC)
+    s = allowed_sorting.include?(sorting) ? sorting : "courses.name"
+    d = allowed_direction.include?(direction) ? direction : "ASC"
+    case s
+      when "semester"
+        joins(:semester).order("year #{d}, semesters.position #{d}")
+      when "project"
+        joins(:projects).group("courses.id").order("count(projects.id) #{d}")
+      when "number"
+        order("department #{d}, number #{d}")
+      else
+        order("#{s} #{d} NULLS LAST, courses.name ASC")
+    end
   end
 
   private
