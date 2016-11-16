@@ -1,4 +1,4 @@
-<div class="page-section--subsection course-synopsis-pane subheader">
+<div class="page-section--subsection course-synopsis-pane subheader" data-behavior="course-subheader">
   <div class="padded-container">
     <div>
       <div class="heading-container">
@@ -16,8 +16,8 @@
 
       <div>
         <div class="info-container">
-            <%= link_to "STUDENT WORK", course_user_evaluations_path(course), class: (@type == 'user' ? "active" : "") %>
-            <%= link_to 'GROUP WORK', course_group_evaluations_path(course), class: (@type == 'group' ? "active" : "") %>
+            <%= link_to "STUDENT WORK", course_user_evaluations_path(course), class: (@type == 'user' ? "active" : ""), data: {behavior: 'view-toggle'} %>
+            <%= link_to 'GROUP WORK', course_group_evaluations_path(course), class: (@type == 'group' ? "active" : ""), data: {behavior: 'view-toggle'} %>
           <div style="display: inline;">
             <% if current_user.can?(:administer, @selected_course) %>
                 <div class="dropdown dropdown-inline" data-behavior="dropdown">

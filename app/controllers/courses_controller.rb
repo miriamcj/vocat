@@ -20,6 +20,7 @@ class CoursesController < ApplicationController
 
   def show
     default_creator_type = current_user.get_default_creator_type_for_course(@selected_course)
+    @subnav_override = "true"
     if default_creator_type == 'user'
       redirect_to course_user_evaluations_path(@selected_course)
     elsif default_creator_type == 'group'

@@ -25,18 +25,12 @@ define (require) ->
       detail: '[data-region="detail"]'
       sliderLeft: '[data-behavior="matrix-slider-left"]'
       sliderRight: '[data-behavior="matrix-slider-right"]'
-      viewToggle: '[data-behavior="view-toggle"]'
       hideOnWarning: '[data-behavior="hide-on-warning"]'
     }
 
     triggers: {
       'click [data-behavior="matrix-slider-left"]': 'slider:left'
       'click [data-behavior="matrix-slider-right"]': 'slider:right'
-      'change @ui.viewToggle': {
-        event: 'view:toggle'
-        preventDefault: false
-        stopPropagation: false
-      }
     }
 
     regions: {
@@ -180,13 +174,6 @@ define (require) ->
         error: (jqXHR, textStatus, error) =>
           Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 4000, msg: "Unable to unpublish submissions."})
       })
-
-    onViewToggle: () ->
-      val = @$el.find('[data-behavior="view-toggle"]:checked').val()
-      if val == 'individuals'
-        Vocat.router.navigate("courses/#{@courseId}/users/evaluations", true)
-      else if val == 'groups'
-        Vocat.router.navigate("courses/#{@courseId}/groups/evaluations", true)
 
     serializeData: () ->
       out = {
