@@ -20,7 +20,10 @@ class Admin::CoursesController < Admin::AdminController
         :evaluator => params[:evaluator],
         :organization => @current_organization
     }
-    @courses = @current_organization.courses.search(search).page params[:page]
+    @courses = Course.in_org(@current_organization)
+                   .search(search)
+                   .with_sort(params[:sorting] || "courses.name", params[:direction] || "ASC")
+                   .page(params[:page])
     @page = params[:page] || 1
     @stats = Statistics::admin_stats(@current_organization, search)
     @course_request_count = CourseRequest.with_state(:pending).count

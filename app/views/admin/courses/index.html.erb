@@ -69,17 +69,28 @@
 			<table class="table table-white-head">
 				<thead>
 				<tr>
-					<th class="">Number</th>
-					<th class="">Name</th>
-					<th class="">Projects</th>
-					<th class="">Instructor</th>
-					<th class="">Section</th>
-					<th class="">Semester</th>
+					<th class="sortable-header">
+            <%= sortable_header(params, 'Number', 'number') %>
+          </th>
+					<th class="sortable-header">
+            <%= sortable_header(params, 'Name', 'courses.name') %>
+          </th>
+          <th class="sortable-header">
+            <%= sortable_header(params, 'Projects', 'project') %>
+          </th>
+					<th>
+            Instructor
+          </th>
+					<th class="sortable-header">
+            <%= sortable_header(params, 'Section', 'courses.section') %></th>
+          <th class="sortable-header">
+            <%= sortable_header(params, 'Semester', 'semester') %></th>
+          </th>
 					<th class="column-tight">Actions</th>
 				</tr>
 				</thead>
 				<tbody>
-				<% if @courses.count > 0 %>
+				<% if @courses.length > 0 %>
 					<% @courses.each do |course| %>
 						<tr>
 							<th><%= link_to "#{course.department}#{course.number}", course_user_evaluations_path(course) %></th>
