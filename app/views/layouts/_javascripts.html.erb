@@ -20,6 +20,7 @@
 			<% else %>
 			window.VocatUserCourseRole = null;
 	<% end %>
+	window.VocatSubnavOverride = <%= @subnav_override %>
 	window.VocatS3Bucket = '<%= @S3_bucket %>';
 	window.VocatAWSPublicKey = '<%= @aws_public_key %>';
 </script>

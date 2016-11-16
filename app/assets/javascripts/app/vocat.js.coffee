@@ -5,6 +5,7 @@ define (require) ->
   ModalLayoutView = require('views/modal/modal_layout')
   ModalConfirmView = require('views/modal/modal_confirm')
   DropdownView = require('views/layout/dropdown')
+  CourseSubheaderView = require('views/layout/course_subheader')
   FigureCollectionView = require('views/layout/figures_collection')
   ChosenView = require('views/layout/chosen')
   JumpNavView = require('views/layout/jump_nav')
@@ -108,6 +109,9 @@ define (require) ->
     $('[data-standalone-view]').each( (index, el) ->
       viewName = $(el).data().standaloneView
       new Standalone[viewName]({el: el})
+    )
+    $('[data-behavior="course-subheader"]').each( (index, el) ->
+      new CourseSubheaderView({el: el, vent: Vocat.vent})
     )
 
   Vocat.addInitializer () ->

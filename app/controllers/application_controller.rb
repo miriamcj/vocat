@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
   before_action :initialize_management_domain
   before_action :initialize_course
   before_action :inject_global_layout_variables
+  before_action :set_subnav_context
 
   def devise_current_user
     @current_user ||= warden.authenticate(scope: :user)
@@ -112,6 +113,10 @@ class ApplicationController < ActionController::Base
 
   def set_type_manage
     @type = 'manage'
+  end
+
+  def set_subnav_context
+    params[:controller] == "courses/evaluations" && params[:action] == "course_map" ? @subnav_override = true : @subnav_override = false
   end
 
 
