@@ -47,8 +47,6 @@ define (require) ->
       warning: '[data-region="warning"]'
     }
 
-    onRender: () ->
-
     setupListeners: () ->
       @listenTo(@, 'redraw', () ->
         @adjustToCurrentPosition()
@@ -137,6 +135,7 @@ define (require) ->
       @creatorType = Marionette.getOption(@, 'creatorType')
       @projectCollection = @typeProxiedProjectCollection()
       @creatorCollection = @typeProxiedCreatorCollection()
+      @collections.submission.fetch(reset: true, data: {course: @courseId} )
 
     showEmptyWarning: (creatorType, warningType) ->
       @warning.show(new WarningView({creatorType: creatorType, warningType: warningType, courseId: @courseId}))
