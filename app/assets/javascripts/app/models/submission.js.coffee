@@ -73,14 +73,10 @@ define (require) ->
         else if @.get('current_user_published') == false
           @publishEvaluation()
       )
-
-      if @get('serialized_state') == 'partial'
-        @fetch({
-          success: () =>
-            promise.resolve()
-        })
-      else
-        promise.resolve()
+      @fetch({
+        success: () =>
+          promise.resolve()
+      })
 
     assets: () ->
       @assetCollection

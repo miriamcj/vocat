@@ -21,6 +21,7 @@ define ['marionette', 'hbs!templates/course_map/cell', 'models/user', 'models/gr
     onPublishToggle: () ->
       if @model.get('current_user_percentage')
         @model.toggleEvaluationPublish()
+        this.$el.find('dd').toggleClass('switch-checked')
       else
         @onDetail()
 
