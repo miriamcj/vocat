@@ -22,7 +22,7 @@
 			<% if submission.project_allows_peer_review? %>
 					<figure class="summary-box">
 						<div>
-              <i class=""></i> <!-- needs icon -->
+              <i class="peer-icon"></i>
               <% if submission.evaluated_by_peers? %>
 							  <span><%= (submission.peer_score_percentage || 0).to_int %>%</span>
               <% else %>
@@ -35,7 +35,7 @@
 
       <figure class="summary-box">
         <div>
-          <i class=""></i> <!-- needs icon -->
+          <i class="instructor-icon"></i>
           <% if submission.evaluated_by_instructor? %>
             <span><%= (submission.instructor_score_percentage || 0).to_int %>%</span>
           <% else %>
@@ -48,7 +48,7 @@
       <% if submission.project_allows_self_evaluation? %>
         <figure class="summary-box">
           <div>
-            <i class="""></i> <!-- needs icon -->
+            <i class="self-icon"></i>
             <% if submission.user_score_total(current_user) %>
               <span><%= (submission.user_score_total(current_user) || 0).to_int %>%</span>
             <% else %>

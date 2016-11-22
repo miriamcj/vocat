@@ -273,3 +273,27 @@
   margin: 0 auto;
   margin-bottom: 5px;
 }
+.peer-icon {
+  @include svg('people-check-purple');
+  width: 44px;
+  height: 30px;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 15px;
+}
+.instructor-icon {
+  @include svg('person-check-orange');
+  width: 30px;
+  height: 31px;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 14px;
+}
+.self-icon {
+  @include svg('person-check-green');
+  width: 30px;
+  height: 31px;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 14px;
+}
