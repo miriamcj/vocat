@@ -3,7 +3,9 @@
     <div class="page-footer--logo">
 		<%= image_tag("png/logo-gray.png", :alt => "VOCAT") %>
 	  	<div class="separator"></div>
-      <span><%= @current_organization.name %></span>
+      <% if @current_organization %>
+        <span><%= @current_organization.name %></span>
+      <% end %>
     </div>
     <div class="page-footer-colophon">
       <p class="page-footer-msg">
