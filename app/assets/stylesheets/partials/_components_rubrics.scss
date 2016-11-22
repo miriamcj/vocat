@@ -41,8 +41,7 @@
   }
 }
 .criteria-wrapper, .body-wrapper {
-  display: inline-block;
-  vertical-align: top;
+  float: left;
 }
 .ranges-column {
   display: inline-block;
@@ -83,9 +82,61 @@
 .add-buttons {
   //display: none;
 }
+
+.add-buttons > div {
+  display: inline-block;
+  height: 50px;
+  width: 50px;
+  background: red;
+  margin: 5px;
+  text-align: center;
+  &:hover {
+    opacity: 0.6;
+  }
+}
+
+
 .table-wrapper {
+  @include clearfix;
+  width: 100%;
+}
+
+.body-wrapper {
+  max-width: calc(100% - 200px);
+}
+
+.ranges-wrapper {
+  max-width: 100%;
+  position: relative;
+  overflow: hidden;
+
+  .slide-button-left, .slide-button-right {
+    position: absolute;
+    width: 62px;
+    height: 100%;
+    background-color: darkgray;
+    z-index: 5;
+    cursor: pointer;
+  }
+
+  .slide-button-left {
+    top: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  .slide-button-right {
+    top: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+
+.range-columns {
   white-space: nowrap;
 }
+
+
 .cell-control {
   width: 25px;
   height: 25px;
