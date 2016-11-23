@@ -40,18 +40,20 @@ define (require) ->
       @openModal()
 
     onClickUp: () ->
+      @collection.comparator = 'index'
+      @nextModel = @collection.at(@model.get('index') - 1)
       unless @collection.indexOf(@model) == 0
-        adjustedPosition = @collection.indexOf(@model) - 1
-        @collection.remove(@model)
-        @model.set('listing_order_position', adjustedPosition)
-        @collection.add(@model, {at: adjustedPosition})
+        @model.set('index', @model.get('index') - 1)
+        @nextModel.set('index', @model.get('index') + 1)
+        @collection.sort()
 
     onClickDown: () ->
-      unless @collection.indexOf(@model) == @collection.length - 1
-        adjustedPosition = @collection.indexOf(@model) + 1
-        @collection.remove(@model)
-        @model.set('listing_order_position', adjustedPosition)
-        @collection.add(@model, {at: adjustedPosition})
+      @collection.comparator = 'index'
+      @nextModel = @collection.at(@model.get('index') + 1)
+      unless @model.index == @collection.length - 1
+        @model.set('index', @model.get('index') + 1)
+        @nextModel.set('index', @model.get('index') - 1)
+        @collection.sort()
 
     onConfirmModelDestroy: () ->
       @collection.remove(@model)

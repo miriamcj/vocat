@@ -2,6 +2,7 @@ define (require) ->
   Marionette = require('marionette')
   template = require('hbs!templates/rubric/ranges')
   RangeView = require('views/rubric/range')
+  jqui = require('jquery_ui')
 
   class RangesView extends Marionette.CompositeView
 
@@ -10,6 +11,10 @@ define (require) ->
     childViewContainer: '[data-region="range-columns"]'
     childView: RangeView
 
+    ui: {
+      rangeAdd: '.range-add-button'
+    }
+
     childViewOptions: () ->
       {
       collection: @collection
@@ -17,6 +22,10 @@ define (require) ->
       criteria: @criteria
       vent: @vent
       }
+
+    childEvents: () ->
+      'move:right': 'moveRight'
+      'move:left': 'moveLeft'
 
     # This function validates the values array to make sure
     # there are enough values, no duplicates, etc.
@@ -131,12 +140,44 @@ define (require) ->
       else
         []
 
+    moveRight: (childView) ->
+      currentPosition = $('[data-region="cells"]').position()
+      @collection.comparator = 'index'
+      @model = childView.model
+      @nextModel = @collection.at(@model.get('index') + 1)
+      unless @model.index == @collection.length - 1
+        @model.set('index', @model.get('index') + 1)
+        @nextModel.set('index', @model.get('index') - 1)
+        @collection.sort()
+        @vent.trigger('range:move:right', currentPosition: currentPosition)
+
+    moveLeft: (childView) ->
+      currentPosition = $('[data-region="cells"]').position()
+      @collection.comparator = 'index'
+      @model = childView.model
+      @nextModel = @collection.at(@model.get('index') - 1)
+      unless @collection.indexOf(@model) == 0
+        @model.set('index', @model.get('index') - 1)
+        @nextModel.set('index', @model.get('index') + 1)
+        @collection.sort()
+        @vent.trigger('range:move:left', currentPosition: currentPosition)
+
+    showRangeAdd: () ->
+      if @collection.length > 3
+        $(@ui.rangeAdd).css('display', 'none')
+      else
+        $(@ui.rangeAdd).css('display', 'inline-block')
+
+    onShow: () ->
+      @showRangeAdd()
+
     initialize: (options) ->
       @vent = options.vent
       @rubric = options.rubric
       @criteria = options.criteria
-      @listenTo(@, 'add:child destroy:child', (event) ->
+      @listenTo(@, 'add:child destroy:child remove:child', () ->
         values = @getValuesFromCollection(@collection)
         values = @fixValues(values)
         @updateCollection(values)
+        @showRangeAdd()
       )

@@ -2,70 +2,276 @@
 @import "mixins";
 @import "patterns";
 
-// all throwaway styles, just to help visualize for now
-.rubric-builder {
-  padding-right: 115px;
-  padding-bottom: 55px;
-  background-color: whitesmoke;
-  position: relative;
-  .add-buttons > div {
-    display: inline-block;
-    font-size: 40px;
-  }
-  .range-add-snap {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 115px;
-    height: 75px;
-    text-align: right;
-    padding: 5px 15px;
-    background-color: $tealLightest;
-    color: $tealLight;
-    &:hover {
-      background-color: $tealLight;
-      color: $tealDark;
-    }
-  }
-  .criteria-add-snap {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 200px;
-    height: 55px;
-    padding: 5px 15px;
-    background-color: $grayLighter;
-    &:hover {
-      background-color: $grayLight;
-    }
-  }
-}
 .criteria-wrapper, .body-wrapper {
   float: left;
-}
-.ranges-column {
-  display: inline-block;
-  vertical-align: top;
-  margin-right: 3px;
 }
 .range-columns {
   display: inline-block;
 }
 .cell, .criteria-item, .spacer, .range-header, .spacer, .criteria-add-button, .range-add-button {
-  height: 75px;
-  width: 200px;
+  height: 100px;
+  width: 215px;
   text-align: center;
+}
+.cell-name, .criteria-item, .range-header {
+  font-weight: 600;
+}
+
+// builder layout
+.range-bar {
+  height: 100px;
+  width: calc(100% - 218px);
+  background-color: #edf7f7;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 0;
+}
+.criteria-bar {
+  height: calc(100% - 100px);
+  width: 215px;
+  background-color: #F0F1F1;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+}
+.rubric-builder {
+  padding-right: 55px;
+  padding-bottom: 55px;
+  background-color: whitesmoke;
+  position: relative;
+  cursor: default;
+  .add-buttons > div {
+    font-size: 40px;
+  }
+  .range-add-snap {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 55px;
+    height: 100px;
+    text-align: right;
+    background-color: #E5F5F4;
+    color: $tealLight;
+    &:hover {
+      background-color: $tealLightest;
+      color: $tealLight;
+    }
+    .range-plus-snap {
+      @include svg('plus-teal-rubric');
+      width: 25px;
+      height: 25px;
+      display: block;
+      position: absolute;
+      top: 15px;
+      right: 15px;
+    }
+  }
+  .criteria-add-snap {
+    cursor: pointer;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 215px;
+    height: 55px;
+    background-color: #F0F1F1;
+    &:hover {
+      background-color: $grayLight;
+    }
+    .criteria-plus-snap {
+      @include svg('plus-gray');
+      width: 25px;
+      height: 25px;
+      display: block;
+      position: absolute;
+      top: 15px;
+      left: 15px;
+    }
+  }
+  .range-add-button {
+    display: inline-block;
+    background-color: #DAF0EF;
+    text-transform: uppercase;
+    color: $tealLight;
+    cursor: pointer;
+    .range-plus {
+      @include svg('plus-teal-rubric');
+      width: 34px;
+      height: 34px;
+      display: block;
+      margin: 18px auto 11px;
+    }
+    &:hover {
+      background-color: #b7e1df;
+    }
+  }
+  .criteria-add-button {
+    background-color: #E0E0E0;
+    text-transform: uppercase;
+    color: $grayMedium;
+    cursor: pointer;
+    .criteria-plus {
+      @include svg('plus-gray');
+      width: 34px;
+      height: 34px;
+      display: block;
+      margin: 18px auto 11px;
+    }
+    &:hover {
+      background-color: #cccccc;
+    }
+  }
+}
+
+// header row/column
+.range-header, .criteria-item {
+  font-size: 21px;
+  color: $grayLightest;
+  padding: 30px 0;
 }
 .range-header {
   background-color: $tealLight;
+  &:hover {
+    background-color: #37958d;
+  }
+  .range-score {
+    font-size: 16px;
+    margin-top: 10px;
+  }
+}
+.criteria-wrapper {
+  position: relative;
+  z-index: 1;
+}
+.criteria-item {
+  background-color: $grayMedium;
+  margin-bottom: 3px;
+  &:hover {
+    background-color: #898b90;
+  }
+  &:last-child {
+    margin: 0;
+  }
+  &:first-child .cell-control.move-up {
+    opacity: 0.4;
+    border-bottom: 0;
+    &:hover {
+      background-color: #58585a;
+      cursor: default;
+    }
+  }
+  &:last-child {
+    .cell-control.move-up {
+      border-bottom: 0;
+    }
+    .cell-control.move-down {
+      opacity: 0.4;
+      &:hover {
+        background-color: #58585a;
+        cursor: default;
+      }
+    }
+  }
+  .cell-control {
+    color: whitesmoke;
+    background-color: #58585a;
+    &:hover {
+      background-color: #3f3f40;
+    }
+  }
+}
+
+// range columns
+.ranges-wrapper {
+  z-index: 1;
+}
+.range-columns {
+  white-space: nowrap;
+  vertical-align: top;
+}
+.ranges-column {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 3px;
+  .cell-control {
+    color: whitesmoke;
+    background-color: $tealDarkest;
+    &:hover {
+      background-color: #004d47;
+    }
+  }
+  &:last-child {
+    margin-right: 0;
+  }
+  &:first-child .cell-control.move-left {
+    opacity: 0.4;
+    border-bottom: 0;
+    &:hover {
+      background-color: $tealDarkest;
+      cursor: default;
+    }
+  }
+  &:last-child {
+    .cell-control.move-left {
+      border-bottom: 0;
+    }
+    .cell-control.move-right {
+      opacity: 0.4;
+      &:hover {
+        background-color: $tealDarkest;
+        cursor: default;
+      }
+    }
+  }
+}
+
+// cell
+.cells {
+  transition: all 0.2s ease;
 }
 .cell {
-  background-color: $tealLightest;
-}
-.cell, .criteria-item {
+  padding: 20px;
+  white-space: normal;
+  background-color: #E5F5F4;
   margin-bottom: 3px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+  .cell-control {
+    color: whitesmoke;
+    background-color: #58585a;
+    &:hover {
+      background-color: #3f3f40;
+    }
+  }
+  &:hover {
+    background-color: #BBC9C8;
+  }
+  .cell-name {
+    font-size: 17px;
+  }
+  .cell-description {
+    font-size: 14px;
+    margin-top: 10px;
+    &.empty {
+      margin-top: 20px;
+      text-transform: uppercase;
+      color: $grayMediumLighter;
+      &::before {
+        @include svg('pencil-gray');
+        display: inline-block;
+        width: 18px;
+        height: 16px;
+        margin-right: 11px;
+        vertical-align: bottom;
+        content: '';
+      }
+    }
+  }
 }
-.range-header, .criteria-item {
+.range-header, .criteria-item, .cell {
   position: relative;
   &:hover {
     .cell-control {
@@ -73,110 +279,178 @@
     }
   }
 }
-.range-add {
-  display: inline-block;
-}
-.cell-name, .criteria-item, .range-header {
-  font-weight: 600;
-}
-.add-buttons {
-  //display: none;
-}
 
-.add-buttons > div {
-  display: inline-block;
-  height: 50px;
-  width: 50px;
-  background: red;
-  margin: 5px;
-  text-align: center;
+// cell-control
+.cell-control {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  visibility: hidden;
+  &.edit, &.move-left, &.move-up {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  }
   &:hover {
-    opacity: 0.6;
+    cursor: pointer;
+    background-color: whitesmoke;
+  }
+  &.move-left, &.move-up {
+    left: 0;
+    top: 0;
+  }
+  &.move-right, &.move-down {
+    left: 0;
+    top: 30px;
+  }
+  &.edit {
+    right: 0;
+    top: 0;
+  }
+  &.destroy {
+    right: 0;
+    top: 30px;
   }
 }
 
-
-.table-wrapper {
-  @include clearfix;
-  width: 100%;
-}
-
-.body-wrapper {
-  max-width: calc(100% - 200px);
-}
-
+// sliders
 .ranges-wrapper {
   max-width: 100%;
   position: relative;
   overflow: hidden;
 
   .slide-button-left, .slide-button-right {
+    visibility: hidden;
     position: absolute;
-    width: 62px;
+    width: 60px;
     height: 100%;
-    background-color: darkgray;
+    background-color: $black;
     z-index: 5;
     cursor: pointer;
+    opacity: 0.5;
   }
 
   .slide-button-left {
     top: 0;
     bottom: 0;
     left: 0;
+    &:hover {
+      opacity: 0.6;
+    }
+    &::before {
+      @include svg(arrow-left-white-tall);
+      display: inline-block;
+      position: absolute;
+      top: 46%;
+      width: 100%;
+      height: 50px;
+      content: '';
+    }
   }
 
   .slide-button-right {
     top: 0;
     right: 0;
     bottom: 0;
+    &:hover {
+      opacity: 0.6;
+    }
+    &::before {
+      @include svg(arrow-right-white-tall);
+      display: inline-block;
+      position: absolute;
+      top: 46%;
+      width: 100%;
+      height: 50px;
+      content: '';
+    }
   }
 }
 
-.range-columns {
-  white-space: nowrap;
+// misc
+.table-wrapper {
+  @include clearfix;
+  width: 100%;
 }
 
-
-.cell-control {
-  width: 25px;
-  height: 25px;
-  position: absolute;
-  visibility: hidden;
-  &:hover {
-    background-color: whitesmoke;
+.body-wrapper {
+  max-width: calc(100% - 215px);
+}
+.spacer {
+  background-color: #F0F1F1;
+}
+.criteria-item, .cell {
+  .edit-icon {
+    @include svg('pencil-gray');
+    width: 18px;
+    height: 16px;
+    display: block;
+    position: absolute;
+    top: 7px;
+    left: 6px;
   }
-  &.move-left, &.move-up {
-    left: 0;
+  .delete-icon {
+    @include svg('x-gray');
+    width: 18px;
+    height: 16px;
+    display: block;
+    position: absolute;
+    top: 7px;
+    left: 6px;
   }
-  &.move-right, &.move-down {
-    left: 0;
-    top: 25px;
+  .up-icon {
+    @include svg('arrow-up-gray');
+    width: 18px;
+    height: 16px;
+    display: block;
+    position: absolute;
+    top: 7px;
+    left: 6px;
   }
-  &.edit {
-    right: 0;
-  }
-  &.destroy {
-    right: 0;
-    top: 25px;
+  .down-icon {
+    @include svg('arrow-down-gray');
+    width: 18px;
+    height: 16px;
+    display: block;
+    position: absolute;
+    top: 7px;
+    left: 6px;
   }
 }
+
 .range-header {
-  background-color: $tealLight;
-  .cell-control {
-    color: whitesmoke;
-    background-color: $tealDark;
-    &:hover {
-      background-color: $tealDarkest;
-    }
+  .edit-icon {
+    @include svg('pencil-teal');
+    width: 18px;
+    height: 16px;
+    display: block;
+    position: absolute;
+    top: 7px;
+    left: 6px;
   }
-}
-.criteria-item {
-  background-color: $grayMedium;
-  .cell-control {
-    color: whitesmoke;
-    background-color: $grayDark;
-    &:hover {
-      background-color: $grayDarker;
-    }
+  .delete-icon {
+    @include svg('x-teal');
+    width: 18px;
+    height: 16px;
+    display: block;
+    position: absolute;
+    top: 7px;
+    left: 6px;
+  }
+  .left-icon {
+    @include svg('arrow-left-teal');
+    width: 18px;
+    height: 16px;
+    display: block;
+    position: absolute;
+    top: 7px;
+    left: 6px;
+  }
+  .right-icon {
+    @include svg('arrow-right-teal-rubric');
+    width: 18px;
+    height: 16px;
+    display: block;
+    position: absolute;
+    top: 7px;
+    left: 6px;
   }
 }

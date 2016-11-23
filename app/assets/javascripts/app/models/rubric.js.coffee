@@ -119,12 +119,14 @@ define (require) ->
         @set 'ranges', new RangeCollection unless @get('ranges')
         @set 'cells', new CellCollection unless @get('cells')
 
-        _.each(response.ranges, (range) =>
+        _.each(response.ranges, (range, index) =>
+          range.index = index
           range = new RangeModel(range)
           @get('ranges').add(range, {silent: true})
         )
 
-        _.each(response.fields, (field) =>
+        _.each(response.fields, (field, index) =>
+          field.index = index
           field = new FieldModel(field)
           @get('fields').add(field, {silent: true})
         )

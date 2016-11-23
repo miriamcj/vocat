@@ -25,8 +25,14 @@ define (require) ->
       'click [data-trigger="criteriaAdd"]': 'handleCriteriaAdd'
     }
 
+    ui: {
+      rangeSnap: '.range-add-snap'
+      criteriaSnap: '.criteria-add-snap'
+      cells: '[data-region="cells"]'
+    }
+
     newRange: () ->
-      range = new RangeModel({})
+      range = new RangeModel({index: @collections.ranges.length})
       modal = new ShortTextInputView({
         model: range,
         property: 'name',
@@ -55,7 +61,7 @@ define (require) ->
 
     handleCriteriaAdd: (event) ->
       event.preventDefault()
-      field = new FieldModel({})
+      field = new FieldModel({index: @collections.criteria.length})
       modal = new ShortTextInputView({
         model: field,
         property: 'name',
@@ -69,11 +75,49 @@ define (require) ->
       )
       Vocat.vent.trigger('modal:open', modal)
 
+    showCriteriaSnap: () ->
+      if @collections.criteria.length > 3
+        $(@ui.criteriaSnap).css('display', 'inline-block')
+        $('.criteria-bar').css('visibility', 'hidden')
+      else
+        $(@ui.criteriaSnap).css('display', 'none')
+        $('.criteria-bar').css('visibility', 'visible')
+
+    showRangeSnap: () ->
+      if @collections.ranges.length <= 3
+        $(@ui.rangeSnap).css('display', 'none')
+        $('.range-bar').css('visibility', 'visible')
+      else if @collections.ranges.length == 4
+        $('.range-bar').css('visibility', 'hidden')
+        $(@ui.rangeSnap).css('display': 'inline-block', 'width': '116px')
+      else if $('.cells').position().left == (-(@model.get('ranges').length - 4) * 218)
+        $('.range-bar').css('visibility', 'hidden')
+        $(@ui.rangeSnap).css('display': 'inline-block', 'width': '116px', 'z-index': '10')
+      else
+        $('.range-bar').css('visibility', 'hidden')
+        $(@ui.rangeSnap).css('display': 'inline-block', 'width': '55px')
+
     initialize: (options) ->
       @vent = options.vent
       @collections.ranges = @model.get('ranges')
       @collections.criteria = @model.get('fields')
+      @showCriteriaSnap()
+      @listenTo(@collections.criteria, 'add remove', (event) ->
+        @showCriteriaSnap()
+      )
+
+      @listenTo(@collections.ranges, 'add remove', (event) ->
+        @showRangeSnap()
+      )
+
+      @listenTo(@vent, 'sliders:displayed', (event) ->
+        @showRangeSnap()
+      )
 
     onRender: () ->
       @criteria.show(new CriteriaView({collection: @collections.criteria, vent: @vent}))
       @bodyWrapper.show(new RangesView({collection: @collections.ranges, rubric: @model, criteria: @collections.criteria, vent: @vent}))
+
+    onShow: () ->
+      @showCriteriaSnap()
+      @showRangeSnap()

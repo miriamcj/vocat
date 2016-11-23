@@ -20,8 +20,8 @@ define (require) ->
     triggers: {
       'click [data-behavior="destroy"]': 'model:destroy'
       'click [data-behavior="edit"]': 'click:edit'
-      'click [data-behavior="move-left"]': 'click:left'
-      'click [data-behavior="move-right"]': 'click:right'
+      'click [data-behavior="move-left"]': 'move:left'
+      'click [data-behavior="move-right"]': 'move:right'
     }
 
     events: {
@@ -76,6 +76,6 @@ define (require) ->
         @listenTo(@model, 'change', () ->
           @render()
         )
-      @listenTo(@collection, 'all', (event) ->
+      @listenTo(@collection, 'all', () ->
         @render()
       )

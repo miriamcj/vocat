@@ -34,6 +34,11 @@ define (require) ->
       'click [data-behavior="matrix-slider-left"]': 'slider:left'
       'click [data-behavior="matrix-slider-right"]': 'slider:right'
       'click [data-trigger="recalc"]': 'recalculate:matrix'
+      'transitionend [data-region="cells"]': 'transition:end'
+      'webkitTransitionEnd [data-region="cells"]': 'transition:end'
+      'oTransitionEnd [data-region="cells"]': 'transition:end'
+      'otransitionend [data-region="cells"]': 'transition:end'
+      'MSTransitionEnd [data-region="cells"]': 'transition:end'
     }
 
     ui: {
@@ -48,12 +53,56 @@ define (require) ->
       sliderRight: '[data-behavior="matrix-slider-right"]'
     }
 
+    onSliderLeft: () ->
+      cells = @rubricBuilder.$el.find($('[data-region="cells"]'))
+      currentPosition = @rubricBuilder.$el.find($('[data-region="cells"]')).position()
+      if currentPosition.left < 0
+        currentPosition = currentPosition.left + 218
+        cells.css('transform', "translateX(#{currentPosition}px)")
+
+    onSliderRight: () ->
+      if @model.get('ranges').length > 4
+        cells = @rubricBuilder.$el.find($('[data-region="cells"]'))
+        currentPosition = @rubricBuilder.$el.find($('[data-region="cells"]')).position()
+        if currentPosition.left > (-(@model.get('ranges').length - 4) * 218)
+          currentPosition = currentPosition.left - 218
+          cells.css('transform', "translateX(#{currentPosition}px)")
+
+    displayLeftSlider: () ->
+      currentPosition = @rubricBuilder.$el.find($('[data-region="cells"]')).position()
+      if currentPosition.left < 0
+        $('[data-behavior="matrix-slider-left"]').css('visibility', 'visible')
+      else
+        $('[data-behavior="matrix-slider-left"]').css('visibility', 'hidden')
+
+    displayRightSlider: () ->
+      currentPosition = @rubricBuilder.$el.find($('[data-region="cells"]')).position()
+      if currentPosition.left > (-(@model.get('ranges').length - 4) * 218)
+        $('[data-behavior="matrix-slider-right"]').css('visibility', 'visible')
+      else
+        $('[data-behavior="matrix-slider-right"]').css('visibility', 'hidden')
+
+    displaySliders: () ->
+      if @model.get('ranges').length <= 4
+        @rubricBuilder.$el.find($('[data-region="cells"]')).css('transform', 'translateX(0)')
+        $('[data-behavior="matrix-slider-left"]').css('visibility', 'hidden')
+        $('[data-behavior="matrix-slider-right"]').css('visibility', 'hidden')
+      else
+        @displayLeftSlider()
+        @displayRightSlider()
+      @trigger('sliders:displayed')
+
+    onTransitionEnd: () ->
+      @displaySliders()
+
+    repositionRubric: (oldPosition) ->
+      cells = @rubricBuilder.$el.find($('[data-region="cells"]'))
+      if @model.get('ranges').length > 4
+        cells.css('transform', "translateX(#{oldPosition.left}px)")
+
     openScoreModal: () ->
       rangePickerModal = new RangePickerModalView({collection: @model.get('ranges'), model: @model, vent: @})
       Vocat.vent.trigger('modal:open', rangePickerModal)
-
-    onRecalculateMatrix: () ->
-      @recalculateMatrix()
 
     handlePublicChange: (event) ->
       @model.set('public', @ui.publicInput.val())
@@ -127,10 +176,16 @@ define (require) ->
 
       @listenTo(@model, 'change', (e) =>
         @recalculateMatrix()
+        @displaySliders()
       )
 
       @listenTo(@model, 'invalid', (model, errors) =>
         @trigger('error:add', {level: 'error', lifetime: 5000, msg: errors})
+      )
+
+      @listenTo(@, 'range:move:left range:move:right', (event) ->
+        @repositionRubric(event.currentPosition)
+        @displaySliders()
       )
 
     onShow: () ->
@@ -146,3 +201,4 @@ define (require) ->
 
     onRender: () ->
       @rubricBuilder.show(new RubricBuilderView({model: @model, vent: @}))
+      @displaySliders()

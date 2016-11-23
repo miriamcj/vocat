@@ -2,16 +2,17 @@ define (require) ->
   Marionette = require('marionette')
   template = require('hbs!templates/rubric/ranges_item')
   LongTextInputView = require('views/property_editor/long_text_input')
+  ModalConfirmView = require('views/modal/modal_confirm')
 
   class RangesItem extends Marionette.ItemView
 
     template: template
     className: 'cell'
 
-    onShow: () ->
-      @$el.on('click', (event) =>
-        @triggerMethod('open:modal')
-      )
+    triggers: {
+      'click [data-behavior="destroy"]': 'description:clear'
+      'click [data-behavior="edit"]': 'click:edit'
+    }
 
     findModel: () ->
       cells = @rubric.get('cells')
@@ -28,7 +29,22 @@ define (require) ->
       data.cellName = @cellName()
       data
 
-    onOpenModal: () ->
+    onDescriptionClear: () ->
+      Vocat.vent.trigger('modal:open', new ModalConfirmView({
+        model: @model,
+        vent: @,
+        descriptionLabel: 'Clear description?',
+        confirmEvent: 'confirm:description:clear',
+        dismissEvent: 'dismiss:description:clear'
+      }))
+
+    onConfirmDescriptionClear: () ->
+      @model.unset('description')
+
+    onClickEdit: () ->
+      @openModal()
+
+    openModal: () ->
       label = "Description: #{@model.rangeModel.get('name')} #{@model.fieldModel.get('name')}"
       Vocat.vent.trigger('modal:open', new LongTextInputView({
         model: @model,
@@ -52,4 +68,3 @@ define (require) ->
         )
       @listenTo(@model.rangeModel, 'change:name', @render, @) if @model.rangeModel?
       @listenTo(@model.fieldModel, 'change:name', @render, @) if @model.fieldModel?
-

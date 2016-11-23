@@ -1,8 +1,10 @@
 <div data-behavior="open-modal">
+    <span class="cell-control edit" data-behavior="edit"><i class="edit-icon"></i></span>
+    <span class="cell-control destroy" data-behavior="destroy"><i class="delete-icon"></i></span>
     <div class="cell-name">{{cellName}}</div>
     {{#if description}}
-        <div href="#">{{truncate description 60}}</div>
+        <div class="cell-description">{{truncate description 45}}</div>
     {{else}}
-        <div href="#">Enter Description</div>
+        <div class="cell-description empty">Add Description</div>
     {{/if}}
 </div>
