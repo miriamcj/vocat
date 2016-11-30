@@ -9,9 +9,12 @@
   display: inline-block;
 }
 .cell, .criteria-item, .spacer, .range-header, .spacer, .criteria-add-button, .range-add-button {
-  height: 100px;
+  height: 90px;
   width: 215px;
   text-align: center;
+}
+.criteria-item, .cell, .criteria-add-button {
+  height: 110px;
 }
 .cell-name, .criteria-item, .range-header {
   font-weight: 600;
@@ -19,7 +22,7 @@
 
 // builder layout
 .range-bar {
-  height: 100px;
+  height: 90px;
   width: calc(100% - 218px);
   background-color: #edf7f7;
   position: absolute;
@@ -28,7 +31,7 @@
   z-index: 0;
 }
 .criteria-bar {
-  height: calc(100% - 100px);
+  height: calc(100% - 90px);
   width: 215px;
   background-color: #F0F1F1;
   position: absolute;
@@ -51,7 +54,7 @@
     top: 0;
     right: 0;
     width: 55px;
-    height: 100px;
+    height: 90px;
     text-align: right;
     background-color: #E5F5F4;
     color: $tealLight;
@@ -93,6 +96,7 @@
   .range-add-button {
     display: inline-block;
     background-color: #DAF0EF;
+    font-size: $kappa;
     text-transform: uppercase;
     color: $tealLight;
     cursor: pointer;
@@ -101,7 +105,7 @@
       width: 34px;
       height: 34px;
       display: block;
-      margin: 18px auto 11px;
+      margin: 18px auto 9px;
     }
     &:hover {
       background-color: #b7e1df;
@@ -109,15 +113,16 @@
   }
   .criteria-add-button {
     background-color: #E0E0E0;
+    font-size: $kappa;
     text-transform: uppercase;
-    color: $grayMedium;
+    color: $grayDark;
     cursor: pointer;
     .criteria-plus {
       @include svg('plus-gray');
       width: 34px;
       height: 34px;
       display: block;
-      margin: 18px auto 11px;
+      margin: 26px auto 9px;
     }
     &:hover {
       background-color: #cccccc;
@@ -127,9 +132,9 @@
 
 // header row/column
 .range-header, .criteria-item {
-  font-size: 21px;
+  font-size: $zeta;
   color: $grayLightest;
-  padding: 30px 0;
+  padding: 26px 0;
 }
 .range-header {
   background-color: $tealLight;
@@ -138,7 +143,7 @@
   }
   .range-score {
     font-size: 16px;
-    margin-top: 10px;
+    margin-top: 9px;
   }
 }
 .criteria-wrapper {
@@ -148,6 +153,7 @@
 .criteria-item {
   background-color: $grayMedium;
   margin-bottom: 3px;
+  padding: 34px 0;
   &:hover {
     background-color: #898b90;
   }
@@ -156,16 +162,12 @@
   }
   &:first-child .cell-control.move-up {
     opacity: 0.4;
-    border-bottom: 0;
     &:hover {
       background-color: #58585a;
       cursor: default;
     }
   }
   &:last-child {
-    .cell-control.move-up {
-      border-bottom: 0;
-    }
     .cell-control.move-down {
       opacity: 0.4;
       &:hover {
@@ -175,10 +177,9 @@
     }
   }
   .cell-control {
-    color: whitesmoke;
     background-color: #58585a;
     &:hover {
-      background-color: #3f3f40;
+      background-color: $black;
     }
   }
 }
@@ -196,10 +197,9 @@
   vertical-align: top;
   margin-right: 3px;
   .cell-control {
-    color: whitesmoke;
-    background-color: $tealDarkest;
+    background-color: transparentize($black, 0.9);
     &:hover {
-      background-color: #004d47;
+      background-color: transparentize($black, 0.7);
     }
   }
   &:last-child {
@@ -207,16 +207,12 @@
   }
   &:first-child .cell-control.move-left {
     opacity: 0.4;
-    border-bottom: 0;
     &:hover {
       background-color: $tealDarkest;
       cursor: default;
     }
   }
   &:last-child {
-    .cell-control.move-left {
-      border-bottom: 0;
-    }
     .cell-control.move-right {
       opacity: 0.4;
       &:hover {
@@ -232,38 +228,54 @@
   transition: all 0.2s ease;
 }
 .cell {
-  padding: 20px;
+  padding: 24px 14px 20px;
   white-space: normal;
   background-color: #E5F5F4;
   margin-bottom: 3px;
+  &:before {
+    content: "";
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparentize($grayDarkest, 0.8);
+  }
+  &:hover:before {
+    display: block;
+  }
   &:last-child {
     margin-bottom: 0;
   }
   .cell-control {
     color: whitesmoke;
-    background-color: #58585a;
+    background-color: $grayDark;
     &:hover {
-      background-color: #3f3f40;
+      background-color: $black;
     }
   }
-  &:hover {
-    background-color: #BBC9C8;
+  .cell-name, .cell-description {
+    // Truncate at one line
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
   .cell-name {
-    font-size: 17px;
+    font-size: $theta;
   }
   .cell-description {
-    font-size: 14px;
-    margin-top: 10px;
+    font-size: $iota;
+    margin-top: 20px;
     &.empty {
-      margin-top: 20px;
       text-transform: uppercase;
       color: $grayMediumLighter;
       &::before {
         @include svg('pencil-gray');
         display: inline-block;
         width: 18px;
-        height: 16px;
+        height: 19px;
         margin-right: 11px;
         vertical-align: bottom;
         content: '';
@@ -286,9 +298,6 @@
   height: 30px;
   position: absolute;
   visibility: hidden;
-  &.edit, &.move-left, &.move-up {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  }
   &:hover {
     cursor: pointer;
     background-color: whitesmoke;
