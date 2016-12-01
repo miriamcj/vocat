@@ -134,12 +134,34 @@
 .range-header, .criteria-item {
   font-size: $zeta;
   color: $grayLightest;
-  padding: 26px 0;
+  padding: 26px 11px;
 }
 .range-header {
-  background-color: $tealLight;
-  &:hover {
-    background-color: #37958d;
+  background-color: $tealLightAlt;
+  &:before {
+    content: "";
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparentize($grayDarkest, 0.8);
+  }
+  .range-name {
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .cell-control {
+    background-color: transparentize($black, 0.7);
+    &:hover {
+      background-color: transparentize($black, 0.9);
+    }
+  }
+  &:hover:before {
+    display: block;
   }
   .range-score {
     font-size: 16px;
@@ -196,19 +218,13 @@
   display: inline-block;
   vertical-align: top;
   margin-right: 3px;
-  .cell-control {
-    background-color: transparentize($black, 0.9);
-    &:hover {
-      background-color: transparentize($black, 0.7);
-    }
-  }
   &:last-child {
     margin-right: 0;
   }
   &:first-child .cell-control.move-left {
     opacity: 0.4;
     &:hover {
-      background-color: rgba(0, 0, 0, 0.1);
+      background-color: transparentize($black, 0.7);
       cursor: default;
     }
   }
@@ -216,7 +232,7 @@
     .cell-control.move-right {
       opacity: 0.4;
       &:hover {
-        background-color: rgba(0, 0, 0, 0.1);
+        background-color: transparentize($black, 0.7);
         cursor: default;
       }
     }
@@ -230,7 +246,7 @@
 .cell {
   padding: 24px 14px 20px;
   white-space: normal;
-  background-color: #E5F5F4;
+  background-color: $tealPale;
   margin-bottom: 3px;
   &:before {
     content: "";
@@ -241,6 +257,7 @@
     width: 100%;
     height: 100%;
     background-color: transparentize($grayDarkest, 0.8);
+    pointer-events: none;
   }
   &:hover:before {
     display: block;
@@ -249,8 +266,7 @@
     margin-bottom: 0;
   }
   .cell-control {
-    color: whitesmoke;
-    background-color: $grayDark;
+    background-color: transparentize($black, 0.5);
     &:hover {
       background-color: $black;
     }
@@ -348,9 +364,10 @@
       @include svg(arrow-left-white-tall);
       display: inline-block;
       position: absolute;
-      top: 46%;
+      top: 50%;
       width: 100%;
       height: 50px;
+      margin-top: -25px;
       content: '';
     }
   }
@@ -366,9 +383,10 @@
       @include svg(arrow-right-white-tall);
       display: inline-block;
       position: absolute;
-      top: 46%;
+      top: 50%;
       width: 100%;
       height: 50px;
+      margin-top: -25px;
       content: '';
     }
   }

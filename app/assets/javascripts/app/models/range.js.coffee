@@ -14,6 +14,22 @@ define ['backbone', 'models/rubric_property'], (Backbone, RubricProperty) ->
     isNew: () ->
       true
 
+    position: () ->
+      return null unless @collection
+      @collection.indexOf(@)
+
+    percentage: () ->
+      return 0 unless @position()
+      return 0 unless @collection.length > 0
+      return @position() / @collection.length
+
+
+    toJSON: () ->
+      out = super()
+      out.position = @position()
+      out.percentage = @percentage()
+      out
+
     validate: (attr, options) ->
       if attr
         if attr.name.length < 1
