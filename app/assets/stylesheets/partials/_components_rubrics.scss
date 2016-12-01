@@ -101,6 +101,7 @@
     text-transform: uppercase;
     color: $tealLight;
     cursor: pointer;
+    vertical-align: middle;
     .range-plus {
       @include svg('plus-teal-rubric');
       width: 34px;
@@ -172,6 +173,13 @@
 .criteria-wrapper {
   position: relative;
   z-index: 1;
+  max-width: 215px;
+}
+.criteria-instruction {
+  padding: 1.2em 17px;
+  font-size: $iota;
+  font-style: italic;
+  text-align: center;
 }
 .criteria-item {
   background-color: $grayMedium;
@@ -243,6 +251,13 @@
 // cell
 .cells {
   transition: all 0.2s ease;
+}
+.range-instruction {
+  display: inline-block;
+  vertical-align: middle;
+  padding-left: 12px;
+  font-size: $iota;
+  font-style: italic;
 }
 .cell {
   padding: 24px 14px 20px;

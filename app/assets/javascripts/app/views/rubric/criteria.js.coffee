@@ -11,7 +11,8 @@ define (require) ->
     childView: ItemView
 
     ui: {
-      criteriaAdd: '.criteria-add-button'
+      criteriaAdd: '.criteria-add-button',
+      criteriaInstruction: '.criteria-instruction'
     }
 
     childViewOptions: () ->
@@ -25,10 +26,18 @@ define (require) ->
       else
         $(@ui.criteriaAdd).css('display', 'inline-block')
 
+    showCriteriaInstruction: () ->
+      if @collection.length > 0
+        $(@ui.criteriaInstruction).css('display', 'none')
+      else
+        $(@ui.criteriaInstruction).css('display', 'inline-block')
+
     onShow: () ->
       @showCriteriaAdd()
+      @showCriteriaInstruction()
 
     initialize: (options) ->
       @listenTo(@, 'add:child destroy:child remove:child', () ->
         @showCriteriaAdd()
+        @showCriteriaInstruction()
       )

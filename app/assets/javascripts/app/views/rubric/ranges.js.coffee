@@ -13,6 +13,7 @@ define (require) ->
 
     ui: {
       rangeAdd: '.range-add-button'
+      rangeInstruction: '.range-instruction'
     }
 
     childViewOptions: () ->
@@ -168,8 +169,15 @@ define (require) ->
       else
         $(@ui.rangeAdd).css('display', 'inline-block')
 
+    showRangeInstruction: () ->
+      if @collection.length > 0
+        $(@ui.rangeInstruction).css('display', 'none')
+      else
+        $(@ui.rangeInstruction).css('display', 'inline-block')
+
     onShow: () ->
       @showRangeAdd()
+      @showRangeInstruction()
 
     initialize: (options) ->
       @vent = options.vent
@@ -180,4 +188,5 @@ define (require) ->
         values = @fixValues(values)
         @updateCollection(values)
         @showRangeAdd()
+        @showRangeInstruction()
       )
