@@ -36,6 +36,12 @@ define (require) ->
         dismissEvent: 'dismiss:model:destroy'
       }))
 
+
+    reindex: (collection) ->
+      collection.each((criteria, index) ->
+        criteria.set('index', index)
+      )
+
     onClickEdit: () ->
       @openModal()
 
@@ -58,6 +64,7 @@ define (require) ->
     onConfirmModelDestroy: () ->
       @collection.remove(@model)
       @model.destroy()
+      @reindex(@collection)
 
     initialize: () ->
       @listenTo(@model, 'change:name', @render, @)

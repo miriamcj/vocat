@@ -58,8 +58,14 @@ define (require) ->
       }))
 
     onConfirmModelDestroy: () ->
-      @collection.remove(@model)
+      @ranges.remove(@model)
       @model.destroy()
+      @reindex(@ranges)
+
+    reindex: (collection) ->
+      collection.each((range, index) ->
+        range.set('index', index)
+      )
 
     updateLowRange: () ->
       @ui.lowRange.html(@model.get('low'))
@@ -71,6 +77,7 @@ define (require) ->
       @vent = options.vent
       @rubric = options.rubric
       @collection = options.criteria
+      @ranges = @rubric.get('ranges')
 
       if @model?
         @listenTo(@model, 'change', () ->

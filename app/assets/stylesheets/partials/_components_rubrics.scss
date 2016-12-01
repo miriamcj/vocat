@@ -208,7 +208,7 @@
   &:first-child .cell-control.move-left {
     opacity: 0.4;
     &:hover {
-      background-color: $tealDarkest;
+      background-color: rgba(0, 0, 0, 0.1);
       cursor: default;
     }
   }
@@ -216,7 +216,7 @@
     .cell-control.move-right {
       opacity: 0.4;
       &:hover {
-        background-color: $tealDarkest;
+        background-color: rgba(0, 0, 0, 0.1);
         cursor: default;
       }
     }
