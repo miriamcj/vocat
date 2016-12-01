@@ -7,6 +7,7 @@
 }
 .range-columns {
   display: inline-block;
+  background-color: $white;
 }
 .cell, .criteria-item, .spacer, .range-header, .spacer, .criteria-add-button, .range-add-button {
   height: 90px;
@@ -246,7 +247,6 @@
 .cell {
   padding: 24px 14px 20px;
   white-space: normal;
-  background-color: $tealPale;
   margin-bottom: 3px;
   &:before {
     content: "";
@@ -258,6 +258,15 @@
     height: 100%;
     background-color: transparentize($grayDarkest, 0.8);
     pointer-events: none;
+  }
+  &:after {
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    background-color: $white;
+    content: '';
   }
   &:hover:before {
     display: block;
