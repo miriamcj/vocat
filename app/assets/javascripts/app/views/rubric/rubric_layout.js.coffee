@@ -53,20 +53,22 @@ define (require) ->
       sliderRight: '[data-behavior="matrix-slider-right"]'
     }
 
-    onSliderLeft: () ->
+    onSliderLeft: _.throttle((() ->
       cells = @rubricBuilder.$el.find($('[data-region="cells"]'))
       currentPosition = @rubricBuilder.$el.find($('[data-region="cells"]')).position()
       if currentPosition.left < 0
         currentPosition = currentPosition.left + 218
         cells.css('transform', "translateX(#{currentPosition}px)")
+    ), 300)
 
-    onSliderRight: () ->
+    onSliderRight: _.throttle((() ->
       if @model.get('ranges').length > 4
         cells = @rubricBuilder.$el.find($('[data-region="cells"]'))
         currentPosition = @rubricBuilder.$el.find($('[data-region="cells"]')).position()
         if currentPosition.left > (-(@model.get('ranges').length - 4) * 218)
           currentPosition = currentPosition.left - 218
           cells.css('transform', "translateX(#{currentPosition}px)")
+    ), 300)
 
     displayLeftSlider: () ->
       currentPosition = @rubricBuilder.$el.find($('[data-region="cells"]')).position()
