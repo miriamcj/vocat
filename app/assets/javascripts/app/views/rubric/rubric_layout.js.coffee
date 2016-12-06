@@ -154,6 +154,16 @@ define (require) ->
           Vocat.vent.trigger('error:add', {level: 'error', msg: msg})
       })
 
+    onRangeRemoved: () ->
+      if @model.get('ranges').length > 4
+        cells = @rubricBuilder.$el.find($('[data-region="cells"]'))
+        unit = 25
+        currentPosition = cells.position().left/cells.width()
+        maxUnits = -(@model.get('ranges').length - 4) * (unit/100)
+        if currentPosition < maxUnits
+          currentPosition = (currentPosition * 100) + unit
+          cells.css('transform', "translateX(#{currentPosition}%)")
+
     parseRangePoints: (rangePoints) ->
       unless rangePoints? then rangePoints = ''
       numbers = rangePoints.split(' ')
@@ -194,6 +204,9 @@ define (require) ->
       @listenTo(@, 'range:move:left range:move:right', (event) ->
         @repositionRubric(event.currentPosition)
         @displaySliders()
+      )
+      @listenTo(@, 'range:removed', () ->
+        @onRangeRemoved()
       )
 
     onShow: () ->

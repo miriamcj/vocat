@@ -61,6 +61,7 @@ define (require) ->
       @ranges.remove(@model)
       @model.destroy()
       @reindex(@ranges)
+      @vent.trigger('range:removed')
 
     reindex: (collection) ->
       collection.each((range, index) ->
