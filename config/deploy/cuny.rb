@@ -10,4 +10,5 @@ set :deploy_to, "~/#{fetch(:application)}"
 role :app, ["#{fetch(:application)}@#{fetch(:server_name)}"]
 role :web, ["#{fetch(:application)}@#{fetch(:server_name)}"]
 role :db, ["#{fetch(:application)}@#{fetch(:server_name)}"]
+role :upstart, ["#{fetch(:application)}@#{fetch(:server_name)}"]
 

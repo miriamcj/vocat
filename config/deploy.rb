@@ -9,6 +9,13 @@ set :linked_files, ["config/secrets.yml"]
 set :keep_releases, 5
 set :bundle_binstubs, -> { shared_path.join('bin') }
 
+# Rbenv
+set :rbenv_type, :user
+set :rbenv_ruby, File.read('.ruby-version').strip
+rbenv_root = fetch(:rbenv_path)
+rbenv_version = "#{fetch(:rbenv_ruby)} #{rbenv_root}/bin/rbenv exec"
+set :rbenv_prefix, "RBENV_ROOT=#{rbenv_root} RBENV_VERSION=#{rbenv_version}"
+
 namespace :deploy do
 
   before :deploy, 'deploy:check_revision'
@@ -36,17 +43,26 @@ namespace :deploy do
 
   desc 'Restart application'
   task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      execute "sudo stop #{fetch(:application)} || true"
-      execute "sudo start #{fetch(:application)}"
+
+    on roles(:upstart), in: :sequence, wait: 5 do
+      execute :sudo, :stop, fetch(:application), '|| true'
+      execute :sudo, :start, fetch(:application)
+    end
+    on roles(:systemd), in: :sequence, wait: 5 do
+      execute :sudo, :systemctl, :stop, fetch(:application)
+      execute :sudo, :systemctl, :start, fetch(:application)
     end
   end
 
   desc 'Restart application'
   task :restart_sidekiq do
-    on roles(:app), in: :sequence, wait: 5 do
-      execute "sudo stop #{fetch(:application)}_workers || true"
-      execute "sudo start #{fetch(:application)}_workers"
+    on roles(:upstart), in: :sequence, wait: 5 do
+      execute :sudo, :stop, "#{fetch(:application)}_workers || true"
+      execute :sudo, :start, "#{fetch(:application)}_workers"
+    end
+    on roles(:systemd), in: :sequence, wait: 5 do
+      execute :sudo, :systemctl, :stop, "#{fetch(:application)}_workers"
+      execute :sudo, :systemctl, :start, "#{fetch(:application)}_workers"
     end
   end
 

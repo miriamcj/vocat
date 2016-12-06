@@ -1,14 +1,15 @@
-set :branch, "master"
-set :server_name, "vocat.cic-stg.com"
+set :branch, "development"
+set :server_name, "vocat.cicnode.com"
 set :application, "vocat"
 
-set :stage, :staging
-set :rails_env, :staging
+set :stage, :production
+set :rails_env, :production
 
-set :deploy_to, "~/#{fetch(:application)}"
+set :deploy_to, "~/deploy"
 
 role :app, ["#{fetch(:application)}@#{fetch(:server_name)}"]
 role :web, ["#{fetch(:application)}@#{fetch(:server_name)}"]
 role :db, ["#{fetch(:application)}@#{fetch(:server_name)}"]
+role :systemd, ["#{fetch(:application)}@#{fetch(:server_name)}"]
 
 
