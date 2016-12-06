@@ -1,13 +1,16 @@
 <% content_for :content do %>
   <div class="login-title">
     <%= image_tag("png/logo.png", :alt => "VOCAT", style: 'max-width: 100px;') %>
-    <div class="separator"></div><span><%= @current_organization.name %></span>
+    <div class="separator"></div>
+    <% if @current_organization %>
+    <span><%= @current_organization.name %></span>
+    <% end %>
   </div>
 	<div class="page-content">
 		<%= render 'layouts/messages_server' %>
 		<div class="authentication-tile">
 			<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'formgrid'}) do |f| %>
-				<% if @current_organization && @current_organization.logo %>
+				<% if @current_organization.try(:logo) %>
 					<div class="formgrid whole">
 						<div class="org-logo">
 							<img src="/uploads/<%= @current_organization.logo %>" />
