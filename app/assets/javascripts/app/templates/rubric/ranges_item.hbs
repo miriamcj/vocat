@@ -1,9 +1,10 @@
-<div class="matrix--row-header--item">
-	<a data-behavior="edit" href="#">{{name}}</a><br/>
-
-	<div class="subheader">{{low}} - {{high}}</div>
-</div>
-<div class="range-destroy">
-	<a href="#" class="delete-link" href="#" data-behavior="destroy">Delete</a>
-</div>
+<div data-behavior="open-modal">
+    <span class="cell-control edit" data-behavior="edit"><i class="edit-icon"></i></span>
+    <span class="cell-control destroy" data-behavior="destroy"><i class="delete-icon"></i></span>
+    <div class="cell-name">{{cellName}}</div>
+    {{#if description}}
+        <div class="cell-description">{{truncate description 45}}</div>
+    {{else}}
+        <div class="cell-description empty">Add Description</div>
+    {{/if}}
 </div>

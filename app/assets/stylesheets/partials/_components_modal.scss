@@ -63,3 +63,154 @@
   max-height: 500px;
   overflow: auto;
 }
+
+// range picker modal
+.range-picker-modal {
+  color: #B9BABC;
+  .modal-content {
+    > div {
+      border-top: 1px solid $grayLight;
+      padding-top: 10px;
+      display: inline-block;
+      vertical-align: top;
+    }
+  }
+  span {
+    display: block;
+    font-size: 13px;
+    text-transform: uppercase;
+  }
+  .alt {
+    color: #8C8C8C;
+  }
+  .modal-header {
+    text-align: left;
+    display: block;
+    h2 {
+      @extend %proto-section-header;
+      display: block;
+      color: $grayLight;
+      font-size: 23px;
+    }
+  }
+  .range-picker-container {
+    width: 70%;
+    text-align: left;
+    position: relative;
+    padding-top: 3em;
+    .range-picker {
+      height: 5px;
+      background-color: #6D6E71;
+      border-radius: 0.5em;
+      left: 0;
+      right: 0;
+      position: relative;
+      .ticks {
+        .mark {
+          width: 4px;
+          height: 5px;
+          background: $grayDarker;
+          position: absolute;
+          text-align: center;
+          span {
+            display: block;
+            position: relative;
+            left: -5px;
+            top: 25px;
+            font-size: 14px;
+          }
+        }
+      }
+      .dragger {
+        position: absolute;
+        cursor: pointer;
+        width: 40px;
+        top: -38px;
+        margin-left: -20px;
+        z-index: 30;
+        &.dragger-active {
+          z-index: 40;
+        }
+        &.dragger-low {
+          .dragger-label {
+            cursor: default;
+          }
+          .dragger-score {
+            cursor: default;
+          }
+        }
+        &.dragger-high {
+          .dragger-label {
+            cursor: default;
+          }
+          .dragger-score {
+            cursor: default;
+          }
+        }
+        .dragger-score {
+          color: $grayLight;
+          font-size: 16px;
+          text-align: center;
+          width: 100%;
+        }
+        .dragger-label {
+          color: $white !important;
+          width: 40px;
+          height: 40px;
+          font-weight: $semibold;
+          background-color: $tealLight;
+          border: 5px solid $grayDarker;
+          border-radius: 50%;
+          text-align: center;
+          position: relative;
+          &::before {
+            content: '';
+            width: 16px;
+            height: 16px;
+            position: absolute;
+            background-color: $grayDarker;
+            border-radius: 50%;
+            bottom: 7px;
+            right: 7px;
+          }
+        }
+      }
+    }
+
+    .range-picker {
+      margin: 65px auto;
+      width: 98%;
+    }
+    .range-tags {
+      margin-top: 20px;
+    }
+    .range-tag {
+      display: inline-block;
+      font-size: 19px;
+      text-transform: none;
+      &:not(last-child) {
+        margin-right: 30px;
+      }
+    }
+  }
+  .range-inputs {
+    margin-right: 40px;
+    text-align: center;
+    .range-input {
+      display: inline-block;
+      text-align: left;
+      input {
+        margin: 20px auto;
+        background-color: #464344;
+        border: 2px solid #8C8C8C;
+        width: 125px;
+        height: 55px;
+        font-size: 40px;
+        padding: 0 20px;
+      }
+      &:first-child {
+        margin-right: 30px;
+      }
+    }
+  }
+}

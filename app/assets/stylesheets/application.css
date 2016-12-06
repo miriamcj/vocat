@@ -32,6 +32,7 @@
  *= require partials/_components_charts
  *= require partials/_components_portfolio
  *= require partials/_components_markdown_content
+ *= require partials/_components_rubrics
  *= require partials/_dc
  *= require partials/_video_js
  *= require partials/_video_js_overrides

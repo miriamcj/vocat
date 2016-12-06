@@ -1,65 +1,70 @@
 define (require) ->
   Marionette = require('marionette')
   template = require('hbs!templates/rubric/ranges_item')
+  LongTextInputView = require('views/property_editor/long_text_input')
   ModalConfirmView = require('views/modal/modal_confirm')
-  ShortTextInputView = require('views/property_editor/short_text_input')
 
   class RangesItem extends Marionette.ItemView
 
     template: template
-
-    tagName: 'th'
-    attributes: {
-      'data-match-height-source': ''
-    }
-
-    ui: {
-      lowRange: '[data-behavior="low"]'
-      highRange: '[data-behavior="high"]'
-    }
+    className: 'cell'
 
     triggers: {
-      'click [data-behavior="destroy"]': 'model:destroy'
+      'click [data-behavior="destroy"]': 'description:clear'
       'click [data-behavior="edit"]': 'click:edit'
     }
 
-    events: {
-      'keyup [data-behavior="name"]': 'nameKeyPressed'
-    }
+    findModel: () ->
+      cells = @rubric.get('cells')
+      model = cells.findWhere({field: @criteria.get('id'), range: @range.get('id')})
+      model
 
-    onModelDestroy: () ->
+    cellName: () ->
+      @rubricName = "#{@model.rangeModel.get('name')} #{@model.fieldModel.get('name')}"
+
+    serializeData: () ->
+      data = super()
+      data.rangeName = @model.rangeModel.get('name') if @model.rangeModel?
+      data.fieldName = @model.fieldModel.get('name') if @model.fieldModel?
+      data.cellName = @cellName()
+      data
+
+    onDescriptionClear: () ->
       Vocat.vent.trigger('modal:open', new ModalConfirmView({
         model: @model,
         vent: @,
-        descriptionLabel: 'Deleting this range will also delete all descriptions associated with this range.',
-        confirmEvent: 'confirm:model:destroy',
-        dismissEvent: 'dismiss:model:destroy'
+        descriptionLabel: 'Clear description?',
+        confirmEvent: 'confirm:description:clear',
+        dismissEvent: 'dismiss:description:clear'
       }))
+
+    onConfirmDescriptionClear: () ->
+      @model.unset('description')
 
     onClickEdit: () ->
       @openModal()
 
     openModal: () ->
-      Vocat.vent.trigger('modal:open', new ShortTextInputView({
+      label = "Description: #{@model.rangeModel.get('name')} #{@model.fieldModel.get('name')}"
+      Vocat.vent.trigger('modal:open', new LongTextInputView({
         model: @model,
-        property: 'name',
+        inputLabel: label,
+        saveLabel: 'Update Description',
         saveClasses: 'update-button',
-        saveLabel: 'Update Range Name',
-        inputLabel: 'What would you like to call this range?',
+        property: 'description',
         vent: @vent
       }))
 
-    onConfirmModelDestroy: () ->
-      @collection.remove(@model)
-#      @model.destroy()
-
-    updateLowRange: () ->
-      @ui.lowRange.html(@model.get('low'))
-
-    updateHighRange: () ->
-      @ui.highRange.html(@model.get('high'))
-
     initialize: (options) ->
       @vent = options.vent
-      @listenTo(@model, 'change', @render, @)
-      @listenTo(@model, 'edit', @openModal, @)
+      @range = options.range
+      @criteria = @model
+      @rubric = options.rubric
+      @model = @findModel()
+
+      if @model?
+        @listenTo(@model, 'change', () ->
+          @render()
+        )
+      @listenTo(@model.rangeModel, 'change:name', @render, @) if @model.rangeModel?
+      @listenTo(@model.fieldModel, 'change:name', @render, @) if @model.fieldModel?

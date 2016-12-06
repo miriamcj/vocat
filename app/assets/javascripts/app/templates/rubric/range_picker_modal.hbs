@@ -1,0 +1,44 @@
+<div class="modal-header">
+    <h2>Adjust Scores</h2>
+</div>
+<div class="modal-content">
+    <div class="range-inputs" data-region="ranges-inputs">
+        <div class="range-input">
+            <div class="range-pre">
+                <span>Lowest Score</span>
+                <span class="alt">Per Rubric Cell</span>
+            </div>
+            <input value="{{low}}" data-behavior="rubric-low">
+            <div class="range-post">
+                <span class="alt">Min: 0</span>
+                <span class="alt">Max: {{calc_high ranges high}}</span>
+            </div>
+        </div>
+        <div class="range-input">
+            <div class="range-pre">
+                <span>Highest Score</span>
+                <span class="alt">Per Rubric Cell</span>
+            </div>
+            <input value="{{high}}" data-behavior="rubric-high">
+            <div class="range-post">
+                <span class="alt">Min: {{calc_low ranges low}}</span>
+                <span class="alt">Max: 100</span>
+            </div>
+        </div>
+    </div>
+    <div class="range-picker-container" data-region="range-picker">
+        <span class="range-pre">Drag to adjust individual range values:</span>
+        <div data-behavior="range-picker" border="0" class="range-picker">
+            <div class="ticks" data-container="ticks"></div>
+            <div class="handles" data-behavior="draggable-container"></div>
+        </div>
+        <div class="range-post">
+            <span>Scoring Key: </span>
+            <div class="range-tags">
+                {{#each ranges}}
+                    <span class="range-tag">{{this.high}}: {{this.name}}</span>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>

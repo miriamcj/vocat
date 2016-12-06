@@ -1,20 +1,40 @@
 define (require) ->
-  template = require('hbs!templates/rubric/range_picker')
+  template = require('hbs!templates/rubric/range_picker_modal')
   jqui = require('jquery_ui')
   Marionette= require('marionette')
 
-  class RangePickerView extends Marionette.ItemView
+  class RangePickerModalView extends Marionette.ItemView
 
     template: template
+    modalWidth: '90%'
+    maxWidth: '1100px'
+    className: "range-picker-modal"
+
+    regions: {
+      rangePicker: '[data-region="range-picker"]'
+    }
 
     ui: {
-      'draggableContainer': '[data-behavior="draggable-container"]'
-      'handles': '[data-handle]'
-      'rangePicker': '[data-behavior="range-picker"]'
-      'ticks': '[data-container="ticks"]'
+      lowInput: '[data-behavior="rubric-low"]'
+      highInput: '[data-behavior="rubric-high"]'
+      draggableContainer: '[data-behavior="draggable-container"]'
+      handles: '[data-handle]'
+      rangePicker: '[data-behavior="range-picker"]'
+      ticks: '[data-container="ticks"]'
+    }
+
+    events: {
+      'keyup @ui.lowInput': 'lowChange'
+      'keyup @ui.highInput': 'highChange'
     }
 
     fallBackWidth: 922
+
+    lowChange: (event) ->
+      @vent.triggerMethod('handle:low:change', @ui.lowInput.val())
+
+    highChange: (event) ->
+      @vent.triggerMethod('handle:high:change', @ui.highInput.val())
 
     # Snaps a dragger to the closest free tick.
     snapToTick: ($dragger, startPosition = null) ->
@@ -39,7 +59,7 @@ define (require) ->
     # Updates the handle label based on the $el's position
     updateLabel: ($el, left) ->
       score = @getScoreFromLeft(left)
-      $el.find('.dragger-label').html(score)
+      $el.find('.dragger-score').html(score)
 
     # Called when the draggers are dragged. Currently only triggers a label update
     handlePositionChange: (ui) ->
@@ -246,10 +266,9 @@ define (require) ->
       values = []
       _.each(@handles, (handle) =>
         $handle = $(handle)
-        if $handle.is(':visible')
-          left = $handle.position().left
-          score = @getScoreFromLeft(left)
-          values.push score
+        left = $handle.position().left
+        score = @getScoreFromLeft(left)
+        values.push score
       )
       values = _.sortBy(values, (value) ->
         parseInt(value)
@@ -279,7 +298,7 @@ define (require) ->
 
       @ui.draggableContainer.empty()
       _.each(values, (value, index) =>
-        $handle = $('<div style="position: absolute" class="dragger" data-handle data-behavior="draggable"><div class="dragger-label"></div></div>')
+        $handle = $('<div style="position: absolute" class="dragger" data-handle data-behavior="draggable"><span class="dragger-score"></span><div class="dragger-label"></div></div>')
         @ui.draggableContainer.append($handle)
         @moveTo($handle, value)
         @handles.push($handle)
@@ -299,6 +318,7 @@ define (require) ->
             stop: (event, ui) =>
               @snapToTick(ui.helper, startPosition.left)
               @updateCollection()
+              @updatePicker()
           })
         else
           if index == 0
@@ -308,27 +328,19 @@ define (require) ->
       )
       @updateCollection()
 
-
-    onRender: () ->
+    updatePicker: () ->
+      @render()
       @initializeUi()
-
-    onVisible: () ->
-      @onShow()
-
-    onShow: () ->
-      if _.isObject(@ui.rangePicker)
-        @initializeUi()
 
     initialize: (options) ->
       @vent = options.vent
+      @model = options.model
 
-      @listenTo(@, 'visible', @onVisible, @)
-
-      @listenTo(@model, 'change:low change:high', () =>
-        @render()
+      @listenTo(@model, 'change:low change change:high', () =>
+        @updatePicker()
       )
 
-      @listenTo(@collection, 'add remove', () =>
-        @render()
+      @listenTo(@, 'modal:after:show', () ->
+        if _.isObject(@ui.rangePicker)
+          @initializeUi()
       )
-

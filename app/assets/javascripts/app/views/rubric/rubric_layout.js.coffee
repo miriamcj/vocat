@@ -1,15 +1,13 @@
 define (require) ->
   template = require('hbs!templates/rubric/rubric_layout')
   RubricModel = require('models/rubric')
-  FieldModel = require('models/field')
   RangeModel = require('models/range')
-  FieldsView = require('views/rubric/fields')
   RangesView = require('views/rubric/ranges')
-  MatrixView = require('views/rubric/matrix')
-  RangePickerView = require('views/rubric/range_picker')
+  RangePickerModalView = require('views/rubric/range_picker_modal')
   FlashMessagesView = require('views/flash/flash_messages')
   AbstractMatrix = require('views/abstract/abstract_matrix')
   ShortTextInputView = require('views/property_editor/short_text_input')
+  RubricBuilderView = require('views/rubric/rubric_builder')
 
   class RubricLayout extends AbstractMatrix
 
@@ -18,28 +16,29 @@ define (require) ->
     views: {}
 
     regions: {
-      fields: '[data-region="fields"]'
+      fields: '[data-region="criteria"]'
       ranges: '[data-region="ranges"]'
-      matrix: '[data-region="matrix"]'
       flash: '[data-region="flash"]'
-      rangePicker: '[data-region="range-picker"]'
+      rubricBuilder: '[data-region="rubric-builder"]'
     }
 
     events: {
       'keyup [data-behavior="rubric-name"]': 'handleNameChange'
       'keyup [data-behavior="rubric-desc"]': 'handleDescChange'
-      'change [data-behavior="rubric-low"]': 'handleLowChange'
-      'change [data-behavior="rubric-high"]': 'handleHighChange'
       'change [data-field="rubric-public"]': 'handlePublicChange'
       'click [data-trigger="save"]': 'handleSaveClick'
-      'click [data-trigger="rangeAdd"]': 'handleRangeAdd'
-      'click [data-trigger="fieldAdd"]': 'handleFieldAdd'
+      'click [data-trigger="scoring-modal"]': 'openScoreModal'
     }
 
     triggers: {
       'click [data-behavior="matrix-slider-left"]': 'slider:left'
       'click [data-behavior="matrix-slider-right"]': 'slider:right'
       'click [data-trigger="recalc"]': 'recalculate:matrix'
+      'transitionend [data-region="cells"]': 'transition:end'
+      'webkitTransitionEnd [data-region="cells"]': 'transition:end'
+      'oTransitionEnd [data-region="cells"]': 'transition:end'
+      'otransitionend [data-region="cells"]': 'transition:end'
+      'MSTransitionEnd [data-region="cells"]': 'transition:end'
     }
 
     ui: {
@@ -54,14 +53,69 @@ define (require) ->
       sliderRight: '[data-behavior="matrix-slider-right"]'
     }
 
-    onRecalculateMatrix: () ->
-      @recalculateMatrix()
+    onSliderLeft: _.throttle((() ->
+      cells = @rubricBuilder.$el.find($('[data-region="cells"]'))
+      unit = 25
+      currentPosition = @rubricBuilder.$el.find($('[data-region="cells"]')).position().left/cells.width()
+      if currentPosition < 0
+        currentPosition = (currentPosition * 100) + unit
+        cells.css('transform', "translateX(#{currentPosition}%)")
+    ), 300)
+
+    onSliderRight: _.throttle((() ->
+      if @model.get('ranges').length > 4
+        cells = @rubricBuilder.$el.find($('[data-region="cells"]'))
+        unit = 25
+        currentPosition = cells.position().left/cells.width()
+        maxUnits = -(@model.get('ranges').length - 4) * (unit/100)
+        if currentPosition > maxUnits
+          currentPosition = (currentPosition * 100) - unit
+          cells.css('transform', "translateX(#{currentPosition}%)")
+    ), 300)
+
+    displayLeftSlider: () ->
+      currentPosition = @rubricBuilder.$el.find($('[data-region="cells"]')).position()
+      if currentPosition.left < 0
+        $('[data-behavior="matrix-slider-left"]').css('visibility', 'visible')
+      else
+        $('[data-behavior="matrix-slider-left"]').css('visibility', 'hidden')
+
+    displayRightSlider: () ->
+      cells = @rubricBuilder.$el.find($('[data-region="cells"]'))
+      unit = 25
+      currentPosition = cells.position().left/cells.width()
+      maxUnits = -(@model.get('ranges').length - 4) * (unit/100)
+      if currentPosition > maxUnits
+        $('[data-behavior="matrix-slider-right"]').css('visibility', 'visible')
+      else
+        $('[data-behavior="matrix-slider-right"]').css('visibility', 'hidden')
+
+    displaySliders: () ->
+      if @model.get('ranges').length <= 4
+        @rubricBuilder.$el.find($('[data-region="cells"]')).css('transform', 'translateX(0)')
+        $('[data-behavior="matrix-slider-left"]').css('visibility', 'hidden')
+        $('[data-behavior="matrix-slider-right"]').css('visibility', 'hidden')
+      else
+        @displayLeftSlider()
+        @displayRightSlider()
+      @trigger('sliders:displayed')
+
+    onTransitionEnd: () ->
+      @displaySliders()
+
+    repositionRubric: (oldPosition) ->
+      cells = @rubricBuilder.$el.find($('[data-region="cells"]'))
+      if @model.get('ranges').length > 4
+        cells.css('transform', "translateX(#{oldPosition.left}px)")
+
+    openScoreModal: () ->
+      rangePickerModal = new RangePickerModalView({collection: @model.get('ranges'), model: @model, vent: @})
+      Vocat.vent.trigger('modal:open', rangePickerModal)
 
     handlePublicChange: (event) ->
       @model.set('public', @ui.publicInput.val())
 
-    handleLowChange: (event) ->
-      low = @ui.lowInput.val()
+    onHandleLowChange: (low) ->
       if @model.isValidLow(low)
         @model.setLow(low)
       else
@@ -71,8 +125,7 @@ define (require) ->
           msg: "Setting the lowest possible score above #{@model.getLow()} would make the total range too small to accomodate this rubric. Before you can increase the lowest possible score, you must remove one or more ranges from your rubric."
         })
 
-    handleHighChange: (event) ->
-      high = @ui.highInput.val()
+    onHandleHighChange: (high) ->
       if @model.isValidHigh(high)
         @model.setHigh(high)
       else
@@ -101,43 +154,15 @@ define (require) ->
           Vocat.vent.trigger('error:add', {level: 'error', msg: msg})
       })
 
-    handleRangeAdd: (event) ->
-      event.preventDefault()
-      if @model.canAddRange()
-        range = new RangeModel({})
-        modal = new ShortTextInputView({
-          model: range,
-          property: 'name',
-          saveClasses: 'update-button',
-          saveLabel: 'Update Range',
-          inputLabel: 'What would you like to call this range?',
-          vent: @vent
-        })
-        @listenTo(modal, 'model:updated', (e) ->
-          @model.get('ranges').add(range)
-        )
-        Vocat.vent.trigger('modal:open', modal)
-      else
-        @trigger('error:add', {
-          level: 'notice',
-          msg: 'Before you can add another range to this rubric, you must increase the number of available points by changing the highest possible score field, above.'
-        })
-
-    handleFieldAdd: (event) ->
-      event.preventDefault()
-      field = new FieldModel({})
-      modal = new ShortTextInputView({
-        model: field,
-        property: 'name',
-        saveClasses: 'update-button',
-        saveLabel: 'Update Field Name',
-        inputLabel: 'What would you like to call this criteria?',
-        vent: @vent
-      })
-      @listenTo(modal, 'model:updated', (e) ->
-        @model.get('fields').add(field)
-      )
-      Vocat.vent.trigger('modal:open', modal)
+    onRangeRemoved: () ->
+      if @model.get('ranges').length > 4
+        cells = @rubricBuilder.$el.find($('[data-region="cells"]'))
+        unit = 25
+        currentPosition = cells.position().left/cells.width()
+        maxUnits = -(@model.get('ranges').length - 4) * (unit/100)
+        if currentPosition < maxUnits
+          currentPosition = (currentPosition * 100) + unit
+          cells.css('transform', "translateX(#{currentPosition}%)")
 
     parseRangePoints: (rangePoints) ->
       unless rangePoints? then rangePoints = ''
@@ -169,15 +194,23 @@ define (require) ->
 
       @listenTo(@model, 'change', (e) =>
         @recalculateMatrix()
+        @displaySliders()
       )
 
       @listenTo(@model, 'invalid', (model, errors) =>
         @trigger('error:add', {level: 'error', lifetime: 5000, msg: errors})
       )
 
+      @listenTo(@, 'range:move:left range:move:right', (event) ->
+        @repositionRubric(event.currentPosition)
+        @displaySliders()
+      )
+      @listenTo(@, 'range:removed', () ->
+        @onRangeRemoved()
+      )
+
     onShow: () ->
       @parentOnShow()
-      @views.rangePicker.trigger('visible')
       @chosenifySelects()
 
     chosenifySelects: () ->
@@ -188,26 +221,5 @@ define (require) ->
       , 0
 
     onRender: () ->
-      @chosenifySelects()
-
-      @views.fields = new FieldsView({collection: @model.get('fields'), vent: @})
-      @views.ranges = new RangesView({collection: @model.get('ranges'), vent: @})
-      @views.matrix = new MatrixView({model: @model, vent: @})
-      @views.rangePicker = new RangePickerView({collection: @model.get('ranges'), model: @model, vent: @})
-      @matrix.show(@views.matrix)
-      @fields.show(@views.fields)
-      @ranges.show(@views.ranges)
-
-      @flash.show new FlashMessagesView({vent: @, clearOnAdd: true})
-      @rangePicker.show(@views.rangePicker)
-      @bindUIElements()
-      @recalculateMatrix()
-      @listenTo(@views.ranges, 'add:child', (e) =>
-        @recalculateMatrix()
-      )
-      @listenTo(@views.ranges, 'remove:child', (e) =>
-        @recalculateMatrix()
-      )
-
-      @ui.highInput.val(@model.getHigh())
-      @ui.lowInput.val(@model.getLow())
+      @rubricBuilder.show(new RubricBuilderView({model: @model, vent: @}))
+      @displaySliders()
