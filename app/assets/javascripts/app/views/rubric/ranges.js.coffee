@@ -167,6 +167,7 @@ define (require) ->
     appendRangeAdd: () ->
       rangeWrapper = $(@el).find(@childViewContainer)
       $(rangeWrapper).append(@ui.rangeAdd)
+      $(rangeWrapper).append(@ui.rangeInstruction)
 
     showRangeAdd: () ->
       if @collection.length > 3

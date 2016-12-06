@@ -38,7 +38,7 @@ $headerHeight: 90px;
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 17.15%;
+    width: 17.13%;
     height: 55px;
     text-align: left;
     background-color: $grayLighter;
@@ -67,6 +67,13 @@ $headerHeight: 90px;
   width: 18%;
 }
 
+.criteria-instruction {
+  padding: 1.2em 17px;
+  font-size: $iota;
+  font-style: italic;
+  text-align: center;
+}
+
 .body-wrapper {
   width: 82%;
 }
@@ -74,6 +81,7 @@ $headerHeight: 90px;
 .ranges-wrapper {
   position: relative;
   overflow: hidden;
+  z-index: 5;
 
   .slide-button-left, .slide-button-right {
     visibility: hidden;
@@ -127,8 +135,12 @@ $headerHeight: 90px;
 
 // Criteria
 .criteria {
+  position: relative;
+  z-index: 5;
+
   .spacer {
     height: $headerHeight;
+    background-color: $grayLightestAlt;
   }
 
   .criteria-item {
@@ -146,6 +158,17 @@ $headerHeight: 90px;
       background-color: #898b90;
     }
   }
+}
+
+.criteria-bar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 17.13%;
+  height: 100%;
+  background-color: $grayLightestAlt;
+  z-index: 0;
 }
 
 .criteria-add-button {
@@ -167,6 +190,16 @@ $headerHeight: 90px;
   &:hover {
     background-color: #cccccc;
   }
+}
+
+.range-bar {
+  height: $headerHeight;
+  width: 100%;
+  background-color: $tealPalest;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 0;
 }
 
 .cells {
@@ -322,6 +355,21 @@ $headerHeight: 90px;
     }
     &:hover {
       background-color: $tealLightest;
+    }
+  }
+
+  .range-instruction {
+    display: inline-block;
+    padding-top: 40px;
+    padding-left: 12px;
+    font-size: $iota;
+    font-style: italic;
+    vertical-align: top;
+    white-space: normal;
+
+    @include respond($baikal) {
+      padding-top: 35px;
+      width: 256px;
     }
   }
 }
