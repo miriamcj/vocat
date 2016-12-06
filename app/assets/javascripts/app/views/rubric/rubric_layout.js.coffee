@@ -55,19 +55,22 @@ define (require) ->
 
     onSliderLeft: _.throttle((() ->
       cells = @rubricBuilder.$el.find($('[data-region="cells"]'))
-      currentPosition = @rubricBuilder.$el.find($('[data-region="cells"]')).position()
-      if currentPosition.left < 0
-        currentPosition = currentPosition.left + 218
-        cells.css('transform', "translateX(#{currentPosition}px)")
+      unit = 25
+      currentPosition = @rubricBuilder.$el.find($('[data-region="cells"]')).position().left/cells.width()
+      if currentPosition < 0
+        currentPosition = (currentPosition * 100) + unit
+        cells.css('transform', "translateX(#{currentPosition}%)")
     ), 300)
 
     onSliderRight: _.throttle((() ->
       if @model.get('ranges').length > 4
         cells = @rubricBuilder.$el.find($('[data-region="cells"]'))
-        currentPosition = @rubricBuilder.$el.find($('[data-region="cells"]')).position()
-        if currentPosition.left > (-(@model.get('ranges').length - 4) * 218)
-          currentPosition = currentPosition.left - 218
-          cells.css('transform', "translateX(#{currentPosition}px)")
+        unit = 25
+        currentPosition = cells.position().left/cells.width()
+        maxUnits = -(@model.get('ranges').length - 4) * (unit/100)
+        if currentPosition > maxUnits
+          currentPosition = (currentPosition * 100) - unit
+          cells.css('transform', "translateX(#{currentPosition}%)")
     ), 300)
 
     displayLeftSlider: () ->
@@ -78,8 +81,11 @@ define (require) ->
         $('[data-behavior="matrix-slider-left"]').css('visibility', 'hidden')
 
     displayRightSlider: () ->
-      currentPosition = @rubricBuilder.$el.find($('[data-region="cells"]')).position()
-      if currentPosition.left > (-(@model.get('ranges').length - 4) * 218)
+      cells = @rubricBuilder.$el.find($('[data-region="cells"]'))
+      unit = 25
+      currentPosition = cells.position().left/cells.width()
+      maxUnits = -(@model.get('ranges').length - 4) * (unit/100)
+      if currentPosition > maxUnits
         $('[data-behavior="matrix-slider-right"]').css('visibility', 'visible')
       else
         $('[data-behavior="matrix-slider-right"]').css('visibility', 'hidden')

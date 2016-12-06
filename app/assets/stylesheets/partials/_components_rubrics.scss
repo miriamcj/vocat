@@ -170,6 +170,8 @@ $headerHeight: 90px;
 }
 
 .cells {
+  @include transition(transform $fastTransition $timing);
+
   .range-header {
     position: relative;
     height: $headerHeight;
