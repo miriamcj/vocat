@@ -129,6 +129,7 @@ define (require) ->
           if range?
             range.set(update)
         )
+        @appendRangeAdd()
 
     # Returns the values from the range collection
     getValuesFromCollection: (collection) ->
@@ -163,6 +164,10 @@ define (require) ->
         @collection.sort()
         @vent.trigger('range:move:left', currentPosition: currentPosition)
 
+    appendRangeAdd: () ->
+      rangeWrapper = $(@el).find(@childViewContainer)
+      $(rangeWrapper).append(@ui.rangeAdd)
+
     showRangeAdd: () ->
       if @collection.length > 3
         $(@ui.rangeAdd).css('display', 'none')
@@ -178,6 +183,9 @@ define (require) ->
     onShow: () ->
       @showRangeAdd()
       @showRangeInstruction()
+
+    onRender: () ->
+      @appendRangeAdd()
 
     initialize: (options) ->
       @vent = options.vent

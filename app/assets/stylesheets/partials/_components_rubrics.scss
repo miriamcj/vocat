@@ -2,55 +2,18 @@
 @import "mixins";
 @import "patterns";
 
-.criteria-wrapper, .body-wrapper {
-  float: left;
-}
-.range-columns {
-  display: inline-block;
-  background-color: $white;
-}
-.cell, .criteria-item, .spacer, .range-header, .spacer, .criteria-add-button, .range-add-button {
-  height: 90px;
-  width: 215px;
-  text-align: center;
-}
-.criteria-item, .cell, .criteria-add-button {
-  height: 110px;
-}
-.cell-name, .criteria-item, .range-header {
-  font-weight: 600;
+$cellHeight: 110px;
+$headerHeight: 90px;
+
+.rubric-builder {
+  position: relative;
+  padding: 0 55px 55px 0;
+  background-color: $grayLightest;
 }
 
-// builder layout
-.range-bar {
-  height: 90px;
-  width: calc(100% - 218px);
-  background-color: #edf7f7;
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 0;
-}
-.criteria-bar {
-  height: calc(100% - 90px);
-  width: 215px;
-  background-color: #F0F1F1;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  z-index: 0;
-}
-.rubric-builder {
-  padding-right: 55px;
-  padding-bottom: 55px;
-  background-color: whitesmoke;
-  position: relative;
-  cursor: default;
-  .add-buttons > div {
-    font-size: 40px;
-  }
+// Snappy add buttons
+.add-buttons {
   .range-add-snap {
-    cursor: pointer;
     position: absolute;
     top: 0;
     right: 0;
@@ -59,310 +22,56 @@
     text-align: right;
     background-color: #E5F5F4;
     color: $tealLight;
-    &:hover {
-      background-color: $tealLightest;
-      color: $tealLight;
-    }
-    .range-plus-snap {
-      @include svg('plus-teal-rubric');
-      width: 25px;
-      height: 25px;
-      display: block;
-      position: absolute;
-      top: 15px;
-      right: 15px;
-    }
-  }
-  .criteria-add-snap {
     cursor: pointer;
+  }
+
+  .range-plus-snap {
+    @include svg('plus-teal-rubric');
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    margin: 15px;
+  }
+
+  // Fix this
+  .criteria-add-snap {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 215px;
+    width: 17.15%;
     height: 55px;
-    background-color: #F0F1F1;
-    &:hover {
-      background-color: $grayLight;
-    }
-    .criteria-plus-snap {
-      @include svg('plus-gray');
-      width: 25px;
-      height: 25px;
-      display: block;
-      position: absolute;
-      top: 15px;
-      left: 15px;
-    }
+    text-align: left;
+    background-color: $grayLighter;
+    cursor: pointer;
   }
-  .range-add-button {
+
+  .criteria-plus-snap {
+    @include svg('plus-gray');
+    width: 25px;
+    height: 25px;
     display: inline-block;
-    background-color: #DAF0EF;
-    font-size: $kappa;
-    text-transform: uppercase;
-    color: $tealLight;
-    cursor: pointer;
-    vertical-align: middle;
-    .range-plus {
-      @include svg('plus-teal-rubric');
-      width: 34px;
-      height: 34px;
-      display: block;
-      margin: 18px auto 9px;
-    }
-    &:hover {
-      background-color: #b7e1df;
-    }
-  }
-  .criteria-add-button {
-    background-color: #E0E0E0;
-    font-size: $kappa;
-    text-transform: uppercase;
-    color: $grayDark;
-    cursor: pointer;
-    .criteria-plus {
-      @include svg('plus-gray');
-      width: 34px;
-      height: 34px;
-      display: block;
-      margin: 26px auto 9px;
-    }
-    &:hover {
-      background-color: #cccccc;
-    }
+    margin: 15px;
   }
 }
 
-// header row/column
-.range-header, .criteria-item {
-  font-size: $zeta;
-  color: $grayLightest;
-  padding: 26px 11px;
+.table-wrapper {
+  @include clearfix;
+  min-width: 720px;
 }
-.range-header {
-  background-color: $tealLightAlt;
-  &:before {
-    content: "";
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: transparentize($grayDarkest, 0.8);
-  }
-  .range-name {
-    max-width: 100%;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-  .cell-control {
-    background-color: transparentize($black, 0.7);
-    &:hover {
-      background-color: transparentize($black, 0.9);
-    }
-  }
-  &:hover:before {
-    display: block;
-  }
-  .range-score {
-    font-size: 16px;
-    margin-top: 9px;
-  }
+
+.criteria-wrapper, .body-wrapper {
+  float: left;
 }
+
 .criteria-wrapper {
-  position: relative;
-  z-index: 1;
-  max-width: 215px;
-}
-.criteria-instruction {
-  padding: 1.2em 17px;
-  font-size: $iota;
-  font-style: italic;
-  text-align: center;
-}
-.criteria-item {
-  background-color: $grayMedium;
-  margin-bottom: 3px;
-  padding: 34px 0;
-  &:hover {
-    background-color: #898b90;
-  }
-  &:last-child {
-    margin: 0;
-  }
-  &:first-child .cell-control.move-up {
-    opacity: 0.4;
-    &:hover {
-      background-color: #58585a;
-      cursor: default;
-    }
-  }
-  &:last-child {
-    .cell-control.move-down {
-      opacity: 0.4;
-      &:hover {
-        background-color: #58585a;
-        cursor: default;
-      }
-    }
-  }
-  .cell-control {
-    background-color: #58585a;
-    &:hover {
-      background-color: $black;
-    }
-  }
+  width: 18%;
 }
 
-// range columns
+.body-wrapper {
+  width: 82%;
+}
+
 .ranges-wrapper {
-  z-index: 1;
-}
-.range-columns {
-  white-space: nowrap;
-  vertical-align: top;
-}
-.ranges-column {
-  display: inline-block;
-  vertical-align: top;
-  margin-right: 3px;
-  &:last-child {
-    margin-right: 0;
-  }
-  &:first-child .cell-control.move-left {
-    opacity: 0.4;
-    &:hover {
-      background-color: transparentize($black, 0.7);
-      cursor: default;
-    }
-  }
-  &:last-child {
-    .cell-control.move-right {
-      opacity: 0.4;
-      &:hover {
-        background-color: transparentize($black, 0.7);
-        cursor: default;
-      }
-    }
-  }
-}
-
-// cell
-.cells {
-  transition: all 0.2s ease;
-}
-.range-instruction {
-  display: inline-block;
-  vertical-align: middle;
-  padding-left: 12px;
-  font-size: $iota;
-  font-style: italic;
-}
-.cell {
-  padding: 24px 14px 20px;
-  white-space: normal;
-  margin-bottom: 3px;
-  &:before {
-    content: "";
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: transparentize($grayDarkest, 0.8);
-    pointer-events: none;
-  }
-  &:after {
-    position: absolute;
-    bottom: -3px;
-    left: 0;
-    height: 3px;
-    width: 100%;
-    background-color: $white;
-    content: '';
-  }
-  &:hover:before {
-    display: block;
-  }
-  &:last-child {
-    margin-bottom: 0;
-  }
-  .cell-control {
-    background-color: transparentize($black, 0.5);
-    &:hover {
-      background-color: $black;
-    }
-  }
-  .cell-name, .cell-description {
-    // Truncate at one line
-    max-width: 100%;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-  .cell-name {
-    font-size: $theta;
-  }
-  .cell-description {
-    font-size: $iota;
-    margin-top: 20px;
-    &.empty {
-      text-transform: uppercase;
-      color: $grayMediumLighter;
-      &::before {
-        @include svg('pencil-gray');
-        display: inline-block;
-        width: 18px;
-        height: 19px;
-        margin-right: 11px;
-        vertical-align: bottom;
-        content: '';
-      }
-    }
-  }
-}
-.range-header, .criteria-item, .cell {
-  position: relative;
-  &:hover {
-    .cell-control {
-      visibility: visible;
-    }
-  }
-}
-
-// cell-control
-.cell-control {
-  width: 30px;
-  height: 30px;
-  position: absolute;
-  visibility: hidden;
-  &:hover {
-    cursor: pointer;
-    background-color: whitesmoke;
-  }
-  &.move-left, &.move-up {
-    left: 0;
-    top: 0;
-  }
-  &.move-right, &.move-down {
-    left: 0;
-    top: 30px;
-  }
-  &.edit {
-    right: 0;
-    top: 0;
-  }
-  &.destroy {
-    right: 0;
-    top: 30px;
-  }
-}
-
-// sliders
-.ranges-wrapper {
-  max-width: 100%;
   position: relative;
   overflow: hidden;
 
@@ -416,92 +125,297 @@
   }
 }
 
-// misc
-.table-wrapper {
-  @include clearfix;
-  width: 100%;
+// Criteria
+.criteria {
+  .spacer {
+    height: $headerHeight;
+  }
+
+  .criteria-item {
+    position: relative;
+    height: $cellHeight;
+    padding: 34px 11px;
+    font-size: $zeta;
+    color: $grayLightest;
+    margin-bottom: 3px;
+    background-color: $grayMedium;
+    text-align: center;
+    font-weight: $semibold;
+
+    &:hover {
+      background-color: #898b90;
+    }
+  }
 }
 
-.body-wrapper {
-  max-width: calc(100% - 215px);
+.criteria-add-button {
+  width: 100%;
+  height: $cellHeight;
+  font-size: $kappa;
+  text-align: center;
+  text-transform: uppercase;
+  color: $grayDark;
+  background-color: $grayLighter;
+  cursor: pointer;
+  .criteria-plus {
+    @include svg('plus-gray');
+    width: 34px;
+    height: 34px;
+    display: block;
+    margin: 26px auto 9px;
+  }
+  &:hover {
+    background-color: #cccccc;
+  }
 }
-.spacer {
-  background-color: #F0F1F1;
+
+.cells {
+  .range-header {
+    position: relative;
+    height: $headerHeight;
+    padding-top: 26px;
+    text-align: center;
+    color: $white;
+
+    &:hover:before {
+      display: block;
+    }
+
+    &:before {
+      content: "";
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: transparentize($grayDarkest, 0.8);
+    }
+
+    .range-name {
+      max-width: 100%;
+      overflow: hidden;
+      font-size: $zeta;
+      font-weight: $semibold;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      padding-bottom: 0.45em;
+    }
+
+    .range-score {
+      font-size: $theta;
+    }
+  }
+
+  .range-columns {
+    @include clearfix;
+    white-space: nowrap;
+
+    .ranges-column {
+      display: inline-block;
+      vertical-align: top;
+      // margin-right: 3px;
+      width: 25%;
+    }
+  }
+
+  .cell {
+    position: relative;
+    height: $cellHeight;
+    padding: 24px 14px 20px;
+    text-align: center;
+    white-space: normal;
+    margin-bottom: 3px;
+
+    &:hover:before {
+      display: block;
+    }
+
+    &:last-child:after {
+      display: none;
+    }
+
+    &:before {
+      content: "";
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: transparentize($grayDarkest, 0.8);
+      pointer-events: none;
+    }
+
+    &:after {
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      height: 3px;
+      width: 100%;
+      background-color: $white;
+      content: '';
+    }
+
+    .cell-name, .cell-description {
+      // Truncate at one line
+      max-width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      color: $grayDark;
+    }
+
+    .cell-name {
+      font-size: $eta;
+      font-weight: $semibold;
+      padding-bottom: 0.611em;
+    }
+
+    .cell-description {
+      font-size: $iota;
+
+      &.empty {
+        text-transform: uppercase;
+        color: $grayMediumLighter;
+
+        &:before {
+          @include svg('pencil-gray');
+          display: inline-block;
+          width: 18px;
+          height: 19px;
+          margin-right: 11px;
+          vertical-align: bottom;
+          content: '';
+        }
+      }
+    }
+  }
+
+  .range-add-button {
+    display: inline-block;
+    width: 25%;
+    height: $headerHeight;
+    padding: 17px 0 0;
+    text-align: center;
+    font-size: $kappa;
+    background-color: $tealPale;
+    text-transform: uppercase;
+    color: $tealLight;
+    cursor: pointer;
+    .range-plus {
+      @include svg('plus-teal-rubric');
+      width: 34px;
+      height: 34px;
+      display: block;
+      margin: 0 auto 8px;
+    }
+    &:hover {
+      background-color: $tealLightest;
+    }
+  }
 }
-.criteria-item, .cell {
-  .edit-icon {
-    @include svg('pencil-gray');
+
+.cell-control {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  visibility: hidden;
+  cursor: pointer;
+  
+  @include respond($baikal) {
+    width: 24px;
+    height: 24px;
+  }
+
+  // Visible on hover
+  .range-header:hover &, .criteria-item:hover &, .cell:hover & {
+    visibility: visible;
+  }
+
+  // Cell control positions
+  &.move-left, &.move-up {
+    left: 0;
+    top: 0;
+  }
+  &.move-right, &.move-down {
+    left: 0;
+    top: 30px;
+
+    @include respond($baikal) {
+      top: 24px;
+    }
+  }
+  &.edit {
+    right: 0;
+    top: 0;
+  }
+  &.destroy {
+    right: 0;
+    top: 30px;
+
+    @include respond($baikal) {
+      top: 24px;
+    }
+  }
+
+  // Cell control icons
+  i {
     width: 18px;
     height: 16px;
     display: block;
-    position: absolute;
-    top: 7px;
-    left: 6px;
+    margin: 7px 6px;
+  }
+
+  .edit-icon {
+    @include svg('pencil-gray');
   }
   .delete-icon {
     @include svg('x-gray');
-    width: 18px;
-    height: 16px;
-    display: block;
-    position: absolute;
-    top: 7px;
-    left: 6px;
   }
+
   .up-icon {
     @include svg('arrow-up-gray');
-    width: 18px;
-    height: 16px;
-    display: block;
-    position: absolute;
-    top: 7px;
-    left: 6px;
   }
   .down-icon {
     @include svg('arrow-down-gray');
-    width: 18px;
-    height: 16px;
-    display: block;
-    position: absolute;
-    top: 7px;
-    left: 6px;
-  }
-}
-
-.range-header {
-  .edit-icon {
-    @include svg('pencil-teal');
-    width: 18px;
-    height: 16px;
-    display: block;
-    position: absolute;
-    top: 7px;
-    left: 6px;
-  }
-  .delete-icon {
-    @include svg('x-teal');
-    width: 18px;
-    height: 16px;
-    display: block;
-    position: absolute;
-    top: 7px;
-    left: 6px;
   }
   .left-icon {
     @include svg('arrow-left-teal');
-    width: 18px;
-    height: 16px;
-    display: block;
-    position: absolute;
-    top: 7px;
-    left: 6px;
   }
   .right-icon {
     @include svg('arrow-right-teal-rubric');
-    width: 18px;
-    height: 16px;
-    display: block;
-    position: absolute;
-    top: 7px;
-    left: 6px;
+  }
+
+  // Conditional background colors (and icons)
+  .range-header & {
+    .edit-icon {
+      @include svg('pencil-teal');
+    }
+    .delete-icon {
+      @include svg('x-teal');
+    }
+
+    background-color: transparentize($black, 0.7);
+
+    &:hover {
+      background-color: transparentize($black, 0.9);
+    }
+  }
+
+  .criteria-item & {
+    background-color: transparentize($black, 0.7);
+
+    &:hover {
+      background-color: transparentize($black, 0.4);
+    }
+  }
+
+  .cell & {
+    background-color: transparentize($black, 0.5);
+
+    &:hover {
+      background-color: $black;
+    }
   }
 }
