@@ -5,7 +5,7 @@ pidfile 'tmp/pids/puma.pid'
 state_path 'tmp/pids/puma.state'
 threads 0, 16
 tag 'vocat'
-environment ENV["RAILS_ENV"] || "development"
+environment 'development'
 
 name = 'vocat'
 
