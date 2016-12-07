@@ -223,3 +223,4 @@ define (require) ->
     onRender: () ->
       @rubricBuilder.show(new RubricBuilderView({model: @model, vent: @}))
       @displaySliders()
+      @flash.show new FlashMessagesView({vent: @, clearOnAdd: true})
