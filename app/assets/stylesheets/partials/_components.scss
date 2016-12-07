@@ -399,9 +399,18 @@ footer.page-footer {
 
         &:hover {
           color: $tealLight;
+          span.active-sticky {
+            color: $white;
+          }
         }
-
+        &.active span.active-sticky {
+          color: $white;
+        }
         &.active, &.active-sticky {
+          color: $tealLight;
+          border-bottom: 1px solid $tealLight;
+        }
+        span.active-sticky {
           color: $tealLight;
           border-bottom: 1px solid $tealLight;
         }
