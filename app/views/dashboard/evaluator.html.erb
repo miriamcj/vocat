@@ -11,7 +11,9 @@
 			</div>
 		</div>
 		<%= render 'dashboard/shared/course_list' %>
-    <%= link_to 'All Courses', dashboard_courses_path, class: 'all-courses-link' %>
+		<% if current_user.courses_count > 0 %>
+    		<%= link_to 'All Courses', courses_path, class: 'all-courses-link' %>
+	  	<% end %>
 	</div>
 
 <% end %>

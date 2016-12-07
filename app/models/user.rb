@@ -177,6 +177,14 @@ class User < ActiveRecord::Base
     end
   end
 
+  def has_current_and_upcoming_courses
+    if self.courses.current_and_upcoming.count() > 0
+      true
+    else
+      false
+    end
+  end
+
   def has_unreviewed_work?(course_id, user)
     last_visit = self.visits.where(visitable_course_id: course_id).most_recent
     last_course_event = CourseEvent.non_destructive.where("course_id = #{course_id} AND user_id != #{user.id}").last

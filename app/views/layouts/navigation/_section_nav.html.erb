@@ -29,44 +29,64 @@
 			</nav>
 			<% else %>
 				<nav class="drawer-course-list">
-					<ul data-behavior="drawer-courses">
-						<% if current_user.courses_count == 0 %>
-							<% if current_user.role?(:creator) %>
-								<li>
-									<p classs="drawer-message">
-										You are not currently enrolled any VOCAT courses.
-									</p>
-								</li>
-							<% elsif current_user.role?(:evaluator) %>
-								<li>
-									<p classs="drawer-message">
-										You are not currently enrolled any VOCAT courses.
-									</p>
-								</li>
-						  	<% end %>
-						<% else %>
-							<% current_user.sorted_grouped_upcoming_courses(8).each do |semester, courses| %>
-								<li class="drawer-nav--grouped-courses">
-									<span class="group-header"><%= semester %></span>
-									<ul class="course-list">
-										<% courses.each do |course| %>
-										  <li>
-											  <a href="<%= user_course_url(current_user, course) %>" class="course">
+					<% if current_user.courses_count == 0 %>
+					  <% if current_user.role?(:creator) %>
+						<p class="drawer-message">
+							You are not currently enrolled any VOCAT courses.
+						</p>
+					  <% elsif current_user.role?(:evaluator) %>
+						<p class="drawer-message">
+							There are no courses associated with your account. <br/>
+							<%= link_to 'Click here to request a new course.', new_course_request_path %>
+						</p>
+					  <% end %>
+					<% else %>
+						<ul data-behavior="drawer-courses">
+							<!-- User has courses, so output the current/upcoming courses or their last five courses -->
+							<% if current_user.has_current_and_upcoming_courses %>
+								<% current_user.sorted_grouped_upcoming_courses(8).each do |semester, courses| %>
+									<li class="drawer-nav--grouped-courses">
+										<span class="group-header"><%= semester %></span>
+										<ul class="course-list">
+											<% courses.each do |course| %>
+											  <li>
+												  <a href="<%= user_course_url(current_user, course) %>" class="course">
 
-												  <%= "#{course.department} #{course.number}" %>
-												  <span><%= "Section #{course.section}" %></span>
-											  </a>
-										  </li>
-										<% end %>
-									</ul>
-								</li>
+													  <%= "#{course.department} #{course.number}" %>
+													  <span><%= "Section #{course.section}" %></span>
+												  </a>
+											  </li>
+											<% end %>
+										</ul>
+									</li>
+								<% end %>
+						  	<% else %>
+								<!-- There are no current/upcoming courses, so show the last 5 -->
+								<% current_user.grouped_sorted_courses(5).each do |semester, courses| %>
+									<li class="drawer-nav--grouped-courses">
+										<span class="group-header"><%= semester %></span>
+										<ul class="course-list">
+											<% courses.each do |course| %>
+											  <li>
+												  <a href="<%= user_course_url(current_user, course) %>" class="course">
+
+													  <%= "#{course.department} #{course.number}" %>
+													  <span><%= "Section #{course.section}" %></span>
+												  </a>
+											  </li>
+											<% end %>
+										</ul>
+									</li>
+								<% end %>
 							<% end %>
-						<% end %>
-					</ul>
-					<a href="<%= dashboard_courses_path %>" class="all-courses">
-						<i class="icon-courses"></i>
-						View All Courses
-					</a>
+						</ul>
+					<% end %>
+					<% if current_user.courses_count > 0 %>
+						<a href="<%= courses_path %>" class="all-courses">
+							<i class="icon-courses"></i>
+							View All Courses
+						</a>
+				  	<% end %>
 				</nav>
 			  <% end %>
 		</div>

@@ -312,6 +312,18 @@ footer.page-footer {
     padding-bottom: 14px;
   }
 
+  .drawer-message {
+    text-transform: none; // OD
+    color: $white;
+    a {
+      color: $grayLight;
+
+      &:hover {
+        color: $tealDark;
+      }
+    }
+  }
+
   .drawer-nav--grouped-courses {
     .group-header {
       @extend %utility-label;
