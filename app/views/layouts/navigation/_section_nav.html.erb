@@ -12,7 +12,7 @@
 								  <% courses.each do |course| %>
 									<li>
 										<a href="<%= user_course_url(current_user, course) %>" class="course">
-
+											<i class="icon-course"></i>
 											<%= "#{course.department} #{course.number}" %>
 											<span><%= "Section #{course.section}" %></span>
 										</a>
@@ -51,7 +51,7 @@
 											<% courses.each do |course| %>
 											  <li>
 												  <a href="<%= user_course_url(current_user, course) %>" class="course">
-
+													  <i class="icon-course"></i>
 													  <%= "#{course.department} #{course.number}" %>
 													  <span><%= "Section #{course.section}" %></span>
 												  </a>
@@ -69,7 +69,7 @@
 											<% courses.each do |course| %>
 											  <li>
 												  <a href="<%= user_course_url(current_user, course) %>" class="course">
-
+													  <i class="icon-course"></i>
 													  <%= "#{course.department} #{course.number}" %>
 													  <span><%= "Section #{course.section}" %></span>
 												  </a>
