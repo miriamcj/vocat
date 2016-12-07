@@ -209,6 +209,7 @@ Vocat::Application.routes.draw do
     get '/dashboard/evaluator' => 'dashboard#evaluator', :as => 'dashboard_evaluator'
     get '/dashboard/creator' => 'dashboard#creator', :as => 'dashboard_creator'
     get '/dashboard/admin' => 'dashboard#admin', :as => 'dashboard_admin'
+    get '/dashboard/courses' => 'dashboard#courses', :as => 'dashboard_courses'
 
   end
 

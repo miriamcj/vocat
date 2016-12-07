@@ -9,4 +9,8 @@ class DashboardController < ApplicationController
   def creator
   end
 
+  def courses
+    @courses = current_user.grouped_sorted_courses
+  end
+
 end

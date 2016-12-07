@@ -407,6 +407,22 @@ footer.page-footer {
       padding: 0 ($iconSizeMedium * 4 + 15) 0 0;
       padding-right: 47px;
       margin-left: -10px;
+
+      .active span.active-sticky {
+        color: $white;
+      }
+
+      .active, .active-sticky {
+        border-bottom: 0;
+        span {
+          border-bottom: 1px solid $tealLight;
+        }
+      }
+      &:hover {
+        span.active-sticky {
+          color: $white;
+        }
+      }
     }
 
     > li {
@@ -420,18 +436,11 @@ footer.page-footer {
 
         &:hover {
           color: $tealLight;
-          span.active-sticky {
-            color: $white;
-          }
-        }
-        &.active span.active-sticky {
-          color: $white;
+          border-bottom: 1px solid $tealLight;
         }
         &.active, &.active-sticky {
           color: $tealLight;
-          span {
-            border-bottom: 1px solid $tealLight;
-          }
+          border-bottom: 1px solid $tealLight;
         }
       }
     }
