@@ -3,15 +3,16 @@
 @import "patterns";
 
 %dropdown-options {
-  display: none;
+  visibility: hidden;
   padding: 2em;
   position: absolute;
   left: 0;
   z-index: 199;
   color: $white;
   background: $grayDarker;
-  opacity: 1;
+  opacity: 0;
   font-size: $iota;
+  @include transition(margin-top .25s $timing, opacity .25s $timing, visibility .25s $timing);
   ul {
     @extend %unstyled-list;
     padding: 0;
@@ -31,7 +32,8 @@
     }
   }
   .open & {
-    display: block;
+    visibility: visible;
+    opacity: 1;
   }
 }
 
@@ -173,9 +175,12 @@
 
 .dropdown--options {
   @extend %dropdown-options;
-  &.open {
-    display: block;
+  margin-top: -15px;
+
+  .open & {
+    margin-top: 0;
   }
+
   &.stuck {
     position: fixed;
   }
@@ -268,8 +273,8 @@
 }
 
 .dropdown-button.open .dropdown--toggle, .dropdown-button .dropdown--toggle:hover {
-  background: $primaryButtonHoverColor;
-  border: 1px solid $primaryButtonHoverColor;
+  background: $tealLight;
+  border: 1px solid $tealLight;
   color: $white !important;
 }
 
