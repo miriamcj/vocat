@@ -257,7 +257,7 @@ footer.page-footer {
   opacity: 0;
   visibility: hidden;
   max-width: 100%;
-  @include transition(all .25s $timing);
+  @include transition(bottom .25s $timing, opacity .25s $timing, visibility .25s $timing);
   &.drawer-open {
     opacity: 1;
     visibility: visible;

@@ -49,14 +49,21 @@ define (require) ->
       if trigger.length > 0
         left = trigger.offset().left
         myLeft = @$el.offset().left
-        @$el.css({left: left - myLeft})
+        @$el.css({left: left + 'px'})
 
 
     initialize: (options) ->
       @vent = options.vent
       @globalChannel = Backbone.Wreqr.radio.channel('global')
       @drawerTarget = @$el.data().drawerTarget
+      # Set Spacing on Load and again anytime the window is resized
       @setSpacing()
+      throttledSpacing = _.throttle((() =>
+        @setSpacing()
+      ), 50);
+      $(window).resize(() =>
+        throttledSpacing()
+      )
       @listenTo(@globalChannel.vent, "drawer:#{@drawerTarget}:toggle", () =>
         @toggle()
       )
