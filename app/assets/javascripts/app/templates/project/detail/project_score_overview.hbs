@@ -9,15 +9,17 @@
                    value="project-scores">
             <label class="label-inline " for="view-project-scores"><span style="color: rgb(109, 110, 113);">Project Scores</span></label>
         </div>
-        <div class="score-view-toggle">
-            <input
-                    type="radio"
-                    data-behavior="view-toggle"
-                    id="view-rubric-scores"
-                    name="view"
-                    value="rubric-scores">
-            <label class="label-inline" for="view-rubric-scores"><span style="color: rgb(109, 110, 113);">Rubric Scores</span></label>
-        </div>
+        {{#if rubric_id}}
+            <div class="score-view-toggle">
+                <input
+                        type="radio"
+                        data-behavior="view-toggle"
+                        id="view-rubric-scores"
+                        name="view"
+                        value="rubric-scores">
+                <label class="label-inline" for="view-rubric-scores"><span style="color: rgb(109, 110, 113);">Rubric Scores</span></label>
+            </div>
+        {{/if}}
     </div>
     <div class="donut-chart-container">
         <figure class="summary-box-stacked donut-summary-box">
