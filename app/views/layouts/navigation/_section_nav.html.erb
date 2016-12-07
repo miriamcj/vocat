@@ -55,18 +55,3 @@
 		</div>
 	</li>
 <% end %>
-<% if (current_user.role?(:administrator) || current_user.role?(:superadministrator)) && @app_section != 'admin'%>
-	<li>
-		<a class="primary-button" href="<%= admin_path %>">Return to Admin Interface</a>
-	</li>
-<% end %>
-<% if current_user.role?(:evaluator) && @app_section != 'dashboard' %>
-	<li>
-		<a class="primary-button" href="<%= dashboard_evaluator_path %>">Return To Dashboard</a>
-	</li>
-<% end %>
-<% if current_user.role?(:creator) && @app_section != 'dashboard' %>
-	<li>
-		<a class="primary-button" href="<%= dashboard_creator_path %>">Return To Dashboard</a>
-	</li>
-<% end %>
