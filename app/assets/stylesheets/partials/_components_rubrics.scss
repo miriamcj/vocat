@@ -157,6 +157,24 @@ $headerHeight: 90px;
     &:hover {
       background-color: #898b90;
     }
+
+    &:first-child {
+      border-left: 0;
+
+      // move up disabled on first criteria item
+      .cell-control.move-up {
+        background-color: transparentize($black, 0.9);
+        cursor: default;
+      }
+    }
+
+    &:last-child {
+      // move down disabled on last criteria item
+      .cell-control.move-down {
+        background-color: transparentize($black, 0.9);
+        cursor: default;
+      }
+    }
   }
 }
 
@@ -254,7 +272,22 @@ $headerHeight: 90px;
 
       &:first-child {
         border-left: 0;
+
+        // move left disabled on first range column
+        .cell-control.move-left {
+          background-color: transparentize($black, 0.9);
+          cursor: default;
+        }
       }
+
+      &:nth-last-of-type(3) {
+        // move right disabled on last range column
+        .cell-control.move-right {
+          background-color: transparentize($black, 0.9);
+          cursor: default;
+        }
+      }
+
     }
   }
 

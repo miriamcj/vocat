@@ -48,7 +48,7 @@ define (require) ->
     onClickUp: () ->
       @collection.comparator = 'index'
       @nextModel = @collection.at(@model.get('index') - 1)
-      unless @collection.indexOf(@model) == 0
+      unless @model.get('index') == 0
         @model.set('index', @model.get('index') - 1)
         @nextModel.set('index', @model.get('index') + 1)
         @collection.sort()
@@ -56,7 +56,7 @@ define (require) ->
     onClickDown: () ->
       @collection.comparator = 'index'
       @nextModel = @collection.at(@model.get('index') + 1)
-      unless @model.index == @collection.length - 1
+      unless @model.get('index') == @collection.length - 1
         @model.set('index', @model.get('index') + 1)
         @nextModel.set('index', @model.get('index') - 1)
         @collection.sort()
