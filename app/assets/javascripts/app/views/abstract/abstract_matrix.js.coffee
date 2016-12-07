@@ -144,8 +144,7 @@ define (require) ->
       space = @_visibleWidth()
       colsAtMin = Math.floor(space / width)
       adjustedWidth = space / colsAtMin
-      adjustedWidth = if adjustedWidth < @maxWidth then adjustedWidth else @maxWidth;
-      console.log(adjustedWidth)
+      adjustedWidth = if adjustedWidth < @maxWidth then adjustedWidth else @maxWidth
       return adjustedWidth
 
     _visibleWidth: () ->
