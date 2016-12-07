@@ -483,6 +483,14 @@
   background-image: url('data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%0A%3C%21--%20Generator%3A%20Adobe%20Illustrator%2021.0.0%2C%20SVG%20Export%20Plug-In%20.%20SVG%20Version%3A%206.00%20Build%200%29%20%20--%3E%0A%3Csvg%20version%3D%221.1%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20xmlns%3Axlink%3D%22http%3A//www.w3.org/1999/xlink%22%20x%3D%220px%22%20y%3D%220px%22%0A%09%20viewBox%3D%220%200%2034.2%2034.2%22%20style%3D%22enable-background%3Anew%200%200%2034.2%2034.2%3B%22%20xml%3Aspace%3D%22preserve%22%3E%0A%3Cstyle%20type%3D%22text/css%22%3E%0A%09.st0%7Bfill%3A%2300A89F%3B%7D%0A%3C/style%3E%0A%3Cpolygon%20class%3D%22st0%22%20points%3D%2234.2%2C16.1%2018.1%2C16.1%2018.1%2C0%2016.1%2C0%2016.1%2C16.1%200%2C16.1%200%2C18.1%2016.1%2C18.1%2016.1%2C34.2%2018.1%2C34.2%2018.1%2C18.1%20%0A%0934.2%2C18.1%20%22/%3E%0A%3C/svg%3E%0A');
 }
 
+%svg-arrow-left-white-no-fill {
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%0A%3C%21--%20Generator%3A%20Adobe%20Illustrator%2021.0.0%2C%20SVG%20Export%20Plug-In%20.%20SVG%20Version%3A%206.00%20Build%200%29%20%20--%3E%0A%3Csvg%20version%3D%221.1%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20xmlns%3Axlink%3D%22http%3A//www.w3.org/1999/xlink%22%20x%3D%220px%22%20y%3D%220px%22%0A%09%20viewBox%3D%220%200%2015.5%2069.1%22%20style%3D%22enable-background%3Anew%200%200%2015.5%2069.1%3B%22%20xml%3Aspace%3D%22preserve%22%3E%0A%3Cstyle%20type%3D%22text/css%22%3E%0A%09.st0%7Bfill%3A%23FFFFFF%3B%7D%0A%3C/style%3E%0A%3Cpolygon%20class%3D%22st0%22%20points%3D%2213.7%2C0%2015.5%2C0.7%202.2%2C34.5%2015.5%2C68.3%2013.7%2C69.1%200.1%2C34.9%200%2C34.5%20%22/%3E%0A%3C/svg%3E%0A');
+}
+
+%svg-arrow-right-white-no-fill {
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22utf-8%22%3F%3E%0A%3C%21--%20Generator%3A%20Adobe%20Illustrator%2021.0.0%2C%20SVG%20Export%20Plug-In%20.%20SVG%20Version%3A%206.00%20Build%200%29%20%20--%3E%0A%3Csvg%20version%3D%221.1%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20xmlns%3Axlink%3D%22http%3A//www.w3.org/1999/xlink%22%20x%3D%220px%22%20y%3D%220px%22%0A%09%20viewBox%3D%220%200%2015.5%2069.1%22%20style%3D%22enable-background%3Anew%200%200%2015.5%2069.1%3B%22%20xml%3Aspace%3D%22preserve%22%3E%0A%3Cstyle%20type%3D%22text/css%22%3E%0A%09.st0%7Bfill%3A%23FFFFFF%3B%7D%0A%3C/style%3E%0A%3Cpolygon%20class%3D%22st0%22%20points%3D%221.9%2C0%200%2C0.7%2013.4%2C34.5%200%2C68.3%201.9%2C69.1%2015.4%2C34.9%2015.5%2C34.5%20%22/%3E%0A%3C/svg%3E%0A');
+}
+
 @mixin svg($image) {
   @extend %svg-#{$image};
   background-size: contain;

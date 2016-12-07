@@ -119,22 +119,21 @@ $columnWidth: ($container / $columns) - 12;
 %matrix-nav-button {
   height: 100%;
   border: none;
-  background: $grayLighter;
+  background: transparentize($grayLighter, 0.15);
   width: 75px;
   outline: 0;
   //  @include respond($vostok) {
   //    width: 20px;
   //  }
   position: absolute;
-  opacity: .8;
   z-index: 199;
   &::after {
     content: '';
     position: absolute;
     top: 50%;
     margin-top: 1.25em;
-    left: 1.1em;
-    height: 2.5em;
+    left: 1em;
+    height: 4.375em;
     width: 2.5em;
   }
 }
@@ -143,14 +142,14 @@ $columnWidth: ($container / $columns) - 12;
   left: $flexibleColumnWidth;
   @extend %matrix-nav-button;
   &::after {
-    @include svg(arrow-left-white-tall);
+    @include svg(arrow-left-white-no-fill);
   }
 }
 
 .matrix-cells-wrapper--forward {
   right: 0;
   &::after {
-    @include svg(arrow-right-white-tall);
+    @include svg(arrow-right-white-no-fill);
   }
   @extend %matrix-nav-button;
 }
