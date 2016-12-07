@@ -48,8 +48,8 @@ define (require) ->
       trigger = $("[data-drawer-target=\"#{@drawerTarget}\"][data-behavior=\"header-drawer-trigger\"]")
       if trigger.length > 0
         left = trigger.offset().left
-        myLeft = @$el.find('.drawer--contents').offset().left
-        @$el.find('.drawer--contents').css({paddingLeft: left - myLeft + 21})
+        myLeft = @$el.offset().left
+        @$el.css({left: left - myLeft})
 
 
     initialize: (options) ->

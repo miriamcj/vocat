@@ -2,73 +2,56 @@
 	<li>
 		<div class="drawer-nav--column drawer-nav--course-column">
 			<% if (current_user.role?(:administrator) || current_user.role?(:superadministrator)) %>
-			<h4>Recent and Upcoming Courses</h4>
-			<div class="drawer-course-list">
+			<nav class="drawer-course-list">
 				<ul data-behavior="admin-courses">
-					<li style="margin-bottom: 3em; ">
-						<select style="width: 100%" data-class="recent-course-select" data-behavior="chosen" >
-              <option></option> <!-- required to include default text-->
-							<% @current_organization.recent_grouped_sorted_courses().each do |semester, courses| %>
-								<optgroup label="<%= semester %>">
-									<% courses.each do |course| %>
-										<option
-										<% if course == @selected_course %>selected="selected"
-										<% end %>value="<%= user_course_url(current_user, course) %>">
-											<%= "#{course.department} #{course.number} Section #{course.section}" %>
-										</option>
-									<% end %>
-								</optgroup>
-							<% end %>
-						</select>
-					</li>
+					<% @current_organization.recent_grouped_sorted_courses(8).each do |semester, courses| %>
+						  <li class="drawer-nav--grouped-courses">
+							  <span class="group-header"><%= semester %></span>
+							  <ul class="course-list">
+								  <% courses.each do |course| %>
+									<li>
+										<a href="<%= user_course_url(current_user, course) %>" class="course">
+
+											<%= "#{course.department} #{course.number}" %>
+											<span><%= "Section #{course.section}" %></span>
+										</a>
+									</li>
+								  <% end %>
+							  </ul>
+						  </li>
+					<% end %>
 				</ul>
-			</div>
+			</nav>
 			<% end %>
 
-			<h4>Your Courses</h4>
-			<div class="drawer-course-list">
+			<nav class="drawer-course-list">
 				<ul data-behavior="drawer-courses">
 					<% if current_user.courses_count == 0 %>
 						<li>You are not currently enrolled any VOCAT courses.</li>
+				  	<% else %>
+						<% current_user.sorted_grouped_upcoming_courses(8).each do |semester, courses| %>
+							<li class="drawer-nav--grouped-courses">
+								<span class="group-header"><%= semester %></span>
+								<ul class="course-list">
+									<% courses.each do |course| %>
+									  <li>
+										  <a href="<%= user_course_url(current_user, course) %>" class="course">
 
-
-					<% elsif current_user.courses_count < 5 %>
-						<% current_user.sorted_courses().each do |course| %>
-							<li>
-								<a href="<%= user_course_url(current_user, course) %>">
-									<%= "#{course.department} #{course.number}" %><br/>
-									<%= "#{course.name}" %><br/>
-									<small><%= "#{course.semester} #{course.year}, Section #{course.section}" %></small>
-								</a>
+											  <%= "#{course.department} #{course.number}" %>
+											  <span><%= "Section #{course.section}" %></span>
+										  </a>
+									  </li>
+									<% end %>
+								</ul>
 							</li>
 						<% end %>
-              <li><a href="<%= courses_path %>">All Courses</a></li>
-					<% else %>
-						<li style="margin-bottom: 3em; ">
-							<select style="width: 100%;" data-class="course-select">
-								<option></option>
-								<% current_user.grouped_sorted_courses().each do |semester, courses| %>
-									<optgroup label="<%= semester %>">
-										<% courses.each do |course| %>
-											<option value="<%= user_course_url(current_user, course) %>">
-												<%= "#{course.department} #{course.number} Section #{course.section}" %>
-											</option>
-										<% end %>
-									</optgroup>
-                  <optgroup label="">
-                    <option value="<%= courses_path %>">All Courses</option>
-                  </optgroup>
-								<% end %>
-							</select>
-							<small style="display: block; margin-top: .5em; line-height: 1.25em;">
-								You are associated
-								with <%= pluralize current_user.courses_count, 'VOCAT course', 'VOCAT courses' %>
-								.
-							</small>
-						</li>
 					<% end %>
 				</ul>
-			</div>
+				<a href="<%= courses_path %>" class="all-courses">
+					<i class="icon-courses"></i>
+					View All Courses
+				</a>
+			</nav>
 		</div>
 	</li>
 <% end %>

@@ -246,32 +246,34 @@ footer.page-footer {
 // --------------------------
 
 .page-header--drawer {
+  @include translateY(100%);
   //  position: relative;
   //  z-index: 500;
-  background: $grayDarker;
-  z-index: 300;
+  background: $grayDarkerAlt;
+  z-index: 500;
   position: absolute;
-  bottom: 0px;
-  width: 100%;
-  opacity: .5;
+  bottom: 30px;
+  width: auto;
+  opacity: 0;
+  visibility: hidden;
+  max-width: 100%;
   @include transition(all .25s $timing);
   &.drawer-open {
     opacity: 1;
-    @include translateY(100%);
+    visibility: visible;
+    bottom: 15px;
   }
   .drawer--contents {
     @include clearfix;
-    margin: 35px auto 15px auto;
+    padding: 35px 37px;
     position: relative;
-    max-width: $containerWidth;
     text-transform: uppercase;
   }
 }
 .drawer-nav {
   @extend %unstyled-list;
+
   li {
-    margin-bottom: $headerUnitPadding * 2;
-    width: 300px;
     .drawer-nav--column {
       h4 {
         padding-bottom: .5em;
@@ -299,21 +301,81 @@ footer.page-footer {
         padding: none;
         padding-left: 0;
         padding-right: 0;
-        margin-bottom: 1em;
-        small {
-          font-size: $kappa;
-        }
-        a {
-          color: $white;
-          &:hover {
-            color: $tealLight;
-          }
-        }
+        margin-bottom: 0.875em;
       }
     }
   }
 }
 
+.drawer-course-list {
+  > ul {
+    padding-bottom: 34px;
+  }
+
+  .drawer-nav--grouped-courses {
+    .group-header {
+      @extend %utility-label;
+      display: block;
+      margin-bottom: 1.2em;
+      color: $grayMediumLighter;
+    }
+
+    .course-list {
+      a {
+        @extend %condensedHeading;
+        font-size: $zeta;
+        color: $white;
+
+        &:hover {
+          color: $tealLight;
+
+          span {
+            color: $tealLight;
+          }
+
+          .icon-course {
+            @include svg(course-teal);
+          }
+        }
+
+        .icon-course {
+          @include svg(course-gray);
+          width: 21px;
+          height: 17px;
+          display: inline-block;
+          margin-right: 10px;
+          vertical-align: top;
+        }
+
+        span {
+          color: $grayMediumLighter;
+          padding-left: 0.619em;
+        }
+      }
+    }
+  }
+
+  .all-courses {
+    @extend %utility-label;
+    color: $grayMediumLighter;
+    &:hover {
+      color: $tealDark;
+
+      .icon-courses {
+        @include svg(courses-teal);
+      }
+    }
+
+    .icon-courses {
+      @include svg(courses-gray);
+      width: 27px;
+      height: 23px;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 10px;
+    }
+  }
+}
 
 .section-nav {
   position: absolute;
@@ -350,29 +412,41 @@ footer.page-footer {
 
 .drawer-nav--trigger {
   position: relative;
+  // Compensate for extra trigger padding
+  margin-right: -24px;
+  margin-left: -10px;
 
-  a {
-    position: relative;
-  }
+  &.drawer-open a, a:hover {
+    color: $white !important; // Required to overwrite default nav link color
+    background-color: $tealLight;
 
-  a:after {
-    @include svg(arrow-down-gray-dark);
-    position: absolute;
-    top: 0.308em;
-    right: -1.308em;
-    display: block;
-    width: 12px;
-    height: 6px;
-    vertical-align: middle;
-    content: '';
-    &:hover {
-      @include svg(arrow-down-teal);
+    &:after {
+      @include svg(arrow-down-white);
     }
   }
 
-  &.drawer-open {
-    a:after {
-      @include svg(arrow-down-teal);
+  a {
+    position: relative;
+    padding: 7px 31px 5px 10px;
+    border: 0;
+
+    &.active-sticky {
+      &:after {
+        @include svg(arrow-down-teal);
+      }
+    }
+
+    &:after {
+      @include svg(arrow-down-gray-dark);
+      position: absolute;
+      top: 50%;
+      right: 9px;
+      display: block;
+      width: 12px;
+      height: 6px;
+      margin-top: -3px;
+      vertical-align: middle;
+      content: '';
     }
   }
 
