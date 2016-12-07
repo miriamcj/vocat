@@ -261,11 +261,11 @@ footer.page-footer {
   &.drawer-open {
     opacity: 1;
     visibility: visible;
-    bottom: 15px;
+    bottom: 16px;
   }
   .drawer--contents {
     @include clearfix;
-    padding: 35px 37px;
+    padding: 35px 37px 24px;
     position: relative;
     text-transform: uppercase;
   }
@@ -309,7 +309,7 @@ footer.page-footer {
 
 .drawer-course-list {
   > ul {
-    padding-bottom: 34px;
+    padding-bottom: 14px;
   }
 
   .drawer-nav--grouped-courses {
@@ -321,6 +321,8 @@ footer.page-footer {
     }
 
     .course-list {
+      padding-bottom: 19px;
+
       a {
         @extend %condensedHeading;
         font-size: $zeta;
@@ -358,12 +360,28 @@ footer.page-footer {
   .all-courses {
     @extend %utility-label;
     color: $grayMediumLighter;
+
     &:hover {
       color: $tealDark;
 
       .icon-courses {
         @include svg(courses-teal);
       }
+
+      &:after {
+        @include svg(arrow-right-teal);
+      }
+    }
+
+    &:after {
+      @include svg(arrow-right-gray);
+      display: inline-block;
+      vertical-align: middle;
+      height: 15px;
+      width: 14px;
+      margin-top: -2px;
+      margin-left: 4px;
+      content: '';
     }
 
     .icon-courses {
@@ -385,7 +403,10 @@ footer.page-footer {
     @extend %unstyled-list;
 
     > li.drawer-nav--trigger {
+      // Compensate for extra trigger padding
       padding: 0 ($iconSizeMedium * 4 + 15) 0 0;
+      padding-right: 47px;
+      margin-left: -10px;
     }
 
     > li {
@@ -408,11 +429,9 @@ footer.page-footer {
         }
         &.active, &.active-sticky {
           color: $tealLight;
-          border-bottom: 1px solid $tealLight;
-        }
-        span.active-sticky {
-          color: $tealLight;
-          border-bottom: 1px solid $tealLight;
+          span {
+            border-bottom: 1px solid $tealLight;
+          }
         }
       }
     }
@@ -421,9 +440,6 @@ footer.page-footer {
 
 .drawer-nav--trigger {
   position: relative;
-  // Compensate for extra trigger padding
-  margin-right: -24px;
-  margin-left: -10px;
 
   &.drawer-open a, a:hover {
     color: $white !important; // Required to overwrite default nav link color

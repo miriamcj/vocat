@@ -1,10 +1,11 @@
 <% if current_user %>
 	<li>
 		<div class="drawer-nav--column drawer-nav--course-column">
+			<!-- Administrator drawer nav -->
 			<% if (current_user.role?(:administrator) || current_user.role?(:superadministrator)) %>
 			<nav class="drawer-course-list">
 				<ul data-behavior="admin-courses">
-					<% @current_organization.recent_grouped_sorted_courses(8).each do |semester, courses| %>
+					<% @current_organization.recent_grouped_sorted_courses().each do |semester, courses| %>
 						  <li class="drawer-nav--grouped-courses">
 							  <span class="group-header"><%= semester %></span>
 							  <ul class="course-list">
@@ -21,37 +22,53 @@
 						  </li>
 					<% end %>
 				</ul>
-			</nav>
-			<% end %>
-
-			<nav class="drawer-course-list">
-				<ul data-behavior="drawer-courses">
-					<% if current_user.courses_count == 0 %>
-						<li>You are not currently enrolled any VOCAT courses.</li>
-				  	<% else %>
-						<% current_user.sorted_grouped_upcoming_courses(8).each do |semester, courses| %>
-							<li class="drawer-nav--grouped-courses">
-								<span class="group-header"><%= semester %></span>
-								<ul class="course-list">
-									<% courses.each do |course| %>
-									  <li>
-										  <a href="<%= user_course_url(current_user, course) %>" class="course">
-
-											  <%= "#{course.department} #{course.number}" %>
-											  <span><%= "Section #{course.section}" %></span>
-										  </a>
-									  </li>
-									<% end %>
-								</ul>
-							</li>
-						<% end %>
-					<% end %>
-				</ul>
 				<a href="<%= courses_path %>" class="all-courses">
 					<i class="icon-courses"></i>
 					View All Courses
 				</a>
 			</nav>
+			<% else %>
+				<nav class="drawer-course-list">
+					<ul data-behavior="drawer-courses">
+						<% if current_user.courses_count == 0 %>
+							<% if current_user.role?(:creator) %>
+								<li>
+									<p classs="drawer-message">
+										You are not currently enrolled any VOCAT courses.
+									</p>
+								</li>
+							<% elsif current_user.role?(:evaluator) %>
+								<li>
+									<p classs="drawer-message">
+										You are not currently enrolled any VOCAT courses.
+									</p>
+								</li>
+						  	<% end %>
+						<% else %>
+							<% current_user.sorted_grouped_upcoming_courses(8).each do |semester, courses| %>
+								<li class="drawer-nav--grouped-courses">
+									<span class="group-header"><%= semester %></span>
+									<ul class="course-list">
+										<% courses.each do |course| %>
+										  <li>
+											  <a href="<%= user_course_url(current_user, course) %>" class="course">
+
+												  <%= "#{course.department} #{course.number}" %>
+												  <span><%= "Section #{course.section}" %></span>
+											  </a>
+										  </li>
+										<% end %>
+									</ul>
+								</li>
+							<% end %>
+						<% end %>
+					</ul>
+					<a href="<%= courses_path %>" class="all-courses">
+						<i class="icon-courses"></i>
+						View All Courses
+					</a>
+				</nav>
+			  <% end %>
 		</div>
 	</li>
 <% end %>
