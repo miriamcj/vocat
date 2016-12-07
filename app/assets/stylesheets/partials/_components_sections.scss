@@ -319,7 +319,7 @@
   }
 }
 .course-synopsis-pane {
-  //margin-bottom: 30px;
+  margin-bottom: 30px;
   background-color: #f6f6f6;
   width: 100%;
   .info-container .stats {
@@ -338,7 +338,7 @@
   &.subheader {
     z-index: 150;
     margin-top: $headerHeight;
-
+    margin-bottom: 0;
     .padded-container {
       & > div {
         max-width: 1200px;
