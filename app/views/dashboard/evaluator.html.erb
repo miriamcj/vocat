@@ -10,7 +10,15 @@
 				<p class="subtitle">Your courses and activity at a glance.</p>
 			</div>
 		</div>
-		<%= render 'dashboard/shared/course_list' %>
+    <div class="body secondary">
+      <% if current_user.sorted_grouped_upcoming_courses.count > 0 %>
+        <%= render 'dashboard/shared/course_list' %>
+      <% elsif current_user.courses.count == 0 %>
+          It looks like you don't belong to any courses yet. <%= link_to 'Click here to request your first Vocat course', new_course_request_path %>.
+      <% else %>
+          It looks like you don't have any current courses. <%= link_to 'Click here to request a new Vocat course', new_course_request_path %>.
+      <% end %>
+    </div>
 		<% if current_user.courses_count > 0 %>
     		<%= link_to 'All Courses', courses_path, class: 'all-courses-link' %>
 	  	<% end %>

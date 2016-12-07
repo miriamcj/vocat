@@ -1,13 +1,8 @@
-<div class="body secondary">
-  <% if current_user.courses.count > 0 %>
-      <% current_user.sorted_grouped_upcoming_courses.each do |semester, courses| %>
-          <h3 class="semester-header"><%= semester %></h3>
-          <% courses.each do |course| %>
-            <%= render 'shared/course_synopsis', :course => course %>
-          <% end %>
-      <% end %>
-  <% else %>
-      It looks like you don't belong to any courses
-      yet. <%= link_to 'Click here to request your first Vocat course', new_course_request_path %>.
-  <% end %>
-</div>
+<% if current_user.sorted_grouped_upcoming_courses.count > 0 %>
+    <% current_user.sorted_grouped_upcoming_courses.each do |semester, courses| %>
+        <h3 class="semester-header"><%= semester %></h3>
+        <% courses.each do |course| %>
+          <%= render 'shared/course_synopsis', :course => course %>
+        <% end %>
+    <% end %>
+<% end %>
