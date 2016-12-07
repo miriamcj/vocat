@@ -1,5 +1,7 @@
+<% current_user.role?(:administrator) || current_user.role?(:superadministrator) ? dash_text = "ADMIN" : dash_text = "DASHBOARD" %>
+
 <li>
-	<%= link_to "DASHBOARD", root_path, class: "#{'active-sticky' if @app_section == 'dashboard' || @app_section == 'admin'}" %>
+	<%= link_to dash_text, root_path, class: "#{'active-sticky' if @app_section == 'dashboard' || @app_section == 'admin'}" %>
 </li>
 
 <li class="drawer-nav--trigger" data-drawer-target="section" data-behavior="header-drawer-trigger">
