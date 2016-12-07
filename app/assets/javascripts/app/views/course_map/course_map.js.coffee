@@ -12,7 +12,7 @@ define (require) ->
   class CourseMapLayout extends AbstractMatrix
 
     children: {}
-    minWidth: 170
+    minWidth: 300
     capturedScroll: 0
     stickyHeader: true
     template: template
