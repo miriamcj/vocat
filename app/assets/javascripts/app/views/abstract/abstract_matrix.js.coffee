@@ -6,7 +6,7 @@ define (require) ->
   class AbstractMatrix extends Marionette.LayoutView
 
     minWidth: 200
-    maxWidth: 800
+    maxWidth: 300
     memoizeHashCount: 0
     position: 0
     counter: 0
@@ -144,6 +144,8 @@ define (require) ->
       space = @_visibleWidth()
       colsAtMin = Math.floor(space / width)
       adjustedWidth = space / colsAtMin
+      adjustedWidth = if adjustedWidth < @maxWidth then adjustedWidth else @maxWidth;
+      console.log(adjustedWidth)
       return adjustedWidth
 
     _visibleWidth: () ->
@@ -165,6 +167,7 @@ define (require) ->
       @_getFirstRowCells().each((i, cell) ->
         $(cell).outerWidth(width)
       )
+      # Set outer width of each actor
       @_getActor().outerWidth(totalWidth)
 
     _getNaturalSpacerHeight: () ->

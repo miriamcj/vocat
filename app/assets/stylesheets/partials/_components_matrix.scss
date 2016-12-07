@@ -310,8 +310,9 @@ $columnWidth: ($container / $columns) - 12;
       font-size: $lambda-minor;
     }
     .cell--message-pinned {
-      text-transform: none;
       display: block;
+      width: 50%;
+      text-transform: none;
       position: absolute;
       bottom: 0;
       text-align: center;
