@@ -12,7 +12,7 @@
   background: $grayDarker;
   opacity: 0;
   font-size: $iota;
-  @include transition(margin-top .25s $timing, opacity .25s $timing, visibility .25s $timing);
+  @include transition(all $dropdownTransition $timing);
   ul {
     @extend %unstyled-list;
     padding: 0;
@@ -107,10 +107,6 @@
     position: relative;
     padding: 5px 30px 5px 10px;
 
-    @include respond($baikal) {
-      display: none !important;
-    }
-
     &:after {
       @include svg(arrow-down-gray-dark);
       position: absolute;
@@ -134,14 +130,11 @@
   width: calc(100% - 45px);
   right: 45px !important;
   padding: 15px;
-  top: 45px;
+  top: 30px;
 
-  @include respond($baikal) {
-    right: 0;
-    left: auto;
-    width: 150px;
+  .open & {
+    top: 45px;
   }
-
 }
 
 // Default Dropdown Styles
