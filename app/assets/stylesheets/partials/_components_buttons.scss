@@ -498,7 +498,7 @@ label.switch-label:after,
   left: 0;
   content: ' ';
   width: $switchWidth;
-  background-color: $grayLight;
+  background-color: $grayMediumDarker;
   border-radius: 12px;
   @include transition($fastTransition, all, $timing);
   -webkit-transition-duration: $fastTransition;
@@ -544,6 +544,12 @@ label.switch-label:after,
 
 .switch-checked label:after {
   margin-left: $switchWidth - $handleWidth - $handleMargin;
+}
+
+.switch.disabled {
+  label::before {
+    background-color: transparentize($grayMediumDarker, 0.50);
+  }
 }
 
 // Misc

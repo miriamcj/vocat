@@ -13,7 +13,7 @@
 		{{#if can_be_evaluated }} <!-- can the submission be evaluated? (does the project have a rubric?) -->
 			<dl class="cell--published">
 				<dt>Published</dt>
-                <dd class="switch {{#if current_user_published}}switch-checked{{/if}}" data-behavior="publish-toggle">
+                <dd class="switch {{#if current_user_published}}switch-checked{{/if}} {{#unless current_user_percentage}}disabled{{/unless}}" data-behavior="publish-toggle">
                     <input id="checkbox-{{cid}}" {{#if current_user_published}}checked="checked"{{/if}} class="switch-checkbox" type="checkbox">
                     <label for="checkbox-{{cid}}" class="switch-label">
                         <span class="switch-inner">
