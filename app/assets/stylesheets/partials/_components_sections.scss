@@ -330,6 +330,11 @@
     @extend %utility-label;
   }
 
+  .info-container .dropdown--options {
+    // Required to override JS positioning
+    left: 0px !important;
+  }
+
   .synopsis-footer div {
     display: inline-block;
     margin-right: 15px;
@@ -346,16 +351,14 @@
       }
     }
 
-    .info-container > a, .dropdown--toggle.active {
+    .info-container > a {
       border-bottom: 1px solid transparent;
-
       &.active {
         color: $tealLight;
-        border-bottom: 1px solid $tealLight;
       }
     }
 
-    .info-container > a:hover, .info-container .dropdown--toggle:hover {
+    .info-container > a:hover {
       border-bottom: 1px solid $tealLight;
     }
   }
@@ -398,28 +401,39 @@
   .dropdown--options {
     padding: 1em;
     min-width: 160px;
-    top: 42px;
-    right: -9px !important; // maybe a better way to do this.  position gets assigned in app/assets/javascripts/app/views/layout/dropdowns.js.coffee
+    top: auto;
   }
   .dropdown--toggle {
-    display: inline;
+    display: inline-block;
+    padding: 10px 30px 10px 11px;
+
     &:after {
-      top: 5px;
-      right: -24px;
+      top: 50%;
+      right: 5px;
       width: 12px;
       height: 6px;
+      margin-top: -5px;
       &:hover {
         @include svg(arrow-down-teal);
       }
     }
   }
-  .open .dropdown--toggle {
+  .dropdown--toggle.active {
     span {
       color: $tealLight;
       border-bottom: 1px solid $tealLight;
     }
     &:after {
       @include svg(arrow-down-teal);
+    }
+  }
+  .dropdown--toggle:hover, .open .dropdown--toggle {
+    background-color: $tealLight;
+    span {
+      color: $white;
+    }
+    &:after {
+      @include svg(arrow-down-white);
     }
   }
   .course-id {
