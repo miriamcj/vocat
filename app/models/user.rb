@@ -185,13 +185,51 @@ class User < ActiveRecord::Base
     end
   end
 
-  def has_unreviewed_work?(course_id, user)
+  def has_unreviewed_work?(course_id)
     last_visit = self.visits.where(visitable_course_id: course_id).most_recent
-    last_course_event = CourseEvent.non_destructive.where("course_id = #{course_id} AND user_id != #{user.id}").last
+    last_course_event = CourseEvent.non_destructive.where("course_id = #{course_id} AND user_id != #{id}").last
     return false if last_course_event.nil?
     return true if last_visit.blank? && last_course_event
     return true if last_visit.updated_at <= last_course_event.created_at
     return false
+  end
+
+  def has_new_discussion_posts?(submission_id)
+    last_visit = self.visits.where(visitable_id: submission_id).most_recent
+    last_discussion_post = CourseEvent.discussion_posts.non_destructive.where("submission_id = #{submission_id} AND user_id != #{id}").last
+    return false if last_discussion_post.nil?
+    return true if last_visit.blank? && last_discussion_post
+    return true if last_visit.updated_at <= last_discussion_post.created_at
+    return false
+  end
+
+  def has_new_annotations?(submission_id)
+    last_visit = self.visits.where(visitable_id: submission_id).most_recent
+    last_annotation = CourseEvent.annotations.non_destructive.where("submission_id = #{submission_id} AND user_id != #{id}").last
+    return false if last_annotation.nil?
+    return true if last_visit.blank? && last_annotation
+    return true if last_visit.updated_at <= last_annotation.created_at
+    return false
+  end
+
+  def new_annotations_count(submission_id)
+    last_visit = self.visits.where(visitable_id: submission_id).most_recent
+    if last_visit.blank?
+      new_annotations = CourseEvent.annotations.non_destructive.where("submission_id = #{submission_id} AND user_id != #{id}")
+    else
+      new_annotations = CourseEvent.annotations.non_destructive.where("submission_id = #{submission_id} AND user_id != #{id} AND created_at > ?", last_visit.updated_at)
+    end
+    new_annotations.count if new_annotations.count > 0
+  end
+
+  def new_discussion_posts_count(submission_id)
+    last_visit = self.visits.where(visitable_id: submission_id).most_recent
+    if last_visit.blank?
+      new_discussion_posts= CourseEvent.discussion_posts.non_destructive.where("submission_id = #{submission_id} AND user_id != #{id}")
+    else
+      new_discussion_posts= CourseEvent.discussion_posts.non_destructive.where("submission_id = #{submission_id} AND user_id != #{id} AND created_at > ?", last_visit.updated_at)
+    end
+    new_discussion_posts.count if new_discussion_posts.count > 0
   end
 
   def available_rubrics

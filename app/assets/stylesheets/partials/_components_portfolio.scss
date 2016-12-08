@@ -13,7 +13,6 @@
 }
 
 .portfolio-item, .asset-collection-item {
-  @include clearfix(hard);
   .portfolio-item--content, .asset-collection-item--content {
     h3.heading-tertiary {
       @include font-body;
@@ -26,6 +25,7 @@
 
     padding-left: 0;
     padding-right: 0;
+    width: auto;
 
     .portfolio-item--ranges {
       .range {
@@ -67,22 +67,37 @@
 
     padding-right: 30px;
     padding-left: 0;
+    margin-top: 30px;
     margin-bottom: 15px;
+    float: none;
+    display: inline-block;
+    vertical-align: top;
+    width: auto;
+
+    .time-container {
+      margin-top: 5px;
+      text-align: center;
+    }
 
     .thumb-container-placeholder {
-      width: 100%;
-      border: 1px dashed $grayMediumDarker;
+      border-radius: 8px;
+      width: 165px;
+      height: 90px;
+      border: 1px solid $tealLight;
       position: relative;
+      overflow: hidden;
       a {
         text-align: center;
         position: relative;
         height: 100%;
         display: block;
+        padding: 15px;
+        &:hover {
+          background-color: transparentize($tealLightest, 0.8);
+        }
         span {
           display: block;
-          width: 75%;
-          padding: 2em 0;
-          margin-left: 12.5%;
+          color: $tealLight;
         }
         span.tight {
           padding: 1em 0 0;
@@ -90,6 +105,9 @@
       }
     }
     .thumb-container {
+      border-radius: 8px;
+      width: 165px;
+      height: 90px;
       overflow: hidden;
       position: relative;
       &:hover:before {
@@ -98,11 +116,14 @@
       a {
         position: relative;
         display: block;
-        &:hover:after {
-          opacity: .2;
+        height: 100%;
+        &:hover {
+          &:after {
+            opacity: .8;
+          }
         }
         &:after {
-          @include transition($fastTransition opacity $timing);
+          @include transition($mediumTransition opacity $timing);
           content: '';
           position: absolute;
           width: 100%;
@@ -110,7 +131,8 @@
           bottom: 0;
           background: #000;
           z-index: 1;
-          opacity: .5;
+          opacity: .1;
+          border-radius: 8px;
         }
       }
       img {
@@ -132,7 +154,15 @@
         margin-left: -30px;
         margin-top: -30px;
         @include svg(play-overlay-white);
+        &:hover {
+          @include svg(play-overlay-teal);
+        }
       }
+    }
+    .submit-time {
+      text-transform: uppercase;
+      color: $grayMediumLighter;
+      font-size: 11px;
     }
   }
 
@@ -148,5 +178,108 @@
 
       font-size: .654em; //17px
     }
+  }
+}
+
+
+.projects-name-header::before {
+  @include svg('projects-teal');
+  display: inline-block;
+  vertical-align: bottom;
+  margin-right: 10px;
+  width: 25px;
+  height: 25px;
+  content: '';
+}
+
+.portfolio-course-submissions {
+  margin-top: 30px;
+  background-color: $grayLightest;
+  width: 100%;
+  position: relative;
+  .due-date {
+    padding: 17px 30px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #ececec;
+    color: $grayDark;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 1px;
+    &.past-due {
+      background-color: transparentize($red, 0.8);
+      color: $red;
+    }
+  }
+  .padded-container {
+    padding: 30px;
+  }
+  .submission-footer {
+    width: 100%;
+    background-color: #ececec;
+
+    .footer-item {
+      display: inline-block;
+      margin-right: 50px;
+      > i {
+        vertical-align: middle;
+        display: inline-block;
+        margin-right: 10px;
+        margin-bottom: 15px;
+      }
+      .instructor-icon {
+        height: 25px;
+        width: 30px;
+      }
+      .peer-icon {
+        height: 25px;
+        width: 44px;
+      }
+      .labels {
+        display: block;
+      }
+      .icon-label {
+        display: inline-block;
+        text-transform: uppercase;
+        color: $grayMediumLighter;
+        font-size: 13px;
+      }
+      .icon-value {
+        font-size: 30px;
+        font-weight: 200;
+        font-family: "proxima-nova-condensed", "Helvetica Neue", Arial, sans-serif;
+        &.no-value {
+          color: $grayLight;
+        }
+      }
+      .new-label {
+        margin-left: 5px;
+        color: $tealLight;
+        display: inline-block;
+        font-size: 13px;
+      }
+    }
+  }
+  .comments-icon-teal {
+    @include svg('comment-teal');
+    width: 25px;
+    height: 25px;
+    display: block;
+    margin: 0 auto;
+  }
+  .annotations-icon-teal {
+    @include svg('annotation-teal');
+    width: 25px;
+    height: 25px;
+    display: block;
+    margin: 0 auto;
+  }
+  .teal-plus {
+    @include svg('plus-teal-slim');
+    width: 30px;
+    height: 30px;
+    display: block;
+    margin: 0 auto 8px;
   }
 }

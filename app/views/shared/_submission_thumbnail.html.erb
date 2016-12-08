@@ -1,14 +1,11 @@
-<% if submission.has_asset? %>
-	<div class="thumb-container">
-		<%= link_to image_tag(submission.thumb), submission_detail_path(submission) %>
-	</div>
-<% else %>
-	<div class="thumb-container-placeholder">
-		<a href="<%= submission_detail_path(submission) %>">
-			<span>media not yet uploaded</span>
-		</a>
-	</div>
-<% end %>
+<div class="thumb-container <%= 'thumb-container-video' if asset.type == 'Asset::Youtube' || asset.type == 'Asset::Vimeo' %>">
+  <%= link_to image_tag(asset.thumbnail), course_asset_path(asset.course, asset) %>
+</div>
+<div class="time-container">
+  <span class="submit-time">
+  Submitted <%= asset.created_at.strftime('%m/%d/%y %l:%M %p') %>
+  </span>
+</div>
 
 
 
