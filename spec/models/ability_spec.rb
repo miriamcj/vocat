@@ -46,7 +46,7 @@ end
 
 describe "Abilities" do
 
-  before(:all) do
+  before(:each) do
 
     @org_a = FactoryGirl.create(:organization, name: 'org a')
     @org_b = FactoryGirl.create(:organization, name: 'org a')
@@ -231,11 +231,11 @@ describe "Abilities" do
       it { expect(user).to have_ability({show_submissions: false}, for: course) }
     end
     context "when the course has a project with peer review enabled" do
-      before (:all) {
+      before (:each) {
         @first_project_in_course_a.settings['enable_peer_review'] = '1'
         @first_project_in_course_a.save
       }
-      after (:all) {
+      after (:each) {
         @first_project_in_course_a.settings['enable_peer_review'] = '0'
         @first_project_in_course_a.save
       }
@@ -255,11 +255,11 @@ describe "Abilities" do
       end
     end
     context "when the course has a project with public discussion enabled" do
-      before (:all) {
+      before (:each) {
         @first_project_in_course_a.settings['enable_public_discussion'] = '1'
         @first_project_in_course_a.save
       }
-      after (:all) {
+      after (:each) {
         @first_project_in_course_a.settings['enable_public_discussion'] = '0'
         @first_project_in_course_a.save
       }
@@ -380,11 +380,11 @@ describe "Abilities" do
     end
 
     context "when the project has public discussion enabled" do
-      before (:all) {
+      before (:each) {
         @first_project_in_course_a.settings['enable_public_discussion'] = '1'
         @first_project_in_course_a.save
       }
-      after (:all) {
+      after (:each) {
         @first_project_in_course_a.settings['enable_public_discussion'] = '0'
         @first_project_in_course_a.save
       }
@@ -444,11 +444,11 @@ describe "Abilities" do
     end
 
     context "when the project has creator attach enabled" do
-      before (:all) {
+      before (:each) {
         @first_project_in_course_a.settings['enable_creator_attach'] = '1'
         @first_project_in_course_a.save
       }
-      after (:all) {
+      after (:each) {
         @first_project_in_course_a.settings['enable_creator_attach'] = '0'
         @first_project_in_course_a.save
       }
@@ -507,11 +507,11 @@ describe "Abilities" do
 
     context "when the project has peer review disabled" do
       context "and self evaluation is enabled" do
-        before (:all) {
+        before (:each) {
           @first_project_in_course_a.settings['enable_self_evaluation'] = '1'
           @first_project_in_course_a.save
         }
-        after (:all) {
+        after (:each) {
           @first_project_in_course_a.settings['enable_self_evaluation'] = '0'
           @first_project_in_course_a.save
         }
@@ -524,11 +524,11 @@ describe "Abilities" do
     end
 
     context "when the project has peer review enabled" do
-      before (:all) {
+      before (:each) {
         @first_project_in_course_a.settings['enable_peer_review'] = '1'
         @first_project_in_course_a.save
       }
-      after (:all) {
+      after (:each) {
         @first_project_in_course_a.settings['enable_peer_review'] = '0'
         @first_project_in_course_a.save
       }
@@ -545,11 +545,11 @@ describe "Abilities" do
       end
 
       context "and self evaluation is enabled" do
-        before (:all) {
+        before (:each) {
           @first_project_in_course_a.settings['enable_self_evaluation'] = '1'
           @first_project_in_course_a.save
         }
-        after (:all) {
+        after (:each) {
           @first_project_in_course_a.settings['enable_self_evaluation'] = '0'
           @first_project_in_course_a.save
         }
@@ -738,11 +738,11 @@ describe "Abilities" do
       end
     end
     context "when the course has creator attach enabled" do
-      before (:all) {
+      before (:each) {
         @first_project_in_course_a.settings['enable_creator_attach'] = '1'
         @first_project_in_course_a.save
       }
-      after (:all) {
+      after (:each) {
         @first_project_in_course_a.settings['enable_creator_attach'] = '0'
         @first_project_in_course_a.save
       }
@@ -769,11 +769,11 @@ describe "Abilities" do
     end
 
     context "when the course has peer review enabled" do
-      before (:all) {
+      before (:each) {
         @first_project_in_course_a.settings['enable_peer_review'] = '1'
         @first_project_in_course_a.save
       }
-      after (:all) {
+      after (:each) {
         @first_project_in_course_a.settings['enable_peer_review'] = '0'
         @first_project_in_course_a.save
       }

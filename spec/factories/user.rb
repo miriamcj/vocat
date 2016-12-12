@@ -23,6 +23,11 @@ FactoryGirl.define do
     role 'administrator'
   end
 
+  factory :superadministrator, parent: :user do
+    role 'superadministrator'
+    organization nil
+  end
+
   factory :assistant, parent: :user do
     role 'assistant'
   end

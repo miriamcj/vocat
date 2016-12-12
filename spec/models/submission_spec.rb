@@ -15,7 +15,7 @@ describe 'Submission' do
 
 
   context "when getting visible evaluations for a submission" do
-    before (:all) {
+    before (:each) {
       @submission = FactoryGirl.create(:submission)
       @e1 = FactoryGirl.create(:evaluator)
       @e2 = FactoryGirl.create(:evaluator)

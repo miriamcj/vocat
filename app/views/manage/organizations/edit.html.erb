@@ -8,7 +8,7 @@
 				<%= render 'form', :f => f %>
 				<div class="formgrid whole">
 					<%= f.button 'Update Organization', :class => 'primary-button update-button' %>
-					<%= link_to 'Cancel', organization_path, :class => 'warning-button cancel-button' %>
+					<%= link_to 'Cancel', organization_path(@organization), :class => 'warning-button cancel-button' %>
 				</div>
 			</fieldset>
 		<% end %>

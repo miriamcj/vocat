@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Reporter::Project do
 
-  before(:all) do
+  before(:each) do
     @course = FactoryGirl.create(:course)
     @creator = FactoryGirl.create(:creator, first_name: 'Creator', last_name: 'User', email: 'creator@test.com')
     @peer_1 = FactoryGirl.create(:creator, first_name: 'Peer1', last_name: 'User', email: 'peer1@test.com')
@@ -27,7 +27,7 @@ describe Reporter::Project do
   end
 
   it 'throws an exception if instantiated without a project' do
-    expect { Reporter::Project.new }.to raise_error
+    expect { Reporter::Project.new }.to raise_error(ArgumentError)
   end
 
   it 'reports the correct number of peer scores' do

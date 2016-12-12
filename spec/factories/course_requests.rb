@@ -9,6 +9,7 @@ FactoryGirl.define do
     year 2014
     association :semester, factory: :semester
     association :evaluator, factory: :evaluator
+    association :organization, factory: :organization
     state :pending
   end
 end
