@@ -29,7 +29,7 @@
 #  support_email                     :string
 #
 
-class Organization < ActiveRecord::Base
+class Organization < ApplicationRecord
   validates_presence_of :subdomain, :email_default_from, :name
   validates_format_of :subdomain, :with => /[A-Za-z0-9-]+/, :message => 'The subdomain can only contain alphanumeric characters and dashes.', :allow_blank => true
   validates_uniqueness_of :subdomain, :case_sensitive => false

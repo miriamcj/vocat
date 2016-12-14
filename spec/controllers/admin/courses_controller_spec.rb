@@ -30,7 +30,7 @@ RSpec.describe Admin::CoursesController, type: :controller do
       course = Course.create! valid_attributes
       course.organization = subject.current_user.organization
       course.save
-      get :index, {}, valid_session
+      get :index, params: {}, session: valid_session
       expect(assigns(:courses)).to eq([course])
     end
   end

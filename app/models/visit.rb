@@ -16,7 +16,7 @@
 #  index_visits_on_visitable_type_and_visitable_id  (visitable_type,visitable_id)
 #
 
-class Visit < ActiveRecord::Base
+class Visit < ApplicationRecord
 
   belongs_to :visitable, polymorphic: true
 

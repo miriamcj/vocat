@@ -20,7 +20,7 @@
 #  index_courses_on_organization_id  (organization_id)
 #
 
-class Course < ActiveRecord::Base
+class Course < ApplicationRecord
   belongs_to :organization
   belongs_to :semester
 

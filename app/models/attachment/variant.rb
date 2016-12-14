@@ -19,7 +19,7 @@
 #  metadata_saved  :boolean          default(FALSE)
 #
 
-class Attachment::Variant < ActiveRecord::Base
+class Attachment::Variant < ApplicationRecord
 
   include Storable
 

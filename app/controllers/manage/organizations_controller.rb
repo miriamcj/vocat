@@ -63,14 +63,16 @@ class Manage::OrganizationsController < ApplicationController
   def handle_logo_upload(organization)
     if params[:organization][:logo]
       uploaded_io = params[:organization][:logo]
-      ext = File.extname(uploaded_io.original_filename)
-      filename = "org_logo_#{organization.id}#{ext}"
-      organization.logo = filename
-      if uploaded_io
-        File.open(Rails.root.join('public', 'uploads', filename), 'wb') do |file|
-          file.write(uploaded_io.read)
-        end
+      unless uploaded_io.blank?
+        ext = File.extname(uploaded_io.original_filename)
+        filename = "org_logo_#{organization.id}#{ext}"
+        organization.logo = filename
+        if uploaded_io
+          File.open(Rails.root.join('public', 'uploads', filename), 'wb') do |file|
+            file.write(uploaded_io.read)
+          end
 
+        end
       end
     end
   end

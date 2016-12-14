@@ -18,7 +18,7 @@
 #  organization_id :integer
 #
 
-class CourseRequest < ActiveRecord::Base
+class CourseRequest < ApplicationRecord
 
   belongs_to :evaluator, :class_name => 'User'
   belongs_to :admin, :class_name => 'User'

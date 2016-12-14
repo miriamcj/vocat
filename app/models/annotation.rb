@@ -14,7 +14,7 @@
 #  canvas           :text
 #
 
-class Annotation < ActiveRecord::Base
+class Annotation < ApplicationRecord
 
   belongs_to :asset
   belongs_to :author, :class_name => "User"

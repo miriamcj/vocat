@@ -36,7 +36,7 @@
 #  index_users_on_reset_password_token       (reset_password_token) UNIQUE
 #
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
 
   belongs_to :organization
   has_many :rubrics, :foreign_key => :owner_id

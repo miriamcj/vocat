@@ -20,7 +20,7 @@
 #  index_submissions_on_project_id  (project_id)
 #
 
-class Submission < ActiveRecord::Base
+class Submission < ApplicationRecord
 
   has_one :course, :through => :project
 

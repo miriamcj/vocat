@@ -17,7 +17,7 @@
 #  index_course_events_on_loggable_type_and_loggable_id  (loggable_type,loggable_id)
 #
 
-class CourseEvent < ActiveRecord::Base
+class CourseEvent < ApplicationRecord
 
   belongs_to :loggable, polymorphic: true
 

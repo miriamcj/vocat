@@ -19,7 +19,7 @@
 #  index_evaluations_on_scores  (scores)
 #
 
-class Evaluation < ActiveRecord::Base
+class Evaluation < ApplicationRecord
 
   EVALUATION_TYPE_CREATOR = 1     #  peer
   EVALUATION_TYPE_EVALUATOR = 2   # instructor

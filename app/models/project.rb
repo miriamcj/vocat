@@ -22,7 +22,7 @@
 #  index_projects_on_project_type_id  (project_type_id)
 #
 
-class Project < ActiveRecord::Base
+class Project < ApplicationRecord
 
   include RankedModel
   ranks :listing_order, :with_same => :course_id

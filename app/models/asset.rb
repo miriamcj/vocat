@@ -14,7 +14,7 @@
 #  updated_at        :datetime
 #
 
-class Asset < ActiveRecord::Base
+class Asset < ApplicationRecord
 
   include RankedModel
   ranks :listing_order, :with_same => :submission_id, :class_name => 'Asset'

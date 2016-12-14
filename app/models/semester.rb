@@ -10,7 +10,7 @@
 #
 
 # Essentially a value object, although at some point admins will be able to manage these.
-class Semester < ActiveRecord::Base
+class Semester < ApplicationRecord
 
   def to_s
     name
