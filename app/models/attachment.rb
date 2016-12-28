@@ -23,7 +23,7 @@
 require 'action_view'
 include ActionView::Helpers::NumberHelper
 
-class Attachment < ActiveRecord::Base
+class Attachment < ApplicationRecord
 
   include Storable
 

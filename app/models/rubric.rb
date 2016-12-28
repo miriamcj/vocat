@@ -21,7 +21,7 @@
 require 'json'
 require 'securerandom'
 
-class Rubric < ActiveRecord::Base
+class Rubric < ApplicationRecord
 
   belongs_to :owner, :class_name => "User"
   belongs_to :organization

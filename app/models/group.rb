@@ -9,7 +9,7 @@
 #  updated_at :datetime         not null
 #
 
-class Group < ActiveRecord::Base
+class Group < ApplicationRecord
 
   belongs_to :course
   has_many :submissions, :as => :creator, :dependent => :destroy

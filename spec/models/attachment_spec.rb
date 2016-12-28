@@ -27,7 +27,7 @@ describe 'Attachment' do
     end
   end
 
-  before(:all) do
+  before(:each) do
     vocat_config = Rails.application.config.vocat
     AWS.config(:access_key_id => vocat_config[:aws][:key], :secret_access_key => vocat_config[:aws][:secret])
     @s3 = AWS::S3.new()

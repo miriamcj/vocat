@@ -34,7 +34,7 @@ describe CourseRequest do
 
   context 'when converting to a course' do
 
-    before(:all) do
+    before(:each) do
       @cr = FactoryGirl.build(:course_request)
       @course = @cr.to_course
     end

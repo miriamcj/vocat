@@ -25,7 +25,7 @@ require 'spec_helper'
 describe SubmissionSerializer do
 
   before(:each) do
-    ApplicationController.stub(:current_user).and_return(User.first)
+    allow(ApplicationController).to receive_message_chain(:current_user).and_return(User.first)
   end
 
   it 'includes an array of assets for the submission' do

@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161209191902) do
+ActiveRecord::Schema.define(version: 20161228174718) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,9 +84,8 @@ ActiveRecord::Schema.define(version: 20161209191902) do
     t.integer  "loggable_id"
     t.string   "loggable_type"
     t.integer  "submission_id"
+    t.index ["loggable_type", "loggable_id"], name: "index_course_events_on_loggable_type_and_loggable_id", using: :btree
   end
-
-  add_index "course_events", ["loggable_type", "loggable_id"], name: "index_course_events_on_loggable_type_and_loggable_id", using: :btree
 
   create_table "course_requests", force: :cascade do |t|
     t.string   "name"
@@ -117,9 +115,8 @@ ActiveRecord::Schema.define(version: 20161209191902) do
     t.text     "message"
     t.integer  "semester_id"
     t.integer  "year"
+    t.index ["organization_id"], name: "index_courses_on_organization_id", using: :btree
   end
-
-  add_index "courses", ["organization_id"], name: "index_courses_on_organization_id", using: :btree
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0
@@ -133,9 +130,8 @@ ActiveRecord::Schema.define(version: 20161209191902) do
     t.string   "queue"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
   end
-
-  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "discussion_posts", force: :cascade do |t|
     t.boolean  "published"
@@ -155,12 +151,11 @@ ActiveRecord::Schema.define(version: 20161209191902) do
     t.integer  "rubric_id"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
-    t.decimal  "total_percentage", default: 0.0
-    t.decimal  "total_score",      default: 0.0
+    t.decimal  "total_percentage", default: "0.0"
+    t.decimal  "total_score",      default: "0.0"
     t.integer  "evaluation_type"
+    t.index ["scores"], name: "index_evaluations_on_scores", using: :btree
   end
-
-  add_index "evaluations", ["scores"], name: "index_evaluations_on_scores", using: :btree
 
   create_table "groups", force: :cascade do |t|
     t.string   "name"
@@ -191,9 +186,8 @@ ActiveRecord::Schema.define(version: 20161209191902) do
     t.datetime "created_at",        null: false
     t.datetime "revoked_at"
     t.string   "scopes"
+    t.index ["token"], name: "index_oauth_access_grants_on_token", unique: true, using: :btree
   end
-
-  add_index "oauth_access_grants", ["token"], name: "index_oauth_access_grants_on_token", unique: true, using: :btree
 
   create_table "oauth_access_tokens", force: :cascade do |t|
     t.integer  "resource_owner_id"
@@ -204,11 +198,10 @@ ActiveRecord::Schema.define(version: 20161209191902) do
     t.datetime "revoked_at"
     t.datetime "created_at",        null: false
     t.string   "scopes"
+    t.index ["refresh_token"], name: "index_oauth_access_tokens_on_refresh_token", unique: true, using: :btree
+    t.index ["resource_owner_id"], name: "index_oauth_access_tokens_on_resource_owner_id", using: :btree
+    t.index ["token"], name: "index_oauth_access_tokens_on_token", unique: true, using: :btree
   end
-
-  add_index "oauth_access_tokens", ["refresh_token"], name: "index_oauth_access_tokens_on_refresh_token", unique: true, using: :btree
-  add_index "oauth_access_tokens", ["resource_owner_id"], name: "index_oauth_access_tokens_on_resource_owner_id", using: :btree
-  add_index "oauth_access_tokens", ["token"], name: "index_oauth_access_tokens_on_token", unique: true, using: :btree
 
   create_table "oauth_applications", force: :cascade do |t|
     t.string   "name",         null: false
@@ -217,9 +210,8 @@ ActiveRecord::Schema.define(version: 20161209191902) do
     t.text     "redirect_uri", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree
   end
-
-  add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree
 
   create_table "organizations", force: :cascade do |t|
     t.string   "name"
@@ -259,18 +251,17 @@ ActiveRecord::Schema.define(version: 20161209191902) do
     t.text     "description"
     t.integer  "course_id"
     t.integer  "project_type_id"
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
     t.integer  "rubric_id"
     t.integer  "listing_order"
-    t.string   "type",                        default: "user"
+    t.string   "type",                        default: "UserProject"
     t.date     "due_date"
-    t.text     "allowed_attachment_families", default: [],                  array: true
-    t.hstore   "settings",                    default: {},     null: false
+    t.text     "allowed_attachment_families", default: [],                         array: true
+    t.hstore   "settings",                    default: {},            null: false
+    t.index ["course_id"], name: "index_projects_on_course_id", using: :btree
+    t.index ["project_type_id"], name: "index_projects_on_project_type_id", using: :btree
   end
-
-  add_index "projects", ["course_id"], name: "index_projects_on_course_id", using: :btree
-  add_index "projects", ["project_type_id"], name: "index_projects_on_project_type_id", using: :btree
 
   create_table "rubrics", force: :cascade do |t|
     t.string   "name"
@@ -306,10 +297,9 @@ ActiveRecord::Schema.define(version: 20161209191902) do
     t.integer  "discussion_posts_count", default: 0
     t.string   "creator_type",           default: "User"
     t.integer  "assets_count",           default: 0
+    t.index ["creator_id"], name: "index_submissions_on_creator_id", using: :btree
+    t.index ["project_id"], name: "index_submissions_on_project_id", using: :btree
   end
-
-  add_index "submissions", ["creator_id"], name: "index_submissions_on_creator_id", using: :btree
-  add_index "submissions", ["project_id"], name: "index_submissions_on_project_id", using: :btree
 
   create_table "tokens", force: :cascade do |t|
     t.integer  "user_id"
@@ -347,11 +337,10 @@ ActiveRecord::Schema.define(version: 20161209191902) do
     t.string   "country"
     t.boolean  "is_ldap_user"
     t.hstore   "preferences",            default: {}, null: false
+    t.index ["email", "organization_id"], name: "index_users_on_email_and_organization_id", unique: true, using: :btree
+    t.index ["organization_id"], name: "index_users_on_organization_id", using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
-
-  add_index "users", ["email", "organization_id"], name: "index_users_on_email_and_organization_id", unique: true, using: :btree
-  add_index "users", ["organization_id"], name: "index_users_on_organization_id", using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "versions", force: :cascade do |t|
     t.string   "item_type",  null: false
@@ -360,9 +349,8 @@ ActiveRecord::Schema.define(version: 20161209191902) do
     t.string   "whodunnit"
     t.text     "object"
     t.datetime "created_at"
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
   end
-
-  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
   create_table "visits", force: :cascade do |t|
     t.integer  "user_id"
@@ -371,9 +359,8 @@ ActiveRecord::Schema.define(version: 20161209191902) do
     t.string   "visitable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["visitable_course_id"], name: "index_visits_on_visitable_course_id", using: :btree
+    t.index ["visitable_type", "visitable_id"], name: "index_visits_on_visitable_type_and_visitable_id", using: :btree
   end
-
-  add_index "visits", ["visitable_course_id"], name: "index_visits_on_visitable_course_id", using: :btree
-  add_index "visits", ["visitable_type", "visitable_id"], name: "index_visits_on_visitable_type_and_visitable_id", using: :btree
 
 end
