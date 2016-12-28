@@ -7,7 +7,11 @@
 			</div>
 			<div class="header">
 				<i class="header-icon courses"></i><h4>Your Courses</h4>
-				<p class="subtitle">Your courses and activity at a glance.</p>
+				<p class="subtitle">Your courses and activity at a glance.
+					<% if current_user.courses_count > 0 %>
+						<%= link_to 'View All', courses_path, { class: 'all-courses-link', style: 'margin-left: 15px;' } %>
+					<% end %>
+				</p>
 			</div>
 		</div>
     <div class="body secondary">
@@ -20,8 +24,10 @@
       <% end %>
     </div>
 		<% if current_user.courses_count > 0 %>
-    		<%= link_to 'All Courses', courses_path, class: 'all-courses-link' %>
-	  	<% end %>
+			<%= link_to courses_path, { class: 'all-courses-link' } do %>
+				<i class="link-icon courses"></i>All Courses
+			<% end %>
+		<% end %>
 	</div>
 
 <% end %>

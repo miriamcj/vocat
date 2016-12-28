@@ -295,14 +295,25 @@
   margin-bottom: 5px;
   padding: 0;
   line-height: .8em;
-  color: $grayDark;
+  color: $grayMedium;
 }
 .all-courses-link {
-  @extend %utility-label
+  @extend %utility-label;
+  color: $grayMedium;
+  &:after {
+    @include svg('arrow-right-gray');
+  }
+  &:hover {
+    .link-icon.courses {
+      @include svg('courses-teal');
+    }
+  }
+}
+.submission-links > a:after {
+  @include svg('arrow-right-gray-dark');
 }
 .submission-links > a, .all-courses-link {
   &:after {
-    @include svg('arrow-right-gray-dark');
     display: inline-block;
     width: 15px;
     height: 13px;
@@ -316,6 +327,18 @@
     &:after {
       @include svg('arrow-right-teal');
     }
+  }
+}
+
+.link-icon {
+  &.courses {
+    @include svg('courses-gray');
+    display: inline-block;
+    vertical-align: bottom;
+    margin-top: -6px; // NP
+    margin-right: 12px;
+    width: 26px;
+    height: 22px;
   }
 }
 .course-synopsis-pane {

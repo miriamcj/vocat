@@ -9,7 +9,9 @@
 		</div>
 		<%= render 'dashboard/shared/course_list' %>
 		<% if current_user.courses_count > 0 %>
-			<%= link_to 'All Courses', dashboard_courses_path, class: 'all-courses-link' %>
+			<%= link_to courses_path, { class: 'all-courses-link' } do %>
+				<i class="link-icon courses"></i>All Courses
+			<% end %>
 		<% end %>
 	</div>
 
