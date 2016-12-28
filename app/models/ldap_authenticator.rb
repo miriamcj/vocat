@@ -31,7 +31,7 @@ class LDAPAuthenticator
   def authenticate(authentication_hash)
     return false if authentication_hash[:password].blank?
     return false if authentication_hash[:email].blank?
-    return false if !@org.ldap_enabled
+    return false if !@org.try(:ldap_enabled)
     create_ldap_connection
     bind_hash = {
         :base => filter_dn,
