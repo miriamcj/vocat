@@ -343,7 +343,7 @@
 
   &.subheader {
     z-index: 150;
-    margin-top: $headerHeight;
+    padding-top: $headerHeight;
     margin-bottom: 0;
     .padded-container {
       & > div {
