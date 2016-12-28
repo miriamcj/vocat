@@ -16,7 +16,11 @@
 
       <div>
         <div class="info-container">
-            <%= link_to "STUDENT WORK", course_user_evaluations_path(course), class: (@type == 'user' ? "active" : ""), data: {behavior: 'view-toggle'} %>
+          <% if current_user.role?(:creator) %>
+              <%= link_to "PEER WORK", course_user_evaluations_path(course), class: (@type == 'user' ? "active" : ""), data: {behavior: 'view-toggle'} %>
+          <% else %>
+              <%= link_to "STUDENT WORK", course_user_evaluations_path(course), class: (@type == 'user' ? "active" : ""), data: {behavior: 'view-toggle'} %>
+          <% end %>
             <%= link_to 'GROUP WORK', course_group_evaluations_path(course), class: (@type == 'group' ? "active" : ""), data: {behavior: 'view-toggle'} %>
           <div style="display: inline;">
             <% if current_user.can?(:administer, @selected_course) %>

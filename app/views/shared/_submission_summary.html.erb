@@ -1,83 +1,90 @@
-<div class="page-section--subsection page-section--subsection-ruled portfolio-item">
+<div class="page-section portfolio-item portfolio-course-submissions">
 
-	<div class="portfolio-item--thumb">
-		<%= render 'shared/submission_thumbnail', :submission => submission %>
-	</div>
-	<div class="portfolio-item--content">
-		<h3 class="heading-tertiary header">
-			<%= link_to submission.project, submission_detail_path(submission) %>
-      <% if submission.creator_type == 'Group' %>
-          <i class="header-icon people"></i>
+  <div class="padded-container">
+    <div class="header" style="display: block;">
+      <h3 class="project-name-header" style="font-weight: 400; margin-bottom: 10px; margin-top: 0; text-transform: none;">
+        <%= link_to submission.project, submission_detail_path(submission) %>
+        <% if submission.creator_type == 'Group' %>
+            <i class="header-icon people"></i>
+        <% end %>
+      </h3>
+    </div>
+    <% if submission.project.due_date %>
+      <div class="due-date <%= 'past-due' if Date.current > submission.project.due_date %>">
+        Due <%= submission.project.due_date.strftime("%B %d, %Y") %>
+      </div>
+    <% end %>
+    <% if submission.has_asset? %>
+      <% submission.assets.each do |asset| %>
+        <div class="portfolio-item--thumb">
+          <%= render 'shared/submission_thumbnail', :asset => asset %>
+        </div>
       <% end %>
-		</h3>
+    <% end %>
+    <div class="portfolio-item--thumb">
+      <div class="thumb-container-placeholder">
+        <a href="<%= submission_detail_path(submission) %>">
+          <i class="teal-plus"></i>
+          <span>Add Media</span>
+        </a>
+      </div>
+    </div>
+  </div>
 
-		<h5 class="heading-informational">
-			<% if submission.has_asset? %>
-				Submitted <%= submission.first_asset.created_at.strftime('%B %e, %Y at %l:%M %p') %>
-			<% end %>
-		</h5>
-
-		<% if submission.project.evaluatable? %>
-
-			<% if submission.project_allows_peer_review? %>
-					<figure class="summary-box">
-						<div>
-              <i class="peer-icon"></i>
-              <% if submission.evaluated_by_peers? %>
-							  <span><%= (submission.peer_score_percentage || 0).to_int %>%</span>
-              <% else %>
-                <span class="smaller-font">Awaiting<br/>Scores</span>
-              <% end %>
-						</div>
-						<figcaption>Average<br>Peer<br>Score</figcaption>
-					</figure>
-			<% end %>
-
-      <figure class="summary-box">
-        <div>
+  <div class="submission-footer info-container padded-container">
+    <% if submission.project.evaluatable? %>
+        <div class="footer-item">
           <i class="instructor-icon"></i>
           <% if submission.evaluated_by_instructor? %>
-            <span><%= (submission.instructor_score_percentage || 0).to_int %>%</span>
+              <span class="icon-value"><%= (submission.instructor_score_percentage || 0).to_int %>%</span>
           <% else %>
-            <span class="smaller-font">Awaiting<br/>Score</span>
+              <span class="icon-value no-value">&dash;&dash;</span>
+          <% end %>
+          <div class="labels">
+            <span class="icon-label">Instructor Score</span>
+          </div>
+        </div>
+        <div class="footer-item">
+          <i class="peer-icon"></i>
+          <% if submission.evaluated_by_peers? %>
+              <span class="icon-value"><%= (submission.peer_score_percentage || 0).to_int %>%</span>
+          <% else %>
+              <span class="icon-value no-value">&dash;&dash;</span>
+          <% end %>
+          <div class="labels">
+            <span class="icon-label">Average Peer Score</span>
+          </div>
+        </div>
+    <% end %>
+    <div class="footer-item">
+      <i class="comments-icon-teal"></i>
+      <% if submission.discussion_posts_count > 0 %>
+          <span class="icon-value"><%= submission.discussion_posts_count %></span>
+      <% else %>
+          <span class="icon-value no-value">&dash;&dash;</span>
+      <% end %>
+      <div class="labels">
+        <span class="icon-label">Comments</span>
+        <% if current_user.has_new_discussion_posts?(submission.id) %>
+            <span class="new-label"><%= current_user.new_discussion_posts_count(submission.id) %> NEW</span>
+        <% end %>
+      </div>
+    </div>
+
+      <div class="footer-item">
+        <i class="annotations-icon-teal"></i>
+        <% if submission.annotations.count > 0 %>
+          <span class="icon-value"><%= submission.annotations.count %></span>
+        <% else %>
+            <span class="icon-value no-value">&dash;&dash;</span>
+        <% end %>
+        <div class="labels">
+          <span class="icon-label">Annotations</span>
+          <% if current_user.has_new_annotations?(submission.id) %>
+              <span class="new-label"><%= current_user.new_annotations_count(submission.id) %> NEW</span>
           <% end %>
         </div>
-        <figcaption>Average Instructor Score</figcaption>
-      </figure>
+      </div>
+  </div>
 
-      <% if submission.project_allows_self_evaluation? %>
-        <figure class="summary-box">
-          <div>
-            <i class="self-icon"></i>
-            <% if submission.user_score_total(current_user) %>
-              <span><%= (submission.user_score_total(current_user) || 0).to_int %>%</span>
-            <% else %>
-              <span class="smaller-font">Awaiting<br/>Scores</span>
-            <% end %>
-          </div>
-          <figcaption>Self Evaluation Score</figcaption>
-        </figure>
-      <% end %>
-
-    <% end %>
-
-		<figure class="summary-box">
-			<div>
-        <i class="comments-icon"></i>
-				<span><%= submission.discussion_posts_count() %></span>
-			</div>
-			<figcaption>Comments</figcaption>
-		</figure>
-
-		<% if submission.has_asset? %>
-			<figure class="summary-box">
-				<div>
-          <i class="annotations-icon"></i>
-					<span><%= submission.first_asset.annotations.count() %></span>
-				</div>
-				<figcaption>Annotations</figcaption>
-			</figure>
-		<% end %>
-
-	</div>
 </div>
