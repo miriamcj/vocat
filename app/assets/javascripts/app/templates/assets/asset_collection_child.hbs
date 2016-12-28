@@ -1,13 +1,4 @@
-<h3 class="heading-tertiary" style="font-family: 'proxima-nova-condensed'; font-weight: 400; margin-top: 0; text-transform: none; font-size: 26px; letter-spacing: normal;">
-    <a href="#" data-behavior="show">
-        {{#if name}}
-            {{name}}
-        {{else}}
-            {{titlecase family}} Media
-        {{/if}}
-    </a>
-</h3>
-<div data-behavior="show" class="portfolio-item--thumb" style="margin-top: 7px; margin-bottom: 15px;">
+<div data-behavior="show" class="portfolio-item--thumb" style="float: left; margin: 0; width: 16.666667%;">
 	{{#if_match family 'video'}}
 		{{#if thumbnail }}
 			<div class="thumb-container thumb-container-video">
@@ -57,6 +48,15 @@
 	{{/if_match}}
 </div>
 <div class="asset-collection-item--content">
+    <h3 class="heading-tertiary" style="font-family: 'proxima-nova-condensed'; font-weight: 400; margin-top: 0; text-transform: none; font-size: 26px; letter-spacing: normal;">
+        <a href="#" data-behavior="show">
+            {{#if name}}
+                {{name}}
+            {{else}}
+                {{titlecase family}} Media
+            {{/if}}
+        </a>
+    </h3>
     <h5 class="heading-informational">
         {{file_info}} {{attachment.state}}
     </h5>
