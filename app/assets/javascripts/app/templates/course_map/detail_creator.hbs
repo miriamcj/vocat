@@ -1,26 +1,25 @@
-<div class="page-content--heading">
-	<a class="header-link back-link" data-behavior="detail-close"
-	   href="/courses/{{courseId}}/{{to_lower creatorType}}s/evaluations">Back to Evaluations</a>
+<div class="page-section">
+    <div class="page-content--heading header">
+        <a class="header-link back-link" data-behavior="detail-close"
+           href="/courses/{{courseId}}/{{to_lower creatorType}}s/evaluations">Back to Evaluations</a>
 
-	<h1 class="heading-primary header">
-		Course Portfolio
-		{{#if_match creatorType 'Group'}}
-            <i class="header-icon people"></i>
-		{{/if_match}}
-	</h1>
+        <h2 class="heading-page-section projects-name-header" style="display: block;">
+            Course Portfolio
+        </h2>
 
-	<h2 class="heading-secondary">
-		{{#if_match creatorType 'Group'}}
-			<a href="#" data-behavior="open-group-modal">{{name}}
-			</a>
-		{{else}}
-			{{name}}
-		{{/if_match}}
-	</h2>
+        <h3 class="header gray">
+            {{#if_match creatorType 'Group'}}
+                <a href="#" data-behavior="open-group-modal">{{name}}
+                </a>
+            {{else}}
+                {{name}}
+            {{/if_match}}
+        </h3>
+    </div>
 </div>
 
 <div class="page-section-spacing-top page-section">
-	<div class="body">
+	<div>
 		<div data-behavior="load-indicator"><span class="primary-button loading">Loading creator's portfolio...</span>
 		</div>
 		<div data-container="submission-summaries">

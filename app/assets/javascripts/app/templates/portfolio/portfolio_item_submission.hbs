@@ -1,93 +1,89 @@
-<div class="portfolio-item--thumb">
-	{{#if submission.has_asset}}
-		<div class="thumb-container">
-			<a href="{{submission.path}}" data-behavior="open-submission-detail">
-				<img src="{{submission.assets.0.thumbnail}}"/>
-			</a>
-		</div>
-	{{else}}
-		<div class="thumb-container-placeholder">
-			<a href="{{submission.path}}">
-				<span>Awaiting Attachment Upload</span>
-			</a>
-		</div>
-	{{/if}}
+<div class="padded-container">
+    <div class="portfolio-item--content">
+        <h3 class="project-name-header" style="font-family: 'proxima-nova-condensed'; font-weight: 400; margin-top: 0; text-transform: none; font-size: 26px; letter-spacing: normal;">
+            <a href="{{submission.path}}" data-behavior="open-submission-detail">{{submission.project.name}}</a>
+            {{#if isGroupProject }}
+                <i class="icon people"></i>
+            {{/if}}
+            {{#if project.due_date}}
+                <div class="due-date">
+                    Due {{project.due_date}} %>
+                </div>
+            {{/if}}
+        </h3>
+    </div>
+    {{#if submission.has_asset}}
+        {{#each submission.assets}}
+        <div class="portfolio-item--thumb">
+            <div class="thumb-container thumb-container-video">
+                <a href="{{../submission.path}}" data-behavior="open-submission-detail">
+                    <img src="{{thumbnail}}"/>
+                </a>
+            </div>
+        </div>
+        {{/each}}
+    {{else}}
+        <div class="portfolio-item--thumb">
+            <div class="thumb-container-placeholder">
+                <a href="{{submission.path}}">
+                    <span>Awaiting Attachment Upload</span>
+                </a>
+            </div>
+        </div>
+    {{/if}}
 </div>
-<div class="portfolio-item--content">
-	<h3 class="heading-tertiary header">
-		<a href="{{submission.path}}" data-behavior="open-submission-detail">{{submission.project.name}}</a>
-		{{#if isGroupProject }}
-            <i class="header-icon people"></i>
-		{{/if}}
-		{{#if project.due_date}}
-			<span class="badge">Due {{project.due_date}}</span>
-		{{/if}}
-	</h3>
+<div class="submission-footer info-container padded-container">
+    {{#if submission.project.evaluatable}}
+        <div class="footer-item">
+            <i class="instructor-icon"></i>
+            {{#if submission.evaluated_by_instructor}}
+                <span class="icon-value">{{to_i submission.instructor_score_percentage}}%</span>
+            {{else}}
+                <span class="icon-value no-value">&dash;&dash;</span>
+            {{/if}}
+            <div class="labels">
+                <span class="icon-label">Instructor Score</span>
+            </div>
+        </div>
 
-	<h5 class="heading-informational">
-		{{#if submission.has_video }}
-			Submitted {{submission.video.created_at}}
-		{{else}}
-			No submission has been uploaded for this project.
-		{{/if}}
-	</h5>
+        {{#if submission.project.evaluatable_by_peers}}
+            <div class="footer-item">
+                <i class="peer-icon"></i>
+                {{#if submission.evaluated_by_peers}}
+                    <span class="icon-value">{{to_i submission.peer_score_percentage}}%</span>
+                {{else}}
+                    <span class="icon-value no-value">&dash;&dash;</span>
+                {{/if}}
+                <div class="labels">
+                    <span class="icon-label">Average Peer Score</span>
+                </div>
+            </div>
+        {{/if}}
+    {{/if}}
+    <div class="footer-item">
+        <i class="comments-icon-teal"></i>
+        {{#if submission.discussion_posts_count}}
+            <span class="icon-value">{{submission.discussion_posts_count}}</span>
+        {{else}}
+            <span class="icon-value no-value">&dash;&dash;</span>
+        {{/if}}
+        <div class="labels">
+            <span class="icon-label">Comments</span>
+            {{#if submission.new_posts_for_current_user}}
+                <span class="new-label">NEW</span>
+            {{/if}}
+        </div>
+    </div>
 
-	{{#if submission.project.evaluatable}}
-		{{#if submission.project.evaluatable_by_peers}}
-			{{#if submission.evaluated_by_peers}}
-				<figure class="summary-box summary-box-peer">
-					<div>
-						<b style="height: {{to_i submission.peer_score_percentage}}%"></b>
-						<span>{{to_i submission.peer_score_percentage}}%</span>
-					</div>
-					<figcaption>Average<br>Peer<br>Score</figcaption>
-				</figure>
-			{{else}}
-				<figure class="summary-box summary-box-empty">
-					<div>
-						<span class="empty">Awaiting<br/>Scores</span>
-					</div>
-					<figcaption>Average<br>Peer<br>Score</figcaption>
-				</figure>
-			{{/if}}
-		{{/if}}
-
-		{{#if submission.evaluated_by_instructor}}
-			<figure class="summary-box summary-box-evaluator">
-				<div>
-					<b style="height: {{to_i submission.instructor_score_percentage}}%"></b>
-					<span>{{to_i submission.instructor_score_percentage}}%</span>
-				</div>
-				<figcaption>Average<br>Instructor<br>Score</figcaption>
-			</figure>
-		{{else}}
-			<figure class="summary-box summary-box-empty">
-				<div>
-					<span class="empty">Awaiting<br/>Scores</span>
-				</div>
-				<figcaption>Average<br>Instructor<br>Score</figcaption>
-			</figure>
-		{{/if}}
-	{{/if}}
-
-	<figure class="summary-box {{#if submission.discussion_posts_count}}summary-box-creator{{else}}summary-box-empty{{/if}}">
-		<div>
-			<span>{{submission.discussion_posts_count}}</span>
-		</div>
-		<figcaption>
-			Comments<br>
-			{{#if submission.new_posts_for_current_user}}
-				<span class="badge">New</span>
-			{{/if}}
-		</figcaption>
-	</figure>
-
-	{{#if submission.has_asset}}
-		<figure class="summary-box {{#if submission.assets.0.annotations_count}}summary-box-creator{{else}}summary-box-empty{{/if}}">
-			<div>
-				<span>{{submission.assets.0.annotations_count}}</span>
-			</div>
-			<figcaption>Annotations</figcaption>
-		</figure>
-	{{/if}}
+    <div class="footer-item">
+        <i class="annotations-icon-teal"></i>
+        {{#if submission.annotations_count}}
+            <span class="icon-value">{{submission.annotations_count}}</span>
+        {{else}}
+            <span class="icon-value no-value">&dash;&dash;</span>
+        {{/if}}
+        <div class="labels">
+            <span class="icon-label">Annotations</span>
+        </div>
+    </div>
 </div>

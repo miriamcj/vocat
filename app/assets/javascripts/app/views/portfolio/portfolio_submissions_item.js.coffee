@@ -5,7 +5,7 @@ define (require) ->
   class PortfolioItemSubmission extends Marionette.ItemView
 
     template: SubmissionTemplate
-    className: 'page-section--subsection page-section--subsection-ruled portfolio-item'
+    className: 'page-section portfolio-item portfolio-course-submissions'
     standalone: false
 
     triggers: () ->

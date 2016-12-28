@@ -87,3 +87,34 @@
     transform: scale(1.0)
   }
 }
+
+// icons
+.icon {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 12px;
+
+  &.courses {
+    @include svg('courses-teal');
+    margin-top: -6px; // NP
+    width: 26px;
+    height: 22px;
+    content: '';
+  }
+
+  &.person {
+    @include svg('person-teal');
+    margin-top: -5px;
+    width: 16px;
+    height: 18px;
+    content: '';
+  }
+
+  &.people {
+    @include svg('people-teal');
+    margin-top: -5px;
+    width: 26px;
+    height: 18px;
+    content: '';
+  }
+}

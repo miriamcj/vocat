@@ -43,7 +43,8 @@ class SubmissionSerializer < AbstractSubmissionSerializer
              :peer_score_percentage,
              :evaluated_by_instructor?,
              :instructor_score_percentage,
-             :has_asset?
+             :has_asset?,
+             :annotations_count
 
   has_one :project
   has_one :creator
