@@ -54,8 +54,11 @@ define (require) ->
       @updateScoresCollection()
 
       @listenTo(@, 'sync', (e) =>
-        @updateScoresCollection()
         @takeSnapshot()
+      )
+
+      @listenTo(@, 'add', () ->
+        @updateScoresCollection()
       )
 
       @listenTo(@scoreCollection, 'change', (e) =>
