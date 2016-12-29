@@ -89,7 +89,10 @@ $zeta: 1.313em;
 // 18px
 $eta: 1.125em;
 // 16px (body)
-$theta: 1em;
+// Base font size count for resets
+$thetaCount: 1;
+$theta: 1em * $thetaCount;
+$typeReset: 16px * $thetaCount;
 // 14px
 $iota: 0.875em;
 // 13px

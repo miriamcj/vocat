@@ -1,36 +1,39 @@
-<table class="table table-white-head table-rubric">
-	<thead>
-	<tr>
-		<th>Criteria</th>
-		<% @rubric.ranges.each do |range| %>
-			<th>
-				<strong><%= "#{range[:low]} - #{range[:high]}" %></strong>
-				&nbsp;<%= range[:name] %>
-			</th>
-		<% end %>
-	</tr>
-	</thead>
-	<tbody>
-	<% @rubric.fields.each do |field| %>
-		<tr>
-			<th>
-				<%= field[:name] %>
-			</th>
-			<% @rubric.ranges.each do |range| %>
-				<% cell = @rubric.get_cell(field[:id], range[:id]) %>
-				<td>
-					<% unless cell.nil? %>
-						<p>
-							<strong><%= "#{range[:name]} (#{range[:low]} to #{range[:high]} points)" %></strong>
-						</p>
+<div class="table-container">
+  <div class="table-rubric">
+    <div class="table-header-stripe"></div>
+    <div class="table-header">
+      <div class="ranges table-row">
+        <div class="spacer"></div>
+        <% @rubric.ranges.each do |range| %>
+            <div class="table-cell">
+              <p><strong><%= range[:name] %></strong></p>
+              <%= "#{range[:low]} - #{range[:high]}" %>
+            </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="table-body">
+      <% @rubric.fields.each do |field| %>
+          <div class="table-row">
+            <div class="criteria-header table-cell">
+              <span><strong><%= field[:name] %></strong></span>
+            </div>
+            <% @rubric.ranges.each do |range| %>
+                <% cell = @rubric.get_cell(field[:id], range[:id]) %>
+                <div class="table-cell">
+                  <% unless cell.nil? %>
+                      <p style="text-align: center;">
+                        <strong><%= "#{range[:name]}"%><br/><%="(#{range[:low]} to #{range[:high]} points)" %></strong>
+                      </p>
 
-						<p>
-							<%= cell[:description] %>
-						</p>
-					<% end %>
-				</td>
-			<% end %>
-		</tr>
-	<% end %>
-	</tbody>
-</table>
+                      <p>
+                        <%= cell[:description] %>
+                      </p>
+                  <% end %>
+                </div>
+            <% end %>
+          </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,39 +1,41 @@
 <h5 class="modal--header">{{name}}</h5>
 <div class="modal-rubric">
-	<table class="table table-rubric">
-		<thead>
-		<tr>
-			<th>Criteria</th>
-			{{#each ranges }}
-				<th>
-					{{name}}
-				</th>
-			{{/each}}
-		</tr>
-		</thead>
-		<tbody>
-		{{#each fields}}
-			<tr>
-				<th>
-					{{name}}
-				</th>
-				{{#each ../ranges}}
-					<td>
-						<p>
-							<strong style="color: #676263">
-								{{low}} to {{high}} points
-							</strong>
-						</p>
+    <div class="table-container">
+        <div class="table-rubric">
+            <div class="table-header-stripe"></div>
+            <div class="table-header">
+                <div class="ranges table-row">
+                    <div class="spacer"></div>
+                    {{#each ranges}}
+                    <div class="table-cell">
+                        <p><strong>{{name}}</strong></p>
+                        {{low}} - {{high}}
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+            <div class="table-body">
+                {{#each fields}}
+                <div class="table-row">
+                    <div class="criteria-header table-cell">
+                        <span><strong>{{name}}</strong></span>
+                    </div>
+                    {{#each ../ranges}}
+                    <div class="table-cell">
+                        <p style="text-align: center;">
+                            <strong>{{this.name}}<br/>{{this.low}} to {{this.high}}</strong>
+                        </p>
 
-						<p>
-							{{find_rubric_cell_description ../../cells ../this this }}
-						</p>
-					</td>
-				{{/each}}
-			</tr>
-		{{/each}}
-		</tbody>
-	</table>
+                        <p>
+                            {{find_rubric_cell_description ../../cells ../this this }}
+                        </p>
+                    </div>
+                    {{/each}}
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
 </div>
 <div style="margin-top: 1em;">
 	<a href="#" class="primary-button close-button" data-behavior="dismiss">Close</a>

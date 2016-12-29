@@ -142,10 +142,79 @@ a.table--heading {
   text-decoration: none;
 }
 
-.table-rubric {
-  tbody tr td {
+.modal-rubric .table-container .table-cell {
+  color: $grayDarker;
+}
+.table-container {
+  overflow: scroll;
+  white-space: nowrap;
+  font-size: 0;
+  .table-rubric {
+    position: relative;
+    width: auto;
+    overflow-y: hidden;
+    background-color: #ECF8F7;
+  }
+  .table-header-stripe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 150px;
+    background-color: $grayMediumLighter;
+  }
+  .spacer {
+    position: relative;
+    background-color: whitesmoke;
+    width: 150px;
+    height: 50px;
+    display: inline-block;
+  }
+  .table-body {
+    position: relative;
+  }
+  .table-header {
+    height: 50px;
+  }
+  .ranges .table-cell {
+    text-align: center;
+    background-color: $tealLightest;
+    color: $white;
+    padding: 10px;
+    line-height: 1;
+    border-top: 0;
+  }
+  .criteria-header.table-cell {
+    text-align: center;
+    width: 150px;
+    background-color: $grayMediumLighter;
+    color: $white;
+  }
+  .table-row {
+    &:first-child .table-cell {
+      border-top: 0;
+    }
+  }
+  .table-cell {
+    border-top: 2px solid $white;
+    display: inline-block;
+    width: 22%;
+    font-size: $typeReset;
+    height: auto;
     vertical-align: top;
-    white-space: pre-line;
+    white-space: normal;
+    padding: 15px;
+    background-color: #ECF8F7;
+    position: relative;
+    &:not(:first-child):after {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 2px;
+      height: 100vh;
+      background-color: $white;
+      content: '';
+    }
   }
 }
 
