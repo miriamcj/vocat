@@ -1,0 +1,5 @@
+<ul>
+  <li><%= link_to 'View Semester', semester_path(semester) %></li>
+  <li><%= link_to 'Edit Semester', edit_semester_path(semester) %></li>
+  <li><%= link_to 'Delete Semester', semester_path(semester), :method => :delete, :data => {:modalconfirm => 'This action is not reversible. Are you sure you would like to proceed?'} %></li>
+</ul>

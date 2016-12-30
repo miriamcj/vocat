@@ -40,6 +40,7 @@ class Organization < ApplicationRecord
   has_many :users
   has_many :rubrics
   has_many :course_requests
+  has_many :semesters
 
   def to_s
     name
@@ -68,7 +69,7 @@ class Organization < ApplicationRecord
 
   def recent_grouped_sorted_courses(limit = nil)
     courses.where('courses.year >= ?', Time.now.year).sorted.limit(limit).group_by do |course|
-      "#{course.semester} #{course.year}"
+      "#{course.semester.name}"
     end
   end
 

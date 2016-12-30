@@ -41,11 +41,11 @@
 					</div>
 					<div class="formgrid third">
 						<%= label_tag :semester, 'Semester', {:class => 'text-label'} %>
-						<%= select_tag(:semester, options_from_collection_for_select(Semester.all, 'id', 'name', params[:semester]), {:include_blank => true, 'data-behavior' => 'chosen'}) %>
+						<%= select_tag(:semester, options_from_collection_for_select(Semester.in_org(@current_organization), 'id', 'name', params[:semester]), {:include_blank => true, 'data-behavior' => 'chosen'}) %>
 					</div>
 					<div class="formgrid third">
 						<%= label_tag :year, 'Year', {:class => 'text-label'} %>
-						<%= select_tag(:year, options_for_select(Course.distinct_years(@current_organization), params[:year]), {:include_blank => true, 'data-behavior' => 'chosen'}) %>
+						<%= select_tag(:year, options_for_select(Semester.in_org(@current_organization).unique_years, params[:year]), {:include_blank => true, 'data-behavior' => 'chosen'}) %>
 					</div>
 					<div class="formgrid third">
 						<%= label_tag :evaluator, 'Instructor', {:class => 'text-label'} %>
@@ -98,7 +98,7 @@
 							<td><%= course.projects.count %></td>
 							<td><%= course.evaluators.pluck(:last_name).join(', ') %></td>
 							<td><%= course.section %></td>
-							<td><%= "#{course.semester} #{course.year}" %></td>
+							<td><%= "#{course.semester}" %></td>
 							<td>
 								<div class="dropdown dropdown-button" data-behavior="dropdown">
 									<a class="dropdown--toggle" data-behavior="toggle" href="#">Actions</a>

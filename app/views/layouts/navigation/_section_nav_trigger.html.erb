@@ -4,11 +4,13 @@
 	<%= link_to dash_text, root_path, class: "#{'active-sticky' if @app_section == 'dashboard' || @app_section == 'admin' || @app_section == 'manage'}" %>
 </li>
 
-<li class="drawer-nav--trigger" data-drawer-target="section" data-behavior="header-drawer-trigger">
-  <a href="#" class="<%= 'active-sticky' if @app_section == 'course' %>">
-    <span>COURSES</span>
-  </a>
-</li>
+<% unless current_user.role?(:superadministrator) %>
+  <li class="drawer-nav--trigger" data-drawer-target="section" data-behavior="header-drawer-trigger">
+    <a href="#" class="<%= 'active-sticky' if @app_section == 'course' %>">
+      <span>COURSES</span>
+    </a>
+  </li>
+<% end %>
 
 <% if current_user.role?(:evaluator) %>
 <li>

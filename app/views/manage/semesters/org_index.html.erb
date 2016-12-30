@@ -1,0 +1,44 @@
+<% content_for :content do %>
+    <div class="page-message">
+      <div class="header">
+        Academic Calendar
+      </div>
+    </div>
+
+    <div class="page-section">
+      <div class="header-wrapper">
+        <div class="header">
+          <h2>Semesters</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-section page-section-clear">
+      <div class="table-wrapper">
+        <%= form_tag organization_semesters_path, method: :put, class: 'formgrid', style: 'margin-left: 0; margin-right: 0;' do %>
+            <table class="table table-white-head">
+              <thead>
+              <tr>
+                <th class="">Name</th>
+                <th class="">Start Date</th>
+                <th class="">End Date</th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @semesters.each do |semester| %>
+                  <%= render 'shared/model_errors', :model => semester %>
+                  <%= fields_for 'semesters[]', semester do |f| %>
+                      <tr>
+                        <td><%= h semester.name %></td>
+                        <td><%= f.text_field :start_date, :value => (semester.start_date.strftime('%a %b %d %Y') if semester.start_date), 'data-behavior' => 'date-picker', style: "width: 50%;" %></td>
+                        <td><%= f.text_field :end_date, :value => (semester.end_date.strftime('%a %b %d %Y') if semester.end_date), 'data-behavior' => 'date-picker', style: "width: 50%;" %></td>
+                      </tr>
+                  <% end %>
+              <% end %>
+              </tbody>
+            </table>
+            <div class="formgrid whole submit-row"><%= submit_tag "Update semesters", class: 'primary-button' %></div>
+        <% end %>
+      </div>
+    </div>
+<% end %>

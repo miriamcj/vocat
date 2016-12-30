@@ -44,8 +44,9 @@ class Course < ApplicationRecord
 
   accepts_nested_attributes_for :groups
 
-  scope :sorted, -> { joins(:semester).order ('year DESC, semesters.position DESC') }
-  scope :current_and_upcoming, -> { where('courses.year >= ?', Time.now.year) }
+  scope :sorted, -> { joins(:semester).order ('semesters.start_date DESC') }
+  scope :current_and_upcoming, -> { joins(:semester).where('semesters.start_date >= ? OR semesters.start_date <= ? AND semesters.end_date > ?', Date.current, Date.current, Date.current) }
+  scope :past, -> { joins(:semester).where('semesters.end_date < ?', Date.current) }
   scope :in_org, ->(org) { where(:organization => org)}
 
   validates :department, :name, :number, :section, :presence => true
@@ -54,7 +55,7 @@ class Course < ApplicationRecord
   def self.search(params)
     c = Course.all
     c = c.where({department: params[:department]}) unless params[:department].blank?
-    c = c.where({year: params[:year]}) unless params[:year].blank?
+    c = c.joins(:semester).where('extract(year from start_date) = ?', params[:year]) unless params[:year].blank?
     c = c.where("lower(section) LIKE ?", "#{params[:section].downcase}%") unless params[:section].blank?
     c = c.joins(:semester).where(:semesters => {id: params[:semester]}) unless params[:semester].blank?
     c = c.joins(:memberships => :user).where(:users => {id: params[:evaluator]}) unless params[:evaluator].blank?
@@ -104,18 +105,8 @@ class Course < ApplicationRecord
     factory.course_and_creator(self, creator)
   end
 
-  def self.distinct_years(org = nil)
-    if org.nil?
-      years = Course.uniq.pluck(:year)
-    else
-      years = Course.in_org(org).uniq.pluck(:year)
-    end
-    years.reject! { |y| y.nil? }
-    years.sort
-  end
-
   def list_name
-    "[#{section}] #{department}#{number}: #{name}, #{semester_name} #{year}"
+    "[#{section}] #{department}#{number}: #{name}, #{semester_name}"
   end
 
   def to_s
@@ -155,7 +146,6 @@ class Course < ApplicationRecord
     out = out.gsub("%c", name)
     out = out.gsub("%s", section)
     out = out.gsub("%d", department)
-    out = out.gsub("%y", year.to_s)
     unless semester.nil?
       out = out.gsub("%S", semester.name)
     end
@@ -238,7 +228,7 @@ class Course < ApplicationRecord
     d = allowed_direction.include?(direction) ? direction : "ASC"
     case s
       when "semester"
-        joins(:semester).order("year #{d}, semesters.position #{d}")
+        joins(:semester).order("semesters.start_date #{d}")
       when "project"
         joins(:projects).group("courses.id").order("count(projects.id) #{d}")
       when "number"

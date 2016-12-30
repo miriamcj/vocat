@@ -15,6 +15,7 @@ define (require) ->
   HeaderDrawerTriggerView = require('views/layout/header_drawer_trigger')
   NotificationLayoutView = require('views/notification/notification_layout')
   NotificationExceptionView = require('views/notification/notification_exception')
+  Pikaday = require('vendor/plugins/pikaday')
 
   Standalone = {
     project: require('views/course/manage/projects/project')
@@ -116,6 +117,9 @@ define (require) ->
     )
     $('[data-behavior="file-browser"]').each( (index, el) ->
       new FileBrowserView({el: el, vent: Vocat.vent})
+    )
+    $('[data-behavior="date-picker"]').each( (index, el) ->
+      new Pikaday ({field: el, format: 'MM/DD/YY'})
     )
 
   Vocat.addInitializer () ->

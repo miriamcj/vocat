@@ -203,11 +203,11 @@ class Evaluation < ApplicationRecord
 
 
   def to_csv_header_row
-    ['Vocat ID', 'Evaluator', 'Section', 'Course', 'Semester', 'Year', 'Creator', 'Evaluation Type', 'Project Name', 'Percentage', 'Total Score', 'Points Possible']
+    ['Vocat ID', 'Evaluator', 'Section', 'Course', 'Semester', 'Creator', 'Evaluation Type', 'Project Name', 'Percentage', 'Total Score', 'Points Possible']
   end
 
   def to_csv
-    [id, evaluator_name, course.section, "#{course.department}#{course.number}", course.semester, course.year, creator.name, evaluation_type_human_readable, project.name, total_percentage_rounded, total_score, points_possible]
+    [id, evaluator_name, course.section, "#{course.department}#{course.number}", course.semester, creator.name, evaluation_type_human_readable, project.name, total_percentage_rounded, total_score, points_possible]
   end
 
 

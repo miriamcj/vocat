@@ -4,7 +4,11 @@ Vocat::Application.routes.draw do
   constraints lambda { |request| SubdomainResolver.is_manage?(request) } do
     scope :module => :manage do
       get '/' => 'organizations#index', :as => 'manage_root'
-      resources :organizations
+      resources :organizations do
+        get '/semesters' => 'semesters#org_index'
+        put '/semesters' => 'semesters#update_all'
+      end
+      resources :semesters
       resources :superadmins do
         member do
           get 'edit_password'

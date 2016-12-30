@@ -15,12 +15,10 @@
 			</div>
 		</div>
     <div class="body secondary">
-      <% if current_user.sorted_grouped_upcoming_courses.count > 0 %>
-        <%= render 'dashboard/shared/course_list' %>
-      <% elsif current_user.courses.count == 0 %>
+      <% if current_user.courses.count == 0 %>
           It looks like you don't belong to any courses yet. <%= link_to 'Click here to request your first Vocat course', new_course_request_path %>.
       <% else %>
-          It looks like you don't have any current courses. <%= link_to 'Click here to request a new Vocat course', new_course_request_path %>.
+          <%= render 'dashboard/shared/course_list' %>
       <% end %>
     </div>
 		<% if current_user.courses_count > 0 %>
