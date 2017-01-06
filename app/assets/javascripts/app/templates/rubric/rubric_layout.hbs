@@ -12,13 +12,18 @@
 					<input type="text" value="{{description}}" data-behavior="rubric-desc" placeholder="Enter a brief description of your rubric">
 				</div>
 				{{#if current_user_is_admin}}
-					<div class="formgrid third">
-						<label>Is this a system-wide rubric?</label>
-						<select data-field="rubric-public">
-							<option {{#unless public}}selected="selected"{{/unless}} value="false">No</option>
-							<option {{#if public}}selected="selected"{{/if}} value="true">Yes</option>
-						</select>
-					</div>
+                    <div class="formgrid third">
+                        <span style="display: inline-block; margin-right: 5px; vertical-align: middle;">Is this a system wide rubric?</span>
+                        <div style="display: inline-block; vertical-align: middle;" class="switch {{#if public}}switch-checked{{/if}}" data-region="rubric-public">
+                            <input id="checkbox" {{#if public}}checked="checked"{{/if}} class="switch-checkbox" type="checkbox">
+                            <label for="checkbox" class="switch-label">
+                        <span class="switch-inner">
+                          <span class="switch-text switch-active">Yes</span>
+                          <span class="switch-text switch-inactive">No</span>
+                        </span>
+                            </label>
+                        </div>
+                    </div>
 				{{/if}}
 			</fieldset>
 		</form>

@@ -25,7 +25,7 @@ define (require) ->
     events: {
       'keyup [data-behavior="rubric-name"]': 'handleNameChange'
       'keyup [data-behavior="rubric-desc"]': 'handleDescChange'
-      'change [data-field="rubric-public"]': 'handlePublicChange'
+      'click [data-region="rubric-public"]': 'handlePublicChange'
       'click [data-trigger="save"]': 'handleSaveClick'
       'click [data-trigger="scoring-modal"]': 'openScoreModal'
     }
@@ -43,8 +43,7 @@ define (require) ->
 
     ui: {
       nameInput: '[data-behavior="rubric-name"]'
-      publicInput: '[data-field="rubric-public"]'
-      selectedPublicInput: '[data-behavior="rubric-public"]:checked'
+      publicInput: '[data-region="rubric-public"]'
       descInput: '[data-behavior="rubric-desc"]'
       lowInput: '[data-behavior="rubric-low"]'
       highInput: '[data-behavior="rubric-high"]'
@@ -113,7 +112,13 @@ define (require) ->
       Vocat.vent.trigger('modal:open', rangePickerModal)
 
     handlePublicChange: (event) ->
-      @model.set('public', @ui.publicInput.val())
+      event.stopPropagation();
+      event.preventDefault();
+      @ui.publicInput.toggleClass('switch-checked')
+      if @ui.publicInput.hasClass('switch-checked')
+        @model.set('public', true)
+      else
+        @model.set('public', false)
 
     onHandleLowChange: (low) ->
       if @model.isValidLow(low)
@@ -211,14 +216,6 @@ define (require) ->
 
     onShow: () ->
       @parentOnShow()
-      @chosenifySelects()
-
-    chosenifySelects: () ->
-      setTimeout () =>
-        @ui.publicInput.chosen({
-          disable_search_threshold: 1000
-        })
-      , 0
 
     onRender: () ->
       @rubricBuilder.show(new RubricBuilderView({model: @model, vent: @}))
