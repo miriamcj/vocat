@@ -3,7 +3,11 @@
     <a class="user-nav--toggle" data-behavior="toggle" href="#">
       <span class="user-nav--name"><%= current_user.name %></span>
       <div class="user-nav--icon">
-        <%= image_tag avatar_url(current_user, 60), :alt => current_user.name %>
+        <% if current_user.avatar? %>
+            <%= image_tag current_user.avatar.url(:thumb), :alt => current_user.name %>
+        <% else %>
+          <%= image_tag avatar_url(current_user, 60), :alt => current_user.name %>
+        <% end %>
         <div class="overlay"></div>
       </div>
     </a>
