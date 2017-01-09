@@ -434,6 +434,9 @@ footer.page-footer {
         span.active-sticky {
           color: $white;
         }
+        a {
+          border-bottom: 0;
+        }
       }
     }
 
