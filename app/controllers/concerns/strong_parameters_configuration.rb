@@ -15,7 +15,9 @@ module Concerns::StrongParametersConfiguration
         :city,
         :state,
         :country,
-        :gender
+        :gender,
+        :avatar,
+        :avatar_delete
     ])
   end
 

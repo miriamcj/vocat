@@ -53,6 +53,10 @@ class User < ApplicationRecord
   has_many :course_events, as: :loggable
   has_many :visits
 
+  has_attached_file :avatar, styles: { thumb: "300x300#"} # default_url: "/images/:style/missing.png"
+  validates_attachment_content_type :avatar, content_type: /\Aimage/
+  validates_attachment_file_name :avatar, matches: [/png\Z/i, /gif\Z/i, /jpe?g\Z/i]
+
   default_scope { order("last_name ASC") }
   scope :evaluators, -> { where(:role => "evaluator") }
   scope :creators, -> { where(:role => "creator") }
@@ -84,6 +88,21 @@ class User < ApplicationRecord
   validates_length_of       :password, within: (7..72), allow_blank: true
   validates_exclusion_of :role, :in => %w[superadministrator], message: 'cannot be "superadministrator" if the user belongs to an organization', if: :in_org?
   validates_presence_of :organization_id, unless: :is_superadministrator?
+
+  before_save :destroy_avatar?
+  before_update :destroy_avatar?
+
+  def avatar_delete
+    @avatar_delete ||= "0"
+  end
+
+  def avatar_delete=(value)
+    @avatar_delete = value
+  end
+
+  def destroy_avatar?
+    self.avatar.clear if @avatar_delete == "1"
+  end
 
   def self.find_for_authentication(warden_conditions)
     joins('LEFT JOIN organizations ON users.organization_id = organizations.id').where(

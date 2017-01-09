@@ -33,6 +33,24 @@
 				<% end %>
 			<% end %>
 
+      <div class="formgrid whole">
+        <%= f.label :avatar %>
+        <label class="file" aria-label="File Browser" data-behavior="file-browser">
+          <% if current_user.avatar? %>
+              <%= image_tag current_user.avatar.url(:thumb), class: "preview-image", data: { region: 'avatar-preview' } %>
+          <% end %>
+          <%= f.file_field :avatar %>
+          <%= f.check_box :avatar_delete, class: "file-delete", data: { behavior: 'file-delete' } %>
+          <span class="file-overlay" data-behavior="file-display">
+            <%= current_user.avatar.original_filename || "Choose File..." %>
+          </span>
+          <small class="input-message">Square images work best.  Image will be cropped to 300x300</small>
+          <button type="button" class="file-clear" data-behavior="file-clear">
+            Clear File
+          </button>
+        </label>
+      </div>
+
 
 			<div class="formgrid whole">
 				<%= f.label :current_password, :class => 'text-label' %>

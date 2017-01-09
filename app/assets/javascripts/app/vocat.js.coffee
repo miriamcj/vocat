@@ -6,6 +6,7 @@ define (require) ->
   ModalConfirmView = require('views/modal/modal_confirm')
   DropdownView = require('views/layout/dropdown')
   CourseSubheaderView = require('views/layout/course_subheader')
+  FileBrowserView = require('views/layout/file_browser')
   FigureCollectionView = require('views/layout/figures_collection')
   ChosenView = require('views/layout/chosen')
   JumpNavView = require('views/layout/jump_nav')
@@ -112,6 +113,9 @@ define (require) ->
     )
     $('[data-behavior="course-subheader"]').each( (index, el) ->
       new CourseSubheaderView({el: el, vent: Vocat.vent})
+    )
+    $('[data-behavior="file-browser"]').each( (index, el) ->
+      new FileBrowserView({el: el, vent: Vocat.vent})
     )
 
   Vocat.addInitializer () ->
