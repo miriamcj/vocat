@@ -10,6 +10,7 @@
 /public/assets
 /public/build
 /public/uploads
+/public/system
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
