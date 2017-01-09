@@ -61,6 +61,8 @@ class ApplicationController < ActionController::Base
       section = 'admin'
     elsif request_subdomain == 'manage'
       section = 'manage'
+    elsif params[:controller].include?('rubrics')
+      section = 'rubrics'
     else
       section = 'dashboard'
     end

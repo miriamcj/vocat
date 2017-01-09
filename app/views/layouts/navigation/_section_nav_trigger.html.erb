@@ -10,6 +10,12 @@
   </a>
 </li>
 
+<% if current_user.role?(:evaluator) %>
+<li>
+  <%= link_to "RUBRICS", rubrics_path, class: "#{'active-sticky' if @app_section == 'rubrics'}" %>
+</li>
+<% end %>
+
 <li>
 	<%=	link_to "HELP", "http://docs.vocat.io/", target: "_blank" %>
 </li>
