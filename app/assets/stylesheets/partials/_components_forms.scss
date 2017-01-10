@@ -415,3 +415,55 @@ select.from, select.to {
     }
   }
 }
+
+// checkboxes
+input[type="checkbox"] {
+  display: none;
+
+  &:checked + .toggle-indicator::after {
+    opacity: 1;
+  }
+}
+div.checkbox {
+  color: $grayDark;
+  position: relative;
+  display: inline-block;
+  text-align: left;
+  padding-left: 27px;
+  cursor: pointer;
+
+  &.light {
+    color: $grayLight;
+  }
+
+  label.toggle-indicator {
+    position: absolute;
+    top: -2px;
+    left: 0;
+    display: block;
+    height: 18px;
+    width: 18px;
+    text-align: center;
+    border: 1px solid $grayMediumDarker;
+    cursor: pointer;
+
+    &.light {
+      border: 1px solid $grayLight;
+    }
+    
+    &:after {
+      @include svg('check-gray');
+      opacity: 0;
+      position: absolute;
+      content: '';
+      top: 2px;
+      left: 2px;
+      width: 12px;
+      height: 12px;
+
+      &.light {
+        @include svg('check-gray-light');
+      }
+    }
+  }
+}

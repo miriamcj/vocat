@@ -36,11 +36,11 @@
 				</div>
 				<div class="formgrid whole">
 					<% if devise_mapping.rememberable? -%>
-						<label class="authentication-tile--label" for="user_remember_me">
-							<%= f.check_box :remember_me, :class => "authentication-tile--checkbox" %>
-							<b></b>
-							<span class="authentication-tile--checkbox-text">Remember me on this device.</span>
-						</label>
+            <div class="checkbox light">
+              <input type="hidden" name="user[remember_me]" value="0">
+              <input type="checkbox" id="user_remember_me" name="user[remember_me]" value="1">
+              <label class="toggle-indicator light" for="user_remember_me" ></label>Remember me on this device.
+            </div>
 					<% end -%>
 				</div>
 

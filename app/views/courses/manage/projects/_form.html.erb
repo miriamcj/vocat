@@ -50,41 +50,41 @@
 </div>
 
 <div class="formgrid whole">
-	<%= f.label 'Media Formats', :class => 'text-label' %>
-	<div class="checkbox-wrap">
-		<%= hidden_field_tag "#{@project_type.underscore}[allowed_attachment_families][]", [] %>
-		<ul class="checkbox-list">
-			<li>
-				<label>
-					<%= check_box_tag "#{@project_type.underscore}[allowed_attachment_families][]", '', @project.read_attribute(:allowed_attachment_families).length == 0, :data => {:behavior => 'media-any'} %>
-					Allow Any Format
-				</label>
-			</li>
-		</ul>
-		<p class="checkbox-separator">
-			Or allow specific formats:
-		</p>
-		<ul class="checkbox-list checkbox-list-floated">
-			<li>
-				<label>
-					<%= check_box_tag "#{@project_type.underscore}[allowed_attachment_families][]", 'image', @project.read_attribute(:allowed_attachment_families).include?('image'), :data => {:behavior => 'media-specific'} %>
-					Images
-				</label>
-			</li>
-			<li>
-				<label>
-					<%= check_box_tag "#{@project_type.underscore}[allowed_attachment_families][]", 'video', @project.read_attribute(:allowed_attachment_families).include?('video'), :data => {:behavior => 'media-specific'} %>
-					Videos
-				</label>
-			</li>
-			<li>
-				<label>
-					<%= check_box_tag "#{@project_type.underscore}[allowed_attachment_families][]", 'audio', @project.read_attribute(:allowed_attachment_families).include?('audio'), :data => {:behavior => 'media-specific'} %>
-					Audio
-				</label>
-			</li>
-		</ul>
-	</div>
+  <%= f.label 'Media Formats', :class => 'text-label' %>
+  <div class="checkbox-wrap">
+    <div class="checkbox">
+      <input type="hidden" name=<%= "#{@project_type.underscore}[allowed_attachment_families][]" %> value="">
+      <ul class="checkbox-list">
+        <li>
+          <input type="checkbox" name=<%= "#{@project_type.underscore}[allowed_attachment_families][]" %> id=<%= "#{@project_type.underscore}_allowed_attachment_families_" %> data-behavior="media-any" value <%= "checked" if @project.read_attribute(:allowed_attachment_families).length == 0 %>>
+          <label class="toggle-indicator" for=<%= "#{@project_type.underscore}_allowed_attachment_families_" %>></label>Allow Any Format
+        </li>
+      </ul>
+    </div>
+    <p class="checkbox-separator">
+      Or allow specific formats:
+    </p>
+    <ul class="checkbox-list checkbox-list-floated">
+      <li>
+        <div class="checkbox">
+          <input type="checkbox" name=<%= "#{@project_type.underscore}[allowed_attachment_families][]" %> id=<%= "#{@project_type.underscore}_allowed_attachment_families_image" %> data-behavior="media-specific" value="image" <%= "checked" if @project.read_attribute(:allowed_attachment_families).include?('image') %>>
+          <label class="toggle-indicator" for=<%= "#{@project_type.underscore}_allowed_attachment_families_image" %>></label>Images
+        </div>
+      </li>
+      <li>
+        <div class="checkbox">
+          <input type="checkbox" name=<%= "#{@project_type.underscore}[allowed_attachment_families][]" %> id=<%= "#{@project_type.underscore}_allowed_attachment_families_video" %> data-behavior="media-specific" value="video"  <%= "checked" if @project.read_attribute(:allowed_attachment_families).include?('video') %>>
+          <label class="toggle-indicator" for=<%= "#{@project_type.underscore}_allowed_attachment_families_video" %>></label>Video
+        </div>
+      </li>
+      <li>
+        <div class="checkbox">
+          <input type="checkbox" name=<%= "#{@project_type.underscore}[allowed_attachment_families][]" %> id=<%= "#{@project_type.underscore}_allowed_attachment_families_audio" %> data-behavior="media-specific" value="audio" <%= "checked" if @project.read_attribute(:allowed_attachment_families).include?('audio') %>>
+          <label class="toggle-indicator" for=<%= "#{@project_type.underscore}_allowed_attachment_families_audio" %>></label>Audio
+        </div>
+      </li>
+    </ul>
+  </div>
 </div>
 <%= f.fields_for :settings do |settings| %>
 
@@ -94,52 +94,48 @@
 		<div class="checkbox-wrap">
 			<ul class="checkbox-list">
 				<li>
-					<label class="label-inline" for="<%= @project_type.underscore %>_settings_enable_public_discussion">
-						<%= hidden_field_tag("#{@project_type.underscore}[settings][enable_public_discussion]", 0, :id => 'enable_public_discussion_hidden') %>
-						<%= check_box_tag("#{@project_type.underscore}[settings][enable_public_discussion]", 1, @project.allows_public_discussion?) %>
-						<b></b>
-						Submissions are visible to all course members
-					</label>
-					<small>
-						Enabling this will allow all students in the course to view, annotate, and discuss each other's
-						submissions for this project.
-					</small>
+          <div class="checkbox">
+            <input type="hidden" name=<%= "#{@project_type.underscore}[settings][enable_public_discussion]" %> id="enable_public_discussion_hidden" value="0">
+            <input type="checkbox" name=<%= "#{@project_type.underscore}[settings][enable_public_discussion]" %> id=<%= "#{@project_type.underscore }_settings_enable_public_discussion" %> value="1" <%= "checked" if @project.allows_public_discussion? %>>
+            <label class="toggle-indicator" for="<%= @project_type.underscore %>_settings_enable_public_discussion"></label>Submissions are visible to all course members
+            <small>
+              Enabling this will allow all students in the course to view, annotate, and discuss each other's
+              submissions for this project.
+            </small>
+          </div>
 				</li>
 				<li>
-					<label class="label-inline" for="<%= @project_type.underscore %>_settings_enable_peer_review">
-						<%= hidden_field_tag("#{@project_type.underscore}[settings][enable_peer_review]", 0, :id => 'enable_peer_review_hidden') %>
-						<%= check_box_tag("#{@project_type.underscore}[settings][enable_peer_review]", 1, @project.allows_peer_review?) %>
-						<b></b>
-						Enable peer review
-					</label>
-					<small>
-						If enabled, students will be able to view submissions for this project, as well as score,
-						annotate, and discuss those submissions.
-					</small>
+          <div class="checkbox">
+            <input type="hidden" name=<%= "#{@project_type.underscore}[settings][enable_peer_review]" %> id="enable_peer_review_hidden" value="0">
+            <input type="checkbox" name=<%= "#{@project_type.underscore}[settings][enable_peer_review]" %> id=<%= "#{@project_type.underscore }_settings_enable_peer_review" %> value="1" <%= "checked" if @project.allows_peer_review? %>>
+            <label class="toggle-indicator" for="<%= @project_type.underscore %>_settings_enable_peer_review"></label>Enable peer review
+            <small>
+              If enabled, students will be able to view submissions for this project, as well as score,
+              annotate, and discuss those submissions.
+            </small>
+          </div>
 				</li>
 				<li>
-					<label class="label-inline" for="<%= @project_type.underscore %>_settings_enable_self_evaluation">
-						<%= hidden_field_tag("#{@project_type.underscore}[settings][enable_self_evaluation]", 0, :id => 'enable_self_evaluation_hidden') %>
-						<%= check_box_tag("#{@project_type.underscore}[settings][enable_self_evaluation]", 1, @project.allows_self_evaluation?) %>
-						<b></b>
-						Allow self-evaluation
-					</label>
-					<small>
-						Enabling self-evaluation will give students the ability to evaluate their own project
-						submissions using the
-						rubric attached to each project.
-					</small>
+          <div class="checkbox">
+            <input type="hidden" name=<%= "#{@project_type.underscore}[settings][enable_self_evaluation]" %> id="enable_self_evaluation_hidden" value="0">
+            <input type="checkbox" name=<%= "#{@project_type.underscore}[settings][enable_self_evaluation]" %> id=<%= "#{@project_type.underscore }_settings_enable_self_evaluation" %> value="1" <%= "checked" if @project.allows_self_evaluation? %>>
+            <label class="toggle-indicator" for="<%= @project_type.underscore %>_settings_enable_self_evaluation"></label>Allow self-evaluation
+            <small>
+              Enabling self-evaluation will give students the ability to evaluate their own project
+              submissions using the
+              rubric attached to each project.
+            </small>
+          </div>
 				</li>
 				<li>
-					<label class="label-inline" for="<%= @project_type.underscore %>_settings_anonymous_peer_review">
-						<%= hidden_field_tag("#{@project_type.underscore}[settings][anonymous_peer_review]", 0, :id => 'enable_anonymous_peer_review_hidden') %>
-						<%= check_box_tag("#{@project_type.underscore}[settings][anonymous_peer_review]", 1, @project.has_anonymous_peer_review?) %>
-						<b></b>
-						Enable Anonymous Peer Review
-					</label>
-					<small>
-						If enabled, students will not be able to see the evaluator name on peer evaluations.
-					</small>
+          <div class="checkbox">
+            <input type="hidden" name=<%= "#{@project_type.underscore}[settings][anonymous_peer_review]" %> id="enable_anonymous_peer_review_hidden" value="0">
+            <input type="checkbox" name=<%= "#{@project_type.underscore}[settings][anonymous_peer_review]" %> id=<%= "#{@project_type.underscore }_settings_anonymous_peer_review" %> value="1" <%= "checked" if @project.has_anonymous_peer_review? %>>
+            <label class="toggle-indicator" for="<%= @project_type.underscore %>_settings_anonymous_peer_review"></label>Enable Anonymous Peer Review
+            <small>
+              If enabled, students will not be able to see the evaluator name on peer evaluations.
+            </small>
+          </div>
 				</li>
 			</ul>
 		</div>
