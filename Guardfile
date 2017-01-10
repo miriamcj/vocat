@@ -1,10 +1,9 @@
 # A sample Guardfile
 # More info at https://github.com/guard/guard#readme
 
-
-guard :copy, :from => 'app/assets/javascripts', :mkpath => true, :verbose => true, :to => 'build/javascripts/src' do
-   watch(%r{^.+\.(js|hbs)$})
-end
+# guard :copy, :from => 'app/assets/javascripts', :mkpath => true, :verbose => true, :to => 'build/javascripts/src' do
+#    watch(%r{^.+\.(js|hbs)$})
+# end
 
 coffeescript_options = {
   input: 'app/assets/javascripts',
