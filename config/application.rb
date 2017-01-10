@@ -40,6 +40,7 @@ module Vocat
       'vendor/require/require.js',
       'vendor/modernizr/modernizr-2.6.2.js',
       'vendor/video_js/video.js',
+      'vendor/video_js/videojs-contrib-hls.js',
       'vendor/video_js/vjs.youtube.js',
       'vendor/video_js/vjs.vimeo.js',
       'vendor/rem_unit_polyfill/rem.min.js',

@@ -14,9 +14,20 @@
   display: none;
 }
 
-.vjs-control-bar {
+// new videojs css uses flexbox
+.video-js .vjs-control-bar {
   font-size: 16px;
   color: $white;
+  > div {
+    display: none;
+  }
+  > div.vjs-volume-menu-button, > button {
+    display: inline-block;
+  }
+  > .vjs-fullscreen-control {
+    position: absolute;
+    right: 0;
+  }
 }
 
 /* Replacement for focus outline */
@@ -55,7 +66,8 @@
 
 .vjs-default-skin .vjs-control-bar {
   background-color: $grayDarkest;
-  opacity: .9
+  opacity: .9;
+  display: block;
 }
 
 #vjs-annotation-overlay {
@@ -86,7 +98,8 @@
   }
 }
 
-.vjs-default-skin.vjs-paused .vjs-big-play-button {
+// always hide big play button
+.vjs-default-skin .vjs-big-play-button {
   display: none;
 }
 
@@ -138,9 +151,11 @@
 .vjs-default-skin .vjs-rewind-button {
   width: 3.8em;
   cursor: pointer;
-  float: right;
+  position: absolute;
+  right: 70px;
 }
 
 .vjs-default-skin .vjs-rewind-button:before {
-  content: "\e600";
+  font-family: VideoJS;
+  content: "\f116";
 }

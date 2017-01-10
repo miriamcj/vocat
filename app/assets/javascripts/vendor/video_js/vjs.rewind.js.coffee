@@ -3,7 +3,7 @@ define (require) ->
 
   VjsRewindPlugin = (options) ->
 
-    class vjs.RewindComponent extends vjs.Button
+    class videojs.RewindComponent extends videojs.getComponent('Button')
 
       constructor: (player, settings) ->
         super player, settings
@@ -12,7 +12,7 @@ define (require) ->
       buildCSSClass: ->
         super + "vjs-rewind-button"
 
-      onClick: ->
+      handleClick: ->
         super
         @player.currentTime(@player.currentTime() - 10)
 
@@ -20,7 +20,7 @@ define (require) ->
 
       constructor: (options, player) ->
         @player = player
-        @player.controlBar.addChild(new vjs.RewindComponent(@player, options))
+        @player.controlBar.addChild(new videojs.RewindComponent(@player, options))
 
     return new VjsRewindPlugin(options, @)
 

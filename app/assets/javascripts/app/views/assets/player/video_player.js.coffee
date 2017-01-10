@@ -257,14 +257,9 @@ define (require) ->
             vent: @vent
             collection: @model.annotations()
           }
-          rewind: {}
         }
-        children: {
-          controlBar: {
-            children: {
-              durationDisplay: true
-            }
-          }
+        controlBar: {
+          durationDisplay: true
         }
       }
       if @model.get('type') == 'Asset::Vimeo'
@@ -285,6 +280,7 @@ define (require) ->
         }
 
       @player = videojs(domTarget, options, () ->)
+      @player.rewind({})
 
       @insertAnnotationsStageView() if @model.allowsVisibleAnnotation()
       @resizePlayer()
