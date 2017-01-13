@@ -2,16 +2,12 @@
 	<% if @rubric %>
 		<%= link_to 'Back to Rubrics', admin_rubrics_path(), :class => 'header-link back-link' %>
 	<% end %>
-	<% if @rubric && !@rubric.new_record? %>
-		<h2 class="heading-primary">
-			<%= @rubric %>
-		</h2>
-	<% else %>
-		<% if local_assigns.fetch(:header, nil) %>
-			<h3 class="heading-primary">
-				<%= header %>
-			</h3>
-		<% end %>
+	<% unless @rubric && !@rubric.new_record? %>
+    <% if local_assigns.fetch(:header, nil) %>
+        <h3 class="heading-primary">
+          <%= header %>
+        </h3>
+    <% end %>
 	<% end %>
 <% end %>
 
@@ -19,7 +15,7 @@
 	<% if @rubric && !@rubric.new_record? %>
 		<%= link_to 'New Rubric', new_admin_rubric_path(), :class => 'primary-button new-button' %>
 		<div class="dropdown dropdown-button" data-behavior="dropdown">
-			<a class="dropdown--toggle" data-behavior="toggle" href="#">RubricActions</a>
+			<a class="dropdown--toggle" data-behavior="toggle" href="#">Rubric Actions</a>
 
 			<div class="dropdown--options" data-behavior="dropdown-options">
 				<%= render 'nav', :rubric => @rubric %>

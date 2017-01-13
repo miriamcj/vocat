@@ -514,3 +514,22 @@ footer.page-footer {
     }
   }
 }
+
+// editable fields
+.editable-field {
+  cursor: pointer;
+  display: inline-block;
+
+  &:after {
+    @include svg('pencil-teal');
+    display: inline-block;
+    margin-left: 10px;
+    width: 17px;
+    height: 17px;
+    content: '';
+  }
+
+  &:hover:after {
+    @include svg('pencil-gray');
+  }
+}

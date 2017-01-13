@@ -7,6 +7,7 @@ define (require) ->
   FlashMessagesView = require('views/flash/flash_messages')
   AbstractMatrix = require('views/abstract/abstract_matrix')
   ShortTextInputView = require('views/property_editor/short_text_input')
+  LongTextInputView = require('views/property_editor/long_text_input')
   RubricBuilderView = require('views/rubric/rubric_builder')
 
   class RubricLayout extends AbstractMatrix
@@ -28,6 +29,7 @@ define (require) ->
       'click [data-region="rubric-public"]': 'handlePublicChange'
       'click [data-trigger="save"]': 'handleSaveClick'
       'click [data-trigger="scoring-modal"]': 'openScoreModal'
+      'click [data-trigger="edit-attribute"]': 'editAttributeClick'
     }
 
     triggers: {
@@ -51,6 +53,22 @@ define (require) ->
       sliderLeft: '[data-behavior="matrix-slider-left"]'
       sliderRight: '[data-behavior="matrix-slider-right"]'
     }
+
+    editAttributeClick: (event) ->
+      event.preventDefault();
+      attr = $(event.target).data('label')
+      params = {
+        model: @model,
+        inputLabel: "Rubric #{attr}",
+        saveLabel: "Update #{attr}",
+        saveClasses: 'update-button',
+        property: attr,
+        vent: @vent
+      }
+      if attr == 'name'
+        Vocat.vent.trigger('modal:open', new ShortTextInputView(params))
+      else if attr == 'description'
+        Vocat.vent.trigger('modal:open', new LongTextInputView(params))
 
     onSliderLeft: _.throttle((() ->
       cells = @rubricBuilder.$el.find($('[data-region="cells"]'))
@@ -184,6 +202,7 @@ define (require) ->
     serializeData: () ->
       results = super()
       results.current_user_is_admin = (window.VocatUserRole == 'administrator' || window.VocatUserRole == 'superadministrator')
+      results.new_record = @new_record
       results
 
     initialize: (options) ->
@@ -194,12 +213,19 @@ define (require) ->
             success: (model) =>
               @render()
           })
+          @new_record = false
         else
           @model = new RubricModel({})
+          @new_record = true
+
 
       @listenTo(@model, 'change', (e) =>
         @recalculateMatrix()
         @displaySliders()
+      )
+
+      @listenTo(@model, 'change:name change:description', () =>
+        @render()
       )
 
       @listenTo(@model, 'invalid', (model, errors) =>

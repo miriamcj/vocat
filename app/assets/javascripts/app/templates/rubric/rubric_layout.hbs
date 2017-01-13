@@ -1,33 +1,65 @@
 <div class="page-section">
-	<div class="header-wrapper">
-	</div>
-	<div class="body">
-		<div style="margin-top: 0px" data-region="flash"></div>
-		<form class="formgrid new-rubric-form">
-			<fieldset>
-				<div class="formgrid whole rubric-name">
-					<input type="text" value="{{name}}" data-behavior="rubric-name" placeholder="Name your rubric">
-				</div>
-				<div class="formgrid whole">
-					<input type="text" value="{{description}}" data-behavior="rubric-desc" placeholder="Enter a brief description of your rubric">
-				</div>
-				{{#if current_user_is_admin}}
-                    <div class="formgrid third">
-                        <span style="display: inline-block; margin-right: 5px; vertical-align: middle;">Is this a system wide rubric?</span>
-                        <div style="display: inline-block; vertical-align: middle;" class="switch {{#if public}}switch-checked{{/if}}" data-region="rubric-public">
-                            <input id="checkbox" {{#if public}}checked="checked"{{/if}} class="switch-checkbox" type="checkbox">
-                            <label for="checkbox" class="switch-label">
-                        <span class="switch-inner">
-                          <span class="switch-text switch-active">Yes</span>
-                          <span class="switch-text switch-inactive">No</span>
-                        </span>
-                            </label>
-                        </div>
+    {{#if new_record}}
+        <div class="body">
+            <div style="margin-top: 0px" data-region="flash"></div>
+            <form class="formgrid new-rubric-form">
+                <fieldset>
+                    <div class="formgrid whole rubric-name">
+                        <input type="text" value="{{name}}" data-behavior="rubric-name" placeholder="Name your rubric">
                     </div>
-				{{/if}}
-			</fieldset>
-		</form>
-	</div>
+                    <div class="formgrid whole">
+                        <input type="text" value="{{description}}" data-behavior="rubric-desc" placeholder="Enter a brief description of your rubric">
+                    </div>
+                    {{#if current_user_is_admin}}
+                        <div class="formgrid third">
+                            <span style="display: inline-block; margin-right: 5px; vertical-align: middle;">Is this a system wide rubric?</span>
+                            <div style="display: inline-block; vertical-align: middle;" class="switch {{#if public}}switch-checked{{/if}}" data-region="rubric-public">
+                                <input id="checkbox" {{#if public}}checked="checked"{{/if}} class="switch-checkbox" type="checkbox">
+                                <label for="checkbox" class="switch-label">
+                                    <span class="switch-inner">
+                                      <span class="switch-text switch-active">Yes</span>
+                                      <span class="switch-text switch-inactive">No</span>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    {{/if}}
+                </fieldset>
+            </form>
+        </div>
+    {{ else }}
+        <div class="header-wrapper">
+            <div style="margin: 5px 0" data-region="flash"></div>
+            <div>
+                <h2 class="heading-primary editable-field" data-trigger="edit-attribute" data-label="name">
+                    {{ name }}
+                </h2>
+            </div>
+            <div>
+                <p class="editable-field" style="font-size: 1.125em; margin-bottom: 10px;" data-trigger="edit-attribute" data-label="description">
+                    {{#if description }}
+                        {{ description }}
+                    {{ else }}
+                        Enter a brief description of your rubric
+                    {{/if}}
+                </p>
+            </div>
+            {{#if current_user_is_admin}}
+                <div>
+                    <span style="display: inline-block; margin-right: 5px; vertical-align: middle;">Is this a system wide rubric?</span>
+                    <div style="display: inline-block; vertical-align: middle;" class="switch {{#if public}}switch-checked{{/if}}" data-region="rubric-public">
+                        <input id="checkbox" {{#if public}}checked="checked"{{/if}} class="switch-checkbox" type="checkbox">
+                        <label for="checkbox" class="switch-label">
+                            <span class="switch-inner">
+                              <span class="switch-text switch-active">Yes</span>
+                              <span class="switch-text switch-inactive">No</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            {{/if}}
+        </div>
+    {{/if}}
 </div>
 
 <div class="page-section page-section-clear">
@@ -36,7 +68,7 @@
 
         <div class="rubric-buttons">
             <!--
-              <a href="#" data-trigger="recalc" class="primary-button">Reclaculate Matrix</a>
+              <a href="#" data-trigger="recalc" class="primary-button">Recalculate Matrix</a>
               -->
             <div style="text-align: left; display: inline-block; width: 49%;">
                 <a href="#" data-trigger="save" class="primary-button update-button">Save rubric</a>
