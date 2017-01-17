@@ -344,6 +344,7 @@ GEM
       thor
     thread_safe (0.3.5)
     tilt (2.0.5)
+    turbo_dev_assets (0.0.2)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.6.1)
@@ -416,6 +417,7 @@ DEPENDENCIES
   state_machine!
   thor
   thor-rails
+  turbo_dev_assets
   uglifier (~> 2.6.0)
   wicked_pdf
   wkhtmltopdf-binary
