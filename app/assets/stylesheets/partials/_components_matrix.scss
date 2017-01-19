@@ -239,9 +239,12 @@ $columnWidth: ($container / $columns) - 12;
   th {
     a {
       &.delete-link {
-        color: $red;
+        color: $grayMedium;
         &:hover {
-          color: $redDark;
+          color: $red;
+          .icon.trash {
+            @include svg('trash-red');
+          }
         }
       }
     }
