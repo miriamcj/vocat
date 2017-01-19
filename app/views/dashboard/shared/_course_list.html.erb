@@ -5,4 +5,11 @@
           <%= render 'shared/course_synopsis', :course => course %>
         <% end %>
     <% end %>
+<% else %>
+    <% current_user.most_recent_semester_courses.each do |semester, courses| %>
+        <h3 class="semester-header"><%= semester %></h3>
+        <% courses.each do |course| %>
+            <%= render 'shared/course_synopsis', :course => course %>
+        <% end %>
+    <% end %>
 <% end %>

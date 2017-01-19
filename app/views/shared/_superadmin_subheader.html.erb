@@ -1,0 +1,8 @@
+<div class="page-section--subsection course-synopsis-pane subheader">
+  <div class="padded-container">
+    <div class="info-container">
+      <%= link_to 'Organizations', organizations_path, class: (params[:controller] == 'manage/organizations' ? "active" : "") %>
+      <%= link_to 'Semesters', semesters_path, class: (params[:controller] == 'manage/semesters' ? "active" : "") %>
+    </div>
+  </div>
+</div>

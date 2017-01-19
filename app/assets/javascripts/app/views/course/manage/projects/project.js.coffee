@@ -7,7 +7,6 @@ define (require) ->
     template: false
 
     ui: {
-      datePicker: '[data-behavior="date-picker"]'
       checkboxMediaAny: '[data-behavior="media-any"]'
       checkboxMediaSpecific: '[data-behavior="media-specific"]'
     }
@@ -31,10 +30,3 @@ define (require) ->
         @ui.checkboxMediaAny.prop('checked', true)
 
     initialize: () ->
-      @render()
-
-    onRender: (options) ->
-      picker = new Pikaday({
-        field: @ui.datePicker[0]
-        format: 'MM/DD/YY'
-      })

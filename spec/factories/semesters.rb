@@ -2,7 +2,8 @@
 
 FactoryGirl.define do
   factory :semester do
-    name ""
+    name "Fall 2015"
     position 1
+    association :organization, factory: :organization
   end
 end

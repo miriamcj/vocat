@@ -28,17 +28,13 @@
 					<%= label_tag :number, 'Number' %>
 					<%= f.text_field :number %>
 				</div>
-				<div class="formgrid third">
+				<div class="formgrid half">
 					<%= label_tag :section, 'Section' %>
 					<%= f.text_field :section %>
 				</div>
-				<div class="formgrid third">
-					<%= label_tag :year, 'Year' %>
-					<%= f.select(:year, options_for_select(@years, @course_request.year), {:include_blank => true}, {'data-behavior' => 'chosen'}) %>
-				</div>
-				<div class="formgrid third">
+				<div class="formgrid half">
 					<%= label_tag :semester_id, 'Semester' %>
-					<%= f.select(:semester_id, options_from_collection_for_select(Semester.all, 'id', 'name', @course_request.semester_id), {:include_blank => true}, {'data-behavior' => 'chosen'}) %>
+					<%= f.select(:semester_id, options_from_collection_for_select(Semester.in_org(@current_organization), 'id', 'name', @course_request.semester_id), {:include_blank => true}, {'data-behavior' => 'chosen'}) %>
 				</div>
 				<div class="formgrid whole submit">
 					<label class="text-label">&nbsp;</label>

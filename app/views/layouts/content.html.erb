@@ -3,7 +3,11 @@
 	<%= render 'layouts/messages_backbone' %>
 
   <% if params[:controller].include?('admin') %>
-    <%= render 'shared/admin_subheader' %>
+    <% if current_user.role?(:administrator) || current_user.role?(:superadministrator) %>
+      <%= render 'shared/admin_subheader' %>
+    <% end %>
+  <% elsif request.subdomain == 'manage' && current_user.role?(:superadministrator) %>
+    <%= render 'shared/superadmin_subheader' %>
   <% elsif @selected_course %>
       <%= render 'shared/course_subheader', course: @selected_course %>
   <% end %>

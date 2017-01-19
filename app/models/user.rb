@@ -137,8 +137,8 @@ class User < ApplicationRecord
   end
 
   def sorted_grouped_upcoming_courses(limit = nil)
-    self.courses.current_and_upcoming.order('year ASC').limit(limit).group_by do |course|
-      "#{course.semester} #{course.year}"
+    self.courses.current_and_upcoming.order('semesters.start_date ASC').limit(limit).group_by do |course|
+      "#{course.semester.name}"
     end
   end
 
@@ -182,9 +182,19 @@ class User < ApplicationRecord
     courses.sorted.limit(limit)
   end
 
+  def most_recent_semester
+    courses.joins(:semester).where('semesters.end_date < ?', Date.current).order('semesters.end_date DESC').first.semester
+  end
+
+  def most_recent_semester_courses
+    courses.where(semester: self.most_recent_semester).group_by do |course|
+      "#{course.semester.name}"
+    end
+  end
+
   def grouped_sorted_courses(limit = nil)
     sorted_courses(limit).group_by do |course|
-      "#{course.semester} #{course.year}"
+      "#{course.semester.name}"
     end
   end
 

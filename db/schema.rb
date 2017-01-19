@@ -81,8 +81,8 @@ ActiveRecord::Schema.define(version: 20170109173626) do
     t.integer  "course_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "loggable_id"
     t.string   "loggable_type"
+    t.integer  "loggable_id"
     t.integer  "submission_id"
     t.index ["loggable_type", "loggable_id"], name: "index_course_events_on_loggable_type_and_loggable_id", using: :btree
   end
@@ -284,6 +284,10 @@ ActiveRecord::Schema.define(version: 20170109173626) do
     t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.integer  "organization_id"
+    t.index ["organization_id"], name: "index_semesters_on_organization_id", using: :btree
   end
 
   create_table "submissions", force: :cascade do |t|
@@ -359,8 +363,8 @@ ActiveRecord::Schema.define(version: 20170109173626) do
   create_table "visits", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "visitable_course_id"
-    t.integer  "visitable_id"
     t.string   "visitable_type"
+    t.integer  "visitable_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["visitable_course_id"], name: "index_visits_on_visitable_course_id", using: :btree
