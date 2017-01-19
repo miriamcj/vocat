@@ -90,13 +90,14 @@
         text-align: center;
         position: relative;
         height: 100%;
-        display: block;
+        display: table;
         padding: 15px;
         &:hover {
           background-color: transparentize($tealLightest, 0.8);
         }
         span {
-          display: block;
+          display: table-cell;
+          vertical-align: middle;
           color: $tealLight;
         }
         span.tight {
