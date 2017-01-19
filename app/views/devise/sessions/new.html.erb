@@ -10,13 +10,6 @@
 		<%= render 'layouts/messages_server' %>
 		<div class="authentication-tile">
 			<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'formgrid'}) do |f| %>
-				<% if @current_organization.try(:logo) %>
-					<div class="formgrid whole">
-						<div class="org-logo">
-							<img src="/uploads/<%= @current_organization.logo %>" />
-						</div>
-					</div>
-				<% end %>
 				<% if @app_section == 'manage' %>
 					<div class="formgrid whole">
 						<h1 class="heading-tertiary">Login to Manage Vocat</h1>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170109173626) do
+ActiveRecord::Schema.define(version: 20170119191947) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,8 +81,8 @@ ActiveRecord::Schema.define(version: 20170109173626) do
     t.integer  "course_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "loggable_type"
     t.integer  "loggable_id"
+    t.string   "loggable_type"
     t.integer  "submission_id"
     t.index ["loggable_type", "loggable_id"], name: "index_course_events_on_loggable_type_and_loggable_id", using: :btree
   end
@@ -219,7 +219,6 @@ ActiveRecord::Schema.define(version: 20170109173626) do
     t.datetime "updated_at",                                                   null: false
     t.string   "subdomain"
     t.boolean  "active"
-    t.string   "logo"
     t.boolean  "ldap_enabled",                      default: false
     t.string   "ldap_host"
     t.string   "ldap_encryption",                   default: "simple_tls"
@@ -363,8 +362,8 @@ ActiveRecord::Schema.define(version: 20170109173626) do
   create_table "visits", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "visitable_course_id"
-    t.string   "visitable_type"
     t.integer  "visitable_id"
+    t.string   "visitable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["visitable_course_id"], name: "index_visits_on_visitable_course_id", using: :btree
