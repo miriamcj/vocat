@@ -24,14 +24,14 @@
                 </dd>
             </dl>
             {{#if current_user_percentage}} <!-- has the current user evaluated the submission? -->
-                <span class="cell--message cell--message-pinned" style="left: 8px;">SCORE: <span style="color: #414141">{{ to_i current_user_percentage }}%</span></span>
+                <span class="cell--message cell--message-pinned" >SCORE: <span style="color: #414141">{{ to_i current_user_percentage }}%</span></span>
             {{else}}
-                <span class="cell--message cell--message-pinned" style="left: 8px;">SCORE: <span style="color: #414141">&mdash;</span></span>
+                <span class="cell--message cell--message-pinned" >SCORE: <span style="color: #414141">&mdash;</span></span>
             {{/if}}
             {{#if instructor_score_percentage }} <!-- is there an instructor average score? -->
-                <span class="cell--message cell--message-pinned" style="right: 8px;">AVERAGE: <span style="color: #414141">{{to_i instructor_score_percentage}}%</span></span>
+                <span class="cell--message cell--message-pinned" style="right: 0;">AVERAGE: <span style="color: #414141">{{to_i instructor_score_percentage}}%</span></span>
             {{ else }}
-                <span class="cell--message cell--message-pinned" style="right: 8px;">AVERAGE: <span style="color: #414141">&mdash;</span></span>
+                <span class="cell--message cell--message-pinned" style="right: 0;">AVERAGE: <span style="color: #414141">&mdash;</span></span>
             {{/if}}
         {{ else }}
             <dl class="cell--published">
