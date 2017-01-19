@@ -83,7 +83,7 @@ module Utility
         courses = []
         groups = []
         projects = []
-        semesters = get_semesters
+        semesters = create_and_get_semesters(org)
 
 
         # Make some evaluators
@@ -332,8 +332,19 @@ module Utility
       submissions
     end
 
-    def get_semesters
-      Semester.all.to_a
+    def create_and_get_semesters(org)
+      year = Date.today.year
+      # Create the semesters
+      puts "Create Fall Semester for #{org}"
+      Semester.find_or_create_by(:name => "Fall #{year}", position: 1, organization_id: org.id, start_date: Date.new(year, 8, 24), end_date: Date.new(year, 12, 20))
+      puts "Create Winter Semester for #{org}"
+      Semester.find_or_create_by(:name => "Spring #{year}", position: 2, organization_id: org.id, start_date: Date.new(year, 12, 16), end_date: Date.new(year + 1, 5, 26))
+      puts "Create Spring Semester for #{org}"
+      Semester.find_or_create_by(:name => "Summer #{year}", position: 3, organization_id: org.id, start_date: Date.new(year, 5, 30), end_date: Date.new(year, 8, 3))
+      puts "Create Summer Semester for #{org}"
+      Semester.find_or_create_by(:name => "Winter #{year}", position: 4, organization_id: org.id, start_date: Date.new(year, 1, 1), end_date: Date.new(year, 1, 25))
+
+      Semester.in_org(org).to_a
     end
 
     def create_theater_rubric(org, owner)
