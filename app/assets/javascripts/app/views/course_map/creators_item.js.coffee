@@ -37,7 +37,7 @@ define (require) ->
       data
 
     onOpenGroupsModal: () ->
-      Vocat.vent.trigger('modal:open', new ModalGroupMembershipView({groupId: @model.id}))
+      Vocat.vent.trigger('modal:open', new ModalGroupMembershipView({groupId: @model.id, name: @model.name}))
 
     onDetail: () ->
       @vent.triggerMethod('navigate:creator', {creator: @model.id})
