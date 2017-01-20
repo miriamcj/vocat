@@ -498,7 +498,7 @@ label.switch-label:after,
   left: 0;
   content: ' ';
   width: $switchWidth;
-  background-color: $grayMediumDarker;
+  background-color: $grayLight;
   border-radius: 12px;
   @include transition($fastTransition, all, $timing);
   -webkit-transition-duration: $fastTransition;
@@ -548,7 +548,7 @@ label.switch-label:after,
 
 .switch.disabled {
   label::before {
-    background-color: transparentize($grayMediumDarker, 0.50);
+    background-color: transparentize($grayLight, 0.50);
   }
 }
 
