@@ -8,11 +8,15 @@ define [
     lifetime: 10000
     isFlash: true
 
+    triggers: {
+      'click [data-behavior="close-message"]': 'closeMessage'
+    }
+
+    onCloseMessage: () ->
+      @trigger('view:expired')
+
     className: () ->
       "alert alert-#{@model.get('level')}"
-
-    triggers:
-      'click [data-behavior="destroy"]': 'destroy'
 
     initialize: (options) ->
       lifetime = parseInt(@model.get('lifetime'))

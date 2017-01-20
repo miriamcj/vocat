@@ -119,6 +119,15 @@ $spacingUnit: $mediumUnitPadding * .75;
       }
     }
   }
+  .alert--close {
+    @include svg(white-close-ex);
+    position: absolute;
+    right: 1.3em;
+    top: 1.3em;
+    height: 13px;
+    width: 13px;
+    display: block;
+  }
 }
 
 // Devise uses it's own error message wrapper.
