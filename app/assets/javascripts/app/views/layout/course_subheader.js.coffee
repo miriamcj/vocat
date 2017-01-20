@@ -16,7 +16,7 @@ define (require) ->
         event.preventDefault()
         el = event.currentTarget
         val = el.innerHTML
-        if val == 'STUDENT WORK' || val == 'PEER WORK'
+        if val == 'INDIVIDUAL WORK' || val == 'PEER WORK'
           Vocat.router.navigate("courses/#{window.VocatCourseId}/users/evaluations", true)
         else if val == 'GROUP WORK'
           Vocat.router.navigate("courses/#{window.VocatCourseId}/groups/evaluations", true)

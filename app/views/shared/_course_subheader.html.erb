@@ -19,7 +19,7 @@
           <% if current_user.role?(:creator) %>
               <%= link_to "PEER WORK", course_user_evaluations_path(course), class: (@type == 'user' ? "active" : ""), data: {behavior: 'view-toggle'} %>
           <% else %>
-              <%= link_to "STUDENT WORK", course_user_evaluations_path(course), class: (@type == 'user' ? "active" : ""), data: {behavior: 'view-toggle'} %>
+              <%= link_to "INDIVIDUAL WORK", course_user_evaluations_path(course), class: (@type == 'user' ? "active" : ""), data: {behavior: 'view-toggle'} %>
           <% end %>
             <%= link_to 'GROUP WORK', course_group_evaluations_path(course), class: (@type == 'group' ? "active" : ""), data: {behavior: 'view-toggle'} %>
           <div style="display: inline;">

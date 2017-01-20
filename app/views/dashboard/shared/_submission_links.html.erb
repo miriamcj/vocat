@@ -1,11 +1,8 @@
-<% if evaluator_or_admin? %>
-    <div class="submission-links info-container">
-      <%= link_to 'STUDENT WORK', course_user_evaluations_path(course) %>
-      <%= link_to 'GROUP WORK', course_group_evaluations_path(course) %>
-    </div>
-<% else %>
-    <div class="submission-links info-container">
-      <%= link_to 'PEER WORK', course_user_evaluations_path(course) %>
-      <%= link_to 'GROUP WORK', course_group_evaluations_path(course) %>
-    </div>
-<% end %>
+<div class="submission-links info-container">
+  <% if evaluator_or_admin? %>
+    <%= link_to 'INDIVIDUAL WORK', course_user_evaluations_path(course) %>
+  <% else %>
+    <%= link_to 'PEER WORK', course_user_evaluations_path(course) %>
+  <% end %>
+  <%= link_to 'GROUP WORK', course_group_evaluations_path(course) %>
+</div>
