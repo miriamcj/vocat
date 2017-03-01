@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'rails', '~> 5.0.1'
-
 gem 'paper_trail', '>= 3.0.6'
 gem 'active_model_serializers', '~> 0.8.3'
 gem 'pg'
@@ -12,6 +11,7 @@ gem 'jquery-fileupload-rails'
 gem 'simple_form', '~> 3.3.1'
 gem 'hashie'
 gem 'puma'
+gem 'unicorn'
 gem 'devise'
 gem 'doorkeeper'
 gem 'aws-sdk', '~> 1.32.0'
