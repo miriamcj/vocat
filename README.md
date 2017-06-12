@@ -24,7 +24,7 @@ To load sample data, execute `rake development:load`. This Will create the follo
 
 #### Users (replace "greendale" with the appropriate subdomain)
 - superadmin@vocat.io / cuny4life
-- admin@greendale.edu / vocat1223
+- admin@greendale.edu / vocat123
 - evaluator1@greendale.edu / vocat123 (there are more evaluators; just change the number)
 - creator1@greendale.edu / vocat123 (there are more creators; just change the number)
 - assistant1@greendale.edu / vocat123 (there are more assistants; just change the number)
