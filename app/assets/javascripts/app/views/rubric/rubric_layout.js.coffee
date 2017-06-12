@@ -9,6 +9,7 @@ define (require) ->
   ShortTextInputView = require('views/property_editor/short_text_input')
   LongTextInputView = require('views/property_editor/long_text_input')
   RubricBuilderView = require('views/rubric/rubric_builder')
+  ModalConfirmView = require('views/modal/modal_confirm')
 
   class RubricLayout extends AbstractMatrix
 
@@ -28,6 +29,7 @@ define (require) ->
       'keyup [data-behavior="rubric-desc"]': 'handleDescChange'
       'click [data-region="rubric-public"]': 'handlePublicChange'
       'click [data-trigger="save"]': 'handleSaveClick'
+      'click [data-trigger="cancel"]': 'handleCancelClick'
       'click [data-trigger="scoring-modal"]': 'openScoreModal'
       'click [data-trigger="edit-attribute"]': 'editAttributeClick'
     }
@@ -168,6 +170,7 @@ define (require) ->
       event.preventDefault()
       @model.save({}, {
         success: () =>
+          @changed = false
           Vocat.vent.trigger('error:add', {level: 'notice', msg: 'Rubric has been saved'})
         , error: (model, xhr) =>
           if xhr.responseJSON?
@@ -176,6 +179,23 @@ define (require) ->
             msg = 'Unable to save rubric. Be sure to add a title, and at least one range and field.'
           Vocat.vent.trigger('error:add', {level: 'error', msg: msg})
       })
+
+    handleCancelClick: (event) ->
+      event.preventDefault()
+      if (@changed)
+        Vocat.vent.trigger('modal:open', new ModalConfirmView({
+          model: @model,
+          vent: @,
+          headerLabel: "Are You Sure?"
+          descriptionLabel: "If you proceed, you will lose all unsaved changes.",
+          confirmEvent: 'confirm:cancel',
+          dismissEvent: 'dismiss:cancel'
+        }))
+      else
+        @trigger('confirm:cancel')
+
+    onCancel: () ->
+      window.location = '/admin/rubrics'
 
     onRangeRemoved: () ->
       if @model.get('ranges').length > 4
@@ -218,14 +238,14 @@ define (require) ->
           @model = new RubricModel({})
           @new_record = true
 
-
       @listenTo(@model, 'change', (e) =>
         @recalculateMatrix()
         @displaySliders()
+        @changed = true
       )
 
       @listenTo(@model, 'change:name change:description', () =>
-        @render()
+        @render() unless @new_record
       )
 
       @listenTo(@model, 'invalid', (model, errors) =>
@@ -238,6 +258,9 @@ define (require) ->
       )
       @listenTo(@, 'range:removed', () ->
         @onRangeRemoved()
+      )
+      @listenTo(@, 'confirm:cancel', () ->
+        @onCancel()
       )
 
     onShow: () ->
