@@ -5,7 +5,7 @@
 			<% if (current_user.role?(:administrator) || current_user.role?(:superadministrator)) %>
 			<nav class="drawer-course-list">
 				<ul data-behavior="admin-courses">
-					<% @current_organization.recent_grouped_sorted_courses().each do |semester, courses| %>
+					<% @current_organization.recent_grouped_sorted_courses(10).each do |semester, courses| %>
 						  <li class="drawer-nav--grouped-courses">
 							  <span class="group-header"><%= semester %></span>
 							  <ul class="course-list">
@@ -22,6 +22,12 @@
 						  </li>
 					<% end %>
 				</ul>
+        <% if @current_organization.courses.count > 10 %>
+          <a href="<%= admin_path %>" class="all-courses">
+            <i class="icon-courses"></i>
+            View All Courses
+          </a>
+        <% end %>
 			</nav>
 			<% else %>
 				<nav class="drawer-course-list">
@@ -82,7 +88,7 @@
 							<i class="icon-courses"></i>
 							View All Courses
 						</a>
-				  	<% end %>
+          <% end %>
 				</nav>
 			  <% end %>
 		</div>
