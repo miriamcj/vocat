@@ -71,18 +71,13 @@ class Rubric < ApplicationRecord
   # Currently, filters is a hash that should include start_year, end_year, start_semester, and end_semester (semester IDs)
   def evaluations_filtered(filters)
     e = evaluations
-    if !filters[:start_year].blank? && !filters[:end_year].blank? && !filters[:start_semester].blank? && !filters[:end_semester].blank?
+    if !filters[:start_semester].blank? && !filters[:end_semester].blank?
       e = e.joins(:project => {:course => :semester})
-      start_year = filters[:start_year]
-      end_year = filters[:end_year]
       start_position = Semester.find(filters[:start_semester]).position
       end_position = Semester.find(filters[:end_semester]).position
       if start_position > 0 && end_position > 0
-        e = e.where(' (
-                        (semesters.position >= :start_position AND courses.year = :start_year) AND
-                        (semesters.position <= :end_position AND courses.year = :end_year)
-                      ) OR (courses.year > :start_year AND courses.year < :end_year)',
-                    {start_position: start_position, start_year: start_year, end_year: end_year, end_position: end_position})
+        e = e.where('(semesters.position >= :start_position) AND (semesters.position <= :end_position)',
+                    {start_position: start_position, end_position: end_position})
       end
     end
     e

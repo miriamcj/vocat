@@ -38,7 +38,7 @@ class Admin::ReportsController < Admin::AdminController
   def rubric_scores
     respond_with @rubric.evaluations_filtered(params) do |format|
       format.csv do
-        send_data(csv_for(@rubric.evaluations), :type => 'text/csv', :filename => "rubric_#{@rubric.id}_scores.csv")
+        send_data(csv_for(@rubric.evaluations_filtered(params)), :type => 'text/csv', :filename => "rubric_#{@rubric.id}_scores.csv")
       end
     end
   end

@@ -21,21 +21,13 @@
 					<td>
 						<%= form_tag rubric_scores_admin_reports_path(@rubric), :method => :get, :html_options => {:class => 'formgrid'} do %>
 							<fieldset>
-								<div class="formgrid sixth">
+								<div class="formgrid third">
 									<%= label_tag :start_semester, 'From' %>
-									<%= select_tag(:start_semester, options_from_collection_for_select(Semester.all, 'id', 'name', params[:semester]), {'data-behavior' => 'chosen', 'data-placeholder' => 'Semester'}) %>
+									<%= select_tag(:start_semester, options_from_collection_for_select(@current_organization.semesters, 'id', 'name', params[:semester]), {'data-behavior' => 'chosen', 'data-placeholder' => 'Semester'}) %>
 								</div>
-								<div class="formgrid sixth">
-									<label>&nbsp;</label>
-									<%= select_tag(:start_year, options_for_select(Course.distinct_years, params[:year]), {'data-behavior' => 'chosen', 'data-placeholder' => 'Year'}) %>
-								</div>
-								<div class="formgrid sixth">
+								<div class="formgrid third">
 									<%= label_tag :end_semester, 'To' %>
-									<%= select_tag(:end_semester, options_from_collection_for_select(Semester.all, 'id', 'name', params[:semester]), {'data-behavior' => 'chosen', 'data-placeholder' => 'Semester'}) %>
-								</div>
-								<div class="formgrid sixth">
-									<label>&nbsp;</label>
-									<%= select_tag(:end_year, options_for_select(Course.distinct_years, params[:year]), {'data-behavior' => 'chosen', 'data-placeholder' => 'Year'}) %>
+									<%= select_tag(:end_semester, options_from_collection_for_select(@current_organization.semesters, 'id', 'name', params[:semester]), {'data-behavior' => 'chosen', 'data-placeholder' => 'Semester'}) %>
 								</div>
 								<div class="formgrid third">
 									<%= label_tag :format, 'Export as', {class: 'text-label'} %>
