@@ -50,4 +50,8 @@ class Semester < ApplicationRecord
     name
   end
 
+  def year
+    start_date.year
+  end
+
 end

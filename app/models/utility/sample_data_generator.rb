@@ -278,9 +278,8 @@ module Utility
           ['Topics in Information Studies', 'LIB', '3010'],
       ]
       time = Time.now
-      year = rand(time.year - 2..time.year + 1)
       course = courses.sample()
-      c = org.courses.create(:semester => semester, :year => year, :name => course[0], :department => course[1], :number => course[2], :section => random_section, :description => Faker::Lorem.paragraph)
+      c = org.courses.create(:semester => semester, :name => course[0], :department => course[1], :number => course[2], :section => random_section, :description => Faker::Lorem.paragraph)
     end
 
     def create_project(course, rubrics)

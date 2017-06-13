@@ -41,6 +41,7 @@ class Course < ApplicationRecord
   has_many :visits, as: :visitable
 
   delegate :name, :to => :semester, :prefix => true, :allow_nil => true
+  delegate :year, to: :semester
 
   accepts_nested_attributes_for :groups
 
@@ -49,7 +50,9 @@ class Course < ApplicationRecord
   scope :past, -> { joins(:semester).where('semesters.end_date < ?', Date.current) }
   scope :in_org, ->(org) { where(:organization => org)}
 
-  validates :department, :name, :number, :section, :presence => true
+  validates :department, :name, :semester_id, :number, :section, :presence => true
+
+  before_create :set_year
 
   # Params is a hash of search values including (:department || :semester || :year) || :section
   def self.search(params)
@@ -61,6 +64,10 @@ class Course < ApplicationRecord
     c = c.joins(:memberships => :user).where(:users => {id: params[:evaluator]}) unless params[:evaluator].blank?
     c = c.where({organization: params[:organization]}) unless params[:organization].blank?
     c
+  end
+
+  def set_year
+    self.year = semester.year
   end
 
   def self.distinct_departments(org = nil)

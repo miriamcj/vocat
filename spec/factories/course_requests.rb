@@ -6,7 +6,6 @@ FactoryGirl.define do
     department "RAM"
     number "101"
     section "1234"
-    year 2014
     association :semester, factory: :semester
     association :evaluator, factory: :evaluator
     association :organization, factory: :organization

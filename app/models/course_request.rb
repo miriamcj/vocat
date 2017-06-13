@@ -27,10 +27,12 @@ class CourseRequest < ApplicationRecord
   belongs_to :organization
 
   delegate :name, :email, to: :evaluator, prefix: true
+  delegate :year, to: :semester
 
   after_create :notify
+  before_create :set_year
 
-  validates :name, :number, :year, :department, :semester_id, :section, :presence => true
+  validates :name, :year, :number, :department, :semester_id, :section, :presence => true
 
   def to_course
     copy_attributes = [:name, :number, :year, :department, :semester, :section, :organization]
@@ -57,6 +59,10 @@ class CourseRequest < ApplicationRecord
 
     before_transition :pending => :denied, :do => :handle_denied
     before_transition :pending => :approved, :do => :handle_approved
+  end
+
+  def set_year
+    year = semester.year
   end
 
   def handle_denied
