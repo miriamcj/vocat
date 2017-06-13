@@ -41,6 +41,7 @@ gem 'rack-cors', :require => "rack/cors"
 gem 'dotenv-rails'
 gem 'paperclip'
 gem 'redis-namespace'
+gem 'rollbar'
 
 # Deployment
 
