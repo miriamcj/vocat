@@ -28,6 +28,10 @@ class Admin::ReportsController < Admin::AdminController
       format.csv do
         send_data(csv_for(@course.creators), :type => 'text/csv', :filename => @course.format('%d%n_%s_roster.csv'))
       end
+      format.text do
+        stream = render_to_string(template: 'admin/reports/roster')
+        send_data(stream, type: 'text/plain', filename: @course.format('%d%n_%s_roster.txt'))
+      end
     end
   end
 
