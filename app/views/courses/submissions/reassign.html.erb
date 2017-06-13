@@ -13,7 +13,9 @@
 
 			<div class="page-section--subsection page-section--subsection-ruled portfolio-item">
 				<div class="portfolio-item--thumb">
-					<%= render 'shared/submission_thumbnail', :submission => @submission %>
+          <% @submission.assets.find_each do |asset| %>
+            <%= render 'shared/submission_thumbnail', :asset => asset %>
+          <% end %>
 				</div>
 				<div class="portfolio-item--content">
 					<h3 class="heading-secondary">
