@@ -180,21 +180,24 @@
     span {
       @extend %condensedHeading;
       font-weight: $thin;
+      display: block;
       position: relative;
       top: 50%;
       z-index: 10;
       font-size: 42px;
       color: $grayDarkest;
-    }
-    span.empty {
-      display: block;
-      @extend %condensedHeading;
-      text-transform: uppercase;
-      font-size: $theta;
-      margin: 6px 0;
-    }
-    span.unit {
-      font-size: $zeta;
+
+      &.empty {
+        display: block;
+        @extend %condensedHeading;
+        text-transform: uppercase;
+        font-size: $theta;
+        margin: 6px 0;
+      }
+
+      &.unit {
+        font-size: $theta;
+      }
     }
     small {
       z-index: 10;
