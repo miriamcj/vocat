@@ -75,8 +75,13 @@
   @extend %medium-one-third;
   @extend %narrow-one-half;
   width: 127px;
-  &:not(last-child) {
-    margin-right: 30px;
+
+  + .summary-box {
+    margin-left: 30px;
+    
+    @include respond($baikal) {
+      margin-left: 0;
+    }
   }
   .page-message & {
     @extend %medium-one-fourth;
@@ -168,6 +173,7 @@
     position: relative;
     height: 115px;
     width: 127px;
+    margin: auto;
     &.no-icon > span {
       top: 40%;
     }
