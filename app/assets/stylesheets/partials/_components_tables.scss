@@ -64,7 +64,6 @@
     }
   }
   thead th, th, td {
-    overflow: hidden;
     @include respond($baikal) {
       font-size: $kappa;
     }
