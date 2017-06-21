@@ -1,18 +1,15 @@
 <div class="table-container">
   <div class="table-rubric">
-    <div class="table-header-stripe"></div>
-    <div class="table-header">
+    <div class="table-body">
       <div class="ranges table-row">
-        <div class="spacer"></div>
+        <div class="criteria-header table-cell spacer"></div>
         <% @rubric.ranges.each do |range| %>
-            <div class="table-cell">
-              <p><strong><%= range[:name] %></strong></p>
-              <%= "#{range[:low]} - #{range[:high]}" %>
-            </div>
+          <div class="table-cell">
+            <p><strong><%= range[:name] %></strong></p>
+            <%= "#{range[:low]} - #{range[:high]}" %>
+          </div>
         <% end %>
       </div>
-    </div>
-    <div class="table-body">
       <% @rubric.fields.each do |field| %>
           <div class="table-row">
             <div class="criteria-header table-cell">

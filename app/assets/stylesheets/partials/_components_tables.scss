@@ -158,7 +158,7 @@ a.table--heading {
     position: relative;
     width: auto;
     overflow-y: hidden;
-    background-color: #ECF8F7;
+    background-color: transparent;
   }
   .table-header-stripe {
     position: absolute;
@@ -168,50 +168,56 @@ a.table--heading {
     width: 150px;
     background-color: $grayMediumLighter;
   }
-  .spacer {
-    position: relative;
-    background-color: whitesmoke;
-    width: 150px;
-    height: 50px;
-    display: inline-block;
-  }
   .table-body {
     position: relative;
+    display: table;
+  }
+  .table-row {
+    display: table-row;
+  }
+  .table-cell {
+    display: table-cell;
   }
   .table-header {
     height: 50px;
+    width: 100%;
+    display: table;
   }
   .ranges .table-cell {
     text-align: center;
     background-color: $tealLightest;
     color: $white;
-    padding: 10px;
+    padding: 15px;
     line-height: 1;
     border-top: 0;
   }
   .criteria-header.table-cell {
     text-align: center;
-    width: 150px;
     background-color: $grayMediumLighter;
     color: $white;
+
+    &.spacer {
+      background-color: transparent;
+    }
   }
   .table-row {
-    &:first-child .table-cell {
-      border-top: 0;
+    &:first-child .table-cell,
+    &:last-child .table-cell
+    {
+      border-bottom: 0;
     }
   }
   .table-cell {
-    border-top: 2px solid $white;
-    display: inline-block;
-    width: 22%;
+    border-bottom: 2px solid $white;
     font-size: $typeReset;
     height: auto;
+    min-width: 200px;
     vertical-align: top;
     white-space: normal;
     padding: 15px;
     background-color: #ECF8F7;
     position: relative;
-    &:not(:first-child):after {
+    &:not(:first-child):not(:last-child):after {
       position: absolute;
       top: 0;
       right: 0;
