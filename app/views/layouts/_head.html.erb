@@ -3,6 +3,7 @@
 <title><%= content_for?(:title) ? yield(:title) : "VOCAT" %></title>
 <meta name="description" content="">
 <meta name="author" content="">
+<meta content="<%= ENV["ROLLBAR_CLIENT_TOKEN"] %>" name="rollbar-client-token">
 
 <script type="text/javascript" src="//use.typekit.net/ytz4hur.js"></script>
 <script type="text/javascript">try {

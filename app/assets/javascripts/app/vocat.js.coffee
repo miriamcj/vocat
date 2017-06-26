@@ -16,6 +16,7 @@ define (require) ->
   NotificationLayoutView = require('views/notification/notification_layout')
   NotificationExceptionView = require('views/notification/notification_exception')
   Pikaday = require('vendor/plugins/pikaday')
+  Rollbar = require('app/rollbar')
 
   Standalone = {
     project: require('views/course/manage/projects/project')

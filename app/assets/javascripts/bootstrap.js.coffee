@@ -61,6 +61,7 @@ requirejs.config {
     'wavesurfer': 'vendor/wavesurfer/wavesurfer'
     'waypoints_sticky': 'vendor/plugins/waypoints_sticky'
     'paper': 'vendor/paper/paper-full'
+    'rollbar': 'vender/rollbar/rollbar'
   }
 
   map: {
