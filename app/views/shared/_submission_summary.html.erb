@@ -21,6 +21,7 @@
         </div>
       <% end %>
     <% end %>
+    <% if submission.project.allows_creator_attach? %>
     <div class="portfolio-item--thumb">
       <div class="thumb-container-placeholder">
         <a href="<%= submission_detail_path(submission) %>">
@@ -29,6 +30,7 @@
         </a>
       </div>
     </div>
+    <% end %>
   </div>
 
   <div class="submission-footer info-container padded-container">
