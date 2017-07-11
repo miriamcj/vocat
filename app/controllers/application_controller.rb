@@ -94,7 +94,7 @@ class ApplicationController < ActionController::Base
   end
 
   def initialize_management_domain
-    @manage_domain = "manage.#{Rails.application.config.vocat.domain}"
+    @manage_domain = VocatSettings.management_domain
   end
 
   def initialize_organization

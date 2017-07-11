@@ -6,19 +6,19 @@ class VocatDeviseMailer < Devise::Mailer
 
   def confirmation_instructions(record, token, opts={})
     @organization = record.organization
-    @host = @organization.domain
+    @host = record.is_superadministrator? ? VocatSettings.management_domain : @organization.domain
     super
   end
 
   def reset_password_instructions(record, token, opts={})
     @organization = record.organization
-    @host = @organization.domain
+    @host = record.is_superadministrator? ? VocatSettings.management_domain : @organization.domain
     super
   end
 
   def unlock_instructions(record, token, opts={})
     @organization = record.organization
-    @host = @organization.domain
+    @host = record.is_superadministrator? ? VocatSettings.management_domain : @organization.domain
     super
   end
 
