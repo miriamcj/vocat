@@ -42,6 +42,7 @@ gem 'dotenv-rails'
 gem 'paperclip'
 gem 'redis-namespace'
 gem 'rollbar'
+gem 'highline'
 
 # Deployment
 
