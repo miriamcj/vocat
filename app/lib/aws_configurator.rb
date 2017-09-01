@@ -90,7 +90,7 @@ class AWSConfigurator
   def configure_create_aws_bucket
     puts @config[:aws][:s3_bucket] ? "  Retrieving bucket" : "  Creating bucket"
     @created_objects[:bucket] = create_aws_bucket
-    @config[:aws][:s3_bucket] = @created_objects[:bucket].name if @created_objects[:bucket].present?
+    @config[:aws][:s3_bucket] = @created_objects[:bucket].name if @created_objects[:bucket]
   end
 
   def configure_aws_region(region)
@@ -101,7 +101,7 @@ class AWSConfigurator
   def configure_create_aws_role
     puts @config[:aws][:iam_et_role] ? "  Retrieving role" : "  Creating role"
     @created_objects[:role] = create_aws_role
-    @config[:aws][:iam_et_role] == @created_objects[:role][:name] if @created_objects[:role].present?
+    @config[:aws][:iam_et_role] == @created_objects[:role][:name] if @created_objects[:role]
   end
 
   def configure_create_aws_policy
@@ -113,31 +113,31 @@ class AWSConfigurator
     puts "  Configuring media presets"
     @created_objects[:mp4_preset] = create_aws_preset('mp4')
     @created_objects[:webm_preset] = create_aws_preset('webm')
-    @config[:aws][:presets][:mp4] = @created_objects[:mp4_preset][:id] if @created_objects[:mp4_preset].present?
-    @config[:aws][:presets][:webm] = @created_objects[:webm_preset][:id] if @created_objects[:webm_preset].present?
+    @config[:aws][:presets][:mp4] = @created_objects[:mp4_preset][:id] if @created_objects[:mp4_preset]
+    @config[:aws][:presets][:webm] = @created_objects[:webm_preset][:id] if @created_objects[:webm_preset]
   end
 
   def configure_create_aws_pipeline
     puts "  Configuring pipeline"
     @created_objects[:pipeline] = create_aws_pipeline
-    @config[:aws][:et_pipeline] = @created_objects[:pipeline][:id] if @created_objects[:pipeline].present?
+    @config[:aws][:et_pipeline] = @created_objects[:pipeline][:id] if @created_objects[:pipeline]
   end
 
   protected
 
   def create_aws_bucket
     s3 = AWS::S3.new()
-    exists = s3.buckets[@config[:aws][:s3_bucket]].exists?
-    if exists == true
+    exists = s3.buckets[@config[:aws][:s3_bucket]].exists? if @config[:aws][:s3_bucket]
+    if exists
       bucket = s3.buckets[@config[:aws][:s3_bucket]]
       puts "    Found the existing bucket."
     else
       begin
-        bucket = s3.buckets.create(@config[:aws][:s3_bucket])
+        bucket = s3.buckets.create('vocat')
         puts "    Created a new bucket."
       rescue AWS::S3::Errors::BucketAlreadyOwnedByYou
         puts "    This bucket has already been created and you own it."
-        bucket = s3.buckets[@config[:aws][:s3_bucket]]
+        bucket = s3.buckets['vocat']
       rescue Exception => e
         warn e.to_s
       end
@@ -148,14 +148,15 @@ class AWSConfigurator
   def create_aws_role
     # IAM Only allows resources to be created in us-east-1
     iam = AWS::IAM::Client.new({:region => 'us-east-1'})
+    role_name = @config[:aws][:iam_et_role] || "#{@config[:aws][:s3_bucket]}_transcoder"
     begin
-      response = iam.get_role(:role_name => @config[:aws][:iam_et_role])
-      puts "    Found an existing AWS role called #{@config[:aws][:iam_et_role]}."
+      response = iam.get_role(:role_name => role_name)
+      puts "    Found an existing AWS role called #{role_name}."
       puts "    Assuming this role is setup correctly and am not altering it."
       role = response[:role]
     rescue AWS::IAM::Errors::NoSuchEntity
-      response = iam.create_role({:role_name => @config[:aws][:iam_et_role], :assume_role_policy_document => ROLE_POLICY_DOCUMENT.to_json})
-      warn "    Created a new AWS role called #{@config[:aws][:iam_et_role]}."
+      response = iam.create_role({:role_name => role_name, :assume_role_policy_document => ROLE_POLICY_DOCUMENT.to_json})
+      warn "    Created a new AWS role called #{role_name}."
       role = response[:role]
     end
     role
