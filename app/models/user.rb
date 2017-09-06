@@ -183,7 +183,7 @@ class User < ApplicationRecord
   end
 
   def most_recent_semester
-    courses.joins(:semester).where('semesters.end_date < ?', Date.current).order('semesters.end_date DESC').first.semester
+    courses.joins(:semester).where('semesters.end_date < ?', Date.current).order('semesters.end_date DESC').first.try(:semester)
   end
 
   def most_recent_semester_courses
