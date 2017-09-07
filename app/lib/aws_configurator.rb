@@ -126,18 +126,22 @@ class AWSConfigurator
   protected
 
   def create_aws_bucket
-    s3 = AWS::S3.new()
-    exists = s3.buckets[@config[:aws][:s3_bucket]].exists? if @config[:aws][:s3_bucket]
+    s3 = AWS::S3.new
+    bucket_name = @config[:aws][:s3_bucket] || "vocat.#{Socket.gethostname}"
+    exists = s3.buckets[bucket_name].exists?
     if exists
-      bucket = s3.buckets[@config[:aws][:s3_bucket]]
+      bucket = s3.buckets[bucket_name]
       puts "    Found the existing bucket."
     else
       begin
-        bucket = s3.buckets.create('vocat')
+        bucket = s3.buckets.create(bucket_name)
+        puts "    Created a new bucket."
+      rescue AWS::S3::Errors::BucketAlreadyExists
+        bucket = s3.buckets.create("#{bucket_name}-#{SecureRandom.uuid}")
         puts "    Created a new bucket."
       rescue AWS::S3::Errors::BucketAlreadyOwnedByYou
         puts "    This bucket has already been created and you own it."
-        bucket = s3.buckets['vocat']
+        bucket = s3.buckets[bucket_name]
       rescue Exception => e
         warn e.to_s
       end
