@@ -1,13 +1,8 @@
-<div class="formgrid third">
+<div class="formgrid half">
   <%= label_tag :name, 'Name', {class: 'text-label'} %>
   <%= text_field :semester, :name, {class: 'text-input'} %>
 </div>
-<div class="formgrid third">
-  <%= label_tag :position, 'Position', {class: 'text-label'} %>
-  <%= number_field :semester, :position, {class: 'text-input'} %>
-  <small>Order semester occurs in.</small>
-</div>
-<div class="formgrid third">
+<div class="formgrid half">
   <%= f.label 'Organization', :class => 'text-label' %>
   <%= f.select :organization_id, options_from_collection_for_select(Organization.all, 'id', 'name'), {prompt: 'Select an organization'}, {'data-behavior' => 'chosen'} %>
   <small>Organization semester is associated with.</small>

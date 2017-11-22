@@ -61,7 +61,6 @@ class Manage::SemestersController < ApplicationController
 
   def semester_params
     params.require(:semester).permit(:name,
-                                 :position,
                                  :organization_id,
                                  :start_date,
                                  :end_date

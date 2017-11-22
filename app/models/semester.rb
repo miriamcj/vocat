@@ -20,7 +20,6 @@ class Semester < ApplicationRecord
   scope :in_org, ->(org) { where(:organization => org) }
 
   validates :organization_id, :name, presence: true
-  validates :position, uniqueness: { scope: :organization }
 
   before_save :valid_dates
 

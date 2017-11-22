@@ -73,12 +73,10 @@ class Rubric < ApplicationRecord
     e = evaluations
     if !filters[:start_semester].blank? && !filters[:end_semester].blank?
       e = e.joins(:project => {:course => :semester})
-      start_position = Semester.find(filters[:start_semester]).position
-      end_position = Semester.find(filters[:end_semester]).position
-      if start_position > 0 && end_position > 0
-        e = e.where('(semesters.position >= :start_position) AND (semesters.position <= :end_position)',
-                    {start_position: start_position, end_position: end_position})
-      end
+      start_date = Semester.find(filters[:start_semester]).start_date
+      end_date = Semester.find(filters[:end_semester]).end_date
+      e = e.where('(semesters.start_date >= :start_date) AND (semesters.end_date <= :end_date)',
+                  {start_date: start_date, end_date: end_date})
     end
     e
   end
