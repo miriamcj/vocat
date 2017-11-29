@@ -1,0 +1,16 @@
+<div class="formgrid half">
+  <%= label_tag :name, 'Name', {class: 'text-label'} %>
+  <%= text_field :semester, :name, {class: 'text-input'} %>
+</div>
+
+<div class="formgrid whole">
+  <label class="text-label form-hrule" >Semester Dates</label>
+</div>
+<div class="formgrid half">
+  <%= f.label 'Start Date', :class => 'text-label' %>
+  <%= f.text_field :start_date, :value => (@semester.start_date.strftime('%a %b %d %Y') if @semester.start_date), 'data-behavior' => 'date-picker' %>
+</div>
+<div class="formgrid half">
+  <%= f.label 'End Date', :class => 'text-label' %>
+  <%= f.text_field :end_date, :value => (@semester.end_date.strftime('%a %b %d %Y') if @semester.end_date), 'data-behavior' => 'date-picker' %>
+</div>

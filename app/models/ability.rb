@@ -419,6 +419,29 @@ class Ability
     end
 
     ######################################################
+    # Semesters
+    ######################################################
+    can :read_only, Semester do |semester|
+      user.organization == semester.organization
+    end
+
+    can :read_write_destroy, Semester do |semester|
+      user.can?(:manage, semester)
+    end
+
+    can :new, Semester do |semester|
+      user.can?(:manage, semester)
+    end
+
+    can :create, Semester do |semester|
+      user.can?(:manage, semester)
+    end
+
+    can :manage, Semester do |semester|
+      user.role?(:administrator) && (user.organization == semester.organization) || user.role?(:superadministrator)
+    end
+
+    ######################################################
     # Superadministrators
     ######################################################
     can?(:manage, :all) if user.role?(:superadministrator)

@@ -137,4 +137,8 @@ module ApplicationHelper
     link_to(column, { page: params[:page], sorting: sorting, direction: next_direction }, class: classname)
   end
 
+  def admin_nav_link(title, path, params)
+    link_to title, path, class: "/#{params[:controller]}" == path ? 'active' : ''
+  end
+
 end

@@ -1,0 +1,26 @@
+<% content_for :heading do %>
+
+    <% if @semester %>
+        <%= link_to 'Back to Semesters', admin_semesters_path, :class => 'header-link back-link' %>
+    <% end %>
+    <% if @semester && !@semester.new_record? %>
+
+        <h2 class="heading-primary">
+          <%= @semester.name %>
+        </h2>
+    <% else %>
+        <% if local_assigns.fetch(:header, nil) %>
+            <h3 class="heading-primary">
+              <%= header %>
+            </h3>
+        <% end %>
+    <% end %>
+<% end %>
+
+<% content_for :heading_links do %>
+    <% if @semester && !@semester.new_record? %>
+        <%= link_to 'Add New Semester', new_admin_semester_path, :class => 'primary-button new-button' %>
+    <% end %>
+<% end %>
+
+

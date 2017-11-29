@@ -167,6 +167,9 @@ Vocat::Application.routes.draw do
 
     namespace :admin do
       resources :assets
+      get '/academic_calendar', to: 'semesters#academic_calendar'
+      put '/semesters' => 'semesters#update_all'
+      resources :semesters
       resources :courses do
         member do
           get 'evaluators'

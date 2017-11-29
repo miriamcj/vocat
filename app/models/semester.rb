@@ -15,6 +15,7 @@
 class Semester < ApplicationRecord
 
   belongs_to :organization
+  has_many :courses, dependent: :restrict_with_error
 
   scope :sorted, -> { order(start_date: :desc) }
   scope :in_org, ->(org) { where(:organization => org) }

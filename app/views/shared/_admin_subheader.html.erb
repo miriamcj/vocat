@@ -1,11 +1,12 @@
 <div class="page-section--subsection course-synopsis-pane subheader">
   <div class="padded-container">
     <div class="info-container">
-      <%= link_to 'All Courses', admin_courses_path, class: (params[:controller] == 'admin/courses' ? "active" : "") %>
-      <%= link_to 'Course Requests', admin_course_requests_path, class: (params[:controller] == 'admin/course_requests' ? "active" : "") %>
-      <%= link_to 'Users', admin_users_path, class: (params[:controller] == 'admin/users' ? "active" : "") %>
-      <%= link_to 'Assets', admin_assets_path, class: (params[:controller] == 'admin/assets' ? "active" : "") %>
-      <%= link_to 'Rubrics', admin_rubrics_path, class: (params[:controller] == 'admin/rubrics' ? "active" : "") %>
+      <%= admin_nav_link 'All Courses', admin_courses_path, params %>
+      <%= admin_nav_link 'Course Requests', admin_course_requests_path, params %>
+      <%= admin_nav_link 'Users', admin_users_path, params %>
+      <%= admin_nav_link 'Assets', admin_assets_path, params %>
+      <%= admin_nav_link 'Rubrics', admin_rubrics_path, params %>
+      <%= admin_nav_link 'Semesters', admin_semesters_path, params %>
     </div>
   </div>
 </div>

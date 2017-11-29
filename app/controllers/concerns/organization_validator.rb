@@ -23,6 +23,10 @@ module Concerns::OrganizationValidator
     fail_organization_validation if @discussion_post.submission.project.course.organization != @current_organization unless @discussion_post.blank?
   end
 
+  def org_validate_semester
+    fail_organization_validation if @semester.organization != @current_organization unless @semester.blank?
+  end
+
   def org_validate_user
     @user.organization = @current_organization if @user.organization.blank? unless @user.blank?
     fail_organization_validation if @user.organization != @current_organization unless @user.blank?

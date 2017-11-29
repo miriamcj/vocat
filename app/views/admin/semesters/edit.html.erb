@@ -1,0 +1,18 @@
+<%= render :partial => 'heading', :locals => {semester: @semester} %>
+
+<% content_for :content do %>
+    <% body = capture do %>
+        <%= form_for [:admin, @semester], :html => {:multipart => true, :class => 'formgrid' } do |f| %>
+            <fieldset>
+              <%= render 'shared/model_errors', :model => @semester %>
+              <%= render 'form', :f => f %>
+              <div class="formgrid whole">
+                <%= f.button 'Update Semester', :class => 'primary-button update-button' %>
+                <%= link_to 'Cancel', admin_semester_path(@semester), :class => 'warning-button cancel-button' %>
+              </div>
+            </fieldset>
+        <% end %>
+    <% end %>
+    <%= render :partial => 'shared/section', :locals => {:header => 'Edit Semester Properties', :body => body} %>
+<% end %>
+

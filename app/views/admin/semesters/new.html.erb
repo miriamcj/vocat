@@ -1,0 +1,19 @@
+
+<%= render :partial => 'heading' %>
+
+<% content_for :content do %>
+    <% body = capture do %>
+        <%= form_for [:admin, @semester], :html => {:multipart => true, :class => 'formgrid'} do |f| %>
+            <fieldset>
+              <%= render 'shared/model_errors', :model => @semester %>
+              <%= render 'form', :f => f %>
+
+              <div class="formgrid whole">
+                <%= f.button 'Save Semester', :class => 'primary-button update-button' %>
+                <%= link_to 'Cancel', admin_semesters_path, :class => 'warning-button cancel-button' %>
+              </div>
+            </fieldset>
+        <% end %>
+    <% end %>
+<% end %>
+

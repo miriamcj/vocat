@@ -2,6 +2,8 @@ class Manage::SemestersController < ApplicationController
 
   include Concerns::ManageConcerns
 
+  load_and_authorize_resource :semester
+
   def index
     search = {
         :organization_id => params[:organization_id],
@@ -38,6 +40,15 @@ class Manage::SemestersController < ApplicationController
       redirect_to edit_semester_path(@semester), notice: 'Semester was successfully updated.'
     else
       render :edit
+    end
+  end
+
+  def destroy
+    @semester = Semester.find(params[:id])
+    if @semester.destroy
+      redirect_to semesters_path, notice: 'Semester was successfully destroyed.'
+    else
+      redirect_to semesters_path, alert: @semester.errors.full_messages
     end
   end
 
