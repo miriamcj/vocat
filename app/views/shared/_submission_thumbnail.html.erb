@@ -1,6 +1,19 @@
-<div class="thumb-container <%= 'thumb-container-video' if asset.type == 'Asset::Youtube' || asset.type == 'Asset::Vimeo' %>">
-  <%= link_to image_tag(asset.thumbnail), course_asset_path(asset.course, asset) %>
-</div>
+<% if asset.thumbnail %>
+  <div class="thumb-container <%= 'thumb-container-video' if asset.type == 'Asset::Youtube' || asset.type == 'Asset::Vimeo' %>">
+    <%= link_to image_tag(asset.thumbnail), course_asset_path(asset.course, asset) %>
+  </div>
+<% elsif asset.state == "processing_error" %>
+    <div class="thumb-container-placeholder">
+      <a href="#">
+        <span class="tight"><%= asset.attachment.state.upcase %></span>
+
+        <div class="processing-indicator">
+          <div class="processing-indicator-1"></div>
+          <div class="processing-indicator-2"></div>
+        </div>
+      </a>
+    </div>
+<% end %>
 <div class="time-container">
   <span class="submit-time">
   Submitted <%= asset.created_at.strftime('%m/%d/%y %l:%M %p') %>
