@@ -8,7 +8,7 @@ namespace :fix do
   end
 
 
-  task :count_duplicates => :environment do |t, args|
+  task :fix_all_duplicates => :environment do |t, args|
     dupes = Submission.group(:project_id, :creator_id, :creator_type).count()
     problems = 0
     found = 0

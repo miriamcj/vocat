@@ -35,6 +35,7 @@ class Submission < ApplicationRecord
   belongs_to :group, -> { where "submissions.creator_type = 'Group'" }, foreign_key: 'creator_id'
   has_many :annotations, through: :assets
 
+  validates :creator_id, uniqueness: { scope: [:project_id, :creator_type], message: "may only submit once per project" }
   validates_presence_of :project_id, :creator_id, :creator_type
 
   delegate :department, :to => :course, :prefix => true
