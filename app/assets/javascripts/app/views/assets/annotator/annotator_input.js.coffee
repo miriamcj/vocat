@@ -33,7 +33,8 @@ define (require) ->
       'click @ui.canvasDrawButton': 'setCanvasModeDraw'
       'click @ui.canvasEraseButton': 'setCanvasModeErase'
       'click @ui.canvasOvalButton': 'setCanvasModeOval'
-      'click @ui.canvasSelectButton': 'setCanvasModeSelect'
+      'click @ui.canvasSelectButton': 'setCanvasModeSelect',
+      'click @ui.annotationInput': 'annotationInputClick'
     }
 
     events:
@@ -48,7 +49,6 @@ define (require) ->
       @listenTo(@vent, 'request:annotator:input:stop', @stopAnnotationInput, @)
       @listenTo(@vent, 'request:message:show', @handleMessageShow, @)
       @listenTo(@vent, 'request:message:hide', @handleMessageHide, @)
-
 
     handleMessageShow: (data) ->
       msg = data.msg
@@ -144,6 +144,9 @@ define (require) ->
         if @ui.annotationInput.val().length > 0
           @onSaveAnnotation()
         event.preventDefault()
+
+    onAnnotationInputClick: () ->
+      @vent.trigger('announce:annotator:input:start')
 
     setCanvasMode: (mode) ->
       @startAnnotationInput()
