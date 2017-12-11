@@ -184,7 +184,7 @@ define (require) ->
           @ui.uploadStatusDetail.html("#{@toFileSize(data.loaded)} out of #{@toFileSize(data.total)}")
           @ui.progressBar.width("#{progress}%")
         fail: (e, data) =>
-          Vocat.vent.trigger('error:add', {level: 'error', msg: 'Unable to upload file to Amazon S3.'})
+          Vocat.vent.trigger('error:add', {level: 'error', msg: 'Unable to upload. Please check your internet connection or try again later.'})
           @resetUploader()
         done: (e, data) =>
           asset = new AssetModel({attachment_id: attachment.id, submission_id: @collection.submissionId})
