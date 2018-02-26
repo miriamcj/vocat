@@ -275,3 +275,22 @@
 .drawer-course-list .chosen-container-single .chosen-single abbr {
   display: none;
 }
+
+.drawer--contents {
+  li {
+    a {
+      @extend %condensedHeading;
+      font-size: $zeta;
+      color: $white;
+      text-transform: none;
+
+      &:hover {
+        color: $tealLight;
+      }
+    }
+
+    + li {
+      margin-top: .875em;
+    }
+  }
+}
