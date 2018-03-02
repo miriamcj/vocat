@@ -45,7 +45,7 @@
         <div class="drawer--contents">
           <ul class="drawer-nav">
             <li><%= link_to "Documentation", "http://vocat.io/help", target: "_blank" %></li>
-            <% if @current_organization.support_email %>
+            <% if @current_organization && @current_organization.support_email %>
               <li><%= link_to "Support", "mailto:#{@current_organization.support_email}?subject=VOCAT Support Request" %></li>
             <% end %>
           </ul>
