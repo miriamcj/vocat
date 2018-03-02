@@ -18,8 +18,7 @@
 
 			</div>
 		</div>
-			<% if user_signed_in? %>
-
+    <% if user_signed_in? %>
 			<div data-drawer-target="context" data-behavior="header-drawer" class="page-header--drawer context-drawer">
 				<div class="drawer--contents">
 					<ul class="drawer-nav">
@@ -42,8 +41,17 @@
 				</div>
 			</div>
 
-					<% end %>
+      <div data-drawer-target="help" data-behavior="header-drawer" class="page-header--drawer help-drawer">
+        <div class="drawer--contents">
+          <ul class="drawer-nav">
+            <li><%= link_to "Documentation", "http://vocat.io/help", target: "_blank" %></li>
+            <% if @current_organization.support_email %>
+              <li><%= link_to "Support", "mailto:#{@current_organization.support_email}?subject=VOCAT Support Request" %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    <% end %>
 
-		</div>
-	</div>
+  </div>
 </header>
