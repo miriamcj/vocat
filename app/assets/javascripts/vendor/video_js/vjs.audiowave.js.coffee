@@ -17,7 +17,7 @@ define (require) ->
           className: 'vjs-waveform'
           tabIndex: 0
         }
-        container = videojs.Component.prototype.createEl(null, containerProperties)
+        container = videojs.createEl("div", containerProperties)
         @container = $(container)
 
         surferOptions = {
@@ -33,7 +33,6 @@ define (require) ->
         $(@player.el()).find('.vjs-tech').after(container)
 
         @setupListeners()
-        @player.controlBar.show()
 
       setupListeners: () ->
         @player.on('timeupdate', (event) => @updateSurferPosition(event))

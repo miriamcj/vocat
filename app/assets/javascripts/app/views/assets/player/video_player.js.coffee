@@ -267,7 +267,7 @@ define (require) ->
         options.src = locations.url
 
       if @model.get('family') == 'audio'
-        options.children.controlBar.children['fullscreenToggle'] = false
+        options.controlBar['fullscreenToggle'] = false
         options.plugins = {
           audiowave: {
             src: @model.get('locations').mp3 || @model.get('locations').mp4,
