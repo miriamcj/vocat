@@ -1,43 +1,39 @@
 <%
-
-  def boxen?; ENV['BOXEN_HOME']; end
-
-  url  = ENV["BOXEN_POSTGRESQL_URL"]
-  port = ENV["BOXEN_POSTGRESQL_PORT"]
-
-  if boxen?
-    db = 'vocat_development'
-  else
-    user = ENV["RAILS_DB_USER"]
-    pass = ENV["RAILS_DB_PASS"]
-    db   = ENV["RAILS_DB_NAME"]
-  end
-
+  user = ENV["RAILS_DB_USER"]
+  pass = ENV["RAILS_DB_PASS"]
+  host = ENV["RAILS_DB_HOST"] || 'localhost'
+  port = ENV["RAILS_DB_PORT"] || 5432
+  db   = ENV["RAILS_DB_NAME"] || 'vocat_development'
 %>
 
-common: &common
+default: &default
   adapter: postgresql
-  host: localhost
   encoding: unicode
-  pool: 50
+  # For details on connection pooling, see Rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: localhost
   port: <%= port %>
   user: <%= user %>
   database: <%= db %>
   password: <%= pass %>
 
-production:
-  <<: *common
-
-demo:
-  <<: *common
-
-staging:
-  <<: *common
 
 development:
-  <<: *common
+  <<: *default
+
+production:
+  <<: *default
+
+demo:
+  <<: *default
+
+staging:
+  <<: *default
+
+development:
+  <<: *default
 
 test:
-  <<: *common
+  <<: *default
   database: vocat_test
-
