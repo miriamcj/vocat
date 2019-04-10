@@ -1,0 +1,5 @@
+remote=castiron@warewolf.cichq.com:warewolf/data/vocat
+db_name=vocat_dev
+db_user=root
+db_host=localhost
+db_pass=''
