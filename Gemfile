@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'active_model_serializers', '~> 0.8.3'
 gem 'annotate', '~> 2.7.1'
-gem 'apipie-rails', :git => 'https://github.com/Apipie/apipie-rails.git'
+gem 'apipie-rails', '~> 0.5'
 gem 'aws-sdk', '~> 1.32.0'
 gem 'cancancan'
 gem 'coffee-rails', '~> 4.2'

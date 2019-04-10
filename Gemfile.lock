@@ -1,11 +1,4 @@
 GIT
-  remote: https://github.com/Apipie/apipie-rails.git
-  revision: 150c982d2cb49ab13fd8138a578b4f1dd2a0b90b
-  specs:
-    apipie-rails (0.3.7)
-      json
-
-GIT
   remote: https://github.com/seuros/state_machine.git
   revision: 95ba53f03e5657a5873343c2b1dc6a148ea3542e
   specs:
@@ -56,6 +49,8 @@ GEM
     annotate (2.7.1)
       activerecord (>= 3.2, < 6.0)
       rake (>= 10.4, < 12.0)
+    apipie-rails (0.5.15)
+      rails (>= 4.1)
     arel (7.1.4)
     aws-sdk (1.32.0)
       json (~> 1.4)
@@ -168,7 +163,7 @@ GEM
       actionpack (>= 3.1)
       railties (>= 3.1)
       sass (>= 3.2)
-    json (1.8.3)
+    json (1.8.6)
     kaminari (0.17.0)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -352,7 +347,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (~> 0.8.3)
   annotate (~> 2.7.1)
-  apipie-rails!
+  apipie-rails (~> 0.5)
   aws-sdk (~> 1.32.0)
   cancancan
   capistrano (~> 3.3.0)
