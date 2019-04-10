@@ -30,3 +30,5 @@ public/sample*
 
 # Ignore any database dumps sitting around
 *.sql
+
+.DS_Store
