@@ -32,3 +32,5 @@ public/sample*
 *.sql
 
 .DS_Store
+
+examples.txt
