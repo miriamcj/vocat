@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
   include Concerns::OrganizationValidator
 
   layout 'content'
-  protect_from_forgery
 
 #  skip_authorization_check
   before_action :validate_subdomain

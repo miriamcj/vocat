@@ -19,8 +19,8 @@ class Asset < ApplicationRecord
   include RankedModel
   ranks :listing_order, :with_same => :submission_id, :class_name => 'Asset'
 
-  belongs_to :submission, :counter_cache => true
-  belongs_to :author, :class_name => 'User'
+  belongs_to :submission, optional: true, :counter_cache => true
+  belongs_to :author, optional: true, :class_name => 'User'
   has_many :annotations, :dependent => :destroy
   has_many :visits, as: :visitable
   has_one :attachment, :dependent => :destroy

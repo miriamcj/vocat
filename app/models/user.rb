@@ -38,7 +38,7 @@
 
 class User < ApplicationRecord
 
-  belongs_to :organization
+  belongs_to :organization, optional: true
   has_many :rubrics, :foreign_key => :owner_id
   has_many :memberships
   has_many :courses, :through => :memberships

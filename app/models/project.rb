@@ -28,7 +28,7 @@ class Project < ApplicationRecord
   ranks :listing_order, :with_same => :course_id
 
   belongs_to :course
-  belongs_to :rubric
+  belongs_to :rubric, optional: true
   has_many :submissions, :dependent => :destroy
   has_many :evaluations, :through => :submissions
   has_many :discussion_posts, :through => :submissions

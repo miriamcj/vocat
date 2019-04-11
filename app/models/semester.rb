@@ -35,11 +35,11 @@ class Semester < ApplicationRecord
   end
 
   def self.find_by_year(year)
-    self.where('extract(year from start_date) = ?', year)
+    self.where(Arel.sql('extract(year from start_date) = ?'), year)
   end
 
   def self.unique_years
-    self.pluck("distinct extract(year from start_date)::Integer").sort!
+    self.pluck(Arel.sql("distinct extract(year from start_date)::Integer")).sort!
   end
 
   def to_s

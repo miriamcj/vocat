@@ -23,8 +23,8 @@
 class Submission < ApplicationRecord
   belongs_to :project
   belongs_to :creator, :polymorphic => true
-  belongs_to :user, -> { where "submissions.creator_type = 'User'" }, foreign_key: 'creator_id'
-  belongs_to :group, -> { where "submissions.creator_type = 'Group'" }, foreign_key: 'creator_id'
+  belongs_to :user, foreign_type: 'User', foreign_key: 'creator_id', optional: true
+  belongs_to :group, foreign_type: 'Group', foreign_key: 'creator_id', optional: true
   has_many :assets, :dependent => :destroy
   has_many :evaluations, :dependent => :destroy
   has_many :discussion_posts, :dependent => :destroy

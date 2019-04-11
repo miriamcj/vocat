@@ -21,8 +21,8 @@
 class CourseRequest < ApplicationRecord
 
   belongs_to :evaluator, :class_name => 'User'
-  belongs_to :admin, :class_name => 'User'
-  belongs_to :course
+  belongs_to :admin, optional: true, :class_name => 'User'
+  belongs_to :course, optional: true
   belongs_to :semester
   belongs_to :organization
 

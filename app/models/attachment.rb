@@ -27,7 +27,7 @@ class Attachment < ApplicationRecord
 
   include Storable
 
-  belongs_to :asset
+  belongs_to :asset, optional: true
   belongs_to :user
   has_many :variants, dependent: :destroy
 

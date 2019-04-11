@@ -24,7 +24,7 @@ require 'securerandom'
 class Rubric < ApplicationRecord
 
   belongs_to :owner, :class_name => "User"
-  belongs_to :organization
+  belongs_to :organization, optional: true
   has_many :projects, :dependent => :nullify
   has_many :courses, :through => :projects
   has_many :evaluations, :dependent => :destroy
