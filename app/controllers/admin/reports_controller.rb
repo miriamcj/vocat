@@ -13,8 +13,7 @@ class Admin::ReportsController < Admin::AdminController
   load_and_authorize_resource :rubric, :parent => false, if: lambda {
                                        action_name.start_with?('rubric_')
                                      }
-  before_filter :org_validate_course
-  before_filter :org_validate_rubric
+  before_action :org_validate_course, :org_validate_rubric
   respond_to :json
   respond_to :csv
   respond_to :text

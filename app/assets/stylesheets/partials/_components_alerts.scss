@@ -81,7 +81,7 @@ $spacingUnit: $mediumUnitPadding * .75;
   top: $headerHeight;
   background: $grayDarker;
   opacity: 1;
-  @include transition(all .25s $timing);
+  transition: all .25s $timing;
   padding: 0 $spacingUnit;
   .notification-item {
     padding-top: $spacingUnit * .75;

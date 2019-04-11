@@ -3,8 +3,7 @@ class Api::V1::ScoresController < ApiController
   respond_to :json
   skip_authorization_check
 
-  before_action :load_project
-  before_filter :org_validate_project
+  before_action :org_validate_project, :load_project
 
   resource_description do
     description <<-EOS

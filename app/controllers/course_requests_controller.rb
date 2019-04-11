@@ -1,8 +1,7 @@
 class CourseRequestsController < ApplicationController
 
   load_and_authorize_resource :course_request, :through => :the_current_organization
-  before_filter :set_course_request_evaluator
-  before_filter :org_validate_course_request
+  before_action :set_course_request_evaluator, :org_validate_course_request
   respond_to :html
 
   def new

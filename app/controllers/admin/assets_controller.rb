@@ -1,7 +1,7 @@
 class Admin::AssetsController < Admin::AdminController
 
   load_and_authorize_resource :asset
-  before_filter :org_validate_asset
+  before_action :org_validate_asset
   respond_to :html
 
   layout 'content'

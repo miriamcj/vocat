@@ -1,7 +1,7 @@
 class Api::V1::DiscussionPostsController < ApiController
 
   load_and_authorize_resource :discussion_post
-  before_filter :org_validate_discussion_post
+  before_action :org_validate_discussion_post
   respond_to :json
 
   def_param_group :discussion_post do

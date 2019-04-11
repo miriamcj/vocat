@@ -2,9 +2,8 @@ class Courses::Manage::CoursesController < ApplicationController
 
   layout 'content'
   load_and_authorize_resource :course, :parent => true
-  before_filter :org_validate_course
   respond_to :html
-  before_action :set_type_manage
+  before_action :org_validate_course, :set_type_manage
 
   def edit
     @course = @current_organization.courses.find params[:course_id]

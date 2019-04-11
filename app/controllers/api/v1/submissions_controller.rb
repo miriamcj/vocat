@@ -3,7 +3,7 @@ class Api::V1::SubmissionsController < ApiController
   respond_to :json
   skip_authorization_check # Authorization is more complex on this controller, so we do it in each individual action
   load_resource :submission
-  before_filter :org_validate_submission
+  before_action :org_validate_submission
 
   resource_description do
     description <<-EOS

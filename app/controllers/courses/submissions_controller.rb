@@ -3,8 +3,7 @@ class Courses::SubmissionsController < ApplicationController
   layout 'content'
   load_and_authorize_resource :course
   load_and_authorize_resource :submission
-  before_filter :org_validate_course
-  before_filter :org_validate_submission
+  before_action :org_validate_course, :org_validate_submission
   respond_to :html
 
   def show

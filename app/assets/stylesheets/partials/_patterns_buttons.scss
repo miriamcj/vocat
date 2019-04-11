@@ -23,8 +23,8 @@
     color: $white;
     text-decoration: none;
   }
-  @include transition($fastTransition background-color $timing);
-  @include transition($fastTransition border-color $timing);
+  transition: $fastTransition background-color $timing;
+  transition: $fastTransition border-color $timing;
 
 }
 

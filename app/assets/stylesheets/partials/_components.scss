@@ -170,7 +170,7 @@ footer.page-footer {
 // More info: http://meyerweb.com/eric/thoughts/2011/09/12/un-fixing-fixed-elements-with-css-transforms/
 // --------------------------
 .page-header {
-  @include transition($fastTransition all $timing);
+  transition: $fastTransition all $timing;
   // Since IE8 doesn't remove the nav menu responsively, give it a min-width to stop
   // it from resizing
   min-width: $minContainerWidth - $headerUnitWidth;
@@ -257,7 +257,7 @@ footer.page-footer {
   opacity: 0;
   visibility: hidden;
   max-width: 100%;
-  @include transition(bottom .25s $timing, opacity .25s $timing, visibility .25s $timing);
+  transition: bottom .25s $timing, opacity .25s $timing, visibility .25s $timing;
   &.drawer-open {
     opacity: 1;
     visibility: visible;
@@ -447,7 +447,7 @@ footer.page-footer {
 
       > a {
         font-size: $kappa;
-        @include transition($fastTransition background $timing);
+        transition: $fastTransition background $timing;
 
         &:hover {
           color: $tealLight;

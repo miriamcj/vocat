@@ -4,10 +4,9 @@ class Courses::Manage::ProjectsController < ApplicationController
 
   load_and_authorize_resource :course
   load_and_authorize_resource :project, :through => :course
-  before_filter :org_validate_course
   respond_to :html
 
-  before_action :disable_layout_messages, :set_type_manage
+  before_action :org_validate_course, :disable_layout_messages, :set_type_manage
 
   # GET courses/:course_id/manage/projects
   def index

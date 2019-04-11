@@ -2,7 +2,7 @@ class Api::V1::CoursesController < ApiController
 
   respond_to :json
   load_and_authorize_resource :course
-  before_filter :org_validate_course
+  before_action :org_validate_course
   skip_authorization_check only: [:index, :search]
 
   def_param_group :course do

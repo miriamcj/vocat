@@ -1,7 +1,7 @@
 class Api::V1::EvaluationsController < ApiController
 
   load_and_authorize_resource :evaluation
-  before_filter :org_validate_evaluation
+  before_action :org_validate_evaluation
   respond_to :json
 
   def_param_group :evaluation do

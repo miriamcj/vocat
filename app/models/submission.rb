@@ -21,19 +21,17 @@
 #
 
 class Submission < ApplicationRecord
-
-  has_one :course, :through => :project
-
+  belongs_to :project
+  belongs_to :creator, :polymorphic => true
+  belongs_to :user, -> { where "submissions.creator_type = 'User'" }, foreign_key: 'creator_id'
+  belongs_to :group, -> { where "submissions.creator_type = 'Group'" }, foreign_key: 'creator_id'
   has_many :assets, :dependent => :destroy
   has_many :evaluations, :dependent => :destroy
   has_many :discussion_posts, :dependent => :destroy
   has_many :annotations, through: :assets
   has_many :visits, as: :visitable
-  belongs_to :project
-  belongs_to :creator, :polymorphic => true
-  belongs_to :user, -> { where "submissions.creator_type = 'User'" }, foreign_key: 'creator_id'
-  belongs_to :group, -> { where "submissions.creator_type = 'Group'" }, foreign_key: 'creator_id'
   has_many :annotations, through: :assets
+  has_one :course, :through => :project
 
   validates :creator_id, uniqueness: { scope: [:project_id, :creator_type], message: "may only submit once per project" }
   validates_presence_of :project_id, :creator_id, :creator_type

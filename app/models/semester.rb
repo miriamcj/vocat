@@ -21,14 +21,10 @@ class Semester < ApplicationRecord
 
   validates :organization_id, :name, presence: true
   validates :position, uniqueness: { scope: :organization }
-
-  before_save :valid_dates
+  validate :valid_dates
 
   def valid_dates
-    if start_date >= end_date
-      errors.add(:semester, 'start date must be before end date')
-      throw :abort
-    end
+    errors.add(:semester, 'start date must be before end date') if start_date >= end_date
   end
 
   def self.search(params)

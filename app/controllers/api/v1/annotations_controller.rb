@@ -1,7 +1,7 @@
 class Api::V1::AnnotationsController < ApiController
 
   load_and_authorize_resource :annotation
-  before_filter :org_validate_annotation
+  before_action :org_validate_annotation
   respond_to :json
 
   def_param_group :annotation do

@@ -1,7 +1,7 @@
 class Api::V1::UsersController < ApiController
 
   load_and_authorize_resource :user, except: [:me]
-  before_filter :org_validate_user
+  before_action :org_validate_user
   respond_to :json
   skip_authorization_check only: [:me]
 

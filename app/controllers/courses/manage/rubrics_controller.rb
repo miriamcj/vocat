@@ -1,12 +1,11 @@
 class Courses::Manage::RubricsController < ApplicationController
 
   load_and_authorize_resource :rubric, :through => :the_current_organization
-  before_filter :org_validate_rubric
   skip_authorize_resource :rubric, :only => [:edit, :clone]
   respond_to :html
   respond_to :pdf, :only => :show
 
-  before_action :disable_layout_messages, :set_type_manage
+  before_action :org_validate_rubric, :disable_layout_messages, :set_type_manage
 
   def index
     @my_rubrics = Rubric.in_org(the_current_organization).where(owner: current_user)

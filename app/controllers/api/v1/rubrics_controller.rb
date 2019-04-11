@@ -1,7 +1,7 @@
 class Api::V1::RubricsController < ApiController
 
   load_and_authorize_resource :rubric, :through => :the_current_organization
-  before_filter :org_validate_rubric
+  before_action :org_validate_rubric
   respond_to :json
 
   def_param_group :rubric do

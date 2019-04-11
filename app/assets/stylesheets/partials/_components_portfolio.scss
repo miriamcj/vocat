@@ -126,7 +126,7 @@
           }
         }
         &:after {
-          @include transition($mediumTransition opacity $timing);
+          transition: $mediumTransition opacity $timing;
           content: '';
           position: absolute;
           width: 100%;

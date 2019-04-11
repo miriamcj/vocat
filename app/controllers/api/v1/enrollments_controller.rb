@@ -3,8 +3,7 @@ class Api::V1::EnrollmentsController < ApiController
   include ActionView::Helpers::DateHelper
   load_and_authorize_resource :user
   load_and_authorize_resource :course
-  before_filter :org_validate_user
-  before_filter :org_validate_course
+  before_action :org_validate_user, :org_validate_course
 
   respond_to :json
 

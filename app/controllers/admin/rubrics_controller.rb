@@ -1,7 +1,7 @@
 class Admin::RubricsController < Admin::AdminController
 
   load_and_authorize_resource :rubric, :through => :the_current_organization
-  before_filter :org_validate_rubric
+  before_action :org_validate_rubric
   respond_to :html
 
   # GET /admin/rubrics

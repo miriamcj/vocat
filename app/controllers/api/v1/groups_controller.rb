@@ -1,7 +1,7 @@
 class Api::V1::GroupsController < ApiController
 
   load_and_authorize_resource :group
-  before_filter :org_validate_group
+  before_action :org_validate_group
   respond_to :json
 
   def_param_group :group do

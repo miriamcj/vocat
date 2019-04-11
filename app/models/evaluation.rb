@@ -25,12 +25,12 @@ class Evaluation < ApplicationRecord
   EVALUATION_TYPE_EVALUATOR = 2   # instructor
 
   belongs_to :evaluator, :class_name => 'User'
+  belongs_to :submission
+  belongs_to :rubric
   has_one :user, :through => :submission, :source => :creator, :source_type => 'User'
   has_one :group, :through => :submission, :source => :creator, :source_type => 'Group'
   has_one :project, :through => :submission
   has_one :course, :through => :project
-  belongs_to :submission
-  belongs_to :rubric
 
   scope :published, -> { where(:published => true) }
   scope :created_by, ->(creator) { where(:evaluator_id => creator) }

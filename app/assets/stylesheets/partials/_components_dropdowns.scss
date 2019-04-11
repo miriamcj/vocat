@@ -12,7 +12,7 @@
   background: $grayDarker;
   opacity: 0;
   font-size: $iota;
-  @include transition(all $dropdownTransition $timing);
+  transition: all $dropdownTransition $timing;
   ul {
     @extend %unstyled-list;
     padding: 0;
@@ -52,7 +52,7 @@
 }
 
 .user-nav--toggle {
-  @include transition($fastTransition background $timing);
+  transition: $fastTransition background $timing;
   color: $grayDarker;
   height: $headerHeight;
   display: inline-block;

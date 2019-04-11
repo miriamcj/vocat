@@ -500,7 +500,7 @@ label.switch-label:after,
   width: $switchWidth;
   background-color: $grayLight;
   border-radius: 12px;
-  @include transition($fastTransition, all, $timing);
+  transition: $fastTransition, all, $timing;
   -webkit-transition-duration: $fastTransition;
   transition-duration: $fastTransition;
 }

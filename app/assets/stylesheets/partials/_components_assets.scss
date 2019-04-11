@@ -1,7 +1,6 @@
 @import "variables";
 @import "mixins";
 @import "patterns";
-@import "compass";
 
 // Asset create interface
 // --------------------------------------------------------
@@ -267,14 +266,14 @@ $activeAnnotationBackground: $grayLighter;
   }
   .annotations-ul {
     opacity: 1;
-    @include transition(1s, opacity, $timing);
+    transition: 1s, opacity, $timing;
     @extend %unstyled-list;
     margin-bottom: 0;
   }
   .annotation-spacer {
     z-index: 5000;
     opacity: 0;
-    @include transition(1s, opacity, $timing);
+    transition: 1s, opacity, $timing;
     padding-top: 100px;
     p {
       margin: 0 30px;
@@ -753,7 +752,7 @@ ul.annotations-overlay {
   line-height: 16px;
   font-weight: bold;
   top: -30px;
-  @include transition(top $fastTransition);
+  transition: top $fastTransition;
   &.open {
     top: 0;
   }

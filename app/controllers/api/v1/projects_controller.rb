@@ -1,7 +1,7 @@
 class Api::V1::ProjectsController < ApiController
 
   load_and_authorize_resource :project
-  before_filter :org_validate_project
+  before_action :org_validate_project
   skip_authorize_resource :only => [:publish_evaluations, :unpublish_evaluations]
   respond_to :json
 

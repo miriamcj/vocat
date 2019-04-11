@@ -1,10 +1,9 @@
 class CoursesController < ApplicationController
   load_resource
   authorize_resource :course, :except => :dashboard
-  before_filter :org_validate_course
 
   respond_to :html, :json
-  before_action :assign_course
+  before_action :org_validate_course, :assign_course
 
   def index
     @courses = current_user.grouped_sorted_courses

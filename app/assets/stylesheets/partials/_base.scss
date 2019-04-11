@@ -8,7 +8,7 @@
 *,
 *:before,
 *:after {
-  @include box-sizing(border-box);
+  box-sizing: border-box;
 }
 
 // Sets text selection background color
@@ -125,7 +125,6 @@ hr {
 // Inline elements
 // --------------------------
 a {
-  //  @include transition($mediumTransition opacity $timing);
   text-decoration: none;
   color: $grayDarker;
   &:hover {

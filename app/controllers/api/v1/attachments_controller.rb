@@ -1,7 +1,7 @@
 class Api::V1::AttachmentsController < ApiController
 
   load_and_authorize_resource :attachment
-  before_filter :org_validate_asset
+  before_action :org_validate_asset
   skip_load_and_authorize_resource :only => :create
   respond_to :json
 
