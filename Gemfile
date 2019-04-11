@@ -45,7 +45,7 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 
 # Deployment
-gem 'guard'
+gem 'guard', "~> 2.15"
 gem 'guard-coffeescript'
 gem 'guard-copy'
 
