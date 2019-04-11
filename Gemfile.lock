@@ -189,7 +189,7 @@ GEM
     minitest (5.11.3)
     multi_json (1.12.1)
     nenv (0.3.0)
-    net-ldap (0.15.0)
+    net-ldap (0.16.1)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (4.0.0)
@@ -375,7 +375,7 @@ DEPENDENCIES
   listen
   mime-types
   mini_magick
-  net-ldap
+  net-ldap (~> 0.16)
   paper_trail (>= 3.0.6)
   paperclip
   pg
