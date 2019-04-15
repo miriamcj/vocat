@@ -48,7 +48,7 @@ define (require) ->
             if property == 'base'
               @addMessage(level, text, null, lifetime)
             else
-              @addMessage(level, "#{property.charAt(0).toUpperCase() + property.slice(1);} #{text}", null, lifetime)
+              @addMessage(level, "#{property.charAt(0).toUpperCase() + property.slice(1)} #{text}", null, lifetime)
           )
         else
           @addMessage(level, flashMessage.msg, null, lifetime)
@@ -64,4 +64,3 @@ define (require) ->
       }
       if @clearOnAdd == true then @collection.reset()
       @collection.add(m)
-

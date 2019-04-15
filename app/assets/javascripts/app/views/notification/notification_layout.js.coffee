@@ -121,7 +121,7 @@ define (require) ->
           else
             views.push @makeOneNotificationView({
               level: level
-              msg: "#{property.charAt(0).toUpperCase() + property.slice(1);} #{text}"
+              msg: "#{property.charAt(0).toUpperCase() + property.slice(1)} #{text}"
               property: null
               lifetime: lifetime
             })
