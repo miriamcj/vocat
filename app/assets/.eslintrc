@@ -1,0 +1,59 @@
+{ "extends": [
+    "airbnb",
+    "prettier"
+  ],
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true
+  },
+  "rules": {
+
+    "prettier/prettier": "error",
+
+    // Developer should choose whether concatenation or string templates make more sense.
+    "prefer-template": 0,
+
+    // We routinely import named modules in lodash, for example
+    "import/prefer-default-export": 0,
+
+    // Our imports aren't always resolved correctly by the linter
+    "import/default": 0,
+    "import/no-duplicates": 0,
+    "import/named": 0,
+    "import/namespace": 0,
+    "import/no-unresolved": 0,
+    "import/no-extraneous-dependencies": 0,
+    "import/first": 0,
+    "import/no-absolute-path": 0,
+
+    // We're not including the .js extensions on imports.
+    "import/extensions": [2, { "js": "never" }],
+
+    // Sometimes braces are added so the arrow function can wrap
+    "arrow-body-style": 0,
+
+    // Underscores are a useful way to indicate that a property should be treated as private.
+    "no-underscore-dangle": 0,
+
+    // Unused expressions are OK if ternary
+    "no-unused-expressions": [1, {"allowTernary": true }],
+
+    "no-return-assign": [2, "except-parens"],
+
+    // Rules we may not want to fix
+    "no-plusplus": 0,
+    "no-bitwise": 0,
+    "no-prototype-builtins": 0,
+    "consistent-return": 0,
+    "class-methods-use-this": 0,
+  },
+  "plugins": [
+    "import", "prettier"
+  ],
+  "settings": {
+    "import/parser": "babel-eslint",
+    "import/resolve": {
+      "moduleDirectory": ["node_modules", "src"]
+    }
+  }
+}
