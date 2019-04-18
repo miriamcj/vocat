@@ -5,55 +5,57 @@
  * DS207: Consider shorter variations of null checks
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-define(['backbone', 'models/project'], function(Backbone, ProjectModel) {
-  let ProjectCollection;
-  return ProjectCollection = (function() {
-    ProjectCollection = class ProjectCollection extends Backbone.Collection {
-      static initClass() {
-  
-        this.prototype.model = ProjectModel;
-  
-        this.prototype.activeModel = null;
-      }
+import Backbone from 'backbone';
 
-      getActive() {
-        return this.activeModel;
-      }
+import ProjectModel from 'models/project';
+let ProjectCollection;
 
-      hasGroupProjects() {
-        const p = this.filter(function(model) {
-          const t = model.get('type');
-          return (t === 'GroupProject') || (t === 'OpenProject');
-        });
-        return p.length > 0;
-      }
+export default ProjectCollection = (function() {
+  ProjectCollection = class ProjectCollection extends Backbone.Collection {
+    static initClass() {
 
-      hasUserProjects() {
-        const p = this.filter(function(model) {
-          const t = model.get('type');
-          return (t === 'UserProject') || (t === 'OpenProject');
-        });
-        return p.length > 0;
-      }
+      this.prototype.model = ProjectModel;
 
-      setActive(id) {
-        const current = this.getActive();
-        if (id != null) {
-          const model = this.get(id);
-          if (model != null) {
-            this.activeModel = model;
-          } else {
-            this.activeModel = null;
-          }
+      this.prototype.activeModel = null;
+    }
+
+    getActive() {
+      return this.activeModel;
+    }
+
+    hasGroupProjects() {
+      const p = this.filter(function(model) {
+        const t = model.get('type');
+        return (t === 'GroupProject') || (t === 'OpenProject');
+      });
+      return p.length > 0;
+    }
+
+    hasUserProjects() {
+      const p = this.filter(function(model) {
+        const t = model.get('type');
+        return (t === 'UserProject') || (t === 'OpenProject');
+      });
+      return p.length > 0;
+    }
+
+    setActive(id) {
+      const current = this.getActive();
+      if (id != null) {
+        const model = this.get(id);
+        if (model != null) {
+          this.activeModel = model;
         } else {
           this.activeModel = null;
         }
-        if (this.activeModel !== current) {
-          return this.trigger('change:active', this.activeModel);
-        }
+      } else {
+        this.activeModel = null;
       }
-    };
-    ProjectCollection.initClass();
-    return ProjectCollection;
-  })();
-});
+      if (this.activeModel !== current) {
+        return this.trigger('change:active', this.activeModel);
+      }
+    }
+  };
+  ProjectCollection.initClass();
+  return ProjectCollection;
+})();

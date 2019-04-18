@@ -4,57 +4,55 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-define(function(require) {
-  let DiscussionView;
-  const Marionette = require('marionette');
-  const template = require('hbs!templates/discussion/discussion');
-  const DiscussionPostCollection = require('collections/discussion_post_collection');
-  const PostView = require('views/discussion/post');
-  const AbstractDiscussionView = require('views/abstract/abstract_discussion');
-  const DiscussionPostModel = require('models/discussion_post');
+let DiscussionView;
+const Marionette = require('marionette');
+const template = require('hbs!templates/discussion/discussion');
+const DiscussionPostCollection = require('collections/discussion_post_collection');
+const PostView = require('views/discussion/post');
+const AbstractDiscussionView = require('views/abstract/abstract_discussion');
+const DiscussionPostModel = require('models/discussion_post');
 
-  return DiscussionView = (function() {
-    DiscussionView = class DiscussionView extends AbstractDiscussionView {
-      static initClass() {
-  
-        this.prototype.template = template;
-  
-        this.prototype.childViewContainer = '[data-behavior="post-container"]';
-        this.prototype.childView = PostView;
-      }
+export default DiscussionView = (function() {
+  DiscussionView = class DiscussionView extends AbstractDiscussionView {
+    static initClass() {
 
-      initialize(options) {
-        this.initializeFlash();
-        this.vent = options.vent;
-        this.submission = options.submission;
-        this.collection = new DiscussionPostCollection([], {});
-        this.allPosts = new DiscussionPostCollection([], {});
-        this.allPosts.fetch({
-          data: {submission: this.submission.id},
-          success: () => {
-            return this.collection.reset(this.allPosts.where({parent_id: null}));
-          }
-        });
+      this.prototype.template = template;
 
-        this.updateCount();
+      this.prototype.childViewContainer = '[data-behavior="post-container"]';
+      this.prototype.childView = PostView;
+    }
 
-        return this.listenTo(this.allPosts, 'add sync remove', post => {
-          return this.updateCount();
-        });
-      }
-
-      updateCount() {
-        let s;
-        const l = this.allPosts.length;
-        if (l === 1) {
-          s = "One Comment";
-        } else {
-          s = `${l} Comments`;
+    initialize(options) {
+      this.initializeFlash();
+      this.vent = options.vent;
+      this.submission = options.submission;
+      this.collection = new DiscussionPostCollection([], {});
+      this.allPosts = new DiscussionPostCollection([], {});
+      this.allPosts.fetch({
+        data: {submission: this.submission.id},
+        success: () => {
+          return this.collection.reset(this.allPosts.where({parent_id: null}));
         }
-        return this.$el.find('[data-behavior="post-count"]').html(s);
+      });
+
+      this.updateCount();
+
+      return this.listenTo(this.allPosts, 'add sync remove', post => {
+        return this.updateCount();
+      });
+    }
+
+    updateCount() {
+      let s;
+      const l = this.allPosts.length;
+      if (l === 1) {
+        s = "One Comment";
+      } else {
+        s = `${l} Comments`;
       }
-    };
-    DiscussionView.initClass();
-    return DiscussionView;
-  })();
-});
+      return this.$el.find('[data-behavior="post-count"]').html(s);
+    }
+  };
+  DiscussionView.initClass();
+  return DiscussionView;
+})();

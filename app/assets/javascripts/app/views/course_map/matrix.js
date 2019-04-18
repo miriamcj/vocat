@@ -4,45 +4,47 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-define(['marionette', 'views/course_map/row'], function(Marionette, Row) {
-  let MatrixView;
-  return MatrixView = (function() {
-    MatrixView = class MatrixView extends Marionette.CollectionView {
-      static initClass() {
-  
-        this.prototype.tagName = 'tbody';
-        this.prototype.childView = Row;
-      }
+import Marionette from 'marionette';
 
-      childViewOptions() {
-        return {
-        creatorType: this.creatorType,
-        collection: this.collections.project,
-        collections: this.collections,
-        courseId: this.courseId,
-        vent: this.vent
-        };
-      }
+import Row from 'views/course_map/row';
+let MatrixView;
 
-      setupListeners() {
-        return this.listenTo(this.collections.submission, 'sync', function() {
-          return this.render();
-        });
-      }
+export default MatrixView = (function() {
+  MatrixView = class MatrixView extends Marionette.CollectionView {
+    static initClass() {
 
-      onRender() {
-        return this.vent.trigger('redraw');
-      }
+      this.prototype.tagName = 'tbody';
+      this.prototype.childView = Row;
+    }
 
-      initialize(options) {
-        this.collections = options.collections;
-        this.courseId = options.courseId;
-        this.vent = options.vent;
-        this.creatorType = options.creatorType;
-        return this.setupListeners();
-      }
-    };
-    MatrixView.initClass();
-    return MatrixView;
-  })();
-});
+    childViewOptions() {
+      return {
+      creatorType: this.creatorType,
+      collection: this.collections.project,
+      collections: this.collections,
+      courseId: this.courseId,
+      vent: this.vent
+      };
+    }
+
+    setupListeners() {
+      return this.listenTo(this.collections.submission, 'sync', function() {
+        return this.render();
+      });
+    }
+
+    onRender() {
+      return this.vent.trigger('redraw');
+    }
+
+    initialize(options) {
+      this.collections = options.collections;
+      this.courseId = options.courseId;
+      this.vent = options.vent;
+      this.creatorType = options.creatorType;
+      return this.setupListeners();
+    }
+  };
+  MatrixView.initClass();
+  return MatrixView;
+})();

@@ -4,35 +4,33 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-define(function(require) {
-  let NewAssetFooter;
-  const Marionette = require('marionette');
-  const template = require('hbs!templates/assets/new_asset_footer');
+let NewAssetFooter;
+const Marionette = require('marionette');
+const template = require('hbs!templates/assets/new_asset_footer');
 
-  return NewAssetFooter = (function() {
-    NewAssetFooter = class NewAssetFooter extends Marionette.ItemView {
-      static initClass() {
-  
-        this.prototype.template = template;
-  
-        this.prototype.ui = {
-          stopManagingLink: '[data-behavior="stop-manage-link"]'
-        };
-      }
+export default NewAssetFooter = (function() {
+  NewAssetFooter = class NewAssetFooter extends Marionette.ItemView {
+    static initClass() {
 
-      preventManageClose() {
-        return this.ui.stopManagingLink.css({display: 'none'});
-      }
+      this.prototype.template = template;
 
-      allowManageClose() {
-        return this.ui.stopManagingLink.css({display: 'inline-block'});
-      }
+      this.prototype.ui = {
+        stopManagingLink: '[data-behavior="stop-manage-link"]'
+      };
+    }
 
-      initialize(options) {
-        return this.vent = Marionette.getOption(this, 'vent');
-      }
-    };
-    NewAssetFooter.initClass();
-    return NewAssetFooter;
-  })();
-});
+    preventManageClose() {
+      return this.ui.stopManagingLink.css({display: 'none'});
+    }
+
+    allowManageClose() {
+      return this.ui.stopManagingLink.css({display: 'inline-block'});
+    }
+
+    initialize(options) {
+      return this.vent = Marionette.getOption(this, 'vent');
+    }
+  };
+  NewAssetFooter.initClass();
+  return NewAssetFooter;
+})();

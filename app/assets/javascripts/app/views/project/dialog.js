@@ -4,23 +4,21 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-define(function(require) {
-  let ProjectDialogView;
-  const Marionette = require('marionette');
-  const template = require('hbs!templates/project/dialog');
+let ProjectDialogView;
+const Marionette = require('marionette');
+const template = require('hbs!templates/project/dialog');
 
-  return ProjectDialogView = (function() {
-    ProjectDialogView = class ProjectDialogView extends Marionette.ItemView {
-      static initClass() {
-  
-        this.prototype.template = template;
-      }
+export default ProjectDialogView = (function() {
+  ProjectDialogView = class ProjectDialogView extends Marionette.ItemView {
+    static initClass() {
 
-      initialize() {
-        return this.model.fetch();
-      }
-    };
-    ProjectDialogView.initClass();
-    return ProjectDialogView;
-  })();
-});
+      this.prototype.template = template;
+    }
+
+    initialize() {
+      return this.model.fetch();
+    }
+  };
+  ProjectDialogView.initClass();
+  return ProjectDialogView;
+})();

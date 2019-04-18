@@ -4,35 +4,33 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-define(function(require) {
-  let ProjectSubmissionListView;
-  const Marionette = require('marionette');
-  const ProjectSubmissionRowView = require('views/project/detail/project_submission_row');
-  const template = require('hbs!templates/project/detail/project_submission_list');
+let ProjectSubmissionListView;
+const Marionette = require('marionette');
+const ProjectSubmissionRowView = require('views/project/detail/project_submission_row');
+const template = require('hbs!templates/project/detail/project_submission_list');
 
-  return ProjectSubmissionListView = (function() {
-    ProjectSubmissionListView = class ProjectSubmissionListView extends Marionette.CompositeView {
-      static initClass() {
-  
-        this.prototype.tagName = "table";
-        this.prototype.className = "table project-details-table";
-        this.prototype.template = template;
-        this.prototype.childView = ProjectSubmissionRowView;
-        this.prototype.childViewContainer = "tbody";
-      }
+export default ProjectSubmissionListView = (function() {
+  ProjectSubmissionListView = class ProjectSubmissionListView extends Marionette.CompositeView {
+    static initClass() {
 
-      childViewOptions() { return {
-        vent: this.vent
-      }; }
+      this.prototype.tagName = "table";
+      this.prototype.className = "table project-details-table";
+      this.prototype.template = template;
+      this.prototype.childView = ProjectSubmissionRowView;
+      this.prototype.childViewContainer = "tbody";
+    }
 
-      initialize(options) {
-        this.options = options || {};
-        this.vent = options.vent;
-        this.projectId = Marionette.getOption(this, 'projectId');
-        return this.projectType = Marionette.getOption(this, 'projectType');
-      }
-    };
-    ProjectSubmissionListView.initClass();
-    return ProjectSubmissionListView;
-  })();
-});
+    childViewOptions() { return {
+      vent: this.vent
+    }; }
+
+    initialize(options) {
+      this.options = options || {};
+      this.vent = options.vent;
+      this.projectId = Marionette.getOption(this, 'projectId');
+      return this.projectType = Marionette.getOption(this, 'projectType');
+    }
+  };
+  ProjectSubmissionListView.initClass();
+  return ProjectSubmissionListView;
+})();

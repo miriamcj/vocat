@@ -4,34 +4,32 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-define(function(require) {
-  let MockCanvasView;
-  const Marionette = require('marionette');
+let MockCanvasView;
+const Marionette = require('marionette');
 
-  return MockCanvasView = (function() {
-    MockCanvasView = class MockCanvasView extends Marionette.ItemView {
-      static initClass() {
-  
-        this.prototype.template = false;
-      }
+export default MockCanvasView = (function() {
+  MockCanvasView = class MockCanvasView extends Marionette.ItemView {
+    static initClass() {
 
-      initialize(options) {
-        this.vent = options.vent;
-        this.collection = this.model.annotations();
-        return this.setupListeners();
-      }
+      this.prototype.template = false;
+    }
 
-      setupListeners() {
-        return this.listenTo(this.vent, 'request:canvas', this.announceCanvas, this);
-      }
+    initialize(options) {
+      this.vent = options.vent;
+      this.collection = this.model.annotations();
+      return this.setupListeners();
+    }
 
-      announceCanvas() {
-        const json = null;
-        const svg = null;
-        return this.vent.trigger('announce:canvas', JSON.stringify({json, svg}));
-      }
-    };
-    MockCanvasView.initClass();
-    return MockCanvasView;
-  })();
-});
+    setupListeners() {
+      return this.listenTo(this.vent, 'request:canvas', this.announceCanvas, this);
+    }
+
+    announceCanvas() {
+      const json = null;
+      const svg = null;
+      return this.vent.trigger('announce:canvas', JSON.stringify({json, svg}));
+    }
+  };
+  MockCanvasView.initClass();
+  return MockCanvasView;
+})();

@@ -4,38 +4,39 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-define(['backbone'], function(Backbone) {
-  let ProjectModel;
-  return ProjectModel = (function() {
-    ProjectModel = class ProjectModel extends Backbone.Model {
-      static initClass() {
-  
-        this.prototype.urlRoot = "/api/v1/projects";
-      }
+import Backbone from 'backbone';
 
-      hasRubric() {
-        return _.isObject(this.get('rubric'));
-      }
+let ProjectModel;
 
-      pastDue() {
-        const due = this.get('due_date');
-        if (due) {
-          const dueDate = new Date(due);
-          if (dueDate < new Date()) {
-            return true;
-          } else {
-            return false;
-          }
+export default ProjectModel = (function() {
+  ProjectModel = class ProjectModel extends Backbone.Model {
+    static initClass() {
+
+      this.prototype.urlRoot = "/api/v1/projects";
+    }
+
+    hasRubric() {
+      return _.isObject(this.get('rubric'));
+    }
+
+    pastDue() {
+      const due = this.get('due_date');
+      if (due) {
+        const dueDate = new Date(due);
+        if (dueDate < new Date()) {
+          return true;
         } else {
           return false;
         }
+      } else {
+        return false;
       }
+    }
 
-      evaluatable() {
-        return this.get('evaluatable');
-      }
-    };
-    ProjectModel.initClass();
-    return ProjectModel;
-  })();
-});
+    evaluatable() {
+      return this.get('evaluatable');
+    }
+  };
+  ProjectModel.initClass();
+  return ProjectModel;
+})();

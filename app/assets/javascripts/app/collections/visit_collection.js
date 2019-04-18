@@ -4,21 +4,24 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-define(['backbone', 'marionette', 'models/visit'], function(Backbone, Marionette, VisitModel) {
+import Backbone from 'backbone';
 
-  let VisitCollection;
-  return VisitCollection = (function() {
-    VisitCollection = class VisitCollection extends Backbone.Collection {
-      static initClass() {
-  
-        this.prototype.model = VisitModel;
-      }
+import Marionette from 'marionette';
+import VisitModel from 'models/visit';
 
-      initialize(models, options) {
-        return this.options = options;
-      }
-    };
-    VisitCollection.initClass();
-    return VisitCollection;
-  })();
-});
+let VisitCollection;
+
+export default VisitCollection = (function() {
+  VisitCollection = class VisitCollection extends Backbone.Collection {
+    static initClass() {
+
+      this.prototype.model = VisitModel;
+    }
+
+    initialize(models, options) {
+      return this.options = options;
+    }
+  };
+  VisitCollection.initClass();
+  return VisitCollection;
+})();

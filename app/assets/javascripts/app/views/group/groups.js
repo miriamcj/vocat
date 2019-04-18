@@ -4,44 +4,42 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-define(function(require) {
-  let GroupsView;
-  const Marionette = require('marionette');
-  const Item = require('views/group/groups_item');
-  const template = require('hbs!templates/group/groups');
+let GroupsView;
+const Marionette = require('marionette');
+const Item = require('views/group/groups_item');
+const template = require('hbs!templates/group/groups');
 
-  return GroupsView = (function() {
-    GroupsView = class GroupsView extends Marionette.CompositeView {
-      static initClass() {
-  
-        this.prototype.childView = Item;
-        this.prototype.tagName = 'thead';
-        this.prototype.template = template;
-        this.prototype.childViewContainer = "tr";
-      }
+export default GroupsView = (function() {
+  GroupsView = class GroupsView extends Marionette.CompositeView {
+    static initClass() {
 
-      childViewOptions() {
-        return {
-        courseId: this.options.courseId,
-        vent: this.vent
-        };
-      }
+      this.prototype.childView = Item;
+      this.prototype.tagName = 'thead';
+      this.prototype.template = template;
+      this.prototype.childViewContainer = "tr";
+    }
 
-      initialize(options) {
-        this.options = options || {};
-        return this.vent = Marionette.getOption(this, 'vent');
-      }
+    childViewOptions() {
+      return {
+      courseId: this.options.courseId,
+      vent: this.vent
+      };
+    }
 
-      onAddChild() {
-        return this.vent.trigger('recalculate');
-      }
+    initialize(options) {
+      this.options = options || {};
+      return this.vent = Marionette.getOption(this, 'vent');
+    }
 
-      onRemoveChild() {
-        return this.vent.trigger('recalculate');
-      }
-    };
-    GroupsView.initClass();
-    return GroupsView;
-  })();
-});
+    onAddChild() {
+      return this.vent.trigger('recalculate');
+    }
+
+    onRemoveChild() {
+      return this.vent.trigger('recalculate');
+    }
+  };
+  GroupsView.initClass();
+  return GroupsView;
+})();
 

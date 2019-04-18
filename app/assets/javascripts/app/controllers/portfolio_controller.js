@@ -4,42 +4,45 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-define([
-  'marionette', 'controllers/vocat_controller', 'views/portfolio/portfolio', 'views/portfolio/portfolio_projects',
-  'views/portfolio/portfolio_submissions', 'collections/submission_collection',
-  'collections/portfolio_unsubmitted_collection'
-], function(Marionette, VocatController, PortfolioView, PortfolioProjectsView, PortfolioSubmissionsView, SubmissionCollection, PortfolioUnsubmittedCollection) {
-  let PortfolioController;
-  return PortfolioController = (function() {
-    PortfolioController = class PortfolioController extends VocatController {
-      static initClass() {
-  
-        this.prototype.collections = {
-          submission: new SubmissionCollection({}),
-          incomplete: new PortfolioUnsubmittedCollection({})
-        };
-      }
+import Marionette from 'marionette';
 
-      portfolio(courseId = null) {
+import VocatController from 'controllers/vocat_controller';
+import PortfolioView from 'views/portfolio/portfolio';
+import PortfolioProjectsView from 'views/portfolio/portfolio_projects';
+import PortfolioSubmissionsView from 'views/portfolio/portfolio_submissions';
+import SubmissionCollection from 'collections/submission_collection';
+import PortfolioUnsubmittedCollection from 'collections/portfolio_unsubmitted_collection';
+let PortfolioController;
 
-        // The layout that contains the two lists of portfolio items
-        const portfolio = new PortfolioView().render();
+export default PortfolioController = (function() {
+  PortfolioController = class PortfolioController extends VocatController {
+    static initClass() {
 
-        // Create the two collection views
-        const portfolioSubmissions = new PortfolioSubmissionsView({collection: this.collections.submission});
-        const portfolioProjects = new PortfolioProjectsView({collection: this.collections.incomplete});
+      this.prototype.collections = {
+        submission: new SubmissionCollection({}),
+        incomplete: new PortfolioUnsubmittedCollection({})
+      };
+    }
+
+    portfolio(courseId = null) {
+
+      // The layout that contains the two lists of portfolio items
+      const portfolio = new PortfolioView().render();
+
+      // Create the two collection views
+      const portfolioSubmissions = new PortfolioSubmissionsView({collection: this.collections.submission});
+      const portfolioProjects = new PortfolioProjectsView({collection: this.collections.incomplete});
 
 
-        this.collections.submission.courseId = courseId;
-        this.collections.submission.fetch({url: this.collections.submission.url(), data: {brief: true, limit: 10}});
+      this.collections.submission.courseId = courseId;
+      this.collections.submission.fetch({url: this.collections.submission.url(), data: {brief: true, limit: 10}});
 
-        // Assign the collection views to the layout; assign the layout to the main region
-        window.Vocat.main.show(portfolio);
-        return portfolio.submissions.show(portfolioSubmissions);
-      }
-    };
-    PortfolioController.initClass();
-    return PortfolioController;
-  })();
-});
+      // Assign the collection views to the layout; assign the layout to the main region
+      window.Vocat.main.show(portfolio);
+      return portfolio.submissions.show(portfolioSubmissions);
+    }
+  };
+  PortfolioController.initClass();
+  return PortfolioController;
+})();
 

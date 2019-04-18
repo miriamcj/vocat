@@ -5,89 +5,93 @@
  * DS207: Consider shorter variations of null checks
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-define(['marionette', 'hbs!templates/course_map/cell', 'models/user', 'models/group', 'models/evaluation',
-], function(Marionette, template, UserModel, GroupModel, EvaluationModel) {
-  let Cell;
-  return Cell = (function() {
-    Cell = class Cell extends Marionette.ItemView {
-      static initClass() {
-  
-        // @model = initially, a project model, but set to a submission model in the init function
-        // @creator = a group or user model
-  
-        this.prototype.template = template;
-  
-        this.prototype.tagName = 'td';
-        this.prototype.className = 'clickable';
-  
-        this.prototype.triggers = {
-          'click': 'detail',
-          'click [data-behavior="publish-toggle"]': 'publish:toggle'
+import Marionette from 'marionette';
+
+import template from 'hbs!templates/course_map/cell';
+import UserModel from 'models/user';
+import GroupModel from 'models/group';
+import EvaluationModel from 'models/evaluation';
+let Cell;
+
+export default Cell = (function() {
+  Cell = class Cell extends Marionette.ItemView {
+    static initClass() {
+
+      // @model = initially, a project model, but set to a submission model in the init function
+      // @creator = a group or user model
+
+      this.prototype.template = template;
+
+      this.prototype.tagName = 'td';
+      this.prototype.className = 'clickable';
+
+      this.prototype.triggers = {
+        'click': 'detail',
+        'click [data-behavior="publish-toggle"]': 'publish:toggle'
+      };
+    }
+
+    onDetail() {
+      if (this.model) { const submissionId = this.model.id; }
+      return this.vent.trigger('navigate:submission', {project: this.project.id, creator: this.creator.id});
+    }
+
+    onPublishToggle() {
+      if (this.model.get('current_user_percentage')) {
+        this.model.toggleEvaluationPublish();
+        return this.$el.find('dd').toggleClass('switch-checked');
+      } else {
+        return this.onDetail();
+      }
+    }
+
+    findModel() {
+      if (this.creator instanceof UserModel) {
+        this.creatorType = 'User';
+      } else if (this.creator instanceof GroupModel) {
+        this.creatorType = 'Group';
+      }
+      this.model = this.submissions.findWhere({creator_type: this.creatorType, creator_id: this.creator.id, project_id: this.project.id});
+
+      if (this.model != null) {
+        this.listenTo(this.model, 'change sync', function() {
+          return this.render();
+        });
+        return this.render();
+      }
+    }
+
+    serializeData() {
+      let context;
+      if (this.model != null) {
+        const projectAbilities = this.project.get('abilities');
+        context = super.serializeData();
+        context.user_can_evaluate = projectAbilities.can_evaluate;
+        context.can_be_evaluated = this.project.evaluatable();
+        context.is_active = this.isActive();
+        context.is_loaded = true;
+      } else {
+        context = {
+          is_loaded: false
         };
       }
+      return context;
+    }
 
-      onDetail() {
-        if (this.model) { const submissionId = this.model.id; }
-        return this.vent.trigger('navigate:submission', {project: this.project.id, creator: this.creator.id});
-      }
+    isActive() {
+      if (this.project.evaluatable() === false) { return true; }
+      if ((this.model != null) && (this.model.get('current_user_has_evaluated') === true)) { return true; }
+      return false;
+    }
 
-      onPublishToggle() {
-        if (this.model.get('current_user_percentage')) {
-          this.model.toggleEvaluationPublish();
-          return this.$el.find('dd').toggleClass('switch-checked');
-        } else {
-          return this.onDetail();
-        }
-      }
-
-      findModel() {
-        if (this.creator instanceof UserModel) {
-          this.creatorType = 'User';
-        } else if (this.creator instanceof GroupModel) {
-          this.creatorType = 'Group';
-        }
-        this.model = this.submissions.findWhere({creator_type: this.creatorType, creator_id: this.creator.id, project_id: this.project.id});
-
-        if (this.model != null) {
-          this.listenTo(this.model, 'change sync', function() {
-            return this.render();
-          });
-          return this.render();
-        }
-      }
-
-      serializeData() {
-        let context;
-        if (this.model != null) {
-          const projectAbilities = this.project.get('abilities');
-          context = super.serializeData();
-          context.user_can_evaluate = projectAbilities.can_evaluate;
-          context.can_be_evaluated = this.project.evaluatable();
-          context.is_active = this.isActive();
-          context.is_loaded = true;
-        } else {
-          context = {
-            is_loaded: false
-          };
-        }
-        return context;
-      }
-
-      isActive() {
-        if (this.project.evaluatable() === false) { return true; }
-        if ((this.model != null) && (this.model.get('current_user_has_evaluated') === true)) { return true; }
-        return false;
-      }
-
-      initialize(options) {
-        this.vent = options.vent;
-        this.submissions = options.submissions;
-        this.creator = options.creator;
-        this.project = this.model;
-        return this.findModel();
-      }
-    };
-    Cell.initClass();
-    return Cell;
-  })();
-});
+    initialize(options) {
+      this.vent = options.vent;
+      this.submissions = options.submissions;
+      this.creator = options.creator;
+      this.project = this.model;
+      return this.findModel();
+    }
+  };
+  Cell.initClass();
+  return Cell;
+})();

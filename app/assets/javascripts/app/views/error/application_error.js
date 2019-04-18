@@ -5,83 +5,81 @@
  * DS207: Consider shorter variations of null checks
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-define(function(require) {
-  let ApplicationError;
-  const Marionette = require('marionette');
-  const template = require('hbs!templates/error/application_error');
+let ApplicationError;
+const Marionette = require('marionette');
+const template = require('hbs!templates/error/application_error');
 
-  return ApplicationError = (function() {
-    ApplicationError = class ApplicationError extends Marionette.ItemView {
-      static initClass() {
-  
-        this.prototype.template = template;
-      }
+export default ApplicationError = (function() {
+  ApplicationError = class ApplicationError extends Marionette.ItemView {
+    static initClass() {
 
-      serializeData() {
-        return {
-          errorDetails: this.errorDetails
-        };
-      }
+      this.prototype.template = template;
+    }
 
-      sendNotification() {
-        const deferred = $.Deferred();
-        $.ajax({
-          url: "/api/v1/configuration",
-          method: 'get',
-          success: data => {
-            return deferred.resolve(data);
-          }
-        });
-        return deferred.done(vocatConfig => {
-          if ((vocatConfig != null) && vocatConfig.notification && (vocatConfig.notification.slack != null) && (vocatConfig.notification.slack.enabled === true)) {
-            const payload = {
-              channel: vocatConfig.notification.slack.channel,
-              text: '*Rats and Dogs!*\n\nA Vocat user experienced a client side error.',
-              username: "vocat-javascript-exception",
-              icon_emoji: ":ghost:",
-              attachments: [
-                {
-                  fallback: 'Vocat Clientside Error',
-                  title: 'Error Details',
-                  fields: [
-                    {
-                      title: 'HREF',
-                      value: window.location.href,
-                      short: false
-                    },
-                    {
-                      title: 'Description',
-                      value: this.errorDetails.description,
-                      short: false
-                    },
-                    {
-                      title: 'Code',
-                      value: this.errorDetails.code,
-                      short: false
-                    }
-                  ]
-                }
-              ]
-            };
+    serializeData() {
+      return {
+        errorDetails: this.errorDetails
+      };
+    }
 
-            return $.ajax({
-              url: vocatConfig.notification.slack.webhook_url,
-              method: 'post',
-              data: {
-                payload: JSON.stringify(payload)
+    sendNotification() {
+      const deferred = $.Deferred();
+      $.ajax({
+        url: "/api/v1/configuration",
+        method: 'get',
+        success: data => {
+          return deferred.resolve(data);
+        }
+      });
+      return deferred.done(vocatConfig => {
+        if ((vocatConfig != null) && vocatConfig.notification && (vocatConfig.notification.slack != null) && (vocatConfig.notification.slack.enabled === true)) {
+          const payload = {
+            channel: vocatConfig.notification.slack.channel,
+            text: '*Rats and Dogs!*\n\nA Vocat user experienced a client side error.',
+            username: "vocat-javascript-exception",
+            icon_emoji: ":ghost:",
+            attachments: [
+              {
+                fallback: 'Vocat Clientside Error',
+                title: 'Error Details',
+                fields: [
+                  {
+                    title: 'HREF',
+                    value: window.location.href,
+                    short: false
+                  },
+                  {
+                    title: 'Description',
+                    value: this.errorDetails.description,
+                    short: false
+                  },
+                  {
+                    title: 'Code',
+                    value: this.errorDetails.code,
+                    short: false
+                  }
+                ]
               }
-            });
-          }
-        });
-      }
+            ]
+          };
+
+          return $.ajax({
+            url: vocatConfig.notification.slack.webhook_url,
+            method: 'post',
+            data: {
+              payload: JSON.stringify(payload)
+            }
+          });
+        }
+      });
+    }
 
 
-      initialize(options) {
-        this.errorDetails = Marionette.getOption(this, 'errorDetails');
-        return this.sendNotification();
-      }
-    };
-    ApplicationError.initClass();
-    return ApplicationError;
-  })();
-});
+    initialize(options) {
+      this.errorDetails = Marionette.getOption(this, 'errorDetails');
+      return this.sendNotification();
+    }
+  };
+  ApplicationError.initClass();
+  return ApplicationError;
+})();

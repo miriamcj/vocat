@@ -4,26 +4,24 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-define(function(require) {
-  let ProjectStatisticsModel;
-  const Backbone = require('backbone');
+let ProjectStatisticsModel;
+const Backbone = require('backbone');
 
-  return ProjectStatisticsModel = (function() {
-    ProjectStatisticsModel = class ProjectStatisticsModel extends Backbone.Model {
-      static initClass() {
-  
-        this.prototype.scoreView = 'Project Scores';
-      }
+export default ProjectStatisticsModel = (function() {
+  ProjectStatisticsModel = class ProjectStatisticsModel extends Backbone.Model {
+    static initClass() {
 
-      updateScoreView(scoreView) {
-        return this.attributes.scoreView = scoreView;
-      }
+      this.prototype.scoreView = 'Project Scores';
+    }
 
-      url() {
-        return `/api/v1/projects/${this.id}/statistics`;
-      }
-    };
-    ProjectStatisticsModel.initClass();
-    return ProjectStatisticsModel;
-  })();
-});
+    updateScoreView(scoreView) {
+      return this.attributes.scoreView = scoreView;
+    }
+
+    url() {
+      return `/api/v1/projects/${this.id}/statistics`;
+    }
+  };
+  ProjectStatisticsModel.initClass();
+  return ProjectStatisticsModel;
+})();

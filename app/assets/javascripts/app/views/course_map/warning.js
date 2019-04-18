@@ -4,32 +4,30 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-define(function(require) {
-  let Warning;
-  const template = require('hbs!templates/course_map/warning');
+let Warning;
+const template = require('hbs!templates/course_map/warning');
 
-  return Warning = (function() {
-    Warning = class Warning extends Marionette.ItemView {
-      static initClass() {
-  
-        this.prototype.template = template;
-      }
+export default Warning = (function() {
+  Warning = class Warning extends Marionette.ItemView {
+    static initClass() {
 
-      serializeData() {
-        const out = {
-          isCreatorWarning: Marionette.getOption(this, 'warningType') === 'Creator',
-          isProjectWarning: Marionette.getOption(this, 'warningType') === 'Project',
-          isCreatorTypeGroup: Marionette.getOption(this, 'creatorType') === 'Group',
-          isCreatorTypeUser: Marionette.getOption(this, 'creatorType') === 'User',
-          creatorType: Marionette.getOption(this, 'creatorType'),
-          warningType: Marionette.getOption(this, 'warningType'),
-          courseId: Marionette.getOption(this, 'courseId'),
-          canUpdateCourse: (window.VocatUserCourseRole === 'administrator') || (window.VocatUserCourseRole === 'evaluator')
-        };
-        return out;
-      }
-    };
-    Warning.initClass();
-    return Warning;
-  })();
-});
+      this.prototype.template = template;
+    }
+
+    serializeData() {
+      const out = {
+        isCreatorWarning: Marionette.getOption(this, 'warningType') === 'Creator',
+        isProjectWarning: Marionette.getOption(this, 'warningType') === 'Project',
+        isCreatorTypeGroup: Marionette.getOption(this, 'creatorType') === 'Group',
+        isCreatorTypeUser: Marionette.getOption(this, 'creatorType') === 'User',
+        creatorType: Marionette.getOption(this, 'creatorType'),
+        warningType: Marionette.getOption(this, 'warningType'),
+        courseId: Marionette.getOption(this, 'courseId'),
+        canUpdateCourse: (window.VocatUserCourseRole === 'administrator') || (window.VocatUserCourseRole === 'evaluator')
+      };
+      return out;
+    }
+  };
+  Warning.initClass();
+  return Warning;
+})();

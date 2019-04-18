@@ -4,72 +4,69 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-define([
-  'marionette',
-  'hbs!templates/course_map/creators',
-  `views/course_map/creators_item\
-`], function(Marionette, template, Item) {
-  let CourseMapCreatorsView;
-  return CourseMapCreatorsView = (function() {
-    CourseMapCreatorsView = class CourseMapCreatorsView extends Marionette.CompositeView {
-      static initClass() {
-  
-        this.prototype.tagName = 'table';
-        this.prototype.className = 'table matrix matrix-row-headers';
-        this.prototype.template = template;
-        this.prototype.childViewContainer = 'tbody';
-        this.prototype.childView = Item;
-  
-        this.prototype.ui = {
-          spacer: '[data-behavior="spacer"]'
-        };
-  
-        this.prototype.triggers = {
-          'click [data-behavior="show-groups"]': 'show:groups',
-          'click [data-behavior="show-users"]': 'show:users'
-        };
-      }
+let CourseMapCreatorsView;
+const Marionette = require('marionette');
+const template = require('hbs!templates/course_map/creators');
+const Item = require('views/course_map/creators_item');
 
-      onShowGroups() {
-        return this.vent.triggerMethod('show:groups');
-      }
+export default CourseMapCreatorsView = (function() {
+  CourseMapCreatorsView = class CourseMapCreatorsView extends Marionette.CompositeView {
+    static initClass() {
 
-      onShowUsers() {
-        return this.vent.triggerMethod('show:users');
-      }
+      this.prototype.tagName = 'table';
+      this.prototype.className = 'table matrix matrix-row-headers';
+      this.prototype.template = template;
+      this.prototype.childViewContainer = 'tbody';
+      this.prototype.childView = Item;
 
-      childViewOptions() {
-        return {
-        courseId: this.options.courseId,
-        creatorType: this.creatorType,
-        vent: this.vent
-        };
-      }
+      this.prototype.ui = {
+        spacer: '[data-behavior="spacer"]'
+      };
 
-      serializeData() {
-        return {
-        isUsers: this.creatorType === 'User',
-        isGroups: this.creatorType === 'Group'
-        };
-      }
+      this.prototype.triggers = {
+        'click [data-behavior="show-groups"]': 'show:groups',
+        'click [data-behavior="show-users"]': 'show:users'
+      };
+    }
 
-      onShow() {
-        let height;
-        return height = $('.matrix-cells thead th').height();
-      }
+    onShowGroups() {
+      return this.vent.triggerMethod('show:groups');
+    }
 
-      initialize(options) {
-        this.options = options || {};
-        this.vent = Marionette.getOption(this, 'vent');
-        this.creatorType = Marionette.getOption(this, 'creatorType');
+    onShowUsers() {
+      return this.vent.triggerMethod('show:users');
+    }
 
-        return this.listenTo(this.vent, 'project_item:shown', function(yourHeight) {
-          return this.$el.find('thead th').height(yourHeight);
-        });
-      }
-    };
-    CourseMapCreatorsView.initClass();
-    return CourseMapCreatorsView;
-  })();
-});
+    childViewOptions() {
+      return {
+      courseId: this.options.courseId,
+      creatorType: this.creatorType,
+      vent: this.vent
+      };
+    }
 
+    serializeData() {
+      return {
+      isUsers: this.creatorType === 'User',
+      isGroups: this.creatorType === 'Group'
+      };
+    }
+
+    onShow() {
+      let height;
+      return height = $('.matrix-cells thead th').height();
+    }
+
+    initialize(options) {
+      this.options = options || {};
+      this.vent = Marionette.getOption(this, 'vent');
+      this.creatorType = Marionette.getOption(this, 'creatorType');
+
+      return this.listenTo(this.vent, 'project_item:shown', function(yourHeight) {
+        return this.$el.find('thead th').height(yourHeight);
+      });
+    }
+  };
+  CourseMapCreatorsView.initClass();
+  return CourseMapCreatorsView;
+})();

@@ -4,31 +4,30 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-define(function(require) {
-  let EnrollmentInputEmpty;
-  const Marionette = require('marionette');
-  const template = require('hbs!templates/admin/enrollment/input_empty');
+let EnrollmentInputEmpty;
+const Marionette = require('marionette');
+const template = require('hbs!templates/admin/enrollment/input_empty');
 
-  return EnrollmentInputEmpty = (function() {
-    EnrollmentInputEmpty = class EnrollmentInputEmpty extends Marionette.ItemView {
-      static initClass() {
-  
-        this.prototype.template = template;
-        this.prototype.tagName = 'li';
-      }
+export default EnrollmentInputEmpty = (function() {
+  EnrollmentInputEmpty = class EnrollmentInputEmpty extends Marionette.ItemView {
+    static initClass() {
 
-      initialize(options) {
-        return this.collectionType = options.collectionType;
-      }
+      this.prototype.template = template;
+      this.prototype.tagName = 'li';
+    }
 
-      serializeData() {
-        return {
-        isUserCollection: this.collectionType === 'user',
-        isCourseCollection: this.collectionType === 'course'
-        };
-      }
-    };
-    EnrollmentInputEmpty.initClass();
-    return EnrollmentInputEmpty;
-  })();});
+    initialize(options) {
+      return this.collectionType = options.collectionType;
+    }
+
+    serializeData() {
+      return {
+      isUserCollection: this.collectionType === 'user',
+      isCourseCollection: this.collectionType === 'course'
+      };
+    }
+  };
+  EnrollmentInputEmpty.initClass();
+  return EnrollmentInputEmpty;
+})();
 

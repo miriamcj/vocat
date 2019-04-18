@@ -4,23 +4,22 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-define(function(require) {
-  let Warning;
-  const template = require('hbs!templates/group/warning');
+let Warning;
+const template = require('hbs!templates/group/warning');
 
-  return Warning = (function() {
-    Warning = class Warning extends Marionette.ItemView {
-      static initClass() {
-  
-        this.prototype.template = template;
-      }
+export default Warning = (function() {
+  Warning = class Warning extends Marionette.ItemView {
+    static initClass() {
 
-      serializeData() {
-        return {
-        courseId: Marionette.getOption(this, 'courseId')
-        };
-      }
-    };
-    Warning.initClass();
-    return Warning;
-  })();});
+      this.prototype.template = template;
+    }
+
+    serializeData() {
+      return {
+      courseId: Marionette.getOption(this, 'courseId')
+      };
+    }
+  };
+  Warning.initClass();
+  return Warning;
+})();

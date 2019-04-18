@@ -5,50 +5,51 @@
  * DS207: Consider shorter variations of null checks
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-define(['backbone'], function(Backbone) {
-  let Group;
-  return Group = (function() {
-    Group = class Group extends Backbone.Model {
-      static initClass() {
-  
-        this.prototype.creatorType = 'Group';
-  
-        this.prototype.urlRoot = '/api/v1/groups';
-      }
+import Backbone from 'backbone';
 
-      validate(attributes, options) {
-        let out;
-        const errors = [];
-        if ((attributes.name == null) || (attributes.name === '')) {
-          errors.push({
-            level: 'error',
-            message: 'Please enter a name before creating the group'
-          });
-        }
-        if (errors.length > 0) {
-          out = errors;
-        } else {
-          out = false;
-        }
-        return out;
-      }
+let Group;
 
-      takeSnapshot() {
-        return this._snapshotAttributes = _.clone(this.attributes);
-      }
+export default Group = (function() {
+  Group = class Group extends Backbone.Model {
+    static initClass() {
 
-      revert() {
-        if (this._snapshotAttributes) { return this.set(this._snapshotAttributes, {}); }
-      }
+      this.prototype.creatorType = 'Group';
 
-      initialize() {
-        this.takeSnapshot();
-        return this.on('sync', () => {
-          return this.takeSnapshot();
+      this.prototype.urlRoot = '/api/v1/groups';
+    }
+
+    validate(attributes, options) {
+      let out;
+      const errors = [];
+      if ((attributes.name == null) || (attributes.name === '')) {
+        errors.push({
+          level: 'error',
+          message: 'Please enter a name before creating the group'
         });
       }
-    };
-    Group.initClass();
-    return Group;
-  })();
-});
+      if (errors.length > 0) {
+        out = errors;
+      } else {
+        out = false;
+      }
+      return out;
+    }
+
+    takeSnapshot() {
+      return this._snapshotAttributes = _.clone(this.attributes);
+    }
+
+    revert() {
+      if (this._snapshotAttributes) { return this.set(this._snapshotAttributes, {}); }
+    }
+
+    initialize() {
+      this.takeSnapshot();
+      return this.on('sync', () => {
+        return this.takeSnapshot();
+      });
+    }
+  };
+  Group.initClass();
+  return Group;
+})();

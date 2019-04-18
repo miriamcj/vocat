@@ -4,67 +4,65 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-define(function(require) {
-  let ImageDisplayerView;
-  const Marionette = require('marionette');
-  const template = require('hbs!templates/assets/player/image_displayer');
-  const PlayerAnnotations = require('views/assets/player/player_annotations');
+let ImageDisplayerView;
+const Marionette = require('marionette');
+const template = require('hbs!templates/assets/player/image_displayer');
+const PlayerAnnotations = require('views/assets/player/player_annotations');
 
-  return ImageDisplayerView = (function() {
-    ImageDisplayerView = class ImageDisplayerView extends Marionette.LayoutView {
-      static initClass() {
-  
-        this.prototype.template = template;
-        this.prototype.regions = {
-          annotationsContainer: '[data-region="annotation-container"]'
-        };
-  
-        this.prototype.ui = {
-          annotationContainer: '[data-behavior="annotation-container"]'
-        };
-      }
+export default ImageDisplayerView = (function() {
+  ImageDisplayerView = class ImageDisplayerView extends Marionette.LayoutView {
+    static initClass() {
 
-      initialize(options) {
-        return this.vent = options.vent;
-      }
+      this.prototype.template = template;
+      this.prototype.regions = {
+        annotationsContainer: '[data-region="annotation-container"]'
+      };
 
-      onShow() {
-        this.setupListeners();
-        return this.annotationsContainer.show(new PlayerAnnotations({model: this.model, vent: this.vent}));
-      }
+      this.prototype.ui = {
+        annotationContainer: '[data-behavior="annotation-container"]'
+      };
+    }
 
-      handleTimeUpdate(data) {
-        if (data.hasOwnProperty('callback') && _.isFunction(data.callback)) {
-          return data.callback.apply(data.scope);
-        }
-      }
+    initialize(options) {
+      return this.vent = options.vent;
+    }
 
-      setupListeners() {
-        this.listenTo(this.vent, 'request:status', data => this.handleStatusRequest());
-        this.listenTo(this.vent, 'request:time:update', this.handleTimeUpdate, this);
-        this.listenTo(this.vent, 'request:pause', data => this.handlePauseRequest());
-        return this.listenTo(this.vent, 'announce:annotator:input:start', data => this.handlePauseRequest());
-      }
+    onShow() {
+      this.setupListeners();
+      return this.annotationsContainer.show(new PlayerAnnotations({model: this.model, vent: this.vent}));
+    }
 
-      getStatus() {
-        return {
-        bufferedPercent: 0,
-        playedPercent: 0,
-        playedSeconds: 0,
-        duration: 0
-        };
+    handleTimeUpdate(data) {
+      if (data.hasOwnProperty('callback') && _.isFunction(data.callback)) {
+        return data.callback.apply(data.scope);
       }
+    }
 
-      handlePauseRequest() {
-        return this.vent.trigger('announce:paused', this.getStatus());
-      }
+    setupListeners() {
+      this.listenTo(this.vent, 'request:status', data => this.handleStatusRequest());
+      this.listenTo(this.vent, 'request:time:update', this.handleTimeUpdate, this);
+      this.listenTo(this.vent, 'request:pause', data => this.handlePauseRequest());
+      return this.listenTo(this.vent, 'announce:annotator:input:start', data => this.handlePauseRequest());
+    }
 
-      handleStatusRequest() {
-        return this.vent.trigger('announce:status', this.getStatus());
-      }
-    };
-    ImageDisplayerView.initClass();
-    return ImageDisplayerView;
-  })();
-});
+    getStatus() {
+      return {
+      bufferedPercent: 0,
+      playedPercent: 0,
+      playedSeconds: 0,
+      duration: 0
+      };
+    }
+
+    handlePauseRequest() {
+      return this.vent.trigger('announce:paused', this.getStatus());
+    }
+
+    handleStatusRequest() {
+      return this.vent.trigger('announce:status', this.getStatus());
+    }
+  };
+  ImageDisplayerView.initClass();
+  return ImageDisplayerView;
+})();
 

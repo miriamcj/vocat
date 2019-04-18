@@ -5,45 +5,47 @@
  * DS207: Consider shorter variations of null checks
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-define(['backbone', 'models/user'], function(Backbone, UserModel) {
-  let UserCollection;
-  return UserCollection = (function() {
-    UserCollection = class UserCollection extends Backbone.Collection {
-      static initClass() {
-  
-        this.prototype.model = UserModel;
-  
-        this.prototype.activeModel = null;
-  
-        this.prototype.url = '/api/v1/users';
-      }
+import Backbone from 'backbone';
 
-      getSearchTerm() {
-        return 'email';
-      }
+import UserModel from 'models/user';
+let UserCollection;
 
-      getActive() {
-        return this.activeModel;
-      }
+export default UserCollection = (function() {
+  UserCollection = class UserCollection extends Backbone.Collection {
+    static initClass() {
 
-      setActive(id) {
-        const current = this.getActive();
-        if (id != null) {
-          const model = this.get(id);
-          if (model != null) {
-            this.activeModel = model;
-          } else {
-            this.activeModel = null;
-          }
+      this.prototype.model = UserModel;
+
+      this.prototype.activeModel = null;
+
+      this.prototype.url = '/api/v1/users';
+    }
+
+    getSearchTerm() {
+      return 'email';
+    }
+
+    getActive() {
+      return this.activeModel;
+    }
+
+    setActive(id) {
+      const current = this.getActive();
+      if (id != null) {
+        const model = this.get(id);
+        if (model != null) {
+          this.activeModel = model;
         } else {
           this.activeModel = null;
         }
-        if (this.activeModel !== current) {
-          return this.trigger('change:active', this.activeModel);
-        }
+      } else {
+        this.activeModel = null;
       }
-    };
-    UserCollection.initClass();
-    return UserCollection;
-  })();
-});
+      if (this.activeModel !== current) {
+        return this.trigger('change:active', this.activeModel);
+      }
+    }
+  };
+  UserCollection.initClass();
+  return UserCollection;
+})();

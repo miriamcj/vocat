@@ -4,39 +4,39 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-define(['jquery_rails'], function($) {
-  let FileInputView;
-  const Marionette = require('marionette');
+import $ from 'jquery_rails';
 
-  return FileInputView = (function() {
-    FileInputView = class FileInputView extends Marionette.ItemView {
-      static initClass() {
-  
-        this.prototype.ui = {
-          trigger: '[data-behavior="file-input-trigger"]',
-          field: '[data-behavior="file-input-field"]',
-          mask: '[data-behavior="file-input-mask"]'
-        };
-  
-        this.prototype.triggers = {
-          'click @ui.trigger': 'trigger:click',
-          'change @ui.field': 'mask:update'
-        };
-      }
+let FileInputView;
+const Marionette = require('marionette');
 
-      onMaskUpdate() {
-        const val = $(this.ui.field).val();
-        const newVal = val.replace(/^C:\\fakepath\\/i, '');
-        return $(this.ui.mask).val(newVal);
-      }
+export default FileInputView = (function() {
+  FileInputView = class FileInputView extends Marionette.ItemView {
+    static initClass() {
 
-      onTriggerClick() {
-        return $(this.ui.field).click();
-      }
-    };
-    FileInputView.initClass();
-    return FileInputView;
-  })();
-});
+      this.prototype.ui = {
+        trigger: '[data-behavior="file-input-trigger"]',
+        field: '[data-behavior="file-input-field"]',
+        mask: '[data-behavior="file-input-mask"]'
+      };
+
+      this.prototype.triggers = {
+        'click @ui.trigger': 'trigger:click',
+        'change @ui.field': 'mask:update'
+      };
+    }
+
+    onMaskUpdate() {
+      const val = $(this.ui.field).val();
+      const newVal = val.replace(/^C:\\fakepath\\/i, '');
+      return $(this.ui.mask).val(newVal);
+    }
+
+    onTriggerClick() {
+      return $(this.ui.field).click();
+    }
+  };
+  FileInputView.initClass();
+  return FileInputView;
+})();
 
 

@@ -5,74 +5,76 @@
  * DS207: Consider shorter variations of null checks
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-define(['marionette', 'hbs!templates/modal/modal_confirm'], function(Marionette, template) {
-  let ModalConfirmView;
-  return ModalConfirmView = (function() {
-    ModalConfirmView = class ModalConfirmView extends Marionette.ItemView {
-      static initClass() {
-  
-        this.prototype.template = template;
-  
-        this.prototype.headerLabel = 'Are You Sure?';
-        this.prototype.confirmLabel = 'Yes, Proceed';
-        this.prototype.dismissLabel = 'Cancel';
-        this.prototype.confirmEvent = 'modal:confirm';
-        this.prototype.confirmHref = null;
-        this.prototype.dismissEvent = 'modal:dismiss';
-  
-        this.prototype.triggers = {
-          'click [data-behavior="confirm"]': 'click:confirm',
-          'click [data-behavior="dismiss"]': 'click:dismiss'
-        };
-      }
+import Marionette from 'marionette';
 
-      onKeyUp(e) {
-        const code = (e.keyCode != null) ? e.keyCode : e.which;
-        if (code === 13) { this.onClickConfirm(); }
-        if (code === 27) { return this.onClickDismiss(); }
-      }
+import template from 'hbs!templates/modal/modal_confirm';
+let ModalConfirmView;
 
-      onClickConfirm() {
-        if (Marionette.getOption(this, 'confirmElement') != null) {
-          Vocat.vent.trigger('modal:close');
-          const $el = Marionette.getOption(this, 'confirmElement');
-          $el.addClass('modal-blocked');
-          $el.click();
-          return $el.removeClass('modal-blocked');
-        } else {
-          this.vent.triggerMethod(Marionette.getOption(this, 'confirmEvent'), this.model);
-          return Vocat.vent.trigger('modal:close');
-        }
-      }
+export default ModalConfirmView = (function() {
+  ModalConfirmView = class ModalConfirmView extends Marionette.ItemView {
+    static initClass() {
 
-      onClickDismiss() {
-        this.vent.triggerMethod(Marionette.getOption(this, 'dismissEvent'));
+      this.prototype.template = template;
+
+      this.prototype.headerLabel = 'Are You Sure?';
+      this.prototype.confirmLabel = 'Yes, Proceed';
+      this.prototype.dismissLabel = 'Cancel';
+      this.prototype.confirmEvent = 'modal:confirm';
+      this.prototype.confirmHref = null;
+      this.prototype.dismissEvent = 'modal:dismiss';
+
+      this.prototype.triggers = {
+        'click [data-behavior="confirm"]': 'click:confirm',
+        'click [data-behavior="dismiss"]': 'click:dismiss'
+      };
+    }
+
+    onKeyUp(e) {
+      const code = (e.keyCode != null) ? e.keyCode : e.which;
+      if (code === 13) { this.onClickConfirm(); }
+      if (code === 27) { return this.onClickDismiss(); }
+    }
+
+    onClickConfirm() {
+      if (Marionette.getOption(this, 'confirmElement') != null) {
+        Vocat.vent.trigger('modal:close');
+        const $el = Marionette.getOption(this, 'confirmElement');
+        $el.addClass('modal-blocked');
+        $el.click();
+        return $el.removeClass('modal-blocked');
+      } else {
+        this.vent.triggerMethod(Marionette.getOption(this, 'confirmEvent'), this.model);
         return Vocat.vent.trigger('modal:close');
       }
+    }
 
-      serializeData() {
-        return {
-        descriptionLabel: Marionette.getOption(this, 'descriptionLabel'),
-        confirmLabel: Marionette.getOption(this, 'confirmLabel'),
-        dismissLabel: Marionette.getOption(this, 'dismissLabel'),
-        headerLabel: Marionette.getOption(this, 'headerLabel')
-        };
-      }
+    onClickDismiss() {
+      this.vent.triggerMethod(Marionette.getOption(this, 'dismissEvent'));
+      return Vocat.vent.trigger('modal:close');
+    }
 
-      onDestroy() {
-        // Gotta be sure to unbind this event, so that views that have been closed out are no longer triggered.
-        // Normally, marionette does this with listenTo, which registers events, but in this case we have to
-        // do it differently because we're binding to a global object (window)
-        return $(window).off('keyup', this.onKeyUp);
-      }
+    serializeData() {
+      return {
+      descriptionLabel: Marionette.getOption(this, 'descriptionLabel'),
+      confirmLabel: Marionette.getOption(this, 'confirmLabel'),
+      dismissLabel: Marionette.getOption(this, 'dismissLabel'),
+      headerLabel: Marionette.getOption(this, 'headerLabel')
+      };
+    }
 
-      initialize(options) {
-        this.vent = options.vent;
-        _.bindAll(this, 'onKeyUp');
-        return $(window).on('keyup', this.onKeyUp);
-      }
-    };
-    ModalConfirmView.initClass();
-    return ModalConfirmView;
-  })();
-});
+    onDestroy() {
+      // Gotta be sure to unbind this event, so that views that have been closed out are no longer triggered.
+      // Normally, marionette does this with listenTo, which registers events, but in this case we have to
+      // do it differently because we're binding to a global object (window)
+      return $(window).off('keyup', this.onKeyUp);
+    }
+
+    initialize(options) {
+      this.vent = options.vent;
+      _.bindAll(this, 'onKeyUp');
+      return $(window).on('keyup', this.onKeyUp);
+    }
+  };
+  ModalConfirmView.initClass();
+  return ModalConfirmView;
+})();

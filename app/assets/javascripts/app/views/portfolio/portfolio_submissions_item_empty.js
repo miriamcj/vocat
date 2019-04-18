@@ -4,16 +4,18 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-define(['marionette', 'hbs!templates/portfolio/portfolio_item_empty'], function(Marionette, template) {
-  let PortfolioItemEmptyView;
-  return PortfolioItemEmptyView = (function() {
-    PortfolioItemEmptyView = class PortfolioItemEmptyView extends Marionette.ItemView {
-      static initClass() {
-  
-        this.prototype.template = template;
-      }
-    };
-    PortfolioItemEmptyView.initClass();
-    return PortfolioItemEmptyView;
-  })();
-});
+import Marionette from 'marionette';
+
+import template from 'hbs!templates/portfolio/portfolio_item_empty';
+let PortfolioItemEmptyView;
+
+export default PortfolioItemEmptyView = (function() {
+  PortfolioItemEmptyView = class PortfolioItemEmptyView extends Marionette.ItemView {
+    static initClass() {
+
+      this.prototype.template = template;
+    }
+  };
+  PortfolioItemEmptyView.initClass();
+  return PortfolioItemEmptyView;
+})();

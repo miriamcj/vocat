@@ -4,31 +4,29 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-define(function(require) {
-  let EnrollmentEmptyUsers;
-  const Marionette = require('marionette');
-  const template = require('hbs!templates/admin/enrollment/empty_users');
+let EnrollmentEmptyUsers;
+const Marionette = require('marionette');
+const template = require('hbs!templates/admin/enrollment/empty_users');
 
-  return EnrollmentEmptyUsers = (function() {
-    EnrollmentEmptyUsers = class EnrollmentEmptyUsers extends Marionette.ItemView {
-      static initClass() {
-  
-        this.prototype.template = template;
-        this.prototype.tagName = 'tr';
-      }
+export default EnrollmentEmptyUsers = (function() {
+  EnrollmentEmptyUsers = class EnrollmentEmptyUsers extends Marionette.ItemView {
+    static initClass() {
 
-      serializeData() {
-        return {
-        colspan: 4,
-        role: this.options.role
-        };
-      }
+      this.prototype.template = template;
+      this.prototype.tagName = 'tr';
+    }
 
-      onShow() {
-        return this.$el.find('th').attr('colspan', this.$el.closest('table').find('thead th').length);
-      }
-    };
-    EnrollmentEmptyUsers.initClass();
-    return EnrollmentEmptyUsers;
-  })();
-});
+    serializeData() {
+      return {
+      colspan: 4,
+      role: this.options.role
+      };
+    }
+
+    onShow() {
+      return this.$el.find('th').attr('colspan', this.$el.closest('table').find('thead th').length);
+    }
+  };
+  EnrollmentEmptyUsers.initClass();
+  return EnrollmentEmptyUsers;
+})();

@@ -4,58 +4,56 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-define(function(require) {
-  let RubricDetailView;
-  const Marionette = require('marionette');
-  const template = require('hbs!templates/rubric/rubric_detail');
+let RubricDetailView;
+const Marionette = require('marionette');
+const template = require('hbs!templates/rubric/rubric_detail');
 
-  return RubricDetailView = (function() {
-    RubricDetailView = class RubricDetailView extends Marionette.ItemView {
-      static initClass() {
-  
-        this.prototype.ui = {
-          container: '[data-behavior="slide-down"]'
-        };
-        this.prototype.transition = true;
-  
-        this.prototype.template = template;
-      }
+export default RubricDetailView = (function() {
+  RubricDetailView = class RubricDetailView extends Marionette.ItemView {
+    static initClass() {
 
-      initialize(options) {
-        this.model.fetch();
-        this.vent = Marionette.getOption(this, 'vent');
-        return this.transition = Marionette.getOption(this, 'transition');
-      }
+      this.prototype.ui = {
+        container: '[data-behavior="slide-down"]'
+      };
+      this.prototype.transition = true;
 
-      transitionOut() {
-        const deferred = $.Deferred();
-        if (this.transition === true) {
-          this.ui.container.slideUp({
-            duration: 500,
-            done() {
-              return deferred.resolve();
-            }
-          });
-        } else {
-          this.ui.container.hide();
-        }
-        return deferred;
-      }
+      this.prototype.template = template;
+    }
 
-      onShow() {
-        if (this.transition === true) {
-          return this.ui.container.slideDown();
-        } else {
-          return this.ui.container.show();
-        }
-      }
+    initialize(options) {
+      this.model.fetch();
+      this.vent = Marionette.getOption(this, 'vent');
+      return this.transition = Marionette.getOption(this, 'transition');
+    }
 
-      onRender() {
-        return this.ui.container.hide();
+    transitionOut() {
+      const deferred = $.Deferred();
+      if (this.transition === true) {
+        this.ui.container.slideUp({
+          duration: 500,
+          done() {
+            return deferred.resolve();
+          }
+        });
+      } else {
+        this.ui.container.hide();
       }
-    };
-    RubricDetailView.initClass();
-    return RubricDetailView;
-  })();
-});
+      return deferred;
+    }
+
+    onShow() {
+      if (this.transition === true) {
+        return this.ui.container.slideDown();
+      } else {
+        return this.ui.container.show();
+      }
+    }
+
+    onRender() {
+      return this.ui.container.hide();
+    }
+  };
+  RubricDetailView.initClass();
+  return RubricDetailView;
+})();
 

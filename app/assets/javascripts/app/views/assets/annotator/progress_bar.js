@@ -4,149 +4,147 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-define(function(require) {
-  let VideoProgressBarView;
-  const Marionette = require('marionette');
-  require('jquery_ui');
-  const template = require('hbs!templates/assets/annotator/progress_bar');
-  const childView = require('views/assets/annotator/progress_bar_annotation');
+let VideoProgressBarView;
+const Marionette = require('marionette');
+require('jquery_ui');
+const template = require('hbs!templates/assets/annotator/progress_bar');
+const childView = require('views/assets/annotator/progress_bar_annotation');
 
-  return VideoProgressBarView = (function() {
-    VideoProgressBarView = class VideoProgressBarView extends Marionette.CompositeView {
-      static initClass() {
-  
-        this.prototype.template = template;
-        this.prototype.wasPlaying = false;
-        this.prototype.seeking = false;
-  
-        this.prototype.ui = {
-          played: '[data-behavior="played"]',
-          buffered: '[data-behavior="buffered"]',
-          marks: '[data-behavior="marks"]',
-          scrubber: '[data-behavior="scrubber"]',
-          trackOverlay: '[data-behavior="track-overlay"]',
-          timeElapsed: '[data-behavior="time-elapsed"]'
-        };
-  
-        this.prototype.childViewContainer = '[data-behavior="marks"]';
-        this.prototype.childView = childView;
-  
-        this.prototype.events = {
-          'click @ui.trackOverlay': 'onTrackOverlayClicked'
-        };
-      }
-      childViewOptions() {
-        return {
-        vent: this.vent
-        };
-      }
+export default VideoProgressBarView = (function() {
+  VideoProgressBarView = class VideoProgressBarView extends Marionette.CompositeView {
+    static initClass() {
 
-      onTrackOverlayClicked(e) {
-        const trackOffset = this.ui.trackOverlay.offset();
-        const trackWidth = this.ui.trackOverlay.outerWidth();
-        const offsetXClick = e.pageX - trackOffset.left;
-        const offsetYClick = e.pageY - trackOffset.top;
-        const percent = offsetXClick / trackWidth;
-        return this.vent.trigger('request:time:update', {percent});
-      }
+      this.prototype.template = template;
+      this.prototype.wasPlaying = false;
+      this.prototype.seeking = false;
 
-      // BufferedPercent is an int between 0 and 1
-      updateBufferedPercentUi(bufferedPercent) {
-        return this.ui.buffered.outerWidth(`${bufferedPercent * 100}%`);
-      }
+      this.prototype.ui = {
+        played: '[data-behavior="played"]',
+        buffered: '[data-behavior="buffered"]',
+        marks: '[data-behavior="marks"]',
+        scrubber: '[data-behavior="scrubber"]',
+        trackOverlay: '[data-behavior="track-overlay"]',
+        timeElapsed: '[data-behavior="time-elapsed"]'
+      };
 
-      // PlayedPercent is an int between 0 and 1
-      updatePlayedPercentUi(playedPercent) {
-        const p = `${playedPercent * 100}%`;
-        this.ui.played.outerWidth(p);
-        return this.ui.scrubber.css('left', p);
-      }
+      this.prototype.childViewContainer = '[data-behavior="marks"]';
+      this.prototype.childView = childView;
 
-      secondsToString(seconds) {
-        let minutes = Math.floor(seconds / 60);
-        seconds = Math.floor(seconds - (minutes * 60));
-        const minuteZeroes = (2 - minutes.toString().length) + 1;
-        minutes = Array(+((minuteZeroes > 0) && minuteZeroes)).join("0") + minutes;
-        const secondZeroes = (2 - seconds.toString().length) + 1;
-        seconds = Array(+((secondZeroes > 0) && secondZeroes)).join("0") + seconds;
-        return `${minutes}:${seconds}`;
-      }
+      this.prototype.events = {
+        'click @ui.trackOverlay': 'onTrackOverlayClicked'
+      };
+    }
+    childViewOptions() {
+      return {
+      vent: this.vent
+      };
+    }
 
-      updateTimeElapsedUi(playedSeconds, duration) {
-        return this.ui.timeElapsed.html(this.secondsToString(playedSeconds));
-      }
+    onTrackOverlayClicked(e) {
+      const trackOffset = this.ui.trackOverlay.offset();
+      const trackWidth = this.ui.trackOverlay.outerWidth();
+      const offsetXClick = e.pageX - trackOffset.left;
+      const offsetYClick = e.pageY - trackOffset.top;
+      const percent = offsetXClick / trackWidth;
+      return this.vent.trigger('request:time:update', {percent});
+    }
 
-      setupListeners() {
-        this.listenTo(this.vent, 'announce:progress', function(data) {
-          return this.updateBufferedPercentUi(data.bufferedPercent);
-        });
-        this.listenTo(this.vent, 'announce:time:update', data => {
-          this.updatePlayedPercentUi(data.playedPercent);
-          return this.updateTimeElapsedUi(data.playedSeconds);
-        });
-        this.listenTo(this.vent, 'announce:locked', data => {
-          return this.lockDragger();
-        });
-        return this.listenTo(this.vent, 'announce:unlocked', data => {
-          return this.unlockDragger();
-        });
-      }
+    // BufferedPercent is an int between 0 and 1
+    updateBufferedPercentUi(bufferedPercent) {
+      return this.ui.buffered.outerWidth(`${bufferedPercent * 100}%`);
+    }
 
-      onAddChild() {
-        return this.children.call('updatePosition');
-      }
+    // PlayedPercent is an int between 0 and 1
+    updatePlayedPercentUi(playedPercent) {
+      const p = `${playedPercent * 100}%`;
+      this.ui.played.outerWidth(p);
+      return this.ui.scrubber.css('left', p);
+    }
 
-      synchronizeWithPlayer() {
-        this.listenToOnce(this.vent, 'announce:status', data => {
-          return this.updatePlayedPercentUi(data.playedPercent);
-        });
-        return this.vent.trigger('request:status', {});
-      }
+    secondsToString(seconds) {
+      let minutes = Math.floor(seconds / 60);
+      seconds = Math.floor(seconds - (minutes * 60));
+      const minuteZeroes = (2 - minutes.toString().length) + 1;
+      minutes = Array(+((minuteZeroes > 0) && minuteZeroes)).join("0") + minutes;
+      const secondZeroes = (2 - seconds.toString().length) + 1;
+      seconds = Array(+((secondZeroes > 0) && secondZeroes)).join("0") + seconds;
+      return `${minutes}:${seconds}`;
+    }
 
-      handleScrubberDrag(event, ui) {
-        const trackOffset = this.ui.trackOverlay.offset();
-        const trackWidth = this.ui.trackOverlay.outerWidth();
-        const offsetXClick = ui.position.left;
-        const percent = offsetXClick / trackWidth;
-        return this.vent.trigger('request:time:update', {percent});
-      }
+    updateTimeElapsedUi(playedSeconds, duration) {
+      return this.ui.timeElapsed.html(this.secondsToString(playedSeconds));
+    }
 
-      handleScrubberStartDrag(event, ui) {
-        this.seeking = true;
-        return this.vent.trigger('request:pause', {});
-      }
+    setupListeners() {
+      this.listenTo(this.vent, 'announce:progress', function(data) {
+        return this.updateBufferedPercentUi(data.bufferedPercent);
+      });
+      this.listenTo(this.vent, 'announce:time:update', data => {
+        this.updatePlayedPercentUi(data.playedPercent);
+        return this.updateTimeElapsedUi(data.playedSeconds);
+      });
+      this.listenTo(this.vent, 'announce:locked', data => {
+        return this.lockDragger();
+      });
+      return this.listenTo(this.vent, 'announce:unlocked', data => {
+        return this.unlockDragger();
+      });
+    }
 
-      handleScrubberStopDrag(event, ui) {
-        this.seeking = false;
-        return this.vent.trigger('request:resume', {});
-      }
+    onAddChild() {
+      return this.children.call('updatePosition');
+    }
 
-      lockDragger() {
-        return this.ui.scrubber.draggable('disable');
-      }
+    synchronizeWithPlayer() {
+      this.listenToOnce(this.vent, 'announce:status', data => {
+        return this.updatePlayedPercentUi(data.playedPercent);
+      });
+      return this.vent.trigger('request:status', {});
+    }
 
-      unlockDragger() {
-        return this.ui.scrubber.draggable('enable');
-      }
+    handleScrubberDrag(event, ui) {
+      const trackOffset = this.ui.trackOverlay.offset();
+      const trackWidth = this.ui.trackOverlay.outerWidth();
+      const offsetXClick = ui.position.left;
+      const percent = offsetXClick / trackWidth;
+      return this.vent.trigger('request:time:update', {percent});
+    }
 
-      onRender() {
-        const config = {
-          axis: "x",
-          containment: "parent",
-          drag: (event, ui) => this.handleScrubberDrag(event, ui),
-          start: (event, ui) => this.handleScrubberStartDrag(event, ui),
-          stop: (event, ui) => this.handleScrubberStopDrag(event, ui)
-        };
-        this.ui.scrubber.draggable(config);
-        return this.synchronizeWithPlayer();
-      }
+    handleScrubberStartDrag(event, ui) {
+      this.seeking = true;
+      return this.vent.trigger('request:pause', {});
+    }
 
-      initialize(options) {
-        this.vent = options.vent;
-        return this.setupListeners();
-      }
-    };
-    VideoProgressBarView.initClass();
-    return VideoProgressBarView;
-  })();
-});
+    handleScrubberStopDrag(event, ui) {
+      this.seeking = false;
+      return this.vent.trigger('request:resume', {});
+    }
+
+    lockDragger() {
+      return this.ui.scrubber.draggable('disable');
+    }
+
+    unlockDragger() {
+      return this.ui.scrubber.draggable('enable');
+    }
+
+    onRender() {
+      const config = {
+        axis: "x",
+        containment: "parent",
+        drag: (event, ui) => this.handleScrubberDrag(event, ui),
+        start: (event, ui) => this.handleScrubberStartDrag(event, ui),
+        stop: (event, ui) => this.handleScrubberStopDrag(event, ui)
+      };
+      this.ui.scrubber.draggable(config);
+      return this.synchronizeWithPlayer();
+    }
+
+    initialize(options) {
+      this.vent = options.vent;
+      return this.setupListeners();
+    }
+  };
+  VideoProgressBarView.initClass();
+  return VideoProgressBarView;
+})();

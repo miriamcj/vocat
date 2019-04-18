@@ -4,16 +4,18 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-define(['backbone', 'models/range'], function(Backbone, RangeModel) {
-  let RangeCollection;
-  return RangeCollection = (function() {
-    RangeCollection = class RangeCollection extends Backbone.Collection {
-      static initClass() {
-        this.prototype.model = RangeModel;
-      }
-    };
-    RangeCollection.initClass();
-    return RangeCollection;
-  })();
-});
+import Backbone from 'backbone';
+
+import RangeModel from 'models/range';
+let RangeCollection;
+
+export default RangeCollection = (function() {
+  RangeCollection = class RangeCollection extends Backbone.Collection {
+    static initClass() {
+      this.prototype.model = RangeModel;
+    }
+  };
+  RangeCollection.initClass();
+  return RangeCollection;
+})();
 

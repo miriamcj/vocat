@@ -3,7 +3,7 @@
  * DS102: Remove unnecessary code created because of implicit returns
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-define(['backbone'], function(Backbone) {
-  let CourseModel;
-  return (CourseModel = class CourseModel extends Backbone.Model {});
-});
+import Backbone from 'backbone';
+
+let CourseModel;
+export default CourseModel = class CourseModel extends Backbone.Model {};

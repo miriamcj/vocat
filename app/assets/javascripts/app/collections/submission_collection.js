@@ -4,28 +4,26 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-define(function(require) {
-  let SubmissionCollection;
-  const Marionette = require('marionette');
-  const Backbone = require('backbone');
-  const SubmissionModel = require('models/submission');
+let SubmissionCollection;
+const Marionette = require('marionette');
+const Backbone = require('backbone');
+const SubmissionModel = require('models/submission');
 
-  return SubmissionCollection = (function() {
-    SubmissionCollection = class SubmissionCollection extends Backbone.Collection {
-      static initClass() {
-  
-        this.prototype.model = SubmissionModel;
-      }
+export default SubmissionCollection = (function() {
+  SubmissionCollection = class SubmissionCollection extends Backbone.Collection {
+    static initClass() {
 
-      initialize(models, options) {
-        return this.options = options;
-      }
+      this.prototype.model = SubmissionModel;
+    }
 
-      comparator(submission) {
-        return submission.get('project_name');
-      }
-    };
-    SubmissionCollection.initClass();
-    return SubmissionCollection;
-  })();
-});
+    initialize(models, options) {
+      return this.options = options;
+    }
+
+    comparator(submission) {
+      return submission.get('project_name');
+    }
+  };
+  SubmissionCollection.initClass();
+  return SubmissionCollection;
+})();

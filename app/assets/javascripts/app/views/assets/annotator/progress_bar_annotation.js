@@ -4,76 +4,74 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-define(function(require) {
-  let ProgressBarAnnotation;
-  const Marionette = require('marionette');
-  const template = require('hbs!templates/assets/annotator/progress_bar_annotation');
+let ProgressBarAnnotation;
+const Marionette = require('marionette');
+const template = require('hbs!templates/assets/annotator/progress_bar_annotation');
 
-  return ProgressBarAnnotation = (function() {
-    ProgressBarAnnotation = class ProgressBarAnnotation extends Marionette.ItemView {
-      static initClass() {
-  
-        this.prototype.template = template;
-        this.prototype.triggers = {
-          'click': 'seek'
-        };
-        this.prototype.tagName = 'li';
-      }
+export default ProgressBarAnnotation = (function() {
+  ProgressBarAnnotation = class ProgressBarAnnotation extends Marionette.ItemView {
+    static initClass() {
 
-      onSeek() {
-        return this.vent.trigger('request:time:update', {seconds: this.model.get('seconds_timecode')});
-      }
+      this.prototype.template = template;
+      this.prototype.triggers = {
+        'click': 'seek'
+      };
+      this.prototype.tagName = 'li';
+    }
 
-      updatePosition(duration) {
-        this.listenToOnce(this.vent, 'announce:status', data => {
-          return this.setPosition(data.duration);
-        });
-        return this.vent.trigger('request:status', {});
-      }
+    onSeek() {
+      return this.vent.trigger('request:time:update', {seconds: this.model.get('seconds_timecode')});
+    }
 
-      setPosition(duration) {
-        if (duration === 0) {
-          return this.$el.hide();
-        } else {
-          const time = this.model.get('seconds_timecode');
-          const percentage = (time / duration) * 100;
-          this.$el.css({left: `${percentage}%`});
-          this.$el.attr({'date-seconds': time});
-          return this.$el.show();
-        }
-      }
+    updatePosition(duration) {
+      this.listenToOnce(this.vent, 'announce:status', data => {
+        return this.setPosition(data.duration);
+      });
+      return this.vent.trigger('request:status', {});
+    }
 
-      initialize(options) {
-        this.vent = options.vent;
-        return this.setupListeners();
+    setPosition(duration) {
+      if (duration === 0) {
+        return this.$el.hide();
+      } else {
+        const time = this.model.get('seconds_timecode');
+        const percentage = (time / duration) * 100;
+        this.$el.css({left: `${percentage}%`});
+        this.$el.attr({'date-seconds': time});
+        return this.$el.show();
       }
+    }
 
-      setupListeners() {
-        this.listenToOnce(this.vent, 'announce:loaded', data => {
-          return this.setPosition(data.duration);
-        });
-        return this.listenTo(this.vent, 'announce:status', data => {
-          return this.setPosition(data.duration);
-        });
-      }
+    initialize(options) {
+      this.vent = options.vent;
+      return this.setupListeners();
+    }
 
-      onRender() {
-        this.updatePosition();
-        const role = this.model.get('author_role');
-        switch (role) {
-          case "administrator":
-            return this.$el.addClass('role-administrator');
-          case "evaluator":
-            return this.$el.addClass('role-evaluator');
-          case "creator":
-            return this.$el.addClass('role-creator');
-          case "self":
-            return this.$el.addClass('role-self');
-        }
+    setupListeners() {
+      this.listenToOnce(this.vent, 'announce:loaded', data => {
+        return this.setPosition(data.duration);
+      });
+      return this.listenTo(this.vent, 'announce:status', data => {
+        return this.setPosition(data.duration);
+      });
+    }
+
+    onRender() {
+      this.updatePosition();
+      const role = this.model.get('author_role');
+      switch (role) {
+        case "administrator":
+          return this.$el.addClass('role-administrator');
+        case "evaluator":
+          return this.$el.addClass('role-evaluator');
+        case "creator":
+          return this.$el.addClass('role-creator');
+        case "self":
+          return this.$el.addClass('role-self');
       }
-    };
-    ProgressBarAnnotation.initClass();
-    return ProgressBarAnnotation;
-  })();
-});
+    }
+  };
+  ProgressBarAnnotation.initClass();
+  return ProgressBarAnnotation;
+})();
 

@@ -4,22 +4,20 @@
  * DS207: Consider shorter variations of null checks
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-define('app/helpers/debug', ['handlebars'], Handlebars =>
-  Handlebars.registerHelper("debug", function(value, options) {
-    let label, level;
-    switch (options.hash.level) {
-      case "warn": level = "warn"; break;
-      case "error": level = "error"; break;
-      default:
-        level = "log";
-    }
+Handlebars.registerHelper("debug", function(value, options) {
+  let label, level;
+  switch (options.hash.level) {
+    case "warn": level = "warn"; break;
+    case "error": level = "error"; break;
+    default:
+      level = "log";
+  }
 
-    if (options.hash.label != null) {
-      ({ label } = options.hash);
-    } else {
-      label = 'Handlebars Debug:';
-    }
+  if (options.hash.label != null) {
+    ({ label } = options.hash);
+  } else {
+    label = 'Handlebars Debug:';
+  }
 
-    return console[level](label, value);
-  })
-);
+  return console[level](label, value);
+});

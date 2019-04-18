@@ -4,18 +4,20 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-define(['backbone', 'models/flash_message'], function(Backbone, FlashMessageModel) {
-  let FlashMessageCollection;
-  return FlashMessageCollection = (function() {
-    FlashMessageCollection = class FlashMessageCollection extends Backbone.Collection {
-      static initClass() {
-  
-        this.prototype.model = FlashMessageModel;
-      }
+import Backbone from 'backbone';
 
-      initialize() {}
-    };
-    FlashMessageCollection.initClass();
-    return FlashMessageCollection;
-  })();
-});
+import FlashMessageModel from 'models/flash_message';
+let FlashMessageCollection;
+
+export default FlashMessageCollection = (function() {
+  FlashMessageCollection = class FlashMessageCollection extends Backbone.Collection {
+    static initClass() {
+
+      this.prototype.model = FlashMessageModel;
+    }
+
+    initialize() {}
+  };
+  FlashMessageCollection.initClass();
+  return FlashMessageCollection;
+})();
