@@ -15,6 +15,8 @@ module.exports = function(file, api) {
       exportDeclarations.push(p.value.declaration);
     });
 
+  if (!exportDeclarations.length) return false;
+
   const exportClassName =
     exportDeclarations[0].left
       ? exportDeclarations[0].left.name
