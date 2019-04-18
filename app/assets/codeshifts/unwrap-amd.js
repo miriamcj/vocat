@@ -58,7 +58,8 @@ module.exports = function(file, api) {
       if (definedFunction.type === "ArrowFunctionExpression") {
         return j(p).replaceWith(definedFunction.body);
       } else {
-        return j(p.parent).replaceWith(definedFunction.body.body);
+        const body = returnToExport(definedFunction.body.body);
+        return j(p.parent).replaceWith(body);
       }
     });
 
