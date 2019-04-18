@@ -6,6 +6,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'marionette';
+import { isString, isObject, isArray } from "lodash";
 import template from 'hbs!templates/notification/notification_layout';
 import NotificationMessage from 'views/notification/notification_message';
 import NotificationRegion from 'views/notification/notification_region';
@@ -79,7 +80,7 @@ export default class NotificationLayout extends Marionette.LayoutView {
       this.handleEmptyNotification();
     }
     const views = this.messageViewsFromMessageParams(params);
-    return _.each(views, view => {
+    return views.forEach(view => {
       const regionId = this.makeRegion();
       return this[regionId].show(view);
     });
@@ -110,7 +111,7 @@ export default class NotificationLayout extends Marionette.LayoutView {
 
   messageViewsFromMessageParams(params) {
     let views;
-    if (!_.isString(params.msg) && (_.isObject(params.msg) || _.isArray(params.msg))) {
+    if (!isString(params.msg) && (isObject(params.msg) || isArray(params.msg))) {
       views = this.viewsFromComplexMessageParams(params);
     } else {
       views = [];
@@ -124,9 +125,9 @@ export default class NotificationLayout extends Marionette.LayoutView {
     const views = [];
     if (params.level != null) { ({ level } = params); } else { level = 'notice'; }
     if (params.lifetime != null) { ({ lifetime } = params); } else { lifetime = null; }
-    if (_.isArray(params.msg)) {
+    if (isArray(params.msg)) {
       if (params.msg.length > 0) {
-        _.each(params.msg, msg => {
+        params.msg.forEach(msg => {
           return views.push(this.makeOneNotificationView({
             level,
             msg,
@@ -135,8 +136,8 @@ export default class NotificationLayout extends Marionette.LayoutView {
           }));
         });
       }
-    } else if (_.isObject(params.msg)) {
-      _.each(params.msg, (text, property) => {
+    } else if (isObject(params.msg)) {
+      params.msg.forEach((text, property) => {
         if (property === 'base') {
           return views.push(this.makeOneNotificationView({
             level,
@@ -187,12 +188,12 @@ export default class NotificationLayout extends Marionette.LayoutView {
       const text = div.text();
       if ((text != null) && !(/^\s*$/).test(text)) {
         const data = JSON.parse(text);
-        if (_.isArray(data.globalFlash)) {
-          return _.each(data.globalFlash, msg => {
+        if (isArray(data.globalFlash)) {
+          return data.globalFlash.forEach(msg => {
             return this.handleIncomingMessages(msg);
           });
         }
       }
     }
   }
-};
+}

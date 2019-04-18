@@ -5,6 +5,8 @@
  */
 import Backbone from 'backbone';
 
+import { isArray } from "lodash";
+
 export default class AbstractModel extends Backbone.Model {
 
   toPositiveInt(string) {
@@ -13,8 +15,8 @@ export default class AbstractModel extends Backbone.Model {
   }
 
   addError(errorsObject, property, message) {
-    if (!errorsObject[property] || !_.isArray(errorsObject[property])) { errorsObject[property] = []; }
+    if (!errorsObject[property] || !isArray(errorsObject[property])) { errorsObject[property] = []; }
     return errorsObject[property].push(message);
   }
-};
+}
 

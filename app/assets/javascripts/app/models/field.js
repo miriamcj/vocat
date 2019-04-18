@@ -6,6 +6,8 @@
  */
 import Backbone from 'backbone';
 
+import { clone } from "lodash";
+
 import RubricProperty from 'models/rubric_property';
 
 export default class FieldModel extends RubricProperty {
@@ -36,9 +38,9 @@ export default class FieldModel extends RubricProperty {
 
 
   setDescription(range, description) {
-    const descriptions = _.clone(this.get('range_descriptions'));
+    const descriptions = clone(this.get('range_descriptions'));
     descriptions[range.id] = description;
     this.set('range_descriptions', descriptions);
     return this.trigger('change');
   }
-};
+}

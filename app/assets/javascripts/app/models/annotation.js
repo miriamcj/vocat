@@ -7,6 +7,8 @@
  */
 import Backbone from 'backbone';
 
+import { clone } from "lodash";
+
 export default class AnnotationModel extends Backbone.Model {
   constructor() {
 
@@ -93,7 +95,7 @@ export default class AnnotationModel extends Backbone.Model {
   }
 
   toJSON() {
-    const attributes = _.clone(this.attributes);
+    const attributes = clone(this.attributes);
     $.each(attributes, function(key, value) {
       if ((value != null) && _(value.toJSON).isFunction()) {
         return attributes[key] = value.toJSON();
@@ -102,4 +104,4 @@ export default class AnnotationModel extends Backbone.Model {
     attributes.smpte_timecode = this.getTimestamp();
     return attributes;
   }
-};
+}

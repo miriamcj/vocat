@@ -7,6 +7,8 @@
  */
 import Backbone from 'backbone';
 
+import { isArray, size } from "lodash";
+
 export default class DiscussionPostModel extends Backbone.Model {
   constructor() {
 
@@ -25,15 +27,15 @@ export default class DiscussionPostModel extends Backbone.Model {
     const errors = {};
 
     if (!attrs.body || (attrs.body.length < 1)) {
-      if (!errors.body || !_.isArray(errors.body)) { errors.body = []; }
+      if (!errors.body || !isArray(errors.body)) { errors.body = []; }
       errors.body.push('cannot be empty.');
     }
 
     if (attrs.submission_id == null) {
-      if (!errors.body || !_.isArray(errors.body)) { errors.body = []; }
+      if (!errors.body || !isArray(errors.body)) { errors.body = []; }
       errors.push({name: 'submission_id', message: 'All posts must be associated with a submission.'});
     }
 
-    if (_.size(errors) > 0) { return errors; } else { return false; }
+    if (size(errors) > 0) { return errors; } else { return false; }
   }
-};
+}

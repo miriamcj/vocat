@@ -146,10 +146,9 @@ export default class CourseMapController extends VocatController {
       },
       success: data => {
         if (data.length > 0) {
-          const raw = _.find(data, s =>
+          const raw = data.find(s =>
             // It's possible to get two submissions back for an open project, so we need to grab the correct one.
-            (parseInt(s.creator.id) === parseInt(creatorId)) && (s.creator_type === creatorType)
-          );
+            (parseInt(s.creator.id) === parseInt(creatorId)) && (s.creator_type === creatorType));
           const { id } = raw;
           this.collections.submission.add(raw, {merge: true});
           const submission = this.collections.submission.get(id);

@@ -5,12 +5,14 @@
  */
 import Marionette from 'marionette';
 
+import { max } from "lodash";
+
 export default class FiguresCollection extends Marionette.ItemView {
 
   initialize() {
     const figures = this.$el.find('div:first-child');
-    const tallestFigure = _.max(figures, figure => $(figure).outerHeight());
+    const tallestFigure = max(figures, figure => $(figure).outerHeight());
     const h = $(tallestFigure).outerHeight();
     return figures.outerHeight(h);
   }
-};
+}

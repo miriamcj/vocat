@@ -3,6 +3,12 @@
  * DS102: Remove unnecessary code created because of implicit returns
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
+import { isArray } from "lodash";
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
 Handlebars.registerHelper("join", function(value, options) {
 
   // Clone it.
@@ -13,11 +19,11 @@ Handlebars.registerHelper("join", function(value, options) {
   const leadingIndefiniteArticle = options.hash.leadingIndefiniteArticle || false;
   const capitalize = options.hash.capitalize || false;
 
-  if (_.isArray(value)) {
+  if (isArray(value)) {
 
     let last;
     if (capitalize) {
-      value = _.map(value, theString => theString.charAt(0).toUpperCase() + theString.slice(1));
+      value = value.map(theString => theString.charAt(0).toUpperCase() + theString.slice(1));
     }
 
     const { length } = value;

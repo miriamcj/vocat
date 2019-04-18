@@ -6,6 +6,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import template from 'hbs!templates/rubric/rubric_layout';
+import { throttle, isNaN, reject, uniq } from "lodash";
 import RubricModel from 'models/rubric';
 import RangeModel from 'models/range';
 import RangesView from 'views/rubric/ranges';
@@ -63,7 +64,7 @@ export default class RubricLayout extends AbstractMatrix {
       sliderRight: '[data-behavior="matrix-slider-right"]'
     };
 
-    this.onSliderLeft = _.throttle((function() {
+    this.onSliderLeft = throttle(function() {
       const cells = this.rubricBuilder.$el.find($('[data-region="cells"]'));
       const unit = 25;
       let currentPosition = this.rubricBuilder.$el.find($('[data-region="cells"]')).position().left/cells.width();
@@ -71,9 +72,9 @@ export default class RubricLayout extends AbstractMatrix {
         currentPosition = (currentPosition * 100) + unit;
         return cells.css('transform', `translateX(${currentPosition}%)`);
       }
-    }), 300);
+    }, 300);
 
-    this.onSliderRight = _.throttle((function() {
+    this.onSliderRight = throttle(function() {
       if (this.model.get('ranges').length > 4) {
         const cells = this.rubricBuilder.$el.find($('[data-region="cells"]'));
         const unit = 25;
@@ -84,7 +85,7 @@ export default class RubricLayout extends AbstractMatrix {
           return cells.css('transform', `translateX(${currentPosition}%)`);
         }
       }
-    }), 300);
+    }, 300);
   }
 
   editAttributeClick(event) {
@@ -252,14 +253,14 @@ export default class RubricLayout extends AbstractMatrix {
   parseRangePoints(rangePoints) {
     if (rangePoints == null) { rangePoints = ''; }
     let numbers = rangePoints.split(' ');
-    numbers = _.map(numbers, function(num) {
+    numbers = numbers.map(function(num) {
       const n = parseInt(num);
-      if (!_.isNaN(n)) {
+      if (!isNaN(n)) {
         return n;
       }
     });
-    numbers = _.reject(numbers, num => num == null);
-    numbers = _.uniq(numbers).sort((a, b) => a - b);
+    numbers = reject(numbers, num => num == null);
+    numbers = uniq(numbers).sort((a, b) => a - b);
     return numbers;
   }
 
@@ -321,4 +322,4 @@ export default class RubricLayout extends AbstractMatrix {
     this.displaySliders();
     return this.flash.show(new FlashMessagesView({vent: this, clearOnAdd: true}));
   }
-};
+}

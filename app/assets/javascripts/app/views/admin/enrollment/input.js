@@ -5,6 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'marionette';
+import { debounce, extend } from "lodash";
 import usersTemplate from 'hbs!templates/admin/enrollment/user_input';
 import coursesTemplate from 'hbs!templates/admin/enrollment/course_input';
 import ItemView from 'views/admin/enrollment/input_item';
@@ -55,7 +56,7 @@ export default class EnrollmentUserInput extends Marionette.CompositeView {
       'click [data-behavior="show-bulk"]': 'showBulk'
     };
 
-    this.onUpdate = _.debounce(function() {
+    this.onUpdate = debounce(function() {
       const promise = $.Deferred();
       promise.then(() => {
         if (this.ui.termInput.is(":focus")) {
@@ -80,8 +81,7 @@ export default class EnrollmentUserInput extends Marionette.CompositeView {
 
 
       return promise;
-    }
-    , 250);
+    }, 250);
   }
 
   initialize(options) {
@@ -115,7 +115,7 @@ export default class EnrollmentUserInput extends Marionette.CompositeView {
   }
 
   buildChildView(item, ItemViewType, childViewOptions) {
-    const options = _.extend({model: item}, childViewOptions);
+    const options = extend({model: item}, childViewOptions);
     options.enrollmentCollection = this.enrollmentCollection;
     options.vent = this.options.vent;
     options.collectionType = this.collectionType;
@@ -164,4 +164,4 @@ export default class EnrollmentUserInput extends Marionette.CompositeView {
   onShow() {
     return this.ui.containerWrapper.hide();
   }
-};
+}

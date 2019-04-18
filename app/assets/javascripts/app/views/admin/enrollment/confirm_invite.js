@@ -5,6 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'marionette';
+import { pluck } from "lodash";
 import template from 'hbs!templates/admin/enrollment/confirm_invite';
 import GlobalNotification from 'behaviors/global_notification';
 
@@ -38,7 +39,7 @@ export default class ConfirmInvite extends Marionette.ItemView {
   onSubmit() {
     let endpoint;
     const contact_strings = new Array;
-    _.each(this.contacts, contact => contact_strings.push(contact.string));
+    this.contacts.forEach(contact => contact_strings.push(contact.string));
     const contact_string = contact_strings.join("\n");
     this.ui.button.addClass('loading');
     if (this.collection.searchType() === 'user') {
@@ -63,7 +64,7 @@ export default class ConfirmInvite extends Marionette.ItemView {
     this.ui.button.removeClass('loading');
     const successes = [];
     const failures = [];
-    _.each(response, contact => {
+    response.forEach(contact => {
       if (contact.success === true) {
         return successes.push(contact);
       } else {
@@ -74,8 +75,8 @@ export default class ConfirmInvite extends Marionette.ItemView {
     this.collection.fetch();
     this.onCancel();
 
-    Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 10000, msg: _.pluck(successes, 'message')});
-    return Vocat.vent.trigger('error:add', {level: 'error', lifetime: 10000, msg: _.pluck(failures, 'message')});
+    Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 10000, msg: pluck(successes, 'message')});
+    return Vocat.vent.trigger('error:add', {level: 'error', lifetime: 10000, msg: pluck(failures, 'message')});
   }
 
   initialize(options) {
@@ -85,11 +86,11 @@ export default class ConfirmInvite extends Marionette.ItemView {
 
   serializeData() {
     const out = {
-      contact_emails: _.pluck(this.contacts, 'email').join(', '),
+      contact_emails: pluck(this.contacts, 'email').join(', '),
       contacts_count: this.contacts.length,
       multiple_contacts: this.contacts.length > 1,
       contacts: this.contacts
     };
     return out;
   }
-};
+}

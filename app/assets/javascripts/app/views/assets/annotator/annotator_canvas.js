@@ -125,7 +125,7 @@ export default class AnnotatorCanvasView extends Marionette.ItemView {
     if (json) {
       paper.project.importJSON(json);
       const paths = paper.project.getItems({class: Path});
-      _.each(paths, path => {
+      paths.forEach(path => {
         this.addPathEvents(path);
         return path.selected = false;
       });
@@ -228,7 +228,7 @@ export default class AnnotatorCanvasView extends Marionette.ItemView {
       if ((event.key === 'delete') || (event.key === 'backspace')) {
         const paths = paper.project.getItems({selected: true, class: Path});
         if (paths.length > 0) {
-          _.each(paths, path => {
+          paths.forEach(path => {
             return path.remove();
           });
           event.preventDefault();
@@ -281,7 +281,7 @@ export default class AnnotatorCanvasView extends Marionette.ItemView {
     return path.on('mouseup', () => {
       if (this.mode === 'select') {
         if (path.selected === false) {
-          _.each(paper.project.getItems({class: Path}), path => path.selected = false);
+          paper.project.getItems({class: Path}).forEach(path => path.selected = false);
           path.selected = true;
         } else {
           if (path.vocat_event_mousedrag === false) {
@@ -310,7 +310,7 @@ export default class AnnotatorCanvasView extends Marionette.ItemView {
       if (this.mode === 'select') {
         path.vocat_event_mousedrag = true;
         if (path.selected === false) {
-          _.each(paper.project.getItems({class: Path}), path => path.selected = false);
+          paper.project.getItems({class: Path}).forEach(path => path.selected = false);
           path.selected = true;
         }
         path.position = event.point.add(path.vocat_event_last_mouse_offset);

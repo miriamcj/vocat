@@ -7,6 +7,8 @@
  */
 import Marionette from 'marionette';
 
+import { bindAll } from "lodash";
+
 import template from 'hbs!templates/modal/modal_confirm';
 
 export default class ModalConfirmView extends Marionette.ItemView {
@@ -69,7 +71,7 @@ export default class ModalConfirmView extends Marionette.ItemView {
 
   initialize(options) {
     this.vent = options.vent;
-    _.bindAll(this, 'onKeyUp');
+    bindAll(this, 'onKeyUp');
     return $(window).on('keyup', this.onKeyUp);
   }
-};
+}

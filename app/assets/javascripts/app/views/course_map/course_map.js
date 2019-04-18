@@ -170,7 +170,7 @@ export default class CourseMapLayout extends AbstractMatrix {
           msg: `Your evaluations for ${project.get('name')} submissions have been published`
         });
         const submissions = this.collections.submission.where({project_id: project.id});
-        return _.each(submissions, submission => submission.set('current_user_published', true));
+        return submissions.forEach(submission => submission.set('current_user_published', true));
       },
       error: (jqXHR, textStatus, error) => {
         return Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 4000, msg: "Unable to publish submissions."});
@@ -191,7 +191,7 @@ export default class CourseMapLayout extends AbstractMatrix {
           msg: `Your evaluations for ${project.get('name')} submissions have been unpublished`
         });
         const submissions = this.collections.submission.where({project_id: project.id});
-        return _.each(submissions, submission => submission.set('current_user_published', false));
+        return submissions.forEach(submission => submission.set('current_user_published', false));
       },
       error: (jqXHR, textStatus, error) => {
         return Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 4000, msg: "Unable to unpublish submissions."});

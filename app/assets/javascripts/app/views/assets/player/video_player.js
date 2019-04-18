@@ -6,6 +6,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'marionette';
+import { debounce, isFunction } from "lodash";
 import vjsAnnotations from 'vendor/video_js/vjs.annotations';
 vjsAnnotations = require('vendor/video_js/vjs.rewind');
 import vjsAudioWave from 'vendor/video_js/vjs.audiowave';
@@ -29,17 +30,15 @@ export default class VideoPlayerView extends Marionette.ItemView {
 
     this.callbacks = [];
 
-    this.announceTimeUpdate = _.debounce(
-      function() {
-        const time = this.player.currentTime();
-        const percent = this.getPlayedPercent();
-        this.vent.trigger('announce:time:update', {
-          playedPercent: percent,
-          playedSeconds: time
-        });
-        return this.processCallbacks(time);
-      }
-    , 10, true);
+    this.announceTimeUpdate = debounce(function() {
+      const time = this.player.currentTime();
+      const percent = this.getPlayedPercent();
+      this.vent.trigger('announce:time:update', {
+        playedPercent: percent,
+        playedSeconds: time
+      });
+      return this.processCallbacks(time);
+    }, 10, true);
   }
 
   initialize(options) {
@@ -123,7 +122,7 @@ export default class VideoPlayerView extends Marionette.ItemView {
       return this.vent.trigger('announce:progress', {bufferedPercent: this.getBufferedPercent()});
     });
     return this.player.on('play', () => {
-      if ((this.checkIfLocked() === true) && _.isFunction(this.player.pause)) {
+      if ((this.checkIfLocked() === true) && isFunction(this.player.pause)) {
         this.player.pause();
         return this.player.currentTime(this.lock.seconds);
       } else {
@@ -140,7 +139,7 @@ export default class VideoPlayerView extends Marionette.ItemView {
 
   processCallbacks(second) {
     if (this.callbacks.length > 0) {
-      return _.each(this.callbacks, (callbackDetails, index) => {
+      return this.callbacks.forEach((callbackDetails, index) => {
         if (callbackDetails.seconds <= Math.ceil(second)) {
           callbackDetails.callback.apply(callbackDetails.scope);
           return this.callbacks.splice(index, 1);
@@ -248,7 +247,7 @@ export default class VideoPlayerView extends Marionette.ItemView {
       ({ seconds } = data);
     }
     seconds = seconds;
-    if (data.hasOwnProperty('callback') && _.isFunction(data.callback)) {
+    if (data.hasOwnProperty('callback') && isFunction(data.callback)) {
       this.addTimeBasedCallback(seconds, data.callback, data.callbackScope);
     }
 
@@ -347,4 +346,4 @@ export default class VideoPlayerView extends Marionette.ItemView {
     if (this.model.allowsVisibleAnnotation()) { this.insertAnnotationsStageView(); }
     return this.resizePlayer();
   }
-};
+}

@@ -7,6 +7,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import template from 'hbs!templates/rubric/range_picker_modal';
+import { min, reject, max, isNaN, sortBy, uniq, countBy, isObject } from "lodash";
 import jqui from 'jquery_ui';
 import Marionette from 'marionette';
 
@@ -57,11 +58,11 @@ export default class RangePickerModalView extends Marionette.ItemView {
 
     // Does the target value appear more than once in the values array? If so, we need to shunt
     // the $dragger to a new position.
-    if (_.filter(values, value => value !== target).length < (values.length - 1)) {
+    if (values.filter(value => value !== target).length < (values.length - 1)) {
       const missing = this.getAvailableValues(values);
       // First we try to go up
-      const nextViableTarget = _.min(_.reject(missing, value => value < target));
-      const previousViableTarget = _.max(_.reject(missing, value => value > target));
+      const nextViableTarget = min(reject(missing, value => value < target));
+      const previousViableTarget = max(reject(missing, value => value > target));
       const nextDistance = this.getLeftFromScore(nextViableTarget) - left;
       const previousDistance = left - this.getLeftFromScore(previousViableTarget);
       if (nextDistance < previousDistance) { target = nextViableTarget; } else { target = previousViableTarget; }
@@ -83,7 +84,7 @@ export default class RangePickerModalView extends Marionette.ItemView {
   // Returns the number of ticks to show for a given range (assuming we limit ticks to 10.
   getTickCountForRange(range) {
     let ticks = 0;
-    _.each(__range__(0, range, true), function(i) {
+    __range__(0, range, true).forEach(function(i) {
       if (((range % i) === 0) && (i <= 15)) {
         return ticks = i;
       }
@@ -136,7 +137,7 @@ export default class RangePickerModalView extends Marionette.ItemView {
   }
 
   isPrime(n) {
-    if (_.isNaN(n) || !isFinite(n) || (n % 1) || (n < 2)) { return false; }
+    if (isNaN(n) || !isFinite(n) || (n % 1) || (n < 2)) { return false; }
     if ((n % 2) === 0) { return n === 2; }
     if ((n % 3) === 0) { return n === 3; }
     const m = Math.sqrt(n);
@@ -208,31 +209,31 @@ export default class RangePickerModalView extends Marionette.ItemView {
       return out = parseInt(aValue);
     };
 
-    newValues = _.sortBy(newValues, sortIterator);
+    newValues = sortBy(newValues, sortIterator);
 
     // And add the correct high and low values
     newValues.push(this.model.get('low'));
     newValues.push(this.model.get('high'));
-    newValues = _.uniq(newValues);
+    newValues = uniq(newValues);
 
     const targetCount = this.collection.length + 1;
-    newValues = _.filter(newValues, value => {
+    newValues = newValues.filter(value => {
       return (value <= this.model.get('high')) && (value >= this.model.get('low'));
     });
 
-    newValues = _.sortBy(newValues, sortIterator);
+    newValues = sortBy(newValues, sortIterator);
 
     let missingCount = targetCount - newValues.length;
     if ((missingCount < 0) && (newValues.length > 2)) {
       newValues.splice(1, 1);
     }
 
-    newValues = _.uniq(newValues);
+    newValues = uniq(newValues);
 
     while (missingCount > 0) {
       const bestGuess = this.guessNextValue(newValues);
       if (bestGuess != null) { newValues.push(bestGuess); }
-      newValues = _.sortBy(newValues, sortIterator);
+      newValues = sortBy(newValues, sortIterator);
       missingCount--;
     }
     return newValues;
@@ -241,17 +242,17 @@ export default class RangePickerModalView extends Marionette.ItemView {
 
   guessNextValue(values) {
     const gap = this.getLargestGapInSequence(values);
-    const guess = Math.floor((_.reduce(gap, (memo, num) => memo + num) / 2));
+    const guess = Math.floor((gap.reduce((memo, num) => memo + num) / 2));
     return guess;
   }
 
   getLargestGapInSequence(sequence) {
     let out;
-    const maxRanges = (_.max(sequence) - _.min(sequence)) + 1;
+    const maxRanges = (max(sequence) - min(sequence)) + 1;
     if (sequence.length === maxRanges) {
-      out = [_.max(sequence), _.max(sequence)];
+      out = [max(sequence), max(sequence)];
     } else {
-      const gaps = _.map(sequence, function(value, index) {
+      const gaps = sequence.map(function(value, index) {
         if (index !== 0) {
           let gap;
           return gap = value - sequence[index - 1] - 1;
@@ -259,7 +260,7 @@ export default class RangePickerModalView extends Marionette.ItemView {
           return 0;
         }
       });
-      const highIndex = _.indexOf(gaps, _.max(gaps));
+      const highIndex = gaps.indexOf(_.max(gaps));
       const lowIndex = highIndex - 1;
       out = [sequence[lowIndex], sequence[highIndex]];
     }
@@ -267,11 +268,13 @@ export default class RangePickerModalView extends Marionette.ItemView {
   }
 
   getAvailableValues(sequence) {
-    const counts = _.countBy(sequence, num => num);
-    const min = _.min(sequence);
-    const max = _.max(sequence);
+    const counts = countBy(sequence, num => num);
+    const min = min(sequence);
+    const max = max(sequence);
     const all = __range__(min, max, true);
-    const available = _.filter(all, num => (_.indexOf(sequence, num, true) === -1) || ((num === max) && (counts[num] <= 2) ));
+    const available = all.filter(
+      num => (sequence.indexOf(num, true) === -1) || ((num === max) && (counts[num] <= 2) )
+    );
     return available;
   }
 
@@ -298,7 +301,7 @@ export default class RangePickerModalView extends Marionette.ItemView {
     if (this.collection.length > 0) {
       const values = this.getValues();
       const updates = [];
-      _.each(values, (value, index) => {
+      values.forEach((value, index) => {
         // Unless it's not the last one
         if ((index + 1) !== values.length) {
           let high, low;
@@ -315,7 +318,7 @@ export default class RangePickerModalView extends Marionette.ItemView {
           return updates.push({low, high});
         }
       });
-      return _.each(updates, (update, index) => {
+      return updates.forEach((update, index) => {
         const range = this.collection.at(index);
         if (range != null) {
           return range.set(update);
@@ -327,13 +330,13 @@ export default class RangePickerModalView extends Marionette.ItemView {
   // Returns the values based on handle positions
   getValues() {
     let values = [];
-    _.each(this.handles, handle => {
+    this.handles.forEach(handle => {
       const $handle = $(handle);
       const { left } = $handle.position();
       const score = this.getScoreFromLeft(left);
       return values.push(score);
     });
-    values = _.sortBy(values, value => parseInt(value));
+    values = sortBy(values, value => parseInt(value));
     return values;
   }
 
@@ -341,7 +344,7 @@ export default class RangePickerModalView extends Marionette.ItemView {
   getValuesFromCollection(collection) {
     if (collection.length > 0) {
       let values = collection.pluck('low');
-      values = _.sortBy(values, value => parseInt(value));
+      values = sortBy(values, value => parseInt(value));
       return values;
     } else {
       return [];
@@ -359,7 +362,7 @@ export default class RangePickerModalView extends Marionette.ItemView {
     values = this.fixValues(values);
 
     this.ui.draggableContainer.empty();
-    _.each(values, (value, index) => {
+    values.forEach((value, index) => {
       const $handle = $('<div style="position: absolute" class="dragger" data-handle data-behavior="draggable"><span class="dragger-score"></span><div class="dragger-label"></div></div>');
       this.ui.draggableContainer.append($handle);
       this.moveTo($handle, value);
@@ -373,7 +376,7 @@ export default class RangePickerModalView extends Marionette.ItemView {
             return this.handlePositionChange(ui);
           },
           start: (event, ui) => {
-            _.each(this.handles, $dragger => {
+            this.handles.forEach($dragger => {
               return $dragger.removeClass('dragger-active');
             });
             ui.helper.addClass('dragger-active');
@@ -410,12 +413,12 @@ export default class RangePickerModalView extends Marionette.ItemView {
     });
 
     return this.listenTo(this, 'modal:after:show', function() {
-      if (_.isObject(this.ui.rangePicker)) {
+      if (isObject(this.ui.rangePicker)) {
         return this.initializeUi();
       }
     });
   }
-};
+}
 
 function __range__(left, right, inclusive) {
   let range = [];

@@ -19,7 +19,7 @@ export default class PortfolioCollection extends Backbone.Collection {
     if (options == null) { options = {}; }
     let url = '/api/v1';
     const segments = ['courses', 'projects', 'groups', 'users'];
-    _.each(segments, function(segment) {
+    segments.forEach(function(segment) {
       if ((options[segment] != null) && (options[segment] !== null)) { return url += `${segment}/${options[segment]}`; }
     });
     return url += '/submissions';

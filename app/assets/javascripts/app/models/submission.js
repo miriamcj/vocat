@@ -6,6 +6,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Backbone from 'backbone';
+import { findWhere } from "lodash";
 import VideoModel from 'models/video';
 import EvaluationModel from 'models/evaluation';
 import ProjectModel from 'models/project';
@@ -69,14 +70,14 @@ export default class SubmissionModel extends Backbone.Model {
 
   publishEvaluation() {
     this.set('current_user_published', true);
-    const evaluationData = _.findWhere(this.get('evaluations'), {current_user_is_evaluator: true});
+    const evaluationData = findWhere(this.get('evaluations'), {current_user_is_evaluator: true});
     const evaluation = new EvaluationModel(evaluationData);
     return evaluation.save({published: true});
   }
 
   unpublishEvaluation() {
     this.set('current_user_published', false);
-    const evaluationData = _.findWhere(this.get('evaluations'), {current_user_is_evaluator: true});
+    const evaluationData = findWhere(this.get('evaluations'), {current_user_is_evaluator: true});
     const evaluation = new EvaluationModel(evaluationData);
     return evaluation.save({published: false});
   }
@@ -165,4 +166,4 @@ export default class SubmissionModel extends Backbone.Model {
       return this.assetCollection.reset(this.get('assets'));
     }
   }
-};
+}

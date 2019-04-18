@@ -6,6 +6,8 @@
  */
 import Marionette from 'marionette';
 
+import { isNaN } from "lodash";
+
 import VocatController from 'controllers/vocat_controller';
 import EnrollmentCollection from 'collections/enrollment_collection';
 import EnrollmentLayout from 'views/admin/enrollment_layout';
@@ -18,7 +20,7 @@ export default class AdminController extends VocatController {
   }
 
   evaluatorEnrollment(courseId) {
-    if (!_.isNaN(parseInt(courseId))) {
+    if (!isNaN(parseInt(courseId))) {
       Vocat.addRegions({
         evaluatorEnrollment: '[data-region="evaluator-enrollment"]'
       });
@@ -30,7 +32,7 @@ export default class AdminController extends VocatController {
   }
 
   assistantEnrollment(courseId) {
-    if (!_.isNaN(parseInt(courseId))) {
+    if (!isNaN(parseInt(courseId))) {
       Vocat.addRegions({
         assistantEnrollment: '[data-region="assistant-enrollment"]'
       });
@@ -42,7 +44,7 @@ export default class AdminController extends VocatController {
   }
 
   creatorEnrollment(courseId) {
-    if (!_.isNaN(parseInt(courseId))) {
+    if (!isNaN(parseInt(courseId))) {
       Vocat.addRegions({
         creatorEnrollment: '[data-region="creator-enrollment"]'
       });
@@ -54,7 +56,7 @@ export default class AdminController extends VocatController {
   }
 
   courseEnrollment(userId) {
-    if (!_.isNaN(parseInt(userId))) {
+    if (!isNaN(parseInt(userId))) {
       Vocat.addRegions({
         creatorEnrollment: '[data-region="creator-enrollment"]'
       });
@@ -62,4 +64,4 @@ export default class AdminController extends VocatController {
       return Vocat.creatorEnrollment.show(view);
     }
   }
-};
+}

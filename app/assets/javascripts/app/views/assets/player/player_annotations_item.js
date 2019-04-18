@@ -6,10 +6,12 @@
  */
 import Marionette from 'marionette';
 
+import { template } from "lodash";
+
 export default class PlayerAnnotationItem extends Marionette.ItemView {
   constructor() {
 
-    this.template = _.template('');
+    this.template = template('');
     this.tagName = 'li';
 
     this.fadeInBeforeAnnotationTime = .75;
@@ -144,4 +146,4 @@ export default class PlayerAnnotationItem extends Marionette.ItemView {
     this.$el.attr({'data-model-id': this.model.id});
     return this.setState(0);
   }
-};
+}

@@ -5,6 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'marionette';
+import { uniq } from "lodash";
 import template from 'hbs!templates/submission/evaluations/their_evaluations';
 import TheirEvaluationsCollection from 'views/submission/evaluations/their_evaluations_collection';
 import CollectionProxy from 'collections/collection_proxy';
@@ -29,8 +30,8 @@ export default class TheirEvaluations extends Marionette.CompositeView {
     this.rubric = options.rubric;
 
     this.collection = new Backbone.Collection;
-    const evalTypes = _.uniq(this.evaluations.pluck('evaluator_role'));
-    return _.each(evalTypes, (evalRole, index) => {
+    const evalTypes = uniq(this.evaluations.pluck('evaluator_role'));
+    return evalTypes.forEach((evalRole, index) => {
       const proxy = new CollectionProxy(this.evaluations);
 
       proxy.where(model => (model.get('evaluator_role') === evalRole) && (model.get('current_user_is_evaluator') !== true));
@@ -40,5 +41,5 @@ export default class TheirEvaluations extends Marionette.CompositeView {
       }
     });
   }
-};
+}
 

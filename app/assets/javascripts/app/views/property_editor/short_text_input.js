@@ -5,6 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'marionette';
+import { isFunction } from "lodash";
 import template from 'hbs!templates/property_editor/short_text_input';
 
 export default class ShortTextInput extends Marionette.ItemView {
@@ -33,7 +34,7 @@ export default class ShortTextInput extends Marionette.ItemView {
 
   onClickModelSave() {
     this.save();
-    if (_.isFunction(this.onSave)) {
+    if (isFunction(this.onSave)) {
       return this.onSave();
     }
   }
@@ -89,5 +90,5 @@ export default class ShortTextInput extends Marionette.ItemView {
     return setTimeout(() => input.focus()
     , 0);
   }
-};
+}
 

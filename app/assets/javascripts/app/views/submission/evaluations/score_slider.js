@@ -6,6 +6,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'marionette';
+import { isNumber, isNaN } from "lodash";
 import 'jquery_ui';
 import template from 'hbs!templates/submission/evaluations/score_slider';
 
@@ -124,7 +125,7 @@ export default class ScoreSlider extends Marionette.ItemView {
   }
 
   updatePlacard(score) {
-    if (_.isNumber(score) && !_.isNaN(score)) {
+    if (isNumber(score) && !isNaN(score)) {
       const range = this.rubric.getRangeForScore(score);
       if (range != null) {
         const desc = this.rubric.getCellDescription(this.model.id, range.id);
@@ -234,4 +235,4 @@ export default class ScoreSlider extends Marionette.ItemView {
   onRender() {
     return this.onShow();
   }
-};
+}

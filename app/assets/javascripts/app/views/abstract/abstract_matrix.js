@@ -6,6 +6,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'marionette';
+import { debounce } from "lodash";
 import 'waypoints_sticky';
 import 'waypoints';
 
@@ -42,7 +43,7 @@ export default class AbstractMatrix extends Marionette.LayoutView {
   parentOnShow() {
     this.recalculateMatrix();
     if (this.stickyHeader) { this._initializeStickyHeader(); }
-    this.listenTo(this, 'recalculate', _.debounce(() => {
+    this.listenTo(this, 'recalculate', debounce(() => {
       return this.recalculateMatrix();
     }), 250, true);
 
@@ -343,4 +344,4 @@ export default class AbstractMatrix extends Marionette.LayoutView {
       }
     });
   }
-};
+}

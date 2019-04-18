@@ -7,6 +7,8 @@
  */
 import Marionette from 'marionette';
 
+import { bind } from "lodash";
+
 import template from 'hbs!templates/modal/modal_layout';
 
 export default class ModalLayout extends Marionette.LayoutView {
@@ -109,7 +111,7 @@ export default class ModalLayout extends Marionette.LayoutView {
       backdrop = $('<div class="modal-backdrop" data-behavior="modal-backdrop">').css({
         height: $(window).height()
       }).appendTo($('body')).hide();
-      $(window).bind('resize', _.bind(this.resizeBackdrop, this));
+      $(window).bind('resize', bind(this.resizeBackdrop, this));
     }
     return backdrop;
   }
@@ -118,4 +120,4 @@ export default class ModalLayout extends Marionette.LayoutView {
     this.resizeBackdrop();
     return this.ensureBackdrop().fadeIn(150);
   }
-};
+}

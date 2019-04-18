@@ -5,6 +5,8 @@
  */
 import Backbone from 'backbone';
 
+import { max, range } from "lodash";
+
 export default class ScoreModel extends Backbone.Model {
 
   getTicks() {
@@ -26,9 +28,9 @@ export default class ScoreModel extends Backbone.Model {
         if ((m === 0) && ((possible / i) < 10)) { factors.push(i); }
         i--;
       }
-      tickCount = _.max(factors);
+      tickCount = max(factors);
     }
-    return _.range(tickCount);
+    return range(tickCount);
   }
 
   getTickWidth() {
@@ -43,4 +45,4 @@ export default class ScoreModel extends Backbone.Model {
     json.tickWidth = this.getTickWidth();
     return json;
   }
-};
+}

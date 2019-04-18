@@ -6,6 +6,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import AbstractModel from 'models/abstract_model';
+import { toArray, clone, size } from "lodash";
 import FieldCollection from 'collections/field_collection';
 import RangeCollection from 'collections/range_collection';
 import CellCollection from 'collections/cell_collection';
@@ -29,9 +30,9 @@ export default class Rubric extends AbstractModel {
   }
 
   initialize(options) {
-    this.set('fields', new FieldCollection(_.toArray(this.get('fields'))));
-    this.set('ranges', new RangeCollection(_.toArray(this.get('ranges'))));
-    this.set('cells', new CellCollection(_.toArray(this.get('cells')), {}));
+    this.set('fields', new FieldCollection(toArray(this.get('fields'))));
+    this.set('ranges', new RangeCollection(toArray(this.get('ranges'))));
+    this.set('cells', new CellCollection(toArray(this.get('cells')), {}));
 
     this.listenTo(this.get('fields'), 'add remove', function(e) {
       return this.trigger('change');
@@ -148,19 +149,19 @@ export default class Rubric extends AbstractModel {
       if (!this.get('ranges')) { this.set('ranges', new RangeCollection); }
       if (!this.get('cells')) { this.set('cells', new CellCollection); }
 
-      _.each(response.ranges, (range, index) => {
+      response.ranges.forEach((range, index) => {
         range.index = index;
         range = new RangeModel(range);
         return this.get('ranges').add(range, {silent: true});
       });
 
-      _.each(response.fields, (field, index) => {
+      response.fields.forEach((field, index) => {
         field.index = index;
         field = new FieldModel(field);
         return this.get('fields').add(field, {silent: true});
       });
 
-      _.each(response.cells, cell => {
+      response.cells.forEach(cell => {
         cell = new CellModel(cell);
         cell.fieldModel = this.get('fields').get(cell.get('field'));
         cell.rangeModel = this.get('ranges').get(cell.get('range'));
@@ -175,7 +176,7 @@ export default class Rubric extends AbstractModel {
   }
 
   toJSON() {
-    const attributes = _.clone(this.attributes);
+    const attributes = clone(this.attributes);
     return $.each(attributes, function(key, value) {
       if ((value != null) && _(value.toJSON).isFunction()) {
         return attributes[key] = value.toJSON();
@@ -196,6 +197,6 @@ export default class Rubric extends AbstractModel {
   validate(attrs, options) {
     this.errors = {};
     this.validateName(attrs, options);
-    if (_.size(this.errors) > 0) { return this.errors; } else { return false; }
+    if (size(this.errors) > 0) { return this.errors; } else { return false; }
   }
-};
+}

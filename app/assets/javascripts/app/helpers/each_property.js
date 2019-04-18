@@ -4,6 +4,12 @@
  * DS207: Consider shorter variations of null checks
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
+import { findWhere } from "lodash";/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS207: Consider shorter variations of null checks
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
 Handlebars.registerHelper("each_property", function(context, options) {
   let high;
   const { rubric } = options.hash;
@@ -12,7 +18,7 @@ Handlebars.registerHelper("each_property", function(context, options) {
   }
 
   let ret = "";
-  _.each(context, function(value, prop) {
+  context.forEach(function(value, prop) {
     let name, per;
     const val = context[prop];
     if ((high != null) && (value != null)) {
@@ -21,7 +27,7 @@ Handlebars.registerHelper("each_property", function(context, options) {
       per = null;
     }
 
-    const field = _.findWhere(rubric.fields, {id: String(prop)});
+    const field = findWhere(rubric.fields, {id: String(prop)});
     if (field != null) {
       ({ name } = field);
     } else {

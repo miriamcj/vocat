@@ -6,6 +6,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'marionette';
+import { isObject, isArray, isString } from "lodash";
 import ItemView from 'views/flash/flash_messages_item';
 import FlashMessageCollection from 'collections/flash_message_collection';
 import template from 'hbs!templates/flash/flash_messages';
@@ -48,15 +49,15 @@ export default class AbstractFlashMessages extends Marionette.CollectionView {
   // Only the third example, which is what rails returns, is currently in use AFAIK
   processMessage(flashMessage) {
     let level, lifetime;
-    if (_.isObject(flashMessage.msg) || _.isArray(flashMessage.msg)) {
+    if (isObject(flashMessage.msg) || isArray(flashMessage.msg)) {
       if (flashMessage.level != null) { ({ level } = flashMessage); } else { level = 'notice'; }
       if (flashMessage.lifetime != null) { ({ lifetime } = flashMessage); } else { lifetime = null; }
-      if (_.isArray(flashMessage.msg)) {
+      if (isArray(flashMessage.msg)) {
         if (flashMessage.msg.length > 0) {
           return this.addMessage(level, flashMessage.msg, null, lifetime);
         }
-      } else if (!_.isString(flashMessage.msg) && _.isObject(flashMessage.msg)) {
-        return _.each(flashMessage.msg, (text, property) => {
+      } else if (!isString(flashMessage.msg) && isObject(flashMessage.msg)) {
+        return flashMessage.msg.forEach((text, property) => {
           if (property === 'base') {
             return this.addMessage(level, text, null, lifetime);
           } else {
@@ -84,4 +85,4 @@ export default class AbstractFlashMessages extends Marionette.CollectionView {
     if (this.clearOnAdd === true) { this.collection.reset(); }
     return this.collection.add(m);
   }
-};
+}

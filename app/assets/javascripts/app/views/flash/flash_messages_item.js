@@ -6,6 +6,8 @@
  */
 import Marionette from 'marionette';
 
+import { isArray, isObject } from "lodash";
+
 import template from 'hbs!templates/flash/flash_messages_item';
 
 export default class FlashMessagesItem extends Marionette.ItemView {
@@ -42,7 +44,7 @@ export default class FlashMessagesItem extends Marionette.ItemView {
 
   serializeData() {
     const context = super.serializeData();
-    if (_.isArray(this.model.get('msg')) || _.isObject(this.model.get('msg'))) {
+    if (isArray(this.model.get('msg')) || isObject(this.model.get('msg'))) {
       context.enumerable = true;
     } else {
       context.enumerable = false;
@@ -64,4 +66,4 @@ export default class FlashMessagesItem extends Marionette.ItemView {
     , this.lifetime
     );
   }
-};
+}

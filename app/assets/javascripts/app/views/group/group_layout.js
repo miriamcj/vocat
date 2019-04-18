@@ -5,6 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'marionette';
+import { shuffle } from "lodash";
 import template from 'hbs!templates/group/group_layout';
 import AbstractMatrix from 'views/abstract/abstract_matrix';
 import CreatorsView from 'views/group/creators';
@@ -65,7 +66,7 @@ export default class GroupLayout extends AbstractMatrix {
   }
 
   onConfirmAssign() {
-    const creatorIds = _.shuffle(this.collections.creator.pluck('id'));
+    const creatorIds = shuffle(this.collections.creator.pluck('id'));
     const creatorCount = creatorIds.length;
     const groupCount = this.collections.group.length;
     if (groupCount > 0) {
@@ -133,7 +134,7 @@ export default class GroupLayout extends AbstractMatrix {
     this.courseId = options.courseId;
     return this.collections.group.courseId = this.courseId;
   }
-};
+}
 
 
 

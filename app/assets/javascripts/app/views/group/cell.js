@@ -6,6 +6,8 @@
  */
 import Marionette from 'marionette';
 
+import { clone, without } from "lodash";
+
 import template from 'hbs!templates/group/cell';
 
 export default class Cell extends Marionette.ItemView {
@@ -32,11 +34,11 @@ export default class Cell extends Marionette.ItemView {
     let ids;
     this.vent.triggerMethod('dirty');
     if (this.isEnrolled() === true) {
-      ids = _.clone(this.model.get('creator_ids'));
-      ids = _.without(ids, this.creator.id);
+      ids = clone(this.model.get('creator_ids'));
+      ids = without(ids, this.creator.id);
       this.model.set('creator_ids', ids);
     } else {
-      ids =  _.clone(this.model.get('creator_ids'));
+      ids =  clone(this.model.get('creator_ids'));
       ids.push(this.creator.id);
       this.model.set('creator_ids', ids);
     }
@@ -52,7 +54,7 @@ export default class Cell extends Marionette.ItemView {
   }
 
   isEnrolled() {
-    const res = _.indexOf(this.model.get('creator_ids'), this.creator.id) > -1;
+    const res = this.model.get('creator_ids').indexOf(this.creator.id) > -1;
     return res;
   }
 
@@ -77,4 +79,4 @@ export default class Cell extends Marionette.ItemView {
       return this.ui.checkbox.attr('checked', false);
     }
   }
-};
+}

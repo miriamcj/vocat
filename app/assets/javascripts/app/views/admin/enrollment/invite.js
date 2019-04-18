@@ -5,6 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'marionette';
+import { pluck } from "lodash";
 import template from 'hbs!templates/admin/enrollment/invite';
 
 export default class Invite extends Marionette.ItemView {
@@ -58,15 +59,15 @@ export default class Invite extends Marionette.ItemView {
     this.ui.button.removeClass('loading');
     const successes = [];
     const failures = [];
-    _.each(response, contact => {
+    response.forEach(contact => {
       if (contact.success === true) {
         return successes.push(contact);
       } else {
         return failures.push(contact);
       }
     });
-    Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 10000, msg: _.pluck(successes, 'message')});
-    Vocat.vent.trigger('error:add', {level: 'error', lifetime: 10000, msg: _.pluck(failures, 'message')});
+    Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 10000, msg: pluck(successes, 'message')});
+    Vocat.vent.trigger('error:add', {level: 'error', lifetime: 10000, msg: pluck(failures, 'message')});
     this.collection.fetch();
     return this.onCancel();
   }
@@ -82,4 +83,4 @@ export default class Invite extends Marionette.ItemView {
     };
     return out;
   }
-};
+}

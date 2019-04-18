@@ -7,6 +7,8 @@
  */
 import Backbone from 'backbone';
 
+import { clone } from "lodash";
+
 export default class Group extends Backbone.Model {
   constructor() {
 
@@ -33,7 +35,7 @@ export default class Group extends Backbone.Model {
   }
 
   takeSnapshot() {
-    return this._snapshotAttributes = _.clone(this.attributes);
+    return this._snapshotAttributes = clone(this.attributes);
   }
 
   revert() {
@@ -46,4 +48,4 @@ export default class Group extends Backbone.Model {
       return this.takeSnapshot();
     });
   }
-};
+}

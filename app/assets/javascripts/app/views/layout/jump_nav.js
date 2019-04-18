@@ -5,6 +5,8 @@
  */
 import $ from 'jquery_rails';
 
+import { bind } from "lodash";
+
 import Marionette from 'marionette';
 
 export default class JumpNavView extends Marionette.ItemView {
@@ -28,8 +30,8 @@ export default class JumpNavView extends Marionette.ItemView {
       allow_single_deselect: true,
       placeholder_text_single: msg
     };
-    return this.$el.chosen(options).change(_.bind(this.handleChange, this));
+    return this.$el.chosen(options).change(bind(this.handleChange, this));
   }
-};
+}
 
 

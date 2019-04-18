@@ -5,6 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import marionette from 'marionette';
+import { isNaN } from "lodash";
 import VocatController from 'controllers/vocat_controller';
 import EnrollmentCollection from 'collections/enrollment_collection';
 import EnrollmentLayout from 'views/admin/enrollment_layout';
@@ -24,7 +25,7 @@ export default class CourseController extends VocatController {
   }
 
   creatorEnrollment(courseId) {
-    if (!_.isNaN(parseInt(courseId))) {
+    if (!isNaN(parseInt(courseId))) {
       Vocat.addRegions({
         creatorEnrollment: '[data-region="creator-enrollment"]'
       });
@@ -37,7 +38,7 @@ export default class CourseController extends VocatController {
 
 
   courseManageProjects(courseId) {
-    if (!_.isNaN(parseInt(courseId))) {
+    if (!isNaN(parseInt(courseId))) {
       if ($('[data-region="projects"]').length > 0) {
         Vocat.addRegions({
           projects: '[data-region="projects"]'
@@ -47,4 +48,4 @@ export default class CourseController extends VocatController {
       }
     }
   }
-};
+}

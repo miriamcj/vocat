@@ -7,6 +7,8 @@
  */
 import Backbone from 'backbone';
 
+import { reject } from "lodash";
+
 export default class Placard extends Backbone.View {
   constructor() {
 
@@ -155,8 +157,8 @@ export default class Placard extends Backbone.View {
   }
 
   validateOrienation(orientation) {
-    if ((orientation != null) && (_.indexOf(this.orientations, orientation) !== -1)) {
-      this.$el.addClass(orientation).removeClass(_.reject(this.orientations, value => value === orientation).join(' '));
+    if ((orientation != null) && (this.orientations.indexOf(orientation) !== -1)) {
+      this.$el.addClass(orientation).removeClass(reject(this.orientations, value => value === orientation).join(' '));
       return orientation;
     } else {
       return null;
@@ -190,4 +192,4 @@ export default class Placard extends Backbone.View {
     this.visible = false;
     return this.trigger('after:hide');
   }
-};
+}

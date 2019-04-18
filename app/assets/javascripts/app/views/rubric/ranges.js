@@ -6,6 +6,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'marionette';
+import { sortBy, uniq, max, min, countBy } from "lodash";
 import template from 'hbs!templates/rubric/ranges';
 import RangeView from 'views/rubric/range';
 import jqui from 'jquery_ui';
@@ -49,31 +50,31 @@ export default class RangesView extends Marionette.CompositeView {
       return out = parseInt(aValue);
     };
 
-    newValues = _.sortBy(newValues, sortIterator);
+    newValues = sortBy(newValues, sortIterator);
 
     // And add the correct high and low values
     newValues.push(this.rubric.get('low'));
     newValues.push(this.rubric.get('high'));
-    newValues = _.uniq(newValues);
+    newValues = uniq(newValues);
 
     const targetCount = this.collection.length + 1;
-    newValues = _.filter(newValues, value => {
+    newValues = newValues.filter(value => {
       return (value <= this.rubric.get('high')) && (value >= this.rubric.get('low'));
     });
 
-    newValues = _.sortBy(newValues, sortIterator);
+    newValues = sortBy(newValues, sortIterator);
 
     let missingCount = targetCount - newValues.length;
     if ((missingCount < 0) && (newValues.length > 2)) {
       newValues.splice(1, 1);
     }
 
-    newValues = _.uniq(newValues);
+    newValues = uniq(newValues);
 
     while (missingCount > 0) {
       const bestGuess = this.guessNextValue(newValues);
       if (bestGuess != null) { newValues.push(bestGuess); }
-      newValues = _.sortBy(newValues, sortIterator);
+      newValues = sortBy(newValues, sortIterator);
       missingCount--;
     }
     return newValues;
@@ -82,17 +83,17 @@ export default class RangesView extends Marionette.CompositeView {
 
   guessNextValue(values) {
     const gap = this.getLargestGapInSequence(values);
-    const guess = Math.floor((_.reduce(gap, (memo, num) => memo + num) / 2));
+    const guess = Math.floor((gap.reduce((memo, num) => memo + num) / 2));
     return guess;
   }
 
   getLargestGapInSequence(sequence) {
     let out;
-    const maxRanges = (_.max(sequence) - _.min(sequence)) + 1;
+    const maxRanges = (max(sequence) - min(sequence)) + 1;
     if (sequence.length === maxRanges) {
-      out = [_.max(sequence), _.max(sequence)];
+      out = [max(sequence), max(sequence)];
     } else {
-      const gaps = _.map(sequence, function(value, index) {
+      const gaps = sequence.map(function(value, index) {
         if (index !== 0) {
           let gap;
           return gap = value - sequence[index - 1] - 1;
@@ -100,7 +101,7 @@ export default class RangesView extends Marionette.CompositeView {
           return 0;
         }
       });
-      const highIndex = _.indexOf(gaps, _.max(gaps));
+      const highIndex = gaps.indexOf(_.max(gaps));
       const lowIndex = highIndex - 1;
       out = [sequence[lowIndex], sequence[highIndex]];
     }
@@ -108,11 +109,13 @@ export default class RangesView extends Marionette.CompositeView {
   }
 
   getAvailableValues(sequence) {
-    const counts = _.countBy(sequence, num => num);
-    const min = _.min(sequence);
-    const max = _.max(sequence);
+    const counts = countBy(sequence, num => num);
+    const min = min(sequence);
+    const max = max(sequence);
     const all = __range__(min, max, true);
-    const available = _.filter(all, num => (_.indexOf(sequence, num, true) === -1) || ((num === max) && (counts[num] <= 2) ));
+    const available = all.filter(
+      num => (sequence.indexOf(num, true) === -1) || ((num === max) && (counts[num] <= 2) )
+    );
     return available;
   }
 
@@ -138,7 +141,7 @@ export default class RangesView extends Marionette.CompositeView {
   updateCollection(values) {
     if (this.collection.length > 0) {
       const updates = [];
-      _.each(values, (value, index) => {
+      values.forEach((value, index) => {
       // Unless it's not the last one
         if ((index + 1) !== values.length) {
           let high, low;
@@ -155,7 +158,7 @@ export default class RangesView extends Marionette.CompositeView {
           return updates.push({low, high});
         }
       });
-      _.each(updates, (update, index) => {
+      updates.forEach((update, index) => {
         const range = this.collection.at(index);
         if (range != null) {
           return range.set(update);
@@ -169,7 +172,7 @@ export default class RangesView extends Marionette.CompositeView {
   getValuesFromCollection(collection) {
     if (collection.length > 0) {
       let values = collection.pluck('low');
-      values = _.sortBy(values, value => parseInt(value));
+      values = sortBy(values, value => parseInt(value));
       return values;
     } else {
       return [];
@@ -245,7 +248,7 @@ export default class RangesView extends Marionette.CompositeView {
       return this.showRangeInstruction();
     });
   }
-};
+}
 
 function __range__(left, right, inclusive) {
   let range = [];

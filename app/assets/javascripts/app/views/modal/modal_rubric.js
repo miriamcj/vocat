@@ -6,6 +6,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'marionette';
+import { bindAll } from "lodash";
 import template from 'hbs!templates/modal/modal_rubric';
 
 export default class ModalProjectDescription extends Marionette.ItemView {
@@ -34,7 +35,7 @@ export default class ModalProjectDescription extends Marionette.ItemView {
   }
 
   initialize(options) {
-    _.bindAll(this, 'onKeyUp');
+    bindAll(this, 'onKeyUp');
     return $(window).on('keyup', this.onKeyUp);
   }
-};
+}

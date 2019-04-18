@@ -5,12 +5,13 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'marionette';
+import { template } from "lodash";
 import ItemView from 'views/assets/player/player_annotations_item';
 
 export default class PlayerAnnotations extends Marionette.CollectionView {
   constructor() {
 
-    this.template = _.template('');
+    this.template = template('');
     this.showTimePadding = 1;
     this.hideTimePadding = .1;
 
@@ -35,4 +36,4 @@ export default class PlayerAnnotations extends Marionette.CollectionView {
     this.vent = options.vent;
     return this.setupListeners();
   }
-};
+}

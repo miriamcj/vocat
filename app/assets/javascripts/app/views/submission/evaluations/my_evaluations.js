@@ -6,6 +6,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'marionette';
+import { isFunction } from "lodash";
 import template from 'hbs!templates/submission/evaluations/my_evaluations';
 import ScoreSlider from 'views/submission/evaluations/score_slider';
 import ExpandableRange from 'behaviors/expandable_range';
@@ -112,7 +113,7 @@ export default class MyEvaluations extends Marionette.CompositeView {
     this.ui.notice.html('Your evaluation has been successfully saved.');
     this.ui.notice.fadeIn();
     return setTimeout(() => {
-      if ((this.ui.notice.length > 0) && _.isFunction(this.ui.notice.slideUp)) {
+      if ((this.ui.notice.length > 0) && isFunction(this.ui.notice.slideUp)) {
         return this.ui.notice.slideUp();
       }
     }
@@ -161,4 +162,4 @@ export default class MyEvaluations extends Marionette.CompositeView {
   onRender() {
     return this.updatePublishedUIState();
   }
-};
+}

@@ -22,7 +22,7 @@ export default class DiscussionPostCollection extends Backbone.Collection {
     return this.bind('remove', model => {
       if (model.id != null) {
         const children = this.where({'parent_id': model.id});
-        return _.each(children, child => {
+        return children.forEach(child => {
           // We trigger a destroy event so that the model is removed from the collection and the view is removed from
           // memory. We don't do an actual destroy REST requset, because the children are deleted server-side when the
           // parent is deleted.

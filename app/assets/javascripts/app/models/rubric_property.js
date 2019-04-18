@@ -7,6 +7,8 @@
  */
 import Backbone from 'backbone';
 
+import { uniq, reject } from "lodash";
+
 export default class RubricProperty extends Backbone.Model {
   constructor() {
 
@@ -20,7 +22,7 @@ export default class RubricProperty extends Backbone.Model {
 
   errorMessages() {
     const messages = new Array;
-    _.each(this.errors, (error, index, list) => {
+    this.errors.forEach((error, index, list) => {
       let message;
       if (this.errorStrings[error] != null) {
         message = this.errorStrings[error];
@@ -38,16 +40,16 @@ export default class RubricProperty extends Backbone.Model {
   }
 
   addError(key) {
-    _.each(this.errors, function(error, index, list) {
+    this.errors.forEach(function(error, index, list) {
       if (error === key) { return list.splice(index, 1); }
     });
     return this.errors.push(key);
   }
 
   removeError(error_key) {
-    const errors = _.uniq(this.errors, false);
-    return this.errors = _.reject(errors, error => {
+    const errors = uniq(this.errors, false);
+    return this.errors = reject(errors, error => {
       return error === error_key;
     });
   }
-};
+}

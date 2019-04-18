@@ -6,6 +6,8 @@
  */
 import Backbone from 'backbone';
 
+import { isObject } from "lodash";
+
 export default class ProjectModel extends Backbone.Model {
   constructor() {
 
@@ -13,7 +15,7 @@ export default class ProjectModel extends Backbone.Model {
   }
 
   hasRubric() {
-    return _.isObject(this.get('rubric'));
+    return isObject(this.get('rubric'));
   }
 
   pastDue() {
@@ -33,4 +35,4 @@ export default class ProjectModel extends Backbone.Model {
   evaluatable() {
     return this.get('evaluatable');
   }
-};
+}

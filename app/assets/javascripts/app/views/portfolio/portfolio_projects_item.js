@@ -6,6 +6,8 @@
  */
 import Marionette from 'marionette';
 
+import { extend } from "lodash";
+
 import ProjectTemplate from 'hbs!templates/portfolio/portfolio_item_project';
 
 export default class PortfolioItemSubmission extends Marionette.ItemView {
@@ -22,7 +24,7 @@ export default class PortfolioItemSubmission extends Marionette.ItemView {
   }
 
   initialize(options) {
-    options = _.extend(this.defaults, options);
+    options = extend(this.defaults, options);
     this.showCourse = options.showCourse;
     return this.showCreator = options.showCreator;
   }
@@ -35,4 +37,4 @@ export default class PortfolioItemSubmission extends Marionette.ItemView {
     showCreator: this.showCreator
     };
   }
-};
+}

@@ -7,6 +7,8 @@
  */
 import Backbone from 'backbone';
 
+import { sortBy } from "lodash";
+
 import AnnotationModel from 'models/annotation';
 
 export default class AnnotationCollection extends Backbone.Collection {
@@ -37,8 +39,8 @@ export default class AnnotationCollection extends Backbone.Collection {
     if (this.length > 0) {
       let firstActive;
       const candidates = this.filter(annotation => annotation.get('seconds_timecode') <= seconds);
-      const sortedCandidates = _.sortBy(candidates, annotation => annotation.get('seconds_timecode') * -1);
-      return firstActive = _.first(sortedCandidates);
+      const sortedCandidates = sortBy(candidates, annotation => annotation.get('seconds_timecode') * -1);
+      return firstActive = sortedCandidates[0];
     }
   }
 
@@ -69,5 +71,5 @@ export default class AnnotationCollection extends Backbone.Collection {
       return this.trigger('models:deactivated');
     }
   }
-};
+}
 

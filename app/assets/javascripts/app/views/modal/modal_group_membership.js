@@ -6,6 +6,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'marionette';
+import { bindAll } from "lodash";
 import template from 'hbs!templates/modal/modal_group_membership';
 import GroupModel from 'models/group';
 
@@ -34,7 +35,7 @@ export default class ModalGroupMembershipView extends Marionette.ItemView {
   }
 
   initialize(options) {
-    _.bindAll(this, 'onKeyUp');
+    bindAll(this, 'onKeyUp');
     $(window).on('keyup', this.onKeyUp);
     const { groupId } = options;
     this.model = new GroupModel({id: groupId});
@@ -44,4 +45,4 @@ export default class ModalGroupMembershipView extends Marionette.ItemView {
       }
     });
   }
-};
+}

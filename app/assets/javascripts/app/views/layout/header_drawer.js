@@ -5,6 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'marionette';
+import { throttle } from "lodash";
 import ClosesOnUserAction from 'behaviors/closes_on_user_action';
 
 export default class HeaderDrawerView extends Marionette.ItemView {
@@ -72,10 +73,9 @@ export default class HeaderDrawerView extends Marionette.ItemView {
     this.drawerTarget = this.$el.data().drawerTarget;
     // Set Spacing on Load and again anytime the window is resized
     this.setSpacing();
-    const throttledSpacing = _.throttle((() => {
+    const throttledSpacing = throttle(() => {
       return this.setSpacing();
-    }
-    ), 50);
+    }, 50);
     $(window).resize(() => {
       return throttledSpacing();
     });
@@ -93,4 +93,4 @@ export default class HeaderDrawerView extends Marionette.ItemView {
 
     return this.setupListeners();
   }
-};
+}

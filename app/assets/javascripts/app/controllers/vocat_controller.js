@@ -48,7 +48,7 @@ export default class VocatController extends Marionette.Controller {
   }
 
   bootstrapCollections() {
-    return _.each(this.collections, (collection, collectionKey) => {
+    return this.collections.forEach((collection, collectionKey) => {
       const dataContainer = $(`#bootstrap-${collectionKey}`);
       if (dataContainer.length > 0) {
         const div = $('<div></div>');

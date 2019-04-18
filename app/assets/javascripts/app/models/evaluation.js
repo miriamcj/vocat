@@ -6,6 +6,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Bacbone from 'backbone';
+import { clone, size } from "lodash";
 import ScoreCollection from 'collections/score_collection';
 
 export default class EvaluationModel extends Backbone.Model {
@@ -17,12 +18,12 @@ export default class EvaluationModel extends Backbone.Model {
   }
 
   takeSnapshot() {
-    this._snapshotAttributes = _.clone(this.attributes);
+    this._snapshotAttributes = clone(this.attributes);
     this._snapshotAttributes.score_details = {};
-    _.each(this.attributes.score_details, (element, index) => {
-      return this._snapshotAttributes.score_details[index] = _.clone(element);
+    this.attributes.score_details.forEach((element, index) => {
+      return this._snapshotAttributes.score_details[index] = clone(element);
     });
-    return this._snapshotAttributes.scores = _.clone(this.attributes.scores);
+    return this._snapshotAttributes.scores = clone(this.attributes.scores);
   }
 
   revert() {
@@ -39,8 +40,8 @@ export default class EvaluationModel extends Backbone.Model {
   sync(method, model, options) {
     if (options.attrs == null) {
       const attributes = model.toJSON(options);
-      _.each(attributes, (value, key) => {
-        if (_.indexOf(this.omitAttributes, key) !== -1) {
+      attributes.forEach((value, key) => {
+        if (this.omitAttributes.indexOf(key) !== -1) {
           return delete attributes[key];
         }
       });
@@ -88,7 +89,7 @@ export default class EvaluationModel extends Backbone.Model {
 
   updateCalculatedScoreFields() {
     let total = 0;
-    _.each(this.get('score_details'), (details, fieldKey) => {
+    this.get('score_details').forEach((details, fieldKey) => {
       return total = total + parseInt(details['score']);
     });
 
@@ -101,8 +102,8 @@ export default class EvaluationModel extends Backbone.Model {
   updateScoresCollection() {
     const scores = this.get('score_details');
     const addScores = [];
-    _.each(scores, function(score, key) {
-      const addScore = _.clone(score);
+    scores.forEach(function(score, key) {
+      const addScore = clone(score);
       addScore.id = key;
       return addScores.push(addScore);
     });
@@ -110,7 +111,7 @@ export default class EvaluationModel extends Backbone.Model {
     if ((this.scoreCollection.length === 0) && (addScores.length > 0)) {
       silent = false;
     } else {
-      _.each(addScores, (score, index) => {
+      addScores.forEach((score, index) => {
         const model = this.scoreCollection.get(score.id);
         if ((model != null) && (model.score !== score.score)) {
           return silent = false;
@@ -122,7 +123,7 @@ export default class EvaluationModel extends Backbone.Model {
 
   scoreDetailsWithRubricDescriptions(rubric) {
     const sd = this.get('score_details');
-    _.each(sd, function(scoreDetail, property) {
+    sd.forEach(function(scoreDetail, property) {
       const range = rubric.getRangeForScore(scoreDetail.score);
       if (range) {
         scoreDetail['desc'] = rubric.getCellDescription(property, range.id);
@@ -137,17 +138,17 @@ export default class EvaluationModel extends Backbone.Model {
   validate(attrs, options) {
     const errors = {};
     if (attrs.score_details) {
-      _.each(attrs.score_details, function(score, key) {
+      attrs.score_details.forEach(function(score, key) {
         if ((score.score < score.low) || (score.score > score.high)) {
           errors['score'] = [];
           return errors['score'].push(`contains an invalid value for field \"${score.name}\"--please adjust your score for this field and try again.`);
         }
       });
     }
-    if (_.size(errors) > 0) { return errors; } else { return false; }
+    if (size(errors) > 0) { return errors; } else { return false; }
   }
 
   getScoresCollection() {
     return this.scoreCollection;
   }
-};
+}

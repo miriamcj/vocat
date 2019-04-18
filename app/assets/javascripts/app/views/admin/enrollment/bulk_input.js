@@ -5,6 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'marionette';
+import { pluck } from "lodash";
 import 'jquery_ui';
 import 'vendor/plugins/ajax_chosen';
 import ConfirmInvite from 'views/admin/enrollment/confirm_invite';
@@ -68,7 +69,7 @@ export default class EnrollmentBulkInput extends Marionette.LayoutView {
     const failures = [];
     const successes = [];
     const strings = [];
-    _.each(response, contact => {
+    response.forEach(contact => {
       if (contact.success === true) {
         return successes.push(contact);
       } else if ((contact.success === false) && (contact.reason === 'must_confirm')) {
@@ -79,8 +80,8 @@ export default class EnrollmentBulkInput extends Marionette.LayoutView {
         return failures.push(contact);
       }
     });
-    Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 10000, msg: _.pluck(successes, 'message')});
-    Vocat.vent.trigger('error:add', {level: 'error', lifetime: 10000, msg: _.pluck(failures, 'message')});
+    Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 10000, msg: pluck(successes, 'message')});
+    Vocat.vent.trigger('error:add', {level: 'error', lifetime: 10000, msg: pluck(failures, 'message')});
 
     const inputValue = strings.join("\n");
     this.ui.bulkInput.val(inputValue);
@@ -91,4 +92,4 @@ export default class EnrollmentBulkInput extends Marionette.LayoutView {
 
     return this.collection.fetch();
   }
-};
+}
