@@ -1,128 +1,175 @@
-define (require) ->
-  Backbone = require('backbone')
-  VideoModel = require('models/video')
-  EvaluationModel = require('models/evaluation')
-  ProjectModel = require('models/project')
-  UserModel = require('models/user')
-  GroupModel = require('models/group')
-  AssetCollection = require('collections/asset_collection')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS207: Consider shorter variations of null checks
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let SubmissionModel;
+  const Backbone = require('backbone');
+  const VideoModel = require('models/video');
+  const EvaluationModel = require('models/evaluation');
+  const ProjectModel = require('models/project');
+  const UserModel = require('models/user');
+  const GroupModel = require('models/group');
+  const AssetCollection = require('collections/asset_collection');
 
-  class SubmissionModel extends Backbone.Model
+  return SubmissionModel = (function() {
+    SubmissionModel = class SubmissionModel extends Backbone.Model {
+      static initClass() {
+  
+        this.prototype.assetCollection = null;
+      }
 
-    assetCollection: null
+      urlRoot() {
+        return '/api/v1/submissions';
+      }
 
-    urlRoot: () ->
-      '/api/v1/submissions'
+      updateUrl() {
+        return `${this.urlRoot()}/${this.id}`;
+      }
 
-    updateUrl: () ->
-      "#{@urlRoot()}/#{@id}"
+      requestTranscoding() {}
 
-    requestTranscoding: () ->
+      destroyVideo() {
+        return this.video.destroy({
+          success: () => {
+            this.set('video', null);
+            return this.fetch({url: this.updateUrl()});
+          }
+        });
+      }
 
-    destroyVideo: () ->
-      @video.destroy({
-        success: () =>
-          @set('video', null)
-          @fetch({url: @updateUrl()})
-      })
+      toJSON() {
+        const json = super.toJSON();
+        if (this.video) {
+          json.video = this.video.toJSON();
+        } else {
+          json.video = null;
+        }
+        return json;
+      }
 
-    toJSON: () ->
-      json = super()
-      if @video
-        json.video = @video.toJSON()
-      else
-        json.video = null
-      json
+      getVideoId() {
+        if ((this.video != null) && (this.video.id != null)) {
+          return this.video.id;
+        } else {
+          return null;
+        }
+      }
 
-    getVideoId: () ->
-      if @video? && @video.id?
-        @video.id
-      else
-        null
+      updateVideo() {
+        const rawVideo = this.get('video');
+        if (rawVideo != null) {
+          return this.video = new VideoModel(rawVideo);
+        }
+      }
 
-    updateVideo: () ->
-      rawVideo = @.get('video')
-      if rawVideo?
-        @video = new VideoModel(rawVideo)
+      hasVideo() {
+        return (this.get('video') != null);
+      }
 
-    hasVideo: () ->
-      @.get('video')?
+      publishEvaluation() {
+        this.set('current_user_published', true);
+        const evaluationData = _.findWhere(this.get('evaluations'), {current_user_is_evaluator: true});
+        const evaluation = new EvaluationModel(evaluationData);
+        return evaluation.save({published: true});
+      }
 
-    publishEvaluation: () ->
-      @set('current_user_published', true)
-      evaluationData = _.findWhere(@get('evaluations'), {current_user_is_evaluator: true})
-      evaluation = new EvaluationModel(evaluationData)
-      evaluation.save({published: true})
+      unpublishEvaluation() {
+        this.set('current_user_published', false);
+        const evaluationData = _.findWhere(this.get('evaluations'), {current_user_is_evaluator: true});
+        const evaluation = new EvaluationModel(evaluationData);
+        return evaluation.save({published: false});
+      }
 
-    unpublishEvaluation: () ->
-      @set('current_user_published', false)
-      evaluationData = _.findWhere(@get('evaluations'), {current_user_is_evaluator: true})
-      evaluation = new EvaluationModel(evaluationData)
-      evaluation.save({published: false})
+      unsetMyEvaluation() {
+        this.set('current_user_has_evaluated', true);
+        this.set('current_user_percentage', 0);
+        return this.set('current_user_evaluation_published', false);
+      }
 
-    unsetMyEvaluation: () ->
-      @set('current_user_has_evaluated', true)
-      @set('current_user_percentage', 0)
-      @set('current_user_evaluation_published', false)
+      toggleEvaluationPublish() {
+        const promise = $.Deferred();
+        promise.then(() => {
+          if (this.get('current_user_published') === true) {
+            return this.unpublishEvaluation();
+          } else if (this.get('current_user_published') === false) {
+            return this.publishEvaluation();
+          }
+        });
+        return this.fetch({
+          success: () => {
+            return promise.resolve();
+          }
+        });
+      }
 
-    toggleEvaluationPublish: () ->
-      promise = $.Deferred()
-      promise.then(() =>
-        if @.get('current_user_published') == true
-          @unpublishEvaluation()
-        else if @.get('current_user_published') == false
-          @publishEvaluation()
-      )
-      @fetch({
-        success: () =>
-          promise.resolve()
-      })
+      assets() {
+        return this.assetCollection;
+      }
 
-    assets: () ->
-      @assetCollection
+      detailUrl(courseId) {
+        let creatorTypeSegment;
+        if (courseId == null) { courseId = false; }
+        if (!courseId) {
+          const p = this.get('project');
+          courseId = p.course_id;
+        }
+        const ct = this.get('creator_type');
+        if (ct === 'User') {
+          creatorTypeSegment = 'users';
+        } else {
+          creatorTypeSegment = 'groups';
+        }
+        const cid = this.get('creator_id');
+        const pid = this.get('project_id');
+        const url = `/courses/${courseId}/${creatorTypeSegment}/evaluations/creator/${cid}/project/${pid}`;
+        return url;
+      }
 
-    detailUrl: (courseId = false) ->
-      if !courseId
-        p = @get('project')
-        courseId = p.course_id
-      ct = @get('creator_type')
-      if ct == 'User'
-        creatorTypeSegment = 'users'
-      else
-        creatorTypeSegment = 'groups'
-      cid = @get('creator_id')
-      pid = @get('project_id')
-      url = "/courses/#{courseId}/#{creatorTypeSegment}/evaluations/creator/#{cid}/project/#{pid}"
-      url
+      project() {
+        if ((this.projectModel == null)) {
+          this.projectModel = new ProjectModel(this.get('project'));
+        }
+        return this.projectModel;
+      }
 
-    project: () ->
-      if !@projectModel?
-        @projectModel = new ProjectModel(@get('project'))
-      @projectModel
+      creator() {
+        if ((this.creatorModel == null)) {
+          if (this.get('creator_type') === 'User') {
+            this.creatorModel = new UserModel(this.get('creator'));
+          } else if (this.get('creator_type') === 'Group') {
+            this.creatorModel = new GroupModel(this.get('creator'));
+          } else {
+            this.creatorModel = null;
+          }
+        }
+        return this.creatorModel;
+      }
 
-    creator: () ->
-      if !@creatorModel?
-        if @get('creator_type') == 'User'
-          @creatorModel = new UserModel(@get('creator'))
-        else if @get('creator_type') == 'Group'
-          @creatorModel = new GroupModel(@get('creator'))
-        else
-          @creatorModel = null
-      @creatorModel
+      initialize() {
+        this.listenTo(this, 'change:video', () => {
+          return this.updateVideo();
+        });
+        this.updateVideo();
 
-    initialize: () ->
-      @listenTo(@, 'change:video', () =>
-        @updateVideo()
-      )
-      @updateVideo()
+        this.listenTo(this, 'sync change', () => {
+          return this.updateAssetsCollection();
+        });
+        return this.updateAssetsCollection();
+      }
 
-      @listenTo(@, 'sync change', () =>
-        @updateAssetsCollection()
-      )
-      @updateAssetsCollection()
-
-    updateAssetsCollection: () ->
-      if !@assetCollection
-        @assetCollection = new AssetCollection(@get('assets'), {submissionId: @id})
-      else
-        @assetCollection.reset(@get('assets'))
+      updateAssetsCollection() {
+        if (!this.assetCollection) {
+          return this.assetCollection = new AssetCollection(this.get('assets'), {submissionId: this.id});
+        } else {
+          return this.assetCollection.reset(this.get('assets'));
+        }
+      }
+    };
+    SubmissionModel.initClass();
+    return SubmissionModel;
+  })();
+});

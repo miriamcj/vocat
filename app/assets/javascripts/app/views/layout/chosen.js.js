@@ -1,16 +1,25 @@
-define ['jquery_rails', 'vendor/plugins/chosen'], ($) ->
-  Marionette = require('marionette')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(['jquery_rails', 'vendor/plugins/chosen'], function($) {
+  let ChosenView;
+  const Marionette = require('marionette');
 
-  class ChosenView extends Marionette.ItemView
+  return (ChosenView = class ChosenView extends Marionette.ItemView {
 
-    initialize: () ->
-      msg = 'Select an Option'
-      msg = 'Month' if @$el.hasClass('month')
-      msg = 'Year' if @$el.hasClass('year')
-      msg = 'Day' if @$el.hasClass('day')
-      options = {
+    initialize() {
+      let msg = 'Select an Option';
+      if (this.$el.hasClass('month')) { msg = 'Month'; }
+      if (this.$el.hasClass('year')) { msg = 'Year'; }
+      if (this.$el.hasClass('day')) { msg = 'Day'; }
+      const options = {
         disable_search_threshold: 1000,
         allow_single_deselect: true,
         placeholder_text_single: msg
-      }
-      @$el.chosen(options)
+      };
+      return this.$el.chosen(options);
+    }
+  });
+});

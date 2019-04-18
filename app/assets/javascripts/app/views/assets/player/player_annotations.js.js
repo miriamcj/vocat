@@ -1,28 +1,45 @@
-define (require) ->
-  Marionette = require('marionette')
-  ItemView = require('views/assets/player/player_annotations_item')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let PlayerAnnotations;
+  const Marionette = require('marionette');
+  const ItemView = require('views/assets/player/player_annotations_item');
 
-  class PlayerAnnotations extends Marionette.CollectionView
-
-    template: _.template('')
-    showTimePadding: 1
-    hideTimePadding: .1
-
-    tagName: 'ul'
-    attributes: {
-      class: 'annotations-overlay'
-    }
-    childView: ItemView
-
-    childViewOptions: (model, index) ->
-      {
-      vent: @vent
-      assetHasDuration: @model.hasDuration()
+  return PlayerAnnotations = (function() {
+    PlayerAnnotations = class PlayerAnnotations extends Marionette.CollectionView {
+      static initClass() {
+  
+        this.prototype.template = _.template('');
+        this.prototype.showTimePadding = 1;
+        this.prototype.hideTimePadding = .1;
+  
+        this.prototype.tagName = 'ul';
+        this.prototype.attributes = {
+          class: 'annotations-overlay'
+        };
+        this.prototype.childView = ItemView;
       }
 
-    setupListeners: () ->
+      childViewOptions(model, index) {
+        return {
+        vent: this.vent,
+        assetHasDuration: this.model.hasDuration()
+        };
+      }
 
-    initialize: (options) ->
-      @collection = @model.annotations()
-      @vent = options.vent
-      @setupListeners()
+      setupListeners() {}
+
+      initialize(options) {
+        this.collection = this.model.annotations();
+        this.vent = options.vent;
+        return this.setupListeners();
+      }
+    };
+    PlayerAnnotations.initClass();
+    return PlayerAnnotations;
+  })();
+});

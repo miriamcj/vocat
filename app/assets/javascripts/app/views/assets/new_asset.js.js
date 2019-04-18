@@ -1,246 +1,300 @@
-define (require) ->
-  Marionette = require('marionette')
-  template = require('hbs!templates/assets/new_asset')
-  AssetModel = require('models/asset')
-  AttachmentModel = require('models/attachment')
-  iFrameTransport= require('vendor/plugins/iframe_transport')
-  FileUpload = require('vendor/plugins/file_upload')
-  ShortTextInputView = require('views/property_editor/short_text_input')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS207: Consider shorter variations of null checks
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let NewAsset;
+  const Marionette = require('marionette');
+  const template = require('hbs!templates/assets/new_asset');
+  const AssetModel = require('models/asset');
+  const AttachmentModel = require('models/attachment');
+  const iFrameTransport= require('vendor/plugins/iframe_transport');
+  const FileUpload = require('vendor/plugins/file_upload');
+  const ShortTextInputView = require('views/property_editor/short_text_input');
 
-  class NewAsset extends Marionette.ItemView
+  return NewAsset = (function() {
+    NewAsset = class NewAsset extends Marionette.ItemView {
+      static initClass() {
+  
+        this.prototype.template = template;
+  
+        this.prototype.ui = {
+          testNewButton: '[data-behavior="test-new-asset"]',
+          hideManage: '[data-behavior="hide-manage"]',
+          uploadForm: '[data-behavior="upload-form"]',
+          uploadFormWrapper: '[data-behavior="upload-form-wrapper"]',
+          fileInputTrigger: '[data-behavior="file-input-trigger"]',
+          fileInput: '[data-behavior="file-input"]',
+          dropzone: '[data-behavior="dropzone"]',
+          uploadStatus: '[data-behavior="upload-status"]',
+          uploadStatusDetail: '[data-behavior="upload-status-detail"]',
+          keyInput: 'input[name=key]',
+          policyInput: 'input[name=policy]',
+          signatureInput: 'input[name=signature]',
+          assetUploadingMessage: '[data-behavior="asset-uploading-message"]',
+          externalVideoUrl: '[data-behavior="external-video-url"]',
+          externalVideoSubmit: '[data-behavior="external-video-url-submit"]',
+          progressBar: '[data-behavior="progress-bar"]'
+        };
+  
+        this.prototype.triggers = {
+          'click @ui.externalVideoSubmit': 'handle:external:video:submit',
+          'click @ui.hideManage': 'hide:new',
+          'click @ui.fileInputTrigger': 'show:file:input',
+          'submit @ui.externalVideoForm': 'handle:external:video:submit'
+        };
+  
+        this.prototype.regex = {
+          youtube: /(v=|\.be\/)([^&#]{5,})/,
+          vimeo: /^.+vimeo.com\/(.*\/)?([^#\?]*)/
+        };
+      }
 
-    template: template
+      onHandleExternalVideoSubmit() {
+        const url = this.ui.externalVideoUrl.val();
+        return this.createRemoteVideoAsset(url);
+      }
 
-    ui: {
-      testNewButton: '[data-behavior="test-new-asset"]'
-      hideManage: '[data-behavior="hide-manage"]'
-      uploadForm: '[data-behavior="upload-form"]'
-      uploadFormWrapper: '[data-behavior="upload-form-wrapper"]'
-      fileInputTrigger: '[data-behavior="file-input-trigger"]'
-      fileInput: '[data-behavior="file-input"]'
-      dropzone: '[data-behavior="dropzone"]'
-      uploadStatus: '[data-behavior="upload-status"]'
-      uploadStatusDetail: '[data-behavior="upload-status-detail"]'
-      keyInput: 'input[name=key]'
-      policyInput: 'input[name=policy]'
-      signatureInput: 'input[name=signature]'
-      assetUploadingMessage: '[data-behavior="asset-uploading-message"]'
-      externalVideoUrl: '[data-behavior="external-video-url"]'
-      externalVideoSubmit: '[data-behavior="external-video-url-submit"]'
-      progressBar: '[data-behavior="progress-bar"]'
-    }
-
-    triggers: {
-      'click @ui.externalVideoSubmit': 'handle:external:video:submit'
-      'click @ui.hideManage': 'hide:new'
-      'click @ui.fileInputTrigger': 'show:file:input'
-      'submit @ui.externalVideoForm': 'handle:external:video:submit'
-    }
-
-    regex: {
-      youtube: /(v=|\.be\/)([^&#]{5,})/
-      vimeo: /^.+vimeo.com\/(.*\/)?([^#\?]*)/
-    }
-
-    onHandleExternalVideoSubmit: () ->
-      url = @ui.externalVideoUrl.val()
-      @createRemoteVideoAsset(url)
-
-    createRemoteVideoAsset: (url) ->
-      vimeoMatches = url.match(@regex.vimeo)
-      if vimeoMatches? && vimeoMatches.length > 0
-        @createVimeoAsset(url)
-      else
-        @createYoutubeAsset(url)
-      @ui.externalVideoUrl.val('')
-
-    createYoutubeAsset: (value) ->
-      matches = value.match(@regex.youtube)
-      if matches? && matches.length > 0 && typeof matches[2] == 'string'
-        attributes = {
-          external_source: 'youtube'
-          external_location: matches[2]
-          submission_id: @collection.submissionId
+      createRemoteVideoAsset(url) {
+        const vimeoMatches = url.match(this.regex.vimeo);
+        if ((vimeoMatches != null) && (vimeoMatches.length > 0)) {
+          this.createVimeoAsset(url);
+        } else {
+          this.createYoutubeAsset(url);
         }
-        asset = new AssetModel(attributes)
-        asset.save({}, {
-          success: () =>
-            @collection.add(asset)
-            Vocat.vent.trigger('error:add', {level: 'notice', msg: 'The YouTube video has been saved.'})
-            onSave = () =>
-              asset.save({}, {
-                success: () =>
-                  Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Media successfully updated.'})
-                  @render()
-                , error: () =>
-                  Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Unable to update media title.'})
-              })
-            Vocat.vent.trigger('modal:open', new ShortTextInputView({
-              model: asset,
-              vent: @vent,
-              onSave: onSave,
-              property: 'name',
-              saveLabel: 'Update media title',
-              inputLabel: 'What would you like to call this media?'
-            }))
-        })
+        return this.ui.externalVideoUrl.val('');
+      }
 
-      else
-        Vocat.vent.trigger('error:add', {level: 'error', msg: 'The Youtube URL you entered is invalid.'})
-        @resetUploader()
-
-    createVimeoAsset: (value) ->
-      matches = value.match(@regex.vimeo)
-      id = if matches then matches[2] || matches[1] else null
-      if id
-        attributes = {
-          external_source: 'vimeo'
-          external_location: id
-          submission_id: @collection.submissionId
-        }
-        asset = new AssetModel(attributes)
-        asset.save({}, {
-          success: () =>
-            @collection.add(asset)
-            Vocat.vent.trigger('error:add', {level: 'notice', msg: 'The Vimeo video has been saved.'})
-            onSave = () =>
-              asset.save({}, {
-                success: () =>
-                  Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Media successfully updated.'})
-                  @render()
-                , error: () =>
-                  Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Unable to update media title.'})
-              })
-            Vocat.vent.trigger('modal:open', new ShortTextInputView({
-              model: asset,
-              vent: @vent,
-              onSave: onSave,
-              property: 'name',
-              saveLabel: 'Update media title',
-              inputLabel: 'What would you like to call this media?'
-            }))
-        })
-      else
-        Vocat.vent.trigger('error:add', {level: 'error', msg: 'The Vimeo URL you entered is invalid.'})
-        @resetUploader()
-
-    initialize: (options) ->
-      @vent = Marionette.getOption(@, 'vent')
-
-    onShowFileInput: () ->
-      @ui.fileInput.click()
-
-    onHideNew: () ->
-      @vent.trigger('hide:new')
-
-    onRender: () ->
-      @ui.assetUploadingMessage.hide()
-      @initializeAsyncUploader()
-
-    hideForm: () ->
-      @vent.triggerMethod('request:state:uploading')
-      @ui.assetUploadingMessage.show()
-      @ui.uploadFormWrapper.hide()
-
-    showForm: () ->
-      @vent.triggerMethod('request:state:manage')
-      @ui.assetUploadingMessage.hide()
-      @ui.uploadFormWrapper.show()
-
-    initializeAsyncUploader: () ->
-      attachment = null
-      @ui.uploadForm.fileupload({
-        multipart: true
-        limitMultiFileUploads: 1
-        limitConcurrentUploads: 1
-        autoUpload: true
-        add: (e, uploadForm) =>
-          file = uploadForm.files[0];
-          if @fileTypesRegex().test(file.name)
-            @hideForm()
-            attachment = new AttachmentModel({})
-            attachment.save({'media_file_name': file.name}, {
-              success: (model) =>
-                uploadDocument = attachment.get('s3_upload_document')
-                @ui.keyInput.val(uploadDocument.key)
-                @ui.policyInput.val(uploadDocument.policy)
-                @ui.signatureInput.val(uploadDocument.signature)
-                uploadForm.submit()
-                @ui.uploadStatus.html('Uploading...')
-                @ui.uploadStatusDetail.html("")
-              error: () =>
-                Vocat.vent.trigger('error:add', {level: 'error', msg: 'Unable to create new attachment model.'})
-                @resetUploader()
-            })
-          else
-            Vocat.vent.trigger('error:add', {
-              level: 'error',
-              msg: "Invalid file extension. Extension must be one of: #{@model.get('allowed_extensions').join(', ')}."
-            })
-            @resetUploader()
-        progress: (e, data) =>
-          progress = parseInt(data.loaded / data.total * 100, 10)
-          @ui.uploadStatus.html("Uploading...")
-          @ui.uploadStatusDetail.html("#{@toFileSize(data.loaded)} out of #{@toFileSize(data.total)}")
-          @ui.progressBar.width("#{progress}%")
-        fail: (e, data) =>
-          Vocat.vent.trigger('error:add', {level: 'error', msg: 'Unable to upload. Please check your internet connection or try again later.'})
-          @resetUploader()
-        done: (e, data) =>
-          asset = new AssetModel({attachment_id: attachment.id, submission_id: @collection.submissionId})
-          @ui.uploadStatus.html("Saving media to Vocat...")
-          @ui.uploadStatusDetail.html("Please wait.")
-          asset.save({}, {
-            success: () =>
-              @collection.add(asset)
-              asset.poll()
-              Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Media successfully saved.'})
-              onSave = () =>
-                asset.save({}, {
-                  success: () =>
-                    Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Media successfully updated.'})
-                    @render()
-                  , error: () =>
-                    Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Unable to update media title.'})
-                })
-              Vocat.vent.trigger('modal:open', new ShortTextInputView({
+      createYoutubeAsset(value) {
+        const matches = value.match(this.regex.youtube);
+        if ((matches != null) && (matches.length > 0) && (typeof matches[2] === 'string')) {
+          const attributes = {
+            external_source: 'youtube',
+            external_location: matches[2],
+            submission_id: this.collection.submissionId
+          };
+          const asset = new AssetModel(attributes);
+          return asset.save({}, {
+            success: () => {
+              this.collection.add(asset);
+              Vocat.vent.trigger('error:add', {level: 'notice', msg: 'The YouTube video has been saved.'});
+              const onSave = () => {
+                return asset.save({}, {
+                  success: () => {
+                    Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Media successfully updated.'});
+                    return this.render();
+                  }
+                  , error: () => {
+                    return Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Unable to update media title.'});
+                  }
+                });
+              };
+              return Vocat.vent.trigger('modal:open', new ShortTextInputView({
                 model: asset,
-                vent: @vent,
-                onSave: onSave,
+                vent: this.vent,
+                onSave,
                 property: 'name',
                 saveLabel: 'Update media title',
                 inputLabel: 'What would you like to call this media?'
-              }))
-              @resetUploader()
-            , error: () =>
-              Vocat.vent.trigger('error:add',
-                {level: 'error', clear: true, msg: 'The server was unable to save the media.'})
-              @resetUploader()
-          })
-      })
+              }));
+            }
+          });
 
-    toFileSize: (bytes) ->
-      sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB']
-      return 'O bytes' if bytes == 0
-      i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)))
-      return (bytes / Math.pow(1024, i)).toFixed(2) + '' + sizes[i]
-
-    fileTypesRegex: () ->
-      types = @model.get('allowed_extensions')
-      types = types.join('|')
-      out = "(\\.|\\/)(#{types})$"
-      new RegExp(out, 'i')
-
-    resetUploader: () ->
-      @ui.uploadForm.fileupload('destroy')
-      @render()
-      @showForm()
-
-    serializeData: () ->
-      context = super()
-      sd = {
-        s3Bucket: window.VocatS3Bucket
-        AWSPublicKey: window.VocatAWSPublicKey
-        project: context
+        } else {
+          Vocat.vent.trigger('error:add', {level: 'error', msg: 'The Youtube URL you entered is invalid.'});
+          return this.resetUploader();
+        }
       }
-      sd
+
+      createVimeoAsset(value) {
+        const matches = value.match(this.regex.vimeo);
+        const id = matches ? matches[2] || matches[1] : null;
+        if (id) {
+          const attributes = {
+            external_source: 'vimeo',
+            external_location: id,
+            submission_id: this.collection.submissionId
+          };
+          const asset = new AssetModel(attributes);
+          return asset.save({}, {
+            success: () => {
+              this.collection.add(asset);
+              Vocat.vent.trigger('error:add', {level: 'notice', msg: 'The Vimeo video has been saved.'});
+              const onSave = () => {
+                return asset.save({}, {
+                  success: () => {
+                    Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Media successfully updated.'});
+                    return this.render();
+                  }
+                  , error: () => {
+                    return Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Unable to update media title.'});
+                  }
+                });
+              };
+              return Vocat.vent.trigger('modal:open', new ShortTextInputView({
+                model: asset,
+                vent: this.vent,
+                onSave,
+                property: 'name',
+                saveLabel: 'Update media title',
+                inputLabel: 'What would you like to call this media?'
+              }));
+            }
+          });
+        } else {
+          Vocat.vent.trigger('error:add', {level: 'error', msg: 'The Vimeo URL you entered is invalid.'});
+          return this.resetUploader();
+        }
+      }
+
+      initialize(options) {
+        return this.vent = Marionette.getOption(this, 'vent');
+      }
+
+      onShowFileInput() {
+        return this.ui.fileInput.click();
+      }
+
+      onHideNew() {
+        return this.vent.trigger('hide:new');
+      }
+
+      onRender() {
+        this.ui.assetUploadingMessage.hide();
+        return this.initializeAsyncUploader();
+      }
+
+      hideForm() {
+        this.vent.triggerMethod('request:state:uploading');
+        this.ui.assetUploadingMessage.show();
+        return this.ui.uploadFormWrapper.hide();
+      }
+
+      showForm() {
+        this.vent.triggerMethod('request:state:manage');
+        this.ui.assetUploadingMessage.hide();
+        return this.ui.uploadFormWrapper.show();
+      }
+
+      initializeAsyncUploader() {
+        let attachment = null;
+        return this.ui.uploadForm.fileupload({
+          multipart: true,
+          limitMultiFileUploads: 1,
+          limitConcurrentUploads: 1,
+          autoUpload: true,
+          add: (e, uploadForm) => {
+            const file = uploadForm.files[0];
+            if (this.fileTypesRegex().test(file.name)) {
+              this.hideForm();
+              attachment = new AttachmentModel({});
+              return attachment.save({'media_file_name': file.name}, {
+                success: model => {
+                  const uploadDocument = attachment.get('s3_upload_document');
+                  this.ui.keyInput.val(uploadDocument.key);
+                  this.ui.policyInput.val(uploadDocument.policy);
+                  this.ui.signatureInput.val(uploadDocument.signature);
+                  uploadForm.submit();
+                  this.ui.uploadStatus.html('Uploading...');
+                  return this.ui.uploadStatusDetail.html("");
+                },
+                error: () => {
+                  Vocat.vent.trigger('error:add', {level: 'error', msg: 'Unable to create new attachment model.'});
+                  return this.resetUploader();
+                }
+              });
+            } else {
+              Vocat.vent.trigger('error:add', {
+                level: 'error',
+                msg: `Invalid file extension. Extension must be one of: ${this.model.get('allowed_extensions').join(', ')}.`
+              });
+              return this.resetUploader();
+            }
+          },
+          progress: (e, data) => {
+            const progress = parseInt((data.loaded / data.total) * 100, 10);
+            this.ui.uploadStatus.html("Uploading...");
+            this.ui.uploadStatusDetail.html(`${this.toFileSize(data.loaded)} out of ${this.toFileSize(data.total)}`);
+            return this.ui.progressBar.width(`${progress}%`);
+          },
+          fail: (e, data) => {
+            Vocat.vent.trigger('error:add', {level: 'error', msg: 'Unable to upload. Please check your internet connection or try again later.'});
+            return this.resetUploader();
+          },
+          done: (e, data) => {
+            const asset = new AssetModel({attachment_id: attachment.id, submission_id: this.collection.submissionId});
+            this.ui.uploadStatus.html("Saving media to Vocat...");
+            this.ui.uploadStatusDetail.html("Please wait.");
+            return asset.save({}, {
+              success: () => {
+                this.collection.add(asset);
+                asset.poll();
+                Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Media successfully saved.'});
+                const onSave = () => {
+                  return asset.save({}, {
+                    success: () => {
+                      Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Media successfully updated.'});
+                      return this.render();
+                    }
+                    , error: () => {
+                      return Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Unable to update media title.'});
+                    }
+                  });
+                };
+                Vocat.vent.trigger('modal:open', new ShortTextInputView({
+                  model: asset,
+                  vent: this.vent,
+                  onSave,
+                  property: 'name',
+                  saveLabel: 'Update media title',
+                  inputLabel: 'What would you like to call this media?'
+                }));
+                return this.resetUploader();
+              }
+              , error: () => {
+                Vocat.vent.trigger('error:add',
+                  {level: 'error', clear: true, msg: 'The server was unable to save the media.'});
+                return this.resetUploader();
+              }
+            });
+          }
+        });
+      }
+
+      toFileSize(bytes) {
+        const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+        if (bytes === 0) { return 'O bytes'; }
+        const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+        return (bytes / Math.pow(1024, i)).toFixed(2) + '' + sizes[i];
+      }
+
+      fileTypesRegex() {
+        let types = this.model.get('allowed_extensions');
+        types = types.join('|');
+        const out = `(\\.|\\/)(${types})$`;
+        return new RegExp(out, 'i');
+      }
+
+      resetUploader() {
+        this.ui.uploadForm.fileupload('destroy');
+        this.render();
+        return this.showForm();
+      }
+
+      serializeData() {
+        const context = super.serializeData();
+        const sd = {
+          s3Bucket: window.VocatS3Bucket,
+          AWSPublicKey: window.VocatAWSPublicKey,
+          project: context
+        };
+        return sd;
+      }
+    };
+    NewAsset.initClass();
+    return NewAsset;
+  })();
+});

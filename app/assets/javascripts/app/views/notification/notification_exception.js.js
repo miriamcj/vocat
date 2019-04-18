@@ -1,22 +1,39 @@
-define (require) ->
-  Marionette = require('marionette')
-  template = require('hbs!templates/notification/notification_exception')
-  GlobalNotification = require('behaviors/global_notification')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let NotificationException;
+  const Marionette = require('marionette');
+  const template = require('hbs!templates/notification/notification_exception');
+  const GlobalNotification = require('behaviors/global_notification');
 
-  class NotificationException extends Marionette.ItemView
-
-    template: template
-
-    behaviors: {
-      globalNotification: {
-        behaviorClass: GlobalNotification
+  return NotificationException = (function() {
+    NotificationException = class NotificationException extends Marionette.ItemView {
+      static initClass() {
+  
+        this.prototype.template = template;
+  
+        this.prototype.behaviors = {
+          globalNotification: {
+            behaviorClass: GlobalNotification
+          }
+        };
       }
-    }
 
-    serializeData: () ->
-      {
-      msg: @msg
+      serializeData() {
+        return {
+        msg: this.msg
+        };
       }
 
-    initialize: (options) ->
-      @msg = options.msg
+      initialize(options) {
+        return this.msg = options.msg;
+      }
+    };
+    NotificationException.initClass();
+    return NotificationException;
+  })();
+});

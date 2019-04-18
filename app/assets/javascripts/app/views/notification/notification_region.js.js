@@ -1,44 +1,63 @@
-define (require) ->
-  Marionette = require('marionette')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let NotificationRegion;
+  const Marionette = require('marionette');
 
-  class NotificationRegion extends Marionette.Region
+  return NotificationRegion = (function() {
+    NotificationRegion = class NotificationRegion extends Marionette.Region {
+      static initClass() {
+  
+        this.PROMISE = $.Deferred().resolve();
+  
+        this.prototype.expiring = false;
+      }
 
-    @PROMISE = $.Deferred().resolve()
+      attachHtml(view) {
+        this.$el.hide();
+        return this.$el.empty().append(view.el);
+      }
 
-    expiring: false
+      onEmpty() {
+        return this.$el.remove();
+      }
 
-    attachHtml: (view) ->
-      @$el.hide()
-      @$el.empty().append(view.el)
+      onShow(view) {
+        const timing = 250;
+        const h = this.$el.outerHeight();
 
-    onEmpty: () ->
-      @$el.remove()
+        NotificationRegion.PROMISE = NotificationRegion.PROMISE.then(() => {
+          if (!view.isFlash) { this.trigger('transition:start', h, timing); }
+          const p = $.Deferred();
+          this.$el.fadeIn(timing, () => {
+            p.resolve();
+            if (!view.isFlash) { return this.trigger('transition:complete', h, timing); }
+          });
+          return p;
+        });
 
-    onShow: (view) ->
-      timing = 250
-      h = @$el.outerHeight()
-
-      NotificationRegion.PROMISE = NotificationRegion.PROMISE.then(() =>
-        @trigger('transition:start', h, timing) unless view.isFlash
-        p = $.Deferred()
-        @$el.fadeIn(timing, () =>
-          p.resolve()
-          @trigger('transition:complete', h, timing) unless view.isFlash
-        )
-        p
-      )
-
-      @listenTo(view, 'view:expired', () =>
-        if @expiring == false
-          @expiring = true
-          NotificationRegion.PROMISE = NotificationRegion.PROMISE.then(() =>
-            @trigger('transition:start', h * -1, timing) unless view.isFlash
-            p = $.Deferred()
-            @$el.fadeOut(timing, () =>
-              p.resolve()
-              @trigger('transition:complete', h * -1, timing) unless view.isFlash
-              @trigger('region:expired')
-            )
-            p
-          )
-      )
+        return this.listenTo(view, 'view:expired', () => {
+          if (this.expiring === false) {
+            this.expiring = true;
+            return NotificationRegion.PROMISE = NotificationRegion.PROMISE.then(() => {
+              if (!view.isFlash) { this.trigger('transition:start', h * -1, timing); }
+              const p = $.Deferred();
+              this.$el.fadeOut(timing, () => {
+                p.resolve();
+                if (!view.isFlash) { this.trigger('transition:complete', h * -1, timing); }
+                return this.trigger('region:expired');
+              });
+              return p;
+            });
+          }
+        });
+      }
+    };
+    NotificationRegion.initClass();
+    return NotificationRegion;
+  })();
+});

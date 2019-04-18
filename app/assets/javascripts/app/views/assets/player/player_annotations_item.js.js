@@ -1,118 +1,154 @@
-define (require) ->
-  Marionette = require('marionette')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let PlayerAnnotationItem;
+  const Marionette = require('marionette');
 
-  class PlayerAnnotationItem extends Marionette.ItemView
+  return PlayerAnnotationItem = (function() {
+    PlayerAnnotationItem = class PlayerAnnotationItem extends Marionette.ItemView {
+      static initClass() {
+  
+        this.prototype.template = _.template('');
+        this.prototype.tagName = 'li';
+  
+        this.prototype.fadeInBeforeAnnotationTime = .75;
+        this.prototype.fadeOutAfterAnnotationTime = .1;
+        this.prototype.highlightBeforeAnnotationTime = .25;
+        this.prototype.visibilityTriggers = {
+          beforeShow: null,
+          fadeIn: null,
+          highlight: null,
+          fadeOut: null,
+          afterShow: null
+        };
+  
+        // null = unset, 0 = beforeShow, 1 = fadeIn, 2 = highlight, 3 = fadeOut, 4 = afterShow
+        this.prototype.state = null;
+  
+        this.prototype.assetHasDuration = false;
+        this.prototype.animating = false;
+        this.prototype.annotationTime = null;
+      }
 
-    template: _.template('')
-    tagName: 'li'
+      canTransitionTo(state) {
+        if (this.state !== state) {
+          return true;
+        } else {
+          return false;
+        }
+      }
 
-    fadeInBeforeAnnotationTime: .75
-    fadeOutAfterAnnotationTime: .1
-    highlightBeforeAnnotationTime: .25
-    visibilityTriggers: {
-      beforeShow: null
-      fadeIn: null
-      highlight: null
-      fadeOut: null
-      afterShow: null
-    }
+      updateState(state) {
+        this.state = state;
+        switch (state) {
+          case 0:
+            return this.hideEl();
+          case 1:
+            return this.fadeIn(500);
+          case 2:
+            return this.highlight();
+          case 3:
+            return this.fadeOut(250);
+          case 4:
+            return this.fadeOut(0);
+        }
+      }
 
-    # null = unset, 0 = beforeShow, 1 = fadeIn, 2 = highlight, 3 = fadeOut, 4 = afterShow
-    state: null
+      setState(state) {
+        if (this.canTransitionTo(state)) {
+          return this.updateState(state);
+        }
+      }
 
-    assetHasDuration: false
-    animating: false
-    annotationTime: null
+      updateVisibility(data) {
+        if (this.assetHasDuration) {
+          const time = data.playedSeconds;
+          if (time < this.visibilityTriggers['beforeShow']) { return this.setState(0); }
+          if (time > this.visibilityTriggers['afterShow']) { return this.setState(4); }
+          if (time > this.visibilityTriggers['fadeOut']) { return this.setState(3); }
+          if (time > this.visibilityTriggers['highlight']) { return this.setState(2); }
+          if (time > this.visibilityTriggers['fadeIn']) { return this.setState(1); }
+        } else {
+          return this.handleActiveChange();
+        }
+      }
 
-    canTransitionTo: (state) ->
-      if @state != state
-        true
-      else
-        false
+      initialize(options) {
+        this.vent = options.vent;
+        this.assetHasDuration = options.assetHasDuration;
+        this.annotationTime = this.model.get('seconds_timecode');
+        this.updateVisibilityTriggers();
+        return this.setupListeners();
+      }
 
-    updateState: (state) ->
-      @state = state
-      switch state
-        when 0
-          @hideEl()
-        when 1
-          @fadeIn(500)
-        when 2
-          @highlight()
-        when 3
-          @fadeOut(250)
-        when 4
-          @fadeOut(0)
+      updateVisibilityTriggers() {
+        const annotationTime = this.model.get('seconds_timecode');
+        this.visibilityTriggers = {};
+        this.visibilityTriggers['beforeShow'] = annotationTime - this.fadeInBeforeAnnotationTime;
+        this.visibilityTriggers['fadeIn'] = annotationTime - this.fadeInBeforeAnnotationTime;
+        this.visibilityTriggers['highlight'] = annotationTime - this.highlightBeforeAnnotationTime;
+        this.visibilityTriggers['fadeOut'] = annotationTime + this.fadeOutAfterAnnotationTime;
+        return this.visibilityTriggers['afterShow'] = annotationTime + this.fadeOutAfterAnnotationTime + 250;
+      }
 
-    setState: (state) ->
-      if @canTransitionTo(state)
-        @updateState(state)
+      setupListeners() {
+        this.listenTo(this.vent, 'announce:time:update', this.updateVisibility, this);
+        this.listenTo(this.vent, 'announce:status', this.updateVisibility, this);
+        this.listenTo(this.vent, 'announce:annotator:input:start', this.concealAnnotation, this);
 
-    updateVisibility: (data) ->
-      if @assetHasDuration
-        time = data.playedSeconds
-        return @setState(0) if time < @visibilityTriggers['beforeShow']
-        return @setState(4) if time > @visibilityTriggers['afterShow']
-        return @setState(3) if time > @visibilityTriggers['fadeOut']
-        return @setState(2) if time > @visibilityTriggers['highlight']
-        return @setState(1) if time > @visibilityTriggers['fadeIn']
-      else
-        @handleActiveChange()
+        this.listenTo(this.model, 'change:seconds_timecode', this.updateVisibilityTriggers, this);
+        this.listenTo(this.model, 'change:canvas', this.render, this);
+        if (!this.assetHasDuration) { return this.listenTo(this.model, 'change:active', this.handleActiveChange, this); }
+      }
 
-    initialize: (options) ->
-      @vent = options.vent
-      @assetHasDuration = options.assetHasDuration
-      @annotationTime = @model.get('seconds_timecode')
-      @updateVisibilityTriggers()
-      @setupListeners()
+      concealAnnotation() {
+        return this.setState(3);
+      }
 
-    updateVisibilityTriggers: () ->
-      annotationTime = @model.get('seconds_timecode')
-      @visibilityTriggers = {}
-      @visibilityTriggers['beforeShow'] = annotationTime - @fadeInBeforeAnnotationTime
-      @visibilityTriggers['fadeIn'] = annotationTime - @fadeInBeforeAnnotationTime
-      @visibilityTriggers['highlight'] = annotationTime - @highlightBeforeAnnotationTime
-      @visibilityTriggers['fadeOut'] = annotationTime + @fadeOutAfterAnnotationTime
-      @visibilityTriggers['afterShow'] = annotationTime + @fadeOutAfterAnnotationTime + 250
+      handleActiveChange() {
+        if (this.model.get('active') === true) {
+          return this.setState(2);
+        } else {
+          return this.setState(0);
+        }
+      }
 
-    setupListeners: () ->
-      @listenTo(@vent, 'announce:time:update', @updateVisibility, @)
-      @listenTo(@vent, 'announce:status', @updateVisibility, @)
-      @listenTo(@vent, 'announce:annotator:input:start', @concealAnnotation, @)
+      hideEl() {
+        return this.$el.hide();
+      }
 
-      @listenTo(@model, 'change:seconds_timecode', @updateVisibilityTriggers, @)
-      @listenTo(@model, 'change:canvas', @render, @)
-      @listenTo(@model, 'change:active', @handleActiveChange, @) unless @assetHasDuration
+      fadeOut(time) {
+        if (this.$el.is(':visible')) {
+          this.$el.stop();
+          return this.$el.fadeOut(time);
+        }
+      }
 
-    concealAnnotation: () ->
-      @setState(3)
+      highlight() {
+        this.$el.stop();
+        this.$el.css({opacity: 1});
+        return this.$el.show();
+      }
 
-    handleActiveChange: () ->
-      if @model.get('active') == true
-        @setState(2)
-      else
-        @setState(0)
+      fadeIn(time) {
+        if (!this.$el.is(':visible')) {
+          this.$el.stop();
+          return this.$el.fadeTo(time, .3);
+        }
+      }
 
-    hideEl: () ->
-      @$el.hide()
-
-    fadeOut: (time) ->
-      if @$el.is(':visible')
-        @$el.stop()
-        @$el.fadeOut(time)
-
-    highlight: () ->
-      @$el.stop()
-      @$el.css({opacity: 1})
-      @$el.show()
-
-    fadeIn: (time) ->
-      if !@$el.is(':visible')
-        @$el.stop()
-        @$el.fadeTo(time, .3)
-
-    onRender: () ->
-      svg = @model.getSvg()
-      @$el.html(svg)
-      @$el.attr({'data-model-id': @model.id})
-      @setState(0)
+      onRender() {
+        const svg = this.model.getSvg();
+        this.$el.html(svg);
+        this.$el.attr({'data-model-id': this.model.id});
+        return this.setState(0);
+      }
+    };
+    PlayerAnnotationItem.initClass();
+    return PlayerAnnotationItem;
+  })();
+});

@@ -1,14 +1,31 @@
-define ['marionette', 'views/group/row_item'], (Marionette, ItemView) ->
-  class RowsView extends Marionette.CollectionView
-
-    childView: ItemView
-
-    childViewOptions: () ->
-      {
-      vent: @vent
-      collection: @collections.group
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(['marionette', 'views/group/row_item'], function(Marionette, ItemView) {
+  let RowsView;
+  return RowsView = (function() {
+    RowsView = class RowsView extends Marionette.CollectionView {
+      static initClass() {
+  
+        this.prototype.childView = ItemView;
       }
 
-    initialize: (options) ->
-      @collections = options.collections
-      @vent = options.vent
+      childViewOptions() {
+        return {
+        vent: this.vent,
+        collection: this.collections.group
+        };
+      }
+
+      initialize(options) {
+        this.collections = options.collections;
+        return this.vent = options.vent;
+      }
+    };
+    RowsView.initClass();
+    return RowsView;
+  })();
+});

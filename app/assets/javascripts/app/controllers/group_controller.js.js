@@ -1,15 +1,31 @@
-define [
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define([
   'marionette', 'controllers/vocat_controller', 'views/group/group_layout', 'collections/user_collection',
   'collections/group_collection'
-], (Marionette, VocatController, GroupLayout, UserCollection, GroupCollection) ->
-  class GroupController extends VocatController
+], function(Marionette, VocatController, GroupLayout, UserCollection, GroupCollection) {
+  let GroupController;
+  return GroupController = (function() {
+    GroupController = class GroupController extends VocatController {
+      static initClass() {
+  
+        this.prototype.collections = {
+          creator: new UserCollection([], {}),
+          group: new GroupCollection([], {})
+        };
+      }
 
-    collections: {
-      creator: new UserCollection([], {})
-      group: new GroupCollection([], {})
-    }
-
-    index: (courseId) ->
-      view = new GroupLayout({courseId: courseId, collections: @collections})
-      Vocat.main.show view
+      index(courseId) {
+        const view = new GroupLayout({courseId, collections: this.collections});
+        return Vocat.main.show(view);
+      }
+    };
+    GroupController.initClass();
+    return GroupController;
+  })();
+});
 

@@ -1,24 +1,36 @@
-define ['jquery_rails', 'vendor/plugins/chosen'], ($) ->
-  Marionette = require('marionette')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(['jquery_rails', 'vendor/plugins/chosen'], function($) {
+  let JumpNavView;
+  const Marionette = require('marionette');
 
-  class JumpNavView extends Marionette.ItemView
+  return (JumpNavView = class JumpNavView extends Marionette.ItemView {
 
 
-    handleChange: () ->
-      value = @$el.val()
-      window.location = value
+    handleChange() {
+      const value = this.$el.val();
+      return window.location = value;
+    }
 
-    initialize: () ->
-      data = @$el.data()
-      if data.hasOwnProperty('placeholder')
-        msg = data.placeholder
-      else
-        msg = 'Select an Option'
-      options = {
+    initialize() {
+      let msg;
+      const data = this.$el.data();
+      if (data.hasOwnProperty('placeholder')) {
+        msg = data.placeholder;
+      } else {
+        msg = 'Select an Option';
+      }
+      const options = {
         disable_search_threshold: 1000,
         allow_single_deselect: true,
         placeholder_text_single: msg
-      }
-      @$el.chosen(options).change(_.bind(@handleChange, @))
+      };
+      return this.$el.chosen(options).change(_.bind(this.handleChange, this));
+    }
+  });
+});
 
 

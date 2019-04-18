@@ -1,123 +1,149 @@
-define (require) ->
-  template = require('hbs!templates/rubric/rubric_builder')
-  CriteriaView = require('views/rubric/criteria')
-  RangesView = require('views/rubric/ranges')
-  RangeModel = require('models/range')
-  FieldModel = require('models/field')
-  RubricModel = require('models/rubric')
-  ShortTextInputView = require('views/property_editor/short_text_input')
-  ShortTextInputView = require('views/property_editor/short_text_input')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let RubricBuilder;
+  const template = require('hbs!templates/rubric/rubric_builder');
+  const CriteriaView = require('views/rubric/criteria');
+  const RangesView = require('views/rubric/ranges');
+  const RangeModel = require('models/range');
+  const FieldModel = require('models/field');
+  const RubricModel = require('models/rubric');
+  let ShortTextInputView = require('views/property_editor/short_text_input');
+  ShortTextInputView = require('views/property_editor/short_text_input');
 
 
-  class RubricBuilder extends Marionette.LayoutView
+  return RubricBuilder = (function() {
+    RubricBuilder = class RubricBuilder extends Marionette.LayoutView {
+      static initClass() {
+  
+        this.prototype.template = template;
+        this.prototype.collections = {};
+  
+        this.prototype.regions = {
+          criteria: '[data-region="criteria"]',
+          bodyWrapper: '[data-region="body-wrapper"]',
+          addButtons: '[data-region="add-buttons"]'
+        };
+  
+        this.prototype.events = {
+          'click [data-trigger="rangeAdd"]': 'handleRangeAdd',
+          'click [data-trigger="criteriaAdd"]': 'handleCriteriaAdd'
+        };
+  
+        this.prototype.ui = {
+          rangeSnap: '.range-add-snap',
+          criteriaSnap: '.criteria-add-snap',
+          cells: '[data-region="cells"]'
+        };
+      }
 
-    template: template
-    collections: {}
+      newRange() {
+        const range = new RangeModel({index: this.collections.ranges.length});
+        const modal = new ShortTextInputView({
+          model: range,
+          property: 'name',
+          saveClasses: 'update-button',
+          saveLabel: 'Add Range',
+          inputLabel: 'What would you like to call this range?',
+          vent: this.vent
+        });
+        this.listenTo(modal, 'model:updated', function(e) {
+          return this.model.get('ranges').add(range);
+        });
+        return Vocat.vent.trigger('modal:open', modal);
+      }
 
-    regions: {
-      criteria: '[data-region="criteria"]'
-      bodyWrapper: '[data-region="body-wrapper"]'
-      addButtons: '[data-region="add-buttons"]'
-    }
+      handleRangeAdd(event) {
+        event.preventDefault();
+        if (this.model.availableRanges()) {
+          return this.newRange();
+        } else if (this.model.getHigh() < 100) {
+          this.model.setHigh(this.model.getHigh() + 1);
+          return this.newRange();
+        } else {
+          return this.trigger('error:add', {
+            level: 'notice',
+            msg: 'Before you can add another range to this rubric, you must increase the number of available points by changing the highest possible score field, above.'
+          });
+        }
+      }
 
-    events: {
-      'click [data-trigger="rangeAdd"]': 'handleRangeAdd'
-      'click [data-trigger="criteriaAdd"]': 'handleCriteriaAdd'
-    }
+      handleCriteriaAdd(event) {
+        event.preventDefault();
+        const field = new FieldModel({index: this.collections.criteria.length});
+        const modal = new ShortTextInputView({
+          model: field,
+          property: 'name',
+          saveClasses: 'update-button',
+          saveLabel: 'Add Criteria',
+          inputLabel: 'What would you like to call this criteria?',
+          vent: this.vent
+        });
+        this.listenTo(modal, 'model:updated', function(e) {
+          return this.model.get('fields').add(field);
+        });
+        return Vocat.vent.trigger('modal:open', modal);
+      }
 
-    ui: {
-      rangeSnap: '.range-add-snap'
-      criteriaSnap: '.criteria-add-snap'
-      cells: '[data-region="cells"]'
-    }
+      showCriteriaSnap() {
+        if (this.collections.criteria.length > 3) {
+          $(this.ui.criteriaSnap).css('display', 'inline-block');
+          return $('.criteria-bar').css('visibility', 'hidden');
+        } else {
+          $(this.ui.criteriaSnap).css('display', 'none');
+          return $('.criteria-bar').css('visibility', 'visible');
+        }
+      }
 
-    newRange: () ->
-      range = new RangeModel({index: @collections.ranges.length})
-      modal = new ShortTextInputView({
-        model: range,
-        property: 'name',
-        saveClasses: 'update-button',
-        saveLabel: 'Add Range',
-        inputLabel: 'What would you like to call this range?',
-        vent: @vent
-      })
-      @listenTo(modal, 'model:updated', (e) ->
-        @model.get('ranges').add(range)
-      )
-      Vocat.vent.trigger('modal:open', modal)
+      showRangeSnap() {
+        if (this.collections.ranges.length <= 3) {
+          $(this.ui.rangeSnap).css('display', 'none');
+          return $('.range-bar').css('visibility', 'visible');
+        } else if (this.collections.ranges.length === 4) {
+          $('.range-bar').css('visibility', 'hidden');
+          return $(this.ui.rangeSnap).css({'display': 'inline-block', 'width': '116px'});
+        } else if ($('.cells').position().left === (-(this.model.get('ranges').length - 4) * 218)) {
+          $('.range-bar').css('visibility', 'hidden');
+          return $(this.ui.rangeSnap).css({'display': 'inline-block', 'width': '116px', 'z-index': '10'});
+        } else {
+          $('.range-bar').css('visibility', 'hidden');
+          return $(this.ui.rangeSnap).css({'display': 'inline-block', 'width': '55px'});
+        }
+      }
 
-    handleRangeAdd: (event) ->
-      event.preventDefault()
-      if @model.availableRanges()
-        @newRange()
-      else if @model.getHigh() < 100
-        @model.setHigh(@model.getHigh() + 1)
-        @newRange()
-      else
-        @trigger('error:add', {
-          level: 'notice',
-          msg: 'Before you can add another range to this rubric, you must increase the number of available points by changing the highest possible score field, above.'
-        })
+      initialize(options) {
+        this.vent = options.vent;
+        this.collections.ranges = this.model.get('ranges');
+        this.collections.criteria = this.model.get('fields');
+        this.showCriteriaSnap();
+        this.listenTo(this.collections.criteria, 'add remove', function(event) {
+          return this.showCriteriaSnap();
+        });
 
-    handleCriteriaAdd: (event) ->
-      event.preventDefault()
-      field = new FieldModel({index: @collections.criteria.length})
-      modal = new ShortTextInputView({
-        model: field,
-        property: 'name',
-        saveClasses: 'update-button',
-        saveLabel: 'Add Criteria',
-        inputLabel: 'What would you like to call this criteria?',
-        vent: @vent
-      })
-      @listenTo(modal, 'model:updated', (e) ->
-        @model.get('fields').add(field)
-      )
-      Vocat.vent.trigger('modal:open', modal)
+        this.listenTo(this.collections.ranges, 'add remove', function(event) {
+          return this.showRangeSnap();
+        });
 
-    showCriteriaSnap: () ->
-      if @collections.criteria.length > 3
-        $(@ui.criteriaSnap).css('display', 'inline-block')
-        $('.criteria-bar').css('visibility', 'hidden')
-      else
-        $(@ui.criteriaSnap).css('display', 'none')
-        $('.criteria-bar').css('visibility', 'visible')
+        return this.listenTo(this.vent, 'sliders:displayed', function(event) {
+          return this.showRangeSnap();
+        });
+      }
 
-    showRangeSnap: () ->
-      if @collections.ranges.length <= 3
-        $(@ui.rangeSnap).css('display', 'none')
-        $('.range-bar').css('visibility', 'visible')
-      else if @collections.ranges.length == 4
-        $('.range-bar').css('visibility', 'hidden')
-        $(@ui.rangeSnap).css('display': 'inline-block', 'width': '116px')
-      else if $('.cells').position().left == (-(@model.get('ranges').length - 4) * 218)
-        $('.range-bar').css('visibility', 'hidden')
-        $(@ui.rangeSnap).css('display': 'inline-block', 'width': '116px', 'z-index': '10')
-      else
-        $('.range-bar').css('visibility', 'hidden')
-        $(@ui.rangeSnap).css('display': 'inline-block', 'width': '55px')
+      onRender() {
+        this.criteria.show(new CriteriaView({collection: this.collections.criteria, vent: this.vent}));
+        return this.bodyWrapper.show(new RangesView({collection: this.collections.ranges, rubric: this.model, criteria: this.collections.criteria, vent: this.vent}));
+      }
 
-    initialize: (options) ->
-      @vent = options.vent
-      @collections.ranges = @model.get('ranges')
-      @collections.criteria = @model.get('fields')
-      @showCriteriaSnap()
-      @listenTo(@collections.criteria, 'add remove', (event) ->
-        @showCriteriaSnap()
-      )
-
-      @listenTo(@collections.ranges, 'add remove', (event) ->
-        @showRangeSnap()
-      )
-
-      @listenTo(@vent, 'sliders:displayed', (event) ->
-        @showRangeSnap()
-      )
-
-    onRender: () ->
-      @criteria.show(new CriteriaView({collection: @collections.criteria, vent: @vent}))
-      @bodyWrapper.show(new RangesView({collection: @collections.ranges, rubric: @model, criteria: @collections.criteria, vent: @vent}))
-
-    onShow: () ->
-      @showCriteriaSnap()
-      @showRangeSnap()
+      onShow() {
+        this.showCriteriaSnap();
+        return this.showRangeSnap();
+      }
+    };
+    RubricBuilder.initClass();
+    return RubricBuilder;
+  })();
+});

@@ -1,17 +1,27 @@
-define (require) ->
-  Marionette = require('marionette')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let HeaderDrawerTriggerView;
+  const Marionette = require('marionette');
 
-  class HeaderDrawerTriggerView extends Marionette.ItemView
+  return (HeaderDrawerTriggerView = class HeaderDrawerTriggerView extends Marionette.ItemView {
 
-    onClickTrigger: () ->
-      @globalChannel.vent.trigger("drawer:#{@drawerTarget}:toggle")
+    onClickTrigger() {
+      return this.globalChannel.vent.trigger(`drawer:${this.drawerTarget}:toggle`);
+    }
 
-    initialize: (options) ->
-      @globalChannel = Backbone.Wreqr.radio.channel('global')
-      @vent = options.vent
-      @drawerTarget = @$el.data().drawerTarget
-      @$el.on('click', (e) =>
-        e.stopPropagation()
-        @onClickTrigger()
-      )
+    initialize(options) {
+      this.globalChannel = Backbone.Wreqr.radio.channel('global');
+      this.vent = options.vent;
+      this.drawerTarget = this.$el.data().drawerTarget;
+      return this.$el.on('click', e => {
+        e.stopPropagation();
+        return this.onClickTrigger();
+      });
+    }
+  });
+});
 

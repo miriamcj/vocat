@@ -1,6 +1,15 @@
-define ['backbone'], (Backbone) ->
-  class VisitModel extends Backbone.Model
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(['backbone'], function(Backbone) {
+  let VisitModel;
+  return (VisitModel = class VisitModel extends Backbone.Model {
 
-    url: () ->
-      "/api/v1/visits"
+    url() {
+      return "/api/v1/visits";
+    }
+  });
+});
       

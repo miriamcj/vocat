@@ -1,2 +1,9 @@
-define ['backbone'], (Backbone) ->
-  class CourseModel extends Backbone.Model
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(['backbone'], function(Backbone) {
+  let CourseModel;
+  return (CourseModel = class CourseModel extends Backbone.Model {});
+});

@@ -1,56 +1,79 @@
-define (require) ->
-  Marionette = require('marionette')
-  template = require('hbs!templates/assets/annotator/progress_bar_annotation')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let ProgressBarAnnotation;
+  const Marionette = require('marionette');
+  const template = require('hbs!templates/assets/annotator/progress_bar_annotation');
 
-  class ProgressBarAnnotation extends Marionette.ItemView
+  return ProgressBarAnnotation = (function() {
+    ProgressBarAnnotation = class ProgressBarAnnotation extends Marionette.ItemView {
+      static initClass() {
+  
+        this.prototype.template = template;
+        this.prototype.triggers = {
+          'click': 'seek'
+        };
+        this.prototype.tagName = 'li';
+      }
 
-    template: template
-    triggers: {
-      'click': 'seek'
-    }
-    tagName: 'li'
+      onSeek() {
+        return this.vent.trigger('request:time:update', {seconds: this.model.get('seconds_timecode')});
+      }
 
-    onSeek: () ->
-      @vent.trigger('request:time:update', {seconds: @model.get('seconds_timecode')})
+      updatePosition(duration) {
+        this.listenToOnce(this.vent, 'announce:status', data => {
+          return this.setPosition(data.duration);
+        });
+        return this.vent.trigger('request:status', {});
+      }
 
-    updatePosition: (duration) ->
-      @listenToOnce(@vent, 'announce:status', (data) =>
-        @setPosition(data.duration)
-      )
-      @vent.trigger('request:status', {})
+      setPosition(duration) {
+        if (duration === 0) {
+          return this.$el.hide();
+        } else {
+          const time = this.model.get('seconds_timecode');
+          const percentage = (time / duration) * 100;
+          this.$el.css({left: `${percentage}%`});
+          this.$el.attr({'date-seconds': time});
+          return this.$el.show();
+        }
+      }
 
-    setPosition: (duration) ->
-      if duration == 0
-        @$el.hide()
-      else
-        time = @model.get('seconds_timecode')
-        percentage = (time / duration) * 100
-        @$el.css({left: "#{percentage}%"})
-        @$el.attr({'date-seconds': time})
-        @$el.show()
+      initialize(options) {
+        this.vent = options.vent;
+        return this.setupListeners();
+      }
 
-    initialize: (options) ->
-      @vent = options.vent
-      @setupListeners()
+      setupListeners() {
+        this.listenToOnce(this.vent, 'announce:loaded', data => {
+          return this.setPosition(data.duration);
+        });
+        return this.listenTo(this.vent, 'announce:status', data => {
+          return this.setPosition(data.duration);
+        });
+      }
 
-    setupListeners: () ->
-      @listenToOnce(@vent, 'announce:loaded', (data) =>
-        @setPosition(data.duration)
-      )
-      @listenTo(@vent, 'announce:status', (data) =>
-        @setPosition(data.duration)
-      )
-
-    onRender: () ->
-      @updatePosition()
-      role = @model.get('author_role')
-      switch role
-        when "administrator"
-          @$el.addClass('role-administrator')
-        when "evaluator"
-          @$el.addClass('role-evaluator')
-        when "creator"
-          @$el.addClass('role-creator')
-        when "self"
-          @$el.addClass('role-self')
+      onRender() {
+        this.updatePosition();
+        const role = this.model.get('author_role');
+        switch (role) {
+          case "administrator":
+            return this.$el.addClass('role-administrator');
+          case "evaluator":
+            return this.$el.addClass('role-evaluator');
+          case "creator":
+            return this.$el.addClass('role-creator');
+          case "self":
+            return this.$el.addClass('role-self');
+        }
+      }
+    };
+    ProgressBarAnnotation.initClass();
+    return ProgressBarAnnotation;
+  })();
+});
 

@@ -1,29 +1,48 @@
-define ['marionette', 'views/course_map/row'], (Marionette, Row) ->
-  class MatrixView extends Marionette.CollectionView
-
-    tagName: 'tbody'
-    childView: Row
-
-    childViewOptions: () ->
-      {
-      creatorType: @creatorType,
-      collection: @collections.project,
-      collections: @collections,
-      courseId: @courseId,
-      vent: @vent
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(['marionette', 'views/course_map/row'], function(Marionette, Row) {
+  let MatrixView;
+  return MatrixView = (function() {
+    MatrixView = class MatrixView extends Marionette.CollectionView {
+      static initClass() {
+  
+        this.prototype.tagName = 'tbody';
+        this.prototype.childView = Row;
       }
 
-    setupListeners: () ->
-      @listenTo(@collections.submission, 'sync', () ->
-        @render()
-      )
+      childViewOptions() {
+        return {
+        creatorType: this.creatorType,
+        collection: this.collections.project,
+        collections: this.collections,
+        courseId: this.courseId,
+        vent: this.vent
+        };
+      }
 
-    onRender: () ->
-      @vent.trigger('redraw')
+      setupListeners() {
+        return this.listenTo(this.collections.submission, 'sync', function() {
+          return this.render();
+        });
+      }
 
-    initialize: (options) ->
-      @collections = options.collections
-      @courseId = options.courseId
-      @vent = options.vent
-      @creatorType = options.creatorType
-      @setupListeners()
+      onRender() {
+        return this.vent.trigger('redraw');
+      }
+
+      initialize(options) {
+        this.collections = options.collections;
+        this.courseId = options.courseId;
+        this.vent = options.vent;
+        this.creatorType = options.creatorType;
+        return this.setupListeners();
+      }
+    };
+    MatrixView.initClass();
+    return MatrixView;
+  })();
+});

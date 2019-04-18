@@ -1,14 +1,25 @@
-define 'app/helpers/debug', ['handlebars'], (Handlebars) ->
-  Handlebars.registerHelper "debug", (value, options) ->
-    switch options.hash.level
-      when "warn" then level = "warn"
-      when "error" then level = "error"
-      else
-        level = "log"
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS207: Consider shorter variations of null checks
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define('app/helpers/debug', ['handlebars'], Handlebars =>
+  Handlebars.registerHelper("debug", function(value, options) {
+    let label, level;
+    switch (options.hash.level) {
+      case "warn": level = "warn"; break;
+      case "error": level = "error"; break;
+      default:
+        level = "log";
+    }
 
-    if options.hash.label?
-      label = options.hash.label
-    else
-      label = 'Handlebars Debug:'
+    if (options.hash.label != null) {
+      ({ label } = options.hash);
+    } else {
+      label = 'Handlebars Debug:';
+    }
 
-    console[level] label, value
+    return console[level](label, value);
+  })
+);

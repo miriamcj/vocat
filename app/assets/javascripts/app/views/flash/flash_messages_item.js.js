@@ -1,49 +1,73 @@
-define [
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define([
   'marionette',
   'hbs!templates/flash/flash_messages_item',
-], (Marionette, template) ->
-  class FlashMessagesItem extends Marionette.ItemView
+], function(Marionette, template) {
+  let FlashMessagesItem;
+  return FlashMessagesItem = (function() {
+    FlashMessagesItem = class FlashMessagesItem extends Marionette.ItemView {
+      static initClass() {
+  
+        this.prototype.template = template;
+        this.prototype.lifetime = 10000;
+  
+        this.prototype.triggers =
+          {'click [data-behavior="destroy"]': 'destroy'};
+      }
 
-    template: template
-    lifetime: 10000
+      className() {
+        return `alert alert-${this.model.get('level')}`;
+      }
 
-    className: () ->
-      "alert alert-#{@model.get('level')}"
+      initialize(options) {
+        const lifetime = parseInt(this.model.get('lifetime'));
+        if (lifetime > 0) { return this.lifetime = lifetime; }
+      }
 
-    triggers:
-      'click [data-behavior="destroy"]': 'destroy'
+      onDestroy() {
+        return this.model.destroy();
+      }
+  //      @$el.slideUp({
+  //        duration: 250
+  //        done: () =>
+  //          @model.destroy()
+  //      })
 
-    initialize: (options) ->
-      lifetime = parseInt(@model.get('lifetime'))
-      @lifetime = lifetime if lifetime > 0
+      onBeforeRender() {
+        return this.$el.hide();
+      }
 
-    onDestroy: ->
-      @model.destroy()
-#      @$el.slideUp({
-#        duration: 250
-#        done: () =>
-#          @model.destroy()
-#      })
+      serializeData() {
+        const context = super.serializeData();
+        if (_.isArray(this.model.get('msg')) || _.isObject(this.model.get('msg'))) {
+          context.enumerable = true;
+        } else {
+          context.enumerable = false;
+        }
+        return context;
+      }
 
-    onBeforeRender: () ->
-      @$el.hide()
-
-    serializeData: () ->
-      context = super()
-      if _.isArray(@model.get('msg')) || _.isObject(@model.get('msg'))
-        context.enumerable = true
-      else
-        context.enumerable = false
-      context
-
-    onRender: () ->
-      if @model.get('no_fade') == true
-        @$el.show()
-      else
-        @$el.fadeIn()
+      onRender() {
+        if (this.model.get('no_fade') === true) {
+          this.$el.show();
+        } else {
+          this.$el.fadeIn();
+        }
 
 
-      setTimeout(() =>
-        @onDestroy()
-      , @lifetime
-      )
+        return setTimeout(() => {
+          return this.onDestroy();
+        }
+        , this.lifetime
+        );
+      }
+    };
+    FlashMessagesItem.initClass();
+    return FlashMessagesItem;
+  })();
+});

@@ -1,160 +1,206 @@
-define (require) ->
-  Marionette = require('marionette')
-  template = require('hbs!templates/notification/notification_layout')
-  NotificationMessage = require('views/notification/notification_message')
-  NotificationRegion = require('views/notification/notification_region')
-  FlashMessageModel = require('models/flash_message')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS207: Consider shorter variations of null checks
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let NotificationLayout;
+  const Marionette = require('marionette');
+  const template = require('hbs!templates/notification/notification_layout');
+  const NotificationMessage = require('views/notification/notification_message');
+  const NotificationRegion = require('views/notification/notification_region');
+  const FlashMessageModel = require('models/flash_message');
 
-  class NotificationLayout extends Marionette.LayoutView
+  return NotificationLayout = (function() {
+    let notificationRegion = undefined;
+    NotificationLayout = class NotificationLayout extends Marionette.LayoutView {
+      static initClass() {
+  
+        this.prototype.notificationCounter = 0;
+        this.prototype.notificationRegion = null;
+  
+        this.prototype.className = 'notification';
+        notificationRegion = null;
+        this.prototype.template = template;
+      }
 
-    notificationCounter: 0
-    notificationRegion: null
+      initialize(options) {
+        return this.setupEvents();
+      }
 
-    className: 'notification'
-    notificationRegion = null
-    template: template
+      onShow() {
+        return this.loadServerSideFlashMessages();
+      }
 
-    initialize: (options) ->
-      @setupEvents()
+      setupEvents() {
+        this.listenTo(this.getOption('vent'), 'error:add', messageParams => {
+          return this.handleIncomingMessages(messageParams);
+        });
+        this.listenTo(this.getOption('vent'), 'notification:show', view => {
+          return this.handleIncomingNotification(view);
+        });
+        this.listenTo(this.getOption('vent'), 'notification:empty', () => {
+          return this.handleEmptyNotification();
+        });
+        return this.listenTo(this.regionManager, 'transition:start', (height, timing) => {
+          return this.adjustPosition(height, timing);
+        });
+      }
 
-    onShow: () ->
-      @loadServerSideFlashMessages()
+      adjustPosition(height, timing) {
+        let distance;
+        const $container = $('.container');
+        const marginTop = parseInt($container.css('marginTop').replace('px', ''));
+        const newMargin = marginTop + height;
+        $container.animate({marginTop: `${newMargin}px`}, timing);
+        return distance = height - marginTop;
+      }
 
-    setupEvents: () ->
-      @listenTo(@getOption('vent'), 'error:add', (messageParams) =>
-        @handleIncomingMessages(messageParams)
-      )
-      @listenTo(@getOption('vent'), 'notification:show', (view) =>
-        @handleIncomingNotification(view)
-      )
-      @listenTo(@getOption('vent'), 'notification:empty', () =>
-        @handleEmptyNotification()
-      )
-      @listenTo(@regionManager, 'transition:start', (height, timing) =>
-        @adjustPosition(height, timing)
-      )
+      handleEmptyNotification() {
+        this.regionManager.removeRegions();
+        const $container = $('.container');
+        const newMargin = 0;
+        return $container.animate({marginTop: `${newMargin}px`}, 0);
+      }
 
-    adjustPosition: (height, timing) ->
-      $container = $('.container')
-      marginTop = parseInt($container.css('marginTop').replace('px', ''))
-      newMargin = marginTop + height
-      $container.animate({marginTop: "#{newMargin}px"}, timing)
-      distance = height - marginTop
+      handleIncomingNotification(view) {
+        if ((this.notificationRegion == null)) {
+          const regionId = this.makeRegion();
+          this.notificationRegion = this[regionId];
+          this.listenTo(this.notificationRegion, 'empty', () => {
+            return this.notificationRegion = null;
+          });
+        }
+        if (!this.notificationRegion.hasView()) {
+          return this.notificationRegion.show(view);
+        }
+      }
 
-    handleEmptyNotification: () ->
-      @regionManager.removeRegions()
-      $container = $('.container')
-      newMargin = 0
-      $container.animate({marginTop: "#{newMargin}px"}, 0)
+      handleIncomingMessages(params) {
+        if (params.hasOwnProperty('clear') && (params.clear === true)) {
+          this.handleEmptyNotification();
+        }
+        const views = this.messageViewsFromMessageParams(params);
+        return _.each(views, view => {
+          const regionId = this.makeRegion();
+          return this[regionId].show(view);
+        });
+      }
 
-    handleIncomingNotification: (view) ->
-      if !@notificationRegion?
-        regionId = @makeRegion()
-        @notificationRegion = @[regionId]
-        @listenTo(@notificationRegion, 'empty', () =>
-          @notificationRegion = null
-        )
-      unless @notificationRegion.hasView()
-        @notificationRegion.show(view)
+      getAndIncrementNotificationCounter() {
+        const r = this.notificationCounter;
+        this.notificationCounter++;
+        return r;
+      }
 
-    handleIncomingMessages: (params) ->
-      if params.hasOwnProperty('clear') && params.clear == true
-        @handleEmptyNotification()
-      views = @messageViewsFromMessageParams(params)
-      _.each(views, (view) =>
-        regionId = @makeRegion()
-        @[regionId].show(view)
-      )
+      makeRegion() {
+        const regionId = `notificationRegion${this.getAndIncrementNotificationCounter()}`;
+        const $regionEl = $(`<div style="display: none;" class="notification-item" id="${regionId}"></div>`);
+        this.$el.append($regionEl);
+        const region = this.addRegion(regionId, {selector: `#${regionId}`, regionClass: NotificationRegion});
+        this.listenTo(this[regionId], 'region:expired', () => {
+          return this.regionManager.removeRegion(regionId);
+        });
+        this.regionManager.listenTo(this[regionId], 'transition:start', (height, timing) => {
+          return this.regionManager.trigger('transition:start', height, timing);
+        });
+        this.regionManager.listenTo(this[regionId], 'transition:complete', (height, timing) => {
+          return this.regionManager.trigger('transition:complete', height, timing);
+        });
+        return regionId;
+      }
 
-    getAndIncrementNotificationCounter: () ->
-      r = @notificationCounter
-      @notificationCounter++
-      r
+      messageViewsFromMessageParams(params) {
+        let views;
+        if (!_.isString(params.msg) && (_.isObject(params.msg) || _.isArray(params.msg))) {
+          views = this.viewsFromComplexMessageParams(params);
+        } else {
+          views = [];
+          views.push(this.makeOneNotificationView(params));
+        }
+        return views;
+      }
 
-    makeRegion: () ->
-      regionId = "notificationRegion#{@getAndIncrementNotificationCounter()}"
-      $regionEl = $('<div style="display: none;" class="notification-item" id="' + regionId + '"></div>')
-      @$el.append($regionEl)
-      region = @addRegion(regionId, {selector: "##{regionId}", regionClass: NotificationRegion})
-      @listenTo(@[regionId], 'region:expired', () =>
-        @regionManager.removeRegion(regionId)
-      )
-      @regionManager.listenTo(@[regionId], 'transition:start', (height, timing) =>
-        @regionManager.trigger('transition:start', height, timing)
-      )
-      @regionManager.listenTo(@[regionId], 'transition:complete', (height, timing) =>
-        @regionManager.trigger('transition:complete', height, timing)
-      )
-      regionId
+      viewsFromComplexMessageParams(params) {
+        let level, lifetime;
+        const views = [];
+        if (params.level != null) { ({ level } = params); } else { level = 'notice'; }
+        if (params.lifetime != null) { ({ lifetime } = params); } else { lifetime = null; }
+        if (_.isArray(params.msg)) {
+          if (params.msg.length > 0) {
+            _.each(params.msg, msg => {
+              return views.push(this.makeOneNotificationView({
+                level,
+                msg,
+                property: null,
+                lifetime
+              }));
+            });
+          }
+        } else if (_.isObject(params.msg)) {
+          _.each(params.msg, (text, property) => {
+            if (property === 'base') {
+              return views.push(this.makeOneNotificationView({
+                level,
+                msg: text,
+                property: null,
+                lifetime
+              })
+              );
+            } else {
+              return views.push(this.makeOneNotificationView({
+                level,
+                msg: `${property.charAt(0).toUpperCase() + property.slice(1)} ${text}`,
+                property: null,
+                lifetime
+              }));
+            }
+          });
+        } else {
+          views.push(this.makeOneNotificationView({
+            level,
+            msg: params.msg,
+            property: null,
+            lifetime
+          })
+          );
+        }
+        return views;
+      }
 
-    messageViewsFromMessageParams: (params) ->
-      if !_.isString(params.msg) && (_.isObject(params.msg) || _.isArray(params.msg))
-        views = @viewsFromComplexMessageParams(params)
-      else
-        views = []
-        views.push @makeOneNotificationView(params)
-      views
+      makeOneNotificationView(params) {
+        let view;
+        const model = new FlashMessageModel({
+          msg: params.msg,
+          level: params.level,
+          property: params.property,
+          lifetime: params.lifetime
+        });
+        return view = new NotificationMessage({
+          model
+        });
+      }
 
-    viewsFromComplexMessageParams: (params) ->
-      views = []
-      if params.level? then level = params.level else level = 'notice'
-      if params.lifetime? then lifetime = params.lifetime else lifetime = null
-      if _.isArray(params.msg)
-        if params.msg.length > 0
-          _.each(params.msg, (msg) =>
-            views.push @makeOneNotificationView({
-              level: level
-              msg: msg
-              property: null
-              lifetime: lifetime
-            })
-          )
-      else if _.isObject(params.msg)
-        _.each(params.msg, (text, property) =>
-          if property == 'base'
-            views.push @makeOneNotificationView({
-              level: level
-              msg: text
-              property: null
-              lifetime: lifetime
-            })
-          else
-            views.push @makeOneNotificationView({
-              level: level
-              msg: "#{property.charAt(0).toUpperCase() + property.slice(1)} #{text}"
-              property: null
-              lifetime: lifetime
-            })
-        )
-      else
-        views.push @makeOneNotificationView({
-          level: level
-          msg: params.msg
-          property: null
-          lifetime: lifetime
-        })
-      views
-
-    makeOneNotificationView: (params) ->
-      model = new FlashMessageModel({
-        msg: params.msg
-        level: params.level
-        property: params.property
-        lifetime: params.lifetime
-      })
-      view = new NotificationMessage({
-        model: model
-      })
-
-    loadServerSideFlashMessages: () ->
-      dataContainer = $("#bootstrap-globalFlash")
-      if dataContainer.length > 0
-        div = $('<div></div>')
-        div.html dataContainer.text()
-        text = div.text()
-        if text? && !(/^\s*$/).test(text)
-          data = JSON.parse(text)
-          if _.isArray(data.globalFlash)
-            _.each(data.globalFlash, (msg) =>
-              @handleIncomingMessages(msg)
-            )
+      loadServerSideFlashMessages() {
+        const dataContainer = $("#bootstrap-globalFlash");
+        if (dataContainer.length > 0) {
+          const div = $('<div></div>');
+          div.html(dataContainer.text());
+          const text = div.text();
+          if ((text != null) && !(/^\s*$/).test(text)) {
+            const data = JSON.parse(text);
+            if (_.isArray(data.globalFlash)) {
+              return _.each(data.globalFlash, msg => {
+                return this.handleIncomingMessages(msg);
+              });
+            }
+          }
+        }
+      }
+    };
+    NotificationLayout.initClass();
+    return NotificationLayout;
+  })();
+});

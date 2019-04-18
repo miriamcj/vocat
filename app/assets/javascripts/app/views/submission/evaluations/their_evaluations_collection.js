@@ -1,37 +1,55 @@
-define (require) ->
-  Marionette = require('marionette')
-  template = require('hbs!templates/submission/evaluations/their_evaluations_collection')
-  ChildView = require('views/submission/evaluations/their_evaluations_child')
-  ExpandableRange = require('behaviors/expandable_range')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let TheirEvaluationsCollection;
+  const Marionette = require('marionette');
+  const template = require('hbs!templates/submission/evaluations/their_evaluations_collection');
+  const ChildView = require('views/submission/evaluations/their_evaluations_child');
+  const ExpandableRange = require('behaviors/expandable_range');
 
-  class TheirEvaluationsCollection extends Marionette.CompositeView
-
-    template: template
-    className: 'evaluation-collection'
-    tagName: 'li'
-    childView: ChildView
-    childViewContainer: '[data-behavior="child-container"]:first'
-    childViewOptions: () ->
-      {
-      rubric: @rubric
+  return TheirEvaluationsCollection = (function() {
+    TheirEvaluationsCollection = class TheirEvaluationsCollection extends Marionette.CompositeView {
+      static initClass() {
+  
+        this.prototype.template = template;
+        this.prototype.className = 'evaluation-collection';
+        this.prototype.tagName = 'li';
+        this.prototype.childView = ChildView;
+        this.prototype.childViewContainer = '[data-behavior="child-container"]:first';
+  
+        this.prototype.behaviors = {
+          expandableRange: {
+            behaviorClass: ExpandableRange
+          }
+        };
+      }
+      childViewOptions() {
+        return {
+        rubric: this.rubric
+        };
       }
 
-    behaviors: {
-      expandableRange: {
-        behaviorClass: ExpandableRange
+      className() {
+        return `evaluation-collection evaluation-collection-${this.model.get('evaluator_role').toLowerCase()}`;
       }
-    }
 
-    className: () ->
-      "evaluation-collection evaluation-collection-#{@model.get('evaluator_role').toLowerCase()}"
-
-    initialize: (options) ->
-      @collection = @model.get('evaluations')
-      @rubric = options.rubric
-
-    serializeData: () ->
-      {
-      title: "#{@model.get('evaluator_role')} Evaluations"
-      percentage: @model.averageScore()
-      range_class: 'range-expandable'
+      initialize(options) {
+        this.collection = this.model.get('evaluations');
+        return this.rubric = options.rubric;
       }
+
+      serializeData() {
+        return {
+        title: `${this.model.get('evaluator_role')} Evaluations`,
+        percentage: this.model.averageScore(),
+        range_class: 'range-expandable'
+        };
+      }
+    };
+    TheirEvaluationsCollection.initClass();
+    return TheirEvaluationsCollection;
+  })();});

@@ -1,69 +1,92 @@
-define (require) ->
-  Marionette = require('marionette')
-  template = require('hbs!templates/group/groups_item')
-  ModalConfirmView = require('views/modal/modal_confirm')
-  ShortTextInputView = require('views/property_editor/short_text_input')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let GroupsItem;
+  const Marionette = require('marionette');
+  const template = require('hbs!templates/group/groups_item');
+  const ModalConfirmView = require('views/modal/modal_confirm');
+  const ShortTextInputView = require('views/property_editor/short_text_input');
 
-  class GroupsItem extends Marionette.ItemView
+  return GroupsItem = (function() {
+    GroupsItem = class GroupsItem extends Marionette.ItemView {
+      static initClass() {
+  
+        this.prototype.tagName = 'th';
+        this.prototype.className = 'matrix--fullbleed';
+        this.prototype.template = template;
+  
+        this.prototype.attributes = {
+          'data-behavior': 'navigate-group',
+          'data-match-height-source': ''
+        };
+  
+        this.prototype.triggers = {
+          'click [data-behavior="destroy"]': 'click:destroy',
+          'click [data-behavior="edit"]': 'click:edit'
+        };
+      }
 
-    tagName: 'th'
-    className: 'matrix--fullbleed'
-    template: template
-
-    attributes: {
-      'data-behavior': 'navigate-group'
-      'data-match-height-source': ''
-    }
-
-    triggers: {
-      'click [data-behavior="destroy"]': 'click:destroy'
-      'click [data-behavior="edit"]': 'click:edit'
-    }
-
-    onClickEdit: () ->
-      onSave = () =>
-        # Tell the parent layout that its dirty and needs to save.
-        @vent.triggerMethod('dirty')
-      Vocat.vent.trigger('modal:open', new ShortTextInputView({
-        model: @model,
-        vent: @vent,
-        onSave: onSave,
-        property: 'name',
-        saveLabel: 'Update group name',
-        inputLabel: 'What would you like to call this group?'
-      }))
+      onClickEdit() {
+        const onSave = () => {
+          // Tell the parent layout that its dirty and needs to save.
+          return this.vent.triggerMethod('dirty');
+        };
+        return Vocat.vent.trigger('modal:open', new ShortTextInputView({
+          model: this.model,
+          vent: this.vent,
+          onSave,
+          property: 'name',
+          saveLabel: 'Update group name',
+          inputLabel: 'What would you like to call this group?'
+        }));
+      }
 
 
-    onConfirmDestroy: () ->
-      @model.destroy({
-        success: () =>
-          Vocat.vent.trigger('error:clear')
-          Vocat.vent.trigger('error:add',
-            {level: 'notice', lifetime: '3000', msg: 'The group was successfully deleted.'})
-        , error: () =>
-          Vocat.vent.trigger('error:clear')
-          Vocat.vent.trigger('error:add', {level: 'notice', msg: xhr.responseJSON.errors})
-      })
+      onConfirmDestroy() {
+        return this.model.destroy({
+          success: () => {
+            Vocat.vent.trigger('error:clear');
+            return Vocat.vent.trigger('error:add',
+              {level: 'notice', lifetime: '3000', msg: 'The group was successfully deleted.'});
+          }
+          , error: () => {
+            Vocat.vent.trigger('error:clear');
+            return Vocat.vent.trigger('error:add', {level: 'notice', msg: xhr.responseJSON.errors});
+          }
+        });
+      }
 
-    onClickDestroy: () ->
-      Vocat.vent.trigger('modal:open', new ModalConfirmView({
-        model: @model,
-        vent: @,
-        descriptionLabel: 'Deleting this group will also delete any submissions and evaluations owned by this group.',
-        confirmEvent: 'confirm:destroy',
-        dismissEvent: 'dismiss:destroy'
-      }))
+      onClickDestroy() {
+        return Vocat.vent.trigger('modal:open', new ModalConfirmView({
+          model: this.model,
+          vent: this,
+          descriptionLabel: 'Deleting this group will also delete any submissions and evaluations owned by this group.',
+          confirmEvent: 'confirm:destroy',
+          dismissEvent: 'dismiss:destroy'
+        }));
+      }
 
-    serializeData: () ->
-      data = super()
-      data.courseId = @options.courseId
-      data
+      serializeData() {
+        const data = super.serializeData();
+        data.courseId = this.options.courseId;
+        return data;
+      }
 
-    initialize: (options) ->
-      @vent = options.vent
-      @$el.attr('data-group', @model.id)
+      initialize(options) {
+        this.vent = options.vent;
+        this.$el.attr('data-group', this.model.id);
 
-      @listenTo(@model, 'change:name', () =>
-        @render()
-        @vent.trigger('recalculate')
-      )
+        return this.listenTo(this.model, 'change:name', () => {
+          this.render();
+          return this.vent.trigger('recalculate');
+        });
+      }
+    };
+    GroupsItem.initClass();
+    return GroupsItem;
+  })();
+});

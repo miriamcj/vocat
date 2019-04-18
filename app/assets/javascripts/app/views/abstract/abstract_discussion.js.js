@@ -1,66 +1,93 @@
-define (require) ->
-  Marionette = require('marionette')
-  template = require('hbs!templates/discussion/discussion')
-  DiscusionPostCollection = require('collections/discussion_post_collection')
-  DiscussionPostModel = require('models/discussion_post')
-  FlashMessagesView = require('views/flash/flash_messages')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS207: Consider shorter variations of null checks
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let DiscussionView;
+  const Marionette = require('marionette');
+  const template = require('hbs!templates/discussion/discussion');
+  const DiscusionPostCollection = require('collections/discussion_post_collection');
+  const DiscussionPostModel = require('models/discussion_post');
+  const FlashMessagesView = require('views/flash/flash_messages');
 
-  class DiscussionView extends Marionette.CompositeView
-
-    ui:
-      bodyInput: '[data-behavior="post-input"]'
-      inputToggle: '[data-behavior="input-container"]'
-      flashContainer: '[data-container="flash"]'
-
-    triggers:
-      'click [data-behavior="post-save"]': 'post:save'
-      'click [data-behavior="toggle-reply"]': 'reply:toggle'
-      'click [data-behavior="toggle-delete-confirm"]': 'confirm:delete:toggle'
-      'click [data-behavior="delete"]': 'post:delete'
-
-    childViewOptions: () ->
-      {
-      allPosts: @allPosts
-      submission: @submission
+  return DiscussionView = (function() {
+    DiscussionView = class DiscussionView extends Marionette.CompositeView {
+      static initClass() {
+  
+        this.prototype.ui = {
+          bodyInput: '[data-behavior="post-input"]',
+          inputToggle: '[data-behavior="input-container"]',
+          flashContainer: '[data-container="flash"]'
+        };
+  
+        this.prototype.triggers = {
+          'click [data-behavior="post-save"]': 'post:save',
+          'click [data-behavior="toggle-reply"]': 'reply:toggle',
+          'click [data-behavior="toggle-delete-confirm"]': 'confirm:delete:toggle',
+          'click [data-behavior="delete"]': 'post:delete'
+        };
       }
 
-    onRender: () ->
-      @ui.flashContainer.append(@flash.$el)
-      @flash.render()
+      childViewOptions() {
+        return {
+        allPosts: this.allPosts,
+        submission: this.submission
+        };
+      }
 
-    initializeFlash: () ->
-      @flash = new FlashMessagesView({vent: @, clearOnAdd: true})
+      onRender() {
+        this.ui.flashContainer.append(this.flash.$el);
+        return this.flash.render();
+      }
 
-    onPostSave: () ->
-      if @model? then parent_id = @model.id else parent_id = null
-      post = new DiscussionPostModel({
-        submission_id: @submission.id
-        body: @ui.bodyInput.val()
-        published: true
-        parent_id: parent_id
-      })
+      initializeFlash() {
+        return this.flash = new FlashMessagesView({vent: this, clearOnAdd: true});
+      }
 
-      # TODO: Fix post input autosizing
-      #postInput.val('').trigger('autosize');
+      onPostSave() {
+        let parent_id;
+        if (this.model != null) { parent_id = this.model.id; } else { parent_id = null; }
+        const post = new DiscussionPostModel({
+          submission_id: this.submission.id,
+          body: this.ui.bodyInput.val(),
+          published: true,
+          parent_id
+        });
 
-      @listenTo(post, 'invalid', (model, errors) =>
-        @trigger('error:add', {level: 'error', lifetime: 5000, msg: errors})
-      )
+        // TODO: Fix post input autosizing
+        //postInput.val('').trigger('autosize');
 
-      post.save({}, {
-        success: (post) =>
-          @collection.add(post)
-          @allPosts.add(post)
-          @resetInput()
-        error: (model, error) =>
-      })
+        this.listenTo(post, 'invalid', (model, errors) => {
+          return this.trigger('error:add', {level: 'error', lifetime: 5000, msg: errors});
+        });
 
-    initialize: (options) ->
-      @vent = options.vent
+        return post.save({}, {
+          success: post => {
+            this.collection.add(post);
+            this.allPosts.add(post);
+            return this.resetInput();
+          },
+          error: (model, error) => {}
+        });
+      }
 
-    onReplyClear: () ->
-      @ui.bodyInput.val('')
+      initialize(options) {
+        return this.vent = options.vent;
+      }
 
-    resetInput: () ->
-      @triggerMethod('reply:clear')
-      @triggerMethod('reply:toggle')
+      onReplyClear() {
+        return this.ui.bodyInput.val('');
+      }
+
+      resetInput() {
+        this.triggerMethod('reply:clear');
+        return this.triggerMethod('reply:toggle');
+      }
+    };
+    DiscussionView.initClass();
+    return DiscussionView;
+  })();
+});

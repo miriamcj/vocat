@@ -1,98 +1,130 @@
-define (require) ->
-  Marionette = require('marionette')
-  template = require('hbs!templates/assets/asset_detail')
-  VideoPlayerView = require('views/assets/player/video_player')
-  ImagePlayerView = require('views/assets/player/image_player')
-  ProcessingWarningView = require('views/assets/player/processing_warning')
-  AnnotatorView = require('views/assets/annotator/annotator')
-  AnnotatorCanvasView = require('views/assets/annotator/annotator_canvas')
-  MockCanvasView = require('views/assets/annotator/mock_canvas')
-  AnnotationsView = require('views/assets/annotations/annotations')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let AssetShowLayout;
+  const Marionette = require('marionette');
+  const template = require('hbs!templates/assets/asset_detail');
+  const VideoPlayerView = require('views/assets/player/video_player');
+  const ImagePlayerView = require('views/assets/player/image_player');
+  const ProcessingWarningView = require('views/assets/player/processing_warning');
+  const AnnotatorView = require('views/assets/annotator/annotator');
+  const AnnotatorCanvasView = require('views/assets/annotator/annotator_canvas');
+  const MockCanvasView = require('views/assets/annotator/mock_canvas');
+  const AnnotationsView = require('views/assets/annotations/annotations');
 
-  class AssetShowLayout extends Marionette.LayoutView
+  return AssetShowLayout = (function() {
+    AssetShowLayout = class AssetShowLayout extends Marionette.LayoutView {
+      static initClass() {
+  
+        this.prototype.template = template;
+  
+        this.prototype.ui = {
+          detailClose: '[data-behavior="detail-close"]',
+          playerColumn: '[data-behavior="player-column"]',
+          annotationsColumn: '[data-behavior="annotations-column"]',
+          message: '[data-behavior="message"]'
+        };
+  
+        this.prototype.triggers = {
+          'click @ui.detailClose': 'detail:close'
+        };
+  
+        this.prototype.regions = {
+          player: '[data-region="player"]',
+          annotations: '[data-region="annotations"]',
+          annotationsStage: '[data-region="annotations-stage"]',
+          annotator: '[data-region="annotator"]',
+          annotatorCanvas: '[data-region="annotator-canvas"]'
+        };
+      }
 
-    template: template
+      handleMessageShow(data) {
+        const { msg } = data;
+        this.ui.message.html(msg);
+        return this.ui.message.addClass('open');
+      }
 
-    ui: {
-      detailClose: '[data-behavior="detail-close"]'
-      playerColumn: '[data-behavior="player-column"]'
-      annotationsColumn: '[data-behavior="annotations-column"]'
-      message: '[data-behavior="message"]'
-    }
+      handleMessageHide(data) {
+        this.ui.message.html('');
+        return this.ui.message.removeClass('open');
+      }
 
-    triggers: {
-      'click @ui.detailClose': 'detail:close'
-    }
+      selectPlayerView() {
+        let playerView;
+        const viewConstructorArguments = {model: this.model, vent: this.vent};
+        if (this.model.get('attachment_state') === 'processed') {
+          const family = this.model.get('family');
+          switch (family) {
+            case 'video': playerView = new VideoPlayerView(viewConstructorArguments); break;
+            case 'image': playerView = new ImagePlayerView(viewConstructorArguments); break;
+            case 'audio': playerView = new VideoPlayerView(viewConstructorArguments); break;
+          }
+        } else {
+          playerView = new ProcessingWarningView(viewConstructorArguments);
+        }
+        return playerView;
+      }
 
-    regions: {
-      player: '[data-region="player"]'
-      annotations: '[data-region="annotations"]'
-      annotationsStage: '[data-region="annotations-stage"]'
-      annotator: '[data-region="annotator"]'
-      annotatorCanvas: '[data-region="annotator-canvas"]'
-    }
+      pickAnnotationsView(asset) {
+        let annotationsView;
+        return annotationsView = new AnnotationsView({model: asset, vent: this.vent});
+      }
 
-    handleMessageShow: (data) ->
-      msg = data.msg
-      @ui.message.html(msg)
-      @ui.message.addClass('open')
+      onShow() {
+        const annotationsView = this.pickAnnotationsView(this.model);
+        const annotatorView = this.pickAnnotatorView(this.model);
+        const canvasView = this.pickCanvasView(this.model);
+        const playerView = this.selectPlayerView();
+        this.player.show(playerView);
+        if (annotatorView) { this.annotator.show(annotatorView); }
+        if (canvasView) { this.annotatorCanvas.show(canvasView); }
+        if (annotationsView) { return this.annotations.show(annotationsView); }
+      }
 
-    handleMessageHide: (data) ->
-      @ui.message.html('')
-      @ui.message.removeClass('open')
+      pickCanvasView(asset) {
+        const canDisplayCanvas = asset.allowsVisibleAnnotation();
+        if (canDisplayCanvas === true) {
+          return new AnnotatorCanvasView({model: this.model, vent: this.vent});
+        } else {
+          return new MockCanvasView({model: this.model, vent: this.vent});
+        }
+      }
 
-    selectPlayerView: () ->
-      viewConstructorArguments = {model: @model, vent: @vent}
-      if @model.get('attachment_state') == 'processed'
-        family = @model.get('family')
-        switch family
-          when 'video' then playerView = new VideoPlayerView(viewConstructorArguments)
-          when 'image' then playerView = new ImagePlayerView(viewConstructorArguments)
-          when 'audio' then playerView = new VideoPlayerView(viewConstructorArguments)
-      else
-        playerView = new ProcessingWarningView(viewConstructorArguments)
-      playerView
+      pickAnnotatorView(asset) {
+        // Stub method - currently all assets can be annotated, but this may change in the future.
+        return new AnnotatorView({model: this.model, vent: this.vent});
+      }
 
-    pickAnnotationsView: (asset) ->
-      annotationsView = new AnnotationsView({model: asset, vent: @vent})
+      serializeData() {
+        const data = super.serializeData();
+        data.hasDuration = this.model.hasDuration();
+        return data;
+      }
 
-    onShow: () ->
-      annotationsView = @pickAnnotationsView(@model)
-      annotatorView = @pickAnnotatorView(@model)
-      canvasView = @pickCanvasView(@model)
-      playerView = @selectPlayerView()
-      @player.show(playerView)
-      @annotator.show(annotatorView) if annotatorView
-      @annotatorCanvas.show(canvasView) if canvasView
-      @annotations.show(annotationsView) if annotationsView
+      onDetailClose() {
+        let url;
+        const context = this.model.get('creator_type').toLowerCase() + 's';
+        if (this.viewContext === 'coursemap') {
+          url = `courses/${this.courseId}/${context}/evaluations/creator/${this.model.get('creator_id')}/project/${this.model.get('project_id')}`;
+        } else {
+          url = `courses/${this.courseId}/${context}/creator/${this.model.get('creator_id')}/project/${this.model.get('project_id')}`;
+        }
+        return Vocat.router.navigate(url, true);
+      }
 
-    pickCanvasView: (asset) ->
-      canDisplayCanvas = asset.allowsVisibleAnnotation()
-      if canDisplayCanvas == true
-        new AnnotatorCanvasView({model: @model, vent: @vent})
-      else
-        new MockCanvasView({model: @model, vent: @vent})
-
-    pickAnnotatorView: (asset) ->
-      # Stub method - currently all assets can be annotated, but this may change in the future.
-      new AnnotatorView({model: @model, vent: @vent})
-
-    serializeData: () ->
-      data = super()
-      data.hasDuration = @model.hasDuration()
-      data
-
-    onDetailClose: () ->
-      context = @model.get('creator_type').toLowerCase() + 's'
-      if @viewContext == 'coursemap'
-        url = "courses/#{@courseId}/#{context}/evaluations/creator/#{@model.get('creator_id')}/project/#{@model.get('project_id')}"
-      else
-        url = "courses/#{@courseId}/#{context}/creator/#{@model.get('creator_id')}/project/#{@model.get('project_id')}"
-      Vocat.router.navigate(url, true)
-
-    initialize: (options) ->
-      @viewContext = options.context
-      @courseId = window.VocatCourseId
-      @vent = new Backbone.Wreqr.EventAggregator()
-      @listenTo(@vent, 'request:message:show', @handleMessageShow, @)
-      @listenTo(@vent, 'request:message:hide', @handleMessageHide, @)
+      initialize(options) {
+        this.viewContext = options.context;
+        this.courseId = window.VocatCourseId;
+        this.vent = new Backbone.Wreqr.EventAggregator();
+        this.listenTo(this.vent, 'request:message:show', this.handleMessageShow, this);
+        return this.listenTo(this.vent, 'request:message:hide', this.handleMessageHide, this);
+      }
+    };
+    AssetShowLayout.initClass();
+    return AssetShowLayout;
+  })();
+});

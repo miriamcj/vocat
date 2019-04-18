@@ -1,20 +1,38 @@
-define (require) ->
-  Marionette = require('marionette')
-  template = require('hbs!templates/assets/new_asset_footer')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let NewAssetFooter;
+  const Marionette = require('marionette');
+  const template = require('hbs!templates/assets/new_asset_footer');
 
-  class NewAssetFooter extends Marionette.ItemView
+  return NewAssetFooter = (function() {
+    NewAssetFooter = class NewAssetFooter extends Marionette.ItemView {
+      static initClass() {
+  
+        this.prototype.template = template;
+  
+        this.prototype.ui = {
+          stopManagingLink: '[data-behavior="stop-manage-link"]'
+        };
+      }
 
-    template: template
+      preventManageClose() {
+        return this.ui.stopManagingLink.css({display: 'none'});
+      }
 
-    ui: {
-      stopManagingLink: '[data-behavior="stop-manage-link"]'
-    }
+      allowManageClose() {
+        return this.ui.stopManagingLink.css({display: 'inline-block'});
+      }
 
-    preventManageClose: () ->
-      @ui.stopManagingLink.css(display: 'none')
-
-    allowManageClose: () ->
-      @ui.stopManagingLink.css(display: 'inline-block')
-
-    initialize: (options) ->
-      @vent = Marionette.getOption(@, 'vent')
+      initialize(options) {
+        return this.vent = Marionette.getOption(this, 'vent');
+      }
+    };
+    NewAssetFooter.initClass();
+    return NewAssetFooter;
+  })();
+});

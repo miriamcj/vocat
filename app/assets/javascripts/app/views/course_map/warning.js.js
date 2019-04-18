@@ -1,19 +1,35 @@
-define (require) ->
-  template = require('hbs!templates/course_map/warning')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let Warning;
+  const template = require('hbs!templates/course_map/warning');
 
-  class Warning extends Marionette.ItemView
-
-    template: template
-
-    serializeData: () ->
-      out = {
-        isCreatorWarning: Marionette.getOption(@, 'warningType') == 'Creator'
-        isProjectWarning: Marionette.getOption(@, 'warningType') == 'Project'
-        isCreatorTypeGroup: Marionette.getOption(@, 'creatorType') == 'Group'
-        isCreatorTypeUser: Marionette.getOption(@, 'creatorType') == 'User'
-        creatorType: Marionette.getOption(@, 'creatorType')
-        warningType: Marionette.getOption(@, 'warningType')
-        courseId: Marionette.getOption(@, 'courseId')
-        canUpdateCourse: window.VocatUserCourseRole == 'administrator' || window.VocatUserCourseRole == 'evaluator'
+  return Warning = (function() {
+    Warning = class Warning extends Marionette.ItemView {
+      static initClass() {
+  
+        this.prototype.template = template;
       }
-      out
+
+      serializeData() {
+        const out = {
+          isCreatorWarning: Marionette.getOption(this, 'warningType') === 'Creator',
+          isProjectWarning: Marionette.getOption(this, 'warningType') === 'Project',
+          isCreatorTypeGroup: Marionette.getOption(this, 'creatorType') === 'Group',
+          isCreatorTypeUser: Marionette.getOption(this, 'creatorType') === 'User',
+          creatorType: Marionette.getOption(this, 'creatorType'),
+          warningType: Marionette.getOption(this, 'warningType'),
+          courseId: Marionette.getOption(this, 'courseId'),
+          canUpdateCourse: (window.VocatUserCourseRole === 'administrator') || (window.VocatUserCourseRole === 'evaluator')
+        };
+        return out;
+      }
+    };
+    Warning.initClass();
+    return Warning;
+  })();
+});

@@ -1,53 +1,79 @@
-define (require) ->
-  Marionette = require('marionette')
-  courseTemplate = require('hbs!templates/admin/enrollment/course_input_item')
-  userTemplate = require('hbs!templates/admin/enrollment/user_input_item')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS207: Consider shorter variations of null checks
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let EnrollmentUserInputItem;
+  const Marionette = require('marionette');
+  const courseTemplate = require('hbs!templates/admin/enrollment/course_input_item');
+  const userTemplate = require('hbs!templates/admin/enrollment/user_input_item');
 
-  class EnrollmentUserInputItem extends Marionette.ItemView
+  return EnrollmentUserInputItem = (function() {
+    EnrollmentUserInputItem = class EnrollmentUserInputItem extends Marionette.ItemView {
+      static initClass() {
+  
+        this.prototype.tagName = 'li';
+        this.prototype.className = 'active-result';
+      }
 
-    getTemplate: () ->
-      if @model.get('section')?
-        courseTemplate
-      else
-        userTemplate
+      getTemplate() {
+        if (this.model.get('section') != null) {
+          return courseTemplate;
+        } else {
+          return userTemplate;
+        }
+      }
 
-    tagName: 'li'
-    className: 'active-result'
+      initialize(options) {
+        this.enrollmentCollection = options.enrollmentCollection;
+        return this.vent = options.vent;
+      }
 
-    initialize: (options) ->
-      @enrollmentCollection = options.enrollmentCollection
-      @vent = options.vent
+      triggers() {
+        return {'mousedown': 'click'};
+      }
 
-    triggers: () ->
-      'mousedown': 'click'
+      onClick() {
+        const enrollment = this.enrollmentCollection.newEnrollmentFromSearchModel(this.model);
+        enrollment.save({}, {
+          error: (model, xhr) => {
+            return Vocat.vent.trigger('error:add', {level: 'error', lifetime: 5000, msg: xhr.responseJSON.errors});
+          },
+          success: () => {
+            this.enrollmentCollection.add(enrollment);
+            this.trigger('add', enrollment);
+            if (this.enrollmentCollection === 'users') {
+              let article;
+              const role = this.enrollmentCollection.role();
+              const l = role[0];
+              if ((l === 'a') || (l === 'e') || (l === 'i') || (l === 'o') || (l === 'u')) {
+                article = 'an';
+              } else {
+                article = 'a';
+              }
+              return Vocat.vent.trigger('error:add', {
+                level: 'notice',
+                lifetime: 5000,
+                msg: `${enrollment.get('user_name')} is now ${article} ${role} in section #${enrollment.get('section')}.`
+              });
+            } else {
+              return Vocat.vent.trigger('error:add', {
+                level: 'notice',
+                lifetime: 5000,
+                msg: `${enrollment.get('user_name')} is now enrolled in section ${enrollment.get('section')}`
+              });
+            }
+          }
+        });
+        return this.trigger('clicked');
+      }
 
-    onClick: () ->
-      enrollment = @enrollmentCollection.newEnrollmentFromSearchModel(@model)
-      enrollment.save({}, {
-        error: (model, xhr) =>
-          Vocat.vent.trigger('error:add', {level: 'error', lifetime: 5000, msg: xhr.responseJSON.errors})
-        success: () =>
-          @enrollmentCollection.add(enrollment)
-          @trigger('add', enrollment)
-          if @enrollmentCollection == 'users'
-            role = @enrollmentCollection.role()
-            l = role[0]
-            if l == 'a' || l == 'e' || l == 'i' || l == 'o' || l == 'u'
-              article = 'an'
-            else
-              article = 'a'
-            Vocat.vent.trigger('error:add', {
-              level: 'notice',
-              lifetime: 5000,
-              msg: "#{enrollment.get('user_name')} is now #{article} #{role} in section ##{enrollment.get('section')}."
-            })
-          else
-            Vocat.vent.trigger('error:add', {
-              level: 'notice',
-              lifetime: 5000,
-              msg: "#{enrollment.get('user_name')} is now enrolled in section #{enrollment.get('section')}"
-            })
-      })
-      @trigger('clicked')
-
-    onRender: () ->
+      onRender() {}
+    };
+    EnrollmentUserInputItem.initClass();
+    return EnrollmentUserInputItem;
+  })();
+});

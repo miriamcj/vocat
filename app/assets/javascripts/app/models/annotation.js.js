@@ -1,77 +1,112 @@
-define [
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS207: Consider shorter variations of null checks
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define([
   'backbone'
-], (Backbone) ->
-  class AnnotationModel extends Backbone.Model
+], function(Backbone) {
+  let AnnotationModel;
+  return AnnotationModel = (function() {
+    AnnotationModel = class AnnotationModel extends Backbone.Model {
+      static initClass() {
+  
+        this.prototype.urlRoot = '/api/v1/annotations';
+        this.prototype.paramRoot = 'annotation';
+      }
 
-    urlRoot: '/api/v1/annotations'
-    paramRoot: 'annotation'
+      initialize() {
+        this.visible = false;
+        return this.locked = false;
+      }
 
-    initialize: () ->
-      @visible = false
-      @locked = false
+      setVisibility(visibility) {
+        if (this.locked === false) {
+          this.visible = visibility;
+          return this.trigger('change:visibility');
+        }
+      }
 
-    setVisibility: (visibility) ->
-      if @locked == false
-        @visible = visibility
-        @trigger('change:visibility')
+      lockVisible() {
+        this.locked = false;
+        this.show();
+        return this.locked = true;
+      }
 
-    lockVisible: () ->
-      @locked = false
-      @show()
-      @locked = true
+      unlock() {
+        return this.locked = false;
+      }
 
-    unlock: () ->
-      @locked = false
+      show() {
+        if (this.visible === false) { return this.setVisibility(true); }
+      }
 
-    show: () ->
-      if @visible == false then @setVisibility(true)
+      hide() {
+        if (this.visible === true) { return this.setVisibility(false); }
+      }
 
-    hide: () ->
-      if @visible == true then @setVisibility(false)
+      hasDrawing() {
+        const canvas = this.get('canvas');
+        if (canvas != null) {
+          const data = JSON.parse(canvas);
+          return data.svg !== null;
+        } else {
+          return false;
+        }
+      }
 
-    hasDrawing: () ->
-      canvas = @get('canvas')
-      if canvas?
-        data = JSON.parse(canvas)
-        return data.svg != null
-      else
-        return false
+      getCanvasJSON() {
+        let json = null;
+        const canvas = this.get('canvas');
+        if (canvas != null) {
+          const imgData = JSON.parse(canvas);
+          ({ json } = imgData);
+          return json;
+        }
+      }
 
-    getCanvasJSON: () ->
-      json = null
-      canvas = @get('canvas')
-      if canvas?
-        imgData = JSON.parse(canvas)
-        json = imgData.json
-        json
+      getSvg() {
+        let svg = null;
+        const canvas = this.get('canvas');
+        if (canvas != null) {
+          const imgData = JSON.parse(canvas);
+          ({ svg } = imgData);
+          return svg;
+        }
+      }
 
-    getSvg: () ->
-      svg = null
-      canvas = @get('canvas')
-      if canvas?
-        imgData = JSON.parse(canvas)
-        svg = imgData.svg
-        svg
+      getTimestamp() {
+        const totalSeconds = parseInt(this.get('seconds_timecode'));
+        const totalMinutes = Math.floor(totalSeconds / 60);
+        const hours = Math.floor(totalMinutes / 60);
+        const minutes = totalMinutes - (hours * 60);
+        const seconds = totalSeconds - (hours * 60 * 60) - (minutes * 60);
+        const fh = (`0${hours}`).slice(-2);
+        const fm = (`0${minutes}`).slice(-2);
+        const fs = (`0${seconds}`).slice(-2);
+        return `${fh}:${fm}:${fs}`;
+      }
 
-    getTimestamp: () ->
-      totalSeconds = parseInt(@get('seconds_timecode'))
-      totalMinutes = Math.floor(totalSeconds / 60)
-      hours = Math.floor(totalMinutes / 60)
-      minutes = totalMinutes - (hours * 60)
-      seconds = totalSeconds - (hours * 60 * 60) - (minutes * 60)
-      fh = ("0" + hours).slice(-2);
-      fm = ("0" + minutes).slice(-2);
-      fs = ("0" + seconds).slice(-2);
-      "#{fh}:#{fm}:#{fs}"
+      activate() {
+        if (this.collection) {
+          return this.collection.activateModel(this);
+        }
+      }
 
-    activate: () ->
-      if @collection
-        @collection.activateModel(@)
-
-    toJSON: () ->
-      attributes = _.clone(this.attributes);
-      $.each attributes, (key, value) ->
-        if value? && _(value.toJSON).isFunction()
-          attributes[key] = value.toJSON()
-      attributes.smpte_timecode = @getTimestamp()
-      attributes
+      toJSON() {
+        const attributes = _.clone(this.attributes);
+        $.each(attributes, function(key, value) {
+          if ((value != null) && _(value.toJSON).isFunction()) {
+            return attributes[key] = value.toJSON();
+          }
+        });
+        attributes.smpte_timecode = this.getTimestamp();
+        return attributes;
+      }
+    };
+    AnnotationModel.initClass();
+    return AnnotationModel;
+  })();
+});

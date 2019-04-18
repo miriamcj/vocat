@@ -1,239 +1,303 @@
-define (require) ->
-  Marionette = require('marionette')
-  template = require('hbs!templates/assets/assets_layout')
-  AssetCollectionView = require('views/assets/asset_collection')
-  NewAssetView = require('views/assets/new_asset')
-  NewAssetFooterView = require('views/assets/new_asset_footer')
-  AssetModel= require('models/asset')
-  AssetDetail = require('views/assets/asset_detail')
-  ModalConfirmView = require('views/modal/modal_confirm')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS207: Consider shorter variations of null checks
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let AssetsLayout;
+  const Marionette = require('marionette');
+  const template = require('hbs!templates/assets/assets_layout');
+  const AssetCollectionView = require('views/assets/asset_collection');
+  const NewAssetView = require('views/assets/new_asset');
+  const NewAssetFooterView = require('views/assets/new_asset_footer');
+  const AssetModel= require('models/asset');
+  const AssetDetail = require('views/assets/asset_detail');
+  const ModalConfirmView = require('views/modal/modal_confirm');
 
-  class AssetsLayout extends Marionette.LayoutView
+  return AssetsLayout = (function() {
+    AssetsLayout = class AssetsLayout extends Marionette.LayoutView {
+      static initClass() {
+  
+        this.prototype.template = template;
+        this.prototype.state = 'list';
+        this.prototype.canAttach = false;
+  
+        this.prototype.ui = {
+          assetCollectionHeader: '[data-behavior="asset-collection-header"]',
+          detailHeader: '[data-behavior="detail-header"]',
+          detailHeaderContent: '[data-behavior="detail-header-content"]',
+          newAssetContainer: '[data-behavior="new-asset-container"]',
+          manageLink: '[data-behavior="manage-link"]',
+          stopManagingLink: '[data-behavior="stop-manage-link"]',
+          closeLink: '[data-behavior="close-link"]'
+        };
+  
+        this.prototype.triggers = {
+          'click @ui.stopManagingLink': 'request:state:list',
+          'click @ui.manageLink': 'request:state:manage',
+          'click @ui.closeLink': 'request:state:list'
+        };
+  
+        this.prototype.regions = {
+          assets: '[data-region="asset-collection"]',
+          newAsset: '[data-region="asset-new"]',
+          newAssetFooter: '[data-region="asset-new-footer"]'
+        };
+      }
 
-    template: template
-    state: 'list'
-    canAttach: false
+      setState(state, assetId = null) {
+        if ((this.state === 'uploading') && (state === 'detail')) {
+          Vocat.vent.trigger('error:add', {
+            level: 'notice',
+            clear: true,
+            lifetime: '5000',
+            msg: 'Please wait for your upload to complete before viewing media.'
+          });
+          return;
+        }
 
-    ui: {
-      assetCollectionHeader: '[data-behavior="asset-collection-header"]'
-      detailHeader: '[data-behavior="detail-header"]'
-      detailHeaderContent: '[data-behavior="detail-header-content"]'
-      newAssetContainer: '[data-behavior="new-asset-container"]'
-      manageLink: '[data-behavior="manage-link"]'
-      stopManagingLink: '[data-behavior="stop-manage-link"]'
-      closeLink: '[data-behavior="close-link"]'
-    }
+        this.state = state;
+        switch (state) {
+          case 'list':
+            this.handleStateList();
+            break;
+          case 'firstAdd':
+            this.handleStateFirstAdd();
+            break;
+          case 'manage':
+            this.handleStateManage();
+            break;
+          case 'detail':
+            this.handleStateDetail(assetId);
+            break;
+          case 'uploading':
+            this.handleStateUploading();
+            break;
+        }
+        return this.trigger('announce:state', this.state);
+      }
 
-    triggers: {
-      'click @ui.stopManagingLink': 'request:state:list'
-      'click @ui.manageLink': 'request:state:manage'
-      'click @ui.closeLink': 'request:state:list'
-    }
+      handleCollectionAddRemove() {
+        if ((this.collection.length > 0) && (this.state === 'firstAdd')) {
+          this.setState('manage');
+        }
+        if ((this.collection.length === 0) && (this.state === 'manage')) {
+          return this.setState('firstAdd');
+        }
+      }
 
-    regions: {
-      assets: '[data-region="asset-collection"]'
-      newAsset: '[data-region="asset-new"]'
-      newAssetFooter: '[data-region="asset-new-footer"]'
-    }
+      handleStateUploading() {
+        this.navigateToSubmissionView();
+        this.newAssetFooter.empty();
+        return this._updateUIStateUploading();
+      }
 
-    setState: (state, assetId = null) ->
-      if @state == 'uploading' && state == 'detail'
-        Vocat.vent.trigger('error:add', {
-          level: 'notice',
-          clear: true,
-          lifetime: '5000',
-          msg: 'Please wait for your upload to complete before viewing media.'
-        })
-        return
+      handleStateList() {
+        this.navigateToSubmissionView();
+        if (this.newAssetFooter.currentView != null) {
+          this.newAssetFooter.$el.fadeOut(200);
+        }
+        if (this.newAsset.currentView != null) {
+          this.newAsset.$el.fadeOut(200, () => {
+            this.newAsset.empty();
+            return this.assets.show(this._assetCollectionView());
+          });
+        } else {
+          this.assets.show(this._assetCollectionView());
+        }
 
-      @state = state
-      switch state
-        when 'list'
-          @handleStateList()
-        when 'firstAdd'
-          @handleStateFirstAdd()
-        when 'manage'
-          @handleStateManage()
-        when 'detail'
-          @handleStateDetail(assetId)
-        when 'uploading'
-          @handleStateUploading()
-      @trigger('announce:state', @state)
+        return this._updateUIStateList();
+      }
 
-    handleCollectionAddRemove: () ->
-      if @collection.length > 0 && @state == 'firstAdd'
-        @setState('manage')
-      if @collection.length == 0 && @state == 'manage'
-        @setState('firstAdd')
+      handleStateFirstAdd() {
+        this.navigateToSubmissionView();
+        this.assets.empty();
+        this.newAsset.show(this._newAssetView());
+        this.newAsset.$el.fadeIn(200);
+        this.newAssetFooter.empty();
+        return this._updateUIStateFirstAdd();
+      }
 
-    handleStateUploading: () ->
-      @navigateToSubmissionView()
-      @newAssetFooter.empty()
-      @_updateUIStateUploading()
+      navigateToSubmissionView() {
+        return Vocat.router.navigate(`${this.model.detailUrl()}`, false);
+      }
 
-    handleStateList: () ->
-      @navigateToSubmissionView()
-      if @newAssetFooter.currentView?
-        @newAssetFooter.$el.fadeOut(200)
-      if @newAsset.currentView?
-        @newAsset.$el.fadeOut(200, () =>
-          @newAsset.empty()
-          @assets.show(@_assetCollectionView())
-        )
-      else
-        @assets.show(@_assetCollectionView())
+      handleStateManage() {
+        this.navigateToSubmissionView();
+        if (this.newAsset.currentView == null) {
+          this.newAsset.show(this._newAssetView());
+        }
+        if (this.newAssetFooter.currentView == null) {
+          this.newAssetFooter.show(this._newAssetFooterView());
+        }
+        this.newAsset.$el.fadeIn(200);
+        this.newAssetFooter.$el.fadeIn(200);
+        this.assets.show(this._assetCollectionView());
+        return this._updateUIStateManage();
+      }
 
-      @_updateUIStateList()
+      handleStateDetail(assetId) {
+        const asset = new AssetModel({id: assetId});
+        // TODO—do we need to ajax fetch this, if we already have it nested on the submission model?
+        return asset.fetch({
+          success: () => {
+            if (asset.get('submission_id') !== this.model.id) {
+              return this.setState('list');
+            } else {
+              let label;
+              if (asset.get('name')) {
+                label = `${asset.get('name')}`;
+              } else {
+                let family = asset.get('family');
+                family = family.charAt(0).toUpperCase() + family.slice(1);
+                label = `${family} media`;
+              }
+              this.ui.detailHeaderContent.html(label);
+              this.newAsset.empty();
+              this.newAssetFooter.empty();
+              Vocat.router.navigate(`${this.model.detailUrl()}/asset/${assetId}`, false);
+              this.assets.show(this._assetDetail(asset));
+              return this._updateUIStateDetail();
+            }
+          }
+        });
+      }
 
-    handleStateFirstAdd: () ->
-      @navigateToSubmissionView()
-      @assets.empty()
-      @newAsset.show(@_newAssetView())
-      @newAsset.$el.fadeIn(200)
-      @newAssetFooter.empty()
-      @_updateUIStateFirstAdd()
+      onRequestStateUploading() {
+        return this.setState('uploading');
+      }
 
-    navigateToSubmissionView: () ->
-      Vocat.router.navigate("#{@model.detailUrl()}", false)
+      onRequestStateManage() {
+        if (this.collection.length === 0) {
+          return this.setState('firstAdd');
+        } else {
+          return this.setState('manage');
+        }
+      }
 
-    handleStateManage: () ->
-      @navigateToSubmissionView()
-      unless @newAsset.currentView?
-        @newAsset.show(@_newAssetView())
-      unless @newAssetFooter.currentView?
-        @newAssetFooter.show(@_newAssetFooterView())
-      @newAsset.$el.fadeIn(200)
-      @newAssetFooter.$el.fadeIn(200)
-      @assets.show(@_assetCollectionView())
-      @_updateUIStateManage()
+      onRequestStateDetail() {
+        return this.setState('detail');
+      }
 
-    handleStateDetail: (assetId) ->
-      asset = new AssetModel({id: assetId})
-      # TODO—do we need to ajax fetch this, if we already have it nested on the submission model?
-      asset.fetch({
-        success: () =>
-          if asset.get('submission_id') != @model.id
-            @setState('list')
-          else
-            if asset.get('name')
-              label = "#{asset.get('name')}"
-            else
-              family = asset.get('family')
-              family = family.charAt(0).toUpperCase() + family.slice(1)
-              label = "#{family} media"
-            @ui.detailHeaderContent.html(label)
-            @newAsset.empty()
-            @newAssetFooter.empty()
-            Vocat.router.navigate("#{@model.detailUrl()}/asset/#{assetId}", false)
-            @assets.show(@_assetDetail(asset))
-            @_updateUIStateDetail()
-      })
+      onRequestStateList() {
+        return this.setState('list');
+      }
 
-    onRequestStateUploading: () ->
-      @setState('uploading')
+      renderCollectionView() {
+        if (this.assets.currentView != null) {
+          return this.assets.currentView.render();
+        }
+      }
 
-    onRequestStateManage: () ->
-      if @collection.length == 0
-        @setState('firstAdd')
-      else
-        @setState('manage')
+      _updateUIStateList() {
+        this.ui.detailHeader.hide();
+        this.ui.assetCollectionHeader.show();
+        this._hideButton(this.ui.closeLink);
+        this._hideButton(this.ui.stopManagingLink);
+        if (this.canAttach) {
+          return this._showButton(this.ui.manageLink);
+        } else {
+          return this._hideButton(this.ui.manageLink);
+        }
+      }
 
-    onRequestStateDetail: () ->
-      @setState('detail')
+      _updateUIStateUploading() {
+        this.ui.detailHeader.hide();
+        this.ui.assetCollectionHeader.show();
+        this._hideButton(this.ui.closeLink);
+        this._hideButton(this.ui.stopManagingLink);
+        return this._hideButton(this.ui.manageLink);
+      }
 
-    onRequestStateList: () ->
-      @setState('list')
+      _updateUIStateFirstAdd() {
+        this.ui.detailHeader.hide();
+        this.ui.assetCollectionHeader.show();
+        this.$el.addClass('empty-list');
+        this._hideButton(this.ui.closeLink);
+        this._showButton(this.ui.stopManagingLink);
+        return this._hideButton(this.ui.manageLink);
+      }
 
-    renderCollectionView: () ->
-      if @assets.currentView?
-        @assets.currentView.render()
+      _updateUIStateManage() {
+        this.ui.detailHeader.hide();
+        this.ui.assetCollectionHeader.show();
+        this.$el.removeClass('empty-list');
+        this._hideButton(this.ui.closeLink);
+        this._showButton(this.ui.stopManagingLink);
+        return this._hideButton(this.ui.manageLink);
+      }
 
-    _updateUIStateList: () ->
-      @ui.detailHeader.hide()
-      @ui.assetCollectionHeader.show()
-      @_hideButton(@ui.closeLink)
-      @_hideButton(@ui.stopManagingLink)
-      if @canAttach
-        @_showButton(@ui.manageLink)
-      else
-        @_hideButton(@ui.manageLink)
+      _updateUIStateDetail() {
+        this.ui.detailHeader.show();
+        this.ui.assetCollectionHeader.hide();
+        this._showButton(this.ui.closeLink);
+        this._hideButton(this.ui.stopManagingLink);
+        return this._hideButton(this.ui.manageLink);
+      }
 
-    _updateUIStateUploading: () ->
-      @ui.detailHeader.hide()
-      @ui.assetCollectionHeader.show()
-      @_hideButton(@ui.closeLink)
-      @_hideButton(@ui.stopManagingLink)
-      @_hideButton(@ui.manageLink)
+      _assetCollectionView() {
+        return new AssetCollectionView({
+          collection: this.collection,
+          vent: this,
+          project: this.model.project(),
+          abilities: this.model.get('abilities')
+        });
+      }
 
-    _updateUIStateFirstAdd: () ->
-      @ui.detailHeader.hide()
-      @ui.assetCollectionHeader.show()
-      @$el.addClass('empty-list')
-      @_hideButton(@ui.closeLink)
-      @_showButton(@ui.stopManagingLink)
-      @_hideButton(@ui.manageLink)
+      _newAssetView() {
+        return new NewAssetView({collection: this.collection, model: this.model.project(), vent: this});
+      }
 
-    _updateUIStateManage: () ->
-      @ui.detailHeader.hide()
-      @ui.assetCollectionHeader.show()
-      @$el.removeClass('empty-list')
-      @_hideButton(@ui.closeLink)
-      @_showButton(@ui.stopManagingLink)
-      @_hideButton(@ui.manageLink)
+      _newAssetFooterView() {
+        return new NewAssetFooterView({vent: this});
+      }
 
-    _updateUIStateDetail: () ->
-      @ui.detailHeader.show()
-      @ui.assetCollectionHeader.hide()
-      @_showButton(@ui.closeLink)
-      @_hideButton(@ui.stopManagingLink)
-      @_hideButton(@ui.manageLink)
+      _assetDetail(asset) {
+        return new AssetDetail({courseId: this.courseId, model: asset, context: 'submission'});
+      }
 
-    _assetCollectionView: () ->
-      new AssetCollectionView({
-        collection: @collection,
-        vent: @,
-        project: @model.project(),
-        abilities: @model.get('abilities')
-      })
+      _hideButton(button) {
+        return button.css({display: 'none'});
+      }
 
-    _newAssetView: () ->
-      new NewAssetView({collection: @collection, model: @model.project(), vent: @})
+      _showButton(button) {
+        return button.css({display: 'inline-block'});
+      }
 
-    _newAssetFooterView: () ->
-      new NewAssetFooterView({vent: @})
+      setupListeners() {
+        this.listenTo(this, 'asset:detail', args => {
+          return this.setState('detail', args.asset);
+        });
+        this.listenTo(this, 'request:state', args => {
+          return this.trigger('announce:state', this.state);
+        });
+        this.listenTo(this.collection, 'reset', e => {
+          return this.renderCollectionView();
+        });
+        return this.listenTo(this.collection, 'add remove', e => {
+          return this.handleCollectionAddRemove();
+        });
+      }
 
-    _assetDetail: (asset) ->
-      new AssetDetail({courseId: @courseId, model: asset, context: 'submission'})
+      onRender() {
+        return this.setState('list');
+      }
 
-    _hideButton: (button) ->
-      button.css(display: 'none')
-
-    _showButton: (button) ->
-      button.css(display: 'inline-block')
-
-    setupListeners: () ->
-      @listenTo(@, 'asset:detail', (args) =>
-        @setState('detail', args.asset)
-      )
-      @listenTo(@, 'request:state', (args) =>
-        @trigger('announce:state', @state)
-      )
-      @listenTo(@collection, 'reset', (e) =>
-        @renderCollectionView()
-      )
-      @listenTo(@collection, 'add remove', (e) =>
-        @handleCollectionAddRemove()
-      )
-
-    onRender: () ->
-      @setState('list')
-
-    # @model is a submission model.
-    initialize: (options) ->
-      @courseMapContext = Marionette.getOption(@, 'courseMapContext')
-      @courseId = Marionette.getOption(@, 'courseId')
-      abilities = @model.get('abilities')
-      @canAttach = abilities.can_attach
-      @setupListeners()
-      if options.initialAsset
-        @setState('detail', options.initialAsset)
+      // @model is a submission model.
+      initialize(options) {
+        this.courseMapContext = Marionette.getOption(this, 'courseMapContext');
+        this.courseId = Marionette.getOption(this, 'courseId');
+        const abilities = this.model.get('abilities');
+        this.canAttach = abilities.can_attach;
+        this.setupListeners();
+        if (options.initialAsset) {
+          return this.setState('detail', options.initialAsset);
+        }
+      }
+    };
+    AssetsLayout.initClass();
+    return AssetsLayout;
+  })();
+});

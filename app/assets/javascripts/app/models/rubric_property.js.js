@@ -1,35 +1,58 @@
-define ['backbone'], (Backbone) ->
-  class RubricProperty extends Backbone.Model
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS207: Consider shorter variations of null checks
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(['backbone'], function(Backbone) {
+  let RubricProperty;
+  return RubricProperty = (function() {
+    RubricProperty = class RubricProperty extends Backbone.Model {
+      static initClass() {
+  
+        this.prototype.errorStrings = {};
+        this.prototype.idAttribute = "id";
+      }
 
-    errorStrings: {}
-    idAttribute: "id"
+      hasErrors() {
+        if (this.errors.length > 0) { return true; } else { return false; }
+      }
 
-    hasErrors: () ->
-      if @errors.length > 0 then true else false
+      errorMessages() {
+        const messages = new Array;
+        _.each(this.errors, (error, index, list) => {
+          let message;
+          if (this.errorStrings[error] != null) {
+            message = this.errorStrings[error];
+          } else {
+            message = error;
+          }
+          return messages.push(message);
+        });
+        return messages;
+      }
 
-    errorMessages: () ->
-      messages = new Array
-      _.each(@errors, (error, index, list) =>
-        if @errorStrings[error]?
-          message = @errorStrings[error]
-        else
-          message = error
-        messages.push(message)
-      )
-      messages
+      initialize() {
+        if ((this.get('id') == null)) { this.set('id', this.cid.replace('c', '')); }
+        return this.errors = new Array;
+      }
 
-    initialize: () ->
-      if !@get('id')? then @set('id', @cid.replace('c', ''))
-      @errors = new Array
+      addError(key) {
+        _.each(this.errors, function(error, index, list) {
+          if (error === key) { return list.splice(index, 1); }
+        });
+        return this.errors.push(key);
+      }
 
-    addError: (key) ->
-      _.each(@errors, (error, index, list) ->
-        if error == key then list.splice(index, 1)
-      )
-      @errors.push(key)
-
-    removeError: (error_key) ->
-      errors = _.uniq(@errors, false)
-      @errors = _.reject(errors, (error) =>
-        error == error_key
-      )
+      removeError(error_key) {
+        const errors = _.uniq(this.errors, false);
+        return this.errors = _.reject(errors, error => {
+          return error === error_key;
+        });
+      }
+    };
+    RubricProperty.initClass();
+    return RubricProperty;
+  })();
+});

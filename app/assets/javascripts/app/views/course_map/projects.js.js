@@ -1,54 +1,80 @@
-define (require) ->
-  Marionette = require('marionette')
-  Item = require('views/course_map/projects_item')
-  EmptyView = require('views/course_map/projects_empty')
-  template = require('hbs!templates/course_map/projects')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let CourseMapProjectsView;
+  const Marionette = require('marionette');
+  const Item = require('views/course_map/projects_item');
+  const EmptyView = require('views/course_map/projects_empty');
+  const template = require('hbs!templates/course_map/projects');
 
-  class CourseMapProjectsView extends Marionette.CompositeView
-
-    childView: Item
-    emptyView: EmptyView
-    tagName: 'thead'
-    template: template
-    ui: {
-      childContainer: '[data-container="children"]'
-    }
-
-    attachHtml: (collectionView, childView, index) ->
-      if collectionView.isBuffering
-        collectionView.elBuffer.appendChild(childView.el)
-      else
-        @ui.childContainer.append(childView.el)
-
-    attachBuffer: (collectionView, buffer) ->
-      @ui.childContainer.append(buffer)
-
-    childViewOptions: () ->
-      {
-      creatorType: @creatorType
-      vent: @vent
-      courseId: @options.courseId
+  return CourseMapProjectsView = (function() {
+    CourseMapProjectsView = class CourseMapProjectsView extends Marionette.CompositeView {
+      static initClass() {
+  
+        this.prototype.childView = Item;
+        this.prototype.emptyView = EmptyView;
+        this.prototype.tagName = 'thead';
+        this.prototype.template = template;
+        this.prototype.ui = {
+          childContainer: '[data-container="children"]'
+        };
       }
 
-    onChildviewActive: (view) ->
-      @vent.triggerMethod('col:active', {project: view.model})
+      attachHtml(collectionView, childView, index) {
+        if (collectionView.isBuffering) {
+          return collectionView.elBuffer.appendChild(childView.el);
+        } else {
+          return this.ui.childContainer.append(childView.el);
+        }
+      }
 
-    onChildviewInactive: (view) ->
-      @vent.triggerMethod('col:inactive', {project: view.model})
+      attachBuffer(collectionView, buffer) {
+        return this.ui.childContainer.append(buffer);
+      }
 
-    onChildviewDetail: (view) ->
-      @vent.triggerMethod('open:detail:project', {project: view.model})
+      childViewOptions() {
+        return {
+        creatorType: this.creatorType,
+        vent: this.vent,
+        courseId: this.options.courseId
+        };
+      }
 
-    initialize: (options) ->
-      @options = options || {}
-      @creatorType = Marionette.getOption(@, 'creatorType')
-      @vent = Marionette.getOption(@, 'vent')
+      onChildviewActive(view) {
+        return this.vent.triggerMethod('col:active', {project: view.model});
+      }
 
-    addChild: (item, ItemView, index) ->
-      if @creatorType == 'User'
-        return if item.get('accepts_group_submissions') == true
-      if @creatorType == 'Group'
-        return if item.get('accepts_group_submissions') == false
-      super
+      onChildviewInactive(view) {
+        return this.vent.triggerMethod('col:inactive', {project: view.model});
+      }
 
-    onShow: () ->
+      onChildviewDetail(view) {
+        return this.vent.triggerMethod('open:detail:project', {project: view.model});
+      }
+
+      initialize(options) {
+        this.options = options || {};
+        this.creatorType = Marionette.getOption(this, 'creatorType');
+        return this.vent = Marionette.getOption(this, 'vent');
+      }
+
+      addChild(item, ItemView, index) {
+        if (this.creatorType === 'User') {
+          if (item.get('accepts_group_submissions') === true) { return; }
+        }
+        if (this.creatorType === 'Group') {
+          if (item.get('accepts_group_submissions') === false) { return; }
+        }
+        return super.addChild(...arguments);
+      }
+
+      onShow() {}
+    };
+    CourseMapProjectsView.initClass();
+    return CourseMapProjectsView;
+  })();
+});

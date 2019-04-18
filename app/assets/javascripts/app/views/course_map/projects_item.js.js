@@ -1,80 +1,103 @@
-define (require) ->
-  Marionette = require('marionette')
-  template = require('hbs!templates/course_map/projects_item')
-  DropdownView = require('views/layout/dropdown')
-  ModalConfirmView = require('views/modal/modal_confirm')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let CourseMapProjectsItem;
+  const Marionette = require('marionette');
+  const template = require('hbs!templates/course_map/projects_item');
+  const DropdownView = require('views/layout/dropdown');
+  const ModalConfirmView = require('views/modal/modal_confirm');
 
-  class CourseMapProjectsItem extends Marionette.ItemView
+  return CourseMapProjectsItem = (function() {
+    CourseMapProjectsItem = class CourseMapProjectsItem extends Marionette.ItemView {
+      static initClass() {
+  
+        this.prototype.tagName = 'th';
+        this.prototype.template = template;
+        this.prototype.attributes = {
+          'data-behavior': 'navigate-project',
+          'data-match-height-source': ''
+        };
+  
+        this.prototype.ui = {
+          dropdowns: '[data-behavior="dropdown"]',
+          publishAll: '[data-behavior="publish-all"]',
+          unpublishAll: '[data-behavior="unpublish-all"]',
+          projectTitle: '[data-behavior="project-title"]'
+        };
+  
+        this.prototype.triggers = {
+          'mouseover @ui.projectTitle': 'active',
+          'mouseout @ui.projectTitle': 'inactive',
+          'click @ui.projectTitle': 'detail',
+          'click @ui.publishAll': 'click:publish',
+          'click @ui.unpublishAll': 'click:unpublish'
+        };
+      }
 
-    tagName: 'th'
-    template: template
-    attributes: {
-      'data-behavior': 'navigate-project'
-      'data-match-height-source': ''
-    }
+      serializeData() {
+        const data = super.serializeData();
+        if (this.creatorType === 'Group') {
+          data.isGroup = true;
+          data.isUser = false;
+        }
+        if (this.creatorType === 'User') {
+          data.isGroup = false;
+          data.isUser = true;
+        }
+        data.courseId = this.options.courseId;
+        data.userCanAdministerCourse = window.VocatUserCourseAdministrator;
+        return data;
+      }
 
-    ui: {
-      dropdowns: '[data-behavior="dropdown"]'
-      publishAll: '[data-behavior="publish-all"]'
-      unpublishAll: '[data-behavior="unpublish-all"]'
-      projectTitle: '[data-behavior="project-title"]'
-    }
+      initialize(options) {
+        this.creatorType = Marionette.getOption(this, 'creatorType');
+        this.$el.attr('data-project', this.model.id);
+        return this.vent = options.vent;
+      }
 
-    triggers: {
-      'mouseover @ui.projectTitle': 'active'
-      'mouseout @ui.projectTitle': 'inactive'
-      'click @ui.projectTitle': 'detail'
-      'click @ui.publishAll': 'click:publish'
-      'click @ui.unpublishAll': 'click:unpublish'
-    }
+      onShow() {
+        return this.ui.dropdowns.each((index, el) => new DropdownView({el, vent: Vocat.vent, allowAdjustment: false}));
+      }
 
-    serializeData: () ->
-      data = super()
-      if @creatorType == 'Group'
-        data.isGroup = true
-        data.isUser = false
-      if @creatorType == 'User'
-        data.isGroup = false
-        data.isUser = true
-      data.courseId = @options.courseId
-      data.userCanAdministerCourse = window.VocatUserCourseAdministrator
-      data
+      onDetail() {
+        return this.vent.triggerMethod('navigate:project', {project: this.model.id});
+      }
 
-    initialize: (options) ->
-      @creatorType = Marionette.getOption(@, 'creatorType')
-      @$el.attr('data-project', @model.id)
-      @vent = options.vent
+      onClickPublish() {
+        return Vocat.vent.trigger('modal:open', new ModalConfirmView({
+          model: this.model,
+          vent: this,
+          headerLabel: "Are You Sure?",
+          descriptionLabel: `If you proceed, all of your evaluations for \"${this.model.get('name')}\" will be visible to students in the course.`,
+          confirmEvent: 'confirm:publish',
+          dismissEvent: 'dismiss:publish'
+        }));
+      }
 
-    onShow: () ->
-      @ui.dropdowns.each((index, el) ->
-        new DropdownView({el: el, vent: Vocat.vent, allowAdjustment: false})
-      )
+      onClickUnpublish() {
+        return Vocat.vent.trigger('modal:open', new ModalConfirmView({
+          model: this.model,
+          vent: this,
+          headerLabel: "Are You Sure?",
+          descriptionLabel: `If you proceed, all of your evaluations for \"${this.model.get('name')}\" will no longer be visible to students in the course.`,
+          confirmEvent: 'confirm:unpublish',
+          dismissEvent: 'dismiss:unpublish'
+        }));
+      }
 
-    onDetail: () ->
-      @vent.triggerMethod('navigate:project', {project: @model.id})
+      onConfirmPublish() {
+        return this.vent.triggerMethod('evaluations:publish', this.model);
+      }
 
-    onClickPublish: () ->
-      Vocat.vent.trigger('modal:open', new ModalConfirmView({
-        model: @model,
-        vent: @,
-        headerLabel: "Are You Sure?"
-        descriptionLabel: "If you proceed, all of your evaluations for \"#{@model.get('name')}\" will be visible to students in the course.",
-        confirmEvent: 'confirm:publish',
-        dismissEvent: 'dismiss:publish'
-      }))
-
-    onClickUnpublish: () ->
-      Vocat.vent.trigger('modal:open', new ModalConfirmView({
-        model: @model,
-        vent: @,
-        headerLabel: "Are You Sure?"
-        descriptionLabel: "If you proceed, all of your evaluations for \"#{@model.get('name')}\" will no longer be visible to students in the course.",
-        confirmEvent: 'confirm:unpublish',
-        dismissEvent: 'dismiss:unpublish'
-      }))
-
-    onConfirmPublish: () ->
-      @vent.triggerMethod('evaluations:publish', @model)
-
-    onConfirmUnpublish: () ->
-      @vent.triggerMethod('evaluations:unpublish', @model)
+      onConfirmUnpublish() {
+        return this.vent.triggerMethod('evaluations:unpublish', this.model);
+      }
+    };
+    CourseMapProjectsItem.initClass();
+    return CourseMapProjectsItem;
+  })();
+});

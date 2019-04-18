@@ -1,79 +1,102 @@
-define (require) ->
-  Marionette = require('marionette')
-  template = require('hbs!templates/admin/enrollment/confirm_invite')
-  GlobalNotification = require('behaviors/global_notification')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let ConfirmInvite;
+  const Marionette = require('marionette');
+  const template = require('hbs!templates/admin/enrollment/confirm_invite');
+  const GlobalNotification = require('behaviors/global_notification');
 
-  class ConfirmInvite extends Marionette.ItemView
-
-    template: template
-
-    klass: 'confirmInvite'
-
-    ui: {
-      button: '[data-behavior="submit-invite-and-enroll"]'
-    }
-
-    triggers: {
-      'click [data-behavior="cancel-invite-and-enroll"]': 'cancel'
-      'click [data-behavior="submit-invite-and-enroll"]': 'submit'
-    }
-
-    behaviors: {
-      globalNotification: {
-        behaviorClass: GlobalNotification
+  return ConfirmInvite = (function() {
+    ConfirmInvite = class ConfirmInvite extends Marionette.ItemView {
+      static initClass() {
+  
+        this.prototype.template = template;
+  
+        this.prototype.klass = 'confirmInvite';
+  
+        this.prototype.ui = {
+          button: '[data-behavior="submit-invite-and-enroll"]'
+        };
+  
+        this.prototype.triggers = {
+          'click [data-behavior="cancel-invite-and-enroll"]': 'cancel',
+          'click [data-behavior="submit-invite-and-enroll"]': 'submit'
+        };
+  
+        this.prototype.behaviors = {
+          globalNotification: {
+            behaviorClass: GlobalNotification
+          }
+        };
       }
-    }
 
-    onCancel: () ->
-      Vocat.vent.trigger('notification:empty')
-
-    onSubmit: () ->
-      contact_strings = new Array
-      _.each(@contacts, (contact) ->
-        contact_strings.push(contact.string)
-      )
-      contact_string = contact_strings.join("\n")
-      @ui.button.addClass('loading')
-      if @collection.searchType() == 'user'
-        endpoint = @collection.bulkUrl()
-      $.ajax(endpoint, {
-        type: 'POST'
-        dataType: 'json'
-        data: {contacts: contact_string, invite: true}
-        success: (data, textStatus, jqXHR) =>
-          @handleSubmitSuccess(jqXHR.responseJSON)
-        error: (jqXHR, textStatus, error) =>
-          Vocat.vent.trigger('error:add', {level: 'error', lifetime: 5000, msg: jqXHR.responseJSON.errors})
-          @ui.button.removeClass('loading')
-          @onCancel()
-      })
-
-    handleSubmitSuccess: (response) ->
-      @ui.button.removeClass('loading')
-      successes = []
-      failures = []
-      _.each(response, (contact) =>
-        if contact.success == true
-          successes.push contact
-        else
-          failures.push contact
-      )
-
-      @collection.fetch()
-      @onCancel()
-
-      Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 10000, msg: _.pluck(successes, 'message')})
-      Vocat.vent.trigger('error:add', {level: 'error', lifetime: 10000, msg: _.pluck(failures, 'message')})
-
-    initialize: (options) ->
-      @contacts = options.contacts
-      @vent = options.vent
-
-    serializeData: () ->
-      out = {
-        contact_emails: _.pluck(@contacts, 'email').join(', ')
-        contacts_count: @contacts.length
-        multiple_contacts: @contacts.length > 1
-        contacts: @contacts
+      onCancel() {
+        return Vocat.vent.trigger('notification:empty');
       }
-      out
+
+      onSubmit() {
+        let endpoint;
+        const contact_strings = new Array;
+        _.each(this.contacts, contact => contact_strings.push(contact.string));
+        const contact_string = contact_strings.join("\n");
+        this.ui.button.addClass('loading');
+        if (this.collection.searchType() === 'user') {
+          endpoint = this.collection.bulkUrl();
+        }
+        return $.ajax(endpoint, {
+          type: 'POST',
+          dataType: 'json',
+          data: {contacts: contact_string, invite: true},
+          success: (data, textStatus, jqXHR) => {
+            return this.handleSubmitSuccess(jqXHR.responseJSON);
+          },
+          error: (jqXHR, textStatus, error) => {
+            Vocat.vent.trigger('error:add', {level: 'error', lifetime: 5000, msg: jqXHR.responseJSON.errors});
+            this.ui.button.removeClass('loading');
+            return this.onCancel();
+          }
+        });
+      }
+
+      handleSubmitSuccess(response) {
+        this.ui.button.removeClass('loading');
+        const successes = [];
+        const failures = [];
+        _.each(response, contact => {
+          if (contact.success === true) {
+            return successes.push(contact);
+          } else {
+            return failures.push(contact);
+          }
+        });
+
+        this.collection.fetch();
+        this.onCancel();
+
+        Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 10000, msg: _.pluck(successes, 'message')});
+        return Vocat.vent.trigger('error:add', {level: 'error', lifetime: 10000, msg: _.pluck(failures, 'message')});
+      }
+
+      initialize(options) {
+        this.contacts = options.contacts;
+        return this.vent = options.vent;
+      }
+
+      serializeData() {
+        const out = {
+          contact_emails: _.pluck(this.contacts, 'email').join(', '),
+          contacts_count: this.contacts.length,
+          multiple_contacts: this.contacts.length > 1,
+          contacts: this.contacts
+        };
+        return out;
+      }
+    };
+    ConfirmInvite.initClass();
+    return ConfirmInvite;
+  })();
+});

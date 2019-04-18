@@ -1,14 +1,31 @@
-define (require) ->
-  Marionette = require('marionette')
-  Backbone = require('backbone')
-  SubmissionModel = require('models/submission')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let SubmissionCollection;
+  const Marionette = require('marionette');
+  const Backbone = require('backbone');
+  const SubmissionModel = require('models/submission');
 
-  class SubmissionCollection extends Backbone.Collection
+  return SubmissionCollection = (function() {
+    SubmissionCollection = class SubmissionCollection extends Backbone.Collection {
+      static initClass() {
+  
+        this.prototype.model = SubmissionModel;
+      }
 
-    model: SubmissionModel
+      initialize(models, options) {
+        return this.options = options;
+      }
 
-    initialize: (models, options) ->
-      @options = options
-
-    comparator: (submission) ->
-      submission.get('project_name')
+      comparator(submission) {
+        return submission.get('project_name');
+      }
+    };
+    SubmissionCollection.initClass();
+    return SubmissionCollection;
+  })();
+});

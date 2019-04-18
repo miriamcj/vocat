@@ -1,47 +1,70 @@
-define (require) ->
-  Marionette = require('marionette')
-  template = require('hbs!templates/assets/player/image_displayer')
-  PlayerAnnotations = require('views/assets/player/player_annotations')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let ImageDisplayerView;
+  const Marionette = require('marionette');
+  const template = require('hbs!templates/assets/player/image_displayer');
+  const PlayerAnnotations = require('views/assets/player/player_annotations');
 
-  class ImageDisplayerView extends Marionette.LayoutView
-
-    template: template
-    regions: {
-      annotationsContainer: '[data-region="annotation-container"]'
-    }
-
-    ui: {
-      annotationContainer: '[data-behavior="annotation-container"]'
-    }
-
-    initialize: (options) ->
-      @vent = options.vent
-
-    onShow: () ->
-      @setupListeners()
-      @annotationsContainer.show(new PlayerAnnotations({model: @model, vent: @vent}))
-
-    handleTimeUpdate: (data) ->
-      if data.hasOwnProperty('callback') && _.isFunction(data.callback)
-        data.callback.apply(data.scope)
-
-    setupListeners: () ->
-      @listenTo(@vent, 'request:status', (data) => @handleStatusRequest())
-      @listenTo(@vent, 'request:time:update', @handleTimeUpdate, @)
-      @listenTo(@vent, 'request:pause', (data) => @handlePauseRequest())
-      @listenTo(@vent, 'announce:annotator:input:start', (data) => @handlePauseRequest())
-
-    getStatus: () ->
-      {
-      bufferedPercent: 0
-      playedPercent: 0
-      playedSeconds: 0
-      duration: 0
+  return ImageDisplayerView = (function() {
+    ImageDisplayerView = class ImageDisplayerView extends Marionette.LayoutView {
+      static initClass() {
+  
+        this.prototype.template = template;
+        this.prototype.regions = {
+          annotationsContainer: '[data-region="annotation-container"]'
+        };
+  
+        this.prototype.ui = {
+          annotationContainer: '[data-behavior="annotation-container"]'
+        };
       }
 
-    handlePauseRequest: () ->
-      @vent.trigger('announce:paused', @getStatus())
+      initialize(options) {
+        return this.vent = options.vent;
+      }
 
-    handleStatusRequest: () ->
-      @vent.trigger('announce:status', @getStatus())
+      onShow() {
+        this.setupListeners();
+        return this.annotationsContainer.show(new PlayerAnnotations({model: this.model, vent: this.vent}));
+      }
+
+      handleTimeUpdate(data) {
+        if (data.hasOwnProperty('callback') && _.isFunction(data.callback)) {
+          return data.callback.apply(data.scope);
+        }
+      }
+
+      setupListeners() {
+        this.listenTo(this.vent, 'request:status', data => this.handleStatusRequest());
+        this.listenTo(this.vent, 'request:time:update', this.handleTimeUpdate, this);
+        this.listenTo(this.vent, 'request:pause', data => this.handlePauseRequest());
+        return this.listenTo(this.vent, 'announce:annotator:input:start', data => this.handlePauseRequest());
+      }
+
+      getStatus() {
+        return {
+        bufferedPercent: 0,
+        playedPercent: 0,
+        playedSeconds: 0,
+        duration: 0
+        };
+      }
+
+      handlePauseRequest() {
+        return this.vent.trigger('announce:paused', this.getStatus());
+      }
+
+      handleStatusRequest() {
+        return this.vent.trigger('announce:status', this.getStatus());
+      }
+    };
+    ImageDisplayerView.initClass();
+    return ImageDisplayerView;
+  })();
+});
 

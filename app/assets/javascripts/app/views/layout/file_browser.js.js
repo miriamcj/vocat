@@ -1,31 +1,48 @@
-define (require) ->
-  Marionette = require('marionette')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let FileBrowserView;
+  const Marionette = require('marionette');
 
-  class FileBrowserView extends Marionette.ItemView
+  return FileBrowserView = (function() {
+    FileBrowserView = class FileBrowserView extends Marionette.ItemView {
+      static initClass() {
+  
+        this.prototype.events = {
+          'click @ui.fileClear': 'clearFile',
+          'change': 'updateDisplay'
+        };
+  
+        this.prototype.ui = {
+          fileClear: '[data-behavior="file-clear"]',
+          fileDisplay: '[data-behavior="file-display"]',
+          fileDelete: '[data-behavior="file-delete"]',
+          avatarPreview: '[data-region="avatar-preview"]'
+        };
+      }
 
-    events: {
-      'click @ui.fileClear': 'clearFile'
-      'change': 'updateDisplay'
-    }
+      clearFile() {
+        this.fileDisplay.innerText = "Choose File...";
+        this.fileDelete.checked = true;
+        return this.avatarPreview.remove();
+      }
 
-    ui: {
-      fileClear: '[data-behavior="file-clear"]'
-      fileDisplay: '[data-behavior="file-display"]'
-      fileDelete: '[data-behavior="file-delete"]'
-      avatarPreview: '[data-region="avatar-preview"]'
-    }
+      updateDisplay(event) {
+        this.fileDisplay.innerHTML = event.target.files[0].name;
+        return this.fileDelete.checked = false;
+      }
 
-    clearFile: () ->
-      @fileDisplay.innerText = "Choose File..."
-      @fileDelete.checked = true
-      @avatarPreview.remove()
-
-    updateDisplay: (event) ->
-      @fileDisplay.innerHTML = event.target.files[0].name
-      @fileDelete.checked = false
-
-    initialize: (options) ->
-      @vent = options.vent
-      @fileDisplay = $(@ui.fileDisplay)[0]
-      @fileDelete = $(@ui.fileDelete)[0]
-      @avatarPreview = $(@ui.avatarPreview)[0]
+      initialize(options) {
+        this.vent = options.vent;
+        this.fileDisplay = $(this.ui.fileDisplay)[0];
+        this.fileDelete = $(this.ui.fileDelete)[0];
+        return this.avatarPreview = $(this.ui.avatarPreview)[0];
+      }
+    };
+    FileBrowserView.initClass();
+    return FileBrowserView;
+  })();});

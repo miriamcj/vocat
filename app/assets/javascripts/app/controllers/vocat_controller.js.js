@@ -1,45 +1,71 @@
-define (require) ->
-  Marionette = require('marionette')
-  LoadingView = require('views/layout/loading')
-  ModalErrorView = require('views/modal/modal_error')
-  $ = require('jquery_rails')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS207: Consider shorter variations of null checks
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let VocatController;
+  const Marionette = require('marionette');
+  const LoadingView = require('views/layout/loading');
+  const ModalErrorView = require('views/modal/modal_error');
+  const $ = require('jquery_rails');
 
-  class VocatController extends Marionette.Controller
+  return VocatController = (function() {
+    VocatController = class VocatController extends Marionette.Controller {
+      static initClass() {
+  
+        this.prototype.collections = {
+        };
+      }
 
-    collections: {
-    }
+      initialize() {
+        return this.bootstrapCollections();
+      }
 
-    initialize: () ->
-      @bootstrapCollections()
+      isBlank(str) {
+        if (str === null) { str = ''; }
+        return (/^\s*$/).test(str);
+      }
 
-    isBlank: (str) ->
-      if str == null then str = ''
-      (/^\s*$/).test(str)
+      deferredCollectionFetching(collection, data, msg) {
+        if (msg == null) { msg = "loading..."; }
+        const deferred = $.Deferred();
+        window.Vocat.main.show(new LoadingView({msg}));
+        collection.fetch({
+          reset: true,
+          data,
+          error: () => {
+            return Vocat.vent.trigger('modal:open', new ModalErrorView({
+              model: this.model,
+              vent: this,
+              message: 'Exception: Unable to fetch collection models. Please report this error to your VOCAT administrator.',
+            }));
+          },
+          success: () => {
+            return deferred.resolve();
+          }
+        });
+        return deferred;
+      }
 
-    deferredCollectionFetching: (collection, data, msg = "loading...") ->
-      deferred = $.Deferred()
-      window.Vocat.main.show(new LoadingView(msg: msg))
-      collection.fetch({
-        reset: true
-        data: data
-        error: () =>
-          Vocat.vent.trigger('modal:open', new ModalErrorView({
-            model: @model,
-            vent: @,
-            message: 'Exception: Unable to fetch collection models. Please report this error to your VOCAT administrator.',
-          }))
-        success: () =>
-          deferred.resolve()
-      })
-      deferred
-
-    bootstrapCollections: () ->
-      _.each @collections, (collection, collectionKey) =>
-        dataContainer = $("#bootstrap-#{collectionKey}")
-        if dataContainer.length > 0
-          div = $('<div></div>')
-          div.html dataContainer.text()
-          text = div.text()
-          if !@isBlank(text)
-            data = JSON.parse(text)
-            if data[collectionKey]? then collection.reset(data[collectionKey])
+      bootstrapCollections() {
+        return _.each(this.collections, (collection, collectionKey) => {
+          const dataContainer = $(`#bootstrap-${collectionKey}`);
+          if (dataContainer.length > 0) {
+            const div = $('<div></div>');
+            div.html(dataContainer.text());
+            const text = div.text();
+            if (!this.isBlank(text)) {
+              const data = JSON.parse(text);
+              if (data[collectionKey] != null) { return collection.reset(data[collectionKey]); }
+            }
+          }
+        });
+      }
+    };
+    VocatController.initClass();
+    return VocatController;
+  })();
+});

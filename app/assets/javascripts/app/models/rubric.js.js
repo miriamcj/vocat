@@ -1,163 +1,208 @@
-define (require) ->
-  AbstractModel = require('models/abstract_model')
-  FieldCollection = require('collections/field_collection')
-  RangeCollection = require('collections/range_collection')
-  CellCollection = require('collections/cell_collection')
-  RangeModel = require('models/range')
-  FieldModel = require('models/field')
-  CellModel = require('models/cell')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS207: Consider shorter variations of null checks
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let Rubric;
+  const AbstractModel = require('models/abstract_model');
+  const FieldCollection = require('collections/field_collection');
+  const RangeCollection = require('collections/range_collection');
+  const CellCollection = require('collections/cell_collection');
+  const RangeModel = require('models/range');
+  const FieldModel = require('models/field');
+  const CellModel = require('models/cell');
 
-  class Rubric extends AbstractModel
+  return Rubric = (function() {
+    Rubric = class Rubric extends AbstractModel {
+      static initClass() {
+  
+        this.prototype.courseId = null;
+  
+        this.prototype.defaults = {
+          low: 0,
+          high: 1
+        };
+      }
 
-    courseId: null
+      urlRoot() {
+        return '/api/v1/rubrics';
+      }
 
-    urlRoot: () ->
-      '/api/v1/rubrics'
+      initialize(options) {
+        this.set('fields', new FieldCollection(_.toArray(this.get('fields'))));
+        this.set('ranges', new RangeCollection(_.toArray(this.get('ranges'))));
+        this.set('cells', new CellCollection(_.toArray(this.get('cells')), {}));
 
-    defaults: {
-      low: 0
-      high: 1
-    }
+        this.listenTo(this.get('fields'), 'add remove', function(e) {
+          return this.trigger('change');
+        });
 
-    initialize: (options) ->
-      @set 'fields', new FieldCollection(_.toArray(@get('fields')))
-      @set 'ranges', new RangeCollection(_.toArray(@get('ranges')))
-      @set 'cells', new CellCollection(_.toArray(@get('cells')), {})
+        this.listenTo(this.get('ranges'), 'add remove', function(e) {
+          return this.trigger('change');
+        });
 
-      @listenTo(@get('fields'), 'add remove', (e) ->
-        @trigger('change')
-      )
+        this.get('fields').bind('add', field => {
+          return this.get('ranges').each(range => {
+            const cell = new CellModel({range: range.id, field: field.id});
+            cell.fieldModel = field;
+            cell.rangeModel = range;
+            return this.get('cells').add(cell);
+          });
+        });
 
-      @listenTo(@get('ranges'), 'add remove', (e) ->
-        @trigger('change')
-      )
+        this.get('fields').bind('remove', field => {
+          return this.get('cells').remove(this.get('cells').where({field: field.id}));
+        });
 
-      @get('fields').bind 'add', (field) =>
-        @get('ranges').each((range) =>
-          cell = new CellModel({range: range.id, field: field.id})
-          cell.fieldModel = field
-          cell.rangeModel = range
-          @get('cells').add(cell)
-        )
+        this.get('ranges').bind('add', range => {
+          return this.get('fields').each(field => {
+            const cell = new CellModel({range: range.id, field: field.id});
+            cell.fieldModel = field;
+            cell.rangeModel = range;
+            return this.get('cells').add(cell);
+          });
+        });
 
-      @get('fields').bind 'remove', (field) =>
-        @get('cells').remove(@get('cells').where({field: field.id}))
-
-      @get('ranges').bind 'add', (range) =>
-        @get('fields').each((field) =>
-          cell = new CellModel({range: range.id, field: field.id})
-          cell.fieldModel = field
-          cell.rangeModel = range
-          @get('cells').add(cell)
-        )
-
-      @get('ranges').bind 'remove', (range) =>
-        @get('cells').remove(@get('cells').where({range: range.id}))
-
-
-    getFieldNameById: (fieldId) ->
-      field = @get('fields').findWhere({id: fieldId})
-      if field? then field.get('name')
-
-    getRangeString: () ->
-      values = @getLows()
-      values.push @getHigh()
-      values.join(' ')
-
-    availableRanges: () ->
-      maxRanges = @get('high') - @get('low') + 1
-      rangeCount = @get('ranges').length
-      rangeCount + 1 <= maxRanges
-
-    getLows: () ->
-      ranges = @get('ranges')
-      if ranges.length > 0 then lows = ranges.pluck('low')
-      lows
-
-    getHigh: () ->
-      @get('high')
-
-    getLow: () ->
-      @get('low')
-
-    getLows: () ->
-      @get('ranges').pluck('low')
-
-    isValidLow: (low) ->
-      difference = @getHigh() - parseInt(low)
-      out = difference >= (@get('ranges').length - 1)
-      out
-
-    isValidHigh: (high) ->
-      difference = parseInt(high) - @getLow()
-      difference >= @get('ranges').length - 1
-
-    setLow: (value) ->
-      @set('low', parseInt(value))
-
-    setHigh: (value) ->
-      @set('high', parseInt(value))
-
-    getRangeForScore: (score) ->
-      @get('ranges').find((range) ->
-        s = parseInt(score)
-        s >= range.get('low') && s <= range.get('high')
-      )
-
-    getDescriptionByFieldAndScore: (fieldId, score) ->
-      range = @getRangeForScore(score)
-      desc = @getCellDescription(fieldId, range.id)
-      desc
-
-    getCellDescription: (fieldId, rangeId) ->
-      cell = @get('cells').findWhere({field: fieldId, range: rangeId})
-      if cell? then cell.get('description')
-
-    parse: (response, options) ->
-      if response?
-        @set 'fields', new FieldCollection unless @get('fields')
-        @set 'ranges', new RangeCollection unless @get('ranges')
-        @set 'cells', new CellCollection unless @get('cells')
-
-        _.each(response.ranges, (range, index) =>
-          range.index = index
-          range = new RangeModel(range)
-          @get('ranges').add(range, {silent: true})
-        )
-
-        _.each(response.fields, (field, index) =>
-          field.index = index
-          field = new FieldModel(field)
-          @get('fields').add(field, {silent: true})
-        )
-
-        _.each(response.cells, (cell) =>
-          cell = new CellModel(cell)
-          cell.fieldModel = @get('fields').get(cell.get('field'))
-          cell.rangeModel = @get('ranges').get(cell.get('range'))
-          @get('cells').add(cell, {silent: true})
-        )
-
-        delete response['ranges']
-        delete response['fields']
-        delete response['cells']
-      response
-
-    toJSON: () ->
-      attributes = _.clone(this.attributes);
-      $.each attributes, (key, value) ->
-        if value? && _(value.toJSON).isFunction()
-          attributes[key] = value.toJSON()
+        return this.get('ranges').bind('remove', range => {
+          return this.get('cells').remove(this.get('cells').where({range: range.id}));
+        });
+      }
 
 
-    validateName: (attrs, options) ->
-      if !attrs.name || attrs.name.length < 1
-        @addError(@errors, 'name', 'cannot be empty')
-        false
-      else
-        true
+      getFieldNameById(fieldId) {
+        const field = this.get('fields').findWhere({id: fieldId});
+        if (field != null) { return field.get('name'); }
+      }
 
-    validate: (attrs, options) ->
-      @errors = {}
-      @validateName(attrs, options)
-      if _.size(@errors) > 0 then @errors else false
+      getRangeString() {
+        const values = this.getLows();
+        values.push(this.getHigh());
+        return values.join(' ');
+      }
+
+      availableRanges() {
+        const maxRanges = (this.get('high') - this.get('low')) + 1;
+        const rangeCount = this.get('ranges').length;
+        return (rangeCount + 1) <= maxRanges;
+      }
+
+      getLows() {
+        let lows;
+        const ranges = this.get('ranges');
+        if (ranges.length > 0) { lows = ranges.pluck('low'); }
+        return lows;
+      }
+
+      getHigh() {
+        return this.get('high');
+      }
+
+      getLow() {
+        return this.get('low');
+      }
+
+      getLows() {
+        return this.get('ranges').pluck('low');
+      }
+
+      isValidLow(low) {
+        const difference = this.getHigh() - parseInt(low);
+        const out = difference >= (this.get('ranges').length - 1);
+        return out;
+      }
+
+      isValidHigh(high) {
+        const difference = parseInt(high) - this.getLow();
+        return difference >= (this.get('ranges').length - 1);
+      }
+
+      setLow(value) {
+        return this.set('low', parseInt(value));
+      }
+
+      setHigh(value) {
+        return this.set('high', parseInt(value));
+      }
+
+      getRangeForScore(score) {
+        return this.get('ranges').find(function(range) {
+          const s = parseInt(score);
+          return (s >= range.get('low')) && (s <= range.get('high'));
+        });
+      }
+
+      getDescriptionByFieldAndScore(fieldId, score) {
+        const range = this.getRangeForScore(score);
+        const desc = this.getCellDescription(fieldId, range.id);
+        return desc;
+      }
+
+      getCellDescription(fieldId, rangeId) {
+        const cell = this.get('cells').findWhere({field: fieldId, range: rangeId});
+        if (cell != null) { return cell.get('description'); }
+      }
+
+      parse(response, options) {
+        if (response != null) {
+          if (!this.get('fields')) { this.set('fields', new FieldCollection); }
+          if (!this.get('ranges')) { this.set('ranges', new RangeCollection); }
+          if (!this.get('cells')) { this.set('cells', new CellCollection); }
+
+          _.each(response.ranges, (range, index) => {
+            range.index = index;
+            range = new RangeModel(range);
+            return this.get('ranges').add(range, {silent: true});
+          });
+
+          _.each(response.fields, (field, index) => {
+            field.index = index;
+            field = new FieldModel(field);
+            return this.get('fields').add(field, {silent: true});
+          });
+
+          _.each(response.cells, cell => {
+            cell = new CellModel(cell);
+            cell.fieldModel = this.get('fields').get(cell.get('field'));
+            cell.rangeModel = this.get('ranges').get(cell.get('range'));
+            return this.get('cells').add(cell, {silent: true});
+          });
+
+          delete response['ranges'];
+          delete response['fields'];
+          delete response['cells'];
+        }
+        return response;
+      }
+
+      toJSON() {
+        const attributes = _.clone(this.attributes);
+        return $.each(attributes, function(key, value) {
+          if ((value != null) && _(value.toJSON).isFunction()) {
+            return attributes[key] = value.toJSON();
+          }
+        });
+      }
+
+
+      validateName(attrs, options) {
+        if (!attrs.name || (attrs.name.length < 1)) {
+          this.addError(this.errors, 'name', 'cannot be empty');
+          return false;
+        } else {
+          return true;
+        }
+      }
+
+      validate(attrs, options) {
+        this.errors = {};
+        this.validateName(attrs, options);
+        if (_.size(this.errors) > 0) { return this.errors; } else { return false; }
+      }
+    };
+    Rubric.initClass();
+    return Rubric;
+  })();
+});

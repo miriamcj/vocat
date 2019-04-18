@@ -1,221 +1,283 @@
-define (require) ->
-  Marionette = require('marionette')
-  template = require('hbs!templates/assets/annotator/annotator_input')
-  AnnotationModel = require('models/annotation')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS207: Consider shorter variations of null checks
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let AnnotatorInputView;
+  const Marionette = require('marionette');
+  const template = require('hbs!templates/assets/annotator/annotator_input');
+  const AnnotationModel = require('models/annotation');
 
-  class AnnotatorInputView extends Marionette.ItemView
+  return AnnotatorInputView = (function() {
+    AnnotatorInputView = class AnnotatorInputView extends Marionette.ItemView {
+      static initClass() {
+  
+        this.prototype.template = template;
+        this.prototype.canvasIsDirty = false;
+        this.prototype.editLock = false;
+        this.prototype.inputPointer = null;
+        this.prototype.ignoreTimeUpdates = false;
+  
+        this.prototype.ui = {
+          annotationInput: '[data-behavior="annotation-input"]',
+          canvasDrawButton: '[data-behavior="annotation-canvas-draw"]',
+          canvasEraseButton: '[data-behavior="annotation-canvas-erase"]',
+          canvasOvalButton: '[data-behavior="annotation-canvas-oval"]',
+          canvasSelectButton: '[data-behavior="annotation-canvas-select"]',
+          annotationCreateButton: '[data-behavior="annotation-create"]',
+          annotationCreateCancelButton: '[data-behavior="annotation-create-cancel"]',
+          annotationUpdateButton: '[data-behavior="annotation-update"]',
+          annotationEditCancelButton: '[data-behavior="annotation-edit-cancel"]',
+          annotationDeleteButton: '[data-behavior="annotation-delete"]',
+          annotationButtonsLeft: '[data-behavior="annotation-buttons-left"]',
+          message: '[data-behavior="message"]'
+        };
+  
+        this.prototype.triggers = {
+          'click @ui.annotationCreateButton': 'saveAnnotation',
+          'click @ui.annotationCreateCancelButton': 'cancelEdit',
+          'click @ui.annotationUpdateButton': 'saveAnnotation',
+          'click @ui.annotationEditCancelButton': 'cancelEdit',
+          'click @ui.canvasDrawButton': 'setCanvasModeDraw',
+          'click @ui.canvasEraseButton': 'setCanvasModeErase',
+          'click @ui.canvasOvalButton': 'setCanvasModeOval',
+          'click @ui.canvasSelectButton': 'setCanvasModeSelect',
+          'click @ui.annotationInput': 'annotationInputClick'
+        };
+  
+        this.prototype.events =
+          {'keypress [data-behavior="annotation-input"]': 'onUserTyping'};
+      }
 
-    template: template
-    canvasIsDirty: false
-    editLock: false
-    inputPointer: null
-    ignoreTimeUpdates: false
+      setupListeners() {
+        this.listenTo(this, 'lock:attempted', this.handleLockAttempted, this);
+        this.listenTo(this.vent, 'announce:canvas:tool', this.updateToolStates, this);
+        this.listenTo(this.vent, 'announce:canvas:dirty', this.handleCanvasDirty, this);
+        this.listenTo(this.vent, 'announce:canvas:clean', this.handleCanvasClean, this);
+        this.listenTo(this.vent, 'request:annotator:input:edit', this.startAnnotationEdit, this);
+        this.listenTo(this.vent, 'request:annotator:input:stop', this.stopAnnotationInput, this);
+        this.listenTo(this.vent, 'request:message:show', this.handleMessageShow, this);
+        return this.listenTo(this.vent, 'request:message:hide', this.handleMessageHide, this);
+      }
 
-    ui:
-      annotationInput: '[data-behavior="annotation-input"]'
-      canvasDrawButton: '[data-behavior="annotation-canvas-draw"]'
-      canvasEraseButton: '[data-behavior="annotation-canvas-erase"]'
-      canvasOvalButton: '[data-behavior="annotation-canvas-oval"]'
-      canvasSelectButton: '[data-behavior="annotation-canvas-select"]'
-      annotationCreateButton: '[data-behavior="annotation-create"]'
-      annotationCreateCancelButton: '[data-behavior="annotation-create-cancel"]'
-      annotationUpdateButton: '[data-behavior="annotation-update"]'
-      annotationEditCancelButton: '[data-behavior="annotation-edit-cancel"]'
-      annotationDeleteButton: '[data-behavior="annotation-delete"]'
-      annotationButtonsLeft: '[data-behavior="annotation-buttons-left"]'
-      message: '[data-behavior="message"]'
+      handleMessageShow(data) {
+        const { msg } = data;
+        this.ui.message.html(msg);
+        return this.ui.message.addClass('open');
+      }
 
-    triggers: {
-      'click @ui.annotationCreateButton': 'saveAnnotation'
-      'click @ui.annotationCreateCancelButton': 'cancelEdit'
-      'click @ui.annotationUpdateButton': 'saveAnnotation'
-      'click @ui.annotationEditCancelButton': 'cancelEdit'
-      'click @ui.canvasDrawButton': 'setCanvasModeDraw'
-      'click @ui.canvasEraseButton': 'setCanvasModeErase'
-      'click @ui.canvasOvalButton': 'setCanvasModeOval'
-      'click @ui.canvasSelectButton': 'setCanvasModeSelect',
-      'click @ui.annotationInput': 'annotationInputClick'
-    }
+      handleMessageHide(data) {
+        this.ui.message.html('&nbsp;');
+        return this.ui.message.removeClass('open');
+      }
 
-    events:
-      'keypress [data-behavior="annotation-input"]': 'onUserTyping'
+      initialize(options) {
+        this.vent = options.vent;
+        this.asset = options.asset;
+        this.collection = this.asset.annotations();
+        return this.setupListeners();
+      }
 
-    setupListeners: () ->
-      @listenTo(@, 'lock:attempted', @handleLockAttempted, @)
-      @listenTo(@vent, 'announce:canvas:tool', @updateToolStates, @)
-      @listenTo(@vent, 'announce:canvas:dirty', @handleCanvasDirty, @)
-      @listenTo(@vent, 'announce:canvas:clean', @handleCanvasClean, @)
-      @listenTo(@vent, 'request:annotator:input:edit', @startAnnotationEdit, @)
-      @listenTo(@vent, 'request:annotator:input:stop', @stopAnnotationInput, @)
-      @listenTo(@vent, 'request:message:show', @handleMessageShow, @)
-      @listenTo(@vent, 'request:message:hide', @handleMessageHide, @)
+      startAnnotationInput(force) {
+        if (force == null) { force = false; }
+        if ((this.inputPointer === null) || (force === true)) {
+          this.listenToOnce(this.vent, 'announce:status', response => {
+            let newMessage;
+            this.inputPointer = response.playedSeconds;
+            this.updateButtonVisibility();
+            this.onSetCanvasModeSelect();
+            if (this.asset.hasDuration()) {
+              newMessage = `Select post to add this annotation at ${this.secondsToString(this.inputPointer)}.`;
+            } else {
+              newMessage = "Press post to save a new annotation.";
+            }
+            if (this.model.isNew()) { this.vent.trigger('request:message:show', {msg: newMessage}); }
+            if (!this.model.isNew()) { this.vent.trigger('request:message:show',
+              {msg: "Edit the annotation and press update to save."}); }
+            this.vent.trigger('request:annotation:canvas:load', this.model);
+            return this.vent.trigger('announce:annotator:input:start', {});
+          });
+          return this.vent.trigger('request:status', {});
+        }
+      }
 
-    handleMessageShow: (data) ->
-      msg = data.msg
-      @ui.message.html(msg)
-      @ui.message.addClass('open')
+      startAnnotationEdit(annotation) {
+        this.editLock = true;
+        const force = annotation !== this.model;
+        return this.vent.trigger('request:time:update', {
+          silent: true, seconds: annotation.get('seconds_timecode'), callback: () => {
+            this.editLock = false;
+            this.model = annotation;
+            this.model.activate();
+            this.render();
+            return this.startAnnotationInput(force);
+          }
+          , callbackScope: this
+        });
+      }
 
-    handleMessageHide: (data) ->
-      @ui.message.html('&nbsp;')
-      @ui.message.removeClass('open')
+      secondsToString(seconds) {
+        let minutes = Math.floor(seconds / 60);
+        seconds = (seconds - (minutes * 60)).toFixed(2);
+        const minuteZeroes = (2 - minutes.toString().length) + 1;
+        minutes = Array(+((minuteZeroes > 0) && minuteZeroes)).join("0") + minutes;
+        const secondZeroes = (5 - seconds.toString().length) + 1;
+        seconds = Array(+((secondZeroes > 0) && secondZeroes)).join("0") + seconds;
+        return `${minutes}:${seconds}`;
+      }
 
-    initialize: (options) ->
-      @vent = options.vent
-      @asset = options.asset
-      @collection = @asset.annotations()
-      @setupListeners()
+      stopAnnotationInput(forceModelReset) {
+        if (forceModelReset == null) { forceModelReset = false; }
+        if ((this.inputPointer !== null) & !this.editLock) {
+          this.inputPointer = null;
+          //        @vent.trigger('request:unlock', {view: @})
+          this.vent.trigger('announce:annotator:input:stop', {});
+          this.vent.trigger('request:annotation:canvas:disable');
+          this.vent.trigger('request:resume');
+          this.vent.trigger('request:status', {});
+          this.vent.trigger('request:message:hide');
+          this.updateButtonVisibility();
+          if (!this.model.isNew() || forceModelReset) {
+            this.model = new AnnotationModel({asset_id: this.asset.id});
+            return this.render();
+          }
+        }
+      }
 
-    startAnnotationInput: (force = false) ->
-      if @inputPointer == null || force == true
-        @listenToOnce(@vent, 'announce:status', (response) =>
-          @inputPointer = response.playedSeconds;
-          @updateButtonVisibility()
-          @onSetCanvasModeSelect()
-          if @asset.hasDuration()
-            newMessage = "Select post to add this annotation at #{@secondsToString(@inputPointer)}."
-          else
-            newMessage = "Press post to save a new annotation."
-          @vent.trigger('request:message:show', {msg: newMessage}) if @model.isNew()
-          @vent.trigger('request:message:show',
-            {msg: "Edit the annotation and press update to save."}) if !@model.isNew()
-          @vent.trigger('request:annotation:canvas:load', @model)
-          @vent.trigger('announce:annotator:input:start', {})
-        )
-        @vent.trigger('request:status', {})
+      updateButtonVisibility() {
+        if (this.inputPointer !== null) {
+          this.ui.annotationButtonsLeft.show();
+          this.ui.annotationCreateButton.show().removeClass('hidden');
+          this.ui.annotationCreateCancelButton.show().removeClass('hidden');
+          if (this.asset.allowsVisibleAnnotation()) {
+            this.ui.canvasSelectButton.show().removeClass('hidden');
+            return this.ui.canvasEraseButton.show().removeClass('hidden');
+          }
+        } else {
+          this.ui.annotationButtonsLeft.hide();
+          this.ui.annotationCreateButton.hide().addClass('hidden');
+          this.ui.annotationCreateCancelButton.hide().addClass('hidden');
 
-    startAnnotationEdit: (annotation) ->
-      @editLock = true
-      force = annotation != @model
-      @vent.trigger('request:time:update', {
-        silent: true, seconds: annotation.get('seconds_timecode'), callback: () =>
-          @editLock = false
-          @model = annotation
-          @model.activate()
-          @render()
-          @startAnnotationInput(force)
-        , callbackScope: @
-      })
+          if (!this.asset.allowsVisibleAnnotation()) {
+            this.ui.canvasSelectButton.hide().addClass('hidden');
+            this.ui.canvasEraseButton.hide().addClass('hidden');
+            this.ui.canvasDrawButton.hide().addClass('hidden');
+            return this.ui.canvasOvalButton.hide().addClass('hidden');
+          }
+        }
+      }
 
-    secondsToString: (seconds) ->
-      minutes = Math.floor(seconds / 60)
-      seconds = (seconds - minutes * 60).toFixed(2)
-      minuteZeroes = 2 - minutes.toString().length + 1
-      minutes = Array(+(minuteZeroes > 0 && minuteZeroes)).join("0") + minutes
-      secondZeroes = 5 - seconds.toString().length + 1
-      seconds = Array(+(secondZeroes > 0 && secondZeroes)).join("0") + seconds
-      "#{minutes}:#{seconds}"
+      onUserTyping(event) {
+        this.startAnnotationInput();
+        if ((event.which === 13) && (event.shiftKey !== true)) {
+          if (this.ui.annotationInput.val().length > 0) {
+            this.onSaveAnnotation();
+          }
+          return event.preventDefault();
+        }
+      }
 
-    stopAnnotationInput: (forceModelReset = false) ->
-      if @inputPointer != null & !@editLock
-        @inputPointer = null
-        #        @vent.trigger('request:unlock', {view: @})
-        @vent.trigger('announce:annotator:input:stop', {})
-        @vent.trigger('request:annotation:canvas:disable')
-        @vent.trigger('request:resume')
-        @vent.trigger('request:status', {})
-        @vent.trigger('request:message:hide')
-        @updateButtonVisibility()
-        if !@model.isNew() || forceModelReset
-          @model = new AnnotationModel({asset_id: @asset.id})
-          @render()
+      onAnnotationInputClick() {
+        return this.vent.trigger('announce:annotator:input:start');
+      }
 
-    updateButtonVisibility: () ->
-      if @inputPointer != null
-        @ui.annotationButtonsLeft.show()
-        @ui.annotationCreateButton.show().removeClass('hidden')
-        @ui.annotationCreateCancelButton.show().removeClass('hidden')
-        if @asset.allowsVisibleAnnotation()
-          @ui.canvasSelectButton.show().removeClass('hidden')
-          @ui.canvasEraseButton.show().removeClass('hidden')
-      else
-        @ui.annotationButtonsLeft.hide()
-        @ui.annotationCreateButton.hide().addClass('hidden')
-        @ui.annotationCreateCancelButton.hide().addClass('hidden')
+      setCanvasMode(mode) {
+        this.startAnnotationInput();
+        return this.vent.trigger('request:annotation:canvas:setmode', mode);
+      }
 
-        if !@asset.allowsVisibleAnnotation()
-          @ui.canvasSelectButton.hide().addClass('hidden')
-          @ui.canvasEraseButton.hide().addClass('hidden')
-          @ui.canvasDrawButton.hide().addClass('hidden')
-          @ui.canvasOvalButton.hide().addClass('hidden')
+      onSetCanvasModeSelect() {
+        return this.setCanvasMode('select');
+      }
 
-    onUserTyping: (event) ->
-      @startAnnotationInput()
-      if event.which == 13 && event.shiftKey != true
-        if @ui.annotationInput.val().length > 0
-          @onSaveAnnotation()
-        event.preventDefault()
+      onSetCanvasModeDraw() {
+        return this.setCanvasMode('draw');
+      }
 
-    onAnnotationInputClick: () ->
-      @vent.trigger('announce:annotator:input:start')
+      onSetCanvasModeErase() {
+        return this.setCanvasMode('erase');
+      }
 
-    setCanvasMode: (mode) ->
-      @startAnnotationInput()
-      @vent.trigger('request:annotation:canvas:setmode', mode)
+      onSetCanvasModeOval() {
+        return this.setCanvasMode('oval');
+      }
 
-    onSetCanvasModeSelect: () ->
-      @setCanvasMode('select')
+      onSaveAnnotation() {
+        const body = this.ui.annotationInput.val();
+        this.vent.trigger('request:annotator:save', this.model, {body});
+        const forceModelReset = true;
+        return this.stopAnnotationInput(forceModelReset);
+      }
 
-    onSetCanvasModeDraw: () ->
-      @setCanvasMode('draw')
+      onCancelEdit() {
+        const forceModelReset = true;
+        return this.stopAnnotationInput(forceModelReset);
+      }
 
-    onSetCanvasModeErase: () ->
-      @setCanvasMode('erase')
+      handleLockAttempted() {
+        return Vocat.vent.trigger('error:add', {
+          level: 'info',
+          clear: true,
+          msg: 'Playback is locked because you are currently editing an annotation. To unlock playback, press the cancel button.'
+        });
+      }
 
-    onSetCanvasModeOval: () ->
-      @setCanvasMode('oval')
+      takeFocus() {
+        return this.ui.annotationInput.focus();
+      }
 
-    onSaveAnnotation: () ->
-      body = @ui.annotationInput.val()
-      @vent.trigger('request:annotator:save', @model, {body: body})
-      forceModelReset = true
-      @stopAnnotationInput(forceModelReset)
+      handleCanvasDirty() {
+        return this.canvasIsDirty = true;
+      }
 
-    onCancelEdit: () ->
-      forceModelReset = true
-      @stopAnnotationInput(forceModelReset)
+      handleCanvasClean() {
+        return this.canvasIsDirty = false;
+      }
 
-    handleLockAttempted: () ->
-      Vocat.vent.trigger('error:add', {
-        level: 'info',
-        clear: true,
-        msg: 'Playback is locked because you are currently editing an annotation. To unlock playback, press the cancel button.'
-      })
+      updateToolStates(activeTool) {
+        this.ui.canvasDrawButton.removeClass('active');
+        this.ui.canvasEraseButton.removeClass('active');
+        this.ui.canvasOvalButton.removeClass('active');
+        this.ui.canvasSelectButton.removeClass('active');
+        if (activeTool === 'draw') {
+          this.ui.canvasDrawButton.addClass('active');
+        }
+        if (activeTool === 'oval') {
+          this.ui.canvasOvalButton.addClass('active');
+        }
+        if (activeTool === 'erase') {
+          this.ui.canvasEraseButton.addClass('active');
+        }
+        if (activeTool === 'select') {
+          return this.ui.canvasSelectButton.addClass('active');
+        }
+      }
 
-    takeFocus: () ->
-      @ui.annotationInput.focus()
+      hideVisualAnnotationUi() {
+        this.ui.canvasEraseButton.hide().addClass('hidden');
+        this.ui.canvasDrawButton.hide().addClass('hidden');
+        return this.ui.canvasOvalButton.hide().addClass('hidden');
+      }
 
-    handleCanvasDirty: () ->
-      @canvasIsDirty = true
+      isDirty() {
+        return (this.ui.annotationInput.val().length > 0) || (this.canvasIsDirty === true);
+      }
 
-    handleCanvasClean: () ->
-      @canvasIsDirty = false
+      onRender() {
+        return this.updateButtonVisibility();
+      }
 
-    updateToolStates: (activeTool) ->
-      @ui.canvasDrawButton.removeClass('active')
-      @ui.canvasEraseButton.removeClass('active')
-      @ui.canvasOvalButton.removeClass('active')
-      @ui.canvasSelectButton.removeClass('active')
-      if activeTool == 'draw'
-        @ui.canvasDrawButton.addClass('active')
-      if activeTool == 'oval'
-        @ui.canvasOvalButton.addClass('active')
-      if activeTool == 'erase'
-        @ui.canvasEraseButton.addClass('active')
-      if activeTool == 'select'
-        @ui.canvasSelectButton.addClass('active')
-
-    hideVisualAnnotationUi: () ->
-      @ui.canvasEraseButton.hide().addClass('hidden')
-      @ui.canvasDrawButton.hide().addClass('hidden')
-      @ui.canvasOvalButton.hide().addClass('hidden')
-
-    isDirty: () ->
-      @ui.annotationInput.val().length > 0 or @canvasIsDirty == true
-
-    onRender: () ->
-      @updateButtonVisibility()
-
-    onShow: () ->
-      @updateButtonVisibility()
-      if !@asset.allowsVisibleAnnotation()
-        @hideVisualAnnotationUi()
+      onShow() {
+        this.updateButtonVisibility();
+        if (!this.asset.allowsVisibleAnnotation()) {
+          return this.hideVisualAnnotationUi();
+        }
+      }
+    };
+    AnnotatorInputView.initClass();
+    return AnnotatorInputView;
+  })();
+});

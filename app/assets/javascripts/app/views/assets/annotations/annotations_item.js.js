@@ -1,139 +1,177 @@
-define (require) ->
-  Marionette = require('marionette')
-  template = require('hbs!templates/assets/annotations/annotations_item')
-  ModalConfirmView = require('views/modal/modal_confirm')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let AnnotationItem;
+  const Marionette = require('marionette');
+  const template = require('hbs!templates/assets/annotations/annotations_item');
+  const ModalConfirmView = require('views/modal/modal_confirm');
 
-  class AnnotationItem extends Marionette.ItemView
-
-    assetHasDuration: false
-    highlighted: true
-    ignoreTime: false
-    template: template
-    tagName: 'li'
-    className: 'annotation'
-
-    triggers:
-      'click @ui.destroy': {
-        event: 'annotation:destroy'
-        stopPropagation: true
+  return AnnotationItem = (function() {
+    AnnotationItem = class AnnotationItem extends Marionette.ItemView {
+      static initClass() {
+  
+        this.prototype.assetHasDuration = false;
+        this.prototype.highlighted = true;
+        this.prototype.ignoreTime = false;
+        this.prototype.template = template;
+        this.prototype.tagName = 'li';
+        this.prototype.className = 'annotation';
+  
+        this.prototype.triggers = {
+          'click @ui.destroy': {
+            event: 'annotation:destroy',
+            stopPropagation: true
+          },
+          'click @ui.edit': {
+            event: 'annotation:edit',
+            stopPropagation: true
+          },
+          'click @ui.seek': {
+            event: 'seek',
+            stopPropagation: false
+          },
+          'click @ui.activate': {
+            event: 'activate',
+            stopPropagation: false
+          },
+          'click @ui.body': {
+            event: 'toggle',
+            stopPropagation: false
+          }
+        };
+  
+        this.prototype.ui = {
+          seek: '[data-behavior="seek"]',
+          destroy: '[data-behavior="destroy"]',
+          edit: '[data-behavior="edit"]',
+          body: '[data-behavior="annotation-body"]',
+          activate: '[data-behavior="activate"]'
+        };
+  
+        this.prototype.modelEvents = {
+          "change:body": "onModelBodyChange",
+          "change:canvas": "onModelCanvasChange"
+        };
+        
       }
-      'click @ui.edit': {
-        event: 'annotation:edit'
-        stopPropagation: true
-      }
-      'click @ui.seek': {
-        event: 'seek'
-        stopPropagation: false
-      }
-      'click @ui.activate': {
-        event: 'activate'
-        stopPropagation: false
-      }
-      'click @ui.body': {
-        event: 'toggle'
-        stopPropagation: false
+
+      onActivate() {
+        this.vent.trigger('request:annotator:input:stop');
+        if (this.model.get('active')) {
+          return this.model.collection.deactivateAllModels();
+        } else {
+          this.model.collection.activateModel(this.model);
+          return this.vent.trigger('request:annotation:show', this.model);
+        }
       }
 
-    ui: {
-      seek: '[data-behavior="seek"]'
-      destroy: '[data-behavior="destroy"]'
-      edit: '[data-behavior="edit"]'
-      body: '[data-behavior="annotation-body"]'
-      activate: '[data-behavior="activate"]'
-    }
+      onModelBodyChange() {
+        return this.render();
+      }
 
-    modelEvents: {
-      "change:body": "onModelBodyChange"
-      "change:canvas": "onModelCanvasChange"
-    },
+      onModelCanvasChange() {
+        return this.render();
+      }
 
-    onActivate: () ->
-      @vent.trigger('request:annotator:input:stop')
-      if @model.get('active')
-        @model.collection.deactivateAllModels()
-      else
-        @model.collection.activateModel(@model)
-        @vent.trigger('request:annotation:show', @model)
+      onToggle() {
+        return this.$el.toggleClass('annotation-open');
+      }
 
-    onModelBodyChange: () ->
-      @render()
+      setupListeners() {
+        return this.listenTo(this.model, 'change:active', this.handleActiveStateChange);
+      }
 
-    onModelCanvasChange: () ->
-      @render()
+      handleActiveStateChange() {
+        if (this.model.get('active') === true) {
+          this.$el.addClass('annotation-active');
+          return this.trigger('activated', this);
+        } else {
+          return this.$el.removeClass('annotation-active');
+        }
+      }
 
-    onToggle: () ->
-      @$el.toggleClass('annotation-open')
+      initialize(options) {
+        this.vent = options.vent;
+        this.errorVent = options.errorVent;
+        this.assetHasDuration = options.assetHasDuration;
+        return this.setupListeners();
+      }
 
-    setupListeners: () ->
-      @listenTo(@model, 'change:active', @handleActiveStateChange)
+      remove() {
+        this.trigger('before:remove');
+        return this.$el.slideUp(200, () => {
+          this.$el.remove();
+          return this.trigger('after:remove');
+        });
+      }
 
-    handleActiveStateChange: () ->
-      if @model.get('active') == true
-        @$el.addClass('annotation-active')
-        @trigger('activated', @)
-      else
-        @$el.removeClass('annotation-active')
+      onSeek() {
+        return this.vent.trigger('request:time:update', {
+          seconds: this.model.get('seconds_timecode'), callback: () => {
+            return this.model.activate();
+          }
+          , callbackScope: this
+        });
+      }
 
-    initialize: (options) ->
-      @vent = options.vent
-      @errorVent = options.errorVent
-      @assetHasDuration = options.assetHasDuration
-      @setupListeners()
+      onAnnotationDestroy() {
+        this.vent.trigger('request:pause', {});
+        return Vocat.vent.trigger('modal:open', new ModalConfirmView({
+          model: this.model,
+          vent: this,
+          descriptionLabel: 'Are you sure you want to delete this annotation? Deleted annotations cannot be recovered.',
+          confirmEvent: 'confirm:destroy',
+          dismissEvent: 'dismiss:destroy'
+        }));
+      }
 
-    remove: () ->
-      @trigger('before:remove')
-      @$el.slideUp(200, () =>
-        @$el.remove()
-        @trigger('after:remove')
-      )
+      serializeData() {
+        const data = super.serializeData();
+        data.assetHasDuration = this.assetHasDuration;
+        data.hasDrawing = this.model.hasDrawing();
+        return data;
+      }
 
-    onSeek: () ->
-      @vent.trigger('request:time:update', {
-        seconds: @model.get('seconds_timecode'), callback: () =>
-          @model.activate()
-        , callbackScope: @
-      })
+      onConfirmDestroy() {
+        this.model.destroy({
+          success: () => {
+            return Vocat.vent.trigger('error:add',
+              {level: 'notice', clear: true, lifetime: '5000', msg: 'The annotation has been successfully deleted.'});
+          }
+          , error: xhr => {
+            return Vocat.vent.trigger('error:add', {level: 'notice', msg: xhr.responseJSON.errors});
+          }
+        });
+        return this.vent.trigger('request:resume', {});
+      }
 
-    onAnnotationDestroy: () ->
-      @vent.trigger('request:pause', {})
-      Vocat.vent.trigger('modal:open', new ModalConfirmView({
-        model: @model,
-        vent: @,
-        descriptionLabel: 'Are you sure you want to delete this annotation? Deleted annotations cannot be recovered.',
-        confirmEvent: 'confirm:destroy',
-        dismissEvent: 'dismiss:destroy'
-      }))
+      onDismissDestroy() {
+        return this.vent.trigger('request:resume', {});
+      }
 
-    serializeData: () ->
-      data = super()
-      data.assetHasDuration = @assetHasDuration
-      data.hasDrawing = @model.hasDrawing()
-      data
+      onAnnotationEdit() {
+        return this.vent.trigger('request:annotator:input:edit', this.model);
+      }
 
-    onConfirmDestroy: () ->
-      @model.destroy({
-        success: () =>
-          Vocat.vent.trigger('error:add',
-            {level: 'notice', clear: true, lifetime: '5000', msg: 'The annotation has been successfully deleted.'})
-        , error: (xhr) =>
-          Vocat.vent.trigger('error:add', {level: 'notice', msg: xhr.responseJSON.errors})
-      })
-      @vent.trigger('request:resume', {})
-
-    onDismissDestroy: () ->
-      @vent.trigger('request:resume', {})
-
-    onAnnotationEdit: () ->
-      @vent.trigger('request:annotator:input:edit', @model)
-
-    onRender: () ->
-      role = @model.get('author_role')
-      switch role
-        when "administrator"
-          @$el.addClass('role-administrator')
-        when "evaluator"
-          @$el.addClass('role-evaluator')
-        when "creator"
-          @$el.addClass('role-creator')
-        when "self"
-          @$el.addClass('role-self')
+      onRender() {
+        const role = this.model.get('author_role');
+        switch (role) {
+          case "administrator":
+            return this.$el.addClass('role-administrator');
+          case "evaluator":
+            return this.$el.addClass('role-evaluator');
+          case "creator":
+            return this.$el.addClass('role-creator');
+          case "self":
+            return this.$el.addClass('role-self');
+        }
+      }
+    };
+    AnnotationItem.initClass();
+    return AnnotationItem;
+  })();
+});

@@ -1,36 +1,59 @@
-define ['backbone', 'models/project'], (Backbone, ProjectModel) ->
-  class ProjectCollection extends Backbone.Collection
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS207: Consider shorter variations of null checks
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(['backbone', 'models/project'], function(Backbone, ProjectModel) {
+  let ProjectCollection;
+  return ProjectCollection = (function() {
+    ProjectCollection = class ProjectCollection extends Backbone.Collection {
+      static initClass() {
+  
+        this.prototype.model = ProjectModel;
+  
+        this.prototype.activeModel = null;
+      }
 
-    model: ProjectModel
+      getActive() {
+        return this.activeModel;
+      }
 
-    activeModel: null
+      hasGroupProjects() {
+        const p = this.filter(function(model) {
+          const t = model.get('type');
+          return (t === 'GroupProject') || (t === 'OpenProject');
+        });
+        return p.length > 0;
+      }
 
-    getActive: () ->
-      @activeModel
+      hasUserProjects() {
+        const p = this.filter(function(model) {
+          const t = model.get('type');
+          return (t === 'UserProject') || (t === 'OpenProject');
+        });
+        return p.length > 0;
+      }
 
-    hasGroupProjects: () ->
-      p = @filter((model) ->
-        t = model.get('type')
-        t == 'GroupProject' || t == 'OpenProject'
-      )
-      p.length > 0
-
-    hasUserProjects: () ->
-      p = @filter((model) ->
-        t = model.get('type')
-        t == 'UserProject' || t == 'OpenProject'
-      )
-      p.length > 0
-
-    setActive: (id) ->
-      current = @getActive()
-      if id?
-        model = @get(id)
-        if model?
-          @activeModel = model
-        else
-          @activeModel = null
-      else
-        @activeModel = null
-      if @activeModel != current
-        @trigger('change:active', @activeModel)
+      setActive(id) {
+        const current = this.getActive();
+        if (id != null) {
+          const model = this.get(id);
+          if (model != null) {
+            this.activeModel = model;
+          } else {
+            this.activeModel = null;
+          }
+        } else {
+          this.activeModel = null;
+        }
+        if (this.activeModel !== current) {
+          return this.trigger('change:active', this.activeModel);
+        }
+      }
+    };
+    ProjectCollection.initClass();
+    return ProjectCollection;
+  })();
+});

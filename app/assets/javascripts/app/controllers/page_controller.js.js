@@ -1,15 +1,25 @@
-define [
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define([
   'marionette', 'controllers/vocat_controller', 'views/page/help_test', 'models/cell',
   'views/property_editor/long_text_input'
-], (Marionette, VocatController, HelpTestView, CellModel, LongTextInputView) ->
-  class PageController extends VocatController
+], function(Marionette, VocatController, HelpTestView, CellModel, LongTextInputView) {
+  let PageController;
+  return (PageController = class PageController extends VocatController {
 
-    initialize: () ->
+    initialize() {}
 
-    helpDev: () ->
-      view = new HelpTestView({})
-      Vocat.main.show view
+    helpDev() {
+      const view = new HelpTestView({});
+      return Vocat.main.show(view);
+    }
 
-    modalDev: () ->
-      model = new CellModel({description: 'this is the description'})
-      Vocat.vent.trigger('modal:open', new LongTextInputView({model: model, vent: Vocat.vent}))
+    modalDev() {
+      const model = new CellModel({description: 'this is the description'});
+      return Vocat.vent.trigger('modal:open', new LongTextInputView({model, vent: Vocat.vent}));
+    }
+  });
+});

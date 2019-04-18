@@ -1,17 +1,28 @@
-define [
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define([
   'marionette', 'controllers/vocat_controller', 'views/rubric/rubric_layout'
-], (Marionette, VocatController, RubricLayoutView) ->
-  class RubricController extends VocatController
+], function(Marionette, VocatController, RubricLayoutView) {
+  let RubricController;
+  return (RubricController = class RubricController extends VocatController {
 
-    new: (courseId) ->
-      view = new RubricLayoutView({courseId: courseId})
-      Vocat.main.show view
+    new(courseId) {
+      const view = new RubricLayoutView({courseId});
+      return Vocat.main.show(view);
+    }
 
-    editWithoutCourse: (rubricId) ->
-      view = new RubricLayoutView({rubricId: rubricId})
-      Vocat.main.show view
+    editWithoutCourse(rubricId) {
+      const view = new RubricLayoutView({rubricId});
+      return Vocat.main.show(view);
+    }
 
-    edit: (courseId, rubricId) ->
-      view = new RubricLayoutView({rubricId: rubricId})
-      Vocat.main.show view
+    edit(courseId, rubricId) {
+      const view = new RubricLayoutView({rubricId});
+      return Vocat.main.show(view);
+    }
+  });
+});
 

@@ -1,82 +1,114 @@
-define [
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define([
   'backbone',
   'models/asset'
-], (Backbone, AssetModel) ->
-  class AssetCollection extends Backbone.Collection
+], function(Backbone, AssetModel) {
+  let AssetCollection;
+  return AssetCollection = (function() {
+    AssetCollection = class AssetCollection extends Backbone.Collection {
+      static initClass() {
+  
+        this.prototype.submissionId = null;
+        this.prototype.model = AssetModel;
+  
+        this.prototype.url = '/api/v1/assets';
+      }
 
-    submissionId: null
-    model: AssetModel
+      comparator(asset) {
+        const c = asset.get('listing_order');
+        return parseInt(c);
+      }
 
-    comparator: (asset) ->
-      c = asset.get('listing_order')
-      parseInt(c)
+      initialize(models, options) {
+        if (options && options.hasOwnProperty('submissionId')) {
+          this.submissionId = options.submissionId;
+        }
+        return this.setupListeners();
+      }
 
-    url: '/api/v1/assets'
+      highIndex() {
+        return this.length - 1;
+      }
 
-    initialize: (models, options) ->
-      if options && options.hasOwnProperty('submissionId')
-        @submissionId = options.submissionId
-      @setupListeners()
+      lowIndex() {
+        return 0;
+      }
 
-    highIndex: () ->
-      @length - 1
+      getPreviousModel(model) {
+        const index = this.indexOf(model);
+        if ((index - 1) >= this.lowIndex()) {
+          return this.at(index - 1);
+        } else {
+          return null;
+        }
+      }
 
-    lowIndex: () ->
-      0
+      getNextModel(model) {
+        const index = this.indexOf(model);
+        if ((index + 1) <= this.highIndex()) {
+          return this.at(index + 1);
+        } else {
+          return null;
+        }
+      }
 
-    getPreviousModel: (model) ->
-      index = @indexOf(model)
-      if index - 1 >= @lowIndex()
-        @at(index - 1)
-      else
-        null
+      getPositionBetween(low, high) {
+        return Math.round(low + ((high - low) / 2));
+      }
 
-    getNextModel: (model) ->
-      index = @indexOf(model)
-      if index + 1 <= @highIndex()
-        @at(index + 1)
-      else
-        null
+      moveUp(model) {
+        const previousModel = this.getPreviousModel(model);
+        if (previousModel) {
+          let betweenLow;
+          const betweenHigh = previousModel.get('listing_order');
+          const previousPreviousModel = this.getPreviousModel(previousModel);
+          if (previousPreviousModel) {
+            betweenLow = previousPreviousModel.get('listing_order');
+          } else {
+            betweenLow = -8388607;
+          }
+          const newPosition = this.getPositionBetween(betweenLow, betweenHigh);
+          model.set('listing_order', newPosition);
+          return this.sort();
+        }
+        else {}
+      }
+          // Can't move past itself. Do nothing.
 
-    getPositionBetween: (low, high) ->
-      Math.round(low + ((high - low) / 2))
+      moveDown(model) {
+        const nextModel = this.getNextModel(model);
+        if (nextModel) {
+          let betweenHigh;
+          const betweenLow = nextModel.get('listing_order');
+          const nextNextModel = this.getNextModel(nextModel);
+          if (nextNextModel) {
+            betweenHigh = nextNextModel.get('listing_order');
+          } else {
+            betweenHigh = 8388607;
+          }
+          const newPosition = this.getPositionBetween(betweenLow, betweenHigh);
+          model.set('listing_order', newPosition);
+          return this.sort();
+        }
+        else {}
+      }
+          // Can't move past itself. Do nothing.
 
-    moveUp: (model) ->
-      previousModel = @getPreviousModel(model)
-      if previousModel
-        betweenHigh = previousModel.get('listing_order')
-        previousPreviousModel = @getPreviousModel(previousModel)
-        if previousPreviousModel
-          betweenLow = previousPreviousModel.get('listing_order')
-        else
-          betweenLow = -8388607
-        newPosition = @getPositionBetween(betweenLow, betweenHigh)
-        model.set('listing_order', newPosition)
-        @sort()
-      else
-        # Can't move past itself. Do nothing.
-
-    moveDown: (model) ->
-      nextModel = @getNextModel(model)
-      if nextModel
-        betweenLow = nextModel.get('listing_order')
-        nextNextModel = @getNextModel(nextModel)
-        if nextNextModel
-          betweenHigh = nextNextModel.get('listing_order')
-        else
-          betweenHigh = 8388607
-        newPosition = @getPositionBetween(betweenLow, betweenHigh)
-        model.set('listing_order', newPosition)
-        @sort()
-      else
-        # Can't move past itself. Do nothing.
-
-    setupListeners: () ->
-      @listenTo(@, 'add', (model) =>
-        model.set('submission_id', @submissionId)
-      )
-      @listenTo(@, 'sort', (e) ->
-        @each((model, index) ->
-          model.set('listing_order_position', index)
-        )
-      )
+      setupListeners() {
+        this.listenTo(this, 'add', model => {
+          return model.set('submission_id', this.submissionId);
+        });
+        return this.listenTo(this, 'sort', function(e) {
+          return this.each((model, index) => model.set('listing_order_position', index));
+        });
+      }
+    };
+    AssetCollection.initClass();
+    return AssetCollection;
+  })();
+});

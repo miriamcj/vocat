@@ -1,43 +1,65 @@
-define (require) ->
-  template = require('hbs!templates/rubric/criteria')
-  ItemView = require('views/rubric/criteria_item')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let Criteria;
+  const template = require('hbs!templates/rubric/criteria');
+  const ItemView = require('views/rubric/criteria_item');
 
 
-  class Criteria extends Marionette.CompositeView
-
-    template: template
-    className: 'criteria'
-    childViewContainer: '[data-region="criteria-rows"]'
-    childView: ItemView
-
-    ui: {
-      criteriaAdd: '.criteria-add-button',
-      criteriaInstruction: '.criteria-instruction'
-    }
-
-    childViewOptions: () ->
-      {
-        collection: @collection
+  return Criteria = (function() {
+    Criteria = class Criteria extends Marionette.CompositeView {
+      static initClass() {
+  
+        this.prototype.template = template;
+        this.prototype.className = 'criteria';
+        this.prototype.childViewContainer = '[data-region="criteria-rows"]';
+        this.prototype.childView = ItemView;
+  
+        this.prototype.ui = {
+          criteriaAdd: '.criteria-add-button',
+          criteriaInstruction: '.criteria-instruction'
+        };
       }
 
-    showCriteriaAdd: () ->
-      if @collection.length > 3
-        $(@ui.criteriaAdd).css('display', 'none')
-      else
-        $(@ui.criteriaAdd).css('display', 'inline-block')
+      childViewOptions() {
+        return {
+          collection: this.collection
+        };
+      }
 
-    showCriteriaInstruction: () ->
-      if @collection.length > 0
-        $(@ui.criteriaInstruction).css('display', 'none')
-      else
-        $(@ui.criteriaInstruction).css('display', 'inline-block')
+      showCriteriaAdd() {
+        if (this.collection.length > 3) {
+          return $(this.ui.criteriaAdd).css('display', 'none');
+        } else {
+          return $(this.ui.criteriaAdd).css('display', 'inline-block');
+        }
+      }
 
-    onShow: () ->
-      @showCriteriaAdd()
-      @showCriteriaInstruction()
+      showCriteriaInstruction() {
+        if (this.collection.length > 0) {
+          return $(this.ui.criteriaInstruction).css('display', 'none');
+        } else {
+          return $(this.ui.criteriaInstruction).css('display', 'inline-block');
+        }
+      }
 
-    initialize: (options) ->
-      @listenTo(@, 'add:child destroy:child remove:child', () ->
-        @showCriteriaAdd()
-        @showCriteriaInstruction()
-      )
+      onShow() {
+        this.showCriteriaAdd();
+        return this.showCriteriaInstruction();
+      }
+
+      initialize(options) {
+        return this.listenTo(this, 'add:child destroy:child remove:child', function() {
+          this.showCriteriaAdd();
+          return this.showCriteriaInstruction();
+        });
+      }
+    };
+    Criteria.initClass();
+    return Criteria;
+  })();
+});

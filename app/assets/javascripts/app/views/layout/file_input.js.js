@@ -1,25 +1,42 @@
-define ['jquery_rails'], ($) ->
-  Marionette = require('marionette')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(['jquery_rails'], function($) {
+  let FileInputView;
+  const Marionette = require('marionette');
 
-  class FileInputView extends Marionette.ItemView
+  return FileInputView = (function() {
+    FileInputView = class FileInputView extends Marionette.ItemView {
+      static initClass() {
+  
+        this.prototype.ui = {
+          trigger: '[data-behavior="file-input-trigger"]',
+          field: '[data-behavior="file-input-field"]',
+          mask: '[data-behavior="file-input-mask"]'
+        };
+  
+        this.prototype.triggers = {
+          'click @ui.trigger': 'trigger:click',
+          'change @ui.field': 'mask:update'
+        };
+      }
 
-    ui: {
-      trigger: '[data-behavior="file-input-trigger"]'
-      field: '[data-behavior="file-input-field"]'
-      mask: '[data-behavior="file-input-mask"]'
-    }
+      onMaskUpdate() {
+        const val = $(this.ui.field).val();
+        const newVal = val.replace(/^C:\\fakepath\\/i, '');
+        return $(this.ui.mask).val(newVal);
+      }
 
-    triggers: {
-      'click @ui.trigger': 'trigger:click'
-      'change @ui.field': 'mask:update'
-    }
-
-    onMaskUpdate: () ->
-      val = $(@ui.field).val()
-      newVal = val.replace(/^C:\\fakepath\\/i, '')
-      $(@ui.mask).val(newVal)
-
-    onTriggerClick: () ->
-      $(@ui.field).click()
+      onTriggerClick() {
+        return $(this.ui.field).click();
+      }
+    };
+    FileInputView.initClass();
+    return FileInputView;
+  })();
+});
 
 

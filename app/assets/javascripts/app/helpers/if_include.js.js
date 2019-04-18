@@ -1,7 +1,14 @@
-define 'app/helpers/if_include', ['handlebars'], (Handlebars) ->
-  Handlebars.registerHelper('if_include', (theArray, theString, options) ->
-    if _.indexOf(theArray, theString) != -1
-      options.fn(this)
-    else
-      options.inverse(this)
-  )
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define('app/helpers/if_include', ['handlebars'], Handlebars =>
+  Handlebars.registerHelper('if_include', function(theArray, theString, options) {
+    if (_.indexOf(theArray, theString) !== -1) {
+      return options.fn(this);
+    } else {
+      return options.inverse(this);
+    }
+  })
+);

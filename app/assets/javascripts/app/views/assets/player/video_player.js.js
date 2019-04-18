@@ -1,286 +1,368 @@
-define (require) ->
-  Marionette = require('marionette')
-  vjsAnnotations = require('vendor/video_js/vjs.annotations')
-  vjsAnnotations = require('vendor/video_js/vjs.rewind')
-  vjsAudioWave = require('vendor/video_js/vjs.audiowave')
-  template = require('hbs!templates/assets/player/video_player')
-  PlayerAnnotations = require('views/assets/player/player_annotations')
+/*
+ * decaffeinate suggestions:
+ * DS001: Remove Babel/TypeScript constructor workaround
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let VideoPlayerView;
+  const Marionette = require('marionette');
+  let vjsAnnotations = require('vendor/video_js/vjs.annotations');
+  vjsAnnotations = require('vendor/video_js/vjs.rewind');
+  const vjsAudioWave = require('vendor/video_js/vjs.audiowave');
+  const template = require('hbs!templates/assets/player/video_player');
+  const PlayerAnnotations = require('views/assets/player/player_annotations');
 
-  class VideoPlayerView extends Marionette.ItemView
-
-    template: template
-    lock: null
-
-    ui: {
-      player: '[data-behavior="video-player"]'
-      playerContainer: '[data-behavior="player-container"]'
-    }
-
-    events: {
-    }
-
-    callbacks: []
-
-    initialize: (options) ->
-      @vent = options.vent
-
-    onShow: () ->
-      @setupPlayer()
-      @setupPlayerEvents()
-      @setupListeners()
-
-    setupListeners: () ->
-      @listenTo(@vent, 'request:annotation:show', (data) => @handleAnnotationShow(data))
-      @listenTo(@vent, 'request:annotation:hide', (data) => @handleAnnotationHide(data))
-      @listenTo(@vent, 'request:time:update', (data) => @handleTimeUpdateRequest(data))
-      @listenTo(@vent, 'request:status', (data) => @handleStatusRequest())
-      @listenTo(@vent, 'request:play', (data) => @handlePlayRequest(data))
-      @listenTo(@vent, 'request:toggle', (data) => @handlePlayToggleRequest(data))
-      @listenTo(@vent, 'request:pause', (data) => @handlePauseRequest(data))
-      @listenTo(@vent, 'request:resume', (data) => @handleResumeRequest(data))
-      @listenTo(@vent, 'request:lock', (data) => @handleLockRequest(data))
-      @listenTo(@vent, 'request:unlock', (data) => @handleUnlockRequest(data))
-      @listenTo(@vent, 'announce:annotator:input:start', (data) => @handlePauseRequest(data))
-      @listenTo(@vent, 'announce:canvas:enabled', (data) => @handleCanvasEnabled())
-      @listenTo(@vent, 'announce:canvas:disabled', (data) => @handleCanvasDisabled())
-      $(window).on('resize', @resizePlayer)
-
-    handleCanvasEnabled: () ->
-      @player.addClass('canvas-enabled')
-
-    handleCanvasDisabled: () ->
-      @player.removeClass('canvas-enabled')
-
-    shiftFocusToInput: () ->
-      $('.annotation-input').focus()
-
-    isLocked: () ->
-      @lock != null
-
-    unlockPlayer: () ->
-      lock = @lock
-      @lock = null
-      @player.controls(true)
-      @vent.trigger('announce:unlocked', lock)
-
-    # Lock should be {view: aView, seconds: seconds}
-    lockPlayer: (lock) ->
-      @lock = lock
-      @player.controls(false)
-      @vent.trigger('announce:locked', @lock)
-
-    checkIfLocked: (seconds = null) ->
-      if @isLocked() == true
-        @vent.trigger('announce:lock:attempted', seconds)
-        @lock.view.trigger('lock:attempted', seconds)
-        result = true
-      else
-        result = false
-      result
-
-    setupPlayerEvents: () ->
-      @player.on('timeupdate', ()=>
-        @announceTimeUpdate()
-      )
-      @player.on('loadedmetadata', () =>
-        @vent.trigger('announce:loaded', @getStatusHash())
-        @handleStatusRequest()
-      )
-      @player.on('progress', () =>
-        @vent.trigger('announce:progress', {bufferedPercent: @getBufferedPercent()})
-      )
-      @player.on('play', () =>
-        if @checkIfLocked() == true && _.isFunction(@player.pause)
-          @player.pause()
-          @player.currentTime(@lock.seconds)
-        else
-          @handleStatusRequest()
-          @vent.trigger('announce:play')
-          @shiftFocusToInput()
-      )
-
-    getBufferedPercent: () ->
-      @player.bufferedPercent()
-
-    announceTimeUpdate: _.debounce(
-      () ->
-        time = @player.currentTime()
-        percent = @getPlayedPercent()
-        @vent.trigger('announce:time:update', {
-          playedPercent: percent
-          playedSeconds: time
-        })
-        @processCallbacks(time)
-    , 10, true)
-
-    processCallbacks: (second) ->
-      if @callbacks.length > 0
-        _.each(@callbacks, (callbackDetails, index) =>
-          if callbackDetails.seconds <= Math.ceil(second)
-            callbackDetails.callback.apply(callbackDetails.scope)
-            @callbacks.splice(index, 1)
-        )
-
-    getPlayedPercent: () ->
-      if @player
-        duration = @player.duration()
-        time = @player.currentTime()
-        if !time
-          time = 0.00
-        else
-        if duration > 0
-          percentage = time / duration
-        else
-          percentage = 0
-      else
-        percentage = 0
-      percentage
-
-    handleUnlockRequest: () ->
-      @unlockPlayer()
-
-    handleLockRequest: (data) ->
-      @lockPlayer(data)
-
-    getStatusHash: () ->
-      {
-      bufferedPercent: @getBufferedPercent()
-      playedPercent: @getPlayedPercent()
-      playedSeconds: @player.currentTime()
-      duration: @player.duration()
+  return VideoPlayerView = (function() {
+    VideoPlayerView = class VideoPlayerView extends Marionette.ItemView {
+      constructor(...args) {
+        {
+          // Hack: trick Babel/TypeScript into allowing this before super.
+          if (false) { super(); }
+          let thisFn = (() => { return this; }).toString();
+          let thisName = thisFn.match(/return (?:_assertThisInitialized\()*(\w+)\)*;/)[1];
+          eval(`${thisName} = this;`);
+        }
+        this.resizePlayer = this.resizePlayer.bind(this);
+        super(...args);
       }
 
-    handleStatusRequest: () ->
-      @vent.trigger('announce:status', @getStatusHash())
-
-    handleAnnotationShow: (data) ->
-      @player.trigger({
-        type: 'annotation:show'
-        annotation: data
-      })
-
-    handleAnnotationHide: (data) ->
-      @player.trigger({
-        type: 'annotation:hide'
-      })
-
-    handlePlaybackToggleRequest: () ->
-      if @player.paused()
-        @handlePlayRequest()
-      else
-        @handlePauseRequest()
-
-    handleResumeRequest: () ->
-      if @wasPlaying == true
-        @player.play()
-        @wasPlaying = false
-
-    handlePlayRequest: () ->
-      @player.play()
-
-    handlePauseRequest: () ->
-      playing = !@player.paused()
-      if playing == true
-        @wasPlaying = true
-        @player.pause()
-      @vent.trigger('announce:paused', @getStatusHash())
-
-    addTimeBasedCallback: (seconds, callback, callbackScope) ->
-      @callbacks.push {
-        seconds: seconds
-        callback: callback
-        scope: callbackScope
+      static initClass() {
+  
+        this.prototype.template = template;
+        this.prototype.lock = null;
+  
+        this.prototype.ui = {
+          player: '[data-behavior="video-player"]',
+          playerContainer: '[data-behavior="player-container"]'
+        };
+  
+        this.prototype.events = {
+        };
+  
+        this.prototype.callbacks = [];
+  
+        this.prototype.announceTimeUpdate = _.debounce(
+          function() {
+            const time = this.player.currentTime();
+            const percent = this.getPlayedPercent();
+            this.vent.trigger('announce:time:update', {
+              playedPercent: percent,
+              playedSeconds: time
+            });
+            return this.processCallbacks(time);
+          }
+        , 10, true);
       }
 
-    handleTimeUpdateRequest: (data) ->
-      if data.hasOwnProperty('percent')
-        duration = @player.duration()
-        seconds = duration * data.percent
-      else
-        seconds = data.seconds
-      seconds = seconds
-      if data.hasOwnProperty('callback') && _.isFunction(data.callback)
-        @addTimeBasedCallback(seconds, data.callback, data.callbackScope)
+      initialize(options) {
+        return this.vent = options.vent;
+      }
 
-      # Views can put a lock on the player. If the user tries to update the playback time, the player refuses, and
-      # expected the view that holds the lock to do something.
-      if @checkIfLocked(seconds) == false
+      onShow() {
+        this.setupPlayer();
+        this.setupPlayerEvents();
+        return this.setupListeners();
+      }
 
-        # Anytime a time update is requested, we will stop the annotation editing
-        # mode. There is a subtle difference here between stopping on request and stopping
-        # on actual time update. It's user intent that we want to capture, not the time update
-        # itself.
-        @vent.trigger('request:annotator:input:stop')
-        @player.currentTime(seconds)
+      setupListeners() {
+        this.listenTo(this.vent, 'request:annotation:show', data => this.handleAnnotationShow(data));
+        this.listenTo(this.vent, 'request:annotation:hide', data => this.handleAnnotationHide(data));
+        this.listenTo(this.vent, 'request:time:update', data => this.handleTimeUpdateRequest(data));
+        this.listenTo(this.vent, 'request:status', data => this.handleStatusRequest());
+        this.listenTo(this.vent, 'request:play', data => this.handlePlayRequest(data));
+        this.listenTo(this.vent, 'request:toggle', data => this.handlePlayToggleRequest(data));
+        this.listenTo(this.vent, 'request:pause', data => this.handlePauseRequest(data));
+        this.listenTo(this.vent, 'request:resume', data => this.handleResumeRequest(data));
+        this.listenTo(this.vent, 'request:lock', data => this.handleLockRequest(data));
+        this.listenTo(this.vent, 'request:unlock', data => this.handleUnlockRequest(data));
+        this.listenTo(this.vent, 'announce:annotator:input:start', data => this.handlePauseRequest(data));
+        this.listenTo(this.vent, 'announce:canvas:enabled', data => this.handleCanvasEnabled());
+        this.listenTo(this.vent, 'announce:canvas:disabled', data => this.handleCanvasDisabled());
+        return $(window).on('resize', this.resizePlayer);
+      }
 
-        # Youtube videos don't always announce the correct time after an update, so we delay and then announce again.
-        if @model.get('type') == 'Asset::Youtube'
-          setTimeout(() =>
-            @announceTimeUpdate()
-          ,500)
+      handleCanvasEnabled() {
+        return this.player.addClass('canvas-enabled');
+      }
 
-    getPlayerDimensions: () ->
-      if @model.get('family') == 'audio'
-        width = @ui.playerContainer.outerWidth()
-        height = width / 2.5
-      else
-        width = @ui.playerContainer.outerWidth()
-        height = width / 1.77
-      {width: width, height: height}
+      handleCanvasDisabled() {
+        return this.player.removeClass('canvas-enabled');
+      }
 
-    onDestroy: () ->
-      @player.dispose()
-      $(window).off('resize', @resizePlayer)
+      shiftFocusToInput() {
+        return $('.annotation-input').focus();
+      }
 
-    resizePlayer: () =>
-      dimensions = @getPlayerDimensions()
-      @player.width(dimensions.width).height(dimensions.height)
+      isLocked() {
+        return this.lock !== null;
+      }
 
-    insertAnnotationsStageView: () ->
-      container = document.createElement('div');
-      container.id = 'vjs-annotation-overlay';
-      @stageView = new PlayerAnnotations({model: @model, vent: @vent})
-      @stageView.render()
-      $(container).append(@stageView.el)
-      $(@player.el()).find('.vjs-poster').before(container)
+      unlockPlayer() {
+        const { lock } = this;
+        this.lock = null;
+        this.player.controls(true);
+        return this.vent.trigger('announce:unlocked', lock);
+      }
 
-    setupPlayer: () ->
-      dimensions = @getPlayerDimensions()
-      domTarget = @ui.player[0]
+      // Lock should be {view: aView, seconds: seconds}
+      lockPlayer(lock) {
+        this.lock = lock;
+        this.player.controls(false);
+        return this.vent.trigger('announce:locked', this.lock);
+      }
 
-      options = {
-        techOrder: @model.techOrder()
-        width: dimensions.width
-        height: dimensions.height
-        plugins: {
-          annotations: {
-            vent: @vent
-            collection: @model.annotations()
+      checkIfLocked(seconds = null) {
+        let result;
+        if (this.isLocked() === true) {
+          this.vent.trigger('announce:lock:attempted', seconds);
+          this.lock.view.trigger('lock:attempted', seconds);
+          result = true;
+        } else {
+          result = false;
+        }
+        return result;
+      }
+
+      setupPlayerEvents() {
+        this.player.on('timeupdate', ()=> {
+          return this.announceTimeUpdate();
+        });
+        this.player.on('loadedmetadata', () => {
+          this.vent.trigger('announce:loaded', this.getStatusHash());
+          return this.handleStatusRequest();
+        });
+        this.player.on('progress', () => {
+          return this.vent.trigger('announce:progress', {bufferedPercent: this.getBufferedPercent()});
+        });
+        return this.player.on('play', () => {
+          if ((this.checkIfLocked() === true) && _.isFunction(this.player.pause)) {
+            this.player.pause();
+            return this.player.currentTime(this.lock.seconds);
+          } else {
+            this.handleStatusRequest();
+            this.vent.trigger('announce:play');
+            return this.shiftFocusToInput();
+          }
+        });
+      }
+
+      getBufferedPercent() {
+        return this.player.bufferedPercent();
+      }
+
+      processCallbacks(second) {
+        if (this.callbacks.length > 0) {
+          return _.each(this.callbacks, (callbackDetails, index) => {
+            if (callbackDetails.seconds <= Math.ceil(second)) {
+              callbackDetails.callback.apply(callbackDetails.scope);
+              return this.callbacks.splice(index, 1);
+            }
+          });
+        }
+      }
+
+      getPlayedPercent() {
+        let percentage;
+        if (this.player) {
+          const duration = this.player.duration();
+          let time = this.player.currentTime();
+          if (!time) {
+            time = 0.00;
+          }
+          else {}
+          if (duration > 0) {
+            percentage = time / duration;
+          } else {
+            percentage = 0;
+          }
+        } else {
+          percentage = 0;
+        }
+        return percentage;
+      }
+
+      handleUnlockRequest() {
+        return this.unlockPlayer();
+      }
+
+      handleLockRequest(data) {
+        return this.lockPlayer(data);
+      }
+
+      getStatusHash() {
+        return {
+        bufferedPercent: this.getBufferedPercent(),
+        playedPercent: this.getPlayedPercent(),
+        playedSeconds: this.player.currentTime(),
+        duration: this.player.duration()
+        };
+      }
+
+      handleStatusRequest() {
+        return this.vent.trigger('announce:status', this.getStatusHash());
+      }
+
+      handleAnnotationShow(data) {
+        return this.player.trigger({
+          type: 'annotation:show',
+          annotation: data
+        });
+      }
+
+      handleAnnotationHide(data) {
+        return this.player.trigger({
+          type: 'annotation:hide'
+        });
+      }
+
+      handlePlaybackToggleRequest() {
+        if (this.player.paused()) {
+          return this.handlePlayRequest();
+        } else {
+          return this.handlePauseRequest();
+        }
+      }
+
+      handleResumeRequest() {
+        if (this.wasPlaying === true) {
+          this.player.play();
+          return this.wasPlaying = false;
+        }
+      }
+
+      handlePlayRequest() {
+        return this.player.play();
+      }
+
+      handlePauseRequest() {
+        const playing = !this.player.paused();
+        if (playing === true) {
+          this.wasPlaying = true;
+          this.player.pause();
+        }
+        return this.vent.trigger('announce:paused', this.getStatusHash());
+      }
+
+      addTimeBasedCallback(seconds, callback, callbackScope) {
+        return this.callbacks.push({
+          seconds,
+          callback,
+          scope: callbackScope
+        });
+      }
+
+      handleTimeUpdateRequest(data) {
+        let seconds;
+        if (data.hasOwnProperty('percent')) {
+          const duration = this.player.duration();
+          seconds = duration * data.percent;
+        } else {
+          ({ seconds } = data);
+        }
+        seconds = seconds;
+        if (data.hasOwnProperty('callback') && _.isFunction(data.callback)) {
+          this.addTimeBasedCallback(seconds, data.callback, data.callbackScope);
+        }
+
+        // Views can put a lock on the player. If the user tries to update the playback time, the player refuses, and
+        // expected the view that holds the lock to do something.
+        if (this.checkIfLocked(seconds) === false) {
+
+          // Anytime a time update is requested, we will stop the annotation editing
+          // mode. There is a subtle difference here between stopping on request and stopping
+          // on actual time update. It's user intent that we want to capture, not the time update
+          // itself.
+          this.vent.trigger('request:annotator:input:stop');
+          this.player.currentTime(seconds);
+
+          // Youtube videos don't always announce the correct time after an update, so we delay and then announce again.
+          if (this.model.get('type') === 'Asset::Youtube') {
+            return setTimeout(() => {
+              return this.announceTimeUpdate();
+            }
+            ,500);
           }
         }
-        controlBar: {
-          durationDisplay: true
-        }
       }
-      if @model.get('type') == 'Asset::Vimeo'
-        locations = @model.get('locations')
-        options.src = locations.url
 
-      if @model.get('family') == 'audio'
-        options.controlBar['fullscreenToggle'] = false
-        options.plugins = {
-          audiowave: {
-            src: @model.get('locations').mp3 || @model.get('locations').mp4,
-            msDisplayMax: 10,
-            waveColor: "grey",
-            progressColor: "black",
-            cursorColor: "black",
-            hideScrollbar: true
+      getPlayerDimensions() {
+        let height, width;
+        if (this.model.get('family') === 'audio') {
+          width = this.ui.playerContainer.outerWidth();
+          height = width / 2.5;
+        } else {
+          width = this.ui.playerContainer.outerWidth();
+          height = width / 1.77;
+        }
+        return {width, height};
+      }
+
+      onDestroy() {
+        this.player.dispose();
+        return $(window).off('resize', this.resizePlayer);
+      }
+
+      resizePlayer() {
+        const dimensions = this.getPlayerDimensions();
+        return this.player.width(dimensions.width).height(dimensions.height);
+      }
+
+      insertAnnotationsStageView() {
+        const container = document.createElement('div');
+        container.id = 'vjs-annotation-overlay';
+        this.stageView = new PlayerAnnotations({model: this.model, vent: this.vent});
+        this.stageView.render();
+        $(container).append(this.stageView.el);
+        return $(this.player.el()).find('.vjs-poster').before(container);
+      }
+
+      setupPlayer() {
+        const dimensions = this.getPlayerDimensions();
+        const domTarget = this.ui.player[0];
+
+        const options = {
+          techOrder: this.model.techOrder(),
+          width: dimensions.width,
+          height: dimensions.height,
+          plugins: {
+            annotations: {
+              vent: this.vent,
+              collection: this.model.annotations()
+            }
+          },
+          controlBar: {
+            durationDisplay: true
           }
+        };
+        if (this.model.get('type') === 'Asset::Vimeo') {
+          const locations = this.model.get('locations');
+          options.src = locations.url;
         }
 
-      @player = videojs(domTarget, options, () ->)
-      @player.rewind({})
+        if (this.model.get('family') === 'audio') {
+          options.controlBar['fullscreenToggle'] = false;
+          options.plugins = {
+            audiowave: {
+              src: this.model.get('locations').mp3 || this.model.get('locations').mp4,
+              msDisplayMax: 10,
+              waveColor: "grey",
+              progressColor: "black",
+              cursorColor: "black",
+              hideScrollbar: true
+            }
+          };
+        }
 
-      @insertAnnotationsStageView() if @model.allowsVisibleAnnotation()
-      @resizePlayer()
+        this.player = videojs(domTarget, options, function() {});
+        this.player.rewind({});
+
+        if (this.model.allowsVisibleAnnotation()) { this.insertAnnotationsStageView(); }
+        return this.resizePlayer();
+      }
+    };
+    VideoPlayerView.initClass();
+    return VideoPlayerView;
+  })();
+});

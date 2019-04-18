@@ -1,52 +1,77 @@
-define ['backbone', 'models/group'], (Backbone, GroupModel) ->
-  class GroupCollection extends Backbone.Collection
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS207: Consider shorter variations of null checks
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(['backbone', 'models/group'], function(Backbone, GroupModel) {
+  let GroupCollection;
+  return GroupCollection = (function() {
+    GroupCollection = class GroupCollection extends Backbone.Collection {
+      static initClass() {
+  
+        this.prototype.model = GroupModel;
+        this.prototype.activeModel = null;
+      }
 
-    model: GroupModel
-    activeModel: null
+      initialize(models, options) {
+        this.options = options;
+        return this.courseId = options.courseId;
+      }
 
-    initialize: (models, options) ->
-      @options = options
-      @courseId = options.courseId
+      url() {
+        return `/api/v1/courses/${this.courseId}/groups`;
+      }
 
-    url: () ->
-      "/api/v1/courses/#{@courseId}/groups"
+      getNextGroupName() {
+        let count = this.length;
+        let name = `Group #${count + 1}`;
+        let i = 0;
+        while ((i < 100) && this.findWhere({name})) {
+          i++;
+          name = `Group #${count++}`;
+        }
+        return name;
+      }
 
-    getNextGroupName: () ->
-      count = @.length
-      name = "Group ##{count + 1}"
-      i = 0
-      while i < 100 && @.findWhere({name: name})
-        i++
-        name = "Group ##{count++}"
-      name
+      save() {
+        const data = {
+          course: {
+            id: this.courseId,
+            groups_attributes: this.toJSON()
+          }
+        };
+        const url = `/api/v1/courses/${this.courseId}`;
+        const response = Backbone.sync('update', this, {url, contentType: 'application/json', data: JSON.stringify(data)});
+        return response.done(models => {
+          this.trigger('sync');
+          return this.each(model => model.trigger('sync'));
+        });
+      }
 
-    save: ->
-      data = {
-        course: {
-          id: @courseId
-          groups_attributes: @toJSON()
+      getActive() {
+        return this.activeModel;
+      }
+
+      setActive(id) {
+        const current = this.getActive();
+        if (id != null) {
+          const model = this.get(id);
+          if (model != null) {
+            this.activeModel = model;
+          } else {
+            this.activeModel = null;
+          }
+        } else {
+          this.activeModel = null;
+        }
+        if (this.activeModel !== current) {
+          return this.trigger('change:active', this.activeModel);
         }
       }
-      url = "/api/v1/courses/#{@courseId}"
-      response = Backbone.sync('update', @, url: url, contentType: 'application/json', data: JSON.stringify(data))
-      response.done((models) =>
-        @.trigger('sync')
-        @each (model) ->
-          model.trigger('sync')
-      )
-
-    getActive: () ->
-      @activeModel
-
-    setActive: (id) ->
-      current = @getActive()
-      if id?
-        model = @get(id)
-        if model?
-          @activeModel = model
-        else
-          @activeModel = null
-      else
-        @activeModel = null
-      if @activeModel != current
-        @trigger('change:active', @activeModel)
+    };
+    GroupCollection.initClass();
+    return GroupCollection;
+  })();
+});

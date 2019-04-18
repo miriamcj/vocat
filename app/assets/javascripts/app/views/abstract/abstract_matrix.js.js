@@ -1,282 +1,353 @@
-define (require) ->
-  Marionette = require('marionette')
-  require('waypoints_sticky')
-  require('waypoints')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS207: Consider shorter variations of null checks
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let AbstractMatrix;
+  const Marionette = require('marionette');
+  require('waypoints_sticky');
+  require('waypoints');
 
-  class AbstractMatrix extends Marionette.LayoutView
+  return AbstractMatrix = (function() {
+    AbstractMatrix = class AbstractMatrix extends Marionette.LayoutView {
+      static initClass() {
+  
+        this.prototype.minWidth = 200;
+        this.prototype.maxWidth = 300;
+        this.prototype.memoizeHashCount = 0;
+        this.prototype.position = 0;
+        this.prototype.counter = 0;
+  
+        this.prototype.stickyHeader = false;
+        this.prototype.locks = {
+          forward: false
+        };
+  
+        this.prototype.ui = {
+          sliderContainer: '[data-behavior="matrix-slider"]',
+          sliderLeft: '[data-behavior="matrix-slider-left"]',
+          sliderRight: '[data-behavior="matrix-slider-right"]'
+        };
+  
+        this.prototype.triggers = {
+          'click [data-behavior="matrix-slider-left"]': 'slider:left',
+          'click [data-behavior="matrix-slider-right"]': 'slider:right'
+        };
+      }
 
-    minWidth: 200
-    maxWidth: 300
-    memoizeHashCount: 0
-    position: 0
-    counter: 0
+      adjustToCurrentPosition() {
+        return this.recalculateMatrix();
+      }
 
-    stickyHeader: false
-    locks: {
-      forward: false
-    }
+      parentOnShow() {
+        this.recalculateMatrix();
+        if (this.stickyHeader) { this._initializeStickyHeader(); }
+        this.listenTo(this, 'recalculate', _.debounce(() => {
+          return this.recalculateMatrix();
+        }), 250, true);
 
-    ui: {
-      sliderContainer: '[data-behavior="matrix-slider"]'
-      sliderLeft: '[data-behavior="matrix-slider-left"]'
-      sliderRight: '[data-behavior="matrix-slider-right"]'
-    }
+        $(window).resize(function() {
+          if (this.resizeTo) {
+            clearTimeout(this.resizeTo);
+            return this.resizeTo = setTimeout(function() {
+              return $(this).trigger('resize_end');
+            });
+          }
+        });
+        return $(window).bind('resize_end', () => {
+          return this.recalculateMatrix();
+        });
+      }
 
-    triggers: {
-      'click [data-behavior="matrix-slider-left"]': 'slider:left'
-      'click [data-behavior="matrix-slider-right"]': 'slider:right'
-    }
+      recalculateMatrix() {
+        this._setColumnWidths();
+        this._setRowHeights();
+        return this._updateSliderControls();
+      }
 
-    adjustToCurrentPosition: () ->
-      @recalculateMatrix()
+      slideToEnd() {
+        this.locks.forward = true;
+        this._slideTo(this._columnCount());
+        return this._updateSliderControls();
+      }
 
-    parentOnShow: () ->
-      @recalculateMatrix()
-      @_initializeStickyHeader() if @stickyHeader
-      @listenTo(@, 'recalculate', _.debounce(() =>
-        @recalculateMatrix()
-      ), 250, true)
+      onSliderLeft() {
+        return this._slide('backward');
+      }
 
-      $(window).resize () ->
-        if @resizeTo
-          clearTimeout(@resizeTo)
-          @resizeTo = setTimeout(() ->
-            $(@).trigger('resize_end')
-          )
-      $(window).bind('resize_end', () =>
-        @recalculateMatrix()
-      )
+      onSliderRight() {
+        return this._slide('forward');
+      }
 
-    recalculateMatrix: () ->
-      @_setColumnWidths()
-      @_setRowHeights()
-      @_updateSliderControls()
+      onBeforeClose() {
+        $(window).off("resize");
+        return true;
+      }
 
-    slideToEnd: () ->
-      @locks.forward = true
-      @_slideTo(@_columnCount())
-      @_updateSliderControls()
+      _getColHeadersTable() {
+        return this.$el.find('[data-behavior="col-headers"]');
+      }
 
-    onSliderLeft: () ->
-      @_slide('backward')
+      _getActor() {
+        return this.$el.find('[data-behavior="matrix-actor"]');
+      }
 
-    onSliderRight: () ->
-      @_slide('forward')
+      _getStage() {
+        return this.$el.find('[data-behavior="matrix-stage"]');
+      }
 
-    onBeforeClose: () ->
-      $(window).off("resize")
-      true
+      _getColHeaderCells() {
+        return this.$el.find('[data-behavior="col-headers"] th');
+      }
 
-    _getColHeadersTable: () ->
-      @$el.find('[data-behavior="col-headers"]')
+      _getFirstRowCells() {
+        return this.$el.find('[data-behavior="matrix-actor"] tr:first-child td');
+      }
 
-    _getActor: () ->
-      @$el.find('[data-behavior="matrix-actor"]')
+      _getRowHeaders() {
+        return this.$el.find('[data-vertical-headers] th');
+      }
 
-    _getStage: () ->
-      @$el.find('[data-behavior="matrix-stage"]')
+      _getActorRows() {
+        return this._getActor().find('tr');
+      }
 
-    _getColHeaderCells: () ->
-      @$el.find('[data-behavior="col-headers"] th')
+      _getWidthCheckCells() {
+        return this.$el.find('[data-behavior="col-headers"] tr:first-child th, [data-behavior="matrix-actor"] tr:first-child td');
+      }
 
-    _getFirstRowCells: () ->
-      @$el.find('[data-behavior="matrix-actor"] tr:first-child td')
+      _getHandleWidth() {
+        let show;
+        if (this.ui.sliderLeft.is(':visible')) { show = true; } else { show = false; }
+        this.ui.sliderLeft.show();
+        const w = Math.floor(this.ui.sliderLeft.outerWidth());
+        if (show === false) {
+          this.ui.sliderLeft.hide();
+        }
+        return w;
+      }
 
-    _getRowHeaders: () ->
-      @$el.find('[data-vertical-headers] th')
+      _setRowHeights() {
+        const spacerHeight = this._getNaturalSpacerHeight();
+        this._setSpacerHeight();
+        const actorRows = this._getActorRows();
+        return this._getRowHeaders().each((index, el) => {
+          const $header = $(el);
+          const $row = $(actorRows[index]).find('td');
+          const headerHeight = $header.outerHeight();
+          const rowHeight = $row.outerHeight();
+          if (headerHeight > rowHeight) {
+            return $row.outerHeight(headerHeight);
+          } else if (rowHeight > headerHeight) {
+            return $header.outerHeight(rowHeight);
+          }
+        });
+      }
 
-    _getActorRows: () ->
-      @_getActor().find('tr')
+      _getMaxNaturalColumnWidth() {
+        const cells = this._getWidthCheckCells();
+        let maxWidth = 0;
+        cells.each((i, cell) => {
+          const $cell = $(cell);
+          const style = $cell.attr('style');
+          $cell.attr({style: `max-width: ${this.maxWidth}px`});
+          const w = $cell.outerWidth();
+          $cell.attr({style});
+          if (w > maxWidth) { return maxWidth = w; }
+        });
+        return maxWidth;
+      }
 
-    _getWidthCheckCells: () ->
-      @$el.find('[data-behavior="col-headers"] tr:first-child th, [data-behavior="matrix-actor"] tr:first-child td')
+      _getColumnWidth() {
+        const maxNaturalWidth = this._getMaxNaturalColumnWidth();
+        if (maxNaturalWidth > this.minWidth) {
+          return maxNaturalWidth;
+        } else {
+          return this.minWidth;
+        }
+      }
 
-    _getHandleWidth: () ->
-      if @ui.sliderLeft.is(':visible') then show = true else show = false
-      @ui.sliderLeft.show()
-      w = Math.floor(@ui.sliderLeft.outerWidth())
-      if show == false
-        @ui.sliderLeft.hide()
-      w
+      _columnCount() {
+        const bodyCols = this._getFirstRowCells().length;
+        const headerCols = this._getColHeaderCells().length;
+        return Math.max(bodyCols, headerCols);
+      }
 
-    _setRowHeights: () ->
-      spacerHeight = @_getNaturalSpacerHeight()
-      @_setSpacerHeight()
-      actorRows = @_getActorRows()
-      @_getRowHeaders().each((index, el) =>
-        $header = $(el)
-        $row = $(actorRows[index]).find('td')
-        headerHeight = $header.outerHeight()
-        rowHeight = $row.outerHeight()
-        if headerHeight > rowHeight
-          $row.outerHeight(headerHeight)
-        else if rowHeight > headerHeight
-          $header.outerHeight(rowHeight)
-      )
+      _getAdjustedColumnWidth() {
+        const width = this._getColumnWidth();
+        const space = this._visibleWidth();
+        const colsAtMin = Math.floor(space / width);
+        let adjustedWidth = space / colsAtMin;
+        adjustedWidth = adjustedWidth < this.maxWidth ? adjustedWidth : this.maxWidth;
+        return adjustedWidth;
+      }
 
-    _getMaxNaturalColumnWidth: () ->
-      cells = @_getWidthCheckCells()
-      maxWidth = 0
-      cells.each((i, cell) =>
-        $cell = $(cell)
-        style = $cell.attr('style')
-        $cell.attr({style: "max-width: #{@maxWidth}px"})
-        w = $cell.outerWidth()
-        $cell.attr({style: style})
-        maxWidth = w if w > maxWidth
-      )
-      maxWidth
+      _visibleWidth() {
+        return this._getStage().outerWidth() - this._getHandleWidth();
+      }
 
-    _getColumnWidth: () ->
-      maxNaturalWidth = @_getMaxNaturalColumnWidth()
-      if maxNaturalWidth > @minWidth
-        return maxNaturalWidth
-      else
-        return @minWidth
+      _removeWidthConstraints() {
+        this._getColHeadersTable().outerWidth(300);
+        return this._getActor().outerWidth(300);
+      }
 
-    _columnCount: () ->
-      bodyCols = @_getFirstRowCells().length
-      headerCols = @_getColHeaderCells().length
-      Math.max(bodyCols, headerCols)
+      _setColumnWidths() {
+        this._removeWidthConstraints();
+        let totalWidth = 0;
+        const width = this._getAdjustedColumnWidth();
+        this._getColHeaderCells().each(function(i, cell) {
+          totalWidth = totalWidth + width;
+          return $(cell).outerWidth(width);
+        });
+        this._getColHeadersTable().outerWidth(totalWidth);
+        this._getFirstRowCells().each((i, cell) => $(cell).outerWidth(width));
+        // Set outer width of each actor
+        return this._getActor().outerWidth(totalWidth);
+      }
 
-    _getAdjustedColumnWidth: () ->
-      width = @_getColumnWidth()
-      space = @_visibleWidth()
-      colsAtMin = Math.floor(space / width)
-      adjustedWidth = space / colsAtMin
-      adjustedWidth = if adjustedWidth < @maxWidth then adjustedWidth else @maxWidth
-      return adjustedWidth
+      _getNaturalSpacerHeight() {
+        this.$el.find('[data-match-height-target]').css({height: 'auto'});
+        return this.$el.find('[data-match-height-target]').outerHeight();
+      }
 
-    _visibleWidth: () ->
-      @_getStage().outerWidth() - @_getHandleWidth()
+      _setSpacerHeight() {
+        const minHeight = this._getNaturalSpacerHeight();
+        // Work around for chrome rendering bug when height of th in table is adjusted.
+        const targetHeight = this.$el.find('[data-match-height-source]').outerHeight() - .4;
+        if (targetHeight > minHeight) {
+          return this.$el.find('[data-match-height-target]').outerHeight(targetHeight).hide().show();
+        } else {
+          return this.$el.find('[data-match-height-source]').outerHeight(minHeight).hide().show();
+        }
+      }
 
-    _removeWidthConstraints: () ->
-      @_getColHeadersTable().outerWidth(300)
-      @_getActor().outerWidth(300)
+      _updateSliderControls() {
+        if (this._canSlideBackwardFrom()) {
+          this.ui.sliderLeft.show();
+        } else {
+          this.ui.sliderLeft.hide();
+        }
+        if (this._canSlideForwardFrom() && (this.locks.forward === false)) {
+          this.ui.sliderRight.show();
+        } else {
+          this.ui.sliderRight.hide();
+        }
+        return this._positionSliderLeft();
+      }
 
-    _setColumnWidths: () ->
-      @_removeWidthConstraints()
-      totalWidth = 0
-      width = @_getAdjustedColumnWidth()
-      @_getColHeaderCells().each((i, cell) ->
-        totalWidth = totalWidth + width
-        $(cell).outerWidth(width)
-      )
-      @_getColHeadersTable().outerWidth(totalWidth)
-      @_getFirstRowCells().each((i, cell) ->
-        $(cell).outerWidth(width)
-      )
-      # Set outer width of each actor
-      @_getActor().outerWidth(totalWidth)
+      _canSlideForwardFrom(left = null) {
+        if (left === null) { left = this._currentLeft(); }
+        return left > (this._hiddenWidth() * -1);
+      }
 
-    _getNaturalSpacerHeight: () ->
-      @$el.find('[data-match-height-target]').css({height: 'auto'})
-      @$el.find('[data-match-height-target]').outerHeight()
+      _canSlideBackwardFrom(left = null) {
+        if (left === null) { left = this._currentLeft(); }
+        return left < 0;
+      }
 
-    _setSpacerHeight: () ->
-      minHeight = @_getNaturalSpacerHeight()
-      # Work around for chrome rendering bug when height of th in table is adjusted.
-      targetHeight = @$el.find('[data-match-height-source]').outerHeight() - .4
-      if targetHeight > minHeight
-        @$el.find('[data-match-height-target]').outerHeight(targetHeight).hide().show()
-      else
-        @$el.find('[data-match-height-source]').outerHeight(minHeight).hide().show()
+      _currentLeft() {
+        let l = this._getActor().css('left');
+        if (l === 'auto') {
+          l = 0;
+        } else {
+          l = parseInt(l, 10);
+        }
+        return l;
+      }
 
-    _updateSliderControls: () ->
-      if @_canSlideBackwardFrom()
-        @ui.sliderLeft.show()
-      else
-        @ui.sliderLeft.hide()
-      if @_canSlideForwardFrom() && @locks.forward == false
-        @ui.sliderRight.show()
-      else
-        @ui.sliderRight.hide()
-      @_positionSliderLeft()
+      _hiddenWidth() {
+        return Math.floor(this._getActor().outerWidth() - this._getStage().outerWidth());
+      }
 
-    _canSlideForwardFrom: (left = null) ->
-      if left == null then left = @_currentLeft()
-      left > @_hiddenWidth() * -1
+      _positionSliderLeft() {
+        const w = this.$el.find('[data-vertical-headers]').outerWidth();
+        return this.ui.sliderLeft.css('left', w);
+      }
 
-    _canSlideBackwardFrom: (left = null) ->
-      if left == null then left = @_currentLeft()
-      left < 0
+      _slide(direction) {
+        const globalChannel = Backbone.Wreqr.radio.channel('global');
+        globalChannel.vent.trigger('user:action');
+        let position = this._checkAndAdjustPosition(this.position);
+        if ((direction === 'forward') && this._canSlideForwardFrom()) {
+          position = position + 1;
+        }
+        if ((direction === 'backward') && this._canSlideBackwardFrom()) {
+          position = position - 1;
+        }
+        return this._slideTo(position);
+      }
 
-    _currentLeft: () ->
-      l = @_getActor().css('left')
-      if l == 'auto'
-        l = 0
-      else
-        l = parseInt(l, 10)
-      l
+      _checkAndAdjustPosition(position) {
+        if (position > this._maxAttainablePosition()) {
+          position = this._maxAttainablePosition();
+        }
+        if (position < 0) {
+          position = 0;
+        }
+        return position;
+      }
 
-    _hiddenWidth: () ->
-      Math.floor(@_getActor().outerWidth() - @_getStage().outerWidth())
+      _visibleColumns() {
+        let out = Math.floor(this._visibleWidth() / this._getAdjustedColumnWidth());
+        if (out === 0) { out = 1; }
+        return out;
+      }
 
-    _positionSliderLeft: () ->
-      w = @$el.find('[data-vertical-headers]').outerWidth()
-      @ui.sliderLeft.css('left', w)
+      _maxAttainablePosition() {
+        return this._columnCount() - this._visibleColumns();
+      }
 
-    _slide: (direction) ->
-      globalChannel = Backbone.Wreqr.radio.channel('global')
-      globalChannel.vent.trigger('user:action')
-      position = @_checkAndAdjustPosition(@position)
-      if direction == 'forward' && @_canSlideForwardFrom()
-        position = position + 1
-      if direction == 'backward' && @_canSlideBackwardFrom()
-        position = position - 1
-      @_slideTo(position)
+      _slideTo(position) {
+        position = this._checkAndAdjustPosition(position);
+        this.position = position;
+        return this._animate(this._targetForPosition(this.position), () => {
+          this.locks.forward = false;
+          return this._updateSliderControls();
+        });
+      }
 
-    _checkAndAdjustPosition: (position) ->
-      if position > @_maxAttainablePosition()
-        position = @_maxAttainablePosition()
-      if position < 0
-        position = 0
-      position
+      _getCurrentColumnWidth(column) {
+        return $(this._getColHeaderCells().get(column)).outerWidth();
+      }
 
-    _visibleColumns: () ->
-      out = Math.floor(@_visibleWidth() / @_getAdjustedColumnWidth())
-      out = 1 if out == 0
-      out
+      _targetForPosition(position) {
+        const hiddenWidth = this._hiddenWidth();
+        const columnWidth = this._getCurrentColumnWidth(position);
+        let target = position * columnWidth * -1;
+        if (target < (hiddenWidth * -1)) { target = hiddenWidth * -1; }
+        target = Math.ceil(target);
+        if (target > 0) { target = 0; }
+        return target;
+      }
 
-    _maxAttainablePosition: () ->
-      @_columnCount() - @_visibleColumns()
+      _animate(target, duration) {
+        if (duration == null) { duration = 250; }
+        this._getActor().animate({left: target}, duration).promise().done(() => this._updateSliderControls());
+        return this._getColHeadersTable().animate({left: target}, duration).promise().done(() => this._updateSliderControls());
+      }
 
-    _slideTo: (position) ->
-      position = @_checkAndAdjustPosition(position)
-      @position = position
-      @_animate(@_targetForPosition(@position), () =>
-        @locks.forward = false
-        @_updateSliderControls()
-      )
-
-    _getCurrentColumnWidth: (column) ->
-      $(@_getColHeaderCells().get(column)).outerWidth()
-
-    _targetForPosition: (position) ->
-      hiddenWidth = @_hiddenWidth()
-      columnWidth = @_getCurrentColumnWidth(position)
-      target = position * columnWidth * -1
-      if target < hiddenWidth * -1 then target = hiddenWidth * -1
-      target = Math.ceil(target)
-      if target > 0 then target = 0
-      target
-
-    _animate: (target, duration = 250) ->
-      @_getActor().animate({left: target}, duration).promise().done(() => @_updateSliderControls())
-      @_getColHeadersTable().animate({left: target}, duration).promise().done(() => @_updateSliderControls())
-
-    _initializeStickyHeader: () ->
-      $el = @$el.find('[data-class="sticky-header"]')
-      $el.waypoint('sticky', {
-        offset: $('.page-header').outerHeight()
-        handler: (direction) ->
-          $container = $(@)
-          child = $container.children(':first')
-          if direction == 'down'
-            child.outerWidth(child.outerWidth())
-            $container.find('[data-behavior="dropdown-options"]').each((index, el) ->
-              $(el).trigger('stuck')
-            )
-          if direction == 'up'
-            child.css({width: 'auto'})
-      })
+      _initializeStickyHeader() {
+        const $el = this.$el.find('[data-class="sticky-header"]');
+        return $el.waypoint('sticky', {
+          offset: $('.page-header').outerHeight(),
+          handler(direction) {
+            const $container = $(this);
+            const child = $container.children(':first');
+            if (direction === 'down') {
+              child.outerWidth(child.outerWidth());
+              $container.find('[data-behavior="dropdown-options"]').each((index, el) => $(el).trigger('stuck'));
+            }
+            if (direction === 'up') {
+              return child.css({width: 'auto'});
+            }
+          }
+        });
+      }
+    };
+    AbstractMatrix.initClass();
+    return AbstractMatrix;
+  })();
+});

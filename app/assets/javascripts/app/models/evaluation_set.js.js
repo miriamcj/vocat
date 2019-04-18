@@ -1,13 +1,22 @@
-define ['backbone'], (Backbone) ->
-  class EvaluationSetModel extends Backbone.Model
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(['backbone'], function(Backbone) {
+  let EvaluationSetModel;
+  return (EvaluationSetModel = class EvaluationSetModel extends Backbone.Model {
 
-    averageScore: () ->
-      numbers = @get('evaluations').pluck('total_percentage')
-      Math.round(_.reduce(numbers, (memo, num) ->
-        memo + num
-      , 0) / numbers.length)
+    averageScore() {
+      const numbers = this.get('evaluations').pluck('total_percentage');
+      return Math.round(_.reduce(numbers, (memo, num) => memo + num
+      , 0) / numbers.length);
+    }
 
-    toJSON: () ->
-      attributes = _.clone(this.attributes);
-      attributes.averageScore = @averageScore()
-      attributes
+    toJSON() {
+      const attributes = _.clone(this.attributes);
+      attributes.averageScore = this.averageScore();
+      return attributes;
+    }
+  });
+});

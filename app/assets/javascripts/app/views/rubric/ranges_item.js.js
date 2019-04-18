@@ -1,70 +1,95 @@
-define (require) ->
-  Marionette = require('marionette')
-  template = require('hbs!templates/rubric/ranges_item')
-  LongTextInputView = require('views/property_editor/long_text_input')
-  ModalConfirmView = require('views/modal/modal_confirm')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS207: Consider shorter variations of null checks
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let RangesItem;
+  const Marionette = require('marionette');
+  const template = require('hbs!templates/rubric/ranges_item');
+  const LongTextInputView = require('views/property_editor/long_text_input');
+  const ModalConfirmView = require('views/modal/modal_confirm');
 
-  class RangesItem extends Marionette.ItemView
+  return RangesItem = (function() {
+    RangesItem = class RangesItem extends Marionette.ItemView {
+      static initClass() {
+  
+        this.prototype.template = template;
+        this.prototype.className = 'cell';
+  
+        this.prototype.triggers = {
+          'click [data-behavior="destroy"]': 'description:clear',
+          'click [data-behavior="edit"]': 'click:edit'
+        };
+      }
 
-    template: template
-    className: 'cell'
+      findModel() {
+        const cells = this.rubric.get('cells');
+        const model = cells.findWhere({field: this.criteria.get('id'), range: this.range.get('id')});
+        return model;
+      }
 
-    triggers: {
-      'click [data-behavior="destroy"]': 'description:clear'
-      'click [data-behavior="edit"]': 'click:edit'
-    }
+      cellName() {
+        return this.rubricName = `${this.model.rangeModel.get('name')} ${this.model.fieldModel.get('name')}`;
+      }
 
-    findModel: () ->
-      cells = @rubric.get('cells')
-      model = cells.findWhere({field: @criteria.get('id'), range: @range.get('id')})
-      model
+      serializeData() {
+        const data = super.serializeData();
+        if (this.model.rangeModel != null) { data.rangeName = this.model.rangeModel.get('name'); }
+        if (this.model.fieldModel != null) { data.fieldName = this.model.fieldModel.get('name'); }
+        data.cellName = this.cellName();
+        return data;
+      }
 
-    cellName: () ->
-      @rubricName = "#{@model.rangeModel.get('name')} #{@model.fieldModel.get('name')}"
+      onDescriptionClear() {
+        return Vocat.vent.trigger('modal:open', new ModalConfirmView({
+          model: this.model,
+          vent: this,
+          descriptionLabel: 'Clear description?',
+          confirmEvent: 'confirm:description:clear',
+          dismissEvent: 'dismiss:description:clear'
+        }));
+      }
 
-    serializeData: () ->
-      data = super()
-      data.rangeName = @model.rangeModel.get('name') if @model.rangeModel?
-      data.fieldName = @model.fieldModel.get('name') if @model.fieldModel?
-      data.cellName = @cellName()
-      data
+      onConfirmDescriptionClear() {
+        return this.model.unset('description');
+      }
 
-    onDescriptionClear: () ->
-      Vocat.vent.trigger('modal:open', new ModalConfirmView({
-        model: @model,
-        vent: @,
-        descriptionLabel: 'Clear description?',
-        confirmEvent: 'confirm:description:clear',
-        dismissEvent: 'dismiss:description:clear'
-      }))
+      onClickEdit() {
+        return this.openModal();
+      }
 
-    onConfirmDescriptionClear: () ->
-      @model.unset('description')
+      openModal() {
+        const label = `Description: ${this.model.rangeModel.get('name')} ${this.model.fieldModel.get('name')}`;
+        return Vocat.vent.trigger('modal:open', new LongTextInputView({
+          model: this.model,
+          inputLabel: label,
+          saveLabel: 'Update Description',
+          saveClasses: 'update-button',
+          property: 'description',
+          vent: this.vent
+        }));
+      }
 
-    onClickEdit: () ->
-      @openModal()
+      initialize(options) {
+        this.vent = options.vent;
+        this.range = options.range;
+        this.criteria = this.model;
+        this.rubric = options.rubric;
+        this.model = this.findModel();
 
-    openModal: () ->
-      label = "Description: #{@model.rangeModel.get('name')} #{@model.fieldModel.get('name')}"
-      Vocat.vent.trigger('modal:open', new LongTextInputView({
-        model: @model,
-        inputLabel: label,
-        saveLabel: 'Update Description',
-        saveClasses: 'update-button',
-        property: 'description',
-        vent: @vent
-      }))
-
-    initialize: (options) ->
-      @vent = options.vent
-      @range = options.range
-      @criteria = @model
-      @rubric = options.rubric
-      @model = @findModel()
-
-      if @model?
-        @listenTo(@model, 'change', () ->
-          @render()
-        )
-      @listenTo(@model.rangeModel, 'change:name', @render, @) if @model.rangeModel?
-      @listenTo(@model.fieldModel, 'change:name', @render, @) if @model.fieldModel?
+        if (this.model != null) {
+          this.listenTo(this.model, 'change', function() {
+            return this.render();
+          });
+        }
+        if (this.model.rangeModel != null) { this.listenTo(this.model.rangeModel, 'change:name', this.render, this); }
+        if (this.model.fieldModel != null) { return this.listenTo(this.model.fieldModel, 'change:name', this.render, this); }
+      }
+    };
+    RangesItem.initClass();
+    return RangesItem;
+  })();
+});

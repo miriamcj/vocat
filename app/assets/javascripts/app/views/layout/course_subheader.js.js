@@ -1,30 +1,49 @@
-define (require) ->
-  Marionette = require('marionette')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let CourseSubheaderView;
+  const Marionette = require('marionette');
 
-  class CourseSubheaderView extends Marionette.ItemView
+  return CourseSubheaderView = (function() {
+    CourseSubheaderView = class CourseSubheaderView extends Marionette.ItemView {
+      static initClass() {
+  
+        this.prototype.events = {
+          'click @ui.trigger': 'clickTrigger'
+        };
+  
+        this.prototype.ui = {
+          trigger: '[data-behavior="view-toggle"]'
+        };
+      }
 
-    events: {
-      'click @ui.trigger': 'clickTrigger'
-    }
-
-    ui: {
-      trigger: '[data-behavior="view-toggle"]'
-    }
-
-    clickTrigger: (event) ->
-      if window.VocatSubnavOverride
-        event.preventDefault()
-        el = event.currentTarget
-        val = el.innerHTML
-        if val == 'INDIVIDUAL WORK' || val == 'PEER WORK'
-          Vocat.router.navigate("courses/#{window.VocatCourseId}/users/evaluations", true)
-        else if val == 'GROUP WORK'
-          Vocat.router.navigate("courses/#{window.VocatCourseId}/groups/evaluations", true)
-        $(el).addClass('active') unless $(el).hasClass('active')
-        $(el).siblings().removeClass('active')
+      clickTrigger(event) {
+        if (window.VocatSubnavOverride) {
+          event.preventDefault();
+          const el = event.currentTarget;
+          const val = el.innerHTML;
+          if ((val === 'INDIVIDUAL WORK') || (val === 'PEER WORK')) {
+            Vocat.router.navigate(`courses/${window.VocatCourseId}/users/evaluations`, true);
+          } else if (val === 'GROUP WORK') {
+            Vocat.router.navigate(`courses/${window.VocatCourseId}/groups/evaluations`, true);
+          }
+          if (!$(el).hasClass('active')) { $(el).addClass('active'); }
+          return $(el).siblings().removeClass('active');
+        }
+      }
       
 
 
-    initialize: (options) ->
-      @vent = options.vent
-      @$trigger = @$el.find(@ui.trigger)
+      initialize(options) {
+        this.vent = options.vent;
+        return this.$trigger = this.$el.find(this.ui.trigger);
+      }
+    };
+    CourseSubheaderView.initClass();
+    return CourseSubheaderView;
+  })();
+});

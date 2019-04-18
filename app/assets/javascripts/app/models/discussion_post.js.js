@@ -1,23 +1,44 @@
-define ['backbone'], (Backbone) ->
-  class DiscussionPostModel extends Backbone.Model
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * DS207: Consider shorter variations of null checks
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(['backbone'], function(Backbone) {
+  let DiscussionPostModel;
+  return DiscussionPostModel = (function() {
+    DiscussionPostModel = class DiscussionPostModel extends Backbone.Model {
+      static initClass() {
+  
+        this.prototype.urlRoot = '/api/v1/discussion_posts';
+      }
 
-    urlRoot: '/api/v1/discussion_posts'
+      hasParent() {
+        if (this.get('parent_id') != null) {
+          return true;
+        } else {
+          return false;
+        }
+      }
 
-    hasParent: () ->
-      if @get('parent_id')?
-        true
-      else
-        false
+      validate(attrs, options) {
+        const errors = {};
 
-    validate: (attrs, options) ->
-      errors = {}
+        if (!attrs.body || (attrs.body.length < 1)) {
+          if (!errors.body || !_.isArray(errors.body)) { errors.body = []; }
+          errors.body.push('cannot be empty.');
+        }
 
-      if !attrs.body || attrs.body.length < 1
-        unless errors.body && _.isArray(errors.body) then errors.body = []
-        errors.body.push('cannot be empty.')
+        if (attrs.submission_id == null) {
+          if (!errors.body || !_.isArray(errors.body)) { errors.body = []; }
+          errors.push({name: 'submission_id', message: 'All posts must be associated with a submission.'});
+        }
 
-      unless attrs.submission_id?
-        unless errors.body && _.isArray(errors.body) then errors.body = []
-        errors.push({name: 'submission_id', message: 'All posts must be associated with a submission.'})
-
-      if _.size(errors) > 0 then errors else false
+        if (_.size(errors) > 0) { return errors; } else { return false; }
+      }
+    };
+    DiscussionPostModel.initClass();
+    return DiscussionPostModel;
+  })();
+});

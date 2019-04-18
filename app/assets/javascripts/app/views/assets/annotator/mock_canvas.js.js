@@ -1,19 +1,37 @@
-define (require) ->
-  Marionette = require('marionette')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let MockCanvasView;
+  const Marionette = require('marionette');
 
-  class MockCanvasView extends Marionette.ItemView
+  return MockCanvasView = (function() {
+    MockCanvasView = class MockCanvasView extends Marionette.ItemView {
+      static initClass() {
+  
+        this.prototype.template = false;
+      }
 
-    template: false
+      initialize(options) {
+        this.vent = options.vent;
+        this.collection = this.model.annotations();
+        return this.setupListeners();
+      }
 
-    initialize: (options) ->
-      @vent = options.vent
-      @collection = @model.annotations()
-      @setupListeners()
+      setupListeners() {
+        return this.listenTo(this.vent, 'request:canvas', this.announceCanvas, this);
+      }
 
-    setupListeners: () ->
-      @listenTo(@vent, 'request:canvas', @announceCanvas, @)
-
-    announceCanvas: () ->
-      json = null
-      svg = null
-      @vent.trigger('announce:canvas', JSON.stringify({json: json, svg: svg}))
+      announceCanvas() {
+        const json = null;
+        const svg = null;
+        return this.vent.trigger('announce:canvas', JSON.stringify({json, svg}));
+      }
+    };
+    MockCanvasView.initClass();
+    return MockCanvasView;
+  })();
+});

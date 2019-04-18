@@ -1,68 +1,91 @@
-define (require) ->
-  Marionette = require('marionette')
-  template = require('hbs!templates/course_map/creators_item')
-  ModalGroupMembershipView = require('views/modal/modal_group_membership')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let CourseMapCreatorsItem;
+  const Marionette = require('marionette');
+  const template = require('hbs!templates/course_map/creators_item');
+  const ModalGroupMembershipView = require('views/modal/modal_group_membership');
 
-  class CourseMapCreatorsItem extends Marionette.ItemView
+  return CourseMapCreatorsItem = (function() {
+    CourseMapCreatorsItem = class CourseMapCreatorsItem extends Marionette.ItemView {
+      static initClass() {
+  
+        this.prototype.tagName = 'tr';
+  
+        this.prototype.template = template;
+  
+        this.prototype.ui = {
+          openGroupModal: '[data-behavior="open-group-modal"]'
+        };
+  
+        this.prototype.triggers = {
+          'click @ui.openGroupModal': 'open:groups:modal',
+          'mouseover [data-behavior="creator-name"]': 'active',
+          'mouseout [data-behavior="creator-name"]': 'inactive',
+          'click [data-behavior="creator-name"]': 'detail'
+        };
+  
+        this.prototype.attributes = {
+          'data-behavior': 'navigate-creator'
+        };
+      }
 
-    tagName: 'tr'
+      serializeData() {
+        const data = super.serializeData();
+        if (this.creatorType === 'Group') {
+          data.isGroup = true;
+          data.isUser = false;
+        }
+        if (this.creatorType === 'User') {
+          data.isGroup = false;
+          data.isUser = true;
+        }
+        data.courseId = this.options.courseId;
+        data.userCanAdministerCourse = window.VocatUserCourseAdministrator;
+        return data;
+      }
 
-    template: template
+      onOpenGroupsModal() {
+        return Vocat.vent.trigger('modal:open', new ModalGroupMembershipView({groupId: this.model.id, name: this.model.name}));
+      }
 
-    ui: {
-      openGroupModal: '[data-behavior="open-group-modal"]'
-    }
+      onDetail() {
+        return this.vent.triggerMethod('navigate:creator', {creator: this.model.id});
+      }
 
-    triggers: {
-      'click @ui.openGroupModal': 'open:groups:modal'
-      'mouseover [data-behavior="creator-name"]': 'active'
-      'mouseout [data-behavior="creator-name"]': 'inactive'
-      'click [data-behavior="creator-name"]': 'detail'
-    }
+      initialize(options) {
+        this.options = options || {};
+        this.vent = Marionette.getOption(this, 'vent');
+        this.creatorType = Marionette.getOption(this, 'creatorType');
 
-    attributes: {
-      'data-behavior': 'navigate-creator'
-    }
+        if (this.creatorType === 'Group') {
+          this.$el.addClass('matrix--group-title');
+        }
 
-    serializeData: () ->
-      data = super()
-      if @creatorType == 'Group'
-        data.isGroup = true
-        data.isUser = false
-      if @creatorType == 'User'
-        data.isGroup = false
-        data.isUser = true
-      data.courseId = @options.courseId
-      data.userCanAdministerCourse = window.VocatUserCourseAdministrator
-      data
+        this.listenTo(this.vent, 'row:active', function(data) {
+          if (data.creator === this.model) { return this.$el.addClass('active'); }
+        });
 
-    onOpenGroupsModal: () ->
-      Vocat.vent.trigger('modal:open', new ModalGroupMembershipView({groupId: @model.id, name: @model.name}))
+        this.listenTo(this.vent, 'row:inactive', function(data) {
+          if (data.creator === this.model) { return this.$el.removeClass('active'); }
+        });
 
-    onDetail: () ->
-      @vent.triggerMethod('navigate:creator', {creator: @model.id})
-
-    initialize: (options) ->
-      @options = options || {}
-      @vent = Marionette.getOption(@, 'vent')
-      @creatorType = Marionette.getOption(@, 'creatorType')
-
-      if @creatorType == 'Group'
-        @$el.addClass('matrix--group-title')
-
-      @listenTo(@vent, 'row:active', (data) ->
-        if data.creator == @model then @$el.addClass('active')
-      )
-
-      @listenTo(@vent, 'row:inactive', (data) ->
-        if data.creator == @model then @$el.removeClass('active')
-      )
-
-      @listenTo(@model.collection, 'change:active', (activeCreator) ->
-        if activeCreator == @model
-          @$el.addClass('selected')
-          @$el.removeClass('active')
-        else
-          @$el.removeClass('selected')
-      )
-      @$el.attr('data-creator', @model.id)
+        this.listenTo(this.model.collection, 'change:active', function(activeCreator) {
+          if (activeCreator === this.model) {
+            this.$el.addClass('selected');
+            return this.$el.removeClass('active');
+          } else {
+            return this.$el.removeClass('selected');
+          }
+        });
+        return this.$el.attr('data-creator', this.model.id);
+      }
+    };
+    CourseMapCreatorsItem.initClass();
+    return CourseMapCreatorsItem;
+  })();
+});

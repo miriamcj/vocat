@@ -1,37 +1,72 @@
-define (require) ->
-  Marionette = require('marionette')
-  userItemTemplate = require('hbs!templates/admin/enrollment/list_users_item')
-  courseItemTemplate = require('hbs!templates/admin/enrollment/list_courses_item')
+/*
+ * decaffeinate suggestions:
+ * DS001: Remove Babel/TypeScript constructor workaround
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let CreatorEnrollmentItem;
+  const Marionette = require('marionette');
+  const userItemTemplate = require('hbs!templates/admin/enrollment/list_users_item');
+  const courseItemTemplate = require('hbs!templates/admin/enrollment/list_courses_item');
 
-  class CreatorEnrollmentItem extends Marionette.ItemView
+  return CreatorEnrollmentItem = (function() {
+    CreatorEnrollmentItem = class CreatorEnrollmentItem extends Marionette.ItemView {
+      constructor(...args) {
+        {
+          // Hack: trick Babel/TypeScript into allowing this before super.
+          if (false) { super(); }
+          let thisFn = (() => { return this; }).toString();
+          let thisName = thisFn.match(/return (?:_assertThisInitialized\()*(\w+)\)*;/)[1];
+          eval(`${thisName} = this;`);
+        }
+        this.getTemplate = this.getTemplate.bind(this);
+        super(...args);
+      }
 
-    tagName: 'tr'
+      static initClass() {
+  
+        this.prototype.tagName = 'tr';
+      }
 
-    getTemplate: () =>
-      if @model.collection.searchType() == 'user' then return userItemTemplate else return courseItemTemplate
+      getTemplate() {
+        if (this.model.collection.searchType() === 'user') { return userItemTemplate; } else { return courseItemTemplate; }
+      }
 
-    triggers: () ->
-      'click [data-behavior="destroy"]': 'clickDestroy'
+      triggers() {
+        return {'click [data-behavior="destroy"]': 'clickDestroy'};
+      }
 
-    initialize: (options) ->
-      @vent = options.vent
+      initialize(options) {
+        return this.vent = options.vent;
+      }
 
-    serializeData: () ->
-      out = super()
-      out.isAdmin = (window.VocatUserRole == 'administrator')
-      out
+      serializeData() {
+        const out = super.serializeData();
+        out.isAdmin = (window.VocatUserRole === 'administrator');
+        return out;
+      }
 
-    onClickDestroy: () ->
-      @model.destroy({
-        wait: true
-        success: (model) =>
-          Vocat.vent.trigger('error:add', {
-            level: 'notice',
-            lifetime: 5000,
-            msg: "#{model.get('user_name')} has been removed from section ##{model.get('section')}."
-          })
-        error: (model, xhr) =>
-          Vocat.vent.trigger('error:add', {level: 'error', lifetime: 5000, msg: xhr.responseJSON.errors})
-      })
+      onClickDestroy() {
+        return this.model.destroy({
+          wait: true,
+          success: model => {
+            return Vocat.vent.trigger('error:add', {
+              level: 'notice',
+              lifetime: 5000,
+              msg: `${model.get('user_name')} has been removed from section #${model.get('section')}.`
+            });
+          },
+          error: (model, xhr) => {
+            return Vocat.vent.trigger('error:add', {level: 'error', lifetime: 5000, msg: xhr.responseJSON.errors});
+          }
+        });
+      }
 
-    onRender: () ->
+      onRender() {}
+    };
+    CreatorEnrollmentItem.initClass();
+    return CreatorEnrollmentItem;
+  })();
+});

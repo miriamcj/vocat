@@ -1,28 +1,47 @@
-define (require) ->
-  Marionette = require('marionette')
-  Item = require('views/group/groups_item')
-  template = require('hbs!templates/group/groups')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let GroupsView;
+  const Marionette = require('marionette');
+  const Item = require('views/group/groups_item');
+  const template = require('hbs!templates/group/groups');
 
-  class GroupsView extends Marionette.CompositeView
-
-    childView: Item
-    tagName: 'thead'
-    template: template
-    childViewContainer: "tr"
-
-    childViewOptions: () ->
-      {
-      courseId: @options.courseId
-      vent: @vent
+  return GroupsView = (function() {
+    GroupsView = class GroupsView extends Marionette.CompositeView {
+      static initClass() {
+  
+        this.prototype.childView = Item;
+        this.prototype.tagName = 'thead';
+        this.prototype.template = template;
+        this.prototype.childViewContainer = "tr";
       }
 
-    initialize: (options) ->
-      @options = options || {}
-      @vent = Marionette.getOption(@, 'vent')
+      childViewOptions() {
+        return {
+        courseId: this.options.courseId,
+        vent: this.vent
+        };
+      }
 
-    onAddChild: () ->
-      @vent.trigger('recalculate')
+      initialize(options) {
+        this.options = options || {};
+        return this.vent = Marionette.getOption(this, 'vent');
+      }
 
-    onRemoveChild: () ->
-      @vent.trigger('recalculate')
+      onAddChild() {
+        return this.vent.trigger('recalculate');
+      }
+
+      onRemoveChild() {
+        return this.vent.trigger('recalculate');
+      }
+    };
+    GroupsView.initClass();
+    return GroupsView;
+  })();
+});
 

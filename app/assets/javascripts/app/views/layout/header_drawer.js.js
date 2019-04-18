@@ -1,79 +1,103 @@
-define (require) ->
-  Marionette = require('marionette')
-  ClosesOnUserAction = require('behaviors/closes_on_user_action')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let HeaderDrawerView;
+  const Marionette = require('marionette');
+  const ClosesOnUserAction = require('behaviors/closes_on_user_action');
 
-  class HeaderDrawerView extends Marionette.ItemView
-
-    visibleCourses: 5
-    filtered: false
-
-    behaviors: {
-      closesOnUserAction: {
-        behaviorClass: ClosesOnUserAction
+  return HeaderDrawerView = (function() {
+    HeaderDrawerView = class HeaderDrawerView extends Marionette.ItemView {
+      static initClass() {
+  
+        this.prototype.visibleCourses = 5;
+        this.prototype.filtered = false;
+  
+        this.prototype.behaviors = {
+          closesOnUserAction: {
+            behaviorClass: ClosesOnUserAction
+          }
+        };
+  
+        this.prototype.ui = {
+          courseSelect: '[data-class="course-select"]',
+          recentCourseSelect: '[data-class="recent-course-select"]'
+        };
       }
-    }
 
-    ui: {
-      courseSelect: '[data-class="course-select"]'
-      recentCourseSelect: '[data-class="recent-course-select"]'
-    }
-
-    toggle: () ->
-      if @$el.hasClass('drawer-open')
-        @close()
-      else
-        @open()
-
-    open: () ->
-      $("[data-drawer-target=\"#{@drawerTarget}\"]").addClass('drawer-open')
-      $("[data-drawer-target=\"#{@drawerTarget}\"] a").addClass('active')
-      @triggerMethod('opened')
-
-    close: () ->
-      $("[data-drawer-target=\"#{@drawerTarget}\"]").removeClass('drawer-open')
-      $("[data-drawer-target=\"#{@drawerTarget}\"] a").removeClass('active')
-      @triggerMethod('closed')
-
-    setupListeners: () ->
-      @ui.courseSelect.on('change', () =>
-        val = @ui.courseSelect.val()
-        window.location.assign(val)
-      )
-      @ui.recentCourseSelect.on('change', () =>
-        val = @ui.recentCourseSelect.val()
-        window.location.assign(val)
-      )
-
-    setSpacing: () ->
-      trigger = $("[data-drawer-target=\"#{@drawerTarget}\"][data-behavior=\"header-drawer-trigger\"]")
-      if trigger.length > 0
-        left = trigger.offset().left
-        myLeft = @$el.offset().left
-        @$el.css({left: left + 'px'})
-
-
-    initialize: (options) ->
-      @vent = options.vent
-      @globalChannel = Backbone.Wreqr.radio.channel('global')
-      @drawerTarget = @$el.data().drawerTarget
-      # Set Spacing on Load and again anytime the window is resized
-      @setSpacing()
-      throttledSpacing = _.throttle((() =>
-        @setSpacing()
-      ), 50);
-      $(window).resize(() =>
-        throttledSpacing()
-      )
-      @listenTo(@globalChannel.vent, "drawer:#{@drawerTarget}:toggle", () =>
-        @toggle()
-      )
-      @bindUIElements()
-
-      options = {
-        disable_search_threshold: 1000,
-        allow_single_deselect: false,
-        placeholder_text_single: 'Jump to a different course'
+      toggle() {
+        if (this.$el.hasClass('drawer-open')) {
+          return this.close();
+        } else {
+          return this.open();
+        }
       }
-      @ui.courseSelect.chosen(options)
 
-      @setupListeners()
+      open() {
+        $(`[data-drawer-target=\"${this.drawerTarget}\"]`).addClass('drawer-open');
+        $(`[data-drawer-target=\"${this.drawerTarget}\"] a`).addClass('active');
+        return this.triggerMethod('opened');
+      }
+
+      close() {
+        $(`[data-drawer-target=\"${this.drawerTarget}\"]`).removeClass('drawer-open');
+        $(`[data-drawer-target=\"${this.drawerTarget}\"] a`).removeClass('active');
+        return this.triggerMethod('closed');
+      }
+
+      setupListeners() {
+        this.ui.courseSelect.on('change', () => {
+          const val = this.ui.courseSelect.val();
+          return window.location.assign(val);
+        });
+        return this.ui.recentCourseSelect.on('change', () => {
+          const val = this.ui.recentCourseSelect.val();
+          return window.location.assign(val);
+        });
+      }
+
+      setSpacing() {
+        const trigger = $(`[data-drawer-target=\"${this.drawerTarget}\"][data-behavior=\"header-drawer-trigger\"]`);
+        if (trigger.length > 0) {
+          const { left } = trigger.offset();
+          const myLeft = this.$el.offset().left;
+          return this.$el.css({left: left + 'px'});
+        }
+      }
+
+
+      initialize(options) {
+        this.vent = options.vent;
+        this.globalChannel = Backbone.Wreqr.radio.channel('global');
+        this.drawerTarget = this.$el.data().drawerTarget;
+        // Set Spacing on Load and again anytime the window is resized
+        this.setSpacing();
+        const throttledSpacing = _.throttle((() => {
+          return this.setSpacing();
+        }
+        ), 50);
+        $(window).resize(() => {
+          return throttledSpacing();
+        });
+        this.listenTo(this.globalChannel.vent, `drawer:${this.drawerTarget}:toggle`, () => {
+          return this.toggle();
+        });
+        this.bindUIElements();
+
+        options = {
+          disable_search_threshold: 1000,
+          allow_single_deselect: false,
+          placeholder_text_single: 'Jump to a different course'
+        };
+        this.ui.courseSelect.chosen(options);
+
+        return this.setupListeners();
+      }
+    };
+    HeaderDrawerView.initClass();
+    return HeaderDrawerView;
+  })();
+});

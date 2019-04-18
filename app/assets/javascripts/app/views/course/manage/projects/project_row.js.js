@@ -1,53 +1,72 @@
-define (require) ->
-  marionette = require('marionette')
-  template = require('hbs!templates/course/manage/projects/project_row')
-  DropdownView = require('views/layout/dropdown')
-  ModalConfirmView = require('views/modal/modal_confirm')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let ProjectRowView;
+  const marionette = require('marionette');
+  const template = require('hbs!templates/course/manage/projects/project_row');
+  const DropdownView = require('views/layout/dropdown');
+  const ModalConfirmView = require('views/modal/modal_confirm');
 
-  class ProjectRowView extends Marionette.ItemView
+  return ProjectRowView = (function() {
+    ProjectRowView = class ProjectRowView extends Marionette.ItemView {
+      static initClass() {
+  
+        this.prototype.template = template;
+        this.prototype.tagName = 'tr';
+  
+        this.prototype.events = {
+          "drop": "onDrop"
+        };
+  
+        this.prototype.ui = {
+          "dropdowns": '[data-behavior="dropdown"]'
+        };
+  
+        this.prototype.triggers = {
+          'click [data-behavior="destroy"]': 'click:destroy'
+        };
+      }
 
-    template: template
-    tagName: 'tr'
+      onConfirmDestroy() {
+        return this.model.destroy({
+          success: () => {
+            Vocat.vent.trigger('error:clear');
+            return Vocat.vent.trigger('error:add',
+              {level: 'notice', lifetime: '5000', msg: 'The project was successfully deleted.'});
+          }
+          , error: () => {
+            Vocat.vent.trigger('error:clear');
+            return Vocat.vent.trigger('error:add', {level: 'notice', msg: xhr.responseJSON.errors});
+          }
+        });
+      }
 
-    events: {
-      "drop": "onDrop"
-    }
+      onClickDestroy() {
+        return Vocat.vent.trigger('modal:open', new ModalConfirmView({
+          model: this.model,
+          vent: this,
+          headerLabel: 'Are You Sure?',
+          descriptionLabel: 'Deleting this project will also delete all of its associated submissions and evaluations. Are you sure you want to do this?',
+          confirmEvent: 'confirm:destroy',
+          dismissEvent: 'dismiss:destroy'
+        }));
+      }
 
-    ui: {
-      "dropdowns": '[data-behavior="dropdown"]'
-    }
+      onDrop(e, i) {
+        return this.trigger("update-sort", [this.model, i]);
+      }
 
-    triggers: {
-      'click [data-behavior="destroy"]': 'click:destroy'
-    }
+      onShow() {
+        return this.ui.dropdowns.each((index, el) => new DropdownView({el, vent: Vocat.vent, allowAdjustment: false}));
+      }
 
-    onConfirmDestroy: () ->
-      @model.destroy({
-        success: () =>
-          Vocat.vent.trigger('error:clear')
-          Vocat.vent.trigger('error:add',
-            {level: 'notice', lifetime: '5000', msg: 'The project was successfully deleted.'})
-        , error: () =>
-          Vocat.vent.trigger('error:clear')
-          Vocat.vent.trigger('error:add', {level: 'notice', msg: xhr.responseJSON.errors})
-      })
-
-    onClickDestroy: () ->
-      Vocat.vent.trigger('modal:open', new ModalConfirmView({
-        model: @model,
-        vent: @,
-        headerLabel: 'Are You Sure?'
-        descriptionLabel: 'Deleting this project will also delete all of its associated submissions and evaluations. Are you sure you want to do this?',
-        confirmEvent: 'confirm:destroy',
-        dismissEvent: 'dismiss:destroy'
-      }))
-
-    onDrop: (e, i) ->
-      @trigger("update-sort", [@model, i]);
-
-    onShow: () ->
-      @ui.dropdowns.each((index, el) ->
-        new DropdownView({el: el, vent: Vocat.vent, allowAdjustment: false})
-      )
-
-    initialize: (options) ->
+      initialize(options) {}
+    };
+    ProjectRowView.initClass();
+    return ProjectRowView;
+  })();
+});

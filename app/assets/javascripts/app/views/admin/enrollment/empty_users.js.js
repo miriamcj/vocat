@@ -1,17 +1,34 @@
-define (require) ->
-  Marionette = require('marionette')
-  template = require('hbs!templates/admin/enrollment/empty_users')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let EnrollmentEmptyUsers;
+  const Marionette = require('marionette');
+  const template = require('hbs!templates/admin/enrollment/empty_users');
 
-  class EnrollmentEmptyUsers extends Marionette.ItemView
-
-    template: template
-    tagName: 'tr'
-
-    serializeData: () ->
-      {
-      colspan: 4
-      role: @options.role
+  return EnrollmentEmptyUsers = (function() {
+    EnrollmentEmptyUsers = class EnrollmentEmptyUsers extends Marionette.ItemView {
+      static initClass() {
+  
+        this.prototype.template = template;
+        this.prototype.tagName = 'tr';
       }
 
-    onShow: () ->
-      @$el.find('th').attr('colspan', @$el.closest('table').find('thead th').length)
+      serializeData() {
+        return {
+        colspan: 4,
+        role: this.options.role
+        };
+      }
+
+      onShow() {
+        return this.$el.find('th').attr('colspan', this.$el.closest('table').find('thead th').length);
+      }
+    };
+    EnrollmentEmptyUsers.initClass();
+    return EnrollmentEmptyUsers;
+  })();
+});

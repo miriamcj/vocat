@@ -1,30 +1,50 @@
-define [
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define([
   'marionette',
   'hbs!templates/notification/notification_message',
-], (Marionette, template) ->
-  class NotificationMessage extends Marionette.ItemView
+], function(Marionette, template) {
+  let NotificationMessage;
+  return NotificationMessage = (function() {
+    NotificationMessage = class NotificationMessage extends Marionette.ItemView {
+      static initClass() {
+  
+        this.prototype.template = template;
+        this.prototype.lifetime = 10000;
+        this.prototype.isFlash = true;
+  
+        this.prototype.triggers = {
+          'click [data-behavior="close-message"]': 'closeMessage'
+        };
+      }
 
-    template: template
-    lifetime: 10000
-    isFlash: true
+      onCloseMessage() {
+        return this.trigger('view:expired');
+      }
 
-    triggers: {
-      'click [data-behavior="close-message"]': 'closeMessage'
-    }
+      className() {
+        return `alert alert-${this.model.get('level')}`;
+      }
 
-    onCloseMessage: () ->
-      @trigger('view:expired')
+      initialize(options) {
+        const lifetime = parseInt(this.model.get('lifetime'));
+        if (lifetime > 0) { return this.lifetime = lifetime; }
+      }
 
-    className: () ->
-      "alert alert-#{@model.get('level')}"
-
-    initialize: (options) ->
-      lifetime = parseInt(@model.get('lifetime'))
-      @lifetime = lifetime if lifetime > 0
-
-    onShow: ->
-      setTimeout(() =>
-        @trigger('view:expired')
-      , @lifetime
-      )
+      onShow() {
+        return setTimeout(() => {
+          return this.trigger('view:expired');
+        }
+        , this.lifetime
+        );
+      }
+    };
+    NotificationMessage.initClass();
+    return NotificationMessage;
+  })();
+});
 

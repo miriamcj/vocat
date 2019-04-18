@@ -1,116 +1,145 @@
-define (require) ->
-  Marionette = require('marionette')
-  template = require('hbs!templates/submission/submission_layout')
-  DiscussionView = require('views/discussion/discussion')
-  EvaluationsView = require('views/submission/evaluations/evaluations_layout')
-  AssetsView = require('views/assets/assets_layout')
-  UtilityView = require('views/submission/utility/utility')
-  ModalGroupMembershipView = require('views/modal/modal_group_membership')
-  ProjectModalView = require('views/modal/modal_project_description')
-  RubricModalView = require('views/modal/modal_rubric')
-  MarkdownOverviewModalView = require('views/modal/modal_markdown_overview')
-  RubricModel = require('models/rubric')
-  VisitCollection = require('collections/visit_collection')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let SubmissionLayout;
+  const Marionette = require('marionette');
+  const template = require('hbs!templates/submission/submission_layout');
+  const DiscussionView = require('views/discussion/discussion');
+  const EvaluationsView = require('views/submission/evaluations/evaluations_layout');
+  const AssetsView = require('views/assets/assets_layout');
+  const UtilityView = require('views/submission/utility/utility');
+  const ModalGroupMembershipView = require('views/modal/modal_group_membership');
+  const ProjectModalView = require('views/modal/modal_project_description');
+  const RubricModalView = require('views/modal/modal_rubric');
+  const MarkdownOverviewModalView = require('views/modal/modal_markdown_overview');
+  const RubricModel = require('models/rubric');
+  const VisitCollection = require('collections/visit_collection');
 
-  class SubmissionLayout extends Marionette.LayoutView
-
-    template: template
-    children: {}
-    courseMapContext: true
-
-    triggers: {
-      'click @ui.openGroupModal': 'open:groups:modal'
-      'click @ui.close': 'close'
-      'click @ui.showProjectDescriptionModal': 'open:project:modal'
-      'click @ui.showRubric': 'open:rubric:modal'
-      'click @ui.showMarkdownOverview': 'open:markdown:modal'
-    }
-
-    ui: {
-      close: '[data-behavior="detail-close"]'
-      openGroupModal: '[data-behavior="open-group-modal"]'
-      showProjectDescriptionModal: '[data-behavior="open-project-description"]'
-      showRubric: '[data-behavior="show-rubric"]'
-      showMarkdownOverview: '[data-behavior="show-markdown-overview"]'
-    }
-
-    regions: {
-      flash: '[data-region="flash"]'
-      evaluations: '[data-region="submission-evaluations"]'
-      discussion: '[data-region="submission-discussion"]'
-      assets: '[data-region="submission-assets"]'
-      utility: '[data-region="submission-utility"]'
-    }
-
-    serializeData: () ->
-      sd ={
-        project: @project.toJSON()
-        projectEvaluatable: @model.get('project').evaluatable
-        courseId: @courseId
-        creator: @creator.toJSON()
-        creatorType: @model.get('creator_type')
-        isGroupProject: @model.get('creator_type') == 'Group'
-        courseMapContext: @courseMapContext
-        pastDueDate: @project.pastDue()
+  return SubmissionLayout = (function() {
+    SubmissionLayout = class SubmissionLayout extends Marionette.LayoutView {
+      static initClass() {
+  
+        this.prototype.template = template;
+        this.prototype.children = {};
+        this.prototype.courseMapContext = true;
+  
+        this.prototype.triggers = {
+          'click @ui.openGroupModal': 'open:groups:modal',
+          'click @ui.close': 'close',
+          'click @ui.showProjectDescriptionModal': 'open:project:modal',
+          'click @ui.showRubric': 'open:rubric:modal',
+          'click @ui.showMarkdownOverview': 'open:markdown:modal'
+        };
+  
+        this.prototype.ui = {
+          close: '[data-behavior="detail-close"]',
+          openGroupModal: '[data-behavior="open-group-modal"]',
+          showProjectDescriptionModal: '[data-behavior="open-project-description"]',
+          showRubric: '[data-behavior="show-rubric"]',
+          showMarkdownOverview: '[data-behavior="show-markdown-overview"]'
+        };
+  
+        this.prototype.regions = {
+          flash: '[data-region="flash"]',
+          evaluations: '[data-region="submission-evaluations"]',
+          discussion: '[data-region="submission-discussion"]',
+          assets: '[data-region="submission-assets"]',
+          utility: '[data-region="submission-utility"]'
+        };
       }
-      sd
 
-    onDomRefresh: () ->
-      window.scrollTo(0, 0)
+      serializeData() {
+        const sd ={
+          project: this.project.toJSON(),
+          projectEvaluatable: this.model.get('project').evaluatable,
+          courseId: this.courseId,
+          creator: this.creator.toJSON(),
+          creatorType: this.model.get('creator_type'),
+          isGroupProject: this.model.get('creator_type') === 'Group',
+          courseMapContext: this.courseMapContext,
+          pastDueDate: this.project.pastDue()
+        };
+        return sd;
+      }
 
-    onOpenGroupsModal: () ->
-      Vocat.vent.trigger('modal:open', new ModalGroupMembershipView({groupId: @creator.id}))
+      onDomRefresh() {
+        return window.scrollTo(0, 0);
+      }
 
-    onOpenProjectModal: () ->
-      Vocat.vent.trigger('modal:open', new ProjectModalView({model: @project}))
+      onOpenGroupsModal() {
+        return Vocat.vent.trigger('modal:open', new ModalGroupMembershipView({groupId: this.creator.id}));
+      }
 
-    onOpenRubricModal: () ->
-      rubric = new RubricModel(@project.get('rubric'))
-      Vocat.vent.trigger('modal:open', new RubricModalView({model: rubric}))
+      onOpenProjectModal() {
+        return Vocat.vent.trigger('modal:open', new ProjectModalView({model: this.project}));
+      }
 
-    onOpenMarkdownModal: () ->
-      Vocat.vent.trigger('modal:open', new MarkdownOverviewModalView())
+      onOpenRubricModal() {
+        const rubric = new RubricModel(this.project.get('rubric'));
+        return Vocat.vent.trigger('modal:open', new RubricModalView({model: rubric}));
+      }
 
-    onClose: () ->
-      context = @model.get('creator_type').toLowerCase() + 's'
-      if @courseMapContext
-        url = "courses/#{@courseId}/#{context}/evaluations"
-        Vocat.router.navigate(url, true)
-      else
-        url = "/courses/#{@courseId}/portfolio"
-        window.location = url
+      onOpenMarkdownModal() {
+        return Vocat.vent.trigger('modal:open', new MarkdownOverviewModalView());
+      }
 
-    onShow: () ->
-      unless @$el.parent().data().hasOwnProperty('hideBackLink')
-        @ui.close.show()
-      @discussion.show(new DiscussionView({submission: @model}))
-      if @model.get('project').evaluatable
-        @evaluations.show(new EvaluationsView({
-          rubric: @rubric,
-          vent: @,
-          project: @project,
-          model: @model,
-          courseId: @courseId
-        }))
-      @assets.show(new AssetsView({
-        collection: @model.assets(),
-        model: @model,
-        courseId: @courseId,
-        initialAsset: @options.initialAsset,
-        courseMapContext: @courseMapContext
-      }))
-      if @model.get('abilities').can_administer
-        @utility.show(new UtilityView({vent: @vent, model: @model, courseId: @courseId}))
+      onClose() {
+        let url;
+        const context = this.model.get('creator_type').toLowerCase() + 's';
+        if (this.courseMapContext) {
+          url = `courses/${this.courseId}/${context}/evaluations`;
+          return Vocat.router.navigate(url, true);
+        } else {
+          url = `/courses/${this.courseId}/portfolio`;
+          return window.location = url;
+        }
+      }
 
-    initialize: (options) ->
-      @options = options || {}
-      @collections = {}
-      @courseId = Marionette.getOption(@, 'courseId')
-      @courseMapContext = Marionette.getOption(@, 'courseMapContext')
-      @project = @model.project()
-      @creator = @model.creator()
+      onShow() {
+        if (!this.$el.parent().data().hasOwnProperty('hideBackLink')) {
+          this.ui.close.show();
+        }
+        this.discussion.show(new DiscussionView({submission: this.model}));
+        if (this.model.get('project').evaluatable) {
+          this.evaluations.show(new EvaluationsView({
+            rubric: this.rubric,
+            vent: this,
+            project: this.project,
+            model: this.model,
+            courseId: this.courseId
+          }));
+        }
+        this.assets.show(new AssetsView({
+          collection: this.model.assets(),
+          model: this.model,
+          courseId: this.courseId,
+          initialAsset: this.options.initialAsset,
+          courseMapContext: this.courseMapContext
+        }));
+        if (this.model.get('abilities').can_administer) {
+          return this.utility.show(new UtilityView({vent: this.vent, model: this.model, courseId: this.courseId}));
+        }
+      }
 
-      visitCollection = new VisitCollection;
-      @visit = new visitCollection.model({visitable_type: "Submission", visitable_id: @model.id, visitable_course_id: @courseId})
-      visitCollection.add(@visit)
-      @visit.save()
+      initialize(options) {
+        this.options = options || {};
+        this.collections = {};
+        this.courseId = Marionette.getOption(this, 'courseId');
+        this.courseMapContext = Marionette.getOption(this, 'courseMapContext');
+        this.project = this.model.project();
+        this.creator = this.model.creator();
+
+        const visitCollection = new VisitCollection;
+        this.visit = new visitCollection.model({visitable_type: "Submission", visitable_id: this.model.id, visitable_course_id: this.courseId});
+        visitCollection.add(this.visit);
+        return this.visit.save();
+      }
+    };
+    SubmissionLayout.initClass();
+    return SubmissionLayout;
+  })();
+});

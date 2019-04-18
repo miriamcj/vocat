@@ -1,7 +1,22 @@
-define (require) ->
-  ShortTextInput = require('views/property_editor/short_text_input')
-  template = require('hbs!templates/property_editor/long_text_input')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS206: Consider reworking classes to avoid initClass
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+define(function(require) {
+  let LongTextInput;
+  const ShortTextInput = require('views/property_editor/short_text_input');
+  const template = require('hbs!templates/property_editor/long_text_input');
 
-  class LongTextInput extends ShortTextInput
-
-    template: template
+  return LongTextInput = (function() {
+    LongTextInput = class LongTextInput extends ShortTextInput {
+      static initClass() {
+  
+        this.prototype.template = template;
+      }
+    };
+    LongTextInput.initClass();
+    return LongTextInput;
+  })();
+});
