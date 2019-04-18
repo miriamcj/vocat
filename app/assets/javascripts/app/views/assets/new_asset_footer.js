@@ -8,11 +8,11 @@ import Marionette from 'marionette';
 import template from 'hbs!templates/assets/new_asset_footer';
 
 export default class NewAssetFooter extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
+    this.template = template;
 
-    this.prototype.ui = {
+    this.ui = {
       stopManagingLink: '[data-behavior="stop-manage-link"]'
     };
   }

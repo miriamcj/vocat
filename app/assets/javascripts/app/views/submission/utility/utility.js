@@ -8,9 +8,9 @@ import Marionette from 'marionette';
 import template from 'hbs!templates/submission/utility/utility';
 
 export default class UtilityView extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
+    this.template = template;
   }
 
   initialize(options) {

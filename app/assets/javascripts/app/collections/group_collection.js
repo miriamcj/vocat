@@ -10,10 +10,10 @@ import Backbone from 'backbone';
 import GroupModel from 'models/group';
 
 export default class GroupCollection extends Backbone.Collection {
-  static initClass() {
+  constructor() {
 
-    this.prototype.model = GroupModel;
-    this.prototype.activeModel = null;
+    this.model = GroupModel;
+    this.activeModel = null;
   }
 
   initialize(models, options) {

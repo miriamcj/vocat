@@ -9,14 +9,14 @@ import ItemView from 'views/rubric/criteria_item';
 
 
 export default class Criteria extends Marionette.CompositeView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
-    this.prototype.className = 'criteria';
-    this.prototype.childViewContainer = '[data-region="criteria-rows"]';
-    this.prototype.childView = ItemView;
+    this.template = template;
+    this.className = 'criteria';
+    this.childViewContainer = '[data-region="criteria-rows"]';
+    this.childView = ItemView;
 
-    this.prototype.ui = {
+    this.ui = {
       criteriaAdd: '.criteria-add-button',
       criteriaInstruction: '.criteria-instruction'
     };

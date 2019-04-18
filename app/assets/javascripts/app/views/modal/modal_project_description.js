@@ -9,13 +9,13 @@ import Marionette from 'marionette';
 import template from 'hbs!templates/modal/modal_project_description';
 
 export default class ModalProjectDescription extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
-    this.prototype.modalWidth = '90%';
-    this.prototype.modalMaxWidth = '800';
+    this.template = template;
+    this.modalWidth = '90%';
+    this.modalMaxWidth = '800';
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click [data-behavior="dismiss"]': 'click:dismiss'
     };
   }

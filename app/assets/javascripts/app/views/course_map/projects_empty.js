@@ -8,11 +8,11 @@ import Marionette from 'marionette';
 import template from 'hbs!templates/course_map/projects_empty';
 
 export default class CourseMapProjectsEmptyView extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.tagName = 'th';
-    this.prototype.template = template;
-    this.prototype.attributes = {
+    this.tagName = 'th';
+    this.template = template;
+    this.attributes = {
       'data-behavior': 'navigate-project',
       'data-match-height-source': ''
     };

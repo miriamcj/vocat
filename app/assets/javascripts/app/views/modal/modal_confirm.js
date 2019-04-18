@@ -10,18 +10,18 @@ import Marionette from 'marionette';
 import template from 'hbs!templates/modal/modal_confirm';
 
 export default class ModalConfirmView extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
+    this.template = template;
 
-    this.prototype.headerLabel = 'Are You Sure?';
-    this.prototype.confirmLabel = 'Yes, Proceed';
-    this.prototype.dismissLabel = 'Cancel';
-    this.prototype.confirmEvent = 'modal:confirm';
-    this.prototype.confirmHref = null;
-    this.prototype.dismissEvent = 'modal:dismiss';
+    this.headerLabel = 'Are You Sure?';
+    this.confirmLabel = 'Yes, Proceed';
+    this.dismissLabel = 'Cancel';
+    this.confirmEvent = 'modal:confirm';
+    this.confirmHref = null;
+    this.dismissEvent = 'modal:dismiss';
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click [data-behavior="confirm"]': 'click:confirm',
       'click [data-behavior="dismiss"]': 'click:dismiss'
     };

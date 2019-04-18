@@ -10,23 +10,23 @@ import DropdownView from 'views/layout/dropdown';
 import ModalConfirmView from 'views/modal/modal_confirm';
 
 export default class CourseMapProjectsItem extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.tagName = 'th';
-    this.prototype.template = template;
-    this.prototype.attributes = {
+    this.tagName = 'th';
+    this.template = template;
+    this.attributes = {
       'data-behavior': 'navigate-project',
       'data-match-height-source': ''
     };
 
-    this.prototype.ui = {
+    this.ui = {
       dropdowns: '[data-behavior="dropdown"]',
       publishAll: '[data-behavior="publish-all"]',
       unpublishAll: '[data-behavior="unpublish-all"]',
       projectTitle: '[data-behavior="project-title"]'
     };
 
-    this.prototype.triggers = {
+    this.triggers = {
       'mouseover @ui.projectTitle': 'active',
       'mouseout @ui.projectTitle': 'inactive',
       'click @ui.projectTitle': 'detail',

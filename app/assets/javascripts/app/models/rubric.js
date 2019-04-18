@@ -14,11 +14,11 @@ import FieldModel from 'models/field';
 import CellModel from 'models/cell';
 
 export default class Rubric extends AbstractModel {
-  static initClass() {
+  constructor() {
 
-    this.prototype.courseId = null;
+    this.courseId = null;
 
-    this.prototype.defaults = {
+    this.defaults = {
       low: 0,
       high: 1
     };

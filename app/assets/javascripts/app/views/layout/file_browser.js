@@ -7,14 +7,14 @@
 import Marionette from 'marionette';
 
 export default class FileBrowserView extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.events = {
+    this.events = {
       'click @ui.fileClear': 'clearFile',
       'change': 'updateDisplay'
     };
 
-    this.prototype.ui = {
+    this.ui = {
       fileClear: '[data-behavior="file-clear"]',
       fileDisplay: '[data-behavior="file-display"]',
       fileDelete: '[data-behavior="file-delete"]',

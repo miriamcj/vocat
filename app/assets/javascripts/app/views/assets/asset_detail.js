@@ -15,22 +15,22 @@ import MockCanvasView from 'views/assets/annotator/mock_canvas';
 import AnnotationsView from 'views/assets/annotations/annotations';
 
 export default class AssetShowLayout extends Marionette.LayoutView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
+    this.template = template;
 
-    this.prototype.ui = {
+    this.ui = {
       detailClose: '[data-behavior="detail-close"]',
       playerColumn: '[data-behavior="player-column"]',
       annotationsColumn: '[data-behavior="annotations-column"]',
       message: '[data-behavior="message"]'
     };
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click @ui.detailClose': 'detail:close'
     };
 
-    this.prototype.regions = {
+    this.regions = {
       player: '[data-region="player"]',
       annotations: '[data-region="annotations"]',
       annotationsStage: '[data-region="annotations-stage"]',

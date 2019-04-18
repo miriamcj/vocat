@@ -9,8 +9,8 @@ import Backbone from 'backbone';
 import CellModel from 'models/cell';
 
 export default class CellCollection extends Backbone.Collection {
-  static initClass() {
-    this.prototype.model = CellModel;
+  constructor() {
+    this.model = CellModel;
   }
 
   comparator(range) {

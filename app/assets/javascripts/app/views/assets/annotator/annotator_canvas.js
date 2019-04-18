@@ -10,22 +10,22 @@ import template from 'hbs!templates/assets/annotator/annotator_canvas';
 import ModalConfirmView from 'views/modal/modal_confirm';
 
 export default class AnnotatorCanvasView extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
-    this.prototype.mode = null;
-    this.prototype.currentPath = null;
-    this.prototype.paths = [];
-    this.prototype.dirty = false;
+    this.template = template;
+    this.mode = null;
+    this.currentPath = null;
+    this.paths = [];
+    this.dirty = false;
     let eraseEnabled = false;
-    this.prototype.tools = {
+    this.tools = {
       draw: null,
       oval: null,
       nullTool: null
     };
-    this.prototype.className = 'annotation-canvas';
+    this.className = 'annotation-canvas';
 
-    this.prototype.ui = {
+    this.ui = {
       canvas: '[data-behavior="canvas"]'
     };
   }

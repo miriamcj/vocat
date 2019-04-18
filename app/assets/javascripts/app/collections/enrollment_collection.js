@@ -12,9 +12,9 @@ import UserCollection from 'collections/user_collection';
 import CourseCollection from 'collections/course_collection';
 
 export default class EnrollmentCollection extends Backbone.Collection {
-  static initClass() {
+  constructor() {
 
-    this.prototype.model = EnrollmentModel;
+    this.model = EnrollmentModel;
   }
 
   searchType() {

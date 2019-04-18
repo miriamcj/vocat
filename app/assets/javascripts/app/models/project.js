@@ -7,9 +7,9 @@
 import Backbone from 'backbone';
 
 export default class ProjectModel extends Backbone.Model {
-  static initClass() {
+  constructor() {
 
-    this.prototype.urlRoot = "/api/v1/projects";
+    this.urlRoot = "/api/v1/projects";
   }
 
   hasRubric() {

@@ -7,15 +7,15 @@
 import Marionette from 'marionette';
 
 export default class GlobalNotification extends Marionette.Behavior {
-  static initClass() {
+  constructor() {
 
-    this.prototype.defaults = {
+    this.defaults = {
     };
 
-    this.prototype.triggers = {
+    this.triggers = {
     };
 
-    this.prototype.ui = {
+    this.ui = {
     };
 }
 };

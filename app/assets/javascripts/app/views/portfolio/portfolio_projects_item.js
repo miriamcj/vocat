@@ -9,13 +9,13 @@ import Marionette from 'marionette';
 import ProjectTemplate from 'hbs!templates/portfolio/portfolio_item_project';
 
 export default class PortfolioItemSubmission extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = ProjectTemplate;
+    this.template = ProjectTemplate;
 
-    this.prototype.className = 'portfolio-frame';
+    this.className = 'portfolio-frame';
 
-    this.prototype.defaults = {
+    this.defaults = {
       showCourse: true,
       showCreator: true
     };

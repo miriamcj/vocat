@@ -11,14 +11,14 @@ import RangeView from 'views/rubric/range';
 import jqui from 'jquery_ui';
 
 export default class RangesView extends Marionette.CompositeView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
-    this.prototype.className = 'ranges-wrapper';
-    this.prototype.childViewContainer = '[data-region="range-columns"]';
-    this.prototype.childView = RangeView;
+    this.template = template;
+    this.className = 'ranges-wrapper';
+    this.childViewContainer = '[data-region="range-columns"]';
+    this.childView = RangeView;
 
-    this.prototype.ui = {
+    this.ui = {
       rangeAdd: '.range-add-button',
       rangeInstruction: '.range-instruction'
     };

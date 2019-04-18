@@ -10,15 +10,15 @@ import Marionette from 'marionette';
 import template from 'hbs!templates/modal/modal_error';
 
 export default class ModalErrorView extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
+    this.template = template;
 
-    this.prototype.message = 'An error occured.';
-    this.prototype.dismissLabel = 'Dismiss';
-    this.prototype.dismissEvent = 'modal:dismiss';
+    this.message = 'An error occured.';
+    this.dismissLabel = 'Dismiss';
+    this.dismissEvent = 'modal:dismiss';
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click [data-behavior="dismiss"]': 'click:dismiss'
     };
   }

@@ -8,13 +8,13 @@ import Marionette from 'marionette';
 import SubmissionTemplate from 'hbs!templates/portfolio/portfolio_item_submission';
 
 export default class PortfolioItemSubmission extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = SubmissionTemplate;
-    this.prototype.className = 'page-section portfolio-item portfolio-course-submissions';
-    this.prototype.standalone = false;
+    this.template = SubmissionTemplate;
+    this.className = 'page-section portfolio-item portfolio-course-submissions';
+    this.standalone = false;
 
-    this.prototype.ui = {
+    this.ui = {
       submissionLink: '[data-behavior="open-submission-detail"]'
     };
   }

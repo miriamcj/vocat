@@ -11,20 +11,10 @@ import courseItemTemplate from 'hbs!templates/admin/enrollment/list_courses_item
 
 export default class CreatorEnrollmentItem extends Marionette.ItemView {
   constructor(...args) {
-    {
-      // Hack: trick Babel/TypeScript into allowing this before super.
-      if (false) { super(); }
-      let thisFn = (() => { return this; }).toString();
-      let thisName = thisFn.match(/return (?:_assertThisInitialized\()*(\w+)\)*;/)[1];
-      eval(`${thisName} = this;`);
-    }
-    this.getTemplate = this.getTemplate.bind(this);
     super(...args);
-  }
-
-  static initClass() {
-
-    this.prototype.tagName = 'tr';
+    
+    this.getTemplate = this.getTemplate.bind(this);
+    this.tagName = 'tr';
   }
 
   getTemplate() {

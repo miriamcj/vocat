@@ -9,19 +9,19 @@ import template from 'hbs!templates/course_map/creators';
 import Item from 'views/course_map/creators_item';
 
 export default class CourseMapCreatorsView extends Marionette.CompositeView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.tagName = 'table';
-    this.prototype.className = 'table matrix matrix-row-headers';
-    this.prototype.template = template;
-    this.prototype.childViewContainer = 'tbody';
-    this.prototype.childView = Item;
+    this.tagName = 'table';
+    this.className = 'table matrix matrix-row-headers';
+    this.template = template;
+    this.childViewContainer = 'tbody';
+    this.childView = Item;
 
-    this.prototype.ui = {
+    this.ui = {
       spacer: '[data-behavior="spacer"]'
     };
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click [data-behavior="show-groups"]': 'show:groups',
       'click [data-behavior="show-users"]': 'show:users'
     };

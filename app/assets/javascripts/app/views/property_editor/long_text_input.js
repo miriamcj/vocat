@@ -8,8 +8,8 @@ import ShortTextInput from 'views/property_editor/short_text_input';
 import template from 'hbs!templates/property_editor/long_text_input';
 
 export default class LongTextInput extends ShortTextInput {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
+    this.template = template;
   }
 };

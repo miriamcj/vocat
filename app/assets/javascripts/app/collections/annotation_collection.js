@@ -10,11 +10,11 @@ import Backbone from 'backbone';
 import AnnotationModel from 'models/annotation';
 
 export default class AnnotationCollection extends Backbone.Collection {
-  static initClass() {
-    this.prototype.model = AnnotationModel;
-    this.prototype.assetHasDuration = false;
+  constructor() {
+    this.model = AnnotationModel;
+    this.assetHasDuration = false;
 
-    this.prototype.url = '/api/v1/annotations';
+    this.url = '/api/v1/annotations';
   }
 
   initialize(models, options) {

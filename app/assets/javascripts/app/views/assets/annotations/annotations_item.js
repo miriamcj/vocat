@@ -9,16 +9,16 @@ import template from 'hbs!templates/assets/annotations/annotations_item';
 import ModalConfirmView from 'views/modal/modal_confirm';
 
 export default class AnnotationItem extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.assetHasDuration = false;
-    this.prototype.highlighted = true;
-    this.prototype.ignoreTime = false;
-    this.prototype.template = template;
-    this.prototype.tagName = 'li';
-    this.prototype.className = 'annotation';
+    this.assetHasDuration = false;
+    this.highlighted = true;
+    this.ignoreTime = false;
+    this.template = template;
+    this.tagName = 'li';
+    this.className = 'annotation';
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click @ui.destroy': {
         event: 'annotation:destroy',
         stopPropagation: true
@@ -41,7 +41,7 @@ export default class AnnotationItem extends Marionette.ItemView {
       }
     };
 
-    this.prototype.ui = {
+    this.ui = {
       seek: '[data-behavior="seek"]',
       destroy: '[data-behavior="destroy"]',
       edit: '[data-behavior="edit"]',
@@ -49,7 +49,7 @@ export default class AnnotationItem extends Marionette.ItemView {
       activate: '[data-behavior="activate"]'
     };
 
-    this.prototype.modelEvents = {
+    this.modelEvents = {
       "change:body": "onModelBodyChange",
       "change:canvas": "onModelCanvasChange"
     };

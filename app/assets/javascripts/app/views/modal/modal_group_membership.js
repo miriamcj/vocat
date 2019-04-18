@@ -10,11 +10,11 @@ import template from 'hbs!templates/modal/modal_group_membership';
 import GroupModel from 'models/group';
 
 export default class ModalGroupMembershipView extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
+    this.template = template;
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click [data-behavior="dismiss"]': 'click:dismiss'
     };
   }

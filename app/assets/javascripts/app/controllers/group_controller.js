@@ -12,9 +12,9 @@ import UserCollection from 'collections/user_collection';
 import GroupCollection from 'collections/group_collection';
 
 export default class GroupController extends VocatController {
-  static initClass() {
+  constructor() {
 
-    this.prototype.collections = {
+    this.collections = {
       creator: new UserCollection([], {}),
       group: new GroupCollection([], {})
     };

@@ -9,11 +9,11 @@ import Marionette from 'marionette';
 import Template from 'hbs!templates/portfolio/portfolio';
 
 export default class PortfolioView extends Marionette.LayoutView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = Template;
+    this.template = Template;
 
-    this.prototype.regions = {
+    this.regions = {
       submissions: '[data-region="submissions"]',
       projects: '[data-region="projects"]'
     };

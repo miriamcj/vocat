@@ -8,10 +8,10 @@
 import Backbone from 'backbone';
 
 export default class AnnotationModel extends Backbone.Model {
-  static initClass() {
+  constructor() {
 
-    this.prototype.urlRoot = '/api/v1/annotations';
-    this.prototype.paramRoot = 'annotation';
+    this.urlRoot = '/api/v1/annotations';
+    this.paramRoot = 'annotation';
   }
 
   initialize() {

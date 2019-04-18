@@ -11,9 +11,9 @@ import EnrollmentCollection from 'collections/enrollment_collection';
 import EnrollmentLayout from 'views/admin/enrollment_layout';
 
 export default class AdminController extends VocatController {
-  static initClass() {
+  constructor() {
 
-    this.prototype.collections = {
+    this.collections = {
     };
   }
 

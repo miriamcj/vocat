@@ -8,23 +8,23 @@ import Marionette from 'marionette';
 import ClosesOnUserAction from 'behaviors/closes_on_user_action';
 
 export default class DropdownView extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.adjusted = false;
-    this.prototype.allowAdjustment = true;
-    this.prototype.originalBodyPadding = null;
+    this.adjusted = false;
+    this.allowAdjustment = true;
+    this.originalBodyPadding = null;
 
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click @ui.trigger': 'click:trigger'
     };
 
-    this.prototype.ui = {
+    this.ui = {
       trigger: '[data-behavior="toggle"]',
       dropdown: '[data-behavior="dropdown-options"]'
     };
 
-    this.prototype.behaviors = {
+    this.behaviors = {
       closesOnUserAction: {
         behaviorClass: ClosesOnUserAction
       }

@@ -12,17 +12,17 @@ import AnnotationModel from 'models/annotation';
 import ModalConfirmView from 'views/modal/modal_confirm';
 
 export default class AnnotatorView extends Marionette.LayoutView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
-    this.prototype.hideProgressBar = false;
+    this.template = template;
+    this.hideProgressBar = false;
 
-    this.prototype.regions = {
+    this.regions = {
       progressBar: '[data-behavior="progress-bar"]',
       annotationInput: '[data-region="annotator-input"]'
     };
 
-    this.prototype.ui = {
+    this.ui = {
     };
   }
 

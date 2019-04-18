@@ -13,14 +13,14 @@ import ScoreCollection from 'collections/score_collection';
 import ModalConfirmView from 'views/modal/modal_confirm';
 
 export default class MyEvaluations extends Marionette.CompositeView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.tagName = 'ul';
-    this.prototype.template = template;
-    this.prototype.className = 'evaluation-collections evaluation-editable';
-    this.prototype.childView = ScoreSlider;
+    this.tagName = 'ul';
+    this.template = template;
+    this.className = 'evaluation-collections evaluation-editable';
+    this.childView = ScoreSlider;
 
-    this.prototype.ui = {
+    this.ui = {
       utility: '[data-behavior="utility"]',
       subtotal: '[data-behavior="subtotal"]',
       total: '[data-behavior="total"]',
@@ -36,13 +36,13 @@ export default class MyEvaluations extends Marionette.CompositeView {
       notice: '[data-behavior="notice"]'
     };
 
-    this.prototype.behaviors = {
+    this.behaviors = {
       expandableRange: {
         behaviorClass: ExpandableRange
       }
     };
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click @ui.destroyButton': 'evaluation:destroy',
       'click @ui.saveButton': 'evaluation:save',
       'click [data-behavior="toggle-detail"]': 'detail:toggle',

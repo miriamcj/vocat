@@ -13,17 +13,17 @@ import GroupModel from 'models/group';
 import EvaluationModel from 'models/evaluation';
 
 export default class Cell extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
     // @model = initially, a project model, but set to a submission model in the init function
     // @creator = a group or user model
 
-    this.prototype.template = template;
+    this.template = template;
 
-    this.prototype.tagName = 'td';
-    this.prototype.className = 'clickable';
+    this.tagName = 'td';
+    this.className = 'clickable';
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click': 'detail',
       'click [data-behavior="publish-toggle"]': 'publish:toggle'
     };

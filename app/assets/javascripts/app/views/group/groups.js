@@ -9,12 +9,12 @@ import Item from 'views/group/groups_item';
 import template from 'hbs!templates/group/groups';
 
 export default class GroupsView extends Marionette.CompositeView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.childView = Item;
-    this.prototype.tagName = 'thead';
-    this.prototype.template = template;
-    this.prototype.childViewContainer = "tr";
+    this.childView = Item;
+    this.tagName = 'thead';
+    this.template = template;
+    this.childViewContainer = "tr";
   }
 
   childViewOptions() {

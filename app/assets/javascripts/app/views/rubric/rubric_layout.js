@@ -18,20 +18,20 @@ import RubricBuilderView from 'views/rubric/rubric_builder';
 import ModalConfirmView from 'views/modal/modal_confirm';
 
 export default class RubricLayout extends AbstractMatrix {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
-    this.prototype.collections = {};
-    this.prototype.views = {};
+    this.template = template;
+    this.collections = {};
+    this.views = {};
 
-    this.prototype.regions = {
+    this.regions = {
       fields: '[data-region="criteria"]',
       ranges: '[data-region="ranges"]',
       flash: '[data-region="flash"]',
       rubricBuilder: '[data-region="rubric-builder"]'
     };
 
-    this.prototype.events = {
+    this.events = {
       'keyup [data-behavior="rubric-name"]': 'handleNameChange',
       'keyup [data-behavior="rubric-desc"]': 'handleDescChange',
       'click [data-region="rubric-public"]': 'handlePublicChange',
@@ -41,7 +41,7 @@ export default class RubricLayout extends AbstractMatrix {
       'click [data-trigger="edit-attribute"]': 'editAttributeClick'
     };
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click [data-behavior="matrix-slider-left"]': 'slider:left',
       'click [data-behavior="matrix-slider-right"]': 'slider:right',
       'click [data-trigger="recalc"]': 'recalculate:matrix',
@@ -52,7 +52,7 @@ export default class RubricLayout extends AbstractMatrix {
       'MSTransitionEnd [data-region="cells"]': 'transition:end'
     };
 
-    this.prototype.ui = {
+    this.ui = {
       nameInput: '[data-behavior="rubric-name"]',
       publicInput: '[data-region="rubric-public"]',
       descInput: '[data-behavior="rubric-desc"]',
@@ -63,7 +63,7 @@ export default class RubricLayout extends AbstractMatrix {
       sliderRight: '[data-behavior="matrix-slider-right"]'
     };
 
-    this.prototype.onSliderLeft = _.throttle((function() {
+    this.onSliderLeft = _.throttle((function() {
       const cells = this.rubricBuilder.$el.find($('[data-region="cells"]'));
       const unit = 25;
       let currentPosition = this.rubricBuilder.$el.find($('[data-region="cells"]')).position().left/cells.width();
@@ -73,7 +73,7 @@ export default class RubricLayout extends AbstractMatrix {
       }
     }), 300);
 
-    this.prototype.onSliderRight = _.throttle((function() {
+    this.onSliderRight = _.throttle((function() {
       if (this.model.get('ranges').length > 4) {
         const cells = this.rubricBuilder.$el.find($('[data-region="cells"]'));
         const unit = 25;

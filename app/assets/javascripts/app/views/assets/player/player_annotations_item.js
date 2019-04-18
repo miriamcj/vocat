@@ -7,15 +7,15 @@
 import Marionette from 'marionette';
 
 export default class PlayerAnnotationItem extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = _.template('');
-    this.prototype.tagName = 'li';
+    this.template = _.template('');
+    this.tagName = 'li';
 
-    this.prototype.fadeInBeforeAnnotationTime = .75;
-    this.prototype.fadeOutAfterAnnotationTime = .1;
-    this.prototype.highlightBeforeAnnotationTime = .25;
-    this.prototype.visibilityTriggers = {
+    this.fadeInBeforeAnnotationTime = .75;
+    this.fadeOutAfterAnnotationTime = .1;
+    this.highlightBeforeAnnotationTime = .25;
+    this.visibilityTriggers = {
       beforeShow: null,
       fadeIn: null,
       highlight: null,
@@ -24,11 +24,11 @@ export default class PlayerAnnotationItem extends Marionette.ItemView {
     };
 
     // null = unset, 0 = beforeShow, 1 = fadeIn, 2 = highlight, 3 = fadeOut, 4 = afterShow
-    this.prototype.state = null;
+    this.state = null;
 
-    this.prototype.assetHasDuration = false;
-    this.prototype.animating = false;
-    this.prototype.annotationTime = null;
+    this.assetHasDuration = false;
+    this.animating = false;
+    this.annotationTime = null;
   }
 
   canTransitionTo(state) {

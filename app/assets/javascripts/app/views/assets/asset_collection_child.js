@@ -10,20 +10,20 @@ import ModalConfirmView from 'views/modal/modal_confirm';
 import ShortTextInputView from 'views/property_editor/short_text_input';
 
 export default class AssetCollectionChild extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
+    this.template = template;
 
-    this.prototype.attributes = {
+    this.attributes = {
       'data-behavior': 'sortable-item',
       'class': 'page-section--subsection page-section--subsection-ruled asset-collection-item'
     };
 
-    this.prototype.events = {
+    this.events = {
       "asset:dropped": "onDrop"
     };
 
-    this.prototype.ui = {
+    this.ui = {
       destroy: '[data-behavior="destroy"]',
       moveUp: '[data-behavior="move-up"]',
       moveDown: '[data-behavior="move-down"]',
@@ -33,11 +33,11 @@ export default class AssetCollectionChild extends Marionette.ItemView {
       hideOnManage: '[data-behavior="hide-on-manage"]'
     };
 
-    this.prototype.modelEvents = {
+    this.modelEvents = {
       "change:name": "render"
     };
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click @ui.destroy': 'destroyModel',
       'click @ui.show': 'showModel',
       'click @ui.rename': 'renameModel',

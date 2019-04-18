@@ -10,26 +10,26 @@ import 'waypoints_sticky';
 import 'waypoints';
 
 export default class AbstractMatrix extends Marionette.LayoutView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.minWidth = 200;
-    this.prototype.maxWidth = 300;
-    this.prototype.memoizeHashCount = 0;
-    this.prototype.position = 0;
-    this.prototype.counter = 0;
+    this.minWidth = 200;
+    this.maxWidth = 300;
+    this.memoizeHashCount = 0;
+    this.position = 0;
+    this.counter = 0;
 
-    this.prototype.stickyHeader = false;
-    this.prototype.locks = {
+    this.stickyHeader = false;
+    this.locks = {
       forward: false
     };
 
-    this.prototype.ui = {
+    this.ui = {
       sliderContainer: '[data-behavior="matrix-slider"]',
       sliderLeft: '[data-behavior="matrix-slider-left"]',
       sliderRight: '[data-behavior="matrix-slider-right"]'
     };
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click [data-behavior="matrix-slider-left"]': 'slider:left',
       'click [data-behavior="matrix-slider-right"]': 'slider:right'
     };

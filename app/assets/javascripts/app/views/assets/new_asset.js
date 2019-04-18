@@ -14,11 +14,11 @@ import FileUpload from 'vendor/plugins/file_upload';
 import ShortTextInputView from 'views/property_editor/short_text_input';
 
 export default class NewAsset extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
+    this.template = template;
 
-    this.prototype.ui = {
+    this.ui = {
       testNewButton: '[data-behavior="test-new-asset"]',
       hideManage: '[data-behavior="hide-manage"]',
       uploadForm: '[data-behavior="upload-form"]',
@@ -37,14 +37,14 @@ export default class NewAsset extends Marionette.ItemView {
       progressBar: '[data-behavior="progress-bar"]'
     };
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click @ui.externalVideoSubmit': 'handle:external:video:submit',
       'click @ui.hideManage': 'hide:new',
       'click @ui.fileInputTrigger': 'show:file:input',
       'submit @ui.externalVideoForm': 'handle:external:video:submit'
     };
 
-    this.prototype.regex = {
+    this.regex = {
       youtube: /(v=|\.be\/)([^&#]{5,})/,
       vimeo: /^.+vimeo.com\/(.*\/)?([^#\?]*)/
     };

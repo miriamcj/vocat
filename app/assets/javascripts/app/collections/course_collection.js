@@ -9,12 +9,12 @@ import Backbone from 'backbone';
 import courseModel from 'models/course';
 
 export default class CourseCollection extends Backbone.Collection {
-  static initClass() {
+  constructor() {
 
-    this.prototype.model = courseModel;
-    this.prototype.activeModel = null;
+    this.model = courseModel;
+    this.activeModel = null;
 
-    this.prototype.url = '/api/v1/courses';
+    this.url = '/api/v1/courses';
   }
 
   getSearchTerm() {

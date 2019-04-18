@@ -16,23 +16,13 @@ import 'vendor/plugins/ajax_chosen';
 
 export default class EnrollmentUserList extends Marionette.CompositeView {
   constructor(...args) {
-    {
-      // Hack: trick Babel/TypeScript into allowing this before super.
-      if (false) { super(); }
-      let thisFn = (() => { return this; }).toString();
-      let thisName = thisFn.match(/return (?:_assertThisInitialized\()*(\w+)\)*;/)[1];
-      eval(`${thisName} = this;`);
-    }
-    this.getTemplate = this.getTemplate.bind(this);
     super(...args);
-  }
 
-  static initClass() {
+    this.getTemplate = this.getTemplate.bind(this);
+    this.childViewContainer = "tbody";
+    this.childView = ItemView;
 
-    this.prototype.childViewContainer = "tbody";
-    this.prototype.childView = ItemView;
-
-    this.prototype.ui = {
+    this.ui = {
       studentInput: '[data-behavior="student-input"]'
     };
   }

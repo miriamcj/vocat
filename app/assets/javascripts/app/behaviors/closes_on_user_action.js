@@ -7,16 +7,16 @@
 import Marionette from 'marionette';
 
 export default class ClosesOnUserAction extends Marionette.Behavior {
-  static initClass() {
+  constructor() {
 
-    this.prototype.defaults = {
+    this.defaults = {
       closeMethod: 'close'
     };
 
-    this.prototype.triggers = {
+    this.triggers = {
     };
 
-    this.prototype.ui = {
+    this.ui = {
     };
   }
 

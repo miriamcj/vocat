@@ -9,27 +9,27 @@ import template from 'hbs!templates/submission/evaluations/their_evaluations_chi
 import ExpandableRange from 'behaviors/expandable_range';
 
 export default class TheirEvaluationsChild extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.tagName = 'li';
-    this.prototype.className = 'evaluation-single';
-    this.prototype.template = template;
-    this.prototype.childrenVisible = false;
+    this.tagName = 'li';
+    this.className = 'evaluation-single';
+    this.template = template;
+    this.childrenVisible = false;
 
-    this.prototype.triggers = {
+    this.triggers = {
     };
 
-    this.prototype.events = {
+    this.events = {
       'mouseenter @ui.placardTrigger': 'showPlacard',
       'mouseleave @ui.placardTrigger': 'hidePlacard'
     };
 
-    this.prototype.ui = {
+    this.ui = {
       'placard': '[data-behavior="range-placard"]',
       'placardTrigger': '[data-behavior="placard-trigger"]'
     };
 
-    this.prototype.behaviors = {
+    this.behaviors = {
       expandableRange: {
         behaviorClass: ExpandableRange
       }

@@ -7,9 +7,9 @@
 import template from 'hbs!templates/course_map/warning';
 
 export default class Warning extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
+    this.template = template;
   }
 
   serializeData() {

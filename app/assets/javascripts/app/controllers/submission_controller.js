@@ -18,9 +18,9 @@ import AssetModel from 'models/asset';
 import AssetDetail from 'views/assets/asset_detail';
 
 export default class SubmissionController extends VocatController {
-  static initClass() {
+  constructor() {
 
-    this.prototype.collections = {
+    this.collections = {
       user: new UserCollection({}),
       group: new GroupCollection({}, {courseId: null}),
       project: new ProjectCollection({}),

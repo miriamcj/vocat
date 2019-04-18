@@ -10,12 +10,12 @@ import ShortTextInputView from 'views/property_editor/short_text_input';
 import ModalConfirmView from 'views/modal/modal_confirm';
 
 export default class CriteriaItem extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
-    this.prototype.className = 'criteria-item';
+    this.template = template;
+    this.className = 'criteria-item';
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click [data-behavior="destroy"]': 'model:destroy',
       'click [data-behavior="edit"]': 'click:edit',
       'click [data-behavior="move-up"]': 'click:up',

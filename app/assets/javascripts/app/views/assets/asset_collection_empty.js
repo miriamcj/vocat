@@ -8,16 +8,16 @@ import Marionette from 'marionette';
 import template from 'hbs!templates/assets/asset_collection_empty';
 
 export default class AssetCollectionEmpty extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
-    this.prototype.abilities = {};
+    this.template = template;
+    this.abilities = {};
 
-    this.prototype.ui = {
+    this.ui = {
       manageLink: '[data-behavior="empty-manage-link"]'
     };
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click @ui.manageLink': 'show:new'
     };
   }

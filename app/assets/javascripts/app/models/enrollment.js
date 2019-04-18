@@ -7,8 +7,8 @@
 import Backbone from 'backbone';
 
 export default class EnrollmentModel extends Backbone.Model {
-  static initClass() {
+  constructor() {
 
-    this.prototype.urlRoot = "/api/v1/enrollments";
+    this.urlRoot = "/api/v1/enrollments";
   }
 };

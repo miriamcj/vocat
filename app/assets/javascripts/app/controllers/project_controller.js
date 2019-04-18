@@ -12,15 +12,15 @@ import ProjectDetail from 'views/project/detail';
 import ApplicationErrorView from 'views/error/application_error';
 
 export default class ProjectController extends VocatController {
-  static initClass() {
+  constructor() {
 
-    this.prototype.collections = {
+    this.collections = {
       user: new UserCollection([], {}),
       project: new ProjectCollection([], {})
     };
 
-    this.prototype.layoutInitialized = false;
-    this.prototype.submissionsSynced = false;
+    this.layoutInitialized = false;
+    this.submissionsSynced = false;
   }
 
   initialize() {

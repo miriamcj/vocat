@@ -7,10 +7,10 @@
 import Backbone from 'backbone';
 
 export default class AttachmentModel extends Backbone.Model {
-  static initClass() {
+  constructor() {
 
-    this.prototype.paramRoot = 'attachment';
+    this.paramRoot = 'attachment';
 
-    this.prototype.urlRoot = "/api/v1/attachments";
+    this.urlRoot = "/api/v1/attachments";
 }
 };

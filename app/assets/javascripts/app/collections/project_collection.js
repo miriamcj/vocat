@@ -10,11 +10,11 @@ import Backbone from 'backbone';
 import ProjectModel from 'models/project';
 
 export default class ProjectCollection extends Backbone.Collection {
-  static initClass() {
+  constructor() {
 
-    this.prototype.model = ProjectModel;
+    this.model = ProjectModel;
 
-    this.prototype.activeModel = null;
+    this.activeModel = null;
   }
 
   getActive() {

@@ -9,13 +9,13 @@ import ProjectSubmissionRowView from 'views/project/detail/project_submission_ro
 import template from 'hbs!templates/project/detail/project_submission_list';
 
 export default class ProjectSubmissionListView extends Marionette.CompositeView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.tagName = "table";
-    this.prototype.className = "table project-details-table";
-    this.prototype.template = template;
-    this.prototype.childView = ProjectSubmissionRowView;
-    this.prototype.childViewContainer = "tbody";
+    this.tagName = "table";
+    this.className = "table project-details-table";
+    this.template = template;
+    this.childView = ProjectSubmissionRowView;
+    this.childViewContainer = "tbody";
   }
 
   childViewOptions() { return {

@@ -12,26 +12,26 @@ import ModalConfirmView from 'views/modal/modal_confirm';
 import ShortTextInputView from 'views/property_editor/short_text_input';
 
 export default class RangeView extends Marionette.CompositeView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
-    this.prototype.className = 'ranges-column';
-    this.prototype.childViewContainer = '[data-id="range-cells"]';
-    this.prototype.childView = ItemView;
+    this.template = template;
+    this.className = 'ranges-column';
+    this.childViewContainer = '[data-id="range-cells"]';
+    this.childView = ItemView;
 
-    this.prototype.ui = {
+    this.ui = {
       lowRange: '[data-behavior="low"]',
       highRange: '[data-behavior="high"]'
     };
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click [data-behavior="destroy"]': 'model:destroy',
       'click [data-behavior="edit"]': 'click:edit',
       'click [data-behavior="move-left"]': 'move:left',
       'click [data-behavior="move-right"]': 'move:right'
     };
 
-    this.prototype.events = {
+    this.events = {
       'keyup [data-behavior="name"]': 'nameKeyPressed'
     };
   }

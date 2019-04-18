@@ -10,22 +10,22 @@ import ChildView from 'views/assets/asset_collection_child';
 import EmptyView from 'views/assets/asset_collection_empty';
 
 export default class AssetCollection extends Marionette.CompositeView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.childView = ChildView;
+    this.childView = ChildView;
 
-    this.prototype.template = template;
-    this.prototype.childViewContainer = '[data-behavior="collection-container"]';
+    this.template = template;
+    this.childViewContainer = '[data-behavior="collection-container"]';
 
-    this.prototype.ui = {
+    this.ui = {
       collectionContainer: '[data-behavior="collection-container"]'
     };
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click [data-behavior="do-render"]': 'forceRender'
     };
 
-    this.prototype.emptyView = EmptyView;
+    this.emptyView = EmptyView;
   }
 
   childViewOptions() {

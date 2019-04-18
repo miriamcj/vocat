@@ -8,8 +8,8 @@ import Marionette from 'marionette';
 import template from 'hbs!templates/submission/evaluations/their_evaluations_empty';
 
 export default class TheirEvaluationsEmpty extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
+    this.template = template;
   }
 };

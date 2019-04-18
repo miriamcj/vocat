@@ -8,13 +8,13 @@ import Marionette from 'marionette';
 import template from 'hbs!templates/assets/annotator/progress_bar_annotation';
 
 export default class ProgressBarAnnotation extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
-    this.prototype.triggers = {
+    this.template = template;
+    this.triggers = {
       'click': 'seek'
     };
-    this.prototype.tagName = 'li';
+    this.tagName = 'li';
   }
 
   onSeek() {

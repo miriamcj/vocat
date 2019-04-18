@@ -8,16 +8,16 @@ import marionette from 'marionette';
 import Pikaday from 'vendor/plugins/pikaday';
 
 export default class ProjectView extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = false;
+    this.template = false;
 
-    this.prototype.ui = {
+    this.ui = {
       checkboxMediaAny: '[data-behavior="media-any"]',
       checkboxMediaSpecific: '[data-behavior="media-specific"]'
     };
 
-    this.prototype.triggers = {
+    this.triggers = {
       'change @ui.checkboxMediaAny': 'media:any:change',
       'change @ui.checkboxMediaSpecific': 'media:specific:change'
     };

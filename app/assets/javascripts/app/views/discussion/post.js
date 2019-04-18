@@ -12,13 +12,13 @@ import DiscussionPostModel from 'models/discussion_post';
 import DiscussionBaseView from 'views/abstract/abstract_discussion';
 
 export default class PostView extends DiscussionBaseView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
+    this.template = template;
 
-    this.prototype.childViewContainer = '[data-behavior="post-container"]';
+    this.childViewContainer = '[data-behavior="post-container"]';
 
-    this.prototype.tagName = 'li';
+    this.tagName = 'li';
   }
 
   initialize(options) {

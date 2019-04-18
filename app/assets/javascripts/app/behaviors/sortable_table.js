@@ -9,12 +9,12 @@ import Marionette from 'marionette';
 import 'jquery_ui';
 
 export default class SortableTable extends Marionette.Behavior {
-  static initClass() {
+  constructor() {
 
-    this.prototype.defaults = {
+    this.defaults = {
     };
 
-    this.prototype.ui = {
+    this.ui = {
       table: 'tbody'
     };
   }

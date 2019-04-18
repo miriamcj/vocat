@@ -8,11 +8,11 @@ import Marionette from 'marionette';
 import template from 'hbs!templates/layout/loading';
 
 export default class LoadingView extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.msg = "Loading...";
+    this.msg = "Loading...";
 
-    this.prototype.template = template;
+    this.template = template;
   }
 
   serializeData() {

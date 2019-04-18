@@ -8,16 +8,16 @@ import Marionette from 'marionette';
 import template from 'hbs!templates/admin/enrollment/invite';
 
 export default class Invite extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
+    this.template = template;
 
-    this.prototype.ui = {
+    this.ui = {
       button: '[data-behavior="submit-invite-and-enroll"]',
       input: '[data-behavior="contact"]'
     };
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click [data-behavior="cancel-invite-and-enroll"]': 'cancel',
       'click [data-behavior="submit-invite-and-enroll"]': 'submit'
     };

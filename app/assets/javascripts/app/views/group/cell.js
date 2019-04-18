@@ -9,18 +9,18 @@ import Marionette from 'marionette';
 import template from 'hbs!templates/group/cell';
 
 export default class Cell extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
+    this.template = template;
 
-    this.prototype.tagName = 'td';
+    this.tagName = 'td';
 
-    this.prototype.ui = {
+    this.ui = {
       checkbox: 'input',
       switch: '.switch'
     };
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click @ui.checkbox': {
         event: 'click:input',
         preventDefault: false

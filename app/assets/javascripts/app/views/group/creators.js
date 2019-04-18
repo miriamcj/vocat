@@ -10,14 +10,14 @@ import template from 'hbs!templates/group/creators';
 import Item from 'views/group/creators_item';
 
 export default class GroupCreatorsView extends Marionette.CompositeView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.tagName = 'table';
-    this.prototype.className = 'table matrix matrix-row-headers';
+    this.tagName = 'table';
+    this.className = 'table matrix matrix-row-headers';
 
-    this.prototype.template = template;
-    this.prototype.childViewContainer = 'tbody';
-    this.prototype.childView = Item;
+    this.template = template;
+    this.childViewContainer = 'tbody';
+    this.childView = Item;
   }
 
 

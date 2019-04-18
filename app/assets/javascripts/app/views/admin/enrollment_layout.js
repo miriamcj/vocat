@@ -13,18 +13,18 @@ import SingleInvite from 'views/admin/enrollment/invite';
 import Flash from 'views/flash/flash_messages';
 
 export default class CreatorEnrollmentLayout extends Marionette.LayoutView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.listType = 'users';
-    this.prototype.template = template;
-    this.prototype.label = '';
+    this.listType = 'users';
+    this.template = template;
+    this.label = '';
 
-    this.prototype.ui = {
+    this.ui = {
       studentInput: '[data-behavior="student-input"]',
       labelContainer: '[data-behavior="label-container"]'
     };
 
-    this.prototype.regions = {
+    this.regions = {
       input: '[data-region="input"]',
       list: '[data-region="list"]',
       invite: '[data-region="invite"]',

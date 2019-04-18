@@ -10,15 +10,15 @@ import 'jquery_ui';
 import template from 'hbs!templates/submission/evaluations/score_slider';
 
 export default class ScoreSlider extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
-    this.prototype.baselineSnapDuration = 500;
-    this.prototype.lowShim = 4;
-    this.prototype.highShim = 4;
-    this.prototype.tagName = 'li';
+    this.template = template;
+    this.baselineSnapDuration = 500;
+    this.lowShim = 4;
+    this.highShim = 4;
+    this.tagName = 'li';
 
-    this.prototype.events = {
+    this.events = {
       'drag @ui.grabber': 'onDrag',
       'mousedown @ui.grabber': 'onGrabberMouseDown',
       'dragstop @ui.grabber': 'onDragStop',
@@ -27,7 +27,7 @@ export default class ScoreSlider extends Marionette.ItemView {
       'mouseout @ui.grabber': 'hidePlacard'
     };
 
-    this.prototype.ui = {
+    this.ui = {
       grabber: '[data-behavior="range-grabber"]',
       fill: '[data-behavior="range-fill"]',
       track: '[data-behavior="range-track"]',

@@ -15,31 +15,31 @@ import WarningView from 'views/course_map/warning';
 import AbstractMatrix from 'views/abstract/abstract_matrix';
 
 export default class CourseMapLayout extends AbstractMatrix {
-  static initClass() {
+  constructor() {
 
-    this.prototype.children = {};
-    this.prototype.minWidth = 230;
-    this.prototype.capturedScroll = 0;
-    this.prototype.stickyHeader = true;
-    this.prototype.template = template;
-    this.prototype.creatorType = 'User';
-    this.prototype.projectsView = null;
-    this.prototype.creatorsView = null;
-    this.prototype.matrixView = null;
+    this.children = {};
+    this.minWidth = 230;
+    this.capturedScroll = 0;
+    this.stickyHeader = true;
+    this.template = template;
+    this.creatorType = 'User';
+    this.projectsView = null;
+    this.creatorsView = null;
+    this.matrixView = null;
 
-    this.prototype.ui = {
+    this.ui = {
       detail: '[data-region="detail"]',
       sliderLeft: '[data-behavior="matrix-slider-left"]',
       sliderRight: '[data-behavior="matrix-slider-right"]',
       hideOnWarning: '[data-behavior="hide-on-warning"]'
     };
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click [data-behavior="matrix-slider-left"]': 'slider:left',
       'click [data-behavior="matrix-slider-right"]': 'slider:right'
     };
 
-    this.prototype.regions = {
+    this.regions = {
       creators: '[data-region="creators"]',
       projects: '[data-region="projects"]',
       matrix: '[data-region="matrix"]',

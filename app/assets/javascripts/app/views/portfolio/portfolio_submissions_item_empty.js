@@ -9,8 +9,8 @@ import Marionette from 'marionette';
 import template from 'hbs!templates/portfolio/portfolio_item_empty';
 
 export default class PortfolioItemEmptyView extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
+    this.template = template;
   }
 };

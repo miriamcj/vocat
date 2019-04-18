@@ -9,10 +9,10 @@ import Marionette from 'marionette';
 import Row from 'views/group/row';
 
 export default class MatrixView extends Marionette.CollectionView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.tagName = 'tbody';
-    this.prototype.childView = Row;
+    this.tagName = 'tbody';
+    this.childView = Row;
   }
 
   childViewOptions() {

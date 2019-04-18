@@ -9,15 +9,15 @@ import Backbone from 'backbone';
 import RubricProperty from 'models/rubric_property';
 
 export default class FieldModel extends RubricProperty {
-  static initClass() {
+  constructor() {
 
-    this.prototype.defaults = {
+    this.defaults = {
       name: '',
       description: '',
       range_descriptions: {}
     };
 
-    this.prototype.errorStrings = {
+    this.errorStrings = {
       dupe: 'Duplicate field names are not allowed'
     };
   }

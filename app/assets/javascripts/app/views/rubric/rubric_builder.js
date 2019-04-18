@@ -15,23 +15,23 @@ ShortTextInputView = require('views/property_editor/short_text_input');
 
 
 export default class RubricBuilder extends Marionette.LayoutView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
-    this.prototype.collections = {};
+    this.template = template;
+    this.collections = {};
 
-    this.prototype.regions = {
+    this.regions = {
       criteria: '[data-region="criteria"]',
       bodyWrapper: '[data-region="body-wrapper"]',
       addButtons: '[data-region="add-buttons"]'
     };
 
-    this.prototype.events = {
+    this.events = {
       'click [data-trigger="rangeAdd"]': 'handleRangeAdd',
       'click [data-trigger="criteriaAdd"]': 'handleCriteriaAdd'
     };
 
-    this.prototype.ui = {
+    this.ui = {
       rangeSnap: '.range-add-snap',
       criteriaSnap: '.criteria-add-snap',
       cells: '[data-region="cells"]'

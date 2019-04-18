@@ -10,13 +10,13 @@ import template from 'hbs!templates/assets/annotator/progress_bar';
 import childView from 'views/assets/annotator/progress_bar_annotation';
 
 export default class VideoProgressBarView extends Marionette.CompositeView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
-    this.prototype.wasPlaying = false;
-    this.prototype.seeking = false;
+    this.template = template;
+    this.wasPlaying = false;
+    this.seeking = false;
 
-    this.prototype.ui = {
+    this.ui = {
       played: '[data-behavior="played"]',
       buffered: '[data-behavior="buffered"]',
       marks: '[data-behavior="marks"]',
@@ -25,10 +25,10 @@ export default class VideoProgressBarView extends Marionette.CompositeView {
       timeElapsed: '[data-behavior="time-elapsed"]'
     };
 
-    this.prototype.childViewContainer = '[data-behavior="marks"]';
-    this.prototype.childView = childView;
+    this.childViewContainer = '[data-behavior="marks"]';
+    this.childView = childView;
 
-    this.prototype.events = {
+    this.events = {
       'click @ui.trackOverlay': 'onTrackOverlayClicked'
     };
   }

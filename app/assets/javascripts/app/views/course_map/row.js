@@ -9,16 +9,16 @@ import Marionette from 'marionette';
 import ItemView from 'views/course_map/cell';
 
 export default class Row extends Marionette.CollectionView {
-  static initClass() {
+  constructor() {
 
     // @model = a user model or a group model (in other words, a creator)
     // @collection = projects collection
     // this view is a collection view. It creates a cell for each project.
 
-    this.prototype.tagName = 'tr';
-    this.prototype.childView = ItemView;
+    this.tagName = 'tr';
+    this.childView = ItemView;
 
-    this.prototype.triggers = {
+    this.triggers = {
       'mouseover': 'row:active',
       'mouseout': 'row:inactive'
     };

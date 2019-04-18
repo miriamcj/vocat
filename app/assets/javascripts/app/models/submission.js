@@ -14,9 +14,9 @@ import GroupModel from 'models/group';
 import AssetCollection from 'collections/asset_collection';
 
 export default class SubmissionModel extends Backbone.Model {
-  static initClass() {
+  constructor() {
 
-    this.prototype.assetCollection = null;
+    this.assetCollection = null;
   }
 
   urlRoot() {

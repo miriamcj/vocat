@@ -9,15 +9,15 @@ import template from 'hbs!templates/project/detail/project_submission_row';
 import Backbone from 'backbone';
 
 export default class ProjectSubmissionRowView extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.tagName = "tr";
-    this.prototype.template = template;
-    this.prototype.attributes = {
+    this.tagName = "tr";
+    this.template = template;
+    this.attributes = {
       'data-region': 'submission-row'
     };
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click': 'rowClick'
     };
   }

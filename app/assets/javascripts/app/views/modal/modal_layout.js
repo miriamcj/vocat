@@ -10,19 +10,19 @@ import Marionette from 'marionette';
 import template from 'hbs!templates/modal/modal_layout';
 
 export default class ModalLayout extends Marionette.LayoutView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
+    this.template = template;
 
-    this.prototype.attributes = {
+    this.attributes = {
       style: 'display: none;'
     };
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click [data-behavior="modal-close"]': 'click:modal:close'
     };
 
-    this.prototype.regions = {
+    this.regions = {
       content: '[data-region="content"]'
     };
   }

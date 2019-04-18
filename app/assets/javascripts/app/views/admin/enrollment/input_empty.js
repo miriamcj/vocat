@@ -8,10 +8,10 @@ import Marionette from 'marionette';
 import template from 'hbs!templates/admin/enrollment/input_empty';
 
 export default class EnrollmentInputEmpty extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
-    this.prototype.tagName = 'li';
+    this.template = template;
+    this.tagName = 'li';
   }
 
   initialize(options) {

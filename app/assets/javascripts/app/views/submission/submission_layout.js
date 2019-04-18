@@ -18,13 +18,13 @@ import RubricModel from 'models/rubric';
 import VisitCollection from 'collections/visit_collection';
 
 export default class SubmissionLayout extends Marionette.LayoutView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
-    this.prototype.children = {};
-    this.prototype.courseMapContext = true;
+    this.template = template;
+    this.children = {};
+    this.courseMapContext = true;
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click @ui.openGroupModal': 'open:groups:modal',
       'click @ui.close': 'close',
       'click @ui.showProjectDescriptionModal': 'open:project:modal',
@@ -32,7 +32,7 @@ export default class SubmissionLayout extends Marionette.LayoutView {
       'click @ui.showMarkdownOverview': 'open:markdown:modal'
     };
 
-    this.prototype.ui = {
+    this.ui = {
       close: '[data-behavior="detail-close"]',
       openGroupModal: '[data-behavior="open-group-modal"]',
       showProjectDescriptionModal: '[data-behavior="open-project-description"]',
@@ -40,7 +40,7 @@ export default class SubmissionLayout extends Marionette.LayoutView {
       showMarkdownOverview: '[data-behavior="show-markdown-overview"]'
     };
 
-    this.prototype.regions = {
+    this.regions = {
       flash: '[data-region="flash"]',
       evaluations: '[data-region="submission-evaluations"]',
       discussion: '[data-region="submission-discussion"]',

@@ -14,33 +14,22 @@ import PlayerAnnotations from 'views/assets/player/player_annotations';
 
 export default class VideoPlayerView extends Marionette.ItemView {
   constructor(...args) {
-    {
-      // Hack: trick Babel/TypeScript into allowing this before super.
-      if (false) { super(); }
-      let thisFn = (() => { return this; }).toString();
-      let thisName = thisFn.match(/return (?:_assertThisInitialized\()*(\w+)\)*;/)[1];
-      eval(`${thisName} = this;`);
-    }
-    this.resizePlayer = this.resizePlayer.bind(this);
     super(...args);
-  }
+    this.resizePlayer = this.resizePlayer.bind(this);
+    this.template = template;
+    this.lock = null;
 
-  static initClass() {
-
-    this.prototype.template = template;
-    this.prototype.lock = null;
-
-    this.prototype.ui = {
+    this.ui = {
       player: '[data-behavior="video-player"]',
       playerContainer: '[data-behavior="player-container"]'
     };
 
-    this.prototype.events = {
+    this.events = {
     };
 
-    this.prototype.callbacks = [];
+    this.callbacks = [];
 
-    this.prototype.announceTimeUpdate = _.debounce(
+    this.announceTimeUpdate = _.debounce(
       function() {
         const time = this.player.currentTime();
         const percent = this.getPlayedPercent();

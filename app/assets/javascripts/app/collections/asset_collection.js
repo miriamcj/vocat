@@ -9,12 +9,12 @@ import Backbone from 'backbone';
 import AssetModel from 'models/asset';
 
 export default class AssetCollection extends Backbone.Collection {
-  static initClass() {
+  constructor() {
 
-    this.prototype.submissionId = null;
-    this.prototype.model = AssetModel;
+    this.submissionId = null;
+    this.model = AssetModel;
 
-    this.prototype.url = '/api/v1/assets';
+    this.url = '/api/v1/assets';
   }
 
   comparator(asset) {

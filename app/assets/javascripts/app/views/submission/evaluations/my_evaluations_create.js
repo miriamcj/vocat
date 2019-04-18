@@ -8,11 +8,11 @@ import Marionette from 'marionette';
 import template from 'hbs!templates/submission/evaluations/my_evaluations_create';
 
 export default class MyEvaluationsCreate extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
+    this.template = template;
 
-    this.prototype.triggers =
+    this.triggers =
       {'click [data-behavior="create-evaluation"]': 'evaluation:new'};
   }
 

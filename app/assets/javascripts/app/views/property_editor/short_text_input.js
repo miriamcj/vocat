@@ -8,20 +8,20 @@ import Marionette from 'marionette';
 import template from 'hbs!templates/property_editor/short_text_input';
 
 export default class ShortTextInput extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
+    this.template = template;
 
-    this.prototype.ui = {
+    this.ui = {
       input: '[data-property="input"]',
       errorContainer: '[data-behavior="error-container"]'
     };
 
-    this.prototype.saveModelOnSave = false;
-    this.prototype.onSave = null;
-    this.prototype.inputLabel = 'Update Property';
+    this.saveModelOnSave = false;
+    this.onSave = null;
+    this.inputLabel = 'Update Property';
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click [data-behavior="model-save"]': 'click:model:save',
       'click [data-behavior="cancel"]': 'click:model:cancel'
     };

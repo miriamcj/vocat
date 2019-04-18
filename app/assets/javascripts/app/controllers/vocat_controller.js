@@ -11,9 +11,9 @@ import ModalErrorView from 'views/modal/modal_error';
 import $ from 'jquery_rails';
 
 export default class VocatController extends Marionette.Controller {
-  static initClass() {
+  constructor() {
 
-    this.prototype.collections = {
+    this.collections = {
     };
   }
 

@@ -10,16 +10,16 @@ import PortfolioSubmissionItem from 'views/portfolio/portfolio_submissions_item'
 import ModalGroupMembershipView from 'views/modal/modal_group_membership';
 
 export default class CourseMapDetailCreator extends Marionette.CompositeView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
-    this.prototype.standalone = false;
-    this.prototype.childView = PortfolioSubmissionItem;
-    this.prototype.vent = Vocat.vent;
+    this.template = template;
+    this.standalone = false;
+    this.childView = PortfolioSubmissionItem;
+    this.vent = Vocat.vent;
 
-    this.prototype.childViewContainer = '[data-container="submission-summaries"]';
+    this.childViewContainer = '[data-container="submission-summaries"]';
 
-    this.prototype.ui = {
+    this.ui = {
       loadIndicator: '[data-behavior="load-indicator"]',
       openGroupModal: '[data-behavior="open-group-modal"]'
     };

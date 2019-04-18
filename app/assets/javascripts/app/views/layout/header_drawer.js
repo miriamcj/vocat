@@ -8,18 +8,18 @@ import Marionette from 'marionette';
 import ClosesOnUserAction from 'behaviors/closes_on_user_action';
 
 export default class HeaderDrawerView extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.visibleCourses = 5;
-    this.prototype.filtered = false;
+    this.visibleCourses = 5;
+    this.filtered = false;
 
-    this.prototype.behaviors = {
+    this.behaviors = {
       closesOnUserAction: {
         behaviorClass: ClosesOnUserAction
       }
     };
 
-    this.prototype.ui = {
+    this.ui = {
       courseSelect: '[data-class="course-select"]',
       recentCourseSelect: '[data-class="recent-course-select"]'
     };

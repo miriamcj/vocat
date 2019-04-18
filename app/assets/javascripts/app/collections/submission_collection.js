@@ -9,9 +9,9 @@ import Backbone from 'backbone';
 import SubmissionModel from 'models/submission';
 
 export default class SubmissionCollection extends Backbone.Collection {
-  static initClass() {
+  constructor() {
 
-    this.prototype.model = SubmissionModel;
+    this.model = SubmissionModel;
   }
 
   initialize(models, options) {

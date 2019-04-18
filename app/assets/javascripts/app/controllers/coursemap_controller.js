@@ -22,9 +22,9 @@ import ApplicationErrorView from 'views/error/application_error';
 import AssetModel from 'models/asset';
 
 export default class CourseMapController extends VocatController {
-  static initClass() {
+  constructor() {
 
-    this.prototype.collections = {
+    this.collections = {
       user: new UserCollection([], {}),
       group: new GroupCollection([], {}),
       project: new ProjectCollection([], {}),
@@ -32,8 +32,8 @@ export default class CourseMapController extends VocatController {
       asset: new AssetCollection([], {})
     };
 
-    this.prototype.layoutInitialized = false;
-    this.prototype.submissionsSynced = false;
+    this.layoutInitialized = false;
+    this.submissionsSynced = false;
   }
 
   initialize() {

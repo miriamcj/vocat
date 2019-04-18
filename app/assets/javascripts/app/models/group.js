@@ -8,11 +8,11 @@
 import Backbone from 'backbone';
 
 export default class Group extends Backbone.Model {
-  static initClass() {
+  constructor() {
 
-    this.prototype.creatorType = 'Group';
+    this.creatorType = 'Group';
 
-    this.prototype.urlRoot = '/api/v1/groups';
+    this.urlRoot = '/api/v1/groups';
   }
 
   validate(attributes, options) {

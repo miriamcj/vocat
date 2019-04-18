@@ -14,9 +14,9 @@ import SubmissionCollection from 'collections/submission_collection';
 import PortfolioUnsubmittedCollection from 'collections/portfolio_unsubmitted_collection';
 
 export default class PortfolioController extends VocatController {
-  static initClass() {
+  constructor() {
 
-    this.prototype.collections = {
+    this.collections = {
       submission: new SubmissionCollection({}),
       incomplete: new PortfolioUnsubmittedCollection({})
     };

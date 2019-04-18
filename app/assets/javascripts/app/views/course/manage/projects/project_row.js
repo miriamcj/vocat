@@ -10,20 +10,20 @@ import DropdownView from 'views/layout/dropdown';
 import ModalConfirmView from 'views/modal/modal_confirm';
 
 export default class ProjectRowView extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
-    this.prototype.tagName = 'tr';
+    this.template = template;
+    this.tagName = 'tr';
 
-    this.prototype.events = {
+    this.events = {
       "drop": "onDrop"
     };
 
-    this.prototype.ui = {
+    this.ui = {
       "dropdowns": '[data-behavior="dropdown"]'
     };
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click [data-behavior="destroy"]': 'click:destroy'
     };
   }

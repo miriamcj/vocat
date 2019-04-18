@@ -10,16 +10,16 @@ import Placard from 'views/help/placard';
 import template from 'hbs!templates/help/glossary_toggle_placard';
 
 export default class GlossaryTogglePlacard extends Placard {
-  static initClass() {
+  constructor() {
 
-    this.prototype.events = {
+    this.events = {
       'change [data-toggle-glossary]': 'onToggleGlossary'
     };
 
-    this.prototype.template = template;
-    this.prototype.className = 'placard';
-    this.prototype.tagName = 'aside';
-    this.prototype.attributes = {
+    this.template = template;
+    this.className = 'placard';
+    this.tagName = 'aside';
+    this.attributes = {
       style: 'display: none'
     };
   }

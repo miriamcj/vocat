@@ -10,9 +10,9 @@ import Marionette from 'marionette';
 import EvaluationModel from 'models/evaluation';
 
 export default class EvaluationCollection extends Backbone.Collection {
-  static initClass() {
+  constructor() {
 
-    this.prototype.model = EvaluationModel;
+    this.model = EvaluationModel;
   }
 
   initialize(models, options) {

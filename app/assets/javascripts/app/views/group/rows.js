@@ -9,9 +9,9 @@ import Marionette from 'marionette';
 import ItemView from 'views/group/row_item';
 
 export default class RowsView extends Marionette.CollectionView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.childView = ItemView;
+    this.childView = ItemView;
   }
 
   childViewOptions() {

@@ -10,15 +10,15 @@ import template from 'hbs!templates/assets/annotator/annotator_input';
 import AnnotationModel from 'models/annotation';
 
 export default class AnnotatorInputView extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
-    this.prototype.canvasIsDirty = false;
-    this.prototype.editLock = false;
-    this.prototype.inputPointer = null;
-    this.prototype.ignoreTimeUpdates = false;
+    this.template = template;
+    this.canvasIsDirty = false;
+    this.editLock = false;
+    this.inputPointer = null;
+    this.ignoreTimeUpdates = false;
 
-    this.prototype.ui = {
+    this.ui = {
       annotationInput: '[data-behavior="annotation-input"]',
       canvasDrawButton: '[data-behavior="annotation-canvas-draw"]',
       canvasEraseButton: '[data-behavior="annotation-canvas-erase"]',
@@ -33,7 +33,7 @@ export default class AnnotatorInputView extends Marionette.ItemView {
       message: '[data-behavior="message"]'
     };
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click @ui.annotationCreateButton': 'saveAnnotation',
       'click @ui.annotationCreateCancelButton': 'cancelEdit',
       'click @ui.annotationUpdateButton': 'saveAnnotation',
@@ -45,7 +45,7 @@ export default class AnnotatorInputView extends Marionette.ItemView {
       'click @ui.annotationInput': 'annotationInputClick'
     };
 
-    this.prototype.events =
+    this.events =
       {'keypress [data-behavior="annotation-input"]': 'onUserTyping'};
   }
 

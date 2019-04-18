@@ -8,11 +8,11 @@ import Backbone from 'backbone';
 import AnnotationCollection from 'collections/annotation_collection';
 
 export default class AssetModel extends Backbone.Model {
-  static initClass() {
+  constructor() {
 
-    this.prototype.annotationCollection = null;
-    this.prototype.urlRoot = "/api/v1/assets";
-    this.prototype.polls = 0;
+    this.annotationCollection = null;
+    this.urlRoot = "/api/v1/assets";
+    this.polls = 0;
   }
 
   techOrder() {

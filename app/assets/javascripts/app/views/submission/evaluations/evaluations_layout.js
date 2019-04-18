@@ -18,16 +18,16 @@ import SaveNotifyView from 'views/submission/evaluations/save_notify';
 import RubricModel from 'models/rubric';
 
 export default class EvaluationsLayout extends Marionette.LayoutView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
+    this.template = template;
 
-    this.prototype.regions = {
+    this.regions = {
       theirEvaluations: '[data-region="their-evaluations"]',
       myEvaluations: '[data-region="my-evaluations"]'
     };
 
-    this.prototype.ui = {
+    this.ui = {
       body: '[data-behavior="body"]'
     };
   }

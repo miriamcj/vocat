@@ -7,17 +7,17 @@
 import Marionette from 'marionette';
 
 export default class ExpandableRange extends Marionette.Behavior {
-  static initClass() {
+  constructor() {
 
-    this.prototype.defaults = {
+    this.defaults = {
       childrenVisible: false
     };
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click @ui.toggleChild': 'toggle:child'
     };
 
-    this.prototype.ui = {
+    this.ui = {
       toggleChild: '[data-behavior="toggle-children"]',
       childContainer: '[data-behavior="child-container"]',
       range: '[data-behavior="range"]:first'

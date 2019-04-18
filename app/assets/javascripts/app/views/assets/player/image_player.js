@@ -9,14 +9,14 @@ import template from 'hbs!templates/assets/player/image_displayer';
 import PlayerAnnotations from 'views/assets/player/player_annotations';
 
 export default class ImageDisplayerView extends Marionette.LayoutView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
-    this.prototype.regions = {
+    this.template = template;
+    this.regions = {
       annotationsContainer: '[data-region="annotation-container"]'
     };
 
-    this.prototype.ui = {
+    this.ui = {
       annotationContainer: '[data-behavior="annotation-container"]'
     };
   }

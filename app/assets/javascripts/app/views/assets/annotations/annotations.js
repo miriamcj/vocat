@@ -11,27 +11,27 @@ import ItemView from 'views/assets/annotations/annotations_item';
 import EmptyView from 'views/assets/annotations/annotations_item_empty';
 
 export default class AnnotationsView extends Marionette.CompositeView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
-    this.prototype.scrollLocked = false;
-    this.prototype.highlighted = null;
-    this.prototype.emptyView = EmptyView;
+    this.template = template;
+    this.scrollLocked = false;
+    this.highlighted = null;
+    this.emptyView = EmptyView;
 
-    this.prototype.className = 'annotations';
+    this.className = 'annotations';
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click [data-behavior="show-all"]': 'show:all',
       'click [data-behavior="show-auto"]': 'show:auto',
       'click @ui.enableEdit': 'edit:enable',
       'click @ui.disableEdit': 'edit:disable'
     };
 
-    this.prototype.childView = ItemView;
+    this.childView = ItemView;
 
-    this.prototype.childViewContainer = '[data-behavior="annotations-container"]';
+    this.childViewContainer = '[data-behavior="annotations-container"]';
 
-    this.prototype.ui = {
+    this.ui = {
       count: '[data-behavior="annotation-count"]',
       annotationsContainer: '[data-behavior="annotations-container"]',
       anchor: '[data-behavior="anchor"]',

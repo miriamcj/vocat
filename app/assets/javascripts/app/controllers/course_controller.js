@@ -12,9 +12,9 @@ import ProjectCollection from 'collections/project_collection';
 import Projects from 'views/course/manage/projects/projects';
 
 export default class CourseController extends VocatController {
-  static initClass() {
+  constructor() {
 
-    this.prototype.collections = {
+    this.collections = {
       project: new ProjectCollection([])
     };
   }

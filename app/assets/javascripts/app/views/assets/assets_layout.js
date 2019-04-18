@@ -15,13 +15,13 @@ import AssetDetail from 'views/assets/asset_detail';
 import ModalConfirmView from 'views/modal/modal_confirm';
 
 export default class AssetsLayout extends Marionette.LayoutView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
-    this.prototype.state = 'list';
-    this.prototype.canAttach = false;
+    this.template = template;
+    this.state = 'list';
+    this.canAttach = false;
 
-    this.prototype.ui = {
+    this.ui = {
       assetCollectionHeader: '[data-behavior="asset-collection-header"]',
       detailHeader: '[data-behavior="detail-header"]',
       detailHeaderContent: '[data-behavior="detail-header-content"]',
@@ -31,13 +31,13 @@ export default class AssetsLayout extends Marionette.LayoutView {
       closeLink: '[data-behavior="close-link"]'
     };
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click @ui.stopManagingLink': 'request:state:list',
       'click @ui.manageLink': 'request:state:manage',
       'click @ui.closeLink': 'request:state:list'
     };
 
-    this.prototype.regions = {
+    this.regions = {
       assets: '[data-region="asset-collection"]',
       newAsset: '[data-region="asset-new"]',
       newAssetFooter: '[data-region="asset-new-footer"]'

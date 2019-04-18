@@ -10,18 +10,18 @@ import ModalConfirmView from 'views/modal/modal_confirm';
 import ShortTextInputView from 'views/property_editor/short_text_input';
 
 export default class GroupsItem extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.tagName = 'th';
-    this.prototype.className = 'matrix--fullbleed';
-    this.prototype.template = template;
+    this.tagName = 'th';
+    this.className = 'matrix--fullbleed';
+    this.template = template;
 
-    this.prototype.attributes = {
+    this.attributes = {
       'data-behavior': 'navigate-group',
       'data-match-height-source': ''
     };
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click [data-behavior="destroy"]': 'click:destroy',
       'click [data-behavior="edit"]': 'click:edit'
     };

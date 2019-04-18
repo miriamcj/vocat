@@ -16,31 +16,31 @@ import WarningView from 'views/group/warning';
 import GroupWarningView from 'views/group/group_warning';
 
 export default class GroupLayout extends AbstractMatrix {
-  static initClass() {
+  constructor() {
 
-    this.prototype.warningVisible = false;
-    this.prototype.template = template;
+    this.warningVisible = false;
+    this.template = template;
 
-    this.prototype.children = {};
-    this.prototype.stickyHeader = false;
-    this.prototype.regions = {
+    this.children = {};
+    this.stickyHeader = false;
+    this.regions = {
       creators: '[data-region="creators"]',
       groups: '[data-region="groups"]',
       matrix: '[data-region="matrix"]',
       warning: '[data-region="warning"]'
     };
 
-    this.prototype.events = {
+    this.events = {
     };
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click [data-trigger="add"]': 'click:group:add',
       'click [data-trigger="assign"]': 'click:group:assign',
       'click [data-behavior="matrix-slider-left"]': 'slider:left',
       'click [data-behavior="matrix-slider-right"]': 'slider:right'
     };
 
-    this.prototype.ui = {
+    this.ui = {
       header: '.matrix--column-header',
       dirtyMessage: '[data-behavior="dirty-message"]',
       sliderContainer: '[data-behavior="matrix-slider"]',

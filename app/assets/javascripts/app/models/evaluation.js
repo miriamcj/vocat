@@ -9,11 +9,11 @@ import Bacbone from 'backbone';
 import ScoreCollection from 'collections/score_collection';
 
 export default class EvaluationModel extends Backbone.Model {
-  static initClass() {
+  constructor() {
 
-    this.prototype.paramRoot = 'evaluation';
-    this.prototype.omitAttributes = ['total_points', 'total_percentage', 'total_percentage_rounded'];
-    this.prototype.urlRoot = "/api/v1/evaluations";
+    this.paramRoot = 'evaluation';
+    this.omitAttributes = ['total_points', 'total_percentage', 'total_percentage_rounded'];
+    this.urlRoot = "/api/v1/evaluations";
   }
 
   takeSnapshot() {

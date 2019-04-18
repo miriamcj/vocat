@@ -10,9 +10,9 @@ import Marionette from 'marionette';
 import VisitModel from 'models/visit';
 
 export default class VisitCollection extends Backbone.Collection {
-  static initClass() {
+  constructor() {
 
-    this.prototype.model = VisitModel;
+    this.model = VisitModel;
   }
 
   initialize(models, options) {

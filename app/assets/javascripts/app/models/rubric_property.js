@@ -8,10 +8,10 @@
 import Backbone from 'backbone';
 
 export default class RubricProperty extends Backbone.Model {
-  static initClass() {
+  constructor() {
 
-    this.prototype.errorStrings = {};
-    this.prototype.idAttribute = "id";
+    this.errorStrings = {};
+    this.idAttribute = "id";
   }
 
   hasErrors() {

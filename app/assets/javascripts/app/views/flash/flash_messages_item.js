@@ -9,12 +9,12 @@ import Marionette from 'marionette';
 import template from 'hbs!templates/flash/flash_messages_item';
 
 export default class FlashMessagesItem extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
-    this.prototype.lifetime = 10000;
+    this.template = template;
+    this.lifetime = 10000;
 
-    this.prototype.triggers =
+    this.triggers =
       {'click [data-behavior="destroy"]': 'destroy'};
   }
 

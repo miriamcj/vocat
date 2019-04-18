@@ -10,11 +10,11 @@ import Backbone from 'backbone';
 import DiscussionPostModel from 'models/discussion_post';
 
 export default class DiscussionPostCollection extends Backbone.Collection {
-  static initClass() {
+  constructor() {
 
-    this.prototype.model = DiscussionPostModel;
+    this.model = DiscussionPostModel;
 
-    this.prototype.url = '/api/v1/discussion_posts';
+    this.url = '/api/v1/discussion_posts';
   }
 
   initialize(models, options) {

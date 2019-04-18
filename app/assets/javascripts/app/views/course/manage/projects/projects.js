@@ -11,13 +11,13 @@ import ProjectsRowView from 'views/course/manage/projects/project_row';
 import SortableTable from 'behaviors/sortable_table';
 
 export default class Projects extends Marionette.CompositeView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
-    this.prototype.childView = ProjectsRowView;
-    this.prototype.childViewContainer = 'tbody';
+    this.template = template;
+    this.childView = ProjectsRowView;
+    this.childViewContainer = 'tbody';
 
-    this.prototype.behaviors = {
+    this.behaviors = {
       sortableTable: {
         behaviorClass: SortableTable
       }

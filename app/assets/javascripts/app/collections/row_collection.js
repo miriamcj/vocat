@@ -9,7 +9,7 @@ import Backbone from 'backbone';
 import RowModel from 'models/row';
 
 export default class RowCollection extends Backbone.Collection {
-  static initClass() {
-    this.prototype.model = RowModel;
+  constructor() {
+    this.model = RowModel;
   }
 };

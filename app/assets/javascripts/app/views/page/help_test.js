@@ -9,10 +9,10 @@ import Marionette from 'marionette';
 import template from 'hbs!templates/page/help_test';
 
 export default class FlashMessagesItem extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
-    this.prototype.events = {
+    this.template = template;
+    this.events = {
       'mouseenter [data-help]': 'onHelpShow',
       'mouseleave [data-help]': 'onHelpHide'
     };

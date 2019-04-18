@@ -9,24 +9,24 @@ import template from 'hbs!templates/course_map/creators_item';
 import ModalGroupMembershipView from 'views/modal/modal_group_membership';
 
 export default class CourseMapCreatorsItem extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.tagName = 'tr';
+    this.tagName = 'tr';
 
-    this.prototype.template = template;
+    this.template = template;
 
-    this.prototype.ui = {
+    this.ui = {
       openGroupModal: '[data-behavior="open-group-modal"]'
     };
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click @ui.openGroupModal': 'open:groups:modal',
       'mouseover [data-behavior="creator-name"]': 'active',
       'mouseout [data-behavior="creator-name"]': 'inactive',
       'click [data-behavior="creator-name"]': 'detail'
     };
 
-    this.prototype.attributes = {
+    this.attributes = {
       'data-behavior': 'navigate-creator'
     };
   }

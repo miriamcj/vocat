@@ -10,15 +10,15 @@ import ChildView from 'views/submission/evaluations/their_evaluations_child';
 import ExpandableRange from 'behaviors/expandable_range';
 
 export default class TheirEvaluationsCollection extends Marionette.CompositeView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
-    this.prototype.className = 'evaluation-collection';
-    this.prototype.tagName = 'li';
-    this.prototype.childView = ChildView;
-    this.prototype.childViewContainer = '[data-behavior="child-container"]:first';
+    this.template = template;
+    this.className = 'evaluation-collection';
+    this.tagName = 'li';
+    this.childView = ChildView;
+    this.childViewContainer = '[data-behavior="child-container"]:first';
 
-    this.prototype.behaviors = {
+    this.behaviors = {
       expandableRange: {
         behaviorClass: ExpandableRange
       }

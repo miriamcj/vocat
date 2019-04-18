@@ -7,8 +7,8 @@
 import SubmissionCollection from 'collections/submission_collection';
 
 export default class SubmissionForProjectCollection extends SubmissionCollection {
-  static initClass() {
+  constructor() {
 
-    this.prototype.url = '/api/v1/submissions/for_project';
+    this.url = '/api/v1/submissions/for_project';
   }
 };

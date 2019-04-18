@@ -8,9 +8,9 @@ import Marionette from 'marionette';
 import template from 'hbs!templates/assets/player/processing_warning';
 
 export default class ProcessingWarningView extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
+    this.template = template;
   }
 };
 

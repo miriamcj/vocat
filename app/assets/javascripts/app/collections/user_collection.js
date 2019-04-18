@@ -10,13 +10,13 @@ import Backbone from 'backbone';
 import UserModel from 'models/user';
 
 export default class UserCollection extends Backbone.Collection {
-  static initClass() {
+  constructor() {
 
-    this.prototype.model = UserModel;
+    this.model = UserModel;
 
-    this.prototype.activeModel = null;
+    this.activeModel = null;
 
-    this.prototype.url = '/api/v1/users';
+    this.url = '/api/v1/users';
   }
 
   getSearchTerm() {

@@ -9,13 +9,13 @@ import Marionette from 'marionette';
 import template from 'hbs!templates/notification/notification_message';
 
 export default class NotificationMessage extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
-    this.prototype.lifetime = 10000;
-    this.prototype.isFlash = true;
+    this.template = template;
+    this.lifetime = 10000;
+    this.isFlash = true;
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click [data-behavior="close-message"]': 'closeMessage'
     };
   }

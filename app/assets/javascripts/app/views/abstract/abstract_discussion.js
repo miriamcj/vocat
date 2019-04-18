@@ -12,15 +12,15 @@ import DiscussionPostModel from 'models/discussion_post';
 import FlashMessagesView from 'views/flash/flash_messages';
 
 export default class DiscussionView extends Marionette.CompositeView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.ui = {
+    this.ui = {
       bodyInput: '[data-behavior="post-input"]',
       inputToggle: '[data-behavior="input-container"]',
       flashContainer: '[data-container="flash"]'
     };
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click [data-behavior="post-save"]': 'post:save',
       'click [data-behavior="toggle-reply"]': 'reply:toggle',
       'click [data-behavior="toggle-delete-confirm"]': 'confirm:delete:toggle',

@@ -9,19 +9,19 @@ import Marionette from 'marionette';
 import template from 'hbs!templates/course_map/creators_item';
 
 export default class GroupCreatorsItem extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.tagName = 'tr';
+    this.tagName = 'tr';
 
-    this.prototype.template = template;
+    this.template = template;
 
-    this.prototype.triggers = {
+    this.triggers = {
       'mouseover a': 'active',
       'mouseout a': 'inactive',
       'click a': 'detail'
     };
 
-    this.prototype.attributes = {
+    this.attributes = {
       'data-behavior': 'navigate-creator'
     };
   }

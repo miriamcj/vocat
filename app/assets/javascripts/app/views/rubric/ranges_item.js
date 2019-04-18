@@ -11,12 +11,12 @@ import LongTextInputView from 'views/property_editor/long_text_input';
 import ModalConfirmView from 'views/modal/modal_confirm';
 
 export default class RangesItem extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
-    this.prototype.className = 'cell';
+    this.template = template;
+    this.className = 'cell';
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click [data-behavior="destroy"]': 'description:clear',
       'click [data-behavior="edit"]': 'click:edit'
     };

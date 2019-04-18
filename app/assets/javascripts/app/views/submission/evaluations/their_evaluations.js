@@ -11,12 +11,12 @@ import CollectionProxy from 'collections/collection_proxy';
 import EvaluationSetModel from 'models/evaluation_set';
 
 export default class TheirEvaluations extends Marionette.CompositeView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
-    this.prototype.tagName = 'ul';
-    this.prototype.className = 'evaluation-collections';
-    this.prototype.childView = TheirEvaluationsCollection;
+    this.template = template;
+    this.tagName = 'ul';
+    this.className = 'evaluation-collections';
+    this.childView = TheirEvaluationsCollection;
   }
   childViewOptions() {
     return {

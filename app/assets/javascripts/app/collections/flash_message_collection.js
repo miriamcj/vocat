@@ -9,9 +9,9 @@ import Backbone from 'backbone';
 import FlashMessageModel from 'models/flash_message';
 
 export default class FlashMessageCollection extends Backbone.Collection {
-  static initClass() {
+  constructor() {
 
-    this.prototype.model = FlashMessageModel;
+    this.model = FlashMessageModel;
   }
 
   initialize() {}

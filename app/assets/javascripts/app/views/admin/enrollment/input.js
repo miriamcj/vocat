@@ -14,22 +14,22 @@ import 'jquery_ui';
 import 'vendor/plugins/ajax_chosen';
 
 export default class EnrollmentUserInput extends Marionette.CompositeView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.emptyView = EmptyView;
+    this.emptyView = EmptyView;
 
-    this.prototype.childView = ItemView;
+    this.childView = ItemView;
 
-    this.prototype.childViewContainer = '[data-container="items"]';
+    this.childViewContainer = '[data-container="items"]';
 
-    this.prototype.ui = {
+    this.ui = {
       emptyViewContainer: '[data-container="empty"]',
       containerWrapper: '[data-behavior="container-wrapper"]',
       termInput: '[data-behavior="search-term"]',
       showBulk: '[data-behavior="show-bulk"]'
     };
 
-    this.prototype.triggers = {
+    this.triggers = {
       'keypress [data-behavior="search-term"]': {
         event: "update",
         preventDefault: false,
@@ -55,7 +55,7 @@ export default class EnrollmentUserInput extends Marionette.CompositeView {
       'click [data-behavior="show-bulk"]': 'showBulk'
     };
 
-    this.prototype.onUpdate = _.debounce(function() {
+    this.onUpdate = _.debounce(function() {
       const promise = $.Deferred();
       promise.then(() => {
         if (this.ui.termInput.is(":focus")) {

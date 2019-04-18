@@ -11,13 +11,13 @@ import FlashMessageCollection from 'collections/flash_message_collection';
 import template from 'hbs!templates/flash/flash_messages';
 
 export default class AbstractFlashMessages extends Marionette.CollectionView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.childView = ItemView;
-    this.prototype.clearOnAdd = false;
-    this.prototype.template = template;
-    this.prototype.className = 'alerts';
-    this.prototype.childViewContainer = '[data-behavior="flash-container"]';
+    this.childView = ItemView;
+    this.clearOnAdd = false;
+    this.template = template;
+    this.className = 'alerts';
+    this.childViewContainer = '[data-behavior="flash-container"]';
   }
 
   initialize() {

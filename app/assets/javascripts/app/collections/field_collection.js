@@ -9,8 +9,8 @@ import Backbone from 'backbone';
 import FieldModel from 'models/field';
 
 export default class FieldCollection extends Backbone.Collection {
-  static initClass() {
-    this.prototype.model = FieldModel;
+  constructor() {
+    this.model = FieldModel;
   }
 };
 

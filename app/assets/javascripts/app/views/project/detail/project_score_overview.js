@@ -8,11 +8,11 @@ import Marionette from 'marionette';
 import template from 'hbs!templates/project/detail/project_score_overview';
 
 export default class ProjectScoreOverview extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
+    this.template = template;
 
-    this.prototype.triggers = {
+    this.triggers = {
       'change @ui.viewToggle': {
         event: 'view:toggle',
         preventDefault: false,
@@ -20,7 +20,7 @@ export default class ProjectScoreOverview extends Marionette.ItemView {
       }
     };
 
-    this.prototype.ui = {
+    this.ui = {
       viewToggle: '[data-behavior="view-toggle"]'
     };
   }

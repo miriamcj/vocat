@@ -8,14 +8,14 @@
 import Backbone from 'backbone';
 
 export default class Placard extends Backbone.View {
-  static initClass() {
+  constructor() {
 
-    this.prototype.orientations = ['nnw', 'nne', 'ene', 'ese', 'sse', 'ssw', 'wsw', 'wnw'];
-    this.prototype.locked = false;
-    this.prototype.hideTimeout = null;
-    this.prototype.leftPositionAdjust = 0;
-    this.prototype.topPositionAdjust = -5;
-    this.prototype.visible = false;
+    this.orientations = ['nnw', 'nne', 'ene', 'ese', 'sse', 'ssw', 'wsw', 'wnw'];
+    this.locked = false;
+    this.hideTimeout = null;
+    this.leftPositionAdjust = 0;
+    this.topPositionAdjust = -5;
+    this.visible = false;
   }
 
   // options.orientation = where the placard should display

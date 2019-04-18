@@ -8,17 +8,17 @@ import Marionette from 'marionette';
 import ItemView from 'views/assets/player/player_annotations_item';
 
 export default class PlayerAnnotations extends Marionette.CollectionView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = _.template('');
-    this.prototype.showTimePadding = 1;
-    this.prototype.hideTimePadding = .1;
+    this.template = _.template('');
+    this.showTimePadding = 1;
+    this.hideTimePadding = .1;
 
-    this.prototype.tagName = 'ul';
-    this.prototype.attributes = {
+    this.tagName = 'ul';
+    this.attributes = {
       class: 'annotations-overlay'
     };
-    this.prototype.childView = ItemView;
+    this.childView = ItemView;
   }
 
   childViewOptions(model, index) {

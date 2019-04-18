@@ -9,22 +9,22 @@ import template from 'hbs!templates/admin/enrollment/confirm_invite';
 import GlobalNotification from 'behaviors/global_notification';
 
 export default class ConfirmInvite extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
+    this.template = template;
 
-    this.prototype.klass = 'confirmInvite';
+    this.klass = 'confirmInvite';
 
-    this.prototype.ui = {
+    this.ui = {
       button: '[data-behavior="submit-invite-and-enroll"]'
     };
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click [data-behavior="cancel-invite-and-enroll"]': 'cancel',
       'click [data-behavior="submit-invite-and-enroll"]': 'submit'
     };
 
-    this.prototype.behaviors = {
+    this.behaviors = {
       globalNotification: {
         behaviorClass: GlobalNotification
       }

@@ -10,9 +10,9 @@ import Backbone from 'backbone';
 import SubmissionModel from 'models/submission';
 
 export default class PortfolioCollection extends Backbone.Collection {
-  static initClass() {
+  constructor() {
 
-    this.prototype.model = SubmissionModel;
+    this.model = SubmissionModel;
   }
 
   url(options) {

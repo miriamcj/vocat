@@ -11,24 +11,24 @@ import ConfirmInvite from 'views/admin/enrollment/confirm_invite';
 import template from 'hbs!templates/admin/enrollment/bulk_input';
 
 export default class EnrollmentBulkInput extends Marionette.LayoutView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.ui = {
+    this.ui = {
       showSingle: '[data-behavior="show-single"]',
       bulkInput: '[data-behavior="bulk-input"]',
       submit: '[data-behavior="submit"]'
     };
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click [data-behavior="show-single"]': 'showSingle',
       'click [data-behavior="submit"]': 'submit'
     };
 
-    this.prototype.regions = {
+    this.regions = {
       confirmInvite: '[data-region="confirm-invite"]'
     };
 
-    this.prototype.template = template;
+    this.template = template;
   }
 
 

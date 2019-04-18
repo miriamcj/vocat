@@ -8,14 +8,14 @@ import Marionette from 'marionette';
 import template from 'hbs!templates/rubric/rubric_detail';
 
 export default class RubricDetailView extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.ui = {
+    this.ui = {
       container: '[data-behavior="slide-down"]'
     };
-    this.prototype.transition = true;
+    this.transition = true;
 
-    this.prototype.template = template;
+    this.template = template;
   }
 
   initialize(options) {

@@ -9,16 +9,16 @@ import template from 'hbs!templates/submission/evaluations/save_notify';
 import GlobalNotification from 'behaviors/global_notification';
 
 export default class GroupsView extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
+    this.template = template;
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click [data-trigger="save"]': 'click:evaluation:save',
       'click [data-trigger="revert"]': 'click:evaluation:revert'
     };
 
-    this.prototype.behaviors = {
+    this.behaviors = {
       globalNotification: {
         behaviorClass: GlobalNotification
       }

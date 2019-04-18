@@ -7,11 +7,11 @@
 import Backbone from 'backbone';
 
 export default class VideoModel extends Backbone.Model {
-  static initClass() {
+  constructor() {
 
-    this.prototype.paramRoot = 'video';
+    this.paramRoot = 'video';
 
-    this.prototype.urlRoot = "/api/v1/videos";
+    this.urlRoot = "/api/v1/videos";
   }
 
   getSourceDetails() {

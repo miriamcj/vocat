@@ -11,18 +11,18 @@ import jqui from 'jquery_ui';
 import Marionette from 'marionette';
 
 export default class RangePickerModalView extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
-    this.prototype.modalWidth = '90%';
-    this.prototype.maxWidth = '1100px';
-    this.prototype.className = "range-picker-modal";
+    this.template = template;
+    this.modalWidth = '90%';
+    this.maxWidth = '1100px';
+    this.className = "range-picker-modal";
 
-    this.prototype.regions = {
+    this.regions = {
       rangePicker: '[data-region="range-picker"]'
     };
 
-    this.prototype.ui = {
+    this.ui = {
       lowInput: '[data-behavior="rubric-low"]',
       highInput: '[data-behavior="rubric-high"]',
       draggableContainer: '[data-behavior="draggable-container"]',
@@ -31,12 +31,12 @@ export default class RangePickerModalView extends Marionette.ItemView {
       ticks: '[data-container="ticks"]'
     };
 
-    this.prototype.events = {
+    this.events = {
       'keyup @ui.lowInput': 'lowChange',
       'keyup @ui.highInput': 'highChange'
     };
 
-    this.prototype.fallBackWidth = 922;
+    this.fallBackWidth = 922;
   }
 
   lowChange(event) {

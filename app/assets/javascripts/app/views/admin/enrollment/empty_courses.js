@@ -8,10 +8,10 @@ import Marionette from 'marionette';
 import template from 'hbs!templates/admin/enrollment/empty_courses';
 
 export default class EnrollmentEmptyCourses extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
-    this.prototype.tagName = 'tr';
+    this.template = template;
+    this.tagName = 'tr';
   }
 
   serializeData() {

@@ -7,17 +7,17 @@
 import marionette from 'marionette';
 
 export default class ManageOrganizationView extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = false;
+    this.template = false;
 
-    this.prototype.ui = {
+    this.ui = {
       ldapEnabled: '[data-class="ldap-enabled"]',
       ldapFields: '[data-class="ldap-fields"]'
 
     };
 
-    this.prototype.triggers = {
+    this.triggers = {
       'change @ui.ldapEnabled': 'change:ldap:enabled'
     };
   }

@@ -9,15 +9,15 @@ import $ from 'jquery_rails';
 import Marionette from 'marionette';
 
 export default class FileInputView extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.ui = {
+    this.ui = {
       trigger: '[data-behavior="file-input-trigger"]',
       field: '[data-behavior="file-input-field"]',
       mask: '[data-behavior="file-input-mask"]'
     };
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click @ui.trigger': 'trigger:click',
       'change @ui.field': 'mask:update'
     };

@@ -8,9 +8,9 @@
 import Backbone from 'backbone';
 
 export default class DiscussionPostModel extends Backbone.Model {
-  static initClass() {
+  constructor() {
 
-    this.prototype.urlRoot = '/api/v1/discussion_posts';
+    this.urlRoot = '/api/v1/discussion_posts';
   }
 
   hasParent() {

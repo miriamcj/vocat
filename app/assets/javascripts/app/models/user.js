@@ -7,8 +7,8 @@
 import Backbone from 'backbone';
 
 export default class UserModel extends Backbone.Model {
-  static initClass() {
+  constructor() {
 
-    this.prototype.creatorType = 'User';
+    this.creatorType = 'User';
   }
 };

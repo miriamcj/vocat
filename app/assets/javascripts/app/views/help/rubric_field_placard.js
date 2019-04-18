@@ -11,12 +11,12 @@ import Placard from 'views/help/placard';
 import template from 'hbs!templates/help/rubric_field_placard';
 
 export default class RubricFieldPlacard extends Placard {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
-    this.prototype.className = 'placard';
-    this.prototype.tagName = 'aside';
-    this.prototype.attributes = {
+    this.template = template;
+    this.className = 'placard';
+    this.tagName = 'aside';
+    this.attributes = {
       style: 'display: none'
     };
   }

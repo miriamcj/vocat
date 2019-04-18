@@ -7,9 +7,9 @@
 import Backbone from 'backbone';
 
 export default class ProjectStatisticsModel extends Backbone.Model {
-  static initClass() {
+  constructor() {
 
-    this.prototype.scoreView = 'Project Scores';
+    this.scoreView = 'Project Scores';
   }
 
   updateScoreView(scoreView) {

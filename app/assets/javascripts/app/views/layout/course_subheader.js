@@ -7,13 +7,13 @@
 import Marionette from 'marionette';
 
 export default class CourseSubheaderView extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.events = {
+    this.events = {
       'click @ui.trigger': 'clickTrigger'
     };
 
-    this.prototype.ui = {
+    this.ui = {
       trigger: '[data-behavior="view-toggle"]'
     };
   }

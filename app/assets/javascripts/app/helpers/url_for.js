@@ -8,7 +8,7 @@
 // by the js-routes gem.
 Handlebars.registerHelper('url_for', function() {
   let out;
-  const args = Array.prototype.slice.call(arguments);
+  const args = this.slice.call(arguments);
   const routeMethodName = args.shift() + '_path';
   const helperOptions = args.pop();
   const routeMethodOptions = helperOptions.hash;

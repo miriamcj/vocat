@@ -7,15 +7,15 @@
 import template from 'hbs!templates/group/group_warning';
 
 export default class GroupWarning extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
+    this.template = template;
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click @ui.createGroup': 'click:group:add'
     };
 
-    this.prototype.ui = {
+    this.ui = {
       createGroup: '[data-behavior="create-group"]'
     };
   }

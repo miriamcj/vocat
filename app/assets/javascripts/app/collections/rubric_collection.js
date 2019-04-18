@@ -9,8 +9,8 @@ import Backbone from 'backbone';
 import RubricModel from 'models/rubric';
 
 export default class RubricCollection extends Backbone.Collection {
-  static initClass() {
-    this.prototype.model = RubricModel;
+  constructor() {
+    this.model = RubricModel;
   }
 };
 

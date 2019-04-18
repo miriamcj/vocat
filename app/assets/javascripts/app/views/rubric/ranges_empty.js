@@ -8,11 +8,11 @@ import Marionette from 'marionette';
 import template from 'hbs!templates/rubric/ranges_empty';
 
 export default class RangesEmptyView extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
-    this.prototype.tagName = 'th';
-    this.prototype.attributes = {
+    this.template = template;
+    this.tagName = 'th';
+    this.attributes = {
       'data-match-height-source': ''
     };
   }

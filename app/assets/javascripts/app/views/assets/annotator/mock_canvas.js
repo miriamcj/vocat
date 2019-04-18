@@ -7,9 +7,9 @@
 import Marionette from 'marionette';
 
 export default class MockCanvasView extends Marionette.ItemView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = false;
+    this.template = false;
   }
 
   initialize(options) {

@@ -15,21 +15,21 @@ import RubricModel from 'models/rubric';
 import RubricModalView from 'views/modal/modal_rubric';
 
 export default class ProjectDetail extends Marionette.LayoutView {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
+    this.template = template;
 
-    this.prototype.regions = {
+    this.regions = {
       projectScoreOverview: '[data-region="project-score-overview"]',
       projectStudentSubmissionList: '[data-region="project-student-submission-list"]',
       projectGroupSubmissionList: '[data-region="project-group-submission-list"]'
     };
 
-    this.prototype.triggers = {
+    this.triggers = {
       'click @ui.showRubric': 'open:rubric:modal'
     };
 
-    this.prototype.ui = {
+    this.ui = {
       showRubric: '[data-behavior="show-rubric"]'
     };
   }

@@ -9,9 +9,9 @@ import Backbone from 'backbone';
 import RubricProperty from 'models/rubric_property';
 
 export default class RangeModel extends RubricProperty {
-  static initClass() {
+  constructor() {
 
-    this.prototype.errorStrings = {
+    this.errorStrings = {
       high_gap: 'There is a gap or an overlap between the high end of this range and the low end of the next range.',
       low_gap: 'There is a gap or an overlap between the low end of this range and the high end of the previous range.',
       range_inverted: 'The high end of this range is lower than the low end.',
@@ -19,9 +19,9 @@ export default class RangeModel extends RubricProperty {
       dupe: 'All ranges must have a unique name.'
     };
 
-    this.prototype.modalOpened = false;
+    this.modalOpened = false;
 
-    this.prototype.defaults = {
+    this.defaults = {
       name: '',
       low: 0,
       high: 1

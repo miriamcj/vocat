@@ -9,8 +9,8 @@ import Backbone from 'backbone';
 import RangeModel from 'models/range';
 
 export default class RangeCollection extends Backbone.Collection {
-  static initClass() {
-    this.prototype.model = RangeModel;
+  constructor() {
+    this.model = RangeModel;
   }
 };
 

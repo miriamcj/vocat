@@ -10,8 +10,8 @@ import 'waypoints_sticky';
 import 'waypoints';
 
 export default class GlobalFlashMessages extends AbstractFlashMessages {
-  static initClass() {
+  constructor() {
 
-    this.prototype.template = template;
+    this.template = template;
   }
 };

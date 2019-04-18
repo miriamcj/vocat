@@ -7,11 +7,11 @@
 import Marionette from 'marionette';
 
 export default class NotificationRegion extends Marionette.Region {
-  static initClass() {
+  constructor() {
 
     this.PROMISE = $.Deferred().resolve();
 
-    this.prototype.expiring = false;
+    this.expiring = false;
   }
 
   attachHtml(view) {
