@@ -5,6 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import marionette from 'marionette';
+import { $ } from "jquery";
 import Pikaday from 'vendor/plugins/pikaday';
 
 export default class ProjectView extends Marionette.ItemView {
@@ -39,4 +40,4 @@ export default class ProjectView extends Marionette.ItemView {
   }
 
   initialize() {}
-};
+}

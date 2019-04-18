@@ -6,6 +6,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'marionette';
+import { $ } from "jquery";
 import { debounce, isFunction } from "lodash";
 import vjsAnnotations from 'vendor/video_js/vjs.annotations';
 vjsAnnotations = require('vendor/video_js/vjs.rewind');

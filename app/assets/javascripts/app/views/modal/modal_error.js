@@ -7,6 +7,8 @@
  */
 import Marionette from 'marionette';
 
+import { $ } from "jquery";
+
 import { bindAll } from "lodash";
 
 import template from 'hbs!templates/modal/modal_error';

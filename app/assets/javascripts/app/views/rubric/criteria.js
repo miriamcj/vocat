@@ -5,6 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import template from 'hbs!templates/rubric/criteria';
+import { $ } from "jquery";
 import ItemView from 'views/rubric/criteria_item';
 
 
@@ -55,4 +56,4 @@ export default class Criteria extends Marionette.CompositeView {
       return this.showCriteriaInstruction();
     });
   }
-};
+}

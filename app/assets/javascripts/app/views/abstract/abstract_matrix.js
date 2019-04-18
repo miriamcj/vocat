@@ -6,6 +6,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'marionette';
+import { $ } from "jquery";
 import { debounce } from "lodash";
 import 'waypoints_sticky';
 import 'waypoints';

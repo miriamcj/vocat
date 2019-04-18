@@ -6,6 +6,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'marionette';
+import { $ } from "jquery";
 import { isFunction } from "lodash";
 import template from 'hbs!templates/submission/evaluations/my_evaluations';
 import ScoreSlider from 'views/submission/evaluations/score_slider';

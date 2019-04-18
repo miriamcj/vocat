@@ -5,6 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'marionette';
+import { $ } from "jquery";
 import template from 'hbs!templates/project/detail/project_score_overview';
 
 export default class ProjectScoreOverview extends Marionette.ItemView {
@@ -121,4 +122,4 @@ export default class ProjectScoreOverview extends Marionette.ItemView {
   onRender() {
     return this.showProjectScores();
   }
-};
+}

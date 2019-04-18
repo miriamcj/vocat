@@ -5,6 +5,8 @@
  */
 import Marionette from 'marionette';
 
+import { $ } from "jquery";
+
 import { max } from "lodash";
 
 export default class FiguresCollection extends Marionette.ItemView {

@@ -5,6 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'marionette';
+import { $ } from "jquery";
 import template from 'hbs!templates/course_map/detail_creator';
 import PortfolioSubmissionItem from 'views/portfolio/portfolio_submissions_item';
 import ModalGroupMembershipView from 'views/modal/modal_group_membership';
@@ -86,4 +87,4 @@ export default class CourseMapDetailCreator extends Marionette.CompositeView {
     data['courseId'] = this.courseId;
     return data;
   }
-};
+}

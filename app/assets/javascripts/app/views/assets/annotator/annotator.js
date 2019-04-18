@@ -5,6 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'marionette';
+import { $ } from "jquery";
 import template from 'hbs!templates/assets/annotator/annotator';
 import ProgressBarView from 'views/assets/annotator/progress_bar';
 import AnnotationInputView from 'views/assets/annotator/annotator_input';
@@ -86,4 +87,4 @@ export default class AnnotatorView extends Marionette.LayoutView {
     });
     return this.annotationInput.show(this.annotatorInputView);
   }
-};
+}

@@ -6,6 +6,8 @@
  */
 import Marionette from 'marionette';
 
+import { $ } from "jquery";
+
 export default class CourseSubheaderView extends Marionette.ItemView {
   constructor() {
 
@@ -39,4 +41,4 @@ export default class CourseSubheaderView extends Marionette.ItemView {
     this.vent = options.vent;
     return this.$trigger = this.$el.find(this.ui.trigger);
   }
-};
+}

@@ -7,6 +7,8 @@
  */
 import Backbone from 'backbone';
 
+import { $ } from "jquery";
+
 import { reject } from "lodash";
 
 export default class Placard extends Backbone.View {

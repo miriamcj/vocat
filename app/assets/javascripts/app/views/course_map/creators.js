@@ -5,6 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'marionette';
+import { $ } from "jquery";
 import template from 'hbs!templates/course_map/creators';
 import Item from 'views/course_map/creators_item';
 
@@ -64,4 +65,4 @@ export default class CourseMapCreatorsView extends Marionette.CompositeView {
       return this.$el.find('thead th').height(yourHeight);
     });
   }
-};
+}

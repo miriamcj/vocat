@@ -5,6 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'marionette';
+import { $ } from "jquery";
 import ClosesOnUserAction from 'behaviors/closes_on_user_action';
 
 export default class DropdownView extends Marionette.ItemView {
@@ -94,4 +95,4 @@ export default class DropdownView extends Marionette.ItemView {
       return this.$el.addClass('dropdown-initialized');
     }
   }
-};
+}

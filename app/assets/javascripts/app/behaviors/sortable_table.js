@@ -6,6 +6,8 @@
  */
 import Marionette from 'marionette';
 
+import { $ } from "jquery";
+
 import 'jquery_ui';
 
 export default class SortableTable extends Marionette.Behavior {
@@ -61,4 +63,4 @@ export default class SortableTable extends Marionette.Behavior {
     this.view.collection.add(model, {at: position});
     return model.save();
   }
-};
+}

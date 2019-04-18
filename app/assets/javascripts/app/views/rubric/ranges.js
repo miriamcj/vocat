@@ -6,6 +6,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'marionette';
+import { $ } from "jquery";
 import { sortBy, uniq, max, min, countBy } from "lodash";
 import template from 'hbs!templates/rubric/ranges';
 import RangeView from 'views/rubric/range';

@@ -5,6 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'marionette';
+import { $ } from "jquery";
 import { throttle } from "lodash";
 import ClosesOnUserAction from 'behaviors/closes_on_user_action';
 

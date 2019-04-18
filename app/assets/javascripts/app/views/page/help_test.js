@@ -6,6 +6,8 @@
  */
 import Marionette from 'marionette';
 
+import { $ } from "jquery";
+
 import template from 'hbs!templates/page/help_test';
 
 export default class FlashMessagesItem extends Marionette.ItemView {
@@ -28,5 +30,5 @@ export default class FlashMessagesItem extends Marionette.ItemView {
     const target = $(event.currentTarget);
     return Vocat.vent.trigger('help:hide', {on: target, key: target.attr('data-help')});
   }
-};
+}
 

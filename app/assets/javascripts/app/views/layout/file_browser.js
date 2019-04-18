@@ -6,6 +6,8 @@
  */
 import Marionette from 'marionette';
 
+import { $ } from "jquery";
+
 export default class FileBrowserView extends Marionette.ItemView {
   constructor() {
 
@@ -39,4 +41,4 @@ export default class FileBrowserView extends Marionette.ItemView {
     this.fileDelete = $(this.ui.fileDelete)[0];
     return this.avatarPreview = $(this.ui.avatarPreview)[0];
   }
-};
+}

@@ -7,6 +7,8 @@
  */
 import Backbone from 'backbone';
 
+import { $ } from "jquery";
+
 import Placard from 'views/help/placard';
 import template from 'hbs!templates/help/rubric_field_placard';
 
@@ -77,4 +79,4 @@ export default class RubricFieldPlacard extends Placard {
   render() {
     return $('.page-content').prepend(this.$el.html(this.template(this.serializeData())));
   }
-};
+}

@@ -6,6 +6,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'marionette';
+import { $ } from "jquery";
 import template from 'hbs!templates/assets/annotations/annotations';
 import ItemView from 'views/assets/annotations/annotations_item';
 import EmptyView from 'views/assets/annotations/annotations_item_empty';
@@ -161,7 +162,7 @@ export default class AnnotationsView extends Marionette.CompositeView {
   onDestroy() {
     return $(window).off('scroll', this.scrollHandler);
   }
-};
+}
 
 
 

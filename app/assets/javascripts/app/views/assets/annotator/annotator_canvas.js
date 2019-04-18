@@ -5,6 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'marionette';
+import { $ } from "jquery";
 import paper from 'paper';
 import template from 'hbs!templates/assets/annotator/annotator_canvas';
 import ModalConfirmView from 'views/modal/modal_confirm';
@@ -375,4 +376,4 @@ export default class AnnotatorCanvasView extends Marionette.ItemView {
     }
     return this.vent.trigger('announce:canvas', JSON.stringify({json, svg}));
   }
-};
+}

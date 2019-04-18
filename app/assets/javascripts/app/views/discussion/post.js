@@ -6,6 +6,8 @@
  */
 import Marionette from 'marionette';
 
+import { $ } from "jquery";
+
 import template from 'hbs!templates/discussion/post';
 import DiscussionPostCollection from 'collections/discussion_post_collection';
 import DiscussionPostModel from 'models/discussion_post';
@@ -58,5 +60,5 @@ export default class PostView extends DiscussionBaseView {
       return this.remove();
     });
   }
-};
+}
 

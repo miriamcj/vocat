@@ -5,6 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'marionette';
+import { $ } from "jquery";
 import template from 'hbs!templates/submission/evaluations/their_evaluations_child';
 import ExpandableRange from 'behaviors/expandable_range';
 
@@ -70,4 +71,4 @@ export default class TheirEvaluationsChild extends Marionette.ItemView {
     };
     return sd;
   }
-};
+}
