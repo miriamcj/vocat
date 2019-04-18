@@ -8,21 +8,17 @@ import Marionette from 'marionette';
 import Backbone from 'backbone';
 import SubmissionModel from 'models/submission';
 
-export default SubmissionCollection = (function() {
-  SubmissionCollection = class SubmissionCollection extends Backbone.Collection {
-    static initClass() {
+export default class SubmissionCollection extends Backbone.Collection {
+  static initClass() {
 
-      this.prototype.model = SubmissionModel;
-    }
+    this.prototype.model = SubmissionModel;
+  }
 
-    initialize(models, options) {
-      return this.options = options;
-    }
+  initialize(models, options) {
+    return this.options = options;
+  }
 
-    comparator(submission) {
-      return submission.get('project_name');
-    }
-  };
-  SubmissionCollection.initClass();
-  return SubmissionCollection;
-})();
+  comparator(submission) {
+    return submission.get('project_name');
+  }
+};

@@ -8,17 +8,13 @@ import Backbone from 'backbone';
 
 import ProjectModel from 'models/submission';
 
-export default PortfolioUnsubmittedCollection = (function() {
-  PortfolioUnsubmittedCollection = class PortfolioUnsubmittedCollection extends Backbone.Collection {
-    static initClass() {
+export default class PortfolioUnsubmittedCollection extends Backbone.Collection {
+  static initClass() {
 
-      this.prototype.model = ProjectModel;
-    }
+    this.prototype.model = ProjectModel;
+  }
 
-    url() {
-      return "/api/v1/portfolio/unsubmitted";
-    }
-  };
-  PortfolioUnsubmittedCollection.initClass();
-  return PortfolioUnsubmittedCollection;
-})();
+  url() {
+    return "/api/v1/portfolio/unsubmitted";
+  }
+};

@@ -8,35 +8,31 @@ import Marionette from 'marionette';
 
 import ProjectTemplate from 'hbs!templates/portfolio/portfolio_item_project';
 
-export default PortfolioItemSubmission = (function() {
-  PortfolioItemSubmission = class PortfolioItemSubmission extends Marionette.ItemView {
-    static initClass() {
+export default class PortfolioItemSubmission extends Marionette.ItemView {
+  static initClass() {
 
-      this.prototype.template = ProjectTemplate;
+    this.prototype.template = ProjectTemplate;
 
-      this.prototype.className = 'portfolio-frame';
+    this.prototype.className = 'portfolio-frame';
 
-      this.prototype.defaults = {
-        showCourse: true,
-        showCreator: true
-      };
-    }
+    this.prototype.defaults = {
+      showCourse: true,
+      showCreator: true
+    };
+  }
 
-    initialize(options) {
-      options = _.extend(this.defaults, options);
-      this.showCourse = options.showCourse;
-      return this.showCreator = options.showCreator;
-    }
+  initialize(options) {
+    options = _.extend(this.defaults, options);
+    this.showCourse = options.showCourse;
+    return this.showCreator = options.showCreator;
+  }
 
-    serializeData() {
-      const data = super.serializeData();
-      return {
-      project: data,
-      showCourse: this.showCourse,
-      showCreator: this.showCreator
-      };
-    }
-  };
-  PortfolioItemSubmission.initClass();
-  return PortfolioItemSubmission;
-})();
+  serializeData() {
+    const data = super.serializeData();
+    return {
+    project: data,
+    showCourse: this.showCourse,
+    showCreator: this.showCreator
+    };
+  }
+};

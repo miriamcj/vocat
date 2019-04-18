@@ -7,7 +7,7 @@ import $ from 'jquery_rails';
 
 import Marionette from 'marionette';
 
-export default ChosenView = class ChosenView extends Marionette.ItemView {
+export default class ChosenView extends Marionette.ItemView {
 
   initialize() {
     let msg = 'Select an Option';

@@ -8,32 +8,28 @@ import Marionette from 'marionette';
 import template from 'hbs!templates/project/detail/project_submission_row';
 import Backbone from 'backbone';
 
-export default ProjectSubmissionRowView = (function() {
-  ProjectSubmissionRowView = class ProjectSubmissionRowView extends Marionette.ItemView {
-    static initClass() {
+export default class ProjectSubmissionRowView extends Marionette.ItemView {
+  static initClass() {
 
-      this.prototype.tagName = "tr";
-      this.prototype.template = template;
-      this.prototype.attributes = {
-        'data-region': 'submission-row'
-      };
+    this.prototype.tagName = "tr";
+    this.prototype.template = template;
+    this.prototype.attributes = {
+      'data-region': 'submission-row'
+    };
 
-      this.prototype.triggers = {
-        'click': 'rowClick'
-      };
-    }
+    this.prototype.triggers = {
+      'click': 'rowClick'
+    };
+  }
 
-    onRowClick() {
-      const typeSegment = `${this.model.get('creator_type').toLowerCase()}s`;
-      const url = `courses/${this.model.get('course_id')}/${typeSegment}/evaluations/creator/${this.model.get('creator_id')}/project/${this.model.get('project_id')}`;
-      return Vocat.router.navigate(url, true);
-    }
+  onRowClick() {
+    const typeSegment = `${this.model.get('creator_type').toLowerCase()}s`;
+    const url = `courses/${this.model.get('course_id')}/${typeSegment}/evaluations/creator/${this.model.get('creator_id')}/project/${this.model.get('project_id')}`;
+    return Vocat.router.navigate(url, true);
+  }
 
-    initialize(options) {
-      this.options = options || {};
-      return this.vent = options.vent;
-    }
-  };
-  ProjectSubmissionRowView.initClass();
-  return ProjectSubmissionRowView;
-})();
+  initialize(options) {
+    this.options = options || {};
+    return this.vent = options.vent;
+  }
+};

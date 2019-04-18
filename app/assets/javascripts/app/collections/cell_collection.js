@@ -8,16 +8,12 @@ import Backbone from 'backbone';
 
 import CellModel from 'models/cell';
 
-export default CellCollection = (function() {
-  CellCollection = class CellCollection extends Backbone.Collection {
-    static initClass() {
-      this.prototype.model = CellModel;
-    }
+export default class CellCollection extends Backbone.Collection {
+  static initClass() {
+    this.prototype.model = CellModel;
+  }
 
-    comparator(range) {
-      return range.get('low');
-    }
-  };
-  CellCollection.initClass();
-  return CellCollection;
-})();
+  comparator(range) {
+    return range.get('low');
+  }
+};

@@ -11,44 +11,40 @@ import EnrollmentLayout from 'views/admin/enrollment_layout';
 import ProjectCollection from 'collections/project_collection';
 import Projects from 'views/course/manage/projects/projects';
 
-export default CourseController = (function() {
-  CourseController = class CourseController extends VocatController {
-    static initClass() {
+export default class CourseController extends VocatController {
+  static initClass() {
 
-      this.prototype.collections = {
-        project: new ProjectCollection([])
-      };
+    this.prototype.collections = {
+      project: new ProjectCollection([])
+    };
+  }
+
+  initialize() {
+    return this.bootstrapCollections();
+  }
+
+  creatorEnrollment(courseId) {
+    if (!_.isNaN(parseInt(courseId))) {
+      Vocat.addRegions({
+        creatorEnrollment: '[data-region="creator-enrollment"]'
+      });
+      const view = new EnrollmentLayout({
+        collection: new EnrollmentCollection([], {scope: {course: courseId, role: 'creator'}})
+      });
+      return Vocat.creatorEnrollment.show(view);
     }
+  }
 
-    initialize() {
-      return this.bootstrapCollections();
-    }
 
-    creatorEnrollment(courseId) {
-      if (!_.isNaN(parseInt(courseId))) {
+  courseManageProjects(courseId) {
+    if (!_.isNaN(parseInt(courseId))) {
+      if ($('[data-region="projects"]').length > 0) {
         Vocat.addRegions({
-          creatorEnrollment: '[data-region="creator-enrollment"]'
+          projects: '[data-region="projects"]'
         });
-        const view = new EnrollmentLayout({
-          collection: new EnrollmentCollection([], {scope: {course: courseId, role: 'creator'}})
-        });
-        return Vocat.creatorEnrollment.show(view);
+        const view = new Projects({collection: this.collections.project});
+        return Vocat.projects.show(view);
       }
     }
-
-
-    courseManageProjects(courseId) {
-      if (!_.isNaN(parseInt(courseId))) {
-        if ($('[data-region="projects"]').length > 0) {
-          Vocat.addRegions({
-            projects: '[data-region="projects"]'
-          });
-          const view = new Projects({collection: this.collections.project});
-          return Vocat.projects.show(view);
-        }
-      }
-    }
-  };
-  CourseController.initClass();
-  return CourseController;
-})();
+  }
+};

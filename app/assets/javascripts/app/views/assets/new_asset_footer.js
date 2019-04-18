@@ -7,29 +7,25 @@
 import Marionette from 'marionette';
 import template from 'hbs!templates/assets/new_asset_footer';
 
-export default NewAssetFooter = (function() {
-  NewAssetFooter = class NewAssetFooter extends Marionette.ItemView {
-    static initClass() {
+export default class NewAssetFooter extends Marionette.ItemView {
+  static initClass() {
 
-      this.prototype.template = template;
+    this.prototype.template = template;
 
-      this.prototype.ui = {
-        stopManagingLink: '[data-behavior="stop-manage-link"]'
-      };
-    }
+    this.prototype.ui = {
+      stopManagingLink: '[data-behavior="stop-manage-link"]'
+    };
+  }
 
-    preventManageClose() {
-      return this.ui.stopManagingLink.css({display: 'none'});
-    }
+  preventManageClose() {
+    return this.ui.stopManagingLink.css({display: 'none'});
+  }
 
-    allowManageClose() {
-      return this.ui.stopManagingLink.css({display: 'inline-block'});
-    }
+  allowManageClose() {
+    return this.ui.stopManagingLink.css({display: 'inline-block'});
+  }
 
-    initialize(options) {
-      return this.vent = Marionette.getOption(this, 'vent');
-    }
-  };
-  NewAssetFooter.initClass();
-  return NewAssetFooter;
-})();
+  initialize(options) {
+    return this.vent = Marionette.getOption(this, 'vent');
+  }
+};

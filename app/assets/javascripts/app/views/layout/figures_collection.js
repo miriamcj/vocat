@@ -5,7 +5,7 @@
  */
 import Marionette from 'marionette';
 
-export default FiguresCollection = class FiguresCollection extends Marionette.ItemView {
+export default class FiguresCollection extends Marionette.ItemView {
 
   initialize() {
     const figures = this.$el.find('div:first-child');

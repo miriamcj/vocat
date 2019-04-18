@@ -5,7 +5,7 @@
  */
 import Backbone from 'backbone';
 
-export default GlossaryToggleView = class GlossaryToggleView extends Backbone.View {
+export default class GlossaryToggleView extends Backbone.View {
 
   initialize() {
     const input = this.$el.find('input');

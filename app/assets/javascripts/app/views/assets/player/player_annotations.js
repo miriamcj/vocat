@@ -7,36 +7,32 @@
 import Marionette from 'marionette';
 import ItemView from 'views/assets/player/player_annotations_item';
 
-export default PlayerAnnotations = (function() {
-  PlayerAnnotations = class PlayerAnnotations extends Marionette.CollectionView {
-    static initClass() {
+export default class PlayerAnnotations extends Marionette.CollectionView {
+  static initClass() {
 
-      this.prototype.template = _.template('');
-      this.prototype.showTimePadding = 1;
-      this.prototype.hideTimePadding = .1;
+    this.prototype.template = _.template('');
+    this.prototype.showTimePadding = 1;
+    this.prototype.hideTimePadding = .1;
 
-      this.prototype.tagName = 'ul';
-      this.prototype.attributes = {
-        class: 'annotations-overlay'
-      };
-      this.prototype.childView = ItemView;
-    }
+    this.prototype.tagName = 'ul';
+    this.prototype.attributes = {
+      class: 'annotations-overlay'
+    };
+    this.prototype.childView = ItemView;
+  }
 
-    childViewOptions(model, index) {
-      return {
-      vent: this.vent,
-      assetHasDuration: this.model.hasDuration()
-      };
-    }
+  childViewOptions(model, index) {
+    return {
+    vent: this.vent,
+    assetHasDuration: this.model.hasDuration()
+    };
+  }
 
-    setupListeners() {}
+  setupListeners() {}
 
-    initialize(options) {
-      this.collection = this.model.annotations();
-      this.vent = options.vent;
-      return this.setupListeners();
-    }
-  };
-  PlayerAnnotations.initClass();
-  return PlayerAnnotations;
-})();
+  initialize(options) {
+    this.collection = this.model.annotations();
+    this.vent = options.vent;
+    return this.setupListeners();
+  }
+};

@@ -8,12 +8,8 @@ import Backbone from 'backbone';
 
 import ScoreModel from 'models/score';
 
-export default ScoreCollection = (function() {
-  ScoreCollection = class ScoreCollection extends Backbone.Collection {
-    static initClass() {
-      this.prototype.model = ScoreModel;
-    }
-  };
-  ScoreCollection.initClass();
-  return ScoreCollection;
-})();
+export default class ScoreCollection extends Backbone.Collection {
+  static initClass() {
+    this.prototype.model = ScoreModel;
+  }
+};

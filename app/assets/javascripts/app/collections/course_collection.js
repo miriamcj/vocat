@@ -8,20 +8,16 @@ import Backbone from 'backbone';
 
 import courseModel from 'models/course';
 
-export default CourseCollection = (function() {
-  CourseCollection = class CourseCollection extends Backbone.Collection {
-    static initClass() {
+export default class CourseCollection extends Backbone.Collection {
+  static initClass() {
 
-      this.prototype.model = courseModel;
-      this.prototype.activeModel = null;
+    this.prototype.model = courseModel;
+    this.prototype.activeModel = null;
 
-      this.prototype.url = '/api/v1/courses';
-    }
+    this.prototype.url = '/api/v1/courses';
+  }
 
-    getSearchTerm() {
-      return 'section';
-    }
-  };
-  CourseCollection.initClass();
-  return CourseCollection;
-})();
+  getSearchTerm() {
+    return 'section';
+  }
+};

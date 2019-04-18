@@ -9,17 +9,13 @@ import Backbone from 'backbone';
 import Marionette from 'marionette';
 import VisitModel from 'models/visit';
 
-export default VisitCollection = (function() {
-  VisitCollection = class VisitCollection extends Backbone.Collection {
-    static initClass() {
+export default class VisitCollection extends Backbone.Collection {
+  static initClass() {
 
-      this.prototype.model = VisitModel;
-    }
+    this.prototype.model = VisitModel;
+  }
 
-    initialize(models, options) {
-      return this.options = options;
-    }
-  };
-  VisitCollection.initClass();
-  return VisitCollection;
-})();
+  initialize(models, options) {
+    return this.options = options;
+  }
+};

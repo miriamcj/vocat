@@ -7,25 +7,21 @@
 import Marionette from 'marionette';
 import template from 'hbs!templates/submission/evaluations/my_evaluations_create';
 
-export default MyEvaluationsCreate = (function() {
-  MyEvaluationsCreate = class MyEvaluationsCreate extends Marionette.ItemView {
-    static initClass() {
+export default class MyEvaluationsCreate extends Marionette.ItemView {
+  static initClass() {
 
-      this.prototype.template = template;
+    this.prototype.template = template;
 
-      this.prototype.triggers =
-        {'click [data-behavior="create-evaluation"]': 'evaluation:new'};
-    }
+    this.prototype.triggers =
+      {'click [data-behavior="create-evaluation"]': 'evaluation:new'};
+  }
 
-    onEvaluationNew() {
-      return this.vent.triggerMethod('evaluation:new');
-    }
+  onEvaluationNew() {
+    return this.vent.triggerMethod('evaluation:new');
+  }
 
-    initialize(options) {
-      this.vent = options.vent;
-      return this.rubric = options.rubric;
-    }
-  };
-  MyEvaluationsCreate.initClass();
-  return MyEvaluationsCreate;
-})();
+  initialize(options) {
+    this.vent = options.vent;
+    return this.rubric = options.rubric;
+  }
+};

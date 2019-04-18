@@ -11,42 +11,38 @@ import ProjectCollection from 'collections/project_collection';
 import ProjectDetail from 'views/project/detail';
 import ApplicationErrorView from 'views/error/application_error';
 
-export default ProjectController = (function() {
-  ProjectController = class ProjectController extends VocatController {
-    static initClass() {
+export default class ProjectController extends VocatController {
+  static initClass() {
 
-      this.prototype.collections = {
-        user: new UserCollection([], {}),
-        project: new ProjectCollection([], {})
-      };
+    this.prototype.collections = {
+      user: new UserCollection([], {}),
+      project: new ProjectCollection([], {})
+    };
 
-      this.prototype.layoutInitialized = false;
-      this.prototype.submissionsSynced = false;
-    }
+    this.prototype.layoutInitialized = false;
+    this.prototype.submissionsSynced = false;
+  }
 
-    initialize() {
-      return this.bootstrapCollections();
-    }
+  initialize() {
+    return this.bootstrapCollections();
+  }
 
-    groupProjectDetail(courseId, projectId) {
-      return this._showProjectDetail(projectId, 'Group');
-    }
+  groupProjectDetail(courseId, projectId) {
+    return this._showProjectDetail(projectId, 'Group');
+  }
 
-    userProjectDetail(courseId, projectId) {
-      return this._showProjectDetail(projectId, 'User');
-    }
+  userProjectDetail(courseId, projectId) {
+    return this._showProjectDetail(projectId, 'User');
+  }
 
-    _showProjectDetail(projectId, creatorType, courseMapContext) {
-      if (courseMapContext == null) { courseMapContext = true; }
-      const model = this.collections.project.get(projectId);
-      const projectDetail = new ProjectDetail({
-        model,
-        creatorType,
-        courseMapContext
-      });
-      return window.Vocat.main.show(projectDetail);
-    }
-  };
-  ProjectController.initClass();
-  return ProjectController;
-})();
+  _showProjectDetail(projectId, creatorType, courseMapContext) {
+    if (courseMapContext == null) { courseMapContext = true; }
+    const model = this.collections.project.get(projectId);
+    const projectDetail = new ProjectDetail({
+      model,
+      creatorType,
+      courseMapContext
+    });
+    return window.Vocat.main.show(projectDetail);
+  }
+};

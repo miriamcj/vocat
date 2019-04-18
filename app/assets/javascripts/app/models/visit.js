@@ -5,7 +5,7 @@
  */
 import Backbone from 'backbone';
 
-export default VisitModel = class VisitModel extends Backbone.Model {
+export default class VisitModel extends Backbone.Model {
 
   url() {
     return "/api/v1/visits";

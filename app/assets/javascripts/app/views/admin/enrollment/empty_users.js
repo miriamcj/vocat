@@ -7,25 +7,21 @@
 import Marionette from 'marionette';
 import template from 'hbs!templates/admin/enrollment/empty_users';
 
-export default EnrollmentEmptyUsers = (function() {
-  EnrollmentEmptyUsers = class EnrollmentEmptyUsers extends Marionette.ItemView {
-    static initClass() {
+export default class EnrollmentEmptyUsers extends Marionette.ItemView {
+  static initClass() {
 
-      this.prototype.template = template;
-      this.prototype.tagName = 'tr';
-    }
+    this.prototype.template = template;
+    this.prototype.tagName = 'tr';
+  }
 
-    serializeData() {
-      return {
-      colspan: 4,
-      role: this.options.role
-      };
-    }
+  serializeData() {
+    return {
+    colspan: 4,
+    role: this.options.role
+    };
+  }
 
-    onShow() {
-      return this.$el.find('th').attr('colspan', this.$el.closest('table').find('thead th').length);
-    }
-  };
-  EnrollmentEmptyUsers.initClass();
-  return EnrollmentEmptyUsers;
-})();
+  onShow() {
+    return this.$el.find('th').attr('colspan', this.$el.closest('table').find('thead th').length);
+  }
+};

@@ -7,24 +7,20 @@
 import Marionette from 'marionette';
 import template from 'hbs!templates/admin/enrollment/empty_courses';
 
-export default EnrollmentEmptyCourses = (function() {
-  EnrollmentEmptyCourses = class EnrollmentEmptyCourses extends Marionette.ItemView {
-    static initClass() {
+export default class EnrollmentEmptyCourses extends Marionette.ItemView {
+  static initClass() {
 
-      this.prototype.template = template;
-      this.prototype.tagName = 'tr';
-    }
+    this.prototype.template = template;
+    this.prototype.tagName = 'tr';
+  }
 
-    serializeData() {
-      return {
-      colspan: 4
-      };
-    }
+  serializeData() {
+    return {
+    colspan: 4
+    };
+  }
 
-    onShow() {
-      return this.$el.find('th').attr('colspan', this.$el.closest('table').find('thead th').length);
-    }
-  };
-  EnrollmentEmptyCourses.initClass();
-  return EnrollmentEmptyCourses;
-})();
+  onShow() {
+    return this.$el.find('th').attr('colspan', this.$el.closest('table').find('thead th').length);
+  }
+};

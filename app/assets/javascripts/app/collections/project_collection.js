@@ -9,52 +9,48 @@ import Backbone from 'backbone';
 
 import ProjectModel from 'models/project';
 
-export default ProjectCollection = (function() {
-  ProjectCollection = class ProjectCollection extends Backbone.Collection {
-    static initClass() {
+export default class ProjectCollection extends Backbone.Collection {
+  static initClass() {
 
-      this.prototype.model = ProjectModel;
+    this.prototype.model = ProjectModel;
 
-      this.prototype.activeModel = null;
-    }
+    this.prototype.activeModel = null;
+  }
 
-    getActive() {
-      return this.activeModel;
-    }
+  getActive() {
+    return this.activeModel;
+  }
 
-    hasGroupProjects() {
-      const p = this.filter(function(model) {
-        const t = model.get('type');
-        return (t === 'GroupProject') || (t === 'OpenProject');
-      });
-      return p.length > 0;
-    }
+  hasGroupProjects() {
+    const p = this.filter(function(model) {
+      const t = model.get('type');
+      return (t === 'GroupProject') || (t === 'OpenProject');
+    });
+    return p.length > 0;
+  }
 
-    hasUserProjects() {
-      const p = this.filter(function(model) {
-        const t = model.get('type');
-        return (t === 'UserProject') || (t === 'OpenProject');
-      });
-      return p.length > 0;
-    }
+  hasUserProjects() {
+    const p = this.filter(function(model) {
+      const t = model.get('type');
+      return (t === 'UserProject') || (t === 'OpenProject');
+    });
+    return p.length > 0;
+  }
 
-    setActive(id) {
-      const current = this.getActive();
-      if (id != null) {
-        const model = this.get(id);
-        if (model != null) {
-          this.activeModel = model;
-        } else {
-          this.activeModel = null;
-        }
+  setActive(id) {
+    const current = this.getActive();
+    if (id != null) {
+      const model = this.get(id);
+      if (model != null) {
+        this.activeModel = model;
       } else {
         this.activeModel = null;
       }
-      if (this.activeModel !== current) {
-        return this.trigger('change:active', this.activeModel);
-      }
+    } else {
+      this.activeModel = null;
     }
-  };
-  ProjectCollection.initClass();
-  return ProjectCollection;
-})();
+    if (this.activeModel !== current) {
+      return this.trigger('change:active', this.activeModel);
+    }
+  }
+};

@@ -8,64 +8,60 @@ import Marionette from 'marionette';
 
 import template from 'hbs!templates/flash/flash_messages_item';
 
-export default FlashMessagesItem = (function() {
-  FlashMessagesItem = class FlashMessagesItem extends Marionette.ItemView {
-    static initClass() {
+export default class FlashMessagesItem extends Marionette.ItemView {
+  static initClass() {
 
-      this.prototype.template = template;
-      this.prototype.lifetime = 10000;
+    this.prototype.template = template;
+    this.prototype.lifetime = 10000;
 
-      this.prototype.triggers =
-        {'click [data-behavior="destroy"]': 'destroy'};
-    }
+    this.prototype.triggers =
+      {'click [data-behavior="destroy"]': 'destroy'};
+  }
 
-    className() {
-      return `alert alert-${this.model.get('level')}`;
-    }
+  className() {
+    return `alert alert-${this.model.get('level')}`;
+  }
 
-    initialize(options) {
-      const lifetime = parseInt(this.model.get('lifetime'));
-      if (lifetime > 0) { return this.lifetime = lifetime; }
-    }
+  initialize(options) {
+    const lifetime = parseInt(this.model.get('lifetime'));
+    if (lifetime > 0) { return this.lifetime = lifetime; }
+  }
 
-    onDestroy() {
-      return this.model.destroy();
-    }
+  onDestroy() {
+    return this.model.destroy();
+  }
 //      @$el.slideUp({
 //        duration: 250
 //        done: () =>
 //          @model.destroy()
 //      })
 
-    onBeforeRender() {
-      return this.$el.hide();
+  onBeforeRender() {
+    return this.$el.hide();
+  }
+
+  serializeData() {
+    const context = super.serializeData();
+    if (_.isArray(this.model.get('msg')) || _.isObject(this.model.get('msg'))) {
+      context.enumerable = true;
+    } else {
+      context.enumerable = false;
+    }
+    return context;
+  }
+
+  onRender() {
+    if (this.model.get('no_fade') === true) {
+      this.$el.show();
+    } else {
+      this.$el.fadeIn();
     }
 
-    serializeData() {
-      const context = super.serializeData();
-      if (_.isArray(this.model.get('msg')) || _.isObject(this.model.get('msg'))) {
-        context.enumerable = true;
-      } else {
-        context.enumerable = false;
-      }
-      return context;
+
+    return setTimeout(() => {
+      return this.onDestroy();
     }
-
-    onRender() {
-      if (this.model.get('no_fade') === true) {
-        this.$el.show();
-      } else {
-        this.$el.fadeIn();
-      }
-
-
-      return setTimeout(() => {
-        return this.onDestroy();
-      }
-      , this.lifetime
-      );
-    }
-  };
-  FlashMessagesItem.initClass();
-  return FlashMessagesItem;
-})();
+    , this.lifetime
+    );
+  }
+};

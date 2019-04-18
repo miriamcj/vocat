@@ -10,24 +10,20 @@ import template from 'hbs!templates/course/manage/projects/projects';
 import ProjectsRowView from 'views/course/manage/projects/project_row';
 import SortableTable from 'behaviors/sortable_table';
 
-export default Projects = (function() {
-  Projects = class Projects extends Marionette.CompositeView {
-    static initClass() {
+export default class Projects extends Marionette.CompositeView {
+  static initClass() {
 
-      this.prototype.template = template;
-      this.prototype.childView = ProjectsRowView;
-      this.prototype.childViewContainer = 'tbody';
+    this.prototype.template = template;
+    this.prototype.childView = ProjectsRowView;
+    this.prototype.childViewContainer = 'tbody';
 
-      this.prototype.behaviors = {
-        sortableTable: {
-          behaviorClass: SortableTable
-        }
-      };
-    }
+    this.prototype.behaviors = {
+      sortableTable: {
+        behaviorClass: SortableTable
+      }
+    };
+  }
 
-    initialize(options) {}
-  };
-  Projects.initClass();
-  return Projects;
-})();
+  initialize(options) {}
+};
 

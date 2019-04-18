@@ -5,4 +5,4 @@
  */
 import Backbone from 'backbone';
 
-export default CourseModel = class CourseModel extends Backbone.Model {};
+export default class CourseModel extends Backbone.Model {};

@@ -5,4 +5,4 @@
  */
 import Backbone from 'backbone';
 
-export default RowModel = class RowModel extends Backbone.Model {};
+export default class RowModel extends Backbone.Model {};

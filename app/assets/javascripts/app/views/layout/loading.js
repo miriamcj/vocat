@@ -7,26 +7,22 @@
 import Marionette from 'marionette';
 import template from 'hbs!templates/layout/loading';
 
-export default LoadingView = (function() {
-  LoadingView = class LoadingView extends Marionette.ItemView {
-    static initClass() {
+export default class LoadingView extends Marionette.ItemView {
+  static initClass() {
 
-      this.prototype.msg = "Loading...";
+    this.prototype.msg = "Loading...";
 
-      this.prototype.template = template;
-    }
+    this.prototype.template = template;
+  }
 
-    serializeData() {
-      return {
-      msg: Marionette.getOption(this, "msg")
-      };
-    }
+  serializeData() {
+    return {
+    msg: Marionette.getOption(this, "msg")
+    };
+  }
 
-    initialize(options) {
-      return this.options = options;
-    }
-  };
-  LoadingView.initClass();
-  return LoadingView;
-})();
+  initialize(options) {
+    return this.options = options;
+  }
+};
 

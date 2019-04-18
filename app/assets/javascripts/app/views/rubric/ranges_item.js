@@ -10,83 +10,79 @@ import template from 'hbs!templates/rubric/ranges_item';
 import LongTextInputView from 'views/property_editor/long_text_input';
 import ModalConfirmView from 'views/modal/modal_confirm';
 
-export default RangesItem = (function() {
-  RangesItem = class RangesItem extends Marionette.ItemView {
-    static initClass() {
+export default class RangesItem extends Marionette.ItemView {
+  static initClass() {
 
-      this.prototype.template = template;
-      this.prototype.className = 'cell';
+    this.prototype.template = template;
+    this.prototype.className = 'cell';
 
-      this.prototype.triggers = {
-        'click [data-behavior="destroy"]': 'description:clear',
-        'click [data-behavior="edit"]': 'click:edit'
-      };
+    this.prototype.triggers = {
+      'click [data-behavior="destroy"]': 'description:clear',
+      'click [data-behavior="edit"]': 'click:edit'
+    };
+  }
+
+  findModel() {
+    const cells = this.rubric.get('cells');
+    const model = cells.findWhere({field: this.criteria.get('id'), range: this.range.get('id')});
+    return model;
+  }
+
+  cellName() {
+    return this.rubricName = `${this.model.rangeModel.get('name')} ${this.model.fieldModel.get('name')}`;
+  }
+
+  serializeData() {
+    const data = super.serializeData();
+    if (this.model.rangeModel != null) { data.rangeName = this.model.rangeModel.get('name'); }
+    if (this.model.fieldModel != null) { data.fieldName = this.model.fieldModel.get('name'); }
+    data.cellName = this.cellName();
+    return data;
+  }
+
+  onDescriptionClear() {
+    return Vocat.vent.trigger('modal:open', new ModalConfirmView({
+      model: this.model,
+      vent: this,
+      descriptionLabel: 'Clear description?',
+      confirmEvent: 'confirm:description:clear',
+      dismissEvent: 'dismiss:description:clear'
+    }));
+  }
+
+  onConfirmDescriptionClear() {
+    return this.model.unset('description');
+  }
+
+  onClickEdit() {
+    return this.openModal();
+  }
+
+  openModal() {
+    const label = `Description: ${this.model.rangeModel.get('name')} ${this.model.fieldModel.get('name')}`;
+    return Vocat.vent.trigger('modal:open', new LongTextInputView({
+      model: this.model,
+      inputLabel: label,
+      saveLabel: 'Update Description',
+      saveClasses: 'update-button',
+      property: 'description',
+      vent: this.vent
+    }));
+  }
+
+  initialize(options) {
+    this.vent = options.vent;
+    this.range = options.range;
+    this.criteria = this.model;
+    this.rubric = options.rubric;
+    this.model = this.findModel();
+
+    if (this.model != null) {
+      this.listenTo(this.model, 'change', function() {
+        return this.render();
+      });
     }
-
-    findModel() {
-      const cells = this.rubric.get('cells');
-      const model = cells.findWhere({field: this.criteria.get('id'), range: this.range.get('id')});
-      return model;
-    }
-
-    cellName() {
-      return this.rubricName = `${this.model.rangeModel.get('name')} ${this.model.fieldModel.get('name')}`;
-    }
-
-    serializeData() {
-      const data = super.serializeData();
-      if (this.model.rangeModel != null) { data.rangeName = this.model.rangeModel.get('name'); }
-      if (this.model.fieldModel != null) { data.fieldName = this.model.fieldModel.get('name'); }
-      data.cellName = this.cellName();
-      return data;
-    }
-
-    onDescriptionClear() {
-      return Vocat.vent.trigger('modal:open', new ModalConfirmView({
-        model: this.model,
-        vent: this,
-        descriptionLabel: 'Clear description?',
-        confirmEvent: 'confirm:description:clear',
-        dismissEvent: 'dismiss:description:clear'
-      }));
-    }
-
-    onConfirmDescriptionClear() {
-      return this.model.unset('description');
-    }
-
-    onClickEdit() {
-      return this.openModal();
-    }
-
-    openModal() {
-      const label = `Description: ${this.model.rangeModel.get('name')} ${this.model.fieldModel.get('name')}`;
-      return Vocat.vent.trigger('modal:open', new LongTextInputView({
-        model: this.model,
-        inputLabel: label,
-        saveLabel: 'Update Description',
-        saveClasses: 'update-button',
-        property: 'description',
-        vent: this.vent
-      }));
-    }
-
-    initialize(options) {
-      this.vent = options.vent;
-      this.range = options.range;
-      this.criteria = this.model;
-      this.rubric = options.rubric;
-      this.model = this.findModel();
-
-      if (this.model != null) {
-        this.listenTo(this.model, 'change', function() {
-          return this.render();
-        });
-      }
-      if (this.model.rangeModel != null) { this.listenTo(this.model.rangeModel, 'change:name', this.render, this); }
-      if (this.model.fieldModel != null) { return this.listenTo(this.model.fieldModel, 'change:name', this.render, this); }
-    }
-  };
-  RangesItem.initClass();
-  return RangesItem;
-})();
+    if (this.model.rangeModel != null) { this.listenTo(this.model.rangeModel, 'change:name', this.render, this); }
+    if (this.model.fieldModel != null) { return this.listenTo(this.model.fieldModel, 'change:name', this.render, this); }
+  }
+};

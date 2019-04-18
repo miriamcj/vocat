@@ -10,39 +10,35 @@ import TheirEvaluationsCollection from 'views/submission/evaluations/their_evalu
 import CollectionProxy from 'collections/collection_proxy';
 import EvaluationSetModel from 'models/evaluation_set';
 
-export default TheirEvaluations = (function() {
-  TheirEvaluations = class TheirEvaluations extends Marionette.CompositeView {
-    static initClass() {
+export default class TheirEvaluations extends Marionette.CompositeView {
+  static initClass() {
 
-      this.prototype.template = template;
-      this.prototype.tagName = 'ul';
-      this.prototype.className = 'evaluation-collections';
-      this.prototype.childView = TheirEvaluationsCollection;
-    }
-    childViewOptions() {
-      return {
-      rubric: this.rubric
-      };
-    }
+    this.prototype.template = template;
+    this.prototype.tagName = 'ul';
+    this.prototype.className = 'evaluation-collections';
+    this.prototype.childView = TheirEvaluationsCollection;
+  }
+  childViewOptions() {
+    return {
+    rubric: this.rubric
+    };
+  }
 
-    initialize(options) {
-      this.evaluations = Marionette.getOption(this, 'evaluations');
-      this.rubric = options.rubric;
+  initialize(options) {
+    this.evaluations = Marionette.getOption(this, 'evaluations');
+    this.rubric = options.rubric;
 
-      this.collection = new Backbone.Collection;
-      const evalTypes = _.uniq(this.evaluations.pluck('evaluator_role'));
-      return _.each(evalTypes, (evalRole, index) => {
-        const proxy = new CollectionProxy(this.evaluations);
+    this.collection = new Backbone.Collection;
+    const evalTypes = _.uniq(this.evaluations.pluck('evaluator_role'));
+    return _.each(evalTypes, (evalRole, index) => {
+      const proxy = new CollectionProxy(this.evaluations);
 
-        proxy.where(model => (model.get('evaluator_role') === evalRole) && (model.get('current_user_is_evaluator') !== true));
-        if (proxy.length > 0) {
-          const set = new EvaluationSetModel({evaluations: proxy, evaluator_role: evalRole});
-          return this.collection.add(set);
-        }
-      });
-    }
-  };
-  TheirEvaluations.initClass();
-  return TheirEvaluations;
-})();
+      proxy.where(model => (model.get('evaluator_role') === evalRole) && (model.get('current_user_is_evaluator') !== true));
+      if (proxy.length > 0) {
+        const set = new EvaluationSetModel({evaluations: proxy, evaluator_role: evalRole});
+        return this.collection.add(set);
+      }
+    });
+  }
+};
 

@@ -8,29 +8,25 @@ import Marionette from 'marionette';
 import template from 'hbs!templates/notification/notification_exception';
 import GlobalNotification from 'behaviors/global_notification';
 
-export default NotificationException = (function() {
-  NotificationException = class NotificationException extends Marionette.ItemView {
-    static initClass() {
+export default class NotificationException extends Marionette.ItemView {
+  static initClass() {
 
-      this.prototype.template = template;
+    this.prototype.template = template;
 
-      this.prototype.behaviors = {
-        globalNotification: {
-          behaviorClass: GlobalNotification
-        }
-      };
-    }
+    this.prototype.behaviors = {
+      globalNotification: {
+        behaviorClass: GlobalNotification
+      }
+    };
+  }
 
-    serializeData() {
-      return {
-      msg: this.msg
-      };
-    }
+  serializeData() {
+    return {
+    msg: this.msg
+    };
+  }
 
-    initialize(options) {
-      return this.msg = options.msg;
-    }
-  };
-  NotificationException.initClass();
-  return NotificationException;
-})();
+  initialize(options) {
+    return this.msg = options.msg;
+  }
+};

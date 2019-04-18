@@ -7,15 +7,11 @@
 import Marionette from 'marionette';
 import template from 'hbs!templates/assets/annotations/annotations_item_empty';
 
-export default AnnotationsEmptyView = (function() {
-  AnnotationsEmptyView = class AnnotationsEmptyView extends Marionette.ItemView {
-    static initClass() {
+export default class AnnotationsEmptyView extends Marionette.ItemView {
+  static initClass() {
 
-      this.prototype.template = template;
-      this.prototype.tagName = 'li';
-      this.prototype.className = 'annotation';
-    }
-  };
-  AnnotationsEmptyView.initClass();
-  return AnnotationsEmptyView;
-})();
+    this.prototype.template = template;
+    this.prototype.tagName = 'li';
+    this.prototype.className = 'annotation';
+  }
+};

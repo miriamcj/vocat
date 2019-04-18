@@ -9,13 +9,9 @@ import template from 'hbs!templates/flash/global_flash_messages';
 import 'waypoints_sticky';
 import 'waypoints';
 
-export default GlobalFlashMessages = (function() {
-  GlobalFlashMessages = class GlobalFlashMessages extends AbstractFlashMessages {
-    static initClass() {
+export default class GlobalFlashMessages extends AbstractFlashMessages {
+  static initClass() {
 
-      this.prototype.template = template;
-    }
-  };
-  GlobalFlashMessages.initClass();
-  return GlobalFlashMessages;
-})();
+    this.prototype.template = template;
+  }
+};

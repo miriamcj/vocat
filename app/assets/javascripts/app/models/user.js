@@ -6,13 +6,9 @@
  */
 import Backbone from 'backbone';
 
-export default UserModel = (function() {
-  UserModel = class UserModel extends Backbone.Model {
-    static initClass() {
+export default class UserModel extends Backbone.Model {
+  static initClass() {
 
-      this.prototype.creatorType = 'User';
-    }
-  };
-  UserModel.initClass();
-  return UserModel;
-})();
+    this.prototype.creatorType = 'User';
+  }
+};

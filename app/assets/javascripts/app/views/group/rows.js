@@ -8,25 +8,21 @@ import Marionette from 'marionette';
 
 import ItemView from 'views/group/row_item';
 
-export default RowsView = (function() {
-  RowsView = class RowsView extends Marionette.CollectionView {
-    static initClass() {
+export default class RowsView extends Marionette.CollectionView {
+  static initClass() {
 
-      this.prototype.childView = ItemView;
-    }
+    this.prototype.childView = ItemView;
+  }
 
-    childViewOptions() {
-      return {
-      vent: this.vent,
-      collection: this.collections.group
-      };
-    }
+  childViewOptions() {
+    return {
+    vent: this.vent,
+    collection: this.collections.group
+    };
+  }
 
-    initialize(options) {
-      this.collections = options.collections;
-      return this.vent = options.vent;
-    }
-  };
-  RowsView.initClass();
-  return RowsView;
-})();
+  initialize(options) {
+    this.collections = options.collections;
+    return this.vent = options.vent;
+  }
+};

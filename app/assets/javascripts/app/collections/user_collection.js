@@ -9,42 +9,38 @@ import Backbone from 'backbone';
 
 import UserModel from 'models/user';
 
-export default UserCollection = (function() {
-  UserCollection = class UserCollection extends Backbone.Collection {
-    static initClass() {
+export default class UserCollection extends Backbone.Collection {
+  static initClass() {
 
-      this.prototype.model = UserModel;
+    this.prototype.model = UserModel;
 
-      this.prototype.activeModel = null;
+    this.prototype.activeModel = null;
 
-      this.prototype.url = '/api/v1/users';
-    }
+    this.prototype.url = '/api/v1/users';
+  }
 
-    getSearchTerm() {
-      return 'email';
-    }
+  getSearchTerm() {
+    return 'email';
+  }
 
-    getActive() {
-      return this.activeModel;
-    }
+  getActive() {
+    return this.activeModel;
+  }
 
-    setActive(id) {
-      const current = this.getActive();
-      if (id != null) {
-        const model = this.get(id);
-        if (model != null) {
-          this.activeModel = model;
-        } else {
-          this.activeModel = null;
-        }
+  setActive(id) {
+    const current = this.getActive();
+    if (id != null) {
+      const model = this.get(id);
+      if (model != null) {
+        this.activeModel = model;
       } else {
         this.activeModel = null;
       }
-      if (this.activeModel !== current) {
-        return this.trigger('change:active', this.activeModel);
-      }
+    } else {
+      this.activeModel = null;
     }
-  };
-  UserCollection.initClass();
-  return UserCollection;
-})();
+    if (this.activeModel !== current) {
+      return this.trigger('change:active', this.activeModel);
+    }
+  }
+};

@@ -6,20 +6,16 @@
  */
 import Marionette from 'marionette';
 
-export default GlobalNotification = (function() {
-  GlobalNotification = class GlobalNotification extends Marionette.Behavior {
-    static initClass() {
+export default class GlobalNotification extends Marionette.Behavior {
+  static initClass() {
 
-      this.prototype.defaults = {
-      };
+    this.prototype.defaults = {
+    };
 
-      this.prototype.triggers = {
-      };
+    this.prototype.triggers = {
+    };
 
-      this.prototype.ui = {
-      };
+    this.prototype.ui = {
+    };
 }
 };
-  GlobalNotification.initClass();
-  return GlobalNotification;
-})();

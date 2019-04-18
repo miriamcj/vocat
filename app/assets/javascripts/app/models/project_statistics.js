@@ -6,21 +6,17 @@
  */
 import Backbone from 'backbone';
 
-export default ProjectStatisticsModel = (function() {
-  ProjectStatisticsModel = class ProjectStatisticsModel extends Backbone.Model {
-    static initClass() {
+export default class ProjectStatisticsModel extends Backbone.Model {
+  static initClass() {
 
-      this.prototype.scoreView = 'Project Scores';
-    }
+    this.prototype.scoreView = 'Project Scores';
+  }
 
-    updateScoreView(scoreView) {
-      return this.attributes.scoreView = scoreView;
-    }
+  updateScoreView(scoreView) {
+    return this.attributes.scoreView = scoreView;
+  }
 
-    url() {
-      return `/api/v1/projects/${this.id}/statistics`;
-    }
-  };
-  ProjectStatisticsModel.initClass();
-  return ProjectStatisticsModel;
-})();
+  url() {
+    return `/api/v1/projects/${this.id}/statistics`;
+  }
+};

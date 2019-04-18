@@ -6,35 +6,31 @@
  */
 import Backbone from 'backbone';
 
-export default ProjectModel = (function() {
-  ProjectModel = class ProjectModel extends Backbone.Model {
-    static initClass() {
+export default class ProjectModel extends Backbone.Model {
+  static initClass() {
 
-      this.prototype.urlRoot = "/api/v1/projects";
-    }
+    this.prototype.urlRoot = "/api/v1/projects";
+  }
 
-    hasRubric() {
-      return _.isObject(this.get('rubric'));
-    }
+  hasRubric() {
+    return _.isObject(this.get('rubric'));
+  }
 
-    pastDue() {
-      const due = this.get('due_date');
-      if (due) {
-        const dueDate = new Date(due);
-        if (dueDate < new Date()) {
-          return true;
-        } else {
-          return false;
-        }
+  pastDue() {
+    const due = this.get('due_date');
+    if (due) {
+      const dueDate = new Date(due);
+      if (dueDate < new Date()) {
+        return true;
       } else {
         return false;
       }
+    } else {
+      return false;
     }
+  }
 
-    evaluatable() {
-      return this.get('evaluatable');
-    }
-  };
-  ProjectModel.initClass();
-  return ProjectModel;
-})();
+  evaluatable() {
+    return this.get('evaluatable');
+  }
+};

@@ -8,105 +8,101 @@ import Backbone from 'backbone';
 
 import AssetModel from 'models/asset';
 
-export default AssetCollection = (function() {
-  AssetCollection = class AssetCollection extends Backbone.Collection {
-    static initClass() {
+export default class AssetCollection extends Backbone.Collection {
+  static initClass() {
 
-      this.prototype.submissionId = null;
-      this.prototype.model = AssetModel;
+    this.prototype.submissionId = null;
+    this.prototype.model = AssetModel;
 
-      this.prototype.url = '/api/v1/assets';
+    this.prototype.url = '/api/v1/assets';
+  }
+
+  comparator(asset) {
+    const c = asset.get('listing_order');
+    return parseInt(c);
+  }
+
+  initialize(models, options) {
+    if (options && options.hasOwnProperty('submissionId')) {
+      this.submissionId = options.submissionId;
     }
+    return this.setupListeners();
+  }
 
-    comparator(asset) {
-      const c = asset.get('listing_order');
-      return parseInt(c);
+  highIndex() {
+    return this.length - 1;
+  }
+
+  lowIndex() {
+    return 0;
+  }
+
+  getPreviousModel(model) {
+    const index = this.indexOf(model);
+    if ((index - 1) >= this.lowIndex()) {
+      return this.at(index - 1);
+    } else {
+      return null;
     }
+  }
 
-    initialize(models, options) {
-      if (options && options.hasOwnProperty('submissionId')) {
-        this.submissionId = options.submissionId;
-      }
-      return this.setupListeners();
+  getNextModel(model) {
+    const index = this.indexOf(model);
+    if ((index + 1) <= this.highIndex()) {
+      return this.at(index + 1);
+    } else {
+      return null;
     }
+  }
 
-    highIndex() {
-      return this.length - 1;
-    }
+  getPositionBetween(low, high) {
+    return Math.round(low + ((high - low) / 2));
+  }
 
-    lowIndex() {
-      return 0;
-    }
-
-    getPreviousModel(model) {
-      const index = this.indexOf(model);
-      if ((index - 1) >= this.lowIndex()) {
-        return this.at(index - 1);
+  moveUp(model) {
+    const previousModel = this.getPreviousModel(model);
+    if (previousModel) {
+      let betweenLow;
+      const betweenHigh = previousModel.get('listing_order');
+      const previousPreviousModel = this.getPreviousModel(previousModel);
+      if (previousPreviousModel) {
+        betweenLow = previousPreviousModel.get('listing_order');
       } else {
-        return null;
+        betweenLow = -8388607;
       }
+      const newPosition = this.getPositionBetween(betweenLow, betweenHigh);
+      model.set('listing_order', newPosition);
+      return this.sort();
     }
+    else {}
+  }
+      // Can't move past itself. Do nothing.
 
-    getNextModel(model) {
-      const index = this.indexOf(model);
-      if ((index + 1) <= this.highIndex()) {
-        return this.at(index + 1);
+  moveDown(model) {
+    const nextModel = this.getNextModel(model);
+    if (nextModel) {
+      let betweenHigh;
+      const betweenLow = nextModel.get('listing_order');
+      const nextNextModel = this.getNextModel(nextModel);
+      if (nextNextModel) {
+        betweenHigh = nextNextModel.get('listing_order');
       } else {
-        return null;
+        betweenHigh = 8388607;
       }
+      const newPosition = this.getPositionBetween(betweenLow, betweenHigh);
+      model.set('listing_order', newPosition);
+      return this.sort();
     }
+    else {}
+  }
+      // Can't move past itself. Do nothing.
 
-    getPositionBetween(low, high) {
-      return Math.round(low + ((high - low) / 2));
-    }
-
-    moveUp(model) {
-      const previousModel = this.getPreviousModel(model);
-      if (previousModel) {
-        let betweenLow;
-        const betweenHigh = previousModel.get('listing_order');
-        const previousPreviousModel = this.getPreviousModel(previousModel);
-        if (previousPreviousModel) {
-          betweenLow = previousPreviousModel.get('listing_order');
-        } else {
-          betweenLow = -8388607;
-        }
-        const newPosition = this.getPositionBetween(betweenLow, betweenHigh);
-        model.set('listing_order', newPosition);
-        return this.sort();
-      }
-      else {}
-    }
-        // Can't move past itself. Do nothing.
-
-    moveDown(model) {
-      const nextModel = this.getNextModel(model);
-      if (nextModel) {
-        let betweenHigh;
-        const betweenLow = nextModel.get('listing_order');
-        const nextNextModel = this.getNextModel(nextModel);
-        if (nextNextModel) {
-          betweenHigh = nextNextModel.get('listing_order');
-        } else {
-          betweenHigh = 8388607;
-        }
-        const newPosition = this.getPositionBetween(betweenLow, betweenHigh);
-        model.set('listing_order', newPosition);
-        return this.sort();
-      }
-      else {}
-    }
-        // Can't move past itself. Do nothing.
-
-    setupListeners() {
-      this.listenTo(this, 'add', model => {
-        return model.set('submission_id', this.submissionId);
-      });
-      return this.listenTo(this, 'sort', function(e) {
-        return this.each((model, index) => model.set('listing_order_position', index));
-      });
-    }
-  };
-  AssetCollection.initClass();
-  return AssetCollection;
-})();
+  setupListeners() {
+    this.listenTo(this, 'add', model => {
+      return model.set('submission_id', this.submissionId);
+    });
+    return this.listenTo(this, 'sort', function(e) {
+      return this.each((model, index) => model.set('listing_order_position', index));
+    });
+  }
+};

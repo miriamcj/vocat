@@ -7,26 +7,22 @@
 import Marionette from 'marionette';
 import template from 'hbs!templates/admin/enrollment/input_empty';
 
-export default EnrollmentInputEmpty = (function() {
-  EnrollmentInputEmpty = class EnrollmentInputEmpty extends Marionette.ItemView {
-    static initClass() {
+export default class EnrollmentInputEmpty extends Marionette.ItemView {
+  static initClass() {
 
-      this.prototype.template = template;
-      this.prototype.tagName = 'li';
-    }
+    this.prototype.template = template;
+    this.prototype.tagName = 'li';
+  }
 
-    initialize(options) {
-      return this.collectionType = options.collectionType;
-    }
+  initialize(options) {
+    return this.collectionType = options.collectionType;
+  }
 
-    serializeData() {
-      return {
-      isUserCollection: this.collectionType === 'user',
-      isCourseCollection: this.collectionType === 'course'
-      };
-    }
-  };
-  EnrollmentInputEmpty.initClass();
-  return EnrollmentInputEmpty;
-})();
+  serializeData() {
+    return {
+    isUserCollection: this.collectionType === 'user',
+    isCourseCollection: this.collectionType === 'course'
+    };
+  }
+};
 

@@ -5,7 +5,7 @@
  */
 import Backbone from 'backbone';
 
-export default EvaluationSetModel = class EvaluationSetModel extends Backbone.Model {
+export default class EvaluationSetModel extends Backbone.Model {
 
   averageScore() {
     const numbers = this.get('evaluations').pluck('total_percentage');

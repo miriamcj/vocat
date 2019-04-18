@@ -11,90 +11,86 @@ import EnrollmentModel from 'models/enrollment';
 import UserCollection from 'collections/user_collection';
 import CourseCollection from 'collections/course_collection';
 
-export default EnrollmentCollection = (function() {
-  EnrollmentCollection = class EnrollmentCollection extends Backbone.Collection {
-    static initClass() {
+export default class EnrollmentCollection extends Backbone.Collection {
+  static initClass() {
 
-      this.prototype.model = EnrollmentModel;
+    this.prototype.model = EnrollmentModel;
+  }
+
+  searchType() {
+    if (this.scope.course) {
+      return 'user';
+    } else {
+      return 'course';
     }
+  }
 
-    searchType() {
-      if (this.scope.course) {
-        return 'user';
-      } else {
-        return 'course';
-      }
+  role() {
+    return this.scope.role;
+  }
+
+  getSearchCollection() {
+    if (this.searchType() === 'user') {
+      return new UserCollection;
+    } else {
+      return new CourseCollection;
     }
+  }
 
-    role() {
-      return this.scope.role;
+  getContextualName(model) {
+    if (this.searchType() === 'user') {
+      return model.get('user_name');
+    } else {
+      return model.get('course_name');
     }
+  }
 
-    getSearchCollection() {
-      if (this.searchType() === 'user') {
-        return new UserCollection;
-      } else {
-        return new CourseCollection;
-      }
+  newEnrollmentFromSearchModel(searchModel) {
+    const attributes = {
+      course: searchModel.id,
+      user: searchModel.id
+    };
+    if (this.scope.course != null) { attributes.course = this.scope.course; }
+    if (this.scope.user != null) { attributes.user = this.scope.user; }
+    if (this.scope.role != null) { attributes.role = this.scope.role; }
+
+    const model = new this.model(attributes);
+    return model;
+  }
+
+  baseUrl() {
+    if (this.searchType() === 'user') {
+      return `/api/v1/courses/${this.scope.course}/enrollments`;
+    } else {
+      return `/api/v1/users/${this.scope.user}/enrollments`;
     }
+  }
 
-    getContextualName(model) {
-      if (this.searchType() === 'user') {
-        return model.get('user_name');
-      } else {
-        return model.get('course_name');
-      }
+  bulkUrl() {
+    if (this.searchType() === 'user') {
+      return `${this.baseUrl()}/bulk?role=${this.scope.role}`;
+    } else {
+      return `${this.baseUrl()}/bulk`;
     }
+  }
 
-    newEnrollmentFromSearchModel(searchModel) {
-      const attributes = {
-        course: searchModel.id,
-        user: searchModel.id
-      };
-      if (this.scope.course != null) { attributes.course = this.scope.course; }
-      if (this.scope.user != null) { attributes.user = this.scope.user; }
-      if (this.scope.role != null) { attributes.role = this.scope.role; }
-
-      const model = new this.model(attributes);
-      return model;
+  url() {
+    if (this.searchType() === 'user') {
+      return `${this.baseUrl()}?role=${this.scope.role}`;
+    } else {
+      return this.baseUrl();
     }
+  }
 
-    baseUrl() {
-      if (this.searchType() === 'user') {
-        return `/api/v1/courses/${this.scope.course}/enrollments`;
-      } else {
-        return `/api/v1/users/${this.scope.user}/enrollments`;
-      }
+  comparator(model) {
+    if (this.searchType() === 'user') {
+      return model.get('user_name');
+    } else {
+      return model.get('course_name');
     }
+  }
 
-    bulkUrl() {
-      if (this.searchType() === 'user') {
-        return `${this.baseUrl()}/bulk?role=${this.scope.role}`;
-      } else {
-        return `${this.baseUrl()}/bulk`;
-      }
-    }
-
-    url() {
-      if (this.searchType() === 'user') {
-        return `${this.baseUrl()}?role=${this.scope.role}`;
-      } else {
-        return this.baseUrl();
-      }
-    }
-
-    comparator(model) {
-      if (this.searchType() === 'user') {
-        return model.get('user_name');
-      } else {
-        return model.get('course_name');
-      }
-    }
-
-    initialize(models, options) {
-      return this.scope = options.scope;
-    }
-  };
-  EnrollmentCollection.initClass();
-  return EnrollmentCollection;
-})();
+  initialize(models, options) {
+    return this.scope = options.scope;
+  }
+};

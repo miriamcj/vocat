@@ -8,35 +8,31 @@ import Marionette from 'marionette';
 
 import ItemView from 'views/group/cell';
 
-export default Row = (function() {
-  Row = class Row extends Marionette.CollectionView {
-    static initClass() {
+export default class Row extends Marionette.CollectionView {
+  static initClass() {
 
-      this.prototype.tagName = 'tr';
-      this.prototype.className = 'matrix--row';
+    this.prototype.tagName = 'tr';
+    this.prototype.className = 'matrix--row';
 
-      this.prototype.childView = ItemView;
-    }
+    this.prototype.childView = ItemView;
+  }
 
-    childViewOptions() {
-      return {
-      vent: this.vent,
-      creator: this.model
-      };
-    }
+  childViewOptions() {
+    return {
+    vent: this.vent,
+    creator: this.model
+    };
+  }
 
-    initialize(options) {
-      return this.vent = options.vent;
-    }
+  initialize(options) {
+    return this.vent = options.vent;
+  }
 
-    onAddChild() {
-      return this.vent.trigger('recalculate');
-    }
+  onAddChild() {
+    return this.vent.trigger('recalculate');
+  }
 
-    onRemoveChild() {
-      return this.vent.trigger('recalculate');
-    }
-  };
-  Row.initClass();
-  return Row;
-})();
+  onRemoveChild() {
+    return this.vent.trigger('recalculate');
+  }
+};

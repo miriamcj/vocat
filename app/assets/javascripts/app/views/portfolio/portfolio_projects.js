@@ -8,13 +8,9 @@ import Marionette from 'marionette';
 
 import PortfolioProjectsItem from 'views/portfolio/portfolio_projects_item';
 
-export default PortfolioProjectsView = (function() {
-  PortfolioProjectsView = class PortfolioProjectsView extends Marionette.CollectionView {
-    static initClass() {
+export default class PortfolioProjectsView extends Marionette.CollectionView {
+  static initClass() {
 
-      this.prototype.childView = PortfolioProjectsItem;
-    }
-  };
-  PortfolioProjectsView.initClass();
-  return PortfolioProjectsView;
-})();
+    this.prototype.childView = PortfolioProjectsItem;
+  }
+};

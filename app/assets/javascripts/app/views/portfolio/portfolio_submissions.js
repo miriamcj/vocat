@@ -9,18 +9,14 @@ import Marionette from 'marionette';
 import PortfolioSubmissionItem from 'views/portfolio/portfolio_submissions_item';
 import EmptyView from 'views/portfolio/portfolio_submissions_item_empty';
 
-export default PortfolioSubmissionsView = (function() {
-  PortfolioSubmissionsView = class PortfolioSubmissionsView extends Marionette.CollectionView {
-    static initClass() {
+export default class PortfolioSubmissionsView extends Marionette.CollectionView {
+  static initClass() {
 
-      this.prototype.childView = PortfolioSubmissionItem;
-      this.prototype.emptyView = EmptyView;
-    }
+    this.prototype.childView = PortfolioSubmissionItem;
+    this.prototype.emptyView = EmptyView;
+  }
 
-    onShow() {}
+  onShow() {}
 
-    onRender() {}
-  };
-  PortfolioSubmissionsView.initClass();
-  return PortfolioSubmissionsView;
-})();
+  onRender() {}
+};

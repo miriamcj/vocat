@@ -6,13 +6,9 @@
  */
 import SubmissionCollection from 'collections/submission_collection';
 
-export default SubmissionForGroupCollection = (function() {
-  SubmissionForGroupCollection = class SubmissionForGroupCollection extends SubmissionCollection {
-    static initClass() {
+export default class SubmissionForGroupCollection extends SubmissionCollection {
+  static initClass() {
 
-      this.prototype.url = '/api/v1/submissions/for_group';
-    }
-  };
-  SubmissionForGroupCollection.initClass();
-  return SubmissionForGroupCollection;
-})();
+    this.prototype.url = '/api/v1/submissions/for_group';
+  }
+};

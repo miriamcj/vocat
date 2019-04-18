@@ -7,7 +7,7 @@ import $ from 'jquery_rails';
 
 import Marionette from 'marionette';
 
-export default JumpNavView = class JumpNavView extends Marionette.ItemView {
+export default class JumpNavView extends Marionette.ItemView {
 
 
   handleChange() {

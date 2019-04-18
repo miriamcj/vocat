@@ -6,19 +6,15 @@
  */
 import template from 'hbs!templates/group/warning';
 
-export default Warning = (function() {
-  Warning = class Warning extends Marionette.ItemView {
-    static initClass() {
+export default class Warning extends Marionette.ItemView {
+  static initClass() {
 
-      this.prototype.template = template;
-    }
+    this.prototype.template = template;
+  }
 
-    serializeData() {
-      return {
-      courseId: Marionette.getOption(this, 'courseId')
-      };
-    }
-  };
-  Warning.initClass();
-  return Warning;
-})();
+  serializeData() {
+    return {
+    courseId: Marionette.getOption(this, 'courseId')
+    };
+  }
+};

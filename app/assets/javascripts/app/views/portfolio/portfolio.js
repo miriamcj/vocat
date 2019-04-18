@@ -8,19 +8,15 @@ import Marionette from 'marionette';
 
 import Template from 'hbs!templates/portfolio/portfolio';
 
-export default PortfolioView = (function() {
-  PortfolioView = class PortfolioView extends Marionette.LayoutView {
-    static initClass() {
+export default class PortfolioView extends Marionette.LayoutView {
+  static initClass() {
 
-      this.prototype.template = Template;
+    this.prototype.template = Template;
 
-      this.prototype.regions = {
-        submissions: '[data-region="submissions"]',
-        projects: '[data-region="projects"]'
-      };
-    }
-  };
-  PortfolioView.initClass();
-  return PortfolioView;
-})();
+    this.prototype.regions = {
+      submissions: '[data-region="submissions"]',
+      projects: '[data-region="projects"]'
+    };
+  }
+};
 

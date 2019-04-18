@@ -6,13 +6,9 @@
  */
 import Backbone from 'backbone';
 
-export default EnrollmentModel = (function() {
-  EnrollmentModel = class EnrollmentModel extends Backbone.Model {
-    static initClass() {
+export default class EnrollmentModel extends Backbone.Model {
+  static initClass() {
 
-      this.prototype.urlRoot = "/api/v1/enrollments";
-    }
-  };
-  EnrollmentModel.initClass();
-  return EnrollmentModel;
-})();
+    this.prototype.urlRoot = "/api/v1/enrollments";
+  }
+};

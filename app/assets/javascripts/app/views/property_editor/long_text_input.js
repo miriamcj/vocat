@@ -7,13 +7,9 @@
 import ShortTextInput from 'views/property_editor/short_text_input';
 import template from 'hbs!templates/property_editor/long_text_input';
 
-export default LongTextInput = (function() {
-  LongTextInput = class LongTextInput extends ShortTextInput {
-    static initClass() {
+export default class LongTextInput extends ShortTextInput {
+  static initClass() {
 
-      this.prototype.template = template;
-    }
-  };
-  LongTextInput.initClass();
-  return LongTextInput;
-})();
+    this.prototype.template = template;
+  }
+};

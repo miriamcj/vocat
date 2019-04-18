@@ -8,55 +8,51 @@ import template from 'hbs!templates/rubric/criteria';
 import ItemView from 'views/rubric/criteria_item';
 
 
-export default Criteria = (function() {
-  Criteria = class Criteria extends Marionette.CompositeView {
-    static initClass() {
+export default class Criteria extends Marionette.CompositeView {
+  static initClass() {
 
-      this.prototype.template = template;
-      this.prototype.className = 'criteria';
-      this.prototype.childViewContainer = '[data-region="criteria-rows"]';
-      this.prototype.childView = ItemView;
+    this.prototype.template = template;
+    this.prototype.className = 'criteria';
+    this.prototype.childViewContainer = '[data-region="criteria-rows"]';
+    this.prototype.childView = ItemView;
 
-      this.prototype.ui = {
-        criteriaAdd: '.criteria-add-button',
-        criteriaInstruction: '.criteria-instruction'
-      };
+    this.prototype.ui = {
+      criteriaAdd: '.criteria-add-button',
+      criteriaInstruction: '.criteria-instruction'
+    };
+  }
+
+  childViewOptions() {
+    return {
+      collection: this.collection
+    };
+  }
+
+  showCriteriaAdd() {
+    if (this.collection.length > 3) {
+      return $(this.ui.criteriaAdd).css('display', 'none');
+    } else {
+      return $(this.ui.criteriaAdd).css('display', 'inline-block');
     }
+  }
 
-    childViewOptions() {
-      return {
-        collection: this.collection
-      };
+  showCriteriaInstruction() {
+    if (this.collection.length > 0) {
+      return $(this.ui.criteriaInstruction).css('display', 'none');
+    } else {
+      return $(this.ui.criteriaInstruction).css('display', 'inline-block');
     }
+  }
 
-    showCriteriaAdd() {
-      if (this.collection.length > 3) {
-        return $(this.ui.criteriaAdd).css('display', 'none');
-      } else {
-        return $(this.ui.criteriaAdd).css('display', 'inline-block');
-      }
-    }
+  onShow() {
+    this.showCriteriaAdd();
+    return this.showCriteriaInstruction();
+  }
 
-    showCriteriaInstruction() {
-      if (this.collection.length > 0) {
-        return $(this.ui.criteriaInstruction).css('display', 'none');
-      } else {
-        return $(this.ui.criteriaInstruction).css('display', 'inline-block');
-      }
-    }
-
-    onShow() {
+  initialize(options) {
+    return this.listenTo(this, 'add:child destroy:child remove:child', function() {
       this.showCriteriaAdd();
       return this.showCriteriaInstruction();
-    }
-
-    initialize(options) {
-      return this.listenTo(this, 'add:child destroy:child remove:child', function() {
-        this.showCriteriaAdd();
-        return this.showCriteriaInstruction();
-      });
-    }
-  };
-  Criteria.initClass();
-  return Criteria;
-})();
+    });
+  }
+};

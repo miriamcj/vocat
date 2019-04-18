@@ -8,12 +8,8 @@ import Backbone from 'backbone';
 
 import RowModel from 'models/row';
 
-export default RowCollection = (function() {
-  RowCollection = class RowCollection extends Backbone.Collection {
-    static initClass() {
-      this.prototype.model = RowModel;
-    }
-  };
-  RowCollection.initClass();
-  return RowCollection;
-})();
+export default class RowCollection extends Backbone.Collection {
+  static initClass() {
+    this.prototype.model = RowModel;
+  }
+};

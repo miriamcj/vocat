@@ -6,15 +6,11 @@
  */
 import Backbone from 'backbone';
 
-export default AttachmentModel = (function() {
-  AttachmentModel = class AttachmentModel extends Backbone.Model {
-    static initClass() {
+export default class AttachmentModel extends Backbone.Model {
+  static initClass() {
 
-      this.prototype.paramRoot = 'attachment';
+    this.prototype.paramRoot = 'attachment';
 
-      this.prototype.urlRoot = "/api/v1/attachments";
+    this.prototype.urlRoot = "/api/v1/attachments";
 }
 };
-  AttachmentModel.initClass();
-  return AttachmentModel;
-})();

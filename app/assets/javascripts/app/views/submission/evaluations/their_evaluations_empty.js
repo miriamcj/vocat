@@ -7,13 +7,9 @@
 import Marionette from 'marionette';
 import template from 'hbs!templates/submission/evaluations/their_evaluations_empty';
 
-export default TheirEvaluationsEmpty = (function() {
-  TheirEvaluationsEmpty = class TheirEvaluationsEmpty extends Marionette.ItemView {
-    static initClass() {
+export default class TheirEvaluationsEmpty extends Marionette.ItemView {
+  static initClass() {
 
-      this.prototype.template = template;
-    }
-  };
-  TheirEvaluationsEmpty.initClass();
-  return TheirEvaluationsEmpty;
-})();
+    this.prototype.template = template;
+  }
+};

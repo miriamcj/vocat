@@ -6,29 +6,25 @@
  */
 import Marionette from 'marionette';
 
-export default MockCanvasView = (function() {
-  MockCanvasView = class MockCanvasView extends Marionette.ItemView {
-    static initClass() {
+export default class MockCanvasView extends Marionette.ItemView {
+  static initClass() {
 
-      this.prototype.template = false;
-    }
+    this.prototype.template = false;
+  }
 
-    initialize(options) {
-      this.vent = options.vent;
-      this.collection = this.model.annotations();
-      return this.setupListeners();
-    }
+  initialize(options) {
+    this.vent = options.vent;
+    this.collection = this.model.annotations();
+    return this.setupListeners();
+  }
 
-    setupListeners() {
-      return this.listenTo(this.vent, 'request:canvas', this.announceCanvas, this);
-    }
+  setupListeners() {
+    return this.listenTo(this.vent, 'request:canvas', this.announceCanvas, this);
+  }
 
-    announceCanvas() {
-      const json = null;
-      const svg = null;
-      return this.vent.trigger('announce:canvas', JSON.stringify({json, svg}));
-    }
-  };
-  MockCanvasView.initClass();
-  return MockCanvasView;
-})();
+  announceCanvas() {
+    const json = null;
+    const svg = null;
+    return this.vent.trigger('announce:canvas', JSON.stringify({json, svg}));
+  }
+};

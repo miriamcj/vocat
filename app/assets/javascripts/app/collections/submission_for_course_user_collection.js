@@ -6,13 +6,9 @@
  */
 import SubmissionCollection from 'collections/submission_collection';
 
-export default SubmissionForCourseUserCollection = (function() {
-  SubmissionForCourseUserCollection = class SubmissionForCourseUserCollection extends SubmissionCollection {
-    static initClass() {
+export default class SubmissionForCourseUserCollection extends SubmissionCollection {
+  static initClass() {
 
-      this.prototype.url = '/api/v1/submissions/for_course_and_user';
-    }
-  };
-  SubmissionForCourseUserCollection.initClass();
-  return SubmissionForCourseUserCollection;
-})();
+    this.prototype.url = '/api/v1/submissions/for_course_and_user';
+  }
+};

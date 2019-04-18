@@ -5,4 +5,4 @@
  */
 import AbstractFlashMessages from 'views/abstract/abstract_flash_messages';
 
-export default FlashMessages = class FlashMessages extends AbstractFlashMessages {};
+export default class FlashMessages extends AbstractFlashMessages {};

@@ -5,7 +5,7 @@
  */
 import Marionette from 'marionette';
 
-export default HeaderDrawerTriggerView = class HeaderDrawerTriggerView extends Marionette.ItemView {
+export default class HeaderDrawerTriggerView extends Marionette.ItemView {
 
   onClickTrigger() {
     return this.globalChannel.vent.trigger(`drawer:${this.drawerTarget}:toggle`);

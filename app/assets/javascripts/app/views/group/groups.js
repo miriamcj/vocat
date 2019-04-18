@@ -8,37 +8,33 @@ import Marionette from 'marionette';
 import Item from 'views/group/groups_item';
 import template from 'hbs!templates/group/groups';
 
-export default GroupsView = (function() {
-  GroupsView = class GroupsView extends Marionette.CompositeView {
-    static initClass() {
+export default class GroupsView extends Marionette.CompositeView {
+  static initClass() {
 
-      this.prototype.childView = Item;
-      this.prototype.tagName = 'thead';
-      this.prototype.template = template;
-      this.prototype.childViewContainer = "tr";
-    }
+    this.prototype.childView = Item;
+    this.prototype.tagName = 'thead';
+    this.prototype.template = template;
+    this.prototype.childViewContainer = "tr";
+  }
 
-    childViewOptions() {
-      return {
-      courseId: this.options.courseId,
-      vent: this.vent
-      };
-    }
+  childViewOptions() {
+    return {
+    courseId: this.options.courseId,
+    vent: this.vent
+    };
+  }
 
-    initialize(options) {
-      this.options = options || {};
-      return this.vent = Marionette.getOption(this, 'vent');
-    }
+  initialize(options) {
+    this.options = options || {};
+    return this.vent = Marionette.getOption(this, 'vent');
+  }
 
-    onAddChild() {
-      return this.vent.trigger('recalculate');
-    }
+  onAddChild() {
+    return this.vent.trigger('recalculate');
+  }
 
-    onRemoveChild() {
-      return this.vent.trigger('recalculate');
-    }
-  };
-  GroupsView.initClass();
-  return GroupsView;
-})();
+  onRemoveChild() {
+    return this.vent.trigger('recalculate');
+  }
+};
 

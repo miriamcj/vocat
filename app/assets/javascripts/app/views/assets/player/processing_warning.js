@@ -7,14 +7,10 @@
 import Marionette from 'marionette';
 import template from 'hbs!templates/assets/player/processing_warning';
 
-export default ProcessingWarningView = (function() {
-  ProcessingWarningView = class ProcessingWarningView extends Marionette.ItemView {
-    static initClass() {
+export default class ProcessingWarningView extends Marionette.ItemView {
+  static initClass() {
 
-      this.prototype.template = template;
-    }
-  };
-  ProcessingWarningView.initClass();
-  return ProcessingWarningView;
-})();
+    this.prototype.template = template;
+  }
+};
 

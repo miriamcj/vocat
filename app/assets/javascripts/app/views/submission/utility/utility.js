@@ -7,24 +7,20 @@
 import Marionette from 'marionette';
 import template from 'hbs!templates/submission/utility/utility';
 
-export default UtilityView = (function() {
-  UtilityView = class UtilityView extends Marionette.ItemView {
-    static initClass() {
+export default class UtilityView extends Marionette.ItemView {
+  static initClass() {
 
-      this.prototype.template = template;
-    }
+    this.prototype.template = template;
+  }
 
-    initialize(options) {
-      this.vent = Marionette.getOption(this, 'vent');
-      return this.courseId = Marionette.getOption(this, 'courseId');
-    }
+  initialize(options) {
+    this.vent = Marionette.getOption(this, 'vent');
+    return this.courseId = Marionette.getOption(this, 'courseId');
+  }
 
-    serializeData() {
-      const data = super.serializeData();
-      data.courseId = this.courseId;
-      return data;
-    }
-  };
-  UtilityView.initClass();
-  return UtilityView;
-})();
+  serializeData() {
+    const data = super.serializeData();
+    data.courseId = this.courseId;
+    return data;
+  }
+};

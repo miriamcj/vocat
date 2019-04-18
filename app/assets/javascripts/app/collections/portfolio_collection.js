@@ -9,23 +9,19 @@ import Backbone from 'backbone';
 
 import SubmissionModel from 'models/submission';
 
-export default PortfolioCollection = (function() {
-  PortfolioCollection = class PortfolioCollection extends Backbone.Collection {
-    static initClass() {
+export default class PortfolioCollection extends Backbone.Collection {
+  static initClass() {
 
-      this.prototype.model = SubmissionModel;
-    }
+    this.prototype.model = SubmissionModel;
+  }
 
-    url(options) {
-      if (options == null) { options = {}; }
-      let url = '/api/v1';
-      const segments = ['courses', 'projects', 'groups', 'users'];
-      _.each(segments, function(segment) {
-        if ((options[segment] != null) && (options[segment] !== null)) { return url += `${segment}/${options[segment]}`; }
-      });
-      return url += '/submissions';
-    }
-  };
-  PortfolioCollection.initClass();
-  return PortfolioCollection;
-})();
+  url(options) {
+    if (options == null) { options = {}; }
+    let url = '/api/v1';
+    const segments = ['courses', 'projects', 'groups', 'users'];
+    _.each(segments, function(segment) {
+      if ((options[segment] != null) && (options[segment] !== null)) { return url += `${segment}/${options[segment]}`; }
+    });
+    return url += '/submissions';
+  }
+};

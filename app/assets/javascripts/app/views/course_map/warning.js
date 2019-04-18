@@ -6,27 +6,23 @@
  */
 import template from 'hbs!templates/course_map/warning';
 
-export default Warning = (function() {
-  Warning = class Warning extends Marionette.ItemView {
-    static initClass() {
+export default class Warning extends Marionette.ItemView {
+  static initClass() {
 
-      this.prototype.template = template;
-    }
+    this.prototype.template = template;
+  }
 
-    serializeData() {
-      const out = {
-        isCreatorWarning: Marionette.getOption(this, 'warningType') === 'Creator',
-        isProjectWarning: Marionette.getOption(this, 'warningType') === 'Project',
-        isCreatorTypeGroup: Marionette.getOption(this, 'creatorType') === 'Group',
-        isCreatorTypeUser: Marionette.getOption(this, 'creatorType') === 'User',
-        creatorType: Marionette.getOption(this, 'creatorType'),
-        warningType: Marionette.getOption(this, 'warningType'),
-        courseId: Marionette.getOption(this, 'courseId'),
-        canUpdateCourse: (window.VocatUserCourseRole === 'administrator') || (window.VocatUserCourseRole === 'evaluator')
-      };
-      return out;
-    }
-  };
-  Warning.initClass();
-  return Warning;
-})();
+  serializeData() {
+    const out = {
+      isCreatorWarning: Marionette.getOption(this, 'warningType') === 'Creator',
+      isProjectWarning: Marionette.getOption(this, 'warningType') === 'Project',
+      isCreatorTypeGroup: Marionette.getOption(this, 'creatorType') === 'Group',
+      isCreatorTypeUser: Marionette.getOption(this, 'creatorType') === 'User',
+      creatorType: Marionette.getOption(this, 'creatorType'),
+      warningType: Marionette.getOption(this, 'warningType'),
+      courseId: Marionette.getOption(this, 'courseId'),
+      canUpdateCourse: (window.VocatUserCourseRole === 'administrator') || (window.VocatUserCourseRole === 'evaluator')
+    };
+    return out;
+  }
+};

@@ -8,38 +8,34 @@ import Marionette from 'marionette';
 import template from 'hbs!templates/submission/evaluations/save_notify';
 import GlobalNotification from 'behaviors/global_notification';
 
-export default GroupsView = (function() {
-  GroupsView = class GroupsView extends Marionette.ItemView {
-    static initClass() {
+export default class GroupsView extends Marionette.ItemView {
+  static initClass() {
 
-      this.prototype.template = template;
+    this.prototype.template = template;
 
-      this.prototype.triggers = {
-        'click [data-trigger="save"]': 'click:evaluation:save',
-        'click [data-trigger="revert"]': 'click:evaluation:revert'
-      };
+    this.prototype.triggers = {
+      'click [data-trigger="save"]': 'click:evaluation:save',
+      'click [data-trigger="revert"]': 'click:evaluation:revert'
+    };
 
-      this.prototype.behaviors = {
-        globalNotification: {
-          behaviorClass: GlobalNotification
-        }
-      };
-    }
+    this.prototype.behaviors = {
+      globalNotification: {
+        behaviorClass: GlobalNotification
+      }
+    };
+  }
 
-    initialize(options) {
-      return this.vent = options.vent;
-    }
+  initialize(options) {
+    return this.vent = options.vent;
+  }
 
-    onClickEvaluationSave() {
-      Vocat.vent.trigger('notification:empty');
-      return this.vent.triggerMethod('evaluation:save');
-    }
+  onClickEvaluationSave() {
+    Vocat.vent.trigger('notification:empty');
+    return this.vent.triggerMethod('evaluation:save');
+  }
 
-    onClickEvaluationRevert() {
-      Vocat.vent.trigger('notification:empty');
-      return this.vent.triggerMethod('evaluation:revert');
-    }
-  };
-  GroupsView.initClass();
-  return GroupsView;
-})();
+  onClickEvaluationRevert() {
+    Vocat.vent.trigger('notification:empty');
+    return this.vent.triggerMethod('evaluation:revert');
+  }
+};

@@ -5,4 +5,4 @@
  */
 import Backbone from 'backbone';
 
-export default CellModel = class CellModel extends Backbone.Model {};
+export default class CellModel extends Backbone.Model {};

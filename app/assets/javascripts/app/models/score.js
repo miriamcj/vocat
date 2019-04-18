@@ -5,7 +5,7 @@
  */
 import Backbone from 'backbone';
 
-export default ScoreModel = class ScoreModel extends Backbone.Model {
+export default class ScoreModel extends Backbone.Model {
 
   getTicks() {
     let tickCount;

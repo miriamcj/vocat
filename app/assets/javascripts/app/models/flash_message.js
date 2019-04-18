@@ -5,4 +5,4 @@
  */
 import Backbone from 'backbone';
 
-export default FlashMessageModel = class FlashMessageModel extends Backbone.Model {};
+export default class FlashMessageModel extends Backbone.Model {};

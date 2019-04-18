@@ -10,23 +10,19 @@ import VocatController from 'controllers/vocat_controller';
 import FlashMessageCollection from 'collections/flash_message_collection';
 import FlashMessagesView from 'views/flash/flash_messages';
 
-export default GlobalFlashController = (function() {
-  GlobalFlashController = class GlobalFlashController extends VocatController {
-    static initClass() {
+export default class GlobalFlashController extends VocatController {
+  static initClass() {
 
-      // Server-side flash messages are bootstrapped into the HTML source and picked up by the initialize method in this
-      // controller's parent. If you add an initialize method to this controller, be sure to call the parent's initialize
-      // method to kick off thisbootstrapping.
-      this.prototype.collections = {
-        globalFlash: new FlashMessageCollection([], {})
-      };
-    }
+    // Server-side flash messages are bootstrapped into the HTML source and picked up by the initialize method in this
+    // controller's parent. If you add an initialize method to this controller, be sure to call the parent's initialize
+    // method to kick off thisbootstrapping.
+    this.prototype.collections = {
+      globalFlash: new FlashMessageCollection([], {})
+    };
+  }
 
-    show() {
-      const view = new FlashMessagesView({vent: Vocat.vent, collection: this.collections.globalFlash});
-      return Vocat.globalFlash.show(view);
-    }
-  };
-  GlobalFlashController.initClass();
-  return GlobalFlashController;
-})();
+  show() {
+    const view = new FlashMessagesView({vent: Vocat.vent, collection: this.collections.globalFlash});
+    return Vocat.globalFlash.show(view);
+  }
+};
