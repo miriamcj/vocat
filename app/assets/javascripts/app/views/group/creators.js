@@ -8,7 +8,6 @@ import Marionette from 'marionette';
 
 import template from 'hbs!templates/group/creators';
 import Item from 'views/group/creators_item';
-let GroupCreatorsView;
 
 export default GroupCreatorsView = (function() {
   GroupCreatorsView = class GroupCreatorsView extends Marionette.CompositeView {

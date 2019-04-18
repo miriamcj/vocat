@@ -4,7 +4,6 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let AnnotatorView;
 import Marionette from 'marionette';
 import template from 'hbs!templates/assets/annotator/annotator';
 import ProgressBarView from 'views/assets/annotator/progress_bar';

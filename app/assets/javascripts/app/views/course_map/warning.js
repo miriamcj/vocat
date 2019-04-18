@@ -4,7 +4,6 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let Warning;
 import template from 'hbs!templates/course_map/warning';
 
 export default Warning = (function() {

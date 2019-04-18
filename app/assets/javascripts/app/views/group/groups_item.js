@@ -4,7 +4,6 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let GroupsItem;
 import Marionette from 'marionette';
 import template from 'hbs!templates/group/groups_item';
 import ModalConfirmView from 'views/modal/modal_confirm';

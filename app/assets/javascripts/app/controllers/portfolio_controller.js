@@ -12,7 +12,6 @@ import PortfolioProjectsView from 'views/portfolio/portfolio_projects';
 import PortfolioSubmissionsView from 'views/portfolio/portfolio_submissions';
 import SubmissionCollection from 'collections/submission_collection';
 import PortfolioUnsubmittedCollection from 'collections/portfolio_unsubmitted_collection';
-let PortfolioController;
 
 export default PortfolioController = (function() {
   PortfolioController = class PortfolioController extends VocatController {

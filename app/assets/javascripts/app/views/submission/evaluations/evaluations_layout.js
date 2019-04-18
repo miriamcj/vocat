@@ -5,7 +5,6 @@
  * DS207: Consider shorter variations of null checks
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let EvaluationsLayout;
 import Marionette from 'marionette';
 import template from 'hbs!templates/submission/evaluations/evaluations_layout';
 import EvaluationCollection from 'collections/evaluation_collection';

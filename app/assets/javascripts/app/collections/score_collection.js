@@ -7,7 +7,6 @@
 import Backbone from 'backbone';
 
 import ScoreModel from 'models/score';
-let ScoreCollection;
 
 export default ScoreCollection = (function() {
   ScoreCollection = class ScoreCollection extends Backbone.Collection {

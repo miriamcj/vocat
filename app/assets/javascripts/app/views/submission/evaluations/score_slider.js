@@ -5,7 +5,6 @@
  * DS207: Consider shorter variations of null checks
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let ScoreSlider;
 import Marionette from 'marionette';
 import 'jquery_ui';
 import template from 'hbs!templates/submission/evaluations/score_slider';

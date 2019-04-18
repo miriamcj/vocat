@@ -7,7 +7,6 @@ import Marionette from 'marionette';
 
 import VocatController from 'controllers/vocat_controller';
 import RubricLayoutView from 'views/rubric/rubric_layout';
-let RubricController;
 
 export default RubricController = class RubricController extends VocatController {
 

@@ -8,7 +8,6 @@
 import Marionette from 'marionette';
 
 import template from 'hbs!templates/modal/modal_error';
-let ModalErrorView;
 
 export default ModalErrorView = (function() {
   ModalErrorView = class ModalErrorView extends Marionette.ItemView {

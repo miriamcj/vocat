@@ -5,8 +5,6 @@
  */
 import Backbone from 'backbone';
 
-let EvaluationSetModel;
-
 export default EvaluationSetModel = class EvaluationSetModel extends Backbone.Model {
 
   averageScore() {

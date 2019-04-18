@@ -7,7 +7,6 @@
 import Marionette from 'marionette';
 
 import template from 'hbs!templates/flash/flash_messages_item';
-let FlashMessagesItem;
 
 export default FlashMessagesItem = (function() {
   FlashMessagesItem = class FlashMessagesItem extends Marionette.ItemView {

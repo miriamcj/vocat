@@ -7,8 +7,6 @@
  */
 import Backbone from 'backbone';
 
-let AnnotationModel;
-
 export default AnnotationModel = (function() {
   AnnotationModel = class AnnotationModel extends Backbone.Model {
     static initClass() {

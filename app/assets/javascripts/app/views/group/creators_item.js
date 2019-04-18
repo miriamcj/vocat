@@ -7,7 +7,6 @@
 import Marionette from 'marionette';
 
 import template from 'hbs!templates/course_map/creators_item';
-let GroupCreatorsItem;
 
 export default GroupCreatorsItem = (function() {
   GroupCreatorsItem = class GroupCreatorsItem extends Marionette.ItemView {

@@ -5,5 +5,4 @@
  */
 import Backbone from 'backbone';
 
-let CellModel;
 export default CellModel = class CellModel extends Backbone.Model {};

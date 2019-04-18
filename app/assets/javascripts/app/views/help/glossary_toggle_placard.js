@@ -8,7 +8,6 @@ import Backbone from 'backbone';
 
 import Placard from 'views/help/placard';
 import template from 'hbs!templates/help/glossary_toggle_placard';
-let GlossaryTogglePlacard;
 
 export default GlossaryTogglePlacard = (function() {
   GlossaryTogglePlacard = class GlossaryTogglePlacard extends Placard {

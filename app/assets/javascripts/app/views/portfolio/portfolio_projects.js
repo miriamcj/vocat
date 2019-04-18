@@ -7,7 +7,6 @@
 import Marionette from 'marionette';
 
 import PortfolioProjectsItem from 'views/portfolio/portfolio_projects_item';
-let PortfolioProjectsView;
 
 export default PortfolioProjectsView = (function() {
   PortfolioProjectsView = class PortfolioProjectsView extends Marionette.CollectionView {

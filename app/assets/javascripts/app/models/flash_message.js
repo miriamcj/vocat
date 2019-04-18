@@ -5,7 +5,4 @@
  */
 import Backbone from 'backbone';
 
-// Do something
-
-let FlashMessageModel;
 export default FlashMessageModel = class FlashMessageModel extends Backbone.Model {};

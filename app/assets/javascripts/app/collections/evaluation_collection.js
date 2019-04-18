@@ -8,7 +8,6 @@ import Backbone from 'backbone';
 
 import Marionette from 'marionette';
 import EvaluationModel from 'models/evaluation';
-let EvaluationCollection;
 
 export default EvaluationCollection = (function() {
   EvaluationCollection = class EvaluationCollection extends Backbone.Collection {

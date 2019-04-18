@@ -5,5 +5,4 @@
  */
 import Backbone from 'backbone';
 
-let CourseModel;
 export default CourseModel = class CourseModel extends Backbone.Model {};

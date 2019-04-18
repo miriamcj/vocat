@@ -5,7 +5,6 @@
  * DS207: Consider shorter variations of null checks
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let ModalGroupMembershipView;
 import Marionette from 'marionette';
 import template from 'hbs!templates/modal/modal_group_membership';
 import GroupModel from 'models/group';

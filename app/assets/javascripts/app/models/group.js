@@ -7,8 +7,6 @@
  */
 import Backbone from 'backbone';
 
-let Group;
-
 export default Group = (function() {
   Group = class Group extends Backbone.Model {
     static initClass() {

@@ -7,7 +7,6 @@
 import Marionette from 'marionette';
 
 import template from 'hbs!templates/notification/notification_message';
-let NotificationMessage;
 
 export default NotificationMessage = (function() {
   NotificationMessage = class NotificationMessage extends Marionette.ItemView {

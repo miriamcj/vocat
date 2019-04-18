@@ -7,7 +7,6 @@
 import Marionette from 'marionette';
 
 import template from 'hbs!templates/group/cell';
-let Cell;
 
 export default Cell = (function() {
   Cell = class Cell extends Marionette.ItemView {

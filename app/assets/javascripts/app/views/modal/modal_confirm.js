@@ -8,7 +8,6 @@
 import Marionette from 'marionette';
 
 import template from 'hbs!templates/modal/modal_confirm';
-let ModalConfirmView;
 
 export default ModalConfirmView = (function() {
   ModalConfirmView = class ModalConfirmView extends Marionette.ItemView {

@@ -6,8 +6,6 @@
  */
 import Backbone from 'backbone';
 
-let UserModel;
-
 export default UserModel = (function() {
   UserModel = class UserModel extends Backbone.Model {
     static initClass() {

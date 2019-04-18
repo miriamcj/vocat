@@ -4,7 +4,6 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let CriteriaItem;
 import Marionette from 'marionette';
 import template from 'hbs!templates/rubric/criteria_item';
 import ShortTextInputView from 'views/property_editor/short_text_input';

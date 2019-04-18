@@ -4,7 +4,6 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let GroupLayout;
 import Marionette from 'marionette';
 import template from 'hbs!templates/group/group_layout';
 import AbstractMatrix from 'views/abstract/abstract_matrix';

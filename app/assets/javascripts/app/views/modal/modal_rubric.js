@@ -5,7 +5,6 @@
  * DS207: Consider shorter variations of null checks
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let ModalProjectDescription;
 import Marionette from 'marionette';
 import template from 'hbs!templates/modal/modal_rubric';
 

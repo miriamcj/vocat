@@ -7,8 +7,6 @@
  */
 import Backbone from 'backbone';
 
-let DiscussionPostModel;
-
 export default DiscussionPostModel = (function() {
   DiscussionPostModel = class DiscussionPostModel extends Backbone.Model {
     static initClass() {

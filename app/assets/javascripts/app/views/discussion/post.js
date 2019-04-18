@@ -10,7 +10,6 @@ import template from 'hbs!templates/discussion/post';
 import DiscussionPostCollection from 'collections/discussion_post_collection';
 import DiscussionPostModel from 'models/discussion_post';
 import DiscussionBaseView from 'views/abstract/abstract_discussion';
-let PostView;
 
 export default PostView = (function() {
   PostView = class PostView extends DiscussionBaseView {

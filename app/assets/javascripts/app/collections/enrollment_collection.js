@@ -10,7 +10,6 @@ import Backbone from 'backbone';
 import EnrollmentModel from 'models/enrollment';
 import UserCollection from 'collections/user_collection';
 import CourseCollection from 'collections/course_collection';
-let EnrollmentCollection;
 
 export default EnrollmentCollection = (function() {
   EnrollmentCollection = class EnrollmentCollection extends Backbone.Collection {

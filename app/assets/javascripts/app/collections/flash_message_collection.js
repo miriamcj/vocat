@@ -7,7 +7,6 @@
 import Backbone from 'backbone';
 
 import FlashMessageModel from 'models/flash_message';
-let FlashMessageCollection;
 
 export default FlashMessageCollection = (function() {
   FlashMessageCollection = class FlashMessageCollection extends Backbone.Collection {

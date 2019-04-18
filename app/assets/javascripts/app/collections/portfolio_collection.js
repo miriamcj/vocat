@@ -8,7 +8,6 @@
 import Backbone from 'backbone';
 
 import SubmissionModel from 'models/submission';
-let PortfolioCollection;
 
 export default PortfolioCollection = (function() {
   PortfolioCollection = class PortfolioCollection extends Backbone.Collection {

@@ -5,8 +5,6 @@
  */
 import Backbone from 'backbone';
 
-let VisitModel;
-
 export default VisitModel = class VisitModel extends Backbone.Model {
 
   url() {

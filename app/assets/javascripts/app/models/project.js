@@ -6,8 +6,6 @@
  */
 import Backbone from 'backbone';
 
-let ProjectModel;
-
 export default ProjectModel = (function() {
   ProjectModel = class ProjectModel extends Backbone.Model {
     static initClass() {

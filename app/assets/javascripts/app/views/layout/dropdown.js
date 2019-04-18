@@ -4,7 +4,6 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let DropdownView;
 import Marionette from 'marionette';
 import ClosesOnUserAction from 'behaviors/closes_on_user_action';
 

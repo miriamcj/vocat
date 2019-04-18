@@ -4,7 +4,6 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let AssetShowLayout;
 import Marionette from 'marionette';
 import template from 'hbs!templates/assets/asset_detail';
 import VideoPlayerView from 'views/assets/player/video_player';

@@ -7,7 +7,6 @@
 import Backbone from 'backbone';
 
 import RowModel from 'models/row';
-let RowCollection;
 
 export default RowCollection = (function() {
   RowCollection = class RowCollection extends Backbone.Collection {

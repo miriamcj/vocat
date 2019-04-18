@@ -8,7 +8,6 @@
 import Marionette from 'marionette';
 
 import template from 'hbs!templates/modal/modal_layout';
-let ModalLayout;
 
 export default ModalLayout = (function() {
   ModalLayout = class ModalLayout extends Marionette.LayoutView {

@@ -7,7 +7,6 @@
 import Backbone from 'backbone';
 
 import RubricProperty from 'models/rubric_property';
-let RangeModel;
 
 export default RangeModel = (function() {
   RangeModel = class RangeModel extends RubricProperty {

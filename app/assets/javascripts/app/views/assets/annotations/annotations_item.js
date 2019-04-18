@@ -4,7 +4,6 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let AnnotationItem;
 import Marionette from 'marionette';
 import template from 'hbs!templates/assets/annotations/annotations_item';
 import ModalConfirmView from 'views/modal/modal_confirm';

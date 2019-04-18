@@ -7,7 +7,6 @@
 import Marionette from 'marionette';
 
 import Template from 'hbs!templates/portfolio/portfolio';
-let PortfolioView;
 
 export default PortfolioView = (function() {
   PortfolioView = class PortfolioView extends Marionette.LayoutView {

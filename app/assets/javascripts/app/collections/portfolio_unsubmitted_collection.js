@@ -7,7 +7,6 @@
 import Backbone from 'backbone';
 
 import ProjectModel from 'models/submission';
-let PortfolioUnsubmittedCollection;
 
 export default PortfolioUnsubmittedCollection = (function() {
   PortfolioUnsubmittedCollection = class PortfolioUnsubmittedCollection extends Backbone.Collection {

@@ -8,7 +8,6 @@
 import Backbone from 'backbone';
 
 import DiscussionPostModel from 'models/discussion_post';
-let DiscussionPostCollection;
 
 export default DiscussionPostCollection = (function() {
   DiscussionPostCollection = class DiscussionPostCollection extends Backbone.Collection {

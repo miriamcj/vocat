@@ -4,7 +4,6 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let SubmissionController;
 import Marionette from 'marionette';
 import VocatController from 'controllers/vocat_controller';
 import CreatorDetailView from 'views/course_map/detail_creator';

@@ -7,7 +7,6 @@
 import Backbone from 'backbone';
 
 import CellModel from 'models/cell';
-let CellCollection;
 
 export default CellCollection = (function() {
   CellCollection = class CellCollection extends Backbone.Collection {

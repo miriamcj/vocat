@@ -9,7 +9,6 @@ import Backbone from 'backbone';
 
 import Placard from 'views/help/placard';
 import template from 'hbs!templates/help/rubric_field_placard';
-let RubricFieldPlacard;
 
 export default RubricFieldPlacard = (function() {
   RubricFieldPlacard = class RubricFieldPlacard extends Placard {

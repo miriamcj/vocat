@@ -7,7 +7,6 @@
 import Backbone from 'backbone';
 
 import AssetModel from 'models/asset';
-let AssetCollection;
 
 export default AssetCollection = (function() {
   AssetCollection = class AssetCollection extends Backbone.Collection {

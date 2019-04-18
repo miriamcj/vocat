@@ -7,8 +7,6 @@
  */
 import Backbone from 'backbone';
 
-let RubricProperty;
-
 export default RubricProperty = (function() {
   RubricProperty = class RubricProperty extends Backbone.Model {
     static initClass() {

@@ -8,7 +8,6 @@
 import Backbone from 'backbone';
 
 import ProjectModel from 'models/project';
-let ProjectCollection;
 
 export default ProjectCollection = (function() {
   ProjectCollection = class ProjectCollection extends Backbone.Collection {

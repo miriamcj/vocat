@@ -4,7 +4,6 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let VideoProgressBarView;
 import Marionette from 'marionette';
 import 'jquery_ui';
 import template from 'hbs!templates/assets/annotator/progress_bar';

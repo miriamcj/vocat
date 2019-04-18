@@ -4,7 +4,6 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let CourseMapCreatorsItem;
 import Marionette from 'marionette';
 import template from 'hbs!templates/course_map/creators_item';
 import ModalGroupMembershipView from 'views/modal/modal_group_membership';

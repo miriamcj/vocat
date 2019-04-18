@@ -8,7 +8,6 @@
 import Backbone from 'backbone';
 
 import GroupModel from 'models/group';
-let GroupCollection;
 
 export default GroupCollection = (function() {
   GroupCollection = class GroupCollection extends Backbone.Collection {

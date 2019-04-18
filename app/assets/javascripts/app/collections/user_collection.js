@@ -8,7 +8,6 @@
 import Backbone from 'backbone';
 
 import UserModel from 'models/user';
-let UserCollection;
 
 export default UserCollection = (function() {
   UserCollection = class UserCollection extends Backbone.Collection {

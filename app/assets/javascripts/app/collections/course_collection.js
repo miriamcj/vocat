@@ -7,7 +7,6 @@
 import Backbone from 'backbone';
 
 import courseModel from 'models/course';
-let CourseCollection;
 
 export default CourseCollection = (function() {
   CourseCollection = class CourseCollection extends Backbone.Collection {

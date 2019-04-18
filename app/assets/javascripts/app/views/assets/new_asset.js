@@ -5,7 +5,6 @@
  * DS207: Consider shorter variations of null checks
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let NewAsset;
 import Marionette from 'marionette';
 import template from 'hbs!templates/assets/new_asset';
 import AssetModel from 'models/asset';

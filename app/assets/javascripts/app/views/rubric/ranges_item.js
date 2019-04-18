@@ -5,7 +5,6 @@
  * DS207: Consider shorter variations of null checks
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let RangesItem;
 import Marionette from 'marionette';
 import template from 'hbs!templates/rubric/ranges_item';
 import LongTextInputView from 'views/property_editor/long_text_input';

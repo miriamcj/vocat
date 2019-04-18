@@ -7,7 +7,6 @@
 import Marionette from 'marionette';
 
 import ProjectTemplate from 'hbs!templates/portfolio/portfolio_item_project';
-let PortfolioItemSubmission;
 
 export default PortfolioItemSubmission = (function() {
   PortfolioItemSubmission = class PortfolioItemSubmission extends Marionette.ItemView {

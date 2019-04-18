@@ -9,7 +9,6 @@ import VocatController from 'controllers/vocat_controller';
 import HelpTestView from 'views/page/help_test';
 import CellModel from 'models/cell';
 import LongTextInputView from 'views/property_editor/long_text_input';
-let PageController;
 
 export default PageController = class PageController extends VocatController {
 

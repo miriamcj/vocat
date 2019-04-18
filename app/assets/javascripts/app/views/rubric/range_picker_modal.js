@@ -6,7 +6,6 @@
  * DS207: Consider shorter variations of null checks
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let RangePickerModalView;
 import template from 'hbs!templates/rubric/range_picker_modal';
 import jqui from 'jquery_ui';
 import Marionette from 'marionette';

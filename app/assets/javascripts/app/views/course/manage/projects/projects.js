@@ -4,7 +4,6 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let Projects;
 import marionette from 'marionette';
 import ProjectCollection from 'collections/project_collection';
 import template from 'hbs!templates/course/manage/projects/projects';

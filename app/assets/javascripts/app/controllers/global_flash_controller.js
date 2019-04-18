@@ -9,7 +9,6 @@ import Marionette from 'marionette';
 import VocatController from 'controllers/vocat_controller';
 import FlashMessageCollection from 'collections/flash_message_collection';
 import FlashMessagesView from 'views/flash/flash_messages';
-let GlobalFlashController;
 
 export default GlobalFlashController = (function() {
   GlobalFlashController = class GlobalFlashController extends VocatController {

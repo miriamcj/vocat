@@ -7,7 +7,6 @@
 import Backbone from 'backbone';
 
 import RubricModel from 'models/rubric';
-let RubricCollection;
 
 export default RubricCollection = (function() {
   RubricCollection = class RubricCollection extends Backbone.Collection {

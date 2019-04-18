@@ -4,7 +4,6 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let AnnotatorCanvasView;
 import Marionette from 'marionette';
 import paper from 'paper';
 import template from 'hbs!templates/assets/annotator/annotator_canvas';

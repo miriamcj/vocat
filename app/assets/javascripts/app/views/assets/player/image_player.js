@@ -4,7 +4,6 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let ImageDisplayerView;
 import Marionette from 'marionette';
 import template from 'hbs!templates/assets/player/image_displayer';
 import PlayerAnnotations from 'views/assets/player/player_annotations';

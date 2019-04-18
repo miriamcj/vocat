@@ -5,8 +5,6 @@
  */
 import Backbone from 'backbone';
 
-let AbstractModel;
-
 export default AbstractModel = class AbstractModel extends Backbone.Model {
 
   toPositiveInt(string) {

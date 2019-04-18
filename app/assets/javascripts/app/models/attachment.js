@@ -6,8 +6,6 @@
  */
 import Backbone from 'backbone';
 
-let AttachmentModel;
-
 export default AttachmentModel = (function() {
   AttachmentModel = class AttachmentModel extends Backbone.Model {
     static initClass() {

@@ -4,7 +4,6 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let ShortTextInput;
 import Marionette from 'marionette';
 import template from 'hbs!templates/property_editor/short_text_input';
 

@@ -5,8 +5,6 @@
  */
 import Backbone from 'backbone';
 
-let GlossaryToggleView;
-
 export default GlossaryToggleView = class GlossaryToggleView extends Backbone.View {
 
   initialize() {

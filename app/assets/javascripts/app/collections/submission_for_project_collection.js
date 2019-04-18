@@ -4,7 +4,6 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let SubmissionForProjectCollection;
 import SubmissionCollection from 'collections/submission_collection';
 
 export default SubmissionForProjectCollection = (function() {

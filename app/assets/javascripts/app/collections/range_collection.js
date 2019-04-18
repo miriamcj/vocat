@@ -7,7 +7,6 @@
 import Backbone from 'backbone';
 
 import RangeModel from 'models/range';
-let RangeCollection;
 
 export default RangeCollection = (function() {
   RangeCollection = class RangeCollection extends Backbone.Collection {

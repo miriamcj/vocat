@@ -6,8 +6,6 @@
  */
 import Backbone from 'backbone';
 
-let VideoModel;
-
 export default VideoModel = (function() {
   VideoModel = class VideoModel extends Backbone.Model {
     static initClass() {

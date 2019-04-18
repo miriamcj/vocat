@@ -4,7 +4,6 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let RubricBuilder;
 import template from 'hbs!templates/rubric/rubric_builder';
 import CriteriaView from 'views/rubric/criteria';
 import RangesView from 'views/rubric/ranges';

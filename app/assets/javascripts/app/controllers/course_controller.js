@@ -4,7 +4,6 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let CourseController;
 import marionette from 'marionette';
 import VocatController from 'controllers/vocat_controller';
 import EnrollmentCollection from 'collections/enrollment_collection';

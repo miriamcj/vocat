@@ -4,7 +4,6 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let EnrollmentBulkInput;
 import Marionette from 'marionette';
 import 'jquery_ui';
 import 'vendor/plugins/ajax_chosen';

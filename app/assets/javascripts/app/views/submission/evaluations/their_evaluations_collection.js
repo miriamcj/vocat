@@ -4,7 +4,6 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let TheirEvaluationsCollection;
 import Marionette from 'marionette';
 import template from 'hbs!templates/submission/evaluations/their_evaluations_collection';
 import ChildView from 'views/submission/evaluations/their_evaluations_child';

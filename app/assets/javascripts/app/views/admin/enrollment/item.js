@@ -5,7 +5,6 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let CreatorEnrollmentItem;
 import Marionette from 'marionette';
 import userItemTemplate from 'hbs!templates/admin/enrollment/list_users_item';
 import courseItemTemplate from 'hbs!templates/admin/enrollment/list_courses_item';

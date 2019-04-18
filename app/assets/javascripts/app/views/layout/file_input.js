@@ -6,7 +6,6 @@
  */
 import $ from 'jquery_rails';
 
-let FileInputView;
 import Marionette from 'marionette';
 
 export default FileInputView = (function() {

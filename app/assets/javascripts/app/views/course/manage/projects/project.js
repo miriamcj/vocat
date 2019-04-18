@@ -4,7 +4,6 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let ProjectView;
 import marionette from 'marionette';
 import Pikaday from 'vendor/plugins/pikaday';
 

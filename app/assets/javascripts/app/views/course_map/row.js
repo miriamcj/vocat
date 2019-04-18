@@ -7,7 +7,6 @@
 import Marionette from 'marionette';
 
 import ItemView from 'views/course_map/cell';
-let Row;
 
 export default Row = (function() {
   Row = class Row extends Marionette.CollectionView {

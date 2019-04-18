@@ -10,7 +10,6 @@ import VocatController from 'controllers/vocat_controller';
 import GroupLayout from 'views/group/group_layout';
 import UserCollection from 'collections/user_collection';
 import GroupCollection from 'collections/group_collection';
-let GroupController;
 
 export default GroupController = (function() {
   GroupController = class GroupController extends VocatController {

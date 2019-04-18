@@ -5,7 +5,6 @@
  * DS207: Consider shorter variations of null checks
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let RubricLayout;
 import template from 'hbs!templates/rubric/rubric_layout';
 import RubricModel from 'models/rubric';
 import RangeModel from 'models/range';

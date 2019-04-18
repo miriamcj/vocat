@@ -7,7 +7,6 @@
 import Marionette from 'marionette';
 
 import template from 'hbs!templates/portfolio/portfolio_item_empty';
-let PortfolioItemEmptyView;
 
 export default PortfolioItemEmptyView = (function() {
   PortfolioItemEmptyView = class PortfolioItemEmptyView extends Marionette.ItemView {

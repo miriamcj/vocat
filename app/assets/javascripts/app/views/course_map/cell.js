@@ -11,7 +11,6 @@ import template from 'hbs!templates/course_map/cell';
 import UserModel from 'models/user';
 import GroupModel from 'models/group';
 import EvaluationModel from 'models/evaluation';
-let Cell;
 
 export default Cell = (function() {
   Cell = class Cell extends Marionette.ItemView {

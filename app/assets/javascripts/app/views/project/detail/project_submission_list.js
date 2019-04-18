@@ -4,7 +4,6 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let ProjectSubmissionListView;
 import Marionette from 'marionette';
 import ProjectSubmissionRowView from 'views/project/detail/project_submission_row';
 import template from 'hbs!templates/project/detail/project_submission_list';

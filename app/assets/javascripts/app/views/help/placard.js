@@ -7,8 +7,6 @@
  */
 import Backbone from 'backbone';
 
-let Placard;
-
 export default Placard = (function() {
   Placard = class Placard extends Backbone.View {
     static initClass() {

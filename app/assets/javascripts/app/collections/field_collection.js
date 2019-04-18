@@ -7,7 +7,6 @@
 import Backbone from 'backbone';
 
 import FieldModel from 'models/field';
-let FieldCollection;
 
 export default FieldCollection = (function() {
   FieldCollection = class FieldCollection extends Backbone.Collection {

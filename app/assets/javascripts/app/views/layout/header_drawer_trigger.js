@@ -3,7 +3,6 @@
  * DS102: Remove unnecessary code created because of implicit returns
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let HeaderDrawerTriggerView;
 import Marionette from 'marionette';
 
 export default HeaderDrawerTriggerView = class HeaderDrawerTriggerView extends Marionette.ItemView {

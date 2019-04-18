@@ -4,7 +4,6 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let CourseMapProjectsItem;
 import Marionette from 'marionette';
 import template from 'hbs!templates/course_map/projects_item';
 import DropdownView from 'views/layout/dropdown';

@@ -7,7 +7,6 @@
 import Marionette from 'marionette';
 
 import Row from 'views/course_map/row';
-let MatrixView;
 
 export default MatrixView = (function() {
   MatrixView = class MatrixView extends Marionette.CollectionView {

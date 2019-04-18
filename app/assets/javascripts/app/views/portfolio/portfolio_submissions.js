@@ -8,7 +8,6 @@ import Marionette from 'marionette';
 
 import PortfolioSubmissionItem from 'views/portfolio/portfolio_submissions_item';
 import EmptyView from 'views/portfolio/portfolio_submissions_item_empty';
-let PortfolioSubmissionsView;
 
 export default PortfolioSubmissionsView = (function() {
   PortfolioSubmissionsView = class PortfolioSubmissionsView extends Marionette.CollectionView {

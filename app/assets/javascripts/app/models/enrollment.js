@@ -6,8 +6,6 @@
  */
 import Backbone from 'backbone';
 
-let EnrollmentModel;
-
 export default EnrollmentModel = (function() {
   EnrollmentModel = class EnrollmentModel extends Backbone.Model {
     static initClass() {

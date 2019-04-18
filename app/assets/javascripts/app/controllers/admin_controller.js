@@ -9,7 +9,6 @@ import Marionette from 'marionette';
 import VocatController from 'controllers/vocat_controller';
 import EnrollmentCollection from 'collections/enrollment_collection';
 import EnrollmentLayout from 'views/admin/enrollment_layout';
-let AdminController;
 
 export default AdminController = (function() {
   AdminController = class AdminController extends VocatController {

@@ -4,7 +4,6 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let GroupsView;
 import Marionette from 'marionette';
 import Item from 'views/group/groups_item';
 import template from 'hbs!templates/group/groups';

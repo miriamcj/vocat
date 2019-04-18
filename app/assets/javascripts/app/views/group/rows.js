@@ -7,7 +7,6 @@
 import Marionette from 'marionette';
 
 import ItemView from 'views/group/row_item';
-let RowsView;
 
 export default RowsView = (function() {
   RowsView = class RowsView extends Marionette.CollectionView {

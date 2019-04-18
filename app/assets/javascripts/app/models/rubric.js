@@ -5,7 +5,6 @@
  * DS207: Consider shorter variations of null checks
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let Rubric;
 import AbstractModel from 'models/abstract_model';
 import FieldCollection from 'collections/field_collection';
 import RangeCollection from 'collections/range_collection';

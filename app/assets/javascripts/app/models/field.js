@@ -7,7 +7,6 @@
 import Backbone from 'backbone';
 
 import RubricProperty from 'models/rubric_property';
-let FieldModel;
 
 export default FieldModel = (function() {
   FieldModel = class FieldModel extends RubricProperty {

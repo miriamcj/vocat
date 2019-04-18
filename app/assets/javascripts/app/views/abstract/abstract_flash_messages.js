@@ -5,7 +5,6 @@
  * DS207: Consider shorter variations of null checks
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-let AbstractFlashMessages;
 import Marionette from 'marionette';
 import ItemView from 'views/flash/flash_messages_item';
 import FlashMessageCollection from 'collections/flash_message_collection';
