@@ -8,7 +8,7 @@ module.exports = function(file, api) {
     .forEach(p => {
       const body = cleanedExport(p.value.declaration);
 
-      return j(p).replaceWith(body);
+      if (body) return j(p).replaceWith(body);
     });
 
   return root.toSource({quote: 'double'});
@@ -21,14 +21,21 @@ module.exports = function(file, api) {
     const identifier = body.left.name;
     const { type, callee } = body.right;
 
-    if (type !== "CallExpression" || callee.type !== "FunctionExpression")
-      return body;
+    if (
+      type !== "ClassExpression" && (
+        type !== "CallExpression" ||
+        callee.type !== "FunctionExpression"
+      )
+    ) return undefined;
 
     // assume structure is ```
     // export default Class = (function() {
     //   Class = class Class extends SuperClass // <= callee.body.body
     // })
-    const exportBody = callee.body.body[0].expression.right;
+    const exportBody =
+      type === "ClassExpression"
+        ? body.right
+        : callee.body.body[0].expression.right;
     const newExportStatement = j.exportDeclaration(true, exportBody);
 
     return newExportStatement;
