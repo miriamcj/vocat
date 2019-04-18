@@ -5,8 +5,8 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let AnnotationsEmptyView;
-const Marionette = require('marionette');
-const template = require('hbs!templates/assets/annotations/annotations_item_empty');
+import Marionette from 'marionette';
+import template from 'hbs!templates/assets/annotations/annotations_item_empty';
 
 export default AnnotationsEmptyView = (function() {
   AnnotationsEmptyView = class AnnotationsEmptyView extends Marionette.ItemView {

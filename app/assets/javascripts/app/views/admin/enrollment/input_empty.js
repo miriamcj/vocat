@@ -5,8 +5,8 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let EnrollmentInputEmpty;
-const Marionette = require('marionette');
-const template = require('hbs!templates/admin/enrollment/input_empty');
+import Marionette from 'marionette';
+import template from 'hbs!templates/admin/enrollment/input_empty';
 
 export default EnrollmentInputEmpty = (function() {
   EnrollmentInputEmpty = class EnrollmentInputEmpty extends Marionette.ItemView {

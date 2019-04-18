@@ -5,8 +5,8 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let MyEvaluationsCreate;
-const Marionette = require('marionette');
-const template = require('hbs!templates/submission/evaluations/my_evaluations_create');
+import Marionette from 'marionette';
+import template from 'hbs!templates/submission/evaluations/my_evaluations_create';
 
 export default MyEvaluationsCreate = (function() {
   MyEvaluationsCreate = class MyEvaluationsCreate extends Marionette.ItemView {

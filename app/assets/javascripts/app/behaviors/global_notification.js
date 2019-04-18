@@ -18,7 +18,7 @@ let GlobalNotification;
 //      @$el.fadeOut(() =>
 //        @$el.remove()
 //      )
-const Marionette = require('marionette');
+import Marionette from 'marionette';
 
 export default GlobalNotification = (function() {
   GlobalNotification = class GlobalNotification extends Marionette.Behavior {

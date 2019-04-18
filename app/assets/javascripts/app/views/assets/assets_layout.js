@@ -6,14 +6,14 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let AssetsLayout;
-const Marionette = require('marionette');
-const template = require('hbs!templates/assets/assets_layout');
-const AssetCollectionView = require('views/assets/asset_collection');
-const NewAssetView = require('views/assets/new_asset');
-const NewAssetFooterView = require('views/assets/new_asset_footer');
-const AssetModel= require('models/asset');
-const AssetDetail = require('views/assets/asset_detail');
-const ModalConfirmView = require('views/modal/modal_confirm');
+import Marionette from 'marionette';
+import template from 'hbs!templates/assets/assets_layout';
+import AssetCollectionView from 'views/assets/asset_collection';
+import NewAssetView from 'views/assets/new_asset';
+import NewAssetFooterView from 'views/assets/new_asset_footer';
+import AssetModel from 'models/asset';
+import AssetDetail from 'views/assets/asset_detail';
+import ModalConfirmView from 'views/modal/modal_confirm';
 
 export default AssetsLayout = (function() {
   AssetsLayout = class AssetsLayout extends Marionette.LayoutView {

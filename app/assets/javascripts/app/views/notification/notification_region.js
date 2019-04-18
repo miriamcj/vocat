@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let NotificationRegion;
-const Marionette = require('marionette');
+import Marionette from 'marionette';
 
 export default NotificationRegion = (function() {
   NotificationRegion = class NotificationRegion extends Marionette.Region {

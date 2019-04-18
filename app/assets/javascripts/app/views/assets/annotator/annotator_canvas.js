@@ -5,10 +5,10 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let AnnotatorCanvasView;
-const Marionette = require('marionette');
-const paper = require('paper');
-const template = require('hbs!templates/assets/annotator/annotator_canvas');
-const ModalConfirmView = require('views/modal/modal_confirm');
+import Marionette from 'marionette';
+import paper from 'paper';
+import template from 'hbs!templates/assets/annotator/annotator_canvas';
+import ModalConfirmView from 'views/modal/modal_confirm';
 
 export default AnnotatorCanvasView = (function() {
   let eraseEnabled = undefined;

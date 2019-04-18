@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let GroupWarning;
-const template = require('hbs!templates/group/group_warning');
+import template from 'hbs!templates/group/group_warning';
 
 export default GroupWarning = (function() {
   GroupWarning = class GroupWarning extends Marionette.ItemView {

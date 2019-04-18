@@ -5,10 +5,10 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let GlobalFlashMessages;
-const AbstractFlashMessages = require('views/abstract/abstract_flash_messages');
-const template = require('hbs!templates/flash/global_flash_messages');
-require('waypoints_sticky');
-require('waypoints');
+import AbstractFlashMessages from 'views/abstract/abstract_flash_messages';
+import template from 'hbs!templates/flash/global_flash_messages';
+import 'waypoints_sticky';
+import 'waypoints';
 
 export default GlobalFlashMessages = (function() {
   GlobalFlashMessages = class GlobalFlashMessages extends AbstractFlashMessages {

@@ -5,8 +5,8 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let UtilityView;
-const Marionette = require('marionette');
-const template = require('hbs!templates/submission/utility/utility');
+import Marionette from 'marionette';
+import template from 'hbs!templates/submission/utility/utility';
 
 export default UtilityView = (function() {
   UtilityView = class UtilityView extends Marionette.ItemView {

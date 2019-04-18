@@ -5,10 +5,10 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let CourseMapDetailCreator;
-const Marionette = require('marionette');
-const template = require('hbs!templates/course_map/detail_creator');
-const PortfolioSubmissionItem = require('views/portfolio/portfolio_submissions_item');
-const ModalGroupMembershipView = require('views/modal/modal_group_membership');
+import Marionette from 'marionette';
+import template from 'hbs!templates/course_map/detail_creator';
+import PortfolioSubmissionItem from 'views/portfolio/portfolio_submissions_item';
+import ModalGroupMembershipView from 'views/modal/modal_group_membership';
 
 export default CourseMapDetailCreator = (function() {
   CourseMapDetailCreator = class CourseMapDetailCreator extends Marionette.CompositeView {

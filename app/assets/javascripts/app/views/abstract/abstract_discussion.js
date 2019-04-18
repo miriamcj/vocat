@@ -6,11 +6,11 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let DiscussionView;
-const Marionette = require('marionette');
-const template = require('hbs!templates/discussion/discussion');
-const DiscusionPostCollection = require('collections/discussion_post_collection');
-const DiscussionPostModel = require('models/discussion_post');
-const FlashMessagesView = require('views/flash/flash_messages');
+import Marionette from 'marionette';
+import template from 'hbs!templates/discussion/discussion';
+import DiscusionPostCollection from 'collections/discussion_post_collection';
+import DiscussionPostModel from 'models/discussion_post';
+import FlashMessagesView from 'views/flash/flash_messages';
 
 export default DiscussionView = (function() {
   DiscussionView = class DiscussionView extends Marionette.CompositeView {

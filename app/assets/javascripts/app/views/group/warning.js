@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let Warning;
-const template = require('hbs!templates/group/warning');
+import template from 'hbs!templates/group/warning';
 
 export default Warning = (function() {
   Warning = class Warning extends Marionette.ItemView {

@@ -6,8 +6,8 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let ApplicationError;
-const Marionette = require('marionette');
-const template = require('hbs!templates/error/application_error');
+import Marionette from 'marionette';
+import template from 'hbs!templates/error/application_error';
 
 export default ApplicationError = (function() {
   ApplicationError = class ApplicationError extends Marionette.ItemView {

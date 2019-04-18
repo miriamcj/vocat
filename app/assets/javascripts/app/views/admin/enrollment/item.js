@@ -6,9 +6,9 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let CreatorEnrollmentItem;
-const Marionette = require('marionette');
-const userItemTemplate = require('hbs!templates/admin/enrollment/list_users_item');
-const courseItemTemplate = require('hbs!templates/admin/enrollment/list_courses_item');
+import Marionette from 'marionette';
+import userItemTemplate from 'hbs!templates/admin/enrollment/list_users_item';
+import courseItemTemplate from 'hbs!templates/admin/enrollment/list_courses_item';
 
 export default CreatorEnrollmentItem = (function() {
   CreatorEnrollmentItem = class CreatorEnrollmentItem extends Marionette.ItemView {

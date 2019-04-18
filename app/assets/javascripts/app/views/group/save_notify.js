@@ -5,9 +5,9 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let SaveNotify;
-const Marionette = require('marionette');
-const template = require('hbs!templates/group/save_notify');
-const GlobalNotification = require('behaviors/global_notification');
+import Marionette from 'marionette';
+import template from 'hbs!templates/group/save_notify';
+import GlobalNotification from 'behaviors/global_notification';
 
 export default SaveNotify = (function() {
   SaveNotify = class SaveNotify extends Marionette.ItemView {

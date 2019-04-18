@@ -5,11 +5,11 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let TheirEvaluations;
-const Marionette = require('marionette');
-const template = require('hbs!templates/submission/evaluations/their_evaluations');
-const TheirEvaluationsCollection = require('views/submission/evaluations/their_evaluations_collection');
-const CollectionProxy = require('collections/collection_proxy');
-const EvaluationSetModel = require('models/evaluation_set');
+import Marionette from 'marionette';
+import template from 'hbs!templates/submission/evaluations/their_evaluations';
+import TheirEvaluationsCollection from 'views/submission/evaluations/their_evaluations_collection';
+import CollectionProxy from 'collections/collection_proxy';
+import EvaluationSetModel from 'models/evaluation_set';
 
 export default TheirEvaluations = (function() {
   TheirEvaluations = class TheirEvaluations extends Marionette.CompositeView {

@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let ClosesOnUserAction;
-const Marionette = require('marionette');
+import Marionette from 'marionette';
 
 export default ClosesOnUserAction = (function() {
   ClosesOnUserAction = class ClosesOnUserAction extends Marionette.Behavior {

@@ -5,8 +5,8 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let ProjectScoreOverview;
-const Marionette = require('marionette');
-const template = require('hbs!templates/project/detail/project_score_overview');
+import Marionette from 'marionette';
+import template from 'hbs!templates/project/detail/project_score_overview';
 
 export default ProjectScoreOverview = (function() {
   ProjectScoreOverview = class ProjectScoreOverview extends Marionette.ItemView {

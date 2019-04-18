@@ -6,11 +6,11 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let ProjectController;
-const VocatController = require('controllers/vocat_controller');
-const UserCollection = require('collections/user_collection');
-const ProjectCollection = require('collections/project_collection');
-const ProjectDetail = require('views/project/detail');
-const ApplicationErrorView = require('views/error/application_error');
+import VocatController from 'controllers/vocat_controller';
+import UserCollection from 'collections/user_collection';
+import ProjectCollection from 'collections/project_collection';
+import ProjectDetail from 'views/project/detail';
+import ApplicationErrorView from 'views/error/application_error';
 
 export default ProjectController = (function() {
   ProjectController = class ProjectController extends VocatController {

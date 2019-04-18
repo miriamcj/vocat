@@ -5,10 +5,10 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let CriteriaItem;
-const Marionette = require('marionette');
-const template = require('hbs!templates/rubric/criteria_item');
-const ShortTextInputView = require('views/property_editor/short_text_input');
-const ModalConfirmView = require('views/modal/modal_confirm');
+import Marionette from 'marionette';
+import template from 'hbs!templates/rubric/criteria_item';
+import ShortTextInputView from 'views/property_editor/short_text_input';
+import ModalConfirmView from 'views/modal/modal_confirm';
 
 export default CriteriaItem = (function() {
   CriteriaItem = class CriteriaItem extends Marionette.ItemView {

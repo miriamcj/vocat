@@ -5,14 +5,14 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let EnrollmentUserInput;
-const Marionette = require('marionette');
-const usersTemplate = require('hbs!templates/admin/enrollment/user_input');
-const coursesTemplate = require('hbs!templates/admin/enrollment/course_input');
-const ItemView = require('views/admin/enrollment/input_item');
-const EmptyView = require('views/admin/enrollment/input_empty');
-const ClosesOnUserAction = require('behaviors/closes_on_user_action');
-require('jquery_ui');
-require('vendor/plugins/ajax_chosen');
+import Marionette from 'marionette';
+import usersTemplate from 'hbs!templates/admin/enrollment/user_input';
+import coursesTemplate from 'hbs!templates/admin/enrollment/course_input';
+import ItemView from 'views/admin/enrollment/input_item';
+import EmptyView from 'views/admin/enrollment/input_empty';
+import ClosesOnUserAction from 'behaviors/closes_on_user_action';
+import 'jquery_ui';
+import 'vendor/plugins/ajax_chosen';
 
 export default EnrollmentUserInput = (function() {
   EnrollmentUserInput = class EnrollmentUserInput extends Marionette.CompositeView {

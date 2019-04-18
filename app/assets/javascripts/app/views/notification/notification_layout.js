@@ -6,11 +6,11 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let NotificationLayout;
-const Marionette = require('marionette');
-const template = require('hbs!templates/notification/notification_layout');
-const NotificationMessage = require('views/notification/notification_message');
-const NotificationRegion = require('views/notification/notification_region');
-const FlashMessageModel = require('models/flash_message');
+import Marionette from 'marionette';
+import template from 'hbs!templates/notification/notification_layout';
+import NotificationMessage from 'views/notification/notification_message';
+import NotificationRegion from 'views/notification/notification_region';
+import FlashMessageModel from 'models/flash_message';
 
 export default NotificationLayout = (function() {
   let notificationRegion = undefined;

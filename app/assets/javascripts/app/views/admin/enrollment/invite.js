@@ -5,8 +5,8 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let Invite;
-const Marionette = require('marionette');
-const template = require('hbs!templates/admin/enrollment/invite');
+import Marionette from 'marionette';
+import template from 'hbs!templates/admin/enrollment/invite';
 
 export default Invite = (function() {
   Invite = class Invite extends Marionette.ItemView {

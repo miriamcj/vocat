@@ -5,15 +5,15 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let AssetShowLayout;
-const Marionette = require('marionette');
-const template = require('hbs!templates/assets/asset_detail');
-const VideoPlayerView = require('views/assets/player/video_player');
-const ImagePlayerView = require('views/assets/player/image_player');
-const ProcessingWarningView = require('views/assets/player/processing_warning');
-const AnnotatorView = require('views/assets/annotator/annotator');
-const AnnotatorCanvasView = require('views/assets/annotator/annotator_canvas');
-const MockCanvasView = require('views/assets/annotator/mock_canvas');
-const AnnotationsView = require('views/assets/annotations/annotations');
+import Marionette from 'marionette';
+import template from 'hbs!templates/assets/asset_detail';
+import VideoPlayerView from 'views/assets/player/video_player';
+import ImagePlayerView from 'views/assets/player/image_player';
+import ProcessingWarningView from 'views/assets/player/processing_warning';
+import AnnotatorView from 'views/assets/annotator/annotator';
+import AnnotatorCanvasView from 'views/assets/annotator/annotator_canvas';
+import MockCanvasView from 'views/assets/annotator/mock_canvas';
+import AnnotationsView from 'views/assets/annotations/annotations';
 
 export default AssetShowLayout = (function() {
   AssetShowLayout = class AssetShowLayout extends Marionette.LayoutView {

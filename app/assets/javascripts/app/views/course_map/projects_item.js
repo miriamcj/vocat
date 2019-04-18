@@ -5,10 +5,10 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let CourseMapProjectsItem;
-const Marionette = require('marionette');
-const template = require('hbs!templates/course_map/projects_item');
-const DropdownView = require('views/layout/dropdown');
-const ModalConfirmView = require('views/modal/modal_confirm');
+import Marionette from 'marionette';
+import template from 'hbs!templates/course_map/projects_item';
+import DropdownView from 'views/layout/dropdown';
+import ModalConfirmView from 'views/modal/modal_confirm';
 
 export default CourseMapProjectsItem = (function() {
   CourseMapProjectsItem = class CourseMapProjectsItem extends Marionette.ItemView {

@@ -5,8 +5,8 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let ProgressBarAnnotation;
-const Marionette = require('marionette');
-const template = require('hbs!templates/assets/annotator/progress_bar_annotation');
+import Marionette from 'marionette';
+import template from 'hbs!templates/assets/annotator/progress_bar_annotation';
 
 export default ProgressBarAnnotation = (function() {
   ProgressBarAnnotation = class ProgressBarAnnotation extends Marionette.ItemView {

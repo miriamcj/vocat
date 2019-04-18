@@ -6,7 +6,7 @@
 import $ from 'jquery_rails';
 
 let JumpNavView;
-const Marionette = require('marionette');
+import Marionette from 'marionette';
 
 export default JumpNavView = class JumpNavView extends Marionette.ItemView {
 

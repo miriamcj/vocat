@@ -5,10 +5,10 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let ProjectRowView;
-const marionette = require('marionette');
-const template = require('hbs!templates/course/manage/projects/project_row');
-const DropdownView = require('views/layout/dropdown');
-const ModalConfirmView = require('views/modal/modal_confirm');
+import marionette from 'marionette';
+import template from 'hbs!templates/course/manage/projects/project_row';
+import DropdownView from 'views/layout/dropdown';
+import ModalConfirmView from 'views/modal/modal_confirm';
 
 export default ProjectRowView = (function() {
   ProjectRowView = class ProjectRowView extends Marionette.ItemView {

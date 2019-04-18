@@ -6,9 +6,9 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let ModalGroupMembershipView;
-const Marionette = require('marionette');
-const template = require('hbs!templates/modal/modal_group_membership');
-const GroupModel = require('models/group');
+import Marionette from 'marionette';
+import template from 'hbs!templates/modal/modal_group_membership';
+import GroupModel from 'models/group';
 
 export default ModalGroupMembershipView = (function() {
   ModalGroupMembershipView = class ModalGroupMembershipView extends Marionette.ItemView {

@@ -6,12 +6,12 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let VideoPlayerView;
-const Marionette = require('marionette');
-let vjsAnnotations = require('vendor/video_js/vjs.annotations');
+import Marionette from 'marionette';
+import vjsAnnotations from 'vendor/video_js/vjs.annotations';
 vjsAnnotations = require('vendor/video_js/vjs.rewind');
-const vjsAudioWave = require('vendor/video_js/vjs.audiowave');
-const template = require('hbs!templates/assets/player/video_player');
-const PlayerAnnotations = require('views/assets/player/player_annotations');
+import vjsAudioWave from 'vendor/video_js/vjs.audiowave';
+import template from 'hbs!templates/assets/player/video_player';
+import PlayerAnnotations from 'views/assets/player/player_annotations';
 
 export default VideoPlayerView = (function() {
   VideoPlayerView = class VideoPlayerView extends Marionette.ItemView {

@@ -5,9 +5,9 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let ConfirmInvite;
-const Marionette = require('marionette');
-const template = require('hbs!templates/admin/enrollment/confirm_invite');
-const GlobalNotification = require('behaviors/global_notification');
+import Marionette from 'marionette';
+import template from 'hbs!templates/admin/enrollment/confirm_invite';
+import GlobalNotification from 'behaviors/global_notification';
 
 export default ConfirmInvite = (function() {
   ConfirmInvite = class ConfirmInvite extends Marionette.ItemView {

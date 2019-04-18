@@ -5,9 +5,9 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let GroupsView;
-const Marionette = require('marionette');
-const Item = require('views/group/groups_item');
-const template = require('hbs!templates/group/groups');
+import Marionette from 'marionette';
+import Item from 'views/group/groups_item';
+import template from 'hbs!templates/group/groups';
 
 export default GroupsView = (function() {
   GroupsView = class GroupsView extends Marionette.CompositeView {

@@ -6,9 +6,9 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let AnnotatorInputView;
-const Marionette = require('marionette');
-const template = require('hbs!templates/assets/annotator/annotator_input');
-const AnnotationModel = require('models/annotation');
+import Marionette from 'marionette';
+import template from 'hbs!templates/assets/annotator/annotator_input';
+import AnnotationModel from 'models/annotation';
 
 export default AnnotatorInputView = (function() {
   AnnotatorInputView = class AnnotatorInputView extends Marionette.ItemView {

@@ -5,8 +5,8 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let AssetModel;
-const Backbone = require('backbone');
-const AnnotationCollection = require('collections/annotation_collection');
+import Backbone from 'backbone';
+import AnnotationCollection from 'collections/annotation_collection';
 
 export default AssetModel = (function() {
   AssetModel = class AssetModel extends Backbone.Model {

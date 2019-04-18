@@ -6,21 +6,21 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let CourseMapController;
-const VocatController = require('controllers/vocat_controller');
-const UserCollection = require('collections/user_collection');
-const ProjectCollection = require('collections/project_collection');
-const SubmissionForCourseCollection = require('collections/submission_for_course_collection');
-const GroupSubmissionCollection = require('collections/submission_for_group_collection');
-const CourseUserSubmissionCollection = require('collections/submission_for_course_user_collection');
-const GroupCollection = require('collections/group_collection');
-const AssetCollection = require('collections/asset_collection');
-const AssetDetail = require('views/assets/asset_detail');
-const CourseMap = require('views/course_map/course_map');
-const SubmissionDetail = require('views/submission/submission_layout');
-const CreatorDetail = require('views/course_map/detail_creator');
-const ProjectDetail = require('views/project/detail');
-const ApplicationErrorView = require('views/error/application_error');
-const AssetModel = require('models/asset');
+import VocatController from 'controllers/vocat_controller';
+import UserCollection from 'collections/user_collection';
+import ProjectCollection from 'collections/project_collection';
+import SubmissionForCourseCollection from 'collections/submission_for_course_collection';
+import GroupSubmissionCollection from 'collections/submission_for_group_collection';
+import CourseUserSubmissionCollection from 'collections/submission_for_course_user_collection';
+import GroupCollection from 'collections/group_collection';
+import AssetCollection from 'collections/asset_collection';
+import AssetDetail from 'views/assets/asset_detail';
+import CourseMap from 'views/course_map/course_map';
+import SubmissionDetail from 'views/submission/submission_layout';
+import CreatorDetail from 'views/course_map/detail_creator';
+import ProjectDetail from 'views/project/detail';
+import ApplicationErrorView from 'views/error/application_error';
+import AssetModel from 'models/asset';
 
 export default CourseMapController = (function() {
   CourseMapController = class CourseMapController extends VocatController {

@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let ManageOrganizationView;
-const marionette = require('marionette');
+import marionette from 'marionette';
 
 export default ManageOrganizationView = (function() {
   ManageOrganizationView = class ManageOrganizationView extends Marionette.ItemView {

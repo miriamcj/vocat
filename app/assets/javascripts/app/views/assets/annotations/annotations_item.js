@@ -5,9 +5,9 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let AnnotationItem;
-const Marionette = require('marionette');
-const template = require('hbs!templates/assets/annotations/annotations_item');
-const ModalConfirmView = require('views/modal/modal_confirm');
+import Marionette from 'marionette';
+import template from 'hbs!templates/assets/annotations/annotations_item';
+import ModalConfirmView from 'views/modal/modal_confirm';
 
 export default AnnotationItem = (function() {
   AnnotationItem = class AnnotationItem extends Marionette.ItemView {

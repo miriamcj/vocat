@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let MockCanvasView;
-const Marionette = require('marionette');
+import Marionette from 'marionette';
 
 export default MockCanvasView = (function() {
   MockCanvasView = class MockCanvasView extends Marionette.ItemView {

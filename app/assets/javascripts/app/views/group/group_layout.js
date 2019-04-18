@@ -5,16 +5,16 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let GroupLayout;
-const Marionette = require('marionette');
-const template = require('hbs!templates/group/group_layout');
-const AbstractMatrix = require('views/abstract/abstract_matrix');
-const CreatorsView = require('views/group/creators');
-const GroupsView = require('views/group/groups');
-const ModalConfirmView = require('views/modal/modal_confirm');
-const GroupMatrixView = require('views/group/matrix');
-const SaveNotifyView = require('views/group/save_notify');
-const WarningView = require('views/group/warning');
-const GroupWarningView = require('views/group/group_warning');
+import Marionette from 'marionette';
+import template from 'hbs!templates/group/group_layout';
+import AbstractMatrix from 'views/abstract/abstract_matrix';
+import CreatorsView from 'views/group/creators';
+import GroupsView from 'views/group/groups';
+import ModalConfirmView from 'views/modal/modal_confirm';
+import GroupMatrixView from 'views/group/matrix';
+import SaveNotifyView from 'views/group/save_notify';
+import WarningView from 'views/group/warning';
+import GroupWarningView from 'views/group/group_warning';
 
 export default GroupLayout = (function() {
   GroupLayout = class GroupLayout extends AbstractMatrix {

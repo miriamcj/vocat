@@ -5,18 +5,18 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let SubmissionController;
-const Marionette = require('marionette');
-const VocatController = require('controllers/vocat_controller');
-const CreatorDetailView = require('views/course_map/detail_creator');
-const SubmissionLayoutView = require('views/submission/submission_layout');
-const CourseUserSubmissionCollection = require('collections/submission_for_course_user_collection');
-const GroupSubmissionCollection = require('collections/submission_for_group_collection');
-const ProjectCollection = require('collections/project_collection');
-const UserCollection = require('collections/user_collection');
-const GroupCollection = require('collections/group_collection');
-const AssetCollection = require('collections/asset_collection');
-const AssetModel= require('models/asset');
-const AssetDetail = require('views/assets/asset_detail');
+import Marionette from 'marionette';
+import VocatController from 'controllers/vocat_controller';
+import CreatorDetailView from 'views/course_map/detail_creator';
+import SubmissionLayoutView from 'views/submission/submission_layout';
+import CourseUserSubmissionCollection from 'collections/submission_for_course_user_collection';
+import GroupSubmissionCollection from 'collections/submission_for_group_collection';
+import ProjectCollection from 'collections/project_collection';
+import UserCollection from 'collections/user_collection';
+import GroupCollection from 'collections/group_collection';
+import AssetCollection from 'collections/asset_collection';
+import AssetModel from 'models/asset';
+import AssetDetail from 'views/assets/asset_detail';
 
 export default SubmissionController = (function() {
   SubmissionController = class SubmissionController extends VocatController {

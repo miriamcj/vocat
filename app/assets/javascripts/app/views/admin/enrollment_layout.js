@@ -5,13 +5,13 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let CreatorEnrollmentLayout;
-const Marionette =            require('marionette');
-const template =              require('hbs!templates/admin/enrollment_layout');
-const EnrollmentList =        require('views/admin/enrollment/list');
-const EnrollmentInput =       require('views/admin/enrollment/input');
-const EnrollmentBulkInput =   require('views/admin/enrollment/bulk_input');
-const SingleInvite = require('views/admin/enrollment/invite');
-const Flash = require('views/flash/flash_messages');
+import Marionette from 'marionette';
+import template from 'hbs!templates/admin/enrollment_layout';
+import EnrollmentList from 'views/admin/enrollment/list';
+import EnrollmentInput from 'views/admin/enrollment/input';
+import EnrollmentBulkInput from 'views/admin/enrollment/bulk_input';
+import SingleInvite from 'views/admin/enrollment/invite';
+import Flash from 'views/flash/flash_messages';
 
 export default CreatorEnrollmentLayout = (function() {
   CreatorEnrollmentLayout = class CreatorEnrollmentLayout extends Marionette.LayoutView {

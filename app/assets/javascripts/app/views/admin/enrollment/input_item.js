@@ -6,9 +6,9 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let EnrollmentUserInputItem;
-const Marionette = require('marionette');
-const courseTemplate = require('hbs!templates/admin/enrollment/course_input_item');
-const userTemplate = require('hbs!templates/admin/enrollment/user_input_item');
+import Marionette from 'marionette';
+import courseTemplate from 'hbs!templates/admin/enrollment/course_input_item';
+import userTemplate from 'hbs!templates/admin/enrollment/user_input_item';
 
 export default EnrollmentUserInputItem = (function() {
   EnrollmentUserInputItem = class EnrollmentUserInputItem extends Marionette.ItemView {

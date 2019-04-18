@@ -5,10 +5,10 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let TheirEvaluationsCollection;
-const Marionette = require('marionette');
-const template = require('hbs!templates/submission/evaluations/their_evaluations_collection');
-const ChildView = require('views/submission/evaluations/their_evaluations_child');
-const ExpandableRange = require('behaviors/expandable_range');
+import Marionette from 'marionette';
+import template from 'hbs!templates/submission/evaluations/their_evaluations_collection';
+import ChildView from 'views/submission/evaluations/their_evaluations_child';
+import ExpandableRange from 'behaviors/expandable_range';
 
 export default TheirEvaluationsCollection = (function() {
   TheirEvaluationsCollection = class TheirEvaluationsCollection extends Marionette.CompositeView {

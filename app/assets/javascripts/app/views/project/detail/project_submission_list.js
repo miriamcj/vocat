@@ -5,9 +5,9 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let ProjectSubmissionListView;
-const Marionette = require('marionette');
-const ProjectSubmissionRowView = require('views/project/detail/project_submission_row');
-const template = require('hbs!templates/project/detail/project_submission_list');
+import Marionette from 'marionette';
+import ProjectSubmissionRowView from 'views/project/detail/project_submission_row';
+import template from 'hbs!templates/project/detail/project_submission_list';
 
 export default ProjectSubmissionListView = (function() {
   ProjectSubmissionListView = class ProjectSubmissionListView extends Marionette.CompositeView {

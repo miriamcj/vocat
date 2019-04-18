@@ -6,10 +6,10 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let AnnotationsView;
-const Marionette = require('marionette');
-const template = require('hbs!templates/assets/annotations/annotations');
-const ItemView = require('views/assets/annotations/annotations_item');
-const EmptyView = require('views/assets/annotations/annotations_item_empty');
+import Marionette from 'marionette';
+import template from 'hbs!templates/assets/annotations/annotations';
+import ItemView from 'views/assets/annotations/annotations_item';
+import EmptyView from 'views/assets/annotations/annotations_item_empty';
 
 export default AnnotationsView = (function() {
   AnnotationsView = class AnnotationsView extends Marionette.CompositeView {

@@ -5,9 +5,9 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let ProjectSubmissionRowView;
-const Marionette = require('marionette');
-const template = require('hbs!templates/project/detail/project_submission_row');
-const Backbone = require('backbone');
+import Marionette from 'marionette';
+import template from 'hbs!templates/project/detail/project_submission_row';
+import Backbone from 'backbone';
 
 export default ProjectSubmissionRowView = (function() {
   ProjectSubmissionRowView = class ProjectSubmissionRowView extends Marionette.ItemView {

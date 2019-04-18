@@ -5,15 +5,15 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let CourseMapLayout;
-const template = require('hbs!templates/course_map/course_map_layout');
-const Backbone = require('backbone');
-const CollectionProxy = require('collections/collection_proxy');
-const CourseMapProjects = require('views/course_map/projects');
-const CourseMapCreators = require('views/course_map/creators');
-const CourseMapMatrix = require('views/course_map/matrix');
-const CourseMapDetailCreator = require('views/course_map/detail_creator');
-const WarningView = require('views/course_map/warning');
-const AbstractMatrix = require('views/abstract/abstract_matrix');
+import template from 'hbs!templates/course_map/course_map_layout';
+import Backbone from 'backbone';
+import CollectionProxy from 'collections/collection_proxy';
+import CourseMapProjects from 'views/course_map/projects';
+import CourseMapCreators from 'views/course_map/creators';
+import CourseMapMatrix from 'views/course_map/matrix';
+import CourseMapDetailCreator from 'views/course_map/detail_creator';
+import WarningView from 'views/course_map/warning';
+import AbstractMatrix from 'views/abstract/abstract_matrix';
 
 export default CourseMapLayout = (function() {
   CourseMapLayout = class CourseMapLayout extends AbstractMatrix {

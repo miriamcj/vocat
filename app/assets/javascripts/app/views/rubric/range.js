@@ -6,11 +6,11 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let RangeView;
-const Marionette = require('marionette');
-const template = require('hbs!templates/rubric/range');
-const ItemView = require('views/rubric/ranges_item');
-const ModalConfirmView = require('views/modal/modal_confirm');
-const ShortTextInputView = require('views/property_editor/short_text_input');
+import Marionette from 'marionette';
+import template from 'hbs!templates/rubric/range';
+import ItemView from 'views/rubric/ranges_item';
+import ModalConfirmView from 'views/modal/modal_confirm';
+import ShortTextInputView from 'views/property_editor/short_text_input';
 
 export default RangeView = (function() {
   RangeView = class RangeView extends Marionette.CompositeView {

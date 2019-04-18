@@ -6,6 +6,6 @@
 let FlashMessages;
 
 // No overrides, as of yet.
-const AbstractFlashMessages = require('views/abstract/abstract_flash_messages');
+import AbstractFlashMessages from 'views/abstract/abstract_flash_messages';
 
 export default FlashMessages = class FlashMessages extends AbstractFlashMessages {};

@@ -6,9 +6,9 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let AbstractMatrix;
-const Marionette = require('marionette');
-require('waypoints_sticky');
-require('waypoints');
+import Marionette from 'marionette';
+import 'waypoints_sticky';
+import 'waypoints';
 
 export default AbstractMatrix = (function() {
   AbstractMatrix = class AbstractMatrix extends Marionette.LayoutView {

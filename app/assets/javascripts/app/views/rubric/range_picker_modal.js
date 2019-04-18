@@ -7,9 +7,9 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let RangePickerModalView;
-const template = require('hbs!templates/rubric/range_picker_modal');
-const jqui = require('jquery_ui');
-const Marionette= require('marionette');
+import template from 'hbs!templates/rubric/range_picker_modal';
+import jqui from 'jquery_ui';
+import Marionette from 'marionette';
 
 export default RangePickerModalView = (function() {
   RangePickerModalView = class RangePickerModalView extends Marionette.ItemView {

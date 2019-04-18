@@ -5,9 +5,9 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let SubmissionCollection;
-const Marionette = require('marionette');
-const Backbone = require('backbone');
-const SubmissionModel = require('models/submission');
+import Marionette from 'marionette';
+import Backbone from 'backbone';
+import SubmissionModel from 'models/submission';
 
 export default SubmissionCollection = (function() {
   SubmissionCollection = class SubmissionCollection extends Backbone.Collection {

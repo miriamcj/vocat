@@ -5,18 +5,18 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let SubmissionLayout;
-const Marionette = require('marionette');
-const template = require('hbs!templates/submission/submission_layout');
-const DiscussionView = require('views/discussion/discussion');
-const EvaluationsView = require('views/submission/evaluations/evaluations_layout');
-const AssetsView = require('views/assets/assets_layout');
-const UtilityView = require('views/submission/utility/utility');
-const ModalGroupMembershipView = require('views/modal/modal_group_membership');
-const ProjectModalView = require('views/modal/modal_project_description');
-const RubricModalView = require('views/modal/modal_rubric');
-const MarkdownOverviewModalView = require('views/modal/modal_markdown_overview');
-const RubricModel = require('models/rubric');
-const VisitCollection = require('collections/visit_collection');
+import Marionette from 'marionette';
+import template from 'hbs!templates/submission/submission_layout';
+import DiscussionView from 'views/discussion/discussion';
+import EvaluationsView from 'views/submission/evaluations/evaluations_layout';
+import AssetsView from 'views/assets/assets_layout';
+import UtilityView from 'views/submission/utility/utility';
+import ModalGroupMembershipView from 'views/modal/modal_group_membership';
+import ProjectModalView from 'views/modal/modal_project_description';
+import RubricModalView from 'views/modal/modal_rubric';
+import MarkdownOverviewModalView from 'views/modal/modal_markdown_overview';
+import RubricModel from 'models/rubric';
+import VisitCollection from 'collections/visit_collection';
 
 export default SubmissionLayout = (function() {
   SubmissionLayout = class SubmissionLayout extends Marionette.LayoutView {

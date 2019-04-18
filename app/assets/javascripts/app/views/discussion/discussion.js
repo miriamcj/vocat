@@ -5,12 +5,12 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let DiscussionView;
-const Marionette = require('marionette');
-const template = require('hbs!templates/discussion/discussion');
-const DiscussionPostCollection = require('collections/discussion_post_collection');
-const PostView = require('views/discussion/post');
-const AbstractDiscussionView = require('views/abstract/abstract_discussion');
-const DiscussionPostModel = require('models/discussion_post');
+import Marionette from 'marionette';
+import template from 'hbs!templates/discussion/discussion';
+import DiscussionPostCollection from 'collections/discussion_post_collection';
+import PostView from 'views/discussion/post';
+import AbstractDiscussionView from 'views/abstract/abstract_discussion';
+import DiscussionPostModel from 'models/discussion_post';
 
 export default DiscussionView = (function() {
   DiscussionView = class DiscussionView extends AbstractDiscussionView {

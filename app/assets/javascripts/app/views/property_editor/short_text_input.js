@@ -5,8 +5,8 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let ShortTextInput;
-const Marionette = require('marionette');
-const template = require('hbs!templates/property_editor/short_text_input');
+import Marionette from 'marionette';
+import template from 'hbs!templates/property_editor/short_text_input';
 
 export default ShortTextInput = (function() {
   ShortTextInput = class ShortTextInput extends Marionette.ItemView {

@@ -6,8 +6,8 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let EvaluationModel;
-const Bacbone = require('backbone');
-const ScoreCollection = require('collections/score_collection');
+import Bacbone from 'backbone';
+import ScoreCollection from 'collections/score_collection';
 
 export default EvaluationModel = (function() {
   EvaluationModel = class EvaluationModel extends Backbone.Model {

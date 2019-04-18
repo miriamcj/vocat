@@ -5,8 +5,8 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let Criteria;
-const template = require('hbs!templates/rubric/criteria');
-const ItemView = require('views/rubric/criteria_item');
+import template from 'hbs!templates/rubric/criteria';
+import ItemView from 'views/rubric/criteria_item';
 
 
 export default Criteria = (function() {

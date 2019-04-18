@@ -5,8 +5,8 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let AssetCollectionEmpty;
-const Marionette = require('marionette');
-const template = require('hbs!templates/assets/asset_collection_empty');
+import Marionette from 'marionette';
+import template from 'hbs!templates/assets/asset_collection_empty';
 
 export default AssetCollectionEmpty = (function() {
   AssetCollectionEmpty = class AssetCollectionEmpty extends Marionette.ItemView {

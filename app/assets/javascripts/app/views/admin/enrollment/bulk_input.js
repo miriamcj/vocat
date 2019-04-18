@@ -5,11 +5,11 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let EnrollmentBulkInput;
-const Marionette = require('marionette');
-require('jquery_ui');
-require('vendor/plugins/ajax_chosen');
-const ConfirmInvite =   require('views/admin/enrollment/confirm_invite');
-const template = require('hbs!templates/admin/enrollment/bulk_input');
+import Marionette from 'marionette';
+import 'jquery_ui';
+import 'vendor/plugins/ajax_chosen';
+import ConfirmInvite from 'views/admin/enrollment/confirm_invite';
+import template from 'hbs!templates/admin/enrollment/bulk_input';
 
 export default EnrollmentBulkInput = (function() {
   EnrollmentBulkInput = class EnrollmentBulkInput extends Marionette.LayoutView {

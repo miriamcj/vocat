@@ -6,15 +6,14 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let EnrollmentUserList;
-const Marionette = require('marionette');
-const ItemView = require('views/admin/enrollment/item');
-const EmptyCoursesView = require('views/admin/enrollment/empty_courses');
-const EmptyUsersView = require('views/admin/enrollment/empty_users');
-const templateCourses = require('hbs!templates/admin/enrollment/list_courses');
-const templateUsers = require('hbs!templates/admin/enrollment/list_users');
-
-require('jquery_ui');
-require('vendor/plugins/ajax_chosen');
+import Marionette from 'marionette';
+import ItemView from 'views/admin/enrollment/item';
+import EmptyCoursesView from 'views/admin/enrollment/empty_courses';
+import EmptyUsersView from 'views/admin/enrollment/empty_users';
+import templateCourses from 'hbs!templates/admin/enrollment/list_courses';
+import templateUsers from 'hbs!templates/admin/enrollment/list_users';
+import 'jquery_ui';
+import 'vendor/plugins/ajax_chosen';
 
 export default EnrollmentUserList = (function() {
   EnrollmentUserList = class EnrollmentUserList extends Marionette.CompositeView {

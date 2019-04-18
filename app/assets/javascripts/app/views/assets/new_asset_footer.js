@@ -5,8 +5,8 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let NewAssetFooter;
-const Marionette = require('marionette');
-const template = require('hbs!templates/assets/new_asset_footer');
+import Marionette from 'marionette';
+import template from 'hbs!templates/assets/new_asset_footer';
 
 export default NewAssetFooter = (function() {
   NewAssetFooter = class NewAssetFooter extends Marionette.ItemView {

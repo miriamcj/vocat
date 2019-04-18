@@ -5,15 +5,15 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let ProjectDetail;
-const Marionette = require('marionette');
-const template = require('hbs!templates/project/detail');
-const ProjectScoreOverviewView = require('views/project/detail/project_score_overview');
-const ProjectSubmissionListView = require('views/project/detail/project_submission_list');
-const ProjectStatisticsModel = require('models/project_statistics');
-const SubmissionCollection = require('collections/submission_for_project_collection');
-const CollectionProxy = require('collections/collection_proxy');
-const RubricModel = require('models/rubric');
-const RubricModalView = require('views/modal/modal_rubric');
+import Marionette from 'marionette';
+import template from 'hbs!templates/project/detail';
+import ProjectScoreOverviewView from 'views/project/detail/project_score_overview';
+import ProjectSubmissionListView from 'views/project/detail/project_submission_list';
+import ProjectStatisticsModel from 'models/project_statistics';
+import SubmissionCollection from 'collections/submission_for_project_collection';
+import CollectionProxy from 'collections/collection_proxy';
+import RubricModel from 'models/rubric';
+import RubricModalView from 'views/modal/modal_rubric';
 
 export default ProjectDetail = (function() {
   ProjectDetail = class ProjectDetail extends Marionette.LayoutView {

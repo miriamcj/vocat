@@ -6,17 +6,17 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let EvaluationsLayout;
-const Marionette = require('marionette');
-const template = require('hbs!templates/submission/evaluations/evaluations_layout');
-const EvaluationCollection = require('collections/evaluation_collection');
-const Evaluation = require('models/evaluation');
-const CollectionProxy = require('collections/collection_proxy');
-const TheirEvaluations = require('views/submission/evaluations/their_evaluations');
-const TheirEvaluationsEmpty = require('views/submission/evaluations/their_evaluations_empty');
-const MyEvaluations = require('views/submission/evaluations/my_evaluations');
-const MyEvaluationsCreate = require('views/submission/evaluations/my_evaluations_create');
-const SaveNotifyView = require('views/submission/evaluations/save_notify');
-const RubricModel = require('models/rubric');
+import Marionette from 'marionette';
+import template from 'hbs!templates/submission/evaluations/evaluations_layout';
+import EvaluationCollection from 'collections/evaluation_collection';
+import Evaluation from 'models/evaluation';
+import CollectionProxy from 'collections/collection_proxy';
+import TheirEvaluations from 'views/submission/evaluations/their_evaluations';
+import TheirEvaluationsEmpty from 'views/submission/evaluations/their_evaluations_empty';
+import MyEvaluations from 'views/submission/evaluations/my_evaluations';
+import MyEvaluationsCreate from 'views/submission/evaluations/my_evaluations_create';
+import SaveNotifyView from 'views/submission/evaluations/save_notify';
+import RubricModel from 'models/rubric';
 
 export default EvaluationsLayout = (function() {
   EvaluationsLayout = class EvaluationsLayout extends Marionette.LayoutView {

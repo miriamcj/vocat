@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let ExpandableRange;
-const Marionette = require('marionette');
+import Marionette from 'marionette';
 
 export default ExpandableRange = (function() {
   ExpandableRange = class ExpandableRange extends Marionette.Behavior {

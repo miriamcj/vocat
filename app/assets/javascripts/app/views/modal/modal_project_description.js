@@ -6,8 +6,8 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let ModalProjectDescription;
-const Marionette = require('marionette');
-const template = require('hbs!templates/modal/modal_project_description');
+import Marionette from 'marionette';
+import template from 'hbs!templates/modal/modal_project_description';
 
 export default ModalProjectDescription = (function() {
   ModalProjectDescription = class ModalProjectDescription extends Marionette.ItemView {

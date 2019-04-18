@@ -5,10 +5,10 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let VideoProgressBarView;
-const Marionette = require('marionette');
-require('jquery_ui');
-const template = require('hbs!templates/assets/annotator/progress_bar');
-const childView = require('views/assets/annotator/progress_bar_annotation');
+import Marionette from 'marionette';
+import 'jquery_ui';
+import template from 'hbs!templates/assets/annotator/progress_bar';
+import childView from 'views/assets/annotator/progress_bar_annotation';
 
 export default VideoProgressBarView = (function() {
   VideoProgressBarView = class VideoProgressBarView extends Marionette.CompositeView {

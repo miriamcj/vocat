@@ -5,9 +5,9 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let GroupsView;
-const Marionette = require('marionette');
-const template = require('hbs!templates/submission/evaluations/save_notify');
-const GlobalNotification = require('behaviors/global_notification');
+import Marionette from 'marionette';
+import template from 'hbs!templates/submission/evaluations/save_notify';
+import GlobalNotification from 'behaviors/global_notification';
 
 export default GroupsView = (function() {
   GroupsView = class GroupsView extends Marionette.ItemView {

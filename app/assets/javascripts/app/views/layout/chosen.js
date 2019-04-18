@@ -6,7 +6,7 @@
 import $ from 'jquery_rails';
 
 let ChosenView;
-const Marionette = require('marionette');
+import Marionette from 'marionette';
 
 export default ChosenView = class ChosenView extends Marionette.ItemView {
 

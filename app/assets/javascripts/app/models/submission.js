@@ -6,13 +6,13 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let SubmissionModel;
-const Backbone = require('backbone');
-const VideoModel = require('models/video');
-const EvaluationModel = require('models/evaluation');
-const ProjectModel = require('models/project');
-const UserModel = require('models/user');
-const GroupModel = require('models/group');
-const AssetCollection = require('collections/asset_collection');
+import Backbone from 'backbone';
+import VideoModel from 'models/video';
+import EvaluationModel from 'models/evaluation';
+import ProjectModel from 'models/project';
+import UserModel from 'models/user';
+import GroupModel from 'models/group';
+import AssetCollection from 'collections/asset_collection';
 
 export default SubmissionModel = (function() {
   SubmissionModel = class SubmissionModel extends Backbone.Model {

@@ -6,13 +6,13 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let Rubric;
-const AbstractModel = require('models/abstract_model');
-const FieldCollection = require('collections/field_collection');
-const RangeCollection = require('collections/range_collection');
-const CellCollection = require('collections/cell_collection');
-const RangeModel = require('models/range');
-const FieldModel = require('models/field');
-const CellModel = require('models/cell');
+import AbstractModel from 'models/abstract_model';
+import FieldCollection from 'collections/field_collection';
+import RangeCollection from 'collections/range_collection';
+import CellCollection from 'collections/cell_collection';
+import RangeModel from 'models/range';
+import FieldModel from 'models/field';
+import CellModel from 'models/cell';
 
 export default Rubric = (function() {
   Rubric = class Rubric extends AbstractModel {

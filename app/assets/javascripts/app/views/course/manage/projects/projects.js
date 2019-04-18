@@ -5,11 +5,11 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let Projects;
-const marionette = require('marionette');
-const ProjectCollection = require('collections/project_collection');
-const template = require('hbs!templates/course/manage/projects/projects');
-const ProjectsRowView = require('views/course/manage/projects/project_row');
-const SortableTable = require('behaviors/sortable_table');
+import marionette from 'marionette';
+import ProjectCollection from 'collections/project_collection';
+import template from 'hbs!templates/course/manage/projects/projects';
+import ProjectsRowView from 'views/course/manage/projects/project_row';
+import SortableTable from 'behaviors/sortable_table';
 
 export default Projects = (function() {
   Projects = class Projects extends Marionette.CompositeView {

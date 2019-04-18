@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let PlayerAnnotationItem;
-const Marionette = require('marionette');
+import Marionette from 'marionette';
 
 export default PlayerAnnotationItem = (function() {
   PlayerAnnotationItem = class PlayerAnnotationItem extends Marionette.ItemView {

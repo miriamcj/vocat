@@ -6,10 +6,10 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let VocatController;
-const Marionette = require('marionette');
-const LoadingView = require('views/layout/loading');
-const ModalErrorView = require('views/modal/modal_error');
-const $ = require('jquery_rails');
+import Marionette from 'marionette';
+import LoadingView from 'views/layout/loading';
+import ModalErrorView from 'views/modal/modal_error';
+import $ from 'jquery_rails';
 
 export default VocatController = (function() {
   VocatController = class VocatController extends Marionette.Controller {

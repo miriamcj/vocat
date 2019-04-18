@@ -5,13 +5,13 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let RubricBuilder;
-const template = require('hbs!templates/rubric/rubric_builder');
-const CriteriaView = require('views/rubric/criteria');
-const RangesView = require('views/rubric/ranges');
-const RangeModel = require('models/range');
-const FieldModel = require('models/field');
-const RubricModel = require('models/rubric');
-let ShortTextInputView = require('views/property_editor/short_text_input');
+import template from 'hbs!templates/rubric/rubric_builder';
+import CriteriaView from 'views/rubric/criteria';
+import RangesView from 'views/rubric/ranges';
+import RangeModel from 'models/range';
+import FieldModel from 'models/field';
+import RubricModel from 'models/rubric';
+import ShortTextInputView from 'views/property_editor/short_text_input';
 ShortTextInputView = require('views/property_editor/short_text_input');
 
 

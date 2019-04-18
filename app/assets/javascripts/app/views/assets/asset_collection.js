@@ -5,10 +5,10 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let AssetCollection;
-const Marionette = require('marionette');
-const template = require('hbs!templates/assets/asset_collection');
-const ChildView = require('views/assets/asset_collection_child');
-const EmptyView = require('views/assets/asset_collection_empty');
+import Marionette from 'marionette';
+import template from 'hbs!templates/assets/asset_collection';
+import ChildView from 'views/assets/asset_collection_child';
+import EmptyView from 'views/assets/asset_collection_empty';
 
 export default AssetCollection = (function() {
   AssetCollection = class AssetCollection extends Marionette.CompositeView {

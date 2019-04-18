@@ -5,10 +5,10 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let AssetCollectionChild;
-const Marionette = require('marionette');
-const template = require('hbs!templates/assets/asset_collection_child');
-const ModalConfirmView = require('views/modal/modal_confirm');
-const ShortTextInputView = require('views/property_editor/short_text_input');
+import Marionette from 'marionette';
+import template from 'hbs!templates/assets/asset_collection_child';
+import ModalConfirmView from 'views/modal/modal_confirm';
+import ShortTextInputView from 'views/property_editor/short_text_input';
 
 export default AssetCollectionChild = (function() {
   AssetCollectionChild = class AssetCollectionChild extends Marionette.ItemView {

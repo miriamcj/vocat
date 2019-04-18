@@ -5,8 +5,8 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let ProjectDialogView;
-const Marionette = require('marionette');
-const template = require('hbs!templates/project/dialog');
+import Marionette from 'marionette';
+import template from 'hbs!templates/project/dialog';
 
 export default ProjectDialogView = (function() {
   ProjectDialogView = class ProjectDialogView extends Marionette.ItemView {

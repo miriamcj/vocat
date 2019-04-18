@@ -5,8 +5,8 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let DropdownView;
-const Marionette = require('marionette');
-const ClosesOnUserAction = require('behaviors/closes_on_user_action');
+import Marionette from 'marionette';
+import ClosesOnUserAction from 'behaviors/closes_on_user_action';
 
 export default DropdownView = (function() {
   DropdownView = class DropdownView extends Marionette.ItemView {

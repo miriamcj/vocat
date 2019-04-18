@@ -5,12 +5,12 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let CourseController;
-const marionette = require('marionette');
-const VocatController = require('controllers/vocat_controller');
-const EnrollmentCollection = require('collections/enrollment_collection');
-const EnrollmentLayout = require('views/admin/enrollment_layout');
-const ProjectCollection = require('collections/project_collection');
-const Projects = require('views/course/manage/projects/projects');
+import marionette from 'marionette';
+import VocatController from 'controllers/vocat_controller';
+import EnrollmentCollection from 'collections/enrollment_collection';
+import EnrollmentLayout from 'views/admin/enrollment_layout';
+import ProjectCollection from 'collections/project_collection';
+import Projects from 'views/course/manage/projects/projects';
 
 export default CourseController = (function() {
   CourseController = class CourseController extends VocatController {

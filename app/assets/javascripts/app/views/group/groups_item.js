@@ -5,10 +5,10 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let GroupsItem;
-const Marionette = require('marionette');
-const template = require('hbs!templates/group/groups_item');
-const ModalConfirmView = require('views/modal/modal_confirm');
-const ShortTextInputView = require('views/property_editor/short_text_input');
+import Marionette from 'marionette';
+import template from 'hbs!templates/group/groups_item';
+import ModalConfirmView from 'views/modal/modal_confirm';
+import ShortTextInputView from 'views/property_editor/short_text_input';
 
 export default GroupsItem = (function() {
   GroupsItem = class GroupsItem extends Marionette.ItemView {

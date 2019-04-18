@@ -6,8 +6,8 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let ModalMarkdownOverview;
-const Marionette = require('marionette');
-const template = require('hbs!templates/modal/modal_markdown_overview');
+import Marionette from 'marionette';
+import template from 'hbs!templates/modal/modal_markdown_overview';
 
 export default ModalMarkdownOverview = (function() {
   ModalMarkdownOverview = class ModalMarkdownOverview extends Marionette.ItemView {

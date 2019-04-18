@@ -6,12 +6,12 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let MyEvaluations;
-const Marionette = require('marionette');
-const template = require('hbs!templates/submission/evaluations/my_evaluations');
-const ScoreSlider = require('views/submission/evaluations/score_slider');
-const ExpandableRange = require('behaviors/expandable_range');
-const ScoreCollection = require('collections/score_collection');
-const ModalConfirmView = require('views/modal/modal_confirm');
+import Marionette from 'marionette';
+import template from 'hbs!templates/submission/evaluations/my_evaluations';
+import ScoreSlider from 'views/submission/evaluations/score_slider';
+import ExpandableRange from 'behaviors/expandable_range';
+import ScoreCollection from 'collections/score_collection';
+import ModalConfirmView from 'views/modal/modal_confirm';
 
 export default MyEvaluations = (function() {
   MyEvaluations = class MyEvaluations extends Marionette.CompositeView {

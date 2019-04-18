@@ -7,7 +7,7 @@
 import $ from 'jquery_rails';
 
 let FileInputView;
-const Marionette = require('marionette');
+import Marionette from 'marionette';
 
 export default FileInputView = (function() {
   FileInputView = class FileInputView extends Marionette.ItemView {

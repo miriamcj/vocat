@@ -5,8 +5,8 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let LoadingView;
-const Marionette = require('marionette');
-const template = require('hbs!templates/layout/loading');
+import Marionette from 'marionette';
+import template from 'hbs!templates/layout/loading';
 
 export default LoadingView = (function() {
   LoadingView = class LoadingView extends Marionette.ItemView {

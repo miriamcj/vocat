@@ -6,10 +6,10 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let RangesView;
-const Marionette = require('marionette');
-const template = require('hbs!templates/rubric/ranges');
-const RangeView = require('views/rubric/range');
-const jqui = require('jquery_ui');
+import Marionette from 'marionette';
+import template from 'hbs!templates/rubric/ranges';
+import RangeView from 'views/rubric/range';
+import jqui from 'jquery_ui';
 
 export default RangesView = (function() {
   RangesView = class RangesView extends Marionette.CompositeView {

@@ -6,17 +6,17 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let RubricLayout;
-const template = require('hbs!templates/rubric/rubric_layout');
-const RubricModel = require('models/rubric');
-const RangeModel = require('models/range');
-const RangesView = require('views/rubric/ranges');
-const RangePickerModalView = require('views/rubric/range_picker_modal');
-const FlashMessagesView = require('views/flash/flash_messages');
-const AbstractMatrix = require('views/abstract/abstract_matrix');
-const ShortTextInputView = require('views/property_editor/short_text_input');
-const LongTextInputView = require('views/property_editor/long_text_input');
-const RubricBuilderView = require('views/rubric/rubric_builder');
-const ModalConfirmView = require('views/modal/modal_confirm');
+import template from 'hbs!templates/rubric/rubric_layout';
+import RubricModel from 'models/rubric';
+import RangeModel from 'models/range';
+import RangesView from 'views/rubric/ranges';
+import RangePickerModalView from 'views/rubric/range_picker_modal';
+import FlashMessagesView from 'views/flash/flash_messages';
+import AbstractMatrix from 'views/abstract/abstract_matrix';
+import ShortTextInputView from 'views/property_editor/short_text_input';
+import LongTextInputView from 'views/property_editor/long_text_input';
+import RubricBuilderView from 'views/rubric/rubric_builder';
+import ModalConfirmView from 'views/modal/modal_confirm';
 
 export default RubricLayout = (function() {
   RubricLayout = class RubricLayout extends AbstractMatrix {

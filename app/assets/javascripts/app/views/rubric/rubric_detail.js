@@ -5,8 +5,8 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let RubricDetailView;
-const Marionette = require('marionette');
-const template = require('hbs!templates/rubric/rubric_detail');
+import Marionette from 'marionette';
+import template from 'hbs!templates/rubric/rubric_detail';
 
 export default RubricDetailView = (function() {
   RubricDetailView = class RubricDetailView extends Marionette.ItemView {

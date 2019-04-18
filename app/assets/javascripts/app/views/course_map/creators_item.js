@@ -5,9 +5,9 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let CourseMapCreatorsItem;
-const Marionette = require('marionette');
-const template = require('hbs!templates/course_map/creators_item');
-const ModalGroupMembershipView = require('views/modal/modal_group_membership');
+import Marionette from 'marionette';
+import template from 'hbs!templates/course_map/creators_item';
+import ModalGroupMembershipView from 'views/modal/modal_group_membership';
 
 export default CourseMapCreatorsItem = (function() {
   CourseMapCreatorsItem = class CourseMapCreatorsItem extends Marionette.ItemView {

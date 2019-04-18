@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let ProjectStatisticsModel;
-const Backbone = require('backbone');
+import Backbone from 'backbone';
 
 export default ProjectStatisticsModel = (function() {
   ProjectStatisticsModel = class ProjectStatisticsModel extends Backbone.Model {

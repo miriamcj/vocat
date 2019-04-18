@@ -5,9 +5,11 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let SortableTable;
+
 //      @view.render()
-const Marionette = require('marionette');
-require('jquery_ui');
+import Marionette from 'marionette';
+
+import 'jquery_ui';
 
 export default SortableTable = (function() {
   SortableTable = class SortableTable extends Marionette.Behavior {

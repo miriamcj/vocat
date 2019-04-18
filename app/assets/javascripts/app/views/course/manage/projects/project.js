@@ -5,8 +5,8 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let ProjectView;
-const marionette = require('marionette');
-const Pikaday = require('vendor/plugins/pikaday');
+import marionette from 'marionette';
+import Pikaday from 'vendor/plugins/pikaday';
 
 export default ProjectView = (function() {
   ProjectView = class ProjectView extends Marionette.ItemView {

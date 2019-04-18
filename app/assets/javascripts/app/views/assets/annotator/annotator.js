@@ -5,12 +5,12 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let AnnotatorView;
-const Marionette = require('marionette');
-const template = require('hbs!templates/assets/annotator/annotator');
-const ProgressBarView = require('views/assets/annotator/progress_bar');
-const AnnotationInputView = require('views/assets/annotator/annotator_input');
-const AnnotationModel = require('models/annotation');
-const ModalConfirmView = require('views/modal/modal_confirm');
+import Marionette from 'marionette';
+import template from 'hbs!templates/assets/annotator/annotator';
+import ProgressBarView from 'views/assets/annotator/progress_bar';
+import AnnotationInputView from 'views/assets/annotator/annotator_input';
+import AnnotationModel from 'models/annotation';
+import ModalConfirmView from 'views/modal/modal_confirm';
 
 export default AnnotatorView = (function() {
   AnnotatorView = class AnnotatorView extends Marionette.LayoutView {

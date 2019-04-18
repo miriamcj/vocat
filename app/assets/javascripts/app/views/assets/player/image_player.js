@@ -5,9 +5,9 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let ImageDisplayerView;
-const Marionette = require('marionette');
-const template = require('hbs!templates/assets/player/image_displayer');
-const PlayerAnnotations = require('views/assets/player/player_annotations');
+import Marionette from 'marionette';
+import template from 'hbs!templates/assets/player/image_displayer';
+import PlayerAnnotations from 'views/assets/player/player_annotations';
 
 export default ImageDisplayerView = (function() {
   ImageDisplayerView = class ImageDisplayerView extends Marionette.LayoutView {

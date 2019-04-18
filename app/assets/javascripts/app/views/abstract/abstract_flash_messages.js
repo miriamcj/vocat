@@ -6,10 +6,10 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let AbstractFlashMessages;
-const Marionette = require('marionette');
-const ItemView = require('views/flash/flash_messages_item');
-const FlashMessageCollection = require('collections/flash_message_collection');
-const template = require('hbs!templates/flash/flash_messages');
+import Marionette from 'marionette';
+import ItemView from 'views/flash/flash_messages_item';
+import FlashMessageCollection from 'collections/flash_message_collection';
+import template from 'hbs!templates/flash/flash_messages';
 
 export default AbstractFlashMessages = (function() {
   AbstractFlashMessages = class AbstractFlashMessages extends Marionette.CollectionView {

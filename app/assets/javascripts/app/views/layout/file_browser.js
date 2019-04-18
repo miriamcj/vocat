@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let FileBrowserView;
-const Marionette = require('marionette');
+import Marionette from 'marionette';
 
 export default FileBrowserView = (function() {
   FileBrowserView = class FileBrowserView extends Marionette.ItemView {

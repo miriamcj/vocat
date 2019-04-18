@@ -6,13 +6,13 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let NewAsset;
-const Marionette = require('marionette');
-const template = require('hbs!templates/assets/new_asset');
-const AssetModel = require('models/asset');
-const AttachmentModel = require('models/attachment');
-const iFrameTransport= require('vendor/plugins/iframe_transport');
-const FileUpload = require('vendor/plugins/file_upload');
-const ShortTextInputView = require('views/property_editor/short_text_input');
+import Marionette from 'marionette';
+import template from 'hbs!templates/assets/new_asset';
+import AssetModel from 'models/asset';
+import AttachmentModel from 'models/attachment';
+import iFrameTransport from 'vendor/plugins/iframe_transport';
+import FileUpload from 'vendor/plugins/file_upload';
+import ShortTextInputView from 'views/property_editor/short_text_input';
 
 export default NewAsset = (function() {
   NewAsset = class NewAsset extends Marionette.ItemView {

@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let SubmissionForCourseCollection;
-const SubmissionCollection = require('collections/submission_collection');
+import SubmissionCollection from 'collections/submission_collection';
 
 export default SubmissionForCourseCollection = (function() {
   SubmissionForCourseCollection = class SubmissionForCourseCollection extends SubmissionCollection {

@@ -6,9 +6,9 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let ScoreSlider;
-const Marionette = require('marionette');
-require('jquery_ui');
-const template = require('hbs!templates/submission/evaluations/score_slider');
+import Marionette from 'marionette';
+import 'jquery_ui';
+import template from 'hbs!templates/submission/evaluations/score_slider';
 
 export default ScoreSlider = (function() {
   ScoreSlider = class ScoreSlider extends Marionette.ItemView {

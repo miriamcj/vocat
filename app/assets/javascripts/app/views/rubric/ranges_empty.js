@@ -5,8 +5,8 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let RangesEmptyView;
-const Marionette = require('marionette');
-const template = require('hbs!templates/rubric/ranges_empty');
+import Marionette from 'marionette';
+import template from 'hbs!templates/rubric/ranges_empty';
 
 export default RangesEmptyView = (function() {
   RangesEmptyView = class RangesEmptyView extends Marionette.ItemView {

@@ -5,8 +5,8 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let CourseMapProjectsEmptyView;
-const Marionette = require('marionette');
-const template = require('hbs!templates/course_map/projects_empty');
+import Marionette from 'marionette';
+import template from 'hbs!templates/course_map/projects_empty';
 
 export default CourseMapProjectsEmptyView = (function() {
   CourseMapProjectsEmptyView = class CourseMapProjectsEmptyView extends Marionette.ItemView {

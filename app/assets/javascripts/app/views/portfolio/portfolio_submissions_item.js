@@ -5,8 +5,8 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let PortfolioItemSubmission;
-const Marionette = require('marionette');
-const SubmissionTemplate = require('hbs!templates/portfolio/portfolio_item_submission');
+import Marionette from 'marionette';
+import SubmissionTemplate from 'hbs!templates/portfolio/portfolio_item_submission';
 
 export default PortfolioItemSubmission = (function() {
   PortfolioItemSubmission = class PortfolioItemSubmission extends Marionette.ItemView {

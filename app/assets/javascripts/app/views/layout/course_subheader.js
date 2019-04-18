@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let CourseSubheaderView;
-const Marionette = require('marionette');
+import Marionette from 'marionette';
 
 export default CourseSubheaderView = (function() {
   CourseSubheaderView = class CourseSubheaderView extends Marionette.ItemView {

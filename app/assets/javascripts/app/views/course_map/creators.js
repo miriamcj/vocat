@@ -5,9 +5,9 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let CourseMapCreatorsView;
-const Marionette = require('marionette');
-const template = require('hbs!templates/course_map/creators');
-const Item = require('views/course_map/creators_item');
+import Marionette from 'marionette';
+import template from 'hbs!templates/course_map/creators';
+import Item from 'views/course_map/creators_item';
 
 export default CourseMapCreatorsView = (function() {
   CourseMapCreatorsView = class CourseMapCreatorsView extends Marionette.CompositeView {

@@ -5,9 +5,9 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 let TheirEvaluationsChild;
-const Marionette = require('marionette');
-const template = require('hbs!templates/submission/evaluations/their_evaluations_child');
-const ExpandableRange = require('behaviors/expandable_range');
+import Marionette from 'marionette';
+import template from 'hbs!templates/submission/evaluations/their_evaluations_child';
+import ExpandableRange from 'behaviors/expandable_range';
 
 export default TheirEvaluationsChild = (function() {
   TheirEvaluationsChild = class TheirEvaluationsChild extends Marionette.ItemView {
