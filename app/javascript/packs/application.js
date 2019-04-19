@@ -2,4 +2,9 @@ import 'styles/stylesheets/main.scss';
 
 import modernizr from 'modernizr';
 
-Vocat.start();
+import Vocat from "vocat";
+
+$(() =>
+  // Start Vocat App
+  Vocat.start()
+);

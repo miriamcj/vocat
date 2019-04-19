@@ -14,7 +14,8 @@
   <script type="text/javascript" src="//use.typekit.net/ytz4hur.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 
-  <%= stylesheet_link_tag "application", :media => "all", :digest => true %>
+
+  <%= stylesheet_pack_tag "application", :media => "all" %>
 </head>
 
 <body class="bg-dark no-course">
@@ -39,7 +40,7 @@
   </div>
 </div>
 
-<%= javascript_include_tag 'vendor/modernizr/modernizr-2.6.2' %>
+<%= javascript_pack_tag 'error' %>
 
 </body>
 </html>
