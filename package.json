@@ -1,8 +1,36 @@
 {
+  "name": "vocat",
+  "private": true,
   "dependencies": {
-    "@rails/webpacker": "^4.0.2"
+    "@rails/webpacker": "^4.0.2",
+    "babel-eslint": "^10.0.1",
+    "backbone": "1.1.2",
+    "backbone.marionette": "2.2.0",
+    "crossfilter": "1.2.0",
+    "dc": "1.6.0",
+    "handlebars": "^4.1.2",
+    "jquery": "^1.11.3",
+    "jquery-ui": "1.10.5",
+    "jquery-ujs": "^1.2.2",
+    "jquery-waypoints": "^2.0.5",
+    "lodash": "^4.17.11",
+    "modernizr": "^3.7.1",
+    "paper": "0.9.21",
+    "pikaday": "^1.8.0",
+    "rollbar": "^2.5.5",
+    "video.js": "5.15.1",
+    "wavesurfer.js": "^2.2.1"
   },
   "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-import": "^0.13.0",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-plugin-import": "^2.17.1",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-react": "^7.12.4",
+    "prettier": "^1.17.0",
     "webpack-dev-server": "^3.3.1"
   }
 }
