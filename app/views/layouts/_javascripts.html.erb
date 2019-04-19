@@ -1,14 +1,16 @@
-<%= javascript_include_tag 'vendor/modernizr/modernizr-2.6.2' %>
-<%= javascript_include_tag 'vendor/video_js/video' %>
-<%= javascript_include_tag 'vendor/video_js/videojs-contrib-hls' %>
-<%= javascript_include_tag 'vendor/video_js/vjs.youtube' %>
-<%= javascript_include_tag 'vendor/video_js/vjs.vimeo' %>
+<%#= javascript_include_tag 'vendor/modernizr/modernizr-2.6.2' %>
+<%#= javascript_include_tag 'vendor/video_js/video' %>
+<%#= javascript_include_tag 'vendor/video_js/videojs-contrib-hls' %>
+<%#= javascript_include_tag 'vendor/video_js/vjs.youtube' %>
+<%#= javascript_include_tag 'vendor/video_js/vjs.vimeo' %>
 
-<% if Rails.env.development? %>
-	<%= javascript_include_tag 'vendor/require/require', 'data-main' => "/assets/bootstrap.js?buster=#{Rails.configuration.vocat_build_number}" %>
-<% else %>
-	<%= javascript_include_tag 'vendor/require/require', 'data-main' => "/build/bootstrap.js?buster=#{Rails.configuration.vocat_build_number}" %>
-<% end %>
+<%# if Rails.env.development? %>
+	<%#= javascript_include_tag 'vendor/require/require', 'data-main' => "/assets/bootstrap.js?buster=#{Rails.configuration.vocat_build_number}" %>
+<%# else %>
+	<%#= javascript_include_tag 'vendor/require/require', 'data-main' => "/build/bootstrap.js?buster=#{Rails.configuration.vocat_build_number}" %>
+<%# end %>
+
+<%= javascript_pack_tag 'application' %>
 
 <script type="text/javascript">
 	window.VocatSessionData = JSON.parse('<%= raw @session_data.to_json %>');
@@ -25,4 +27,3 @@
 	window.VocatS3Bucket = '<%= @S3_bucket %>';
 	window.VocatAWSPublicKey = '<%= @aws_public_key %>';
 </script>
-
