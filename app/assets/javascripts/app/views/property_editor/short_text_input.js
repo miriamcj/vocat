@@ -6,7 +6,7 @@
  */
 import Marionette from 'backbone.marionette';
 import { isFunction } from "lodash";
-import template from 'hbs!templates/property_editor/short_text_input';
+import template from 'templates/property_editor/short_text_input.hbs';
 
 export default class ShortTextInput extends Marionette.ItemView {
   constructor() {

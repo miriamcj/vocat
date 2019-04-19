@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import template from 'hbs!templates/admin/enrollment_layout';
+import template from 'templates/admin/enrollment_layout.hbs';
 import EnrollmentList from 'views/admin/enrollment/list';
 import EnrollmentInput from 'views/admin/enrollment/input';
 import EnrollmentBulkInput from 'views/admin/enrollment/bulk_input';

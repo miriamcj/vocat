@@ -4,7 +4,7 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import template from 'hbs!templates/rubric/criteria';
+import template from 'templates/rubric/criteria.hbs';
 import { $ } from "jquery";
 import ItemView from 'views/rubric/criteria_item';
 

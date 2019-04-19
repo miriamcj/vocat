@@ -6,7 +6,7 @@
  * DS207: Consider shorter variations of null checks
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import template from 'hbs!templates/rubric/range_picker_modal';
+import template from 'templates/rubric/range_picker_modal.hbs';
 import { $ } from "jquery";
 import { min, reject, max, isNaN, sortBy, uniq, countBy, isObject } from "lodash";
 import jqui from 'jquery_ui';

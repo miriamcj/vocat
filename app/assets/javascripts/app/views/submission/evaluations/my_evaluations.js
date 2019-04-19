@@ -8,7 +8,7 @@
 import Marionette from 'backbone.marionette';
 import { $ } from "jquery";
 import { isFunction } from "lodash";
-import template from 'hbs!templates/submission/evaluations/my_evaluations';
+import template from 'templates/submission/evaluations/my_evaluations.hbs';
 import ScoreSlider from 'views/submission/evaluations/score_slider';
 import ExpandableRange from 'behaviors/expandable_range';
 import ScoreCollection from 'collections/score_collection';

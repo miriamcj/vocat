@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import template from 'hbs!templates/assets/asset_collection_empty';
+import template from 'templates/assets/asset_collection_empty.hbs';
 
 export default class AssetCollectionEmpty extends Marionette.ItemView {
   constructor() {

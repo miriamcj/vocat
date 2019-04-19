@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import template from 'hbs!templates/course_map/projects_item';
+import template from 'templates/course_map/projects_item.hbs';
 import DropdownView from 'views/layout/dropdown';
 import ModalConfirmView from 'views/modal/modal_confirm';
 

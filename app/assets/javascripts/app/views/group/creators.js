@@ -6,7 +6,7 @@
  */
 import Marionette from 'backbone.marionette';
 
-import template from 'hbs!templates/group/creators';
+import template from 'templates/group/creators.hbs';
 import Item from 'views/group/creators_item';
 
 export default class GroupCreatorsView extends Marionette.CompositeView {

@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import template from 'hbs!templates/group/save_notify';
+import template from 'templates/group/save_notify.hbs';
 import GlobalNotification from 'behaviors/global_notification';
 
 export default class SaveNotify extends Marionette.ItemView {

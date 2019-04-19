@@ -6,7 +6,7 @@
  */
 import Marionette from 'backbone.marionette';
 
-import template from 'hbs!templates/course_map/creators_item';
+import template from 'templates/course_map/creators_item.hbs';
 
 export default class GroupCreatorsItem extends Marionette.ItemView {
   constructor() {

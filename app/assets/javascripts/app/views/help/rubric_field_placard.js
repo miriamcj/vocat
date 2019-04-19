@@ -10,7 +10,7 @@ import Backbone from 'backbone';
 import { $ } from "jquery";
 
 import Placard from 'views/help/placard';
-import template from 'hbs!templates/help/rubric_field_placard';
+import template from 'templates/help/rubric_field_placard.hbs';
 
 export default class RubricFieldPlacard extends Placard {
   constructor() {

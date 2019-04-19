@@ -6,7 +6,7 @@
  */
 import Marionette from 'backbone.marionette';
 import { uniq } from "lodash";
-import template from 'hbs!templates/submission/evaluations/their_evaluations';
+import template from 'templates/submission/evaluations/their_evaluations.hbs';
 import TheirEvaluationsCollection from 'views/submission/evaluations/their_evaluations_collection';
 import CollectionProxy from 'collections/collection_proxy';
 import EvaluationSetModel from 'models/evaluation_set';

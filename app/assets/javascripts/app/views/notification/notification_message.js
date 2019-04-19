@@ -6,7 +6,7 @@
  */
 import Marionette from 'backbone.marionette';
 
-import template from 'hbs!templates/notification/notification_message';
+import template from 'templates/notification/notification_message.hbs';
 
 export default class NotificationMessage extends Marionette.ItemView {
   constructor() {

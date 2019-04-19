@@ -6,7 +6,7 @@
  */
 import Marionette from 'backbone.marionette';
 import { pluck } from "lodash";
-import template from 'hbs!templates/admin/enrollment/confirm_invite';
+import template from 'templates/admin/enrollment/confirm_invite.hbs';
 import GlobalNotification from 'behaviors/global_notification';
 
 export default class ConfirmInvite extends Marionette.ItemView {

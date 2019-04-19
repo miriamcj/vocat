@@ -8,7 +8,7 @@ import Marionette from 'backbone.marionette';
 
 import { isArray, isObject } from "lodash";
 
-import template from 'hbs!templates/flash/flash_messages_item';
+import template from 'templates/flash/flash_messages_item.hbs';
 
 export default class FlashMessagesItem extends Marionette.ItemView {
   constructor() {

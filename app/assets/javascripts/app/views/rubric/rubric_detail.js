@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import template from 'hbs!templates/rubric/rubric_detail';
+import template from 'templates/rubric/rubric_detail.hbs';
 
 export default class RubricDetailView extends Marionette.ItemView {
   constructor() {

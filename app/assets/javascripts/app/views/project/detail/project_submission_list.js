@@ -6,7 +6,7 @@
  */
 import Marionette from 'backbone.marionette';
 import ProjectSubmissionRowView from 'views/project/detail/project_submission_row';
-import template from 'hbs!templates/project/detail/project_submission_list';
+import template from 'templates/project/detail/project_submission_list.hbs';
 
 export default class ProjectSubmissionListView extends Marionette.CompositeView {
   constructor() {

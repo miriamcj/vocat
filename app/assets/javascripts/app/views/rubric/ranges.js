@@ -8,7 +8,7 @@
 import Marionette from 'backbone.marionette';
 import { $ } from "jquery";
 import { sortBy, uniq, max, min, countBy } from "lodash";
-import template from 'hbs!templates/rubric/ranges';
+import template from 'templates/rubric/ranges.hbs';
 import RangeView from 'views/rubric/range';
 import jqui from 'jquery_ui';
 

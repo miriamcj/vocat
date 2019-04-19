@@ -8,7 +8,7 @@
 import Marionette from 'backbone.marionette';
 import { $ } from "jquery";
 import { bindAll } from "lodash";
-import template from 'hbs!templates/modal/modal_markdown_overview';
+import template from 'templates/modal/modal_markdown_overview.hbs';
 
 export default class ModalMarkdownOverview extends Marionette.ItemView {
   constructor() {

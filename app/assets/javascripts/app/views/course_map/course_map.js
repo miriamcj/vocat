@@ -4,7 +4,7 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import template from 'hbs!templates/course_map/course_map_layout';
+import template from 'templates/course_map/course_map_layout.hbs';
 import Backbone from 'backbone';
 import CollectionProxy from 'collections/collection_proxy';
 import CourseMapProjects from 'views/course_map/projects';

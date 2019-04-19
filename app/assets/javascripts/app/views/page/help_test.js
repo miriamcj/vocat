@@ -8,7 +8,7 @@ import Marionette from 'backbone.marionette';
 
 import { $ } from "jquery";
 
-import template from 'hbs!templates/page/help_test';
+import template from 'templates/page/help_test.hbs';
 
 export default class FlashMessagesItem extends Marionette.ItemView {
   constructor() {

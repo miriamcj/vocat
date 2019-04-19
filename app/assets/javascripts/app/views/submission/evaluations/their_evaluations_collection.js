@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import template from 'hbs!templates/submission/evaluations/their_evaluations_collection';
+import template from 'templates/submission/evaluations/their_evaluations_collection.hbs';
 import ChildView from 'views/submission/evaluations/their_evaluations_child';
 import ExpandableRange from 'behaviors/expandable_range';
 

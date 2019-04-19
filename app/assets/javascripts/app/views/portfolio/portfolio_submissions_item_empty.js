@@ -6,7 +6,7 @@
  */
 import Marionette from 'backbone.marionette';
 
-import template from 'hbs!templates/portfolio/portfolio_item_empty';
+import template from 'templates/portfolio/portfolio_item_empty.hbs';
 
 export default class PortfolioItemEmptyView extends Marionette.ItemView {
   constructor() {

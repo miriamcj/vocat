@@ -11,7 +11,7 @@ import { $ } from "jquery";
 
 import { bind } from "lodash";
 
-import template from 'hbs!templates/modal/modal_layout';
+import template from 'templates/modal/modal_layout.hbs';
 
 export default class ModalLayout extends Marionette.LayoutView {
   constructor() {

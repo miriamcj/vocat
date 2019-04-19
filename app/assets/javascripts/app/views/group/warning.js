@@ -4,7 +4,7 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import template from 'hbs!templates/group/warning';
+import template from 'templates/group/warning.hbs';
 
 export default class Warning extends Marionette.ItemView {
   constructor() {

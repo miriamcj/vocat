@@ -11,7 +11,7 @@ import { $ } from "jquery";
 
 import { bindAll } from "lodash";
 
-import template from 'hbs!templates/modal/modal_confirm';
+import template from 'templates/modal/modal_confirm.hbs';
 
 export default class ModalConfirmView extends Marionette.ItemView {
   constructor() {

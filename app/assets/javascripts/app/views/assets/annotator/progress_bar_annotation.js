@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import template from 'hbs!templates/assets/annotator/progress_bar_annotation';
+import template from 'templates/assets/annotator/progress_bar_annotation.hbs';
 
 export default class ProgressBarAnnotation extends Marionette.ItemView {
   constructor() {

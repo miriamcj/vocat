@@ -7,7 +7,7 @@
  */
 import Marionette from 'backbone.marionette';
 
-import template from 'hbs!templates/course_map/cell';
+import template from 'templates/course_map/cell.hbs';
 import UserModel from 'models/user';
 import GroupModel from 'models/group';
 import EvaluationModel from 'models/evaluation';

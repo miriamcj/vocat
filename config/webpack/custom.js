@@ -6,6 +6,10 @@ module.exports = {
       {
         loader: "webpack-modernizr-loader",
         test: /\.modernizrrc\.js$/
+      },
+      {
+        test: /\.hbs$/,
+        loader: "handlebars-loader"
       }
     ]
   },

@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import template from 'hbs!templates/assets/annotations/annotations_item';
+import template from 'templates/assets/annotations/annotations_item.hbs';
 import ModalConfirmView from 'views/modal/modal_confirm';
 
 export default class AnnotationItem extends Marionette.ItemView {

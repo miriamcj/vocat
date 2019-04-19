@@ -6,7 +6,7 @@
  */
 import Marionette from 'backbone.marionette';
 import 'jquery_ui';
-import template from 'hbs!templates/assets/annotator/progress_bar';
+import template from 'templates/assets/annotator/progress_bar.hbs';
 import childView from 'views/assets/annotator/progress_bar_annotation';
 
 export default class VideoProgressBarView extends Marionette.CompositeView {

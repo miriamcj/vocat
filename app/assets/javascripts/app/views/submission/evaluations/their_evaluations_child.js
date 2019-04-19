@@ -6,7 +6,7 @@
  */
 import Marionette from 'backbone.marionette';
 import { $ } from "jquery";
-import template from 'hbs!templates/submission/evaluations/their_evaluations_child';
+import template from 'templates/submission/evaluations/their_evaluations_child.hbs';
 import ExpandableRange from 'behaviors/expandable_range';
 
 export default class TheirEvaluationsChild extends Marionette.ItemView {

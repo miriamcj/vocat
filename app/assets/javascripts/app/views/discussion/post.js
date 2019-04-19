@@ -8,7 +8,7 @@ import Marionette from 'backbone.marionette';
 
 import { $ } from "jquery";
 
-import template from 'hbs!templates/discussion/post';
+import template from 'templates/discussion/post.hbs';
 import DiscussionPostCollection from 'collections/discussion_post_collection';
 import DiscussionPostModel from 'models/discussion_post';
 import DiscussionBaseView from 'views/abstract/abstract_discussion';

@@ -6,7 +6,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import template from 'hbs!templates/assets/annotator/annotator_input';
+import template from 'templates/assets/annotator/annotator_input.hbs';
 import AnnotationModel from 'models/annotation';
 
 export default class AnnotatorInputView extends Marionette.ItemView {

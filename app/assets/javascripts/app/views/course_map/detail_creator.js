@@ -6,7 +6,7 @@
  */
 import Marionette from 'backbone.marionette';
 import { $ } from "jquery";
-import template from 'hbs!templates/course_map/detail_creator';
+import template from 'templates/course_map/detail_creator.hbs';
 import PortfolioSubmissionItem from 'views/portfolio/portfolio_submissions_item';
 import ModalGroupMembershipView from 'views/modal/modal_group_membership';
 

@@ -8,7 +8,7 @@
 import Marionette from 'backbone.marionette';
 import { $ } from "jquery";
 import { bindAll } from "lodash";
-import template from 'hbs!templates/modal/modal_group_membership';
+import template from 'templates/modal/modal_group_membership.hbs';
 import GroupModel from 'models/group';
 
 export default class ModalGroupMembershipView extends Marionette.ItemView {

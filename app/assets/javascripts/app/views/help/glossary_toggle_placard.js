@@ -9,7 +9,7 @@ import Backbone from 'backbone';
 import { $ } from "jquery";
 
 import Placard from 'views/help/placard';
-import template from 'hbs!templates/help/glossary_toggle_placard';
+import template from 'templates/help/glossary_toggle_placard.hbs';
 
 export default class GlossaryTogglePlacard extends Placard {
   constructor() {

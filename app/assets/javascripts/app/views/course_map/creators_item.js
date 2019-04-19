@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import template from 'hbs!templates/course_map/creators_item';
+import template from 'templates/course_map/creators_item.hbs';
 import ModalGroupMembershipView from 'views/modal/modal_group_membership';
 
 export default class CourseMapCreatorsItem extends Marionette.ItemView {

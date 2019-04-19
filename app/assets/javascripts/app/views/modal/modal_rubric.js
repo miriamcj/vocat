@@ -8,7 +8,7 @@
 import Marionette from 'backbone.marionette';
 import { $ } from "jquery";
 import { bindAll } from "lodash";
-import template from 'hbs!templates/modal/modal_rubric';
+import template from 'templates/modal/modal_rubric.hbs';
 
 export default class ModalProjectDescription extends Marionette.ItemView {
   constructor() {

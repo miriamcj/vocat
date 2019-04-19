@@ -8,7 +8,7 @@
 import Marionette from 'backbone.marionette';
 import { $ } from "jquery";
 import { isString, isObject, isArray } from "lodash";
-import template from 'hbs!templates/notification/notification_layout';
+import template from 'templates/notification/notification_layout.hbs';
 import NotificationMessage from 'views/notification/notification_message';
 import NotificationRegion from 'views/notification/notification_region';
 import FlashMessageModel from 'models/flash_message';

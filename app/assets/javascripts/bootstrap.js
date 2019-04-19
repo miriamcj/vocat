@@ -72,10 +72,3 @@ requirejs.config({
     }
   }
 });
-
-require(['app/vocat'], Vocat =>
-  $(() =>
-    // Start Vocat App
-    Vocat.start()
-  )
-);

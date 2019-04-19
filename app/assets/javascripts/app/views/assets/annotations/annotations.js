@@ -7,7 +7,7 @@
  */
 import Marionette from 'backbone.marionette';
 import { $ } from "jquery";
-import template from 'hbs!templates/assets/annotations/annotations';
+import template from 'templates/assets/annotations/annotations.hbs';
 import ItemView from 'views/assets/annotations/annotations_item';
 import EmptyView from 'views/assets/annotations/annotations_item_empty';
 

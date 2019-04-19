@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import template from 'hbs!templates/submission/evaluations/save_notify';
+import template from 'templates/submission/evaluations/save_notify.hbs';
 import GlobalNotification from 'behaviors/global_notification';
 
 export default class GroupsView extends Marionette.ItemView {

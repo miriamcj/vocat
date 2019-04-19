@@ -9,7 +9,7 @@ import { pluck } from "lodash";
 import 'jquery_ui';
 import 'vendor/plugins/ajax_chosen';
 import ConfirmInvite from 'views/admin/enrollment/confirm_invite';
-import template from 'hbs!templates/admin/enrollment/bulk_input';
+import template from 'templates/admin/enrollment/bulk_input.hbs';
 
 export default class EnrollmentBulkInput extends Marionette.LayoutView {
   constructor() {

@@ -6,7 +6,7 @@
  */
 import Marionette from 'backbone.marionette';
 import ProjectCollection from 'collections/project_collection';
-import template from 'hbs!templates/course/manage/projects/projects';
+import template from 'templates/course/manage/projects/projects.hbs';
 import ProjectsRowView from 'views/course/manage/projects/project_row';
 import SortableTable from 'behaviors/sortable_table';
 

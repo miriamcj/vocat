@@ -9,7 +9,7 @@ import Marionette from 'backbone.marionette';
 import { isObject, isArray, isString } from "lodash";
 import ItemView from 'views/flash/flash_messages_item';
 import FlashMessageCollection from 'collections/flash_message_collection';
-import template from 'hbs!templates/flash/flash_messages';
+import template from 'templates/flash/flash_messages.hbs';
 
 export default class AbstractFlashMessages extends Marionette.CollectionView {
   constructor() {

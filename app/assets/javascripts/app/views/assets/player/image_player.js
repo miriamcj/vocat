@@ -6,7 +6,7 @@
  */
 import Marionette from 'backbone.marionette';
 import { isFunction } from "lodash";
-import template from 'hbs!templates/assets/player/image_displayer';
+import template from 'templates/assets/player/image_displayer.hbs';
 import PlayerAnnotations from 'views/assets/player/player_annotations';
 
 export default class ImageDisplayerView extends Marionette.LayoutView {

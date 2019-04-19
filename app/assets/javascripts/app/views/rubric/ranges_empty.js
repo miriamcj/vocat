@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import template from 'hbs!templates/rubric/ranges_empty';
+import template from 'templates/rubric/ranges_empty.hbs';
 
 export default class RangesEmptyView extends Marionette.ItemView {
   constructor() {

@@ -6,7 +6,7 @@
  */
 import Marionette from 'backbone.marionette';
 import { $ } from "jquery";
-import Pikaday from 'vendor/plugins/pikaday';
+import Pikaday from 'pikaday';
 
 export default class ProjectView extends Marionette.ItemView {
   constructor() {

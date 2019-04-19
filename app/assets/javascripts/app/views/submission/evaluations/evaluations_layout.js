@@ -6,7 +6,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import template from 'hbs!templates/submission/evaluations/evaluations_layout';
+import template from 'templates/submission/evaluations/evaluations_layout.hbs';
 import EvaluationCollection from 'collections/evaluation_collection';
 import Evaluation from 'models/evaluation';
 import CollectionProxy from 'collections/collection_proxy';

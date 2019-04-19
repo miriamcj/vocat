@@ -6,7 +6,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import template from 'hbs!templates/rubric/ranges_item';
+import template from 'templates/rubric/ranges_item.hbs';
 import LongTextInputView from 'views/property_editor/long_text_input';
 import ModalConfirmView from 'views/modal/modal_confirm';
 

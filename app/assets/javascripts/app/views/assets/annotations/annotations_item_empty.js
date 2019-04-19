@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import template from 'hbs!templates/assets/annotations/annotations_item_empty';
+import template from 'templates/assets/annotations/annotations_item_empty.hbs';
 
 export default class AnnotationsEmptyView extends Marionette.ItemView {
   constructor() {

@@ -6,7 +6,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import template from 'hbs!templates/error/application_error';
+import template from 'templates/error/application_error.hbs';
 
 export default class ApplicationError extends Marionette.ItemView {
   constructor() {

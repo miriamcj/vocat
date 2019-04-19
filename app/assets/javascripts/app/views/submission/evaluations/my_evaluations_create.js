@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import template from 'hbs!templates/submission/evaluations/my_evaluations_create';
+import template from 'templates/submission/evaluations/my_evaluations_create.hbs';
 
 export default class MyEvaluationsCreate extends Marionette.ItemView {
   constructor() {

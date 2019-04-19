@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import template from 'hbs!templates/course_map/projects_empty';
+import template from 'templates/course_map/projects_empty.hbs';
 
 export default class CourseMapProjectsEmptyView extends Marionette.ItemView {
   constructor() {

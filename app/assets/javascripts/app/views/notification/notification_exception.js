@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import template from 'hbs!templates/notification/notification_exception';
+import template from 'templates/notification/notification_exception.hbs';
 import GlobalNotification from 'behaviors/global_notification';
 
 export default class NotificationException extends Marionette.ItemView {

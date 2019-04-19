@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import template from 'hbs!templates/project/detail/project_submission_row';
+import template from 'templates/project/detail/project_submission_row.hbs';
 import Backbone from 'backbone';
 
 export default class ProjectSubmissionRowView extends Marionette.ItemView {

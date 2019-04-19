@@ -1,10 +1,14 @@
 import Marionette from 'backbone.marionette';
 import { $ } from "jquery";
 import { debounce, isFunction } from "lodash";
-import vjsAnnotations from 'video_js/vjs.annotations';
-import vjsRewind from 'video_js/vjs.rewind';
-import vjsAudioWave from 'video_js/vjs.audiowave';
-import template from 'hbs!templates/assets/player/video_player';
+import * as VideoJS from "video.js";
+import * as HLS from "videojs-contrib-hls";
+import * as VJSYoutube from "video_js/vjs.youtube";
+import * as VJSVimeo from "video_js/vjs.vimeo";
+import * as VJSAnnotations from 'video_js/vjs.annotations';
+import * as VJSRewind from 'video_js/vjs.rewind';
+import * as VJSAudiowave from 'video_js/vjs.audiowave';
+import template from 'templates/assets/player/video_player.hbs';
 import PlayerAnnotations from 'views/assets/player/player_annotations';
 
 export default class VideoPlayerView extends Marionette.ItemView {

@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import template from 'hbs!templates/layout/loading';
+import template from 'templates/layout/loading.hbs';
 
 export default class LoadingView extends Marionette.ItemView {
   constructor() {

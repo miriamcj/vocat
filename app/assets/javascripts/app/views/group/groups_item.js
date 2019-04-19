@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import template from 'hbs!templates/group/groups_item';
+import template from 'templates/group/groups_item.hbs';
 import ModalConfirmView from 'views/modal/modal_confirm';
 import ShortTextInputView from 'views/property_editor/short_text_input';
 

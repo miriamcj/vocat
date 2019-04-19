@@ -6,7 +6,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import template from 'hbs!templates/assets/new_asset';
+import template from 'templates/assets/new_asset.hbs';
 import AssetModel from 'models/asset';
 import AttachmentModel from 'models/attachment';
 import iFrameTransport from 'vendor/plugins/iframe_transport';

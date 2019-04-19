@@ -6,7 +6,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import template from 'hbs!templates/discussion/discussion';
+import template from 'templates/discussion/discussion.hbs';
 import DiscusionPostCollection from 'collections/discussion_post_collection';
 import DiscussionPostModel from 'models/discussion_post';
 import FlashMessagesView from 'views/flash/flash_messages';

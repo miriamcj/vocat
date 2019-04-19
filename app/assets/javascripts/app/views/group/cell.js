@@ -8,7 +8,7 @@ import Marionette from 'backbone.marionette';
 
 import { clone, without } from "lodash";
 
-import template from 'hbs!templates/group/cell';
+import template from 'templates/group/cell.hbs';
 
 export default class Cell extends Marionette.ItemView {
   constructor() {

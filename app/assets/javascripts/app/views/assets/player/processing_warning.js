@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import template from 'hbs!templates/assets/player/processing_warning';
+import template from 'templates/assets/player/processing_warning.hbs';
 
 export default class ProcessingWarningView extends Marionette.ItemView {
   constructor() {

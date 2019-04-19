@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import template from 'hbs!templates/admin/enrollment/empty_users';
+import template from 'templates/admin/enrollment/empty_users.hbs';
 
 export default class EnrollmentEmptyUsers extends Marionette.ItemView {
   constructor() {

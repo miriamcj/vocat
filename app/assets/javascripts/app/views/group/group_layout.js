@@ -6,7 +6,7 @@
  */
 import Marionette from 'backbone.marionette';
 import { shuffle } from "lodash";
-import template from 'hbs!templates/group/group_layout';
+import template from 'templates/group/group_layout.hbs';
 import AbstractMatrix from 'views/abstract/abstract_matrix';
 import CreatorsView from 'views/group/creators';
 import GroupsView from 'views/group/groups';
