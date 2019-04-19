@@ -521,6 +521,6 @@
   background-position: 50% 50%;
   background-repeat: no-repeat;
   .no-inlinesvg & {
-    background: transparent url('../Images/icons/png/#{$image}.png') no-repeat left top;
+    // background: transparent url('../Images/icons/png/#{$image}.png') no-repeat left top;
   }
 }
