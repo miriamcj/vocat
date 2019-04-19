@@ -37,6 +37,7 @@ gem 'slack-notifier'
 gem 'state_machine', :git => 'https://github.com/seuros/state_machine.git'
 gem 'uglifier', '~> 2.6.0'
 gem 'unicorn'
+gem 'webpacker', '~> 4.x'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 
