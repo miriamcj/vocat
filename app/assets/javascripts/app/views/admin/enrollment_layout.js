@@ -4,7 +4,7 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import Marionette from 'marionette';
+import Marionette from 'backbone.marionette';
 import template from 'hbs!templates/admin/enrollment_layout';
 import EnrollmentList from 'views/admin/enrollment/list';
 import EnrollmentInput from 'views/admin/enrollment/input';

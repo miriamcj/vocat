@@ -4,7 +4,7 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import Marionette from 'marionette';
+import Marionette from 'backbone.marionette';
 import VocatController from 'controllers/vocat_controller';
 import CreatorDetailView from 'views/course_map/detail_creator';
 import SubmissionLayoutView from 'views/submission/submission_layout';

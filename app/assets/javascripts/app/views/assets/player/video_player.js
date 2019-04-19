@@ -1,16 +1,9 @@
-/*
- * decaffeinate suggestions:
- * DS001: Remove Babel/TypeScript constructor workaround
- * DS102: Remove unnecessary code created because of implicit returns
- * DS206: Consider reworking classes to avoid initClass
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
-import Marionette from 'marionette';
+import Marionette from 'backbone.marionette';
 import { $ } from "jquery";
 import { debounce, isFunction } from "lodash";
-import vjsAnnotations from 'vendor/video_js/vjs.annotations';
-vjsAnnotations = require('vendor/video_js/vjs.rewind');
-import vjsAudioWave from 'vendor/video_js/vjs.audiowave';
+import vjsAnnotations from 'video_js/vjs.annotations';
+import vjsRewind from 'video_js/vjs.rewind';
+import vjsAudioWave from 'video_js/vjs.audiowave';
 import template from 'hbs!templates/assets/player/video_player';
 import PlayerAnnotations from 'views/assets/player/player_annotations';
 

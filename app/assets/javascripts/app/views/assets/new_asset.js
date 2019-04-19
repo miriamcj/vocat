@@ -5,7 +5,7 @@
  * DS207: Consider shorter variations of null checks
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import Marionette from 'marionette';
+import Marionette from 'backbone.marionette';
 import template from 'hbs!templates/assets/new_asset';
 import AssetModel from 'models/asset';
 import AttachmentModel from 'models/attachment';

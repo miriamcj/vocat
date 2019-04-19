@@ -4,7 +4,7 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import Marionette from 'marionette';
+import Marionette from 'backbone.marionette';
 import template from 'hbs!templates/submission/submission_layout';
 import DiscussionView from 'views/discussion/discussion';
 import EvaluationsView from 'views/submission/evaluations/evaluations_layout';

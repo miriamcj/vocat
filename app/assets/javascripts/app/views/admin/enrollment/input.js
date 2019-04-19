@@ -4,7 +4,7 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import Marionette from 'marionette';
+import Marionette from 'backbone.marionette';
 import { debounce, extend } from "lodash";
 import usersTemplate from 'hbs!templates/admin/enrollment/user_input';
 import coursesTemplate from 'hbs!templates/admin/enrollment/course_input';

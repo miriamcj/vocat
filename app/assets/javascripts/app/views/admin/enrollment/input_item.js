@@ -5,7 +5,7 @@
  * DS207: Consider shorter variations of null checks
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import Marionette from 'marionette';
+import Marionette from 'backbone.marionette';
 import courseTemplate from 'hbs!templates/admin/enrollment/course_input_item';
 import userTemplate from 'hbs!templates/admin/enrollment/user_input_item';
 

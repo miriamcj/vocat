@@ -10,7 +10,7 @@ import template from 'hbs!templates/rubric/range_picker_modal';
 import { $ } from "jquery";
 import { min, reject, max, isNaN, sortBy, uniq, countBy, isObject } from "lodash";
 import jqui from 'jquery_ui';
-import Marionette from 'marionette';
+import Marionette from 'backbone.marionette';
 
 export default class RangePickerModalView extends Marionette.ItemView {
   constructor() {

@@ -5,7 +5,7 @@
  * DS207: Consider shorter variations of null checks
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import Marionette from 'marionette';
+import Marionette from 'backbone.marionette';
 import LoadingView from 'views/layout/loading';
 import ModalErrorView from 'views/modal/modal_error';
 import $ from 'jquery_rails';

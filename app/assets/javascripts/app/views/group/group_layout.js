@@ -4,7 +4,7 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import Marionette from 'marionette';
+import Marionette from 'backbone.marionette';
 import { shuffle } from "lodash";
 import template from 'hbs!templates/group/group_layout';
 import AbstractMatrix from 'views/abstract/abstract_matrix';

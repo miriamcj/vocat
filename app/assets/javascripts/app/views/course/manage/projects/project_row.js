@@ -4,7 +4,7 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import marionette from 'marionette';
+import Marionette from 'backbone.marionette';
 import template from 'hbs!templates/course/manage/projects/project_row';
 import DropdownView from 'views/layout/dropdown';
 import ModalConfirmView from 'views/modal/modal_confirm';

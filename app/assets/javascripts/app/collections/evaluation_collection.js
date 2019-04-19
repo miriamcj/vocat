@@ -6,7 +6,7 @@
  */
 import Backbone from 'backbone';
 
-import Marionette from 'marionette';
+import Marionette from 'backbone.marionette';
 import EvaluationModel from 'models/evaluation';
 
 export default class EvaluationCollection extends Backbone.Collection {

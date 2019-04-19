@@ -5,7 +5,7 @@
  */
 import $ from 'jquery_rails';
 
-import Marionette from 'marionette';
+import Marionette from 'backbone.marionette';
 
 export default class ChosenView extends Marionette.ItemView {
 

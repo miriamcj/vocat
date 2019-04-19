@@ -6,7 +6,7 @@
  */
 import Backbone from 'backbone';
 
-import Marionette from 'marionette';
+import Marionette from 'backbone.marionette';
 import VisitModel from 'models/visit';
 
 export default class VisitCollection extends Backbone.Collection {

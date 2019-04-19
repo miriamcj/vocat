@@ -5,7 +5,7 @@
  * DS207: Consider shorter variations of null checks
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import Marionette from 'marionette';
+import Marionette from 'backbone.marionette';
 import { isObject, isArray, isString } from "lodash";
 import ItemView from 'views/flash/flash_messages_item';
 import FlashMessageCollection from 'collections/flash_message_collection';

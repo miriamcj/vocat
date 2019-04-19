@@ -4,7 +4,7 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import marionette from 'marionette';
+import Marionette from 'backbone.marionette';
 
 export default class ManageOrganizationView extends Marionette.ItemView {
   constructor() {

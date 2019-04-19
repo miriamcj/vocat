@@ -5,7 +5,7 @@
  * DS207: Consider shorter variations of null checks
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import Marionette from 'marionette';
+import Marionette from 'backbone.marionette';
 import template from 'hbs!templates/rubric/range';
 import ItemView from 'views/rubric/ranges_item';
 import ModalConfirmView from 'views/modal/modal_confirm';

@@ -4,7 +4,7 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import Marionette from 'marionette';
+import Marionette from 'backbone.marionette';
 import { pluck } from "lodash";
 import template from 'hbs!templates/admin/enrollment/confirm_invite';
 import GlobalNotification from 'behaviors/global_notification';
