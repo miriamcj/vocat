@@ -33,6 +33,7 @@ default: &default
     - .woff2
 
   extensions:
+    - .erb
     - .mjs
     - .js
     - .sass
@@ -56,10 +57,11 @@ development:
 
   # Reference: https://webpack.js.org/configuration/dev-server/
   dev_server:
-    https: false
+    https: true
     host: localhost
-    port: 3035
-    public: localhost:3035
+    port: 11917
+    public: assets.vocat.lvh:443
+    publicPath: https://assets.vocat.lvh/
     hmr: false
     # Inline should be set to true if using HMR
     inline: true
@@ -70,6 +72,8 @@ development:
     quiet: false
     headers:
       'Access-Control-Allow-Origin': '*'
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS'
+      'Access-Control-Allow-Headers': 'Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent,X-Requested-With'
     watch_options:
       ignored: '**/node_modules/**'
 

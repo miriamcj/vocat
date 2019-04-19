@@ -14,12 +14,12 @@
     "jquery-ujs": "^1.2.2",
     "jquery-waypoints": "^2.0.5",
     "lodash": "^4.17.11",
-    "modernizr": "^3.7.1",
     "paper": "0.9.21",
     "pikaday": "^1.8.0",
     "rollbar": "^2.5.5",
     "video.js": "5.15.1",
-    "wavesurfer.js": "^2.2.1"
+    "wavesurfer.js": "^2.2.1",
+    "webpack-modernizr-loader": "^5.0.0"
   },
   "devDependencies": {
     "eslint": "^5.16.0",

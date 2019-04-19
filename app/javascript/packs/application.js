@@ -1,6 +1,5 @@
 import 'styles/stylesheets/main.scss';
 
-// import $ from 'jquery';
-// import Vocat from "vocat";
+import modernizr from 'modernizr';
 
 Vocat.start();
