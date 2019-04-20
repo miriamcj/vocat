@@ -8,7 +8,8 @@
 import Marionette from 'backbone.marionette';
 import LoadingView from 'views/layout/loading';
 import ModalErrorView from 'views/modal/modal_error';
-import $ from 'jquery_rails';
+import $ from 'jquery';
+import {} from 'jquery-ujs';
 
 export default class VocatController extends Marionette.Controller {
   constructor() {

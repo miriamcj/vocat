@@ -6,13 +6,13 @@
  */
 import Marionette from 'backbone.marionette';
 import { debounce, extend } from "lodash";
-import usersTemplate from 'hbs!templates/admin/enrollment/user_input';
-import coursesTemplate from 'hbs!templates/admin/enrollment/course_input';
+import usersTemplate from 'templates/admin/enrollment/user_input.hbs';
+import coursesTemplate from 'templates/admin/enrollment/course_input.hbs';
 import ItemView from 'views/admin/enrollment/input_item';
 import EmptyView from 'views/admin/enrollment/input_empty';
 import ClosesOnUserAction from 'behaviors/closes_on_user_action';
-import 'jquery_ui';
-import 'vendor/plugins/ajax_chosen';
+const jqueryUI = require("jquery-ui");
+const ajaxChosen = require("chosen");
 
 export default class EnrollmentUserInput extends Marionette.CompositeView {
   constructor() {

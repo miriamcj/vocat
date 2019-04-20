@@ -8,7 +8,7 @@ import Marionette from 'backbone.marionette';
 
 import { $ } from "jquery";
 
-import 'jquery_ui';
+const jqueryUI = require("jquery-ui");
 
 export default class SortableTable extends Marionette.Behavior {
   constructor() {

@@ -6,8 +6,8 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import courseTemplate from 'hbs!templates/admin/enrollment/course_input_item';
-import userTemplate from 'hbs!templates/admin/enrollment/user_input_item';
+import courseTemplate from 'templates/admin/enrollment/course_input_item.hbs';
+import userTemplate from 'templates/admin/enrollment/user_input_item.hbs';
 
 export default class EnrollmentUserInputItem extends Marionette.ItemView {
   constructor() {

@@ -7,10 +7,10 @@
  */
 import Marionette from 'backbone.marionette';
 import { $ } from "jquery";
+const jqueryUI = require("jquery-ui");
 import { sortBy, uniq, max, min, countBy } from "lodash";
 import template from 'templates/rubric/ranges.hbs';
 import RangeView from 'views/rubric/range';
-import jqui from 'jquery_ui';
 
 export default class RangesView extends Marionette.CompositeView {
   constructor() {

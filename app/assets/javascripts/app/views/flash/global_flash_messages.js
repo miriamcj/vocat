@@ -6,8 +6,8 @@
  */
 import AbstractFlashMessages from 'views/abstract/abstract_flash_messages';
 import template from 'templates/flash/global_flash_messages.hbs';
-import 'waypoints_sticky';
-import 'waypoints';
+const Waypoints = require("waypoints");
+const WaypointsSticky = require("waypoints_sticky");
 
 export default class GlobalFlashMessages extends AbstractFlashMessages {
   constructor() {

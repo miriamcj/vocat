@@ -10,7 +10,13 @@ default: &default
   webpack_compile_output: false
 
   # Additional paths webpack should lookup modules
-  resolved_paths: ['app/assets/javascripts/app', 'app/assets/javascripts/vendor']
+  resolved_paths: [
+    'app/assets/javascripts/app',
+    'app/assets/javascripts/vendor',
+    'app/assets/javascripts/vendor/video_js',
+    'app/assets/javascripts/vendor/wavesurfer',
+    'app/assets/javascripts/vendor/plugins'
+  ]
 
   # Reload manifest.json on all requests so we reload latest compiled packs
   cache_manifest: false

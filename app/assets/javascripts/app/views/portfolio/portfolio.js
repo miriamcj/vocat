@@ -6,7 +6,7 @@
  */
 import Marionette from 'backbone.marionette';
 
-import Template from 'hbs!templates/portfolio/portfolio';
+import Template from 'templates/portfolio/portfolio.hbs';
 
 export default class PortfolioView extends Marionette.LayoutView {
   constructor() {
@@ -19,4 +19,3 @@ export default class PortfolioView extends Marionette.LayoutView {
     };
   }
 };
-

@@ -6,13 +6,13 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import userItemTemplate from 'hbs!templates/admin/enrollment/list_users_item';
-import courseItemTemplate from 'hbs!templates/admin/enrollment/list_courses_item';
+import userItemTemplate from 'templates/admin/enrollment/list_users_item.hbs';
+import courseItemTemplate from 'templates/admin/enrollment/list_courses_item.hbs';
 
 export default class CreatorEnrollmentItem extends Marionette.ItemView {
   constructor(...args) {
     super(...args);
-    
+
     this.getTemplate = this.getTemplate.bind(this);
     this.tagName = 'tr';
   }

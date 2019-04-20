@@ -9,8 +9,8 @@ import Marionette from 'backbone.marionette';
 import template from 'templates/assets/new_asset.hbs';
 import AssetModel from 'models/asset';
 import AttachmentModel from 'models/attachment';
-import iFrameTransport from 'vendor/plugins/iframe_transport';
-import FileUpload from 'vendor/plugins/file_upload';
+import 'plugins/iframe_transport';
+import 'plugins/file_upload';
 import ShortTextInputView from 'views/property_editor/short_text_input';
 
 export default class NewAsset extends Marionette.ItemView {

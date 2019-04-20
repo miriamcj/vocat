@@ -9,10 +9,10 @@ import Marionette from 'backbone.marionette';
 import ItemView from 'views/admin/enrollment/item';
 import EmptyCoursesView from 'views/admin/enrollment/empty_courses';
 import EmptyUsersView from 'views/admin/enrollment/empty_users';
-import templateCourses from 'hbs!templates/admin/enrollment/list_courses';
-import templateUsers from 'hbs!templates/admin/enrollment/list_users';
-import 'jquery_ui';
-import 'vendor/plugins/ajax_chosen';
+import templateCourses from 'templates/admin/enrollment/list_courses.hbs';
+import templateUsers from 'templates/admin/enrollment/list_users.hbs';
+const jqueryUI = require("jquery-ui");
+const ajaxChosen = require("chosen");
 
 export default class EnrollmentUserList extends Marionette.CompositeView {
   constructor(...args) {

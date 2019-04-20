@@ -3,7 +3,8 @@
  * DS102: Remove unnecessary code created because of implicit returns
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import $ from 'jquery_rails';
+ import $ from 'jquery';
+ import {} from 'jquery-ujs';
 
 import { bind } from "lodash";
 
@@ -33,5 +34,3 @@ export default class JumpNavView extends Marionette.ItemView {
     return this.$el.chosen(options).change(bind(this.handleChange, this));
   }
 }
-
-

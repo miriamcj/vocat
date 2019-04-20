@@ -8,8 +8,8 @@
 import Marionette from 'backbone.marionette';
 import { $ } from "jquery";
 import { debounce } from "lodash";
-import 'waypoints_sticky';
-import 'waypoints';
+const Waypoints = require("waypoints");
+const WaypointsSticky = require("waypoints_sticky");
 
 export default class AbstractMatrix extends Marionette.LayoutView {
   constructor() {

@@ -8,7 +8,7 @@
 import Marionette from 'backbone.marionette';
 import { $ } from "jquery";
 import { isNumber, isNaN } from "lodash";
-import 'jquery_ui';
+const jqueryUI = require("jquery-ui");
 import template from 'templates/submission/evaluations/score_slider.hbs';
 
 export default class ScoreSlider extends Marionette.ItemView {

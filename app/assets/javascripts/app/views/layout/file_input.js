@@ -4,7 +4,8 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import $ from 'jquery_rails';
+ import $ from 'jquery';
+ import {} from 'jquery-ujs';
 
 import Marionette from 'backbone.marionette';
 
@@ -33,5 +34,3 @@ export default class FileInputView extends Marionette.ItemView {
     return $(this.ui.field).click();
   }
 };
-
-

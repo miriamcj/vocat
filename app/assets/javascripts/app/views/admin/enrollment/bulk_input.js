@@ -6,8 +6,8 @@
  */
 import Marionette from 'backbone.marionette';
 import { pluck } from "lodash";
-import 'jquery_ui';
-import 'vendor/plugins/ajax_chosen';
+const jqueryUI = require("jquery-ui");
+const ajaxChosen = require("chosen");
 import ConfirmInvite from 'views/admin/enrollment/confirm_invite';
 import template from 'templates/admin/enrollment/bulk_input.hbs';
 

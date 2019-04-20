@@ -8,8 +8,8 @@
  */
 import template from 'templates/rubric/range_picker_modal.hbs';
 import { $ } from "jquery";
+const jqueryUI = require("jquery-ui");
 import { min, reject, max, isNaN, sortBy, uniq, countBy, isObject } from "lodash";
-import jqui from 'jquery_ui';
 import Marionette from 'backbone.marionette';
 
 export default class RangePickerModalView extends Marionette.ItemView {

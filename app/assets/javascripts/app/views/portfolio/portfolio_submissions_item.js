@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import SubmissionTemplate from 'hbs!templates/portfolio/portfolio_item_submission';
+import SubmissionTemplate from 'templates/portfolio/portfolio_item_submission.hbs';
 
 export default class PortfolioItemSubmission extends Marionette.ItemView {
   constructor() {
@@ -58,4 +58,3 @@ export default class PortfolioItemSubmission extends Marionette.ItemView {
     return out;
   }
 };
-

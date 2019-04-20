@@ -13,15 +13,11 @@
     "jquery": "^1.11.3",
     "jquery-ui": "1.10.5",
     "jquery-ujs": "^1.2.2",
-    "jquery-waypoints": "^2.0.5",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
-    "paper": "0.9.21",
+    "paper-jsdom": "^0.12.0",
     "pikaday": "^1.8.0",
     "rollbar": "^2.5.5",
-    "video.js": "5.15.1",
-    "videojs-contrib-hls": "4.0.2",
-    "wavesurfer.js": "^2.2.1",
     "webpack-modernizr-loader": "^5.0.0"
   },
   "devDependencies": {

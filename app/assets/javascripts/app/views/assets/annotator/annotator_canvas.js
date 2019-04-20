@@ -6,7 +6,7 @@
  */
 import Marionette from 'backbone.marionette';
 import { $ } from "jquery";
-import paper from 'paper';
+import paper from 'paper-jsdom';
 import template from 'templates/assets/annotator/annotator_canvas.hbs';
 import ModalConfirmView from 'views/modal/modal_confirm';
 

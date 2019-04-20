@@ -8,7 +8,7 @@ import Marionette from 'backbone.marionette';
 
 import { extend } from "lodash";
 
-import ProjectTemplate from 'hbs!templates/portfolio/portfolio_item_project';
+import ProjectTemplate from 'templates/portfolio/portfolio_item_project.hbs';
 
 export default class PortfolioItemSubmission extends Marionette.ItemView {
   constructor() {
