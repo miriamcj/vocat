@@ -18,7 +18,7 @@
         // Register as an anonymous AMD module:
         define([
             'jquery',
-            'ui/jquery_ui'
+            'jquery-ui'
         ], factory);
     } else {
         // Browser globals:
