@@ -7,7 +7,7 @@
  */
 import Marionette from 'backbone.marionette';
 
-import { $ } from "jquery";
+
 
 import { bind } from "lodash";
 

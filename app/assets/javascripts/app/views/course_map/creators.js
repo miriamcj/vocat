@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import { $ } from "jquery";
+
 import template from 'templates/course_map/creators.hbs';
 import Item from 'views/course_map/creators_item';
 

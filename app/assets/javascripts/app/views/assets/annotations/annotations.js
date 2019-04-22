@@ -6,7 +6,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import { $ } from "jquery";
+
 import template from 'templates/assets/annotations/annotations.hbs';
 import ItemView from 'views/assets/annotations/annotations_item';
 import EmptyView from 'views/assets/annotations/annotations_item_empty';

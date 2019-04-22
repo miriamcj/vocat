@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import { $ } from "jquery";
+
 import template from 'templates/assets/annotator/annotator.hbs';
 import ProgressBarView from 'views/assets/annotator/progress_bar';
 import AnnotationInputView from 'views/assets/annotator/annotator_input';

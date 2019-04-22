@@ -7,7 +7,7 @@
  */
 import Backbone from 'backbone';
 
-import { $ } from "jquery";
+
 
 import Placard from 'views/help/placard';
 import template from 'templates/help/rubric_field_placard.hbs';

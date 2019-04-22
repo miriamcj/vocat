@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import { $ } from "jquery";
+
 import ClosesOnUserAction from 'behaviors/closes_on_user_action';
 
 export default class DropdownView extends Marionette.ItemView {

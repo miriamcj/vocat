@@ -6,7 +6,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import { $ } from "jquery";
+
 import { isString, isObject, isArray } from "lodash";
 import template from 'templates/notification/notification_layout.hbs';
 import NotificationMessage from 'views/notification/notification_message';

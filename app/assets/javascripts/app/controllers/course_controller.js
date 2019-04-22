@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import { $ } from "jquery";
+
 import { isNaN } from "lodash";
 import VocatController from 'controllers/vocat_controller';
 import EnrollmentCollection from 'collections/enrollment_collection';

@@ -6,7 +6,7 @@
  */
 import Marionette from 'backbone.marionette';
 
-import { $ } from "jquery";
+
 
 import template from 'templates/discussion/post.hbs';
 import DiscussionPostCollection from 'collections/discussion_post_collection';

@@ -6,7 +6,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import { $ } from "jquery";
+
 import { isNumber, isNaN } from "lodash";
 const jqueryUI = require("jquery-ui");
 import template from 'templates/submission/evaluations/score_slider.hbs';

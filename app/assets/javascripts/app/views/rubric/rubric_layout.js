@@ -6,7 +6,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import template from 'templates/rubric/rubric_layout.hbs';
-import { $ } from "jquery";
+
 import { throttle, isNaN, reject, uniq } from "lodash";
 import RubricModel from 'models/rubric';
 import RangeModel from 'models/range';

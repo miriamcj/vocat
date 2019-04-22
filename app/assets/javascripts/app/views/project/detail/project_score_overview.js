@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import { $ } from "jquery";
+
 import template from 'templates/project/detail/project_score_overview.hbs';
 
 export default class ProjectScoreOverview extends Marionette.ItemView {

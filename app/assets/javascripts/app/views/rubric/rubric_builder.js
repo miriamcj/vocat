@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import template from 'templates/rubric/rubric_builder.hbs';
-import { $ } from "jquery";
+
 import CriteriaView from 'views/rubric/criteria';
 import RangesView from 'views/rubric/ranges';
 import RangeModel from 'models/range';

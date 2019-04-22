@@ -6,7 +6,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import { $ } from "jquery";
+
 import { debounce } from "lodash";
 const Waypoints = require("waypoints");
 const WaypointsSticky = require("waypoints_sticky");

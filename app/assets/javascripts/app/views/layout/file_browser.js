@@ -6,7 +6,7 @@
  */
 import Marionette from 'backbone.marionette';
 
-import { $ } from "jquery";
+
 
 export default class FileBrowserView extends Marionette.ItemView {
   constructor() {

@@ -6,7 +6,7 @@
  */
 import Marionette from 'backbone.marionette';
 
-import { $ } from "jquery";
+
 
 import template from 'templates/page/help_test.hbs';
 

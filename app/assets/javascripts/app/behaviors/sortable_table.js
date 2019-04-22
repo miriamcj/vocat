@@ -6,7 +6,7 @@
  */
 import Marionette from 'backbone.marionette';
 
-import { $ } from "jquery";
+
 
 const jqueryUI = require("jquery-ui");
 

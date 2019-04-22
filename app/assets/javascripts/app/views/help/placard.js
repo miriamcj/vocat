@@ -7,7 +7,7 @@
  */
 import Backbone from 'backbone';
 
-import { $ } from "jquery";
+
 
 import { reject } from "lodash";
 

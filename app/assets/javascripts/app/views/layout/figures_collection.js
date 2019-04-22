@@ -5,7 +5,7 @@
  */
 import Marionette from 'backbone.marionette';
 
-import { $ } from "jquery";
+
 
 import { max } from "lodash";
 

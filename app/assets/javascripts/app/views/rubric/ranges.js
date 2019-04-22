@@ -6,7 +6,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import { $ } from "jquery";
+
 const jqueryUI = require("jquery-ui");
 import { sortBy, uniq, max, min, countBy } from "lodash";
 import template from 'templates/rubric/ranges.hbs';

@@ -6,7 +6,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import Marionette from 'backbone.marionette';
-import { $ } from "jquery";
+
 import { bindAll } from "lodash";
 import template from 'templates/modal/modal_markdown_overview.hbs';
 

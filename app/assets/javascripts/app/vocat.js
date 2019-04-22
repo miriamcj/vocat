@@ -1,6 +1,6 @@
 import { Application, AppRouter } from 'backbone.marionette';
 import Backbone from 'backbone';
-import $ from 'jquery';
+
 import Pikaday from 'pikaday';
 // // import Rollbar from 'app/rollbar';
 import ModalLayoutView from 'views/modal/modal_layout';

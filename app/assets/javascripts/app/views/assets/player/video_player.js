@@ -1,8 +1,9 @@
 import Marionette from 'backbone.marionette';
-import { $ } from "jquery";
+
 import { debounce, isFunction } from "lodash";
 import template from 'templates/assets/player/video_player.hbs';
 import PlayerAnnotations from 'views/assets/player/player_annotations';
+const videojs = require('video_js/video.js');
 let vjsAnnotations = require('video_js/vjs.annotations');
 vjsAnnotations = require('video_js/vjs.rewind');
 const vjsAudioWave = require('video_js/vjs.audiowave');

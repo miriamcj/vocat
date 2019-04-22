@@ -5,7 +5,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 import template from 'templates/rubric/criteria.hbs';
-import { $ } from "jquery";
+
 import ItemView from 'views/rubric/criteria_item';
 
 
