@@ -1,0 +1,11 @@
+export { default as AdminController } from "./admin_controller";
+export { default as CourseController } from "./course_controller";
+export { default as CourseMapController } from "./coursemap_controller";
+export { default as GlobalFlashController } from "./global_flash_controller";
+export { default as GroupController } from "./group_controller";
+export { default as PageController } from "./page_controller";
+export { default as PortfolioController } from "./portfolio_controller";
+export { default as ProjectController } from "./project_controller";
+export { default as RubricController } from "./rubric_controller";
+export { default as SubmissionController } from "./submission_controller";
+export { default as VocatController } from "./vocat_controller";

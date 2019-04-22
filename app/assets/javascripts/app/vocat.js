@@ -18,6 +18,17 @@ import NotificationLayoutView from 'views/notification/notification_layout';
 import NotificationExceptionView from 'views/notification/notification_exception';
 import project from 'views/course/manage/projects/project';
 import manage_organization from 'views/manage/organizations/organization';
+import {
+  CourseController,
+  ProjectController,
+  AdminController,
+  CourseMapController,
+  GroupController,
+  PageController,
+  PortfolioController,
+  RubricController,
+  SubmissionController
+} from 'controllers';
 
 const Standalone = {
   project,
@@ -149,15 +160,15 @@ Vocat.addInitializer(function() {
     };
 
     switch (controllerName) {
-      case 'course': return require(['controllers/course_controller'], CourseController => instantiateRouter(CourseController, 'course'));
-      case 'project': return require(['controllers/project_controller'], ProjectController => instantiateRouter(ProjectController, 'project'));
-      case 'admin': return require(['controllers/admin_controller'], AdminController => instantiateRouter(AdminController, 'admin'));
-      case 'coursemap': return require(['controllers/coursemap_controller'], CourseMapController => instantiateRouter(CourseMapController, 'coursemap'));
-      case 'group': return require(['controllers/group_controller'], GroupController => instantiateRouter(GroupController, 'group'));
-      case 'page': return require(['controllers/page_controller'], PageController => instantiateRouter(PageController, 'page'));
-      case 'portfolio': return require(['controllers/portfolio_controller'], PortfolioController => instantiateRouter(PortfolioController, 'portfolio'));
-      case 'rubric': return require(['controllers/rubric_controller'], RubricController => instantiateRouter(RubricController, 'rubric'));
-      case 'submission': return require(['controllers/submission_controller'], SubmissionController => instantiateRouter(SubmissionController, 'submission'));
+      case 'course': instantiateRouter(CourseController, 'course')
+      case 'project': instantiateRouter(ProjectController, 'project')
+      case 'admin': instantiateRouter(AdminController, 'admin')
+      case 'coursemap': instantiateRouter(CourseMapController, 'coursemap')
+      case 'group': instantiateRouter(GroupController, 'group')
+      case 'page': instantiateRouter(PageController, 'page')
+      case 'portfolio': instantiateRouter(PortfolioController, 'portfolio')
+      case 'rubric': instantiateRouter(RubricController, 'rubric')
+      case 'submission': instantiateRouter(SubmissionController, 'submission')
     }
   }
 });
