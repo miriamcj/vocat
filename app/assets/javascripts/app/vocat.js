@@ -1,3 +1,4 @@
+import Modernizr from 'modernizr';
 import Pikaday from 'pikaday';
 import ModalLayoutView from 'views/modal/modal_layout';
 import ModalConfirmView from 'views/modal/modal_confirm';
@@ -31,7 +32,8 @@ const Standalone = {
   manage_organization
 };
 
-window.Vocat = (Vocat = new Marionette.Application());
+const Vocat = new Marionette.Application();
+window.Vocat = Vocat;
 
 Vocat.routes = {
   admin: {
