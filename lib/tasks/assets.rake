@@ -23,10 +23,7 @@ namespace :assets do
     # cg.run_all
 
     # Execute r.js compression
-    Dir.chdir('build') do
-      puts %x( pwd )
-      puts %x( r.js -o build.js )
-    end
+    puts %x( r.js -o build/build.js )
 
   end
 end
