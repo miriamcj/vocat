@@ -4,7 +4,7 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import Marionette from 'backbone.marionette';
+
 
 import paper from 'paper-jsdom';
 import template from 'templates/assets/annotator/annotator_canvas.hbs';

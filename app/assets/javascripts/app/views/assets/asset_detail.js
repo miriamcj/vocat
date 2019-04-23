@@ -4,7 +4,7 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import Marionette from 'backbone.marionette';
+
 import template from 'templates/assets/asset_detail.hbs';
 import VideoPlayerView from 'views/assets/player/video_player';
 import ImagePlayerView from 'views/assets/player/image_player';

@@ -1,4 +1,4 @@
-import Marionette from 'backbone.marionette';
+
 
 import { debounce, isFunction } from "lodash";
 import template from 'templates/assets/player/video_player.hbs';

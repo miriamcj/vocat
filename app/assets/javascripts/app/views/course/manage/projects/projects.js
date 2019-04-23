@@ -4,7 +4,7 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import Marionette from 'backbone.marionette';
+
 import ProjectCollection from 'collections/project_collection';
 import template from 'templates/course/manage/projects/projects.hbs';
 import ProjectsRowView from 'views/course/manage/projects/project_row';

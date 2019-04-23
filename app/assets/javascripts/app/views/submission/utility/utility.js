@@ -4,7 +4,7 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import Marionette from 'backbone.marionette';
+
 import template from 'templates/submission/utility/utility.hbs';
 
 export default class UtilityView extends Marionette.ItemView {

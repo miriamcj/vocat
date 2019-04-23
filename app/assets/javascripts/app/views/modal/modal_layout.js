@@ -5,16 +5,12 @@
  * DS207: Consider shorter variations of null checks
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import Marionette from 'backbone.marionette';
-
-
-
 import { bind } from "lodash";
-
 import template from 'templates/modal/modal_layout.hbs';
 
 export default class ModalLayout extends Marionette.LayoutView {
   constructor() {
+    super();
 
     this.template = template;
 

@@ -1,4 +1,5 @@
 const path = require("path");
+const webpack = require('webpack');
 
 module.exports = {
   module: {
@@ -17,5 +18,14 @@ module.exports = {
     alias: {
       modernizr$: path.resolve(__dirname, "./.modernizrrc.js")
     }
-  }
+  },
+  plugins: [
+    new webpack.ProvidePlugin({
+       Backbone: ['backbone-shim', 'default'],
+       Marionette: 'backbone.marionette',
+       $: 'jquery',
+       jQuery: 'jquery',
+       jquery: 'jquery'
+    })
+  ]
 };

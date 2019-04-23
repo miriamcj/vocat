@@ -12,8 +12,6 @@ import RangeModel from 'models/range';
 import FieldModel from 'models/field';
 import RubricModel from 'models/rubric';
 import ShortTextInputView from 'views/property_editor/short_text_input';
-ShortTextInputView = require('views/property_editor/short_text_input');
-
 
 export default class RubricBuilder extends Marionette.LayoutView {
   constructor() {

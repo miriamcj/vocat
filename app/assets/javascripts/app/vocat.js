@@ -1,8 +1,4 @@
-import { Application, AppRouter } from 'backbone.marionette';
-import Backbone from 'backbone';
-
 import Pikaday from 'pikaday';
-// // import Rollbar from 'app/rollbar';
 import ModalLayoutView from 'views/modal/modal_layout';
 import ModalConfirmView from 'views/modal/modal_confirm';
 import DropdownView from 'views/layout/dropdown';
@@ -35,7 +31,7 @@ const Standalone = {
   manage_organization
 };
 
-window.Vocat = (Vocat = new Application());
+window.Vocat = (Vocat = new Marionette.Application());
 
 Vocat.routes = {
   admin: {
@@ -149,7 +145,7 @@ Vocat.addInitializer(function() {
   if (controllerName !== false) {
     const instantiateRouter = function(Controller, controllerName) {
       const subRoutes = Vocat.routes[controllerName];
-      Vocat.router = new AppRouter({
+      Vocat.router = new Marionette.AppRouter({
         controller: new Controller,
         appRoutes: subRoutes
       });

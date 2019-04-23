@@ -8,7 +8,7 @@
 
 import { bind } from "lodash";
 
-import Marionette from 'backbone.marionette';
+
 
 export default class JumpNavView extends Marionette.ItemView {
 

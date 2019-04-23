@@ -5,7 +5,7 @@
  * DS207: Consider shorter variations of null checks
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import Marionette from 'backbone.marionette';
+
 import template from 'templates/discussion/discussion.hbs';
 import DiscusionPostCollection from 'collections/discussion_post_collection';
 import DiscussionPostModel from 'models/discussion_post';

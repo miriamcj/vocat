@@ -5,7 +5,7 @@
  * DS207: Consider shorter variations of null checks
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import Backbone from 'backbone';
+
 import { findWhere } from "lodash";
 import VideoModel from 'models/video';
 import EvaluationModel from 'models/evaluation';

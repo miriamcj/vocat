@@ -7,7 +7,7 @@
  
  import {} from 'jquery-ujs';
 
-import Marionette from 'backbone.marionette';
+
 
 export default class FileInputView extends Marionette.ItemView {
   constructor() {

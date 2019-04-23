@@ -4,7 +4,7 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import Marionette from 'backbone.marionette';
+
 
 import { throttle } from "lodash";
 import ClosesOnUserAction from 'behaviors/closes_on_user_action';

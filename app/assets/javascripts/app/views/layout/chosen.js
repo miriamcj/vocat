@@ -1,5 +1,5 @@
 import {} from 'jquery-ujs';
-import Marionette from 'backbone.marionette';
+
 
 export default class ChosenView extends Marionette.ItemView {
 

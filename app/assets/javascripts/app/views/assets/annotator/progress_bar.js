@@ -4,7 +4,7 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import Marionette from 'backbone.marionette';
+
 const jqueryUI = require("jquery-ui");
 import template from 'templates/assets/annotator/progress_bar.hbs';
 import childView from 'views/assets/annotator/progress_bar_annotation';

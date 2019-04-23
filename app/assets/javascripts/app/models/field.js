@@ -1,18 +1,8 @@
-/*
- * decaffeinate suggestions:
- * DS102: Remove unnecessary code created because of implicit returns
- * DS206: Consider reworking classes to avoid initClass
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
-import Backbone from 'backbone';
-
 import { clone } from "lodash";
-
 import RubricProperty from 'models/rubric_property';
 
 export default class FieldModel extends RubricProperty {
   constructor() {
-
     this.defaults = {
       name: '',
       description: '',

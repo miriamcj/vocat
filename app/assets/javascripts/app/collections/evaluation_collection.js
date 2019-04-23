@@ -4,9 +4,9 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
-import Backbone from 'backbone';
 
-import Marionette from 'backbone.marionette';
+
+
 import EvaluationModel from 'models/evaluation';
 
 export default class EvaluationCollection extends Backbone.Collection {
