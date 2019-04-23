@@ -1,7 +1,6 @@
 # config valid only for Capistrano 3.1
 lock '3.3.5'
 
-set :application, 'vocat'
 set :scm, :git
 set :repo_url, 'git@github.com:castiron/vocat.git'
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads}
