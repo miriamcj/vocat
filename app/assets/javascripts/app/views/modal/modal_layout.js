@@ -9,8 +9,8 @@ import { bind } from "lodash";
 import template from 'templates/modal/modal_layout.hbs';
 
 export default class ModalLayout extends Marionette.LayoutView {
-  constructor() {
-    super();
+  constructor(options) {
+    super(options);
 
     this.template = template;
 

@@ -14,7 +14,8 @@ import { bindAll } from "lodash";
 import template from 'templates/modal/modal_error.hbs';
 
 export default class ModalErrorView extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
 

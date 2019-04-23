@@ -18,7 +18,8 @@ import SaveNotifyView from 'views/submission/evaluations/save_notify';
 import RubricModel from 'models/rubric';
 
 export default class EvaluationsLayout extends Marionette.LayoutView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
 

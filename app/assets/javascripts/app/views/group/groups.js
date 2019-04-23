@@ -9,7 +9,8 @@ import Item from 'views/group/groups_item';
 import template from 'templates/group/groups.hbs';
 
 export default class GroupsView extends Marionette.CompositeView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.childView = Item;
     this.tagName = 'thead';
@@ -37,4 +38,3 @@ export default class GroupsView extends Marionette.CompositeView {
     return this.vent.trigger('recalculate');
   }
 };
-

@@ -12,7 +12,8 @@ const jqueryUI = require("jquery-ui");
 import template from 'templates/submission/evaluations/score_slider.hbs';
 
 export default class ScoreSlider extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
     this.baselineSnapDuration = 500;

@@ -11,7 +11,8 @@
 import template from 'templates/page/help_test.hbs';
 
 export default class FlashMessagesItem extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
     this.events = {
@@ -31,4 +32,3 @@ export default class FlashMessagesItem extends Marionette.ItemView {
     return Vocat.vent.trigger('help:hide', {on: target, key: target.attr('data-help')});
   }
 }
-

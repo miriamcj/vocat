@@ -8,7 +8,8 @@
 import template from 'templates/admin/enrollment/input_empty.hbs';
 
 export default class EnrollmentInputEmpty extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
     this.tagName = 'li';
@@ -25,4 +26,3 @@ export default class EnrollmentInputEmpty extends Marionette.ItemView {
     };
   }
 };
-

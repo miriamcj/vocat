@@ -8,7 +8,8 @@
 import template from 'templates/project/dialog.hbs';
 
 export default class ProjectDialogView extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
   }

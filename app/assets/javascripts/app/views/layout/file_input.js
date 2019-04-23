@@ -4,13 +4,14 @@
  * DS206: Consider reworking classes to avoid initClass
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
- 
+
  import {} from 'jquery-ujs';
 
 
 
 export default class FileInputView extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.ui = {
       trigger: '[data-behavior="file-input-trigger"]',

@@ -10,7 +10,8 @@ import ChildView from 'views/assets/asset_collection_child';
 import EmptyView from 'views/assets/asset_collection_empty';
 
 export default class AssetCollection extends Marionette.CompositeView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.childView = ChildView;
 

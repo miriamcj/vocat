@@ -13,7 +13,8 @@ import GroupModel from 'models/group';
 import EvaluationModel from 'models/evaluation';
 
 export default class Cell extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     // @model = initially, a project model, but set to a submission model in the init function
     // @creator = a group or user model

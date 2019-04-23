@@ -7,7 +7,8 @@
 
 
 export default class NotificationRegion extends Marionette.Region {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.PROMISE = $.Deferred().resolve();
 

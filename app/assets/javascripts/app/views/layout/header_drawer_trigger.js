@@ -6,6 +6,9 @@
 
 
 export default class HeaderDrawerTriggerView extends Marionette.ItemView {
+  constructor(options) {
+    super(options);
+  }
 
   onClickTrigger() {
     return this.globalChannel.vent.trigger(`drawer:${this.drawerTarget}:toggle`);
@@ -21,4 +24,3 @@ export default class HeaderDrawerTriggerView extends Marionette.ItemView {
     });
   }
 };
-

@@ -7,7 +7,8 @@
 
 
 export default class ExpandableRange extends Marionette.Behavior {
-  constructor() {
+  constructor(options) {
+    super(...args);
 
     this.defaults = {
       childrenVisible: false

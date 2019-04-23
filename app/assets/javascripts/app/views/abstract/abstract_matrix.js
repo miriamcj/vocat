@@ -12,7 +12,8 @@ const Waypoints = require("waypoints");
 const WaypointsSticky = require("waypoints_sticky");
 
 export default class AbstractMatrix extends Marionette.LayoutView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.minWidth = 200;
     this.maxWidth = 300;

@@ -8,7 +8,8 @@
 import template from 'templates/layout/loading.hbs';
 
 export default class LoadingView extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.msg = "Loading...";
 
@@ -25,4 +26,3 @@ export default class LoadingView extends Marionette.ItemView {
     return this.options = options;
   }
 };
-

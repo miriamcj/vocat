@@ -9,7 +9,8 @@
 import { template } from "lodash";
 
 export default class PlayerAnnotationItem extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template('');
     this.tagName = 'li';

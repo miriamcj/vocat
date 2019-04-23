@@ -10,7 +10,8 @@ import ShortTextInputView from 'views/property_editor/short_text_input';
 import ModalConfirmView from 'views/modal/modal_confirm';
 
 export default class CriteriaItem extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
     this.className = 'criteria-item';

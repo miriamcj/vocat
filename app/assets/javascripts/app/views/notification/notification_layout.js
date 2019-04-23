@@ -14,7 +14,8 @@ import NotificationRegion from 'views/notification/notification_region';
 import FlashMessageModel from 'models/flash_message';
 
 export default class NotificationLayout extends Marionette.LayoutView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.notificationCounter = 0;
     this.notificationRegion = null;

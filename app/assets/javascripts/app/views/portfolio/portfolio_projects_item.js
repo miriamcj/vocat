@@ -11,7 +11,8 @@ import { extend } from "lodash";
 import ProjectTemplate from 'templates/portfolio/portfolio_item_project.hbs';
 
 export default class PortfolioItemSubmission extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = ProjectTemplate;
 

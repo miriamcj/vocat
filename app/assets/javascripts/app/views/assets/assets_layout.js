@@ -15,7 +15,8 @@ import AssetDetail from 'views/assets/asset_detail';
 import ModalConfirmView from 'views/modal/modal_confirm';
 
 export default class AssetsLayout extends Marionette.LayoutView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
     this.state = 'list';

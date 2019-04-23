@@ -10,7 +10,8 @@ import template from 'templates/admin/enrollment/confirm_invite.hbs';
 import GlobalNotification from 'behaviors/global_notification';
 
 export default class ConfirmInvite extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
 

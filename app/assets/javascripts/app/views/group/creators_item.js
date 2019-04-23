@@ -9,7 +9,8 @@
 import template from 'templates/course_map/creators_item.hbs';
 
 export default class GroupCreatorsItem extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.tagName = 'tr';
 

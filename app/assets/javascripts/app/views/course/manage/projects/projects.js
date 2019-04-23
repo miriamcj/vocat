@@ -11,7 +11,8 @@ import ProjectsRowView from 'views/course/manage/projects/project_row';
 import SortableTable from 'behaviors/sortable_table';
 
 export default class Projects extends Marionette.CompositeView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
     this.childView = ProjectsRowView;
@@ -26,4 +27,3 @@ export default class Projects extends Marionette.CompositeView {
 
   initialize(options) {}
 };
-

@@ -13,7 +13,8 @@ import { min, reject, max, isNaN, sortBy, uniq, countBy, isObject } from "lodash
 
 
 export default class RangePickerModalView extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
     this.modalWidth = '90%';

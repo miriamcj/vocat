@@ -9,7 +9,8 @@ import template from 'templates/project/detail/project_submission_row.hbs';
 
 
 export default class ProjectSubmissionRowView extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.tagName = "tr";
     this.template = template;

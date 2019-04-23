@@ -7,7 +7,8 @@
 import template from 'templates/course_map/warning.hbs';
 
 export default class Warning extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
   }

@@ -9,7 +9,8 @@
 import ItemView from 'views/group/cell';
 
 export default class Row extends Marionette.CollectionView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.tagName = 'tr';
     this.className = 'matrix--row';

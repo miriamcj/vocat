@@ -12,7 +12,8 @@ import ModalConfirmView from 'views/modal/modal_confirm';
 import ShortTextInputView from 'views/property_editor/short_text_input';
 
 export default class RangeView extends Marionette.CompositeView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
     this.className = 'ranges-column';

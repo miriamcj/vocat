@@ -9,7 +9,8 @@ import template from 'templates/notification/notification_exception.hbs';
 import GlobalNotification from 'behaviors/global_notification';
 
 export default class NotificationException extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
 

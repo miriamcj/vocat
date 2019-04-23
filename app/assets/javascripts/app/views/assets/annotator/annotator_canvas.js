@@ -11,7 +11,8 @@ import template from 'templates/assets/annotator/annotator_canvas.hbs';
 import ModalConfirmView from 'views/modal/modal_confirm';
 
 export default class AnnotatorCanvasView extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
     this.mode = null;

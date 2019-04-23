@@ -9,7 +9,8 @@ import template from 'templates/assets/annotations/annotations_item.hbs';
 import ModalConfirmView from 'views/modal/modal_confirm';
 
 export default class AnnotationItem extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.assetHasDuration = false;
     this.highlighted = true;
@@ -53,7 +54,7 @@ export default class AnnotationItem extends Marionette.ItemView {
       "change:body": "onModelBodyChange",
       "change:canvas": "onModelCanvasChange"
     };
-    
+
   }
 
   onActivate() {

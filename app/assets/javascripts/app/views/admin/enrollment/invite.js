@@ -9,7 +9,8 @@ import { pluck } from "lodash";
 import template from 'templates/admin/enrollment/invite.hbs';
 
 export default class Invite extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
 

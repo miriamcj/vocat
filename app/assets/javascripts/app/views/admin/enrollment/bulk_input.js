@@ -12,7 +12,8 @@ import ConfirmInvite from 'views/admin/enrollment/confirm_invite';
 import template from 'templates/admin/enrollment/bulk_input.hbs';
 
 export default class EnrollmentBulkInput extends Marionette.LayoutView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.ui = {
       showSingle: '[data-behavior="show-single"]',

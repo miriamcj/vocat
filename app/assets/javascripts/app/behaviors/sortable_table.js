@@ -11,7 +11,8 @@
 const jqueryUI = require("jquery-ui");
 
 export default class SortableTable extends Marionette.Behavior {
-  constructor() {
+  constructor(options) {
+    super(...args);
 
     this.defaults = {
     };

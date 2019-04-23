@@ -11,7 +11,8 @@ import PortfolioSubmissionItem from 'views/portfolio/portfolio_submissions_item'
 import ModalGroupMembershipView from 'views/modal/modal_group_membership';
 
 export default class CourseMapDetailCreator extends Marionette.CompositeView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
     this.standalone = false;

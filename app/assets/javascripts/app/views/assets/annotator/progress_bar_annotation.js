@@ -8,7 +8,8 @@
 import template from 'templates/assets/annotator/progress_bar_annotation.hbs';
 
 export default class ProgressBarAnnotation extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
     this.triggers = {
@@ -69,4 +70,3 @@ export default class ProgressBarAnnotation extends Marionette.ItemView {
     }
   }
 };
-

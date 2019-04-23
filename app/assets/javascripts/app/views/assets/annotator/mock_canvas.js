@@ -7,7 +7,8 @@
 
 
 export default class MockCanvasView extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = false;
   }

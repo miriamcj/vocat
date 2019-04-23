@@ -13,7 +13,8 @@ import template from 'templates/rubric/ranges.hbs';
 import RangeView from 'views/rubric/range';
 
 export default class RangesView extends Marionette.CompositeView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
     this.className = 'ranges-wrapper';

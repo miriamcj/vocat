@@ -10,7 +10,8 @@ import ModalConfirmView from 'views/modal/modal_confirm';
 import ShortTextInputView from 'views/property_editor/short_text_input';
 
 export default class GroupsItem extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.tagName = 'th';
     this.className = 'matrix--fullbleed';

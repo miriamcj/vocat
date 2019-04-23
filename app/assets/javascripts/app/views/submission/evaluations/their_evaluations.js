@@ -12,7 +12,8 @@ import CollectionProxy from 'collections/collection_proxy';
 import EvaluationSetModel from 'models/evaluation_set';
 
 export default class TheirEvaluations extends Marionette.CompositeView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
     this.tagName = 'ul';
@@ -42,4 +43,3 @@ export default class TheirEvaluations extends Marionette.CompositeView {
     });
   }
 }
-

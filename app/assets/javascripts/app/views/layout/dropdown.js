@@ -9,7 +9,8 @@
 import ClosesOnUserAction from 'behaviors/closes_on_user_action';
 
 export default class DropdownView extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.adjusted = false;
     this.allowAdjustment = true;

@@ -9,7 +9,8 @@ import template from 'templates/group/save_notify.hbs';
 import GlobalNotification from 'behaviors/global_notification';
 
 export default class SaveNotify extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
 

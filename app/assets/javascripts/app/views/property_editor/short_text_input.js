@@ -9,7 +9,8 @@ import { isFunction } from "lodash";
 import template from 'templates/property_editor/short_text_input.hbs';
 
 export default class ShortTextInput extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
 
@@ -91,4 +92,3 @@ export default class ShortTextInput extends Marionette.ItemView {
     , 0);
   }
 }
-

@@ -10,7 +10,8 @@ import template from 'templates/assets/annotator/progress_bar.hbs';
 import childView from 'views/assets/annotator/progress_bar_annotation';
 
 export default class VideoProgressBarView extends Marionette.CompositeView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
     this.wasPlaying = false;

@@ -8,7 +8,8 @@
 import template from 'templates/course_map/projects_empty.hbs';
 
 export default class CourseMapProjectsEmptyView extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.tagName = 'th';
     this.template = template;
@@ -29,4 +30,3 @@ export default class CourseMapProjectsEmptyView extends Marionette.ItemView {
     };
   }
 };
-

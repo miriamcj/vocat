@@ -9,7 +9,8 @@
 import PortfolioProjectsItem from 'views/portfolio/portfolio_projects_item';
 
 export default class PortfolioProjectsView extends Marionette.CollectionView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.childView = PortfolioProjectsItem;
   }

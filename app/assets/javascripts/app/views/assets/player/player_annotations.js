@@ -9,7 +9,8 @@ import { template } from "lodash";
 import ItemView from 'views/assets/player/player_annotations_item';
 
 export default class PlayerAnnotations extends Marionette.CollectionView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template('');
     this.showTimePadding = 1;

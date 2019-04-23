@@ -12,7 +12,8 @@ import ModalErrorView from 'views/modal/modal_error';
 import {} from 'jquery-ujs';
 
 export default class VocatController extends Marionette.Controller {
-  constructor() {
+  constructor(options) {
+    super(...args);
 
     this.collections = {
     };

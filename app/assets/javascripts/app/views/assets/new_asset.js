@@ -14,7 +14,8 @@ import 'plugins/file_upload';
 import ShortTextInputView from 'views/property_editor/short_text_input';
 
 export default class NewAsset extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
 

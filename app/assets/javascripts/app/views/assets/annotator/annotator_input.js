@@ -10,7 +10,8 @@ import template from 'templates/assets/annotator/annotator_input.hbs';
 import AnnotationModel from 'models/annotation';
 
 export default class AnnotatorInputView extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
     this.canvasIsDirty = false;

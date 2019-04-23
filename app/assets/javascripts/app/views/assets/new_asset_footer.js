@@ -8,7 +8,8 @@
 import template from 'templates/assets/new_asset_footer.hbs';
 
 export default class NewAssetFooter extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
 

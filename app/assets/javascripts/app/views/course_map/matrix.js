@@ -9,7 +9,8 @@
 import Row from 'views/course_map/row';
 
 export default class MatrixView extends Marionette.CollectionView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.tagName = 'tbody';
     this.childView = Row;

@@ -18,7 +18,8 @@ import RubricModel from 'models/rubric';
 import VisitCollection from 'collections/visit_collection';
 
 export default class SubmissionLayout extends Marionette.LayoutView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
     this.children = {};

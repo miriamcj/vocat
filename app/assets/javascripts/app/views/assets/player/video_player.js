@@ -9,8 +9,8 @@ vjsAnnotations = require('video_js/vjs.rewind');
 const vjsAudioWave = require('video_js/vjs.audiowave');
 
 export default class VideoPlayerView extends Marionette.ItemView {
-  constructor(...args) {
-    super(...args);
+  constructor(options) {
+    super(options);
     this.resizePlayer = this.resizePlayer.bind(this);
     this.template = template;
     this.lock = null;

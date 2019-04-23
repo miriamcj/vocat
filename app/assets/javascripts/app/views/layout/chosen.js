@@ -2,6 +2,9 @@ import {} from 'jquery-ujs';
 
 
 export default class ChosenView extends Marionette.ItemView {
+  constructor(options) {
+    super(options);
+  }
 
   initialize() {
     let msg = 'Select an Option';

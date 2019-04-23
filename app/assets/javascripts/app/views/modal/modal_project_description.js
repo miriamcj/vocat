@@ -11,7 +11,8 @@ import { bindAll } from "lodash";
 import template from 'templates/modal/modal_project_description.hbs';
 
 export default class ModalProjectDescription extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
     this.modalWidth = '90%';

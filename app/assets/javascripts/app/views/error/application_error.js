@@ -9,7 +9,8 @@
 import template from 'templates/error/application_error.hbs';
 
 export default class ApplicationError extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
   }

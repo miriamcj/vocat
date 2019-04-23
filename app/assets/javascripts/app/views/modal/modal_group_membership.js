@@ -12,7 +12,8 @@ import template from 'templates/modal/modal_group_membership.hbs';
 import GroupModel from 'models/group';
 
 export default class ModalGroupMembershipView extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
 

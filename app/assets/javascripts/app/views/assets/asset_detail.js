@@ -15,7 +15,8 @@ import MockCanvasView from 'views/assets/annotator/mock_canvas';
 import AnnotationsView from 'views/assets/annotations/annotations';
 
 export default class AssetShowLayout extends Marionette.LayoutView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
 

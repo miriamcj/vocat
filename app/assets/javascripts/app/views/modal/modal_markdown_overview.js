@@ -11,7 +11,8 @@ import { bindAll } from "lodash";
 import template from 'templates/modal/modal_markdown_overview.hbs';
 
 export default class ModalMarkdownOverview extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
     this.modalWidth = '90%';

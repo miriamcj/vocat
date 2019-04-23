@@ -8,7 +8,8 @@
 import template from 'templates/assets/asset_collection_empty.hbs';
 
 export default class AssetCollectionEmpty extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
     this.abilities = {};

@@ -10,7 +10,8 @@
 import EvaluationModel from 'models/evaluation';
 
 export default class EvaluationCollection extends Backbone.Collection {
-  constructor() {
+  constructor(options) {
+    super(...args);
 
     this.model = EvaluationModel;
   }

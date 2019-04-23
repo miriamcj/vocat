@@ -8,7 +8,8 @@
 import template from 'templates/admin/enrollment/empty_users.hbs';
 
 export default class EnrollmentEmptyUsers extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
     this.tagName = 'tr';

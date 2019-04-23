@@ -9,7 +9,8 @@
 
 
 export default class FileBrowserView extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.events = {
       'click @ui.fileClear': 'clearFile',

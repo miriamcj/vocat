@@ -15,7 +15,8 @@ import ScoreCollection from 'collections/score_collection';
 import ModalConfirmView from 'views/modal/modal_confirm';
 
 export default class MyEvaluations extends Marionette.CompositeView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.tagName = 'ul';
     this.template = template;

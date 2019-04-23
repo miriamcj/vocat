@@ -9,7 +9,8 @@
 import Row from 'views/group/row';
 
 export default class MatrixView extends Marionette.CollectionView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.tagName = 'tbody';
     this.childView = Row;
@@ -30,4 +31,3 @@ export default class MatrixView extends Marionette.CollectionView {
     return this.vent = options.vent;
   }
 };
-

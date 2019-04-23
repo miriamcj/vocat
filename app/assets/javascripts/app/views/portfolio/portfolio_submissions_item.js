@@ -8,7 +8,8 @@
 import SubmissionTemplate from 'templates/portfolio/portfolio_item_submission.hbs';
 
 export default class PortfolioItemSubmission extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = SubmissionTemplate;
     this.className = 'page-section portfolio-item portfolio-course-submissions';

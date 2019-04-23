@@ -8,7 +8,8 @@
 import template from 'templates/rubric/rubric_detail.hbs';
 
 export default class RubricDetailView extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.ui = {
       container: '[data-behavior="slide-down"]'
@@ -51,4 +52,3 @@ export default class RubricDetailView extends Marionette.ItemView {
     return this.ui.container.hide();
   }
 };
-

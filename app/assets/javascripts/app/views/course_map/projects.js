@@ -10,7 +10,8 @@ import EmptyView from 'views/course_map/projects_empty';
 import template from 'templates/course_map/projects.hbs';
 
 export default class CourseMapProjectsView extends Marionette.CompositeView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.childView = Item;
     this.emptyView = EmptyView;

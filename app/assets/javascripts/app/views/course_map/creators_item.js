@@ -9,7 +9,8 @@ import template from 'templates/course_map/creators_item.hbs';
 import ModalGroupMembershipView from 'views/modal/modal_group_membership';
 
 export default class CourseMapCreatorsItem extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.tagName = 'tr';
 

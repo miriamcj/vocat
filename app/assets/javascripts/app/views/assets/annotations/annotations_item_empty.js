@@ -8,7 +8,8 @@
 import template from 'templates/assets/annotations/annotations_item_empty.hbs';
 
 export default class AnnotationsEmptyView extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
     this.tagName = 'li';

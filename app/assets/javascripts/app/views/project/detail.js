@@ -15,7 +15,8 @@ import RubricModel from 'models/rubric';
 import RubricModalView from 'views/modal/modal_rubric';
 
 export default class ProjectDetail extends Marionette.LayoutView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
 

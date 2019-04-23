@@ -13,7 +13,8 @@ import SingleInvite from 'views/admin/enrollment/invite';
 import Flash from 'views/flash/flash_messages';
 
 export default class CreatorEnrollmentLayout extends Marionette.LayoutView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.listType = 'users';
     this.template = template;

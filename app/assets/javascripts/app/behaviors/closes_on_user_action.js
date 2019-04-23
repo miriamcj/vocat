@@ -7,7 +7,8 @@
 
 
 export default class ClosesOnUserAction extends Marionette.Behavior {
-  constructor() {
+  constructor(options) {
+    super(...args);
 
     this.defaults = {
       closeMethod: 'close'
@@ -37,4 +38,3 @@ export default class ClosesOnUserAction extends Marionette.Behavior {
     return this.stopListening(this.globalChannel.vent, 'user:action');
   }
 };
-

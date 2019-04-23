@@ -9,7 +9,8 @@
 import template from 'templates/notification/notification_message.hbs';
 
 export default class NotificationMessage extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
     this.lifetime = 10000;
@@ -41,4 +42,3 @@ export default class NotificationMessage extends Marionette.ItemView {
     );
   }
 };
-

@@ -10,7 +10,8 @@ import DropdownView from 'views/layout/dropdown';
 import ModalConfirmView from 'views/modal/modal_confirm';
 
 export default class CourseMapProjectsItem extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.tagName = 'th';
     this.template = template;

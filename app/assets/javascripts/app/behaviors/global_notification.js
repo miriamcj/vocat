@@ -7,7 +7,8 @@
 
 
 export default class GlobalNotification extends Marionette.Behavior {
-  constructor() {
+  constructor(options) {
+    super(...args);
 
     this.defaults = {
     };

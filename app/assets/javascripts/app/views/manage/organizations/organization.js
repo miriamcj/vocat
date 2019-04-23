@@ -7,7 +7,8 @@
 
 
 export default class ManageOrganizationView extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = false;
 
@@ -42,4 +43,3 @@ export default class ManageOrganizationView extends Marionette.ItemView {
     return this.onChangeLdapEnabled();
   }
 };
-

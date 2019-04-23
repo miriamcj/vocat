@@ -10,7 +10,8 @@ import courseTemplate from 'templates/admin/enrollment/course_input_item.hbs';
 import userTemplate from 'templates/admin/enrollment/user_input_item.hbs';
 
 export default class EnrollmentUserInputItem extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.tagName = 'li';
     this.className = 'active-result';

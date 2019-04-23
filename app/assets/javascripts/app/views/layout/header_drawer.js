@@ -10,7 +10,8 @@ import { throttle } from "lodash";
 import ClosesOnUserAction from 'behaviors/closes_on_user_action';
 
 export default class HeaderDrawerView extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.visibleCourses = 5;
     this.filtered = false;

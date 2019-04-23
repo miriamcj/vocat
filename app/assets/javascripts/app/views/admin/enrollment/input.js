@@ -15,7 +15,8 @@ const jqueryUI = require("jquery-ui");
 const ajaxChosen = require("chosen");
 
 export default class EnrollmentUserInput extends Marionette.CompositeView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.emptyView = EmptyView;
 

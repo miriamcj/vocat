@@ -8,7 +8,8 @@
 import template from 'templates/rubric/ranges_empty.hbs';
 
 export default class RangesEmptyView extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
     this.tagName = 'th';
@@ -19,5 +20,3 @@ export default class RangesEmptyView extends Marionette.ItemView {
 
   initialize(options) {}
 };
-
-

@@ -12,7 +12,8 @@ import FlashMessageCollection from 'collections/flash_message_collection';
 import template from 'templates/flash/flash_messages.hbs';
 
 export default class AbstractFlashMessages extends Marionette.CollectionView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.childView = ItemView;
     this.clearOnAdd = false;

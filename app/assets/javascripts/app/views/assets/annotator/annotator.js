@@ -13,7 +13,8 @@ import AnnotationModel from 'models/annotation';
 import ModalConfirmView from 'views/modal/modal_confirm';
 
 export default class AnnotatorView extends Marionette.LayoutView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
     this.hideProgressBar = false;

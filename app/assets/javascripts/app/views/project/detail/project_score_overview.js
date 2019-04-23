@@ -9,7 +9,8 @@
 import template from 'templates/project/detail/project_score_overview.hbs';
 
 export default class ProjectScoreOverview extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
 

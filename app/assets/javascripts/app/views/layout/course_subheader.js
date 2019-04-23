@@ -9,7 +9,8 @@
 
 
 export default class CourseSubheaderView extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.events = {
       'click @ui.trigger': 'clickTrigger'
@@ -34,7 +35,7 @@ export default class CourseSubheaderView extends Marionette.ItemView {
       return $(el).siblings().removeClass('active');
     }
   }
-  
+
 
 
   initialize(options) {

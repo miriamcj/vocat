@@ -10,7 +10,8 @@ import ChildView from 'views/submission/evaluations/their_evaluations_child';
 import ExpandableRange from 'behaviors/expandable_range';
 
 export default class TheirEvaluationsCollection extends Marionette.CompositeView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
     this.className = 'evaluation-collection';

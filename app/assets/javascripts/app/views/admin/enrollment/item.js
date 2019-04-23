@@ -10,8 +10,8 @@ import userItemTemplate from 'templates/admin/enrollment/list_users_item.hbs';
 import courseItemTemplate from 'templates/admin/enrollment/list_courses_item.hbs';
 
 export default class CreatorEnrollmentItem extends Marionette.ItemView {
-  constructor(...args) {
-    super(...args);
+  constructor(options) {
+    super(options);
 
     this.getTemplate = this.getTemplate.bind(this);
     this.tagName = 'tr';

@@ -11,7 +11,8 @@ import { clone, without } from "lodash";
 import template from 'templates/group/cell.hbs';
 
 export default class Cell extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
 

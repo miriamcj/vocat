@@ -10,7 +10,8 @@ import ItemView from 'views/rubric/criteria_item';
 
 
 export default class Criteria extends Marionette.CompositeView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
     this.className = 'criteria';

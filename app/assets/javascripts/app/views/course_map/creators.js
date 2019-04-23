@@ -10,7 +10,8 @@ import template from 'templates/course_map/creators.hbs';
 import Item from 'views/course_map/creators_item';
 
 export default class CourseMapCreatorsView extends Marionette.CompositeView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.tagName = 'table';
     this.className = 'table matrix matrix-row-headers';

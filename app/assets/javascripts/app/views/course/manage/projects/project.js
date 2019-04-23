@@ -9,7 +9,8 @@
 import Pikaday from 'pikaday';
 
 export default class ProjectView extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = false;
 

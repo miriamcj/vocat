@@ -11,7 +11,8 @@ import { isArray, isObject } from "lodash";
 import template from 'templates/flash/flash_messages_item.hbs';
 
 export default class FlashMessagesItem extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
     this.lifetime = 10000;

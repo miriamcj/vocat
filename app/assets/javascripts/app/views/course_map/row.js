@@ -9,7 +9,8 @@
 import ItemView from 'views/course_map/cell';
 
 export default class Row extends Marionette.CollectionView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     // @model = a user model or a group model (in other words, a creator)
     // @collection = projects collection
@@ -58,5 +59,3 @@ export default class Row extends Marionette.CollectionView {
     });
   }
 };
-
-

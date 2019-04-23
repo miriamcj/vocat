@@ -12,7 +12,8 @@ import ItemView from 'views/assets/annotations/annotations_item';
 import EmptyView from 'views/assets/annotations/annotations_item_empty';
 
 export default class AnnotationsView extends Marionette.CompositeView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
     this.scrollLocked = false;
@@ -163,6 +164,3 @@ export default class AnnotationsView extends Marionette.CompositeView {
     return $(window).off('scroll', this.scrollHandler);
   }
 }
-
-
-

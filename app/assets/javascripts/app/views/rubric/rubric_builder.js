@@ -14,7 +14,8 @@ import RubricModel from 'models/rubric';
 import ShortTextInputView from 'views/property_editor/short_text_input';
 
 export default class RubricBuilder extends Marionette.LayoutView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
     this.collections = {};

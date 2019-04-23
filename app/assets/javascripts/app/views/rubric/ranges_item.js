@@ -11,7 +11,8 @@ import LongTextInputView from 'views/property_editor/long_text_input';
 import ModalConfirmView from 'views/modal/modal_confirm';
 
 export default class RangesItem extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
     this.className = 'cell';

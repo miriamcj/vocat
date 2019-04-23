@@ -10,7 +10,8 @@ import template from 'templates/submission/evaluations/their_evaluations_child.h
 import ExpandableRange from 'behaviors/expandable_range';
 
 export default class TheirEvaluationsChild extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.tagName = 'li';
     this.className = 'evaluation-single';

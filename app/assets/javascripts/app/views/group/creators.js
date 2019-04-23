@@ -10,7 +10,8 @@ import template from 'templates/group/creators.hbs';
 import Item from 'views/group/creators_item';
 
 export default class GroupCreatorsView extends Marionette.CompositeView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.tagName = 'table';
     this.className = 'table matrix matrix-row-headers';
@@ -43,4 +44,3 @@ export default class GroupCreatorsView extends Marionette.CompositeView {
     return this.listenTo(this, 'render', this.addSpacer);
   }
 };
-

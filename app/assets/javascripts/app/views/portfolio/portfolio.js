@@ -6,12 +6,13 @@
  */
 
 
-import Template from 'templates/portfolio/portfolio.hbs';
+import template from 'templates/portfolio/portfolio.hbs';
 
 export default class PortfolioView extends Marionette.LayoutView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
-    this.template = Template;
+    this.template = template;
 
     this.regions = {
       submissions: '[data-region="submissions"]',

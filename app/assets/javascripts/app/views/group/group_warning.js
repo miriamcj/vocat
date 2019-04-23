@@ -7,7 +7,8 @@
 import template from 'templates/group/group_warning.hbs';
 
 export default class GroupWarning extends Marionette.ItemView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.template = template;
 

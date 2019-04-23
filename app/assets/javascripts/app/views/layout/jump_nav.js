@@ -3,7 +3,7 @@
  * DS102: Remove unnecessary code created because of implicit returns
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
- 
+
  import {} from 'jquery-ujs';
 
 import { bind } from "lodash";
@@ -11,7 +11,9 @@ import { bind } from "lodash";
 
 
 export default class JumpNavView extends Marionette.ItemView {
-
+  constructor(options) {
+    super(options);
+  }
 
   handleChange() {
     const value = this.$el.val();

@@ -12,7 +12,8 @@ import DiscussionPostModel from 'models/discussion_post';
 import FlashMessagesView from 'views/flash/flash_messages';
 
 export default class DiscussionView extends Marionette.CompositeView {
-  constructor() {
+  constructor(options) {
+    super(options);
 
     this.ui = {
       bodyInput: '[data-behavior="post-input"]',
