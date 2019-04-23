@@ -1,6 +1,7 @@
 define(function(require) {
 
   const WaveSurfer = require('wavesurfer');
+  const videojs = require('video_js/video.js');
 
   const VjsAudioWavePlugin = function(options) {
 

@@ -1,6 +1,7 @@
 define(function(require) {
 
   const template = require('video_js/annotations.hbs');
+  const videojs = require('video_js/video.js');
 
   var VjsAnnotationsPlugin = function(options) {
 

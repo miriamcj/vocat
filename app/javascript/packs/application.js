@@ -1,6 +1,6 @@
 import 'styles/stylesheets/main.scss';
 
-import modernizr from 'modernizr';
+require.context('styles/images', true);
 
 // const vjs = require("video.js");
 // const vjsContribHLS = require("videojs-contrib-hls");

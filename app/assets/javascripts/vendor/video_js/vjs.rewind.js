@@ -1,4 +1,5 @@
 define(function(require) {
+  const videojs = require('video_js/video.js');
 
   var VjsRewindPlugin = function(options) {
 
