@@ -70,6 +70,7 @@ namespace :deploy do
   task :build_js do
     on roles(:app) do
       within release_path do
+        execute :yarn, :install ,'--production'
         execute :rake, 'assets:build_js'
       end
     end
