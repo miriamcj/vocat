@@ -1,0 +1,183 @@
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Site Maintenance</title>
+    <script type="text/javascript" src="//use.typekit.net/ytz4hur.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    <style>
+        body {
+            font-family: "proxima-nova", "Helvetica Neue", Arial, sans-serif;
+            position: relative;
+            font-size: 1em;
+            font-weight: 400;
+            line-height: 1;
+            color: #6d6e71;
+            background-color: #fff;
+            padding-bottom: 60px;
+            min-height: 100%;
+            padding-bottom: 150px;
+        }
+
+        body.bg-dark {
+            background: #4d4d4f;
+        }
+
+        .page-header {
+            -webkit-transition: 0.2s all ease;
+            -moz-transition: 0.2s all ease;
+            -ms-transition: 0.2s all ease;
+            -o-transition: 0.2s all ease;
+            transition: 0.2s all ease;
+            min-width: 686px;
+            height: 60px;
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            z-index: 300;
+            box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.03);
+            color: #fff;
+        }
+
+        .page-header--navigation-wrapper {
+            height: 60px;
+            z-index: 400;
+            background-color: #43B5AE;
+            padding: 0 1.5em;
+            position: relative;
+            margin: auto;
+        }
+
+        .page-header--navigation {
+            margin: auto;
+            position: relative;
+            max-width: 1200px;
+        }
+        .page-header--navigation:after {
+            content: " ";
+            display: block;
+            clear: both;
+        }
+
+        .page-header--logo-nav {
+            position: absolute;
+            width: 103px;
+            margin-right: 30px;
+            height: 60px;
+        }
+        /* line 173, /Users/zdavis/src/vocat/app/assets/stylesheets/partials/_components.scss */
+        .page-header--logo-nav img {
+            position: absolute;
+            top: 21px;
+            width: 82px;
+            vertical-align: middle;
+            display: block;
+        }
+
+        /* line 39, /Users/zdavis/src/vocat/app/assets/stylesheets/partials/_components.scss */
+        .container {
+            -webkit-transition: 0.2s -webkit-transform ease;
+            -moz-transition: 0.2s -moz-transform ease;
+            -ms-transition: 0.2s -ms-transform ease;
+            -o-transition: 0.2s -o-transform ease;
+            transition: 0.2s transform ease;
+            min-width: 768px;
+            padding-top: 60px;
+            position: relative;
+            z-index: 100;
+            padding: 60px 1.5em 0 1.5em;
+            margin: auto;
+        }
+
+        /* line 56, /Users/zdavis/src/vocat/app/assets/stylesheets/partials/_components.scss */
+        .page-content {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin-right: auto;
+            margin-left: auto;
+            margin-top: 49px;
+        }
+
+        .error-header {
+            font-size: 1.875em;
+            color: #009C92;
+            color: #FFF;
+            margin-top: 1em;
+        }
+
+        .error-content {
+            margin-top: 1em;
+            color: #FFF;
+            font-weight: 300;
+            width: 50%;
+            line-height: 1.5em;
+        }
+
+        label {
+            font-size: .8em;
+            font-weight: 400;
+            text-transform: uppercase;
+            text-decoration: underline;
+            margin-bottom: .5em;
+            letter-spacing: 1px;
+            display: block;
+            margin-top: 2em;
+        }
+
+        .primary-button {
+            padding: .8em;
+            line-height: 1;
+            display: inline-block;
+            color: #fff;
+            white-space: nowrap;
+            text-decoration: none;
+            background-color: #43B5AE;
+            border: 1px solid #43B5AE;
+            font-size: 14px;
+            font-weight: normal;
+        }
+
+        .primary-button:hover {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        a {
+            color: #FFF;
+            font-weight: 400;
+        }
+    </style>
+</head>
+
+<body class="bg-dark no-course">
+
+<header class="page-header">
+    <div class="page-header--navigation-wrapper">
+        <div class="page-header--navigation">
+            <nav class="page-header--logo-nav">
+                <a href="/"><img alt="VOCAT" src="https://s3-us-west-1.amazonaws.com/vocat-maintenance-public/logo.png" /></a>
+            </nav>
+        </div>
+    </div>
+</header>
+
+
+<div class="container">
+    <div class="page-content">
+        <div class="baruch-logo"></div>
+        <div class="error-header">
+            Scheduled Maintenance (4pm - 6pm EDT)
+        </div>
+        <div class="error-content">
+            <p>
+                <label>We'll be back soon!</label>
+                The site is temporarily offline for routine maintenance. We'll be back by 6pm EDT.
+            </p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
