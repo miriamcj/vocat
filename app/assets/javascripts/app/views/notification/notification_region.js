@@ -1,11 +1,3 @@
-/*
- * decaffeinate suggestions:
- * DS102: Remove unnecessary code created because of implicit returns
- * DS206: Consider reworking classes to avoid initClass
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
-
-
 export default class NotificationRegion extends Marionette.Region.extend({
   PROMISE: $.Deferred().resolve(),
   expiring: false
@@ -23,7 +15,7 @@ export default class NotificationRegion extends Marionette.Region.extend({
     const timing = 250;
     const h = this.$el.outerHeight();
 
-    NotificationRegion.PROMISE = NotificationRegion.PROMISE.then(() => {
+    this.PROMISE = this.PROMISE.then(() => {
       if (!view.isFlash) { this.trigger('transition:start', h, timing); }
       const p = $.Deferred();
       this.$el.fadeIn(timing, () => {
@@ -36,7 +28,7 @@ export default class NotificationRegion extends Marionette.Region.extend({
     return this.listenTo(view, 'view:expired', () => {
       if (this.expiring === false) {
         this.expiring = true;
-        return NotificationRegion.PROMISE = NotificationRegion.PROMISE.then(() => {
+        return this.PROMISE = this.PROMISE.then(() => {
           if (!view.isFlash) { this.trigger('transition:start', h * -1, timing); }
           const p = $.Deferred();
           this.$el.fadeOut(timing, () => {
