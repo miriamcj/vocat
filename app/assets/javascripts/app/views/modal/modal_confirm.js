@@ -35,20 +35,20 @@ export default class ModalConfirmView extends Marionette.ItemView.extend({
 
   onClickConfirm() {
     if (Marionette.getOption(this, 'confirmElement') != null) {
-      Vocat.vent.trigger('modal:close');
+      window.Vocat.vent.trigger('modal:close');
       const $el = Marionette.getOption(this, 'confirmElement');
       $el.addClass('modal-blocked');
       $el.click();
       return $el.removeClass('modal-blocked');
     } else {
       this.vent.triggerMethod(Marionette.getOption(this, 'confirmEvent'), this.model);
-      return Vocat.vent.trigger('modal:close');
+      return window.Vocat.vent.trigger('modal:close');
     }
   }
 
   onClickDismiss() {
     this.vent.triggerMethod(Marionette.getOption(this, 'dismissEvent'));
-    return Vocat.vent.trigger('modal:close');
+    return window.Vocat.vent.trigger('modal:close');
   }
 
   serializeData() {

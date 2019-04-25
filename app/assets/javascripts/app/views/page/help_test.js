@@ -21,11 +21,11 @@ export default class FlashMessagesItem extends Marionette.ItemView.extend({
   onHelpShow(event) {
     const target = $(event.currentTarget);
     const orientation = target.attr('data-help-orientation');
-    return Vocat.vent.trigger('help:show', {on: target, orientation, key: target.attr('data-help')});
+    return window.Vocat.vent.trigger('help:show', {on: target, orientation, key: target.attr('data-help')});
   }
 
   onHelpHide(event) {
     const target = $(event.currentTarget);
-    return Vocat.vent.trigger('help:hide', {on: target, key: target.attr('data-help')});
+    return window.Vocat.vent.trigger('help:hide', {on: target, key: target.attr('data-help')});
   }
 }

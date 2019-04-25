@@ -74,19 +74,19 @@ export default class NewAsset extends Marionette.ItemView.extend({
       return asset.save({}, {
         success: () => {
           this.collection.add(asset);
-          Vocat.vent.trigger('error:add', {level: 'notice', msg: 'The YouTube video has been saved.'});
+          window.Vocat.vent.trigger('error:add', {level: 'notice', msg: 'The YouTube video has been saved.'});
           const onSave = () => {
             return asset.save({}, {
               success: () => {
-                Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Media successfully updated.'});
+                window.Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Media successfully updated.'});
                 return this.render();
               }
               , error: () => {
-                return Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Unable to update media title.'});
+                return window.Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Unable to update media title.'});
               }
             });
           };
-          return Vocat.vent.trigger('modal:open', new ShortTextInputView({
+          return window.Vocat.vent.trigger('modal:open', new ShortTextInputView({
             model: asset,
             vent: this.vent,
             onSave,
@@ -98,7 +98,7 @@ export default class NewAsset extends Marionette.ItemView.extend({
       });
 
     } else {
-      Vocat.vent.trigger('error:add', {level: 'error', msg: 'The Youtube URL you entered is invalid.'});
+      window.Vocat.vent.trigger('error:add', {level: 'error', msg: 'The Youtube URL you entered is invalid.'});
       return this.resetUploader();
     }
   }
@@ -116,19 +116,19 @@ export default class NewAsset extends Marionette.ItemView.extend({
       return asset.save({}, {
         success: () => {
           this.collection.add(asset);
-          Vocat.vent.trigger('error:add', {level: 'notice', msg: 'The Vimeo video has been saved.'});
+          window.Vocat.vent.trigger('error:add', {level: 'notice', msg: 'The Vimeo video has been saved.'});
           const onSave = () => {
             return asset.save({}, {
               success: () => {
-                Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Media successfully updated.'});
+                window.Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Media successfully updated.'});
                 return this.render();
               }
               , error: () => {
-                return Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Unable to update media title.'});
+                return window.Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Unable to update media title.'});
               }
             });
           };
-          return Vocat.vent.trigger('modal:open', new ShortTextInputView({
+          return window.Vocat.vent.trigger('modal:open', new ShortTextInputView({
             model: asset,
             vent: this.vent,
             onSave,
@@ -139,7 +139,7 @@ export default class NewAsset extends Marionette.ItemView.extend({
         }
       });
     } else {
-      Vocat.vent.trigger('error:add', {level: 'error', msg: 'The Vimeo URL you entered is invalid.'});
+      window.Vocat.vent.trigger('error:add', {level: 'error', msg: 'The Vimeo URL you entered is invalid.'});
       return this.resetUploader();
     }
   }
@@ -196,12 +196,12 @@ export default class NewAsset extends Marionette.ItemView.extend({
               return this.ui.uploadStatusDetail.html("");
             },
             error: () => {
-              Vocat.vent.trigger('error:add', {level: 'error', msg: 'Unable to create new attachment model.'});
+              window.Vocat.vent.trigger('error:add', {level: 'error', msg: 'Unable to create new attachment model.'});
               return this.resetUploader();
             }
           });
         } else {
-          Vocat.vent.trigger('error:add', {
+          window.Vocat.vent.trigger('error:add', {
             level: 'error',
             msg: `Invalid file extension. Extension must be one of: ${this.model.get('allowed_extensions').join(', ')}.`
           });
@@ -215,7 +215,7 @@ export default class NewAsset extends Marionette.ItemView.extend({
         return this.ui.progressBar.width(`${progress}%`);
       },
       fail: (e, data) => {
-        Vocat.vent.trigger('error:add', {level: 'error', msg: 'Unable to upload. Please check your internet connection or try again later.'});
+        window.Vocat.vent.trigger('error:add', {level: 'error', msg: 'Unable to upload. Please check your internet connection or try again later.'});
         return this.resetUploader();
       },
       done: (e, data) => {
@@ -226,19 +226,19 @@ export default class NewAsset extends Marionette.ItemView.extend({
           success: () => {
             this.collection.add(asset);
             asset.poll();
-            Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Media successfully saved.'});
+            window.Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Media successfully saved.'});
             const onSave = () => {
               return asset.save({}, {
                 success: () => {
-                  Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Media successfully updated.'});
+                  window.Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Media successfully updated.'});
                   return this.render();
                 }
                 , error: () => {
-                  return Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Unable to update media title.'});
+                  return window.Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Unable to update media title.'});
                 }
               });
             };
-            Vocat.vent.trigger('modal:open', new ShortTextInputView({
+            window.Vocat.vent.trigger('modal:open', new ShortTextInputView({
               model: asset,
               vent: this.vent,
               onSave,
@@ -249,7 +249,7 @@ export default class NewAsset extends Marionette.ItemView.extend({
             return this.resetUploader();
           }
           , error: () => {
-            Vocat.vent.trigger('error:add',
+            window.Vocat.vent.trigger('error:add',
               {level: 'error', clear: true, msg: 'The server was unable to save the media.'});
             return this.resetUploader();
           }
@@ -281,8 +281,8 @@ export default class NewAsset extends Marionette.ItemView.extend({
   serializeData() {
     const context = super.serializeData();
     const sd = {
-      s3Bucket: window.VocatS3Bucket,
-      AWSPublicKey: window.VocatAWSPublicKey,
+      s3Bucket: VocatS3Bucket,
+      AWSPublicKey: VocatAWSPublicKey,
       project: context
     };
     return sd;

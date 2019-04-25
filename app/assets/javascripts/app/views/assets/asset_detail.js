@@ -107,7 +107,7 @@ export default class AssetShowLayout extends Marionette.LayoutView.extend({
     } else {
       url = `courses/${this.courseId}/${context}/creator/${this.model.get('creator_id')}/project/${this.model.get('project_id')}`;
     }
-    return Vocat.router.navigate(url, true);
+    return window.Vocat.router.navigate(url, true);
   }
 
   initialize(options) {

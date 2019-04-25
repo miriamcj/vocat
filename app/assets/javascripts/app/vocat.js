@@ -151,7 +151,9 @@ Vocat.addInitializer(function() {
         controller: new Controller,
         appRoutes: subRoutes
       });
-      Backbone.history.start({pushState: pushStateEnabled});
+      if (!Backbone.History.started) {
+        Backbone.history.start({pushState: pushStateEnabled });
+      }
       if (pushStateEnabled === false) {
         return router.navigate(fragment, { trigger: true });
       }
@@ -210,5 +212,3 @@ Vocat.on('before:start', function() {
   const globalChannel = Backbone.Wreqr.radio.channel('global');
   return $('html').bind('click', event => globalChannel.vent.trigger('user:action', event));
 });
-
-export default Vocat;

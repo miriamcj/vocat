@@ -22,7 +22,7 @@ export default class CriteriaItem extends Marionette.ItemView.extend({
 }) {
   openModal() {
     const label = "What would you like to call this criteria?";
-    return Vocat.vent.trigger('modal:open', new ShortTextInputView({
+    return window.Vocat.vent.trigger('modal:open', new ShortTextInputView({
       model: this.model,
       inputLabel: label,
       saveLabel: 'Update Criteria Name',
@@ -33,7 +33,7 @@ export default class CriteriaItem extends Marionette.ItemView.extend({
   }
 
   onModelDestroy() {
-    return Vocat.vent.trigger('modal:open', new ModalConfirmView({
+    return window.Vocat.vent.trigger('modal:open', new ModalConfirmView({
       model: this.model,
       vent: this,
       descriptionLabel: 'Deleting this criteria will also delete all descriptions associated with this criteria.',

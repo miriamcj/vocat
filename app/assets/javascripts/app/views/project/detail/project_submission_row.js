@@ -26,7 +26,7 @@ export default class ProjectSubmissionRowView extends Marionette.ItemView {
   onRowClick() {
     const typeSegment = `${this.model.get('creator_type').toLowerCase()}s`;
     const url = `courses/${this.model.get('course_id')}/${typeSegment}/evaluations/creator/${this.model.get('creator_id')}/project/${this.model.get('project_id')}`;
-    return Vocat.router.navigate(url, true);
+    return window.Vocat.router.navigate(url, true);
   }
 
   initialize(options) {

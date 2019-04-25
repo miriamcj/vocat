@@ -32,19 +32,19 @@ export default class ProjectRowView extends Marionette.ItemView {
   onConfirmDestroy() {
     return this.model.destroy({
       success: () => {
-        Vocat.vent.trigger('error:clear');
-        return Vocat.vent.trigger('error:add',
+        window.Vocat.vent.trigger('error:clear');
+        return window.Vocat.vent.trigger('error:add',
           {level: 'notice', lifetime: '5000', msg: 'The project was successfully deleted.'});
       }
       , error: () => {
-        Vocat.vent.trigger('error:clear');
-        return Vocat.vent.trigger('error:add', {level: 'notice', msg: xhr.responseJSON.errors});
+        window.Vocat.vent.trigger('error:clear');
+        return window.Vocat.vent.trigger('error:add', {level: 'notice', msg: xhr.responseJSON.errors});
       }
     });
   }
 
   onClickDestroy() {
-    return Vocat.vent.trigger('modal:open', new ModalConfirmView({
+    return window.Vocat.vent.trigger('modal:open', new ModalConfirmView({
       model: this.model,
       vent: this,
       headerLabel: 'Are You Sure?',
@@ -59,7 +59,7 @@ export default class ProjectRowView extends Marionette.ItemView {
   }
 
   onShow() {
-    return this.ui.dropdowns.each((index, el) => new DropdownView({el, vent: Vocat.vent, allowAdjustment: false}));
+    return this.ui.dropdowns.each((index, el) => new DropdownView({el, vent: window.Vocat.vent, allowAdjustment: false}));
   }
 
   initialize(options) {}

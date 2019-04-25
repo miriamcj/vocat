@@ -34,7 +34,7 @@ export default class ConfirmInvite extends Marionette.ItemView {
   }
 
   onCancel() {
-    return Vocat.vent.trigger('notification:empty');
+    return window.Vocat.vent.trigger('notification:empty');
   }
 
   onSubmit() {
@@ -54,7 +54,7 @@ export default class ConfirmInvite extends Marionette.ItemView {
         return this.handleSubmitSuccess(jqXHR.responseJSON);
       },
       error: (jqXHR, textStatus, error) => {
-        Vocat.vent.trigger('error:add', {level: 'error', lifetime: 5000, msg: jqXHR.responseJSON.errors});
+        window.Vocat.vent.trigger('error:add', {level: 'error', lifetime: 5000, msg: jqXHR.responseJSON.errors});
         this.ui.button.removeClass('loading');
         return this.onCancel();
       }
@@ -76,8 +76,8 @@ export default class ConfirmInvite extends Marionette.ItemView {
     this.collection.fetch();
     this.onCancel();
 
-    Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 10000, msg: pluck(successes, 'message')});
-    return Vocat.vent.trigger('error:add', {level: 'error', lifetime: 10000, msg: pluck(failures, 'message')});
+    window.Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 10000, msg: pluck(successes, 'message')});
+    return window.Vocat.vent.trigger('error:add', {level: 'error', lifetime: 10000, msg: pluck(failures, 'message')});
   }
 
   initialize(options) {

@@ -28,7 +28,7 @@ export default class ModalLayout extends Marionette.LayoutView.extend({
   }
 
   initialize(options) {
-    this.vent = Vocat.vent;
+    this.vent = window.Vocat.vent;
     this.$el.hide();
 
     this.listenTo(this.vent, 'modal:open', view => {

@@ -67,7 +67,7 @@ export default class ProjectDetail extends Marionette.LayoutView.extend({
 
   onOpenRubricModal() {
     const rubric = new RubricModel(this.model.get('rubric'));
-    return Vocat.vent.trigger('modal:open', new RubricModalView({model: rubric}));
+    return window.Vocat.vent.trigger('modal:open', new RubricModalView({model: rubric}));
   }
 
   serializeData() {
@@ -95,6 +95,6 @@ export default class ProjectDetail extends Marionette.LayoutView.extend({
 
   navigateToAsset(assetId, courseId) {
     const url = `courses/${courseId}/assets/${assetId}`;
-    return Vocat.router.navigate(url, true);
+    return window.Vocat.router.navigate(url, true);
   }
 };

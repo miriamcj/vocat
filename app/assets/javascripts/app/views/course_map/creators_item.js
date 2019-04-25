@@ -43,7 +43,7 @@ export default class CourseMapCreatorsItem extends Marionette.ItemView.extend({
   }
 
   onOpenGroupsModal() {
-    return Vocat.vent.trigger('modal:open', new ModalGroupMembershipView({groupId: this.model.id, name: this.model.name}));
+    return window.Vocat.vent.trigger('modal:open', new ModalGroupMembershipView({groupId: this.model.id, name: this.model.name}));
   }
 
   onDetail() {

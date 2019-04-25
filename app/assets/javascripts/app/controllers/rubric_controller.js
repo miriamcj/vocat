@@ -12,17 +12,17 @@ export default class RubricController extends VocatController.extend({}) {
 
   new(courseId) {
     const view = new RubricLayoutView({courseId});
-    return Vocat.main.show(view);
+    return window.Vocat.main.show(view);
   }
 
   editWithoutCourse(rubricId) {
     const view = new RubricLayoutView({rubricId});
-    return Vocat.main.show(view);
+    return window.Vocat.main.show(view);
   }
 
   edit(courseId, rubricId) {
     const view = new RubricLayoutView({rubricId});
-    return Vocat.main.show(view);
+    return window.Vocat.main.show(view);
   }
 };
 

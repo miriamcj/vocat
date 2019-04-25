@@ -65,7 +65,7 @@ export default class MyEvaluations extends Marionette.CompositeView {
   }
 
   onEvaluationDestroy() {
-    return Vocat.vent.trigger('modal:open', new ModalConfirmView({
+    return window.Vocat.vent.trigger('modal:open', new ModalConfirmView({
       model: this.model,
       vent: this,
       descriptionLabel: 'Deleted evaluations cannot be recovered.',

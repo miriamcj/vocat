@@ -18,47 +18,47 @@ export default class AdminController extends VocatController.extend({
 }) {
   evaluatorEnrollment(courseId) {
     if (!isNaN(parseInt(courseId))) {
-      Vocat.addRegions({
+      window.Vocat.addRegions({
         evaluatorEnrollment: '[data-region="evaluator-enrollment"]'
       });
       const view = new EnrollmentLayout({
         collection: new EnrollmentCollection([], {scope: {course: courseId, role: 'evaluator'}})
       });
-      return Vocat.evaluatorEnrollment.show(view);
+      return window.Vocat.evaluatorEnrollment.show(view);
     }
   }
 
   assistantEnrollment(courseId) {
     if (!isNaN(parseInt(courseId))) {
-      Vocat.addRegions({
+      window.Vocat.addRegions({
         assistantEnrollment: '[data-region="assistant-enrollment"]'
       });
       const view = new EnrollmentLayout({
         collection: new EnrollmentCollection([], {scope: {course: courseId, role: 'assistant'}})
       });
-      return Vocat.assistantEnrollment.show(view);
+      return window.Vocat.assistantEnrollment.show(view);
     }
   }
 
   creatorEnrollment(courseId) {
     if (!isNaN(parseInt(courseId))) {
-      Vocat.addRegions({
+      window.Vocat.addRegions({
         creatorEnrollment: '[data-region="creator-enrollment"]'
       });
       const view = new EnrollmentLayout({
         collection: new EnrollmentCollection([], {scope: {course: courseId, role: 'creator'}})
       });
-      return Vocat.creatorEnrollment.show(view);
+      return window.Vocat.creatorEnrollment.show(view);
     }
   }
 
   courseEnrollment(userId) {
     if (!isNaN(parseInt(userId))) {
-      Vocat.addRegions({
+      window.Vocat.addRegions({
         creatorEnrollment: '[data-region="creator-enrollment"]'
       });
       const view = new EnrollmentLayout({collection: new EnrollmentCollection([], {scope: {user: userId}})});
-      return Vocat.creatorEnrollment.show(view);
+      return window.Vocat.creatorEnrollment.show(view);
     }
   }
 }

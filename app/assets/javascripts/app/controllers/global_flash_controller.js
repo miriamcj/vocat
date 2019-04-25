@@ -16,7 +16,7 @@ export default class GlobalFlashController extends VocatController.extend({
   }
 }) {
   show() {
-    const view = new FlashMessagesView({vent: Vocat.vent, collection: this.collections.globalFlash});
-    return Vocat.globalFlash.show(view);
+    const view = new FlashMessagesView({vent: window.Vocat.vent, collection: this.collections.globalFlash});
+    return window.Vocat.globalFlash.show(view);
   }
 };

@@ -101,9 +101,9 @@ export default class RubricLayout extends AbstractMatrix {
       vent: this.vent
     };
     if (attr === 'name') {
-      return Vocat.vent.trigger('modal:open', new ShortTextInputView(params));
+      return window.Vocat.vent.trigger('modal:open', new ShortTextInputView(params));
     } else if (attr === 'description') {
-      return Vocat.vent.trigger('modal:open', new LongTextInputView(params));
+      return window.Vocat.vent.trigger('modal:open', new LongTextInputView(params));
     }
   }
 
@@ -153,7 +153,7 @@ export default class RubricLayout extends AbstractMatrix {
 
   openScoreModal() {
     const rangePickerModal = new RangePickerModalView({collection: this.model.get('ranges'), model: this.model, vent: this});
-    return Vocat.vent.trigger('modal:open', rangePickerModal);
+    return window.Vocat.vent.trigger('modal:open', rangePickerModal);
   }
 
   handlePublicChange(event) {
@@ -204,7 +204,7 @@ export default class RubricLayout extends AbstractMatrix {
     return this.model.save({}, {
       success: () => {
         this.changed = false;
-        return Vocat.vent.trigger('error:add', {level: 'notice', msg: 'Rubric has been saved'});
+        return window.Vocat.vent.trigger('error:add', {level: 'notice', msg: 'Rubric has been saved'});
       }
       , error: (model, xhr) => {
         let msg;
@@ -213,7 +213,7 @@ export default class RubricLayout extends AbstractMatrix {
         } else {
           msg = 'Unable to save rubric. Be sure to add a title, and at least one range and field.';
         }
-        return Vocat.vent.trigger('error:add', {level: 'error', msg});
+        return window.Vocat.vent.trigger('error:add', {level: 'error', msg});
       }
     });
   }
@@ -221,7 +221,7 @@ export default class RubricLayout extends AbstractMatrix {
   handleCancelClick(event) {
     event.preventDefault();
     if (this.changed) {
-      return Vocat.vent.trigger('modal:open', new ModalConfirmView({
+      return window.Vocat.vent.trigger('modal:open', new ModalConfirmView({
         model: this.model,
         vent: this,
         headerLabel: "Are You Sure?",

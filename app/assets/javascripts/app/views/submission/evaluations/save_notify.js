@@ -31,12 +31,12 @@ export default class GroupsView extends Marionette.ItemView {
   }
 
   onClickEvaluationSave() {
-    Vocat.vent.trigger('notification:empty');
+    window.Vocat.vent.trigger('notification:empty');
     return this.vent.triggerMethod('evaluation:save');
   }
 
   onClickEvaluationRevert() {
-    Vocat.vent.trigger('notification:empty');
+    window.Vocat.vent.trigger('notification:empty');
     return this.vent.triggerMethod('evaluation:revert');
   }
 };

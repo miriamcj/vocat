@@ -10,10 +10,10 @@ export default class GlossaryToggleView extends Backbone.View.extend({}) {
   initialize() {
     const input = this.$el.find('input');
     input.click(event => {
-      Vocat.trigger('glossary:enabled:toggle');
+      window.Vocat.trigger('glossary:enabled:toggle');
       return this.updateUi();
     });
-    Vocat.on('glossary:enabled:updated', () => {
+    window.Vocat.on('glossary:enabled:updated', () => {
       return this.updateUi();
     });
     return this.updateUi();

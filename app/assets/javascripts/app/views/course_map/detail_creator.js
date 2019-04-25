@@ -1,11 +1,3 @@
-/*
- * decaffeinate suggestions:
- * DS102: Remove unnecessary code created because of implicit returns
- * DS206: Consider reworking classes to avoid initClass
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
-
-
 import template from 'templates/course_map/detail_creator.hbs';
 import PortfolioSubmissionItem from 'views/portfolio/portfolio_submissions_item';
 import ModalGroupMembershipView from 'views/modal/modal_group_membership';
@@ -50,7 +42,7 @@ export default class CourseMapDetailCreator extends Marionette.CompositeView.ext
   }
 
   onOpenGroupsModal() {
-    return Vocat.vent.trigger('modal:open', new ModalGroupMembershipView({groupId: this.model.id}));
+    return window.Vocat.vent.trigger('modal:open', new ModalGroupMembershipView({groupId: this.model.id}));
   }
 
   onClose() {
@@ -58,7 +50,7 @@ export default class CourseMapDetailCreator extends Marionette.CompositeView.ext
     if (this.model.creatorType === 'User') { segment = 'users'; }
     if (this.model.creatorType === 'Group') { segment = 'groups'; }
     const url = `courses/${this.courseId}/${segment}/evaluations`;
-    return Vocat.router.navigate(url, true);
+    return window.Vocat.router.navigate(url, true);
   }
 
   initialize(options) {

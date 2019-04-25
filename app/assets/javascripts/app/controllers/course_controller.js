@@ -24,13 +24,13 @@ export default class CourseController extends VocatController.extend({
 
   creatorEnrollment(courseId) {
     if (!isNaN(parseInt(courseId))) {
-      Vocat.addRegions({
+      window.Vocat.addRegions({
         creatorEnrollment: '[data-region="creator-enrollment"]'
       });
       const view = new EnrollmentLayout({
         collection: new EnrollmentCollection([], {scope: {course: courseId, role: 'creator'}})
       });
-      return Vocat.creatorEnrollment.show(view);
+      return window.Vocat.creatorEnrollment.show(view);
     }
   }
 
@@ -38,11 +38,11 @@ export default class CourseController extends VocatController.extend({
   courseManageProjects(courseId) {
     if (!isNaN(parseInt(courseId))) {
       if ($('[data-region="projects"]').length > 0) {
-        Vocat.addRegions({
+        window.Vocat.addRegions({
           projects: '[data-region="projects"]'
         });
         const view = new Projects({collection: this.collections.project});
-        return Vocat.projects.show(view);
+        return window.Vocat.projects.show(view);
       }
     }
   }

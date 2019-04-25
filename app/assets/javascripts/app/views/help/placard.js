@@ -39,11 +39,11 @@ export default class Placard extends Backbone.View.extend({
 
   initializeEvents() {
     this.$el.bind('mouseenter', () => {
-      return Vocat.vent.trigger('help:show', this.shownData);
+      return window.Vocat.vent.trigger('help:show', this.shownData);
     });
 
     this.$el.bind('mouseleave', () => {
-      return Vocat.vent.trigger('help:hide', {key: this.options.key});
+      return window.Vocat.vent.trigger('help:hide', {key: this.options.key});
     });
 
     this.listenTo(Vocat.vent, 'help:show', data => {

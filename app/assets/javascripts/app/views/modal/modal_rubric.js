@@ -25,7 +25,7 @@ export default class ModalProjectDescription extends Marionette.ItemView.extend(
   }
 
   onClickDismiss() {
-    return Vocat.vent.trigger('modal:close');
+    return window.Vocat.vent.trigger('modal:close');
   }
 
   onDestroy() {

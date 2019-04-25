@@ -28,7 +28,7 @@ export default class PortfolioItemSubmission extends Marionette.ItemView.extend(
   onOpenSubmission() {
     const typeSegment = `${this.model.get('creator_type').toLowerCase()}s`;
     const url = `courses/${this.courseId}/${typeSegment}/evaluations/creator/${this.model.get('creator_id')}/project/${this.model.get('project_id')}`;
-    return Vocat.router.navigate(url, true);
+    return window.Vocat.router.navigate(url, true);
   }
 
   setupListeners() {

@@ -5,9 +5,6 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 
-
-
-
 export default class CourseSubheaderView extends Marionette.ItemView.extend({
   events: {
     'click @ui.trigger': 'clickTrigger'
@@ -23,9 +20,9 @@ export default class CourseSubheaderView extends Marionette.ItemView.extend({
       const el = event.currentTarget;
       const val = el.innerHTML;
       if ((val === 'INDIVIDUAL WORK') || (val === 'PEER WORK')) {
-        Vocat.router.navigate(`courses/${window.VocatCourseId}/users/evaluations`, true);
+        window.Vocat.router.navigate(`courses/${window.VocatCourseId}/users/evaluations`, true);
       } else if (val === 'GROUP WORK') {
-        Vocat.router.navigate(`courses/${window.VocatCourseId}/groups/evaluations`, true);
+        window.Vocat.router.navigate(`courses/${window.VocatCourseId}/groups/evaluations`, true);
       }
       if (!$(el).hasClass('active')) { $(el).addClass('active'); }
       return $(el).siblings().removeClass('active');

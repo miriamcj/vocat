@@ -65,23 +65,23 @@ export default class CourseMapLayout extends AbstractMatrix {
 
   navigateToProject(projectId) {
     if (this.creatorType === 'User') {
-      return Vocat.router.navigate(`courses/${this.courseId}/users/evaluations/project/${projectId}`, true);
+      return window.Vocat.router.navigate(`courses/${this.courseId}/users/evaluations/project/${projectId}`, true);
     } else if (this.creatorType === 'Group') {
-      return Vocat.router.navigate(`courses/${this.courseId}/groups/evaluations/project/${projectId}`, true);
+      return window.Vocat.router.navigate(`courses/${this.courseId}/groups/evaluations/project/${projectId}`, true);
     }
   }
 
   navigateToSubmission(projectId, creatorId) {
     const typeSegment = `${this.creatorType.toLowerCase()}s`;
     const url = `courses/${this.courseId}/${typeSegment}/evaluations/creator/${creatorId}/project/${projectId}`;
-    return Vocat.router.navigate(url, true);
+    return window.Vocat.router.navigate(url, true);
   }
 
   navigateToCreator(creatorId) {
     if (this.creatorType === 'User') {
-      return Vocat.router.navigate(`courses/${this.courseId}/users/evaluations/creator/${creatorId}`, true);
+      return window.Vocat.router.navigate(`courses/${this.courseId}/users/evaluations/creator/${creatorId}`, true);
     } else if (this.creatorType === 'Group') {
-      return Vocat.router.navigate(`courses/${this.courseId}/groups/evaluations/creator/${creatorId}`, true);
+      return window.Vocat.router.navigate(`courses/${this.courseId}/groups/evaluations/creator/${creatorId}`, true);
     }
   }
 
@@ -164,7 +164,7 @@ export default class CourseMapLayout extends AbstractMatrix {
       dataType: 'json',
       data: {},
       success: (data, textStatus, jqXHR) => {
-        Vocat.vent.trigger('error:add', {
+        window.Vocat.vent.trigger('error:add', {
           level: 'notice',
           lifetime: 4000,
           msg: `Your evaluations for ${project.get('name')} submissions have been published`
@@ -173,7 +173,7 @@ export default class CourseMapLayout extends AbstractMatrix {
         return submissions.forEach(submission => submission.set('current_user_published', true));
       },
       error: (jqXHR, textStatus, error) => {
-        return Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 4000, msg: "Unable to publish submissions."});
+        return window.Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 4000, msg: "Unable to publish submissions."});
       }
     });
   }
@@ -185,7 +185,7 @@ export default class CourseMapLayout extends AbstractMatrix {
       dataType: 'json',
       data: {},
       success: (data, textStatus, jqXHR) => {
-        Vocat.vent.trigger('error:add', {
+        window.Vocat.vent.trigger('error:add', {
           level: 'notice',
           lifetime: 4000,
           msg: `Your evaluations for ${project.get('name')} submissions have been unpublished`
@@ -194,7 +194,7 @@ export default class CourseMapLayout extends AbstractMatrix {
         return submissions.forEach(submission => submission.set('current_user_published', false));
       },
       error: (jqXHR, textStatus, error) => {
-        return Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 4000, msg: "Unable to unpublish submissions."});
+        return window.Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 4000, msg: "Unable to unpublish submissions."});
       }
     });
   }

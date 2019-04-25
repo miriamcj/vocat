@@ -10,6 +10,7 @@ import LoadingView from 'views/layout/loading';
 import ModalErrorView from 'views/modal/modal_error';
 
 import {} from 'jquery-ujs';
+import forEach from "lodash/forEach";
 
 export default class VocatController extends Marionette.Controller.extend({
   collections: {
@@ -32,7 +33,7 @@ export default class VocatController extends Marionette.Controller.extend({
       reset: true,
       data,
       error: () => {
-        return Vocat.vent.trigger('modal:open', new ModalErrorView({
+        return window.Vocat.vent.trigger('modal:open', new ModalErrorView({
           model: this.model,
           vent: this,
           message: 'Exception: Unable to fetch collection models. Please report this error to your VOCAT administrator.',
@@ -46,7 +47,7 @@ export default class VocatController extends Marionette.Controller.extend({
   }
 
   bootstrapCollections() {
-    return this.collections.forEach((collection, collectionKey) => {
+    return forEach(this.collections, (collection, collectionKey) => {
       const dataContainer = $(`#bootstrap-${collectionKey}`);
       if (dataContainer.length > 0) {
         const div = $('<div></div>');

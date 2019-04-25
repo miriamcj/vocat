@@ -31,7 +31,7 @@ export default class ModalErrorView extends Marionette.ItemView.extend({
 
   onClickDismiss() {
     this.vent.triggerMethod(Marionette.getOption(this, 'dismissEvent'));
-    return Vocat.vent.trigger('modal:destroy');
+    return window.Vocat.vent.trigger('modal:destroy');
   }
 
   serializeData() {

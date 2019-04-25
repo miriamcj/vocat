@@ -65,20 +65,20 @@ export default class SubmissionLayout extends Marionette.LayoutView.extend({
   }
 
   onOpenGroupsModal() {
-    return Vocat.vent.trigger('modal:open', new ModalGroupMembershipView({groupId: this.creator.id}));
+    return window.Vocat.vent.trigger('modal:open', new ModalGroupMembershipView({groupId: this.creator.id}));
   }
 
   onOpenProjectModal() {
-    return Vocat.vent.trigger('modal:open', new ProjectModalView({model: this.project}));
+    return window.Vocat.vent.trigger('modal:open', new ProjectModalView({model: this.project}));
   }
 
   onOpenRubricModal() {
     const rubric = new RubricModel(this.project.get('rubric'));
-    return Vocat.vent.trigger('modal:open', new RubricModalView({model: rubric}));
+    return window.Vocat.vent.trigger('modal:open', new RubricModalView({model: rubric}));
   }
 
   onOpenMarkdownModal() {
-    return Vocat.vent.trigger('modal:open', new MarkdownOverviewModalView());
+    return window.Vocat.vent.trigger('modal:open', new MarkdownOverviewModalView());
   }
 
   onClose() {
@@ -86,7 +86,7 @@ export default class SubmissionLayout extends Marionette.LayoutView.extend({
     const context = this.model.get('creator_type').toLowerCase() + 's';
     if (this.courseMapContext) {
       url = `courses/${this.courseId}/${context}/evaluations`;
-      return Vocat.router.navigate(url, true);
+      return window.Vocat.router.navigate(url, true);
     } else {
       url = `/courses/${this.courseId}/portfolio`;
       return window.location = url;

@@ -16,11 +16,11 @@ export default class PageController extends VocatController.extend({}) {
 
   helpDev() {
     const view = new HelpTestView({});
-    return Vocat.main.show(view);
+    return window.Vocat.main.show(view);
   }
 
   modalDev() {
     const model = new CellModel({description: 'this is the description'});
-    return Vocat.vent.trigger('modal:open', new LongTextInputView({model, vent: Vocat.vent}));
+    return window.Vocat.vent.trigger('modal:open', new LongTextInputView({model, vent: window.Vocat.vent}));
   }
 };

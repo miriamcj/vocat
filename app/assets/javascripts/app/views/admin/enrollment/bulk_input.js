@@ -54,13 +54,13 @@ export default class EnrollmentBulkInput extends Marionette.LayoutView {
       },
       error: (jqXHR, textStatus, error) => {
         this.ui.submit.removeClass('loading');
-        return Vocat.vent.trigger('error:add', {level: 'error', lifetime: 5000, msg: jqXHR.responseJSON.errors});
+        return window.Vocat.vent.trigger('error:add', {level: 'error', lifetime: 5000, msg: jqXHR.responseJSON.errors});
       }
     });
   }
 
   showInviteMustConfirm(contacts) {
-    return Vocat.vent.trigger('notification:show',
+    return window.Vocat.vent.trigger('notification:show',
       new ConfirmInvite({collection: this.collection, contacts, vent: this.vent}));
   }
 
@@ -81,8 +81,8 @@ export default class EnrollmentBulkInput extends Marionette.LayoutView {
         return failures.push(contact);
       }
     });
-    Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 10000, msg: pluck(successes, 'message')});
-    Vocat.vent.trigger('error:add', {level: 'error', lifetime: 10000, msg: pluck(failures, 'message')});
+    window.Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 10000, msg: pluck(successes, 'message')});
+    window.Vocat.vent.trigger('error:add', {level: 'error', lifetime: 10000, msg: pluck(failures, 'message')});
 
     const inputValue = strings.join("\n");
     this.ui.bulkInput.val(inputValue);

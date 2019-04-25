@@ -42,7 +42,7 @@ export default class RangeView extends Marionette.CompositeView.extend({
   }
 
   onModelDestroy() {
-    return Vocat.vent.trigger('modal:open', new ModalConfirmView({
+    return window.Vocat.vent.trigger('modal:open', new ModalConfirmView({
       model: this.model,
       vent: this,
       descriptionLabel: 'Deleting this range will also delete all descriptions associated with this range.',
@@ -56,7 +56,7 @@ export default class RangeView extends Marionette.CompositeView.extend({
   }
 
   openModal() {
-    return Vocat.vent.trigger('modal:open', new ShortTextInputView({
+    return window.Vocat.vent.trigger('modal:open', new ShortTextInputView({
       model: this.model,
       property: 'name',
       saveClasses: 'update-button',

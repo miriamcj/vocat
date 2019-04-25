@@ -58,7 +58,7 @@ export default class AnnotatorView extends Marionette.LayoutView {
   }
 
   handleAnnotationSaveError(annotation, xhr) {
-    return Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: xhr.responseJSON.errors});
+    return window.Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: xhr.responseJSON.errors});
   }
 
   handleAnnotationDestruction(annotation) {

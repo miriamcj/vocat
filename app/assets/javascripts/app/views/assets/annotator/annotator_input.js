@@ -216,7 +216,7 @@ export default class AnnotatorInputView extends Marionette.ItemView {
   }
 
   handleLockAttempted() {
-    return Vocat.vent.trigger('error:add', {
+    return window.Vocat.vent.trigger('error:add', {
       level: 'info',
       clear: true,
       msg: 'Playback is locked because you are currently editing an annotation. To unlock playback, press the cancel button.'

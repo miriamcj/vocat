@@ -49,7 +49,7 @@ export default class Invite extends Marionette.ItemView {
         } else {
           error = 'The server failed to process the invitation.';
         }
-        Vocat.vent.trigger('error:add', {level: 'error', lifetime: 5000, msg: error});
+        window.Vocat.vent.trigger('error:add', {level: 'error', lifetime: 5000, msg: error});
         this.ui.button.removeClass('loading');
         return this.onCancel();
       }
@@ -67,8 +67,8 @@ export default class Invite extends Marionette.ItemView {
         return failures.push(contact);
       }
     });
-    Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 10000, msg: pluck(successes, 'message')});
-    Vocat.vent.trigger('error:add', {level: 'error', lifetime: 10000, msg: pluck(failures, 'message')});
+    window.Vocat.vent.trigger('error:add', {level: 'notice', lifetime: 10000, msg: pluck(successes, 'message')});
+    window.Vocat.vent.trigger('error:add', {level: 'error', lifetime: 10000, msg: pluck(failures, 'message')});
     this.collection.fetch();
     return this.onCancel();
   }

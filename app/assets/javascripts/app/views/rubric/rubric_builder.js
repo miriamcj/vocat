@@ -47,7 +47,7 @@ export default class RubricBuilder extends Marionette.LayoutView.extend({
     this.listenTo(modal, 'model:updated', function(e) {
       return this.model.get('ranges').add(range);
     });
-    return Vocat.vent.trigger('modal:open', modal);
+    return window.Vocat.vent.trigger('modal:open', modal);
   }
 
   handleRangeAdd(event) {
@@ -79,7 +79,7 @@ export default class RubricBuilder extends Marionette.LayoutView.extend({
     this.listenTo(modal, 'model:updated', function(e) {
       return this.model.get('fields').add(field);
     });
-    return Vocat.vent.trigger('modal:open', modal);
+    return window.Vocat.vent.trigger('modal:open', modal);
   }
 
   showCriteriaSnap() {

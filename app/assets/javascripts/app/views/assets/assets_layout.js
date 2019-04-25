@@ -43,7 +43,7 @@ export default class AssetsLayout extends Marionette.LayoutView.extend({
 }) {
   setState(state, assetId = null) {
     if ((this.state === 'uploading') && (state === 'detail')) {
-      Vocat.vent.trigger('error:add', {
+      window.Vocat.vent.trigger('error:add', {
         level: 'notice',
         clear: true,
         lifetime: '5000',
@@ -115,7 +115,7 @@ export default class AssetsLayout extends Marionette.LayoutView.extend({
   }
 
   navigateToSubmissionView() {
-    return Vocat.router.navigate(`${this.model.detailUrl()}`, false);
+    return window.Vocat.router.navigate(`${this.model.detailUrl()}`, false);
   }
 
   handleStateManage() {
@@ -151,7 +151,7 @@ export default class AssetsLayout extends Marionette.LayoutView.extend({
           this.ui.detailHeaderContent.html(label);
           this.newAsset.empty();
           this.newAssetFooter.empty();
-          Vocat.router.navigate(`${this.model.detailUrl()}/asset/${assetId}`, false);
+          window.Vocat.router.navigate(`${this.model.detailUrl()}/asset/${assetId}`, false);
           this.assets.show(this._assetDetail(asset));
           return this._updateUIStateDetail();
         }

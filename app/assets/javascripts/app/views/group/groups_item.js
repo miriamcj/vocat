@@ -29,7 +29,7 @@ export default class GroupsItem extends Marionette.ItemView.extend({
       // Tell the parent layout that its dirty and needs to save.
       return this.vent.triggerMethod('dirty');
     };
-    return Vocat.vent.trigger('modal:open', new ShortTextInputView({
+    return window.Vocat.vent.trigger('modal:open', new ShortTextInputView({
       model: this.model,
       vent: this.vent,
       onSave,
@@ -43,19 +43,19 @@ export default class GroupsItem extends Marionette.ItemView.extend({
   onConfirmDestroy() {
     return this.model.destroy({
       success: () => {
-        Vocat.vent.trigger('error:clear');
-        return Vocat.vent.trigger('error:add',
+        window.Vocat.vent.trigger('error:clear');
+        return window.Vocat.vent.trigger('error:add',
           {level: 'notice', lifetime: '3000', msg: 'The group was successfully deleted.'});
       }
       , error: () => {
-        Vocat.vent.trigger('error:clear');
-        return Vocat.vent.trigger('error:add', {level: 'notice', msg: xhr.responseJSON.errors});
+        window.Vocat.vent.trigger('error:clear');
+        return window.Vocat.vent.trigger('error:add', {level: 'notice', msg: xhr.responseJSON.errors});
       }
     });
   }
 
   onClickDestroy() {
-    return Vocat.vent.trigger('modal:open', new ModalConfirmView({
+    return window.Vocat.vent.trigger('modal:open', new ModalConfirmView({
       model: this.model,
       vent: this,
       descriptionLabel: 'Deleting this group will also delete any submissions and evaluations owned by this group.',

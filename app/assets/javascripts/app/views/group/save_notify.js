@@ -25,12 +25,12 @@ export default class SaveNotify extends Marionette.ItemView.extend({
 }) {
   onClickGroupsSave() {
     this.collection.save();
-    Vocat.vent.trigger('notification:empty');
-    return Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '3000', msg: 'Groups have been saved.'});
+    window.Vocat.vent.trigger('notification:empty');
+    return window.Vocat.vent.trigger('error:add', {level: 'notice', lifetime: '3000', msg: 'Groups have been saved.'});
   }
 
   onClickGroupsRevert() {
     this.collection.each(group => group.revert());
-    return Vocat.vent.trigger('notification:empty');
+    return window.Vocat.vent.trigger('notification:empty');
   }
 };

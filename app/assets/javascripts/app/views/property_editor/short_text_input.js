@@ -26,7 +26,7 @@ export default class ShortTextInput extends Marionette.ItemView.extend({
   }
 }) {
   onClickModelCancel() {
-    return Vocat.vent.trigger('modal:close');
+    return window.Vocat.vent.trigger('modal:close');
   }
 
   onClickModelSave() {
@@ -53,7 +53,7 @@ export default class ShortTextInput extends Marionette.ItemView.extend({
 
     // Check if valid
     if (this.model.isValid()) {
-      Vocat.vent.trigger('modal:close');
+      window.Vocat.vent.trigger('modal:close');
       return this.trigger('model:updated');
     } else {
       const error = this.model.validationError;

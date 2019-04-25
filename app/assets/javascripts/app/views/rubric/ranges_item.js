@@ -38,7 +38,7 @@ export default class RangesItem extends Marionette.ItemView.extend({
   }
 
   onDescriptionClear() {
-    return Vocat.vent.trigger('modal:open', new ModalConfirmView({
+    return window.Vocat.vent.trigger('modal:open', new ModalConfirmView({
       model: this.model,
       vent: this,
       descriptionLabel: 'Clear description?',
@@ -57,7 +57,7 @@ export default class RangesItem extends Marionette.ItemView.extend({
 
   openModal() {
     const label = `Description: ${this.model.rangeModel.get('name')} ${this.model.fieldModel.get('name')}`;
-    return Vocat.vent.trigger('modal:open', new LongTextInputView({
+    return window.Vocat.vent.trigger('modal:open', new LongTextInputView({
       model: this.model,
       inputLabel: label,
       saveLabel: 'Update Description',

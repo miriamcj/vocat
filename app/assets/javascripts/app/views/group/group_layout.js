@@ -52,11 +52,11 @@ export default class GroupLayout extends AbstractMatrix {
   }
 
   onDirty() {
-    return Vocat.vent.trigger('notification:show', new SaveNotifyView({collection: this.collections.group}));
+    return window.Vocat.vent.trigger('notification:show', new SaveNotifyView({collection: this.collections.group}));
   }
 
   onClickGroupAssign() {
-    return Vocat.vent.trigger('modal:open', new ModalConfirmView({
+    return window.Vocat.vent.trigger('modal:open', new ModalConfirmView({
       model: this.model,
       vent: this,
       descriptionLabel: 'Each student will be randomly assigned to one group. If you proceed, students will lose their current group assignments.',

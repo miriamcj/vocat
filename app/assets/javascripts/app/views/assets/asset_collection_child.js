@@ -47,7 +47,7 @@ export default class AssetCollectionChild extends Marionette.ItemView.extend({
     if (this.model.get('attachment_state') === 'processed') {
       return this.vent.trigger('asset:detail', {asset: this.model.id});
     } else {
-      return Vocat.vent.trigger('error:add', {
+      return window.Vocat.vent.trigger('error:add', {
         level: 'error',
         clear: true,
         msg: 'Media is still being processed and is not yet available. Check back soon or reload the page to see if processing has completed.'
@@ -69,15 +69,15 @@ export default class AssetCollectionChild extends Marionette.ItemView.extend({
     const onSave = () => {
       return this.model.save({}, {
         success: () => {
-          Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Media successfully updated.'});
+          window.Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Media successfully updated.'});
           return this.render();
         }
         , error: () => {
-          return Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Unable to update media title.'});
+          return window.Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'Unable to update media title.'});
         }
       });
     };
-    return Vocat.vent.trigger('modal:open', new ShortTextInputView({
+    return window.Vocat.vent.trigger('modal:open', new ShortTextInputView({
       model: this.model,
       vent: this.vent,
       onSave,
@@ -88,7 +88,7 @@ export default class AssetCollectionChild extends Marionette.ItemView.extend({
   }
 
   onDestroyModel() {
-    return Vocat.vent.trigger('modal:open', new ModalConfirmView({
+    return window.Vocat.vent.trigger('modal:open', new ModalConfirmView({
       model: this.model,
       vent: this,
       descriptionLabel: 'Deleted media cannot be recovered. All annotations for this media will also be deleted.',
@@ -99,7 +99,7 @@ export default class AssetCollectionChild extends Marionette.ItemView.extend({
 
   onConfirmDestroyModel() {
     return this.model.destroy({success: () => {
-      return Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'The media has been deleted.'});
+      return window.Vocat.vent.trigger('error:add', {level: 'error', clear: true, msg: 'The media has been deleted.'});
     }
     });
   }

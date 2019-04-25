@@ -55,7 +55,7 @@ export default class CourseMapProjectsItem extends Marionette.ItemView.extend({
   }
 
   onShow() {
-    return this.ui.dropdowns.each((index, el) => new DropdownView({el, vent: Vocat.vent, allowAdjustment: false}));
+    return this.ui.dropdowns.each((index, el) => new DropdownView({el, vent: window.Vocat.vent, allowAdjustment: false}));
   }
 
   onDetail() {
@@ -63,7 +63,7 @@ export default class CourseMapProjectsItem extends Marionette.ItemView.extend({
   }
 
   onClickPublish() {
-    return Vocat.vent.trigger('modal:open', new ModalConfirmView({
+    return window.Vocat.vent.trigger('modal:open', new ModalConfirmView({
       model: this.model,
       vent: this,
       headerLabel: "Are You Sure?",
@@ -74,7 +74,7 @@ export default class CourseMapProjectsItem extends Marionette.ItemView.extend({
   }
 
   onClickUnpublish() {
-    return Vocat.vent.trigger('modal:open', new ModalConfirmView({
+    return window.Vocat.vent.trigger('modal:open', new ModalConfirmView({
       model: this.model,
       vent: this,
       headerLabel: "Are You Sure?",

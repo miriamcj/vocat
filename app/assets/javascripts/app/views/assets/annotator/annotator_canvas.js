@@ -52,7 +52,7 @@ export default class AnnotatorCanvasView extends Marionette.ItemView {
 
   showClearCanvasWarning(requestedPlayback) {
     if (this.dirty === true) {
-      return Vocat.vent.trigger('modal:open', new ModalConfirmView({
+      return window.Vocat.vent.trigger('modal:open', new ModalConfirmView({
         model: requestedPlayback,
         vent: this,
         descriptionLabel: 'Changing the playback position will clear your drawing. If that\'s OK, press yes to proceed. If it\'s not OK, press cancel and post your annotation.',

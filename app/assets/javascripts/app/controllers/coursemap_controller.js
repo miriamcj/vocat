@@ -112,7 +112,7 @@ export default class CourseMapController extends VocatController.extend({
         reset: true,
         data: {course: courseId},
         error: () => {
-          return Vocat.vent.trigger('modal:open', new ModalErrorView({
+          return window.Vocat.vent.trigger('modal:open', new ModalErrorView({
             model: this.model,
             vent: this,
             message: 'Exception: Unable to fetch collection models. Please report this error to your VOCAT administrator.',

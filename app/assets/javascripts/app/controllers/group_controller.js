@@ -19,7 +19,7 @@ export default class GroupController extends VocatController.extend({
 }) {
   index(courseId) {
     const view = new GroupLayout({courseId, collections: this.collections});
-    return Vocat.main.show(view);
+    return window.Vocat.main.show(view);
   }
 };
 

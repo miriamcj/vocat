@@ -118,7 +118,7 @@ export default class AnnotationItem extends Marionette.ItemView {
 
   onAnnotationDestroy() {
     this.vent.trigger('request:pause', {});
-    return Vocat.vent.trigger('modal:open', new ModalConfirmView({
+    return window.Vocat.vent.trigger('modal:open', new ModalConfirmView({
       model: this.model,
       vent: this,
       descriptionLabel: 'Are you sure you want to delete this annotation? Deleted annotations cannot be recovered.',
@@ -137,11 +137,11 @@ export default class AnnotationItem extends Marionette.ItemView {
   onConfirmDestroy() {
     this.model.destroy({
       success: () => {
-        return Vocat.vent.trigger('error:add',
+        return window.Vocat.vent.trigger('error:add',
           {level: 'notice', clear: true, lifetime: '5000', msg: 'The annotation has been successfully deleted.'});
       }
       , error: xhr => {
-        return Vocat.vent.trigger('error:add', {level: 'notice', msg: xhr.responseJSON.errors});
+        return window.Vocat.vent.trigger('error:add', {level: 'notice', msg: xhr.responseJSON.errors});
       }
     });
     return this.vent.trigger('request:resume', {});

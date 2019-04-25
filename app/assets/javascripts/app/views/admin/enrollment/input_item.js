@@ -38,7 +38,7 @@ export default class EnrollmentUserInputItem extends Marionette.ItemView {
     const enrollment = this.enrollmentCollection.newEnrollmentFromSearchModel(this.model);
     enrollment.save({}, {
       error: (model, xhr) => {
-        return Vocat.vent.trigger('error:add', {level: 'error', lifetime: 5000, msg: xhr.responseJSON.errors});
+        return window.Vocat.vent.trigger('error:add', {level: 'error', lifetime: 5000, msg: xhr.responseJSON.errors});
       },
       success: () => {
         this.enrollmentCollection.add(enrollment);
@@ -52,13 +52,13 @@ export default class EnrollmentUserInputItem extends Marionette.ItemView {
           } else {
             article = 'a';
           }
-          return Vocat.vent.trigger('error:add', {
+          return window.Vocat.vent.trigger('error:add', {
             level: 'notice',
             lifetime: 5000,
             msg: `${enrollment.get('user_name')} is now ${article} ${role} in section #${enrollment.get('section')}.`
           });
         } else {
-          return Vocat.vent.trigger('error:add', {
+          return window.Vocat.vent.trigger('error:add', {
             level: 'notice',
             lifetime: 5000,
             msg: `${enrollment.get('user_name')} is now enrolled in section ${enrollment.get('section')}`

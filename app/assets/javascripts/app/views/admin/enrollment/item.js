@@ -39,14 +39,14 @@ export default class CreatorEnrollmentItem extends Marionette.ItemView {
     return this.model.destroy({
       wait: true,
       success: model => {
-        return Vocat.vent.trigger('error:add', {
+        return window.Vocat.vent.trigger('error:add', {
           level: 'notice',
           lifetime: 5000,
           msg: `${model.get('user_name')} has been removed from section #${model.get('section')}.`
         });
       },
       error: (model, xhr) => {
-        return Vocat.vent.trigger('error:add', {level: 'error', lifetime: 5000, msg: xhr.responseJSON.errors});
+        return window.Vocat.vent.trigger('error:add', {level: 'error', lifetime: 5000, msg: xhr.responseJSON.errors});
       }
     });
   }

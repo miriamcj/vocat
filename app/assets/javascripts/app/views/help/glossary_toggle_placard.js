@@ -27,7 +27,7 @@ export default class GlossaryTogglePlacard extends Placard {
   }
 
   onToggleGlossary(e) {
-    Vocat.trigger('glossary:enabled:toggle');
+    window.Vocat.trigger('glossary:enabled:toggle');
     return this.render();
   }
 
@@ -35,7 +35,7 @@ export default class GlossaryTogglePlacard extends Placard {
     let out;
     return out = {
       rubric: this.options.rubric,
-      glossaryEnabled: Vocat.glossaryEnabled
+      glossaryEnabled: window.Vocat.glossaryEnabled
     };
   }
 

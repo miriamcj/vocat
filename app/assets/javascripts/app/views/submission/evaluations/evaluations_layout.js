@@ -38,31 +38,31 @@ export default class EvaluationsLayout extends Marionette.LayoutView {
     return myEvaluation.destroy({
       wait: true, success: () => {
         this.showMyEvaluations();
-        return Vocat.vent.trigger('notification:empty');
+        return window.Vocat.vent.trigger('notification:empty');
       }
     });
   }
 
   onEvaluationDirty() {
     const saveNotifyView = new SaveNotifyView({model: this.myEvaluationModel(), vent: this});
-    return Vocat.vent.trigger('notification:show', saveNotifyView);
+    return window.Vocat.vent.trigger('notification:show', saveNotifyView);
   }
 
   onEvaluationSave() {
     const m = this.myEvaluationModel();
     if (m != null) {
-      Vocat.vent.trigger('notification:empty');
+      window.Vocat.vent.trigger('notification:empty');
       m.save({}, {
         success: response => {
           return this.trigger('evaluation:save:success');
         },
 //            @model.fetch()
         error: response => {
-          return Vocat.vent.trigger('error:add', {level: 'error', msg: 'Unable to save evaluation'});
+          return window.Vocat.vent.trigger('error:add', {level: 'error', msg: 'Unable to save evaluation'});
         }
       });
       if (m.validationError) {
-        return Vocat.vent.trigger('error:add', {level: 'error', msg: m.validationError});
+        return window.Vocat.vent.trigger('error:add', {level: 'error', msg: m.validationError});
       }
     }
   }
@@ -85,7 +85,7 @@ export default class EvaluationsLayout extends Marionette.LayoutView {
         return this.showMyEvaluations(true);
       }
       , error: () => {
-        Vocat.vent.trigger('error:add', {
+        window.Vocat.vent.trigger('error:add', {
           level: 'error',
           msg: 'Unable to create evaluation. Perhaps you do not have permission to evaluate this submission.'
         });
