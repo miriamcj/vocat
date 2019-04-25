@@ -10,7 +10,7 @@ import HelpTestView from 'views/page/help_test';
 import CellModel from 'models/cell';
 import LongTextInputView from 'views/property_editor/long_text_input';
 
-export default class PageController extends VocatController {
+export default class PageController extends VocatController.extend({}) {
 
   initialize() {}
 

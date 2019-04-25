@@ -10,22 +10,18 @@ import template from 'templates/course_map/detail_creator.hbs';
 import PortfolioSubmissionItem from 'views/portfolio/portfolio_submissions_item';
 import ModalGroupMembershipView from 'views/modal/modal_group_membership';
 
-export default class CourseMapDetailCreator extends Marionette.CompositeView {
-  constructor(options) {
-    super(options);
+export default class CourseMapDetailCreator extends Marionette.CompositeView.extend({
+  template: template,
+  standalone: false,
+  childView: PortfolioSubmissionItem,
+  vent: Vocat.vent,
+  childViewContainer: '[data-container="submission-summaries"]',
 
-    this.template = template;
-    this.standalone = false;
-    this.childView = PortfolioSubmissionItem;
-    this.vent = Vocat.vent;
-
-    this.childViewContainer = '[data-container="submission-summaries"]';
-
-    this.ui = {
-      loadIndicator: '[data-behavior="load-indicator"]',
-      openGroupModal: '[data-behavior="open-group-modal"]'
-    };
+  ui: {
+    loadIndicator: '[data-behavior="load-indicator"]',
+    openGroupModal: '[data-behavior="open-group-modal"]'
   }
+}) {
   childViewOptions() {
     return {
     standalone: this.standalone,

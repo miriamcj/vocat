@@ -8,8 +8,6 @@
 
 import ScoreModel from 'models/score';
 
-export default class ScoreCollection extends Backbone.Collection {
-  constructor() {
-    this.model = ScoreModel;
-  }
-};
+export default class ScoreCollection extends Backbone.Collection.extend({
+  model: ScoreModel
+}) {};

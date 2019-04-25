@@ -8,30 +8,25 @@
 import template from 'templates/course_map/creators_item.hbs';
 import ModalGroupMembershipView from 'views/modal/modal_group_membership';
 
-export default class CourseMapCreatorsItem extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
+export default class CourseMapCreatorsItem extends Marionette.ItemView.extend({
+  tagName: 'tr',
+  template: template,
 
-    this.tagName = 'tr';
+  ui: {
+    openGroupModal: '[data-behavior="open-group-modal"]'
+  },
 
-    this.template = template;
+  triggers: {
+    'click @ui.openGroupModal': 'open:groups:modal',
+    'mouseover [data-behavior="creator-name"]': 'active',
+    'mouseout [data-behavior="creator-name"]': 'inactive',
+    'click [data-behavior="creator-name"]': 'detail'
+  },
 
-    this.ui = {
-      openGroupModal: '[data-behavior="open-group-modal"]'
-    };
-
-    this.triggers = {
-      'click @ui.openGroupModal': 'open:groups:modal',
-      'mouseover [data-behavior="creator-name"]': 'active',
-      'mouseout [data-behavior="creator-name"]': 'inactive',
-      'click [data-behavior="creator-name"]': 'detail'
-    };
-
-    this.attributes = {
-      'data-behavior': 'navigate-creator'
-    };
+  attributes: {
+    'data-behavior': 'navigate-creator'
   }
-
+}) {
   serializeData() {
     const data = super.serializeData();
     if (this.creatorType === 'Group') {

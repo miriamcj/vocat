@@ -10,19 +10,15 @@ import template from 'templates/rubric/ranges_item.hbs';
 import LongTextInputView from 'views/property_editor/long_text_input';
 import ModalConfirmView from 'views/modal/modal_confirm';
 
-export default class RangesItem extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
+export default class RangesItem extends Marionette.ItemView.extend({
+  template: template,
+  className: 'cell',
 
-    this.template = template;
-    this.className = 'cell';
-
-    this.triggers = {
-      'click [data-behavior="destroy"]': 'description:clear',
-      'click [data-behavior="edit"]': 'click:edit'
-    };
+  triggers: {
+    'click [data-behavior="destroy"]': 'description:clear',
+    'click [data-behavior="edit"]': 'click:edit'
   }
-
+}) {
   findModel() {
     const cells = this.rubric.get('cells');
     const model = cells.findWhere({field: this.criteria.get('id'), range: this.range.get('id')});

@@ -7,22 +7,18 @@
 
 import template from 'templates/assets/asset_collection_empty.hbs';
 
-export default class AssetCollectionEmpty extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
+export default class AssetCollectionEmpty extends Marionette.ItemView.extend({
+  template: template,
+  abilities: {},
 
-    this.template = template;
-    this.abilities = {};
+  ui: {
+    manageLink: '[data-behavior="empty-manage-link"]'
+  },
 
-    this.ui = {
-      manageLink: '[data-behavior="empty-manage-link"]'
-    };
-
-    this.triggers = {
-      'click @ui.manageLink': 'show:new'
-    };
+  triggers: {
+    'click @ui.manageLink': 'show:new'
   }
-
+}) {
   onShowNew() {
     return this.vent.triggerMethod('request:state:manage');
   }

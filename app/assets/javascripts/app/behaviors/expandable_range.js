@@ -6,25 +6,21 @@
  */
 
 
-export default class ExpandableRange extends Marionette.Behavior {
-  constructor(options) {
-    super(...args);
+export default class ExpandableRange extends Marionette.Behavior.extend({
+  defaults: {
+    childrenVisible: false
+  },
 
-    this.defaults = {
-      childrenVisible: false
-    };
+  triggers: {
+    'click @ui.toggleChild': 'toggle:child'
+  },
 
-    this.triggers = {
-      'click @ui.toggleChild': 'toggle:child'
-    };
-
-    this.ui = {
-      toggleChild: '[data-behavior="toggle-children"]',
-      childContainer: '[data-behavior="child-container"]',
-      range: '[data-behavior="range"]:first'
-    };
+  ui: {
+    toggleChild: '[data-behavior="toggle-children"]',
+    childContainer: '[data-behavior="child-container"]',
+    range: '[data-behavior="range"]:first'
   }
-
+}) {
   onShow() {
     if (this.options.childrenVisible === false) {
       return this.ui.childContainer.hide();

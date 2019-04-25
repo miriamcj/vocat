@@ -8,25 +8,20 @@
 
 import template from 'templates/course_map/creators_item.hbs';
 
-export default class GroupCreatorsItem extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
+export default class GroupCreatorsItem extends Marionette.ItemView.extend({
+  tagName: 'tr',
+  template: template,
 
-    this.tagName = 'tr';
+  triggers: {
+    'mouseover a': 'active',
+    'mouseout a': 'inactive',
+    'click a': 'detail'
+  },
 
-    this.template = template;
-
-    this.triggers = {
-      'mouseover a': 'active',
-      'mouseout a': 'inactive',
-      'click a': 'detail'
-    };
-
-    this.attributes = {
-      'data-behavior': 'navigate-creator'
-    };
+  attributes: {
+    'data-behavior': 'navigate-creator'
   }
-
+}) {
   serializeData() {
     const data = super.serializeData();
     data.courseId = this.options.courseId;

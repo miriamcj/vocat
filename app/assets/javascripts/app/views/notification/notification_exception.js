@@ -8,19 +8,15 @@
 import template from 'templates/notification/notification_exception.hbs';
 import GlobalNotification from 'behaviors/global_notification';
 
-export default class NotificationException extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
+export default class NotificationException extends Marionette.ItemView.extend({
+  template: template,
 
-    this.template = template;
-
-    this.behaviors = {
-      globalNotification: {
-        behaviorClass: GlobalNotification
-      }
-    };
+  behaviors: {
+    globalNotification: {
+      behaviorClass: GlobalNotification
+    }
   }
-
+}) {
   serializeData() {
     return {
     msg: this.msg

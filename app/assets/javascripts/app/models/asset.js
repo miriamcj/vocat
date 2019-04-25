@@ -7,14 +7,11 @@
 
 import AnnotationCollection from 'collections/annotation_collection';
 
-export default class AssetModel extends Backbone.Model {
-  constructor() {
-
-    this.annotationCollection = null;
-    this.urlRoot = "/api/v1/assets";
-    this.polls = 0;
-  }
-
+export default class AssetModel extends Backbone.Model.extend({
+  annotationCollection: null,
+  urlRoot: "/api/v1/assets",
+  polls: 0
+}) {
   techOrder() {
     switch (this.get('type')) {
       case 'Asset::Youtube':

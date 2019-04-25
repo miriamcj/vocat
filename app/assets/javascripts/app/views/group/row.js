@@ -8,16 +8,11 @@
 
 import ItemView from 'views/group/cell';
 
-export default class Row extends Marionette.CollectionView {
-  constructor(options) {
-    super(options);
-
-    this.tagName = 'tr';
-    this.className = 'matrix--row';
-
-    this.childView = ItemView;
-  }
-
+export default class Row extends Marionette.CollectionView.extend({
+  tagName: 'tr',
+  className: 'matrix--row',
+  childView: ItemView
+}) {
   childViewOptions() {
     return {
     vent: this.vent,

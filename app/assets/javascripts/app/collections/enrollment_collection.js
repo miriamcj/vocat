@@ -11,12 +11,9 @@ import EnrollmentModel from 'models/enrollment';
 import UserCollection from 'collections/user_collection';
 import CourseCollection from 'collections/course_collection';
 
-export default class EnrollmentCollection extends Backbone.Collection {
-  constructor() {
-
-    this.model = EnrollmentModel;
-  }
-
+export default class EnrollmentCollection extends Backbone.Collection.extend({
+  model: EnrollmentModel
+}) {
   searchType() {
     if (this.scope.course) {
       return 'user';

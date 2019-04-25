@@ -10,17 +10,14 @@
 
 import template from 'templates/page/help_test.hbs';
 
-export default class FlashMessagesItem extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
+export default class FlashMessagesItem extends Marionette.ItemView.extend({
+  template: template,
 
-    this.template = template;
-    this.events = {
-      'mouseenter [data-help]': 'onHelpShow',
-      'mouseleave [data-help]': 'onHelpHide'
-    };
+  events: {
+    'mouseenter [data-help]': 'onHelpShow',
+    'mouseleave [data-help]': 'onHelpHide'
   }
-
+}) {
   onHelpShow(event) {
     const target = $(event.currentTarget);
     const orientation = target.attr('data-help-orientation');

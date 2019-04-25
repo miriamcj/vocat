@@ -10,27 +10,22 @@ import { clone, without } from "lodash";
 
 import template from 'templates/group/cell.hbs';
 
-export default class Cell extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
+export default class Cell extends Marionette.ItemView.extend({
+  template: template,
+  tagName: 'td',
 
-    this.template = template;
+  ui: {
+    checkbox: 'input',
+    switch: '.switch'
+  },
 
-    this.tagName = 'td';
-
-    this.ui = {
-      checkbox: 'input',
-      switch: '.switch'
-    };
-
-    this.triggers = {
-      'click @ui.checkbox': {
-        event: 'click:input',
-        preventDefault: false
-      }
-    };
+  triggers: {
+    'click @ui.checkbox': {
+      event: 'click:input',
+      preventDefault: false
+    }
   }
-
+}) {
   onClickInput() {
     let ids;
     this.vent.triggerMethod('dirty');

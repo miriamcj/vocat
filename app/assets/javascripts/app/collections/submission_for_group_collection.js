@@ -6,9 +6,6 @@
  */
 import SubmissionCollection from 'collections/submission_collection';
 
-export default class SubmissionForGroupCollection extends SubmissionCollection {
-  constructor() {
-
-    this.url = '/api/v1/submissions/for_group';
-  }
-};
+export default class SubmissionForGroupCollection extends SubmissionCollection.extend({
+  url: '/api/v1/submissions/for_group'
+}) {};

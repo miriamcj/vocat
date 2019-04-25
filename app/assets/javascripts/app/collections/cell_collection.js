@@ -8,11 +8,9 @@
 
 import CellModel from 'models/cell';
 
-export default class CellCollection extends Backbone.Collection {
-  constructor() {
-    this.model = CellModel;
-  }
-
+export default class CellCollection extends Backbone.Collection.extend({
+  model: CellModel
+}) {
   comparator(range) {
     return range.get('low');
   }

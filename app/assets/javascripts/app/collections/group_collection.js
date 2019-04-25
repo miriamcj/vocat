@@ -9,13 +9,10 @@
 
 import GroupModel from 'models/group';
 
-export default class GroupCollection extends Backbone.Collection {
-  constructor() {
-
-    this.model = GroupModel;
-    this.activeModel = null;
-  }
-
+export default class GroupCollection extends Backbone.Collection.extend({
+  model: GroupModel,
+  activeModel: null
+}) {
   initialize(models, options) {
     this.options = options;
     return this.courseId = options.courseId;

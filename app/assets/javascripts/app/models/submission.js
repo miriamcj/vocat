@@ -14,12 +14,9 @@ import UserModel from 'models/user';
 import GroupModel from 'models/group';
 import AssetCollection from 'collections/asset_collection';
 
-export default class SubmissionModel extends Backbone.Model {
-  constructor() {
-
-    this.assetCollection = null;
-  }
-
+export default class SubmissionModel extends Backbone.Model.extend({
+  assetCollection: null
+}) {
   urlRoot() {
     return '/api/v1/submissions';
   }

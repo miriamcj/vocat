@@ -7,18 +7,15 @@
 
 import template from 'templates/course_map/projects_empty.hbs';
 
-export default class CourseMapProjectsEmptyView extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
+export default class CourseMapProjectsEmptyView extends Marionette.ItemView.extend({
+  tagName: 'th',
+  template: template,
 
-    this.tagName = 'th';
-    this.template = template;
-    this.attributes = {
-      'data-behavior': 'navigate-project',
-      'data-match-height-source': ''
-    };
+  attributes: {
+    'data-behavior': 'navigate-project',
+    'data-match-height-source': ''
   }
-
+}) {
   initialize(options) {
     return this.courseId = options.courseId;
   }

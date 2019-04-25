@@ -5,7 +5,7 @@
  */
 
 
-export default class GlossaryToggleView extends Backbone.View {
+export default class GlossaryToggleView extends Backbone.View.extend({}) {
 
   initialize() {
     const input = this.$el.find('input');

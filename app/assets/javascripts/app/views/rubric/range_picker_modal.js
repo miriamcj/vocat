@@ -12,36 +12,32 @@ const jqueryUI = require("jquery-ui");
 import { min, reject, max, isNaN, sortBy, uniq, countBy, isObject } from "lodash";
 
 
-export default class RangePickerModalView extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
+export default class RangePickerModalView extends Marionette.ItemView.extend({
+  template: template,
+  modalWidth: '90%',
+  maxWidth: '1100px',
+  className: "range-picker-modal",
 
-    this.template = template;
-    this.modalWidth = '90%';
-    this.maxWidth = '1100px';
-    this.className = "range-picker-modal";
+  regions: {
+    rangePicker: '[data-region="range-picker"]'
+  },
 
-    this.regions = {
-      rangePicker: '[data-region="range-picker"]'
-    };
+  ui: {
+    lowInput: '[data-behavior="rubric-low"]',
+    highInput: '[data-behavior="rubric-high"]',
+    draggableContainer: '[data-behavior="draggable-container"]',
+    handles: '[data-handle]',
+    rangePicker: '[data-behavior="range-picker"]',
+    ticks: '[data-container="ticks"]'
+  },
 
-    this.ui = {
-      lowInput: '[data-behavior="rubric-low"]',
-      highInput: '[data-behavior="rubric-high"]',
-      draggableContainer: '[data-behavior="draggable-container"]',
-      handles: '[data-handle]',
-      rangePicker: '[data-behavior="range-picker"]',
-      ticks: '[data-container="ticks"]'
-    };
+  events: {
+    'keyup @ui.lowInput': 'lowChange',
+    'keyup @ui.highInput': 'highChange'
+  },
 
-    this.events = {
-      'keyup @ui.lowInput': 'lowChange',
-      'keyup @ui.highInput': 'highChange'
-    };
-
-    this.fallBackWidth = 922;
-  }
-
+  fallBackWidth: 922
+}) {
   lowChange(event) {
     return this.vent.triggerMethod('handle:low:change', this.ui.lowInput.val());
   }

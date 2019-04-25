@@ -8,9 +8,7 @@
 
 import FieldModel from 'models/field';
 
-export default class FieldCollection extends Backbone.Collection {
-  constructor() {
-    this.model = FieldModel;
-  }
-};
+export default class FieldCollection extends Backbone.Collection.extend({
+  model: FieldModel
+}) {};
 

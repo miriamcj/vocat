@@ -11,17 +11,13 @@ import ItemView from 'views/flash/flash_messages_item';
 import FlashMessageCollection from 'collections/flash_message_collection';
 import template from 'templates/flash/flash_messages.hbs';
 
-export default class AbstractFlashMessages extends Marionette.CollectionView {
-  constructor(options) {
-    super(options);
-
-    this.childView = ItemView;
-    this.clearOnAdd = false;
-    this.template = template;
-    this.className = 'alerts';
-    this.childViewContainer = '[data-behavior="flash-container"]';
-  }
-
+export default class AbstractFlashMessages extends Marionette.CollectionView.extend({
+  childView: ItemView,
+  clearOnAdd: false,
+  template: template,
+  className: 'alerts',
+  childViewContainer: '[data-behavior="flash-container"]'
+}) {
   initialize() {
     this.collection = Marionette.getOption(this, 'collection');
     if (!this.collection) {

@@ -12,13 +12,10 @@ import VocatController from 'controllers/vocat_controller';
 import EnrollmentCollection from 'collections/enrollment_collection';
 import EnrollmentLayout from 'views/admin/enrollment_layout';
 
-export default class AdminController extends VocatController {
-  constructor() {
-
-    this.collections = {
-    };
+export default class AdminController extends VocatController.extend({
+  collections: {
   }
-
+}) {
   evaluatorEnrollment(courseId) {
     if (!isNaN(parseInt(courseId))) {
       Vocat.addRegions({

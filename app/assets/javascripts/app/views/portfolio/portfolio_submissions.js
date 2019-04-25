@@ -9,14 +9,10 @@
 import PortfolioSubmissionItem from 'views/portfolio/portfolio_submissions_item';
 import EmptyView from 'views/portfolio/portfolio_submissions_item_empty';
 
-export default class PortfolioSubmissionsView extends Marionette.CollectionView {
-  constructor(options) {
-    super(options);
-
-    this.childView = PortfolioSubmissionItem;
-    this.emptyView = EmptyView;
-  }
-
+export default class PortfolioSubmissionsView extends Marionette.CollectionView.extend({
+  childView: PortfolioSubmissionItem,
+  emptyView: EmptyView
+}) {
   onShow() {}
 
   onRender() {}

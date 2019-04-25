@@ -4,4 +4,4 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
  */
 
-export default class FlashMessageModel extends Backbone.Model {};
+export default class FlashMessageModel extends Backbone.Model.extend() {};

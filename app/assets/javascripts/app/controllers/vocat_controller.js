@@ -11,14 +11,10 @@ import ModalErrorView from 'views/modal/modal_error';
 
 import {} from 'jquery-ujs';
 
-export default class VocatController extends Marionette.Controller {
-  constructor(options) {
-    super(...args);
-
-    this.collections = {
-    };
+export default class VocatController extends Marionette.Controller.extend({
+  collections: {
   }
-
+}) {
   initialize() {
     return this.bootstrapCollections();
   }

@@ -6,9 +6,6 @@
  */
 
 
-export default class UserModel extends Backbone.Model {
-  constructor() {
-
-    this.creatorType = 'User';
-  }
-};
+export default class UserModel extends Backbone.Model.extend({
+  creatorType: 'User'
+}) {};

@@ -9,33 +9,30 @@ import template from 'templates/course_map/projects_item.hbs';
 import DropdownView from 'views/layout/dropdown';
 import ModalConfirmView from 'views/modal/modal_confirm';
 
-export default class CourseMapProjectsItem extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
+export default class CourseMapProjectsItem extends Marionette.ItemView.extend({
+  tagName: 'th',
+  template: template,
 
-    this.tagName = 'th';
-    this.template = template;
-    this.attributes = {
-      'data-behavior': 'navigate-project',
-      'data-match-height-source': ''
-    };
+  attributes: {
+    'data-behavior': 'navigate-project',
+    'data-match-height-source': ''
+  },
 
-    this.ui = {
-      dropdowns: '[data-behavior="dropdown"]',
-      publishAll: '[data-behavior="publish-all"]',
-      unpublishAll: '[data-behavior="unpublish-all"]',
-      projectTitle: '[data-behavior="project-title"]'
-    };
+  ui: {
+    dropdowns: '[data-behavior="dropdown"]',
+    publishAll: '[data-behavior="publish-all"]',
+    unpublishAll: '[data-behavior="unpublish-all"]',
+    projectTitle: '[data-behavior="project-title"]'
+  },
 
-    this.triggers = {
-      'mouseover @ui.projectTitle': 'active',
-      'mouseout @ui.projectTitle': 'inactive',
-      'click @ui.projectTitle': 'detail',
-      'click @ui.publishAll': 'click:publish',
-      'click @ui.unpublishAll': 'click:unpublish'
-    };
+  triggers: {
+    'mouseover @ui.projectTitle': 'active',
+    'mouseout @ui.projectTitle': 'inactive',
+    'click @ui.projectTitle': 'detail',
+    'click @ui.publishAll': 'click:publish',
+    'click @ui.unpublishAll': 'click:unpublish'
   }
-
+}) {
   serializeData() {
     const data = super.serializeData();
     if (this.creatorType === 'Group') {

@@ -11,33 +11,29 @@ import { debounce } from "lodash";
 const Waypoints = require("waypoints");
 const WaypointsSticky = require("waypoints_sticky");
 
-export default class AbstractMatrix extends Marionette.LayoutView {
-  constructor(options) {
-    super(options);
+export default class AbstractMatrix extends Marionette.LayoutView.extend({
+  minWidth: 200,
+  maxWidth: 300,
+  memoizeHashCount: 0,
+  position: 0,
+  counter: 0,
+  stickyHeader: false,
 
-    this.minWidth = 200;
-    this.maxWidth = 300;
-    this.memoizeHashCount = 0;
-    this.position = 0;
-    this.counter = 0;
+  locks: {
+    forward: false
+  },
 
-    this.stickyHeader = false;
-    this.locks = {
-      forward: false
-    };
+  ui: {
+    sliderContainer: '[data-behavior="matrix-slider"]',
+    sliderLeft: '[data-behavior="matrix-slider-left"]',
+    sliderRight: '[data-behavior="matrix-slider-right"]'
+  },
 
-    this.ui = {
-      sliderContainer: '[data-behavior="matrix-slider"]',
-      sliderLeft: '[data-behavior="matrix-slider-left"]',
-      sliderRight: '[data-behavior="matrix-slider-right"]'
-    };
-
-    this.triggers = {
-      'click [data-behavior="matrix-slider-left"]': 'slider:left',
-      'click [data-behavior="matrix-slider-right"]': 'slider:right'
-    };
+  triggers: {
+    'click [data-behavior="matrix-slider-left"]': 'slider:left',
+    'click [data-behavior="matrix-slider-right"]': 'slider:right'
   }
-
+}) {
   adjustToCurrentPosition() {
     return this.recalculateMatrix();
   }

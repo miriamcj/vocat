@@ -13,14 +13,11 @@ import EnrollmentLayout from 'views/admin/enrollment_layout';
 import ProjectCollection from 'collections/project_collection';
 import Projects from 'views/course/manage/projects/projects';
 
-export default class CourseController extends VocatController {
-  constructor() {
-
-    this.collections = {
-      project: new ProjectCollection([])
-    };
+export default class CourseController extends VocatController.extend({
+  collections: {
+    project: new ProjectCollection([])
   }
-
+}) {
   initialize() {
     return this.bootstrapCollections();
   }

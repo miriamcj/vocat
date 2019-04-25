@@ -6,14 +6,10 @@
  */
 
 
-export default class VideoModel extends Backbone.Model {
-  constructor() {
-
-    this.paramRoot = 'video';
-
-    this.urlRoot = "/api/v1/videos";
-  }
-
+export default class VideoModel extends Backbone.Model.extend({
+  paramRoot: 'video',
+  urlRoot: "/api/v1/videos"
+}) {
   getSourceDetails() {
     switch (this.get('source')) {
       case 'youtube':

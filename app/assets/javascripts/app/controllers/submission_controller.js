@@ -17,17 +17,14 @@ import AssetCollection from 'collections/asset_collection';
 import AssetModel from 'models/asset';
 import AssetDetail from 'views/assets/asset_detail';
 
-export default class SubmissionController extends VocatController {
-  constructor() {
-
-    this.collections = {
-      user: new UserCollection({}),
-      group: new GroupCollection({}, {courseId: null}),
-      project: new ProjectCollection({}),
-      asset: new AssetCollection({})
-    };
+export default class SubmissionController extends VocatController.extend({
+  collections: {
+    user: new UserCollection({}),
+    group: new GroupCollection({}, {courseId: null}),
+    project: new ProjectCollection({}),
+    asset: new AssetCollection({})
   }
-
+}) {
   creatorDetail(course, creator) {
     const userModel = this.collections.user.first();
     const view = new CreatorDetailView({
@@ -119,4 +116,3 @@ export default class SubmissionController extends VocatController {
     return deferred;
   }
 };
-

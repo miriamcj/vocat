@@ -7,18 +7,14 @@
 
 import template from 'templates/rubric/rubric_detail.hbs';
 
-export default class RubricDetailView extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
+export default class RubricDetailView extends Marionette.ItemView.extend({
+  ui: {
+    container: '[data-behavior="slide-down"]'
+  },
 
-    this.ui = {
-      container: '[data-behavior="slide-down"]'
-    };
-    this.transition = true;
-
-    this.template = template;
-  }
-
+  transition: true,
+  template: template
+}) {
   initialize(options) {
     this.model.fetch();
     this.vent = Marionette.getOption(this, 'vent');

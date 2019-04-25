@@ -8,19 +8,15 @@
 
 import template from 'templates/notification/notification_message.hbs';
 
-export default class NotificationMessage extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
+export default class NotificationMessage extends Marionette.ItemView.extend({
+  template: template,
+  lifetime: 10000,
+  isFlash: true,
 
-    this.template = template;
-    this.lifetime = 10000;
-    this.isFlash = true;
-
-    this.triggers = {
-      'click [data-behavior="close-message"]': 'closeMessage'
-    };
+  triggers: {
+    'click [data-behavior="close-message"]': 'closeMessage'
   }
-
+}) {
   onCloseMessage() {
     return this.trigger('view:expired');
   }

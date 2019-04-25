@@ -9,12 +9,9 @@
 
 import VisitModel from 'models/visit';
 
-export default class VisitCollection extends Backbone.Collection {
-  constructor() {
-
-    this.model = VisitModel;
-  }
-
+export default class VisitCollection extends Backbone.Collection.extend({
+  model: VisitModel
+}) {
   initialize(models, options) {
     return this.options = options;
   }

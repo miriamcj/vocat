@@ -6,17 +6,13 @@
  */
 
 
-export default class GlobalNotification extends Marionette.Behavior {
-  constructor(options) {
-    super(...args);
+export default class GlobalNotification extends Marionette.Behavior.extend({
+ defaults: {
+ },
 
-    this.defaults = {
-    };
+ triggers: {
+ },
 
-    this.triggers = {
-    };
-
-    this.ui = {
-    };
-}
-};
+ ui: {
+ }
+}) {};

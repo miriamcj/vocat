@@ -11,24 +11,20 @@ import DiscusionPostCollection from 'collections/discussion_post_collection';
 import DiscussionPostModel from 'models/discussion_post';
 import FlashMessagesView from 'views/flash/flash_messages';
 
-export default class DiscussionView extends Marionette.CompositeView {
-  constructor(options) {
-    super(options);
+export default class DiscussionView extends Marionette.CompositeView.extend({
+  ui: {
+    bodyInput: '[data-behavior="post-input"]',
+    inputToggle: '[data-behavior="input-container"]',
+    flashContainer: '[data-container="flash"]'
+  },
 
-    this.ui = {
-      bodyInput: '[data-behavior="post-input"]',
-      inputToggle: '[data-behavior="input-container"]',
-      flashContainer: '[data-container="flash"]'
-    };
-
-    this.triggers = {
-      'click [data-behavior="post-save"]': 'post:save',
-      'click [data-behavior="toggle-reply"]': 'reply:toggle',
-      'click [data-behavior="toggle-delete-confirm"]': 'confirm:delete:toggle',
-      'click [data-behavior="delete"]': 'post:delete'
-    };
+  triggers: {
+    'click [data-behavior="post-save"]': 'post:save',
+    'click [data-behavior="toggle-reply"]': 'reply:toggle',
+    'click [data-behavior="toggle-delete-confirm"]': 'confirm:delete:toggle',
+    'click [data-behavior="delete"]': 'post:delete'
   }
-
+}) {
   childViewOptions() {
     return {
     allPosts: this.allPosts,

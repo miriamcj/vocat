@@ -8,10 +8,6 @@
 
 import template from 'templates/portfolio/portfolio_item_empty.hbs';
 
-export default class PortfolioItemEmptyView extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
-
-    this.template = template;
-  }
-};
+export default class PortfolioItemEmptyView extends Marionette.ItemView.extend({
+  template: template
+}) {};

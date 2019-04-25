@@ -7,17 +7,13 @@
 
 import template from 'templates/assets/new_asset_footer.hbs';
 
-export default class NewAssetFooter extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
+export default class NewAssetFooter extends Marionette.ItemView.extend({
+  template: template,
 
-    this.template = template;
-
-    this.ui = {
-      stopManagingLink: '[data-behavior="stop-manage-link"]'
-    };
+  ui: {
+    stopManagingLink: '[data-behavior="stop-manage-link"]'
   }
-
+}) {
   preventManageClose() {
     return this.ui.stopManagingLink.css({display: 'none'});
   }

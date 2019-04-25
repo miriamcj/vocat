@@ -1,11 +1,7 @@
 import {} from 'jquery-ujs';
 
 
-export default class ChosenView extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
-  }
-
+export default class ChosenView extends Marionette.ItemView.extend({}) {
   initialize() {
     let msg = 'Select an Option';
     if (this.$el.hasClass('month')) { msg = 'Month'; }

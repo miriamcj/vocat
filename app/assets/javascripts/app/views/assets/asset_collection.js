@@ -9,26 +9,21 @@ import template from 'templates/assets/asset_collection.hbs';
 import ChildView from 'views/assets/asset_collection_child';
 import EmptyView from 'views/assets/asset_collection_empty';
 
-export default class AssetCollection extends Marionette.CompositeView {
-  constructor(options) {
-    super(options);
+export default class AssetCollection extends Marionette.CompositeView.extend({
+  childView: ChildView,
+  template: template,
+  childViewContainer: '[data-behavior="collection-container"]',
 
-    this.childView = ChildView;
+  ui: {
+    collectionContainer: '[data-behavior="collection-container"]'
+  },
 
-    this.template = template;
-    this.childViewContainer = '[data-behavior="collection-container"]';
+  triggers: {
+    'click [data-behavior="do-render"]': 'forceRender'
+  },
 
-    this.ui = {
-      collectionContainer: '[data-behavior="collection-container"]'
-    };
-
-    this.triggers = {
-      'click [data-behavior="do-render"]': 'forceRender'
-    };
-
-    this.emptyView = EmptyView;
-  }
-
+  emptyView: EmptyView
+}) {
   childViewOptions() {
     return {
     vent: this.vent,

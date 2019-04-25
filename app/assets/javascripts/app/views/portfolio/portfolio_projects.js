@@ -8,10 +8,6 @@
 
 import PortfolioProjectsItem from 'views/portfolio/portfolio_projects_item';
 
-export default class PortfolioProjectsView extends Marionette.CollectionView {
-  constructor(options) {
-    super(options);
-
-    this.childView = PortfolioProjectsItem;
-  }
-};
+export default class PortfolioProjectsView extends Marionette.CollectionView.extend({
+  childView: PortfolioProjectsItem
+}) {};

@@ -11,17 +11,13 @@ import { bindAll } from "lodash";
 import template from 'templates/modal/modal_group_membership.hbs';
 import GroupModel from 'models/group';
 
-export default class ModalGroupMembershipView extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
+export default class ModalGroupMembershipView extends Marionette.ItemView.extend({
+  template: template,
 
-    this.template = template;
-
-    this.triggers = {
-      'click [data-behavior="dismiss"]': 'click:dismiss'
-    };
+  triggers: {
+    'click [data-behavior="dismiss"]': 'click:dismiss'
   }
-
+}) {
   onKeyUp(e) {
     const code = (e.keyCode != null) ? e.keyCode : e.which;
     if (code === 27) { return this.onClickDismiss(); }

@@ -10,11 +10,7 @@ import { bind } from "lodash";
 
 
 
-export default class JumpNavView extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
-  }
-
+export default class JumpNavView extends Marionette.ItemView.extend({}) {
   handleChange() {
     const value = this.$el.val();
     return window.location = value;

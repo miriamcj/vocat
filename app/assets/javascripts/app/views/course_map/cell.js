@@ -12,24 +12,16 @@ import UserModel from 'models/user';
 import GroupModel from 'models/group';
 import EvaluationModel from 'models/evaluation';
 
-export default class Cell extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
+export default class Cell extends Marionette.ItemView.extend({
+  template: template,
+  tagName: 'td',
+  className: 'clickable',
 
-    // @model = initially, a project model, but set to a submission model in the init function
-    // @creator = a group or user model
-
-    this.template = template;
-
-    this.tagName = 'td';
-    this.className = 'clickable';
-
-    this.triggers = {
-      'click': 'detail',
-      'click [data-behavior="publish-toggle"]': 'publish:toggle'
-    };
+  triggers: {
+    'click': 'detail',
+    'click [data-behavior="publish-toggle"]': 'publish:toggle'
   }
-
+}) {
   onDetail() {
     if (this.model) { const submissionId = this.model.id; }
     return this.vent.trigger('navigate:submission', {project: this.project.id, creator: this.creator.id});

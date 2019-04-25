@@ -9,19 +9,13 @@
 import template from 'templates/group/creators.hbs';
 import Item from 'views/group/creators_item';
 
-export default class GroupCreatorsView extends Marionette.CompositeView {
-  constructor(options) {
-    super(options);
-
-    this.tagName = 'table';
-    this.className = 'table matrix matrix-row-headers';
-
-    this.template = template;
-    this.childViewContainer = 'tbody';
-    this.childView = Item;
-  }
-
-
+export default class GroupCreatorsView extends Marionette.CompositeView.extend({
+  tagName: 'table',
+  className: 'table matrix matrix-row-headers',
+  template: template,
+  childViewContainer: 'tbody',
+  childView: Item
+}) {
   childViewOptions() {
     return {courseId: this.options.courseId};
   }

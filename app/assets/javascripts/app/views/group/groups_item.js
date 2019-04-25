@@ -9,25 +9,21 @@ import template from 'templates/group/groups_item.hbs';
 import ModalConfirmView from 'views/modal/modal_confirm';
 import ShortTextInputView from 'views/property_editor/short_text_input';
 
-export default class GroupsItem extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
+export default class GroupsItem extends Marionette.ItemView.extend({
+  tagName: 'th',
+  className: 'matrix--fullbleed',
+  template: template,
 
-    this.tagName = 'th';
-    this.className = 'matrix--fullbleed';
-    this.template = template;
+  attributes: {
+    'data-behavior': 'navigate-group',
+    'data-match-height-source': ''
+  },
 
-    this.attributes = {
-      'data-behavior': 'navigate-group',
-      'data-match-height-source': ''
-    };
-
-    this.triggers = {
-      'click [data-behavior="destroy"]': 'click:destroy',
-      'click [data-behavior="edit"]': 'click:edit'
-    };
+  triggers: {
+    'click [data-behavior="destroy"]': 'click:destroy',
+    'click [data-behavior="edit"]': 'click:edit'
   }
-
+}) {
   onClickEdit() {
     const onSave = () => {
       // Tell the parent layout that its dirty and needs to save.

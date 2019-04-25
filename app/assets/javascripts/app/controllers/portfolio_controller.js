@@ -13,15 +13,12 @@ import PortfolioSubmissionsView from 'views/portfolio/portfolio_submissions';
 import SubmissionCollection from 'collections/submission_collection';
 import PortfolioUnsubmittedCollection from 'collections/portfolio_unsubmitted_collection';
 
-export default class PortfolioController extends VocatController {
-  constructor() {
-
-    this.collections = {
-      submission: new SubmissionCollection({}),
-      incomplete: new PortfolioUnsubmittedCollection({})
-    };
+export default class PortfolioController extends VocatController.extend({
+  collections: {
+    submission: new SubmissionCollection({}),
+    incomplete: new PortfolioUnsubmittedCollection({})
   }
-
+}) {
   portfolio(courseId = null) {
 
     // The layout that contains the two lists of portfolio items

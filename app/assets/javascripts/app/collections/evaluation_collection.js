@@ -9,13 +9,9 @@
 
 import EvaluationModel from 'models/evaluation';
 
-export default class EvaluationCollection extends Backbone.Collection {
-  constructor(options) {
-    super(...args);
-
-    this.model = EvaluationModel;
-  }
-
+export default class EvaluationCollection extends Backbone.Collection.extend({
+  model: EvaluationModel
+}) {
   initialize(models, options) {
     this.options = options;
     return this.courseId = Marionette.getOption(this, 'courseId');

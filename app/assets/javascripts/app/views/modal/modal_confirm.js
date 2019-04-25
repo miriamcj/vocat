@@ -13,25 +13,20 @@ import { bindAll } from "lodash";
 
 import template from 'templates/modal/modal_confirm.hbs';
 
-export default class ModalConfirmView extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
+export default class ModalConfirmView extends Marionette.ItemView.extend({
+  template: template,
+  headerLabel: 'Are You Sure?',
+  confirmLabel: 'Yes, Proceed',
+  dismissLabel: 'Cancel',
+  confirmEvent: 'modal:confirm',
+  confirmHref: null,
+  dismissEvent: 'modal:dismiss',
 
-    this.template = template;
-
-    this.headerLabel = 'Are You Sure?';
-    this.confirmLabel = 'Yes, Proceed';
-    this.dismissLabel = 'Cancel';
-    this.confirmEvent = 'modal:confirm';
-    this.confirmHref = null;
-    this.dismissEvent = 'modal:dismiss';
-
-    this.triggers = {
-      'click [data-behavior="confirm"]': 'click:confirm',
-      'click [data-behavior="dismiss"]': 'click:dismiss'
-    };
+  triggers: {
+    'click [data-behavior="confirm"]': 'click:confirm',
+    'click [data-behavior="dismiss"]': 'click:dismiss'
   }
-
+}) {
   onKeyUp(e) {
     const code = (e.keyCode != null) ? e.keyCode : e.which;
     if (code === 13) { this.onClickConfirm(); }

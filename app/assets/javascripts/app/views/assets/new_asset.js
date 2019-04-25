@@ -13,44 +13,40 @@ import 'plugins/iframe_transport';
 import 'plugins/file_upload';
 import ShortTextInputView from 'views/property_editor/short_text_input';
 
-export default class NewAsset extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
+export default class NewAsset extends Marionette.ItemView.extend({
+  template: template,
 
-    this.template = template;
+  ui: {
+    testNewButton: '[data-behavior="test-new-asset"]',
+    hideManage: '[data-behavior="hide-manage"]',
+    uploadForm: '[data-behavior="upload-form"]',
+    uploadFormWrapper: '[data-behavior="upload-form-wrapper"]',
+    fileInputTrigger: '[data-behavior="file-input-trigger"]',
+    fileInput: '[data-behavior="file-input"]',
+    dropzone: '[data-behavior="dropzone"]',
+    uploadStatus: '[data-behavior="upload-status"]',
+    uploadStatusDetail: '[data-behavior="upload-status-detail"]',
+    keyInput: 'input[name=key]',
+    policyInput: 'input[name=policy]',
+    signatureInput: 'input[name=signature]',
+    assetUploadingMessage: '[data-behavior="asset-uploading-message"]',
+    externalVideoUrl: '[data-behavior="external-video-url"]',
+    externalVideoSubmit: '[data-behavior="external-video-url-submit"]',
+    progressBar: '[data-behavior="progress-bar"]'
+  },
 
-    this.ui = {
-      testNewButton: '[data-behavior="test-new-asset"]',
-      hideManage: '[data-behavior="hide-manage"]',
-      uploadForm: '[data-behavior="upload-form"]',
-      uploadFormWrapper: '[data-behavior="upload-form-wrapper"]',
-      fileInputTrigger: '[data-behavior="file-input-trigger"]',
-      fileInput: '[data-behavior="file-input"]',
-      dropzone: '[data-behavior="dropzone"]',
-      uploadStatus: '[data-behavior="upload-status"]',
-      uploadStatusDetail: '[data-behavior="upload-status-detail"]',
-      keyInput: 'input[name=key]',
-      policyInput: 'input[name=policy]',
-      signatureInput: 'input[name=signature]',
-      assetUploadingMessage: '[data-behavior="asset-uploading-message"]',
-      externalVideoUrl: '[data-behavior="external-video-url"]',
-      externalVideoSubmit: '[data-behavior="external-video-url-submit"]',
-      progressBar: '[data-behavior="progress-bar"]'
-    };
+  triggers: {
+    'click @ui.externalVideoSubmit': 'handle:external:video:submit',
+    'click @ui.hideManage': 'hide:new',
+    'click @ui.fileInputTrigger': 'show:file:input',
+    'submit @ui.externalVideoForm': 'handle:external:video:submit'
+  },
 
-    this.triggers = {
-      'click @ui.externalVideoSubmit': 'handle:external:video:submit',
-      'click @ui.hideManage': 'hide:new',
-      'click @ui.fileInputTrigger': 'show:file:input',
-      'submit @ui.externalVideoForm': 'handle:external:video:submit'
-    };
-
-    this.regex = {
-      youtube: /(v=|\.be\/)([^&#]{5,})/,
-      vimeo: /^.+vimeo.com\/(.*\/)?([^#\?]*)/
-    };
+  regex: {
+    youtube: /(v=|\.be\/)([^&#]{5,})/,
+    vimeo: /^.+vimeo.com\/(.*\/)?([^#\?]*)/
   }
-
+}) {
   onHandleExternalVideoSubmit() {
     const url = this.ui.externalVideoUrl.val();
     return this.createRemoteVideoAsset(url);

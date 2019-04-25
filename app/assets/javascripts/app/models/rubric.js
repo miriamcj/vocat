@@ -14,17 +14,14 @@ import RangeModel from 'models/range';
 import FieldModel from 'models/field';
 import CellModel from 'models/cell';
 
-export default class Rubric extends AbstractModel {
-  constructor() {
+export default class Rubric extends AbstractModel.extend({
+  courseId: null,
 
-    this.courseId = null;
-
-    this.defaults = {
-      low: 0,
-      high: 1
-    };
+  defaults: {
+    low: 0,
+    high: 1
   }
-
+}) {
   urlRoot() {
     return '/api/v1/rubrics';
   }

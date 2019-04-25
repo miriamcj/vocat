@@ -8,15 +8,11 @@
 
 import courseModel from 'models/course';
 
-export default class CourseCollection extends Backbone.Collection {
-  constructor() {
-
-    this.model = courseModel;
-    this.activeModel = null;
-
-    this.url = '/api/v1/courses';
-  }
-
+export default class CourseCollection extends Backbone.Collection.extend({
+  model: courseModel,
+  activeModel: null,
+  url: '/api/v1/courses'
+}) {
   getSearchTerm() {
     return 'section';
   }

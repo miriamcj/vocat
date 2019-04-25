@@ -8,7 +8,7 @@
 import VocatController from 'controllers/vocat_controller';
 import RubricLayoutView from 'views/rubric/rubric_layout';
 
-export default class RubricController extends VocatController {
+export default class RubricController extends VocatController.extend({}) {
 
   new(courseId) {
     const view = new RubricLayoutView({courseId});

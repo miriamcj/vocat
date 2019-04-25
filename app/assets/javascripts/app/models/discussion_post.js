@@ -9,12 +9,9 @@
 
 import { isArray, size } from "lodash";
 
-export default class DiscussionPostModel extends Backbone.Model {
-  constructor() {
-
-    this.urlRoot = '/api/v1/discussion_posts';
-  }
-
+export default class DiscussionPostModel extends Backbone.Model.extend({
+  urlRoot: '/api/v1/discussion_posts'
+}) {
   hasParent() {
     if (this.get('parent_id') != null) {
       return true;

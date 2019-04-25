@@ -9,44 +9,40 @@ import template from 'templates/assets/asset_collection_child.hbs';
 import ModalConfirmView from 'views/modal/modal_confirm';
 import ShortTextInputView from 'views/property_editor/short_text_input';
 
-export default class AssetCollectionChild extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
+export default class AssetCollectionChild extends Marionette.ItemView.extend({
+  template: template,
 
-    this.template = template;
+  attributes: {
+    'data-behavior': 'sortable-item',
+    'class': 'page-section--subsection page-section--subsection-ruled asset-collection-item'
+  },
 
-    this.attributes = {
-      'data-behavior': 'sortable-item',
-      'class': 'page-section--subsection page-section--subsection-ruled asset-collection-item'
-    };
+  events: {
+    "asset:dropped": "onDrop"
+  },
 
-    this.events = {
-      "asset:dropped": "onDrop"
-    };
+  ui: {
+    destroy: '[data-behavior="destroy"]',
+    moveUp: '[data-behavior="move-up"]',
+    moveDown: '[data-behavior="move-down"]',
+    show: '[data-behavior="show"]',
+    rename: '[data-behavior="rename"]',
+    showOnManage: '[data-behavior="show-on-manage"]',
+    hideOnManage: '[data-behavior="hide-on-manage"]'
+  },
 
-    this.ui = {
-      destroy: '[data-behavior="destroy"]',
-      moveUp: '[data-behavior="move-up"]',
-      moveDown: '[data-behavior="move-down"]',
-      show: '[data-behavior="show"]',
-      rename: '[data-behavior="rename"]',
-      showOnManage: '[data-behavior="show-on-manage"]',
-      hideOnManage: '[data-behavior="hide-on-manage"]'
-    };
+  modelEvents: {
+    "change:name": "render"
+  },
 
-    this.modelEvents = {
-      "change:name": "render"
-    };
-
-    this.triggers = {
-      'click @ui.destroy': 'destroyModel',
-      'click @ui.show': 'showModel',
-      'click @ui.rename': 'renameModel',
-      'click @ui.moveUp': 'moveUp',
-      'click @ui.moveDown': 'moveDown'
-    };
+  triggers: {
+    'click @ui.destroy': 'destroyModel',
+    'click @ui.show': 'showModel',
+    'click @ui.rename': 'renameModel',
+    'click @ui.moveUp': 'moveUp',
+    'click @ui.moveDown': 'moveDown'
   }
-
+}) {
   onShowModel() {
     if (this.model.get('attachment_state') === 'processed') {
       return this.vent.trigger('asset:detail', {asset: this.model.id});

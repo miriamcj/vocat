@@ -6,12 +6,9 @@
  */
 
 
-export default class ProjectStatisticsModel extends Backbone.Model {
-  constructor() {
-
-    this.scoreView = 'Project Scores';
-  }
-
+export default class ProjectStatisticsModel extends Backbone.Model.extend({
+  scoreView: 'Project Scores'
+}) {
   updateScoreView(scoreView) {
     return this.attributes.scoreView = scoreView;
   }

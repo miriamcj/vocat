@@ -1,27 +1,13 @@
-/*
- * decaffeinate suggestions:
- * DS102: Remove unnecessary code created because of implicit returns
- * DS206: Consider reworking classes to avoid initClass
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
-
-
-
-
 const jqueryUI = require("jquery-ui");
 
-export default class SortableTable extends Marionette.Behavior {
-  constructor(options) {
-    super(...args);
+export default class SortableTable extends Marionette.Behavior.extend({
+  defaults: {
+  },
 
-    this.defaults = {
-    };
-
-    this.ui = {
-      table: 'tbody'
-    };
+  ui: {
+    table: 'tbody'
   }
-
+}) {
   initialize() {
     return this.listenTo(this, ('childview:update-sort'), (rowView, args) => {
       return this.updateSort(args[0], args[1]);

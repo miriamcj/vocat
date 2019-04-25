@@ -21,21 +21,18 @@ import ProjectDetail from 'views/project/detail';
 import ApplicationErrorView from 'views/error/application_error';
 import AssetModel from 'models/asset';
 
-export default class CourseMapController extends VocatController {
-  constructor() {
+export default class CourseMapController extends VocatController.extend({
+  collections: {
+    user: new UserCollection([], {}),
+    group: new GroupCollection([], {}),
+    project: new ProjectCollection([], {}),
+    submission: new SubmissionForCourseCollection([], {}),
+    asset: new AssetCollection([], {})
+  },
 
-    this.collections = {
-      user: new UserCollection([], {}),
-      group: new GroupCollection([], {}),
-      project: new ProjectCollection([], {}),
-      submission: new SubmissionForCourseCollection([], {}),
-      asset: new AssetCollection([], {})
-    };
-
-    this.layoutInitialized = false;
-    this.submissionsSynced = false;
-  }
-
+  layoutInitialized: false,
+  submissionsSynced: false
+}) {
   initialize() {
     return this.bootstrapCollections();
   }
@@ -85,7 +82,7 @@ export default class CourseMapController extends VocatController {
   }
 
   standaloneUserProjectDetail(courseId, projectId) {}
-    //TODO: Move standalone details into this controller
+  //TODO: Move standalone details into this controller
 
   assetDetail(courseId, assetId) {
     return this._loadAsset(assetId).done(asset => {

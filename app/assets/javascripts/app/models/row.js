@@ -5,4 +5,4 @@
  */
 
 
-export default class RowModel extends Backbone.Model {};
+export default class RowModel extends Backbone.Model.extend() {};

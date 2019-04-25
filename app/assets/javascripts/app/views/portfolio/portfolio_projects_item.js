@@ -10,20 +10,15 @@ import { extend } from "lodash";
 
 import ProjectTemplate from 'templates/portfolio/portfolio_item_project.hbs';
 
-export default class PortfolioItemSubmission extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
+export default class PortfolioItemSubmission extends Marionette.ItemView.extend({
+  template: ProjectTemplate,
+  className: 'portfolio-frame',
 
-    this.template = ProjectTemplate;
-
-    this.className = 'portfolio-frame';
-
-    this.defaults = {
-      showCourse: true,
-      showCreator: true
-    };
+  defaults: {
+    showCourse: true,
+    showCreator: true
   }
-
+}) {
   initialize(options) {
     options = extend(this.defaults, options);
     this.showCourse = options.showCourse;

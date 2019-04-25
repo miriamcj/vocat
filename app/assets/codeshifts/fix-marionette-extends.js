@@ -67,7 +67,7 @@ module.exports = function(file, api) {
     }
 
     const newExtends = j.memberExpression(
-      newSuper, j.identifier("extends")
+      newSuper, j.identifier("extend")
     );
 
     return newExtends;

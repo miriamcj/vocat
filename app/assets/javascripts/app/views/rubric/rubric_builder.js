@@ -13,31 +13,27 @@ import FieldModel from 'models/field';
 import RubricModel from 'models/rubric';
 import ShortTextInputView from 'views/property_editor/short_text_input';
 
-export default class RubricBuilder extends Marionette.LayoutView {
-  constructor(options) {
-    super(options);
+export default class RubricBuilder extends Marionette.LayoutView.extend({
+  template: template,
+  collections: {},
 
-    this.template = template;
-    this.collections = {};
+  regions: {
+    criteria: '[data-region="criteria"]',
+    bodyWrapper: '[data-region="body-wrapper"]',
+    addButtons: '[data-region="add-buttons"]'
+  },
 
-    this.regions = {
-      criteria: '[data-region="criteria"]',
-      bodyWrapper: '[data-region="body-wrapper"]',
-      addButtons: '[data-region="add-buttons"]'
-    };
+  events: {
+    'click [data-trigger="rangeAdd"]': 'handleRangeAdd',
+    'click [data-trigger="criteriaAdd"]': 'handleCriteriaAdd'
+  },
 
-    this.events = {
-      'click [data-trigger="rangeAdd"]': 'handleRangeAdd',
-      'click [data-trigger="criteriaAdd"]': 'handleCriteriaAdd'
-    };
-
-    this.ui = {
-      rangeSnap: '.range-add-snap',
-      criteriaSnap: '.criteria-add-snap',
-      cells: '[data-region="cells"]'
-    };
+  ui: {
+    rangeSnap: '.range-add-snap',
+    criteriaSnap: '.criteria-add-snap',
+    cells: '[data-region="cells"]'
   }
-
+}) {
   newRange() {
     const range = new RangeModel({index: this.collections.ranges.length});
     const modal = new ShortTextInputView({

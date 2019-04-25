@@ -9,19 +9,16 @@ import Item from 'views/course_map/projects_item';
 import EmptyView from 'views/course_map/projects_empty';
 import template from 'templates/course_map/projects.hbs';
 
-export default class CourseMapProjectsView extends Marionette.CompositeView {
-  constructor(options) {
-    super(options);
+export default class CourseMapProjectsView extends Marionette.CompositeView.extend({
+  childView: Item,
+  emptyView: EmptyView,
+  tagName: 'thead',
+  template: template,
 
-    this.childView = Item;
-    this.emptyView = EmptyView;
-    this.tagName = 'thead';
-    this.template = template;
-    this.ui = {
-      childContainer: '[data-container="children"]'
-    };
+  ui: {
+    childContainer: '[data-container="children"]'
   }
-
+}) {
   attachHtml(collectionView, childView, index) {
     if (collectionView.isBuffering) {
       return collectionView.elBuffer.appendChild(childView.el);

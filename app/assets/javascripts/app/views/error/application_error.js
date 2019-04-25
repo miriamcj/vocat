@@ -8,13 +8,9 @@
 
 import template from 'templates/error/application_error.hbs';
 
-export default class ApplicationError extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
-
-    this.template = template;
-  }
-
+export default class ApplicationError extends Marionette.ItemView.extend({
+  template: template
+}) {
   serializeData() {
     return {
       errorDetails: this.errorDetails

@@ -14,37 +14,33 @@ import AssetModel from 'models/asset';
 import AssetDetail from 'views/assets/asset_detail';
 import ModalConfirmView from 'views/modal/modal_confirm';
 
-export default class AssetsLayout extends Marionette.LayoutView {
-  constructor(options) {
-    super(options);
+export default class AssetsLayout extends Marionette.LayoutView.extend({
+  template: template,
+  state: 'list',
+  canAttach: false,
 
-    this.template = template;
-    this.state = 'list';
-    this.canAttach = false;
+  ui: {
+    assetCollectionHeader: '[data-behavior="asset-collection-header"]',
+    detailHeader: '[data-behavior="detail-header"]',
+    detailHeaderContent: '[data-behavior="detail-header-content"]',
+    newAssetContainer: '[data-behavior="new-asset-container"]',
+    manageLink: '[data-behavior="manage-link"]',
+    stopManagingLink: '[data-behavior="stop-manage-link"]',
+    closeLink: '[data-behavior="close-link"]'
+  },
 
-    this.ui = {
-      assetCollectionHeader: '[data-behavior="asset-collection-header"]',
-      detailHeader: '[data-behavior="detail-header"]',
-      detailHeaderContent: '[data-behavior="detail-header-content"]',
-      newAssetContainer: '[data-behavior="new-asset-container"]',
-      manageLink: '[data-behavior="manage-link"]',
-      stopManagingLink: '[data-behavior="stop-manage-link"]',
-      closeLink: '[data-behavior="close-link"]'
-    };
+  triggers: {
+    'click @ui.stopManagingLink': 'request:state:list',
+    'click @ui.manageLink': 'request:state:manage',
+    'click @ui.closeLink': 'request:state:list'
+  },
 
-    this.triggers = {
-      'click @ui.stopManagingLink': 'request:state:list',
-      'click @ui.manageLink': 'request:state:manage',
-      'click @ui.closeLink': 'request:state:list'
-    };
-
-    this.regions = {
-      assets: '[data-region="asset-collection"]',
-      newAsset: '[data-region="asset-new"]',
-      newAssetFooter: '[data-region="asset-new-footer"]'
-    };
+  regions: {
+    assets: '[data-region="asset-collection"]',
+    newAsset: '[data-region="asset-new"]',
+    newAssetFooter: '[data-region="asset-new-footer"]'
   }
-
+}) {
   setState(state, assetId = null) {
     if ((this.state === 'uploading') && (state === 'detail')) {
       Vocat.vent.trigger('error:add', {

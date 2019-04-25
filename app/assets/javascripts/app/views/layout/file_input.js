@@ -9,22 +9,18 @@
 
 
 
-export default class FileInputView extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
+export default class FileInputView extends Marionette.ItemView.extend({
+  ui: {
+    trigger: '[data-behavior="file-input-trigger"]',
+    field: '[data-behavior="file-input-field"]',
+    mask: '[data-behavior="file-input-mask"]'
+  },
 
-    this.ui = {
-      trigger: '[data-behavior="file-input-trigger"]',
-      field: '[data-behavior="file-input-field"]',
-      mask: '[data-behavior="file-input-mask"]'
-    };
-
-    this.triggers = {
-      'click @ui.trigger': 'trigger:click',
-      'change @ui.field': 'mask:update'
-    };
+  triggers: {
+    'click @ui.trigger': 'trigger:click',
+    'change @ui.field': 'mask:update'
   }
-
+}) {
   onMaskUpdate() {
     const val = $(this.ui.field).val();
     const newVal = val.replace(/^C:\\fakepath\\/i, '');

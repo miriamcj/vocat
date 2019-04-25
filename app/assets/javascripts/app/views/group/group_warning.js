@@ -6,21 +6,17 @@
  */
 import template from 'templates/group/group_warning.hbs';
 
-export default class GroupWarning extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
+export default class GroupWarning extends Marionette.ItemView.extend({
+  template: template,
 
-    this.template = template;
+  triggers: {
+    'click @ui.createGroup': 'click:group:add'
+  },
 
-    this.triggers = {
-      'click @ui.createGroup': 'click:group:add'
-    };
-
-    this.ui = {
-      createGroup: '[data-behavior="create-group"]'
-    };
+  ui: {
+    createGroup: '[data-behavior="create-group"]'
   }
-
+}) {
   onClickGroupAdd() {
     return this.vent.triggerMethod('click:group:add');
   }

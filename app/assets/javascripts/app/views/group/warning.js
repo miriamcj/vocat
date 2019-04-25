@@ -6,13 +6,9 @@
  */
 import template from 'templates/group/warning.hbs';
 
-export default class Warning extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
-
-    this.template = template;
-  }
-
+export default class Warning extends Marionette.ItemView.extend({
+  template: template
+}) {
   serializeData() {
     return {
     courseId: Marionette.getOption(this, 'courseId')

@@ -8,9 +8,7 @@
 
 import RubricModel from 'models/rubric';
 
-export default class RubricCollection extends Backbone.Collection {
-  constructor() {
-    this.model = RubricModel;
-  }
-};
+export default class RubricCollection extends Backbone.Collection.extend({
+  model: RubricModel
+}) {};
 

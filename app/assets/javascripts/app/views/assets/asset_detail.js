@@ -14,32 +14,28 @@ import AnnotatorCanvasView from 'views/assets/annotator/annotator_canvas';
 import MockCanvasView from 'views/assets/annotator/mock_canvas';
 import AnnotationsView from 'views/assets/annotations/annotations';
 
-export default class AssetShowLayout extends Marionette.LayoutView {
-  constructor(options) {
-    super(options);
+export default class AssetShowLayout extends Marionette.LayoutView.extend({
+  template: template,
 
-    this.template = template;
+  ui: {
+    detailClose: '[data-behavior="detail-close"]',
+    playerColumn: '[data-behavior="player-column"]',
+    annotationsColumn: '[data-behavior="annotations-column"]',
+    message: '[data-behavior="message"]'
+  },
 
-    this.ui = {
-      detailClose: '[data-behavior="detail-close"]',
-      playerColumn: '[data-behavior="player-column"]',
-      annotationsColumn: '[data-behavior="annotations-column"]',
-      message: '[data-behavior="message"]'
-    };
+  triggers: {
+    'click @ui.detailClose': 'detail:close'
+  },
 
-    this.triggers = {
-      'click @ui.detailClose': 'detail:close'
-    };
-
-    this.regions = {
-      player: '[data-region="player"]',
-      annotations: '[data-region="annotations"]',
-      annotationsStage: '[data-region="annotations-stage"]',
-      annotator: '[data-region="annotator"]',
-      annotatorCanvas: '[data-region="annotator-canvas"]'
-    };
+  regions: {
+    player: '[data-region="player"]',
+    annotations: '[data-region="annotations"]',
+    annotationsStage: '[data-region="annotations-stage"]',
+    annotator: '[data-region="annotator"]',
+    annotatorCanvas: '[data-region="annotator-canvas"]'
   }
-
+}) {
   handleMessageShow(data) {
     const { msg } = data;
     this.ui.message.html(msg);

@@ -6,21 +6,17 @@
  */
 
 
-export default class ClosesOnUserAction extends Marionette.Behavior {
-  constructor(options) {
-    super(...args);
+export default class ClosesOnUserAction extends Marionette.Behavior.extend({
+  defaults: {
+    closeMethod: 'close'
+  },
 
-    this.defaults = {
-      closeMethod: 'close'
-    };
+  triggers: {
+  },
 
-    this.triggers = {
-    };
-
-    this.ui = {
-    };
+  ui: {
   }
-
+}) {
   initialize() {
     return this.globalChannel = Backbone.Wreqr.radio.channel('global');
   }

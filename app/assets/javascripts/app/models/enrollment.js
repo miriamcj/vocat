@@ -6,9 +6,6 @@
  */
 
 
-export default class EnrollmentModel extends Backbone.Model {
-  constructor() {
-
-    this.urlRoot = "/api/v1/enrollments";
-  }
-};
+export default class EnrollmentModel extends Backbone.Model.extend({
+  urlRoot: "/api/v1/enrollments"
+}) {};

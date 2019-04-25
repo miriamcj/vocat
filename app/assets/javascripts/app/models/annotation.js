@@ -9,13 +9,10 @@
 
 import { clone } from "lodash";
 
-export default class AnnotationModel extends Backbone.Model {
-  constructor() {
-
-    this.urlRoot = '/api/v1/annotations';
-    this.paramRoot = 'annotation';
-  }
-
+export default class AnnotationModel extends Backbone.Model.extend({
+  urlRoot: '/api/v1/annotations',
+  paramRoot: 'annotation'
+}) {
   initialize() {
     this.visible = false;
     return this.locked = false;

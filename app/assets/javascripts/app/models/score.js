@@ -7,7 +7,7 @@
 
 import { max, range } from "lodash";
 
-export default class ScoreModel extends Backbone.Model {
+export default class ScoreModel extends Backbone.Model.extend({}) {
 
   getTicks() {
     let tickCount;

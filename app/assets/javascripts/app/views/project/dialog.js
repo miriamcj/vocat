@@ -7,13 +7,9 @@
 
 import template from 'templates/project/dialog.hbs';
 
-export default class ProjectDialogView extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
-
-    this.template = template;
-  }
-
+export default class ProjectDialogView extends Marionette.ItemView.extend({
+  template: template
+}) {
   initialize() {
     return this.model.fetch();
   }

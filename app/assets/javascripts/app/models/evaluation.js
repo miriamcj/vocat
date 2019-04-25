@@ -9,14 +9,11 @@
 import { clone, size } from "lodash";
 import ScoreCollection from 'collections/score_collection';
 
-export default class EvaluationModel extends Backbone.Model {
-  constructor() {
-
-    this.paramRoot = 'evaluation';
-    this.omitAttributes = ['total_points', 'total_percentage', 'total_percentage_rounded'];
-    this.urlRoot = "/api/v1/evaluations";
-  }
-
+export default class EvaluationModel extends Backbone.Model.extend({
+  paramRoot: 'evaluation',
+  omitAttributes: ['total_points', 'total_percentage', 'total_percentage_rounded'],
+  urlRoot: "/api/v1/evaluations"
+}) {
   takeSnapshot() {
     this._snapshotAttributes = clone(this.attributes);
     this._snapshotAttributes.score_details = {};

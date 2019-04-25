@@ -10,17 +10,11 @@ import { isArray, isObject } from "lodash";
 
 import template from 'templates/flash/flash_messages_item.hbs';
 
-export default class FlashMessagesItem extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
-
-    this.template = template;
-    this.lifetime = 10000;
-
-    this.triggers =
-      {'click [data-behavior="destroy"]': 'destroy'};
-  }
-
+export default class FlashMessagesItem extends Marionette.ItemView.extend({
+  template: template,
+  lifetime: 10000,
+  triggers: {'click [data-behavior="destroy"]': 'destroy'}
+}) {
   className() {
     return `alert alert-${this.model.get('level')}`;
   }
@@ -33,11 +27,11 @@ export default class FlashMessagesItem extends Marionette.ItemView {
   onDestroy() {
     return this.model.destroy();
   }
-//      @$el.slideUp({
-//        duration: 250
-//        done: () =>
-//          @model.destroy()
-//      })
+  //      @$el.slideUp({
+  //        duration: 250
+  //        done: () =>
+  //          @model.destroy()
+  //      })
 
   onBeforeRender() {
     return this.$el.hide();

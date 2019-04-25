@@ -8,16 +8,12 @@
 import Item from 'views/group/groups_item';
 import template from 'templates/group/groups.hbs';
 
-export default class GroupsView extends Marionette.CompositeView {
-  constructor(options) {
-    super(options);
-
-    this.childView = Item;
-    this.tagName = 'thead';
-    this.template = template;
-    this.childViewContainer = "tr";
-  }
-
+export default class GroupsView extends Marionette.CompositeView.extend({
+  childView: Item,
+  tagName: 'thead',
+  template: template,
+  childViewContainer: "tr"
+}) {
   childViewOptions() {
     return {
     courseId: this.options.courseId,

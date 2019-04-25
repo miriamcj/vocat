@@ -8,13 +8,10 @@
 
 import { uniq, reject } from "lodash";
 
-export default class RubricProperty extends Backbone.Model {
-  constructor() {
-
-    this.errorStrings = {};
-    this.idAttribute = "id";
-  }
-
+export default class RubricProperty extends Backbone.Model.extend({
+  errorStrings: {},
+  idAttribute: "id"
+}) {
   hasErrors() {
     if (this.errors.length > 0) { return true; } else { return false; }
   }

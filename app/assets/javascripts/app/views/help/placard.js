@@ -11,17 +11,14 @@
 
 import { reject } from "lodash";
 
-export default class Placard extends Backbone.View {
-  constructor() {
-
-    this.orientations = ['nnw', 'nne', 'ene', 'ese', 'sse', 'ssw', 'wsw', 'wnw'];
-    this.locked = false;
-    this.hideTimeout = null;
-    this.leftPositionAdjust = 0;
-    this.topPositionAdjust = -5;
-    this.visible = false;
-  }
-
+export default class Placard extends Backbone.View.extend({
+  orientations: ['nnw', 'nne', 'ene', 'ese', 'sse', 'ssw', 'wsw', 'wnw'],
+  locked: false,
+  hideTimeout: null,
+  leftPositionAdjust: 0,
+  topPositionAdjust: -5,
+  visible: false
+}) {
   // options.orientation = where the placard should display
   // options.key = when help:show is triggered, a data is object that contains a key (data.key). The key must match options.key for this placard to be shown.
   // options.showtest = () -> true || false -- an anonymous function to be execute before the placard is shown.

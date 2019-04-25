@@ -10,19 +10,15 @@
 import { bindAll } from "lodash";
 import template from 'templates/modal/modal_markdown_overview.hbs';
 
-export default class ModalMarkdownOverview extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
+export default class ModalMarkdownOverview extends Marionette.ItemView.extend({
+  template: template,
+  modalWidth: '90%',
+  modalMaxWidth: '800',
 
-    this.template = template;
-    this.modalWidth = '90%';
-    this.modalMaxWidth = '800';
-
-    this.triggers = {
-      'click [data-behavior="dismiss"]': 'click:dismiss'
-    };
+  triggers: {
+    'click [data-behavior="dismiss"]': 'click:dismiss'
   }
-
+}) {
   onKeyUp(e) {
     const code = (e.keyCode != null) ? e.keyCode : e.which;
     if (code === 27) { return this.onClickDismiss(); }

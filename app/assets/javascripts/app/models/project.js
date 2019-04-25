@@ -8,12 +8,9 @@
 
 import { isObject } from "lodash";
 
-export default class ProjectModel extends Backbone.Model {
-  constructor() {
-
-    this.urlRoot = "/api/v1/projects";
-  }
-
+export default class ProjectModel extends Backbone.Model.extend({
+  urlRoot: "/api/v1/projects"
+}) {
   hasRubric() {
     return isObject(this.get('rubric'));
   }

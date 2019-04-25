@@ -8,23 +8,19 @@
 
 
 
-export default class FileBrowserView extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
+export default class FileBrowserView extends Marionette.ItemView.extend({
+  events: {
+    'click @ui.fileClear': 'clearFile',
+    'change': 'updateDisplay'
+  },
 
-    this.events = {
-      'click @ui.fileClear': 'clearFile',
-      'change': 'updateDisplay'
-    };
-
-    this.ui = {
-      fileClear: '[data-behavior="file-clear"]',
-      fileDisplay: '[data-behavior="file-display"]',
-      fileDelete: '[data-behavior="file-delete"]',
-      avatarPreview: '[data-region="avatar-preview"]'
-    };
+  ui: {
+    fileClear: '[data-behavior="file-clear"]',
+    fileDisplay: '[data-behavior="file-display"]',
+    fileDelete: '[data-behavior="file-delete"]',
+    avatarPreview: '[data-region="avatar-preview"]'
   }
-
+}) {
   clearFile() {
     this.fileDisplay.innerText = "Choose File...";
     this.fileDelete.checked = true;

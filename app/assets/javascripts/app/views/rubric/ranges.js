@@ -12,21 +12,17 @@ import { sortBy, uniq, max, min, countBy } from "lodash";
 import template from 'templates/rubric/ranges.hbs';
 import RangeView from 'views/rubric/range';
 
-export default class RangesView extends Marionette.CompositeView {
-  constructor(options) {
-    super(options);
+export default class RangesView extends Marionette.CompositeView.extend({
+  template: template,
+  className: 'ranges-wrapper',
+  childViewContainer: '[data-region="range-columns"]',
+  childView: RangeView,
 
-    this.template = template;
-    this.className = 'ranges-wrapper';
-    this.childViewContainer = '[data-region="range-columns"]';
-    this.childView = RangeView;
-
-    this.ui = {
-      rangeAdd: '.range-add-button',
-      rangeInstruction: '.range-instruction'
-    };
+  ui: {
+    rangeAdd: '.range-add-button',
+    rangeInstruction: '.range-instruction'
   }
-
+}) {
   childViewOptions() {
     return {
     collection: this.collection,

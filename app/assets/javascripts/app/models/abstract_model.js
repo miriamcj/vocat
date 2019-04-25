@@ -7,7 +7,7 @@
 
 import { isArray } from "lodash";
 
-export default class AbstractModel extends Backbone.Model {
+export default class AbstractModel extends Backbone.Model.extend({}) {
 
   toPositiveInt(string) {
     const n = ~~Number(string);

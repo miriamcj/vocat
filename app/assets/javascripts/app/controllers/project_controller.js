@@ -11,18 +11,15 @@ import ProjectCollection from 'collections/project_collection';
 import ProjectDetail from 'views/project/detail';
 import ApplicationErrorView from 'views/error/application_error';
 
-export default class ProjectController extends VocatController {
-  constructor() {
+export default class ProjectController extends VocatController.extend({
+  collections: {
+    user: new UserCollection([], {}),
+    project: new ProjectCollection([], {})
+  },
 
-    this.collections = {
-      user: new UserCollection([], {}),
-      project: new ProjectCollection([], {})
-    };
-
-    this.layoutInitialized = false;
-    this.submissionsSynced = false;
-  }
-
+  layoutInitialized: false,
+  submissionsSynced: false
+}) {
   initialize() {
     return this.bootstrapCollections();
   }

@@ -9,21 +9,17 @@ import template from 'templates/rubric/criteria_item.hbs';
 import ShortTextInputView from 'views/property_editor/short_text_input';
 import ModalConfirmView from 'views/modal/modal_confirm';
 
-export default class CriteriaItem extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
+export default class CriteriaItem extends Marionette.ItemView.extend({
+  template: template,
+  className: 'criteria-item',
 
-    this.template = template;
-    this.className = 'criteria-item';
-
-    this.triggers = {
-      'click [data-behavior="destroy"]': 'model:destroy',
-      'click [data-behavior="edit"]': 'click:edit',
-      'click [data-behavior="move-up"]': 'click:up',
-      'click [data-behavior="move-down"]': 'click:down'
-    };
+  triggers: {
+    'click [data-behavior="destroy"]': 'model:destroy',
+    'click [data-behavior="edit"]': 'click:edit',
+    'click [data-behavior="move-up"]': 'click:up',
+    'click [data-behavior="move-down"]': 'click:down'
   }
-
+}) {
   openModal() {
     const label = "What would you like to call this criteria?";
     return Vocat.vent.trigger('modal:open', new ShortTextInputView({

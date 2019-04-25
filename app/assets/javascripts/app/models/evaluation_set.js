@@ -7,7 +7,7 @@
 
 import { clone } from "lodash";
 
-export default class EvaluationSetModel extends Backbone.Model {
+export default class EvaluationSetModel extends Backbone.Model.extend({}) {
 
   averageScore() {
     const numbers = this.get('evaluations').pluck('total_percentage');

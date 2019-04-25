@@ -6,13 +6,9 @@
  */
 import template from 'templates/course_map/warning.hbs';
 
-export default class Warning extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
-
-    this.template = template;
-  }
-
+export default class Warning extends Marionette.ItemView.extend({
+  template: template
+}) {
   serializeData() {
     const out = {
       isCreatorWarning: Marionette.getOption(this, 'warningType') === 'Creator',

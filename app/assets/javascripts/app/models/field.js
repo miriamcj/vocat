@@ -1,19 +1,17 @@
 import { clone } from "lodash";
 import RubricProperty from 'models/rubric_property';
 
-export default class FieldModel extends RubricProperty {
-  constructor() {
-    this.defaults = {
-      name: '',
-      description: '',
-      range_descriptions: {}
-    };
+export default class FieldModel extends RubricProperty.extend({
+  defaults: {
+    name: '',
+    description: '',
+    range_descriptions: {}
+  },
 
-    this.errorStrings = {
-      dupe: 'Duplicate field names are not allowed'
-    };
+  errorStrings: {
+    dupe: 'Duplicate field names are not allowed'
   }
-
+}) {
   isNew() {
     return true;
   }

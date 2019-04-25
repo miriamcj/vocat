@@ -8,9 +8,7 @@
 
 import RangeModel from 'models/range';
 
-export default class RangeCollection extends Backbone.Collection {
-  constructor() {
-    this.model = RangeModel;
-  }
-};
+export default class RangeCollection extends Backbone.Collection.extend({
+  model: RangeModel
+}) {};
 

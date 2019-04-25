@@ -11,14 +11,11 @@ import { sortBy } from "lodash";
 
 import AnnotationModel from 'models/annotation';
 
-export default class AnnotationCollection extends Backbone.Collection {
-  constructor() {
-    this.model = AnnotationModel;
-    this.assetHasDuration = false;
-
-    this.url = '/api/v1/annotations';
-  }
-
+export default class AnnotationCollection extends Backbone.Collection.extend({
+  model: AnnotationModel,
+  assetHasDuration: false,
+  url: '/api/v1/annotations'
+}) {
   initialize(models, options) {
     return this.assetHasDuration = Marionette.getOption(this, 'assetHasDuration');
   }

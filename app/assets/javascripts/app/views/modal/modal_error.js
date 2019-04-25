@@ -13,21 +13,16 @@ import { bindAll } from "lodash";
 
 import template from 'templates/modal/modal_error.hbs';
 
-export default class ModalErrorView extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
+export default class ModalErrorView extends Marionette.ItemView.extend({
+  template: template,
+  message: 'An error occured.',
+  dismissLabel: 'Dismiss',
+  dismissEvent: 'modal:dismiss',
 
-    this.template = template;
-
-    this.message = 'An error occured.';
-    this.dismissLabel = 'Dismiss';
-    this.dismissEvent = 'modal:dismiss';
-
-    this.triggers = {
-      'click [data-behavior="dismiss"]': 'click:dismiss'
-    };
+  triggers: {
+    'click [data-behavior="dismiss"]': 'click:dismiss'
   }
-
+}) {
   onKeyUp(e) {
     const code = (e.keyCode != null) ? e.keyCode : e.which;
     if (code === 13) { this.onClickConfirm(); }

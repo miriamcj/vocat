@@ -8,11 +8,8 @@
 
 import FlashMessageModel from 'models/flash_message';
 
-export default class FlashMessageCollection extends Backbone.Collection {
-  constructor() {
-
-    this.model = FlashMessageModel;
-  }
-
+export default class FlashMessageCollection extends Backbone.Collection.extend({
+  model: FlashMessageModel
+}) {
   initialize() {}
 };

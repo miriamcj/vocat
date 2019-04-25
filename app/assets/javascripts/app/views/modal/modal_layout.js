@@ -8,25 +8,21 @@
 import { bind } from "lodash";
 import template from 'templates/modal/modal_layout.hbs';
 
-export default class ModalLayout extends Marionette.LayoutView {
-  constructor(options) {
-    super(options);
+export default class ModalLayout extends Marionette.LayoutView.extend({
+  template: template,
 
-    this.template = template;
+  attributes: {
+    style: 'display: none;'
+  },
 
-    this.attributes = {
-      style: 'display: none;'
-    };
+  triggers: {
+    'click [data-behavior="modal-close"]': 'click:modal:close'
+  },
 
-    this.triggers = {
-      'click [data-behavior="modal-close"]': 'click:modal:close'
-    };
-
-    this.regions = {
-      content: '[data-region="content"]'
-    };
+  regions: {
+    content: '[data-region="content"]'
   }
-
+}) {
   onClickModalClose() {
     return this.closeModal();
   }

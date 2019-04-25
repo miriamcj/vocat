@@ -5,7 +5,7 @@
  */
 
 
-export default class VisitModel extends Backbone.Model {
+export default class VisitModel extends Backbone.Model.extend({}) {
 
   url() {
     return "/api/v1/visits";

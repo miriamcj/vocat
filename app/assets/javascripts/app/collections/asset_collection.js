@@ -8,15 +8,11 @@
 
 import AssetModel from 'models/asset';
 
-export default class AssetCollection extends Backbone.Collection {
-  constructor() {
-
-    this.submissionId = null;
-    this.model = AssetModel;
-
-    this.url = '/api/v1/assets';
-  }
-
+export default class AssetCollection extends Backbone.Collection.extend({
+  submissionId: null,
+  model: AssetModel,
+  url: '/api/v1/assets'
+}) {
   comparator(asset) {
     const c = asset.get('listing_order');
     return parseInt(c);
@@ -76,7 +72,7 @@ export default class AssetCollection extends Backbone.Collection {
     }
     else {}
   }
-      // Can't move past itself. Do nothing.
+  // Can't move past itself. Do nothing.
 
   moveDown(model) {
     const nextModel = this.getNextModel(model);
@@ -95,7 +91,7 @@ export default class AssetCollection extends Backbone.Collection {
     }
     else {}
   }
-      // Can't move past itself. Do nothing.
+  // Can't move past itself. Do nothing.
 
   setupListeners() {
     this.listenTo(this, 'add', model => {

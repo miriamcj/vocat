@@ -14,27 +14,23 @@ import CollectionProxy from 'collections/collection_proxy';
 import RubricModel from 'models/rubric';
 import RubricModalView from 'views/modal/modal_rubric';
 
-export default class ProjectDetail extends Marionette.LayoutView {
-  constructor(options) {
-    super(options);
+export default class ProjectDetail extends Marionette.LayoutView.extend({
+  template: template,
 
-    this.template = template;
+  regions: {
+    projectScoreOverview: '[data-region="project-score-overview"]',
+    projectStudentSubmissionList: '[data-region="project-student-submission-list"]',
+    projectGroupSubmissionList: '[data-region="project-group-submission-list"]'
+  },
 
-    this.regions = {
-      projectScoreOverview: '[data-region="project-score-overview"]',
-      projectStudentSubmissionList: '[data-region="project-student-submission-list"]',
-      projectGroupSubmissionList: '[data-region="project-group-submission-list"]'
-    };
+  triggers: {
+    'click @ui.showRubric': 'open:rubric:modal'
+  },
 
-    this.triggers = {
-      'click @ui.showRubric': 'open:rubric:modal'
-    };
-
-    this.ui = {
-      showRubric: '[data-behavior="show-rubric"]'
-    };
+  ui: {
+    showRubric: '[data-behavior="show-rubric"]'
   }
-
+}) {
   initialize(options) {
     this.options = options || {};
     this.vent = Marionette.getOption(this, 'vent');

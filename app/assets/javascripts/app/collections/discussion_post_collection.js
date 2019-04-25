@@ -9,14 +9,10 @@
 
 import DiscussionPostModel from 'models/discussion_post';
 
-export default class DiscussionPostCollection extends Backbone.Collection {
-  constructor() {
-
-    this.model = DiscussionPostModel;
-
-    this.url = '/api/v1/discussion_posts';
-  }
-
+export default class DiscussionPostCollection extends Backbone.Collection.extend({
+  model: DiscussionPostModel,
+  url: '/api/v1/discussion_posts'
+}) {
   initialize(models, options) {
     if (options.submissionId != null) { this.submissionId = options.submissionId; }
     return this.bind('remove', model => {

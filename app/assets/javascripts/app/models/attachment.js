@@ -6,11 +6,7 @@
  */
 
 
-export default class AttachmentModel extends Backbone.Model {
-  constructor() {
-
-    this.paramRoot = 'attachment';
-
-    this.urlRoot = "/api/v1/attachments";
-}
-};
+export default class AttachmentModel extends Backbone.Model.extend({
+ paramRoot: 'attachment',
+ urlRoot: "/api/v1/attachments"
+}) {};

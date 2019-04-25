@@ -8,31 +8,26 @@
 
 import ClosesOnUserAction from 'behaviors/closes_on_user_action';
 
-export default class DropdownView extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
+export default class DropdownView extends Marionette.ItemView.extend({
+  adjusted: false,
+  allowAdjustment: true,
+  originalBodyPadding: null,
 
-    this.adjusted = false;
-    this.allowAdjustment = true;
-    this.originalBodyPadding = null;
+  triggers: {
+    'click @ui.trigger': 'click:trigger'
+  },
 
+  ui: {
+    trigger: '[data-behavior="toggle"]',
+    dropdown: '[data-behavior="dropdown-options"]'
+  },
 
-    this.triggers = {
-      'click @ui.trigger': 'click:trigger'
-    };
-
-    this.ui = {
-      trigger: '[data-behavior="toggle"]',
-      dropdown: '[data-behavior="dropdown-options"]'
-    };
-
-    this.behaviors = {
-      closesOnUserAction: {
-        behaviorClass: ClosesOnUserAction
-      }
-    };
+  behaviors: {
+    closesOnUserAction: {
+      behaviorClass: ClosesOnUserAction
+    }
   }
-
+}) {
   onClickTrigger() {
     if (this.$el.hasClass('open')) {
       return this.close();

@@ -8,23 +8,15 @@
 
 import ItemView from 'views/course_map/cell';
 
-export default class Row extends Marionette.CollectionView {
-  constructor(options) {
-    super(options);
+export default class Row extends Marionette.CollectionView.extend({
+  tagName: 'tr',
+  childView: ItemView,
 
-    // @model = a user model or a group model (in other words, a creator)
-    // @collection = projects collection
-    // this view is a collection view. It creates a cell for each project.
-
-    this.tagName = 'tr';
-    this.childView = ItemView;
-
-    this.triggers = {
-      'mouseover': 'row:active',
-      'mouseout': 'row:inactive'
-    };
+  triggers: {
+    'mouseover': 'row:active',
+    'mouseout': 'row:inactive'
   }
-
+}) {
   onRowActive() {
     return this.vent.triggerMethod('row:active', {creator: this.model});
   }

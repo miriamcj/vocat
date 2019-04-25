@@ -8,27 +8,23 @@
 import { isFunction } from "lodash";
 import template from 'templates/property_editor/short_text_input.hbs';
 
-export default class ShortTextInput extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
+export default class ShortTextInput extends Marionette.ItemView.extend({
+  template: template,
 
-    this.template = template;
+  ui: {
+    input: '[data-property="input"]',
+    errorContainer: '[data-behavior="error-container"]'
+  },
 
-    this.ui = {
-      input: '[data-property="input"]',
-      errorContainer: '[data-behavior="error-container"]'
-    };
+  saveModelOnSave: false,
+  onSave: null,
+  inputLabel: 'Update Property',
 
-    this.saveModelOnSave = false;
-    this.onSave = null;
-    this.inputLabel = 'Update Property';
-
-    this.triggers = {
-      'click [data-behavior="model-save"]': 'click:model:save',
-      'click [data-behavior="cancel"]': 'click:model:cancel'
-    };
+  triggers: {
+    'click [data-behavior="model-save"]': 'click:model:save',
+    'click [data-behavior="cancel"]': 'click:model:cancel'
   }
-
+}) {
   onClickModelCancel() {
     return Vocat.vent.trigger('modal:close');
   }

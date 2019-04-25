@@ -6,15 +6,10 @@
  */
 
 
-export default class NotificationRegion extends Marionette.Region {
-  constructor(options) {
-    super(options);
-
-    this.PROMISE = $.Deferred().resolve();
-
-    this.expiring = false;
-  }
-
+export default class NotificationRegion extends Marionette.Region.extend({
+  PROMISE: $.Deferred().resolve(),
+  expiring: false
+}) {
   attachHtml(view) {
     this.$el.hide();
     return this.$el.empty().append(view.el);

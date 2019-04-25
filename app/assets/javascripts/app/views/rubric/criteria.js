@@ -9,21 +9,17 @@ import template from 'templates/rubric/criteria.hbs';
 import ItemView from 'views/rubric/criteria_item';
 
 
-export default class Criteria extends Marionette.CompositeView {
-  constructor(options) {
-    super(options);
+export default class Criteria extends Marionette.CompositeView.extend({
+  template: template,
+  className: 'criteria',
+  childViewContainer: '[data-region="criteria-rows"]',
+  childView: ItemView,
 
-    this.template = template;
-    this.className = 'criteria';
-    this.childViewContainer = '[data-region="criteria-rows"]';
-    this.childView = ItemView;
-
-    this.ui = {
-      criteriaAdd: '.criteria-add-button',
-      criteriaInstruction: '.criteria-instruction'
-    };
+  ui: {
+    criteriaAdd: '.criteria-add-button',
+    criteriaInstruction: '.criteria-instruction'
   }
-
+}) {
   childViewOptions() {
     return {
       collection: this.collection

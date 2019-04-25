@@ -8,19 +8,15 @@
 
 
 
-export default class CourseSubheaderView extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
+export default class CourseSubheaderView extends Marionette.ItemView.extend({
+  events: {
+    'click @ui.trigger': 'clickTrigger'
+  },
 
-    this.events = {
-      'click @ui.trigger': 'clickTrigger'
-    };
-
-    this.ui = {
-      trigger: '[data-behavior="view-toggle"]'
-    };
+  ui: {
+    trigger: '[data-behavior="view-toggle"]'
   }
-
+}) {
   clickTrigger(event) {
     if (window.VocatSubnavOverride) {
       event.preventDefault();

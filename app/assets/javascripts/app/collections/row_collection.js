@@ -8,8 +8,6 @@
 
 import RowModel from 'models/row';
 
-export default class RowCollection extends Backbone.Collection {
-  constructor() {
-    this.model = RowModel;
-  }
-};
+export default class RowCollection extends Backbone.Collection.extend({
+  model: RowModel
+}) {};

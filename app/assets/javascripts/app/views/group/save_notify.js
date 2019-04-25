@@ -8,25 +8,21 @@
 import template from 'templates/group/save_notify.hbs';
 import GlobalNotification from 'behaviors/global_notification';
 
-export default class SaveNotify extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
+export default class SaveNotify extends Marionette.ItemView.extend({
+  template: template,
 
-    this.template = template;
+  triggers: {
+    'click [data-trigger="save"]': 'click:groups:save',
+    'click [data-trigger="revert"]': 'click:groups:revert'
 
-    this.triggers = {
-      'click [data-trigger="save"]': 'click:groups:save',
-      'click [data-trigger="revert"]': 'click:groups:revert'
+  },
 
-    };
-
-    this.behaviors = {
-      globalNotification: {
-        behaviorClass: GlobalNotification
-      }
-    };
+  behaviors: {
+    globalNotification: {
+      behaviorClass: GlobalNotification
+    }
   }
-
+}) {
   onClickGroupsSave() {
     this.collection.save();
     Vocat.vent.trigger('notification:empty');

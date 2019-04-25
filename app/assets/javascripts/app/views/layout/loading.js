@@ -7,15 +7,10 @@
 
 import template from 'templates/layout/loading.hbs';
 
-export default class LoadingView extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
-
-    this.msg = "Loading...";
-
-    this.template = template;
-  }
-
+export default class LoadingView extends Marionette.ItemView.extend({
+  msg: "Loading...",
+  template: template
+}) {
   serializeData() {
     return {
     msg: Marionette.getOption(this, "msg")

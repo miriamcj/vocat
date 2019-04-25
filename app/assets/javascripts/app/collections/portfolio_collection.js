@@ -9,12 +9,9 @@
 
 import SubmissionModel from 'models/submission';
 
-export default class PortfolioCollection extends Backbone.Collection {
-  constructor() {
-
-    this.model = SubmissionModel;
-  }
-
+export default class PortfolioCollection extends Backbone.Collection.extend({
+  model: SubmissionModel
+}) {
   url(options) {
     if (options == null) { options = {}; }
     let url = '/api/v1';

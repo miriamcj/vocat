@@ -9,14 +9,10 @@
 
 import { clone } from "lodash";
 
-export default class Group extends Backbone.Model {
-  constructor() {
-
-    this.creatorType = 'Group';
-
-    this.urlRoot = '/api/v1/groups';
-  }
-
+export default class Group extends Backbone.Model.extend({
+  creatorType: 'Group',
+  urlRoot: '/api/v1/groups'
+}) {
   validate(attributes, options) {
     let out;
     const errors = [];

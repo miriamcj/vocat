@@ -17,39 +17,35 @@ import MarkdownOverviewModalView from 'views/modal/modal_markdown_overview';
 import RubricModel from 'models/rubric';
 import VisitCollection from 'collections/visit_collection';
 
-export default class SubmissionLayout extends Marionette.LayoutView {
-  constructor(options) {
-    super(options);
+export default class SubmissionLayout extends Marionette.LayoutView.extend({
+  template: template,
+  children: {},
+  courseMapContext: true,
 
-    this.template = template;
-    this.children = {};
-    this.courseMapContext = true;
+  triggers: {
+    'click @ui.openGroupModal': 'open:groups:modal',
+    'click @ui.close': 'close',
+    'click @ui.showProjectDescriptionModal': 'open:project:modal',
+    'click @ui.showRubric': 'open:rubric:modal',
+    'click @ui.showMarkdownOverview': 'open:markdown:modal'
+  },
 
-    this.triggers = {
-      'click @ui.openGroupModal': 'open:groups:modal',
-      'click @ui.close': 'close',
-      'click @ui.showProjectDescriptionModal': 'open:project:modal',
-      'click @ui.showRubric': 'open:rubric:modal',
-      'click @ui.showMarkdownOverview': 'open:markdown:modal'
-    };
+  ui: {
+    close: '[data-behavior="detail-close"]',
+    openGroupModal: '[data-behavior="open-group-modal"]',
+    showProjectDescriptionModal: '[data-behavior="open-project-description"]',
+    showRubric: '[data-behavior="show-rubric"]',
+    showMarkdownOverview: '[data-behavior="show-markdown-overview"]'
+  },
 
-    this.ui = {
-      close: '[data-behavior="detail-close"]',
-      openGroupModal: '[data-behavior="open-group-modal"]',
-      showProjectDescriptionModal: '[data-behavior="open-project-description"]',
-      showRubric: '[data-behavior="show-rubric"]',
-      showMarkdownOverview: '[data-behavior="show-markdown-overview"]'
-    };
-
-    this.regions = {
-      flash: '[data-region="flash"]',
-      evaluations: '[data-region="submission-evaluations"]',
-      discussion: '[data-region="submission-discussion"]',
-      assets: '[data-region="submission-assets"]',
-      utility: '[data-region="submission-utility"]'
-    };
+  regions: {
+    flash: '[data-region="flash"]',
+    evaluations: '[data-region="submission-evaluations"]',
+    discussion: '[data-region="submission-discussion"]',
+    assets: '[data-region="submission-assets"]',
+    utility: '[data-region="submission-utility"]'
   }
-
+}) {
   serializeData() {
     const sd ={
       project: this.project.toJSON(),

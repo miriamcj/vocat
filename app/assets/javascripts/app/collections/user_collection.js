@@ -9,16 +9,11 @@
 
 import UserModel from 'models/user';
 
-export default class UserCollection extends Backbone.Collection {
-  constructor() {
-
-    this.model = UserModel;
-
-    this.activeModel = null;
-
-    this.url = '/api/v1/users';
-  }
-
+export default class UserCollection extends Backbone.Collection.extend({
+  model: UserModel,
+  activeModel: null,
+  url: '/api/v1/users'
+}) {
   getSearchTerm() {
     return 'email';
   }

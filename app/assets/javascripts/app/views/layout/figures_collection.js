@@ -9,11 +9,7 @@
 
 import { max } from "lodash";
 
-export default class FiguresCollection extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
-  }
-
+export default class FiguresCollection extends Marionette.ItemView.extend({}) {
   initialize() {
     const figures = this.$el.find('div:first-child');
     const tallestFigure = max(figures, figure => $(figure).outerHeight());

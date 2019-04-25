@@ -7,16 +7,13 @@
 
 import template from 'templates/rubric/ranges_empty.hbs';
 
-export default class RangesEmptyView extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
+export default class RangesEmptyView extends Marionette.ItemView.extend({
+  template: template,
+  tagName: 'th',
 
-    this.template = template;
-    this.tagName = 'th';
-    this.attributes = {
-      'data-match-height-source': ''
-    };
+  attributes: {
+    'data-match-height-source': ''
   }
-
+}) {
   initialize(options) {}
 };

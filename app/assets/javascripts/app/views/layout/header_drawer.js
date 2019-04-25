@@ -9,25 +9,21 @@
 import { throttle } from "lodash";
 import ClosesOnUserAction from 'behaviors/closes_on_user_action';
 
-export default class HeaderDrawerView extends Marionette.ItemView {
-  constructor(options) {
-    super(options);
+export default class HeaderDrawerView extends Marionette.ItemView.extend({
+  visibleCourses: 5,
+  filtered: false,
 
-    this.visibleCourses = 5;
-    this.filtered = false;
+  behaviors: {
+    closesOnUserAction: {
+      behaviorClass: ClosesOnUserAction
+    }
+  },
 
-    this.behaviors = {
-      closesOnUserAction: {
-        behaviorClass: ClosesOnUserAction
-      }
-    };
-
-    this.ui = {
-      courseSelect: '[data-class="course-select"]',
-      recentCourseSelect: '[data-class="recent-course-select"]'
-    };
+  ui: {
+    courseSelect: '[data-class="course-select"]',
+    recentCourseSelect: '[data-class="recent-course-select"]'
   }
-
+}) {
   toggle() {
     if (this.$el.hasClass('drawer-open')) {
       return this.close();

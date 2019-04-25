@@ -12,27 +12,23 @@ import EnrollmentBulkInput from 'views/admin/enrollment/bulk_input';
 import SingleInvite from 'views/admin/enrollment/invite';
 import Flash from 'views/flash/flash_messages';
 
-export default class CreatorEnrollmentLayout extends Marionette.LayoutView {
-  constructor(options) {
-    super(options);
+export default class CreatorEnrollmentLayout extends Marionette.LayoutView.extend({
+  listType: 'users',
+  template: template,
+  label: '',
 
-    this.listType = 'users';
-    this.template = template;
-    this.label = '';
+  ui: {
+    studentInput: '[data-behavior="student-input"]',
+    labelContainer: '[data-behavior="label-container"]'
+  },
 
-    this.ui = {
-      studentInput: '[data-behavior="student-input"]',
-      labelContainer: '[data-behavior="label-container"]'
-    };
-
-    this.regions = {
-      input: '[data-region="input"]',
-      list: '[data-region="list"]',
-      invite: '[data-region="invite"]',
-      flash: '[data-region="flash"]'
-    };
+  regions: {
+    input: '[data-region="input"]',
+    list: '[data-region="list"]',
+    invite: '[data-region="invite"]',
+    flash: '[data-region="flash"]'
   }
-
+}) {
   // Collection for this view is an enrollment collection, created by the controller.
   initialize(options) {
     // The search collection contains the results of the asynch search

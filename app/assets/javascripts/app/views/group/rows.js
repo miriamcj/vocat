@@ -8,13 +8,9 @@
 
 import ItemView from 'views/group/row_item';
 
-export default class RowsView extends Marionette.CollectionView {
-  constructor(options) {
-    super(options);
-
-    this.childView = ItemView;
-  }
-
+export default class RowsView extends Marionette.CollectionView.extend({
+  childView: ItemView
+}) {
   childViewOptions() {
     return {
     vent: this.vent,

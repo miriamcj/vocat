@@ -9,14 +9,10 @@
 
 import ProjectModel from 'models/project';
 
-export default class ProjectCollection extends Backbone.Collection {
-  constructor() {
-
-    this.model = ProjectModel;
-
-    this.activeModel = null;
-  }
-
+export default class ProjectCollection extends Backbone.Collection.extend({
+  model: ProjectModel,
+  activeModel: null
+}) {
   getActive() {
     return this.activeModel;
   }

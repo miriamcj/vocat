@@ -11,32 +11,28 @@ import ItemView from 'views/rubric/ranges_item';
 import ModalConfirmView from 'views/modal/modal_confirm';
 import ShortTextInputView from 'views/property_editor/short_text_input';
 
-export default class RangeView extends Marionette.CompositeView {
-  constructor(options) {
-    super(options);
+export default class RangeView extends Marionette.CompositeView.extend({
+  template: template,
+  className: 'ranges-column',
+  childViewContainer: '[data-id="range-cells"]',
+  childView: ItemView,
 
-    this.template = template;
-    this.className = 'ranges-column';
-    this.childViewContainer = '[data-id="range-cells"]';
-    this.childView = ItemView;
+  ui: {
+    lowRange: '[data-behavior="low"]',
+    highRange: '[data-behavior="high"]'
+  },
 
-    this.ui = {
-      lowRange: '[data-behavior="low"]',
-      highRange: '[data-behavior="high"]'
-    };
+  triggers: {
+    'click [data-behavior="destroy"]': 'model:destroy',
+    'click [data-behavior="edit"]': 'click:edit',
+    'click [data-behavior="move-left"]': 'move:left',
+    'click [data-behavior="move-right"]': 'move:right'
+  },
 
-    this.triggers = {
-      'click [data-behavior="destroy"]': 'model:destroy',
-      'click [data-behavior="edit"]': 'click:edit',
-      'click [data-behavior="move-left"]': 'move:left',
-      'click [data-behavior="move-right"]': 'move:right'
-    };
-
-    this.events = {
-      'keyup [data-behavior="name"]': 'nameKeyPressed'
-    };
+  events: {
+    'keyup [data-behavior="name"]': 'nameKeyPressed'
   }
-
+}) {
   childViewOptions() {
     return {
       rubric: this.rubric,
