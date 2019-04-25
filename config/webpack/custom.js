@@ -25,7 +25,9 @@ module.exports = {
        Marionette: 'backbone.marionette',
        $: 'jquery',
        jQuery: 'jquery',
-       jquery: 'jquery'
+       jquery: 'jquery',
+       Vocat: 'vocat',
+       'window.videojs': 'video_js/video.js'
     })
   ]
 };

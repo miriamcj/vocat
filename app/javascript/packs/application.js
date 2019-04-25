@@ -1,12 +1,13 @@
 import 'styles/stylesheets/main.scss';
 
-require.context('styles/images', true);
-require("vocat");
+const videojs = window.videojs;
+require("videojs-contrib-hls");
+require('video_js/vjs.youtube');
+require('video_js/vjs.vimeo');
 
-// const vjs = require("video.js");
-// const vjsContribHLS = require("videojs-contrib-hls");
-// const vjsYouTube = require('video_js/vjs.youtube');
-// const vjsVimeo = require('video_js/vjs.vimeo');
+require.context('styles/images', true);
+
+require("vocat");
 
 $(() => {
   // Start Vocat App
