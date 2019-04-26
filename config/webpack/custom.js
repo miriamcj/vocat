@@ -21,8 +21,9 @@ module.exports = {
   },
   plugins: [
     new webpack.ProvidePlugin({
-       Backbone: ['backbone-shim', 'default'],
+       Backbone: 'backbone',
        Marionette: 'backbone.marionette',
+       '_': 'underscore',
        $: 'jquery',
        jQuery: 'jquery',
        jquery: 'jquery',
