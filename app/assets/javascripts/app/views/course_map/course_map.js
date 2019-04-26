@@ -14,40 +14,37 @@ import CourseMapDetailCreator from 'views/course_map/detail_creator';
 import WarningView from 'views/course_map/warning';
 import AbstractMatrix from 'views/abstract/abstract_matrix';
 
-export default class CourseMapLayout extends AbstractMatrix {
-  constructor() {
+export default class CourseMapLayout extends AbstractMatrix.extend({
+  children: {},
+  minWidth: 230,
+  capturedScroll: 0,
+  stickyHeader: true,
+  template: template,
+  creatorType: 'User',
+  projectsView: null,
+  creatorsView: null,
+  matrixView: null,
 
-    this.children = {};
-    this.minWidth = 230;
-    this.capturedScroll = 0;
-    this.stickyHeader = true;
-    this.template = template;
-    this.creatorType = 'User';
-    this.projectsView = null;
-    this.creatorsView = null;
-    this.matrixView = null;
+  ui: {
+    detail: '[data-region="detail"]',
+    sliderLeft: '[data-behavior="matrix-slider-left"]',
+    sliderRight: '[data-behavior="matrix-slider-right"]',
+    hideOnWarning: '[data-behavior="hide-on-warning"]'
+  },
 
-    this.ui = {
-      detail: '[data-region="detail"]',
-      sliderLeft: '[data-behavior="matrix-slider-left"]',
-      sliderRight: '[data-behavior="matrix-slider-right"]',
-      hideOnWarning: '[data-behavior="hide-on-warning"]'
-    };
+  triggers: {
+    'click [data-behavior="matrix-slider-left"]': 'slider:left',
+    'click [data-behavior="matrix-slider-right"]': 'slider:right'
+  },
 
-    this.triggers = {
-      'click [data-behavior="matrix-slider-left"]': 'slider:left',
-      'click [data-behavior="matrix-slider-right"]': 'slider:right'
-    };
-
-    this.regions = {
-      creators: '[data-region="creators"]',
-      projects: '[data-region="projects"]',
-      matrix: '[data-region="matrix"]',
-      globalFlash: '[data-region="flash"]',
-      warning: '[data-region="warning"]'
-    };
+  regions: {
+    creators: '[data-region="creators"]',
+    projects: '[data-region="projects"]',
+    matrix: '[data-region="matrix"]',
+    globalFlash: '[data-region="flash"]',
+    warning: '[data-region="warning"]'
   }
-
+}) {
   setupListeners() {
     this.listenTo(this, 'redraw', function() {
       return this.adjustToCurrentPosition();
