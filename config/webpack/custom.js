@@ -10,7 +10,10 @@ module.exports = {
       },
       {
         test: /\.hbs$/,
-        loader: "handlebars-loader"
+        loader: "handlebars-loader",
+        options: {
+          helperDirs: [path.join(__dirname, "../../app/assets/javascripts/app/helpers")]
+        }
       }
     ]
   },
@@ -28,7 +31,8 @@ module.exports = {
        jQuery: 'jquery',
        jquery: 'jquery',
        Vocat: 'vocat',
-       'window.videojs': 'video_js/video.js'
+       'window.videojs': 'video_js/video.js',
+       Handlebars: 'handlebars'
     })
   ]
 };
