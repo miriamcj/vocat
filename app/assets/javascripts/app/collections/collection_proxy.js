@@ -1,23 +1,25 @@
 import { isFunction, isObject } from "lodash";
 
-export default class CollectionProxy {
-  constructor(collection) {
-    filtered._callbacks = {};
+export default function CollectionProxy(collection) {
+  const filtered = new collection.constructor();
 
-    filtered.where = function(criteria) {
-      let items;
-      if (isFunction(criteria)) {
-        items = collection.filter(criteria);
-      } else if (isObject(criteria)) {
-        items = collection.where(criteria);
-      } else {
-        items = collection.models;
-      }
+  filtered._callbacks = {};
 
-      filtered._currentCriteria = criteria;
-      return filtered.reset(items);
-    };
+  filtered.where = function(criteria) {
+    let items;
+    if (isFunction(criteria)) {
+      items = collection.filter(criteria);
+    } else if (isObject(criteria)) {
+      items = collection.where(criteria);
+    } else {
+      items = collection.models;
+    }
 
-    collection.on('reset add remove', event => filtered.where(filtered._currentCriteria));
-  }
+    filtered._currentCriteria = criteria;
+    return filtered.reset(items);
+  };
+
+  collection.on('reset add remove', event => filtered.where(filtered._currentCriteria));
+
+  return filtered;
 }
