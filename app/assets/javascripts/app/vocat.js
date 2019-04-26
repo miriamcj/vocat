@@ -159,17 +159,16 @@ Vocat.addInitializer(function() {
       }
     };
 
-    switch (controllerName) {
-      case 'course': instantiateRouter(CourseController, 'course')
-      case 'project': instantiateRouter(ProjectController, 'project')
-      case 'admin': instantiateRouter(AdminController, 'admin')
-      case 'coursemap': instantiateRouter(CourseMapController, 'coursemap')
-      case 'group': instantiateRouter(GroupController, 'group')
-      case 'page': instantiateRouter(PageController, 'page')
-      case 'portfolio': instantiateRouter(PortfolioController, 'portfolio')
-      case 'rubric': instantiateRouter(RubricController, 'rubric')
-      case 'submission': instantiateRouter(SubmissionController, 'submission')
-    }
+    if (controllerName === 'course') instantiateRouter(CourseController, 'course')
+    if (controllerName === 'project') instantiateRouter(ProjectController, 'project')
+    if (controllerName === 'admin') instantiateRouter(AdminController, 'admin')
+    if (controllerName === 'coursemap') instantiateRouter(CourseMapController, 'coursemap')
+    if (controllerName === 'group') instantiateRouter(GroupController, 'group')
+    if (controllerName === 'page') instantiateRouter(PageController, 'page')
+    if (controllerName === 'portfolio') instantiateRouter(PortfolioController, 'portfolio')
+    if (controllerName === 'rubric') instantiateRouter(RubricController, 'rubric')
+    if (controllerName === 'submission') instantiateRouter(SubmissionController, 'submission')
+
   }
 });
 
